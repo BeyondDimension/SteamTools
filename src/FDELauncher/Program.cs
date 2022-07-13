@@ -16,8 +16,8 @@ internal static class Program
 {
     const string ExecutiveName = "Steam++";
     static BundleArch matchArch;
-    static readonly SemanticVersion runtimeVersion = new(6, 0, 6);
-    static readonly SemanticVersion sdkVersion = new(6, 0, 106);
+    static readonly SemanticVersion runtimeVersion = new(6, 0, 7);
+    static readonly SemanticVersion sdkVersion = new(6, 0, 107);
 
     /// <summary>
     /// 应用程序的主入口点。

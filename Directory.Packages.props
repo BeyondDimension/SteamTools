@@ -5,42 +5,42 @@
     <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.6" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.6" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.6" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.6" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.6" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.7" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) Or $(TargetFramework.StartsWith('netcoreapp3.1'))">
     <!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NETCOREAPP31) -->
-    <!--<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="3.1.26" />-->
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.26" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.26" />
+    <!--<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="3.1.27" />-->
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.27" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
     <!-- Entity Framework Plus -->
     <!-- A FREE & Open Source library to enhance EF6 and EF Core -->
-    <PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.14.1" />
+    <PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.14.2" />
 
     <!-- AspNetCore 6 OpenId/OAuth -->
     <PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
@@ -122,12 +122,12 @@
     <!-- ReactiveUI -->
     <PackageVersion Include="System.Reactive" Version="5.0.0" />
     <PackageVersion Include="Splat" Version="14.3.4" />
-    <PackageVersion Include="DynamicData" Version="7.9.4" />
-    <PackageVersion Include="ReactiveUI" Version="18.2.5" />
-    <PackageVersion Include="ReactiveUI.Fody" Version="18.2.5" />
-    <PackageVersion Include="ReactiveUI.XamForms" Version="18.2.5" />
-    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.2.5" />
-    <PackageVersion Include="ReactiveUI.Maui" Version="18.2.5" />
+    <PackageVersion Include="DynamicData" Version="7.9.5" />
+    <PackageVersion Include="ReactiveUI" Version="18.2.9" />
+    <PackageVersion Include="ReactiveUI.Fody" Version="18.2.9" />
+    <PackageVersion Include="ReactiveUI.XamForms" Version="18.2.9" />
+    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.2.9" />
+    <PackageVersion Include="ReactiveUI.Maui" Version="18.2.9" />
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
     <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.79" />
@@ -145,7 +145,7 @@
 
     <!-- QRCode -->
     <!--<PackageVersion Include="QRCoder" Version="1.4.2" />-->
-    <PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.1" />
+    <PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.3" />
 
     <!-- NotifyIcon -->
     <PackageVersion Include="NotifyIcon.Base" Version="1.1.0" />
@@ -190,7 +190,7 @@
     <PackageVersion Include="NPOI" Version="2.5.6" />
 
     <!-- Github API -->
-    <PackageVersion Include="Octokit" Version="0.51.0" />
+    <PackageVersion Include="Octokit" Version="0.52.0" />
 
     <!-- ORM -->
     <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
@@ -201,10 +201,10 @@
 
     <!-- .NET Compat -->
     <PackageVersion Include="OperatingSystem2" Version="2.0.0" />
-    <PackageVersion Include="JustArchiNET.Madness" Version="3.5.2" />
+    <PackageVersion Include="JustArchiNET.Madness" Version="3.7.0" />
 
     <!-- Serialize -->
-    <PackageVersion Include="MessagePack" Version="2.3.112" />
+    <PackageVersion Include="MessagePack" Version="2.4.35" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
 
     <!-- Html Parser -->
@@ -303,7 +303,7 @@
 
     <!-- UWP -->
     <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
-    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.1.1" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.1.2" />
 
     <!-- Code Style -->
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />

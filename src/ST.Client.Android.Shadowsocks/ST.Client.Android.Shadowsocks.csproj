@@ -1,7 +1,8 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>MonoAndroid12.0;net6.0-android</TargetFrameworks>
+    <!--<TargetFrameworks>MonoAndroid12.0;net6.0-android</TargetFrameworks>-->
+    <TargetFrameworks>MonoAndroid12.0</TargetFrameworks>
     <IsBindingProject>true</IsBindingProject>
     <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>

@@ -493,213 +493,213 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_about_not_binding.xml">
       <Link>Resources\layout\activity_about_not_binding.xml</Link>
     </AndroidResource>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_barcode_scanner.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_barcode_scanner.xml">
       <Link>Resources\layout\activity_barcode_scanner.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_ca_cert_status.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_ca_cert_status.xml">
       <Link>Resources\layout\activity_ca_cert_status.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_ca_cert_status_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_ca_cert_status_content.xml">
       <Link>Resources\layout\activity_ca_cert_status_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_detail_auth.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_detail_auth.xml">
       <Link>Resources\layout\activity_detail_auth.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_donate.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_donate.xml">
       <Link>Resources\layout\activity_donate.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_encryption_auth.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_encryption_auth.xml">
       <Link>Resources\layout\activity_encryption_auth.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_explorer.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_explorer.xml">
       <Link>Resources\layout\activity_explorer.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_export_auth.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_export_auth.xml">
       <Link>Resources\layout\activity_export_auth.xml</Link>
-    </AndroidBoundLayout>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_ca_cert.xml">
       <Link>Resources\layout\activity_guide_ca_cert.xml</Link>
     </AndroidResource>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_vpn.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_vpn.xml">
       <Link>Resources\layout\activity_guide_vpn.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_vpn_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_vpn_content.xml">
       <Link>Resources\layout\activity_guide_vpn_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_login_or_register.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_login_or_register.xml">
       <Link>Resources\layout\activity_login_or_register.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main_3.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main_3.xml">
       <Link>Resources\layout\activity_main_3.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_proxy_settings.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_proxy_settings.xml">
       <Link>Resources\layout\activity_proxy_settings.xml</Link>
-    </AndroidBoundLayout>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_settings_not_binding.xml">
       <Link>Resources\layout\activity_settings_not_binding.xml</Link>
     </AndroidResource>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_data.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_data.xml">
       <Link>Resources\layout\activity_steam_auth_data.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_trade.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_trade.xml">
       <Link>Resources\layout\activity_steam_auth_trade.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_tablayout_viewpager2.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_tablayout_viewpager2.xml">
       <Link>Resources\layout\activity_tablayout_viewpager2.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_textblock.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_textblock.xml">
       <Link>Resources\layout\activity_textblock.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_toolbar_tablayout_viewpager2.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_toolbar_tablayout_viewpager2.xml">
       <Link>Resources\layout\activity_toolbar_tablayout_viewpager2.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_about.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_about.xml">
       <Link>Resources\layout\fragment_about.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_account_binding.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_account_binding.xml">
       <Link>Resources\layout\fragment_account_binding.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_account_binding_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_account_binding_content.xml">
       <Link>Resources\layout\fragment_account_binding_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_asf_plus_bot.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_asf_plus_bot.xml">
       <Link>Resources\layout\fragment_asf_plus_bot.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_asf_plus_config.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_asf_plus_config.xml">
       <Link>Resources\layout\fragment_asf_plus_config.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_asf_plus_console.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_asf_plus_console.xml">
       <Link>Resources\layout\fragment_asf_plus_console.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_basic_profile.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_basic_profile.xml">
       <Link>Resources\layout\fragment_basic_profile.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_basic_profile_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_basic_profile_content.xml">
       <Link>Resources\layout\fragment_basic_profile_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_bind_phone_number.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_bind_phone_number.xml">
       <Link>Resources\layout\fragment_bind_phone_number.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_bind_phone_number_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_bind_phone_number_content.xml">
       <Link>Resources\layout\fragment_bind_phone_number_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_change_bind_phone_number.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_change_bind_phone_number.xml">
       <Link>Resources\layout\fragment_change_bind_phone_number.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_change_bind_phone_number_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_change_bind_phone_number_content.xml">
       <Link>Resources\layout\fragment_change_bind_phone_number_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix.xml">
       <Link>Resources\layout\fragment_community_fix.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix_content_ready.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix_content_ready.xml">
       <Link>Resources\layout\fragment_community_fix_content_ready.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix_content_starting.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix_content_starting.xml">
       <Link>Resources\layout\fragment_community_fix_content_starting.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_game_list.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_game_list.xml">
       <Link>Resources\layout\fragment_game_list.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_export_ca_cert.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_export_ca_cert.xml">
       <Link>Resources\layout\fragment_guide_export_ca_cert.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_export_ca_cert_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_export_ca_cert_content.xml">
       <Link>Resources\layout\fragment_guide_export_ca_cert_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_how_install_ca_cert.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_how_install_ca_cert.xml">
       <Link>Resources\layout\fragment_guide_how_install_ca_cert.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_how_install_ca_cert_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_how_install_ca_cert_content.xml">
       <Link>Resources\layout\fragment_guide_how_install_ca_cert_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth.xml">
       <Link>Resources\layout\fragment_local_auth.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_other.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_other.xml">
       <Link>Resources\layout\fragment_local_auth_import_other.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_steam_app.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_steam_app.xml">
       <Link>Resources\layout\fragment_local_auth_import_steam_app.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_steam_plus_plus.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_steam_plus_plus.xml">
       <Link>Resources\layout\fragment_local_auth_import_steam_plus_plus.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_steam_user.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth_import_steam_user.xml">
       <Link>Resources\layout\fragment_local_auth_import_steam_user.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_fast.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_fast.xml">
       <Link>Resources\layout\fragment_login_and_register_by_fast.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_phone_number.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_phone_number.xml">
       <Link>Resources\layout\fragment_login_and_register_by_phone_number.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_phone_number_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_login_and_register_by_phone_number_content.xml">
       <Link>Resources\layout\fragment_login_and_register_by_phone_number_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_my.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_my.xml">
       <Link>Resources\layout\fragment_my.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_my_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_my_content.xml">
       <Link>Resources\layout\fragment_my_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_settings.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_settings.xml">
       <Link>Resources\layout\fragment_settings.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_accelerate_project.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_accelerate_project.xml">
       <Link>Resources\layout\layout_card_accelerate_project.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_accelerate_project_group.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_accelerate_project_group.xml">
       <Link>Resources\layout\layout_card_accelerate_project_group.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_accelerate_project_group_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_accelerate_project_group_content.xml">
       <Link>Resources\layout\layout_card_accelerate_project_group_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_gap_authenticator.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_gap_authenticator.xml">
       <Link>Resources\layout\layout_card_gap_authenticator.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_gap_authenticator_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_gap_authenticator_content.xml">
       <Link>Resources\layout\layout_card_gap_authenticator_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation.xml">
       <Link>Resources\layout\layout_card_steam_auth_trade_confirmation.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation_content.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation_content.xml">
       <Link>Resources\layout\layout_card_steam_auth_trade_confirmation_content.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_donate_user.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_donate_user.xml">
       <Link>Resources\layout\layout_donate_user.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_file_or_dir.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_file_or_dir.xml">
       <Link>Resources\layout\layout_file_or_dir.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_login_and_register_by_fast_channel.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_login_and_register_by_fast_channel.xml">
       <Link>Resources\layout\layout_login_and_register_by_fast_channel.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_preference_large_button.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_preference_large_button.xml">
       <Link>Resources\layout\layout_preference_large_button.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_preference_small_button.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_preference_small_button.xml">
       <Link>Resources\layout\layout_preference_small_button.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\list_combobox_item.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\list_combobox_item.xml">
       <Link>Resources\layout\list_combobox_item.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\local_auth_appwidget.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\local_auth_appwidget.xml">
       <Link>Resources\layout\local_auth_appwidget.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_divider.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_divider.xml">
       <Link>Resources\layout\shared_divider.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_loading.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_loading.xml">
       <Link>Resources\layout\shared_loading.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_toolbar.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_toolbar.xml">
       <Link>Resources\layout\shared_toolbar.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\textbox_password.xml">
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\textbox_password.xml">
       <Link>Resources\layout\textbox_password.xml</Link>
-    </AndroidBoundLayout>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\asf_plus_toolbar_menu.xml">
       <Link>Resources\menu\asf_plus_toolbar_menu.xml</Link>
     </AndroidResource>

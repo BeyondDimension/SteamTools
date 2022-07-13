@@ -118,7 +118,7 @@ namespace System.Application.UI
                      "store"
 #else
 #endif
-                     );
+                    );
 #else
             if (DesktopBridge.IsRunningAsUwp)
             {

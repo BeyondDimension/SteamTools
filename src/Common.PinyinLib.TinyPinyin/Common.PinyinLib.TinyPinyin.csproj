@@ -1,7 +1,8 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>MonoAndroid12.0;netstandard2.1;net6.0-android</TargetFrameworks>
+    <!--<TargetFrameworks>MonoAndroid12.0;netstandard2.1;net6.0-android</TargetFrameworks>-->
+    <TargetFrameworks>MonoAndroid12.0;netstandard2.1</TargetFrameworks>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>System.Common.PinyinLib.TinyPinyin</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
