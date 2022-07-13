@@ -1,12 +1,10 @@
 using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls;
-using Avalonia.Input;
-using Avalonia.LogicalTree;
+using Avalonia.Controls.Templates;
+using Avalonia.Data;
 using Avalonia.Markup.Xaml;
-using ReactiveUI;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace System.Application.UI.Views.Controls
 {
@@ -32,6 +30,49 @@ namespace System.Application.UI.Views.Controls
         /// </summary>
         public static readonly StyledProperty<int> MaxLineProperty =
             AvaloniaProperty.Register<ConsoleShell, int>(nameof(MaxLine), 300);
+
+        /// <summary>
+        /// Defines the Avalonia.Controls.ItemsControl.Items property.
+        /// </summary>
+        public static readonly DirectProperty<ConsoleShell, IEnumerable> AutoCompleteBoxItemsProperty =
+            ItemsControl.ItemsProperty.AddOwner<ConsoleShell>(x => x.AutoCompleteBoxItems,
+                (x, v) => x.AutoCompleteBoxItems = v);
+
+        /// <summary>
+        /// Defines the Avalonia.Controls.ItemsControl.ItemTemplate property.
+        /// </summary>
+        public static readonly StyledProperty<IDataTemplate> AutoCompleteBoxItemTemplateProperty =
+            AvaloniaProperty.Register<ConsoleShell, IDataTemplate>(nameof(AutoCompleteBoxItemTemplate));
+
+        private IEnumerable _autoCompleteBoxItems = new AvaloniaList<object>();
+
+        /// <summary>
+        ///  Gets or sets the items to display.
+        /// </summary>
+        public IEnumerable AutoCompleteBoxItems
+        {
+            get
+            {
+                return _autoCompleteBoxItems;
+            }
+
+            set
+            {
+                SetAndRaise(AutoCompleteBoxItemsProperty, ref _autoCompleteBoxItems, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the data template used to display the items in the control.
+        /// </summary>
+        public IDataTemplate AutoCompleteBoxItemTemplate
+        {
+            get
+            {
+                return GetValue(AutoCompleteBoxItemTemplateProperty);
+            }
+            set => SetValue(AutoCompleteBoxItemTemplateProperty, value);
+        }
 
         /// <summary>
         /// 隐藏指令内容（用于密码输入）
@@ -70,15 +111,20 @@ namespace System.Application.UI.Views.Controls
         private readonly AutoCompleteBox commandTextbox;
         private readonly TextBox logTextbox;
         private readonly ScrollViewer consoleScroll;
+        //private readonly ListBox logListBox;
 
         public ConsoleShell()
         {
             InitializeComponent();
 
+            //logListBox = this.FindControl<ListBox>("LogListbox");
             logTextbox = this.FindControl<TextBox>("LogTextbox");
             consoleScroll = this.FindControl<ScrollViewer>("ConsoleScroll");
             commandTextbox = this.FindControl<AutoCompleteBox>("CommandTextbox");
             commandTextbox.KeyUp += CommandTextbox_KeyUp;
+
+            AutoCompleteBoxItemsProperty.Changed.AddClassHandler<ConsoleShell>((x, e) => commandTextbox.Items = e.NewValue as IEnumerable);
+            AutoCompleteBoxItemTemplateProperty.Changed.AddClassHandler<ConsoleShell>((x, e) => commandTextbox.ItemTemplate = (IDataTemplate?)e.NewValue);
 
             commandTextbox.GetObservable(AutoCompleteBox.TextProperty)
                 .Subscribe(x =>
@@ -118,12 +164,14 @@ namespace System.Application.UI.Views.Controls
                        }
                        logTextbox.Text = x;
                        consoleScroll.ScrollToEnd();
+                       commandTextbox.Focus();
                        //consoleScroll.Offset += new Vector(0, 20);
                    });
 
             consoleScroll.AttachedToVisualTree += (s, e) =>
             {
                 consoleScroll.ScrollToEnd();
+                commandTextbox.Focus();
             };
         }
 

@@ -23,7 +23,29 @@ namespace System.Application.UI.Views.Pages
 
         private void ConsoleShell_CommandSubmit(object? sender, CommandEventArgs e)
         {
-            ViewModel?.Debug(e.Command);
+            var cmd = e.Command;
+
+            if (ViewModel != null)
+            {
+                if (string.IsNullOrEmpty(cmd))
+                    return;
+
+                var cmds = cmd.ToLowerInvariant().Split(' ');
+                ViewModel.DebugString += cmds[0] + Environment.NewLine;
+
+                switch (cmds[0])
+                {
+                    case "appinfo":
+                        ViewModel.DebugString += AboutAppInfoPopup.GetInfoString();
+                        break;
+                    case "testwindow":
+                        new DebugWindow().Show();
+                        break;
+                    default:
+                        ViewModel?.Debug(e.Command);
+                        break;
+                }
+            }
         }
 
         private void TestWindow_Tapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

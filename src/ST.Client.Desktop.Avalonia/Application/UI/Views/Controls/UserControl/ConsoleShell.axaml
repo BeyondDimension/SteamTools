@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:ms="using:System.Application.Settings"
-             xmlns:models="using:System.Application.Models"
              x:Name="u"
              FontSize="16"
              FontFamily="{StaticResource UnicodeFont}"
@@ -37,6 +36,11 @@
                  IsReadOnly="True"
                  Focusable="False"
                  TextWrapping="Wrap"/>
+        <!--<ListBox x:Name="LogListbox"
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+          
+        </ListBox>-->
         <DockPanel Grid.Row="1">
           <TextBlock Text=">"
                      FontFamily="{ReflectionBinding #u.FontFamily}"
@@ -50,27 +54,14 @@
                    TextWrapping="WrapWithOverflow"
                    VerticalAlignment="Center">
           </TextBox>-->
-          <AutoCompleteBox x:Name="CommandTextbox" 
+          <AutoCompleteBox x:Name="CommandTextbox"
                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                           Items="{ReflectionBinding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"
-                           x:DataType="models:ArchiSteamFarmCommand"
                            FilterMode="StartsWithOrdinal"
                            MaxDropDownHeight="300"
                            IsTextCompletionEnabled="True"
-                           ValueMemberBinding="{Binding Command}">
-            <AutoCompleteBox.ItemTemplate>
-              <DataTemplate x:DataType="models:ArchiSteamFarmCommand">
-                <DockPanel>
-                  <TextBlock Text="{Binding CommandText}"
-                             VerticalAlignment="Center"/>
-                  <TextBlock Text="{Binding Description}"
-                             Margin="15 0 0 0"
-                             TextWrapping="Wrap"
-                             VerticalAlignment="Center"/>
-                </DockPanel>
-              </DataTemplate>
-            </AutoCompleteBox.ItemTemplate>
+                           ValueMemberBinding="{ReflectionBinding Command}"
+                           Focusable="True">
             <AutoCompleteBox.Styles>
               <Style Selector="AutoCompleteBox">
                 <Setter Property="Background" Value="Transparent" />

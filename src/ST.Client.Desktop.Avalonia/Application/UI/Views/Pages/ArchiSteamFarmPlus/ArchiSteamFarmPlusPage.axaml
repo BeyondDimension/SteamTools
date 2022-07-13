@@ -8,6 +8,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="using:System.Application.UI.Views.Pages"
+             xmlns:models="using:System.Application.Models"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:gif="using:AvaloniaGif"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
@@ -124,8 +125,21 @@
                                  MaxLine="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},Path=Value, Mode=OneWay}"
                                  FontSize="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},Path=Value, Mode=OneWay}"
                                  CommandSubmit="ConsoleShell_CommandSubmit"
+                                 AutoCompleteBoxItems="{ReflectionBinding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"
                                  LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
                                  IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
+            <controls:ConsoleShell.AutoCompleteBoxItemTemplate>
+              <DataTemplate x:DataType="models:ArchiSteamFarmCommand">
+                <DockPanel>
+                  <TextBlock Text="{Binding CommandText}"
+                             VerticalAlignment="Center"/>
+                  <TextBlock Text="{Binding Description}"
+                             Margin="15 0 0 0"
+                             TextWrapping="Wrap"
+                             VerticalAlignment="Center"/>
+                </DockPanel>
+              </DataTemplate>
+            </controls:ConsoleShell.AutoCompleteBoxItemTemplate>
           </controls:ConsoleShell>
         </TabItem>
 

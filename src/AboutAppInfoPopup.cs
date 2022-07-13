@@ -37,80 +37,65 @@ namespace System.Application.UI
             "[os.ver] ";
 #endif
 
-        public static void OnClick()
+        public static string GetInfoString()
         {
-            var now = DateTime.Now;
-            if (show_runtime_info_last_click_time == default || (now - show_runtime_info_last_click_time).TotalSeconds <= show_runtime_info_click_effective_interval)
-            {
-                show_runtime_info_counter++;
-            }
-            else
-            {
-                show_runtime_info_counter = 1;
-            }
-            show_runtime_info_last_click_time = now;
-            if (show_runtime_info_counter >= show_runtime_info_counter_max)
-            {
-                show_runtime_info_counter = 0;
-                show_runtime_info_last_click_time = default;
-
-                StringBuilder b = new(os_ver);
+            StringBuilder b = new(os_ver);
 #if __ANDROID__
                 var activity = XEPlatform.CurrentActivity;
                 var sdkInt = Build.VERSION.SdkInt;
                 b.AppendFormat("{0}(API {1})", sdkInt, (int)sdkInt);
 #else
-                if (OperatingSystem2.IsWindows())
-                {
+            if (OperatingSystem2.IsWindows())
+            {
 #pragma warning disable CA1416 // 验证平台兼容性
-                    var productName = platformService.WindowsProductName;
-                    var major = Environment.OSVersion.Version.Major;
-                    var minor = Environment.OSVersion.Version.Minor;
-                    var build = Environment.OSVersion.Version.Build;
-                    var revision = platformService.WindowsVersionRevision;
-                    b.AppendFormat("{0} {1}.{2}.{3}.{4}", productName, major, minor, build, revision);
-                    var servicePack = Environment.OSVersion.ServicePack;
-                    if (!string.IsNullOrEmpty(servicePack))
-                    {
-                        b.Append(' ');
-                        b.Append(servicePack);
-                    }
-                    var releaseId = platformService.WindowsReleaseIdOrDisplayVersion;
-#pragma warning restore CA1416 // 验证平台兼容性
-                    if (!string.IsNullOrWhiteSpace(releaseId))
-                    {
-                        b.Append(" (");
-                        b.Append(releaseId);
-                        b.Append(')');
-                    }
+                var productName = platformService.WindowsProductName;
+                var major = Environment.OSVersion.Version.Major;
+                var minor = Environment.OSVersion.Version.Minor;
+                var build = Environment.OSVersion.Version.Build;
+                var revision = platformService.WindowsVersionRevision;
+                b.AppendFormat("{0} {1}.{2}.{3}.{4}", productName, major, minor, build, revision);
+                var servicePack = Environment.OSVersion.ServicePack;
+                if (!string.IsNullOrEmpty(servicePack))
+                {
+                    b.Append(' ');
+                    b.Append(servicePack);
                 }
-                else if (OperatingSystem2.IsLinux())
-                {
-#pragma warning disable CA1416 // 验证平台兼容性
-                    var linuxIssue = platformService.LinuxIssue;
-                    if (!string.IsNullOrWhiteSpace(linuxIssue))
-                    {
-                        b.Append(linuxIssue);
-                    }
-                    else
-                    {
-                        AppendOSName();
-                    }
+                var releaseId = platformService.WindowsReleaseIdOrDisplayVersion;
 #pragma warning restore CA1416 // 验证平台兼容性
+                if (!string.IsNullOrWhiteSpace(releaseId))
+                {
+                    b.Append(" (");
+                    b.Append(releaseId);
+                    b.Append(')');
+                }
+            }
+            else if (OperatingSystem2.IsLinux())
+            {
+#pragma warning disable CA1416 // 验证平台兼容性
+                var linuxIssue = platformService.LinuxIssue;
+                if (!string.IsNullOrWhiteSpace(linuxIssue))
+                {
+                    b.Append(linuxIssue);
                 }
                 else
                 {
                     AppendOSName();
                 }
-                void AppendOSName() => b.AppendFormat("{0} {1}", DeviceInfo2.OSName(), Environment.OSVersion.Version);
+#pragma warning restore CA1416 // 验证平台兼容性
+            }
+            else
+            {
+                AppendOSName();
+            }
+            void AppendOSName() => b.AppendFormat("{0} {1}", DeviceInfo2.OSName(), Environment.OSVersion.Version);
 #endif
-                b.AppendLine();
+            b.AppendLine();
 
-                b.Append("[os.name] ");
-                b.Append(DeviceInfo2.OSNameValue());
-                b.AppendLine();
+            b.Append("[os.name] ");
+            b.Append(DeviceInfo2.OSNameValue());
+            b.AppendLine();
 
-                b.Append("[app.ver] ");
+            b.Append("[app.ver] ");
 #if __ANDROID__
                 GetAppDisplayVersion(activity, b);
                 static void GetAppDisplayVersion(Context context, StringBuilder b)
@@ -122,11 +107,11 @@ namespace System.Application.UI
 #pragma warning restore CS0618 // 类型或成员已过时
                 }
 #else
-                b.Append(ThisAssembly.DynamicVersion);
+            b.Append(ThisAssembly.DynamicVersion);
 #endif
-                b.AppendLine();
+            b.AppendLine();
 
-                b.Append("[app.flavor] ");
+            b.Append("[app.flavor] ");
 #if __ANDROID__
                 b.AppendLine(
 #if IS_STORE_PACKAGE
@@ -135,20 +120,20 @@ namespace System.Application.UI
 #endif
                         );
 #else
-                if (DesktopBridge.IsRunningAsUwp)
-                {
-                    b.Append("ms-store");
-                }
-                b.AppendLine();
+            if (DesktopBridge.IsRunningAsUwp)
+            {
+                b.Append("ms-store");
+            }
+            b.AppendLine();
 #endif
 
-                b.Append("[app.updcha] ");
-                b.Append(ApplicationUpdateServiceBaseImpl.UpdateChannelType);
-                b.AppendLine();
+            b.Append("[app.updcha] ");
+            b.Append(ApplicationUpdateServiceBaseImpl.UpdateChannelType);
+            b.AppendLine();
 
-                b.Append("[app.install] ");
-                b.Append(platformService.IsInstall.ToLowerString());
-                b.AppendLine();
+            b.Append("[app.install] ");
+            b.Append(platformService.IsInstall.ToLowerString());
+            b.AppendLine();
 
 #if WINDOWS10_0_17763_0_OR_GREATER
                 if (OperatingSystem2.IsWindows10AtLeast())
@@ -169,7 +154,7 @@ namespace System.Application.UI
                 }
 #endif
 
-                b.Append("[memory.usage] ");
+            b.Append("[memory.usage] ");
 #if __ANDROID__
                 var activityManager = activity.GetActivityManager();
                 ActivityManager.MemoryInfo memoryInfo = new();
@@ -180,21 +165,21 @@ namespace System.Application.UI
                 var usedMemInPercentage = usedMemInBytes * 100M / nativeHeapSize;
                 b.Append($"{IOPath.GetDisplayFileSizeString(usedMemInBytes)} ({usedMemInPercentage:0.00}%)");
 #else
-                b.Append(IOPath.GetDisplayFileSizeString(Environment.WorkingSet));
+            b.Append(IOPath.GetDisplayFileSizeString(Environment.WorkingSet));
 #endif
-                b.AppendLine();
+            b.AppendLine();
 
-                b.Append("[deploy.mode] ");
-                b.Append(IApplication.Instance.DeploymentMode);
-                b.AppendLine();
+            b.Append("[deploy.mode] ");
+            b.Append(IApplication.Instance.DeploymentMode);
+            b.AppendLine();
 
-                b.Append("[arch.os] ");
-                b.Append(RuntimeInformation.OSArchitecture);
-                b.AppendLine();
+            b.Append("[arch.os] ");
+            b.Append(RuntimeInformation.OSArchitecture);
+            b.AppendLine();
 
-                b.Append("[arch.proc] ");
-                b.Append(RuntimeInformation.ProcessArchitecture);
-                b.AppendLine();
+            b.Append("[arch.proc] ");
+            b.Append(RuntimeInformation.ProcessArchitecture);
+            b.AppendLine();
 
 #if MONOANDROID
                 b.Append("[clr.ver] ");
@@ -263,33 +248,33 @@ namespace System.Application.UI
                 }
 #endif
 
-                b.Append("[time.start] ");
-                GetStartTime(b);
-                static void GetStartTime(StringBuilder b)
+            b.Append("[time.start] ");
+            GetStartTime(b);
+            static void GetStartTime(StringBuilder b)
+            {
+                string startTimeStr;
+                try
                 {
-                    string startTimeStr;
-                    try
-                    {
-                        const string f = "yy-MM-dd HH:mm:ss";
-                        const string f2 = "HH:mm:ss";
-                        const string f3 = "dd HH:mm:ss";
-                        var starttime = ArchiSteamFarm.Core.OS.ProcessStartTime;
-                        starttime = starttime.ToLocalTime();
-                        var utc_time = starttime.ToUniversalTime();
-                        var local = TimeZoneInfo.Local;
-                        startTimeStr = utc_time.Hour == starttime.Hour
-                            ? starttime.ToString(starttime.Year >= 2100 ? DateTimeFormat.Standard : f)
-                            : utc_time.Day == starttime.Day
-                            ? $"{utc_time.ToString(f)}({starttime.ToString(f2)} {local.StandardName})"
-                            : $"{utc_time.ToString(f)}({starttime.ToString(f3)} {local.StandardName})";
-                    }
-                    catch (Exception)
-                    {
-                        startTimeStr = string.Empty;
-                    }
-                    b.Append(startTimeStr);
+                    const string f = "yy-MM-dd HH:mm:ss";
+                    const string f2 = "HH:mm:ss";
+                    const string f3 = "dd HH:mm:ss";
+                    var starttime = ArchiSteamFarm.Core.OS.ProcessStartTime;
+                    starttime = starttime.ToLocalTime();
+                    var utc_time = starttime.ToUniversalTime();
+                    var local = TimeZoneInfo.Local;
+                    startTimeStr = utc_time.Hour == starttime.Hour
+                        ? starttime.ToString(starttime.Year >= 2100 ? DateTimeFormat.Standard : f)
+                        : utc_time.Day == starttime.Day
+                        ? $"{utc_time.ToString(f)}({starttime.ToString(f2)} {local.StandardName})"
+                        : $"{utc_time.ToString(f)}({starttime.ToString(f3)} {local.StandardName})";
                 }
-                b.AppendLine();
+                catch (Exception)
+                {
+                    startTimeStr = string.Empty;
+                }
+                b.Append(startTimeStr);
+            }
+            b.AppendLine();
 
 #if __ANDROID__
                 b.Append("[screen] ");
@@ -412,27 +397,27 @@ namespace System.Application.UI
                 b.Append(Build.Device ?? "");
                 b.AppendLine();
 #endif
-                b.Append("[device.name] ");
-                b.Append(DeviceInfo2.Name());
-                b.AppendLine();
-                b.Append("[device.model] ");
-                b.Append(
+            b.Append("[device.name] ");
+            b.Append(DeviceInfo2.Name());
+            b.AppendLine();
+            b.Append("[device.model] ");
+            b.Append(
 #if __ANDROID__
                     Build.Model ?? ""
 #else
-                    DeviceInfo2.Model()
+                DeviceInfo2.Model()
 #endif
-                    );
-                b.AppendLine();
-                b.Append("[device.ver] ");
-                b.Append(DeviceInfo2.VersionString());
-                b.AppendLine();
-                b.Append("[device.idiom] ");
-                b.Append(DeviceInfo2.Idiom());
-                b.AppendLine();
-                b.Append("[device.type] ");
-                b.Append(DeviceInfo2.DeviceType());
-                b.AppendLine();
+                );
+            b.AppendLine();
+            b.Append("[device.ver] ");
+            b.Append(DeviceInfo2.VersionString());
+            b.AppendLine();
+            b.Append("[device.idiom] ");
+            b.Append(DeviceInfo2.Idiom());
+            b.AppendLine();
+            b.Append("[device.type] ");
+            b.Append(DeviceInfo2.DeviceType());
+            b.AppendLine();
 #if __ANDROID__
                 b.Append("[device.product] ");
                 b.Append(Build.Product ?? "");
@@ -441,15 +426,15 @@ namespace System.Application.UI
                 b.Append(Build.Brand ?? "");
                 b.AppendLine();
 #endif
-                b.Append("[device.manufacturer] ");
-                b.Append(
+            b.Append("[device.manufacturer] ");
+            b.Append(
 #if __ANDROID__
                     Build.Manufacturer ?? ""
 #else
-                    DeviceInfo2.Manufacturer()
+                DeviceInfo2.Manufacturer()
 #endif
-                    );
-                b.AppendLine();
+                );
+            b.AppendLine();
 #if __ANDROID__
                 b.Append("[device.fingerprint] ");
                 b.Append(Build.Fingerprint ?? "");
@@ -518,45 +503,45 @@ namespace System.Application.UI
 #endif
 
 #if AVALONIA
-                if (OperatingSystem2.Application.UseAvalonia())
-                {
-                    b.Append("[avalonia.ver] ");
-                    b.Append(GetAssemblyVersion(OperatingSystem2.Application.Types.Avalonia!.Assembly));
-                    b.AppendLine();
-                }
+            if (OperatingSystem2.Application.UseAvalonia())
+            {
+                b.Append("[avalonia.ver] ");
+                b.Append(GetAssemblyVersion(OperatingSystem2.Application.Types.Avalonia!.Assembly));
+                b.AppendLine();
+            }
 #endif
-                if (OperatingSystem2.Application.UseXamarinForms())
-                {
-                    b.Append("[forms.ver] ");
-                    b.Append(GetAssemblyVersion(OperatingSystem2.Application.Types.XamarinForms!.Assembly));
-                    b.AppendLine();
-                }
-
-                var controllerType = Type.GetType("Microsoft.AspNetCore.Mvc.ControllerBase, Microsoft.AspNetCore.Mvc.Core");
-                if (controllerType != null)
-                {
-                    b.Append("[mvc.ver] ");
-                    b.Append(GetAssemblyVersion(controllerType.Assembly));
-                    b.AppendLine();
-                }
-
-                b.Append("[di.ver] ");
-                b.Append(GetAssemblyVersion(typeof(ServiceCollection).Assembly));
+            if (OperatingSystem2.Application.UseXamarinForms())
+            {
+                b.Append("[forms.ver] ");
+                b.Append(GetAssemblyVersion(OperatingSystem2.Application.Types.XamarinForms!.Assembly));
                 b.AppendLine();
+            }
 
-                b.Append("[skia.ver] ");
-                b.Append(GetAssemblyVersion(typeof(SkiaSharp.SKColor).Assembly));
+            var controllerType = Type.GetType("Microsoft.AspNetCore.Mvc.ControllerBase, Microsoft.AspNetCore.Mvc.Core");
+            if (controllerType != null)
+            {
+                b.Append("[mvc.ver] ");
+                b.Append(GetAssemblyVersion(controllerType.Assembly));
                 b.AppendLine();
+            }
+
+            b.Append("[di.ver] ");
+            b.Append(GetAssemblyVersion(typeof(ServiceCollection).Assembly));
+            b.AppendLine();
+
+            b.Append("[skia.ver] ");
+            b.Append(GetAssemblyVersion(typeof(SkiaSharp.SKColor).Assembly));
+            b.AppendLine();
 
 #if AVALONIA
-                b.Append("[harfbuzz.ver] ");
-                b.Append(GetAssemblyVersion(typeof(HarfBuzzSharp.NativeObject).Assembly));
-                b.AppendLine();
+            b.Append("[harfbuzz.ver] ");
+            b.Append(GetAssemblyVersion(typeof(HarfBuzzSharp.NativeObject).Assembly));
+            b.AppendLine();
 #endif
 
-                b.Append("[essentials.supported] ");
-                b.Append(Essentials.IsSupported.ToLowerString());
-                b.AppendLine();
+            b.Append("[essentials.supported] ");
+            b.Append(Essentials.IsSupported.ToLowerString());
+            b.AppendLine();
 
 #if __ANDROID__
                 b.Append("[startup.track] ");
@@ -565,8 +550,29 @@ namespace System.Application.UI
                 b.AppendLine();
 #endif
 
-                var b_str = b.ToString();
-                MessageBox.Show(b_str, "");
+            var b_str = b.ToString();
+
+            return b_str;
+        }
+
+        public static void OnClick()
+        {
+            var now = DateTime.Now;
+            if (show_runtime_info_last_click_time == default || (now - show_runtime_info_last_click_time).TotalSeconds <= show_runtime_info_click_effective_interval)
+            {
+                show_runtime_info_counter++;
+            }
+            else
+            {
+                show_runtime_info_counter = 1;
+            }
+            show_runtime_info_last_click_time = now;
+            if (show_runtime_info_counter >= show_runtime_info_counter_max)
+            {
+                show_runtime_info_counter = 0;
+                show_runtime_info_last_click_time = default;
+
+                MessageBox.Show(GetInfoString(), "");
             }
         }
 
