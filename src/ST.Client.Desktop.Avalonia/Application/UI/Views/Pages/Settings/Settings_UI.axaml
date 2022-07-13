@@ -31,6 +31,13 @@
             <ui:ColorPickerButton IsVisible="{ReflectionBinding #AccentCustom.IsChecked}"
                                   IsEnabled="{ReflectionBinding #AccentCustom.IsChecked}"
                                   VerticalAlignment="Center"
+                                  IsMoreButtonVisible="True"
+                                  UseSpectrum="True"
+                                  UseColorWheel="False"
+                                  UseColorTriangle="False"
+                                  UseColorPalette="False"
+                                  IsCompact="True" 
+                                  ShowAcceptDismissButtons="True"
                                   Color="{ReflectionBinding Source={x:Static ms:UISettings.ThemeAccent},Converter={StaticResource ColorStringToBrush},Path=Value, Mode=TwoWay}"/>
           </StackPanel>
         </DockPanel>

@@ -19,8 +19,10 @@ namespace System.Application.Converters
             }
             else
             {
-                if (value is string c3 && Color2.TryParse(c3, out var cc))
+                if (value is string c3 && Color.TryParse(c3, out var cc))
                     return cc;
+                if (value is string c4 && Color2.TryParse(c4, out var cc1))
+                    return cc1;
             }
             return value;
         }

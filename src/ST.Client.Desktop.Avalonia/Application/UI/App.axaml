@@ -8,6 +8,11 @@
     <ui:ViewLocator/>
   </Application.DataTemplates>
   <Application.Resources>
+    <!--<ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>-->
     <converters:IsNullConverter x:Key="IsNullConverter" />
     <converters:IsVisibleToOpacityConverter x:Key="IsVisibleToOpacityConverter" />
     <converters:IsReadOnlyPasswordBoxConverter x:Key="IsReadOnlyPasswordBoxConverter" />
@@ -22,17 +27,17 @@
   <Application.Styles>
     <!--<FluentTheme Mode="Dark" />-->
     <sty:FluentAvaloniaTheme RequestedTheme="Dark"
-                             UseUserAccentColorOnWindows="False"
+                             PreferUserAccentColor="False"
                              UseSystemFontOnWindows="False"
-                             UseSystemThemeOnWindows="False"/>
-
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
-
+                             PreferSystemTheme="False"/>
+    
+    <ui:CustomTheme Mode="Dark"/>
+    <!--<StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />-->
+    
     <!--<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>-->
     <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
 
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Controls.xaml" />
+    <!--<StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Controls.xaml" />-->
 
   </Application.Styles>
   <!-- (NativeMenu.Menu) https://github.com/AvaloniaUI/Avalonia/issues/3541 -->

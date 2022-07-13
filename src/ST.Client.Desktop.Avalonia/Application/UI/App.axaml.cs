@@ -30,6 +30,7 @@ using AvaloniaApplication = Avalonia.Application;
 using ShutdownMode = Avalonia.Controls.ShutdownMode;
 using Window = Avalonia.Controls.Window;
 using WindowState = Avalonia.Controls.WindowState;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -123,20 +124,24 @@ namespace System.Application.UI
             }
 
             //var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{themeName}.xaml");
-            var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Theme{themeName}.xaml");
-
-            //Styles[0] = new FluentTheme(uri_0)
-            //{
-            //    Mode = mode,
-            //};
-            Styles[1] = new StyleInclude(uri_1)
-            {
-                Source = uri_1,
-            };
+            //var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Theme{themeName}.xaml");
 
             var faTheme = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
             if (faTheme != null)
                 faTheme.RequestedTheme = themeName;
+
+            var csTheme = AvaloniaLocator.Current.GetService<CustomTheme>();
+            if (csTheme != null)
+                csTheme.Mode = themeName;
+
+            //if (Resources.Count > 1)
+            //{
+            //    //Styles[0] = new FluentTheme(uri_0)
+            //    //{
+            //    //    Mode = mode,
+            //    //};
+            //    Resources.MergedDictionaries[0] = (ResourceDictionary)AvaloniaXamlLoader.Load(uri_1);
+            //}
         }
 
         public static void SetThemeAccent(string? colorHex)
