@@ -480,6 +480,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 广告 的本地化字符串。
+        /// </summary>
+        public static string Advertisement {
+            get {
+                return ResourceManager.GetString("Advertisement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 关闭广告 的本地化字符串。
         /// </summary>
         public static string Advertisement_Close {
@@ -6111,6 +6120,15 @@ namespace System.Application.UI.Resx {
         public static string User_GetSMSCode {
             get {
                 return ResourceManager.GetString("User_GetSMSCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 等级 的本地化字符串。
+        /// </summary>
+        public static string User_Level {
+            get {
+                return ResourceManager.GetString("User_Level", resourceCulture);
             }
         }
         

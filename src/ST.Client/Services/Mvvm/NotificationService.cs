@@ -30,14 +30,14 @@ namespace System.Application.Services
 
         readonly IHttpService httpService = DI.Get<IHttpService>();
 
-        public SourceList<NoticeTypeDTO> NoticeTypes { get; }
+        public SourceList<NoticeTypeDTO> NoticeTypesSource { get; }
 
-        private ReadOnlyObservableCollection<NoticeTypeDTO>? _ObservableItems;
+        private ReadOnlyObservableCollection<NoticeTypeDTO>? _NoticeTypes;
 
-        public ReadOnlyObservableCollection<NoticeTypeDTO>? ObservableItems
+        public ReadOnlyObservableCollection<NoticeTypeDTO>? NoticeTypes
         {
-            get => _ObservableItems;
-            set => this.RaiseAndSetIfChanged(ref _ObservableItems, value);
+            get => _NoticeTypes;
+            set => this.RaiseAndSetIfChanged(ref _NoticeTypes, value);
         }
 
         bool _IsLoading;
@@ -75,45 +75,36 @@ namespace System.Application.Services
         public NotificationService()
         {
             mCurrent = this;
-            NoticeTypes = new SourceList<NoticeTypeDTO>();
+            NoticeTypesSource = new SourceList<NoticeTypeDTO>();
             this.WhenAnyValue(x => x.SelectGroup)
-               .Subscribe(async x =>
-               {
-                   if (x != null)
-                   {
-                       //延迟500ms显示加载
-                       using (var tk = CancellationTokenSource.CreateLinkedTokenSource(new CancellationToken()))
-                       {
-                           new Task(() =>
-                           {
-                               Thread.Sleep(500);
-                               if (!tk.IsCancellationRequested)
-                                   IsLoading = true;
-                           }, tk.Token).Start();
-                           await GetTable(x);
-                           tk.Cancel();
-                           IsLoading = false;
-                       }
-                   }
-               });
-            NoticeTypes
+                .Subscribe(async x =>
+                {
+                    if (x != null)
+                    {
+                        IsLoading = true;
+                        await GetTable(x);
+                        IsLoading = false;
+                    }
+                });
+
+            NoticeTypesSource
                 .Connect()
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<NoticeTypeDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
-                .Bind(out _ObservableItems)
+                .Bind(out _NoticeTypes)
                 .Subscribe(_ =>
                 {
-                    SelectGroup = NoticeTypes.Items.FirstOrDefault();
+                    SelectGroup = NoticeTypesSource.Items.FirstOrDefault();
                 });
 
         }
 
         public async Task GetNews(int trycount = 0)
         {
-            if (NoticeTypes.Count > 0)
+            if (NoticeTypesSource.Count > 0)
             {
                 var lastTime = await INotificationService.GetLastNotificationTime();
-                var basics = NoticeTypes.Items.FirstOrDefault();
+                var basics = NoticeTypesSource.Items.FirstOrDefault();
                 var client = ICloudServiceClient.Instance.Notice;
                 var result = await client.NewMsg(basics.Id, null);
                 if (result.IsSuccess && result.Content != null)
@@ -160,24 +151,16 @@ namespace System.Application.Services
             var result = await client.Types();
             if (result.IsSuccess)
             {
-                NoticeTypes.Clear();
-                NoticeTypes.AddRange(result.Content!.OrderBy(x => x.Index));
+                NoticeTypesSource.Clear();
+                NoticeTypesSource.AddRange(result.Content!.OrderBy(x => x.Index));
             }
         }
 
         public async Task InitializeNotice()
         {
-            using (var tk = CancellationTokenSource.CreateLinkedTokenSource(new CancellationToken()))
-            {
-                new Task(() =>
-                {
-                    Thread.Sleep(500);
-                    if (!tk.IsCancellationRequested)
-                        IsLoading = true;
-                }, tk.Token).Start();
-                await GetTypes();
-                tk.Cancel();
-            }
+            IsLoading = true;
+            await GetTypes();
+            IsLoading = false;
         }
 
         public async Task GetTable(NoticeTypeDTO selectGroup)

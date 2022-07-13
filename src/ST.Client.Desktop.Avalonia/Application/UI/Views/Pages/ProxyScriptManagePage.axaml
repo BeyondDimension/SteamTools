@@ -116,7 +116,6 @@
 
         <controls:AdDialog DockPanel.Dock="Right"
                            Margin="10 0 10 10"
-                           SupportClose="True"
                            Width="100"/>
 
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"

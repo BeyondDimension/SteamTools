@@ -22,7 +22,7 @@
     <Border Margin="{StaticResource TitleBarAfterMargin}"
             Padding="10">
       <TabControl Classes="flat"
-                  Items="{ReflectionBinding ObservableItems,Source={x:Static service:NotificationService.Current}}"
+                  Items="{ReflectionBinding NoticeTypes,Source={x:Static service:NotificationService.Current}}"
                   SelectedItem="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=SelectGroup,Mode=TwoWay}"
                   Background="Transparent">
         <TabControl.ItemTemplate>

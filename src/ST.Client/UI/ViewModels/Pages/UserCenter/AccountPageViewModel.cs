@@ -87,9 +87,9 @@ namespace System.Application.UI.ViewModels
 
         public override async void Activation()
         {
-            if (IsFirstActivation && NotificationService.Current.NoticeTypes.Count == 0)
+            if (IsFirstActivation && !NotificationService.Current.NoticeTypes.Any_Nullable())
                 await NotificationService.Current.InitializeNotice();
-            var defaultNotice = NotificationService.Current?.NoticeTypes.Items.FirstOrDefault();
+            var defaultNotice = NotificationService.Current?.NoticeTypesSource.Items.FirstOrDefault();
             if (defaultNotice != null && NotificationService.Current?.SelectGroup?.Id != defaultNotice.Id)
                 await NotificationService.Current!.GetTable(defaultNotice!);
             base.Activation();

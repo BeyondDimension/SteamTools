@@ -59,8 +59,30 @@
     </StackPanel>
     <WrapPanel Grid.Row="1"
                HorizontalAlignment="Center">
-      <Button Content="等级：Lv.2" Margin="5 0" FontSize="10"/>
-      <Button Content="积分：30" Margin="5 0" FontSize="10"/>
+      <!--<TextBlock Text="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                 Classes="h8"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"/>-->
+      <Button Margin="5 0" FontSize="10">
+        <Button.Content>
+          <MultiBinding StringFormat="{}{0} : {1}">
+            <Binding Path="Res.User_Level"
+                     Source="{x:Static resx:R.Current}" />
+            <Binding Path="User.LevelStr"
+                     Source="{x:Static service:UserService.Current}" />
+          </MultiBinding>
+        </Button.Content>
+      </Button>
+      <Button Margin="5 0" FontSize="10">
+        <Button.Content>
+          <MultiBinding StringFormat="{}{0} : {1}">
+            <Binding Path="Res.User_EngineOil"
+                     Source="{x:Static resx:R.Current}" />
+            <Binding Path="User.EngineOil"
+                     Source="{x:Static service:UserService.Current}" />
+          </MultiBinding>
+        </Button.Content>
+      </Button>
     </WrapPanel>
     <Separator Classes="Separator" Grid.Row="2" Margin="0 8"/>
     <ItemsControl Grid.Row="3">
@@ -68,9 +90,19 @@
                  Command="{ReflectionBinding Path=RefreshUserAvatarAsync,Source={x:Static service:UserService.Current}}"/>-->
       <ui:Button Content="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                  Command="{ReflectionBinding Path=NavigateUserCenterPage,Source={x:Static service:UserService.Current}}"/>
-      <ui:Button Content="{ReflectionBinding Path=Res.NotificationChannelType_Name_Announcement,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                 Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
-                 CommandParameter="Notice"/>
+      <ui:Button Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                 HorizontalContentAlignment="Stretch"
+                 CommandParameter="Notice">
+        <ui:Button.Content>
+          <DockPanel>
+            <ui:InfoBadge Value="3"
+                          DockPanel.Dock="Right"
+                          HorizontalAlignment="Right" />
+            <TextBlock Text="{ReflectionBinding Path=Res.NotificationChannelType_Name_Announcement,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       HorizontalAlignment="Stretch"/>
+          </DockPanel>
+        </ui:Button.Content>
+      </ui:Button>
       <ui:Button Content="{ReflectionBinding Path=Res.User_ChangePhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
                  IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"

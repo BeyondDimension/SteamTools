@@ -27,7 +27,8 @@
             VerticalAlignment="Center"
             Background="Transparent"
             Padding="5 10"
-            Margin="4">
+            Margin="4"
+            IsVisible="False">
       <ui:SymbolIcon Symbol="ChevronLeft" FontSize="20"/>
     </Button>
     <Button Name="right"
@@ -35,7 +36,8 @@
             VerticalAlignment="Center"
             Background="Transparent"
             Padding="5 10"
-            Margin="4">
+            Margin="4"
+            IsVisible="False">
       <ui:SymbolIcon Symbol="ChevronRight" FontSize="20"/>
     </Button>
 
@@ -43,7 +45,8 @@
            HorizontalAlignment="Center"
            Height="10"
            Margin="0 0 0 5">
-      <ItemsRepeater Name="swiper">
+      <ItemsRepeater Name="swiper"
+                     IsVisible="False">
         <ItemsRepeater.Layout>
           <StackLayout Orientation="Horizontal"
                        DisableVirtualization="True"

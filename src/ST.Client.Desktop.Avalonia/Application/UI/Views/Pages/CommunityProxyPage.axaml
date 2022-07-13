@@ -221,7 +221,6 @@
 
         <controls:AdDialog DockPanel.Dock="Bottom"
                            Margin="0 10 0 0"
-                           SupportClose="True"
                            Height="160"/>
 
         <Border Grid.Column="1" Grid.Row="1" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
@@ -316,83 +315,91 @@
           </WrapPanel>
         </StackPanel>
       </StackPanel>
-      <TabControl TabStripPlacement="Top"
-                  Classes="flat"
-                  Grid.Row="1"
-                  HorizontalAlignment="Stretch"
-                  Margin="60 10">
-        <TabItem Header="流量统计">
-          <pages:ProxyChartView/>
-        </TabItem>
-        <TabItem Header="加速服务">
-          <Grid ColumnDefinitions="*,20,*">
-            <Border Classes="paper"
-                    Background="{DynamicResource ThemeBrushKey}"
-                    Grid.Column="0"
-                    Padding="10">
-              <DockPanel>
-                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                           FontSize="16"
-                           Margin="0 0 0 10"
-                           DockPanel.Dock="Top"/>
-                <ScrollViewer>
-                  <ItemsControl Items="{ReflectionBinding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
-                    <ItemsControl.ItemTemplate>
-                      <DataTemplate DataType="{x:Type models:AccelerateProjectDTO}">
-                        <StackPanel Margin="10">
-                          <DockPanel>
-                            <TextBlock Text="{Binding Name}"></TextBlock>
-                          </DockPanel>
-                          <Separator Classes="Separator"  />
-                        </StackPanel>
-                      </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                  </ItemsControl>
-                </ScrollViewer>
-              </DockPanel>
-            </Border>
 
-            <Border Classes="paper"
-                    Background="{DynamicResource ThemeBrushKey}"
-                    Grid.Column="2"
-                    Padding="10">
-              <DockPanel>
-                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                           FontSize="16"
-                           Margin="0 0 0 10"
-                           DockPanel.Dock="Top"></TextBlock>
-                <ScrollViewer>
-                  <ItemsControl Items="{ReflectionBinding EnableProxyScripts^,Source={x:Static service:ProxyService.Current}}">
-                    <ItemsControl.ItemTemplate>
-                      <DataTemplate DataType="{x:Type models:ScriptDTO}">
-                        <StackPanel Margin="10">
-                          <DockPanel>
-                            <TextBlock Text="{Binding Name}"></TextBlock>
-                          </DockPanel>
-                          <Separator Classes="Separator"/>
-                        </StackPanel>
-                      </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                  </ItemsControl>
-                </ScrollViewer>
-              </DockPanel>
-            </Border>
-          </Grid>
-        </TabItem>
-        <!--<TabItem Header="加速日志">
-          </TabItem>-->
-        <!--<TabItem Header="AD">
+      <DockPanel Grid.Row="1"
+                 Margin="50 10">
+        <controls:AdDialog DockPanel.Dock="Right"
+                           Margin="10 0 0 0"
+                           Width="100"/>
+
+        <TabControl TabStripPlacement="Top"
+                Classes="flat"
+                HorizontalAlignment="Stretch">
+          <TabItem Header="流量统计">
+            <pages:ProxyChartView Margin="10 0"/>
+          </TabItem>
+          <TabItem Header="加速服务">
+            <Grid ColumnDefinitions="*,20,*">
+              <Border Classes="paper"
+                      Background="{DynamicResource ThemeBrushKey}"
+                      Grid.Column="0"
+                      Padding="10">
+                <DockPanel>
+                  <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                             FontSize="16"
+                             Margin="0 0 0 10"
+                             DockPanel.Dock="Top"/>
+                  <ScrollViewer>
+                    <ItemsControl Items="{ReflectionBinding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:AccelerateProjectDTO}">
+                          <StackPanel Margin="10">
+                            <DockPanel>
+                              <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DockPanel>
+                            <Separator Classes="Separator"  />
+                          </StackPanel>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                  </ScrollViewer>
+                </DockPanel>
+              </Border>
+
+              <Border Classes="paper"
+                      Background="{DynamicResource ThemeBrushKey}"
+                      Grid.Column="2"
+                      Padding="10">
+                <DockPanel>
+                  <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                             FontSize="16"
+                             Margin="0 0 0 10"
+                             DockPanel.Dock="Top"></TextBlock>
+                  <ScrollViewer>
+                    <ItemsControl Items="{ReflectionBinding EnableProxyScripts^,Source={x:Static service:ProxyService.Current}}">
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:ScriptDTO}">
+                          <StackPanel Margin="10">
+                            <DockPanel>
+                              <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DockPanel>
+                            <Separator Classes="Separator"/>
+                          </StackPanel>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                  </ScrollViewer>
+                </DockPanel>
+              </Border>
+            </Grid>
+          </TabItem>
+          <!--<TabItem Header="加速日志">
+
+            </TabItem>-->
+          <!--<TabItem Header="AD">
             <controls:AdDialog />
           </TabItem>-->
-      </TabControl>
+        </TabControl>
+      </DockPanel>
 
-      <StackPanel Grid.Row="2" Margin="20 0 20 50">
+      <StackPanel Grid.Row="2">
         <Button Classes="action"
                 Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
                 MinHeight="40"
                 Width="250"
+                Margin="0 20"
                 VerticalContentAlignment="Center"
                 FontSize="16"
                 Command="{ReflectionBinding StartProxyButton_Click}"

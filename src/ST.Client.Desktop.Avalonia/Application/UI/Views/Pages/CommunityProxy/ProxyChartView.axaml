@@ -9,8 +9,8 @@
              x:Class="System.Application.UI.Views.Pages.ProxyChartView">
   <Panel>
     <lvc:CartesianChart x:Name="Chart" 
-                        MinWidth="500" 
-                        MinHeight="250" 
+                        MinWidth="400" 
+                        MinHeight="160" 
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Background="Transparent">

@@ -2311,6 +2311,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Download_Success_FileNameTip" xml:space="preserve">
     <value>下载 {0} 成功</value>
   </data>
+  <data name="Advertisement" xml:space="preserve">
+    <value>广告</value>
+  </data>
   <data name="Advertisement_Close" xml:space="preserve">
     <value>关闭广告</value>
   </data>
@@ -2337,5 +2340,8 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="FailedToRunSetupWithPath_PleaseRunItManually" xml:space="preserve">
     <value>运行安装程序失败，路径为：{0}，请手动运行</value>
+  </data>
+  <data name="User_Level" xml:space="preserve">
+    <value>等级</value>
   </data>
 </root>

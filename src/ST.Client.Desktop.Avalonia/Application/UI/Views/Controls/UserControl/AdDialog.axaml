@@ -31,6 +31,8 @@
           </DataTemplate>
         </controls:CarouselBanner.ItemTemplate>
       </controls:CarouselBanner>
+      <TextBlock Text="{ReflectionBinding Path=Res.Advertisement,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 Margin="10 5"/>
       <Button Name="CloseAdBtn"
               Background="Transparent"
               HorizontalAlignment="Right"
