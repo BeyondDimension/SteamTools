@@ -30,9 +30,12 @@
 [![Patreon](https://img.shields.io/badge/Patreon-RMBGAME-red.svg?style=flat-square&logo=patreon)](https://www.patreon.com/rmbgame)
 [![Bilibili](https://img.shields.io/badge/bilibili-软妹币玩家-blue.svg?style=flat-square&logo=bilibili)](https://space.bilibili.com/797215)
 [![QQ群](https://img.shields.io/badge/QQ群-960746023-blue.svg?style=flat-square&color=12b7f5&logo=qq)](https://jq.qq.com/?_wv=1027&k=3JKPt4xC)
-</div>
 
-<div align="center"><img src="./resources/screenshots.jpg" /></div>
+<img src="./resources/screenshot-1.webp" width="800" />
+<br/>
+<br/>
+<img src="./resources/screenshot-android.png" width="800" />
+</div>
 
 ## 🚀 下载渠道
 - [GitHub Releases](https://github.com/BeyondDimension/SteamTools/releases)

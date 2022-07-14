@@ -25,6 +25,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static Newtonsoft.Json.JsonConvert;
 using static System.Application.Services.IDnsAnalysisService;
+using _ThisAssembly = System.Properties.ThisAssembly;
 using CC = System.Common.Constants;
 
 // ReSharper disable once CheckNamespace
@@ -60,6 +61,12 @@ public partial class DebugPageViewModel
                 if (IViewModelManager.Instance.MainWindow is MainWindowViewModel main)
                 {
                     main.SelectedItem = DebugWebViewPageViewModel.Instance;
+                }
+                break;
+            case "demo":
+                if (IViewModelManager.Instance.MainWindow is MainWindowViewModel main2)
+                {
+                    main2.Title = _ThisAssembly.DisplayTrademark;
                 }
                 break;
             default:
