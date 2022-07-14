@@ -1,19 +1,23 @@
 using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using DynamicData.Binding;
 using FluentAvalonia.Core;
+using ReactiveUI;
 using System.Application.Services;
+using System.Collections;
 using System.Linq;
 
 namespace System.Application.UI.Views.Controls
 {
     public partial class AdDialog : UserControl
     {
-        private Button? closeButton;
+        readonly Button? closeButton;
 
         /// <summary>
         /// Defines the <see cref="AutoScroll"/> property.
@@ -21,6 +25,9 @@ namespace System.Application.UI.Views.Controls
         public static readonly StyledProperty<bool> SupportCloseProperty =
             AvaloniaProperty.Register<AdDialog, bool>(nameof(SupportClose), false);
 
+        /// <summary>
+        /// Defines the <see cref="AutoScrollInterval"/> property.
+        /// </summary>
         public static readonly StyledProperty<EAdvertisementStandard> StandardProperty =
             AvaloniaProperty.Register<AdDialog, EAdvertisementStandard>(nameof(Standard), EAdvertisementStandard.Horizontal);
 
@@ -47,7 +54,6 @@ namespace System.Application.UI.Views.Controls
             InitializeComponent();
 
             closeButton = this.FindControl<Button>("CloseAdBtn");
-            var carousel = this.FindControl<CarouselBanner>("Carousel");
 
             if (closeButton != null)
             {
@@ -60,7 +66,8 @@ namespace System.Application.UI.Views.Controls
                 };
             }
 
-            if (carousel != null)
+            var banner = this.FindControl<CarouselBanner>("AdBanner");
+            if (banner != null)
             {
                 this.GetObservable(StandardProperty)
                     .Subscribe(x =>
@@ -79,16 +86,12 @@ namespace System.Application.UI.Views.Controls
                         {
                             bind.Path = nameof(AdvertiseService.Current.HorizontalBannerAdvertisements);
                         }
-                        carousel.Bind(CarouselBanner.ItemsProperty, bind);
+                        banner.Bind(CarouselBanner.ItemsProperty, bind);
                     });
             }
 
             //UserService.Current.WhenValueChanged(x => x.User, false)
             //      .Subscribe(_ => Check());
-
-            //AdvertiseService.Current.WhenValueChanged(x => x.Advertisements, false)
-            //      .Subscribe(_ => Check());
-
             //AdvertiseService.Current.WhenValueChanged(x => x.IsShowAdvertise, false)
             //      .Subscribe(_ => Check());
         }
@@ -98,27 +101,46 @@ namespace System.Application.UI.Views.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
-        {
-            base.OnAttachedToVisualTree(e);
+        //protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        //{
+        //    base.OnApplyTemplate(e);
+        //}
 
-            //Check();
+        //protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        //{
+        //    base.OnAttachedToVisualTree(e);
 
-            if (Standard == EAdvertisementStandard.Vertical)
-            {
-                if (!AdvertiseService.Current.VerticalBannerAdvertisements.Any())
-                {
-                    RemoveAd();
-                }
-            }
-            else
-            {
-                if (!AdvertiseService.Current.HorizontalBannerAdvertisements.Any())
-                {
-                    RemoveAd();
-                }
-            }
-        }
+        //    //Check();
+
+        //    if (Standard == EAdvertisementStandard.Vertical)
+        //    {
+        //        if (!AdvertiseService.Current.VerticalBannerAdvertisements.Any())
+        //        {
+        //            RemoveAd();
+        //        }
+        //        else
+        //        {
+        //            Dispatcher.UIThread.Post(() =>
+        //            {
+        //                this.IsVisible = true;
+        //            });
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (!AdvertiseService.Current.HorizontalBannerAdvertisements.Any())
+        //        {
+        //            RemoveAd();
+        //        }
+        //        else
+        //        {
+        //            Dispatcher.UIThread.Post(() =>
+        //            {
+        //                this.IsVisible = true;
+        //            });
+        //        }
+        //    }
+        //}
 
         //void Check()
         //{

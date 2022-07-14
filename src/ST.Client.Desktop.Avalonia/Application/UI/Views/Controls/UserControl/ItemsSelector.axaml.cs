@@ -64,8 +64,7 @@ namespace System.Application.UI.Views.Controls
 
             var items = this.FindControl<ItemsRepeater>("SelectItems");
 
-            this.GetObservable(SelectItemsProperty)
-                  .Subscribe(x => items.Items = SelectItems);
+            items[!ItemsRepeater.ItemsProperty] = this[!SelectItemsProperty];
         }
 
         private void InitializeComponent()

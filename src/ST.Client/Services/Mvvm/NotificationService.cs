@@ -32,9 +32,9 @@ namespace System.Application.Services
 
         public SourceList<NoticeTypeDTO> NoticeTypesSource { get; }
 
-        private ReadOnlyObservableCollection<NoticeTypeDTO>? _NoticeTypes;
+        private ReadOnlyObservableCollection<NoticeTypeDTO> _NoticeTypes;
 
-        public ReadOnlyObservableCollection<NoticeTypeDTO>? NoticeTypes
+        public ReadOnlyObservableCollection<NoticeTypeDTO> NoticeTypes
         {
             get => _NoticeTypes;
             set => this.RaiseAndSetIfChanged(ref _NoticeTypes, value);

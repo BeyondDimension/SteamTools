@@ -29,14 +29,13 @@ namespace System.Application.UI.Views.Controls
         /// Defines the Avalonia.Controls.ItemsControl.Items property.
         /// </summary>
         public static readonly DirectProperty<CarouselBanner, IEnumerable> ItemsProperty =
-            ItemsControl.ItemsProperty.AddOwner<CarouselBanner>(x => x.Items,
-                (x, v) => x.Items = v);
+            Carousel.ItemsProperty.AddOwner<CarouselBanner>(x => x.Items, (x, v) => x.Items = v);
 
         /// <summary>
         /// Defines the Avalonia.Controls.ItemsControl.ItemTemplate property.
         /// </summary>
         public static readonly StyledProperty<IDataTemplate> ItemTemplateProperty =
-            AvaloniaProperty.Register<CarouselBanner, IDataTemplate>(nameof(ItemTemplate));
+            Carousel.ItemTemplateProperty.AddOwner<CarouselBanner>();
 
         private IEnumerable _items = new AvaloniaList<object>();
 
@@ -102,6 +101,9 @@ namespace System.Application.UI.Views.Controls
             _left.Click += (s, e) => SwiperPrevious();
             _right.Click += (s, e) => SwiperNext();
 
+            _carousel[!Carousel.ItemsProperty] = this[!ItemsProperty];
+            _carousel[!Carousel.ItemTemplateProperty] = this[!ItemTemplateProperty];
+
             _carousel.GetObservable(Carousel.ItemsProperty)
                     .Subscribe(_ => SwipersLoad());
 
@@ -130,9 +132,6 @@ namespace System.Application.UI.Views.Controls
                         }
                     }
                 });
-
-            ItemsProperty.Changed.AddClassHandler<CarouselBanner>((x, e) => _carousel.Items = e.NewValue as IEnumerable);
-            ItemTemplateProperty.Changed.AddClassHandler<CarouselBanner>((x, e) => _carousel.ItemTemplate = (IDataTemplate?)e.NewValue);
         }
 
         private void InitializeComponent()
@@ -152,11 +151,13 @@ namespace System.Application.UI.Views.Controls
             else
             {
                 _left.IsVisible = _right.IsVisible = _swipers.IsVisible = true;
-                var arr = new bool[_carousel.ItemCount];
-                if (_carousel.SelectedIndex >= 0)
+                var arr = new string[_carousel.ItemCount];
+                for (var i = 0; i < arr.Length; i++)
                 {
-                    arr[_carousel.SelectedIndex] = true;
+                    arr[i] = "#ADADAD";
                 }
+                var index = _carousel.SelectedIndex < 0 ? 0 : _carousel.SelectedIndex;
+                arr[index] = "#FFFFFF";
                 _swipers.Items = arr;
             }
         }

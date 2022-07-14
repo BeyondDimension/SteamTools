@@ -26,6 +26,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Background="Transparent"
+            Foreground="{DynamicResource HighlightForegroundBrushKey}"
             Padding="5 10"
             Margin="4"
             IsVisible="False">
@@ -35,6 +36,7 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Background="Transparent"
+            Foreground="{DynamicResource HighlightForegroundBrushKey}"
             Padding="5 10"
             Margin="4"
             IsVisible="False">
@@ -59,17 +61,8 @@
                        Height="10"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Fill="#adadad"
+                       Fill="{Binding}"
                        Opacity="0.6"
-                       IsVisible="{Binding Path=!.}"
-                       StrokeThickness="0"/>
-              <Ellipse Width="10"
-                       Height="10"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Fill="#FFFFFF"
-                       Opacity="0.6"
-                       IsVisible="{Binding}"
                        StrokeThickness="0"/>
             </Panel>
           </DataTemplate>

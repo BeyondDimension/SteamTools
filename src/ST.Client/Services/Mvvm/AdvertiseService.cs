@@ -20,7 +20,7 @@ namespace System.Application.Services
 
         public static AdvertiseService Current => mCurrent ?? new();
 
-        private SourceList<AdvertisementDTO> AdvertisementsSource { get; }
+        public SourceCache<AdvertisementDTO, Guid> AdvertisementsSource { get; }
 
         private readonly ReadOnlyObservableCollection<AdvertisementDTO> _HorizontalBannerAdvertisements;
 
@@ -40,7 +40,7 @@ namespace System.Application.Services
         {
             mCurrent = this;
 
-            AdvertisementsSource = new SourceList<AdvertisementDTO>();
+            AdvertisementsSource = new SourceCache<AdvertisementDTO, Guid>(x => x.Id);
 
             AdvertisementsSource
                 .Connect()
@@ -99,7 +99,7 @@ namespace System.Application.Services
             if (result.IsSuccess && result.Content != null)
             {
                 AdvertisementsSource.Clear();
-                AdvertisementsSource.AddRange(result.Content);
+                AdvertisementsSource.AddOrUpdate(result.Content);
             }
             else
             {

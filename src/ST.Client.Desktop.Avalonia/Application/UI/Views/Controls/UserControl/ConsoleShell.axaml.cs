@@ -123,8 +123,8 @@ namespace System.Application.UI.Views.Controls
             commandTextbox = this.FindControl<AutoCompleteBox>("CommandTextbox");
             commandTextbox.KeyUp += CommandTextbox_KeyUp;
 
-            AutoCompleteBoxItemsProperty.Changed.AddClassHandler<ConsoleShell>((x, e) => commandTextbox.Items = e.NewValue as IEnumerable);
-            AutoCompleteBoxItemTemplateProperty.Changed.AddClassHandler<ConsoleShell>((x, e) => commandTextbox.ItemTemplate = (IDataTemplate?)e.NewValue);
+            commandTextbox[!AutoCompleteBox.ItemsProperty] = this[!AutoCompleteBoxItemsProperty];
+            commandTextbox[!AutoCompleteBox.ItemTemplateProperty] = this[!AutoCompleteBoxItemTemplateProperty];
 
             commandTextbox.GetObservable(AutoCompleteBox.TextProperty)
                 .Subscribe(x =>
