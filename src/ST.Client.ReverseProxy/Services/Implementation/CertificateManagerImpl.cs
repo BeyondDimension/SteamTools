@@ -2,6 +2,7 @@ using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Application.UI.Resx;
+using System.Application.UI.ViewModels;
 
 namespace System.Application.Services.Implementation;
 
@@ -139,24 +140,27 @@ abstract partial class CertificateManagerImpl
     [SupportedOSPlatform("Linux")]
     void TrustRootCertificateLinux()
     {
-        if (platformService.IsAdministrator)
-        {
-            var filePath = GetCerFilePathGeneratedWhenNoFileExists();
-            if (filePath == null) return;
-            platformService.RunShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{IReverseProxyService.CertificateName}.Certificate.pem")}\"", false);
-        }
-        else
-        {
-            Browser2.Open(UrlConstants.OfficialWebsite_LiunxSetupCer);
-        }
+        var filePath = GetCerFilePathGeneratedWhenNoFileExists();
+        if (filePath == null) return;
+        //全部屏蔽 Linux 浏览器全部不信任系统证书 只能手动导入 如需导入请手动操作
+        //var crtFile = $"{Path.Combine(IOPath.AppDataDirectory, $@"{IReverseProxyService.CertificateName}.Certificate.crt")}";
+        ////复制一份Crt导入系统用 ca-certificates 只识别Crt后缀 
+        //platformService.RunShell($"cp -f \"{filePath}\" \"{crtFile}\"", false);
+        //platformService.RunShell($"cp -f \"{crtFile}\" \"/usr/local/share/ca-certificates\" && sudo update-ca-certificates", true);
+        //浏览器不信任系统证书列表
+        Browser2.Open(UrlConstants.OfficialWebsite_LiunxSetupCer);
     }
 
     /// <inheritdoc cref="ICertificateManager.SetupRootCertificate"/>
     public bool SetupRootCertificate()
     {
         if (!GenerateCertificate()) return false;
-        TrustRootCertificate();
-        return IsRootCertificateInstalled;
+        if (!IsRootCertificateInstalled)
+        {
+            TrustRootCertificate();
+            return false;
+        }
+        return true;
     }
 
     /// <inheritdoc cref="ICertificateManager.DeleteRootCertificate"/>
@@ -171,6 +175,10 @@ abstract partial class CertificateManagerImpl
             if (OperatingSystem2.IsMacOS())
             {
                 DeleteRootCertificateMacOS();
+            }
+            else if (OperatingSystem2.IsLinux())
+            {
+                DeleteRootCertificateLinux();
             }
             else
             {
@@ -194,6 +202,29 @@ abstract partial class CertificateManagerImpl
             return false;
         }
         return true;
+    }
+
+    [SupportedOSPlatform("Linux")]
+    void DeleteRootCertificateLinux()
+    {
+        using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+        store.Open(OpenFlags.ReadOnly);
+        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, IReverseProxyService.RootCertificateName, false);
+        foreach (var item in collection)
+        {
+            if (item != null)
+            {
+                try
+                {
+                    store.Open(OpenFlags.ReadWrite);
+                    store.Remove(item);
+                }
+                catch
+                {
+                    platformService.RunShell($"rm -f \"/usr/local/share/ca-certificates/{IReverseProxyService.CertificateName}.Certificate.pem\" && sudo update-ca-certificates", true);
+                }
+            }
+        }
     }
 
     [SupportedOSPlatform("macOS")]
@@ -253,7 +284,7 @@ abstract partial class CertificateManagerImpl
         }
         else
         {
-            using var store = new X509Store(OperatingSystem2.IsMacOS() ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
+            using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
             store.Open(OpenFlags.ReadOnly);
             return store.Certificates.Contains(certificate2);
         }
