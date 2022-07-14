@@ -63,17 +63,36 @@
                  Classes="h8"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"/>-->
-      <Button Margin="5 0" FontSize="10">
+      <Button Margin="5 0"
+              FontSize="10">
+        <ToolTip.Tip>
+          <MultiBinding StringFormat="{}{0} : {1} / {2}">
+            <Binding Path="Res.User_Experience"
+                     Source="{x:Static resx:R.Current}" />
+            <Binding Path="User.Experience"
+                     Source="{x:Static service:UserService.Current}" />
+            <Binding Path="User.NextExperience"
+                     Source="{x:Static service:UserService.Current}" />
+          </MultiBinding>
+        </ToolTip.Tip>
         <Button.Content>
-          <MultiBinding StringFormat="{}{0} : {1}">
+          <MultiBinding StringFormat="{}{0} : Lv.{1}">
             <Binding Path="Res.User_Level"
                      Source="{x:Static resx:R.Current}" />
-            <Binding Path="User.LevelStr"
+            <Binding Path="User.Level"
                      Source="{x:Static service:UserService.Current}" />
           </MultiBinding>
         </Button.Content>
       </Button>
-      <Button Margin="5 0" FontSize="10">
+      <Button Margin="5 0"
+              FontSize="10"
+              IsVisible="{ReflectionBinding Path=!User.IsSignIn,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+              Content="{ReflectionBinding Path=Res.Sign,Mode=OneWay,Source={x:Static resx:R.Current}}"
+              Command="{ReflectionBinding Path=SignIn,Mode=OneWay,Source={x:Static service:UserService.Current}}"/>
+      <Button Margin="5 0"
+              FontSize="10"
+              IsVisible="{ReflectionBinding Path=User.IsSignIn,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+              ToolTip.Tip="{ReflectionBinding Path=Res.Signed,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <Button.Content>
           <MultiBinding StringFormat="{}{0} : {1}">
             <Binding Path="Res.User_EngineOil"
@@ -88,8 +107,12 @@
     <ItemsControl Grid.Row="3">
       <!--<ui:Button Content="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
                  Command="{ReflectionBinding Path=RefreshUserAvatarAsync,Source={x:Static service:UserService.Current}}"/>-->
+      <!--<ui:Button Content="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 Command="{ReflectionBinding Path=NavigateUserCenterPage,Source={x:Static service:UserService.Current}}"/>-->
       <ui:Button Content="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                 Command="{ReflectionBinding Path=NavigateUserCenterPage,Source={x:Static service:UserService.Current}}"/>
+                 Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                 HorizontalContentAlignment="Stretch"
+                 CommandParameter="UserProfile"/>
       <ui:Button Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                  HorizontalContentAlignment="Stretch"
                  CommandParameter="Notice">

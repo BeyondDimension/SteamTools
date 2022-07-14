@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="ReactiveUI" />
+    <PackageReference Include="ReactiveUI.Fody" />
   </ItemGroup>
 
   <ItemGroup>

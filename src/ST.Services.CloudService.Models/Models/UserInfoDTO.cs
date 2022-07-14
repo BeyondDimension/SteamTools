@@ -1,5 +1,6 @@
 #if MVVM_VM
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Application;
 #endif
 using System.Application.Columns;
@@ -58,6 +59,9 @@ namespace System.Application.Models
         [MPKey(3)]
         [N_JsonProperty("3")]
         [S_JsonProperty("3")]
+#if MVVM_VM
+        [Reactive]
+#endif
         public uint Experience { get; set; }
 
         /// <summary>
@@ -90,20 +94,10 @@ namespace System.Application.Models
         [MPKey(7)]
         [N_JsonProperty("7")]
         [S_JsonProperty("7")]
-        public byte Level { get; set; }
-
 #if MVVM_VM
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public string LevelStr
-        {
-            get
-            {
-                return $"Lv.{Level}";
-            }
-        }
+        [Reactive]
 #endif
+        public byte Level { get; set; }
 
         [MPKey(8)]
         [N_JsonProperty("8")]
@@ -251,6 +245,9 @@ namespace System.Application.Models
         [MPKey(19)]
         [N_JsonProperty("19")]
         [S_JsonProperty("19")]
+#if MVVM_VM
+        [Reactive]
+#endif
         public UserType UserType { get; set; }
 
         /// <summary>
@@ -259,6 +256,20 @@ namespace System.Application.Models
         [MPKey(20)]
         [N_JsonProperty("20")]
         [S_JsonProperty("20")]
+#if MVVM_VM
+        [Reactive]
+#endif
         public uint NextExperience { get; set; }
+
+        /// <summary>
+        /// 是否签到
+        /// </summary>
+        [MPKey(21)]
+        [N_JsonProperty("21")]
+        [S_JsonProperty("21")]
+#if MVVM_VM
+        [Reactive]
+#endif
+        public bool IsSignIn { get; set; }
     }
 }

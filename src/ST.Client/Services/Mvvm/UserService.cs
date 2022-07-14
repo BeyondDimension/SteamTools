@@ -1,4 +1,5 @@
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Application.Models;
 using System.Application.UI;
 using System.Application.UI.Resx;
@@ -89,9 +90,34 @@ namespace System.Application.Services
             }
         }
 
-        public async Task<IApiResponse<ClockInResponse>> SignIn()
+        public async Task SignIn()
         {
-            return await csc.AccountClockIn();
+            if (User == null)
+            {
+                return;
+            }
+            if (User.IsSignIn == false)
+            {
+                var state = await csc.AccountClockIn();
+                if (state.IsSuccess)
+                {
+                    User.Experience = state.Content!.Experience;
+                    User.NextExperience = state.Content!.NextExperience;
+                    User.Level = state.Content!.Level;
+                    User.EngineOil = state.Content!.Strength;
+                    User.IsSignIn = true;
+                    //_ = Task.Run(async () =>
+                    //{
+                    //    await Task.Delay(DateTime.Now.Date.AddDays(1).Subtract(DateTime.Now));
+                    //    IsSignedIn = false;
+                    //});
+                    Toast.Show(AppResources.User_SignIn_Ok);
+                }
+                else
+                {
+                    Toast.Show(state.Message);
+                }
+            }
         }
 
         public async Task DelAccountAsync()
@@ -106,26 +132,16 @@ namespace System.Application.Services
             await userManager.SignOutAsync();
         }
 
-        UserInfoDTO? _User;
-
-        public UserInfoDTO? User
-        {
-            get => _User;
-            set => this.RaiseAndSetIfChanged(ref _User, value);
-        }
+        [Reactive]
+        public UserInfoDTO? User { get; set; }
 
         /// <summary>
         /// 指示当前用户是否已通过身份验证（已登录）
         /// </summary>
         public bool IsAuthenticated => User != null;
 
-        SteamUser? _SteamUser;
-
-        public SteamUser? CurrentSteamUser
-        {
-            get => _SteamUser;
-            set => this.RaiseAndSetIfChanged(ref _SteamUser, value);
-        }
+        [Reactive]
+        public SteamUser? CurrentSteamUser { get; set; }
 
         object? _AvatarPath;
 
@@ -204,13 +220,13 @@ namespace System.Application.Services
             User = user;
             this.RaisePropertyChanged(nameof(IsAuthenticated));
 
-            await RefreshUserAvatarAsync();
-
             if (refreshCurrentUser)
             {
                 var currentUser = await userManager.GetCurrentUserAsync();
                 RefreshCurrentUser(currentUser);
             }
+
+            await RefreshUserAvatarAsync();
         }
 
         public async Task RefreshUserAsync(bool refreshCurrentUser = true)

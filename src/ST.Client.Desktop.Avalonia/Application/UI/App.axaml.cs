@@ -115,11 +115,13 @@ namespace System.Application.UI
                 case AppTheme.Light:
                     themeName = FluentAvaloniaTheme.LightModeString;
                     //mode = FluentThemeMode.Light;
+                    //LiveCharts.CurrentSettings.AddLightTheme();
                     break;
                 case AppTheme.Dark:
                 default:
                     themeName = FluentAvaloniaTheme.DarkModeString;
                     //mode = FluentThemeMode.Dark;
+                    //LiveCharts.CurrentSettings.AddDarkTheme();
                     break;
             }
 
@@ -231,20 +233,24 @@ namespace System.Application.UI
             }, isTrace: isTrace);
 
             LiveCharts.Configure(config =>
+            {
                 config
                     // registers SkiaSharp as the library backend
                     // REQUIRED unless you build your own
-                    .AddSkiaSharp()
+                    .AddSkiaSharp();
+                // adds the default supported types
+                // OPTIONAL but highly recommend
+                //.AddDefaultMappers()
 
-                    // adds the default supported types
-                    // OPTIONAL but highly recommend
-                    //.AddDefaultMappers()
+                // select a theme, default is Light
+                // OPTIONAL
+                //.AddDarkTheme()
 
-                    // select a theme, default is Light
-                    // OPTIONAL
-                    //.AddDarkTheme()
-                    .AddDarkTheme());
-
+                if (Theme == AppTheme.Light)
+                    config.AddLightTheme();
+                else
+                    config.AddDarkTheme();
+            });
 #if WINDOWS
             InitWebView2();
 #endif

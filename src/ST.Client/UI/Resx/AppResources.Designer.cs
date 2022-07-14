@@ -235,15 +235,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 签到成功 的本地化字符串。
-        /// </summary>
-        public static string Account_SignIn_Ok {
-            get {
-                return ResourceManager.GetString("Account_SignIn_Ok", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 修改的数据生效需要重启 Steam 是否需要重启 Steam。 的本地化字符串。
         /// </summary>
         public static string AccountChange_RestartSteam {
@@ -5412,6 +5403,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 已签到 的本地化字符串。
+        /// </summary>
+        public static string Signed {
+            get {
+                return ResourceManager.GetString("Signed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 退出登录 的本地化字符串。
         /// </summary>
         public static string SignOut {
@@ -6088,6 +6088,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 经验值 的本地化字符串。
+        /// </summary>
+        public static string User_Experience {
+            get {
+                return ResourceManager.GetString("User_Experience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 快速登录 的本地化字符串。
         /// </summary>
         public static string User_FastLogin {
@@ -6291,6 +6300,15 @@ namespace System.Application.UI.Resx {
         public static string User_Rememberme {
             get {
                 return ResourceManager.GetString("User_Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 签到成功 的本地化字符串。
+        /// </summary>
+        public static string User_SignIn_Ok {
+            get {
+                return ResourceManager.GetString("User_SignIn_Ok", resourceCulture);
             }
         }
         

@@ -45,16 +45,7 @@ namespace System.Application.UI.ViewModels
             });
             SignIn = ReactiveCommand.CreateFromTask(async () =>
             {
-                var state = await UserService.Current.SignIn();
-                if (state.IsSuccess)
-                {
-                    UserService.Current.User!.Experience = state.Content!.Experience;
-                    Toast.Show(AppResources.Account_SignIn_Ok);
-                }
-                else
-                {
-                    Toast.Show(state.Message);
-                }
+                await UserService.Current.SignIn();
             });
             RefreshButton = ReactiveCommand.CreateFromTask(async () =>
             {

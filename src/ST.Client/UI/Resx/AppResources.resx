@@ -2112,7 +2112,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="User_Sponsor" xml:space="preserve">
     <value>赞助用户</value>
   </data>
-  <data name="Account_SignIn_Ok" xml:space="preserve">
+  <data name="User_SignIn_Ok" xml:space="preserve">
     <value>签到成功</value>
   </data>
   <data name="Save" xml:space="preserve">
@@ -2320,6 +2320,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Sign" xml:space="preserve">
     <value>签到</value>
   </data>
+  <data name="Signed" xml:space="preserve">
+    <value>已签到</value>
+  </data>
   <data name="UploadFlow" xml:space="preserve">
     <value>上行流量</value>
   </data>
@@ -2343,5 +2346,8 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="User_Level" xml:space="preserve">
     <value>等级</value>
+  </data>
+  <data name="User_Experience" xml:space="preserve">
+    <value>经验值</value>
   </data>
 </root>

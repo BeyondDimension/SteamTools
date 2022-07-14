@@ -45,7 +45,7 @@
                   <TextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                              Classes="h3"/>
                   <StackPanel Orientation="Horizontal" Spacing="10">
-                    <TextBlock Text="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                    <TextBlock Text="{ReflectionBinding Path=User.Level,Mode=OneWay,Source={x:Static service:UserService.Current},StringFormat={}Lv.{0}}"
                                Classes="h8"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"/>
