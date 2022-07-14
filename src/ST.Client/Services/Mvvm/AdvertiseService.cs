@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using DynamicData.Binding;
 using ReactiveUI.Fody.Helpers;
+using System.Application.Settings;
+using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
@@ -27,6 +29,9 @@ namespace System.Application.Services
         [Reactive]
         public bool IsInitialized { get; set; }
 
+        [Reactive]
+        public bool IsShowAdvertise { get; set; } = true;
+
         private AdvertiseService()
         {
             mCurrent = this;
@@ -41,26 +46,51 @@ namespace System.Application.Services
                 .Subscribe();
 
             InitAdvertise();
+
+            UserService.Current.WhenValueChanged(x => x.User, false)
+                    .Subscribe(_ => CheckShow());
+
+            AdvertiseService.Current.WhenValueChanged(x => x.Advertisements, false)
+                    .Subscribe(_ => CheckShow());
+
+            UISettings.IsShowAdvertise.Subscribe(_ => CheckShow());
+
+            //this.WhenValueChanged(x => x.IsShowAdvertise, false)
+            //    .Subscribe(async x =>
+            //    {
+            //        if (x)
+            //        {
+            //            await RefrshAdvertise();
+            //        }
+            //        else
+            //        {
+            //            AdvertisementsSource.Clear();
+            //        }
+            //    });
         }
 
         public async void InitAdvertise()
         {
             if (IsInitialized == false)
             {
-                var client = ICloudServiceClient.Instance.Advertisement;
-                var result = await client.All(EAdvertisementType.Banner);
-
-                if (result.IsSuccess && result.Content != null)
-                {
-                    AdvertisementsSource.Clear();
-                    AdvertisementsSource.AddRange(result.Content);
-                }
-                else
-                {
-                    Log.Error(nameof(InitAdvertise), result.Message);
-                }
-
+                await RefrshAdvertise();
                 IsInitialized = true;
+            }
+        }
+
+        public async Task RefrshAdvertise()
+        {
+            var client = ICloudServiceClient.Instance.Advertisement;
+            var result = await client.All(EAdvertisementType.Banner);
+
+            if (result.IsSuccess && result.Content != null)
+            {
+                AdvertisementsSource.Clear();
+                AdvertisementsSource.AddRange(result.Content);
+            }
+            else
+            {
+                Log.Error(nameof(InitAdvertise), result.Message);
             }
         }
 
@@ -70,6 +100,26 @@ namespace System.Application.Services
             {
                 await Browser2.OpenAsync(ad.Url);
             }
+        }
+
+        private void CheckShow()
+        {
+            if (UserService.Current.User != null && UserService.Current.User.UserType == UserType.Sponsor)
+            {
+                if (!UISettings.IsShowAdvertise.Value)
+                {
+                    IsShowAdvertise = false;
+                    return;
+                }
+            }
+
+            if (AdvertiseService.Current.IsInitialized && !AdvertiseService.Current.Advertisements.Any_Nullable())
+            {
+                IsShowAdvertise = false;
+                return;
+            }
+
+            IsShowAdvertise = true;
         }
     }
 }

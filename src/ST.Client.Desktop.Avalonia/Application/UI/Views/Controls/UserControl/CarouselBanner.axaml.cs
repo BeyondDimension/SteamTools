@@ -153,7 +153,10 @@ namespace System.Application.UI.Views.Controls
             {
                 _left.IsVisible = _right.IsVisible = _swipers.IsVisible = true;
                 var arr = new bool[_carousel.ItemCount];
-                arr[_carousel.SelectedIndex] = true;
+                if (_carousel.SelectedIndex >= 0)
+                {
+                    arr[_carousel.SelectedIndex] = true;
+                }
                 _swipers.Items = arr;
             }
         }

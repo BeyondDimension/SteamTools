@@ -7,6 +7,8 @@
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:sys="using:System"
              xmlns:markup="using:System.Application.Markup"
+             xmlns:service="using:System.Application.Services"
+             xmlns:app="using:System.Application"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -36,7 +38,7 @@
                                   UseColorWheel="False"
                                   UseColorTriangle="False"
                                   UseColorPalette="False"
-                                  IsCompact="True" 
+                                  IsCompact="True"
                                   ShowAcceptDismissButtons="True"
                                   Color="{ReflectionBinding Source={x:Static ms:UISettings.ThemeAccent},Converter={StaticResource ColorStringToBrush},Path=Value, Mode=TwoWay}"/>
           </StackPanel>
@@ -61,6 +63,9 @@
         </DockPanel>
       </Border>
 
+      <Separator Classes="Separator"/>
+
+
       <Border Classes="Item">
         <DockPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
@@ -74,8 +79,6 @@
           </ComboBox>
         </DockPanel>
       </Border>
-
-      <Separator Classes="Separator"/>
 
       <Border Classes="Item">
         <DockPanel>
@@ -157,6 +160,19 @@
       </Expander>
 
       <Separator Classes="Separator"/>
+
+      <Border Classes="Item" IsEnabled="{ReflectionBinding Path=User.UserType,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:UserType.Sponsor}}">
+        <DockPanel>
+          <StackPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.Advertisement_NoShow,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <TextBlock Classes="prompt"
+                       Text="{ReflectionBinding Path=Res.Advertisement_NoShow_Tip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          </StackPanel>
+
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.IsShowAdvertise},Path=!Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
     </StackPanel>
   </ScrollViewer>
 </UserControl>

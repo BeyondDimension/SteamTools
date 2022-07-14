@@ -489,6 +489,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 关闭程序内所有广告 的本地化字符串。
+        /// </summary>
+        public static string Advertisement_NoShow {
+            get {
+                return ResourceManager.GetString("Advertisement_NoShow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅赞助用户可设置 的本地化字符串。
+        /// </summary>
+        public static string Advertisement_NoShow_Tip {
+            get {
+                return ResourceManager.GetString("Advertisement_NoShow_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 同意 的本地化字符串。
         /// </summary>
         public static string Agree {

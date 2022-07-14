@@ -4,6 +4,11 @@ namespace System.Application;
 public enum UserType : long
 {
     /// <summary>
+    /// 封禁用户
+    /// </summary>
+    Ban = -1,
+
+    /// <summary>
     /// 普通用户
     /// </summary>
     Ordinary = 1,

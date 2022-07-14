@@ -28,6 +28,12 @@ namespace System.Application.Settings
         /// </summary>
         public static SerializableProperty<HashSet<MessageBox.DontPromptType>?> DoNotShowMessageBoxs { get; }
             = GetProperty<HashSet<MessageBox.DontPromptType>?>(defaultValue: null, autoSave: false);
+
+        /// <summary>
+        /// 是否显示广告
+        /// </summary>
+        public static SerializableProperty<bool> IsShowAdvertise { get; }
+            = GetProperty(defaultValue: true, autoSave: true);
     }
 }
 

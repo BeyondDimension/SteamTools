@@ -44,11 +44,14 @@ namespace System.Application.UI.Views.Controls
                 };
             }
 
-            UserService.Current.WhenValueChanged(x => x.User, false)
-                  .Subscribe(_ => Check());
+            //UserService.Current.WhenValueChanged(x => x.User, false)
+            //      .Subscribe(_ => Check());
 
-            AdvertiseService.Current.WhenValueChanged(x => x.Advertisements, false)
-                  .Subscribe(_ => Check());
+            //AdvertiseService.Current.WhenValueChanged(x => x.Advertisements, false)
+            //      .Subscribe(_ => Check());
+
+            //AdvertiseService.Current.WhenValueChanged(x => x.IsShowAdvertise, false)
+            //      .Subscribe(_ => Check());
         }
 
         private void InitializeComponent()
@@ -56,24 +59,25 @@ namespace System.Application.UI.Views.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
-        {
-            base.OnAttachedToVisualTree(e);
+        //protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        //{
+        //    base.OnAttachedToVisualTree(e);
 
-            Check();
-        }
+        //    Check();
+        //}
 
-        void Check()
-        {
-            if (UserService.Current.User != null && UserService.Current.User.UserType == UserType.Sponsor)
-            {
-                RemoveAd();
-            }
-            if (AdvertiseService.Current.IsInitialized && !AdvertiseService.Current.Advertisements.Any_Nullable())
-            {
-                RemoveAd();
-            }
-        }
+        //void Check()
+        //{
+        //    if (userservice.current.user != null && userservice.current.user.usertype == usertype.sponsor)
+        //    {
+        //        if (!advertiseservice.current.isshowad)
+        //            removead();
+        //    }
+        //    if (advertiseservice.current.isinitialized && !advertiseservice.current.advertisements.any_nullable())
+        //    {
+        //        removead();
+        //    }
+        //}
 
         void RemoveAd()
         {

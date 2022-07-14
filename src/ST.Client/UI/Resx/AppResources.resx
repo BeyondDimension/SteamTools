@@ -2350,4 +2350,10 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="User_Experience" xml:space="preserve">
     <value>经验值</value>
   </data>
+  <data name="Advertisement_NoShow" xml:space="preserve">
+    <value>关闭程序内所有广告</value>
+  </data>
+  <data name="Advertisement_NoShow_Tip" xml:space="preserve">
+    <value>仅赞助用户可设置</value>
+  </data>
 </root>
