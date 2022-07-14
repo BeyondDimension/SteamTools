@@ -27,6 +27,8 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton<IMainThreadPlatformService, MainThreadPlatformServiceImpl>();
         services.TryAddSingleton<IPermissionsPlatformService, PermissionsPlatformServiceImpl>();
         services.TryAddSingleton<IPreferencesPlatformService, PreferencesPlatformServiceImpl>();
+        services.TryAddSingleton(s => s.GetRequiredService<IFilePickerPlatformService>().OpenFileDialogService);
+        services.TryAddSingleton(s => s.GetRequiredService<IFilePickerPlatformService>().SaveFileDialogService);
         return services;
     }
 
