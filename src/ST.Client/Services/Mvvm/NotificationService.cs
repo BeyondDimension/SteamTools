@@ -99,6 +99,13 @@ namespace System.Application.Services
 
         }
 
+        public async Task InitializeNotice()
+        {
+            IsLoading = true;
+            await GetTypes();
+            IsLoading = false;
+        }
+
         public async Task GetNews(int trycount = 0)
         {
             if (NoticeTypesSource.Count > 0)
@@ -154,13 +161,6 @@ namespace System.Application.Services
                 NoticeTypesSource.Clear();
                 NoticeTypesSource.AddRange(result.Content!.OrderBy(x => x.Index));
             }
-        }
-
-        public async Task InitializeNotice()
-        {
-            IsLoading = true;
-            await GetTypes();
-            IsLoading = false;
         }
 
         public async Task GetTable(NoticeTypeDTO selectGroup)

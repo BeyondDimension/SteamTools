@@ -56,6 +56,46 @@
                        FooterMenuItems="{Binding FooterTabItems}"
                        IsBackEnabled="{Binding #frame.CanGoBack}"
                        SelectedItem="{Binding SelectedItem}">
+
+      <ui:NavigationView.Styles>
+        <Style Selector="SplitView StackPanel.Name">
+          <Setter Property="IsVisible" Value="False"/>
+        </Style>
+        <Style Selector="SplitView:open StackPanel.Name">
+          <Setter Property="IsVisible" Value="True"/>
+        </Style>
+        <Style Selector="SplitView ui|Button.UserPanel">
+          <Setter Property="Margin" Value="5"/>
+          <Setter Property="Padding" Value="6 5 0 5"/>
+          <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="SplitView:open ui|Button.UserPanel">
+          <Setter Property="Margin" Value="6"/>
+          <Setter Property="Padding" Value="10 5"/>
+        </Style>
+        <Style Selector="SplitView Border.avatar">
+          <Setter Property="Width" Value="26"/>
+          <Setter Property="Height" Value="26"/>
+          <Setter Property="Margin" Value="0 0 10 0"/>
+          <Setter Property="CornerRadius" Value="64"/>
+        </Style>
+        <Style Selector="SplitView:open Border.avatar">
+          <Setter Property="Width" Value="64"/>
+          <Setter Property="Height" Value="64"/>
+          <Setter Property="Margin" Value="0 0 10 0"/>
+          <Setter Property="CornerRadius" Value="64"/>
+        </Style>
+        <Style Selector="SplitView ui|InfoBadge.message">
+          <Setter Property="Width" Value="8"/>
+          <Setter Property="Height" Value="8"/>
+          <Setter Property="Margin" Value="0,0,5,1"/>
+        </Style>
+        <Style Selector="SplitView:open ui|InfoBadge.message">
+          <Setter Property="Width" Value="10"/>
+          <Setter Property="Height" Value="10"/>
+          <Setter Property="Margin" Value="0,0,15,5"/>
+        </Style>
+      </ui:NavigationView.Styles>
       <!--<ui:NavigationView.PaneHeader>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
           <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
@@ -103,26 +143,18 @@
       </ui:NavigationView.Content>
 
       <ui:NavigationView.PaneCustomContent>
-        <ui:Button Margin="6"
-                   Padding="10 5"
+        <ui:Button Classes="UserPanel"
                    BorderThickness="0"
                    Background="Transparent"
                    HorizontalContentAlignment="Stretch"
-                   HorizontalAlignment="Stretch"
-                   Command="{Binding OpenUserMenu}">
-          <DockPanel
-                      HorizontalAlignment="Stretch">
-            <!--<Image x:Name="avatar" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64"/>
-            <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="18" Margin="8,0,0,0"/>-->
+                   HorizontalAlignment="Stretch">
+          <DockPanel HorizontalAlignment="Stretch">
             <Panel>
-              <Border x:Name="avatar"
+              <Border Classes="avatar"
                       BorderThickness="0"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Left"
-                      Height="64"
-                      Width="64"
-                      ClipToBounds="True"
-                      CornerRadius="64">
+                      ClipToBounds="True">
                 <gif:Image2
                        Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
                        Stretch="Uniform"
@@ -130,22 +162,19 @@
                        FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
                 </gif:Image2>
               </Border>
-              <!--<ui:InfoBadge Classes="Critical"
-                            Width="6"
-                            Height="6"
-                            Margin="0,0,10,0"
+              <ui:InfoBadge Classes="message"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"/>-->
+                            VerticalAlignment="Bottom"/>
             </Panel>
-            <StackPanel Spacing="5" VerticalAlignment="Center">
+            <StackPanel Spacing="5" 
+                        VerticalAlignment="Center"
+                        Classes="Name">
               <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
-                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
                         Classes="h7"
                         VerticalAlignment="Center"/>
               <StackPanel IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
                 <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
-                       Foreground="{DynamicResource HighlightForegroundBrushKey}"
                        Classes="h5"
                        VerticalAlignment="Center"/>
                 <Border IsVisible="{ReflectionBinding Path=User.UserType,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:UserType.Sponsor}}">

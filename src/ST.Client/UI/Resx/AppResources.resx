@@ -1875,7 +1875,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>当有新版本可用时的提示通知与下载新版本时的进度通知。</value>
   </data>
   <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
-    <value>公告通知</value>
+    <value>我的消息</value>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
     <value>新版本通知</value>

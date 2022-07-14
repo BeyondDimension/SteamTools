@@ -4114,7 +4114,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 公告通知 的本地化字符串。
+        ///   查找类似 我的消息 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Name_Announcement {
             get {

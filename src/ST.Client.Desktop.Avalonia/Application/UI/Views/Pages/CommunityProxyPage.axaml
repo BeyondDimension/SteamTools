@@ -320,6 +320,7 @@
                  Margin="50 10">
         <controls:AdDialog DockPanel.Dock="Right"
                            Margin="10 0 0 0"
+                           Standard="Vertical"
                            Width="164"/>
 
         <TabControl TabStripPlacement="Top"

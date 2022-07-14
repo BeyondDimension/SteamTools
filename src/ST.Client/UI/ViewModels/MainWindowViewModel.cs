@@ -27,7 +27,7 @@ namespace System.Application.UI.ViewModels
         [Reactive]
         public bool IsOpenUserMenu { get; set; }
 
-        public ReactiveCommand<Unit, Unit>? OpenUserMenu { get; }
+        //public ReactiveCommand<Unit, Unit>? OpenUserMenu { get; }
 
         #endregion
 
@@ -69,14 +69,14 @@ namespace System.Application.UI.ViewModels
                     IsOpenUserMenu = false;
                 };
 
-                OpenUserMenu = ReactiveCommand.Create(() =>
-                {
-                    IsOpenUserMenu = UserService.Current.IsAuthenticated;
-                    if (!IsOpenUserMenu)
-                    {
-                        UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
-                    }
-                });
+                //OpenUserMenu = ReactiveCommand.Create(() =>
+                //{
+                //    IsOpenUserMenu = UserService.Current.IsAuthenticated;
+                //    if (!IsOpenUserMenu)
+                //    {
+                //        UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
+                //    }
+                //});
             }
 
             #region InitTabItems

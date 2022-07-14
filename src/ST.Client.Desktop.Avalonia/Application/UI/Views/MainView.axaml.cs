@@ -50,7 +50,6 @@ namespace System.Application.UI.Views
         {
             InitializeComponent();
 
-            var avatar = this.FindControl<Control>("avatar");
             var back = this.FindControl<ExperimentalAcrylicBorder>("NavBarBackground");
             _nav = this.FindControl<NavigationView>("NavigationView");
             _frame = this.FindControl<Frame>("frame");
@@ -78,30 +77,30 @@ namespace System.Application.UI.Views
             //        });
             //}
 
-            if (avatar != null && _nav != null)
-            {
-                _nav.GetObservable(NavigationView.IsPaneOpenProperty)
-                  .Subscribe(x =>
-                  {
-                      if (!x)
-                      {
-                          avatar.Width = 26;
-                          avatar.Height = 26;
-                          avatar.Margin = new Thickness(-4, 0, 10, 0);
-                      }
-                      else
-                      {
-                          avatar.Width = 64;
-                          avatar.Height = 64;
-                          avatar.Margin = new Thickness(10, 0);
-                      }
+            //if (avatar != null && _nav != null)
+            //{
+            //    _nav.GetObservable(NavigationView.IsPaneOpenProperty)
+            //      .Subscribe(x =>
+            //      {
+            //          if (!x)
+            //          {
+            //              //avatar.Width = 26;
+            //              //avatar.Height = 26;
+            //              //avatar.Margin = new Thickness(-4, 0, 10, 0);
+            //          }
+            //          else
+            //          {
+            //              //avatar.Width = 64;
+            //              //avatar.Height = 64;
+            //              //avatar.Margin = new Thickness(10, 0);
+            //          }
 
-                      if (avatar.Clip is EllipseGeometry ellipse)
-                      {
-                          ellipse.Rect = new Rect(0, 0, avatar.Width, avatar.Height);
-                      }
-                  });
-            }
+            //          //if (avatar.Clip is EllipseGeometry ellipse)
+            //          //{
+            //          //    ellipse.Rect = new Rect(0, 0, avatar.Width, avatar.Height);
+            //          //}
+            //      });
+            //}
 
             if (_frame != null && _nav != null)
             {
