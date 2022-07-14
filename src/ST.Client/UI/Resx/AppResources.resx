@@ -456,6 +456,12 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_StopProxy" xml:space="preserve">
     <value>停止加速</value>
   </data>
+  <data name="CommunityFix_FlowStatistics" xml:space="preserve">
+    <value>流量统计</value>
+  </data>
+  <data name="CommunityFix_Services" xml:space="preserve">
+    <value>加速服务</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>
   </data>

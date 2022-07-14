@@ -320,15 +320,15 @@
                  Margin="50 10">
         <controls:AdDialog DockPanel.Dock="Right"
                            Margin="10 0 0 0"
-                           Width="100"/>
+                           Width="164"/>
 
         <TabControl TabStripPlacement="Top"
                 Classes="flat"
                 HorizontalAlignment="Stretch">
-          <TabItem Header="流量统计">
-            <pages:ProxyChartView Margin="10 0"/>
+          <TabItem Header="{ReflectionBinding Path=Res.CommunityFix_FlowStatistics,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <pages:ProxyChartView Margin="5 0"/>
           </TabItem>
-          <TabItem Header="加速服务">
+          <TabItem Header="{ReflectionBinding Path=Res.CommunityFix_Services,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <Grid ColumnDefinitions="*,20,*">
               <Border Classes="paper"
                       Background="{DynamicResource ThemeBrushKey}"

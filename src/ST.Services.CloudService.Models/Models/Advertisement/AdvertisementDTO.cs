@@ -48,6 +48,14 @@ namespace System.Application.Models
         [S_JsonProperty("3")]
         public EAdvertisementType Type { get; set; }
 
+        /// <summary>
+        /// 广告规格
+        /// </summary>
+        [MPKey(4)]
+        [N_JsonProperty("4")]
+        [S_JsonProperty("4")]
+        public EAdvertisementStandard Standard { get; set; }
+
 #if MVVM_VM
 
         [MPIgnore]

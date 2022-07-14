@@ -22,9 +22,13 @@ namespace System.Application.Services
 
         private SourceList<AdvertisementDTO> AdvertisementsSource { get; }
 
-        private readonly ReadOnlyObservableCollection<AdvertisementDTO> _Advertisements;
+        private readonly ReadOnlyObservableCollection<AdvertisementDTO> _HorizontalBannerAdvertisements;
 
-        public ReadOnlyObservableCollection<AdvertisementDTO> Advertisements => _Advertisements;
+        public ReadOnlyObservableCollection<AdvertisementDTO> HorizontalBannerAdvertisements => _HorizontalBannerAdvertisements;
+
+        private readonly ReadOnlyObservableCollection<AdvertisementDTO> _VerticalBannerAdvertisements;
+
+        public ReadOnlyObservableCollection<AdvertisementDTO> VerticalBannerAdvertisements => _VerticalBannerAdvertisements;
 
         [Reactive]
         public bool IsInitialized { get; set; }
@@ -41,8 +45,17 @@ namespace System.Application.Services
             AdvertisementsSource
                 .Connect()
                 .ObserveOn(RxApp.MainThreadScheduler)
+                .Filter(x => x.Standard == EAdvertisementStandard.Horizontal)
                 .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
-                .Bind(out _Advertisements)
+                .Bind(out _HorizontalBannerAdvertisements)
+                .Subscribe();
+
+            AdvertisementsSource
+                .Connect()
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Filter(x => x.Standard == EAdvertisementStandard.Vertical)
+                .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
+                .Bind(out _VerticalBannerAdvertisements)
                 .Subscribe();
 
             InitAdvertise();
@@ -50,7 +63,7 @@ namespace System.Application.Services
             UserService.Current.WhenValueChanged(x => x.User, false)
                     .Subscribe(_ => CheckShow());
 
-            AdvertiseService.Current.WhenValueChanged(x => x.Advertisements, false)
+            AdvertisementsSource.CountChanged
                     .Subscribe(_ => CheckShow());
 
             UISettings.IsShowAdvertise.Subscribe(_ => CheckShow());
@@ -113,7 +126,7 @@ namespace System.Application.Services
                 }
             }
 
-            if (AdvertiseService.Current.IsInitialized && !AdvertiseService.Current.Advertisements.Any_Nullable())
+            if (AdvertiseService.Current.IsInitialized && !AdvertiseService.Current.AdvertisementsSource.Items.Any_Nullable())
             {
                 IsShowAdvertise = false;
                 return;

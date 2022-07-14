@@ -169,13 +169,13 @@ namespace System.Application.UI
             if (OperatingSystem2.IsWindows())
             {
                 if (OperatingSystem2.IsWindowsVersionAtLeast(6, 2))
-                    thm.UseUserAccentColorOnWindows = true;
+                    thm.PreferUserAccentColor = true;
                 else
-                    thm.UseUserAccentColorOnWindows = false;
+                    thm.PreferUserAccentColor = false;
             }
             else
             {
-                thm.UseUserAccentColorOnWindows = true;
+                thm.PreferUserAccentColor = true;
             }
         }
 

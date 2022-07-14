@@ -1311,6 +1311,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 流量统计 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_FlowStatistics {
+            get {
+                return ResourceManager.GetString("CommunityFix_FlowStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 打开安全设置 的本地化字符串。
         /// </summary>
         public static string CommunityFix_GoToSystemSecuritySettings {
@@ -1496,6 +1505,15 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_ScriptsEnable {
             get {
                 return ResourceManager.GetString("CommunityFix_ScriptsEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加速服务 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_Services {
+            get {
+                return ResourceManager.GetString("CommunityFix_Services", resourceCulture);
             }
         }
         
