@@ -82,8 +82,10 @@ namespace System.Application.UI.ViewModels
             #region InitTabItems
 
             //AddTabItem<StartPageViewModel>();
-            if (R.IsChineseSimplified)
+            if (R.IsChineseSimplified || !IApplication.IsDesktopPlatform)
             {
+                // Android 目前底部菜单实现要隐藏需要改多个地方
+                // 主要是初始化时不依赖 TabItems，两边逻辑暂不能同步一套代码
                 AddTabItem<CommunityProxyPageViewModel>();
             }
             if (IApplication.IsDesktopPlatform)

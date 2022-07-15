@@ -6,16 +6,18 @@ using System.Application.UI.ViewModels;
 using TViewHolder = System.Application.UI.Adapters.SteamAuthTradeConfirmationViewHolder;
 using TViewModel = WinAuth.WinAuthSteamClient.Confirmation;
 using static System.Application.UI.Resx.AppResources;
+using System.Application.UI.Activities;
+using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.UI.Adapters
 {
-    internal sealed class SteamAuthTradeConfirmationAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>/*, IReadOnlyViewFor<AuthTradeWindowViewModel>*/
+    internal sealed class SteamAuthTradeConfirmationAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>, IReadOnlyViewFor<AuthTradeWindowViewModel>
     {
-        //public AuthTradeWindowViewModel ViewModel { get; }
+        public AuthTradeWindowViewModel ViewModel { get; }
 
         public SteamAuthTradeConfirmationAdapter(AuthTradeWindowViewModel viewModel) : base(viewModel.Confirmations, viewModel.ConfirmationsSourceList)
         {
-            //ViewModel = viewModel;
+            ViewModel = viewModel;
         }
 
         public override int? GetLayoutResource(int viewType)
@@ -33,14 +35,14 @@ namespace System.Application.UI.Adapters
             binding = new(itemView);
         }
 
-        //void GetDataContext(Action<AuthTradeWindowViewModel> action)
-        //{
-        //    if (BindingAdapter is IReadOnlyViewFor<AuthTradeWindowViewModel> vf
-        //        && vf.ViewModel != null)
-        //    {
-        //        action(vf.ViewModel);
-        //    }
-        //}
+        void GetDataContext(Action<AuthTradeWindowViewModel> action)
+        {
+            if (BindingAdapter is IReadOnlyViewFor<AuthTradeWindowViewModel> vf
+                && vf.ViewModel != null)
+            {
+                action(vf.ViewModel);
+            }
+        }
 
         void SetOperateText(int isOperate)
         {
@@ -92,6 +94,7 @@ namespace System.Application.UI.Adapters
             binding.tvWhen.Text = ViewModel.When;
             ViewModel.WhenAnyValue(x => x.NotChecked)
                 .Subscribe(value => binding.checkbox.Checked = !value).AddTo(this);
+            binding.btnSeeDetails.Click += BtnSeeDetails_Click;
             //ViewModel.WhenAnyValue(x => x.ButtonEnable)
             //    .SubscribeInMainThread(value =>
             //    {
@@ -99,6 +102,20 @@ namespace System.Application.UI.Adapters
             //        binding.btnConfirmTrade.Enabled = value;
             //    }).AddTo(this);
         }
+
+        void BtnSeeDetails_Click(object? sender, EventArgs e) => GetDataContext(vm =>
+        {
+            var viewModel = ViewModel;
+            if (viewModel != null)
+            {
+                var ctx = View.Context;
+                if (ctx != null)
+                {
+                    WebViewActivity.HtmlString = vm.GetConfirmationDetailHtml(viewModel);
+                    XEPlatform.CurrentActivity.StartActivity<WebViewActivity>();
+                }
+            }
+        });
 
         //void View.IOnClickListener.OnClick(View? view)
         //{

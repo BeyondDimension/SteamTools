@@ -93,7 +93,8 @@ namespace System.Application.UI.Fragments
             var adapter = new GAPAuthenticatorAdapter(this, ViewModel!);
             adapter.ItemClick += (_, e) =>
             {
-                AuthDetailActivity.StartActivity(Activity, e.Current.Id);
+                var id = e.Current.Id;
+                AuthDetailActivity.StartActivity(RequireActivity(), id);
             };
             binding!.rvAuthenticators.SetLinearLayoutManager();
             binding.rvAuthenticators.AddVerticalItemDecorationRes(Resource.Dimension.activity_vertical_margin, Resource.Dimension.activity_vertical_margin);

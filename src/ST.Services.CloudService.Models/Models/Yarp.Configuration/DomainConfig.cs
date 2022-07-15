@@ -162,5 +162,5 @@ partial class AccelerateProjectDTO : IDomainConfig
 
     IResponseConfig? IDomainConfig.Response => null;
 
-    IReadOnlyDictionary<DomainPattern, IDomainConfig>? IDomainConfig.Items => Items.ToDictionary(x => new DomainPattern(x.DomainNames), y => (IDomainConfig)y);
+    IReadOnlyDictionary<DomainPattern, IDomainConfig>? IDomainConfig.Items => Items?.ToDictionary(x => new DomainPattern(x.DomainNames), y => (IDomainConfig)y);
 }

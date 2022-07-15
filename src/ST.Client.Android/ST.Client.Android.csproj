@@ -512,6 +512,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_toolbar_tablayout_viewpager2.xml">
       <Link>Resources\layout\activity_toolbar_tablayout_viewpager2.xml</Link>
     </AndroidBoundLayout>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_toolbar_webview.xml">
+      <Link>Resources\layout\activity_toolbar_webview.xml</Link>
+    </AndroidResource>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_about.xml">
       <Link>Resources\layout\fragment_about.xml</Link>
     </AndroidBoundLayout>

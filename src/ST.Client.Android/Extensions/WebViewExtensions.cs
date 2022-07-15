@@ -56,7 +56,7 @@ public static class WebViewExtensions
     /// <param name="webView"></param>
     /// <param name="htmlString"></param>
     /// <param name="encoding"></param>
-    public static void LoadHtmlString(this WebView webView, string htmlString, Encoding? encoding)
+    public static void LoadHtmlString(this WebView webView, string htmlString, Encoding? encoding = null)
     {
         webView.LoadDataWithBaseURL(baseUrl: null,
             data: htmlString,

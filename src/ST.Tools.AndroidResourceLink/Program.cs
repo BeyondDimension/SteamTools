@@ -8,7 +8,12 @@ var ignoreArray = new[]
 {
     @"layout\activity_main.xml",
     @"navigation\mobile_navigation.xml",
+};
+
+var ignoreBoundLayoutArray = new[]
+{
     @"layout\activity_guide_ca_cert.xml",
+    @"layout\activity_toolbar_webview.xml",
 };
 
 const string Mark = "<!--ST.Tools.AndroidResourceLink-->";
@@ -49,7 +54,7 @@ foreach (var file in files)
         }
     }
     if (isContinue) continue;
-    var tag = link.Contains("\\layout") && /*!link.Contains("\\shared_") && !link.Contains("_content.xml") &&*/ !link.Contains("_not_binding.xml") ? "AndroidBoundLayout" : "AndroidResource";
+    var tag = IsBoundLayout(link) ? "AndroidBoundLayout" : "AndroidResource";
     sb.AppendFormat("    <{1} Include=\"{0}\">", include, tag).AppendLine()
         .AppendFormat("      <Link>{0}</Link>", link).AppendLine()
         .AppendFormat("    </{0}>", tag).AppendLine();
@@ -58,6 +63,15 @@ sb.AppendLine("  </ItemGroup>");
 Array.ForEach(bottom, x => sb.AppendLine(x));
 csprojContent = sb.ToString().Trim();
 File.WriteAllText(androidProjFilePath, csprojContent);
+
+bool IsBoundLayout(string link)
+{
+    foreach (var item in ignoreBoundLayoutArray)
+    {
+        if (link.EndsWith(item)) return false;
+    }
+    return link.Contains("\\layout") && /*!link.Contains("\\shared_") && !link.Contains("_content.xml") &&*/ !link.Contains("_not_binding.xml");
+}
 
 Console.WriteLine("OK");
 #pragma warning restore SA1516 // Elements should be separated by blank line
