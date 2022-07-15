@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using FluentAvalonia.UI.Controls;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
+using System.IO;
 using WinAuth;
 
 namespace System.Application.UI.Views.Windows
@@ -43,10 +44,21 @@ namespace System.Application.UI.Views.Windows
             if (htmlDialog != null && ViewModel != null)
             {
                 var auth = (sender as Control)?.Tag as WinAuthSteamClient.Confirmation;
-                webview.HtmlSource = ViewModel.GetConfirmationDetailHtml(auth!);
-                webview.IsVisible = true;
-                await htmlDialog.ShowAsync();
-                webview.IsVisible = false;
+                var html = ViewModel.GetConfirmationDetailHtml(auth!);
+
+                if (OperatingSystem2.IsWindows())
+                {
+                    webview.HtmlSource = html;
+                    webview.IsVisible = true;
+                    await htmlDialog.ShowAsync();
+                    webview.IsVisible = false;
+                }
+                else
+                {
+                    var path = Path.Combine(IOPath.CacheDirectory, "confirmation.html");
+                    File.WriteAllText(path, html);
+                    Browser2.Open(path);
+                }
             }
         }
     }

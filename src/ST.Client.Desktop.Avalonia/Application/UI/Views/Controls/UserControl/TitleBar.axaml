@@ -13,7 +13,7 @@
                 BitmapInterpolationMode="HighQuality"
                 Opacity="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay,Converter={StaticResource IsVisibleToOpacityConverter},ConverterParameter=0.8}"/>
   </UserControl.Background>
-  <Panel IsHitTestVisible="False">
+  <Panel>
     <!--<Panel ZIndex="0">
       <controls:EmptyControl/>
     </Panel>-->
@@ -25,8 +25,7 @@
        Stretch="UniformToFill"
        Opacity="0.8">
       </Image>-->
-    <DockPanel HorizontalAlignment="Stretch" 
-               IsHitTestVisible="False">
+    <DockPanel HorizontalAlignment="Stretch">
       <ExperimentalAcrylicBorder DockPanel.Dock="Top"
                                  Height="{StaticResource TitleBarHeight}">
         <ExperimentalAcrylicBorder.Material>
@@ -36,6 +35,7 @@
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
       <ExperimentalAcrylicBorder DockPanel.Dock="Bottom"
+                                 IsHitTestVisible="False"
                                  x:Name="Back">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
@@ -47,16 +47,13 @@
     <StackPanel x:Name="title"
                 Orientation="Horizontal"
                 VerticalAlignment="Top"
-                Margin="10 6 10 6"
-                IsHitTestVisible="False">
+                Margin="10 6 10 6">
       <Image Source="/Application/UI/Assets/Icon.ico"
              Height="18"
              Width="18"
              VerticalAlignment="Center"
-             IsHitTestVisible="False"
              Margin="0,0,10,0"/>
-      <TextBlock IsHitTestVisible="False" 
-                 Grid.Column="1"
+      <TextBlock Grid.Column="1"
                  Text="{ReflectionBinding $parent[Window].Title}"
                  VerticalAlignment="Center"
 				 HorizontalAlignment="Left"

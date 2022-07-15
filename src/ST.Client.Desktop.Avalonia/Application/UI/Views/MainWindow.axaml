@@ -12,6 +12,7 @@
         x:Class="System.Application.UI.Views.MainWindow"
         WindowStartupLocation="CenterScreen"
         Background="{x:Null}"
+        ExtendClientAreaTitleBarHeightHint="{StaticResource TitleBarHeight}"
         Title="{Binding Title,Mode=OneWay}"
         x:DataType="vm:MainWindowViewModel"
         x:CompileBindings="True">

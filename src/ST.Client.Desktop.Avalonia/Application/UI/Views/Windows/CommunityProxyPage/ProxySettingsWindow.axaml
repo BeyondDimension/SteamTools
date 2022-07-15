@@ -13,7 +13,6 @@
         xmlns:sys="using:System"
         xmlns:col="using:System.Collections"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
         x:DataType="vm:ProxySettingsWindowViewModel"
         x:CompileBindings="True">

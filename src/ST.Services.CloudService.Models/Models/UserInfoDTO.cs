@@ -70,6 +70,9 @@ namespace System.Application.Models
         [MPKey(4)]
         [N_JsonProperty("4")]
         [S_JsonProperty("4")]
+#if MVVM_VM
+        [Reactive]
+#endif
         public int EngineOil { get; set; }
 
         /// <summary>
