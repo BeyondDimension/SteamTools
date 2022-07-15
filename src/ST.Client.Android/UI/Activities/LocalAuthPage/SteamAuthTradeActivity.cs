@@ -247,11 +247,11 @@ namespace System.Application.UI.Activities
 
             binding!.tbSteamUserName.TextChanged += (_, _) =>
             {
-                ViewModel!.UserName = binding!.tbSteamUserName.Text;
+                ViewModel!.UserName = binding!.tbSteamUserName.Text ?? "";
             };
             binding.tbSteamPassword.TextChanged += (_, _) =>
             {
-                ViewModel!.Password = binding!.tbSteamPassword.Text;
+                ViewModel!.Password = binding!.tbSteamPassword.Text ?? "";
             };
             binding.cbStreamRememberMe.CheckedChange += (_, e) =>
             {

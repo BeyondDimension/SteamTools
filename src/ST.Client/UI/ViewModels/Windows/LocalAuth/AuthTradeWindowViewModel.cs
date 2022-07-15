@@ -55,7 +55,7 @@ namespace System.Application.UI.ViewModels
 
             if (_Authenticator != null)
             {
-                UserName = _Authenticator.AccountName;
+                UserName = _Authenticator.AccountName ?? "";
                 if (!string.IsNullOrEmpty(_MyAuthenticator?.Name))
                 {
                     Title = $"{Title} | {_MyAuthenticator.Name}";
@@ -100,9 +100,9 @@ namespace System.Application.UI.ViewModels
 
         #region LoginData
 
-        private string? _UserName;
+        private string _UserName = "";
 
-        public string? UserName
+        public string UserName
         {
             get => _UserName;
             set
@@ -115,9 +115,9 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private string? _Password;
+        private string _Password = "";
 
-        public string? Password
+        public string Password
         {
             get => _Password;
             set
@@ -308,12 +308,13 @@ namespace System.Application.UI.ViewModels
 
         private string? captchaId;
 
+        bool isLogining;
+
         private void Process(string? codeChar = null)
         {
             if (IsLoading || _Authenticator == null)
                 return;
-            IsLoading = true;
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 var steam = _Authenticator.GetClient();
@@ -321,15 +322,20 @@ namespace System.Application.UI.ViewModels
                 {
                     if (!IsLoggedIn)
                     {
-                        MainThread2.BeginInvokeOnMainThread(() =>
+                        if (isLogining) return; // 防止未登录时重复点击登录按钮
+                        var isReturn = false;
+                        await MainThread2.InvokeOnMainThreadAsync(() =>
                         {
                             IsLoading = false;
                             if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(UserName))
                             {
+                                isReturn = true;
                                 return;
                             }
+                            isLogining = true;
                             if (ToastService.IsSupported)
                             {
+                                // Toast 常驻显示，再次调用显示文本时将会隐藏该通知，仅 Desktop 支持
                                 ToastService.Current.Set(AppResources.Logining);
                             }
                             LoadingText = AppResources.Logining;
@@ -338,8 +344,10 @@ namespace System.Application.UI.ViewModels
                                 captchaId = null;
                             }
                         });
+                        if (isReturn) return;
                         var loginResult = steam.Login(UserName, Password, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
-                        MainThread2.BeginInvokeOnMainThread(() =>
+                        var isSuccess = true;
+                        await MainThread2.InvokeOnMainThreadAsync(() =>
                         {
                             LoadingText = null;
                             if (!loginResult)
@@ -347,12 +355,14 @@ namespace System.Application.UI.ViewModels
                                 if (steam.Error == "Incorrect Login")
                                 {
                                     Toast.Show(AppResources.User_LoginError);
+                                    isSuccess = false;
                                     return;
                                 }
 
                                 if (steam.Requires2FA == true)
                                 {
                                     Toast.Show(AppResources.User_LoginError_Auth);
+                                    isSuccess = false;
                                     return;
                                 }
 
@@ -362,6 +372,7 @@ namespace System.Application.UI.ViewModels
                                     captchaId = steam.CaptchaId;
                                     CaptchaImage = steam.CaptchaUrl;
                                     Toast.Show(AppResources.User_LoginError_CodeImage);
+                                    isSuccess = false;
                                     return;
                                 }
                                 //loginButton.Enabled = true;
@@ -370,8 +381,10 @@ namespace System.Application.UI.ViewModels
                                 if (string.IsNullOrEmpty(steam.Error) == false)
                                 {
                                     Toast.Show(steam.Error);
+                                    isSuccess = false;
                                     return;
                                 }
+                                isSuccess = false;
                                 return;
                             }
                             Toast.Show(AppResources.User_LoiginSuccess);
@@ -379,9 +392,10 @@ namespace System.Application.UI.ViewModels
                             _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
                             AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
                         });
+                        if (!isSuccess) return;
                     }
 
-                    MainThread2.BeginInvokeOnMainThread(() =>
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
                     {
                         IsLoading = true;
                         LoadingText = AppResources.LocalAuth_AuthTrade_GetTip;
@@ -389,7 +403,7 @@ namespace System.Application.UI.ViewModels
                     });
                     var list = steam.GetConfirmations();
 
-                    MainThread2.BeginInvokeOnMainThread(() =>
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
                     {
                         _ConfirmationsSourceList.Clear();
                         _ConfirmationsSourceList.AddRange(list);
@@ -403,7 +417,7 @@ namespace System.Application.UI.ViewModels
                 }
                 catch (WinAuthUnauthorisedSteamRequestException)
                 {
-                    MainThread2.BeginInvokeOnMainThread(() =>
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
                     {
                         // Family view is probably on
                         Toast.Show(AppResources.LocalAuth_AuthTrade_GetError);
@@ -420,7 +434,7 @@ namespace System.Application.UI.ViewModels
                             steam.Refresh();
                             var list = steam.GetConfirmations();
 
-                            MainThread2.BeginInvokeOnMainThread(() =>
+                            await MainThread2.InvokeOnMainThreadAsync(() =>
                             {
                                 _ConfirmationsSourceList.Clear();
                                 _ConfirmationsSourceList.AddRange(list);
@@ -431,12 +445,12 @@ namespace System.Application.UI.ViewModels
                     catch (Exception ex)
                     {
                         // reset and show normal login
-                        Log.Error(nameof(Process), ex, "可能是没有开加速器导致无法连接Steam社区登录地址");
+                        Log.Error(nameof(Process), ex, "可能是没有开加速器导致无法连接 Steam 社区登录地址");
 
                         if (ex.InnerException != null &&
                             ex.Message.Contains("302"))
                         {
-                            MainThread2.BeginInvokeOnMainThread(() =>
+                            await MainThread2.InvokeOnMainThreadAsync(() =>
                             {
                                 Toast.Show(AppResources.LocalAuth_AuthTrade_GetError3);
                                 IsLoading = false;
@@ -445,7 +459,7 @@ namespace System.Application.UI.ViewModels
                             return;
                         }
 
-                        MainThread2.BeginInvokeOnMainThread(() =>
+                        await MainThread2.InvokeOnMainThreadAsync(() =>
                         {
 #if DEBUG
                             MessageBox.Show($"发生错误：{ex.Message}{Environment.NewLine}堆栈信息：{ex.StackTrace}");
@@ -458,7 +472,8 @@ namespace System.Application.UI.ViewModels
                 }
                 finally
                 {
-                    MainThread2.BeginInvokeOnMainThread(() =>
+                    isLogining = false;
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
                     {
                         IsLoading = false;
                     });
@@ -509,7 +524,7 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// Accept the trade Confirmation
         /// </summary>
-        /// <param name="tradeId">Id of Confirmation</param>
+        /// <param name="trade">Confirmation</param>
         private async Task<bool> AcceptTrade(WinAuthSteamClient.Confirmation trade)
         {
             try
@@ -549,7 +564,7 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// Reject the trade Confirmation
         /// </summary>
-        /// <param name="tradeId">ID of Confirmation</param>
+        /// <param name="trade">Confirmation</param>
         private async Task<bool> RejectTrade(WinAuthSteamClient.Confirmation trade)
         {
             try
