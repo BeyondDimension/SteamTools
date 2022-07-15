@@ -104,16 +104,30 @@ namespace Avalonia.Controls
 #pragma warning disable CA1416 // 验证平台兼容性
             if (OperatingSystem2.IsWindows())
             {
-                //ExtendClientAreaToDecorationsHint = true;
-                //ExtendClientAreaTitleBarHeightHint = -1;
-                ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.Default;
+                if (OperatingSystem2.IsWindows10AtLeast())
+                {
+                    //ExtendClientAreaToDecorationsHint = true;
+                    //ExtendClientAreaTitleBarHeightHint = -1;
+
+                    ExtendClientAreaChromeHints =
+                        ExtendClientAreaChromeHints.Default;
+                }
+                else
+                {
+                    ExtendClientAreaToDecorationsHint = true;
+                    ExtendClientAreaTitleBarHeightHint = -1;
+
+                    ExtendClientAreaChromeHints =
+                        ExtendClientAreaChromeHints.PreferSystemChrome;
+                }
+
                 PseudoClasses.Add(":windows");
             }
             else if (OperatingSystem2.IsMacOS())
             {
                 ExtendClientAreaToDecorationsHint = true;
-                //ExtendClientAreaTitleBarHeightHint = 32;
+                ExtendClientAreaTitleBarHeightHint = -1;
+
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
             }

@@ -17,7 +17,7 @@ namespace System.Application.UI.Views.Controls
             set { SetValue(IsVisibleBackgroundProperty, value); }
         }
 
-        public const int DefaultHeight = 30;
+        public const int DefaultHeight = 32;
 
         /// <summary>
         /// 是否需要显示 TitleBar
