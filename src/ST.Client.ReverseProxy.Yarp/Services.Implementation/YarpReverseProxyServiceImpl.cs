@@ -38,8 +38,6 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             builder.WebHost.UseKestrel(options =>
             {
                 options.NoLimit();
-                options.ListenHttpsReverseProxy();
-                options.ListenHttpReverseProxy();
 
                 if (OperatingSystem.IsWindows())
                 {
@@ -50,6 +48,11 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 if (IReverseProxyService.Instance.ProxyMode is ProxyMode.System or ProxyMode.PAC or ProxyMode.VPN)
                 {
                     options.ListenHttpProxy();
+                }
+                else
+                {
+                    options.ListenHttpsReverseProxy();
+                    options.ListenHttpReverseProxy();
                 }
             });
 

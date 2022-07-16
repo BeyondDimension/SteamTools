@@ -1,5 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/GlobalListener.cs
 
+using System.Application.Services;
 using System.Net;
 using System.Net.NetworkInformation;
 
@@ -30,14 +31,14 @@ partial interface IReverseProxyConfig
     /// <summary>
     /// Http 端口
     /// </summary>
-    static int HttpPort { get; } = OperatingSystem.IsWindows() ? GetAvailableTcpPort(HttpPortDefault) : GetAvailableTcpPort(7080);
+    static int HttpPort { get; } = GetAvailableTcpPort(HttpPortDefault);
 
     const int HttpsPortDefault = 443;
 
     /// <summary>
     /// Https 端口
     /// </summary>
-    static int HttpsPort { get; } = OperatingSystem.IsWindows() ? GetAvailableTcpPort(HttpsPortDefault) : GetAvailableTcpPort(7443);
+    static int HttpsPort { get; } = GetAvailableTcpPort(HttpsPortDefault);
 
     /// <summary>
     /// 获取已监听的端口
