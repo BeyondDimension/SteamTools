@@ -115,7 +115,7 @@ namespace Avalonia.Controls
                 else
                 {
                     ExtendClientAreaToDecorationsHint = true;
-                    ExtendClientAreaTitleBarHeightHint = -1;
+                    ExtendClientAreaTitleBarHeightHint = System.Application.UI.Views.Controls.TitleBar.DefaultHeight;
 
                     ExtendClientAreaChromeHints =
                         ExtendClientAreaChromeHints.PreferSystemChrome;
@@ -126,7 +126,7 @@ namespace Avalonia.Controls
             else if (OperatingSystem2.IsMacOS())
             {
                 ExtendClientAreaToDecorationsHint = true;
-                ExtendClientAreaTitleBarHeightHint = -1;
+                ExtendClientAreaTitleBarHeightHint = System.Application.UI.Views.Controls.TitleBar.DefaultHeight;
 
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
