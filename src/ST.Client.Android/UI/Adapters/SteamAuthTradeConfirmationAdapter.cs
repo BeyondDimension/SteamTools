@@ -118,15 +118,15 @@ namespace System.Application.UI.Adapters
             var viewModel = ViewModel;
             if (viewModel != null)
             {
-                var ctx = View.Context;
-                if (ctx != null)
+                var currentActivity = XEPlatform.CurrentActivity;
+                if (currentActivity != null)
                 {
                     isGetHtmling = true;
                     var htmlString = await Task.Run(() => vm.GetConfirmationDetailHtml(viewModel));
                     isGetHtmling = false;
                     WebViewActivity.Title = viewModel.Details;
                     WebViewActivity.HtmlString = htmlString;
-                    XEPlatform.CurrentActivity.StartActivity<WebViewActivity>();
+                    currentActivity.StartActivity<WebViewActivity>();
                 }
             }
         });
