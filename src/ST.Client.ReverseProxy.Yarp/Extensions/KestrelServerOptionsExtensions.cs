@@ -10,6 +10,7 @@ using System.Application.Services.Implementation.HttpServer;
 using System.Application.Services.Implementation.HttpServer.Middleware;
 using System.Application.Models;
 using System.Application.Services;
+using System.Net;
 
 namespace Microsoft.AspNetCore.Hosting;
 
@@ -41,7 +42,7 @@ public static class KestrelServerOptionsExtensions
                 $"TCP port {httpProxyPort} is already occupied by other processes.");
         }
 
-        options.ListenLocalhost(httpProxyPort, listen =>
+        options.Listen(IReverseProxyService.Instance.ProxyIp, httpProxyPort, listen =>
         {
             var proxyMiddleware = options.ApplicationServices.GetRequiredService<HttpProxyMiddleware>();
             var tunnelMiddleware = options.ApplicationServices.GetRequiredService<TunnelMiddleware>();
@@ -99,7 +100,7 @@ public static class KestrelServerOptionsExtensions
     public static void ListenHttpReverseProxy(this KestrelServerOptions options)
     {
         var httpPort = IReverseProxyConfig.HttpPort;
-        options.ListenLocalhost(httpPort);
+        options.Listen(IPAddress.Loopback, httpPort);
 
         var logger = options.GetLogger();
         logger.LogInformation(
@@ -119,7 +120,7 @@ public static class KestrelServerOptionsExtensions
         domainResolver.CheckIpv6SupportAsync();
 
         var httpsPort = IReverseProxyConfig.HttpsPort;
-        options.ListenLocalhost(httpsPort, listen =>
+        options.Listen(IPAddress.Loopback, httpsPort, listen =>
         {
             listen.UseFlowAnalyze();
             listen.UseTls();
