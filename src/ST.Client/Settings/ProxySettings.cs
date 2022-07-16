@@ -52,7 +52,7 @@ namespace System.Application.Settings
         /// 系统代理模式IP
         /// </summary>
         public static SerializableProperty<string> SystemProxyIp { get; }
-            = GetProperty(defaultValue: IPAddress.Loopback.ToString(), autoSave: false);
+            = GetProperty(defaultValue: IPAddress.Any.ToString(), autoSave: false);
 
         /// <summary>
         /// 开启加速后仅代理脚本而不加速

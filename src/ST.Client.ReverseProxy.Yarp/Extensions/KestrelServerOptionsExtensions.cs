@@ -54,7 +54,7 @@ public static class KestrelServerOptionsExtensions
         });
 
         options.GetLogger().LogInformation(
-            $"Listened http://localhost:{httpProxyPort}, HTTP proxy service startup completed.");
+            $"Listened http://{IReverseProxyService.Instance.ProxyIp}:{httpProxyPort}, HTTP proxy service startup completed.");
     }
 
     /// <summary>
@@ -100,11 +100,11 @@ public static class KestrelServerOptionsExtensions
     public static void ListenHttpReverseProxy(this KestrelServerOptions options)
     {
         var httpPort = IReverseProxyConfig.HttpPort;
-        options.Listen(IPAddress.Loopback, httpPort);
+        options.Listen(IReverseProxyService.Instance.ProxyIp, httpPort);
 
         var logger = options.GetLogger();
         logger.LogInformation(
-            $"Listened http://localhost:{httpPort}, HTTP reverse proxy service startup completed.");
+            $"Listened http://{IReverseProxyService.Instance.ProxyIp}:{httpPort}, HTTP reverse proxy service startup completed.");
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ public static class KestrelServerOptionsExtensions
         domainResolver.CheckIpv6SupportAsync();
 
         var httpsPort = IReverseProxyConfig.HttpsPort;
-        options.Listen(IPAddress.Loopback, httpsPort, listen =>
+        options.Listen(IReverseProxyService.Instance.ProxyIp, httpsPort, listen =>
         {
             listen.UseFlowAnalyze();
             listen.UseTls();
@@ -128,7 +128,7 @@ public static class KestrelServerOptionsExtensions
 
         var logger = options.GetLogger();
         logger.LogInformation(
-            $"Listened https://localhost:{httpsPort}, HTTPS reverse proxy service startup completed.");
+            $"Listened https://{IReverseProxyService.Instance.ProxyIp}:{httpsPort}, HTTPS reverse proxy service startup completed.");
     }
 
     static ILogger GetLogger(this KestrelServerOptions kestrel)

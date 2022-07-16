@@ -83,8 +83,13 @@ namespace System.Application.Services
                             reverseProxyService.ProxyMode = ProxyMode.System;
                         }
 
-                        // macOS 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
-                        reverseProxyService.ProxyIp = (!OperatingSystem2.IsMacOS() && IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip)) ? ip : IPAddress.Any;
+                        reverseProxyService.ProxyIp = IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip) ? ip : IPAddress.Any;
+
+                        // macOS\Linux 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
+                        if ((OperatingSystem2.IsMacOS() || OperatingSystem2.IsLinux()) && IPAddress.IsLoopback(IReverseProxyService.Instance.ProxyIp))
+                        {
+                            reverseProxyService.ProxyIp = IPAddress.Any;
+                        }
 
                         // Android VPN 模式使用 tun2socks
                         reverseProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem2.IsAndroid() && ProxySettings.ProxyModeValue == ProxyMode.VPN);
