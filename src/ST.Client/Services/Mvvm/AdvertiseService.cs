@@ -94,7 +94,7 @@ namespace System.Application.Services
         public async Task RefrshAdvertise()
         {
             var client = ICloudServiceClient.Instance.Advertisement;
-            var result = await client.All(EAdvertisementType.Banner);
+            var result = await client.All();
 
             if (result.IsSuccess && result.Content != null)
             {
