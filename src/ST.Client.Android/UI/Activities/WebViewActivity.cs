@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Webkit;
+using AndroidX.AppCompat.App;
 using Google.Android.Material.AppBar;
 
 namespace System.Application.UI.Activities;
@@ -11,18 +12,18 @@ namespace System.Application.UI.Activities;
 [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
      LaunchMode = LaunchMode.SingleTask,
      ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-public sealed class WebViewActivity : BaseActivity<WebViewActivity>
+public sealed class WebViewActivity : AppCompatActivity
 {
-    protected override int? LayoutResource => Resource.Layout.activity_toolbar_webview;
-
     MaterialToolbar toolbar = null!;
     WebView? webView;
 
     public static string? HtmlString { get; set; }
 
-    protected override void OnCreate2(Bundle? savedInstanceState)
+    public static new string? Title { get; set; }
+
+    protected override void OnCreate(Bundle? savedInstanceState)
     {
-        base.OnCreate2(savedInstanceState);
+        base.OnCreate(savedInstanceState);
 
         var htmlString = HtmlString;
         if (htmlString == null)
@@ -32,9 +33,13 @@ public sealed class WebViewActivity : BaseActivity<WebViewActivity>
         }
         HtmlString = null;
 
+        SetContentView(Resource.Layout.activity_toolbar_webview);
+
         toolbar = FindViewById<MaterialToolbar>(Resource.Id.toolbar)!;
         webView = FindViewById<WebView>(Resource.Id.webView)!;
         this.SetSupportActionBarWithNavigationClick(toolbar, true);
+        base.Title = Title;
+        Title = null;
         webView.InitOptimize();
         webView.LoadHtmlString(htmlString);
     }

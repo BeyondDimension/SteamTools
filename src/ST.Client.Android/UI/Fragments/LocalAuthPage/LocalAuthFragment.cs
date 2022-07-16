@@ -27,7 +27,7 @@ namespace System.Application.UI.Fragments
 
         protected override LocalAuthPageViewModel? OnCreateViewModel() => Current;
 
-        public override void OnCreate(Bundle savedInstanceState)
+        public override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             HasOptionsMenu = true;

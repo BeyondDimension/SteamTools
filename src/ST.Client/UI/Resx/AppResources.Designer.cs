@@ -4844,6 +4844,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 查看详情 的本地化字符串。
+        /// </summary>
+        public static string SeeDetails {
+            get {
+                return ResourceManager.GetString("SeeDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 全选 的本地化字符串。
         /// </summary>
         public static string SelectAll {

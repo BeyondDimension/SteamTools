@@ -645,9 +645,9 @@ namespace System.Application.UI
 
                 var vmService = IViewModelManager.Instance;
                 vmService.InitViewModels();
+                if (isTrace) StartWatchTrace.Record("VM.Init");
                 handlerViewModelManager?.Invoke(vmService);
-                //vmService.MainWindow.Initialize();
-                if (isTrace) StartWatchTrace.Record("ViewModels");
+                if (isTrace) StartWatchTrace.Record("VM.Delegate");
             }
             finally
             {

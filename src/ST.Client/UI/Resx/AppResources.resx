@@ -2362,4 +2362,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Advertisement_NoShow_Tip" xml:space="preserve">
     <value>仅赞助用户可设置</value>
   </data>
+  <data name="SeeDetails" xml:space="preserve">
+    <value>查看详情</value>
+  </data>
 </root>

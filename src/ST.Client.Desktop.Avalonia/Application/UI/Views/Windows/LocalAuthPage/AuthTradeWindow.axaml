@@ -235,7 +235,7 @@
                                     ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
                               <Button Classes="flatbutton"
                                       Cursor="Hand"
-                                      Content="查看详情"
+                                      Content="{ReflectionBinding Path=Res.SeeDetails,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                       HorizontalAlignment="Stretch"
                                       Background="{DynamicResource ThemeBrushKey}"
                                       Click="ShowHtmlDialog_Click"

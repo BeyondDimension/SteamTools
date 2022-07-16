@@ -126,8 +126,6 @@ namespace System.Application.UI
             if (IsMainProcess)
             {
                 var vmService = IViewModelManager.Instance;
-                vmService.InitViewModels();
-                if (isTrace) StartWatchTrace.Record("ViewModels");
 
 #if __XAMARIN_FORMS__
                 Forms.Init(this, null);
@@ -138,7 +136,8 @@ namespace System.Application.UI
                 _Current = new(RealTheme);
                 if (isTrace) StartWatchTrace.Record("XFApp");
 #endif
-                vmService.MainWindow.Initialize();
+                vmService.MainWindow!.Initialize();
+                if (isTrace) StartWatchTrace.Record("MainVM.Init");
             }
 
             StartupTrack = StartWatchTrace.ToString();

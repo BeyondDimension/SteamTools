@@ -8,6 +8,7 @@ using TViewModel = WinAuth.WinAuthSteamClient.Confirmation;
 using static System.Application.UI.Resx.AppResources;
 using System.Application.UI.Activities;
 using XEPlatform = Xamarin.Essentials.Platform;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.Adapters
 {
@@ -77,6 +78,7 @@ namespace System.Application.UI.Adapters
                 //binding.btnCancelTrade.Text = LocalAuth_AuthTrade_Cancel;
                 //binding.btnConfirmTrade.Text = LocalAuth_AuthTrade_Confirm;
                 SetOperateText(ViewModel!.IsOperate);
+                binding.btnSeeDetails.Text = AppResources.SeeDetails;
             }).AddTo(this);
 
             //binding.btnCancelTrade.SetOnClickListener(this);
@@ -103,7 +105,15 @@ namespace System.Application.UI.Adapters
             //    }).AddTo(this);
         }
 
-        void BtnSeeDetails_Click(object? sender, EventArgs e) => GetDataContext(vm =>
+        bool isGetHtmling;
+
+        void BtnSeeDetails_Click(object? sender, EventArgs e)
+        {
+            if (isGetHtmling) return;
+            SeeDetails();
+        }
+
+        void SeeDetails() => GetDataContext(async vm =>
         {
             var viewModel = ViewModel;
             if (viewModel != null)
@@ -111,7 +121,11 @@ namespace System.Application.UI.Adapters
                 var ctx = View.Context;
                 if (ctx != null)
                 {
-                    WebViewActivity.HtmlString = vm.GetConfirmationDetailHtml(viewModel);
+                    isGetHtmling = true;
+                    var htmlString = await Task.Run(() => vm.GetConfirmationDetailHtml(viewModel));
+                    isGetHtmling = false;
+                    WebViewActivity.Title = viewModel.Details;
+                    WebViewActivity.HtmlString = htmlString;
                     XEPlatform.CurrentActivity.StartActivity<WebViewActivity>();
                 }
             }
