@@ -21,7 +21,7 @@ namespace System.Application.Services.CloudService.Clients
             => conn.SendAsync<List<AdvertisementDTO>>(
                 isPolly: true,
                 isAnonymous: true,
-                isSecurity: false,
+                isSecurity: true,
                 method: HttpMethod.Get,
                 requestUri: $"api/Advertisement/All/{(int)DeviceInfo2.Platform()}/{(int)DeviceInfo2.Idiom()}{(type.HasValue ? $"?type={type}" : "")}",
                 cancellationToken: default);
