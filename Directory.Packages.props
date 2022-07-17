@@ -130,7 +130,7 @@
     <PackageVersion Include="ReactiveUI.Maui" Version="18.2.9" />
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
-    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.79" />
+    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.91" />
     <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.1-preview.79" />
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/SkiaSharp.props -->
     <PackageVersion Include="SkiaSharp" Version="2.88.1-preview.79" />
