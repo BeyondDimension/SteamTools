@@ -41,7 +41,57 @@ namespace System.Application.UI
                 }
                 NSApplication.SharedApplication.ActivationPolicy = NSApplicationActivationPolicy.Regular;
             }
+            Console.WriteLine("开始注册通知");
+            try
+            {
+                var manager = NSAppleEventManager.SharedAppleEventManager;
+                manager.SetEventHandler(this,
+                                       new MonoMac.ObjCRuntime.Selector("handleGetURLEvent:withReplyEvent:"),
+                                       AEEventClass.Internet,
+                                       AEEventID.GetUrl);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
+
+#if MONO_MAC 
+
+        [Export("handleGetURLEvent:withReplyEvent:")]
+        private void HandleGetURLEvent(NSAppleEventDescriptor descriptor, NSAppleEventDescriptor replyEvent)
+        {
+            try
+            {
+                // stackoverflow.com/questions/1945
+                // https://forums.xamarin.com/discussion/9774/custom-url-schema-handling
+                var keyDirectObject = "----";
+                var keyword =
+                    ((uint)keyDirectObject[0]) << 24 |
+                    ((uint)keyDirectObject[1]) << 16 |
+                    ((uint)keyDirectObject[2]) << 8 |
+                    ((uint)keyDirectObject[3]);
+
+                var urlString = descriptor.ParamDescriptorForKeyword(keyword).StringValue;
+
+                using (var alert = new NSAlert())
+                {
+                    alert.MessageText = urlString;
+                    alert.RunSheetModal(null);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+#elif XAMARIN_MAC
+        public override void OpenUrls(NSApplication application, NSUrl[] urls)
+        {
+            throw new System.Exception("opened with: " + urls[0].AbsoluteString);
+        }
+
+#endif
 
         /// <summary>
         /// Because we are creating our own mac application delegate we are removing / overriding
@@ -77,7 +127,7 @@ namespace System.Application.UI
 
         internal static AppDelegate? Instance { get; private set; }
 
-        public static void Init(/*string[] args*/)
+        public static void Init(string[] args)
         {
             if (!isInitialized)
             {
