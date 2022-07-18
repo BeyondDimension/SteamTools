@@ -268,13 +268,13 @@ namespace System.Application.Services.CloudService
             return ApiResponse.Ok(new NoticeTypeDTO[] { });
         }
 
-        public async Task<IApiResponse<NoticeDTO[]>> NewMsg(Guid typeId, DateTimeOffset? time)
+        public async Task<IApiResponse<NoticeDTO[]>> NewMsg(Guid? typeId, DateTimeOffset? time)
         {
             await Task.Delay(1500);
             return ApiResponse.Ok(new NoticeDTO[] { });
         }
 
-        public async Task<IApiResponse<PagedModel<NoticeDTO>>> Table(Guid typeId, int index, int? size = null)
+        public async Task<IApiResponse<PagedModel<NoticeDTO>>> Table(Guid? typeId, int index, int? size = null)
         {
             await Task.Delay(1500);
             return ApiResponse.Ok(new PagedModel<NoticeDTO> { });

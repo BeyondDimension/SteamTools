@@ -76,15 +76,15 @@ namespace System.Application.UI.ViewModels
             UserService.Current.ShowWindow(CustomWindow.BindPhoneNumber);
         });
 
-        public override async void Activation()
-        {
-            if (IsFirstActivation && !NotificationService.Current.NoticeTypes.Any_Nullable())
-                await NotificationService.Current.InitializeNotice();
-            var defaultNotice = NotificationService.Current?.NoticeTypesSource.Items.FirstOrDefault();
-            if (defaultNotice != null && NotificationService.Current?.SelectGroup?.Id != defaultNotice.Id)
-                await NotificationService.Current!.GetTable(defaultNotice!);
-            base.Activation();
-        }
+        //public override async void Activation()
+        //{
+        //    if (IsFirstActivation && !NotificationService.Current.NoticeTypes.Any_Nullable())
+        //        await NotificationService.Current.InitializeNotice();
+        //    var defaultNotice = NotificationService.Current?.NoticeTypesSource.Items.FirstOrDefault();
+        //    if (defaultNotice != null && NotificationService.Current?.SelectGroup?.Id != defaultNotice.Id)
+        //        await NotificationService.Current!.GetTable(defaultNotice!);
+        //    base.Activation();
+        //}
 
         public bool IsSponsor => UserService.Current.User?.UserType.HasFlag(UserType.Sponsor) ?? false;
 

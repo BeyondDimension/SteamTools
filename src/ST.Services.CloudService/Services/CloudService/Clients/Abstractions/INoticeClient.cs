@@ -8,8 +8,8 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
     {
         Task<IApiResponse<NoticeTypeDTO[]>> Types();
 
-        Task<IApiResponse<PagedModel<NoticeDTO>>> Table(Guid typeId, int index, int? size = null);
+        Task<IApiResponse<PagedModel<NoticeDTO>>> Table(Guid? typeId, int index, int? size = null);
 
-        Task<IApiResponse<NoticeDTO[]>> NewMsg(Guid typeId, DateTimeOffset? time);
+        Task<IApiResponse<NoticeDTO[]>> NewMsg(Guid? typeId, DateTimeOffset? time);
     }
 }

@@ -38,36 +38,5 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public int Order { get; set; }
-
-#if MVVM_VM
-        /// <summary>
-        /// Table Index
-        /// </summary> 
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public int Index
-        {
-            get => _Index;
-            set => this.RaiseAndSetIfChanged(ref _Index, value);
-        }
-
-        int _Index = 1;
-
-        /// <summary>
-        /// 通知列表
-        /// </summary> 
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public PagedModel<NoticeDTO>? Items
-        {
-            get => mItems;
-            set => this.RaiseAndSetIfChanged(ref mItems, value);
-        }
-
-        PagedModel<NoticeDTO>? mItems;
-
-#endif
     }
 }

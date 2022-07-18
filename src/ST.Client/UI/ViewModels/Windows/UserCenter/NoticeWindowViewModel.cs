@@ -1,6 +1,7 @@
 using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
@@ -17,10 +18,44 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<string, Unit>? OpenNotice { get; }
 
+        private ReadOnlyObservableCollection<NoticeDTO> _Notices;
+
+        public ReadOnlyObservableCollection<NoticeDTO> Notices => _Notices;
+
+        [Reactive]
+        public bool IsLoading { get; set; }
+
+        public bool IsEmpty => !Notices.Any_Nullable();
+
+        [Reactive]
+        public NoticeTypeDTO? SelectGroup { get; set; }
+
+        [Reactive]
+        public NoticeDTO NoticeItem { get; set; }
+
         public NoticeWindowViewModel()
         {
             Title = GetTitleByDisplayName(DisplayName);
             OpenNotice = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
+
+            NotificationService.Current.NoticesSource
+                .Connect()
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Sort(SortExpressionComparer<NoticeDTO>.Ascending(x => x.EnableTime).ThenBy(x => x.Title))
+                .Bind(out _Notices)
+                .Subscribe(_ =>
+                {
+                    NoticeItem = Notices.FirstOrDefault();
+                    this.RaisePropertyChanged(nameof(IsEmpty));
+                });
+
+            this.WhenValueChanged(x => x.SelectGroup, false)
+                .Subscribe(async x =>
+                {
+                    IsLoading = true;
+                    await NotificationService.Current.LoadNotification(x);
+                    IsLoading = false;
+                });
         }
 
         public void OpenNoticeWeb(NoticeDTO item)
@@ -31,8 +66,9 @@ namespace System.Application.UI.ViewModels
 
         public override async void Activation()
         {
-            if (IsFirstActivation && NotificationService.Current.NoticeTypes.Count == 0)
-                await NotificationService.Current.InitializeNotice();
+            //if (IsFirstActivation)
+            await NotificationService.Current.LoadNoticeTypes();
+            await NotificationService.Current.LoadNotification(SelectGroup);
             base.Activation();
         }
 
