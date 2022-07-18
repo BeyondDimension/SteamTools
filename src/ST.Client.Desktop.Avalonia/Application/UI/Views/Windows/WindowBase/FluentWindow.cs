@@ -117,10 +117,9 @@ namespace Avalonia.Controls
                     ExtendClientAreaToDecorationsHint = true;
                     ExtendClientAreaTitleBarHeightHint = System.Application.UI.Views.Controls.TitleBar.DefaultHeight;
 
-                    ExtendClientAreaChromeHints =
-                        ExtendClientAreaChromeHints.PreferSystemChrome;
+                    ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
+                    PseudoClasses.Add(":windows7");
                 }
-
                 PseudoClasses.Add(":windows");
             }
             else if (OperatingSystem2.IsMacOS())
@@ -128,8 +127,7 @@ namespace Avalonia.Controls
                 ExtendClientAreaToDecorationsHint = true;
                 ExtendClientAreaTitleBarHeightHint = System.Application.UI.Views.Controls.TitleBar.DefaultHeight;
 
-                ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.PreferSystemChrome;
+                ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
             }
             else
             {

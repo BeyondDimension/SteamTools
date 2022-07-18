@@ -71,7 +71,7 @@
         <Setter Property="Margin" Value="{StaticResource CaptionButtonMargin}" />
     </Style>
 
-    <!--<Style Selector="Window:windows">
+    <Style Selector="Window:windows7">
         <Setter Property="Template" Value="{StaticResource WindowTemplate}" />
-    </Style>-->
+    </Style>
 </Styles>

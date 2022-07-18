@@ -15,7 +15,7 @@
         xmlns:gif="using:AvaloniaGif"
         xmlns:wv2="clr-namespace:Avalonia.Controls;assembly=Avalonia.WebView2"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         x:DataType="vm:AuthTradeWindowViewModel"
         x:CompileBindings="True"
         Title="{Binding Title}">

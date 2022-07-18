@@ -13,7 +13,7 @@
         xmlns:gif="using:AvaloniaGif"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         Title="{Binding Title}"
         x:Name="u"
         x:DataType="vm:CloudArchiveWindowViewModel"

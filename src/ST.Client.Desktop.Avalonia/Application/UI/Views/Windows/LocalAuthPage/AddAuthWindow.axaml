@@ -15,7 +15,6 @@
         xmlns:gif="using:AvaloniaGif"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         WindowStartupLocation="CenterOwner"
-        ExtendClientAreaTitleBarHeightHint="30"
         Background="Transparent"
         x:DataType="vm:AddAuthWindowViewModel"
         x:CompileBindings="True"

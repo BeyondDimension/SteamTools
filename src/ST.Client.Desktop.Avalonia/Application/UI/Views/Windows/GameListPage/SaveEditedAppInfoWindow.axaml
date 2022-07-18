@@ -11,7 +11,7 @@
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:ms="using:System.Application.Settings"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         x:Name="u"
         Title="{Binding Title}"
         x:DataType="vm:SaveEditedAppInfoWindowViewModel"

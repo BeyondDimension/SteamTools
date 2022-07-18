@@ -11,7 +11,7 @@
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:ms="using:System.Application.Settings"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         Title="{Binding Title}"
         CanResize="True"
         x:DataType="vm:SignWindowViewModel"

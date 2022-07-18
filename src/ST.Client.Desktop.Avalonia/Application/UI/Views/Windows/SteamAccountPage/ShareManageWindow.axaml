@@ -15,7 +15,7 @@
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         x:Name="u"
         Title="{Binding Title}"
         x:DataType="vm:ShareManageViewModel"

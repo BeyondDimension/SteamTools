@@ -14,7 +14,7 @@
         xmlns:gif="using:AvaloniaGif"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         Title="{Binding Title}"
         x:DataType="vm:SteamShutdownWindowViewModel"
         x:CompileBindings="True">

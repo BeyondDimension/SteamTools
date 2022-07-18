@@ -16,7 +16,7 @@
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         CanResize="False"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:BindPhoneNumberWindowViewModel"
         x:CompileBindings="True"

@@ -12,7 +12,7 @@
         xmlns:models="using:System.Application.Models"
         xmlns:gif="using:AvaloniaGif"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         Title="{Binding Title}"
         x:Name="u"
         x:DataType="vm:AchievementWindowViewModel"

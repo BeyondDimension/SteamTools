@@ -20,7 +20,7 @@
         ShowInTaskbar="False"
         x:Name="u"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         CanResize="False"
         Title="{Binding Title}"
         x:DataType="vm:MessageBoxWindowViewModel"

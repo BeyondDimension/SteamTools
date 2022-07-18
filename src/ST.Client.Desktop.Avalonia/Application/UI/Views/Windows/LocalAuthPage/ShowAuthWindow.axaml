@@ -10,7 +10,7 @@
         xmlns:controls="using:System.Application.UI.Views.Controls"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
+        
         Title="{Binding Title}"
         x:DataType="vm:ShowAuthWindowViewModel"
         x:CompileBindings="True">
