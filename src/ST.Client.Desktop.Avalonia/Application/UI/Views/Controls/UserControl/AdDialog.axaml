@@ -25,7 +25,7 @@
                     ToolTip.Tip="{Binding Remark}"
                     Command="{ReflectionBinding ClickAdvertisement,Mode=OneWay,Source={x:Static service:AdvertiseService.Current}}"
                     CommandParameter="{Binding}">
-              <gif:Image2 Source="{Binding ImageUrl}"
+              <gif:Image2 Source="{Binding ImageUrl^}"
                           Stretch="UniformToFill"
                           FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"/>
             </Button>

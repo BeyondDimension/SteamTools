@@ -98,13 +98,13 @@ namespace System.Application.Services
         {
             var client = ICloudServiceClient.Instance.Notice;
             var result = await client.Table(selectGroup?.Id, 0, 30);
-            if (result.IsSuccess)
+            if (result.IsSuccess && result.Content != null)
             {
-                foreach (var item in result.Content!.DataSource)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.Picture))
-                        item.PictureStream = httpService.GetImageAsync(item.Picture, ImageChannelType.NoticePicture);
-                }
+                //foreach (var item in result.Content!.DataSource)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(item.Picture))
+                //        item.PictureStream = httpService.GetImageAsync(item.Picture, ImageChannelType.NoticePicture);
+                //}
                 NoticesSource.Clear();
                 NoticesSource.AddOrUpdate(result.Content.DataSource);
             }

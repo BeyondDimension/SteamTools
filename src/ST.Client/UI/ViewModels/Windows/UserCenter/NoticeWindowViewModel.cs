@@ -31,7 +31,7 @@ namespace System.Application.UI.ViewModels
         public NoticeTypeDTO? SelectGroup { get; set; }
 
         [Reactive]
-        public NoticeDTO NoticeItem { get; set; }
+        public NoticeDTO? NoticeItem { get; set; }
 
         public NoticeWindowViewModel()
         {

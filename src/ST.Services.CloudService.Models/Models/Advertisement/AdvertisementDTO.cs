@@ -1,6 +1,7 @@
 #if MVVM_VM
 using ReactiveUI;
 using System.Collections.Generic;
+using System.Application.Services;
 using static System.Application.Constants.Urls;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
@@ -57,11 +58,10 @@ namespace System.Application.Models
         public EAdvertisementStandard Standard { get; set; }
 
 #if MVVM_VM
-
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public string ImageUrl => API_Advertisement_ImageUrl(Id);
+        public Task<string?>? ImageUrl => IHttpService.Instance.GetImageAsync(API_Advertisement_ImageUrl(Id), "Advertisement"/*ImageChannelType.Advertisement*/);
 
         [MPIgnore]
         [N_JsonIgnore]

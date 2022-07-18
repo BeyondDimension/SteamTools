@@ -49,7 +49,12 @@ namespace System.Application
         /// <summary>
         /// 通知公告封面图
         /// </summary>
-        NoticePicture
+        NoticePicture,
+
+        /// <summary>
+        /// 广告图片
+        /// </summary>
+        Advertisement,
     }
 }
 

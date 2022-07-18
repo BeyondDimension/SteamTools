@@ -1,6 +1,8 @@
 #if MVVM_VM
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Collections.Generic;
+using System.Application.Services;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
@@ -38,16 +40,10 @@ namespace System.Application.Models
         public string Picture { get; set; } = string.Empty;
 
 #if MVVM_VM
-        Task<string?>? _PictureStream;
-
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public Task<string?>? PictureStream
-        {
-            get => _PictureStream;
-            set => this.RaiseAndSetIfChanged(ref _PictureStream, value);
-        }
+        public Task<string?>? PictureStream => IHttpService.Instance.GetImageAsync(Picture, "NoticePicture"/*ImageChannelType.NoticePicture*/);
 #endif
 
         /// <summary>
