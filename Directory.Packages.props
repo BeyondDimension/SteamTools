@@ -116,7 +116,7 @@
     <!-- NLog -->
     <PackageVersion Include="NLog" Version="5.0.1" />
     <PackageVersion Include="NLog.Extensions.Logging" Version="5.0.1" />
-    <PackageVersion Include="NLog.Web.AspNetCore" Version="5.0.0" />
+    <PackageVersion Include="NLog.Web.AspNetCore" Version="5.1.0" />
     <PackageVersion Include="AspNetCore2.NETStandard.NLog.Web.AspNetCore" Version="5.0.0" />
 
     <!-- ReactiveUI -->
