@@ -123,7 +123,7 @@
     <PackageVersion Include="System.Reactive" Version="5.0.0" />
     <PackageVersion Include="Splat" Version="14.4.1" />
     <PackageVersion Include="DynamicData" Version="7.9.5" />
-    <PackageVersion Include="ReactiveUI" Version="18.2.9" />
+    <PackageVersion Include="ReactiveUI" Version="18.3.1" />
     <PackageVersion Include="ReactiveUI.Fody" Version="18.2.9" />
     <PackageVersion Include="ReactiveUI.XamForms" Version="18.2.9" />
     <PackageVersion Include="ReactiveUI.AndroidX" Version="18.2.9" />
