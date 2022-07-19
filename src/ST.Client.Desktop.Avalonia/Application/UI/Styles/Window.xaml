@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:System.Application.UI.Views.Controls"
     xmlns:ms="using:System.Application.Settings"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:wnd="using:Avalonia.Controls">
     <Design.PreviewWith />
     <Styles.Resources>
@@ -24,6 +25,7 @@
                         ContentTemplate="{TemplateBinding ContentTemplate}"
                         DockPanel.Dock="Bottom" />
                 </VisualLayerManager>
+                <ui:CoreSplashScreen Name="SplashHost" />
             </Panel>
         </ControlTemplate>
     </Styles.Resources>

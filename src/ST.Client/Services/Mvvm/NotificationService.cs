@@ -97,7 +97,7 @@ namespace System.Application.Services
         public async Task LoadNotification(NoticeTypeDTO? selectGroup)
         {
             var client = ICloudServiceClient.Instance.Notice;
-            var result = await client.Table(selectGroup?.Id, 0, 30);
+            var result = await client.Table(selectGroup?.Id, 1, 30);
             if (result.IsSuccess && result.Content != null)
             {
                 //foreach (var item in result.Content!.DataSource)
