@@ -176,7 +176,7 @@
     <PackageVersion Include="TaskScheduler" Version="2.10.1" />
 
     <!-- Swagger -->
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.3.2" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.2" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.3.2" />
     <PackageVersion Include="AspNetCore2.NETStandard.Swashbuckle.AspNetCore" Version="6.3.1" />
