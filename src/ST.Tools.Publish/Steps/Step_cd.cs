@@ -134,7 +134,7 @@ namespace System.Application.Steps
             if (!Step3.Handler(value, dev)) throw new Exception("Step3.Handler fail.");
         }
 
-        static readonly bool EnableStepAppHostPatcher = false; // 因 https://github.com/dotnet/runtime/pull/63533 使用单文件不在需要 Bin 文件夹
+        public static readonly bool EnableStepAppHostPatcher = false; // 因 https://github.com/dotnet/runtime/pull/63533 使用单文件不在需要 Bin 文件夹
 
         static async Task FullHandlerAsync(string token, string[] val, bool dev, string win_sign_pfx_pwd)
         {
@@ -154,6 +154,7 @@ namespace System.Application.Steps
                 var fde_val = val.Where(x => x.StartsWith("win-")).ToArray(); // 仅 Windows 发行依赖部署(FDE) 包
                 if (fde_val.Any()) publishDict.Add(DeploymentMode.FDE, fde_val);
 
+                Console.WriteLine($"EnableStepAppHostPatcher: {EnableStepAppHostPatcher}");
                 if (EnableStepAppHostPatcher)
                 {
                     // X. (本地)将发布 Host 入口点重定向到 Bin 目录中

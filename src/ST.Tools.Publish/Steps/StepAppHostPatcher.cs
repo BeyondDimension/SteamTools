@@ -17,6 +17,7 @@ namespace System.Application.Steps
 
         public static void Handler(bool dev, DeploymentMode d, bool endWriteOK = true)
         {
+            if (!Step_cd.EnableStepAppHostPatcher) return;
             var configuration = GetConfiguration(dev, isLower: false);
             var pubPath = d switch
             {
