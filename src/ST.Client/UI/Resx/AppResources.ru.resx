@@ -2376,7 +2376,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Обновление версии Watt Toolkit v{0}</value>
+    <value>Обновление версии {1} v{0}</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">

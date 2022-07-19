@@ -2066,7 +2066,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Aggiornamento della versione v{0} di Watt Toolkit</value>
+    <value>Aggiornamento della versione v{0} di {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">

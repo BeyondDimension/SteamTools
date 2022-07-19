@@ -4042,7 +4042,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Watt Toolkit v{0} 版本更新 的本地化字符串。
+        ///   查找类似 {1} v{0} 版本更新 的本地化字符串。
         /// </summary>
         public static string NewVersionUpdateTitle_ {
             get {

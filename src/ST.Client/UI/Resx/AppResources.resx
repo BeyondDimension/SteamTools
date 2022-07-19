@@ -1866,7 +1866,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>新版本更新</value>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Watt Toolkit v{0} 版本更新</value>
+    <value>{1} v{0} 版本更新</value>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
     <value>当有新公告时的提示通知。</value>

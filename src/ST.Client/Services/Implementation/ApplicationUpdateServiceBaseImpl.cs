@@ -116,14 +116,14 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public string NewVersionInfoTitle => AppResources.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version);
+        public string NewVersionInfoTitle => AppResources.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version, ThisAssembly.AssemblyTrademark);
 
         /// <summary>
         /// 当存在新的版本时，重写此方法实现弹窗提示用户
         /// </summary>
         protected virtual async void OnExistNewVersion()
         {
-            var result = await MessageBox.ShowAsync(NewVersionInfoDesc, AppResources.UpdateContent, MessageBox.Button.OKCancel);
+            var result = await MessageBox.ShowAsync(NewVersionInfoDesc, NewVersionInfoTitle, MessageBox.Button.OKCancel);
             if (result.IsOK())
             {
                 StartUpdateCommand.Invoke();
