@@ -342,7 +342,7 @@
                 <controls:AppCard Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}"
                                   x:Name="AppCard">
                   <FlyoutBase.AttachedFlyout>
-                    <MenuFlyout Placement="Auto">
+                    <MenuFlyout Placement="RightEdgeAlignedTop">
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_Play,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"

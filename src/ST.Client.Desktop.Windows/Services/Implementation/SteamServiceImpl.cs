@@ -960,9 +960,10 @@ namespace System.Application.Services.Implementation
                 if (!libraryPaths.Any_Nullable())
                 {
                     Toast.Show($"No game library found.");
+                    return appInfos;
                 }
 
-                foreach (string path in libraryPaths!)
+                foreach (string path in libraryPaths)
                 {
                     var di = new DirectoryInfo(path);
                     if (!di.Exists) continue;

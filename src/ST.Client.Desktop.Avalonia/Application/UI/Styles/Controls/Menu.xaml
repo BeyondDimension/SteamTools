@@ -29,9 +29,6 @@
             </Menu>
         </Border>
     </Design.PreviewWith>
-    <Styles.Resources>
-        <Thickness x:Key="CaptionButtonMargin">0 0 140 0</Thickness>
-    </Styles.Resources>
 
     <!--<Style Selector="Menu.BindMenu MenuItem">
         <Setter Property="Icon">

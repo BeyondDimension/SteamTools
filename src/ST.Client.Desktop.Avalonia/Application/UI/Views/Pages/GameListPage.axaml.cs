@@ -15,10 +15,10 @@ namespace System.Application.UI.Views.Pages
             InitializeComponent();
 
             var apps = this.FindControl<ItemsRepeater>("Apps");
-            apps.PointerPressed += App_PointerPressed;
+            apps.PointerReleased += App_PointerReleased;
         }
 
-        private static void App_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+        private static void App_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
         {
             if (e.Source is Control c)
             {

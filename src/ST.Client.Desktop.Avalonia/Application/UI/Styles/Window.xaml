@@ -73,6 +73,10 @@
         <Setter Property="Margin" Value="{StaticResource CaptionButtonMargin}" />
     </Style>
 
+    <Style Selector=":is(Window):windows7 Menu.BarMenu">
+        <Setter Property="Margin" Value="0 0 190 0" />
+    </Style>
+
     <Style Selector="Window:windows7">
         <Setter Property="Template" Value="{StaticResource WindowTemplate}" />
     </Style>
