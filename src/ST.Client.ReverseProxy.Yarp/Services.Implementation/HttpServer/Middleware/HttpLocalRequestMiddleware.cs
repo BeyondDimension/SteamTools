@@ -83,6 +83,7 @@ sealed class HttpLocalRequestMiddleware
         string? cookie = context.Request.Headers["cookie-steamTool"];
         if (string.IsNullOrEmpty(cookie))
             cookie = context.Request.Headers["Cookie"];
+        string? referer = context.Request.Headers["Referer-steamTool"];
 
         context.Response.Headers.AccessControlAllowOrigin = context.Request.Headers.Origin.Count == 0 ? "*" : context.Request.Headers.Origin;
         context.Response.Headers.AccessControlAllowHeaders = "*";
@@ -122,6 +123,9 @@ sealed class HttpLocalRequestMiddleware
                         {
                             req.Headers.Add("Cookie", cookie);
                         }
+                        if (referer != null)
+                            req.Headers.Referrer = new Uri(referer);
+
                         req.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(context.Request.ContentType);
                         req.Content.Headers.ContentLength = context.Request.ContentLength;
                         return req;
