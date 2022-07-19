@@ -43,7 +43,7 @@ namespace System.Application.Models
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public Task<string?>? PictureStream => IHttpService.Instance.GetImageAsync(Picture, "NoticePicture"/*ImageChannelType.NoticePicture*/);
+        public Task<string?>? PictureStream => !string.IsNullOrEmpty(Picture) ? IHttpService.Instance.GetImageAsync(Picture, "NoticePicture"/*ImageChannelType.NoticePicture*/) : null;
 #endif
 
         /// <summary>

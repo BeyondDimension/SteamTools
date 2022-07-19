@@ -11,6 +11,7 @@ using DynamicData.Binding;
 using ReactiveUI.Fody.Helpers;
 using System.Application.Settings;
 using System.Threading.Tasks;
+using System.Application.UI;
 
 namespace System.Application.Services
 {
@@ -58,8 +59,6 @@ namespace System.Application.Services
                 .Bind(out _VerticalBannerAdvertisements)
                 .Subscribe();
 
-            InitAdvertise();
-
             UserService.Current.WhenValueChanged(x => x.User, false)
                     .Subscribe(_ => CheckShow());
 
@@ -80,6 +79,11 @@ namespace System.Application.Services
             //            AdvertisementsSource.Clear();
             //        }
             //    });
+
+            if (IApplication.IsDesktopPlatform)
+            {
+                InitAdvertise();
+            }
         }
 
         public async void InitAdvertise()

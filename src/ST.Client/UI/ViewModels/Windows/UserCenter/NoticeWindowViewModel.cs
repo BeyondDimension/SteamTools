@@ -16,8 +16,6 @@ namespace System.Application.UI.ViewModels
     {
         public static string DisplayName => AppResources.NotificationChannelType_Name_Announcement;
 
-        public ReactiveCommand<string, Unit>? OpenNotice { get; }
-
         private ReadOnlyObservableCollection<NoticeDTO> _Notices;
 
         public ReadOnlyObservableCollection<NoticeDTO> Notices => _Notices;
@@ -28,15 +26,23 @@ namespace System.Application.UI.ViewModels
         public bool IsEmpty => !Notices.Any_Nullable();
 
         [Reactive]
-        public NoticeTypeDTO? SelectGroup { get; set; }
+        public NoticeTypeDTO? SelectType { get; set; }
 
         [Reactive]
         public NoticeDTO? NoticeItem { get; set; }
 
+        //public ReactiveCommand<Unit, Unit>? OpenNotice { get; }
+
+        public ReactiveCommand<Unit, Unit>? MarkAllRead { get; }
+
         public NoticeWindowViewModel()
         {
             Title = GetTitleByDisplayName(DisplayName);
-            OpenNotice = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
+            //OpenNotice = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
+            MarkAllRead = ReactiveCommand.Create(() =>
+            {
+
+            });
 
             NotificationService.Current.NoticesSource
                 .Connect()
@@ -49,7 +55,7 @@ namespace System.Application.UI.ViewModels
                     this.RaisePropertyChanged(nameof(IsEmpty));
                 });
 
-            this.WhenValueChanged(x => x.SelectGroup, false)
+            this.WhenValueChanged(x => x.SelectType, false)
                 .Subscribe(async x =>
                 {
                     IsLoading = true;
@@ -58,19 +64,20 @@ namespace System.Application.UI.ViewModels
                 });
         }
 
+        public override async void Activation()
+        {
+            //if (IsFirstActivation)
+            IsLoading = true;
+            await NotificationService.Current.LoadNoticeTypes();
+            await NotificationService.Current.LoadNotification(SelectType);
+            IsLoading = false;
+            base.Activation();
+        }
+
         public void OpenNoticeWeb(NoticeDTO item)
         {
             if (item.IsOpenBrowser)
                 Browser2.Open(string.Format(UrlConstants.OfficialWebsite_Notice, item.Id));
         }
-
-        public override async void Activation()
-        {
-            //if (IsFirstActivation)
-            await NotificationService.Current.LoadNoticeTypes();
-            await NotificationService.Current.LoadNotification(SelectGroup);
-            base.Activation();
-        }
-
     }
 }

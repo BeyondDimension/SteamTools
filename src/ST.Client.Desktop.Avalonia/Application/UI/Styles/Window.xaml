@@ -25,7 +25,7 @@
                         ContentTemplate="{TemplateBinding ContentTemplate}"
                         DockPanel.Dock="Bottom" />
                 </VisualLayerManager>
-                <ui:CoreSplashScreen Name="SplashHost" />
+                <ui:CoreSplashScreen Name="SplashHost" IsVisible="False" />
             </Panel>
         </ControlTemplate>
     </Styles.Resources>
