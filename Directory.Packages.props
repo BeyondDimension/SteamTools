@@ -236,7 +236,7 @@
     <PackageVersion Include="Polly" Version="7.2.3" />
 
     <!--Avalonia Start-->
-    <PackageVersion Include="Avalonia" Version="0.10.16" />
+    <PackageVersion Include="Avalonia" Version="0.10.17" />
     <PackageVersion Include="Avalonia.Desktop" Version="0.10.16" />
     <PackageVersion Include="Avalonia.Skia" Version="0.10.16" />
     <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.16" />
