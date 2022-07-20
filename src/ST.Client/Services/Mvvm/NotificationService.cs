@@ -104,7 +104,6 @@ namespace System.Application.Services
         {
             var client = ICloudServiceClient.Instance.Notice;
             var typeid = selectGroup == DefaultType ? null : selectGroup?.Id;
-            var isAll = typeid is null;
             var result = await client.Table(typeid, 1, 30);
             if (result.IsSuccess && result.Content != null)
             {
@@ -114,31 +113,25 @@ namespace System.Application.Services
                 //        item.PictureStream = httpService.GetImageAsync(item.Picture, ImageChannelType.NoticePicture);
                 //}
                 NoticesSource.Clear();
-                NoticesSource.AddOrUpdate(result.Content.DataSource);
-                if (isAll)
-                {
-                    await LoadHasReadRecord();
-                }
+                var data = await LoadHasReadRecord(result.Content.DataSource);
+                NoticesSource.AddOrUpdate(data);
             }
         }
 
-        public async Task LoadHasReadRecord()
+        public async Task<List<NoticeDTO>> LoadHasReadRecord(List<NoticeDTO> notices)
         {
             var data = await notificationRepository.GetAllAsync(w => w.ExpirationTime > DateTimeOffset.Now);
             if (data.Any_Nullable())
             {
-                //var oldData = data.Where(w => w.ExpirationTime > DateTimeOffset.Now);
-                //if (oldData.Any())
-                //    await notificationRepository.DeleteRangeAsync(oldData);
                 UnreadNotificationsCount = data.Count(x => !x.HasRead);
 
-                foreach (var d in data)
+                foreach (var notice in notices)
                 {
-                    var notice = NoticesSource.Lookup(d.Id);
-                    if (notice.HasValue)
-                        notice.Value.HasRead = d.HasRead;
+                    var n = data.FirstOrDefault(f => f.Id == notice.Id);
+                    notice.HasRead = n.HasRead;
                 }
             }
+            return notices;
         }
 
         public async Task InsertNotificationRecord(IEnumerable<NoticeDTO> notices)
@@ -162,8 +155,10 @@ namespace System.Application.Services
         public async Task MarkNotificationHasRead(params Entities.Notification[] notice)
         {
             await notificationRepository.UpdateRangeAsync(notice);
+            UnreadNotificationsCount -= notice.Length;
+            UnreadNotificationsCount = UnreadNotificationsCount < 0 ? 0 : UnreadNotificationsCount;
         }
-        
+
         public async void DeleteExpiredRecordAsync()
         {
             var data = await notificationRepository.GetAllAsync(w => w.ExpirationTime < DateTimeOffset.Now);
