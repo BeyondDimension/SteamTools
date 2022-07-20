@@ -4,7 +4,7 @@
 
 [English](./README.en.md) | 简体中文
 
-「Watt Toolkit」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装 Steam 才能使用。
+「Watt Toolkit」是一个开源跨平台的多功能游戏工具箱，此工具箱的大部分功能都是需要您下载并安装 Steam 后才可使用。
 
 ![Release Download](https://img.shields.io/github/downloads/BeyondDimension/SteamTools/total?style=flat-square)
 [![Release Version](https://img.shields.io/github/v/release/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/releases/latest)
@@ -43,19 +43,19 @@
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [![Microsoft Store](./resources/MSStore_eng_withframe.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 - [AUR](https://aur.archlinux.org/packages/watt-toolkit-bin)(官方 Release 构建)
-- [AUR dev](https://aur.archlinux.org/packages/watt-toolkit-git)(拉取最新源代码从本地构建，不保证可用性，构建也许会出现失败问题)
+- [AUR dev](https://aur.archlinux.org/packages/watt-toolkit-git)(拉取最新源代码从本地构建，不保证可用性，构建可能会出现失败问题)
 
 ## ✨ 功能
 1. 网络加速 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
     - ~~使用 [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) 开源项目进行本地反代来支持更快的访问游戏网站。~~
-	- 使用 [YARP.ReverseProxy](https://github.com/microsoft/reverse-proxy) 开源项目进行本地反代来支持更快的访问游戏网站。
+	- 使用 [YARP.ReverseProxy](https://github.com/microsoft/reverse-proxy) 开源项目进行本地反代以支持更快的访问游戏网站。
 2. 脚本配置 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
-	- 通过加速服务拦截网络请求将一些 JS 脚本注入在网页中，提供类似网页插件的功能。
+	- 通过加速服务拦截网络请求将一些 JS 脚本注入到网页中，提供类似网页插件的功能。
 3. 账号切换 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
 	- 一键切换已在当前 PC 上登录过的 Steam 账号，与管理家庭共享库排序及禁用等功能。
 4. 库存管理 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
-	- 让您直接管理 Steam 游戏库存，可以编辑游戏名称和[自定义封面](https://www.steamgriddb.com/)，也能解锁以及反解锁 Steam 游戏成就。
-	- 监控 Steam 游戏下载进度实现 Steam 游戏下载完成定时关机功能。
+	- 让您直接管理 Steam 游戏库存，可以编辑游戏名称和[自定义封面](https://www.steamgriddb.com/)，也能解锁或反解锁 Steam 游戏成就。
+	- 监控 Steam 游戏下载进度实现 Steam 游戏下载完成后定时关机的功能。
 	- 模拟运行 Steam 游戏，让您不用安装和下载对应的游戏也能挂游玩时间和 Steam 卡片
 	- 自助管理 Steam 游戏云存档，随时删除和上传自定义的存档文件至 Steam 云
 5. 本地令牌 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
