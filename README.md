@@ -38,10 +38,10 @@
 </div>
 
 ## 🚀 下载渠道
+- [Official WebSite](https://steampp.net)
 - [GitHub Releases](https://github.com/BeyondDimension/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
-- [Official WebSite](https://steampp.net)
-- [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
+- [![Microsoft Store](./resources/MSStore_eng_withframe.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 - [AUR](https://aur.archlinux.org/packages/watt-toolkit-bin)(官方 Release 构建)
 - [AUR dev](https://aur.archlinux.org/packages/watt-toolkit-git)(拉取最新源代码从本地构建，不保证可用性，构建也许会出现失败问题)
 
@@ -77,9 +77,9 @@ OS                                    | Version                    | Architectur
 [Windows 11][Windows-client]          | Version 22000+             | x64,            | [Windows][Windows-lifecycle]
 [Windows Server][Windows-Server]      | 2008 R2 SP1(**\***), 2012+ | x64             | [Windows Server][Windows-Server-lifecycle]
 
-**\*** Windows 7 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) 且将在不再支持 **2022/11** 后发布的版本。  
-**\*** Windows 8.1 将在不再支持 **2022/11** 后发布的版本。  
-**\*** Windows Server 2008 R2 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/zh-cn/lifecycle/faq/extended-security-updates) 且将在不再支持 **2022/11** 后发布的版本。  
+**\*** Windows 7 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) 且将不再支持 **2022/11** 后发布的版本。  
+**\*** Windows 8.1 将不再支持 **2022/11** 后发布的版本。  
+**\*** Windows Server 2008 R2 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/zh-cn/lifecycle/faq/extended-security-updates) 且将不再支持 **2022/11** 后发布的版本。  
 **\*** Microsoft Store(Desktop Bridge) Version 1809+  
 
 [Windows-client]: https://www.microsoft.com/windows/
