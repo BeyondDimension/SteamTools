@@ -40,7 +40,7 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
     <!-- Entity Framework Plus -->
     <!-- A FREE & Open Source library to enhance EF6 and EF Core -->
-    <PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.14.2" />
+    <PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.14.3" />
 
     <!-- AspNetCore 6 OpenId/OAuth -->
     <PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
@@ -116,7 +116,7 @@
     <!-- NLog -->
     <PackageVersion Include="NLog" Version="5.0.1" />
     <PackageVersion Include="NLog.Extensions.Logging" Version="5.0.1" />
-    <PackageVersion Include="NLog.Web.AspNetCore" Version="5.0.0" />
+    <PackageVersion Include="NLog.Web.AspNetCore" Version="5.1.0" />
     <PackageVersion Include="AspNetCore2.NETStandard.NLog.Web.AspNetCore" Version="5.0.0" />
 
     <!-- ReactiveUI -->
@@ -124,10 +124,10 @@
     <PackageVersion Include="Splat" Version="14.4.1" />
     <PackageVersion Include="DynamicData" Version="7.9.5" />
     <PackageVersion Include="ReactiveUI" Version="18.3.1" />
-    <PackageVersion Include="ReactiveUI.Fody" Version="18.2.9" />
-    <PackageVersion Include="ReactiveUI.XamForms" Version="18.2.9" />
-    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.2.9" />
-    <PackageVersion Include="ReactiveUI.Maui" Version="18.2.9" />
+    <PackageVersion Include="ReactiveUI.Fody" Version="18.3.1" />
+    <PackageVersion Include="ReactiveUI.XamForms" Version="18.3.1" />
+    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.3.1" />
+    <PackageVersion Include="ReactiveUI.Maui" Version="18.3.1" />
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
     <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.91" />
@@ -176,8 +176,8 @@
     <PackageVersion Include="TaskScheduler" Version="2.10.1" />
 
     <!-- Swagger -->
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.3.2" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.2" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.3.2" />
     <PackageVersion Include="AspNetCore2.NETStandard.Swashbuckle.AspNetCore" Version="6.3.1" />
     <PackageVersion Include="AspNetCore2.NETStandard.Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
