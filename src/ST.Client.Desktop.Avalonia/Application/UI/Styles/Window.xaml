@@ -77,6 +77,14 @@
         <Setter Property="Margin" Value="0 0 190 0" />
     </Style>
 
+    <Style Selector=":is(Window) Panel#TitleBarHost">
+        <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+
+    <Style Selector=":is(Window):windows Panel#TitleBarHost">
+        <Setter Property="IsHitTestVisible" Value="True" />
+    </Style>
+
     <Style Selector="Window:windows7">
         <Setter Property="Template" Value="{StaticResource WindowTemplate}" />
     </Style>

@@ -10,6 +10,8 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 {
     public override EReverseProxyEngine ReverseProxyEngine => EReverseProxyEngine.Yarp;
 
+    static readonly string RootPath = Path.Combine(IOPath.AppDataDirectory, "Yarp");
+
     WebApplication? app;
 
     public YarpReverseProxyServiceImpl(
@@ -30,9 +32,13 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub/Program.cs#L29
         try
         {
+            if (!Directory.Exists(RootPath))
+                Directory.CreateDirectory(RootPath);
+            
             var builder = WebApplication.CreateBuilder(new WebApplicationOptions
             {
-
+                ContentRootPath = RootPath,
+                WebRootPath = RootPath,
             });
 
             builder.Host.UseNLog();
