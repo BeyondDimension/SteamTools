@@ -16,15 +16,25 @@ namespace System.Application.Services.Implementation
 
         ISaveFileDialogService BaseService.SaveFileDialogService => this;
 
-        IFilePickerFileType BaseService.Images => throw new NotImplementedException();
+        // https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/FilePicker/FilePicker.uwp.cs
+        // https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/FileSystem/FileSystem.shared.cs
 
-        IFilePickerFileType BaseService.Png => throw new NotImplementedException();
+        IFilePickerFileType BaseService.Images => FilePickerFileType.Parse(FileEx.ImageFileExtensions);
 
-        IFilePickerFileType BaseService.Jpeg => throw new NotImplementedException();
+        IFilePickerFileType BaseService.Png => FilePickerFileType.Parse(new[] {
+            FileEx.PNG,
+        });
 
-        IFilePickerFileType BaseService.Videos => throw new NotImplementedException();
+        IFilePickerFileType BaseService.Jpeg => FilePickerFileType.Parse(new[] {
+            FileEx.JPG,
+            FileEx.JPEG,
+        });
 
-        IFilePickerFileType BaseService.Pdf => throw new NotImplementedException();
+        IFilePickerFileType BaseService.Videos => FilePickerFileType.Parse(new[] { FileEx.Mp4, FileEx.Mov, FileEx.Avi, FileEx.Wmv, FileEx.M4v, FileEx.Mpg, FileEx.Mpeg, FileEx.Mp2, FileEx.Mkv, FileEx.Flv, FileEx.Gifv, FileEx.Qt });
+
+        IFilePickerFileType BaseService.Pdf => FilePickerFileType.Parse(new[] {
+            FileEx.PDF,
+        });
 
         static List<FileDialogFilter>? Convert(IFilePickerFileType? fileTypes)
         {

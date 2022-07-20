@@ -117,14 +117,29 @@ public static class FileEx
 
     public const string maFile = ".maFile";
 
+    public const string PDF = ".pdf";
+
+    public const string Avi = ".avi";
+    public const string Flv = ".flv";
+    public const string Gifv = ".gifv";
+    public const string Mp4 = ".mp4";
+    public const string M4v = ".m4v";
+    public const string Mpg = ".mpg";
+    public const string Mpeg = ".mpeg";
+    public const string Mp2 = ".mp2";
+    public const string Mkv = ".mkv";
+    public const string Mov = ".mov";
+    public const string Qt = ".qt";
+    public const string Wmv = ".wmv";
+
     public static readonly string[] ImageFileExtensions = new string[]
     {
-        FileEx.BMP,
-        FileEx.JPG,
-        FileEx.JPEG,
-        FileEx.PNG,
-        FileEx.GIF,
-        FileEx.WEBP,
+        PNG,
+        JPG,
+        JPEG,
+        GIF,
+        BMP,
+        WEBP,
     };
 
     public static bool IsSupportedTextReader(string extension) =>
