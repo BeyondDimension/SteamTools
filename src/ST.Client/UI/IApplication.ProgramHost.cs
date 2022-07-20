@@ -30,6 +30,13 @@ namespace System.Application.UI
             /// 当前是否是用于托盘的独立进程
             /// </summary>
             bool IsTrayProcess { get; }
+
+            /// <summary>
+            /// 是否启动代理服务
+            /// </summary>
+            bool IsProxy { get; set; }
+
+            EOnOff ProxyStatus { get; set; }
         }
 
         public interface IProgramHost : IStartupArgs

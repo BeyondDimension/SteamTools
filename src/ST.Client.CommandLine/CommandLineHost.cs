@@ -46,7 +46,7 @@ public abstract class CommandLineHost : IDisposable
         var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
 
         void MainHandler() => MainHandler_(null);
-        void MainHandler_(Action? onInitStartuped, string sendMessage = "")
+        void MainHandler_(Action? onInitStartuped, Func<string>? sendMessage = null)
         {
 #if StartWatchTrace
             StartWatchTraceRecord("ProcessCheck");
@@ -63,7 +63,7 @@ public abstract class CommandLineHost : IDisposable
                 if (!AppInstance.IsFirst)
                 {
                     //Console.WriteLine("ApplicationInstance.SendMessage(string.Empty);");
-                    if (IApplication.SingletonInstance.SendMessage(sendMessage))
+                    if (IApplication.SingletonInstance.SendMessage(sendMessage?.Invoke() ?? ""))
                     {
                         return;
                     }
@@ -134,8 +134,8 @@ public abstract class CommandLineHost : IDisposable
             StartWatchTrace.Record("InitAvaloniaApp");
 #endif
         }
-        void MainHandlerByCLT(string sendMessage = "") => MainHandlerByCLT_(null, sendMessage);
-        void MainHandlerByCLT_(Action? onInitStartuped, string sendMessage = "")
+        void MainHandlerByCLT(Func<string>? sendMessage = null) => MainHandlerByCLT_(null, null);
+        void MainHandlerByCLT_(Action? onInitStartuped, Func<string>? sendMessage = null)
         {
             SetIsMainProcess(true);
             SetIsCLTProcess(false);
@@ -316,17 +316,20 @@ public abstract class CommandLineHost : IDisposable
         });
         rootCommand.AddCommand(show);
 
-        var proxy = new Command(key_proxy, "仅启用代理服务，无 GUI 窗口");
+        // -clt proxy -on
+        var proxy = new Command(key_proxy, "启用代理服务，静默启动（不弹窗口）");
         proxy.AddOption(new Option<bool>("-on", "开启代理服务"));
         proxy.AddOption(new Option<bool>("-off", "关闭代理服务"));
         proxy.Handler = CommandHandler.Create((bool on, bool off) =>
         {
-            // 开关为可选，都不传或都为 true 则执行 toggle
+            // 开关为可选，都不传或都为 false 则执行 toggle
             // 检查当前是否已启动程序
             // 已启动，进行 IPC 通信传递开关
             // 未启动，执行类似 -silence 逻辑
-            var msg = $"{key_proxy} {(on ? EOnOff.On : (off ? EOnOff.Off : EOnOff.Toggle))}";
             Host.IsMinimize = true;
+            Host.IsProxy = true;
+            Host.ProxyStatus = on ? EOnOff.On : (off ? EOnOff.Off : EOnOff.Toggle);
+            var msg = () => $"{key_proxy} {Host.ProxyStatus}";
             MainHandlerByCLT(msg);
         });
         rootCommand.AddCommand(proxy);

@@ -385,13 +385,24 @@ namespace System.Application.Services
         }
         #endregion
 
+        bool IsProgramStartupRunProxy()
+        {
+            if (IApplication.Instance.ProgramHost is
+                IApplication.IDesktopStartupArgs desktopStartupArgs &&
+                    (desktopStartupArgs.ProxyStatus == EOnOff.On ||
+                    desktopStartupArgs.ProxyStatus == EOnOff.Toggle))
+                return true;
+            if (ProxySettings.ProgramStartupRunProxy.Value) return true;
+            return false;
+        }
+
         public async Task Initialize()
         {
             //reverseProxyService.StopProxy();
             await InitializeAccelerate();
             await InitializeScript();
 
-            if (ProxySettings.ProgramStartupRunProxy.Value)
+            if (IsProgramStartupRunProxy())
             {
                 if (platformService.UsePlatformForegroundService)
                 {

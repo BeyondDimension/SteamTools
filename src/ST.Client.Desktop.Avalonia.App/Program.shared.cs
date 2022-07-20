@@ -33,6 +33,10 @@ static partial class
 
         public bool IsTrayProcess { get; set; }
 
+        public bool IsProxy { get; set; }
+
+        public EOnOff ProxyStatus { get; set; }
+
         void IApplication.IProgramHost.ConfigureServices(DILevel level) => ConfigureServices(level);
 
         public void InitVisualStudioAppCenterSDK()
