@@ -252,7 +252,7 @@
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
     <PackageVersion Include="Avalonia.Native" Version="0.10.16" />
     <PackageVersion Include="Avalonia.Win32" Version="0.10.16" />
-    <PackageVersion Include="Avalonia.X11" Version="0.10.16" />
+    <PackageVersion Include="Avalonia.X11" Version="0.10.17" />
     <!--<PackageVersion Include="Avalonia.HtmlRenderer" Version="0.10.0" />-->
     <PackageVersion Include="WebView2.Avalonia" Version="1.0.1264.42-preview.220713.10" />
     <!--Avalonia End-->
