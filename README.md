@@ -41,7 +41,7 @@
 - [GitHub Releases](https://github.com/BeyondDimension/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
-- [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
+- [![Microsoft Store](./resources/MSStore_eng_withframe.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 - [AUR](https://aur.archlinux.org/packages/watt-toolkit-bin)(官方 Release 构建)
 - [AUR dev](https://aur.archlinux.org/packages/watt-toolkit-git)(拉取最新源代码从本地构建，不保证可用性，构建也许会出现失败问题)
 
