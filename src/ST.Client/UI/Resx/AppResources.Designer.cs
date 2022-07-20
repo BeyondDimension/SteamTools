@@ -4195,6 +4195,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 在浏览器中打开 的本地化字符串。
+        /// </summary>
+        public static string OpenInBrowser {
+            get {
+                return ResourceManager.GetString("OpenInBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 打开 SteamGridDB 网页浏览 的本地化字符串。
         /// </summary>
         public static string OpenSteamGridDBInBrowser {

@@ -30,7 +30,10 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub/Program.cs#L29
         try
         {
-            var builder = WebApplication.CreateBuilder();
+            var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+            {
+
+            });
 
             builder.Host.UseNLog();
             StartupConfigureServices(builder.Services);

@@ -2184,6 +2184,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
     <value>未能从 SteamGridDB 获取到图片</value>
   </data>
+  <data name="OpenInBrowser" xml:space="preserve">
+    <value>在浏览器中打开</value>
+  </data>
   <data name="OpenImageInBrowser" xml:space="preserve">
     <value>在浏览器中打开原图</value>
   </data>

@@ -147,8 +147,18 @@
                     <TextBlock
                         Text="{Binding NoticeItem.CreationTime,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                         VerticalAlignment="Center"/>
-                    <Button Classes="Hyperlink" Content=""/>
+                    <Button ToolTip.Tip="{ReflectionBinding Path=Res.OpenInBrowser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                            Cursor="Hand"
+                            Classes="plain"
+                            IsVisible="{Binding NoticeItem.IsOpenBrowser}"
+                            Command="{ReflectionBinding OpenNoticeWeb}"
+                            CommandParameter="{Binding NoticeItem}">
+                      <Button.Content>
+                        <ui:SymbolIcon Symbol="Open" FontSize="16"/>
+                      </Button.Content>
+                    </Button>
                   </StackPanel>
+
                   <Separator Classes="Separator" Margin="0 10"/>
 
                   <gif:Image2 Width="{ReflectionBinding $parent.Width}"
@@ -159,8 +169,10 @@
                               Stretch="Uniform" />
 
                   <TextBlock TextWrapping="Wrap"
+                             Margin="0 10"
                              Text="{Binding NoticeItem.Introduction}"
-                             Classes="h6"/>
+                             Classes="h7"/>
+
                 </StackPanel>
               </ScrollViewer>
             </Grid>

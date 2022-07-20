@@ -31,14 +31,11 @@ namespace System.Application.UI.ViewModels
         [Reactive]
         public NoticeDTO? NoticeItem { get; set; }
 
-        //public ReactiveCommand<Unit, Unit>? OpenNotice { get; }
-
         public ReactiveCommand<Unit, Unit>? MarkAllRead { get; }
 
         public NoticeWindowViewModel()
         {
             Title = GetTitleByDisplayName(DisplayName);
-            //OpenNotice = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
             MarkAllRead = ReactiveCommand.CreateFromTask(async () =>
             {
                 var data = NotificationService.Current.NoticesSource.Items.Select(s => new Entities.Notification
