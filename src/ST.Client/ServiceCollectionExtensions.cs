@@ -20,6 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IGameAccountPlatformAuthenticatorRepository, GameAccountPlatformAuthenticatorRepository>();
             services.AddSingleton<IScriptRepository, ScriptRepository>();
+            services.AddSingleton<INotificationRepository, NotificationRepository>();
             return services;
         }
 

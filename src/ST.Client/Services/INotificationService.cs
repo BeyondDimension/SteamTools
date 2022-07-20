@@ -102,14 +102,6 @@ namespace System.Application.Services
         }
 
         /// <summary>
-        /// 获取最后一次收到的通知启用时间 只提示大于此时间的通知
-        /// </summary>
-        /// <returns></returns>
-        static Task<DateTimeOffset?> GetLastNotificationTime() => ISecureStorage.Instance.GetAsync<DateTimeOffset?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID);
-
-        static Task SetLastNotificationTime(DateTimeOffset time) => ISecureStorage.Instance.SetAsync<DateTimeOffset?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID, time);
-
-        /// <summary>
         /// NotifyIcon / TrayIcon 右下角托盘菜单助手类
         /// </summary>
         public abstract class NotifyIconHelper

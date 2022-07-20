@@ -516,6 +516,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 全部类型 的本地化字符串。
+        /// </summary>
+        public static string AllTyoe {
+            get {
+                return ResourceManager.GetString("AllTyoe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 和 的本地化字符串。
         /// </summary>
         public static string And {
@@ -4069,11 +4078,38 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 当前有 {0} 条{1}通知，详情请在程序内通知公告处查看。 的本地化字符串。
+        ///   查找类似 全部标记为已读 的本地化字符串。
         /// </summary>
-        public static string Notice_Tray {
+        public static string Notice_AllMarkHasRead {
             get {
-                return ResourceManager.GetString("Notice_Tray", resourceCulture);
+                return ResourceManager.GetString("Notice_AllMarkHasRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 收到{0}条新消息，详情请在程序内我的消息处查看。 的本地化字符串。
+        /// </summary>
+        public static string Notice_Tray_Content {
+            get {
+                return ResourceManager.GetString("Notice_Tray_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 消息提示 的本地化字符串。
+        /// </summary>
+        public static string Notice_Tray_Title {
+            get {
+                return ResourceManager.GetString("Notice_Tray_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 消息类型 的本地化字符串。
+        /// </summary>
+        public static string Notice_Type {
+            get {
+                return ResourceManager.GetString("Notice_Type", resourceCulture);
             }
         }
         

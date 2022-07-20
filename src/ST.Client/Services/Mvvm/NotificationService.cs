@@ -4,6 +4,7 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Application.Models;
 using System.Application.Properties;
+using System.Application.Repositories;
 using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace System.Application.Services
         public static NotificationService Current => mCurrent ?? new();
 
         readonly IHttpService httpService = DI.Get<IHttpService>();
+        readonly INotificationRepository notificationRepository = DI.Get<INotificationRepository>();
 
         public SourceCache<NoticeDTO, Guid> NoticesSource { get; }
 
@@ -38,6 +40,8 @@ namespace System.Application.Services
 
         [Reactive]
         public ObservableCollection<NoticeTypeDTO> NoticeTypes { get; set; }
+
+        public NoticeTypeDTO DefaultType { get; } = new NoticeTypeDTO() { Name = AppResources.AllTyoe };
 
         public NotificationService()
         {
@@ -48,38 +52,39 @@ namespace System.Application.Services
 
         public async Task GetNews(int trycount = 0)
         {
-            var lastTime = await INotificationService.GetLastNotificationTime();
+            var data = await notificationRepository.GetAllAsync(w => w.ExpirationTime > DateTimeOffset.Now);
+            UnreadNotificationsCount = data.Count(x => !x.HasRead);
             var client = ICloudServiceClient.Instance.Notice;
             var result = await client.NewMsg(null, null);
             if (result.IsSuccess && result.Content != null)
             {
-                var noticeList = result.Content.Where(x => lastTime.HasValue ? x.EnableTime > lastTime : true);
-                if (noticeList.Count() > 1)
+                var noticeList = result.Content.Where(x => !data.Any(d => d.Id == x.Id));
+                if (noticeList.Any_Nullable())
                 {
-                    await INotificationService.SetLastNotificationTime(noticeList.Max(x => x.EnableTime));
-                    INotificationService.Instance.Notify(new NotificationBuilder()
+                    if (noticeList.Count() > 1)
                     {
-                        Title = AppResources.NotificationChannelType_Description_Announcement,
-                        Content = AppResources.Notice_Tray.Format(result.Content.Length),
-                        AutoCancel = NotificationBuilder.DefaultAutoCancel,
-                        Type = NotificationType.Announcement,
-                        Click = new NotificationBuilder.ClickAction(() =>
+                        INotificationService.Instance.Notify(new NotificationBuilder()
                         {
-                            IWindowManager.Instance.Show(CustomWindow.Notice);
-                        })
-                    });
-                }
-                else
-                {
-                    var notice = noticeList.FirstOrDefault();
-                    if (notice != null && notice.EnableTime > lastTime)
+                            Title = AppResources.Notice_Tray_Title,
+                            Content = AppResources.Notice_Tray_Content.Format(result.Content.Length),
+                            AutoCancel = NotificationBuilder.DefaultAutoCancel,
+                            Type = NotificationType.Announcement,
+                            Click = new NotificationBuilder.ClickAction(() =>
+                            {
+                                IWindowManager.Instance.Show(CustomWindow.Notice);
+                            })
+                        });
+                    }
+                    else
                     {
-                        await INotificationService.SetLastNotificationTime(notice.EnableTime);
+                        var notice = noticeList.First();
                         INotificationService.Instance.Notify(notice);
                     }
 
+                    await InsertNotificationRecord(noticeList);
                 }
 
+                DeleteExpiredRecordAsync();
             }
         }
 
@@ -90,6 +95,7 @@ namespace System.Application.Services
             if (result.IsSuccess)
             {
                 NoticeTypes.Clear();
+                NoticeTypes.Add(DefaultType);
                 NoticeTypes.AddRange(result.Content!.OrderBy(x => x.Order));
             }
         }
@@ -97,7 +103,9 @@ namespace System.Application.Services
         public async Task LoadNotification(NoticeTypeDTO? selectGroup)
         {
             var client = ICloudServiceClient.Instance.Notice;
-            var result = await client.Table(selectGroup?.Id, 1, 30);
+            var typeid = selectGroup == DefaultType ? null : selectGroup?.Id;
+            var isAll = typeid is null;
+            var result = await client.Table(typeid, 1, 30);
             if (result.IsSuccess && result.Content != null)
             {
                 //foreach (var item in result.Content!.DataSource)
@@ -107,7 +115,59 @@ namespace System.Application.Services
                 //}
                 NoticesSource.Clear();
                 NoticesSource.AddOrUpdate(result.Content.DataSource);
+                if (isAll)
+                {
+                    await LoadHasReadRecord();
+                }
             }
+        }
+
+        public async Task LoadHasReadRecord()
+        {
+            var data = await notificationRepository.GetAllAsync(w => w.ExpirationTime > DateTimeOffset.Now);
+            if (data.Any_Nullable())
+            {
+                //var oldData = data.Where(w => w.ExpirationTime > DateTimeOffset.Now);
+                //if (oldData.Any())
+                //    await notificationRepository.DeleteRangeAsync(oldData);
+                UnreadNotificationsCount = data.Count(x => !x.HasRead);
+
+                foreach (var d in data)
+                {
+                    var notice = NoticesSource.Lookup(d.Id);
+                    if (notice.HasValue)
+                        notice.Value.HasRead = d.HasRead;
+                }
+            }
+        }
+
+        public async Task InsertNotificationRecord(IEnumerable<NoticeDTO> notices)
+        {
+            var data = await notificationRepository.GetAllAsync(w => w.ExpirationTime > DateTimeOffset.Now);
+            var newData = notices
+                    .Where(w => !data.Any(d => d.Id == w.Id))
+                    .Select(s => new Entities.Notification()
+                    {
+                        Id = s.Id,
+                        HasRead = false,
+                        ExpirationTime = s.OverdueTime,
+                    });
+            var num = await notificationRepository.InsertRangeAsync(newData);
+            if (num > 0)
+            {
+                UnreadNotificationsCount += num;
+            }
+        }
+
+        public async Task MarkNotificationHasRead(params Entities.Notification[] notice)
+        {
+            await notificationRepository.UpdateRangeAsync(notice);
+        }
+        
+        public async void DeleteExpiredRecordAsync()
+        {
+            var data = await notificationRepository.GetAllAsync(w => w.ExpirationTime < DateTimeOffset.Now);
+            await notificationRepository.DeleteRangeAsync(data);
         }
     }
 }

@@ -31,7 +31,7 @@
 
             <ui:CommandBarElementContainer Margin="5 0">
               <WrapPanel VerticalAlignment="Center">
-                <TextBlock Text="消息类型：" 
+                <TextBlock Text="{ReflectionBinding Path=Res.Notice_Type,StringFormat={}{0}：,Mode=OneWay,Source={x:Static resx:R.Current}}"
                            VerticalAlignment="Center"/>
                 <ComboBox VerticalAlignment="Center"
                           Items="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=NoticeTypes,Mode=OneWay}"
@@ -58,7 +58,8 @@
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>-->
 
-            <ui:CommandBarButton Label="全部标记为已读"
+            <ui:CommandBarButton Label="{ReflectionBinding Path=Res.Notice_AllMarkHasRead,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 IsEnabled="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=UnreadNotificationsCount,Converter={StaticResource IsNullConverter},ConverterParameter=invert,Mode=OneWay}"
                                  Command="{Binding MarkAllRead,Mode=OneTime}">
               <ui:CommandBarButton.Icon>
                 <ui:SymbolIcon Symbol="Checkmark"/>
@@ -94,20 +95,34 @@
                 Margin="10"
                 IsVisible="{Binding Path=!IsEmpty,Mode=OneWay}">
           <Panel>
-            <Grid ColumnDefinitions="3*,Auto,7*">
+            <Grid ColumnDefinitions="4*,Auto,7*">
               <Border>
                 <ListBox Items="{Binding Notices}"
                          SelectedItem="{Binding NoticeItem,Mode=TwoWay}">
                   <ListBox.ItemTemplate>
                     <DataTemplate x:DataType="models:NoticeDTO">
                       <StackPanel  Margin="10" Spacing="8">
-                        <TextBlock Text="{Binding Title,Mode=OneWay}"
-                                   Classes="h6"
-                                   TextTrimming="CharacterEllipsis"/>
+                        <DockPanel>
+                          <ui:InfoBadge IsVisible="{Binding !HasRead}"
+                                        Classes="Critical"
+                                        Height="6"
+                                        Width="6"
+                                        DockPanel.Dock="Right"
+                                        HorizontalAlignment="Right" />
+                          <TextBlock Text="{Binding Title,Mode=OneWay}"
+                                     Classes="h6"
+                                     TextTrimming="CharacterEllipsis"/>
+                        </DockPanel>
                         <TextBlock
                              Text="{Binding Introduction}"
+                             Foreground="{DynamicResource InactiveForegroundBrushKey}"
                              Classes="h8"
                              TextTrimming="CharacterEllipsis"/>
+                        <TextBlock
+                             Text="{Binding CreationTime,StringFormat={}{0:yyyy-MM-dd}}"
+                             Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                             HorizontalAlignment="Right"
+                             Classes="h8"/>
                       </StackPanel>
                     </DataTemplate>
                   </ListBox.ItemTemplate>
@@ -140,7 +155,7 @@
                               DecodeWidth="{ReflectionBinding $parent.Width}"
                               Margin="10 0"
                               Source="{Binding NoticeItem.PictureStream^}"
-                              IsVisible="{Binding NoticeItem.PictureStream^,Converter={StaticResource IsNullConverter},ConverterParameter=invert}}"
+                              IsVisible="{Binding NoticeItem.PictureStream,Converter={StaticResource IsNullConverter},ConverterParameter=invert}}"
                               Stretch="Uniform" />
 
                   <TextBlock TextWrapping="Wrap"

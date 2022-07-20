@@ -39,9 +39,20 @@ namespace System.Application.UI.ViewModels
         {
             Title = GetTitleByDisplayName(DisplayName);
             //OpenNotice = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
-            MarkAllRead = ReactiveCommand.Create(() =>
+            MarkAllRead = ReactiveCommand.CreateFromTask(async () =>
             {
+                var data = NotificationService.Current.NoticesSource.Items.Select(s => new Entities.Notification
+                {
+                    Id = s.Id,
+                    ExpirationTime = s.OverdueTime,
+                    HasRead = true
+                }).ToArray();
+                await NotificationService.Current.MarkNotificationHasRead(data);
 
+                foreach (var item in NotificationService.Current.NoticesSource.Items)
+                {
+                    item.HasRead = true;
+                }
             });
 
             NotificationService.Current.NoticesSource
@@ -62,6 +73,21 @@ namespace System.Application.UI.ViewModels
                     await NotificationService.Current.LoadNotification(x);
                     IsLoading = false;
                 });
+
+            this.WhenValueChanged(x => x.NoticeItem)
+                .Subscribe(x =>
+                {
+                    if (x != null && !x.HasRead)
+                    {
+                        _ = NotificationService.Current.MarkNotificationHasRead(new Entities.Notification
+                        {
+                            Id = x.Id,
+                            ExpirationTime = x.OverdueTime,
+                            HasRead = true
+                        });
+                        x.HasRead = true;
+                    }
+                });
         }
 
         public override async void Activation()
@@ -69,6 +95,7 @@ namespace System.Application.UI.ViewModels
             //if (IsFirstActivation)
             IsLoading = true;
             await NotificationService.Current.LoadNoticeTypes();
+            SelectType = NotificationService.Current.NoticeTypes.FirstOrDefault();
             await NotificationService.Current.LoadNotification(SelectType);
             IsLoading = false;
             base.Activation();

@@ -87,7 +87,7 @@ namespace Avalonia.Controls
                 {
                     TitleBar.ExtendViewIntoTitleBar = true;
 
-                    //titleBar.LayoutMetricsChanged += OnApplicationTitleBarLayoutMetricsChanged;
+                    //TitleBar.LayoutMetricsChanged += OnApplicationTitleBarLayoutMetricsChanged;
 
                     if (this.FindControl<Control>("TitleBarHost") is IControl t)
                     {
@@ -109,8 +109,7 @@ namespace Avalonia.Controls
                     //ExtendClientAreaToDecorationsHint = true;
                     //ExtendClientAreaTitleBarHeightHint = -1;
 
-                    ExtendClientAreaChromeHints =
-                        ExtendClientAreaChromeHints.Default;
+                    ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
                 }
                 else
                 {
@@ -131,8 +130,7 @@ namespace Avalonia.Controls
             }
             else
             {
-                ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.SystemChrome;
+                ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
             }
 #pragma warning restore CA1416 // 验证平台兼容性
 

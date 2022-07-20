@@ -162,7 +162,8 @@
                        FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
                 </gif:Image2>
               </Border>
-              <ui:InfoBadge Classes="message"
+              <ui:InfoBadge Classes="Critical message"
+                            IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=UnreadNotificationsCount,Converter={StaticResource IsNullConverter},ConverterParameter=invert,Mode=OneWay}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"/>
             </Panel>

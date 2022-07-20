@@ -2272,8 +2272,11 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
     <value>请正确选择一张要应用的图片</value>
   </data>
-  <data name="Notice_Tray" xml:space="preserve">
-    <value>当前有 {0} 条{1}通知，详情请在程序内通知公告处查看。</value>
+  <data name="Notice_Tray_Title" xml:space="preserve">
+    <value>消息提示</value>
+  </data>
+  <data name="Notice_Tray_Content" xml:space="preserve">
+    <value>收到{0}条新消息，详情请在程序内我的消息处查看。</value>
   </data>
   <data name="CommunityFix_CertificateStatus" xml:space="preserve">
     <value>证书状态</value>
@@ -2364,5 +2367,14 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="SeeDetails" xml:space="preserve">
     <value>查看详情</value>
+  </data>
+  <data name="AllTyoe" xml:space="preserve">
+    <value>全部类型</value>
+  </data>
+  <data name="Notice_AllMarkHasRead" xml:space="preserve">
+    <value>全部标记为已读</value>
+  </data>
+  <data name="Notice_Type" xml:space="preserve">
+    <value>消息类型</value>
   </data>
 </root>

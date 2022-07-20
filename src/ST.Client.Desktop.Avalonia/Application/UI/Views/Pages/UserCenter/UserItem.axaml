@@ -126,7 +126,9 @@
                  CommandParameter="Notice">
         <ui:Button.Content>
           <DockPanel>
-            <ui:InfoBadge Value="3"
+            <ui:InfoBadge Value="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=UnreadNotificationsCount,Mode=OneWay}"
+                          IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=UnreadNotificationsCount,Converter={StaticResource IsNullConverter},ConverterParameter=invert,Mode=OneWay}"
+                          Classes="Critical"
                           DockPanel.Dock="Right"
                           HorizontalAlignment="Right" />
             <TextBlock Text="{ReflectionBinding Path=Res.NotificationChannelType_Name_Announcement,Mode=OneWay,Source={x:Static resx:R.Current}}"

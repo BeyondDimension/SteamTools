@@ -102,16 +102,6 @@ namespace System.Application.Models
         [S_JsonProperty("9")]
         public DateTimeOffset OverdueTime { get; set; }
 
-#if MVVM_VM
-        /// <summary>
-        /// 是否过期
-        /// </summary> 
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public bool Overdue => DateTimeOffset.Now > OverdueTime;
-#endif
-
         /// <summary>
         /// 通知渠道
         /// </summary>
@@ -129,5 +119,24 @@ namespace System.Application.Models
         [N_JsonProperty("12")]
         [S_JsonProperty("12")]
         public string? Context { get; set; } = string.Empty;
+
+#if MVVM_VM
+        /// <summary>
+        /// 是否过期
+        /// </summary> 
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public bool Overdue => DateTimeOffset.Now > OverdueTime;
+
+        /// <summary>
+        /// 是否已读
+        /// </summary>
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        [Reactive]
+        public bool HasRead { get; set; }
+#endif
     }
 }
