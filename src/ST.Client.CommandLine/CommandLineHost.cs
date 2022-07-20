@@ -3,11 +3,12 @@ using System.Application.Services;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
 using System.Runtime.InteropServices;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 using System.Runtime.Versioning;
 using System.Application.Settings;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography;
+using System.Application.UI.ViewModels;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.CommandLine;
 
@@ -45,7 +46,7 @@ public abstract class CommandLineHost : IDisposable
         var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
 
         void MainHandler() => MainHandler_(null);
-        void MainHandler_(Action? onInitStartuped)
+        void MainHandler_(Action? onInitStartuped, string sendMessage = "")
         {
 #if StartWatchTrace
             StartWatchTraceRecord("ProcessCheck");
@@ -62,7 +63,7 @@ public abstract class CommandLineHost : IDisposable
                 if (!AppInstance.IsFirst)
                 {
                     //Console.WriteLine("ApplicationInstance.SendMessage(string.Empty);");
-                    if (IApplication.SingletonInstance.SendMessage(string.Empty))
+                    if (IApplication.SingletonInstance.SendMessage(sendMessage))
                     {
                         return;
                     }
@@ -83,13 +84,38 @@ public abstract class CommandLineHost : IDisposable
                 }
                 AppInstance.MessageReceived += value =>
                 {
-                    if (string.IsNullOrEmpty(value))
+                    if (!string.IsNullOrEmpty(value))
                     {
-                        var app = Application;
-                        if (app != null)
+                        var args = value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        if (args.Length >= 1)
                         {
-                            MainThread2.BeginInvokeOnMainThread(app.RestoreMainWindow);
+                            switch (args[0])
+                            {
+                                case key_proxy:
+                                    if (args.Length >= 2)
+                                    {
+                                        ProxyMessageReceived();
+                                        return;
+
+                                    }
+                                    void ProxyMessageReceived()
+                                    {
+                                        var value = Enum.TryParse<EOnOff>(args[1], out var value_) ? value_ : default;
+                                        ProxyService.Current.ProxyStatus = value switch
+                                        {
+                                            EOnOff.On => true,
+                                            EOnOff.Off => false,
+                                            _ => !ProxyService.Current.ProxyStatus,
+                                        };
+                                    }
+                                    break;
+                            }
                         }
+                    }
+                    var app = Application;
+                    if (app != null)
+                    {
+                        MainThread2.BeginInvokeOnMainThread(app.RestoreMainWindow);
                     }
                 };
             }
@@ -105,15 +131,15 @@ public abstract class CommandLineHost : IDisposable
                 StartApplication(args);
             }
 #if StartWatchTrace
-                    StartWatchTrace.Record("InitAvaloniaApp");
+            StartWatchTrace.Record("InitAvaloniaApp");
 #endif
         }
-        void MainHandlerByCLT() => MainHandlerByCLT_(null);
-        void MainHandlerByCLT_(Action? onInitStartuped)
+        void MainHandlerByCLT(string sendMessage = "") => MainHandlerByCLT_(null, sendMessage);
+        void MainHandlerByCLT_(Action? onInitStartuped, string sendMessage = "")
         {
             SetIsMainProcess(true);
             SetIsCLTProcess(false);
-            MainHandler_(onInitStartuped);
+            MainHandler_(onInitStartuped, sendMessage);
         }
 
 #if DEBUG
@@ -290,12 +316,26 @@ public abstract class CommandLineHost : IDisposable
         });
         rootCommand.AddCommand(show);
 
-        // TODO
-        //var proxy = new Command("proxy", "仅启用代理服务，无 GUI 窗口");
+        var proxy = new Command(key_proxy, "仅启用代理服务，无 GUI 窗口");
+        proxy.AddOption(new Option<bool>("-on", "开启代理服务"));
+        proxy.AddOption(new Option<bool>("-off", "关闭代理服务"));
+        proxy.Handler = CommandHandler.Create((bool on, bool off) =>
+        {
+            // 开关为可选，都不传或都为 true 则执行 toggle
+            // 检查当前是否已启动程序
+            // 已启动，进行 IPC 通信传递开关
+            // 未启动，执行类似 -silence 逻辑
+            var msg = $"{key_proxy} {(on ? EOnOff.On : (off ? EOnOff.Off : EOnOff.Toggle))}";
+            Host.IsMinimize = true;
+            MainHandlerByCLT(msg);
+        });
+        rootCommand.AddCommand(proxy);
 
         var r = rootCommand.InvokeAsync(args).GetAwaiter().GetResult();
         return r;
     }
+
+    const string key_proxy = "proxy";
 
     protected virtual void Dispose(bool disposing)
     {
