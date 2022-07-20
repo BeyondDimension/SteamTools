@@ -389,6 +389,7 @@ namespace System.Application.Services
         {
             if (IApplication.Instance.ProgramHost is
                 IApplication.IDesktopStartupArgs desktopStartupArgs &&
+                desktopStartupArgs.IsProxy &&
                     (desktopStartupArgs.ProxyStatus == EOnOff.On ||
                     desktopStartupArgs.ProxyStatus == EOnOff.Toggle))
                 return true;
@@ -410,7 +411,7 @@ namespace System.Application.Services
                 }
                 else
                 {
-                    ProxyStatus = ProxySettings.ProgramStartupRunProxy.Value;
+                    ProxyStatus = true;
                 }
             }
         }

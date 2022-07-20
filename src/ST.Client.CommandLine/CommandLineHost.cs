@@ -101,12 +101,15 @@ public abstract class CommandLineHost : IDisposable
                                     void ProxyMessageReceived()
                                     {
                                         var value = Enum.TryParse<EOnOff>(args[1], out var value_) ? value_ : default;
-                                        ProxyService.Current.ProxyStatus = value switch
+                                        MainThread2.BeginInvokeOnMainThread(() =>
                                         {
-                                            EOnOff.On => true,
-                                            EOnOff.Off => false,
-                                            _ => !ProxyService.Current.ProxyStatus,
-                                        };
+                                            ProxyService.Current.ProxyStatus = value switch
+                                            {
+                                                EOnOff.On => true,
+                                                EOnOff.Off => false,
+                                                _ => !ProxyService.Current.ProxyStatus,
+                                            };
+                                        });
                                     }
                                     break;
                             }
@@ -134,7 +137,7 @@ public abstract class CommandLineHost : IDisposable
             StartWatchTrace.Record("InitAvaloniaApp");
 #endif
         }
-        void MainHandlerByCLT(Func<string>? sendMessage = null) => MainHandlerByCLT_(null, null);
+        void MainHandlerByCLT(Func<string>? sendMessage = null) => MainHandlerByCLT_(null, sendMessage);
         void MainHandlerByCLT_(Action? onInitStartuped, Func<string>? sendMessage = null)
         {
             SetIsMainProcess(true);
