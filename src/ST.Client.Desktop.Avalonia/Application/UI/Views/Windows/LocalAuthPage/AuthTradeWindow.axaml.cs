@@ -57,7 +57,7 @@ namespace System.Application.UI.Views.Windows
                 {
                     var path = Path.Combine(IOPath.CacheDirectory, "confirmation.html");
                     File.WriteAllText(path, html);
-                    Browser2.Open(path);
+                    Browser2.Open($"file:///{path}");
                 }
             }
         }

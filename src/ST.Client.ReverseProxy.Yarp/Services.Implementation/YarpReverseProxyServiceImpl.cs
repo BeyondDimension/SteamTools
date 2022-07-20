@@ -34,7 +34,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         {
             if (!Directory.Exists(RootPath))
                 Directory.CreateDirectory(RootPath);
-            
+
             var builder = WebApplication.CreateBuilder(new WebApplicationOptions
             {
                 ContentRootPath = RootPath,
