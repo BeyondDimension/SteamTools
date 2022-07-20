@@ -127,8 +127,9 @@ namespace System.Application.Services
 
                 foreach (var notice in notices)
                 {
-                    var n = data.FirstOrDefault(f => f.Id == notice.Id);
-                    notice.HasRead = n.HasRead;
+                    var d = data.FirstOrDefault(f => f.Id == notice.Id);
+                    if (d != null)
+                        notice.HasRead = d.HasRead;
                 }
             }
             return notices;
