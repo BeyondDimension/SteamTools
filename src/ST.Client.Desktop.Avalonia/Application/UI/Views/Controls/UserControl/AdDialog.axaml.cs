@@ -20,6 +20,7 @@ namespace System.Application.UI.Views.Controls
     public partial class AdDialog : UserControl
     {
         readonly Button? closeButton;
+        readonly CarouselBanner? banner;
 
         /// <summary>
         /// Defines the <see cref="AutoScroll"/> property.
@@ -68,7 +69,7 @@ namespace System.Application.UI.Views.Controls
                 };
             }
 
-            var banner = this.FindControl<CarouselBanner>("AdBanner");
+            banner = this.FindControl<CarouselBanner>("AdBanner");
             if (banner != null)
             {
                 this.GetObservable(StandardProperty)
@@ -89,7 +90,6 @@ namespace System.Application.UI.Views.Controls
                             bind.Path = nameof(AdvertiseService.Current.HorizontalBannerAdvertisements);
                         }
                         banner.Bind(CarouselBanner.ItemsProperty, bind);
-                        
                         banner.GetObservable(CarouselBanner.ItemsProperty)
                             .Subscribe(CheckItems);
                     });
@@ -111,41 +111,12 @@ namespace System.Application.UI.Views.Controls
         //    base.OnApplyTemplate(e);
         //}
 
-        //protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
-        //{
-        //    base.OnAttachedToVisualTree(e);
-
-        //    //Check();
-
-        //    if (Standard == EAdvertisementStandard.Vertical)
-        //    {
-        //        if (!AdvertiseService.Current.VerticalBannerAdvertisements.Any())
-        //        {
-        //            RemoveAd();
-        //        }
-        //        else
-        //        {
-        //            Dispatcher.UIThread.Post(() =>
-        //            {
-        //                this.IsVisible = true;
-        //            });
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (!AdvertiseService.Current.HorizontalBannerAdvertisements.Any())
-        //        {
-        //            RemoveAd();
-        //        }
-        //        else
-        //        {
-        //            Dispatcher.UIThread.Post(() =>
-        //            {
-        //                this.IsVisible = true;
-        //            });
-        //        }
-        //    }
-        //}
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToVisualTree(e);
+            if (banner != null)
+                CheckItems(banner.Items);
+        }
 
         //void Check()
         //{
