@@ -142,7 +142,7 @@ namespace System.Application.UI
 #elif MAC
         static void InitWithMAC(string[] args)
         {
-            AppDelegate.Init(/*args*/);
+            AppDelegate.Init(args);
         }
 #endif
 
