@@ -158,6 +158,38 @@ jobs:
         Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_win_x64_v${{ steps.tag.outputs.tag }}.exe" "${env:PublishFilePath}"
         Write-Output "exe_win_x64_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_win_x64_v${{ steps.tag.outputs.tag }}.exe)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
+    - name: Package fd-win-x86 7z
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path ${env:PublishFilePath} -Force > $null
+        Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_win_x86_fde_v${{ steps.tag.outputs.tag }}.7z" "${env:PublishFilePath}"
+        Write-Output "fd_win_x86_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_win_x86_fde_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+    - name: Package fd-win-x86 exe
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path ${env:PublishFilePath} -Force > $null
+        Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_win_x86_fde_v${{ steps.tag.outputs.tag }}.exe" "${env:PublishFilePath}"
+        Write-Output "exe_fd_win_x86_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_win_x86_fde_v${{ steps.tag.outputs.tag }}.exe)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+    - name: Package win-x86 7z
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path ${env:PublishFilePath} -Force > $null
+        Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_win_x86_v${{ steps.tag.outputs.tag }}.7z" "${env:PublishFilePath}"
+        Write-Output "win_x86_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_win_x86_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+    
+    - name: Package win-x86 exe
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path ${env:PublishFilePath} -Force > $null
+        Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_win_x86_v${{ steps.tag.outputs.tag }}.exe" "${env:PublishFilePath}"
+        Write-Output "exe_win_x86_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_win_x86_v${{ steps.tag.outputs.tag }}.exe)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
     - name: Package osx-x64 7z
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       shell: pwsh

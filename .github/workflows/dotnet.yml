@@ -150,7 +150,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_win_x86_fde_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x64_fde_${{ env.GITHUB_SHA_SHORT }}.7z
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x86_fde_${{ env.GITHUB_SHA_SHORT }}.7z
 
     - name: Upload win-x86 App ${{ matrix.configuration }}
       continue-on-error: true
@@ -158,7 +158,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_win_x86_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x64_${{ env.GITHUB_SHA_SHORT }}.7z
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x86_${{ env.GITHUB_SHA_SHORT }}.7z
 
     - name: Upload macos-x64 App ${{ matrix.configuration }}
       continue-on-error: true
