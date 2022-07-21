@@ -50,7 +50,9 @@ partial class Browser2
 
     static OpenResultCode OpenAnalysis(string? url)
     {
-        if (IsStoreUrl(url) || IsEmailUrl(url))
+        if (IsStoreUrl(url) ||
+            IsEmailUrl(url) ||
+            IsFileUrl(url))
         {
             return OpenCoreByProcess(url);
         }

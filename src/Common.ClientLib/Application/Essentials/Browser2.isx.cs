@@ -29,4 +29,11 @@ partial class Browser2
     /// <param name="url"></param>
     /// <returns></returns>
     public static bool IsEmailUrl([NotNullWhen(true)] string? url) => url != null && url.StartsWith(Prefix_Email, StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// 判断字符串是否为 File Url
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    public static bool IsFileUrl([NotNullWhen(true)] string? url) => url != null && url.StartsWith(Prefix_File, StringComparison.OrdinalIgnoreCase);
 }

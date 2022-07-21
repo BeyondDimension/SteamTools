@@ -63,4 +63,6 @@ public static class Constants
     public const string Prefix_MSStore = "ms-windows-store://";
 
     public const string Prefix_Email = "mailto:";
+
+    public const string Prefix_File = "file:///";
 }

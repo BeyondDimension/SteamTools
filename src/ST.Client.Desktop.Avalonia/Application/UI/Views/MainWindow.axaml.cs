@@ -73,7 +73,7 @@ namespace System.Application.UI.Views
         protected override void OnClosing(CancelEventArgs e)
         {
 #if !UI_DEMO
-            if (StartupOptions.Value.HasNotifyIcon)
+            if (OperatingSystem2.IsWindows() && StartupOptions.Value.HasNotifyIcon)
             {
                 IsHideWindow = true;
                 e.Cancel = true;
@@ -87,23 +87,23 @@ namespace System.Application.UI.Views
             base.OnClosing(e);
         }
 
-        //        protected override void OnClosed(EventArgs e)
-        //        {
-        //#if !UI_DEMO
-        //            if (StartupOptions.Value.HasNotifyIcon)
-        //            {
-        //                if (App.Current!.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
-        //                {
-        //                    desktop.MainWindow = App.Instance.MainWindow = null;
-        //                }
+        protected override void OnClosed(EventArgs e)
+        {
+#if !UI_DEMO
+            if (!OperatingSystem2.IsWindows() && StartupOptions.Value.HasNotifyIcon)
+            {
+                if (App.Current!.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
+                {
+                    desktop.MainWindow = App.Instance.MainWindow = null;
+                }
 
-        //                if (ViewModel is not null)
-        //                    foreach (var tab in ViewModel.TabItems)
-        //                        tab.Deactivation();
-        //            }
-        //#endif
-        //            base.OnClosed(e);
-        //        }
+                if (ViewModel is not null)
+                    foreach (var tab in ViewModel.TabItems)
+                        tab.Deactivation();
+            }
+#endif
+            base.OnClosed(e);
+        }
 
         protected override void OnOpened(EventArgs e)
         {
