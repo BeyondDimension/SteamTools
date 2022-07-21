@@ -24,7 +24,7 @@ namespace System.Application.Services.Implementation
                 Placeholder = ASF_CRYPTKEY,
                 InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
             });
-            var isUseDefaultCryptKey = string.IsNullOrEmpty(result) || ASF_CRYPTKEY_DEF_VALUE == result;
+            var isUseDefaultCryptKey = string.IsNullOrEmpty(result) || result == ASF_CRYPTKEY_DEF_VALUE;
             if (!isUseDefaultCryptKey)
             {
                 await ISecureStorage.Instance.SetAsync(ASF_CRYPTKEY, result);
