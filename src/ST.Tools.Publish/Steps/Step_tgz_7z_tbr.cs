@@ -88,7 +88,7 @@ namespace System.Application
 
                         var processorCount = Environment.ProcessorCount;
                         if (processorCount < 2) processorCount = 2;
-                        var parallelCount = processorCount * 2;
+                        var parallelCount = processorCount;
 
                         if (parallelTasks.Length > parallelCount)
                         {
@@ -102,7 +102,6 @@ namespace System.Application
                         }
                         else
                         {
-                            await Task.WhenAll(parallelTasks);
                         }
 
                         SavePublishJson(dirNames, removeFiles: false);

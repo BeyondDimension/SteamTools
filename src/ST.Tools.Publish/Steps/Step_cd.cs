@@ -200,7 +200,7 @@ namespace System.Application.Steps
 
             var processorCount = Environment.ProcessorCount;
             if (processorCount < 2) processorCount = 2;
-            var parallelCount = processorCount * 2;
+            var parallelCount = processorCount;
             if (parallelTasks.Count > parallelCount)
             {
                 var count = 0;
