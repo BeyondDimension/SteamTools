@@ -248,7 +248,7 @@ namespace System.Application
 
         public static void CreateSevenZipPack(string packPath, IEnumerable<PublishFileInfo> files)
         {
-            SevenZipCompressor compressor = new()
+            SevenZipCompressor? compressor = new()
             {
                 ArchiveFormat = OutArchiveFormat.SevenZip,
                 CompressionLevel = SevenZip.CompressionLevel.Ultra,
@@ -257,12 +257,15 @@ namespace System.Application
                 ScanOnlyWritable = true,
                 DirectoryStructure = true,
             };
-            compressor.FileCompressionStarted += (_, e) =>
+            compressor.FileCompressionStarted += FileCompressionStarted;
+            static void FileCompressionStarted(object? s, FileNameEventArgs e)
             {
                 Console.WriteLine($"正在压缩：{e.FileName}");
-            };
+            }
             var dict = files.ToDictionary(x => x.RelativePath, x => x.Path);
             compressor.CompressFileDictionary(dict, packPath);
+            compressor.FileCompressionStarted -= FileCompressionStarted;
+            compressor = null;
         }
 
 #if !SERVER

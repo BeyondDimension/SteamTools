@@ -9,6 +9,8 @@ using static System.Application.Utils;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Application.Steps;
+using Process = System.Diagnostics.Process;
+using System.Diagnostics;
 
 namespace System.Application.Steps
 {
@@ -86,9 +88,22 @@ namespace System.Application
 
                         var parallelTasks = dirNames.Select(x => Task.Run(() => Step_cd.GenerateCompressedPackage(dev, x, type))).ToArray();
 
+                        PerformanceCounter? ramCounter = null;
+                        if (OperatingSystem2.IsWindows())
+                        {
+                            var processName = Process.GetCurrentProcess().ProcessName;
+                            ramCounter = new PerformanceCounter("Process", "Working Set", processName);
+                        }
+                        void WriteRAMLine()
+                        {
+                            if (ramCounter != null)
+                                Console.WriteLine($"Working Set: {IOPath.GetDisplayFileSizeString(ramCounter.NextValue())}");
+                        }
                         foreach (var item in parallelTasks)
                         {
+                            WriteRAMLine();
                             await item;
+                            WriteRAMLine();
                         }
                         //var processorCount = Environment.ProcessorCount;
                         //if (processorCount < 2) processorCount = 2;

@@ -101,6 +101,7 @@
     <PackageReference Include="Portable.BouncyCastle" />
     <PackageReference Include="ZstdNet" />
     <PackageReference Include="7-Zip.NativeAssets.Win32" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" />
   </ItemGroup>
 
   <ItemGroup>

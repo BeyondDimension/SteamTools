@@ -376,6 +376,7 @@ namespace System.Application.Steps
                 {
                     item.BuildDownloads.Add(type, fileInfoM);
                 }
+                Console.WriteLine($"压缩包已生成：{packPath}");
             }
             finally
             {
