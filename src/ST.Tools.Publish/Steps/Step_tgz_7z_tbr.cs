@@ -95,7 +95,7 @@ namespace System.Application
                             var count = 0;
                             while (true)
                             {
-                                var parallelTasksSplit = parallelTasks.Skip(count * parallelCount).Take(parallelCount).ToArray();
+                                var parallelTasksSplit = parallelTasks.Skip(count++ * parallelCount).Take(parallelCount).ToArray();
                                 if (!parallelTasksSplit.Any()) break;
                                 await Task.WhenAll(parallelTasksSplit);
                             }
