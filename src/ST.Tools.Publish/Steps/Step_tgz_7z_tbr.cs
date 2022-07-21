@@ -102,6 +102,7 @@ namespace System.Application
                         }
                         else
                         {
+                            await Task.WhenAll(parallelTasks);
                         }
 
                         SavePublishJson(dirNames, removeFiles: false);
