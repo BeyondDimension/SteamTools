@@ -9,8 +9,10 @@ using Avalonia.Threading;
 using DynamicData.Binding;
 using FluentAvalonia.Core;
 using ReactiveUI;
+using System.Application.Models;
 using System.Application.Services;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace System.Application.UI.Views.Controls
@@ -87,6 +89,9 @@ namespace System.Application.UI.Views.Controls
                             bind.Path = nameof(AdvertiseService.Current.HorizontalBannerAdvertisements);
                         }
                         banner.Bind(CarouselBanner.ItemsProperty, bind);
+                        
+                        banner.GetObservable(CarouselBanner.ItemsProperty)
+                            .Subscribe(CheckItems);
                     });
             }
 
@@ -154,6 +159,17 @@ namespace System.Application.UI.Views.Controls
         //        removead();
         //    }
         //}
+
+        void CheckItems(IEnumerable x)
+        {
+            if (AdvertiseService.Current.IsInitialized && x.Count() == 0)
+            {
+                Dispatcher.UIThread.Post(() =>
+                {
+                    this.IsVisible = false;
+                });
+            }
+        }
 
         void RemoveAd()
         {

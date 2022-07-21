@@ -88,7 +88,7 @@ namespace System.Application.UI.Views.Pages
 
             CancellationTokenSource? cancellation = null;
 
-            ProxyService.Current.WhenValueChanged(x => x.ProxyStatus, false)
+            ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
                 .Subscribe(x =>
                 {
                     if (x)

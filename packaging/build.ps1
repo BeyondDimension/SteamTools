@@ -11,7 +11,7 @@ $proj_path = "$RootPath\src\ST.Client.Desktop.Avalonia.App\ST.Client.Avalonia.Ap
 $publishtool_dir = "$RootPath\src\ST.Tools.Publish"
 $publishtool_exe = "$publishtool_dir\bin\Release\net6.0\p.exe"
 
-$build_pubxmls = "fd-win-x64","win-x64","osx-x64","linux-x64","linux-arm64","osx-arm64"
+$build_pubxmls = "fd-win-x64","win-x64","fd-win-x86","win-x86","osx-x64","linux-x64","linux-arm64","osx-arm64"
 
 function Build-PublishTool
 {
