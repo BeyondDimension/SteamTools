@@ -198,7 +198,23 @@ namespace System.Application.Steps
             var gs = publishDirs.Select(x => Task.Run(() => GenerateCompressedPackage(dev, x)));
             parallelTasks.AddRange(gs);
 
-            await Task.WhenAll(parallelTasks);
+            var processorCount = Environment.ProcessorCount;
+            if (processorCount < 2) processorCount = 2;
+            var parallelCount = processorCount * 2;
+            if (parallelTasks.Count > parallelCount)
+            {
+                var count = 0;
+                while (true)
+                {
+                    var parallelTasksSplit = parallelTasks.Skip(count * parallelCount).Take(parallelCount).ToArray();
+                    if (!parallelTasksSplit.Any()) break;
+                    await Task.WhenAll(parallelTasksSplit);
+                }
+            }
+            else
+            {
+                await Task.WhenAll(parallelTasks);
+            }
             parallelTasks.Clear();
 
             if (hasWindows)
@@ -322,37 +338,44 @@ namespace System.Application.Steps
         /// <param name="type"></param>
         public static void GenerateCompressedPackage(bool dev, PublishDirInfo item, AppDownloadType type)
         {
-            var isLinux = item.Platform == OSPlatform.Linux;
-            if (isLinux)
+            try
             {
-                type = AppDownloadType.Compressed_Zstd;
+                var isLinux = item.Platform == OSPlatform.Linux;
+                if (isLinux)
+                {
+                    type = AppDownloadType.Compressed_Zstd;
+                }
+
+                var fileEx = GetFileExByCompressedType(type);
+
+                var packPath = GetPackPath(dev, item, fileEx);
+                Console.WriteLine($"正在生成压缩包：{packPath}");
+                IOPath.FileIfExistsItDelete(packPath);
+
+                GetCreatePackByCompressedType(type)(packPath, item.Files);
+
+                using var fileStream = File.OpenRead(packPath);
+                var sha256 = Hashs.String.SHA256(fileStream);
+
+                var fileInfoM = new PublishFileInfo
+                {
+                    SHA256 = sha256,
+                    Length = fileStream.Length,
+                    Path = packPath,
+                };
+
+                if (item.BuildDownloads.ContainsKey(type))
+                {
+                    item.BuildDownloads[type] = fileInfoM;
+                }
+                else
+                {
+                    item.BuildDownloads.Add(type, fileInfoM);
+                }
             }
-
-            var fileEx = GetFileExByCompressedType(type);
-
-            var packPath = GetPackPath(dev, item, fileEx);
-            Console.WriteLine($"正在生成压缩包：{packPath}");
-            IOPath.FileIfExistsItDelete(packPath);
-
-            GetCreatePackByCompressedType(type)(packPath, item.Files);
-
-            using var fileStream = File.OpenRead(packPath);
-            var sha256 = Hashs.String.SHA256(fileStream);
-
-            var fileInfoM = new PublishFileInfo
+            finally
             {
-                SHA256 = sha256,
-                Length = fileStream.Length,
-                Path = packPath,
-            };
-
-            if (item.BuildDownloads.ContainsKey(type))
-            {
-                item.BuildDownloads[type] = fileInfoM;
-            }
-            else
-            {
-                item.BuildDownloads.Add(type, fileInfoM);
+                GC.Collect();
             }
         }
 

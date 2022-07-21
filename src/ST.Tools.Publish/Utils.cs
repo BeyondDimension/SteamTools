@@ -248,13 +248,15 @@ namespace System.Application
 
         public static void CreateSevenZipPack(string packPath, IEnumerable<PublishFileInfo> files)
         {
-            SevenZipCompressor compressor = new();
-            compressor.ArchiveFormat = OutArchiveFormat.SevenZip;
-            compressor.CompressionLevel = SevenZip.CompressionLevel.Ultra;
-            compressor.CompressionMethod = CompressionMethod.Lzma2;
-            compressor.FastCompression = false;
-            compressor.ScanOnlyWritable = true;
-            compressor.DirectoryStructure = true;
+            SevenZipCompressor compressor = new()
+            {
+                ArchiveFormat = OutArchiveFormat.SevenZip,
+                CompressionLevel = SevenZip.CompressionLevel.Ultra,
+                CompressionMethod = CompressionMethod.Lzma2,
+                FastCompression = false,
+                ScanOnlyWritable = true,
+                DirectoryStructure = true,
+            };
             compressor.FileCompressionStarted += (_, e) =>
             {
                 Console.WriteLine($"正在压缩：{e.FileName}");

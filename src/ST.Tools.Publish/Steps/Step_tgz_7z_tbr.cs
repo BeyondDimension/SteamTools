@@ -84,9 +84,26 @@ namespace System.Application
 
                         dirNames = dirNames.ThrowIsNull(nameof(dirNames));
 
-                        var parallelTasks = dirNames.Select(x => Task.Run(() => Step_cd.GenerateCompressedPackage(dev, x, type))).ToList();
+                        var parallelTasks = dirNames.Select(x => Task.Run(() => Step_cd.GenerateCompressedPackage(dev, x, type))).ToArray();
 
-                        await Task.WhenAll(parallelTasks);
+                        var processorCount = Environment.ProcessorCount;
+                        if (processorCount < 2) processorCount = 2;
+                        var parallelCount = processorCount * 2;
+
+                        if (parallelTasks.Length > parallelCount)
+                        {
+                            var count = 0;
+                            while (true)
+                            {
+                                var parallelTasksSplit = parallelTasks.Skip(count * parallelCount).Take(parallelCount).ToArray();
+                                if (!parallelTasksSplit.Any()) break;
+                                await Task.WhenAll(parallelTasksSplit);
+                            }
+                        }
+                        else
+                        {
+                            await Task.WhenAll(parallelTasks);
+                        }
 
                         SavePublishJson(dirNames, removeFiles: false);
 
