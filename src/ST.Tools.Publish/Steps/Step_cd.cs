@@ -196,26 +196,30 @@ namespace System.Application.Steps
 
             // 创建压缩包
             var gs = publishDirs.Select(x => Task.Run(() => GenerateCompressedPackage(dev, x)));
-            parallelTasks.AddRange(gs);
+            foreach (var item in gs.ToArray())
+            {
+                await item;
+            }
+            //parallelTasks.AddRange(gs);
 
-            var processorCount = Environment.ProcessorCount;
-            if (processorCount < 2) processorCount = 2;
-            var parallelCount = processorCount;
-            if (parallelTasks.Count > parallelCount)
-            {
-                var count = 0;
-                while (true)
-                {
-                    var parallelTasksSplit = parallelTasks.Skip(count++ * parallelCount).Take(parallelCount).ToArray();
-                    if (!parallelTasksSplit.Any()) break;
-                    await Task.WhenAll(parallelTasksSplit);
-                }
-            }
-            else
-            {
-                await Task.WhenAll(parallelTasks);
-            }
-            parallelTasks.Clear();
+            //var processorCount = Environment.ProcessorCount;
+            //if (processorCount < 2) processorCount = 2;
+            //var parallelCount = processorCount;
+            //if (parallelTasks.Count > parallelCount)
+            //{
+            //    var count = 0;
+            //    while (true)
+            //    {
+            //        var parallelTasksSplit = parallelTasks.Skip(count++ * parallelCount).Take(parallelCount).ToArray();
+            //        if (!parallelTasksSplit.Any()) break;
+            //        await Task.WhenAll(parallelTasksSplit);
+            //    }
+            //}
+            //else
+            //{
+            //    await Task.WhenAll(parallelTasks);
+            //}
+            //parallelTasks.Clear();
 
             if (hasWindows)
             {

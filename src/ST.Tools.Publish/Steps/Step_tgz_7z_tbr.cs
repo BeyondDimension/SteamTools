@@ -86,24 +86,28 @@ namespace System.Application
 
                         var parallelTasks = dirNames.Select(x => Task.Run(() => Step_cd.GenerateCompressedPackage(dev, x, type))).ToArray();
 
-                        var processorCount = Environment.ProcessorCount;
-                        if (processorCount < 2) processorCount = 2;
-                        var parallelCount = processorCount;
+                        foreach (var item in parallelTasks)
+                        {
+                            await item;
+                        }
+                        //var processorCount = Environment.ProcessorCount;
+                        //if (processorCount < 2) processorCount = 2;
+                        //var parallelCount = processorCount;
 
-                        if (parallelTasks.Length > parallelCount)
-                        {
-                            var count = 0;
-                            while (true)
-                            {
-                                var parallelTasksSplit = parallelTasks.Skip(count++ * parallelCount).Take(parallelCount).ToArray();
-                                if (!parallelTasksSplit.Any()) break;
-                                await Task.WhenAll(parallelTasksSplit);
-                            }
-                        }
-                        else
-                        {
-                            await Task.WhenAll(parallelTasks);
-                        }
+                        //if (parallelTasks.Length > parallelCount)
+                        //{
+                        //    var count = 0;
+                        //    while (true)
+                        //    {
+                        //        var parallelTasksSplit = parallelTasks.Skip(count++ * parallelCount).Take(parallelCount).ToArray();
+                        //        if (!parallelTasksSplit.Any()) break;
+                        //        await Task.WhenAll(parallelTasksSplit);
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    await Task.WhenAll(parallelTasks);
+                        //}
 
                         SavePublishJson(dirNames, removeFiles: false);
 
