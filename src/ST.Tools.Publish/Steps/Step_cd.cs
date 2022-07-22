@@ -481,7 +481,14 @@ namespace System.Application.Steps
 
         static HttpClient GetHttpClient(string token, bool dev)
         {
-            var client = new HttpClient
+            var handler = new SocketsHttpHandler
+            {
+                SslOptions = new()
+                {
+                    RemoteCertificateValidationCallback = delegate { return true; },
+                },
+            };
+            var client = new HttpClient(handler)
             {
                 BaseAddress = new Uri(dev ? dev_api_base_url : api_base_url),
                 DefaultRequestVersion = HttpVersion.Version20,

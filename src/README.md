@@ -121,7 +121,7 @@ namespace Microsoft.Extensions.DependencyInjection
     - Android ```/data/data/net.steampp.app/cache```
 - Logs
     - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache\Logs```
-    - Windows ```\Logs```
+    - Windows ```\Logs``` or ```%Tmp%\Steam++\Logs```
     - macOS ```~/Library/Caches/Steam++/Logs```
     - Linux ```$XDG_CACHE_HOME/Steam++/Logs``` or ```$HOME/.cache/Steam++/Logs```
     - Android ```/data/data/net.steampp.app/cache/Logs```
