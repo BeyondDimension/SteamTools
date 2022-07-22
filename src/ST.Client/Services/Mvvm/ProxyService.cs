@@ -208,6 +208,7 @@ namespace System.Application.Services
                         }
                         else
                         {
+                            ProxyStatus = false;
                             MessageBox.Show(AppResources.CommunityFix_StartProxyFaild);
                         }
                     }

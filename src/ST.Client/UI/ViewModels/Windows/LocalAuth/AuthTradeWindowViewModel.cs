@@ -34,7 +34,7 @@ namespace System.Application.UI.ViewModels
 
         public static string DisplayName => AppResources.LocalAuth_SteamAuthTrade;
 
-        protected override void InitializeComponent()
+        protected async override void InitializeComponent()
         {
             Title = DisplayName;
 
@@ -51,7 +51,7 @@ namespace System.Application.UI.ViewModels
 
             RegisterSelectAllObservable();
 
-            Initialize();
+            await Initialize();
 
             if (_Authenticator != null)
             {
@@ -72,7 +72,7 @@ namespace System.Application.UI.ViewModels
         private string? AuthPassword;
         private bool AuthIsLocal;
 
-        private new async void Initialize()
+        private new async Task Initialize()
         {
             var repository = DI.Get<IGameAccountPlatformAuthenticatorRepository>();
             var (success, password) = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
@@ -83,6 +83,7 @@ namespace System.Application.UI.ViewModels
             else
             {
                 AuthPassword = null;
+                this.Close();
             }
             var auths = await repository.GetAllSourceAsync();
             AuthIsLocal = repository.HasLocal(auths);

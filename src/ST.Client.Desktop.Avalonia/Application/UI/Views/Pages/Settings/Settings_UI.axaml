@@ -161,8 +161,9 @@
 
       <Separator Classes="Separator"/>
 
-      <Border Classes="Item" IsEnabled="{ReflectionBinding Path=User.UserType,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:UserType.Sponsor}}">
-        <DockPanel>
+      <Border Classes="Item"
+              IsEnabled="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+        <DockPanel IsEnabled="{ReflectionBinding Path=User.UserType,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:UserType.Sponsor}}">
           <StackPanel>
             <TextBlock Text="{ReflectionBinding Path=Res.Advertisement_NoShow,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <TextBlock Classes="prompt"
@@ -172,7 +173,6 @@
           <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.IsShowAdvertise},Path=!Value, Mode=TwoWay}"/>
         </DockPanel>
       </Border>
-
     </StackPanel>
   </ScrollViewer>
 </UserControl>

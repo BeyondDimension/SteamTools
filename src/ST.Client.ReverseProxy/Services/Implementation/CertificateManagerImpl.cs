@@ -158,7 +158,7 @@ abstract partial class CertificateManagerImpl
         if (!IsRootCertificateInstalled)
         {
             TrustRootCertificate();
-            return false;
+            return IsRootCertificateInstalled;
         }
         return true;
     }

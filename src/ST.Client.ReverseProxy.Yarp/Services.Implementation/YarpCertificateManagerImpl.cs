@@ -7,6 +7,7 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
 {
     public YarpCertificateManagerImpl(IPlatformService platformService, IReverseProxyService reverseProxyService) : base(platformService, reverseProxyService)
     {
+        RootCertificate = LoadRootCertificate();
     }
 
     public override X509Certificate2? RootCertificate { get; set; }

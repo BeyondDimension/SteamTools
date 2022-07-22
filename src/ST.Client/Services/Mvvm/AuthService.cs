@@ -98,6 +98,7 @@ namespace System.Application.Services
                 var password = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
                 if (string.IsNullOrEmpty(password))
                 {
+                    Authenticators.Clear();
                     return;
                 }
                 list = await repository.ConvertToList(auths, password);
@@ -129,6 +130,7 @@ namespace System.Application.Services
             }
             else
             {
+                Authenticators.Clear();
                 Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordError);
             }
         }

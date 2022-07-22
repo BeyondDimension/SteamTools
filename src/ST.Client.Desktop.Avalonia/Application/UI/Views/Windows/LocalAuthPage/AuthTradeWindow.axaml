@@ -129,8 +129,9 @@
                       Command="{ReflectionBinding Logout_Click,Mode=OneTime}"
                       Classes="DialogButton"></Button>
             </StackPanel>-->
-            <TextBlock Text="{Binding ConfirmationsConutMessage}" Grid.Column="1"
-                       VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"></TextBlock>
+            <TextBlock Text="{Binding ConfirmationsConutMessage}"
+                       Grid.Column="1"
+                       VerticalAlignment="Center" HorizontalAlignment="Right" />
           </DockPanel>
         </Border>
 

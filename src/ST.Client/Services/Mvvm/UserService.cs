@@ -173,16 +173,11 @@ namespace System.Application.Services
             await RefreshUserAsync();
         }
 
-        bool _HasPhoneNumber;
-
+        [Reactive]
         /// <summary>
         /// 当前登录用户是否有手机号码
         /// </summary>
-        public bool HasPhoneNumber
-        {
-            get => _HasPhoneNumber;
-            set => this.RaiseAndSetIfChanged(ref _HasPhoneNumber, value);
-        }
+        public bool HasPhoneNumber { get; set; }
 
         string _PhoneNumber = string.Empty;
 
