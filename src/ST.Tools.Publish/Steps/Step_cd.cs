@@ -195,31 +195,23 @@ namespace System.Application.Steps
             Console.WriteLine("7z Step 正在创建压缩包...");
 
             // 创建压缩包
-            var gs = publishDirs.Select(x => Task.Run(() => GenerateCompressedPackage(dev, x)));
-            foreach (var item in gs.ToArray())
+            PerformanceCounter? ramCounter = null;
+            if (OperatingSystem2.IsWindows())
             {
-                await item;
+                var processName = Process.GetCurrentProcess().ProcessName;
+                ramCounter = new PerformanceCounter("Process", "Working Set", processName);
             }
-            //parallelTasks.AddRange(gs);
-
-            //var processorCount = Environment.ProcessorCount;
-            //if (processorCount < 2) processorCount = 2;
-            //var parallelCount = processorCount;
-            //if (parallelTasks.Count > parallelCount)
-            //{
-            //    var count = 0;
-            //    while (true)
-            //    {
-            //        var parallelTasksSplit = parallelTasks.Skip(count++ * parallelCount).Take(parallelCount).ToArray();
-            //        if (!parallelTasksSplit.Any()) break;
-            //        await Task.WhenAll(parallelTasksSplit);
-            //    }
-            //}
-            //else
-            //{
-            //    await Task.WhenAll(parallelTasks);
-            //}
-            //parallelTasks.Clear();
+            void WriteRAMLine()
+            {
+                if (ramCounter != null)
+                    Console.WriteLine($"Working Set: {IOPath.GetDisplayFileSizeString(ramCounter.NextValue())}");
+            }
+            foreach (var item in publishDirs)
+            {
+                WriteRAMLine();
+                GenerateCompressedPackage(dev, item);
+                WriteRAMLine();
+            }
 
             if (hasWindows)
             {

@@ -86,8 +86,6 @@ namespace System.Application
 
                         dirNames = dirNames.ThrowIsNull(nameof(dirNames));
 
-                        var parallelTasks = dirNames.Select(x => Task.Run(() => Step_cd.GenerateCompressedPackage(dev, x, type))).ToArray();
-
                         PerformanceCounter? ramCounter = null;
                         if (OperatingSystem2.IsWindows())
                         {
@@ -99,30 +97,12 @@ namespace System.Application
                             if (ramCounter != null)
                                 Console.WriteLine($"Working Set: {IOPath.GetDisplayFileSizeString(ramCounter.NextValue())}");
                         }
-                        foreach (var item in parallelTasks)
+                        foreach (var item in dirNames)
                         {
                             WriteRAMLine();
-                            await item;
+                            Step_cd.GenerateCompressedPackage(dev, item, type);
                             WriteRAMLine();
                         }
-                        //var processorCount = Environment.ProcessorCount;
-                        //if (processorCount < 2) processorCount = 2;
-                        //var parallelCount = processorCount;
-
-                        //if (parallelTasks.Length > parallelCount)
-                        //{
-                        //    var count = 0;
-                        //    while (true)
-                        //    {
-                        //        var parallelTasksSplit = parallelTasks.Skip(count++ * parallelCount).Take(parallelCount).ToArray();
-                        //        if (!parallelTasksSplit.Any()) break;
-                        //        await Task.WhenAll(parallelTasksSplit);
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    await Task.WhenAll(parallelTasks);
-                        //}
 
                         SavePublishJson(dirNames, removeFiles: false);
 
