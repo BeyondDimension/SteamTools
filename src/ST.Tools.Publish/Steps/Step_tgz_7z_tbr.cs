@@ -65,7 +65,7 @@ namespace System.Application
             {
                 var comm = new Command(name, "8. (本地)读取上一步操作后的 Publish.json 生成压缩包并计算哈希值写入 Publish.json")
                 {
-                    Handler = CommandHandler.Create(async (bool dev, string buildpackage) =>
+                    Handler = CommandHandler.Create((bool dev, string buildpackage) =>
                     {
                         if (!string.IsNullOrEmpty(buildpackage))
                         {
@@ -107,6 +107,7 @@ namespace System.Application
                         SavePublishJson(dirNames, removeFiles: false);
 
                         Console.WriteLine("完成");
+                        return;
                     })
                 };
                 comm.AddOption(new Option<bool>("-dev", DevDesc));
