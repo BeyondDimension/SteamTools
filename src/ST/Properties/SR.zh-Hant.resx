@@ -233,4 +233,12 @@
     <value>更新包解壓失敗，請在官網下載新版本手動更新</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="短信服务已停用" xml:space="preserve">
+    <value>簡訊服務已停用</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="短信服务已停用_登录或注册" xml:space="preserve">
+    <value>簡訊服務已停用，請使用快速登錄進行登錄或註冊</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

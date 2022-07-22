@@ -233,4 +233,12 @@
     <value>Не удалось распаковать пакет обновления. Перейдите на официальный сайт и скачайте обновление, затем установите его вручную.</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
+  <data name="短信服务已停用" xml:space="preserve">
+    <value>Услуга SMS отключена</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="短信服务已停用_登录或注册" xml:space="preserve">
+    <value>Услуга SMS отключена, пожалуйста, используйте Express Login для входа или регистрации</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

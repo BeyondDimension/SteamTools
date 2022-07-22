@@ -2945,4 +2945,180 @@ AAAAA-BBBBB-CCCC3</value>
     <value>縦書きのカバー</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CommunityFix_FlowStatistics" xml:space="preserve">
+    <value>トラフィック統計</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_Services" xml:space="preserve">
+    <value>サービスを高速化します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_OnlyCloudArchive" xml:space="preserve">
+    <value>Steam クラウド アーカイブをサポートするゲームのみが表示されます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_EnableTrayIcon" xml:space="preserve">
+    <value>トレイ アイコンを有効にします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_EnableTrayIcon_Tip" xml:space="preserve">
+    <value>このオプションをオフにすると、メイン ウィンドウを閉じると、プログラムから直接終了します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_HighContrast" xml:space="preserve">
+    <value>ハイコントラスト</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_SignIn_Ok" xml:space="preserve">
+    <value>チェックインは成功しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_PAC" xml:space="preserve">
+    <value>PAC プロキシ モード</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenInBrowser" xml:space="preserve">
+    <value>ブラウザで開きます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray_Title" xml:space="preserve">
+    <value>メッセージ プロンプト</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray_Content" xml:space="preserve">
+    <value>{0}つの新しいメッセージを受け取りました, 詳細は、プログラム内の私のメッセージで確認してください.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_CertificateStatus" xml:space="preserve">
+    <value>証明書の状態</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_FormerName" xml:space="preserve">
+    <value>元の名前</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>ファイル サイズ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CreateTime" xml:space="preserve">
+    <value>作成時刻</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_CloudArchiveManager" xml:space="preserve">
+    <value>Steam クラウドアーカイブ管理</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
+    <value>現在選択されているアーカイブ データを削除しますか?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_CloudArchiveDeleteAllTip" xml:space="preserve">
+    <value>アーカイブされたデータをすべて削除しますか!!!?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
+    <value>アーカイブ ファイルを手動でアップロードします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileNumber" xml:space="preserve">
+    <value>{0}ファイルです</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UploadSuccess" xml:space="preserve">
+    <value>アップロードは成功しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UploadFailed" xml:space="preserve">
+    <value>アップロードに失敗しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>アップロードします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Download_Failed_FileNameTip" xml:space="preserve">
+    <value>{0}のダウンロードに失敗しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Download_Success_FileNameTip" xml:space="preserve">
+    <value>ダウンロード {0} 成功しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement" xml:space="preserve">
+    <value>広告</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement_Close" xml:space="preserve">
+    <value>広告をオフにします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Sign" xml:space="preserve">
+    <value>チェックイン</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Signed" xml:space="preserve">
+    <value>チェックインしました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UploadFlow" xml:space="preserve">
+    <value>アップフロー</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadFlow" xml:space="preserve">
+    <value>ダウンフロー</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadAndInstall" xml:space="preserve">
+    <value>ダウンロードしてインストールします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="YouNeedInstallWebView2Runtime" xml:space="preserve">
+    <value>この機能を使用するには、WebView2 Runtime をインストールする必要があります</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadFailedPleaseTryAgainLater" xml:space="preserve">
+    <value>ダウンロードに失敗しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="InstallingPleaseWait" xml:space="preserve">
+    <value>インストール中です、 後で...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FailedToRunSetupWithPath_PleaseRunItManually" xml:space="preserve">
+    <value>セットアップの実行に失敗しました(パス: {0}、手動で実行します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Level" xml:space="preserve">
+    <value>ランク</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Experience" xml:space="preserve">
+    <value>経験値</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement_NoShow" xml:space="preserve">
+    <value>プログラム内のすべての広告を閉じます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement_NoShow_Tip" xml:space="preserve">
+    <value>スポンサー ユーザーのみが設定できます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SeeDetails" xml:space="preserve">
+    <value>詳細をご覧ください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AllTyoe" xml:space="preserve">
+    <value>すべての型</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_AllMarkHasRead" xml:space="preserve">
+    <value>すべて既読としてマークされます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Type" xml:space="preserve">
+    <value>メッセージの種類</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

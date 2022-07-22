@@ -2945,4 +2945,180 @@ AAAAA-BBBBB-CCCC3</value>
     <value>세로 커버</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CommunityFix_FlowStatistics" xml:space="preserve">
+    <value>트래픽 통계</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_Services" xml:space="preserve">
+    <value>가속 서비스</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_OnlyCloudArchive" xml:space="preserve">
+    <value>Steam 클라우드 아카이브를 지원하는 게임만 표시됩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_EnableTrayIcon" xml:space="preserve">
+    <value>트레이 아이콘을 활성화합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_EnableTrayIcon_Tip" xml:space="preserve">
+    <value>끄면 주 창을 닫으면 프로그램이 직접 종료됩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_HighContrast" xml:space="preserve">
+    <value>고대비</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_SignIn_Ok" xml:space="preserve">
+    <value>체크인에 성공했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_PAC" xml:space="preserve">
+    <value>PAC 프록시 모드입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenInBrowser" xml:space="preserve">
+    <value>브라우저에서 엽니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray_Title" xml:space="preserve">
+    <value>메시지 프롬프트입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray_Content" xml:space="preserve">
+    <value>{0} 개의 새 메시지가 수신되었으며 자세한 내용은 프로그램 내 메시지에서 확인하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_CertificateStatus" xml:space="preserve">
+    <value>인증서 상태입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_FormerName" xml:space="preserve">
+    <value>원래 이름입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>파일 크기입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CreateTime" xml:space="preserve">
+    <value>생성 시간입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_CloudArchiveManager" xml:space="preserve">
+    <value>Steam 클라우드 아카이브 관리</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
+    <value>현재 선택한 아카이브 데이터를 삭제하시겠습니까?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_CloudArchiveDeleteAllTip" xml:space="preserve">
+    <value>보관된 모든 데이터를 삭제하!!!시겠습니까?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
+    <value>아카이브를 수동으로 업로드합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileNumber" xml:space="preserve">
+    <value>{0} 파일입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UploadSuccess" xml:space="preserve">
+    <value>업로드에 성공했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UploadFailed" xml:space="preserve">
+    <value>업로드에 실패했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>업로드합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Download_Failed_FileNameTip" xml:space="preserve">
+    <value>다운로드 {0} 실패했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Download_Success_FileNameTip" xml:space="preserve">
+    <value>다운로드 {0} 성공했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement" xml:space="preserve">
+    <value>광고</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement_Close" xml:space="preserve">
+    <value>광고를 끕니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Sign" xml:space="preserve">
+    <value>체크인</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Signed" xml:space="preserve">
+    <value>체크인했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UploadFlow" xml:space="preserve">
+    <value>업스트림 트래픽입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadFlow" xml:space="preserve">
+    <value>다운스트림 트래픽입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadAndInstall" xml:space="preserve">
+    <value>다운로드하여 설치합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="YouNeedInstallWebView2Runtime" xml:space="preserve">
+    <value>이 기능을 사용하려면 WebView2 Runtime을 설치해야 합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadFailedPleaseTryAgainLater" xml:space="preserve">
+    <value>다운로드에 실패했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="InstallingPleaseWait" xml:space="preserve">
+    <value>설치 중, 나중에 ...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FailedToRunSetupWithPath_PleaseRunItManually" xml:space="preserve">
+    <value>설치 프로그램을 실행하지 못했습니다. 경로는 {0} 수동으로 실행하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Level" xml:space="preserve">
+    <value>등급입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Experience" xml:space="preserve">
+    <value>경험치</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement_NoShow" xml:space="preserve">
+    <value>프로그램 내 모든 광고를 닫습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement_NoShow_Tip" xml:space="preserve">
+    <value>스폰서 사용자만 설정할 수 있습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SeeDetails" xml:space="preserve">
+    <value>자세한 내용을 확인하세요</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AllTyoe" xml:space="preserve">
+    <value>모든 유형</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_AllMarkHasRead" xml:space="preserve">
+    <value>모두 읽음으로 표시됩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Type" xml:space="preserve">
+    <value>메시지 유형입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

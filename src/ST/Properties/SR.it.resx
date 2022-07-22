@@ -233,4 +233,12 @@
     <value>Il pacchetto di aggiornamento non può essere estratto, si prega di scaricare la nuova versione sul sito ufficiale per aggiornarlo manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="短信服务已停用" xml:space="preserve">
+    <value>Il servizio SMS è disabilitato</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="短信服务已停用_登录或注册" xml:space="preserve">
+    <value>Il servizio SMS è disattivato, si prega di utilizzare Express Login per accedere o registrarsi</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

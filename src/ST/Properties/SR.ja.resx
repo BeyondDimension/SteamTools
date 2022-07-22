@@ -233,4 +233,12 @@
     <value>更新プログラム パッケージの解凍に失敗しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="短信服务已停用" xml:space="preserve">
+    <value>SMS サービスが無効になっています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="短信服务已停用_登录或注册" xml:space="preserve">
+    <value>SMS サービスが無効になっている場合は、クイック ログインを使用してサインインまたはサインアップします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

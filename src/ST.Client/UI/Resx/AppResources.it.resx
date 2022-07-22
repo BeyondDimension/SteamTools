@@ -2940,4 +2940,180 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <value>Coperchio verticale</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CommunityFix_FlowStatistics" xml:space="preserve">
+    <value>Statistiche del traffico</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_Services" xml:space="preserve">
+    <value>Servizi di accelerazione</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_OnlyCloudArchive" xml:space="preserve">
+    <value>Vengono visualizzati solo i giochi che supportano Steam Cloud Save</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_EnableTrayIcon" xml:space="preserve">
+    <value>Abilitare l&apos;icona della barra delle applicazioni</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_EnableTrayIcon_Tip" xml:space="preserve">
+    <value>Chiudendo la finestra principale quando questa opzione è disabilitata uscirà direttamente dal programma</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_HighContrast" xml:space="preserve">
+    <value>Contrasto elevato</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_SignIn_Ok" xml:space="preserve">
+    <value>Check-in riuscito</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_PAC" xml:space="preserve">
+    <value>Modalità proxy PAC</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenInBrowser" xml:space="preserve">
+    <value>Apri nel tuo browser</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray_Title" xml:space="preserve">
+    <value>Richiesta di messaggio</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray_Content" xml:space="preserve">
+    <value>Ho ricevuto {0} nuovo messaggio, si prega di controllare la sezione I miei messaggi del programma per i dettagli.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_CertificateStatus" xml:space="preserve">
+    <value>Stato del certificato</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_FormerName" xml:space="preserve">
+    <value>Un tempo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>Dimensione del file</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CreateTime" xml:space="preserve">
+    <value>Tempo di creazione</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_CloudArchiveManager" xml:space="preserve">
+    <value>Gestione dell&apos;archivio cloud di Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
+    <value>Sei sicuro di voler eliminare i dati di archivio attualmente selezionati?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_CloudArchiveDeleteAllTip" xml:space="preserve">
+    <value>Se sei sicuro di voler eliminare tutti i tuoi salvataggi, assicurati di fare quello che stai facendo, che cancellerà tutti i salvataggi cloud del tuo gioco corrente!!!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
+    <value>Caricare manualmente il file di archivio</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileNumber" xml:space="preserve">
+    <value>file {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UploadSuccess" xml:space="preserve">
+    <value>Caricamento riuscito</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UploadFailed" xml:space="preserve">
+    <value>Caricamento non riuscito</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>caricare</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Download_Failed_FileNameTip" xml:space="preserve">
+    <value>Download {0} non riuscito</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Download_Success_FileNameTip" xml:space="preserve">
+    <value>Download {0} riuscito</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement" xml:space="preserve">
+    <value>annuncio</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement_Close" xml:space="preserve">
+    <value>Disattivare gli annunci</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Sign" xml:space="preserve">
+    <value>Accedi</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Signed" xml:space="preserve">
+    <value>Check-in</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UploadFlow" xml:space="preserve">
+    <value>Traffico upstream</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadFlow" xml:space="preserve">
+    <value>Traffico a valle</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadAndInstall" xml:space="preserve">
+    <value>Scarica e installa</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="YouNeedInstallWebView2Runtime" xml:space="preserve">
+    <value>È necessario installare WebView2 Runtime per utilizzare questa funzionalità</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadFailedPleaseTryAgainLater" xml:space="preserve">
+    <value>Download non riuscito, riprova più tardi</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="InstallingPleaseWait" xml:space="preserve">
+    <value>Installazione, si prega di attendere ...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FailedToRunSetupWithPath_PleaseRunItManually" xml:space="preserve">
+    <value>Impossibile eseguire il programma di installazione, il percorso è: {0}, eseguirlo manualmente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Level" xml:space="preserve">
+    <value>grado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Experience" xml:space="preserve">
+    <value>Punti esperienza</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement_NoShow" xml:space="preserve">
+    <value>Disattiva tutti gli annunci all&apos;interno del programma</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Advertisement_NoShow_Tip" xml:space="preserve">
+    <value>Solo gli utenti sponsorizzati possono impostarlo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SeeDetails" xml:space="preserve">
+    <value>Visualizza i dettagli</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AllTyoe" xml:space="preserve">
+    <value>Tutti i tipi</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_AllMarkHasRead" xml:space="preserve">
+    <value>Tutti sono contrassegnati come letti</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Type" xml:space="preserve">
+    <value>Il tipo di messaggio</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

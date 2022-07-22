@@ -233,4 +233,12 @@
     <value>업데이트 패키지가 추출되지 않으므로 공식 웹 사이트에서 새 버전을 다운로드하여 수동으로 업데이트하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="短信服务已停用" xml:space="preserve">
+    <value>SMS 서비스가 비활성화되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="短信服务已停用_登录或注册" xml:space="preserve">
+    <value>SMS 서비스가 비활성화되었으므로 빠른 로그인을 사용하여 로그인하거나 등록하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

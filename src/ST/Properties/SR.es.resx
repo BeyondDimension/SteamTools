@@ -233,4 +233,12 @@
     <value>El paquete de actualización no se puede extraer, descargue la nueva versión en el sitio web oficial para actualizarla manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="短信服务已停用" xml:space="preserve">
+    <value>El servicio SMS está deshabilitado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="短信服务已停用_登录或注册" xml:space="preserve">
+    <value>El servicio de SMS está desactivado, utilice Express Login para iniciar sesión o registrarse</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

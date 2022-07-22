@@ -2140,7 +2140,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>VPN 代理模式</value>
   </data>
   <data name="ProxyMode_PAC" xml:space="preserve">
-    <value>PAC代理模式</value>
+    <value>PAC 代理模式</value>
   </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
     <value>请在弹出的控制台窗口中输入密码或者手动执行</value>
