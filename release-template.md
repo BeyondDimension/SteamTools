@@ -68,8 +68,8 @@ Android 第三方快速登录回调改为 URL Scheme
 -->
 
 
-[![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Watt Toolkit v2.8.0](https://img.shields.io/badge/Watt%20Toolkit-v2.8.0-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
+[![Steam++ v2.8.0](https://img.shields.io/badge/Steam++-v2.8.0-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -78,22 +78,28 @@ Android 第三方快速登录回调改为 URL Scheme
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.7.2.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.7.2.7z  | SHA256 |
+| Steam++_win_x64_v2.8.0.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.8.0.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.7.2.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.7.2.exe  | SHA256 |
+| Steam++_win_x64_v2.8.0.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.8.0.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.2.7z  | SHA256 |
-| Steam++_linux_arm64_v2.7.2.7z  | SHA256 |
+| Steam++_win_x86_v2.8.0.7z  | SHA256 |
+| Steam++_win_x86_fde_v2.8.0.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.2.deb  | SHA256 |
-| Steam++_linux_arm64_v2.7.2.deb  | SHA256 |
+| Steam++_win_x86_v2.8.0.exe  | SHA256 |
+| Steam++_win_x86_fde_v2.8.0.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.2.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.7.2.rpm  | SHA256 |
+| Steam++_linux_x64_v2.8.0.7z  | SHA256 |
+| Steam++_linux_arm64_v2.8.0.7z  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.7.2.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.7.2.dmg  | SHA256 |
+| Steam++_linux_x64_v2.8.0.deb  | SHA256 |
+| Steam++_linux_arm64_v2.8.0.deb  | SHA256 |
 | | |
-| Steam++_android_v2.7.2.apk  | SHA256 |
+| Steam++_linux_x64_v2.8.0.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.8.0.rpm  | SHA256 |
+| | |
+| Steam++_macos_x64_v2.8.0.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.8.0.dmg  | SHA256 |
+| | |
+| Steam++_android_v2.8.0.apk  | SHA256 |

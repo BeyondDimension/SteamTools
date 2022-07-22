@@ -1,7 +1,7 @@
 name: Publish
 
 env:
-  ProjectName: Watt Toolkit
+  ProjectName: Steam++
   Configuration: Release
   PublishFilePath: C:\PublishFiles
 
@@ -282,6 +282,11 @@ jobs:
           | <sub>${{ env.ProjectName }}_win_x64_fde_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.fd_win_x64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_win_x64_v${{ steps.tag.outputs.tag }}.exe</sub> | <sub>${{ env.exe_win_x64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_win_x64_fde_v${{ steps.tag.outputs.tag }}.exe</sub> | <sub>${{ env.exe_fd_win_x64_SHA256 }}</sub> |
+          |||
+          | <sub>${{ env.ProjectName }}_win_x86_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.win_x86_SHA256 }}</sub> |
+          | <sub>${{ env.ProjectName }}_win_x86_fde_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.fd_win_x86_SHA256 }}</sub> |
+          | <sub>${{ env.ProjectName }}_win_x86_v${{ steps.tag.outputs.tag }}.exe</sub> | <sub>${{ env.exe_win_x86_SHA256 }}</sub> |
+          | <sub>${{ env.ProjectName }}_win_x86_fde_v${{ steps.tag.outputs.tag }}.exe</sub> | <sub>${{ env.exe_fd_win_x86_SHA256 }}</sub> |
           |||
           | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.tar.zst</sub> | <sub>${{ env.linux_x64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.tar.zst</sub> | <sub>${{ env.linux_arm64_SHA256 }}</sub> |
