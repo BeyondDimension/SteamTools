@@ -130,6 +130,8 @@ namespace System.Application.Services
                     var d = data.FirstOrDefault(f => f.Id == notice.Id);
                     if (d != null)
                         notice.HasRead = d.HasRead;
+                    else
+                        notice.HasRead = true;
                 }
             }
             return notices;
