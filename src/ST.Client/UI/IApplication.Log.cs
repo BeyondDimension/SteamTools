@@ -1,5 +1,6 @@
 using ArchiSteamFarm;
 using ArchiSteamFarm.Library;
+using ArchiSteamFarm.NLog.Targets;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NLog.Config;
@@ -199,29 +200,8 @@ namespace System.Application.UI
                 MaxArchiveFiles = 14,
                 MaxArchiveDays = 7,
             };
-            var asfLogDirPath = ASFPathHelper.GetLogDirectory(logDirPath_);
-            FileTarget logfile_asf = new("File")
-            {
-                ArchiveFileName = ASFPathHelper.GetNLogArchiveFileName(asfLogDirPath),
-                ArchiveNumbering = ArchiveNumberingMode.Rolling,
-                ArchiveOldFileOnStartup = true,
-                CleanupFileName = false,
-                ConcurrentWrites = false,
-                DeleteOldFileOnStartup = true,
-                FileName = ASFPathHelper.GetNLogFileName(asfLogDirPath),
-                Layout = ASFPathHelper.NLogGeneralLayout,
-                ArchiveAboveSize = 10485760,
-                MaxArchiveFiles = 10,
-                MaxArchiveDays = 7,
-            };
             objConfig.AddTarget(logfile);
-            objConfig.AddTarget(logfile_asf);
-
-            objConfig.AddRule(NLogLevel.Error, NLogLevel.Fatal, logfile, "Microsoft.*");
-            objConfig.AddRule(NLogLevel.Error, NLogLevel.Fatal, logfile, "System.Net.Http.*");
-            objConfig.LoggingRules.Add(new LoggingRule("ArchiSteamFarm*", NLogLevel.Off, logfile) { Final = true, });
-            objConfig.AddRule(defMinLevel, NLogLevel.Fatal, logfile, "*");
-            objConfig.LoggingRules.Add(new LoggingRule("ArchiSteamFarm*", defMinLevel, logfile_asf));
+            InitializeTarget(objConfig, logfile);
 #if StartWatchTrace
             StartWatchTrace.Record("InitLogDir.CreateLoggingConfiguration");
 #endif
@@ -246,12 +226,28 @@ namespace System.Application.UI
                     MaxArchiveFiles = 10,
                     MaxArchiveDays = 7,
                 };
-                config.AddTarget(fileTarget);
-                config.LoggingRules.Add(new LoggingRule("*", defMinLevel, fileTarget));
+                InitializeTarget(config, fileTarget);
+                var historyTarget = new HistoryTarget("History")
+                {
+                    Layout = ASFPathHelper.NLogGeneralLayout,
+                    MaxCount = 20,
+                };
+                InitializeTarget(config, historyTarget);
                 ASFNLogManager.Configuration = config;
             };
 
             LogDirPath = logDirPath;
+            void InitializeTarget(LoggingConfiguration config, Target target)
+            {
+                config.AddTarget(target);
+                if (ThisAssembly.Debuggable)
+                {
+                    config.LoggingRules.Add(new LoggingRule("Microsoft*", target) { FinalMinLevel = NLogLevel.Warn });
+                    config.LoggingRules.Add(new LoggingRule("Microsoft.Hosting.Lifetime*", target) { FinalMinLevel = NLogLevel.Info });
+                    config.LoggingRules.Add(new LoggingRule("System*", target) { FinalMinLevel = NLogLevel.Warn });
+                }
+                config.LoggingRules.Add(new LoggingRule("*", defMinLevel, target));
+            }
         }
 
         #endregion
