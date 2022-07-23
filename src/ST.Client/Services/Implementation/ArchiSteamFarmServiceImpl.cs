@@ -68,7 +68,7 @@ namespace System.Application.Services.Implementation
 
                     ArchiSteamFarm.NLog.Logging.GetUserInputFunc = async (bool isPassword) =>
                     {
-                        ReadLineTask = new(TaskCreationOptions.DenyChildAttach);
+                        ReadLineTask = new(TaskCreationOptions.AttachedToParent);
                         IsReadPasswordLine = isPassword;
 #if NET6_0_OR_GREATER
                         var result = await ReadLineTask.Task.WaitAsync(TimeSpan.FromSeconds(60));
