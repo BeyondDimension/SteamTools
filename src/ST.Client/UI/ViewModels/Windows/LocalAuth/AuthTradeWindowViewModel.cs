@@ -71,6 +71,7 @@ namespace System.Application.UI.ViewModels
 
         private string? AuthPassword;
         private bool AuthIsLocal;
+        private bool PasswordValid;
 
         private new async Task Initialize()
         {
@@ -79,9 +80,11 @@ namespace System.Application.UI.ViewModels
             if (success)
             {
                 AuthPassword = password;
+                PasswordValid = true;
             }
             else
             {
+                PasswordValid = false;
                 AuthPassword = null;
                 this.Close();
             }
@@ -302,7 +305,8 @@ namespace System.Application.UI.ViewModels
                 {
                     IsLoggedIn = false;
                     _Authenticator.SessionData = null;
-                    AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                    if (PasswordValid)
+                        AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
                 }
             }
         }
@@ -391,7 +395,8 @@ namespace System.Application.UI.ViewModels
                             Toast.Show(AppResources.User_LoiginSuccess);
                             IsLoggedIn = true;
                             _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
-                            AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                            if (PasswordValid)
+                                AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
                         });
                         if (!isSuccess) return;
                     }
@@ -412,7 +417,8 @@ namespace System.Application.UI.ViewModels
                         // 获取新交易后保存
                         if (!string.IsNullOrEmpty(_Authenticator.SessionData))
                         {
-                            AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                            if (PasswordValid)
+                                AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
                         }
                     });
                 }
@@ -700,7 +706,8 @@ namespace System.Application.UI.ViewModels
                 RefreshConfirmationsList();
                 LoadingText = null;
                 Toast.Show(AppResources.LocalAuth_AuthTrade_ConfirmSuccess);
-                AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                if (PasswordValid)
+                    AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
             }
         }
 
@@ -755,7 +762,8 @@ namespace System.Application.UI.ViewModels
                 RefreshConfirmationsList();
                 LoadingText = null;
                 Toast.Show(AppResources.LocalAuth_AuthTrade_ConfirmCancel);
-                AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                if (PasswordValid)
+                    AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
             }
         }
 
