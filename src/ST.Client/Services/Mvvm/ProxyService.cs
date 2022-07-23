@@ -142,7 +142,12 @@ namespace System.Application.Services
                         }
                         else if (reverseProxyService.ProxyMode == ProxyMode.System)
                         {
-                            if (!IPlatformService.Instance.SetAsSystemProxy(true, reverseProxyService.ProxyIp, reverseProxyService.ProxyPort))
+                            var proxyip = reverseProxyService.ProxyIp;
+                            if (OperatingSystem2.IsWindows() && IReverseProxyService.Instance.ProxyIp.Equals(IPAddress.Any))
+                            {
+                                proxyip = IPAddress.Loopback;
+                            }
+                            if (!IPlatformService.Instance.SetAsSystemProxy(true, proxyip, reverseProxyService.ProxyPort))
                             {
                                 Toast.Show("系统代理开启失败");
                                 return;
@@ -150,7 +155,12 @@ namespace System.Application.Services
                         }
                         else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
                         {
-                            if (!IPlatformService.Instance.SetAsSystemPACProxy(true, $"http://{reverseProxyService.ProxyIp}:{reverseProxyService.ProxyPort}/pac"))
+                            var proxyip = reverseProxyService.ProxyIp;
+                            if (OperatingSystem2.IsWindows() && IReverseProxyService.Instance.ProxyIp.Equals(IPAddress.Any))
+                            {
+                                proxyip = IPAddress.Loopback;
+                            }
+                            if (!IPlatformService.Instance.SetAsSystemPACProxy(true, $"http://{proxyip}:{reverseProxyService.ProxyPort}/pac"))
                             {
                                 Toast.Show("PAC代理开启失败");
                                 return;
