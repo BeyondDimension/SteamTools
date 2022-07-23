@@ -144,26 +144,6 @@ namespace System.Application.UI
             //    //};
             //    Resources.MergedDictionaries[0] = (ResourceDictionary)AvaloniaXamlLoader.Load(uri_1);
             //}
-
-            LiveCharts.Configure(config =>
-            {
-                config
-                    // registers SkiaSharp as the library backend
-                    // REQUIRED unless you build your own
-                    .AddSkiaSharp();
-                // adds the default supported types
-                // OPTIONAL but highly recommend
-                //.AddDefaultMappers()
-
-                // select a theme, default is Light
-                // OPTIONAL
-                //.AddDarkTheme()
-
-                if (value == AppTheme.Light)
-                    config.AddLightTheme();
-                else
-                    config.AddDarkTheme();
-            });
         }
 
         public static void SetThemeAccent(string? colorHex)
@@ -251,6 +231,43 @@ namespace System.Application.UI
                 }
                 MainWindow.DataContext = vmService.MainWindow;
             }, isTrace: isTrace);
+
+            LiveCharts.Configure(config =>
+            {
+                config
+                    // registers SkiaSharp as the library backend
+                    // REQUIRED unless you build your own
+                    .AddSkiaSharp();
+                // adds the default supported types
+                // OPTIONAL but highly recommend
+                //.AddDefaultMappers()
+
+                // select a theme, default is Light
+                // OPTIONAL
+                //.AddDarkTheme()
+
+                if (Theme != AppTheme.FollowingSystem)
+                {
+                    if (Theme == AppTheme.Light)
+                        config.AddLightTheme();
+                    else
+                        config.AddDarkTheme();
+                }
+                else
+                {
+                    var dps = IPlatformService.Instance;
+                    dps.SetLightOrDarkThemeFollowingSystem(false);
+                    var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
+                    if (isLightOrDarkTheme.HasValue)
+                    {
+                        var mThemeFS = IApplication.GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+                        if (mThemeFS == AppTheme.Light)
+                            config.AddLightTheme();
+                        else
+                            config.AddDarkTheme();
+                    }
+                }
+            });
 #if WINDOWS
             InitWebView2();
 #endif
