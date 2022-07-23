@@ -1,25 +1,24 @@
-<!--
-
 ### 公告
 1. 非简中语言将默认隐藏加速和脚本功能，仅能通过切换语言并重启程序的方式还原被隐藏的功能
-2. 现已停止短信服务节约开销，后续会推出邮箱注册登录，对于已使用手机号的用户需要进行绑定第三方快速登录，否则注销后将无法再次登录
+2. 因经济状况原因，现已停止短信服务节约开销，后续会推出邮箱注册登录，对于仅使用手机号登录的用户请绑定第三方快速登录，否则注销后将无法再次登录，需要等待至邮箱服务推出后支持会暂时在开放短信服务提供换绑邮箱。
 3. 自动更新目前仅 Windows 端可用，且由于下载渠道限速可能导致无法更新成功，推荐在官网链接的网盘或群文件中下载压缩包解压覆盖更新(应用商店版由商店更新不受此影响)
-4. 目前的本地加速功能的实现方式，因需要信任证书，在 Android 上因系统限制，所以此功能已放弃继续开发，如仍想使用需要自行导入证书到系统目录，使用 adb 工具或 Magisk 之类的软件操作，未来会使用不需要证书的加速功能替换此功能
+4. 在 Android 上因系统限制，目前的加速功能无法正常使用，所以此功能已放弃继续开发，如仍想使用需要自行导入证书到系统目录，使用 adb 工具或 Magisk 之类的软件操作，未来会使用不需要证书的加速功能替换此功能
 5. fde 版本需要安装 [ASP.NET Core 运行时 6.0.7 (x64) 与 .NET Core 运行时 6.0.7 (x64)](https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0)
-
--->
+6. Windows x86 与 x64 版本令牌本机加密互不兼容，使用两者版本时注意令牌加密后的文件不能共用。
+7. 由于新版本加速功能重构，调整了部分加速项目，这会影响旧版本程序使用加速功能
+8. 为了能继续维持开发，从此版本开始将会添加程序内广告，赞助用户可以在设置中关闭所有广告
 
 ### 版本亮点
 1. 新增 Steam 云存档管理功能，可自行上传或删除 Steam 云存档
 2. 库存游戏支持筛选支持 Steam 云存档的游戏
-3. ASF 升级至 V5.2.6.3
-4. .NET 运行时升级至 6.0.7，使用 fde 版本需要升级运行库
+3. ASF 升级至 V5.2.7.7
+4. .NET 运行时升级至 6.0.7，使用 fde 版本需要升级运行时
 5. 库存游戏中解锁成就与挂时长支持 macOS 与 Linux 系统
 6. 在设置中可关闭托盘，关闭托盘后关闭主窗口即退出程序
-7. 使用 Yarp.ReverseProxy 重写了反代加速和脚本功能，大幅提升稳定性和性能
+7. 使用 Yarp.ReverseProxy 重写了反代加速和脚本功能，大幅提升稳定性与性能
 8. Windows 新增 DNS 驱动拦截模式进行本地加速
-9. 为了能继续维持开发，从此版本开始将会添加程序内广告，赞助用户将会有特殊的标识并且不会显示广告
-10. 令牌交易现在支持查看交易详情，可以确认交易方的Steam注册时间等信息
+9. 令牌交易现在支持查看交易详情，可以确认交易方的Steam注册时间等信息
+10. 恢复 Windows x86(32 位) 版本发布
 
 ### 修复问题
 1. 修复 窗口在某些情况下最大化或最小化恢复时窗口大小会变化的问题
@@ -28,6 +27,12 @@
 4. 修复 Linux 上点击关于页面可能因字体引发闪退
 5. 修复 MIUI Android 11 ~ 12 中绑定或换绑手机号页面闪退
 6. 修复 Android 本地加速中已知问题弹窗显示时不应同时跳转引导证书页
+7. 修复 令牌交易确认要求输本地令牌密钥时点击取消也能进行交易确认的问题
+8. 修复 令牌加载输入密码解密时点击取消或输入错误密码没有移除此前的数据问题
+9. 修复 2.8.1 中出现因脚本导致的启动加速服务失败
+10. 修复 网络加速中图标在跟随系统的浅色模式下字体颜色不应为白色
+11. 修复 系统代理模式与 PAC 代理模式中监听地址为 0.0.0.0 时出现的错误
+12. 修复 切换页面 UI 布局错乱
 
 <!--
 
@@ -69,7 +74,7 @@ Android 第三方快速登录回调改为 URL Scheme
 
 
 [![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.8.0](https://img.shields.io/badge/Steam++-v2.8.0-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.8.1](https://img.shields.io/badge/Steam++-v2.8.1-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -78,28 +83,28 @@ Android 第三方快速登录回调改为 URL Scheme
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.8.0.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.8.0.7z  | SHA256 |
+| Steam++_win_x64_v2.8.1.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.8.1.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.8.0.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.8.0.exe  | SHA256 |
+| Steam++_win_x64_v2.8.1.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.8.1.exe  | SHA256 |
 | | |
-| Steam++_win_x86_v2.8.0.7z  | SHA256 |
-| Steam++_win_x86_fde_v2.8.0.7z  | SHA256 |
+| Steam++_win_x86_v2.8.1.7z  | SHA256 |
+| Steam++_win_x86_fde_v2.8.1.7z  | SHA256 |
 | | |
-| Steam++_win_x86_v2.8.0.exe  | SHA256 |
-| Steam++_win_x86_fde_v2.8.0.exe  | SHA256 |
+| Steam++_win_x86_v2.8.1.exe  | SHA256 |
+| Steam++_win_x86_fde_v2.8.1.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.0.7z  | SHA256 |
-| Steam++_linux_arm64_v2.8.0.7z  | SHA256 |
+| Steam++_linux_x64_v2.8.1.7z  | SHA256 |
+| Steam++_linux_arm64_v2.8.1.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.0.deb  | SHA256 |
-| Steam++_linux_arm64_v2.8.0.deb  | SHA256 |
+| Steam++_linux_x64_v2.8.1.deb  | SHA256 |
+| Steam++_linux_arm64_v2.8.1.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.0.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.8.0.rpm  | SHA256 |
+| Steam++_linux_x64_v2.8.1.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.8.1.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.8.0.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.8.0.dmg  | SHA256 |
+| Steam++_macos_x64_v2.8.1.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.8.1.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.8.0.apk  | SHA256 |
+| Steam++_android_v2.8.1.apk  | SHA256 |
