@@ -1,4 +1,5 @@
 using System.Application.Services.Implementation.HttpServer.Certificates;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
 namespace System.Application.Services.Implementation;
@@ -39,7 +40,22 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
         try
         {
             ICertificateManager thiz = this;
-            X509Certificate2 rootCert = new(thiz.PfxFilePath, thiz.PfxPassword, X509KeyStorageFlags.Exportable);
+            if (!File.Exists(thiz.PfxFilePath)) return null;
+            X509Certificate2 rootCert;
+            try
+            {
+                rootCert = new(thiz.PfxFilePath, thiz.PfxPassword, X509KeyStorageFlags.Exportable);
+            }
+            catch (PlatformNotSupportedException)
+            {
+                // https://github.com/dotnet/runtime/issues/71603
+                return null;
+            }
+            catch (CryptographicException e)
+            {
+                if (e.InnerException is PlatformNotSupportedException) return null;
+                throw;
+            }
             if (rootCert.NotAfter <= DateTime.Now)
             {
                 Log.Error(TAG, "Loaded root certificate has expired.");

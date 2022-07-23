@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using Titanium.Web.Proxy.Network;
 
@@ -34,7 +35,22 @@ sealed partial class TitaniumCertificateManagerImpl : CertificateManagerImpl, IC
     }
 
     protected override X509Certificate2? LoadRootCertificate()
-        => manager.LoadRootCertificate();
+    {
+        try
+        {
+            return manager.LoadRootCertificate();
+        }
+        catch (PlatformNotSupportedException)
+        {
+            // https://github.com/dotnet/runtime/issues/71603
+            return null;
+        }
+        catch (CryptographicException e)
+        {
+            if (e.InnerException is PlatformNotSupportedException) return null;
+            throw;
+        }
+    }
 
     protected override bool SharedCreateRootCertificate()
         => manager.CreateRootCertificate(true);
