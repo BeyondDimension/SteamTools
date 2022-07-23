@@ -592,6 +592,7 @@ namespace System.Application.UI
             if (isTrace) StartWatchTrace.Record();
             try
             {
+#if !WINDOWS_DESKTOP_BRIDGE
 #if MAC
                 FileSystemDesktopMac.InitFileSystem();
 #elif LINUX
@@ -607,6 +608,7 @@ namespace System.Application.UI
 
 #if StartWatchTrace
                 StartWatchTrace.Record();
+#endif
 #endif
                 IApplication.InitLogDir();
 #if StartWatchTrace
