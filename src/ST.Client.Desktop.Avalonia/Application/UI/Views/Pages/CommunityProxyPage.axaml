@@ -221,6 +221,7 @@
 
         <controls:AdDialog DockPanel.Dock="Bottom"
                            Margin="0 10 0 0"
+                           Standard="Horizontal"
                            Height="160"/>
 
         <Border Grid.Column="1" Grid.Row="1" Classes="paper" Background="{DynamicResource ThemeBrushKey}">

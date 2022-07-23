@@ -33,7 +33,11 @@ namespace System.Application.UI.Views
 
         void IApplicationSplashScreen.RunTasks()
         {
-            IViewModelManager.Instance.MainWindow?.Initialize();
+            if (IApplication.IsDesktopPlatform)
+            {
+                IViewModelManager.Instance.MainWindow?.Initialize();
+                AdvertiseService.Current.InitAdvertise();
+            }
         }
     }
 

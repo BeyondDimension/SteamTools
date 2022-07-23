@@ -49,7 +49,7 @@ namespace System.Application.Services
                 .Filter(x => x.Standard == EAdvertisementStandard.Horizontal)
                 .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
                 .Bind(out _HorizontalBannerAdvertisements)
-                .Subscribe();
+                .Subscribe(_ => this.RaisePropertyChanged(nameof(HorizontalBannerAdvertisements)));
 
             AdvertisementsSource
                 .Connect()
@@ -57,7 +57,7 @@ namespace System.Application.Services
                 .Filter(x => x.Standard == EAdvertisementStandard.Vertical)
                 .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
                 .Bind(out _VerticalBannerAdvertisements)
-                .Subscribe();
+                .Subscribe(_ => this.RaisePropertyChanged(nameof(VerticalBannerAdvertisements)));
 
             UserService.Current.WhenValueChanged(x => x.User, false)
                     .Subscribe(_ => CheckShow());
@@ -79,11 +79,6 @@ namespace System.Application.Services
             //            AdvertisementsSource.Clear();
             //        }
             //    });
-
-            if (IApplication.IsDesktopPlatform)
-            {
-                InitAdvertise();
-            }
         }
 
         public async void InitAdvertise()
@@ -92,6 +87,7 @@ namespace System.Application.Services
             {
                 await RefrshAdvertise();
                 IsInitialized = true;
+                CheckShow();
             }
         }
 
@@ -121,6 +117,12 @@ namespace System.Application.Services
 
         private void CheckShow()
         {
+            if (!AdvertiseService.Current.IsInitialized)
+            {
+                IsShowAdvertise = false;
+                return;
+            }
+
             if (UserService.Current.User != null && UserService.Current.User.UserType == UserType.Sponsor)
             {
                 if (!UISettings.IsShowAdvertise.Value)
@@ -130,11 +132,11 @@ namespace System.Application.Services
                 }
             }
 
-            if (AdvertiseService.Current.IsInitialized && !AdvertiseService.Current.AdvertisementsSource.Items.Any_Nullable())
-            {
-                IsShowAdvertise = false;
-                return;
-            }
+            //if (AdvertiseService.Current.IsInitialized && !AdvertiseService.Current.AdvertisementsSource.Items.Any_Nullable())
+            //{
+            //    IsShowAdvertise = false;
+            //    return;
+            //}
 
             IsShowAdvertise = true;
         }

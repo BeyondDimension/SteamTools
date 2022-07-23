@@ -90,15 +90,20 @@ namespace System.Application.UI.Views.Controls
                             bind.Path = nameof(AdvertiseService.Current.HorizontalBannerAdvertisements);
                         }
                         banner.Bind(CarouselBanner.ItemsProperty, bind);
-                        banner.GetObservable(CarouselBanner.ItemsProperty)
-                            .Subscribe(CheckItems);
                     });
-            }
 
-            //UserService.Current.WhenValueChanged(x => x.User, false)
-            //      .Subscribe(_ => Check());
-            //AdvertiseService.Current.WhenValueChanged(x => x.IsShowAdvertise, false)
-            //      .Subscribe(_ => Check());
+                //banner.GetObservable(CarouselBanner.ItemsProperty)
+                //    .Subscribe(CheckItems);
+
+                //banner.GetObservable(CarouselBanner.IsVisibleProperty)
+                //    .Subscribe(_ => CheckItems(banner.Items));
+
+                //UserService.Current.WhenValueChanged(x => x.User, false)
+                //      .Subscribe(_ => Check());
+
+                //AdvertiseService.Current.WhenValueChanged(x => x.IsShowAdvertise, false)
+                //      .Subscribe(_ => CheckItems(banner.Items));
+            }
         }
 
         private void InitializeComponent()
@@ -106,17 +111,30 @@ namespace System.Application.UI.Views.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        //protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
-        //{
-        //    base.OnApplyTemplate(e);
-        //}
-
-        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
-            base.OnAttachedToVisualTree(e);
-            if (banner != null)
-                CheckItems(banner.Items);
+            base.OnApplyTemplate(e);
+
+            if (Standard == EAdvertisementStandard.Vertical)
+            {
+                AdvertiseService.Current.WhenAnyValue(x => x.VerticalBannerAdvertisements)
+                        .Subscribe(x =>
+                        CheckItems(x));
+            }
+            else
+            {
+                AdvertiseService.Current.WhenAnyValue(x => x.HorizontalBannerAdvertisements)
+                        .Subscribe(x =>
+                        CheckItems(x));
+            }
         }
+
+        //protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        //{
+        //    base.OnAttachedToVisualTree(e);
+        //    if (banner != null)
+        //        CheckItems(banner.Items);
+        //}
 
         //void Check()
         //{
@@ -133,13 +151,17 @@ namespace System.Application.UI.Views.Controls
 
         void CheckItems(IEnumerable x)
         {
-            if (AdvertiseService.Current.IsInitialized && x.Count() == 0)
+            Dispatcher.UIThread.Post(() =>
             {
-                Dispatcher.UIThread.Post(() =>
+                if (AdvertiseService.Current.IsInitialized && x.Count() == 0)
                 {
                     this.IsVisible = false;
-                });
-            }
+                }
+                else
+                {
+                    this.IsVisible = true;
+                }
+            });
         }
 
         void RemoveAd()
