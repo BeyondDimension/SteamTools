@@ -83,8 +83,15 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
         try
         {
             x509Store.Open(OpenFlags.ReadWrite);
-
-            x509Store.Remove(RootCertificate);
+            var subjectName = RootCertificate.Subject[3..];
+            foreach (var item in x509Store.Certificates.Find(X509FindType.FindBySubjectName, subjectName, false))
+            {
+                //if (item.Thumbprint == RootCertificate.Thumbprint)
+                //{
+                x509Store.Remove(item);
+                //}
+            }
+            //x509Store.Remove(RootCertificate);
         }
         catch (Exception e)
         {
@@ -99,34 +106,39 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
 
     protected override void SharedTrustRootCertificate()
     {
+        if (RootCertificate == null)
+        {
+            throw new ApplicationException(
+                "Could not install certificate as it is null or empty.");
+        }
+
+        using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
         try
         {
-            if (RootCertificate == null)
-            {
-                throw new ApplicationException(
-                    "Could not install certificate as it is null or empty.");
-            }
-            using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
             store.Open(OpenFlags.ReadWrite);
 
-            var subjectName = RootCertificate.Subject[3..];
-            foreach (var item in store.Certificates.Find(X509FindType.FindBySubjectName, subjectName, false))
-            {
-                if (item.Thumbprint != RootCertificate.Thumbprint)
-                {
-                    store.Remove(item);
-                }
-            }
+            //var subjectName = RootCertificate.Subject[3..];
+            //foreach (var item in store.Certificates.Find(X509FindType.FindBySubjectName, subjectName, false))
+            //{
+            //    if (item.Thumbprint != RootCertificate.Thumbprint)
+            //    {
+            //        store.Remove(item);
+            //    }
+            //}
+
             if (store.Certificates.Find(X509FindType.FindByThumbprint, RootCertificate.Thumbprint, true).Count == 0)
             {
                 store.Add(RootCertificate);
             }
-            store.Close();
         }
         catch (Exception e)
         {
             Log.Error(TAG, e,
                 $"Please manually install the CA certificate {Interface.PfxFilePath} to a trusted root certificate authority.");
+        }
+        finally
+        {
+            store.Close();
         }
     }
 }
