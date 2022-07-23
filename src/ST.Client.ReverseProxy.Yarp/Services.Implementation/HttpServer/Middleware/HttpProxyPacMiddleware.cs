@@ -49,10 +49,12 @@ sealed class HttpProxyPacMiddleware
         var buidler = new StringBuilder();
         buidler.AppendLine("function FindProxyForURL(url, host){");
         buidler.AppendLine($"    var pac = 'PROXY {proxyHost}';");
-        foreach (var domain in reverseProxyConfig.GetDomainPatterns())
-        {
-            buidler.AppendLine($"    if (shExpMatch(host, '{domain}')) return pac;");
-        }
+
+        foreach (var domains in reverseProxyConfig.GetDomainPatterns())
+            foreach (var domain in domains.ToString().Split(';'))
+                if (!string.IsNullOrWhiteSpace(domain))
+                    buidler.AppendLine($"    if (shExpMatch(host, '{domain}')) return pac;");
+
         buidler.AppendLine("    return 'DIRECT';");
         buidler.AppendLine("}");
         return buidler.ToString();
