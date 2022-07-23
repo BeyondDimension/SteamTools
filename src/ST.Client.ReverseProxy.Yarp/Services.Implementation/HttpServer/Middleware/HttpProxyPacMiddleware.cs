@@ -1,6 +1,7 @@
 using System.Text;
 using System.Application.Models;
 using Microsoft.AspNetCore.Http;
+using System.Net;
 
 namespace System.Application.Services.Implementation.HttpServer.Middleware;
 
@@ -51,7 +52,7 @@ sealed class HttpProxyPacMiddleware
         buidler.AppendLine($"    var pac = 'PROXY {proxyHost}';");
 
         foreach (var domains in reverseProxyConfig.GetDomainPatterns())
-            foreach (var domain in domains.ToString().Split(';'))
+            foreach (var domain in domains.ToString().Split(DomainPattern.GeneralSeparator))
                 if (!string.IsNullOrWhiteSpace(domain))
                     buidler.AppendLine($"    if (shExpMatch(host, '{domain}')) return pac;");
 

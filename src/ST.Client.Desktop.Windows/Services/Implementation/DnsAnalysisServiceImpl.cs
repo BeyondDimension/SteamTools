@@ -54,8 +54,23 @@ namespace System.Application.Services.Implementation
                 DnsQueryAndServerOptions? options = null;
                 IDnsQueryResponse response;
 
-                if (dnsServers != null)
+                if (dnsServers == null)
+                {
+                    var items = await
+#if NET6_0_OR_GREATER
+                    Dns.GetHostAddressesAsync(hostNameOrAddress, cancellationToken);
+#else
+                    Dns.GetHostAddressesAsync(hostNameOrAddress);
+#endif
+                    foreach (var item in items)
+                    {
+                        yield return item;
+                    }
+                }
+                else
+                {
                     options = new DnsQueryAndServerOptions(dnsServers);
+                }
 
                 if (isIPv6)
                 {
