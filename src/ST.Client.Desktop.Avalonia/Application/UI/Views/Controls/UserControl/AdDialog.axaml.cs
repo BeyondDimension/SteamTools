@@ -118,14 +118,12 @@ namespace System.Application.UI.Views.Controls
             if (Standard == EAdvertisementStandard.Vertical)
             {
                 AdvertiseService.Current.WhenAnyValue(x => x.VerticalBannerAdvertisements)
-                        .Subscribe(x =>
-                        CheckItems(x));
+                        .Subscribe(x => CheckItems(x));
             }
             else
             {
                 AdvertiseService.Current.WhenAnyValue(x => x.HorizontalBannerAdvertisements)
-                        .Subscribe(x =>
-                        CheckItems(x));
+                        .Subscribe(x => CheckItems(x));
             }
         }
 
