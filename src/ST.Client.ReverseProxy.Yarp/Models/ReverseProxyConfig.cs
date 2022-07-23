@@ -12,7 +12,7 @@ namespace System.Application.Models;
 sealed class ReverseProxyConfig : IReverseProxyConfig
 {
     readonly SortedDictionary<DomainPattern, IDomainConfig> domainConfigs;
-    readonly SortedDictionary<DomainPattern, IScriptConfig> scriptConfigs;
+    readonly ICollection<KeyValuePair<DomainPattern, IScriptConfig>> scriptConfigs;
     readonly ConcurrentDictionary<string, IDomainConfig?> domainConfigCache;
     readonly YarpReverseProxyServiceImpl reverseProxyService;
 
@@ -20,7 +20,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     {
         this.reverseProxyService = reverseProxyService;
         domainConfigs = new();
-        scriptConfigs = new();
+        scriptConfigs = new List<KeyValuePair<DomainPattern, IScriptConfig>>();
         AddDomainConfigs(domainConfigs, reverseProxyService.ProxyDomains);
         AddScriptConfigs(scriptConfigs, reverseProxyService.Scripts);
         domainConfigCache = new();
@@ -58,7 +58,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         }
     }
 
-    static void AddScriptConfigs(IDictionary<DomainPattern, IScriptConfig> dict,
+    static void AddScriptConfigs(ICollection<KeyValuePair<DomainPattern, IScriptConfig>> dict,
     IEnumerable<ScriptDTO>? scripts)
     {
         if (IReverseProxyService.Instance.IsEnableScript && scripts != null)
@@ -71,7 +71,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
                 //    var domainNames2 = string.Join(DomainPattern.GeneralSeparator, item.ExcludeDomainNamesArray.Select(GetDomainPatternString));
                 //}
 
-                dict.Add(new DomainPattern(domainNames) { Sort = item.Order }, item);
+                dict.Add(new KeyValuePair<DomainPattern, IScriptConfig>(new DomainPattern(domainNames) { Sort = item.Order }, item));
             }
 
             static string GetDomainPatternString(string s)
