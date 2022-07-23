@@ -249,23 +249,17 @@ namespace System.Application.UI.ViewModels
             switch (auth.AuthenticatorData.Platform)
             {
                 case GamePlatform.Steam:
-                    await IWindowManager.Instance.Show(
-                        CustomWindow.ShowAuth,
-                        new ShowAuthWindowViewModel(auth),
-                        resizeMode: ResizeMode.CanResize);
+                    await IWindowManager.Instance.ShowAuth(auth);
                     break;
             }
         }
 
-        public void ShowSteamAuthTrade(MyAuthenticator auth)
+        public async void ShowSteamAuthTrade(MyAuthenticator auth)
         {
             switch (auth.AuthenticatorData.Platform)
             {
                 case GamePlatform.Steam:
-                    IWindowManager.Instance.Show(
-                        CustomWindow.AuthTrade,
-                        new AuthTradeWindowViewModel(auth),
-                        resizeMode: ResizeMode.CanResize);
+                    await IWindowManager.Instance.ShowAuthTrade(auth);
                     break;
             }
         }

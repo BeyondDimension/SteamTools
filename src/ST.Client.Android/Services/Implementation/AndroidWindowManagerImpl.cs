@@ -49,13 +49,15 @@ namespace System.Application.Services.Implementation
             });
         }
 
+        bool IWindowManager.UseMyAuthenticatorWrapper => true;
+
         protected Task<bool> PlatformShowWindowCore(Activity currentActivity, CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
             switch (customWindow)
             {
                 case CustomWindow.ShowAuth:
                 case CustomWindow.AuthTrade:
-                    if (viewModel is MyAuthenticatorWindowViewModel viewModel_auth_w && viewModel_auth_w.MyAuthenticator != null)
+                    if (viewModel is IMyAuthenticatorWrapper viewModel_auth_w && viewModel_auth_w.MyAuthenticator != null)
                     {
                         switch (customWindow)
                         {
