@@ -33,11 +33,11 @@
         </controls:CarouselBanner.ItemTemplate>
       </controls:CarouselBanner>
       <TextBlock Text="{ReflectionBinding Path=Res.Advertisement,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                 Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                 Foreground="White"
                  Margin="10 5"/>
       <Button Name="CloseAdBtn"
               Background="Transparent"
-              Foreground="{DynamicResource HighlightForegroundBrushKey}"
+              Foreground="White"
               HorizontalAlignment="Right"
               VerticalAlignment="Top"
               Cursor="Hand"
