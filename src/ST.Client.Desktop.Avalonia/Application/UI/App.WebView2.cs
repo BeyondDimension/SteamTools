@@ -29,7 +29,7 @@ partial class App
 
             static string GetUserDataFolder()
             {
-                var path = Path.Combine(IOPath.AppDataDirectory, "AppData", "WebView2", "UserData");
+                var path = Path.Combine(IOPath.AppDataDirectory, "WebView2", "UserData");
                 return IOPath.DirCreateByNotExists(path);
             }
         }

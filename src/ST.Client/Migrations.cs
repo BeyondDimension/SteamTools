@@ -40,7 +40,7 @@ namespace System.Application
 
                     if (OperatingSystem2.IsWindows() &&
                         !DesktopBridge.IsRunningAsUwp &&
-                        PreviousVersion < new Version(2, 6, 3))
+                        PreviousVersion < new Version(2, 7, 3)) // 上一次运行的版本小于 2.7.3 时将执行以下迁移
                     {
 
                         try
