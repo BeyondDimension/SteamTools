@@ -649,6 +649,7 @@ namespace System.Application.UI
                 vmService.InitViewModels();
                 if (isTrace) StartWatchTrace.Record("VM.Init");
                 handlerViewModelManager?.Invoke(vmService);
+                vmService.MainWindow?.Initialize();
                 if (isTrace) StartWatchTrace.Record("VM.Delegate");
             }
             finally
