@@ -201,7 +201,7 @@ namespace System.Application.UI
                 MaxArchiveDays = 7,
             };
             objConfig.AddTarget(logfile);
-            InitializeTarget(objConfig, logfile);
+            InitializeTarget(objConfig, logfile, defMinLevel);
 #if StartWatchTrace
             StartWatchTrace.Record("InitLogDir.CreateLoggingConfiguration");
 #endif
@@ -226,27 +226,27 @@ namespace System.Application.UI
                     MaxArchiveFiles = 10,
                     MaxArchiveDays = 7,
                 };
-                InitializeTarget(config, fileTarget);
+                InitializeTarget(config, fileTarget, NLogLevel.Debug);
                 var historyTarget = new HistoryTarget("History")
                 {
                     Layout = ASFPathHelper.NLogGeneralLayout,
                     MaxCount = 20,
                 };
-                InitializeTarget(config, historyTarget);
+                InitializeTarget(config, historyTarget, NLogLevel.Debug);
                 ASFNLogManager.Configuration = config;
             };
 
             LogDirPath = logDirPath;
-            void InitializeTarget(LoggingConfiguration config, Target target)
+            static void InitializeTarget(LoggingConfiguration config, Target target, NLogLevel minLevel)
             {
                 config.AddTarget(target);
-                if (ThisAssembly.Debuggable)
+                if (minLevel < NLogLevel.Warn)
                 {
                     config.LoggingRules.Add(new LoggingRule("Microsoft*", target) { FinalMinLevel = NLogLevel.Warn });
                     config.LoggingRules.Add(new LoggingRule("Microsoft.Hosting.Lifetime*", target) { FinalMinLevel = NLogLevel.Info });
                     config.LoggingRules.Add(new LoggingRule("System*", target) { FinalMinLevel = NLogLevel.Warn });
                 }
-                config.LoggingRules.Add(new LoggingRule("*", defMinLevel, target));
+                config.LoggingRules.Add(new LoggingRule("*", minLevel, target));
             }
         }
 
