@@ -149,6 +149,29 @@ static class Resources
         Language.Russian => "Это приложение поддерживает только 64-битные операционные системы",
         _ => "This application only supports 64-bit operating systems",
     });
+
+    public static string Error => GetString(l => l switch
+    {
+        Language.ChineseSimplified => "错误",
+        Language.ChineseTraditional => "錯誤",
+        Language.Italian => "errore",
+        Language.Japanese => "エラー",
+        Language.Korean => "잘못",
+        Language.Russian => "ошибка",
+        _ => "Error",
+    });
+
+    public static string ProgramInCompatibilityModeError => GetString(l => l switch
+    {
+        Language.ChineseSimplified => "不能在 Windows 兼容模式中运行，请关闭后重试",
+        Language.ChineseTraditional => "不能在 Windows 相容模式中運行，請關閉後重試",
+        Language.Spanish => "El modo de compatibilidad de programas de Windows está activado. Desactívelo y vuelva a intentarlo",
+        Language.Italian => "La modalità di compatibilità dei programmi di Windows è attiva. Disattivarla e riprovare",
+        Language.Japanese => "Windowsプログラムの互換性モードがオンになっています。これをオフにしてから、もう一度試してください。",
+        Language.Korean => "Windows 프로그램 호환 모드가 열렸습니다. 닫고 다시 시도하십시오.",
+        Language.Russian => "режим совместимости Windows был открыт. пожалуйста, выключите его и попробуйте снова",
+        _ => "Windows Program Compatibility mode is on. Turn it off and then try again",
+    });
 }
 
 enum Language

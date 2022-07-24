@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using NuGet.Versioning;
+using Microsoft.Win32;
 using Microsoft.DotNet.Tools.Uninstall.Windows;
 using Microsoft.DotNet.Tools.Uninstall.Shared.BundleInfo;
 using FDELauncher.Properties;
@@ -27,6 +28,11 @@ internal static class Program
     {
         try
         {
+            if (IsProgramInCompatibilityMode())
+            {
+                MessageBox.Show(R.ProgramInCompatibilityModeError, R.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
             if (args.Length == 1 && args[0] == "--query")
             {
                 var installed = RegistryQuery.GetAllInstalledBundles().ToArray();
@@ -258,5 +264,29 @@ internal static class Program
             Arguments = string.Join(" ", args),
             UseShellExecute = false,
         });
+    }
+
+    static bool IsProgramInCompatibilityMode()
+    {
+        try
+        {
+            foreach (var item in new[] { Registry.CurrentUser, Registry.LocalMachine })
+            {
+                using var layers = item.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers");
+                var value = layers?.GetValue(Environment2.ProcessPath)?.ToString();
+                if (value != null)
+                {
+                    value = value.ToUpperInvariant();
+                    if (value.Contains("WIN8")) return true;
+                    if (value.Contains("WIN7")) return true;
+                    if (value.Contains("VISTA")) return true;
+                    if (value.Contains("WINXP")) return true;
+                }
+            }
+        }
+        catch
+        {
+        }
+        return false;
     }
 }

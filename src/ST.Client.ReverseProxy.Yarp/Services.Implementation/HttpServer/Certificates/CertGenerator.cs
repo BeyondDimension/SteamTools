@@ -144,10 +144,12 @@ static class CertGenerator
         var ca = new X509Certificate2(caPfxPath, password, X509KeyStorageFlags.Exportable);
 
         var publicKey = DotNetUtilities.GetRsaPublicKey(ca.GetRSAPublicKey());
+        var privateKeyRSA = ca.GetRSAPrivateKey();
+        privateKeyRSA.ThrowIsNull();
         AsymmetricKeyParameter privateKey;
         try
         {
-            privateKey = DotNetUtilities.GetRsaKeyPair(ca.GetRSAPrivateKey()).Private;
+            privateKey = DotNetUtilities.GetRsaKeyPair(privateKeyRSA).Private;
         }
         catch (CryptographicException)
         {
@@ -155,7 +157,7 @@ static class CertGenerator
             {
                 // https://github.com/dotnet/runtime/issues/26031
                 // https://github.com/dotnet/runtime/issues/36899
-                var exported = ca.GetRSAPrivateKey()!.ExportEncryptedPkcs8PrivateKey(password, new PbeParameters(PbeEncryptionAlgorithm.TripleDes3KeyPkcs12, HashAlgorithmName.SHA1, 1));
+                var exported = privateKeyRSA.ExportEncryptedPkcs8PrivateKey(password, new PbeParameters(PbeEncryptionAlgorithm.TripleDes3KeyPkcs12, HashAlgorithmName.SHA1, 1));
                 RSA temp = RSA.Create();
                 temp.ImportEncryptedPkcs8PrivateKey(password, exported, out _);
                 var loadedPrivate = temp.ExportParameters(true);

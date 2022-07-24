@@ -2,6 +2,7 @@
 #if NET35
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace System
 {
@@ -54,6 +55,8 @@ namespace System
         public static bool Is64BitOperatingSystem => Is64BitProcess || (IntPtr.Size == 4 && Is32BitProcessOn64BitProcessor());
 
         public static bool Is64BitProcess => IntPtr.Size == 8;
+
+        public static string ProcessPath => Application.ExecutablePath;
     }
 }
 #endif
