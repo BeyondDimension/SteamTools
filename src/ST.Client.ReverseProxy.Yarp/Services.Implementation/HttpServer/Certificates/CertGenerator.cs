@@ -14,7 +14,9 @@ using Org.BouncyCastle.Pkcs;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Extension;
+using System.ComponentModel;
 using System.Net;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using X509Certificate = Org.BouncyCastle.X509.X509Certificate;
@@ -139,16 +141,27 @@ static class CertGenerator
             throw new FileNotFoundException(caPfxPath);
         }
 
-        var ca = new X509Certificate2(caPfxPath, password, X509KeyStorageFlags.Exportable);
+        try
+        {
+            var ca = new X509Certificate2(caPfxPath, password, X509KeyStorageFlags.Exportable);
 
-        var publicKey = DotNetUtilities.GetRsaPublicKey(ca.GetRSAPublicKey());
-        var privateKey = DotNetUtilities.GetRsaKeyPair(ca.GetRSAPrivateKey()).Private;
+            var publicKey = DotNetUtilities.GetRsaPublicKey(ca.GetRSAPublicKey());
+            var privateKey = DotNetUtilities.GetRsaKeyPair(ca.GetRSAPrivateKey()).Private;
 
-        var caSubjectName = GetSubjectName(ca);
-        var keys = GenerateRsaKeyPair(keySizeBits);
-        var cert = GenerateCertificate(domains, keys.Public, validFrom, validTo, caSubjectName, publicKey, privateKey, null);
+            var caSubjectName = GetSubjectName(ca);
+            var keys = GenerateRsaKeyPair(keySizeBits);
+            var cert = GenerateCertificate(domains, keys.Public, validFrom, validTo, caSubjectName, publicKey, privateKey, null);
 
-        return GeneratePfx(cert, keys.Private, password);
+            return GeneratePfx(cert, keys.Private, password);
+        }
+        catch (CryptographicException e)
+        {
+            if (OperatingSystem.IsWindows() && e.HResult != default)
+            {
+                throw new WindowsCryptographicException(e);
+            }
+            throw;
+        }
     }
 
     /// <summary>
