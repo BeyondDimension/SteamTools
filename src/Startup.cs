@@ -888,6 +888,10 @@ namespace System.Application.UI
 
         #region HttpMessageHandler
 
+        /// <summary>
+        /// 用于请求 CloudService 的 <see cref="HttpMessageHandler"/>，不需要 Cookie
+        /// </summary>
+        /// <returns></returns>
         static Func<HttpMessageHandler>? ConfigureHandler()
         {
 #if NETCOREAPP2_1_OR_GREATER
@@ -911,20 +915,26 @@ namespace System.Application.UI
                 };
             }
 #elif __ANDROID__
-            return () =>
+            return () => PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler(new()
             {
-                var handler = PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler();
-                handler.UseCookies = false;
-                handler.AutomaticDecompression = DecompressionMethods.GZip;
-                return handler;
-            };
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip,
+            });
 #else
             return null;
 #endif
         }
 
+        /// <summary>
+        /// 用于 <see cref="ArchiSteamFarm"/> 的 <see cref="HttpMessageHandler"/>
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         static HttpMessageHandler? CreateHttpHandler(CreateHttpHandlerArgs args)
         {
+            var proxy = args.Item4;
+            var useProxy = GeneralHttpClientFactory.UseWebProxy(proxy);
+            var setMaxConnectionsPerServer = !(args.Item5 < 1);  // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/SocketsHttpHandler.cs#L157
 #if NETCOREAPP2_1_OR_GREATER
 #if WINDOWS
             if (GeneralSettings.UseWinHttpHandler.Value)
@@ -935,8 +945,6 @@ namespace System.Application.UI
                     AutomaticDecompression = args.Item2,
                     CookieContainer = args.Item3,
                 };
-                var proxy = args.Item4;
-                var useProxy = GeneralHttpClientFactory.UseWebProxy(proxy);
                 if (useProxy)
                 {
                     handler.Proxy = proxy;
@@ -946,7 +954,7 @@ namespace System.Application.UI
                 {
                     handler.WindowsProxyUsePolicy = WindowsProxyUsePolicy.DoNotUseProxy;
                 }
-                if (!(args.Item5 < 1)) // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/SocketsHttpHandler.cs#L157
+                if (setMaxConnectionsPerServer)
                 {
                     handler.MaxConnectionsPerServer = args.Item5;
                 }
@@ -961,35 +969,30 @@ namespace System.Application.UI
                     AutomaticDecompression = args.Item2,
                     CookieContainer = args.Item3,
                 };
-                var proxy = args.Item4;
-                var useProxy = GeneralHttpClientFactory.UseWebProxy(proxy);
                 if (useProxy)
                 {
                     handler.Proxy = proxy;
                     handler.UseProxy = true;
                 }
-                if (!(args.Item5 < 1)) // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/SocketsHttpHandler.cs#L157
+                if (setMaxConnectionsPerServer)
                 {
                     handler.MaxConnectionsPerServer = args.Item5;
                 }
                 return handler;
             }
 #elif __ANDROID__
-            var handler = new AndroidClientHandler
+            var handler = PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler(new()
             {
                 AllowAutoRedirect = args.Item1,
                 AutomaticDecompression = args.Item2,
                 CookieContainer = args.Item3,
-            };
-            PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler(handler);
-            var proxy = args.Item4;
-            var useProxy = GeneralHttpClientFactory.UseWebProxy(proxy);
+            });
             if (useProxy)
             {
                 handler.Proxy = proxy;
                 handler.UseProxy = true;
             }
-            if (!(args.Item5 < 1)) // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/SocketsHttpHandler.cs#L157
+            if (setMaxConnectionsPerServer)
             {
                 handler.MaxConnectionsPerServer = args.Item5;
             }
@@ -998,6 +1001,40 @@ namespace System.Application.UI
             return null;
 #endif
         }
+
+        // System.Application.Services.Implementation.Http.ReverseProxyHttpClientHandler
+
+        //        static HttpMessageHandler CreateInnerHandler(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>>? connectCallback = null)
+        //        {
+        //#if NETCOREAPP2_1_OR_GREATER
+        //#if WINDOWS
+        //            if (GeneralSettings.UseWinHttpHandler.Value)
+        //            {
+        //                return new WinHttpHandler
+        //                {
+        //                    WindowsProxyUsePolicy = WindowsProxyUsePolicy.DoNotUseProxy,
+        //                    Proxy = null,
+        //                    CookieUsePolicy = CookieUsePolicy.IgnoreCookies,
+        //                    AutomaticRedirection = false,
+        //                    AutomaticDecompression = DecompressionMethods.None,
+        //                };
+        //            }
+        //            else
+        //#endif
+        //            {
+        //                return new SocketsHttpHandler
+        //                {
+        //                    Proxy = null,
+        //                    UseProxy = false,
+        //                    UseCookies = false,
+        //                    AllowAutoRedirect = false,
+        //                    AutomaticDecompression = DecompressionMethods.None,
+        //                    ConnectCallback = connectCallback,
+        //                };
+        //            }
+        //#endif
+        //            throw new NotSupportedException();
+        //        }
 
         #endregion
     }
