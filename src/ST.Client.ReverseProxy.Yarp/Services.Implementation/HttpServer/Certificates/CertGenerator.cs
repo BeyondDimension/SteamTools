@@ -141,27 +141,34 @@ static class CertGenerator
             throw new FileNotFoundException(caPfxPath);
         }
 
+        var ca = new X509Certificate2(caPfxPath, password, X509KeyStorageFlags.Exportable);
+
+        var publicKey = DotNetUtilities.GetRsaPublicKey(ca.GetRSAPublicKey());
+        AsymmetricKeyParameter privateKey;
         try
         {
-            var ca = new X509Certificate2(caPfxPath, password, X509KeyStorageFlags.Exportable);
-
-            var publicKey = DotNetUtilities.GetRsaPublicKey(ca.GetRSAPublicKey());
-            var privateKey = DotNetUtilities.GetRsaKeyPair(ca.GetRSAPrivateKey()).Private;
-
-            var caSubjectName = GetSubjectName(ca);
-            var keys = GenerateRsaKeyPair(keySizeBits);
-            var cert = GenerateCertificate(domains, keys.Public, validFrom, validTo, caSubjectName, publicKey, privateKey, null);
-
-            return GeneratePfx(cert, keys.Private, password);
+            privateKey = DotNetUtilities.GetRsaKeyPair(ca.GetRSAPrivateKey()).Private;
         }
-        catch (CryptographicException e)
+        catch (CryptographicException)
         {
-            if (OperatingSystem.IsWindows() && e.HResult != default)
+            if (OperatingSystem.IsWindows())
             {
-                throw new WindowsCryptographicException(e);
+                // https://github.com/dotnet/runtime/issues/26031
+                // https://github.com/dotnet/runtime/issues/36899
+                var exported = ca.GetRSAPrivateKey()!.ExportEncryptedPkcs8PrivateKey(password, new PbeParameters(PbeEncryptionAlgorithm.TripleDes3KeyPkcs12, HashAlgorithmName.SHA1, 1));
+                RSA temp = RSA.Create();
+                temp.ImportEncryptedPkcs8PrivateKey(password, exported, out _);
+                var loadedPrivate = temp.ExportParameters(true);
+                privateKey = DotNetUtilities.GetRsaKeyPair(loadedPrivate).Private;
             }
             throw;
         }
+
+        var caSubjectName = GetSubjectName(ca);
+        var keys = GenerateRsaKeyPair(keySizeBits);
+        var cert = GenerateCertificate(domains, keys.Public, validFrom, validTo, caSubjectName, publicKey, privateKey, null);
+
+        return GeneratePfx(cert, keys.Private, password);
     }
 
     /// <summary>
