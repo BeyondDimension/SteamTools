@@ -161,7 +161,10 @@ static class CertGenerator
                 var loadedPrivate = temp.ExportParameters(true);
                 privateKey = DotNetUtilities.GetRsaKeyPair(loadedPrivate).Private;
             }
-            throw;
+            else
+            {
+                throw;
+            }
         }
 
         var caSubjectName = GetSubjectName(ca);
