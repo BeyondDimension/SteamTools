@@ -72,7 +72,7 @@ sealed class HttpReverseProxyMiddleware
         {
             if (IReverseProxyService.Instance.EnableHttpProxyToHttps && context.Request.Scheme == Uri.UriSchemeHttp)
             {
-                context.Response.Redirect(Uri.UriSchemeHttps + context.Request.Host.Host + context.Request.RawUrl());
+                context.Response.Redirect(Uri.UriSchemeHttps + "://" + context.Request.Host.Host + context.Request.RawUrl());
                 return;
             }
 
