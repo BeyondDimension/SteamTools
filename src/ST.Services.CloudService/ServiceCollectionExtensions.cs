@@ -16,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <typeparam name="T"></typeparam>
         /// <param name="services"></param>
         /// <param name="config"></param>
+        /// <param name="configureHandler"></param>
         /// <param name="useMock"></param>
         /// <returns></returns>
         public static IServiceCollection TryAddCloudServiceClient<T>(

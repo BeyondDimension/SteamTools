@@ -37,6 +37,7 @@
     <PackageReference Include="7-Zip.NativeAssets.Win32" />
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" />
     <PackageReference Include="System.Management" />
+    <PackageReference Include="System.Net.Http.WinHttpHandler" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">

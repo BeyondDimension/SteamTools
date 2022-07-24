@@ -72,6 +72,12 @@ using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 #pragma warning restore SA1216 // Using static directives should be placed at the correct location
 #pragma warning restore SA1211 // Using alias directives should be ordered alphabetically by alias name
 #pragma warning restore IDE0079 // 请删除不必要的忽略
+using CreateHttpHandlerArgs = System.ValueTuple<
+    bool,
+    System.Net.DecompressionMethods,
+    System.Net.CookieContainer,
+    System.Net.IWebProxy?,
+    int>;
 
 namespace System.Application.UI
 {
@@ -429,32 +435,12 @@ namespace System.Application.UI
                 services.TryAddModelValidator();
 
                 // 添加服务端API调用
-#pragma warning disable SA1111 // Closing parenthesis should be on line of last parameter
                 services.TryAddCloudServiceClient<CloudServiceClient>(c =>
                 {
 #if NETCOREAPP3_0_OR_GREATER
                     c.DefaultRequestVersion = HttpVersion.Version30;
 #endif
-                }, configureHandler:
-#if NETCOREAPP2_1_OR_GREATER
-                () => new SocketsHttpHandler
-                {
-                    UseCookies = false,
-                    AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.GZip,
-                }
-#elif __ANDROID__
-                () =>
-                {
-                    var handler = PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler();
-                    handler.UseCookies = false;
-                    handler.AutomaticDecompression = DecompressionMethods.GZip;
-                    return handler;
-                }
-#else
-                null
-#endif
-                );
-#pragma warning restore SA1111 // Closing parenthesis should be on line of last parameter
+                }, configureHandler: ConfigureHandler());
 
                 services.AddAutoMapper();
 
@@ -629,6 +615,8 @@ namespace System.Application.UI
             {
                 if (isTrace) StartWatchTrace.Record(dispose: true);
             }
+
+            ArchiSteamFarm.Web.WebBrowser.CreateHttpHandlerDelegate = CreateHttpHandler;
         }
 
         /// <summary>
@@ -895,6 +883,121 @@ namespace System.Application.UI
             }
         }
 #endif
+
+        #endregion
+
+        #region HttpMessageHandler
+
+        static Func<HttpMessageHandler>? ConfigureHandler()
+        {
+#if NETCOREAPP2_1_OR_GREATER
+#if WINDOWS
+            if (GeneralSettings.UseWinHttpHandler.Value)
+            {
+                return () => new WinHttpHandler
+                {
+                    WindowsProxyUsePolicy = WindowsProxyUsePolicy.DoNotUseProxy,
+                    CookieUsePolicy = CookieUsePolicy.IgnoreCookies,
+                    AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.GZip,
+                };
+            }
+            else
+#endif
+            {
+                return () => new SocketsHttpHandler
+                {
+                    UseCookies = false,
+                    AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.GZip,
+                };
+            }
+#elif __ANDROID__
+            return () =>
+            {
+                var handler = PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler();
+                handler.UseCookies = false;
+                handler.AutomaticDecompression = DecompressionMethods.GZip;
+                return handler;
+            };
+#else
+            return null;
+#endif
+        }
+
+        static HttpMessageHandler? CreateHttpHandler(CreateHttpHandlerArgs args)
+        {
+#if NETCOREAPP2_1_OR_GREATER
+#if WINDOWS
+            if (GeneralSettings.UseWinHttpHandler.Value)
+            {
+                var handler = new WinHttpHandler
+                {
+                    AutomaticRedirection = args.Item1,
+                    AutomaticDecompression = args.Item2,
+                    CookieContainer = args.Item3,
+                };
+                var proxy = args.Item4;
+                var useProxy = GeneralHttpClientFactory.UseWebProxy(proxy);
+                if (useProxy)
+                {
+                    handler.Proxy = proxy;
+                    handler.WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseCustomProxy;
+                }
+                else
+                {
+                    handler.WindowsProxyUsePolicy = WindowsProxyUsePolicy.DoNotUseProxy;
+                }
+                if (!(args.Item5 < 1)) // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/SocketsHttpHandler.cs#L157
+                {
+                    handler.MaxConnectionsPerServer = args.Item5;
+                }
+                return handler;
+            }
+            else
+#endif
+            {
+                var handler = new SocketsHttpHandler
+                {
+                    AllowAutoRedirect = args.Item1,
+                    AutomaticDecompression = args.Item2,
+                    CookieContainer = args.Item3,
+                };
+                var proxy = args.Item4;
+                var useProxy = GeneralHttpClientFactory.UseWebProxy(proxy);
+                if (useProxy)
+                {
+                    handler.Proxy = proxy;
+                    handler.UseProxy = true;
+                }
+                if (!(args.Item5 < 1)) // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/SocketsHttpHandler.cs#L157
+                {
+                    handler.MaxConnectionsPerServer = args.Item5;
+                }
+                return handler;
+            }
+#elif __ANDROID__
+            var handler = new AndroidClientHandler
+            {
+                AllowAutoRedirect = args.Item1,
+                AutomaticDecompression = args.Item2,
+                CookieContainer = args.Item3,
+            };
+            PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler(handler);
+            var proxy = args.Item4;
+            var useProxy = GeneralHttpClientFactory.UseWebProxy(proxy);
+            if (useProxy)
+            {
+                handler.Proxy = proxy;
+                handler.UseProxy = true;
+            }
+            if (!(args.Item5 < 1)) // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/SocketsHttpHandler.cs#L157
+            {
+                handler.MaxConnectionsPerServer = args.Item5;
+            }
+            return handler;
+#else
+            return null;
+#endif
+        }
 
         #endregion
     }

@@ -18,8 +18,8 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using MSEXLog = Microsoft.Extensions.Logging;
 using CC = System.Common.Constants;
+using MSEXLog = Microsoft.Extensions.Logging;
 
 namespace System.Application.Services.Implementation
 {

@@ -113,5 +113,15 @@ namespace System.Application.Settings
         ///// </summary>
         //public static SerializableProperty<bool> IsEnableLogRecord { get; }
         //    = GetProperty(defaultValue: false, autoSave: true);
+
+        static readonly SerializableProperty<bool>? _UseWinHttpHandler = OperatingSystem2.IsWindows() ? GetProperty(defaultValue: false, autoSave: true) : null;
+
+        /// <summary>
+        /// (仅 Windows)使用基于 Windows 的 WinHTTP 接口处理消息
+        /// <para>https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.winhttphandler?view=dotnet-plat-ext-6.0</para>
+        /// <para>https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.socketshttphandler?view=net-6.0</para>
+        /// </summary>
+        [SupportedOSPlatform("Windows7.0")]
+        public static SerializableProperty<bool> UseWinHttpHandler => _UseWinHttpHandler ?? throw new PlatformNotSupportedException();
     }
 }

@@ -69,6 +69,18 @@
         </DockPanel>
       </Border>
 
+      <Border Classes="Item" IsVisible="{markup:OnPlatform Windows}">
+        <DockPanel>
+          <StackPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseWinHttpHandler,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <TextBlock Classes="prompt"
+                       Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          </StackPanel>
+
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseWinHttpHandler},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
       <!--<Border Classes="Item"
               IsVisible="{markup:OnPlatform Windows}">
         <DockPanel>

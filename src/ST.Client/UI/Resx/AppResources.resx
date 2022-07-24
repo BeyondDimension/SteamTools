@@ -2380,4 +2380,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Notice_Type" xml:space="preserve">
     <value>消息类型</value>
   </data>
+  <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
+    <value>使用 WinHttpHandler</value>
+  </data>
 </root>
