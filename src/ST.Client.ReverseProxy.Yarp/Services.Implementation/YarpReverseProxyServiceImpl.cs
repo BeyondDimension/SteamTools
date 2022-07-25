@@ -83,6 +83,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
     {
         if (app == null) return;
         await app.StopAsync();
+        if (app == null) return;
         await app.DisposeAsync();
         app = null;
     }
