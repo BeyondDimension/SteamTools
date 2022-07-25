@@ -126,7 +126,7 @@ namespace System.Application.UI.ViewModels
                           this.RaisePropertyChanged(nameof(TypeFilterString));
                       }));
 
-            SteamConnectService.Current.WhenValueChanged(x => x.IsLoadingGameList, false)
+            SteamConnectService.Current.WhenAnyValue(x => x.IsLoadingGameList)
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamAppsEmpty)));
 
             SteamConnectService.Current.SteamApps
