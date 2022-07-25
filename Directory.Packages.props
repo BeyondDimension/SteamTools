@@ -87,7 +87,7 @@
     <PackageVersion Include="System.Net.Http.WinHttpHandler" Version="6.0.1" />
     
     <!-- AppCenter.* -->
-    <PackageVersion Include="Microsoft.AppCenter" Version="4.5.1" />
+    <PackageVersion Include="Microsoft.AppCenter" Version="4.5.3" />
     <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.5.1" />
     <PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.5.1" />
     <PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.5.1" />
