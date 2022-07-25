@@ -32,8 +32,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub/Program.cs#L29
         try
         {
-            if (!Directory.Exists(RootPath))
-                Directory.CreateDirectory(RootPath);
+            IOPath.DirCreateByNotExists(RootPath);
 
             var builder = WebApplication.CreateBuilder(new WebApplicationOptions
             {
@@ -54,7 +53,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                     options.ListenGitReverseProxy();
                 }
 
-                if (IReverseProxyService.Instance.ProxyMode is ProxyMode.System or ProxyMode.PAC or ProxyMode.VPN)
+                if (ProxyMode is ProxyMode.System or ProxyMode.PAC or ProxyMode.VPN)
                 {
                     options.ListenHttpProxy();
                 }
@@ -88,12 +87,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         app = null;
     }
 
-    public FlowStatistics? GetFlowStatistics()
-    {
-        if (app == null) return null;
-
-        return app.Services.GetRequiredService<IFlowAnalyzer>().GetFlowStatistics();
-    }
+    public FlowStatistics? GetFlowStatistics() => app?.Services.GetService<IFlowAnalyzer>()?.GetFlowStatistics();
 
     #region IDisposable
 

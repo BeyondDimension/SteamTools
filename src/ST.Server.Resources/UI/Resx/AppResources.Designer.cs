@@ -70,6 +70,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 绑定失败，此账号已绑定其他第三方账号 的本地化字符串。
+        /// </summary>
+        public static string BindFail_OtherAccountBind {
+            get {
+                return ResourceManager.GetString("BindFail_OtherAccountBind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 很抱歉，您正在使用一个过时的浏览器。建议升级您的浏览器或使用 的本地化字符串。
         /// </summary>
         public static string BrowserIsSupported1 {
