@@ -245,4 +245,8 @@
     <value>There are too many steam login requests at the moment, please refresh the page and try again or try again later.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="BindFail_OtherAccountBind" xml:space="preserve">
+    <value>The binding failed, and this account has been bound to another third-party account</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

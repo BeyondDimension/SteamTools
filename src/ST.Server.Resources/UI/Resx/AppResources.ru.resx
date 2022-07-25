@@ -245,4 +245,8 @@
     <value>На данный момент запросов на вход в Steam слишком много. Обновите страницу и повторите попытку или попробуйте позже.</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
+  <data name="BindFail_OtherAccountBind" xml:space="preserve">
+    <value>Сбой привязки, и эта учетная запись была привязана к другой сторонней учетной записи</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

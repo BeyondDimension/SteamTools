@@ -245,4 +245,8 @@
     <value>Hay demasiadas solicitudes de inicio de sesión de Steam en este momento, actualice la página e inténtelo de nuevo o vuelva a intentarlo más tarde.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="BindFail_OtherAccountBind" xml:space="preserve">
+    <value>Error en el enlace y esta cuenta se ha enlazado a otra cuenta de terceros</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

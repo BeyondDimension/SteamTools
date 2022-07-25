@@ -245,4 +245,8 @@
     <value>現在、Steam ログインのリクエストが多すぎます。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="BindFail_OtherAccountBind" xml:space="preserve">
+    <value>バインドに失敗し、このアカウントは他のサード パーティのアカウントをバインドしました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

@@ -245,4 +245,8 @@
     <value>현재 스팀 로그인 요청이 너무 많으므로 페이지를 새로 고치고 다시 시도하거나 나중에 다시 시도하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="BindFail_OtherAccountBind" xml:space="preserve">
+    <value>바인딩에 실패했으며 이 계정은 다른 타사 계정에 바인딩되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

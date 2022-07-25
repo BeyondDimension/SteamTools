@@ -245,4 +245,8 @@
     <value>目前 Steam 登錄的請求過多請刷新頁面重試或稍後再試。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="BindFail_OtherAccountBind" xml:space="preserve">
+    <value>綁定失敗，此帳號已綁定其他第三方帳號</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

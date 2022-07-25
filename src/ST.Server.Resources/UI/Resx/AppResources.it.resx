@@ -245,4 +245,8 @@
     <value>Ci sono troppe richieste di accesso a Steam al momento, aggiorna la pagina e riprova o riprova più tardi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="BindFail_OtherAccountBind" xml:space="preserve">
+    <value>L&apos;associazione non è riuscita e questo account è stato associato a un altro account di terze parti</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>
