@@ -46,7 +46,7 @@ namespace System.Application.UI
 
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
-            InitWithUWP(args);
+            InitWithUWP(ref args);
 #elif MAC
             InitWithMAC(args);
 #endif
@@ -97,7 +97,7 @@ namespace System.Application.UI
         static void ShowArgs(string[] args) => WinFormsMessageBox.Show(string.Join(' ', args), "Main(string[] args)");
 #endif
 
-        static void InitWithUWP(string[] args)
+        static void InitWithUWP(ref string[] args)
         {
 #if DEBUG && !MSIX_SINGLE_PROJECT
             ShowArgs(args);
