@@ -7,11 +7,18 @@ assignees: ''
 
 ---
 
+<!--
+发布前请先尝试在 Issuse 内搜索一下你的 Question 是否已经被提出过，
+别忘了填写标题，标题要简短的描述 Question
+Before publishing, please try to search in issue to see if your question has been proposed,
+Don't forget to fill in the title, which should briefly describe the question
+-->
+
 ### 🧐 问题描述(Description)
 
 <!--
-详细地描述需求，让大家都能理解
-Describe the requirements in detail so that everyone can understand them
+详细地描述 Question，让大家都能理解
+Describe the question in detail so that everyone can understand it
 -->
 
 ### 🚑 其他信息(Other Information)

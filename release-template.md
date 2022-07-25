@@ -29,7 +29,7 @@
 6. 修复 Android 本地加速中已知问题弹窗显示时不应同时跳转引导证书页
 7. 修复 令牌交易确认要求输本地令牌密钥时点击取消也能进行交易确认的问题
 8. 修复 令牌加载输入密码解密时点击取消或输入错误密码没有移除此前的数据问题
-9. 修复 2.8.1 中出现因脚本导致的启动加速服务失败
+9. 修复 2.8.2 中出现因脚本导致的启动加速服务失败
 10. 修复 网络加速中图标在跟随系统的浅色模式下字体颜色不应为白色
 11. 修复 系统代理模式与 PAC 代理模式中监听地址为 0.0.0.0 时出现的错误
 12. 修复 切换页面 UI 布局错乱
@@ -74,7 +74,7 @@ Android 第三方快速登录回调改为 URL Scheme
 
 
 [![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.8.1](https://img.shields.io/badge/Steam++-v2.8.1-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.8.2](https://img.shields.io/badge/Steam++-v2.8.2-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -83,28 +83,28 @@ Android 第三方快速登录回调改为 URL Scheme
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.8.1.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.8.1.7z  | SHA256 |
+| Steam++_win_x64_v2.8.2.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.8.2.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.8.1.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.8.1.exe  | SHA256 |
+| Steam++_win_x64_v2.8.2.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.8.2.exe  | SHA256 |
 | | |
-| Steam++_win_x86_v2.8.1.7z  | SHA256 |
-| Steam++_win_x86_fde_v2.8.1.7z  | SHA256 |
+| Steam++_win_x86_v2.8.2.7z  | SHA256 |
+| Steam++_win_x86_fde_v2.8.2.7z  | SHA256 |
 | | |
-| Steam++_win_x86_v2.8.1.exe  | SHA256 |
-| Steam++_win_x86_fde_v2.8.1.exe  | SHA256 |
+| Steam++_win_x86_v2.8.2.exe  | SHA256 |
+| Steam++_win_x86_fde_v2.8.2.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.1.7z  | SHA256 |
-| Steam++_linux_arm64_v2.8.1.7z  | SHA256 |
+| Steam++_linux_x64_v2.8.2.7z  | SHA256 |
+| Steam++_linux_arm64_v2.8.2.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.1.deb  | SHA256 |
-| Steam++_linux_arm64_v2.8.1.deb  | SHA256 |
+| Steam++_linux_x64_v2.8.2.deb  | SHA256 |
+| Steam++_linux_arm64_v2.8.2.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.1.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.8.1.rpm  | SHA256 |
+| Steam++_linux_x64_v2.8.2.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.8.2.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.8.1.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.8.1.dmg  | SHA256 |
+| Steam++_macos_x64_v2.8.2.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.8.2.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.8.1.apk  | SHA256 |
+| Steam++_android_v2.8.2.apk  | SHA256 |

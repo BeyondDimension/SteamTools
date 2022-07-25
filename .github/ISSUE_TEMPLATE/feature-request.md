@@ -7,6 +7,13 @@ assignees: ''
 
 ---
 
+<!--
+发布前请先尝试在 Issuse 内搜索一下你的 Feature 是否已经被提出过，
+别忘了填写标题，标题要简短的描述 Feature
+Before publishing, please try to search in issue to see if your feature has been proposed,
+Don't forget to fill in the title, which should briefly describe the feature
+-->
+
 ### 🥰 需求描述(Description)
 
 <!--
