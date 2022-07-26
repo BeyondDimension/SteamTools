@@ -127,8 +127,6 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
         await sslStream.AuthenticateAsClientAsync(new SslClientAuthenticationOptions
         {
             TargetHost = tlsSniValue.Value,
-            ClientCertificates = null!,
-            EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13,
             RemoteCertificateValidationCallback = ValidateServerCertificate
         }, cancellationToken);
 
