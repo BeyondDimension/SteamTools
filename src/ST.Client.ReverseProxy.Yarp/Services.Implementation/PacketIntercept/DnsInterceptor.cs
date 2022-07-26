@@ -11,11 +11,12 @@ using WinDivertSharp;
 using DNS.Protocol;
 using DNS.Protocol.ResourceRecords;
 using System.Application.Models;
+using System.Diagnostics;
 
 namespace System.Application.Services.Implementation.PacketIntercept;
 
 /// <inheritdoc cref="IDnsInterceptor"/>
-sealed class DnsInterceptor : IDnsInterceptor
+sealed class DnsInterceptor : IDnsInterceptor, IDisposable
 {
     const string DNS_FILTER = "udp.DstPort == 53";
 
@@ -23,6 +24,7 @@ sealed class DnsInterceptor : IDnsInterceptor
     readonly ILogger<DnsInterceptor> logger;
 
     readonly TimeSpan ttl = TimeSpan.FromMinutes(5d);
+    bool disposedValue;
 
     /// <summary>
     /// 刷新 DNS 缓存
@@ -172,6 +174,34 @@ sealed class DnsInterceptor : IDnsInterceptor
             request = null;
             return false;
         }
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // TODO: 释放托管状态(托管对象)
+                using var p = Process.Start(new ProcessStartInfo()
+                {
+                    UseShellExecute = false,
+                    FileName = "sc",
+                    Arguments = "stop WinDivert1.4",
+                });
+            }
+
+            // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+            // TODO: 将大型字段设置为 null
+            disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }
 
