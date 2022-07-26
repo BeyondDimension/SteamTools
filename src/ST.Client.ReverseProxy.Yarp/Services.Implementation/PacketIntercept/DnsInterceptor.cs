@@ -186,6 +186,7 @@ sealed class DnsInterceptor : IDnsInterceptor, IDisposable
                 using var p = Process.Start(new ProcessStartInfo()
                 {
                     UseShellExecute = false,
+                    CreateNoWindow = true,
                     FileName = "sc",
                     Arguments = "stop WinDivert1.4",
                 });
