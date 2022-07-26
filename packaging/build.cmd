@@ -1,0 +1,1 @@
+dotnet publish "..\src\ST.Client.Desktop.Avalonia.App\ST.Client.Avalonia.App.csproj" -c Release -p:PublishProfile=win-x64 -p:DeployOnBuild=true -p:ExtraDefineConstants=win-x64 --nologo
