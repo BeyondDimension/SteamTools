@@ -12,8 +12,7 @@ partial class GeneralHttpClientFactory
         if (OperatingSystem2.IsWindows7())
         {
             // https://github.com/dotnet/runtime/issues/25722
-            handler.SslOptions.EnabledSslProtocols =
-                SslProtocols.Tls11 | SslProtocols.Tls12 | SslProtocols.Tls13;
+            handler.SslOptions.EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
         }
         return handler;
     }

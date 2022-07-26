@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using NLog.Web;
 using System.Application.Models;
+using System.Security.Authentication;
 
 namespace System.Application.Services.Implementation;
 
@@ -46,9 +47,16 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             builder.WebHost.UseKestrel(options =>
             {
                 options.NoLimit();
-
                 if (OperatingSystem.IsWindows())
                 {
+                    if (OperatingSystem2.IsWindows7())
+                    {
+                        //https://github.com/dotnet/aspnetcore/issues/22563
+                        options.ConfigureHttpsDefaults(httpsOptions =>
+                        {
+                            httpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
+                        });
+                    }
                     options.ListenSshReverseProxy();
                     options.ListenGitReverseProxy();
                 }

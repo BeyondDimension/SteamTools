@@ -81,7 +81,7 @@ namespace System.Application.UI
             }
         }
 
-        static void TrySetSecurityProtocol(SecurityProtocolType type = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13)
+        static void TrySetSecurityProtocol(SecurityProtocolType type = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13)
         {
             try
             {
