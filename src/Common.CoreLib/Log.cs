@@ -11,7 +11,11 @@ namespace System;
 /// </summary>
 public static class Log
 {
-    internal static ILoggerFactory Factory => DI.Get<ILoggerFactory>();
+    public static Func<ILoggerFactory>? LoggerFactory { private get; set; }
+
+    static ILoggerFactory? factory;
+
+    public static ILoggerFactory Factory => factory ??= DI.Get_Nullable<ILoggerFactory>() ?? LoggerFactory?.Invoke() ?? throw new ArgumentNullException(nameof(LoggerFactory));
 
     public static ILogger CreateLogger(string tag) => Factory.CreateLogger(tag);
 

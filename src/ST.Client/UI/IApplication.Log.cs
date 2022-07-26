@@ -248,6 +248,8 @@ namespace System.Application.UI
                 }
                 config.LoggingRules.Add(new LoggingRule("*", minLevel, target));
             }
+
+            Log.LoggerFactory = () => new LoggerFactory(new[] { new NLogLoggerProvider() });
         }
 
         #endregion
