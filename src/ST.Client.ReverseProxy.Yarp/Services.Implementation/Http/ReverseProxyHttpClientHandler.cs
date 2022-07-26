@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Application.Models;
 using System.Collections;
+using System.Security.Authentication;
 
 namespace System.Application.Services.Implementation.Http;
 
@@ -121,12 +122,13 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
         {
             return stream;
         }
-
         var tlsSniValue = requestContext.TlsSniValue.WithIPAddress(ipEndPoint.Address);
         var sslStream = new SslStream(stream, leaveInnerStreamOpen: false);
         await sslStream.AuthenticateAsClientAsync(new SslClientAuthenticationOptions
         {
             TargetHost = tlsSniValue.Value,
+            ClientCertificates = null!,
+            EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13,
             RemoteCertificateValidationCallback = ValidateServerCertificate
         }, cancellationToken);
 
