@@ -116,6 +116,7 @@
                         <TextBlock
                              Text="{Binding Introduction}"
                              Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                             MaxLines="2"
                              Classes="h8"
                              TextTrimming="CharacterEllipsis"/>
                         <TextBlock
