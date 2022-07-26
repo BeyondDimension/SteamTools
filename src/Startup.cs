@@ -908,11 +908,11 @@ namespace System.Application.UI
             else
 #endif
             {
-                return () => new SocketsHttpHandler
+                return () => GeneralHttpClientFactory.CreateSocketsHttpHandler(new()
                 {
                     UseCookies = false,
                     AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.GZip,
-                };
+                });
             }
 #elif __ANDROID__
             return () => PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler(new()
@@ -963,12 +963,12 @@ namespace System.Application.UI
             else
 #endif
             {
-                var handler = new SocketsHttpHandler
+                var handler = GeneralHttpClientFactory.CreateSocketsHttpHandler(new()
                 {
                     AllowAutoRedirect = args.Item1,
                     AutomaticDecompression = args.Item2,
                     CookieContainer = args.Item3,
-                };
+                });
                 if (useProxy)
                 {
                     handler.Proxy = proxy;

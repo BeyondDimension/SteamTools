@@ -60,7 +60,7 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
     /// 创建转发代理的 <see cref="HttpMessageHandler"/>
     /// </summary>
     /// <returns></returns>
-    SocketsHttpHandler CreateSocketsHttpHandler() => new SocketsHttpHandler
+    SocketsHttpHandler CreateSocketsHttpHandler() => GeneralHttpClientFactory.CreateSocketsHttpHandler(new()
     {
         Proxy = null,
         UseProxy = false,
@@ -68,7 +68,7 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
         AllowAutoRedirect = false,
         AutomaticDecompression = DecompressionMethods.None,
         ConnectCallback = ConnectCallback,
-    };
+    });
 
     /// <summary>
     /// 连接回调
