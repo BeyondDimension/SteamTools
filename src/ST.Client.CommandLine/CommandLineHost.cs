@@ -418,7 +418,7 @@ public abstract class CommandLineHost : IDisposable
         // -clt shutdown
         var shutdown = new Command(key_shutdown, "安全结束正在运行的程序")
         {
-            Handler = CommandHandler.Create((bool on, bool off) =>
+            Handler = CommandHandler.Create(() =>
             {
                 InitAppInstance(() => key_shutdown);
             }),
