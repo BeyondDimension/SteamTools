@@ -114,7 +114,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
             }
             else
             {
-                if (!OperatingSystem2.IsWindows() && ProxyMode == ProxyMode.Hosts)
+                if (!OperatingSystem2.IsWindows() && ProxyMode is ProxyMode.Hosts)
                 {
                     // 非 windows 环境 hosts 加速下不能使用系统默认 DNS 解析代理，会解析到 hosts 上无限循环
                     ip = await DnsAnalysis.AnalysisDomainIpAsync(url, DefaultDnsServers, IsIpv6Support).FirstOrDefaultAsync();

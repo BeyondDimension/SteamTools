@@ -93,11 +93,22 @@ namespace System.Application.Settings
         public static SerializableProperty<bool> IsEnableSteamLaunchNotification => _IsEnableSteamLaunchNotification ?? throw new PlatformNotSupportedException();
 
         /// <summary>
-        /// 检测到Steam登录时弹出消息通知
+        /// Steam下载完成执行任务
         /// </summary>
         [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<SystemEndMode>? DownloadCompleteSystemEndMode = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: SystemEndMode.Sleep, autoSave: true) : null;
+
+        static readonly SerializableProperty<bool>? _IsRunSteamAdministrator = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
+
+        /// <summary>
+        /// 以管理员权限运行Steam
+        /// </summary>
+        [SupportedOSPlatform("Windows7.0")]
+        [SupportedOSPlatform("macOS")]
+        [SupportedOSPlatform("Linux")]
+        public static SerializableProperty<bool> IsRunSteamAdministrator => _IsRunSteamAdministrator ?? throw new PlatformNotSupportedException();
+
     }
 }

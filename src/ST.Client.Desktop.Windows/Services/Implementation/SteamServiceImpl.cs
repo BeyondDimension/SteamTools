@@ -147,7 +147,7 @@ namespace System.Application.Services.Implementation
         {
             if (!string.IsNullOrWhiteSpace(SteamProgramPath) && File.Exists(SteamProgramPath))
             {
-                if (OperatingSystem2.IsWindows())
+                if (OperatingSystem2.IsWindows() && !SteamSettings.IsRunSteamAdministrator.Value)
                 {
                     platformService.StartAsInvoker(SteamProgramPath, arguments);
                 }
