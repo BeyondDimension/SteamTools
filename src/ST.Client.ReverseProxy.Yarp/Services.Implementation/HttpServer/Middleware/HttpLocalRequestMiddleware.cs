@@ -42,6 +42,10 @@ sealed class HttpLocalRequestMiddleware
             var type = context.Request.Headers["requestType"];
             switch (type)
             {
+                case "status":
+                    context.Response.StatusCode = StatusCodes.Status200OK;
+                    await context.Response.WriteAsync("OK");
+                    return;
                 case "xhr":
                     await HandleHttpRequestAsync(context);
                     return;
@@ -62,11 +66,7 @@ sealed class HttpLocalRequestMiddleware
                     return;
             }
         }
-        else
-        {
-            await next(context);
-        }
-
+        await next(context);
     }
 
     /// <summary>

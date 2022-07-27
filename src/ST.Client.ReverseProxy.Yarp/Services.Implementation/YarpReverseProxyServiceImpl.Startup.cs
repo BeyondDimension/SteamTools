@@ -25,10 +25,7 @@ partial class YarpReverseProxyServiceImpl
 
     void StartupConfigure(IApplicationBuilder app)
     {
-        if (IsEnableScript)
-        {
-            app.UseHttpLocalRequest();
-        }
+        app.UseHttpLocalRequest();
 
         app.UseHttpProxyPac();
         app.UseRequestLogging();

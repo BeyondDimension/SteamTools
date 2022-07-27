@@ -9,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography;
 using System.Application.UI.ViewModels;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using System.Globalization;
 
 namespace System.Application.CommandLine;
 
@@ -336,6 +337,50 @@ public abstract class CommandLineHost : IDisposable
             MainHandlerByCLT(msg);
         });
         rootCommand.AddCommand(proxy);
+
+        // -clt ayaneo -path
+        var ayaneo = new Command("ayaneo", "生成ayaneo数据在指定位置");
+        ayaneo.AddOption(new Option<string>("-path", "json生成路径"));
+        ayaneo.Handler = CommandHandler.Create((string path) =>
+        {
+            ConfigureServices(DILevel.Steam);
+            var steamService = ISteamService.Instance;
+            var users = steamService.GetRememberUserList();
+
+#pragma warning disable CA1416 // 验证平台兼容性
+            IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
+#pragma warning restore CA1416 // 验证平台兼容性
+            var sUsers = users.Select(s =>
+            {
+                if (accountRemarks?.TryGetValue(s.SteamId64, out var remark) == true &&
+                   !string.IsNullOrEmpty(remark))
+                    s.Remark = remark;
+
+                var title = s.SteamNickName ?? s.SteamId64.ToString(CultureInfo.InvariantCulture);
+                if (!string.IsNullOrEmpty(s.Remark))
+                    title = s.SteamNickName + "(" + s.Remark + ")";
+
+#pragma warning disable CS8619 // 值中的引用类型的为 Null 性与目标类型不匹配。
+                return new
+                {
+                    Name = title,
+                    Account = s.AccountName,
+                };
+#pragma warning restore CS8619 // 值中的引用类型的为 Null 性与目标类型不匹配。
+            });
+
+            var content = new
+            {
+                steamppPath = Path.Combine(IOPath.BaseDirectory, System.Application.Constants.HARDCODED_APP_NAME + ".exe"),
+                steamUsers = sUsers,
+            };
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                path = Path.Combine(IOPath.BaseDirectory, "steampp.json");
+            }
+            File.WriteAllText(path, Serializable.SJSON(content));
+        });
+        rootCommand.AddCommand(ayaneo);
 
         var r = rootCommand.InvokeAsync(args).GetAwaiter().GetResult();
         return r;
