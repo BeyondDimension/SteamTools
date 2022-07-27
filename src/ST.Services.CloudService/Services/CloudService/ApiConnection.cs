@@ -571,8 +571,8 @@ namespace System.Application.Services.CloudService
                 {
                     var skey_bytes = aes.ThrowIsNull(nameof(aes)).ToParamsByteArray();
                     var padding = RSAUtils.DefaultPadding;
-                    var skey_str = conn_helper.RSA.EncryptToString(skey_bytes, padding);
-                    request.Headers.Add(SecurityKey, skey_str);
+                    var skey_str = conn_helper.RSA.EncryptToHexString(skey_bytes, padding);
+                    request.Headers.Add(SecurityKeyHex, skey_str);
                     request.Headers.Add(SecurityKeyPadding, padding.OaepHashAlgorithm.ToString() ?? string.Empty);
                 }
 
