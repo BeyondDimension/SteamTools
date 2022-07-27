@@ -149,13 +149,13 @@ public static partial class RSAUtils
     {
         if (!string.IsNullOrWhiteSpace(oaepHashAlgorithmName))
         {
-            if (oaepHashAlgorithmName.Contains(nameof(HashAlgorithmName.SHA1)))
+            if (oaepHashAlgorithmName.Equals(nameof(HashAlgorithmName.SHA1), StringComparison.OrdinalIgnoreCase))
                 return RSAEncryptionPadding.OaepSHA1;
-            if (oaepHashAlgorithmName.Contains(nameof(HashAlgorithmName.SHA256)))
+            if (oaepHashAlgorithmName.Equals(nameof(HashAlgorithmName.SHA256), StringComparison.OrdinalIgnoreCase))
                 return RSAEncryptionPadding.OaepSHA256;
-            if (oaepHashAlgorithmName.Contains(nameof(HashAlgorithmName.SHA384)))
+            if (oaepHashAlgorithmName.Equals(nameof(HashAlgorithmName.SHA384), StringComparison.OrdinalIgnoreCase))
                 return RSAEncryptionPadding.OaepSHA384;
-            if (oaepHashAlgorithmName.Contains(nameof(HashAlgorithmName.SHA512)))
+            if (oaepHashAlgorithmName.Equals(nameof(HashAlgorithmName.SHA512), StringComparison.OrdinalIgnoreCase))
                 return RSAEncryptionPadding.OaepSHA512;
         }
         return RSAEncryptionPadding.OaepSHA256;
