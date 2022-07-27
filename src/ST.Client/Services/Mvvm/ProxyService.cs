@@ -252,9 +252,18 @@ namespace System.Application.Services
                             }
                         }
 
-                        OnStopRemoveHostsByTag();
-                        IPlatformService.Instance.SetAsSystemProxy(false);
-                        IPlatformService.Instance.SetAsSystemPACProxy(false);
+                        if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
+                        {
+                            OnStopRemoveHostsByTag();
+                        }
+                        else if (reverseProxyService.ProxyMode == ProxyMode.System)
+                        {
+                            IPlatformService.Instance.SetAsSystemProxy(false);
+                        }
+                        else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
+                        {
+                            IPlatformService.Instance.SetAsSystemPACProxy(false);
+                        }
                     }
                 });
         }
@@ -797,6 +806,8 @@ namespace System.Application.Services
             if (OperatingSystem2.IsWindows())
             {
                 await reverseProxyService.StopProxy();
+                IPlatformService.Instance.SetAsSystemProxy(false);
+                IPlatformService.Instance.SetAsSystemPACProxy(false);
                 Process.Start("cmd.exe", "netsh winsock reset");
             }
 
@@ -810,9 +821,22 @@ namespace System.Application.Services
 
         public async Task Exit()
         {
-            await reverseProxyService.StopProxy();
-            OnExitRestoreHosts();
-            IPlatformService.Instance.SetAsSystemProxy(false);
+            if (ProxyStatus)
+            {
+                await reverseProxyService.StopProxy();
+                if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
+                {
+                    OnExitRestoreHosts();
+                }
+                else if (reverseProxyService.ProxyMode == ProxyMode.System)
+                {
+                    IPlatformService.Instance.SetAsSystemProxy(false);
+                }
+                else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
+                {
+                    IPlatformService.Instance.SetAsSystemPACProxy(false);
+                }
+            }
             reverseProxyService.Dispose();
         }
 
