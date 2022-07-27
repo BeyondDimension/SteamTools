@@ -33,7 +33,7 @@ static class Convert
 #if NET5_0_OR_GREATER
                 var result = GC.AllocateUninitializedArray<byte>(resultLength);
 #else
-                    var result = new byte[resultLength];
+                var result = new byte[resultLength];
 #endif
                 fixed (byte* outPtr = result)
                 {
