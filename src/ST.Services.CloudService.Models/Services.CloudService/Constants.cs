@@ -20,6 +20,7 @@ namespace System.Application.Services.CloudService
             {
                 public const string AppVersion = "App-Version";
                 public const string SecurityKey = "App-SKey";
+                public const string SecurityKeyHex = "App-SKey-Hex";
                 public const string SecurityKeyPadding = "App-SKey-Padding";
             }
 

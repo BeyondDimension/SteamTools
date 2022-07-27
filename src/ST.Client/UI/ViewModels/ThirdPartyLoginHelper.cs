@@ -232,7 +232,7 @@ namespace System.Application.UI.ViewModels
             }).AddTo(vm);
             if (tempAes == null) tempAes = AESUtils.Create(); // 每次创建新的之前的会失效
             var skey_bytes = tempAes.ToParamsByteArray();
-            var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
+            var skey_str = conn_helper.RSA.EncryptToHexString(skey_bytes);
             var csc = DI.Get<CloudServiceClientBase>();
             var padding = RSAUtils.DefaultPadding;
             var access_token = string.Empty;
@@ -244,15 +244,15 @@ namespace System.Application.UI.ViewModels
                 if (authHeaderValue != null)
                 {
                     var authHeaderValueStr = authHeaderValue.ToString();
-                    access_token = tempAes.Encrypt(authHeaderValueStr);
+                    access_token = tempAes.EncryptHex(authHeaderValueStr);
                     var now = DateTime.UtcNow;
-                    access_token_expires = tempAes.Encrypt(now.ToString(DateTimeFormat.RFC1123));
+                    access_token_expires = tempAes.EncryptHex(now.ToString(DateTimeFormat.RFC1123));
                 }
             }
             // &version={version}
             //var version = csc.Settings.AppVersionStr;
             var ver = _ThisAssembly.Version.Base64UrlEncode();
-            var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?port={port}&sKey={skey_str}&sKeyPadding={padding.OaepHashAlgorithm}&ver={ver}&isBind={isBind}&access_token_expires={access_token_expires}&access_token={access_token}";
+            var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?port={port}&sKeyHex={skey_str}&sKeyPadding={padding.OaepHashAlgorithm}&ver={ver}&isBind={isBind}&access_token_expires_hex={access_token_expires}&access_token_hex={access_token}";
             await Browser2.OpenAsync(url, BrowserLaunchMode.External);
         }
 

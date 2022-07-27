@@ -10,43 +10,43 @@ namespace HexMate;
 
 static class Convert
 {
-    //    /// <summary>
-    //    /// Converts the specified string, which encodes binary data as hex characters, to an equivalent 8-bit unsigned integer array.
-    //    /// </summary>
-    //    /// <param name="s">The string to convert.</param>
-    //    /// <returns>An array of 8-bit unsigned integers that is equivalent to <paramref name="s"/>.</returns>
-    //    /// <exception cref="ArgumentNullException"><paramref name="s"/> is <code>null</code>.</exception>
-    //    /// <exception cref="FormatException">The length of <paramref name="s"/>, ignoring white-space characters, is not zero or a multiple of 2.</exception>
-    //    /// <exception cref="FormatException">The format of <paramref name="s"/> is invalid. <paramref name="s"/> contains a non-hex character.</exception>
-    //    public static byte[] FromHexString(string s)
-    //    {
-    //        if (s == null)
-    //            throw new ArgumentNullException(nameof(s));
-    //        if (s.Length == 0)
-    //            return Array.Empty<byte>();
+    /// <summary>
+    /// Converts the specified string, which encodes binary data as hex characters, to an equivalent 8-bit unsigned integer array.
+    /// </summary>
+    /// <param name="s">The string to convert.</param>
+    /// <returns>An array of 8-bit unsigned integers that is equivalent to <paramref name="s"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="s"/> is <code>null</code>.</exception>
+    /// <exception cref="FormatException">The length of <paramref name="s"/>, ignoring white-space characters, is not zero or a multiple of 2.</exception>
+    /// <exception cref="FormatException">The format of <paramref name="s"/> is invalid. <paramref name="s"/> contains a non-hex character.</exception>
+    public static byte[] FromHexString(string s)
+    {
+        if (s == null)
+            throw new ArgumentNullException(nameof(s));
+        if (s.Length == 0)
+            return Array.Empty<byte>();
 
-    //        unsafe
-    //        {
-    //            fixed (char* inPtr = s)
-    //            {
-    //                var resultLength = FromHex_ComputeResultLength(inPtr, s.Length);
-    //#if NET5_0_OR_GREATER
-    //                var result = GC.AllocateUninitializedArray<byte>(resultLength);
-    //#else
-    //                var result = new byte[resultLength];
-    //#endif
-    //                fixed (byte* outPtr = result)
-    //                {
-    //                    var res = ConvertFromHexArray(outPtr, result.Length, inPtr, s.Length);
-    //                    if (res < 0)
-    //                        throw new FormatException(SR.Format_BadHexChar);
-    //                    Debug.Assert(res == result.Length);
-    //                }
+        unsafe
+        {
+            fixed (char* inPtr = s)
+            {
+                var resultLength = FromHex_ComputeResultLength(inPtr, s.Length);
+#if NET5_0_OR_GREATER
+                var result = GC.AllocateUninitializedArray<byte>(resultLength);
+#else
+                    var result = new byte[resultLength];
+#endif
+                fixed (byte* outPtr = result)
+                {
+                    var res = ConvertFromHexArray(outPtr, result.Length, inPtr, s.Length);
+                    if (res < 0)
+                        throw new FormatException(SR.Format_BadHexChar);
+                    Debug.Assert(res == result.Length);
+                }
 
-    //                return result;
-    //            }
-    //        }
-    //    }
+                return result;
+            }
+        }
+    }
 
     /// <summary>
     /// Converts an array of 8-bit unsigned integers to its equivalent string representation that is encoded with hex characters.
@@ -251,108 +251,108 @@ static class Convert
         return false;
     }
 
-    //    private static unsafe int FromHex_ComputeResultLength(char* inputPtr, int inputLength)
-    //           => CharHelper.CountUsefulCharacters(inputPtr, inputLength) / 2;
+    private static unsafe int FromHex_ComputeResultLength(char* inputPtr, int inputLength)
+           => CharHelper.CountUsefulCharacters(inputPtr, inputLength) / 2;
 
-    //    private static unsafe int ConvertFromHexArray(byte* outData, int outLength, char* inChars, int inLength)
-    //    {
-    //        Debug.Assert(inLength != 0);
-    //        if (inLength == 1)
-    //        {
-    //            return errInvalidData;
-    //        }
+    private static unsafe int ConvertFromHexArray(byte* outData, int outLength, char* inChars, int inLength)
+    {
+        Debug.Assert(inLength != 0);
+        if (inLength == 1)
+        {
+            return errInvalidData;
+        }
 
-    //        var charsToRead = inLength;
-    //        var remainingIn = charsToRead;
-    //        var bytesToWrite = outLength;
-    //        var remainingOut = bytesToWrite;
-    //        var src = inChars;
-    //        var last = src;
-    //        var srcEnd = src + inLength;
-    //        var dest = outData;
+        var charsToRead = inLength;
+        var remainingIn = charsToRead;
+        var bytesToWrite = outLength;
+        var remainingOut = bytesToWrite;
+        var src = inChars;
+        var last = src;
+        var srcEnd = src + inLength;
+        var dest = outData;
 
-    //        while (remainingOut > 0)
-    //        {
-    //#if NETCOREAPP3_0_OR_GREATER
-    //            // Ignore errors in the SIMD part, and handle them in scalar part below
-    //            if (Avx2.IsSupported && remainingIn >= 64 && remainingOut >= 32)
-    //            {
-    //                Utf16HexParser.Avx2.TryParse(ref src, ref dest, remainingOut);
-    //                remainingIn = charsToRead - (int)(src - inChars);
-    //                remainingOut = bytesToWrite - (int)(dest - outData);
-    //            }
+        while (remainingOut > 0)
+        {
+#if NETCOREAPP3_0_OR_GREATER
+            // Ignore errors in the SIMD part, and handle them in scalar part below
+            if (Avx2.IsSupported && remainingIn >= 64 && remainingOut >= 32)
+            {
+                Utf16HexParser.Avx2.TryParse(ref src, ref dest, remainingOut);
+                remainingIn = charsToRead - (int)(src - inChars);
+                remainingOut = bytesToWrite - (int)(dest - outData);
+            }
 
-    //            if (remainingIn >= 32 && remainingOut >= 16)
-    //            {
-    //                if (Ssse3.IsSupported)
-    //                {
-    //                    Utf16HexParser.Ssse3.TryParse(ref src, ref dest, remainingOut);
-    //                    remainingIn = charsToRead - (int)(src - inChars);
-    //                    remainingOut = bytesToWrite - (int)(dest - outData);
-    //                }
-    //                else if (Sse2.IsSupported)
-    //                {
-    //                    Utf16HexParser.Sse2.TryParse(ref src, ref dest, remainingOut);
-    //                    remainingIn = charsToRead - (int)(src - inChars);
-    //                    remainingOut = bytesToWrite - (int)(dest - outData);
-    //                }
-    //            }
-    //#endif
-    //#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-    //            if (!Utf16HexParser.Span.TryParse(ref src, remainingIn, ref dest, remainingOut))
-    //#else
-    //            if (!Utf16HexParser.Fixed.TryParse(ref src, remainingIn, ref dest, remainingOut))
-    //#endif
-    //            {
-    //                goto InvalidData;
-    //            }
-    //            remainingIn = charsToRead - (int)(src - inChars);
-    //            remainingOut = bytesToWrite - (int)(dest - outData);
+            if (remainingIn >= 32 && remainingOut >= 16)
+            {
+                if (Ssse3.IsSupported)
+                {
+                    Utf16HexParser.Ssse3.TryParse(ref src, ref dest, remainingOut);
+                    remainingIn = charsToRead - (int)(src - inChars);
+                    remainingOut = bytesToWrite - (int)(dest - outData);
+                }
+                else if (Sse2.IsSupported)
+                {
+                    Utf16HexParser.Sse2.TryParse(ref src, ref dest, remainingOut);
+                    remainingIn = charsToRead - (int)(src - inChars);
+                    remainingOut = bytesToWrite - (int)(dest - outData);
+                }
+            }
+#endif
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+            if (!Utf16HexParser.Span.TryParse(ref src, remainingIn, ref dest, remainingOut))
+#else
+                if (!Utf16HexParser.Fixed.TryParse(ref src, remainingIn, ref dest, remainingOut))
+#endif
+            {
+                goto InvalidData;
+            }
+            remainingIn = charsToRead - (int)(src - inChars);
+            remainingOut = bytesToWrite - (int)(dest - outData);
 
-    //            if (src >= srcEnd)
-    //            {
-    //                goto Ok;
-    //            }
+            if (src >= srcEnd)
+            {
+                goto Ok;
+            }
 
-    //            if (src == last)
-    //            {
-    //                // No progress == invalid data
-    //                goto InvalidData;
-    //            }
+            if (src == last)
+            {
+                // No progress == invalid data
+                goto InvalidData;
+            }
 
-    //            last = src;
-    //        }
+            last = src;
+        }
 
-    //        // No more space in destination
+        // No more space in destination
 
-    //        if (src < srcEnd)
-    //        {
-    //            while (IsWhitespace(*src))
-    //            {
-    //                // Skip past any consecutive trailing white-space in the input
-    //                if (++src >= srcEnd)
-    //                {
-    //                    goto Ok;
-    //                }
-    //            }
+        if (src < srcEnd)
+        {
+            while (IsWhitespace(*src))
+            {
+                // Skip past any consecutive trailing white-space in the input
+                if (++src >= srcEnd)
+                {
+                    goto Ok;
+                }
+            }
 
-    //            if (IsValid(*src))
-    //            {
-    //                goto OutLenTooShort;
-    //            }
-    //            else
-    //            {
-    //                goto InvalidData;
-    //            }
-    //        }
+            if (IsValid(*src))
+            {
+                goto OutLenTooShort;
+            }
+            else
+            {
+                goto InvalidData;
+            }
+        }
 
-    //    Ok:
-    //        return (int)(dest - outData);
+    Ok:
+        return (int)(dest - outData);
 
-    //    InvalidData:
-    //        return errInvalidData;
+    InvalidData:
+        return errInvalidData;
 
-    //    OutLenTooShort:
-    //        return errDestTooShort;
-    //    }
+    OutLenTooShort:
+        return errDestTooShort;
+    }
 }

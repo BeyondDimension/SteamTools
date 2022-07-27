@@ -149,16 +149,16 @@ public static partial class RSAUtils
     {
         if (!string.IsNullOrWhiteSpace(oaepHashAlgorithmName))
         {
-            try
-            {
-                var hashAlgorithm = new HashAlgorithmName(oaepHashAlgorithmName);
-                return RSAEncryptionPadding.CreateOaep(hashAlgorithm);
-            }
-            catch
-            {
-            }
+            if (oaepHashAlgorithmName.Contains(nameof(HashAlgorithmName.SHA1)))
+                return RSAEncryptionPadding.OaepSHA1;
+            if (oaepHashAlgorithmName.Contains(nameof(HashAlgorithmName.SHA256)))
+                return RSAEncryptionPadding.OaepSHA256;
+            if (oaepHashAlgorithmName.Contains(nameof(HashAlgorithmName.SHA384)))
+                return RSAEncryptionPadding.OaepSHA384;
+            if (oaepHashAlgorithmName.Contains(nameof(HashAlgorithmName.SHA512)))
+                return RSAEncryptionPadding.OaepSHA512;
         }
-        return Padding;
+        return RSAEncryptionPadding.OaepSHA256;
     }
 
     public static RSAEncryptionPadding DefaultPadding
@@ -176,7 +176,7 @@ public static partial class RSAUtils
     /// <param name="rsa"></param>
     /// <param name="data"></param>
     /// <returns></returns>
-    [Obsolete()]
+    [Obsolete("", true)]
     public static byte[] Encrypt(this RSA rsa, byte[] data) => rsa.Encrypt(data, Padding);
 
     /// <summary>
@@ -267,6 +267,20 @@ public static partial class RSAUtils
     /// <param name="data"></param>
     /// <param name="padding"></param>
     /// <returns></returns>
+    public static string EncryptToHexString(this RSA rsa, byte[] data, RSAEncryptionPadding? padding = null)
+    {
+        padding ??= DefaultPadding;
+        var bytes = rsa.Encrypt(data, padding);
+        return bytes.ToHexString();
+    }
+
+    /// <summary>
+    /// RSA加密(ByteArray → String)
+    /// </summary>
+    /// <param name="rsa"></param>
+    /// <param name="data"></param>
+    /// <param name="padding"></param>
+    /// <returns></returns>
     public static string? EncryptToString_Nullable(this RSA rsa, byte[]? data, RSAEncryptionPadding? padding = null)
     {
         if (data == default) return default;
@@ -283,7 +297,7 @@ public static partial class RSAUtils
     /// <param name="rsa"></param>
     /// <param name="data"></param>
     /// <returns></returns>
-    [Obsolete]
+    [Obsolete("", true)]
     public static byte[] Decrypt(this RSA rsa, byte[] data) => rsa.Decrypt(data, Padding);
 
     /// <summary>
@@ -310,6 +324,20 @@ public static partial class RSAUtils
     public static byte[] DecryptToByteArray(this RSA rsa, string text, RSAEncryptionPadding? padding = null)
     {
         var bytes = text.Base64UrlDecodeToByteArray();
+        padding ??= DefaultPadding;
+        return rsa.Decrypt(bytes, padding);
+    }
+
+    /// <summary>
+    /// RSA解密(String → ByteArray)
+    /// </summary>
+    /// <param name="rsa"></param>
+    /// <param name="text"></param>
+    /// <param name="padding"></param>
+    /// <returns></returns>
+    public static byte[] DecryptToByteArrayHex(this RSA rsa, string text, RSAEncryptionPadding? padding = null)
+    {
+        var bytes = Convert2.FromHexString(text);
         padding ??= DefaultPadding;
         return rsa.Decrypt(bytes, padding);
     }

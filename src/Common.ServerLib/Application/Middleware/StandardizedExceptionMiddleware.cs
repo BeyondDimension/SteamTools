@@ -71,6 +71,7 @@ public sealed class StandardizedExceptionMiddleware
         if ((ex is Microsoft.Data.SqlClient.SqlException /*|| ex is System.Data.SqlClient.SqlException*/) &&
             ex.Message.Contains("Operation cancelled by user"))
             return true;
+        if (ex.InnerException is not null) return IsCancellationException(ex.InnerException);
         return false;
     }
 }

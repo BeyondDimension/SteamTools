@@ -169,6 +169,18 @@ public static class AESUtils
     /// <param name="aes"></param>
     /// <param name="text"></param>
     /// <returns></returns>
+    public static string EncryptHex(this Aes aes, string text)
+    {
+        var result = EncryptToByteArray(aes, text);
+        return result.ToHexString(true);
+    }
+
+    /// <summary>
+    /// AES加密(String → String)
+    /// </summary>
+    /// <param name="aes"></param>
+    /// <param name="text"></param>
+    /// <returns></returns>
     public static string? Encrypt_Nullable(this Aes aes, string? text)
     {
         if (text == default) return default;
@@ -245,6 +257,18 @@ public static class AESUtils
     /// <param name="aes"></param>
     /// <param name="text"></param>
     /// <returns></returns>
+    public static byte[] DecryptHexToByteArray(this Aes aes, string text)
+    {
+        var data = Convert2.FromHexString(text);
+        return Decrypt(aes, data);
+    }
+
+    /// <summary>
+    /// (解密) String → ByteArray
+    /// </summary>
+    /// <param name="aes"></param>
+    /// <param name="text"></param>
+    /// <returns></returns>
     public static byte[]? DecryptToByteArray_Nullable(this Aes aes, string? text)
     {
         if (text == default) return default;
@@ -260,6 +284,18 @@ public static class AESUtils
     public static string Decrypt(this Aes aes, string text)
     {
         var result = DecryptToByteArray(aes, text);
+        return Encoding.UTF8.GetString(result);
+    }
+
+    /// <summary>
+    /// (解密) String → String
+    /// </summary>
+    /// <param name="aes"></param>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    public static string DecryptHex(this Aes aes, string text)
+    {
+        var result = DecryptHexToByteArray(aes, text);
         return Encoding.UTF8.GetString(result);
     }
 
