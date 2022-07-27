@@ -157,7 +157,7 @@ abstract class ReverseProxyServiceImpl
     {
         if (!CertificateManager.IsRootCertificateInstalled)
         {
-            CertificateManager.DeleteRootCertificate();
+            //CertificateManager.DeleteRootCertificate();
             var isOk = CertificateManager.SetupRootCertificate();
             if (!isOk)
             {

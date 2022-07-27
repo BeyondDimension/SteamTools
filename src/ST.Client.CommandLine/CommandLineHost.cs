@@ -382,6 +382,14 @@ public abstract class CommandLineHost : IDisposable
         });
         rootCommand.AddCommand(ayaneo);
 
+        // -clt shutdown
+        var shutdown = new Command("shutdown", "安全结束正在运行的程序");
+        shutdown.Handler = CommandHandler.Create((bool on, bool off) =>
+        {
+
+        });
+        rootCommand.AddCommand(shutdown);
+
         var r = rootCommand.InvokeAsync(args).GetAwaiter().GetResult();
         return r;
     }

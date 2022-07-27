@@ -150,7 +150,8 @@ namespace System.Application.UI
             {
                 tray1.Visible = false;
                 tray1.Dispose();
-            }else
+            }
+            else
 #endif
             if (Tray is TrayIcon tray)
             {
