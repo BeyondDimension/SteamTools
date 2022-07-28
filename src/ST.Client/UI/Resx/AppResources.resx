@@ -453,6 +453,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>加速已启动成功</value>
   </data>
+  <data name="CommunityFix_DNSErrorNotify" xml:space="preserve">
+    <value>DNS解析遇到异常，请尝试在代理设置中修改其它DNS再次尝试</value>
+  </data>
   <data name="CommunityFix_StopProxy" xml:space="preserve">
     <value>停止加速</value>
   </data>

@@ -1293,6 +1293,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 DNS解析遇到异常，请尝试在代理设置中修改其它DNS再次尝试 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DNSErrorNotify {
+            get {
+                return ResourceManager.GetString("CommunityFix_DNSErrorNotify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑 Hosts 文件 的本地化字符串。
         /// </summary>
         public static string CommunityFix_EditHostsFile {
