@@ -144,7 +144,7 @@ namespace System.Application.UI.ViewModels
                 await MainThread2.InvokeOnMainThreadAsync(() =>
                 {
                     vm?.Close();
-                    conn_helper.ShowResponseErrorMessage(rsp);
+                    conn_helper.ShowResponseErrorMessage(null, rsp);
                 });
             }
         }

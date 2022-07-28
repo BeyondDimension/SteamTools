@@ -36,21 +36,21 @@ public static class Log
     }
 
     [Conditional("DEBUG")]
-    public static void Debug(string tag, Exception exception, string msg)
+    public static void Debug(string tag, Exception? exception, string msg)
     {
         var logger = CreateLogger(tag);
         logger.LogDebug(exception, msg);
     }
 
     [Conditional("DEBUG")]
-    public static void Debug(string tag, Exception exception, string msg, params object?[] args)
+    public static void Debug(string tag, Exception? exception, string msg, params object?[] args)
     {
         var logger = CreateLogger(tag);
         logger.LogDebug(exception, msg, args);
     }
 
     [Conditional("DEBUG")]
-    public static void Debug(string tag, EventId eventId, Exception exception, string msg, params object?[] args)
+    public static void Debug(string tag, EventId eventId, Exception? exception, string msg, params object?[] args)
     {
         var logger = CreateLogger(tag);
         logger.LogDebug(eventId, exception, msg, args);
@@ -79,19 +79,19 @@ public static class Log
         logger.LogError(msg, args);
     }
 
-    public static void Error(string tag, Exception exception, string msg)
+    public static void Error(string tag, Exception? exception, string msg)
     {
         var logger = CreateLogger(tag);
         logger.LogError(exception, msg);
     }
 
-    public static void Error(string tag, Exception exception, string msg, params object?[] args)
+    public static void Error(string tag, Exception? exception, string msg, params object?[] args)
     {
         var logger = CreateLogger(tag);
         logger.LogError(exception, msg, args);
     }
 
-    public static void Error(string tag, EventId eventId, Exception exception, string msg, params object?[] args)
+    public static void Error(string tag, EventId eventId, Exception? exception, string msg, params object?[] args)
     {
         var logger = CreateLogger(tag);
         logger.LogError(eventId, exception, msg, args);
@@ -119,19 +119,19 @@ public static class Log
         logger.LogInformation(msg, args);
     }
 
-    public static void Info(string tag, Exception exception, string msg)
+    public static void Info(string tag, Exception? exception, string msg)
     {
         var logger = CreateLogger(tag);
         logger.LogInformation(exception, msg);
     }
 
-    public static void Info(string tag, Exception exception, string msg, params object?[] args)
+    public static void Info(string tag, Exception? exception, string msg, params object?[] args)
     {
         var logger = CreateLogger(tag);
         logger.LogInformation(exception, msg, args);
     }
 
-    public static void Info(string tag, EventId eventId, Exception exception, string msg, params object?[] args)
+    public static void Info(string tag, EventId eventId, Exception? exception, string msg, params object?[] args)
     {
         var logger = CreateLogger(tag);
         logger.LogInformation(eventId, exception, msg, args);
@@ -159,19 +159,19 @@ public static class Log
         logger.LogWarning(msg, args);
     }
 
-    public static void Warn(string tag, Exception exception, string msg)
+    public static void Warn(string tag, Exception? exception, string msg)
     {
         var logger = CreateLogger(tag);
         logger.LogWarning(exception, msg);
     }
 
-    public static void Warn(string tag, Exception exception, string msg, params object?[] args)
+    public static void Warn(string tag, Exception? exception, string msg, params object?[] args)
     {
         var logger = CreateLogger(tag);
         logger.LogWarning(exception, msg, args);
     }
 
-    public static void Warn(string tag, EventId eventId, Exception exception, string msg, params object?[] args)
+    public static void Warn(string tag, EventId eventId, Exception? exception, string msg, params object?[] args)
     {
         var logger = CreateLogger(tag);
         logger.LogWarning(eventId, exception, msg, args);

@@ -277,8 +277,8 @@ namespace System.Application.Services.CloudService
             }
         }
 
-        void ShowResponseErrorMessage(IApiResponse response, string? errorAppendText = null)
-            => conn_helper.ShowResponseErrorMessage(response, errorAppendText);
+        void ShowResponseErrorMessage(string requestUri, IApiResponse response, string? errorAppendText = null)
+            => conn_helper.ShowResponseErrorMessage(requestUri, response, errorAppendText);
 
         async Task GlobalResponseIntercept(
             HttpMethod method,
@@ -291,7 +291,7 @@ namespace System.Application.Services.CloudService
             {
                 if (isShowResponseErrorMessage)
                 {
-                    ShowResponseErrorMessage(response, errorAppendText);
+                    ShowResponseErrorMessage(requestUri, response, errorAppendText);
                 }
 
                 if (response.Code == ApiResponseCode.Unauthorized)
@@ -397,6 +397,7 @@ namespace System.Application.Services.CloudService
         }
 
         async Task<IApiResponse<TResponseModel>?> GlobalBeforeInterceptAsync<TResponseModel>(
+            string requestUri,
             bool isShowResponseErrorMessage = true,
             string? errorAppendText = null)
         {
@@ -415,7 +416,7 @@ namespace System.Application.Services.CloudService
 
             if (isShowResponseErrorMessage && responseResult != null && !responseResult.IsSuccess)
             {
-                ShowResponseErrorMessage(responseResult, errorAppendText);
+                ShowResponseErrorMessage(requestUri, responseResult, errorAppendText);
             }
 
             return responseResult;
@@ -510,14 +511,14 @@ namespace System.Application.Services.CloudService
                 {
                     var validate_fail_r = ApiResponse.Code<TResponseModel>(
                         ApiResponseCode.RequestModelValidateFail, errorMessage);
-                    if (isShowResponseErrorMessage) ShowResponseErrorMessage(validate_fail_r, errorAppendText);
+                    if (isShowResponseErrorMessage) ShowResponseErrorMessage(requestUri, validate_fail_r, errorAppendText);
                     return validate_fail_r;
                 }
             }
 
             #endregion
 
-            var globalBeforeInterceptResponse = await GlobalBeforeInterceptAsync<TResponseModel>(isShowResponseErrorMessage, errorAppendText);
+            var globalBeforeInterceptResponse = await GlobalBeforeInterceptAsync<TResponseModel>(requestUri, isShowResponseErrorMessage, errorAppendText);
             if (globalBeforeInterceptResponse != null)
             {
                 return globalBeforeInterceptResponse;
@@ -753,7 +754,7 @@ namespace System.Application.Services.CloudService
                 {
                     if (isShowResponseErrorMessage)
                     {
-                        ShowResponseErrorMessage(response, errorAppendText);
+                        ShowResponseErrorMessage(requestUri, response, errorAppendText);
                     }
                 }
             }
@@ -779,7 +780,7 @@ namespace System.Application.Services.CloudService
             if (cacheDirPath == null) throw new ArgumentNullException(nameof(cacheDirPath));
             IOPath.DirCreateByNotExists(cacheDirPath);
 
-            var globalBeforeInterceptResponse = await GlobalBeforeInterceptAsync<object>(isShowResponseErrorMessage, errorAppendText);
+            var globalBeforeInterceptResponse = await GlobalBeforeInterceptAsync<object>(requestUri, isShowResponseErrorMessage, errorAppendText);
             if (globalBeforeInterceptResponse != null)
             {
                 return globalBeforeInterceptResponse;
@@ -922,7 +923,7 @@ namespace System.Application.Services.CloudService
                 {
                     if (isShowResponseErrorMessage)
                     {
-                        ShowResponseErrorMessage(response, errorAppendText);
+                        ShowResponseErrorMessage(requestUri, response, errorAppendText);
                     }
                 }
             }

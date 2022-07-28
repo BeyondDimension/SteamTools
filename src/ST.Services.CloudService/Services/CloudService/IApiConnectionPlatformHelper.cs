@@ -9,6 +9,8 @@ namespace System.Application.Services.CloudService
 {
     public interface IApiConnectionPlatformHelper
     {
+        const string TAG = "ApiConnectionPH";
+
         #region Authentication
 
         IAuthHelper Auth { get; }
@@ -44,11 +46,14 @@ namespace System.Application.Services.CloudService
         /// <param name="message"></param>
         void ShowResponseErrorMessage(string message);
 
-        void ShowResponseErrorMessage(IApiResponse response, string? errorAppendText = null)
+        void ShowResponseErrorMessage(string? requestUri, IApiResponse response, string? errorAppendText = null)
         {
             if (response.Code == ApiResponseCode.Canceled) return;
             var message = response.GetMessageByAppendText(errorAppendText);
             ShowResponseErrorMessage(message);
+            Exception? exception = null;
+            if (response is ApiRsp apiRsp) exception = apiRsp.ClientException;
+            Log.Error(TAG, exception, $"requestUri: {(string.IsNullOrWhiteSpace(requestUri) ? string.Empty : requestUri.Split('?', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault())}, message: {message}");
         }
 
         HttpClient CreateClient();
