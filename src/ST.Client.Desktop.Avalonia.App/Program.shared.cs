@@ -55,6 +55,14 @@ static partial class
         IApplication IApplication.IProgramHost.Application => App.Instance;
 
         void IApplication.IDesktopProgramHost.OnCreateAppExecuted(Action<IViewModelManager>? handlerViewModelManager, bool isTrace) => Program.OnCreateAppExecuted(this, handlerViewModelManager, isTrace);
+
+        DeploymentMode IApplication.IDesktopProgramHost.DeploymentMode => DeploymentMode.
+#if FRAMEWORK_DEPENDENT || !PUBLISH
+           FDE
+#else
+           SCD
+#endif
+           ;
     }
 
     partial class ProgramHost : CommandLineHost

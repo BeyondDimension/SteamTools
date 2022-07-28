@@ -53,6 +53,8 @@ namespace System.Application.UI
         public interface IDesktopProgramHost : IProgramHost, IDesktopStartupArgs
         {
             void OnCreateAppExecuted(Action<IViewModelManager>? handlerViewModelManager = null, bool isTrace = false);
+
+            DeploymentMode DeploymentMode { get; }
         }
     }
 }
