@@ -39,17 +39,16 @@ namespace System.Application.UI
             // fix The request was aborted: Could not create SSL/TLS secure channel
             TrySetSecurityProtocol();
 
-            var host = ProgramHost.Instance;
-
-            host.IsMainProcess = args.Length == 0;
-            host.IsCLTProcess = !host.IsMainProcess && args.FirstOrDefault() == "-clt";
-
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
             InitWithUWP(ref args);
 #elif MAC
             InitWithMAC(args);
 #endif
+            var host = ProgramHost.Instance;
+            host.IsMainProcess = args.Length == 0;
+            host.IsCLTProcess = !host.IsMainProcess && args.FirstOrDefault() == "-clt";
+
             OnCreateAppExecuting();
             // InitCefNetApp(args);
 
