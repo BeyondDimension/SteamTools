@@ -3121,4 +3121,16 @@ AAAAA-BBBBB-CCCC3</value>
     <value>消息類型</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CommunityFix_DNSErrorNotify" xml:space="preserve">
+    <value>DNS解析遇到異常，請嘗試在代理設置中修改其它DNS再次嘗試</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Steam_RuningAdmin" xml:space="preserve">
+    <value>以管理員許可權運行 Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
+    <value>使用 WinHttpHandler</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

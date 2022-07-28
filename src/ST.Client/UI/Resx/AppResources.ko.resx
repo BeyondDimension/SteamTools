@@ -3121,4 +3121,16 @@ AAAAA-BBBBB-CCCC3</value>
     <value>메시지 유형입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CommunityFix_DNSErrorNotify" xml:space="preserve">
+    <value>DNS 확인에 예외가 발생하면 프록시 설정에서 다른 DNS를 수정하여 다시 시도하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Steam_RuningAdmin" xml:space="preserve">
+    <value>관리자 권한으로 Steam을 실행합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
+    <value>WinHttpHandler를 사용합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

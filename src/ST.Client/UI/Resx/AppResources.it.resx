@@ -3116,4 +3116,16 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <value>Il tipo di messaggio</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CommunityFix_DNSErrorNotify" xml:space="preserve">
+    <value>La risoluzione DNS ha rilevato un&apos;eccezione, provare a modificare nuovamente altri DNS nelle impostazioni proxy</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Steam_RuningAdmin" xml:space="preserve">
+    <value>Esegui Steam con privilegi di amministratore</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
+    <value>Utilizzare WinHttpHandler</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>
