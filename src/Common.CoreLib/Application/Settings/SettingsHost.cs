@@ -56,9 +56,9 @@ public static class SettingsHost
         }
         catch (Exception ex)
         {
+            File.Delete(SettingsHostBase.LocalFilePath);
             Log.Error(nameof(SettingsHost), ex, "Config Load");
 
-            File.Delete(SettingsHostBase.LocalFilePath);
             SettingsHostBase.Local.Load();
         }
     }
