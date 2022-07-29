@@ -144,8 +144,8 @@ namespace System.Application.Settings
         {
             if (OperatingSystem2.IsWindows())
             {
-                yield return EProxyMode.DNSIntercept;
                 yield return EProxyMode.Hosts;
+                yield return EProxyMode.DNSIntercept;
                 yield return EProxyMode.PAC;
                 yield return EProxyMode.System;
             }
