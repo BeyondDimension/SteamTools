@@ -43,7 +43,7 @@ public static class SettingsHost
         }
         catch (Exception ex)
         {
-            Log.Error(nameof(SettingsHost), "Config Save", ex);
+            Log.Error(nameof(SettingsHost), ex, "Config Save");
             throw;
         }
     }
@@ -56,7 +56,7 @@ public static class SettingsHost
         }
         catch (Exception ex)
         {
-            Log.Error(nameof(SettingsHost), "Config Load", ex);
+            Log.Error(nameof(SettingsHost), ex, "Config Load");
 
             File.Delete(SettingsHostBase.LocalFilePath);
             SettingsHostBase.Local.Load();

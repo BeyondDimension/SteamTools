@@ -15,7 +15,7 @@ public static class Log
 
     static ILoggerFactory? factory;
 
-    public static ILoggerFactory Factory => factory ??= DI.Get_Nullable<ILoggerFactory>() ?? LoggerFactory?.Invoke() ?? throw new ArgumentNullException(nameof(LoggerFactory));
+    public static ILoggerFactory Factory => factory ??= (DI.IsConfigured ? DI.Get<ILoggerFactory>() : null) ?? LoggerFactory?.Invoke() ?? throw new ArgumentNullException(nameof(LoggerFactory));
 
     public static ILogger CreateLogger(string tag) => Factory.CreateLogger(tag);
 

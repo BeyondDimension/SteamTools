@@ -82,7 +82,7 @@ public sealed class FileSettingsProvider : ISerializationProvider
                 {
                     stream.Position = 0;
                 }
-                var source = Serializable.DMP<IDictionary<string, object?>>(stream);
+                var source = stream.Length == 0 ? null : Serializable.DMP<IDictionary<string, object?>>(stream);
                 //var source = XamlServices.Load(stream) as IDictionary<string, object>;
                 _settings = source == null
                     ? new SortedDictionary<string, object?>()
