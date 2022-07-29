@@ -300,8 +300,6 @@ namespace System.Application.Services.Implementation
 
             isDownloading = true;
 
-            OnReport();
-
             var newVersionInfo = NewVersionInfo;
 
             if (newVersionInfo.HasValue())
@@ -325,6 +323,8 @@ namespace System.Application.Services.Implementation
                     newVersionInfo.AllFiles.Any_Nullable() &&
                     newVersionInfo.AllFiles.All(x => x.HasValue())) // 增量更新 v2
                 {
+                    OnReport();
+
                     if (Path.DirectorySeparatorChar != '\\') // 路径分隔符在客户端系统上与服务端纪录的值不同时，替换分隔符
                     {
                         void CorrectionDirectorySeparatorChar(IEnumerable<AppVersionDTO.IncrementalUpdateDownload> items)
@@ -475,6 +475,8 @@ namespace System.Application.Services.Implementation
                     }
                     if (download.HasValue()) // 压缩包格式是否正确
                     {
+                        OnReport();
+
                         var packFileName = GetPackName(newVersionInfo, isDirOrFile: true);
                         var packFilePath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packFileName);
                         if (File.Exists(packFilePath)) // 存在压缩包文件
