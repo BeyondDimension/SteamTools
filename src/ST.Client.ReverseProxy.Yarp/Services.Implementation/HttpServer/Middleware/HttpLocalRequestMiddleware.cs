@@ -115,7 +115,17 @@ sealed class HttpLocalRequestMiddleware
                     Method = new(method),
                     Content = hasContent ? new StreamContent(context.Request.Body) : null,
                 };
-                if (cookie != null) req.Headers.Add("Cookie", cookie);
+                req.Headers.UserAgent.ParseAdd(context.Request.Headers.UserAgent);
+                if (cookie != null)
+                {
+                    CookieHttpClient.CookieContainer.Add(new Cookie
+                    {
+                        CommentUri = req.RequestUri,
+                        Domain = req.RequestUri.Host,
+                        Value = cookie
+                    });
+                    // req.Headers.Add("Cookie", cookie);
+                }
                 if (referer != null) req.Headers.Referrer = new Uri(referer);
                 if (hasContent)
                 {
