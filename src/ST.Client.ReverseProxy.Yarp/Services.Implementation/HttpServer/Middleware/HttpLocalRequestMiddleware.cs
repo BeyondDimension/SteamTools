@@ -3,6 +3,7 @@ using System.Application.Models;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http.Extensions;
+using System.Net;
 
 namespace System.Application.Services.Implementation.HttpServer.Middleware;
 
@@ -12,10 +13,16 @@ namespace System.Application.Services.Implementation.HttpServer.Middleware;
 sealed class HttpLocalRequestMiddleware
 {
     readonly IReverseProxyConfig reverseProxyConfig;
+    readonly CookieHttpClient cookieHttpClient;
 
-    public HttpLocalRequestMiddleware(IReverseProxyConfig reverseProxyConfig)
+    HttpClient HttpClient => cookieHttpClient.HttpClient;
+
+    public HttpLocalRequestMiddleware(
+        IReverseProxyConfig reverseProxyConfig,
+        CookieHttpClient cookieHttpClient)
     {
         this.reverseProxyConfig = reverseProxyConfig;
+        this.cookieHttpClient = cookieHttpClient;
     }
 
     /// <summary>
@@ -74,81 +81,88 @@ sealed class HttpLocalRequestMiddleware
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    static async Task HandleHttpRequestAsync(HttpContext context)
+    async Task HandleHttpRequestAsync(HttpContext context)
     {
-        if (string.IsNullOrEmpty(context.Request.QueryString.Value))
-            return;
-
-        var url = Web.HttpUtility.UrlDecode(context.Request.QueryString.Value.Replace("?request=", ""));
-        string? cookie = context.Request.Headers["cookie-steamTool"];
-        if (string.IsNullOrEmpty(cookie))
-            cookie = context.Request.Headers["Cookie"];
-        string? referer = context.Request.Headers["Referer-steamTool"];
-
-        context.Response.Headers.AccessControlAllowOrigin = context.Request.Headers.Origin.Count == 0 ? "*" : context.Request.Headers.Origin;
-        context.Response.Headers.AccessControlAllowHeaders = "*";
-        context.Response.Headers.AccessControlAllowMethods = "*";
-        context.Response.Headers.AccessControlAllowCredentials = "true";
-
-        //if (cookie != null)
-        //    context.Response.Cookies.Append(cookie);
-
-        if (context.Request.ContentType != null)
-            context.Response.Headers.ContentType = context.Request.ContentType;
-
-        if (context.Request.Method == HttpMethods.Get)
+        try
         {
-            var body = await IHttpService.Instance.GetAsync<string>(url, cookie: cookie);
-            if (string.IsNullOrEmpty(body))
+            if (string.IsNullOrEmpty(context.Request.QueryString.Value))
+                return;
+
+            var url = Web.HttpUtility.UrlDecode(context.Request.QueryString.Value.Replace("?request=", ""));
+            string? cookie = context.Request.Headers["cookie-steamTool"];
+            if (string.IsNullOrEmpty(cookie))
+                cookie = context.Request.Headers["Cookie"];
+            string? referer = context.Request.Headers["Referer-steamTool"];
+
+            context.Response.Headers.AccessControlAllowOrigin = context.Request.Headers.Origin.Count == 0 ? "*" : context.Request.Headers.Origin;
+            context.Response.Headers.AccessControlAllowHeaders = "*";
+            context.Response.Headers.AccessControlAllowMethods = "*";
+            context.Response.Headers.AccessControlAllowCredentials = "true";
+
+            //if (cookie != null)
+            //    context.Response.Cookies.Append(cookie);
+
+            if (context.Request.ContentType != null)
+                context.Response.Headers.ContentType = context.Request.ContentType;
+
+            async Task SendAsync()
             {
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            }
-            await context.Response.WriteAsync(body);
-        }
-        else if (context.Request.Method == HttpMethods.Post)
-        {
-            try
-            {
-                if (context.Request.ContentLength > 0)
+                var method = context.Request.Method;
+                var hasContent = method != HttpMethods.Get && context.Request.ContentLength > 0;
+                var req = new HttpRequestMessage
                 {
-                    var conext = await IHttpService.Instance.SendAsync<string>(url, () =>
-                    {
-                        var req = new HttpRequestMessage
-                        {
-                            RequestUri = new Uri(url),
-                            Method = HttpMethod.Post,
-                            Content = new StreamContent(context.Request.Body),
-                        };
-                        if (cookie != null)
-                        {
-                            req.Headers.Add("Cookie", cookie);
-                        }
-                        if (referer != null)
-                            req.Headers.Referrer = new Uri(referer);
-
-                        req.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(context.Request.ContentType);
-                        req.Content.Headers.ContentLength = context.Request.ContentLength;
-                        return req;
-                    }, null/*, false*/, default);
-
-                    if (string.IsNullOrEmpty(conext))
-                    {
-                        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                        return;
-                    }
-                    await context.Response.WriteAsync(conext);
+                    RequestUri = new Uri(url),
+                    Method = new(method),
+                    Content = hasContent ? new StreamContent(context.Request.Body) : null,
+                };
+                if (cookie != null) req.Headers.Add("Cookie", cookie);
+                if (referer != null) req.Headers.Referrer = new Uri(referer);
+                if (hasContent)
+                {
+                    req.Content!.Headers.ContentType = MediaTypeHeaderValue.Parse(context.Request.ContentType);
+                    req.Content.Headers.ContentLength = context.Request.ContentLength;
+                }
+                var rsp = await HttpClient.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, context.RequestAborted).ConfigureAwait(false);
+                if (rsp.IsSuccessStatusCode && rsp.Content != null)
+                {
+                    context.Response.StatusCode = StatusCodes.Status200OK;
+                    using var body = await rsp.Content.ReadAsStreamAsync(context.RequestAborted);
+                    await body.CopyToAsync(context.Response.BodyWriter.AsStream(), context.RequestAborted);
                 }
                 else
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    return;
                 }
             }
-            catch (Exception error)
+
+            if (context.Request.Method == HttpMethods.Get)
             {
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await context.Response.WriteAsync(error.Message);
+                await SendAsync();
+                return;
             }
+            else if (context.Request.Method == HttpMethods.Post)
+            {
+                if (context.Request.ContentLength > 0)
+                {
+                    await SendAsync();
+                    return;
+                }
+            }
+
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
         }
+        catch (Exception error)
+        {
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            await context.Response.WriteAsync(error.Message, context.RequestAborted);
+        }
+    }
+
+    static async Task HandleStatusCodeAsync(HttpContext context, int statusCode)
+    {
+        context.Response.StatusCode = statusCode;
+        await context.Response.WriteAsync(string.Empty, context.RequestAborted);
     }
 
     /// <summary>
@@ -156,9 +170,6 @@ sealed class HttpLocalRequestMiddleware
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    static async Task Handle404NotFoundAsync(HttpContext context)
-    {
-        context.Response.StatusCode = StatusCodes.Status404NotFound;
-        await context.Response.WriteAsync(string.Empty);
-    }
+    static Task Handle404NotFoundAsync(HttpContext context)
+        => HandleStatusCodeAsync(context, StatusCodes.Status404NotFound);
 }

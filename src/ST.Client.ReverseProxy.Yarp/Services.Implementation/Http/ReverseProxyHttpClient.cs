@@ -15,7 +15,7 @@ public class ReverseProxyHttpClient : HttpMessageInvoker
     /// 插入的 UserAgent 标记
     /// </summary>
     static readonly ProductInfoHeaderValue userAgent
-       = new(new ProductHeaderValue(Constants.HARDCODED_APP_NAME_NEW, ThisAssembly.Version));
+       = new(new ProductHeaderValue(Constants.HARDCODED_APP_NAME_NEW + "_" + DateTimeOffset.UtcNow.Ticks, ThisAssembly.Version));
 
     public ReverseProxyHttpClient(IDomainConfig domainConfig, IDomainResolver domainResolver)
         : this(new ReverseProxyHttpClientHandler(domainConfig, domainResolver), disposeHandler: true)

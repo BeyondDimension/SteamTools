@@ -62,8 +62,8 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
     /// <returns></returns>
     SocketsHttpHandler CreateSocketsHttpHandler() => GeneralHttpClientFactory.CreateSocketsHttpHandler(new()
     {
-        Proxy = null,
-        UseProxy = false,
+        Proxy = GeneralHttpClientFactory.HttpNoProxy.Instance,
+        UseProxy = true,
         UseCookies = false,
         AllowAutoRedirect = false,
         AutomaticDecompression = DecompressionMethods.None,

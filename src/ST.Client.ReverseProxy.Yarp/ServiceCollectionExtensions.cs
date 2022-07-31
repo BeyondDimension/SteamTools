@@ -75,6 +75,9 @@ public static partial class ServiceCollectionExtensions
     internal static IServiceCollection AddReverseProxyServer(this IServiceCollection services)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/ServiceCollectionExtensions.cs#L15
+
+        CookieHttpClient.AddHttpClient(services);
+
         return services
             .AddMemoryCache()
             .AddHttpForwarder()

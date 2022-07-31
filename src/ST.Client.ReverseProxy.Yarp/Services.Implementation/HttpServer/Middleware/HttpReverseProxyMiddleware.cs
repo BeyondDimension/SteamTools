@@ -70,7 +70,7 @@ sealed class HttpReverseProxyMiddleware
 
         if (domainConfig.Response == null)
         {
-            if (IReverseProxyService.Instance.EnableHttpProxyToHttps && context.Request.Scheme == Uri.UriSchemeHttp)
+            if (reverseProxyConfig.Service.EnableHttpProxyToHttps && context.Request.Scheme == Uri.UriSchemeHttp)
             {
                 context.Response.Redirect(Uri.UriSchemeHttps + "://" + context.Request.Host.Host + context.Request.RawUrl());
                 return;
@@ -126,7 +126,7 @@ sealed class HttpReverseProxyMiddleware
     {
         domainConfig = null;
 
-        if (!IReverseProxyService.Instance.OnlyEnableProxyScript && reverseProxyConfig.TryGetDomainConfig(uri, out domainConfig) == true)
+        if (!reverseProxyConfig.Service.OnlyEnableProxyScript && reverseProxyConfig.TryGetDomainConfig(uri, out domainConfig) == true)
         {
             return true;
         }
@@ -135,7 +135,7 @@ sealed class HttpReverseProxyMiddleware
         // 未配置的域名，但仍然被解析到本机 IP 的域名
         if (IsDomain(host))
         {
-            if (IReverseProxyService.Instance.ProxyMode != ProxyMode.System)
+            if (reverseProxyConfig.Service.ProxyMode != ProxyMode.System)
                 logger.LogWarning(
                     $"域名 {host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
             domainConfig = defaultDomainConfig;

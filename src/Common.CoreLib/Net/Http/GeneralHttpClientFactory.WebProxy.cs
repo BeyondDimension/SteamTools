@@ -58,7 +58,7 @@ partial class GeneralHttpClientFactory
     /// <summary>
     /// https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/HttpNoProxy.cs
     /// </summary>
-    sealed class HttpNoProxy : IWebProxy
+    public sealed class HttpNoProxy : IWebProxy
     {
         public static readonly HttpNoProxy Instance = new();
 
