@@ -147,7 +147,7 @@ namespace System.Application.Services
                             {
                                 proxyip = IPAddress.Loopback;
                             }
-                            if (!IPlatformService.Instance.SetAsSystemProxy(true, proxyip, reverseProxyService.ProxyPort))
+                            if (!platformService.SetAsSystemProxy(true, proxyip, reverseProxyService.ProxyPort))
                             {
                                 Toast.Show("系统代理开启失败");
                                 return;
@@ -160,7 +160,7 @@ namespace System.Application.Services
                             {
                                 proxyip = IPAddress.Loopback;
                             }
-                            if (!IPlatformService.Instance.SetAsSystemPACProxy(true, $"http://{proxyip}:{reverseProxyService.ProxyPort}/pac"))
+                            if (!platformService.SetAsSystemPACProxy(true, $"http://{proxyip}:{reverseProxyService.ProxyPort}/pac"))
                             {
                                 Toast.Show("PAC代理开启失败");
                                 return;
@@ -258,11 +258,11 @@ namespace System.Application.Services
                         }
                         else if (reverseProxyService.ProxyMode == ProxyMode.System)
                         {
-                            IPlatformService.Instance.SetAsSystemProxy(false);
+                            platformService.SetAsSystemProxy(false);
                         }
                         else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
                         {
-                            IPlatformService.Instance.SetAsSystemPACProxy(false);
+                            platformService.SetAsSystemPACProxy(false);
                         }
                     }
                 });
@@ -806,8 +806,8 @@ namespace System.Application.Services
             if (OperatingSystem2.IsWindows())
             {
                 await reverseProxyService.StopProxy();
-                IPlatformService.Instance.SetAsSystemProxy(false);
-                IPlatformService.Instance.SetAsSystemPACProxy(false);
+                platformService.SetAsSystemProxy(false);
+                platformService.SetAsSystemPACProxy(false);
                 Process.Start("cmd.exe", "netsh winsock reset");
             }
 
@@ -830,11 +830,11 @@ namespace System.Application.Services
                 }
                 else if (reverseProxyService.ProxyMode == ProxyMode.System)
                 {
-                    IPlatformService.Instance.SetAsSystemProxy(false);
+                    platformService.SetAsSystemProxy(false);
                 }
                 else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
                 {
-                    IPlatformService.Instance.SetAsSystemPACProxy(false);
+                    platformService.SetAsSystemPACProxy(false);
                 }
             }
             reverseProxyService.Dispose();

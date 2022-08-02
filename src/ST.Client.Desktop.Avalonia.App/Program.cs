@@ -1,13 +1,21 @@
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Runtime.Versioning;
 using System.Application.Settings;
 using System.Application.CommandLine;
+using System.Application.UI.Resx;
 using NLog;
 using Avalonia;
 using Avalonia.ReactiveUI;
 using Avalonia.Controls;
+
+#if WINDOWS || WINDOWS_DESKTOP_BRIDGE
+using WPFMessageBox = System.Windows.MessageBox;
+using WPFMessageBoxButton = System.Windows.MessageBoxButton;
+using WPFMessageBoxImage = System.Windows.MessageBoxImage;
+#endif
 
 #if MAC
 [assembly: SupportedOSPlatform("macOS")]
@@ -42,6 +50,32 @@ namespace System.Application.UI
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
             InitWithUWP(ref args);
+#elif WINDOWS
+            //#if NET7_0_OR_GREATER
+            //            if (/*Environment.Version >= new Version(7, 0) && */!OperatingSystem2.IsWindows10AtLeast())
+            //            {
+            //                // [TBD] .NET 7 中考虑弃用对 Windows 7/2008 R2/8.1/2012 R2 的支持
+            //                WPFMessageBox.Show("TBD", AppResources.Error, WPFMessageBoxButton.OK, WPFMessageBoxImage.Error);
+            //                return 0;
+            //            }
+            //#endif
+            if (OperatingSystem2.IsWindows10AtLeast() &&
+                !OperatingSystem.IsWindowsVersionAtLeast(10, 0, 14393))
+            {
+                // Win10 最低需要 1607，低于此版本则弹窗错误中止运行
+                //  appcenter.ms 上有 10240,10586 的 crash 报告
+                WPFMessageBox.Show(AppResources.Error_Lower_Than_Windows10_1607, AppResources.Error, WPFMessageBoxButton.OK, WPFMessageBoxImage.Error);
+                return 0;
+            }
+            if (AppContext.BaseDirectory.StartsWith(Path.GetTempPath(), StringComparison.OrdinalIgnoreCase))
+            {
+                // 检测当前目录 Temp\Rar$ 这类目录，可能是在压缩包中直接启动程序导致的，还有一堆 文件找不到/加载失败的异常
+                //  System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\USER\AppData\Local\Temp\Rar$EXa15528.13350\Cache\switchproxy.reg'.
+                //  System.IO.FileLoadException ...
+                //  System.IO.FileNotFoundException: Could not load file or assembly ...
+                WPFMessageBox.Show(AppResources.Error_BaseDir_StartsWith_Temp, AppResources.Error, WPFMessageBoxButton.OK, WPFMessageBoxImage.Error);
+                return 0;
+            }
 #elif MAC
             InitWithMAC(args);
 #endif
@@ -86,7 +120,7 @@ namespace System.Application.UI
             {
                 ServicePointManager.SecurityProtocol = type;
             }
-            catch (NotSupportedException)
+            catch
             {
 
             }
@@ -204,7 +238,7 @@ namespace System.Application.UI
         static void StartAvaloniaApp(string[] args, ShutdownMode shutdownMode = ShutdownMode.OnLastWindowClose)
         {
             var builder = BuildAvaloniaApp();
-            builder.StartWithClassicDesktopLifetime(args, shutdownMode);
+            builder.StartWithClassicDesktopLifetime2(args, shutdownMode);
         }
     }
 }

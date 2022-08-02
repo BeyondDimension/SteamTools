@@ -11,11 +11,22 @@ namespace System.Application;
 /// </summary>
 public static class MainThread2
 {
+    static IMainThreadPlatformService? mInterface;
+
+    static IMainThreadPlatformService Interface
+    {
+        get
+        {
+            if (mInterface == null) mInterface = IMainThreadPlatformService.Instance;
+            return mInterface;
+        }
+    }
+
     /// <summary>
     /// 获取当前是否为主线程。
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsMainThread() => IMainThreadPlatformService.Instance.PlatformIsMainThread;
+    public static bool IsMainThread() => Interface.PlatformIsMainThread;
 
     /// <summary>
     /// 调用应用程序主线程上的操作。
@@ -33,7 +44,7 @@ public static class MainThread2
         {
             try
             {
-                IMainThreadPlatformService.Instance.PlatformBeginInvokeOnMainThread(action, priority);
+                Interface.PlatformBeginInvokeOnMainThread(action, priority);
             }
             catch (InvalidOperationException)
             {

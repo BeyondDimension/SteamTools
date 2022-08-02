@@ -482,7 +482,15 @@ namespace System.Application.UI
 #endif
             //AppHelper.TryShutdown();
 
-            INotificationService.ILifeCycle.Instance?.OnShutdown();
+            try
+            {
+                // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/952960442u/overview
+                INotificationService.ILifeCycle.Instance?.OnShutdown();
+            }
+            catch (ObjectDisposedException)
+            {
+
+            }
         }
 
         internal void NotifyIcon_Click(object? sender, EventArgs e)

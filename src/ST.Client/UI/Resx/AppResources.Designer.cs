@@ -1977,6 +1977,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 错误 的本地化字符串。
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 不能在临时文件夹中运行此程序，请将所有文件复制或解压到其他路径后再启动程序 的本地化字符串。
+        /// </summary>
+        public static string Error_BaseDir_StartsWith_Temp {
+            get {
+                return ResourceManager.GetString("Error_BaseDir_StartsWith_Temp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 对于 Windows 10 操作系统最低需要 version 1607(10.0.14393) 的本地化字符串。
+        /// </summary>
+        public static string Error_Lower_Than_Windows10_1607 {
+            get {
+                return ResourceManager.GetString("Error_Lower_Than_Windows10_1607", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 可执行文件 的本地化字符串。
         /// </summary>
         public static string ExecutableFile {

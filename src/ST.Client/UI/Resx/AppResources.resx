@@ -2389,4 +2389,13 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
     <value>使用 WinHttpHandler</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Error_BaseDir_StartsWith_Temp" xml:space="preserve">
+    <value>不能在临时文件夹中运行此程序，请将所有文件复制或解压到其他路径后再启动程序</value>
+  </data>
+  <data name="Error_Lower_Than_Windows10_1607" xml:space="preserve">
+    <value>对于 Windows 10 操作系统最低需要 version 1607(10.0.14393)</value>
+  </data>
 </root>

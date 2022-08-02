@@ -136,15 +136,22 @@ public abstract class CommandLineHost : IDisposable
                                             void ProxyMessageReceived()
                                             {
                                                 var value = Enum.TryParse<EOnOff>(args[1], out var value_) ? value_ : default;
-                                                MainThread2.BeginInvokeOnMainThread(() =>
+                                                try
                                                 {
-                                                    ProxyService.Current.ProxyStatus = value switch
+                                                    MainThread2.BeginInvokeOnMainThread(() =>
                                                     {
-                                                        EOnOff.On => true,
-                                                        EOnOff.Off => false,
-                                                        _ => !ProxyService.Current.ProxyStatus,
-                                                    };
-                                                });
+                                                        ProxyService.Current.ProxyStatus = value switch
+                                                        {
+                                                            EOnOff.On => true,
+                                                            EOnOff.Off => false,
+                                                            _ => !ProxyService.Current.ProxyStatus,
+                                                        };
+                                                    });
+                                                }
+                                                catch
+                                                {
+
+                                                }
                                             }
                                             break;
                                     }
@@ -152,8 +159,15 @@ public abstract class CommandLineHost : IDisposable
                                 break;
                         }
                     }
-                    var app = await WaitForApplicationAsync();
-                    MainThread2.BeginInvokeOnMainThread(app.RestoreMainWindow);
+                    try
+                    {
+                        var app = await WaitForApplicationAsync();
+                        MainThread2.BeginInvokeOnMainThread(app.RestoreMainWindow);
+                    }
+                    catch
+                    {
+
+                    }
                 };
             }
             //#if StartWatchTrace
