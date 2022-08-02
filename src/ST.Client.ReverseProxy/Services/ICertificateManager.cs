@@ -78,13 +78,13 @@ public interface ICertificateManager
     /// <summary>
     /// 由平台实现的信任根证书引导，有 Root 权限将尝试执行信任，否则则 UI 引导，跳转网页或弹窗
     /// </summary>
-    void PlatformTrustRootCertificateGuide();
+    ValueTask PlatformTrustRootCertificateGuide();
 
     /// <summary>
     /// 安装根证书，如果没有证书将生成一个新的
     /// </summary>
     /// <returns>返回根证书是否受信任</returns>
-    bool SetupRootCertificate();
+    ValueTask<bool> SetupRootCertificate();
 
     /// <summary>
     /// 删除根证书，如果没有证书将返回 <see langword="true"/>

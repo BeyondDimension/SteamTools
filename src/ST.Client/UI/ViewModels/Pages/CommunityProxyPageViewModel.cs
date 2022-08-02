@@ -125,10 +125,10 @@ namespace System.Application.UI.ViewModels
             //AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
         }
 
-        public void TrustCer_OnClick()
+        public async void TrustCer_OnClick()
         {
             reverseProxyService.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists();
-            reverseProxyService.CertificateManager.PlatformTrustRootCertificateGuide();
+            await reverseProxyService.CertificateManager.PlatformTrustRootCertificateGuide();
         }
 
         public override void Activation()

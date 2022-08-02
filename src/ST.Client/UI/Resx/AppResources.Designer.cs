@@ -4006,6 +4006,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 请在弹出的控制台窗口输入系统密码以安装信任证书。信任完成后点击确定按钮继续。 的本地化字符串。
+        /// </summary>
+        public static string MacTrustRootCertificateTips {
+            get {
+                return ResourceManager.GetString("MacTrustRootCertificateTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 媒体 的本地化字符串。
         /// </summary>
         public static string Media {

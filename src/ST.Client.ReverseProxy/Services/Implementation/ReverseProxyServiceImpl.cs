@@ -153,14 +153,15 @@ abstract class ReverseProxyServiceImpl
 
     public abstract EReverseProxyEngine ReverseProxyEngine { get; }
 
-    public async Task<bool> StartProxy()
+    public async ValueTask<bool> StartProxy()
     {
         if (!CertificateManager.IsRootCertificateInstalled)
         {
             //CertificateManager.DeleteRootCertificate();
-            var isOk = CertificateManager.SetupRootCertificate();
+            var isOk = await CertificateManager.SetupRootCertificate();
             if (!isOk)
             {
+                Log.Error("StartProxy", "证书安装失败，或未信任。");
                 return false;
             }
         }

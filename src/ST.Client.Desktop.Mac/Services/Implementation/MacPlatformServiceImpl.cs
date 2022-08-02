@@ -89,6 +89,27 @@ namespace System.Application.Services.Implementation
 
         ValueTask IPlatformService.RunShellAsync(string script, bool admin) => RunShellAsync(script, admin);
 
+        async ValueTask<bool?> IPlatformService.TrustRootCertificate(string filePath)
+        {
+            var script = $"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"";
+            TextBoxWindowViewModel vm = new()
+            {
+                Title = AppResources.MacTrustRootCertificateTips,
+                InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText,
+                Description = AppResources.MacTrustRootCertificateTips,
+            };
+            var scriptContent = $"osascript -e 'tell app \"Terminal\" to do script \"sudo -S {script}\"'";
+            var msg = UnixHelper.RunShell(scriptContent.ToString());
+            if (await TextBoxWindowViewModel.ShowDialogAsync(vm) == null)
+                return null;
+            if (!string.IsNullOrWhiteSpace(msg))
+            {
+                Toast.Show(msg);
+                return false;
+            }
+            return true;
+        }
+
         /// <summary>
         /// 尝试删除证书
         /// </summary>

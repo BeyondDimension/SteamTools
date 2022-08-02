@@ -2398,4 +2398,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Error_Lower_Than_Windows10_1607" xml:space="preserve">
     <value>对于 Windows 10 操作系统最低需要 version 1607(10.0.14393)</value>
   </data>
+  <data name="MacTrustRootCertificateTips" xml:space="preserve">
+    <value>请在弹出的控制台窗口输入系统密码以安装信任证书。信任完成后点击确定按钮继续。</value>
+  </data>
 </root>

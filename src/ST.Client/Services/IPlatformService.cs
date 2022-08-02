@@ -31,6 +31,8 @@ namespace System.Application.Services
         /// <inheritdoc cref="RunShell(string, bool)"/>
         ValueTask RunShellAsync(string script, bool admin = false) => default;
 
+        ValueTask<bool?> RunShellReturnAsync(string script, bool admin = false) => default;
+
         /// <summary>
         /// 使用文本阅读器打开文件
         /// </summary>

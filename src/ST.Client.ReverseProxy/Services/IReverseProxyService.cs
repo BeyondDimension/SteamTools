@@ -117,7 +117,7 @@ public interface IReverseProxyService : IDisposable
     /// <returns></returns>
     bool PortInUse(int port);
 
-    Task<bool> StartProxy();
+    ValueTask<bool> StartProxy();
 
     Task StopProxy();
 

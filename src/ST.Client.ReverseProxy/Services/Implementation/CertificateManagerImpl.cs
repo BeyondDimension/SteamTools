@@ -87,7 +87,7 @@ abstract partial class CertificateManagerImpl
         }
     }
 
-    void TrustRootCertificate()
+    async ValueTask TrustRootCertificate()
     {
         try
         {
@@ -102,17 +102,17 @@ abstract partial class CertificateManagerImpl
         catch { }
 #endif
 
-        PlatformTrustRootCertificateGuide();
+        await PlatformTrustRootCertificateGuide();
     }
 
     /// <inheritdoc cref="ICertificateManager.PlatformTrustRootCertificateGuide"/>
-    public void PlatformTrustRootCertificateGuide()
+    public async ValueTask PlatformTrustRootCertificateGuide()
     {
         try
         {
             if (OperatingSystem2.IsMacOS())
             {
-                TrustRootCertificateMacOS();
+                await TrustRootCertificateMacOS();
             }
             else if (OperatingSystem2.IsLinux() && !OperatingSystem2.IsAndroid())
             {
@@ -130,11 +130,14 @@ abstract partial class CertificateManagerImpl
     }
 
     [SupportedOSPlatform("macOS")]
-    void TrustRootCertificateMacOS()
+    async ValueTask TrustRootCertificateMacOS()
     {
         var filePath = GetCerFilePathGeneratedWhenNoFileExists();
         if (filePath == null) return;
-        platformService.RunShell($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
+        var state = await platformService.TrustRootCertificate(filePath);
+        //await platformService.RunShellAsync($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
+        if (state != null && !IsRootCertificateInstalled)
+            await TrustRootCertificateMacOS();
     }
 
     [SupportedOSPlatform("Linux")]
@@ -152,12 +155,12 @@ abstract partial class CertificateManagerImpl
     }
 
     /// <inheritdoc cref="ICertificateManager.SetupRootCertificate"/>
-    public bool SetupRootCertificate()
+    public async ValueTask<bool> SetupRootCertificate()
     {
         if (!GenerateCertificate()) return false;
         if (!IsRootCertificateInstalled)
         {
-            TrustRootCertificate();
+            await TrustRootCertificate();
             return IsRootCertificateInstalled;
         }
         return true;

@@ -12,6 +12,11 @@ namespace System.Application.Services
             return true;
         }
 
+        async ValueTask<bool?> TrustRootCertificate(string filePath)
+        {
+            return true;
+        }
+
         /// <summary>
         /// 删除证书
         /// </summary>
