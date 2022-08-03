@@ -7,6 +7,10 @@
     <AssemblyName>System.Application.SteamTools.Client</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" $(TargetFramework.Contains('-android')) ">
+    <DefineConstants>EXCLUDE_ASF;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
@@ -42,8 +46,11 @@
     <PackageReference Include="JustArchiNET.Madness" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition=" !$(TargetFramework.Contains('-android')) ">
     <ProjectReference Include="..\..\references\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Common.PinyinLib\Common.PinyinLib.csproj" />
     <ProjectReference Include="..\Repositories.sqlite-net-pcl\Repositories.sqlite-net-pcl.csproj" />
     <ProjectReference Include="..\ST.Client.ReverseProxy\ST.Client.ReverseProxy.csproj" />
@@ -84,4 +91,5 @@
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
+
 </Project>

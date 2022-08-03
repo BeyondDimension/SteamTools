@@ -1,3 +1,4 @@
+#if !EXCLUDE_ASF
 using ArchiSteamFarm;
 using ArchiSteamFarm.Steam;
 using ArchiSteamFarm.Storage;
@@ -80,3 +81,4 @@ namespace System.Application.Services
         }
     }
 }
+#endif

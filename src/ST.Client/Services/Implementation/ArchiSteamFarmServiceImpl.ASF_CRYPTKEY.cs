@@ -1,3 +1,4 @@
+#if !EXCLUDE_ASF
 using System.Security;
 using System.Threading.Tasks;
 using System.Application.UI.ViewModels;
@@ -68,3 +69,4 @@ namespace System.Application.Services
         Task SetEncryptionKeyAsync();
     }
 }
+#endif

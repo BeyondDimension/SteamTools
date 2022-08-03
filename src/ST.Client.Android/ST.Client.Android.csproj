@@ -149,6 +149,7 @@
     <PackageReference Include="Xamarin.Google.MLKit.BarcodeScanning" />
     <PackageReference Include="Xamarin.Build.Download" />
     <!--<PackageReference Include="Xamarin.AndroidX.Window" />-->
+    <PackageReference Include="Microsoft.Net.Http.Headers" />
   </ItemGroup>
 
   <!--<ItemGroup Condition="'$(Configuration)'=='Debug'">

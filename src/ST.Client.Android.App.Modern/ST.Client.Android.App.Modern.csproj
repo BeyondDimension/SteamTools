@@ -19,7 +19,8 @@
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
+    <AndroidLinkTool>r8</AndroidLinkTool>
     <PublishTrimmed>false</PublishTrimmed>
     <AndroidFragmentType>AndroidX.Fragment.App.Fragment</AndroidFragmentType>
   </PropertyGroup>
@@ -187,7 +188,7 @@
     <PackageReference Include="Xamarin.Build.Download" />
     <!--<PackageReference Include="Xamarin.AndroidX.Window" />-->
   </ItemGroup>
-  
+
   <ItemGroup>
     <AndroidAsset Include="..\..\references\Android Assets\cncity.txt" Link="Assets\cncity.txt" />
   </ItemGroup>
@@ -552,6 +553,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_toolbar_tablayout_viewpager2.xml">
       <Link>Resources\layout\activity_toolbar_tablayout_viewpager2.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_toolbar_webview.xml">
+      <Link>Resources\layout\activity_toolbar_webview.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_about.xml">
       <Link>Resources\layout\fragment_about.xml</Link>

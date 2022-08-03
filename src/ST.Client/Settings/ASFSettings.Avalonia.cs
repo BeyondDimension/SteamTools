@@ -1,3 +1,4 @@
+#if !EXCLUDE_ASF
 using System.Collections.Generic;
 using System.Application.UI;
 using System.Runtime.Versioning;
@@ -17,3 +18,4 @@ namespace System.Application.Settings
         //public static SerializableProperty<string> ConsoleFontName => _ConsoleFontName ?? throw new PlatformNotSupportedException();
     }
 }
+#endif

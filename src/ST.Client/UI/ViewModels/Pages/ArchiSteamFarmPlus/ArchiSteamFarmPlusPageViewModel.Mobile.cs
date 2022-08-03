@@ -1,7 +1,8 @@
-// ReSharper disable once CheckNamespace
+#if !EXCLUDE_ASF
 using System.Application.Services;
 using System.Application.UI.Resx;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
     partial class ArchiSteamFarmPlusPageViewModel : IActionItem<ArchiSteamFarmPlusPageViewModel.ActionItem>
@@ -71,3 +72,4 @@ namespace System.Application.UI.ViewModels
         };
     }
 }
+#endif

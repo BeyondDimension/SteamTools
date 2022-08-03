@@ -1,3 +1,4 @@
+#if !EXCLUDE_ASF
 using ArchiSteamFarm;
 using System.Application.Settings;
 using System.Collections.Generic;
@@ -30,3 +31,4 @@ partial interface IArchiSteamFarmService : IArchiSteamFarmHelperService
         }
     }
 }
+#endif

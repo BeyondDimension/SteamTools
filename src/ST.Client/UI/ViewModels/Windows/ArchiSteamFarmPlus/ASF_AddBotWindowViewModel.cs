@@ -1,3 +1,4 @@
+#if !EXCLUDE_ASF
 using ArchiSteamFarm.Steam;
 using Newtonsoft.Json.Linq;
 using ReactiveUI;
@@ -38,3 +39,4 @@ namespace System.Application.UI.ViewModels
         }
     }
 }
+#endif

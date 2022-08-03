@@ -1,3 +1,4 @@
+#if !EXCLUDE_ASF
 using ArchiSteamFarm;
 using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Library;
@@ -281,3 +282,4 @@ namespace System.Application.Services.Implementation
         //}
     }
 }
+#endif

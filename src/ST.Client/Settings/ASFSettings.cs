@@ -1,3 +1,4 @@
+#if !EXCLUDE_ASF
 using System.Application.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -67,3 +68,4 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: true, autoSave: true);
     }
 }
+#endif

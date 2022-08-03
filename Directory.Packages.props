@@ -80,6 +80,7 @@
     <!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
     <PackageVersion Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Net.Http.Headers" Version="2.2.255.255" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <!--<PackageVersion Include="CommunityToolkit.Mvvm" Version="7.1.2" />-->
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
@@ -113,7 +114,7 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageVersion Include="nunit.xamarin" Version="3.6.1" />
     <PackageVersion Include="PCLStorage" Version="1.0.2" />
-    <PackageVersion Include="Moq" Version="4.18.1" />
+    <PackageVersion Include="Moq" Version="4.18.2" />
 
     <!-- NLog -->
     <PackageVersion Include="NLog" Version="5.0.1" />
@@ -192,7 +193,7 @@
     <PackageVersion Include="NPOI" Version="2.5.6" />
 
     <!-- Github API -->
-    <PackageVersion Include="Octokit" Version="1.0.0" />
+    <PackageVersion Include="Octokit" Version="1.0.1" />
 
     <!-- ORM -->
     <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
@@ -260,7 +261,7 @@
     <!--Avalonia End-->
 
     <!-- Xamarin.Android -->
-    <PackageVersion Include="Xamarin.Build.Download" Version="0.11.2" />
+    <PackageVersion Include="Xamarin.Build.Download" Version="0.11.3" />
     <PackageVersion Include="Xamarin.Google.Dagger" Version="2.40.5" />
     <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.5" />
     <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
@@ -274,29 +275,29 @@
     <!-- V2Ray -->
     <PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0.1" />
     <!--<PackageVersion Include="Karamunting.KotlinX.Coroutines.Core" Version="1.4.2" />-->
-    <PackageVersion Include="Xamarin.KotlinX.Coroutines.Core" Version="1.6.2.1" />
-    <PackageVersion Include="Xamarin.KotlinX.Coroutines.Android" Version="1.6.2.1" />
+    <PackageVersion Include="Xamarin.KotlinX.Coroutines.Core" Version="1.6.4" />
+    <PackageVersion Include="Xamarin.KotlinX.Coroutines.Android" Version="1.6.4" />
     <PackageVersion Include="Xamarin.Android.ReactiveX.RxJava3.RxJava" Version="3.1.5.1" />
 
     <!-- Xamarin.AndroidX -->
     <PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.10" />
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
     <PackageVersion Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.9" />
-    <PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.4.1.2" />
+    <PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.5.0" />
     <PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.7" />
     <PackageVersion Include="Xamarin.Google.Android.Material" Version="1.6.1.1" />
     <PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.9" />
     <PackageVersion Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.4.1" />
-    <PackageVersion Include="Xamarin.AndroidX.Navigation.UI" Version="2.4.2.1" />
-    <PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.4.2.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Navigation.UI" Version="2.5.0" />
+    <PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.5.0" />
     <PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.16" />
-    <PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.4.0.4" />
+    <PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.5.0" />
     <PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.10" />
     <PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.6" />
     <PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.15" />
-    <PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.4.1.2" />
-    <PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.1.0-beta02" />
-    <PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.1.0-beta02" />
+    <PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.5.0" />
+    <PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.1.0" />
+    <PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.1.0" />
     <PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.1.0-beta02" />
     <!--<PackageVersion Include="Xamarin.AndroidX.Window" Version="1.0.0.9" />-->
     <PackageVersion Include="Xamarin.AndroidX.WebKit" Version="1.4.0.8" />

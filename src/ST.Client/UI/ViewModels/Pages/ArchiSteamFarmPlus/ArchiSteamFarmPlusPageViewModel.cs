@@ -1,3 +1,4 @@
+#if !EXCLUDE_ASF
 using ArchiSteamFarm;
 using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Library;
@@ -310,3 +311,4 @@ namespace System.Application.UI.ViewModels
         public async void SetEncryptionKey() => await asfSerivce.SetEncryptionKeyAsync();
     }
 }
+#endif
