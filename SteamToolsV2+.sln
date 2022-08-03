@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Root", "_Root", "{66839CD8
 		download-guide.md = download-guide.md
 		global.json = global.json
 		packaging\Info.plist = packaging\Info.plist
+		NuGet.Config = NuGet.Config
 		packaging\package.net472.ps1 = packaging\package.net472.ps1
 		README.en.md = README.en.md
 		README.md = README.md
@@ -2607,7 +2608,7 @@ Global
 		{8C996C50-B29F-4CB6-90A7-77C9CD3B0B70} = {910D6A0F-42AB-4B65-B532-852E864EC006}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = zh-Hans
 		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
+		RESX_NeutralResourcesLanguage = zh-Hans
 	EndGlobalSection
 EndGlobal
