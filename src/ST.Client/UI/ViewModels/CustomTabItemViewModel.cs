@@ -49,7 +49,9 @@ namespace System.Application.UI.ViewModels
             TabItemId.GameRelated => typeof(GameRelatedPageViewModel),
             TabItemId.Settings => typeof(SettingsPageViewModel),
             TabItemId.About => typeof(AboutPageViewModel),
+#if DEBUG
             TabItemId.Debug => typeof(DebugPageViewModel),
+#endif
             _ => throw new ArgumentOutOfRangeException(nameof(tabItemId), tabItemId, null),
         };
 
