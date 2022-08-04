@@ -62,7 +62,7 @@ public static class ServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddRepositoryPreferences(this IServiceCollection services)
     {
-        services.AddSingleton<IPreferencesPlatformService, PreferencesPlatformServiceImpl>();
+        services.AddSingleton<IPreferencesPlatformService, PreferencesPlatformServiceImplV2>();
         return services;
     }
 }

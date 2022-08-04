@@ -607,6 +607,8 @@ namespace System.Application.UI
 
                 if (!isDesignMode)
                 {
+                    SettingsProviderV3.Migrate();
+                    PreferencesPlatformServiceImplV2.Migrate();
                     SettingsHost.Load();
                     if (isTrace) StartWatchTrace.Record("SettingsHost");
                 }

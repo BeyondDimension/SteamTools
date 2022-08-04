@@ -323,5 +323,8 @@
 
     <!-- ArchiSteamFarm -->
     <PackageVersion Include="ArchiSteamFarm.Library" Version="5.2.6.3-preview.220608" />
+
+    <!-- DBreeze(key value store embedded) -->
+    <PackageVersion Include="DBreeze" Version="1.107.0" />
   </ItemGroup>
 </Project>

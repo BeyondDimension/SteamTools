@@ -1,6 +1,6 @@
 namespace System.Application.Settings;
 
-public sealed class ValueChangedEventArgs<T> : EventArgs where T : notnull
+public sealed class ValueChangedEventArgs<T> : EventArgs
 {
     public T? OldValue { get; }
 

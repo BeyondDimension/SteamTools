@@ -311,27 +311,27 @@ public abstract class CommandLineHost : IDisposable
 
         // -clt show -config -cert
         var show = new Command("show", "显示信息");
-        show.AddOption(new Option<bool>("-config", "显示 Config.mpo 值"));
+        //show.AddOption(new Option<bool>("-config", "显示 Config.mpo 值"));
         show.AddOption(new Option<bool>("-cert", "显示当前根证书信息"));
-        show.Handler = CommandHandler.Create((bool config, bool cert) =>
+        show.Handler = CommandHandler.Create((/*bool config,*/ bool cert) =>
         {
             if (OperatingSystem.IsWindows()) if (!AttachConsole()) AllocConsole();
 
-            if (config)
-            {
-                Console.WriteLine("Config: ");
-                try
-                {
-                    SettingsHost.Load();
-                    var configValue = SettingsHostBase.Local.ToJsonString();
-                    Console.WriteLine(configValue);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
-                Console.WriteLine();
-            }
+            //if (config)
+            //{
+            //    Console.WriteLine("Config: ");
+            //    try
+            //    {
+            //        SettingsHost.Load();
+            //        var configValue = SettingsHostBase.Local.ToJsonString();
+            //        Console.WriteLine(configValue);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e.ToString());
+            //    }
+            //    Console.WriteLine();
+            //}
 
             if (cert)
             {

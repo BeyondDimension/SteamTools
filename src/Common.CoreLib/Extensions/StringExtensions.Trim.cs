@@ -3,11 +3,11 @@ namespace System;
 
 public static partial class StringExtensions
 {
-    public static string TrimStart(this string s, string trimString)
+    public static string TrimStart(this string s, string value)
     {
-        if (trimString.StartsWith(trimString))
+        if (s.StartsWith(value))
         {
-            return s[trimString.Length..];
+            return s[value.Length..];
         }
         else
         {
@@ -15,11 +15,11 @@ public static partial class StringExtensions
         }
     }
 
-    public static string TrimEnd(this string s, string trimString)
+    public static string TrimEnd(this string s, string value)
     {
-        if (trimString.EndsWith(trimString))
+        if (s.EndsWith(value))
         {
-            return s[..^trimString.Length];
+            return s[..^value.Length];
         }
         else
         {
@@ -27,11 +27,11 @@ public static partial class StringExtensions
         }
     }
 
-    public static string TrimStart(this string s, string trimString, StringComparison comparisonType)
+    public static string TrimStart(this string s, string value, StringComparison comparisonType)
     {
-        if (trimString.StartsWith(trimString, comparisonType))
+        if (s.StartsWith(value, comparisonType))
         {
-            return s[trimString.Length..];
+            return s[value.Length..];
         }
         else
         {
@@ -39,11 +39,11 @@ public static partial class StringExtensions
         }
     }
 
-    public static string TrimEnd(this string s, string trimString, StringComparison comparisonType)
+    public static string TrimEnd(this string s, string value, StringComparison comparisonType)
     {
-        if (trimString.EndsWith(trimString, comparisonType))
+        if (s.EndsWith(value, comparisonType))
         {
-            return s[..^trimString.Length];
+            return s[..^value.Length];
         }
         else
         {

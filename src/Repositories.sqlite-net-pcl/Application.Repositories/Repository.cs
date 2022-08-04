@@ -31,22 +31,23 @@ public abstract class Repository : IRepository
         }
     }
 
-    static SQLiteConnection? connectionSync;
+    //static SQLiteConnection? connectionSync;
 
-    static SQLiteConnection ConnectionSync
-    {
-        get
-        {
-            if (connectionSync == null)
-            {
-                var dbPath = DataBaseDirectory;
-                IOPath.DirCreateByNotExists(dbPath);
-                dbPath = Path.Combine(dbPath, "application2.dbf"); // 与异步连接使用不同的数据库文件隔离
-                connectionSync = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
-            }
-            return connectionSync;
-        }
-    }
+    //[Obsolete("",true)]
+    //static SQLiteConnection ConnectionSync
+    //{
+    //    get
+    //    {
+    //        if (connectionSync == null)
+    //        {
+    //            var dbPath = DataBaseDirectory;
+    //            IOPath.DirCreateByNotExists(dbPath);
+    //            dbPath = Path.Combine(dbPath, "application2.dbf"); // 与异步连接使用不同的数据库文件隔离
+    //            connectionSync = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
+    //        }
+    //        return connectionSync;
+    //    }
+    //}
 
     static SQLiteAsyncConnection GetConnection()
     {
@@ -71,17 +72,18 @@ public abstract class Repository : IRepository
         return DbConnection;
     }
 
-    public static SQLiteConnection GetDbConnectionSync<T>()
-    {
-        var conn = ConnectionSync;
-        if (!conn.TableMappings.Any(x => x.MappedType == typeof(T)))
-        {
-            // On sqlite-net v1.6.0+, enabling write-ahead logging allows for faster database execution
-            conn.EnableWriteAheadLogging();
-            conn.CreateTables(CreateFlags.None, typeof(T));
-        }
-        return conn;
-    }
+    //[Obsolete("",true)]
+    //public static SQLiteConnection GetDbConnectionSync<T>()
+    //{
+    //    var conn = ConnectionSync;
+    //    if (!conn.TableMappings.Any(x => x.MappedType == typeof(T)))
+    //    {
+    //        // On sqlite-net v1.6.0+, enabling write-ahead logging allows for faster database execution
+    //        conn.EnableWriteAheadLogging();
+    //        conn.CreateTables(CreateFlags.None, typeof(T));
+    //    }
+    //    return conn;
+    //}
 
     protected static Task<T> AttemptAndRetry<T>(Func<Task<T>> action, int numRetries = 10)
     {
