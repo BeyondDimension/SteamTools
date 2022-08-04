@@ -54,9 +54,6 @@ using AvaloniaApplication = Avalonia.Application;
 #else
 using PlatformApplication = System.Application.UI.App;
 #endif
-#if StartWatchTrace
-using System.Diagnostics;
-#endif
 #if ANDROID || IOS || __ANDROID__
 #if MAUI
 using EssentialsFileSystem = Microsoft.Maui.Storage.FileSystem;
@@ -97,69 +94,62 @@ namespace System.Application.UI
 #if !CONSOLEAPP
         static AppSettings? mAppSettings;
 
-        public static AppSettings AppSettings
+        public static AppSettings AppSettings => GetAppSettings();
+
+        static AppSettings GetAppSettings(bool isTrace = false)
         {
-            get
+            if (mAppSettings == null)
             {
-                if (mAppSettings == null)
+                mAppSettings = new AppSettings
                 {
-#if StartWatchTrace
-                    var stopwatch = Stopwatch.StartNew();
-#endif
-                    mAppSettings = new AppSettings
-                    {
-                        //AppVersion = GetResValueGuid("app-id", isSingle: false, ResSecrets.ResValueFormat.StringGuidN),
-                        AesSecret = ResSecrets.GetResValue("aes-key", isSingle: true, ResSecrets.ResValueFormat.String),
-                        RSASecret = ResSecrets.GetResValue("rsa-public-key", isSingle: false, ResSecrets.ResValueFormat.String),
-                        //MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResSecrets.ResValueFormat.StringGuidN),
-                    };
-                    SetApiBaseUrl(mAppSettings);
-#if StartWatchTrace
-                    stopwatch.Stop();
-                    Console.WriteLine($"Load AppSettings, value: {stopwatch.ElapsedMilliseconds}");
-#endif
-                    //static Guid GetResValueGuid(string name, bool isSingle, ResValueFormat format) => GetResValue(name, isSingle, format).TryParseGuidN() ?? default;
-                    //static string? GetResValue(string name, bool isSingle, ResValueFormat format)
-                    //{
-                    //    const string namespacePrefix = "System.Application.UI.Resources.";
-                    //    var assembly = Assembly.GetExecutingAssembly();
-                    //    Stream? func(string x) => assembly.GetManifestResourceStream(x);
-                    //    var r = AppClientAttribute.GetResValue(func, name, isSingle, namespacePrefix, format);
-                    //    return r;
-                    //}
-                    static void SetApiBaseUrl(AppSettings s)
-                    {
-                        //#if DEBUG
-                        //                        if (BuildConfig.IsAigioPC && Program.IsMainProcess)
-                        //                        {
-                        //                            try
-                        //                            {
-                        //                                var url = Prefix_HTTPS + "localhost:5001";
-                        //                                var request = WebRequest.CreateHttp(url);
-                        //                                request.Timeout = 1888;
-                        //                                request.GetResponse();
-                        //                                s.ApiBaseUrl = url;
-                        //                                return;
-                        //                            }
-                        //                            catch (Exception e)
-                        //                            {
-                        //                                Debug.WriteLine(e.ToString());
-                        //                            }
-                        //                        }
-                        //#endif
-                        var value =
-                            (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
+                    //AppVersion = GetResValueGuid("app-id", isSingle: false, ResSecrets.ResValueFormat.StringGuidN),
+                    AesSecret = ResSecrets.GetResValue("aes-key", isSingle: true, ResSecrets.ResValueFormat.String),
+                    RSASecret = ResSecrets.GetResValue("rsa-public-key", isSingle: false, ResSecrets.ResValueFormat.String),
+                    //MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResSecrets.ResValueFormat.StringGuidN),
+                };
+                SetApiBaseUrl(mAppSettings);
+                if (isTrace) StartWatchTrace.Record($"Load AppSettings");
+                //static Guid GetResValueGuid(string name, bool isSingle, ResValueFormat format) => GetResValue(name, isSingle, format).TryParseGuidN() ?? default;
+                //static string? GetResValue(string name, bool isSingle, ResValueFormat format)
+                //{
+                //    const string namespacePrefix = "System.Application.UI.Resources.";
+                //    var assembly = Assembly.GetExecutingAssembly();
+                //    Stream? func(string x) => assembly.GetManifestResourceStream(x);
+                //    var r = AppClientAttribute.GetResValue(func, name, isSingle, namespacePrefix, format);
+                //    return r;
+                //}
+                static void SetApiBaseUrl(AppSettings s)
+                {
+                    //#if DEBUG
+                    //                        if (BuildConfig.IsAigioPC && Program.IsMainProcess)
+                    //                        {
+                    //                            try
+                    //                            {
+                    //                                var url = Prefix_HTTPS + "localhost:5001";
+                    //                                var request = WebRequest.CreateHttp(url);
+                    //                                request.Timeout = 1888;
+                    //                                request.GetResponse();
+                    //                                s.ApiBaseUrl = url;
+                    //                                return;
+                    //                            }
+                    //                            catch (Exception e)
+                    //                            {
+                    //                                Debug.WriteLine(e.ToString());
+                    //                            }
+                    //                        }
+                    //#endif
+                    var value =
+                        (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
 #if USE_DEBUG_SERVER
                                 Constants.Urls.BaseUrl_API_Debug
 #else
-                                Constants.Urls.BaseUrl_API_Development
+                            Constants.Urls.BaseUrl_API_Development
 #endif
-                               : Constants.Urls.BaseUrl_API_Production;
-                        s.ApiBaseUrl = Constants.Urls.ApiBaseUrl = value;
-                    }
+                           : Constants.Urls.BaseUrl_API_Production;
+                    s.ApiBaseUrl = Constants.Urls.ApiBaseUrl = value;
                 }
-                return mAppSettings;
             }
+            return mAppSettings;
         }
 #endif
 
@@ -172,30 +162,23 @@ namespace System.Application.UI
         /// <summary>
         /// 初始化启动
         /// </summary>
-        static void ConfigureServices(IApplication.IStartupArgs args, DILevel level, IServiceCollection? services = null)
+        static void ConfigureServices(IApplication.IStartupArgs args, DILevel level, IServiceCollection? services = null, bool isTrace = false)
         {
             if (!isInitialized)
             {
                 isInitialized = true;
-#if StartWatchTrace
-                StartWatchTrace.Record("Startup.InitFileSystem");
-#endif
                 var options = new StartupOptions(level);
                 if (options.HasServerApiClient)
                 {
                     ModelValidatorProvider.Init();
-#if StartWatchTrace
-                    StartWatchTrace.Record("ModelValidatorProvider.Init");
-#endif
+                    if (isTrace) StartWatchTrace.Record("ModelValidatorProvider.Init");
                 }
-#if StartWatchTrace
-                StartWatchTrace.Record($"InitDI: {level}");
-#endif
+                if (isTrace) StartWatchTrace.Record($"InitDI: {level}");
                 if (services == null)
                 {
                     // new ServiceCollection 创建服务集合
-                    ConfigureServices(args, options);
-                    OnBuild();
+                    ConfigureServices(args, options, isTrace);
+                    OnBuild(isTrace);
                 }
                 else
                 {
@@ -206,44 +189,36 @@ namespace System.Application.UI
             }
         }
 
-        static void OnBuild()
+        static void OnBuild(bool isTrace = false)
         {
             VersionTracking2.Track();
-#if StartWatchTrace
-            StartWatchTrace.Record($"VersionTracking2.Track");
-#endif
+            if (isTrace) StartWatchTrace.Record($"VersionTracking2.Track");
             Migrations.Up();
-#if StartWatchTrace
-            StartWatchTrace.Record($"Migrations.Up");
-#endif
+            if (isTrace) StartWatchTrace.Record($"Migrations.Up");
         }
 
-        static void ConfigureServices(IApplication.IStartupArgs args, StartupOptions options)
+        static void ConfigureServices(IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
         {
 #if UI_DEMO
             DI.Init(new MockServiceProvider(ConfigureDemoServices));
 #else
-            DI.ConfigureServices(s => ConfigureServices(s, args, options));
+            DI.ConfigureServices(s => ConfigureServices(s, args, options, isTrace));
 #endif
         }
 
-        static void ConfigureServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+        static void ConfigureServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
         {
-            ConfigureRequiredServices(services, args, options);
-#if StartWatchTrace
-            StartWatchTrace.Record("DI.ConfigureRequiredServices");
-#endif
-            ConfigureDemandServices(services, args, options);
-#if StartWatchTrace
-            StartWatchTrace.Record("DI.ConfigureDemandServices");
-#endif
+            ConfigureRequiredServices(services, args, options, isTrace);
+            if (isTrace) StartWatchTrace.Record("DI.ConfigureRequiredServices");
+            ConfigureDemandServices(services, args, options, isTrace);
+            if (isTrace) StartWatchTrace.Record("DI.D");
         }
 
         /// <summary>
         /// 配置任何进程都必要的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
-        static void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+        static void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
         {
 #if !__ANDROID__ || MAUI
             services.AddSingleton(ProgramHost.Instance);
@@ -273,7 +248,7 @@ namespace System.Application.UI
 #endif
 #if !CONSOLEAPP
             // 添加 app 配置项
-            services.TryAddOptions(AppSettings);
+            services.TryAddOptions(GetAppSettings(isTrace));
 #if MAUI || __MOBILE__ || ANDROID || IOS || __ANDROID__
             // 键值对存储 - 由 Essentials 提供
             services.TryAddEssentialsSecureStorage();
@@ -308,11 +283,9 @@ namespace System.Application.UI
         /// 配置按需使用的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
-        static void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+        static void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
         {
-#if StartWatchTrace
-            StartWatchTrace.Record("DI.ConfigureDemandServices.Calc");
-#endif
+            if (isTrace) StartWatchTrace.Record("DI.D.Calc");
             services.AddDnsAnalysisService();
 #if !CONSOLEAPP
             if (options.HasGUI)
@@ -380,9 +353,7 @@ namespace System.Application.UI
                 services.AddViewModelManager();
 
                 services.TryAddBiometricService();
-#if StartWatchTrace
-                StartWatchTrace.Record("DI.ConfigureDemandServices.GUI");
-#endif
+                if (isTrace) StartWatchTrace.Record("DI.D.GUI");
             }
 #endif
             if (options.HasHttpClientFactory
@@ -393,9 +364,7 @@ namespace System.Application.UI
             {
                 // 添加 Http 平台助手桌面端或移动端实现
                 services.TryAddClientHttpPlatformHelperService();
-#if StartWatchTrace
-                StartWatchTrace.Record("DI.ConfigureDemandServices.ClientHttpPlatformHelperService");
-#endif
+                if (isTrace) StartWatchTrace.Record("DI.D.ClientHttpPlatformHelperService");
             }
 
             if (options.HasHttpClientFactory)
@@ -406,31 +375,23 @@ namespace System.Application.UI
 #endif
                 // 通用 Http 服务
                 services.AddHttpService();
-#if StartWatchTrace
-                StartWatchTrace.Record("DI.ConfigureDemandServices.HttpClientFactory");
-#endif
+                if (isTrace) StartWatchTrace.Record("DI.D.HttpClientFactory");
             }
             services.TryAddScriptManager();
-#if StartWatchTrace
-            StartWatchTrace.Record("DI.ConfigureDemandServices.ScriptManager");
-#endif
+            if (isTrace) StartWatchTrace.Record("DI.D.ScriptManager");
 
 #if !CONSOLEAPP
             if (options.HasHttpProxy)
             {
                 // 通用 Http 代理服务
                 services.AddReverseProxyService();
-#if StartWatchTrace
-                StartWatchTrace.Record("DI.ConfigureDemandServices.HttpProxy");
-#endif
+                if (isTrace) StartWatchTrace.Record("DI.D.HttpProxy");
             }
 #endif
 #if !CONSOLEAPP
             if (options.HasServerApiClient)
             {
-#if StartWatchTrace
-                StartWatchTrace.Record("DI.ConfigureDemandServices.AppSettings");
-#endif
+                if (isTrace) StartWatchTrace.Record("DI.D.AppSettings");
                 // 添加模型验证框架
                 services.TryAddModelValidator();
 
@@ -449,17 +410,13 @@ namespace System.Application.UI
 
                 // 业务平台用户管理
                 services.TryAddUserManager();
-#if StartWatchTrace
-                StartWatchTrace.Record("DI.ConfigureDemandServices.ServerApiClient");
-#endif
+                if (isTrace) StartWatchTrace.Record("DI.D.ServerApiClient");
             }
 #endif
 #if !CONSOLEAPP
             // 添加通知服务
             AddNotificationService();
-#if StartWatchTrace
-            StartWatchTrace.Record("DI.ConfigureDemandServices.AddNotificationService");
-#endif
+            if (isTrace) StartWatchTrace.Record("DI.D.AddNotificationService");
             void AddNotificationService()
             {
 #if !__MOBILE__
@@ -473,9 +430,7 @@ namespace System.Application.UI
             {
                 // hosts 文件助手服务
                 services.AddHostsFileService();
-#if StartWatchTrace
-                StartWatchTrace.Record("DI.ConfigureDemandServices.HostsFileService");
-#endif
+                if (isTrace) StartWatchTrace.Record("DI.D.HostsFileService");
             }
 #endif
             if (options.HasSteam)
@@ -483,10 +438,10 @@ namespace System.Application.UI
 #if !__ANDROID__
                 // Steam 相关助手、工具类服务
                 services.AddSteamService();
-#endif
 
                 // Steamworks LocalApi Service
                 services.TryAddSteamworksLocalApiService();
+#endif
 
                 // SteamDb WebApi Service
                 //services.AddSteamDbWebApiService();
@@ -499,9 +454,7 @@ namespace System.Application.UI
 
                 // ASF Service
                 services.AddArchiSteamFarmService();
-#if StartWatchTrace
-                StartWatchTrace.Record("DI.ConfigureDemandServices.Steam");
-#endif
+                if (isTrace) StartWatchTrace.Record("DI.D.Steam");
             }
 #if !CONSOLEAPP
             if (options.HasMainProcessRequired)
@@ -512,9 +465,7 @@ namespace System.Application.UI
 #else
                 Console.WriteLine("TODO: AddApplicationUpdateService");
 #endif
-#if StartWatchTrace
-                StartWatchTrace.Record("DI.ConfigureDemandServices.AppUpdateService");
-#endif
+                if (isTrace) StartWatchTrace.Record("DI.D.AppUpdateService");
             }
 #endif
         }
@@ -592,15 +543,10 @@ namespace System.Application.UI
 #endif
                 if (isTrace) StartWatchTrace.Record("FileSystem");
 
-#if StartWatchTrace
-                StartWatchTrace.Record();
+                if (isTrace) StartWatchTrace.Record();
 #endif
-#endif
-                IApplication.InitLogDir();
-#if StartWatchTrace
-                StartWatchTrace.Record("InitLogDir");
-#endif
-                if (isTrace) StartWatchTrace.Record("NLog");
+                IApplication.InitLogDir(isTrace: isTrace);
+                if (isTrace) StartWatchTrace.Record("InitLogDir");
 
                 GlobalExceptionHelpers.Init();
                 if (isTrace) StartWatchTrace.Record("ExceptionHandler");
@@ -608,7 +554,9 @@ namespace System.Application.UI
                 if (!isDesignMode)
                 {
                     SettingsProviderV3.Migrate();
+                    if (isTrace) StartWatchTrace.Record("SettingsHost.Migrate");
                     PreferencesPlatformServiceImplV2.Migrate();
+                    if (isTrace) StartWatchTrace.Record("Preferences.Migrate");
                     SettingsHost.Load();
                     if (isTrace) StartWatchTrace.Record("SettingsHost");
                 }
@@ -638,6 +586,7 @@ namespace System.Application.UI
                 var vmService = IViewModelManager.Instance;
                 vmService.InitViewModels();
                 if (isTrace) StartWatchTrace.Record("VM.Init");
+
                 handlerViewModelManager?.Invoke(vmService);
                 vmService.MainWindow?.Initialize();
                 if (isTrace) StartWatchTrace.Record("VM.Delegate");

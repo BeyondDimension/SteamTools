@@ -41,7 +41,7 @@ namespace System.Application.UI
 
         public interface IProgramHost : IStartupArgs
         {
-            void ConfigureServices(DILevel level);
+            void ConfigureServices(DILevel level, bool isTrace = false);
 
             void OnStartup();
 

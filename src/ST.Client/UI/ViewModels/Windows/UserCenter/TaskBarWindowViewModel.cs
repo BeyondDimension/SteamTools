@@ -39,7 +39,7 @@ namespace System.Application.UI.ViewModels
             MenuClickCommand = ReactiveCommand.Create<object>(MenuClick);
             if (mainwindow != null)
             {
-                Tabs = mainwindow.TabItems.Where(x => x.Id != default);
+                Tabs = mainwindow.TabItems;
             }
         }
 
@@ -62,14 +62,14 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        static void OnMenuClick(Func<TabItemViewModel, bool> predicate, Action? hideTaskBarWindow = null)
+        static void OnMenuClick(TabItemViewModel.TabItemId tabItemId, Action? hideTaskBarWindow = null)
         {
             if (IViewModelManager.Instance.MainWindow is MainWindowViewModel main)
             {
-                var tab = main.TabItems.FirstOrDefault(predicate);
-                tab ??= main.FooterTabItems.FirstOrDefault(predicate);
-                if (tab != null)
+                var tabItemType = TabItemViewModel.GetType(tabItemId);
+                if (main.AllTabLazyItems.ContainsKey(tabItemType))
                 {
+                    var tab = main.AllTabLazyItems[tabItemType].Value;
                     IApplication.Instance.RestoreMainWindow();
                     main.SelectedItem = tab;
                     hideTaskBarWindow?.Invoke();
@@ -85,15 +85,13 @@ namespace System.Application.UI.ViewModels
                     IApplication.Instance.Shutdown();
                     return true;
                 default:
-                    BeginInvokeOnMainThread(() =>
+                    if (tabItemId.IsDefined())
                     {
-                        if (tabItemId != default)
-                            OnMenuClick(s =>
-                                s is TabItemViewModel item &&
-                                    item.Id == tabItemId, hideTaskBarWindow);
-                        else
-                            OnMenuClick(s => s.Name == tag, hideTaskBarWindow);
-                    }, ThreadingDispatcherPriority.MaxValue);
+                        BeginInvokeOnMainThread(() =>
+                        {
+                            OnMenuClick(tabItemId, hideTaskBarWindow);
+                        }, ThreadingDispatcherPriority.MaxValue);
+                    }
                     break;
             }
             return false;

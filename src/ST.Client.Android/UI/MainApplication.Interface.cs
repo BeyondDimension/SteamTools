@@ -25,7 +25,7 @@ namespace System.Application.UI
             VisualStudioAppCenterSDK.Init();
         }
 
-        void IApplication.IProgramHost.ConfigureServices(DILevel level) => ConfigureServices(this, level);
+        void IApplication.IProgramHost.ConfigureServices(DILevel level, bool isTrace) => ConfigureServices(this, level, isTrace: isTrace);
 
         void IApplication.IProgramHost.OnStartup() => OnStartup(this);
 

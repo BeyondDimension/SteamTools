@@ -1,6 +1,4 @@
 using System.Application.UI.Resx;
-using System.Collections.Generic;
-using System.Text;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -18,7 +16,52 @@ namespace System.Application.UI.ViewModels
             GameRelated,
             Settings,
             About,
+#if DEBUG
+            Debug = byte.MaxValue,
+#endif
         }
+
+        public static string GetName(TabItemId tabItemId) => tabItemId switch
+        {
+            TabItemId.CommunityProxy => CommunityProxyPageViewModel.DisplayName,
+            TabItemId.ProxyScriptManage => ProxyScriptManagePageViewModel.DisplayName,
+            TabItemId.SteamAccount => SteamAccountPageViewModel.DisplayName,
+            TabItemId.GameList => GameListPageViewModel.DisplayName,
+            TabItemId.LocalAuth => LocalAuthPageViewModel.DisplayName,
+            TabItemId.ArchiSteamFarmPlus => ArchiSteamFarmPlusPageViewModel.DisplayName,
+            TabItemId.GameRelated => GameRelatedPageViewModel.DisplayName,
+            TabItemId.Settings => SettingsPageViewModel.DisplayName,
+            TabItemId.About => AboutPageViewModel.DisplayName,
+#if DEBUG
+            TabItemId.Debug => DebugPageViewModel.DisplayName,
+#endif
+            _ => "",
+        };
+
+        public static Type GetType(TabItemId tabItemId) => tabItemId switch
+        {
+            TabItemId.CommunityProxy => typeof(CommunityProxyPageViewModel),
+            TabItemId.ProxyScriptManage => typeof(ProxyScriptManagePageViewModel),
+            TabItemId.SteamAccount => typeof(SteamAccountPageViewModel),
+            TabItemId.GameList => typeof(GameListPageViewModel),
+            TabItemId.LocalAuth => typeof(LocalAuthPageViewModel),
+            TabItemId.ArchiSteamFarmPlus => typeof(ArchiSteamFarmPlusPageViewModel),
+            TabItemId.GameRelated => typeof(GameRelatedPageViewModel),
+            TabItemId.Settings => typeof(SettingsPageViewModel),
+            TabItemId.About => typeof(AboutPageViewModel),
+            TabItemId.Debug => typeof(DebugPageViewModel),
+            _ => throw new ArgumentOutOfRangeException(nameof(tabItemId), tabItemId, null),
+        };
+
+        public static TabItemViewModel Create(TabItemId tabItemId) => tabItemId switch
+        {
+            TabItemId.Settings => SettingsPageViewModel.Instance,
+            TabItemId.About => AboutPageViewModel.Instance,
+#if DEBUG
+            TabItemId.Debug => DebugPageViewModel.Instance,
+#endif
+            _ => (TabItemViewModel)System.Activator.CreateInstance(GetType(tabItemId))!,
+        };
     }
 
     partial class StartPageViewModel : TabItemViewModel
@@ -151,6 +194,8 @@ namespace System.Application.UI.ViewModels
     partial class DebugPageViewModel : TabItemViewModel
     {
         public const string DisplayName = "Debug";
+
+        public override TabItemId Id => TabItemId.Debug;
 
         public override string Name
         {

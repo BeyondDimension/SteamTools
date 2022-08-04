@@ -36,6 +36,11 @@ namespace System.Application.UI.ViewModels
         {
             var typeName = GetType().Name;
             IconKey = OperatingSystem2.Application.UseMaui() ? $"{typeName.ToLowerInvariant()}.png" : typeName;
+
+            R.Subscribe(() =>
+            {
+                this.RaisePropertyChanged(nameof(Name));
+            }).AddTo(this);
         }
 
         public virtual void Initialize()

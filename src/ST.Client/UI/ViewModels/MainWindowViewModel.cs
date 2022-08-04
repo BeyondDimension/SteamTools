@@ -81,71 +81,51 @@ namespace System.Application.UI.ViewModels
 
             #region InitTabItems
 
-            //AddTabItem<StartPageViewModel>();
-            if (R.IsChineseSimplified || !IApplication.IsDesktopPlatform)
+            List<TabItemViewModel.TabItemId> tabIdItems = new();
+            List<TabItemViewModel.TabItemId> footerTabIdItems = new();
+
+            //tabIdItems.Add(TabItemViewModel.TabItemId.StartPage);
+            if (!IApplication.IsDesktopPlatform || R.IsChineseSimplified)
             {
                 // Android 目前底部菜单实现要隐藏需要改多个地方
                 // 主要是初始化时不依赖 TabItems，两边逻辑暂不能同步一套代码
-                AddTabItem<CommunityProxyPageViewModel>();
+                tabIdItems.Add(TabItemViewModel.TabItemId.CommunityProxy);
             }
             if (IApplication.IsDesktopPlatform)
             {
                 if (R.IsChineseSimplified)
                 {
-                    AddTabItem<ProxyScriptManagePageViewModel>();
+                    tabIdItems.Add(TabItemViewModel.TabItemId.ProxyScriptManage);
                 }
-                AddTabItem<SteamAccountPageViewModel>();
-                AddTabItem<GameListPageViewModel>();
+                tabIdItems.Add(TabItemViewModel.TabItemId.SteamAccount);
+                tabIdItems.Add(TabItemViewModel.TabItemId.GameList);
             }
-            AddTabItem<LocalAuthPageViewModel>();
-            AddTabItem<ArchiSteamFarmPlusPageViewModel>();
+            tabIdItems.Add(TabItemViewModel.TabItemId.LocalAuth);
+            tabIdItems.Add(TabItemViewModel.TabItemId.ArchiSteamFarmPlus);
+            //tabIdItems.Add(TabItemViewModel.TabItemId.SteamIdle);
 
-            //AddTabItem<SteamIdlePageViewModel>();
 #if !TRAY_INDEPENDENT_PROGRAM
             if (OperatingSystem2.IsWindows())
-                AddTabItem<GameRelatedPageViewModel>();
+                tabIdItems.Add(TabItemViewModel.TabItemId.GameRelated);
 #endif
-            //AddTabItem<AccountPageViewModel>();
-            //AddTabItem<OtherPlatformPageViewModel>();
 
-            //#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
-            //            if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
-            //            {
-            //                AddTabItem<DebugPageViewModel>();
-            //                //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
+#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
+            if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
+            {
+                footerTabIdItems.Add(TabItemViewModel.TabItemId.Debug);
+            }
+#endif
+            footerTabIdItems.Add(TabItemViewModel.TabItemId.Settings);
+            footerTabIdItems.Add(TabItemViewModel.TabItemId.About);
 
-            //                //if (AppHelper.IsSystemWebViewAvailable)
-            //                //{
-            //                //    AddTabItem<DebugWebViewPageViewModel>();
-            //                //}
-            //            }
-            //#endif
+            TabIdItems = tabIdItems.ToArray();
+            FooterTabIdItems = footerTabIdItems.ToArray();
+            AllTabIdItems = new HashSet<TabItemViewModel.TabItemId>(TabIdItems.Concat(FooterTabIdItems));
+            AllTabLazyItems = AllTabIdItems.ToDictionary(TabItemViewModel.GetType, v => new Lazy<TabItemViewModel>(() => TabItemViewModel.Create(v)));
 
             #endregion
 
-            SelectedItem = TabItems.First();
-
-            R.Subscribe(() =>
-            {
-                foreach (var item in CurrentAllTabItems)
-                {
-                    item.RaisePropertyChanged(nameof(TabItemViewModelBase.Name));
-                }
-            }).AddTo(this);
-
-            //this.WhenAnyValue(x => x.SelectedItem)
-            //    .Subscribe(x =>
-            //    {
-            //        if (x != null)
-            //            FrameContent = x;
-            //    }).AddTo(this);
-
-            //this.WhenAnyValue(x => x.FrameContent)
-            //    .Subscribe(x =>
-            //    {
-            //        if (x != SelectedItem)
-            //            SelectedItem = null;
-            //    }).AddTo(this);
+            SelectedItem = AllTabLazyItems.First().Value.Value;
         }
 
         public override void Initialize()

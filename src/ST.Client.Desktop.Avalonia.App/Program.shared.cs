@@ -37,7 +37,7 @@ static partial class
 
         public EOnOff ProxyStatus { get; set; }
 
-        void IApplication.IProgramHost.ConfigureServices(DILevel level) => ConfigureServices(level);
+        void IApplication.IProgramHost.ConfigureServices(DILevel level, bool isTrace) => ConfigureServices(level, isTrace);
 
         public void InitVisualStudioAppCenterSDK()
         {
@@ -71,7 +71,7 @@ static partial class
 
         public Action<DILevel>? ConfigureServicesDelegate { get; set; }
 
-        protected override void ConfigureServices(DILevel level)
+        protected override void ConfigureServices(DILevel level, bool isTrace = false)
         {
             if (ConfigureServicesDelegate != null)
             {
@@ -79,7 +79,7 @@ static partial class
             }
             else
             {
-                Program.ConfigureServices(this, level);
+                Program.ConfigureServices(this, level, isTrace: isTrace);
             }
         }
 

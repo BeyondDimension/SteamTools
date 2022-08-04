@@ -165,7 +165,7 @@ namespace System.Application.UI
 
         public const string LogDirName = "Logs";
 
-        public static void InitLogDir(string? alias = null)
+        public static void InitLogDir(string? alias = null, bool isTrace = false)
         {
             if (!string.IsNullOrEmpty(LogDirPath)) return;
 
@@ -183,9 +183,7 @@ namespace System.Application.UI
             //    LogDirName);
             var logDirPath = Path.Combine(IOPath.CacheDirectory, LogDirName);
             IOPath.DirCreateByNotExists(logDirPath);
-#if StartWatchTrace
-            StartWatchTrace.Record("InitLogDir.IO");
-#endif
+            if (isTrace) StartWatchTrace.Record("InitLogDir.IO");
             var logDirPath_ = logDirPath + Path.DirectorySeparatorChar;
 
             NInternalLogger.LogFile = logDirPath_ + "internal-nlog" + alias + ".txt";
@@ -202,9 +200,7 @@ namespace System.Application.UI
             };
             objConfig.AddTarget(logfile);
             InitializeTarget(objConfig, logfile, defMinLevel);
-#if StartWatchTrace
-            StartWatchTrace.Record("InitLogDir.CreateLoggingConfiguration");
-#endif
+            if (isTrace) StartWatchTrace.Record("InitLogDir.CreateCfg");
             NLogManager.Configuration = objConfig;
 
             LogDirPathASF = ASFPathHelper.GetLogDirectory(logDirPath_);

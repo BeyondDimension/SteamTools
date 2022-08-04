@@ -6,92 +6,66 @@ namespace System.Application.UI.ViewModels
 {
     partial class MainWindowViewModel
     {
-        readonly Dictionary<Type, Lazy<TabItemViewModel>> mTabItems = new();
+        readonly object mTabItemsLock = new();
+        static TabItemViewModel[]? mTabItems;
 
-        public IEnumerable<TabItemViewModel> TabItems => mTabItems.Values.Select(x => x.Value);
-
-        IReadOnlyList<TabItemViewModel>? _FooterTabItems;
-
-        public IReadOnlyList<TabItemViewModel>? FooterTabItems
+        public TabItemViewModel[] TabItems
         {
             get
             {
-                if (_FooterTabItems == null)
+                lock (mTabItemsLock)
                 {
-                    var items = new List<TabItemViewModel>
-                    {
-                        SettingsPageViewModel.Instance,
-                        AboutPageViewModel.Instance,
-                    };
-
-#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
-                    if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
-                    {
-                        items.Insert(0, DebugPageViewModel.Instance);
-                        //items.Insert(1, DebugWebViewPageViewModel.Instance);
-                    }
-#endif
-
-                    _FooterTabItems = items;
+                    if (mTabItems == null) mTabItems = GetTabItems().ToArray();
+                    return mTabItems;
                 }
-                return _FooterTabItems;
+                IEnumerable<TabItemViewModel> GetTabItems()
+                {
+                    foreach (var item in TabIdItems)
+                    {
+                        var type = TabItemViewModel.GetType(item);
+                        yield return AllTabLazyItems[type].Value;
+                    }
+                }
             }
         }
 
-        public IEnumerable<TabItemViewModel> AllTabItems
+        readonly object mFooterTabItemsLock = new();
+        static TabItemViewModel[]? mFooterTabItems;
+
+        public TabItemViewModel[] FooterTabItems
         {
             get
             {
-                if (FooterTabItems == null) return TabItems;
-                else return TabItems.Concat(FooterTabItems);
+                lock (mFooterTabItemsLock)
+                {
+                    if (mFooterTabItems == null) mFooterTabItems = GetFooterTabItems().ToArray();
+                    return mFooterTabItems;
+                }
+                IEnumerable<TabItemViewModel> GetFooterTabItems()
+                {
+                    foreach (var item in FooterTabIdItems)
+                    {
+                        var type = TabItemViewModel.GetType(item);
+                        yield return AllTabLazyItems[type].Value;
+                    }
+                }
             }
         }
 
-        /// <summary>
-        /// 当前 <see cref="AllTabItems"/>，延时加载 <see cref="FooterTabItems"/>
-        /// </summary>
-        public IEnumerable<TabItemViewModel> CurrentAllTabItems
-        {
-            get
-            {
-                if (_FooterTabItems == null) return TabItems;
-                else return TabItems.Concat(_FooterTabItems);
-            }
-        }
+        public TabItemViewModel.TabItemId[] TabIdItems { get; }
 
-        void AddTabItem<TabItemVM>() where TabItemVM : TabItemViewModel, new()
-        {
-            Lazy<TabItemViewModel> value = new(() => new TabItemVM()
-#if !TRAY_INDEPENDENT_PROGRAM
-            .AddTo(this)
-#endif
-            );
-            mTabItems.Add(typeof(TabItemVM), value);
-        }
+        public TabItemViewModel.TabItemId[] FooterTabIdItems { get; }
 
-        //void AddTabItem<TabItemVM>(Func<TabItemVM> func) where TabItemVM : TabItemViewModel
-        //{
-        //    Lazy<TabItemViewModel> value = new(func);
-        //    mTabItems.Add(typeof(TabItemVM), value);
-        //}
+        public IReadOnlyCollection<TabItemViewModel.TabItemId> AllTabIdItems { get; }
+
+        public Dictionary<Type, Lazy<TabItemViewModel>> AllTabLazyItems { get; }
 
         internal TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel
         {
             var type = typeof(TabItemVM);
-            if (mTabItems.ContainsKey(type))
+            if (AllTabLazyItems.ContainsKey(type))
             {
-                return (TabItemVM)mTabItems[type].Value;
-            }
-
-            if (FooterTabItems != null)
-            {
-                foreach (var item in FooterTabItems)
-                {
-                    if (item is TabItemVM itemVM)
-                    {
-                        return itemVM;
-                    }
-                }
+                return (TabItemVM)AllTabLazyItems[type].Value;
             }
 
             throw new KeyNotFoundException($"type: {type} not found.");

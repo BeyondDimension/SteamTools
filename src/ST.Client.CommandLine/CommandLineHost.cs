@@ -23,7 +23,7 @@ public abstract class CommandLineHost : IDisposable
 
     protected abstract IApplication.IDesktopProgramHost Host { get; }
 
-    protected abstract void ConfigureServices(DILevel level);
+    protected abstract void ConfigureServices(DILevel level, bool isTrace = false);
 
 #if StartWatchTrace
     protected abstract void StartWatchTraceRecord(string? mark = null, bool dispose = false);

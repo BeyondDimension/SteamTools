@@ -102,7 +102,7 @@ namespace System.Application.UI
             var level = DILevel.Min;
             if (IsMainProcess) level = DILevel.MainProcess;
             IApplication.IProgramHost host = this;
-            host.ConfigureServices(level);
+            host.ConfigureServices(level, isTrace);
             if (isTrace) StartWatchTrace.Record("Startup");
 
             if (IsMainProcess)
@@ -125,8 +125,6 @@ namespace System.Application.UI
 
             if (IsMainProcess)
             {
-                var vmService = IViewModelManager.Instance;
-
 #if __XAMARIN_FORMS__
                 Forms.Init(this, null);
                 FormsMaterial.Init(this, null);
@@ -136,8 +134,6 @@ namespace System.Application.UI
                 _Current = new(RealTheme);
                 if (isTrace) StartWatchTrace.Record("XFApp");
 #endif
-                vmService.MainWindow!.Initialize();
-                if (isTrace) StartWatchTrace.Record("MainVM.Init");
             }
 
             StartupTrack = StartWatchTrace.ToString();

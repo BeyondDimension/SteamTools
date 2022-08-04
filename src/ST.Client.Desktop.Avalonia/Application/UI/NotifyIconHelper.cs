@@ -253,7 +253,7 @@ namespace System.Application.UI
         //#endif
         //        }
         static NativeMenuItem? exitMenuItem;
-        static Dictionary<TabItemViewModel, NativeMenuItem>? tabItems;
+        static Dictionary<TabItemViewModel.TabItemId, NativeMenuItem>? tabItems;
 
         static IDisposable? InitMenuItems(NativeMenu menu)
         {
@@ -262,19 +262,15 @@ namespace System.Application.UI
 #else
             MainWindowViewModel main = new();
 #endif
-            var query = from x in main.AllTabItems
-                        let tabItem = x is TabItemViewModel item ? item : null
-                        where tabItem != null
-                        select tabItem;
             tabItems = new();
-            foreach (var item in query)
+            foreach (var item in main.AllTabIdItems)
             {
                 var menuItem = new NativeMenuItem
                 {
-                    Header = item.Name,
+                    Header = TabItemViewModel.GetName(item),
                     Command = ReactiveCommand.Create(() =>
                     {
-                        OnMenuClick(item.Id);
+                        OnMenuClick(item);
                     }),
                 };
                 tabItems.Add(item, menuItem);
@@ -299,7 +295,7 @@ namespace System.Application.UI
                 }
                 foreach (var item in tabItems)
                 {
-                    item.Value.Header = item.Key.Name;
+                    item.Value.Header = TabItemViewModel.GetName(item.Key);
                 }
             });
 #else

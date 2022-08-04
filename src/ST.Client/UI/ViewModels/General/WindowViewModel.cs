@@ -30,7 +30,8 @@ namespace System.Application.UI.ViewModels
         {
             var name = GetType().Name;
 
-            if (IsSupportedSizePosition)
+            bool isSupportedSizePosition = IsSupportedSizePosition;
+            if (isSupportedSizePosition)
             {
                 if (UISettings.WindowSizePositions.Value?.ContainsKey(name) == true)
                 {
