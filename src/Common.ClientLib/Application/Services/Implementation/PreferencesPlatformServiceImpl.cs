@@ -154,14 +154,15 @@ public sealed partial class PreferencesPlatformServiceImplV2 : IPreferencesGener
     {
         using var t = SettingsProviderV3.Provider.GetTransaction();
         var row = t.Select<string, string>(GetTableName(sharedName), key);
-        return row != null;
+        if (row == null) return false;
+        return row.Exists;
     }
 
     public T? PlatformGet<T>(string key, T? defaultValue, string? sharedName) where T : notnull, IConvertible
     {
         using var t = SettingsProviderV3.Provider.GetTransaction();
         var row = t.Select<string, string>(GetTableName(sharedName), key);
-        if (row == null) return defaultValue;
+        if (row == null || !row.Exists) return defaultValue;
         var value = ConvertibleHelper.Convert<T>(row.Value);
         return value;
     }
