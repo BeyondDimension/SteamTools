@@ -65,6 +65,17 @@ sealed class HttpReverseProxyMiddleware
             return;
         }
 
+        if (domainConfig == defaultDomainConfig)
+        {
+            //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
+            var ip = await IDnsAnalysisService.Instance.AnalysisDomainIpAsync(url, IDnsAnalysisService.DNS_Alis).FirstOrDefaultAsync();
+            if (ip == null || IPAddress.IsLoopback(ip))
+            {
+                await next(context);
+                return;
+            }
+        }
+
         if (domainConfig.Items.Any_Nullable())
             domainConfig = RecursionMatchDomainConfig(url, domainConfig);
 
@@ -135,9 +146,8 @@ sealed class HttpReverseProxyMiddleware
         // 未配置的域名，但仍然被解析到本机 IP 的域名
         if (IsDomain(host))
         {
-            if (reverseProxyConfig.Service.ProxyMode != ProxyMode.System)
-                logger.LogWarning(
-                    $"域名 {host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
+            logger.LogWarning(
+                $"域名 {host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
             domainConfig = defaultDomainConfig;
             return true;
         }
