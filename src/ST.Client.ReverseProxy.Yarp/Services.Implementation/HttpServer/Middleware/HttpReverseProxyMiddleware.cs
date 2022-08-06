@@ -487,18 +487,24 @@ sealed class HttpReverseProxyMiddleware
                     match_mark_start_index++;
                     if (match_mark_start_index >= mark_start.Length)
                     {
+                        const int matchCharCount = 4;
                         var index_name_start = i + mark_start.Length;
-                        var name = encoding.GetString(buffer.Span[index_name_start..index_name_end]);
-                        if (name.Equals("body", StringComparison.OrdinalIgnoreCase) ||
-                            name.Equals("head", StringComparison.OrdinalIgnoreCase))
+                        //if (encoding.GetMaxCharCount(index_name_end - index_name_start) >= matchCharCount)
+                        //{
+                        var bytes = buffer.Span[index_name_start..index_name_end];
+                        var charCount = encoding.GetCharCount(bytes);
+                        if (charCount == matchCharCount)
                         {
-                            insertPosition = index_name_start - mark_start.Length;
-                            return true;
+                            var name = encoding.GetString(bytes);
+                            if (name.Equals("body", StringComparison.OrdinalIgnoreCase) ||
+                                name.Equals("head", StringComparison.OrdinalIgnoreCase))
+                            {
+                                insertPosition = index_name_start - mark_start.Length;
+                                return true;
+                            }
                         }
-                        else
-                        {
-                            goto reset;
-                        }
+                        //}
+                        goto reset;
                     }
                 }
             }
