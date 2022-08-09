@@ -62,7 +62,11 @@ public static class ServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddRepositoryPreferences(this IServiceCollection services)
     {
+#if DBREEZE
         services.AddSingleton<IPreferencesPlatformService, PreferencesPlatformServiceImplV2>();
+#else
+        services.AddSingleton<IPreferencesPlatformService, PreferencesPlatformServiceImpl>();
+#endif
         return services;
     }
 }

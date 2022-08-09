@@ -1,3 +1,4 @@
+#if DBREEZE
 using DBreeze;
 using DBreeze.Utils;
 
@@ -86,3 +87,4 @@ public static class SettingsProviderV3
         }
     }
 }
+#endif

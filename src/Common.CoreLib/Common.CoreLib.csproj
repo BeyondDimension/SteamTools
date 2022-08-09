@@ -20,7 +20,7 @@
     <PackageReference Include="gfoidl.Base64" />
     <PackageReference Include="MessagePack" />
     <PackageReference Include="Newtonsoft.Json" />
-    <PackageReference Include="DBreeze" />
+    <PackageReference Include="DBreeze" Condition=" $(DefineConstants.Contains('DBREEZE')) " />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">

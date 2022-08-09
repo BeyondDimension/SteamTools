@@ -553,10 +553,12 @@ namespace System.Application.UI
 
                 if (!isDesignMode)
                 {
+#if DBREEZE
                     SettingsProviderV3.Migrate();
                     if (isTrace) StartWatchTrace.Record("SettingsHost.Migrate");
                     PreferencesPlatformServiceImplV2.Migrate();
                     if (isTrace) StartWatchTrace.Record("Preferences.Migrate");
+#endif
                     SettingsHost.Load();
                     if (isTrace) StartWatchTrace.Record("SettingsHost");
                 }

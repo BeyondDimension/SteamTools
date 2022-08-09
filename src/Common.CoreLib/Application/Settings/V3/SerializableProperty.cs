@@ -1,3 +1,4 @@
+#if DBREEZE
 using DBreeze;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -135,7 +136,7 @@ public sealed class SerializableProperty<T> : ISerializableProperty, INotifyProp
 
     public static implicit operator T?(SerializableProperty<T> property) => property.Value;
 
-    #region events
+#region events
 
     public event EventHandler<ValueChangedEventArgs<T?>>? ValueChanged;
 
@@ -162,5 +163,6 @@ public sealed class SerializableProperty<T> : ISerializableProperty, INotifyProp
         }
     }
 
-    #endregion
+#endregion
 }
+#endif
