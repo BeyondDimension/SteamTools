@@ -7,7 +7,7 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.7" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
@@ -26,7 +26,7 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.27" />
     <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.27" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="3.1.27" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="3.1.27" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.27" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.27" />
