@@ -84,8 +84,10 @@ namespace System.Application.UI.ViewModels
             List<TabItemViewModel.TabItemId> tabIdItems = new();
             List<TabItemViewModel.TabItemId> footerTabIdItems = new();
 
+            var showProxyScript = !OperatingSystem2.IsWindows() || R.IsChineseSimplified;
+
             //tabIdItems.Add(TabItemViewModel.TabItemId.StartPage);
-            if (!IApplication.IsDesktopPlatform || R.IsChineseSimplified)
+            if (showProxyScript)
             {
                 // Android 目前底部菜单实现要隐藏需要改多个地方
                 // 主要是初始化时不依赖 TabItems，两边逻辑暂不能同步一套代码
@@ -93,7 +95,7 @@ namespace System.Application.UI.ViewModels
             }
             if (IApplication.IsDesktopPlatform)
             {
-                if (R.IsChineseSimplified)
+                if (showProxyScript)
                 {
                     tabIdItems.Add(TabItemViewModel.TabItemId.ProxyScriptManage);
                 }
