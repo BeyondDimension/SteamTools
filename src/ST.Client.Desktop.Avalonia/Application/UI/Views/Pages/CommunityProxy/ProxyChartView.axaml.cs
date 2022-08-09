@@ -160,7 +160,7 @@ namespace System.Application.UI.Views.Pages
                             chart.Series = new ISeries[] { readSeries, writeSeries };
                         });
                 }
-                catch (Exception)
+                catch
                 {
                 }
                 finally

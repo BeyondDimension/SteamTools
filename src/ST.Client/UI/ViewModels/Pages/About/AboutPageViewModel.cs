@@ -142,7 +142,14 @@ namespace System.Application.UI.ViewModels
         {
             if (IApplication.IsDesktopPlatform) // Android 上手动调用加载
             {
-                LoadDonateRankListData(true);
+                try
+                {
+                    LoadDonateRankListData(true);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(AboutPageViewModel), ex, nameof(LoadDonateRankListData));
+                }
             }
             base.Activation();
         }
