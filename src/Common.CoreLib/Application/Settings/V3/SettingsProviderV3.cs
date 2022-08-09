@@ -6,30 +6,30 @@ namespace System.Application.Settings;
 public static class SettingsProviderV3
 {
     static DBreezeEngine? _Provider;
-    static readonly object lock_obj = new();
+    static readonly object lock_load = new();
 
     public static DBreezeEngine Provider
     {
         get
         {
-            lock (lock_obj)
-            {
-                if (_Provider == null) Load();
-                return _Provider ?? throw new ArgumentNullException(nameof(_Provider));
-            }
+            if (_Provider == null) Load();
+            return _Provider ?? throw new ArgumentNullException(nameof(_Provider));
         }
         set => _Provider = value;
     }
 
     public static void Load()
     {
-        if (_Provider == null)
+        lock (lock_load)
         {
-            _Provider = new(Path.Combine(IOPath.AppDataDirectory, "Config"));
+            if (_Provider == null)
+            {
+                _Provider = new(Path.Combine(IOPath.AppDataDirectory, "Config"));
 
-            //Setting up NetJSON serializer (from NuGet) to be used by DBreeze
-            CustomSerializator.ByteArraySerializator = value => Serializable.SMP(value == null ? typeof(object) : value.GetType(), value!);
-            CustomSerializator.ByteArrayDeSerializator = (buffer, type) => Serializable.DMP(type, buffer);
+                //Setting up NetJSON serializer (from NuGet) to be used by DBreeze
+                CustomSerializator.ByteArraySerializator = value => Serializable.SMP(value == null ? typeof(object) : value.GetType(), value!);
+                CustomSerializator.ByteArrayDeSerializator = (buffer, type) => Serializable.DMP(type, buffer);
+            }
         }
     }
 

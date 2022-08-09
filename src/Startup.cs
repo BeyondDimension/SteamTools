@@ -778,44 +778,6 @@ namespace System.Application.UI
                     Logger?.Error(ex_restore_hosts, "(App)Close exception when OnExitRestoreHosts");
                 }
 #endif
-
-#if !__MOBILE__
-                //var callTryShutdown = true;
-                try
-                {
-                    /*callTryShutdown = !*/
-                    PlatformApplication.Instance?.Shutdown();
-                }
-                catch (Exception ex_shutdown)
-                {
-                    Logger?.Error(ex_shutdown,
-                        "(App)Close exception when exception occurs");
-                }
-
-                //if (callTryShutdown)
-                //{
-                //    try
-                //    {
-                //        AppHelper.TryShutdown();
-                //    }
-                //    catch (Exception ex_shutdown_app_helper)
-                //    {
-                //        Logger?.Error(ex_shutdown_app_helper,
-                //            "(AppHelper)Close exception when exception occurs");
-                //    }
-                //}
-
-                try
-                {
-                    if (PlatformApplication.Instance is IApplication app)
-                    {
-                        app.CompositeDisposable.Dispose();
-                    }
-                }
-                catch
-                {
-                }
-#endif
             }
         }
 

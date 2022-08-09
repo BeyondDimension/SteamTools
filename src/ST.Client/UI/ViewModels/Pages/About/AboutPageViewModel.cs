@@ -199,7 +199,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (DonateList.Count <= content.Total)
                 {
-                    if (content.DataSource.Any())
+                    if (content.DataSource.Any_Nullable())
                     {
                         DonateList.AddRange(content.DataSource);
                     }

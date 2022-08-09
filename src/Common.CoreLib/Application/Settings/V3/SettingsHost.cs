@@ -22,5 +22,5 @@ public abstract class SettingsHost2<TSettings> where TSettings : SettingsHost2<T
     public static SerializableProperty<T> GetProperty<T>(T? defaultValue, [CallerMemberName] string propertyName = "") => new(GetKey(propertyName), SettingsProviderV3.Provider, defaultValue);
 
     [Obsolete("autoSave N/A")]
-    public static SerializableProperty<T> GetProperty<T>(T? defaultValue, bool autoSave, [CallerMemberName] string propertyName = "") => new(GetKey(propertyName), SettingsProviderV3.Provider, defaultValue);
+    public static SerializableProperty<T> GetProperty<T>(T? defaultValue, bool autoSave = true, [CallerMemberName] string propertyName = "") => new(GetKey(propertyName), SettingsProviderV3.Provider, defaultValue);
 }
