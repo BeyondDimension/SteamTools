@@ -3,7 +3,7 @@
 2. 因经济状况原因，现已停止短信服务节约开销，后续会推出邮箱注册登录，对于仅使用手机号登录的用户请绑定第三方快速登录，否则注销后将无法再次登录，需要等待至邮箱服务推出后支持会暂时在开放短信服务提供换绑邮箱。
 3. 自动更新目前仅 Windows 端可用，且由于下载渠道限速可能导致无法更新成功，推荐在官网链接的网盘或群文件中下载压缩包解压覆盖更新(应用商店版由商店更新不受此影响)
 4. 在 Android 上因系统限制，目前的加速功能无法正常使用，所以此功能已放弃继续开发，如仍想使用需要自行导入证书到系统目录，使用 adb 工具或 Magisk 之类的软件操作，未来会使用不需要证书的加速功能替换此功能
-5. fde 版本需要安装 [ASP.NET Core 运行时 6.0.7 (x64) 与 .NET Core 运行时 6.0.7 (x64)](https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0)
+5. fde 版本需要安装 [ASP.NET Core 运行时 6.0.8 (x64) 与 .NET Core 运行时 6.0.8 (x64)](https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0)
 6. Windows x86 与 x64 版本令牌本机加密互不兼容，使用两者版本时注意令牌加密后的文件不能共用。
 7. 由于新版本加速功能重构，调整了部分加速项目，这会影响旧版本程序使用加速功能
 8. 为了能继续维持开发，从此版本开始将会添加程序内广告，赞助用户可以在设置中关闭所有广告
@@ -12,16 +12,14 @@
 1. 修复与改进一些已知问题
 
 ### 修复问题
-1. 修复 Windows FDE 版在 Windows 8.1/10 上错误识别成 Windows 8
-2. 修复 网络加速 DNS 设置无效
-3. 修复 网络加速 PAC 代理模式不能正常工作
-4. 修复 Windows 7 上的一些兼容性问题导致加速失效
-5. 改进 Windows Desktop Bridge 版本中不再弹出防火墙规则授权弹窗
-6. 修复 Windows Desktop Bridge 版本开机自启静默失效
-7. 改进 DNS 驱动拦截模式停止后不再占用 sys 文件
-8. 改进 通知 UI 列表项中仅显示两行文字
-9. 修复 第三方快速登录失败
-10. 改进 关闭代理时仅根据当前代理模式进行清理
+1. 修复 Windows 上版本更新在 2.8.x 中非 FDE 版本识别为 FDE 版
+2. 改进 调整代理模式顺序，Hosts 模式置顶
+3. 修复 划词翻译等一些 JS 脚本
+4. 改进 macOS 上的证书安装
+5. 修复 可能导致内存泄露的问题
+6. 改进 非简中默认隐藏加速与脚本仅在 Windows 上生效
+7. 改进 减少 Android 上的启动时间
+8. 修复 退出程序时可能引发的闪退
 
 <!--
 
@@ -58,7 +56,7 @@
 
 
 [![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.8.2](https://img.shields.io/badge/Steam++-v2.8.2-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.8.3](https://img.shields.io/badge/Steam++-v2.8.3-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -67,28 +65,28 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.8.2.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.8.2.7z  | SHA256 |
+| Steam++_win_x64_v2.8.3.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.8.3.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.8.2.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.8.2.exe  | SHA256 |
+| Steam++_win_x64_v2.8.3.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.8.3.exe  | SHA256 |
 | | |
-| Steam++_win_x86_v2.8.2.7z  | SHA256 |
-| Steam++_win_x86_fde_v2.8.2.7z  | SHA256 |
+| Steam++_win_x86_v2.8.3.7z  | SHA256 |
+| Steam++_win_x86_fde_v2.8.3.7z  | SHA256 |
 | | |
-| Steam++_win_x86_v2.8.2.exe  | SHA256 |
-| Steam++_win_x86_fde_v2.8.2.exe  | SHA256 |
+| Steam++_win_x86_v2.8.3.exe  | SHA256 |
+| Steam++_win_x86_fde_v2.8.3.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.2.7z  | SHA256 |
-| Steam++_linux_arm64_v2.8.2.7z  | SHA256 |
+| Steam++_linux_x64_v2.8.3.7z  | SHA256 |
+| Steam++_linux_arm64_v2.8.3.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.2.deb  | SHA256 |
-| Steam++_linux_arm64_v2.8.2.deb  | SHA256 |
+| Steam++_linux_x64_v2.8.3.deb  | SHA256 |
+| Steam++_linux_arm64_v2.8.3.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.2.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.8.2.rpm  | SHA256 |
+| Steam++_linux_x64_v2.8.3.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.8.3.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.8.2.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.8.2.dmg  | SHA256 |
+| Steam++_macos_x64_v2.8.3.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.8.3.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.8.2.apk  | SHA256 |
+| Steam++_android_v2.8.3.apk  | SHA256 |

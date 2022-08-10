@@ -17,8 +17,10 @@ internal static class Program
 {
     const string ExecutiveName = "Steam++";
     static BundleArch matchArch;
-    static readonly SemanticVersion runtimeVersion = new(6, 0, 7);
-    static readonly SemanticVersion sdkVersion = new(6, 0, 107);
+    static readonly SemanticVersion runtimeVersion = new(6, 0, 8);
+    static readonly SemanticVersion sdkVersion1 = new(6, 0, 108);
+    static readonly SemanticVersion sdkVersion3 = new(6, 0, 303);
+    static readonly SemanticVersion sdkVersion4 = new(6, 0, 400);
 
     /// <summary>
     /// 应用程序的主入口点。
@@ -56,7 +58,7 @@ internal static class Program
                         if (RuntimeInformation2.OSArchitecture != Architecture.Arm64) throw new PlatformNotSupportedException();
                         break;
                 }
-                if (IsRuntimeInstalled(matchArch, runtimeVersion, sdkVersion))
+                if (IsRuntimeInstalled(matchArch, runtimeVersion, sdkVersion1, sdkVersion3, sdkVersion4))
                 {
                     Run();
                 }
@@ -193,7 +195,7 @@ internal static class Program
     /// 是否已安装运行时或 SDK
     /// </summary>
     /// <returns></returns>
-    static bool IsRuntimeInstalled(BundleArch matchArch, SemanticVersion runtimeVersion, SemanticVersion sdkVersion)
+    static bool IsRuntimeInstalled(BundleArch matchArch, SemanticVersion runtimeVersion, SemanticVersion sdkVersion1, SemanticVersion sdkVersion3, SemanticVersion sdkVersion4)
     {
         // ArchiSteamFarm 依赖 ASP.NET Core
         // ASP.NET Core 运行时安装程序除 Hosting Bundle 不包含 .NET 运行时 缺少文件 C:\Program Files\dotnet\host\fxr\{version}\hostfxr.dll
@@ -202,7 +204,12 @@ internal static class Program
         // https://github.com/dotnet/runtime/blob/v6.0.5/src/native/corehost/apphost/apphost.windows.cpp#L106-L113
         var installed = RegistryQuery.GetAllInstalledBundles().Where(m => m.Arch.HasFlags(matchArch)).ToArray();
 
-        var query_sdk = installed.Where(m => m.Version.Type == BundleType.Sdk && m.Version.SemVer >= sdkVersion);
+        var query_sdk = installed.Where(m => m.Version.Type == BundleType.Sdk &&
+            (
+            (m.Version.SemVer >= sdkVersion1 && m.Version.SemVer < new SemanticVersion(sdkVersion1.Major, sdkVersion1.Minor, 199)) ||
+            (m.Version.SemVer >= sdkVersion3 && m.Version.SemVer < new SemanticVersion(sdkVersion3.Major, sdkVersion3.Minor, 399)) ||
+            (m.Version.SemVer >= sdkVersion4 && m.Version.SemVer < new SemanticVersion(sdkVersion4.Major, sdkVersion4.Minor, 499))
+            ));
         if (query_sdk.Any()) return true;
 
         var query_runtime = installed.Where(m => (m.Version.Type == BundleType.Runtime || m.Version.Type == BundleType.WindowsDesktopRuntime) && m.Version.SemVer >= runtimeVersion);
