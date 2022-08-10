@@ -263,7 +263,7 @@
     <!-- Xamarin.Android -->
     <PackageVersion Include="Xamarin.Build.Download" Version="0.11.3" />
     <PackageVersion Include="Xamarin.Google.Dagger" Version="2.40.5" />
-    <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.5" />
+    <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="117.0.2.2" />
     <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
     <PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0.4" />
     <PackageVersion Include="Square.OkHttp3" Version="4.9.3" />
