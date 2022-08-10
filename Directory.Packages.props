@@ -266,7 +266,7 @@
     <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.5" />
     <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
     <PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0.4" />
-    <PackageVersion Include="Square.OkHttp3" Version="4.9.3" />
+    <PackageVersion Include="Square.OkHttp3" Version="4.9.3.2" />
     <PackageVersion Include="Square.Picasso" Version="2.71828.0" />
     <!--<PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />-->
     <!--<PackageVersion Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />-->
