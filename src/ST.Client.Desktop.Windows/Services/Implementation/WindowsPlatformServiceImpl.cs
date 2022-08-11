@@ -75,10 +75,6 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        const string explorer = "explorer.exe";
-
-        static string Explorer => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), explorer);
-
         public void OpenFolderByDirectoryPath(DirectoryInfo info)
         {
             Process.Start(new ProcessStartInfo
@@ -186,16 +182,21 @@ namespace System.Application.Services.Implementation
         //    return Process.Start(runas_exe, arguments_);
         //}
 
-        const string explorer_exe = "explorer.exe";
+        static readonly Lazy<string> _explorer_exe = new(() => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"));
+
+        /// <summary>
+        /// %windir%\explorer.exe
+        /// </summary>
+        static string Explorer => _explorer_exe.Value;
 
         static Process? StartAsInvokerByExplorer(string fileName, string? arguments = null)
         {
             if (string.IsNullOrEmpty(arguments))
-                return Process.Start(explorer_exe, $"\"{fileName}\"");
+                return Process.Start(Explorer, $"\"{fileName}\"");
             var cacheCmdFile = Path.Combine(IOPath.CacheDirectory, "StartAsInvokerByExplorer" + FileEx.CMD);
             if (File.Exists(cacheCmdFile)) File.Delete(cacheCmdFile);
             File.WriteAllText(cacheCmdFile, $"@echo {Constants.HARDCODED_APP_NAME} StartAsInvokerByExplorer{Environment.NewLine}start \"\" \"{fileName}\" {arguments}{Environment.NewLine}exit 0");
-            return Process.Start(explorer_exe, $"\"{cacheCmdFile}\"");
+            return Process.Start(Explorer, $"\"{cacheCmdFile}\"");
         }
 
         public Process? StartAsInvoker(string fileName, string? arguments = null)
