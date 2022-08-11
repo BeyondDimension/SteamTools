@@ -86,7 +86,7 @@ public partial class AppShell : Shell, IViewFor<MainWindowViewModel>
 
     void InitTabItems(MainWindowViewModel mainWindow, IEnumerable<TabItemId>? topTabs = null)
     {
-        var tabItems = mainWindow.AllTabItems.Where(x => x.Id != TabItemId.GameList);
+        var tabItems = mainWindow.TabItems.Where(x => x.Id != TabItemId.GameList);
         if (topTabs.Any_Nullable())
         {
             tabItems = tabItems.Where(x => topTabs.Contains(x.Id)).Concat(tabItems.Where(x => !topTabs.Contains(x.Id)));

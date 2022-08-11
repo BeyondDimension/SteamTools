@@ -71,6 +71,7 @@
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\ST.Client.CommandLine\ST.Client.CommandLine.csproj" />
     <ProjectReference Include="..\ST.Client.Maui\ST.Client.Maui.csproj" />
+    <ProjectReference Include="..\ST.Client.ReverseProxy.Yarp\ST.Client.ReverseProxy.Yarp.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

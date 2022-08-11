@@ -1,5 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/HttpReverseProxyMiddleware.cs
 
+using DynamicData.Kernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
@@ -60,8 +61,6 @@ sealed class HttpReverseProxyMiddleware
         if (TryGetDomainConfig(url, out var domainConfig) == false)
         {
             await next(context);
-            if (isScriptInject)
-                await HandleScriptInject(context, scriptConfigs, memoryStream!, originalBody!);
             return;
         }
 
@@ -71,7 +70,8 @@ sealed class HttpReverseProxyMiddleware
             var ip = await IDnsAnalysisService.Instance.AnalysisDomainIpAsync(url, IDnsAnalysisService.DNS_Alis).FirstOrDefaultAsync();
             if (ip == null || IPAddress.IsLoopback(ip))
             {
-                await next(context);
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                await context.Response.WriteAsync($"域名 {context.Request.Host.Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
                 return;
             }
         }
