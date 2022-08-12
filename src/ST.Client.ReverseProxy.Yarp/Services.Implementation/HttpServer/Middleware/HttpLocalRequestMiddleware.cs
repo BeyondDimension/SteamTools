@@ -33,9 +33,15 @@ sealed class HttpLocalRequestMiddleware
     /// <returns></returns>
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
+        if (HttpMethods.IsOptions(context.Request.Method) && context.Request.Headers.ContainsKey("Access-Control-Request-Private-Network"))
+        {
+            // https://wicg.github.io/private-network-access/
+            context.Response.Headers["Access-Control-Allow-Private-Network"] = "true";
+        }
+
         if (context.Request.Host.Host.Equals(IReverseProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
         {
-            if (context.Request.Method.Equals("OPTIONS", StringComparison.OrdinalIgnoreCase))
+            if (HttpMethods.IsOptions(context.Request.Method))
             {
                 context.Response.Headers.AccessControlAllowOrigin = context.Request.Headers.Origin.Count == 0 ? "*" : context.Request.Headers.Origin;
                 context.Response.Headers.AccessControlAllowHeaders = "*";
@@ -73,6 +79,7 @@ sealed class HttpLocalRequestMiddleware
                     return;
             }
         }
+
         await next(context);
     }
 
