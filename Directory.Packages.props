@@ -133,11 +133,11 @@
     <PackageVersion Include="ReactiveUI.Maui" Version="18.3.1" />
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
-    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.91" />
-    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.1-preview.91" />
+    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.104" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.1-preview.104" />
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/SkiaSharp.props -->
-    <PackageVersion Include="SkiaSharp" Version="2.88.1-preview.91" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.1-preview.91" />
+    <PackageVersion Include="SkiaSharp" Version="2.88.1-preview.104" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.1-preview.104" />
 
     <!-- AutoMapper -->
     <PackageVersion Include="AutoMapper" Version="11.0.1" />
@@ -251,7 +251,7 @@
     <!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
     <!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
     <!--<PackageVersion Include="FluentAvaloniaUI" Version="1.4.1" />-->
-    <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.330" />
+    <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.350" />
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
     <PackageVersion Include="Avalonia.Native" Version="0.10.17" />
     <PackageVersion Include="Avalonia.Win32" Version="0.10.17" />
