@@ -54,10 +54,19 @@ public static class SettingsHost
         try
         {
             SettingsHostBase.Local.Load();
+
+            File.Copy(SettingsHostBase.LocalFilePath, SettingsHostBase.LocalFilePath + ".bak", true);
         }
         catch (Exception ex)
         {
-            File.Delete(SettingsHostBase.LocalFilePath);
+            if (File.Exists(SettingsHostBase.LocalFilePath + ".bak"))
+            {
+                File.Copy(SettingsHostBase.LocalFilePath + ".bak", SettingsHostBase.LocalFilePath, true);
+            }
+            else
+            {
+                File.Delete(SettingsHostBase.LocalFilePath);
+            }
             Log.Error(nameof(SettingsHost), ex, "Config Load");
 
             SettingsHostBase.Local.Load();
