@@ -24,6 +24,7 @@
 9. 修复 退出程序时可能引发的闪退
 10. 修复 macOS/Linux 上设置页面打不开的问题
 11. 修复 网络加速中网页上出现 Because https://... actually points to WattToolkit itself...
+12. 尝试修复 ASF 控制台中输入时卡死
 
 <!--
 
