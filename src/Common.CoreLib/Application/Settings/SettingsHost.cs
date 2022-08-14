@@ -51,17 +51,18 @@ public static class SettingsHost
 
     public static void Load()
     {
+        var bakLocalFilePath = $"{SettingsHostBase.LocalFilePath}.bak";
         try
         {
             SettingsHostBase.Local.Load();
 
-            File.Copy(SettingsHostBase.LocalFilePath, SettingsHostBase.LocalFilePath + ".bak", true);
+            File.Copy(SettingsHostBase.LocalFilePath, bakLocalFilePath, true);
         }
         catch (Exception ex)
         {
-            if (File.Exists(SettingsHostBase.LocalFilePath + ".bak"))
+            if (File.Exists(bakLocalFilePath))
             {
-                File.Copy(SettingsHostBase.LocalFilePath + ".bak", SettingsHostBase.LocalFilePath, true);
+                File.Copy(bakLocalFilePath, SettingsHostBase.LocalFilePath, true);
             }
             else
             {
