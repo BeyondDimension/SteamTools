@@ -8,6 +8,7 @@ using ArchiSteamFarm.Steam;
 using ArchiSteamFarm.Steam.Storage;
 using ArchiSteamFarm.Storage;
 using Microsoft.Extensions.Configuration;
+using Nito.AsyncEx;
 using NLog;
 using ReactiveUI;
 using System.Application.UI;
@@ -36,6 +37,8 @@ namespace System.Application.Services.Implementation
         public event Action<string>? OnConsoleWirteLine;
 
         public TaskCompletionSource<string>? ReadLineTask { get; set; }
+
+        private readonly AsyncLock @lock = new AsyncLock();
 
         bool _IsReadPasswordLine;
 
@@ -69,17 +72,20 @@ namespace System.Application.Services.Implementation
 
                     ArchiSteamFarm.NLog.Logging.GetUserInputFunc = async (bool isPassword) =>
                     {
-                        ReadLineTask = new(TaskCreationOptions.AttachedToParent);
-                        IsReadPasswordLine = isPassword;
+                        using (await @lock.LockAsync())
+                        {
+                            ReadLineTask = new(TaskCreationOptions.AttachedToParent);
+                            IsReadPasswordLine = isPassword;
 #if NET6_0_OR_GREATER
-                        var result = await ReadLineTask.Task.WaitAsync(TimeSpan.FromSeconds(60));
+                            var result = await ReadLineTask.Task.WaitAsync(TimeSpan.FromSeconds(60));
 #else
-                        var result = await ReadLineTask.Task;
+                            var result = await ReadLineTask.Task;
 #endif
-                        if (IsReadPasswordLine)
-                            IsReadPasswordLine = false;
-                        ReadLineTask = null;
-                        return result;
+                            if (IsReadPasswordLine)
+                                IsReadPasswordLine = false;
+                            ReadLineTask = null;
+                            return result;
+                        }
                     };
 
                     await ReadEncryptionKeyAsync();
