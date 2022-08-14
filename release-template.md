@@ -23,6 +23,7 @@
 8. 改进 减少 Android 上的启动时间
 9. 修复 退出程序时可能引发的闪退
 10. 修复 macOS/Linux 上设置页面打不开的问题
+11. 修复 网络加速中网页上出现 Because https://... actually points to WattToolkit itself...
 
 <!--
 

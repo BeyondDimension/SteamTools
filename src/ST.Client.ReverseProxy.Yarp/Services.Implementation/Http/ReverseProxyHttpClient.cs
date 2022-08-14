@@ -11,11 +11,11 @@ namespace System.Application.Services.Implementation.Http;
 /// </summary>
 public class ReverseProxyHttpClient : HttpMessageInvoker
 {
-    /// <summary>
-    /// 插入的 UserAgent 标记
-    /// </summary>
-    static readonly ProductInfoHeaderValue userAgent
-       = new(new ProductHeaderValue(Constants.HARDCODED_APP_NAME_NEW + "_" + DateTimeOffset.UtcNow.Ticks, ThisAssembly.Version));
+    ///// <summary>
+    ///// 插入的 UserAgent 标记
+    ///// </summary>
+    //static readonly ProductInfoHeaderValue userAgent
+    //   = new(new ProductHeaderValue(Constants.HARDCODED_APP_NAME_NEW + "_" + DateTimeOffset.UtcNow.Ticks, ThisAssembly.Version));
 
     public ReverseProxyHttpClient(IDomainConfig domainConfig, IDomainResolver domainResolver)
         : this(new ReverseProxyHttpClientHandler(domainConfig, domainResolver), disposeHandler: true)
@@ -36,14 +36,14 @@ public class ReverseProxyHttpClient : HttpMessageInvoker
     /// <exception cref="Exception"></exception>
     public override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        if (request.Headers.UserAgent.Contains(userAgent))
-        {
-            const string message =
-                $"Because {{0}} actually points to {Constants.HARDCODED_APP_NAME_NEW} itself, " +
-                $"{Constants.HARDCODED_APP_NAME_NEW} has interrupted this forwarding";
-            throw new ApplicationException(string.Format(message, request.RequestUri));
-        }
-        request.Headers.UserAgent.Add(userAgent);
+        //if (request.Headers.UserAgent.Contains(userAgent))
+        //{
+        //    const string message =
+        //        $"Because {{0}} actually points to {Constants.HARDCODED_APP_NAME_NEW} itself, " +
+        //        $"{Constants.HARDCODED_APP_NAME_NEW} has interrupted this forwarding";
+        //    throw new ApplicationException(string.Format(message, request.RequestUri));
+        //}
+        //request.Headers.UserAgent.Add(userAgent);
         var response = await base.SendAsync(request, cancellationToken);
         response.Headers.Server.TryParseAdd(Constants.HARDCODED_APP_NAME_NEW);
         return response;
