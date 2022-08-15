@@ -291,6 +291,10 @@ public static class IOPath
                 {
                     paths[i] = item;
                 }
+                else
+                {
+                    DirCreateByNotExists(paths[i]);
+                }
             }
 
             InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
