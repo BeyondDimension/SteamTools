@@ -77,10 +77,7 @@ public static partial class DI
     /// <inheritdoc cref="Get{T}"/>
     public static T? Get_Nullable<T>() where T : notnull
     {
-        if (value == null)
-        {
-            throw GetDIGetFailException(typeof(T));
-        }
+        if (value == null) return default;
         return value.GetService<T>();
     }
 
@@ -97,10 +94,7 @@ public static partial class DI
     /// <inheritdoc cref="Get_Nullable{T}"/>
     public static object? Get_Nullable(Type serviceType)
     {
-        if (value == null)
-        {
-            throw GetDIGetFailException(serviceType);
-        }
+        if (value == null) return default;
         return value.GetService(serviceType);
     }
 
