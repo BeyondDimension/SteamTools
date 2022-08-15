@@ -56,7 +56,8 @@ public static class SettingsHost
         {
             SettingsHostBase.Local.Load();
 
-            File.Copy(SettingsHostBase.LocalFilePath, bakLocalFilePath, true);
+            if (File.Exists(SettingsHostBase.LocalFilePath))
+                File.Copy(SettingsHostBase.LocalFilePath, bakLocalFilePath, true);
         }
         catch (Exception ex)
         {
@@ -64,7 +65,7 @@ public static class SettingsHost
             {
                 File.Copy(bakLocalFilePath, SettingsHostBase.LocalFilePath, true);
             }
-            else
+            else if (File.Exists(SettingsHostBase.LocalFilePath))
             {
                 File.Delete(SettingsHostBase.LocalFilePath);
             }
