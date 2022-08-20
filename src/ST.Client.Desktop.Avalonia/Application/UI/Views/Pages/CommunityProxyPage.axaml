@@ -328,7 +328,7 @@
                 Classes="flat"
                 HorizontalAlignment="Stretch">
           <TabItem Header="{ReflectionBinding Path=Res.CommunityFix_FlowStatistics,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <pages:ProxyChartView Margin="5 0"/>
+            <!--<pages:ProxyChartView Margin="5 0"/>-->
           </TabItem>
           <TabItem Header="{ReflectionBinding Path=Res.CommunityFix_Services,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <Grid ColumnDefinitions="*,20,*">

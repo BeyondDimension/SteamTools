@@ -1,7 +1,6 @@
 #if !TRAY_INDEPENDENT_PROGRAM
 using Avalonia;
 using Avalonia.Platform;
-using Avalonia.Shared.PlatformSupport;
 using System.Application.Services;
 using System.Application.UI.Views.Windows;
 #else

@@ -54,9 +54,9 @@ namespace System.Application.UI
             set => SetValue(ModeProperty, value);
         }
 
-        protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
-            base.OnPropertyChanged<T>(change);
+            base.OnPropertyChanged(change);
 
             if (_loaded is null)
             {
@@ -117,6 +117,8 @@ namespace System.Application.UI
         bool IResourceNode.HasResources => (Loaded as IResourceProvider)?.HasResources ?? false;
 
         IReadOnlyList<IStyle> IStyle.Children => _loaded?.Children ?? Array.Empty<IStyle>();
+
+        public SelectorMatchResult TryAttach(IStyleable target, object? host) => Loaded.TryAttach(target, host);
 
         public event EventHandler? OwnerChanged
         {

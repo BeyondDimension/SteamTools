@@ -33,7 +33,7 @@ namespace System.Application.UI.Views.Controls
             set => SetValue(StrokeThicknessProperty, value);
         }
 
-        protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> e)
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
 

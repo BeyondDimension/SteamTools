@@ -1,7 +1,7 @@
 extern alias AvaloniaSkia;
 
+using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using Avalonia.Visuals.Media.Imaging;
 using System;
 using System.IO;
 using ISkiaGpu = AvaloniaSkia::Avalonia.Skia.ISkiaGpu;

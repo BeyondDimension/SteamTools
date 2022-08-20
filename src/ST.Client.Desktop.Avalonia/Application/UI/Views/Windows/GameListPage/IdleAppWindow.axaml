@@ -110,10 +110,10 @@
                           CornerRadius="{DynamicResource ControlCornerRadius}"
                           ClipToBounds="True">
                     <i:Interaction.Behaviors>
-                      <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
+                      <ia:EventTriggerBehavior EventName="PointerEntered" SourceObject="{ReflectionBinding #card}">
                         <ia:ChangePropertyAction TargetObject="{ReflectionBinding #item_box}" PropertyName="IsVisible" Value="True"/>
                       </ia:EventTriggerBehavior>
-                      <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{ReflectionBinding #card}">
+                      <ia:EventTriggerBehavior EventName="PointerExited" SourceObject="{ReflectionBinding #card}">
                         <ia:ChangePropertyAction TargetObject="{ReflectionBinding #item_box}" PropertyName="IsVisible" Value="False"/>
                       </ia:EventTriggerBehavior>
                     </i:Interaction.Behaviors>

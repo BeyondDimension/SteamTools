@@ -77,8 +77,8 @@
                       HorizontalContentAlignment="Stretch"
                       HorizontalAlignment="Stretch"
                       CommandParameter="{Binding Id}"
-                      PointerEnter="MenuButton_PointerEnter"
-                      PointerLeave="MenuButton_PointerLeave"
+                      PointerEntered="MenuButton_PointerEntered"
+                      PointerExited="MenuButton_PointerExited"
                       Command="{ReflectionBinding #taskbarWindow.DataContext.MenuClickCommand}">
                 <Button.Content>
                   <DockPanel>

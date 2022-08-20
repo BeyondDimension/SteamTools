@@ -269,7 +269,7 @@ namespace System.Application.UI
                 }
             });
 #if WINDOWS
-            InitWebView2();
+            //InitWebView2();
 #endif
         }
 

@@ -129,13 +129,13 @@
                   </MenuFlyout>
                 </Border.ContextFlyout>
                 <i:Interaction.Behaviors>
-                  <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
+                  <ia:EventTriggerBehavior EventName="PointerEntered" SourceObject="{ReflectionBinding #card}">
                     <ia:ChangePropertyAction
                         PropertyName="IsVisible"
                         TargetObject="{ReflectionBinding #delete_btn}"
                         Value="True" />
                   </ia:EventTriggerBehavior>
-                  <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{ReflectionBinding #card}">
+                  <ia:EventTriggerBehavior EventName="PointerExited" SourceObject="{ReflectionBinding #card}">
                     <ia:ChangePropertyAction
                         PropertyName="IsVisible"
                         TargetObject="{ReflectionBinding #delete_btn}"

@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using Avalonia.Platform;
 using AvaloniaSkia::Avalonia.Skia.Helpers;
-using Avalonia.Visuals.Media.Imaging;
+using Avalonia.Media.Imaging;
 using SkiaSharp;
 using AvaloniaSkia::Avalonia.Skia;
 using DrawingContextImpl = AvaloniaSkia::Avalonia.Skia.DrawingContextImpl;

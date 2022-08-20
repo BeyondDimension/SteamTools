@@ -24,9 +24,9 @@ namespace Avalonia.Platform
             return Impl.GetInstalledFontFamilyNames(checkForUpdates);
         }
 
-        bool IFontManagerImpl.TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontFamily fontFamily, CultureInfo culture, out Typeface typeface)
+        bool IFontManagerImpl.TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, FontFamily? fontFamily, CultureInfo? culture, out Typeface typeface)
         {
-            return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontFamily, culture, out typeface);
+            return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontStretch, fontFamily, culture, out typeface);
         }
 
         IGlyphTypefaceImpl IFontManagerImpl.CreateGlyphTypeface(Typeface typeface)

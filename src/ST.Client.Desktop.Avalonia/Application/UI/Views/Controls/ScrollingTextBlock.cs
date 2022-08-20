@@ -129,8 +129,8 @@ namespace System.Application.UI.Views.Controls
 
             if (TextLayout != null)
             {
-                _textWidth = TextLayout.Size.Width;
-                _textHeight = TextLayout.Size.Height;
+                _textWidth = TextLayout.Bounds.Size.Width;
+                _textHeight = TextLayout.Bounds.Size.Height;
 
                 var constraints = Bounds.Deflate(Padding);
                 var constraintsWidth = constraints.Width;
@@ -155,7 +155,7 @@ namespace System.Application.UI.Views.Controls
                         if (nC.Intersects(nR))
                             using (context.PushPostTransform(Matrix.CreateTranslation(offset, padding.Top)))
                                 //TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
-                                TextLayout.Draw(context);
+                                TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
                     }
                 }
                 else
@@ -164,7 +164,7 @@ namespace System.Application.UI.Views.Controls
 
                     using (context.PushPostTransform(Matrix.CreateTranslation(padding.Left, padding.Top)))
                         //TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
-                        TextLayout.Draw(context);
+                        TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
                 }
             }
         }

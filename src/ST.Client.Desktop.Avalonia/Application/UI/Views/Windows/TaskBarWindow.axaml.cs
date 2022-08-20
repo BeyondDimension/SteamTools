@@ -42,13 +42,13 @@ namespace System.Application.UI.Views.Windows
             //var userChangebtn = this.FindControl<Button>("UserChangeMenu");
             //if (userChangebtn != null)
             //{
-            //    userChangebtn.PointerEnter += MenuButton_PointerEnter;
-            //    //localbtn.PointerLeave += MenuButton_PointerLeave;
+            //    userChangebtn.PointerEntered += MenuButton_PointerEntered;
+            //    //localbtn.PointerExited += MenuButton_PointerExited;
             //}
             //if (localAuthbtn != null)
             //{
-            //    localAuthbtn.PointerEnter += MenuButton_PointerEnter;
-            //    //localbtn.PointerLeave += MenuButton_PointerLeave;
+            //    localAuthbtn.PointerEntered += MenuButton_PointerEntered;
+            //    //localbtn.PointerExited += MenuButton_PointerExited;
             //}
 
             //if (OperatingSystem2.IsWindows11AtLeast())
@@ -63,7 +63,7 @@ namespace System.Application.UI.Views.Windows
 #endif
         }
 
-        public void MenuButton_PointerLeave(object? sender, Avalonia.Input.PointerEventArgs e)
+        public void MenuButton_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
         {
             //if (sender is Control c)
             //{
@@ -73,7 +73,7 @@ namespace System.Application.UI.Views.Windows
             //}
         }
 
-        public async void MenuButton_PointerEnter(object? sender, Avalonia.Input.PointerEventArgs e)
+        public async void MenuButton_PointerEntered(object? sender, Avalonia.Input.PointerEventArgs e)
         {
             if (sender is Control c && !IsPointerOverSubMenu)
             {
