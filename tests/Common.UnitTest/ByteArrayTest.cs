@@ -1,5 +1,11 @@
 using NUnit.Framework;
 using System.Security.Cryptography;
+using System.Text;
+#if WINDOWS
+using Windows.Security.Cryptography.DataProtection;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Runtime.Versioning;
+#endif
 
 namespace System;
 
@@ -81,4 +87,67 @@ public class ByteArrayTest
 
         Assert.IsTrue(value1 == value3);
     }
+
+#if WINDOWS
+    /// <summary>
+    /// Windows10DataProtectionProvider 的单元测试
+    /// </summary>
+    /// <returns></returns>
+    [Test]
+    public async Task DataProtection()
+    {
+        if (!OperatingSystem.IsWindowsVersionAtLeast(10, 0, 10240)) return;
+
+        var value = DateTime.Now.ToString() + " 🔮🎮";
+        var bytes = Encoding.UTF8.GetBytes(value);
+
+        var e = await ProtectCore2Async(bytes);
+        var d = await UnprotectCore2Async(e);
+
+        TestContext.WriteLine(Encoding.UTF8.GetString(d));
+
+        Assert.IsTrue(d.SequenceEqual(bytes));
+    }
+#endif
+
+#if WINDOWS
+    [SupportedOSPlatform("Windows10.0.10240.0")]
+    static DataProtectionProvider GetDataProtectionProvider(string? protectionDescriptor = null)
+    {
+        DataProtectionProvider provider = protectionDescriptor == null ? new() : new(protectionDescriptor);
+        return provider;
+    }
+
+    [SupportedOSPlatform("Windows10.0.10240.0")]
+    static async Task<byte[]> ProtectCoreAsync(byte[] data)
+    {
+        // LOCAL=user and LOCAL=machine do not require enterprise auth capability
+        var provider = GetDataProtectionProvider("LOCAL=user");
+
+        // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/842356268u/overview
+        // System.Runtime.InteropServices.COMException: 无法在设置线程模式后对其加以更改。 (0x80010106 (RPC_E_CHANGED_MODE))
+
+        var buffer = await provider.ProtectAsync(data.AsBuffer());
+
+        var encBytes = buffer.ToArray();
+
+        return encBytes;
+    }
+
+    [SupportedOSPlatform("Windows10.0.10240.0")]
+    static async Task<byte[]> ProtectCore2Async(byte[] data) => await await Task.Factory.StartNew(async () => await ProtectCoreAsync(data));
+
+    [SupportedOSPlatform("Windows10.0.10240.0")]
+    static async Task<byte[]> UnprotectCoreAsync(byte[] data)
+    {
+        var provider = GetDataProtectionProvider();
+
+        var buffer = await provider.UnprotectAsync(data.AsBuffer());
+
+        return buffer.ToArray();
+    }
+
+    [SupportedOSPlatform("Windows10.0.10240.0")]
+    static async Task<byte[]> UnprotectCore2Async(byte[] data) => await await Task.Factory.StartNew(async () => await UnprotectCoreAsync(data));
+#endif
 }

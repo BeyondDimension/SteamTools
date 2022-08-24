@@ -61,7 +61,7 @@ public sealed class FileSettingsProvider : ISerializationProvider
 
         lock (_sync)
         {
-            using var stream = new FileStream(_path, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
+            using var stream = OpenReadWrite(_path);
             if (stream.Position > 0)
             {
                 stream.Position = 0;
@@ -70,6 +70,28 @@ public sealed class FileSettingsProvider : ISerializationProvider
             stream.Write(data);
             //XamlServices.Save(stream, this._settings);
         }
+    }
+
+    static FileStream OpenReadWrite(string path)
+    {
+        try
+        {
+            return OpenReadWrite();
+        }
+        catch (Exception)
+        {
+            if (File.Exists(path))
+            {
+                if (IOPath.FileTryDelete(path))
+                {
+                    // 直接打开文件流失败，尝试删除后再打开一次
+                    return OpenReadWrite();
+                }
+            }
+            throw;
+        }
+
+        FileStream OpenReadWrite() => new(path, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
     }
 
     public void Load()

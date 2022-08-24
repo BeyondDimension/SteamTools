@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>System.Common.UnitTest</AssemblyName>
     <IsPackable>false</IsPackable>
