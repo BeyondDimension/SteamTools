@@ -132,6 +132,11 @@ public static class FileEx
     public const string Qt = ".qt";
     public const string Wmv = ".wmv";
 
+    /// <summary>
+    /// 导入注册条目 （.reg） 文件是 Regedit.exe 的功能，Regedt32.exe 不支持。您可以使用 Regedit.exe 对基于 Windows NT 4.0 或基于 Windows 2000 的计算机上注册表进行一些更改，但某些更改需要 Regedt32.exe。
+    /// </summary>
+    public const string Reg = ".reg";
+
     public static readonly string[] ImageFileExtensions = new string[]
     {
         PNG,
