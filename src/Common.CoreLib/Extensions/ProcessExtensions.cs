@@ -34,4 +34,23 @@ public static class ProcessExtensions
         process.Kill();
 #endif
     }
+
+    /// <summary>
+    /// 尝试 Process 组件在指定的毫秒数内等待关联进程退出。
+    /// </summary>
+    /// <param name="process"></param>
+    /// <param name="milliseconds"></param>
+    /// <returns></returns>
+    public static bool TryWaitForExit(this Process process, int milliseconds = 9000)
+    {
+        try
+        {
+            return process.WaitForExit(milliseconds);
+        }
+        catch
+        {
+
+        }
+        return false;
+    }
 }
