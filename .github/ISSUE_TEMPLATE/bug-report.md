@@ -8,10 +8,10 @@ assignees: ''
 ---
 
 <!--
-发布前请先尝试在 Issuse 内搜索一下你的问题是否已经被提出过，
+发布前请先尝试在 Issues 内搜索一下你的问题是否已经被提出过，
 详细地描述 bug，让大家都能理解，请一定确定你所要发布的内容是一个 Bug，如果不确定请发 Question
 别忘了填写标题，标题要简短的描述问题
-Before posting, please try searching in Issuse to see if your question has already been asked,
+Before posting, please try searching in Issues to see if your question has already been asked,
 Describe the bug in detail so that everyone can understand it
 Don't forget to fill in the title, which should briefly describe the problem
 -->

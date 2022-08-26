@@ -21,6 +21,27 @@ public sealed class ReverseProxyHttpClientHandler : DelegatingHandler
     }
 
     /// <summary>
+    /// 发送请求
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        var uri = request.RequestUri;
+        if (uri == null)
+        {
+            throw new ApplicationException("The requested URI must be specified.");
+        }
+
+        // 设置请求头 host，修改协议为 http
+        request.Headers.Host = uri.Host;
+        request.RequestUri = new UriBuilder(uri) { Scheme = Uri.UriSchemeHttp }.Uri;
+
+        return await base.SendAsync(request, cancellationToken);
+    }
+
+    /// <summary>
     /// 连接回调
     /// </summary>
     /// <param name="context"></param>

@@ -49,28 +49,91 @@ public static class SettingsHost
         }
     }
 
+    /// <summary>
+    /// 尝试备份配置
+    /// </summary>
+    /// <param name="bakLocalFilePath"></param>
+    static void TryBackup(string bakLocalFilePath)
+    {
+        try
+        {
+            var localFilePath = SettingsHostBase.LocalFilePath;
+            if (File.Exists(localFilePath))
+            {
+                File.Copy(localFilePath, bakLocalFilePath, true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(SettingsHost), ex, "Config TryBackUp");
+        }
+    }
+
+    /// <summary>
+    /// 尝试还原备份配置，返回是否有备份文件
+    /// </summary>
+    /// <param name="bakLocalFilePath"></param>
+    /// <returns></returns>
+    static bool TryRestoreBackup(string bakLocalFilePath)
+    {
+        try
+        {
+            var exists = File.Exists(bakLocalFilePath);
+            if (exists)
+            {
+                var localFilePath = SettingsHostBase.LocalFilePath;
+                File.Copy(bakLocalFilePath, localFilePath, true);
+            }
+            return exists;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(SettingsHost), ex, "Config TryRestoreBackup");
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 尝试删除配置
+    /// </summary>
+    static void TryDelete()
+    {
+        try
+        {
+            var localFilePath = SettingsHostBase.LocalFilePath;
+            if (File.Exists(localFilePath))
+            {
+                File.Delete(localFilePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(SettingsHost), ex, "Config TryDelete");
+        }
+    }
+
     public static void Load()
     {
+        var isLoad = false;
         var bakLocalFilePath = $"{SettingsHostBase.LocalFilePath}.bak";
         try
         {
             SettingsHostBase.Local.Load();
+            isLoad = true;
 
-            File.Copy(SettingsHostBase.LocalFilePath, bakLocalFilePath, true);
+            TryBackup(bakLocalFilePath);
         }
         catch (Exception ex)
         {
-            if (File.Exists(bakLocalFilePath))
+            if (!TryRestoreBackup(bakLocalFilePath))
             {
-                File.Copy(bakLocalFilePath, SettingsHostBase.LocalFilePath, true);
+                // 还原备份文件失败，删除当前配置
+                TryDelete();
             }
-            else
-            {
-                File.Delete(SettingsHostBase.LocalFilePath);
-            }
-            Log.Error(nameof(SettingsHost), ex, "Config Load");
 
-            SettingsHostBase.Local.Load();
+            Log.Error(nameof(SettingsHost), ex, $"Config Load, isLoad: {isLoad}");
+
+            if (!isLoad) SettingsHostBase.Local.Load();
         }
     }
 }

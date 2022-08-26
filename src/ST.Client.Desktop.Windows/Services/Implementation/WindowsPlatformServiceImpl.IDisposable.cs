@@ -2,6 +2,11 @@ namespace System.Application.Services.Implementation
 {
     partial class WindowsPlatformServiceImpl : IDisposable
     {
+        /// <summary>
+        /// 用于 <see cref="IOPath.GetCacheFilePath(string, string, string)"/> 中 dirName，临时文件夹名称，在程序退出时将删除整个文件夹
+        /// </summary>
+        const string CacheTempDirName = "Temporary";
+
         bool disposedValue;
 
         private void Dispose(bool disposing)
@@ -12,6 +17,8 @@ namespace System.Application.Services.Implementation
                 {
                     // TODO: 释放托管状态(托管对象)
                     isLightOrDarkThemeWatch?.Dispose();
+
+                    IOPath.TryDeleteCacheSubDir(CacheTempDirName);
                 }
 
                 // TODO: 释放未托管的资源(未托管的对象)并重写终结器
