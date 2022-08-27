@@ -7,32 +7,35 @@ using Foundation;
 #endif
 using System.Threading.Tasks;
 
-namespace System.Application.Services.Implementation
+namespace System.Application.Services.Implementation;
+
+partial class MacPlatformServiceImpl : IEmailPlatformService
 {
-    partial class MacPlatformServiceImpl : IEmailPlatformService
+    // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/Email/Email.macos.cs
+
+    static T? InvokeOnMainThread<T>(Func<T> factory)
     {
-        // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/Email/Email.macos.cs
+        T? value = default;
+        NSRunLoop.Main.InvokeOnMainThread(() => value = factory());
+        return value;
+    }
 
-        static T? InvokeOnMainThread<T>(Func<T> factory)
+    public Task PlatformComposeAsync(EmailMessage? message)
+    {
+#if MACCATALYST
+        throw new PlatformNotSupportedException();
+#else
+        var isComposeSupported = InvokeOnMainThread(() => NSWorkspace.SharedWorkspace.UrlForApplication(NSUrl.FromString("mailto:")) != null);
+        if (!isComposeSupported)
         {
-            T? value = default;
-            NSRunLoop.Main.InvokeOnMainThread(() => value = factory());
-            return value;
+            throw new NotSupportedException();
         }
 
-        public Task PlatformComposeAsync(EmailMessage? message)
-        {
-            var isComposeSupported = InvokeOnMainThread(() => NSWorkspace.SharedWorkspace.UrlForApplication(NSUrl.FromString("mailto:")) != null);
-            if (!isComposeSupported)
-            {
-                throw new NotSupportedException();
-            }
+        var url = Email2.GetMailToUri(message);
 
-            var url = Email2.GetMailToUri(message);
-
-            using var nsurl = NSUrl.FromString(url);
-            NSWorkspace.SharedWorkspace.OpenUrl(nsurl);
-            return Task.CompletedTask;
-        }
+        using var nsurl = NSUrl.FromString(url);
+        NSWorkspace.SharedWorkspace.OpenUrl(nsurl);
+        return Task.CompletedTask;
+#endif
     }
 }

@@ -1,11 +1,17 @@
+#if ANDROID || __ANDROID__
 using Android.Content;
 using Android.Net;
+#endif
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 
 namespace System.Application.Services.Implementation
 {

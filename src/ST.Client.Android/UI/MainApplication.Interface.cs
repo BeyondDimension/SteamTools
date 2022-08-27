@@ -1,3 +1,4 @@
+#if !NET6_0_OR_GREATER
 using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Collections.Generic;
@@ -32,3 +33,4 @@ namespace System.Application.UI
         IApplication IApplication.IProgramHost.Application => this;
     }
 }
+#endif

@@ -55,7 +55,7 @@ namespace System.Application.Services.Implementation
 
         internal static bool IsCertificateInstalled(X509Certificate2 certificate2)
         {
-#if MONO_MAC
+            //#if MONO_MAC
             using var p = new Process();
             p.StartInfo.FileName = "security";
             p.StartInfo.Arguments = $" verify-cert -c \"{IReverseProxyService.Instance.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists()}\"";
@@ -65,23 +65,23 @@ namespace System.Application.Services.Implementation
             var returnStr = p.StandardOutput.ReadToEnd().TrimEnd();
             p.Kill();
             return returnStr.Contains("...certificate verification successful.", StringComparison.OrdinalIgnoreCase);
-#elif XAMARIN_MAC
-            bool result = false;
-            var scer = new SecCertificate(cer);
-            var addCertificate = new SecRecord(scer);
-            var cerTrust = SecKeyChain.QueryAsRecord(addCertificate, out var t2code);
-            if (cerTrust != SecStatusCode.ItemNotFound)
-            {
-                using (var trust = new SecTrust(cerTrust, null))
-                {
-                    trust.SetPolicy(policy);
-                    trust.SetAnchorCertificates(fcollection);
-                    result=trust.Evaluate(out var error);
-                    Toast.Show(error.Description);
-                }
-            }
-            return result;
-#endif
+            //#elif XAMARIN_MAC
+            //            bool result = false;
+            //            var scer = new SecCertificate(cer);
+            //            var addCertificate = new SecRecord(scer);
+            //            var cerTrust = SecKeyChain.QueryAsRecord(addCertificate, out var t2code);
+            //            if (cerTrust != SecStatusCode.ItemNotFound)
+            //            {
+            //                using (var trust = new SecTrust(cerTrust, null))
+            //                {
+            //                    trust.SetPolicy(policy);
+            //                    trust.SetAnchorCertificates(fcollection);
+            //                    result = trust.Evaluate(out var error);
+            //                    Toast.Show(error.Description);
+            //                }
+            //            }
+            //            return result;
+            //#endif
 
         }
 
@@ -182,7 +182,14 @@ namespace System.Application.Services.Implementation
                 Toast.Show(msg);
         }
 
-        public static void OpenFile(string appName, string filePath) => NSWorkspace.SharedWorkspace.OpenFile(filePath, appName);
+        public static void OpenFile(string appName, string filePath)
+        {
+#if MACCATALYST
+            throw new PlatformNotSupportedException();
+#else
+            NSWorkspace.SharedWorkspace.OpenFile(filePath, appName);
+#endif
+        }
 
         public void SetSystemSessionEnding(Action action)
         {
@@ -191,13 +198,21 @@ namespace System.Application.Services.Implementation
 
         public void OpenFolderByDirectoryPath(DirectoryInfo info)
         {
+#if MACCATALYST
+            throw new PlatformNotSupportedException();
+#else
             //NSWorkspace.SharedWorkspace.SelectFile(string.Empty, info.FullName);
             NSWorkspace.SharedWorkspace.ActivateFileViewer(new[] { new NSUrl(info.FullName, isDir: true) });
+#endif
         }
 
         public void OpenFolderSelectFilePath(FileInfo info)
         {
+#if MACCATALYST
+            throw new PlatformNotSupportedException();
+#else
             NSWorkspace.SharedWorkspace.ActivateFileViewer(new[] { new NSUrl(info.FullName, isDir: false) });
+#endif
         }
 
         public string? GetFileName(TextReaderProvider provider) => provider switch

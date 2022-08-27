@@ -3,7 +3,11 @@ using Android.OS;
 #endif
 using Microsoft.Extensions.Options;
 using System.Application.Models;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 using System.Application.UI;
 
 namespace System.Application.Services.Implementation

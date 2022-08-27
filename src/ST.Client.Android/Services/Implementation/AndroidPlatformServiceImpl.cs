@@ -4,7 +4,11 @@ using System.Net;
 using AndroidX.AppCompat.App;
 using System.Application.UI.Activities;
 using AndroidApplication = Android.App.Application;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 
 namespace System.Application.Services.Implementation
 {

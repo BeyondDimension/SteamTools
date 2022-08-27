@@ -1,14 +1,18 @@
 using Android.Views;
 using Binding;
 using ReactiveUI;
+using System.Threading.Tasks;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Application.UI.Activities;
+using static System.Application.UI.Resx.AppResources;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
+using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 using TViewHolder = System.Application.UI.Adapters.SteamAuthTradeConfirmationViewHolder;
 using TViewModel = WinAuth.WinAuthSteamClient.Confirmation;
-using static System.Application.UI.Resx.AppResources;
-using System.Application.UI.Activities;
-using XEPlatform = Xamarin.Essentials.Platform;
-using System.Threading.Tasks;
 
 namespace System.Application.UI.Adapters
 {

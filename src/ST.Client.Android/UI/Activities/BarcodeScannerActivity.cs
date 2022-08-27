@@ -16,7 +16,6 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Essentials;
 using Xamarin.Google.MLKit.Vision.BarCode;
 using Xamarin.Google.MLKit.Vision.Common;
 using AUri = Android.Net.Uri;
@@ -24,7 +23,14 @@ using Fragment = AndroidX.Fragment.App.Fragment;
 using GmsTask = Android.Gms.Tasks.Task;
 using JException = Java.Lang.Exception;
 using JObject = Java.Lang.Object;
+#if NET6_0_OR_GREATER
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Media;
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
+using Xamarin.Essentials;
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 
 namespace System.Application.UI.Activities
 {

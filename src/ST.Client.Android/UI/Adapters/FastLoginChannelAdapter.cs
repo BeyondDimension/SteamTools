@@ -2,7 +2,11 @@ using Android.Views;
 using Binding;
 using ReactiveUI;
 using System.Application.UI.ViewModels;
+#if NET6_0_OR_GREATER
+using Microsoft.Maui.ApplicationModel;
+#else
 using Xamarin.Essentials;
+#endif
 using TViewHolder = System.Application.UI.Adapters.FastLoginChannelViewHolder;
 using TViewModel = System.Application.UI.ViewModels.LoginOrRegisterWindowViewModel.FastLoginChannelViewModel;
 

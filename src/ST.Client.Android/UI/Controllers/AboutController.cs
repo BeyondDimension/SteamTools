@@ -13,7 +13,11 @@ using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Text;
+#if NET6_0_OR_GREATER
+using Microsoft.Maui.ApplicationModel;
+#else
 using Xamarin.Essentials;
+#endif
 using static System.Application.UI.ViewModels.AboutPageViewModel;
 using M = System.Application.UI.ViewModels.AboutPageViewModel;
 using V = Binding.fragment_about;

@@ -40,19 +40,14 @@ using System.Windows;
 using Microsoft.Extensions.Http;
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
-using PlatformApplication = System.Application.UI.MainApplication;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
+#endif
 using ReactiveUI;
 using System.Reactive;
-#endif
 #if !MAUI && !__MOBILE__
 using AvaloniaApplication = Avalonia.Application;
-#endif
-#if __ANDROID__ && !MAUI
-#else
-using PlatformApplication = System.Application.UI.App;
 #endif
 #if ANDROID || IOS || __ANDROID__
 #if MAUI
@@ -75,7 +70,17 @@ using CreateHttpHandlerArgs = System.ValueTuple<
     System.Net.CookieContainer,
     System.Net.IWebProxy?,
     int>;
+#if MAUI
+using PlatformApplication = System.Application.UI.App;
+#else
+#if ANDROID || __ANDROID__
+using PlatformApplication = System.Application.UI.MainApplication;
+#else
+using PlatformApplication = System.Application.UI.App;
+#endif
+#endif
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI
 {
     partial class
@@ -242,7 +247,7 @@ namespace System.Application.UI
 #if MAUI || __MOBILE__ || ANDROID || IOS || __ANDROID__
             services.TryAddEssentials();
 #endif
-#if __MOBILE__ || ANDROID || IOS || __ANDROID__
+#if !MACCATALYST && (__MOBILE__ || ANDROID || IOS || __ANDROID__)
             // 添加运行时权限
             services.AddPlatformPermissions();
 #endif
@@ -305,7 +310,7 @@ namespace System.Application.UI
                 services.AddSingleton(_ => PlatformApplication.Instance);
 
                 services.AddSingleton<IApplication>(s => s.GetRequiredService<PlatformApplication>());
-#if __ANDROID__
+#if !MAUI && __ANDROID__
                 services.AddSingleton<IAndroidApplication>(s => s.GetRequiredService<PlatformApplication>());
 #endif
 #if __MOBILE__
@@ -340,7 +345,7 @@ namespace System.Application.UI
                  *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
                  *  - 某些图标图片与枚举值不太匹配，例如 Information
                  */
-                services.TryAddWindowManager();
+                services.AddWindowManager();
 
 #if WINDOWS
                 // 可选项，在 Win 平台使用 WPF 实现的 MessageBox
@@ -369,7 +374,7 @@ namespace System.Application.UI
 
             if (options.HasHttpClientFactory)
             {
-#if __MOBILE__
+#if __MOBILE__ && !MACCATALYST
                 // 添加 HttpClientFactory 平台原生实现
                 services.AddNativeHttpClient();
 #endif
@@ -380,7 +385,7 @@ namespace System.Application.UI
             services.TryAddScriptManager();
             if (isTrace) StartWatchTrace.Record("DI.D.ScriptManager");
 
-#if !CONSOLEAPP
+#if !CONSOLEAPP && !MACCATALYST && !IOS
             if (options.HasHttpProxy)
             {
                 // 通用 Http 代理服务
@@ -435,7 +440,7 @@ namespace System.Application.UI
 #endif
             if (options.HasSteam)
             {
-#if !__ANDROID__
+#if !__ANDROID__ && !IOS
                 // Steam 相关助手、工具类服务
                 services.AddSteamService();
 

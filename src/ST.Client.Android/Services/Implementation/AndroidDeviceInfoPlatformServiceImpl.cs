@@ -1,7 +1,15 @@
 using Android.OS;
 using System.IO;
+#if NET6_0_OR_GREATER
+using Microsoft.Maui.Devices;
+#else
 using Xamarin.Essentials;
+#endif
+#if NET6_0_OR_GREATER
+using XEDeviceType = Microsoft.Maui.Devices.DeviceType;
+#else
 using XEDeviceType = Xamarin.Essentials.DeviceType;
+#endif
 
 namespace System.Application.Services.Implementation
 {

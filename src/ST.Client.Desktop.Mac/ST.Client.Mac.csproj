@@ -1,10 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <!--<TargetFramework>net6.0-macos</TargetFramework>-->
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net6.0-macos;net6.0-maccatalyst</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Mac</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+    <SupportedOSPlatformVersion>14.2</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+    <SupportedOSPlatformVersion>14.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac')) ">
@@ -41,15 +48,15 @@
     <!--<PackageReference Include="Gameloop.Vdf" />-->
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac')) ">
+  <!--<ItemGroup Condition=" ($(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac'))) AND !$(TargetFramework.EndsWith('.0')) ">
     <ProjectReference Include="..\ST.Client.AppCenter\ST.Client.AppCenter.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.EndsWith('net5.0')) OR $(TargetFramework.EndsWith('net6.0')) ">
     <PackageReference Include="MonoMac.NetStandard" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\..\references\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj" />
     <ProjectReference Include="..\..\references\SteamAchievementManager\SAM.API\SAM.API.csproj" />

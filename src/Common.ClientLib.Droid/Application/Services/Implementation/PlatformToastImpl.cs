@@ -3,7 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using AndroidToast = Android.Widget.Toast;
 using AndroidToastLength = Android.Widget.ToastLength;
 using JException = Java.Lang.Exception;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 
 namespace System.Application.Services.Implementation
 {

@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<ApplePlatformServiceImpl>());
                 //services.AddPlatformNotificationService();
                 services.TryAddAppleClientHttpPlatformHelperService();
-                PlatformToastImpl.TryAddToast(services);
+                //PlatformToastImpl.TryAddToast(services);
                 //if (options.HasGUI)
                 //{
                 //    services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();

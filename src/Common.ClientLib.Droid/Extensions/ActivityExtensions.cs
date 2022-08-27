@@ -7,7 +7,11 @@ using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+#if NET6_0_OR_GREATER
+using Microsoft.Maui.ApplicationModel;
+#else
 using Xamarin.Essentials;
+#endif
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 

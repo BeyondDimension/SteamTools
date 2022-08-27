@@ -3,9 +3,17 @@ using Android.OS;
 using Android.Provider;
 using Android.Webkit;
 using System.IO;
+#if NET6_0_OR_GREATER
+using Microsoft.Maui.ApplicationModel;
+#else
 using Xamarin.Essentials;
+#endif
 using AndroidUri = Android.Net.Uri;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace System

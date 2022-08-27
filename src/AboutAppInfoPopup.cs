@@ -5,7 +5,11 @@ using Android.OS;
 using Android.Webkit;
 using Android.Util;
 using Android.Opengl;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 using Process = System.Diagnostics.Process;
 using AndroidApplication = Android.App.Application;
 #endif
@@ -543,7 +547,7 @@ namespace System.Application.UI
             b.Append(Essentials.IsSupported.ToLowerString());
             b.AppendLine();
 
-#if __ANDROID__
+#if __ANDROID__ && !NET6_0_OR_GREATER
             b.Append("[startup.track] ");
             b.AppendLine();
             b.Append(MainApplication.StartupTrack);

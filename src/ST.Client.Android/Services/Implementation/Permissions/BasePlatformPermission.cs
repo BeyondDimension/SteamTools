@@ -1,5 +1,9 @@
 using System.Threading.Tasks;
+#if NET6_0_OR_GREATER
+using XEPermissions = Microsoft.Maui.ApplicationModel.Permissions;
+#else
 using XEPermissions = Xamarin.Essentials.Permissions;
+#endif
 
 namespace System.Application.Services.Implementation.Permissions;
 

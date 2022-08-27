@@ -1,4 +1,8 @@
+#if XAMARINIOS
 using XEPlatform = Xamarin.Essentials.Platform;
+#else
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#endif
 
 namespace System.Application.Services.Implementation
 {

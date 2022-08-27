@@ -6,7 +6,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using AndroidAppActivity = Android.App.Activity;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 using AndroidAppResult = Android.App.Result;
 
 // 将 onActivityResult() 转换为 System.Threading.Tasks.Task

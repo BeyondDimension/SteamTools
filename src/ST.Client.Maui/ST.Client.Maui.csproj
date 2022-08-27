@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
@@ -103,6 +103,28 @@
     <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
     <MauiAsset Include="UI\Assets\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     <MauiAsset Remove="UI\Assets\Raw\AboutAssets.txt" />
+  </ItemGroup>
+
+
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
+    <ProjectReference Include="..\ST.Client.JumpList\ST.Client.JumpList.csproj" />
+    <ProjectReference Include="..\ST.Client.ReverseProxy.Yarp\ST.Client.ReverseProxy.Yarp.csproj" />
+    <ProjectReference Include="..\ST.Client.Windows.ScheduledTasks\ST.Client.Windows.ScheduledTasks.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+    <ProjectReference Include="..\ST.Client.iOS\ST.Client.iOS.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+    <ProjectReference Include="..\ST.Client.Desktop.Mac\ST.Client.Mac.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <ProjectReference Include="..\ST.Client.Android\ST.Client.Android.csproj" />
+    <ProjectReference Include="..\ST.Client.ReverseProxy.Titanium\ST.Client.ReverseProxy.Titanium.csproj" />
   </ItemGroup>
 
 </Project>

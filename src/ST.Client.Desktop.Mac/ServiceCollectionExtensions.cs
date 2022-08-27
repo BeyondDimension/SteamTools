@@ -15,7 +15,9 @@ namespace Microsoft.Extensions.DependencyInjection
             if (OperatingSystem2.IsMacOS())
             {
                 services.AddSingleton<IHttpPlatformHelperService, MacClientHttpPlatformHelperServiceImpl>();
+#if !MACCATALYST
                 services.AddSingleton(AppDelegate.Instance!);
+#endif
                 services.AddSingleton<MacPlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MacPlatformServiceImpl>());
                 services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<MacPlatformServiceImpl>());

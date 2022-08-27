@@ -15,6 +15,7 @@ using Android.Runtime;
 using Android.Content.PM;
 #endif
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI;
 
 public static partial class MauiProgram

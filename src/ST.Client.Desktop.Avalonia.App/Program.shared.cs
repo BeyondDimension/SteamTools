@@ -4,6 +4,7 @@ using System.Application.Services;
 using Program = System.Application.UI.MauiProgram;
 #endif
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI;
 
 static partial class

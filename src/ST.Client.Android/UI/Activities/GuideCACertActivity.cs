@@ -20,7 +20,13 @@ using System.Threading.Tasks;
 using static AndroidX.Activity.Result.ActivityResultTask;
 using _ThisAssembly = System.Properties.ThisAssembly;
 using ASettings = Android.Provider.Settings;
+#if NET6_0_OR_GREATER
+using Microsoft.Maui.ApplicationModel;
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
+using Xamarin.Essentials;
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 
 namespace System.Application.UI.Activities
 {

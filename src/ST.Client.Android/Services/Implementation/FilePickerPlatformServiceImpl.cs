@@ -3,7 +3,11 @@ using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 using static AndroidX.Activity.Result.ActivityResultTask;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 
 namespace System.Application.Services.Implementation
 {

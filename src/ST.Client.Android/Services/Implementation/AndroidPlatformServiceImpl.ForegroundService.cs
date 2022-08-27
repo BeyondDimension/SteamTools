@@ -2,7 +2,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using ASF_FS = System.Application.Services.Native.ArchiSteamFarmForegroundService;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 using Android.App;
 using System.Application.Services.Native;
 

@@ -1,11 +1,15 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>Xamarin.iOS10</TargetFrameworks>
+    <TargetFrameworks>Xamarin.iOS10;net6.0-ios</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.iOS</AssemblyName>
     <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-ios'))">14.2</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-maccatalyst'))">14.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" !($(TargetFramework.StartsWith('Xamarin.iOS'))) ">
+    <UseMaui>true</UseMaui>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,11 +28,16 @@
     <Compile Include="..\ST.Client.Android\UI\Views.Controls\*.shared.cs">
       <LinkBase>UI\Views.Controls</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.AddGeneralLogging.cs" />
+    <Compile Include="..\ST.Client.Android\Services\Implementation\DnsAnalysisServiceImpl.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
   </ItemGroup>
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Common.Essentials.Xamarin\Common.Essentials.Xamarin.csproj" />
+    <ProjectReference Condition=" ($(TargetFramework.StartsWith('Xamarin.iOS'))) " Include="..\Common.Essentials.Xamarin\Common.Essentials.Xamarin.csproj" />
+    <ProjectReference Condition=" !($(TargetFramework.StartsWith('Xamarin.iOS'))) " Include="..\Common.Essentials.Maui\Common.Essentials.Maui.csproj" />
     <ProjectReference Include="..\ST.Client.AppCenter\ST.Client.AppCenter.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
     <ProjectReference Include="..\ST.Client.iOS.ResSecrets\ST.Client.iOS.ResSecrets.csproj" />
@@ -36,7 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Toast.iOS" Aliases="NUGET_PACKAGE_TOAST_IOS" />
+    <!--<PackageReference Include="Toast.iOS" Aliases="NUGET_PACKAGE_TOAST_IOS" />-->
   </ItemGroup>
 
   <ItemGroup>

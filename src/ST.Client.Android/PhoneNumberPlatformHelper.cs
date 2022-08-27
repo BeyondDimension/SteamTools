@@ -1,6 +1,10 @@
 using System.Threading.Tasks;
 using Android.Telephony;
+#if NET6_0_OR_GREATER
+using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
+#else
 using XEPlatform = Xamarin.Essentials.Platform;
+#endif
 
 namespace System.Application;
 
