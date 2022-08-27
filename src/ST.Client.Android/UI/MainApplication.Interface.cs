@@ -1,4 +1,4 @@
-#if !NET6_0_OR_GREATER
+#if !NET6_0_MAUI_LIB
 using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Collections.Generic;

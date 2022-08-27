@@ -18,6 +18,7 @@
     <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
     <UseWindowsForms Condition="'$(Configuration)'=='Debug'">true</UseWindowsForms>
     <UseWPF>false</UseWPF>
+    <DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -44,7 +45,7 @@
       .allowedextension
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
-  
+
   <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
     <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="true" />
   </ItemGroup>

@@ -9,6 +9,7 @@
     <RootNamespace>System.Application.UI</RootNamespace>
     <AssemblyName>Steam++</AssemblyName>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

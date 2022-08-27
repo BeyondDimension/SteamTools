@@ -70,14 +70,10 @@ using CreateHttpHandlerArgs = System.ValueTuple<
     System.Net.CookieContainer,
     System.Net.IWebProxy?,
     int>;
-#if MAUI
+#if MAUI || AVALONIA
 using PlatformApplication = System.Application.UI.App;
-#else
-#if ANDROID || __ANDROID__
+#elif ANDROID || __ANDROID__
 using PlatformApplication = System.Application.UI.MainApplication;
-#else
-using PlatformApplication = System.Application.UI.App;
-#endif
 #endif
 
 // ReSharper disable once CheckNamespace
@@ -313,11 +309,9 @@ namespace System.Application.UI
 #if !MAUI && __ANDROID__
                 services.AddSingleton<IAndroidApplication>(s => s.GetRequiredService<PlatformApplication>());
 #endif
-#if __MOBILE__
-                //services.AddMSALPublicClientApp(AppSettings.MASLClientId);
-#elif MAUI
+#if MAUI
                 services.AddSingleton<IMauiApplication>(s => s.GetRequiredService<PlatformApplication>());
-#else
+#elif AVALONIA
                 services.AddSingleton<IAvaloniaApplication>(s => s.GetRequiredService<PlatformApplication>());
                 services.TryAddSingleton<IClipboardPlatformService>(s => s.GetRequiredService<PlatformApplication>());
 

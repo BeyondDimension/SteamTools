@@ -547,7 +547,7 @@ namespace System.Application.UI
             b.Append(Essentials.IsSupported.ToLowerString());
             b.AppendLine();
 
-#if __ANDROID__ && !NET6_0_OR_GREATER
+#if __ANDROID__ && !NET6_0_MAUI_LIB
             b.Append("[startup.track] ");
             b.AppendLine();
             b.Append(MainApplication.StartupTrack);

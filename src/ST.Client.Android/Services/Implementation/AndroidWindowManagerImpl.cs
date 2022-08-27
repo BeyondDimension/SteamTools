@@ -270,7 +270,7 @@ public class AndroidWindowManagerImpl : IWindowManagerImpl
     {
         get
         {
-#if NET6_0_OR_GREATER
+#if NET6_0_MAUI_LIB
             throw new NotImplementedException();
 #else
             return MainApplication.Activities;

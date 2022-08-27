@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Google.MLKit.Vision.BarCode;
 using Xamarin.Google.MLKit.Vision.Common;
+using Xamarin.Google.MLKit.Vision.Barcode.Common;
 using AUri = Android.Net.Uri;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using GmsTask = Android.Gms.Tasks.Task;

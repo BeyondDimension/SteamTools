@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="20220814" android:versionName="2.8.3" package="net.steampp.app" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="20220827" android:versionName="2.8.4" package="net.steampp.app" android:installLocation="auto">
   <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31" />
   <application android:fullBackupContent="@xml/auto_backup_rules"></application>
   <!-- Required for API Level 30 to make sure the app can detect browsers and other apps where communication is needed.-->

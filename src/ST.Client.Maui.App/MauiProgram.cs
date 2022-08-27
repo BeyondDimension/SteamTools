@@ -26,6 +26,10 @@ public static partial class MauiProgram
 
     static string[] GetCommandLineArgs()
     {
+#if ANDROID
+        // Android 中 Environment.GetCommandLineArgs 返回 apk 安装目录的 string[1]
+        return Array.Empty<string>();
+#else
         try
         {
             var args = Environment.GetCommandLineArgs();
@@ -35,6 +39,7 @@ public static partial class MauiProgram
         {
             return Array.Empty<string>();
         }
+#endif
     }
 
     internal static MauiApp CreateMauiApp(string[]? args = null)

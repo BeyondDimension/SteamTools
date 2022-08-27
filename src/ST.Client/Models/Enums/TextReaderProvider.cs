@@ -1,4 +1,4 @@
-﻿namespace System.Application.Models
+namespace System.Application.Models
 {
     /// <summary>
     /// 文本阅读器提供商

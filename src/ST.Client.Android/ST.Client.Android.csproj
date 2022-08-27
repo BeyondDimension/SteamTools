@@ -11,6 +11,7 @@
 
   <PropertyGroup Condition=" !($(TargetFramework.StartsWith('MonoAndroid'))) ">
     <UseMaui>true</UseMaui>
+    <DefineConstants>NET6_0_MAUI_LIB;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <!--当前包是否为应用商店渠道包(IS_STORE_PACKAGE)-->

@@ -43,37 +43,11 @@ public partial class App : MauiApplication, IDisposableHolder, IApplication, IMa
     {
         const bool isTrace =
 #if StartWatchTrace
-                true;
+    true;
 #else
     false;
 #endif
-        ProgramHost.OnCreateAppExecuted(handlerViewModelManager: vmService =>
-        {
-            switch (vmService.MainWindow)
-            {
-                case AchievementWindowViewModel:
-                    ProgramHost.IsMinimize = false;
-                    //MainWindow = new AchievementWindow();
-                    break;
-
-                default:
-                    #region 主窗口启动时加载的资源
-#if !UI_DEMO
-                    compositeDisposable.Add(SettingsHost.Save);
-                    compositeDisposable.Add(ProxyService.Current.Dispose);
-                    compositeDisposable.Add(SteamConnectService.Current.Dispose);
-                    compositeDisposable.Add(ASFService.Current.StopASF);
-#pragma warning disable CA1416 // 验证平台兼容性
-                    if (GeneralSettings.IsStartupAppMinimized.Value)
-                        ProgramHost.IsMinimize = true;
-#pragma warning restore CA1416 // 验证平台兼容性
-#endif
-                    #endregion
-                    //MainWindow = new MainWindow();
-                    break;
-            }
-            MainPage = new AppShell((MainWindowViewModel)vmService.MainWindow);
-        }, isTrace: isTrace);
+        ProgramHost.OnCreateAppExecuted(handlerViewModelManager: HandlerViewModelManager, isTrace: isTrace);
     }
 
     public Window GetActiveWindow()

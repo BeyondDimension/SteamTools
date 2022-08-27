@@ -183,7 +183,7 @@ Read what we [milestones](https://github.com/BeyondDimension/SteamTools/mileston
 	- [Avalonia for Visual Studio(Optional)](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
 	- [NUnit VS Templates(Optional)](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
 
-[OpenJDK 11](https://docs.microsoft.com/java/openjdk/download#openjdk-11)  
+[OpenJDK 17](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17)  
 [Android Studio 2021.1.1 Or Higher](https://developer.android.com/studio/)  
 [Xcode 13 Or Higher](https://developer.apple.com/xcode/)
 

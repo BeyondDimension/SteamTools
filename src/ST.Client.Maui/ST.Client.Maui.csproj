@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
@@ -6,6 +6,7 @@
     <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
     <!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
     <RootNamespace>System.Application</RootNamespace>
+    <AndroidResgenNamespace>System.Application.AndroidResgen</AndroidResgenNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Maui</AssemblyName>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
@@ -14,7 +15,30 @@
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+    <SupportedOSPlatformVersion>14.2</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+    <SupportedOSPlatformVersion>14.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">
+    <SupportedOSPlatformVersion>6.5</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
   <ItemGroup>
+    <Compile Include="..\ST.Client.Desktop.Avalonia\Application\UI\App.OnCreateAppExecuted.HandlerViewModelManager.cs">
+      <Link>UI\App.OnCreateAppExecuted.HandlerViewModelManager.cs</Link>
+    </Compile>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
@@ -54,26 +78,6 @@
     </Compile>
   </ItemGroup>
 
-  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
-    <SupportedOSPlatformVersion>14.2</SupportedOSPlatformVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
-    <SupportedOSPlatformVersion>14.0</SupportedOSPlatformVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
-    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">
-    <SupportedOSPlatformVersion>6.5</SupportedOSPlatformVersion>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Common.Essentials.Maui\Common.Essentials.Maui.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
@@ -104,8 +108,6 @@
     <MauiAsset Include="UI\Assets\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     <MauiAsset Remove="UI\Assets\Raw\AboutAssets.txt" />
   </ItemGroup>
-
-
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
