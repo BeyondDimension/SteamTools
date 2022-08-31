@@ -8,30 +8,33 @@
     xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client"
     Title="{Binding Title}"
     x:DataType="vm:MainWindowViewModel">
-  <Shell.FlyoutHeaderTemplate>
-    <DataTemplate>
-      <StackLayout Padding="24,24,24,22" Orientation="Horizontal">
-        <StackLayout.GestureRecognizers>
-          <TapGestureRecognizer Tapped="OnFlyoutHeaderTapped" />
-        </StackLayout.GestureRecognizers>
-        <Image Source="avatar.jpg"
-               HeightRequest="64"
-               WidthRequest="64">
-          <Image.Clip>
-            <EllipseGeometry Center="32,32"
-                             RadiusX="32"
-                             RadiusY="32" />
-          </Image.Clip>
-        </Image>
-        <Label Margin="16,0,0,0"
-               FontSize="16"
-               LineBreakMode="TailTruncation"
-               MaxLines="2"
-               Text="{x:Static resx:AppResources.User_UnLogin}"
-               TextColor="{DynamicResource ShellTitleColor}"
-               VerticalTextAlignment="Center" />
-      </StackLayout>
-    </DataTemplate>
-  </Shell.FlyoutHeaderTemplate>
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <StackLayout Padding="24,24,24,22" Orientation="Horizontal">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnFlyoutHeaderTapped" />
+                </StackLayout.GestureRecognizers>
+                <Image
+                    HeightRequest="64"
+                    Source="avatar.jpg"
+                    WidthRequest="64">
+                    <Image.Clip>
+                        <EllipseGeometry
+                            Center="32,32"
+                            RadiusX="32"
+                            RadiusY="32" />
+                    </Image.Clip>
+                </Image>
+                <Label
+                    Margin="16,0,0,0"
+                    FontSize="16"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
+                    Text="{x:Static resx:AppResources.User_UnLogin}"
+                    TextColor="{DynamicResource ShellTitleColor}"
+                    VerticalTextAlignment="Center" />
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
 </Shell>
 
