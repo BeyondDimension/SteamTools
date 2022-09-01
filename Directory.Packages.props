@@ -283,7 +283,7 @@
     <PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.10" />
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
     <PackageVersion Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.9" />
-    <PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.5.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.5.2" />
     <PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.7" />
     <PackageVersion Include="Xamarin.Google.Android.Material" Version="1.6.1.1" />
     <PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.9" />
