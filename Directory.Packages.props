@@ -44,8 +44,8 @@
 
     <!-- AspNetCore 6 OpenId/OAuth -->
     <PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
-    <PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.9" />
-    <PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.9" />
+    <PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.10" />
+    <PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.10" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Microsoft.* -->
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
     <!--<PackageVersion Include="Microsoft.Windows.CsWinRT" Version="1.4.1" />-->
     <!--<PackageVersion Include="Microsoft.Windows.SDK.NET.Ref" Version="10.0.19041.22" />-->
     <!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
@@ -117,8 +117,8 @@
     <PackageVersion Include="Moq" Version="4.18.2" />
 
     <!-- NLog -->
-    <PackageVersion Include="NLog" Version="5.0.2" />
-    <PackageVersion Include="NLog.Extensions.Logging" Version="5.0.2" />
+    <PackageVersion Include="NLog" Version="5.0.4" />
+    <PackageVersion Include="NLog.Extensions.Logging" Version="5.0.4" />
     <PackageVersion Include="NLog.Web.AspNetCore" Version="5.1.4" />
     <PackageVersion Include="AspNetCore2.NETStandard.NLog.Web.AspNetCore" Version="5.0.0" />
 
