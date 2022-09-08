@@ -144,7 +144,7 @@ namespace System.Application.UI.ViewModels
                 steamService.SetCurrentUser(string.Empty);
             }
 
-            steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
+            steamService.StartSteamWithParameter();
         }
 
         public async void DeleteUserButton_Click(SteamUser user)

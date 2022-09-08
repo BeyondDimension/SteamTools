@@ -246,7 +246,7 @@ namespace System.Application.Services
         public void Initialize()
         {
             if (!stmService.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
-                stmService.StartSteam(SteamSettings.SteamStratParameter.Value);
+                stmService.StartSteamWithParameter();
 
             Task.Factory.StartNew(async () =>
             {
