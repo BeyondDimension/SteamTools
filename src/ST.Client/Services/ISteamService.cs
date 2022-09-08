@@ -1,4 +1,5 @@
 using System.Application.Models;
+using System.Application.Settings;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -54,6 +55,11 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="arguments"></param>
         void StartSteam(string? arguments = null);
+
+        /// <summary>
+        /// 使用配置的参数启动 Steam
+        /// </summary>
+        void StartSteamWithParameter() => StartSteam(SteamSettings.SteamStratParameter.Value);
 
         /// <summary>
         /// 安全退出 Steam（如果有修改Steam数据的操作请退出后在执行不然Steam安全退出会还原修改）

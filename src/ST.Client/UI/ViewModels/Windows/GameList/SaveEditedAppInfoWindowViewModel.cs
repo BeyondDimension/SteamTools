@@ -47,12 +47,13 @@ namespace System.Application.UI.ViewModels
 
         public async Task SaveSteamEditedApps()
         {
-            if (await ISteamService.Instance.SaveAppInfosToSteam())
+            var stmService = ISteamService.Instance;
+            if (await stmService.SaveAppInfosToSteam())
             {
                 if (await MessageBox.ShowAsync(AppResources.SaveEditedAppInfo_RestartSteamTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
                 {
-                    await ISteamService.Instance.ShutdownSteamAsync();
-                    ISteamService.Instance.StartSteam();
+                    await stmService.ShutdownSteamAsync();
+                    stmService.StartSteam();
                 }
                 Toast.Show(AppResources.SaveEditedAppInfo_SaveToSteamSuccess);
             }
