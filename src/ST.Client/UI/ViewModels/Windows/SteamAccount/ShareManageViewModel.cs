@@ -198,7 +198,7 @@ namespace System.Application.UI.ViewModels
             if (result.IsOK())
             {
                 steamService.TryKillSteamProcess();
-                steamService.StartSteam();
+                steamService.StartSteamWithParameter();
             }
         }
     }
