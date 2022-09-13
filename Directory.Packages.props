@@ -12,7 +12,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.8" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.8" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.8" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.8" />
@@ -31,7 +31,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.27" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.27" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.27" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.27" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="3.1.27" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.27" />
