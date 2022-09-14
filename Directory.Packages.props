@@ -211,7 +211,7 @@
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
 
     <!-- Html Parser -->
-    <PackageVersion Include="HtmlAgilityPack" Version="1.11.45" />
+    <PackageVersion Include="HtmlAgilityPack" Version="1.11.46" />
 
     <!-- Clipboard -->
     <PackageVersion Include="TextCopy" Version="6.1.0" />
