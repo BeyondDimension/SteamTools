@@ -266,7 +266,7 @@ public abstract class CommandLineHost : IDisposable
                     steamService.SetCurrentUser(account);
                 }
 
-                steamService.StartSteam();
+                steamService.StartSteamWithParameter();
             }
         });
         rootCommand.AddCommand(steamuser);
