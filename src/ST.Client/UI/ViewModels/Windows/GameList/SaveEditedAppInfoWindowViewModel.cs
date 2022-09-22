@@ -53,7 +53,7 @@ namespace System.Application.UI.ViewModels
                 if (await MessageBox.ShowAsync(AppResources.SaveEditedAppInfo_RestartSteamTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
                 {
                     await stmService.ShutdownSteamAsync();
-                    stmService.StartSteam();
+                    stmService.StartSteamWithParameter();
                 }
                 Toast.Show(AppResources.SaveEditedAppInfo_SaveToSteamSuccess);
             }
