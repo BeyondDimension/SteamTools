@@ -184,7 +184,7 @@ namespace System.Application.UI
 
         //public bool IsRuntimeSwitchXFAppTheme { get; set; } = true;
 
-#region AppTheme
+        #region AppTheme
 
         public new AppTheme Theme
         {
@@ -255,13 +255,13 @@ namespace System.Application.UI
             }
         }
 
-#endregion
+        #endregion
 
         public static async void ShowUnderConstructionTips() => await MessageBox.ShowAsync(AppResources.UnderConstruction);
 
         bool IApplication.HasActiveWindow() => XEPlatform.CurrentActivity.HasValue();
 
-#region Compat
+        #region Compat
 
         void IApplication.SetThemeNotChangeValue(AppTheme value) => Theme = value;
 
@@ -277,7 +277,7 @@ namespace System.Application.UI
 
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
-#endregion
+        #endregion
 
         /// <inheritdoc cref="IApplication.InitSettingSubscribe"/>
         void PlatformInitSettingSubscribe()

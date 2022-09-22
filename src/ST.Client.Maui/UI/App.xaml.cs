@@ -1,8 +1,8 @@
 using System.Application.Mvvm;
 using System.Application.Services;
 using System.Application.Settings;
-using System.Application.UI.Styles;
 using System.Application.UI.ViewModels;
+using System.Application.UI.Styles;
 using System.Reactive.Disposables;
 using System.Windows.Input;
 using EAppTheme = System.Application.Models.AppTheme;

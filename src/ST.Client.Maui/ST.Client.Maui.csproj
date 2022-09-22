@@ -129,4 +129,13 @@
     <ProjectReference Include="..\ST.Client.ReverseProxy.Titanium\ST.Client.ReverseProxy.Titanium.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <MauiXaml Update="UI\Views\Controls\FlyoutFooter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="UI\Views\Controls\FlyoutHeader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
+
 </Project>

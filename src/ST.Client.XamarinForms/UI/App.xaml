@@ -4,14 +4,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:styles="clr-namespace:System.Application.UI.Styles">
-  <!--
+    <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
-  <Application.Resources>
-    <ResourceDictionary>
-      <ResourceDictionary Source="Styles\ThemeLight.xaml" />
-      <styles:DrawingSvg x:Key="DrawingSvg" />
-      <!--<Color x:Key="Primary">#2196F3</Color>
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="Styles\ThemeLight.xaml" />
+            <styles:DrawingSvg x:Key="DrawingSvg" />
+            <!--<Color x:Key="Primary">#2196F3</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -31,6 +31,6 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>-->
-    </ResourceDictionary>
-  </Application.Resources>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

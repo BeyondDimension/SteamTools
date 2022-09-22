@@ -6,23 +6,22 @@ using XEPlatform = Microsoft.Maui.ApplicationModel.Platform;
 using XEPlatform = Xamarin.Essentials.Platform;
 #endif
 
-namespace System.Application.UI
-{
-    public static class Styles
-    {
-        public static void InitDefaultStyles(this SwipeRefreshLayout swipeRefreshLayout)
-        {
-            swipeRefreshLayout.SetColorSchemeColors(new[] { ColorPrimary });
-        }
+namespace System.Application.UI;
 
-        public static int ColorPrimary
+public static class StylesEx
+{
+    public static void InitDefaultStyles(this SwipeRefreshLayout swipeRefreshLayout)
+    {
+        swipeRefreshLayout.SetColorSchemeColors(new[] { ColorPrimary });
+    }
+
+    public static int ColorPrimary
+    {
+        get
         {
-            get
-            {
-                using TypedValue typedValue = new();
-                XEPlatform.CurrentActivity.Theme!.ResolveAttribute(Resource.Attribute.colorPrimary, typedValue, true);
-                return typedValue.Data;
-            }
+            using TypedValue typedValue = new();
+            XEPlatform.CurrentActivity.Theme!.ResolveAttribute(Resource.Attribute.colorPrimary, typedValue, true);
+            return typedValue.Data;
         }
     }
 }

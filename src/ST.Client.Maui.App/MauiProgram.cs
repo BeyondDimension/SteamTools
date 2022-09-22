@@ -71,8 +71,12 @@ public static partial class MauiProgram
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                })
-                ;
+                }).ConfigureMauiHandlers(handlers =>
+                {
+#if ANDROID
+                    handlers.AddHandler<Shell, ShellRenderer>();
+#endif
+                });
 
             ConfigureServices(host, level, builder.Services);
         };

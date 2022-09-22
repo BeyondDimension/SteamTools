@@ -1,0 +1,12 @@
+<ContentView
+    x:Class="System.Application.UI.Views.Controls.FlyoutFooter"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:System.Application.UI.Views.Controls">
+    <Label
+        Padding="8"
+        FontSize="12"
+        HorizontalOptions="Center"
+        Text="{Binding Source={x:Static controls:FlyoutFooter.FooterText}, Mode=OneTime}"
+        TextColor="{DynamicResource ShellTitleColor}" />
+</ContentView>
