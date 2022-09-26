@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Microsoft.* -->
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <!--<PackageVersion Include="Microsoft.Windows.CsWinRT" Version="1.4.1" />-->
     <!--<PackageVersion Include="Microsoft.Windows.SDK.NET.Ref" Version="10.0.19041.22" />-->
     <!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
