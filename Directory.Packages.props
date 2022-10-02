@@ -165,7 +165,7 @@
 
     <!-- Algorithm -->
     <PackageVersion Include="Crc32.NET" Version="1.2.0" />
-    <PackageVersion Include="gfoidl.Base64" Version="1.1.1" />
+    <PackageVersion Include="gfoidl.Base64" Version="1.1.2" />
 
     <!--Command Line Tools-->
     <PackageVersion Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
