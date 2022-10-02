@@ -96,7 +96,7 @@ namespace System.Application.Services.Implementation
             {
                 Title = AppResources.MacTrustRootCertificateTips,
                 InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText,
-                Description = AppResources.MacTrustRootCertificateTips,
+                Description = AppResources.MacSudoPasswordTips + $"\r\n sudo {script}",
             };
             var scriptContent = $"osascript -e 'tell app \"Terminal\" to do script \"sudo -S {script}\"'";
             var msg = UnixHelper.RunShell(scriptContent.ToString());
