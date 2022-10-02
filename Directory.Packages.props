@@ -140,7 +140,7 @@
     <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.1-preview.104" />
 
     <!-- AutoMapper -->
-    <PackageVersion Include="AutoMapper" Version="11.0.1" />
+    <PackageVersion Include="AutoMapper" Version="12.0.0" />
     <PackageVersion Include="AutoMapper.Collection" Version="8.0.0" />
     <PackageVersion Include="AutoMapper.Collection.EntityFrameworkCore" Version="8.0.0" />
     <PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="5.1.0" />
