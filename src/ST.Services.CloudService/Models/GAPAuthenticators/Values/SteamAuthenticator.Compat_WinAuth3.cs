@@ -452,7 +452,7 @@ namespace System.Application.Models
                             state.RequiresEmailAuth = false;
                         }
 
-                        // require email auth
+                        // require 2fa auth
                         if (loginresponse.ContainsKey("requires_twofactor") == true && (bool)loginresponse["requires_twofactor"] == true)
                         {
                             state.Requires2FA = true;
