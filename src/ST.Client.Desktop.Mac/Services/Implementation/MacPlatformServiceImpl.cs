@@ -91,14 +91,14 @@ namespace System.Application.Services.Implementation
 
         async ValueTask<bool?> IPlatformService.TrustRootCertificate(string filePath)
         {
-            var script = $"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"";
+            var script = $"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db";
             TextBoxWindowViewModel vm = new()
             {
                 Title = AppResources.MacTrustRootCertificateTips,
-                InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText,
-                Description = AppResources.MacSudoPasswordTips + $"\r\n sudo {script}",
+                InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
+                Description = AppResources.MacSudoPasswordTips + $"\r\n sudo {script} \"{filePath}\"",
             };
-            var scriptContent = $"osascript -e 'tell app \"Terminal\" to do script \"sudo -S {script}\"'";
+            var scriptContent = $"osascript -e 'tell app \"Terminal\" to do script \"sudo -S {script} \\\"{filePath}\\\"\"'";
             var msg = UnixHelper.RunShell(scriptContent.ToString());
             if (await TextBoxWindowViewModel.ShowDialogAsync(vm) == null)
                 return null;
