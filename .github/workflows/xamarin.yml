@@ -63,7 +63,7 @@ jobs:
       #  xcode-version: '12.x' # set the latest available Xcode 12
 
     - name: Setup Android NDK
-      uses: nttld/setup-ndk@v1.0.6
+      uses: nttld/setup-ndk@v1.2.0
       id: setup-ndk
       with:
         ndk-version: r21e
