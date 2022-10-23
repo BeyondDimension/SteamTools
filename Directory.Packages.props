@@ -229,7 +229,7 @@
     <PackageVersion Include="Fleck" Version="1.2.0" />
 
     <!-- DNS -->
-    <PackageVersion Include="DnsClient" Version="1.6.1" />
+    <PackageVersion Include="DnsClient" Version="1.7.0" />
     <PackageVersion Include="DNS" Version="7.0.0" />
 
     <!-- Cryptographic Algorithms & Protocols -->
