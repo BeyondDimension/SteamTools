@@ -117,7 +117,7 @@
     <PackageVersion Include="Moq" Version="4.18.2" />
 
     <!-- NLog -->
-    <PackageVersion Include="NLog" Version="5.0.4" />
+    <PackageVersion Include="NLog" Version="5.0.5" />
     <PackageVersion Include="NLog.Extensions.Logging" Version="5.0.4" />
     <PackageVersion Include="NLog.Web.AspNetCore" Version="5.1.4" />
     <PackageVersion Include="AspNetCore2.NETStandard.NLog.Web.AspNetCore" Version="5.0.0" />
