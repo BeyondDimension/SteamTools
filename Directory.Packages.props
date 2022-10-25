@@ -286,7 +286,7 @@
     <PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.5.1" />
     <PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.7" />
     <PackageVersion Include="Xamarin.Google.Android.Material" Version="1.6.1.1" />
-    <PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.9" />
+    <PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.10" />
     <PackageVersion Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.4.1" />
     <PackageVersion Include="Xamarin.AndroidX.Navigation.UI" Version="2.5.1" />
     <PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.5.1" />
