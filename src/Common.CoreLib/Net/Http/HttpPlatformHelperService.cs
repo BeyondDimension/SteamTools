@@ -19,6 +19,9 @@ public abstract class HttpPlatformHelperService : IHttpPlatformHelperService
         ImageFormat.JPEG,
         ImageFormat.PNG,
         ImageFormat.GIF,
+        ImageFormat.WebP,
+        ImageFormat.BMP,
+        ImageFormat.ICO,
     });
 
     public virtual ImageFormat[] SupportedImageFormats => mSupportedImageFormats.Value;
