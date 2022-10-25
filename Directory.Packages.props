@@ -275,7 +275,7 @@
     <!-- V2Ray -->
     <PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0.1" />
     <!--<PackageVersion Include="Karamunting.KotlinX.Coroutines.Core" Version="1.4.2" />-->
-    <PackageVersion Include="Xamarin.KotlinX.Coroutines.Core" Version="1.6.4" />
+    <PackageVersion Include="Xamarin.KotlinX.Coroutines.Core" Version="1.6.4.1" />
     <PackageVersion Include="Xamarin.KotlinX.Coroutines.Android" Version="1.6.4" />
     <PackageVersion Include="Xamarin.Android.ReactiveX.RxJava3.RxJava" Version="3.1.5.1" />
 
