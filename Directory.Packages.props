@@ -297,7 +297,7 @@
     <PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.15" />
     <PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.5.1" />
     <PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.1.0" />
-    <PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.1.0" />
+    <PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.1.0.1" />
     <PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.1.0-beta02" />
     <!--<PackageVersion Include="Xamarin.AndroidX.Window" Version="1.0.0.9" />-->
     <PackageVersion Include="Xamarin.AndroidX.WebKit" Version="1.4.0.8" />
