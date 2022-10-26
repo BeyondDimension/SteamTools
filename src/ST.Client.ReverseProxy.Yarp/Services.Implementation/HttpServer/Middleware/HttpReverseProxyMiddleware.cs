@@ -64,7 +64,8 @@ sealed class HttpReverseProxyMiddleware
             return;
         }
 
-        if (domainConfig == defaultDomainConfig)
+        if (domainConfig == defaultDomainConfig &&
+            !reverseProxyConfig.Service.OnlyEnableProxyScript)
         {
             //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
             var ip = await IDnsAnalysisService.Instance.AnalysisDomainIpAsync(context.Request.Host.Value, IDnsAnalysisService.DNS_Dnspods).FirstOrDefaultAsync();
