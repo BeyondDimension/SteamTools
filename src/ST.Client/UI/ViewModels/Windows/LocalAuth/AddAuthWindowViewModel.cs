@@ -277,7 +277,7 @@ namespace System.Application.UI.ViewModels
 
         private bool _IsLogining;
 
-        public void LoginSteamImport()
+        public async void LoginSteamImport()
         {
             if (string.IsNullOrWhiteSpace(UserName))
             {
@@ -300,8 +300,7 @@ namespace System.Application.UI.ViewModels
 
             _Enroll.Language = R.GetCurrentCultureSteamLanguageName();
 
-            bool result = false;
-            Task.Run(() =>
+            try
             {
                 var isSupportedToastService = ToastService.IsSupported;
                 if (isSupportedToastService)
@@ -309,7 +308,7 @@ namespace System.Application.UI.ViewModels
                     ToastService.Current.Set(AppResources.Logining);
                 }
                 LoginSteamLoadingText = AppResources.Logining;
-                result = _SteamAuthenticator.Enroll(_Enroll);
+                var result = await _SteamAuthenticator.Enroll(_Enroll);
                 if (isSupportedToastService)
                 {
                     ToastService.Current.Set();
@@ -393,11 +392,13 @@ namespace System.Application.UI.ViewModels
 
                     Toast.Show(AppResources.LocalAuth_SteamUserImportSuccess);
                 }
-            }).ContinueWith(s =>
+            }
+            catch (Exception ex)
             {
-                Log.Error(nameof(AddAuthWindowViewModel), s.Exception, nameof(LoginSteamImport));
-                MessageBox.Show(s.Exception, "Error " + nameof(LoginSteamImport));
-            }, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
+                Log.Error(nameof(AddAuthWindowViewModel), ex, nameof(LoginSteamImport));
+                MessageBox.Show(ex, "Error " + nameof(LoginSteamImport));
+            }
+            finally
             {
                 _IsLogining = false;
                 if (ToastService.IsSupported)
@@ -405,8 +406,18 @@ namespace System.Application.UI.ViewModels
                     ToastService.Current.Set();
                 }
                 LoginSteamLoadingText = null;
-                s.Dispose();
-            });
+            }
+            //Task.Run(() =>
+            //{
+
+            //}).ContinueWith(s =>
+            //{
+
+            //}, TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s =>
+            //{
+
+            //s.Dispose();
+            //});
         }
 
         public void ImportWinAuth(string filePath)
