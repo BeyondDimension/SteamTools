@@ -86,7 +86,7 @@
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
     <PackageVersion Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
     <PackageVersion Include="System.Net.Http.WinHttpHandler" Version="6.0.1" />
-    
+
     <!-- AppCenter.* -->
     <PackageVersion Include="Microsoft.AppCenter" Version="4.5.3" />
     <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.5.3" />
@@ -108,7 +108,7 @@
     <PackageVersion Include="Xamarin.Forms" Version="5.0.0.2478" />
     <PackageVersion Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2478" />
     <PackageVersion Include="Xam.Plugins.Forms.ImageCircle" Version="3.1.1.1-beta" />
-    
+
     <!-- NUnit & NUnit.Xamarin & Moq -->
     <PackageVersion Include="NUnit" Version="3.13.3" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
@@ -229,7 +229,7 @@
     <PackageVersion Include="Fleck" Version="1.2.0" />
 
     <!-- DNS -->
-    <PackageVersion Include="DnsClient" Version="1.6.1" />
+    <PackageVersion Include="DnsClient" Version="1.7.0" />
     <PackageVersion Include="DNS" Version="7.0.0" />
 
     <!-- Cryptographic Algorithms & Protocols -->
