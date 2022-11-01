@@ -306,7 +306,7 @@
     <PackageVersion Include="Toast.iOS" Version="1.2.0" />
 
     <!-- UWP -->
-    <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
+    <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
     <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.1.4" />
 
     <!-- Code Style -->
