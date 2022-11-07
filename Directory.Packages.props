@@ -83,7 +83,7 @@
     <PackageVersion Include="Microsoft.Net.Http.Headers" Version="2.2.255.255" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <!--<PackageVersion Include="CommunityToolkit.Mvvm" Version="7.1.2" />-->
-    <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+    <PackageVersion Include="System.Text.Encoding.CodePages" Version="7.0.0" />
     <PackageVersion Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
     <PackageVersion Include="System.Net.Http.WinHttpHandler" Version="6.0.1" />
 
