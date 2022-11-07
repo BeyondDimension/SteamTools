@@ -65,7 +65,7 @@
     <!-- BCL(NETSTANDARD) -->
     <PackageVersion Include="System.Text.Json" Version="6.0.2" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="6.0.0" />
-    <PackageVersion Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageVersion Include="System.Drawing.Common" Version="7.0.0" />
     <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
     <PackageVersion Include="System.Buffers" Version="4.5.1" />
     <PackageVersion Include="System.Memory" Version="4.5.5" />
