@@ -1,7 +1,7 @@
 <Project>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
     <!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET60) -->
-    <!--<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />-->
+    <!--<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />-->
     <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
@@ -81,7 +81,7 @@
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
     <PackageVersion Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Net.Http.Headers" Version="2.2.255.255" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <!--<PackageVersion Include="CommunityToolkit.Mvvm" Version="7.1.2" />-->
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
     <PackageVersion Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
