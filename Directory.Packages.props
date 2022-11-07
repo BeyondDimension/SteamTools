@@ -3,7 +3,7 @@
     <!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET60) -->
     <!--<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />-->
     <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.10" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
@@ -22,7 +22,7 @@
     <!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NETCOREAPP31) -->
     <!--<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="3.1.27" />-->
     <PackageVersion Include="Microsoft.Extensions.Http" Version="3.1.27" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="3.1.27" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.27" />
     <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.10" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="3.1.27" />
