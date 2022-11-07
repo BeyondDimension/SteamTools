@@ -99,7 +99,7 @@
 		<PackageVersion Include="nor0x.AppCenter.Crashes" Version="4.4.0-XMAC" />-->
 
     <!-- .NET Platform Extensions 6 -->
-    <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
+    <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
     <PackageVersion Include="System.Management" Version="6.0.0" />
 
     <!-- Xamarin -->
