@@ -307,7 +307,7 @@
 
     <!-- UWP -->
     <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
-    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.1.4" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.2.221109.1" />
 
     <!-- Code Style -->
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
