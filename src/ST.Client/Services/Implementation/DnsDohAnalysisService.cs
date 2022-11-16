@@ -10,9 +10,11 @@ namespace System.Application.Services;
 
 public sealed class DnsDohAnalysisService : IDnsDohAnalysisService
 {
+    readonly IHttpService httpService;
+
     public DnsDohAnalysisService(IHttpService httpService)
     {
-
+        this.httpService = httpService;
     }
 
     /// <summary>

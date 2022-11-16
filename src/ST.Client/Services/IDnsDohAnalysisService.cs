@@ -15,13 +15,13 @@ namespace System.Application.Services
         static IDnsDohAnalysisService Instance => DI.Get<IDnsDohAnalysisService>();
 
         #region DNS常量
-        const string DNS_Ali_DohAddres = "https://dns.alidns.com";
+        const string DNS_Ali_DohAddres = "https://dns.alidns.com/dns-query";
 
         const string Dnspod_DohAddres = "https://1.12.12.12/dns-query";
 
-        const string Google_DohAddres = "https://dns.google";
+        const string Google_DohAddres = "https://dns.google/dns-query";
 
-        const string Cloudflare_DohAddres = "https://cloudflare-dns.com";
+        const string Cloudflare_DohAddres = "https://cloudflare-dns.com/dns-query";
         #endregion
 
         protected const string IPV6_TESTDOMAIN = "ipv6.rmbgame.net";
