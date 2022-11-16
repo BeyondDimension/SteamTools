@@ -1,20 +1,43 @@
-using System;
+using System.Linq;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Net;
 using System.Net.Http;
+using Ae.Dns.Client;
+using Ae.Dns.Protocol;
+using Microsoft.Extensions.Logging;
+using Ae.Dns.Protocol.Records;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace System.Application.Services;
 
-public sealed class DnsDohAnalysisService : IDnsDohAnalysisService
+public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalysisService
 {
-    readonly IHttpService httpService;
-
-    public DnsDohAnalysisService(IHttpService httpService)
+    public DnsDohAnalysisService(
+            ILoggerFactory loggerFactory,
+            IHttpPlatformHelperService http_helper,
+            IHttpClientFactory clientFactory)
+            : base(loggerFactory.CreateLogger(IDnsAnalysisService.TAG), http_helper, clientFactory)
     {
-        this.httpService = httpService;
+    }
+
+    public async Task<int> AnalysisHostnameTime(string url, CancellationToken cancellationToken = default)
+    {
+        if (!string.IsNullOrEmpty(url))
+        {
+            var client = CreateClient();
+            client.BaseAddress = new Uri(IDnsAnalysisService.Dnspod_DohAddres);
+            IDnsClient dnsClient = new DnsHttpClient(client);
+
+            var queryType = Ae.Dns.Protocol.Enums.DnsQueryType.A;
+            var query = DnsQueryFactory.CreateQuery(url, queryType);
+
+            var answer = await dnsClient.Query(query, cancellationToken);
+            var value = answer.Answers.FirstOrDefault()?.TimeToLive;
+            return (int)(value ?? 0);
+        }
+        return 0;
     }
 
     /// <summary>
@@ -54,9 +77,25 @@ public sealed class DnsDohAnalysisService : IDnsDohAnalysisService
     /// <param name="isIPv6"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, string? dnsServers, bool isIPv6, CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, string? dnsServers, bool isIPv6, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        await Task.CompletedTask;
-        yield return IPAddress.Any;
+        var client = CreateClient();
+        client.BaseAddress = new Uri(string.IsNullOrEmpty(dnsServers) ? IDnsAnalysisService.Dnspod_DohAddres : dnsServers);
+        IDnsClient dnsClient = new DnsHttpClient(client);
+
+        var queryType = isIPv6 ? Ae.Dns.Protocol.Enums.DnsQueryType.AAAA : Ae.Dns.Protocol.Enums.DnsQueryType.A;
+        var query = DnsQueryFactory.CreateQuery(hostNameOrAddress, queryType);
+
+        var answer = await dnsClient.Query(query, cancellationToken);
+
+        foreach (var x in answer.Answers)
+        {
+            if (x.Resource is DnsIpAddressResource ipAddressResource)
+            {
+                yield return ipAddressResource.IPAddress;
+            }
+        }
+
+        //yield return IPAddress.Any;
     }
 }
