@@ -16,16 +16,16 @@ namespace System.Application.Services.Implementation
     {
         private static readonly LookupClient lookupClient = new();
 
-        public int AnalysisHostnameTime(string url)
+        public async Task<int> AnalysisHostnameTime(string url, CancellationToken cancellationToken = default)
         {
             if (!string.IsNullOrEmpty(url))
             {
                 var client = lookupClient;
-                var result = client.Query(url, QueryType.A);
+                var result = await client.QueryAsync(url, QueryType.A, QueryClass.IN, cancellationToken);
                 if (result.Answers.Count > 0)
                 {
                     var value = result.Answers.ARecords().FirstOrDefault()?.InitialTimeToLive;
-                    if (value.HasValue) return value.Value;
+                    return value ?? 0;
                 }
             }
             return 0;
@@ -150,7 +150,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddDnsAnalysisService(this IServiceCollection services)
         {
-            services.AddSingleton<IDnsAnalysisService, DnsAnalysisServiceImpl>();
+            services.AddSingleton<IDnsAnalysisService, DnsDohAnalysisService>();
             return services;
         }
     }

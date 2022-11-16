@@ -12,9 +12,16 @@ namespace System.Application.Services
     /// </summary>
     public interface IDnsAnalysisService
     {
+        protected const string TAG = "DnsAnalysisService";
+
         static IDnsAnalysisService Instance => DI.Get<IDnsAnalysisService>();
 
         #region DNS常量
+        const string DNS_Ali_DohAddres = "https://dns.alidns.com";
+        const string Dnspod_DohAddres = "https://1.12.12.12";
+        const string Google_DohAddres = "https://dns.google";
+        const string Cloudflare_DohAddres = "https://cloudflare-dns.com";
+
         protected const string PrimaryDNS_IPV6_Ali = "2400:3200::1";
 
         const string PrimaryDNS_Ali = "223.5.5.5";
@@ -66,7 +73,7 @@ namespace System.Application.Services
             return r.RoundtripTime;
         }
 
-        int AnalysisHostnameTime(string url);
+        Task<int> AnalysisHostnameTime(string url, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 解析域名 IP 地址
