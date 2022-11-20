@@ -207,7 +207,7 @@
     <PackageVersion Include="JustArchiNET.Madness" Version="3.7.0" />
 
     <!-- Serialize -->
-    <PackageVersion Include="MessagePack" Version="2.4.35" />
+    <PackageVersion Include="MessagePack" Version="2.4.59" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
 
     <!-- Html Parser -->
