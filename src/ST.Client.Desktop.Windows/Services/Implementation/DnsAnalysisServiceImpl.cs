@@ -1,5 +1,6 @@
 using DnsClient;
 using DnsClient.Protocol;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Collections.Generic;
@@ -151,6 +152,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddDnsAnalysisService(this IServiceCollection services)
         {
             services.AddSingleton<IDnsAnalysisService, DnsDohAnalysisService>();
+            services.AddSingleton<IDnsAnalysisService, DnsAnalysisServiceImpl>();
             return services;
         }
     }
