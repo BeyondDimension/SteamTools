@@ -126,6 +126,16 @@ namespace System.Application.Services
             }
         }
 
+        /// <summary>
+        /// DOH 解析域名 IP 地址
+        /// </summary>
+        /// <param name="hostNameOrAddress">要解析的主机名或 IP 地址</param>
+        /// <param name="dnsServers">自定义 DNS 服务器，可选的值有 <see cref="DNS_Alis"/>, <see cref="DNS_114s"/>, <see cref="DNS_Cloudflares"/>, <see cref="DNS_Dnspods"/>, <see cref="DNS_Googles"/></param>
+        /// <param name="isIPv6"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        IAsyncEnumerable<IPAddress> DohAnalysisDomainIpAsync(string hostNameOrAddress, string? dnsServers, bool isIPv6, CancellationToken cancellationToken = default);
+
         async Task<string?> GetHostByIPAddress(IPAddress ip)
         {
             var hostEntry = await Dns.GetHostEntryAsync(ip);
