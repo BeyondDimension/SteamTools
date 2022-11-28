@@ -29,7 +29,7 @@ namespace Avalonia.Platform
             return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontStretch, fontFamily, culture, out typeface);
         }
 
-        IGlyphTypefaceImpl IFontManagerImpl.CreateGlyphTypeface(Typeface typeface)
+        IGlyphTypeface IFontManagerImpl.CreateGlyphTypeface(Typeface typeface)
         {
             typeface = OnCreateGlyphTypeface(typeface);
             return Impl.CreateGlyphTypeface(typeface);

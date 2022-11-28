@@ -669,7 +669,7 @@ namespace System.Application.UI
                     SumScreenHeight = mainDisplayInfoH,
 #else
                     ScreenCount = screens.ScreenCount,
-                    PrimaryScreenPixelDensity = screens.Primary.PixelDensity,
+                    PrimaryScreenPixelDensity = screens.Primary.Scaling,
                     PrimaryScreenWidth = screens.Primary.Bounds.Width,
                     PrimaryScreenHeight = screens.Primary.Bounds.Height,
                     SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
