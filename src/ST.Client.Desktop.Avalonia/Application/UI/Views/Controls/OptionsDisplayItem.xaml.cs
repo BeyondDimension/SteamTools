@@ -6,7 +6,6 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using IconElement = FluentAvalonia.UI.Controls.IconElement;
 
 namespace System.Application.UI.Views.Controls
 {

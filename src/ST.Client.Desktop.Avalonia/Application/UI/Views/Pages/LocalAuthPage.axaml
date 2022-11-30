@@ -47,7 +47,7 @@
                                  Command="{Binding EncryptionAuthCommand}"
                                  Label="{ReflectionBinding Path=Res.Encrypt,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource ShieldLockDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource ShieldLockDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -55,7 +55,7 @@
                                  Command="{Binding ExportAuthCommand}"
                                  Label="{ReflectionBinding Path=Res.Export,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource ExportDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource ExportDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -66,7 +66,7 @@
                        Focusable="False"
                        Label="{ReflectionBinding Path=Res.Lock,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource LockDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource LockDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -74,7 +74,7 @@
                         Command="{Binding RefreshAuthCommand}"
                         Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource RefreshDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 

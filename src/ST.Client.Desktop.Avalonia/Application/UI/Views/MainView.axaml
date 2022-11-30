@@ -64,12 +64,12 @@
         <Style Selector="SplitView:open StackPanel.Name">
           <Setter Property="IsVisible" Value="True"/>
         </Style>
-        <Style Selector="SplitView ui|Button.UserPanel">
+        <Style Selector="SplitView Button.UserPanel">
           <Setter Property="Margin" Value="5"/>
           <Setter Property="Padding" Value="6 5 0 5"/>
           <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
-        <Style Selector="SplitView:open ui|Button.UserPanel">
+        <Style Selector="SplitView:open Button.UserPanel">
           <Setter Property="Margin" Value="6"/>
           <Setter Property="Padding" Value="10 5"/>
         </Style>
@@ -143,7 +143,7 @@
       </ui:NavigationView.Content>
 
       <ui:NavigationView.PaneCustomContent>
-        <ui:Button Classes="UserPanel"
+        <Button Classes="UserPanel"
                    BorderThickness="0"
                    Background="Transparent"
                    HorizontalContentAlignment="Stretch"
@@ -194,7 +194,7 @@
             </StackPanel>
 
           </DockPanel>
-          <ui:Button.Flyout>
+          <Button.Flyout>
             <Flyout Placement="RightEdgeAlignedTop" FlyoutPresenterClasses="NoPadding">
               <pages:UserItem/>
             </Flyout>
@@ -220,8 +220,8 @@
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.SignOut,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}"/>
             </ui:MenuFlyout>-->
-          </ui:Button.Flyout>
-        </ui:Button>
+          </Button.Flyout>
+        </Button>
 
       </ui:NavigationView.PaneCustomContent>
 
@@ -239,7 +239,7 @@
               <!--</DockPanel>-->
             </ui:NavigationViewItem.Content>
             <ui:NavigationViewItem.Icon>
-              <!--<ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>-->
+              <!--<ui:FAPathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>-->
               <ui:BitmapIcon UriSource="{Binding IconSource}"
                              HorizontalAlignment="Center"
                              Width="26" Height="26"/>

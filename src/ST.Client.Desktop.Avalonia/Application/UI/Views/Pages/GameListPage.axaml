@@ -100,12 +100,12 @@
           <ui:CommandBar.PrimaryCommands>
 
             <ui:CommandBarElementContainer>
-              <ui:DropDownButton
+              <DropDownButton
                             HorizontalContentAlignment="Stretch"
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Center"
                             Width="200" Height="35">
-                <ui:DropDownButton.Content>
+                <DropDownButton.Content>
                   <!--<DockPanel>-->
                   <TextBlock VerticalAlignment="Center"
                              Classes="h8"
@@ -118,13 +118,13 @@
                               Data="{StaticResource ChevronDownDrawing}"
                               Width="12"></PathIcon>
                   </DockPanel>-->
-                </ui:DropDownButton.Content>
-                <ui:DropDownButton.Styles>
+                </DropDownButton.Content>
+                <DropDownButton.Styles>
                   <Style Selector="FlyoutPresenter">
                     <Setter Property="Padding" Value="0" />
                   </Style>
-                </ui:DropDownButton.Styles>
-                <ui:DropDownButton.Flyout>
+                </DropDownButton.Styles>
+                <DropDownButton.Flyout>
                   <Flyout Placement="Bottom" FlyoutPresenterClasses="NoPadding">
                     <Border Width="{Binding $parent.Width}" Height="200">
                       <ScrollViewer Padding="10 5">
@@ -157,15 +157,15 @@
                       </ScrollViewer>
                     </Border>
                   </Flyout>
-                </ui:DropDownButton.Flyout>
-              </ui:DropDownButton>
+                </DropDownButton.Flyout>
+              </DropDownButton>
             </ui:CommandBarElementContainer>
 
             <!--<ui:CommandBarButton
                      ToolTip.Tip="添加未拥有的游戏"
                      Label="添加未拥有的游戏">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource AddDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource AddDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>-->
 
@@ -173,7 +173,7 @@
                                  ToolTip.Tip="{ReflectionBinding $self.Label}"
                                  Label="{ReflectionBinding Path=Res.GameList_RefreshGamesList,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource RefreshDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -181,7 +181,7 @@
                                  ToolTip.Tip="{ReflectionBinding $self.Label}"
                                  Label="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarToggleButton.Icon>
-                <ui:PathIcon Data="{StaticResource PlayCircleDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource PlayCircleDrawing}"/>
               </ui:CommandBarToggleButton.Icon>
             </ui:CommandBarToggleButton>
 
@@ -199,7 +199,7 @@
                      ToolTip.Tip="仅显示来源于家庭共享的游戏"
                      Label="仅显示来源于家庭共享的游戏">
             <ui:CommandBarToggleButton.Icon>
-              <ui:PathIcon Data="{StaticResource ChannelShareDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource ChannelShareDrawing}"/>
             </ui:CommandBarToggleButton.Icon>
           </ui:CommandBarToggleButton>-->
 
@@ -240,7 +240,7 @@
                 </Flyout>
               </ui:CommandBarButton.Flyout>
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource GridDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource GridDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -251,7 +251,7 @@
                        ToolTip.Tip="{ReflectionBinding $self.Label}"
                        Label="{ReflectionBinding Path=Res.GameList_EditedAppsSaveManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource DocumentEditDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -260,7 +260,7 @@
                        ToolTip.Tip="{ReflectionBinding $self.Label}"
                        Label="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource TopSpeedDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource TopSpeedDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -269,7 +269,7 @@
                        ToolTip.Tip="{ReflectionBinding $self.Label}"
                        Label="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource ClockArrowDownloadDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource ClockArrowDownloadDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -287,7 +287,7 @@
                        ToolTip.Tip="{ReflectionBinding $self.Label}"
                        Label="{ReflectionBinding Path=Res.GameList_HideGameManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource EyeHideDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource EyeHideDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -297,7 +297,7 @@
                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        Label="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource TopSpeedDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource TopSpeedDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>-->
 

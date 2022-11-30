@@ -1,8 +1,6 @@
-using Avalonia.Controls.Primitives;
-using Avalonia.Platform;
 using ReactiveUI;
 using System;
-using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Windowing;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
@@ -14,7 +12,7 @@ namespace Avalonia.Controls
     /// and vice versa.
     /// </summary>
     /// <typeparam name="TViewModel">ViewModel type.</typeparam>
-    public class ReactiveCoreWindow<TViewModel> : CoreWindow, IViewFor<TViewModel> where TViewModel : class
+    public class ReactiveCoreWindow<TViewModel> : AppWindow, IViewFor<TViewModel> where TViewModel : class
     {
         public static readonly StyledProperty<TViewModel?> ViewModelProperty = AvaloniaProperty
             .Register<ReactiveCoreWindow<TViewModel>, TViewModel?>(nameof(ViewModel));

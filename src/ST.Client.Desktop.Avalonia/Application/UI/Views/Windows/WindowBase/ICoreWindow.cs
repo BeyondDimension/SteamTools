@@ -4,14 +4,8 @@ using Avalonia.Platform;
 using Avalonia.Rendering;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
-using System;
-using System.Application.UI.Views.Controls;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using APoint = Avalonia.Point;
-using FluentAvalonia.UI.Controls.Primitives;
+using FluentAvalonia.UI.Windowing;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls

@@ -75,7 +75,7 @@
                 Command="{Binding ScriptStoreCommand}"
                 Label="{ReflectionBinding Path=Res.ScriptStore,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource JavaScriptDrawing}" />
+                <ui:FAPathIcon Data="{StaticResource JavaScriptDrawing}" />
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
             <!--<ui:CommandBarSeparator />-->
@@ -84,13 +84,13 @@
             <!--<ui:CommandBarButton Command="{Binding ScriptStoreCommand}" 
                                  Label="{ReflectionBinding Path=Res.ScriptStore, Mode=OneWay, Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource JavaScriptDrawing}" />
+                <ui:FAPathIcon Data="{StaticResource JavaScriptDrawing}" />
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
             <ui:CommandBarButton Command="{Binding AllEnableScriptCommand}"
                                  Label="{ReflectionBinding Path=Res.Script_AllEnable, Mode=OneWay, Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource JavaScriptDrawing}" />
+                <ui:FAPathIcon Data="{StaticResource JavaScriptDrawing}" />
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
             <ui:CommandBarSeparator />-->

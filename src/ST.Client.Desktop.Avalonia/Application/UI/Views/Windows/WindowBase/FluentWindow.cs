@@ -1,17 +1,11 @@
-using Avalonia.Controls.Primitives;
 using Avalonia.Platform;
-using Avalonia.ReactiveUI;
 using Avalonia.Styling;
 using FluentAvalonia.Styling;
 using ReactiveUI;
 using System;
-using System.Application.Services;
-using System.Application.Services.Implementation;
 using System.Application.Settings;
 using System.Application.UI.ViewModels;
-using System.Application.UI.Views.Controls;
 using System.ComponentModel;
-using FluentAvalonia.UI.Controls.Primitives;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
@@ -85,14 +79,14 @@ namespace Avalonia.Controls
             {
                 if (TitleBar != null)
                 {
-                    TitleBar.ExtendViewIntoTitleBar = true;
+                    TitleBar.ExtendsContentIntoTitleBar = true;
 
                     //TitleBar.LayoutMetricsChanged += OnApplicationTitleBarLayoutMetricsChanged;
 
-                    if (this.FindControl<Control>("TitleBarHost") is IControl t)
-                    {
-                        SetTitleBar(t);
-                    }
+                    //if (this.FindControl<Control>("TitleBarHost") is IControl t)
+                    //{
+                    //    SetTitleBar(t);
+                    //}
                 }
 
                 if (OperatingSystem2.IsWindows())

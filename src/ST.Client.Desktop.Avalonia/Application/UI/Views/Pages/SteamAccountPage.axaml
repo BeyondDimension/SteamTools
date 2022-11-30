@@ -41,7 +41,7 @@
           <ui:CommandBarSeparator />
           <ui:CommandBarButton Command="{Binding ShareManageCommand}" Label="{ReflectionBinding Path=Res.AccountChange_Title, Mode=OneWay, Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource ChannelShareDrawing}" />
+              <ui:FAPathIcon Data="{StaticResource ChannelShareDrawing}" />
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
 

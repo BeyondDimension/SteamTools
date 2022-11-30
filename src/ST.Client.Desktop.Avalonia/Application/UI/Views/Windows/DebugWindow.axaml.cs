@@ -3,11 +3,11 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using FluentAvalonia.Styling;
 using Avalonia.Input;
-using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Windowing;
 
 namespace System.Application.UI.Views.Windows
 {
-    public partial class DebugWindow : CoreWindow
+    public partial class DebugWindow : AppWindow
     {
         public DebugWindow()
         {

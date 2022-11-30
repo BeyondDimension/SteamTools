@@ -4,7 +4,7 @@
     xmlns:local="using:System.Application.UI.Views.Controls"
     xmlns:ms="using:System.Application.Settings"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:wnd="using:Avalonia.Controls">
+    xmlns:wnd="using:FluentAvalonia.UI.Windowing">
     <Design.PreviewWith />
     <Styles.Resources>
         <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
@@ -25,7 +25,7 @@
                         ContentTemplate="{TemplateBinding ContentTemplate}"
                         DockPanel.Dock="Bottom" />
                 </VisualLayerManager>
-                <ui:CoreSplashScreen Name="SplashHost" IsVisible="False" />
+              <wnd:AppSplashScreen Name="SplashHost" IsVisible="False" />
             </Panel>
         </ControlTemplate>
     </Styles.Resources>

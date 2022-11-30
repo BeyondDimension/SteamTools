@@ -103,7 +103,7 @@
                                  ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Label="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource SettingsDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource SettingsDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -121,7 +121,7 @@
                      Command="{Binding SetupCertificateCommand}"
                      Label="{ReflectionBinding Path=Res.CommunityFix_SetupCertificate,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource CertificateDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource CertificateDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -129,7 +129,7 @@
                      Command="{Binding TrustCerCommand}"
                      Label="{ReflectionBinding Path=Res.CommunityFix_CertificateTrust,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource CertificateDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource CertificateDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -137,14 +137,14 @@
          Command="{Binding DeleteCertificateCommand}"
          Label="{ReflectionBinding Path=Res.CommunityFix_DeleteCertificate,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource CertificateDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource CertificateDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
             <ui:CommandBarButton
          Command="{Binding OpenCertificateDirCommand}"
          Label="{ReflectionBinding Path=Res.CommunityFix_OpenCertificateDir,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource FolderOpenDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource FolderOpenDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
             <ui:CommandBarSeparator/>
@@ -153,7 +153,7 @@
          Command="{Binding EditHostsFileCommand}"
          Label="{ReflectionBinding Path=Res.CommunityFix_EditHostsFile,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource DocumentEditDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -161,7 +161,7 @@
          Command="{Binding ResetHostsFileCommand}"
          Label="{ReflectionBinding Path=Res.CommunityFix_ResetHostsFile,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource DocumentEditDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -169,7 +169,7 @@
          Command="{Binding OpenHostsDirCommand}"
          Label="{ReflectionBinding Path=Res.CommunityFix_OpenHostsDir,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource FolderOpenDrawing}"/>
+                <ui:FAPathIcon Data="{StaticResource FolderOpenDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 

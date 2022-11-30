@@ -35,7 +35,7 @@
                                ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Start,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                Label="{ReflectionBinding Path=Res.ASF_Start,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource PlayCircleDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource PlayCircleDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
           <ui:CommandBarButton
@@ -44,7 +44,7 @@
                                ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Stop,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                Label="{ReflectionBinding Path=Res.ASF_Stop,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource PauseCircleDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource PauseCircleDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
 
@@ -55,7 +55,7 @@
                                ToolTip.Tip="{ReflectionBinding Path=Res.ASF_AddBot,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                Label="{ReflectionBinding Path=Res.ASF_AddBot,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource AddDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource AddDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
 
@@ -64,7 +64,7 @@
                                ToolTip.Tip="{ReflectionBinding Path=Res.ASF_RefreshBot,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                Label="{ReflectionBinding Path=Res.ASF_RefreshBot,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource RefreshDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
 
@@ -73,7 +73,7 @@
                      ToolTip.Tip="{ReflectionBinding Path=Res.ASF_OpenWebUIConsole,Mode=OneWay,Source={x:Static resx:R.Current}}"
                      Label="{ReflectionBinding Path=Res.ASF_OpenWebUIConsole,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource GlobeSearchDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
         </ui:CommandBar.PrimaryCommands>
@@ -84,7 +84,7 @@
                                ToolTip.Tip="{ReflectionBinding $self.Label}"
                                Label="ArchiSteamFarm Wiki">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource GlobeSearchDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
 
@@ -93,7 +93,7 @@
                                ToolTip.Tip="{ReflectionBinding $self.Label}"
                                Label="ArchiSteamFarm Github">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource GlobeSearchDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
           <ui:CommandBarSeparator/>
@@ -103,7 +103,7 @@
                                ToolTip.Tip="{ReflectionBinding $self.Label}"
                                Label="{ReflectionBinding Path=Res.ASF_WebConfigGenerator,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+              <ui:FAPathIcon Data="{StaticResource GlobeSearchDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
         </ui:CommandBar.SecondaryCommands>

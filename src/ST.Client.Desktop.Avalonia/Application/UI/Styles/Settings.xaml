@@ -184,13 +184,6 @@
         <Setter Property="(DockPanel.Dock)" Value="Right" />
     </Style>
 
-    <Style Selector="StackPanel.Settings DockPanel &gt; ui|ComboBox">
-        <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="(DockPanel.Dock)" Value="Right" />
-    </Style>
-
     <Style Selector="StackPanel.Settings DockPanel &gt; NumericUpDown">
         <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
         <Setter Property="VerticalAlignment" Value="Center" />

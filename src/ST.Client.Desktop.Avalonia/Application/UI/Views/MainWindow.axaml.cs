@@ -5,7 +5,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using FluentAvalonia.Core.ApplicationModel;
+using FluentAvalonia.UI.Windowing;
 using System.Application.Services;
 using System.Application.Settings;
 using System.Application.UI.ViewModels;
