@@ -20,7 +20,6 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
             IHttpClientFactory clientFactory)
             : base(loggerFactory.CreateLogger(IDnsAnalysisService.TAG), http_helper, clientFactory)
     {
-        Browser2.Open
     }
 
     public async Task<int> AnalysisHostnameTime(string url, CancellationToken cancellationToken = default)
