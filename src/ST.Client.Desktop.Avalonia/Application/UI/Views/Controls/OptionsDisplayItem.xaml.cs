@@ -6,6 +6,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using FluentAvalonia.UI.Controls;
 
 namespace System.Application.UI.Views.Controls
 {
@@ -17,8 +18,8 @@ namespace System.Application.UI.Views.Controls
         public static readonly StyledProperty<string> DescriptionProperty =
             AvaloniaProperty.Register<OptionsDisplayItem, string>(nameof(Description));
 
-        public static readonly StyledProperty<IconElement> IconProperty =
-            AvaloniaProperty.Register<OptionsDisplayItem, IconElement>(nameof(Icon));
+        public static readonly StyledProperty<FAIconElement> IconProperty =
+            AvaloniaProperty.Register<OptionsDisplayItem, FAIconElement>(nameof(Icon));
 
         public static readonly StyledProperty<bool> NavigatesProperty =
             AvaloniaProperty.Register<OptionsDisplayItem, bool>(nameof(Navigates));
@@ -29,7 +30,7 @@ namespace System.Application.UI.Views.Controls
         public static readonly StyledProperty<bool> ExpandsProperty =
             AvaloniaProperty.Register<OptionsDisplayItem, bool>(nameof(Expands));
 
-        public static readonly StyledProperty<object> ContentProperty =
+        public static readonly StyledProperty<object?> ContentProperty =
             ContentControl.ContentProperty.AddOwner<OptionsDisplayItem>();
 
         public static readonly DirectProperty<OptionsDisplayItem, bool> IsExpandedProperty =
@@ -51,7 +52,7 @@ namespace System.Application.UI.Views.Controls
             set => SetValue(DescriptionProperty, value);
         }
 
-        public IconElement Icon
+        public FAIconElement Icon
         {
             get => GetValue(IconProperty);
             set => SetValue(IconProperty, value);

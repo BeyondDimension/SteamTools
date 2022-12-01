@@ -13,7 +13,7 @@
              x:Class="System.Application.UI.Views.Pages.UserItem">
   <Grid RowDefinitions="Auto,Auto,1,*,1,Auto">
     <Grid.Styles>
-      <Style Selector="ui|Button">
+      <Style Selector="Button">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -112,19 +112,19 @@
     </WrapPanel>
     <Separator Classes="Separator" Grid.Row="2" Margin="0 8"/>
     <ItemsControl Grid.Row="3">
-      <!--<ui:Button Content="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
+      <!--<Button Content="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
                  Command="{ReflectionBinding Path=RefreshUserAvatarAsync,Source={x:Static service:UserService.Current}}"/>-->
-      <!--<ui:Button Content="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
+      <!--<Button Content="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                  Command="{ReflectionBinding Path=NavigateUserCenterPage,Source={x:Static service:UserService.Current}}"/>-->
-      <ui:Button Content="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
+      <Button Content="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                  HorizontalContentAlignment="Stretch"
                  IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                  CommandParameter="UserProfile"/>
-      <ui:Button Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+      <Button Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                  HorizontalContentAlignment="Stretch"
                  CommandParameter="Notice">
-        <ui:Button.Content>
+        <Button.Content>
           <DockPanel>
             <ui:InfoBadge Value="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=UnreadNotificationsCount,Mode=OneWay}"
                           IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=UnreadNotificationsCount,Converter={StaticResource IsNullConverter},ConverterParameter=invert,Mode=OneWay}"
@@ -134,14 +134,14 @@
             <TextBlock Text="{ReflectionBinding Path=Res.NotificationChannelType_Name_Announcement,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        HorizontalAlignment="Stretch"/>
           </DockPanel>
-        </ui:Button.Content>
-      </ui:Button>
+        </Button.Content>
+      </Button>
       <Panel IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
-        <ui:Button Content="{ReflectionBinding Path=Res.User_ChangePhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <Button Content="{ReflectionBinding Path=Res.User_ChangePhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
                    IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
                    Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                    CommandParameter="ChangeBindPhoneNumber"/>
-        <ui:Button Content="{ReflectionBinding Path=Res.User_BindPhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <Button Content="{ReflectionBinding Path=Res.User_BindPhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
                    IsVisible="{ReflectionBinding Path=!HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
                    Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                    CommandParameter="BindPhoneNumber"/>
@@ -149,11 +149,11 @@
     </ItemsControl>
     <Separator Classes="Separator" Grid.Row="4" Margin="0 8"/>
     <ItemsControl Grid.Row="5">
-      <ui:Button Content="{ReflectionBinding Path=Res.SignOut,Mode=OneWay,Source={x:Static resx:R.Current}}"
+      <Button Content="{ReflectionBinding Path=Res.SignOut,Mode=OneWay,Source={x:Static resx:R.Current}}"
                  Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                  IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
                  Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}"/>
-      <ui:Button Content="{ReflectionBinding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}"
+      <Button Content="{ReflectionBinding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}"
                  Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                  IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"

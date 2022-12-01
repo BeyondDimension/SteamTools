@@ -368,27 +368,27 @@
                         </DockPanel>
                         <DockPanel>
                           <Label Content="{ReflectionBinding Path=Res.SupportSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                          <ui:ComboBox IsEditable="True"
+                          <AutoCompleteBox
                                        Text="{Binding Platform,Mode=TwoWay}">
-                            <ui:ComboBox.Items>
+                            <AutoCompleteBox.Items>
                               <col:ArrayList>
                                 <sys:String>windows</sys:String>
                                 <sys:String>linux</sys:String>
                                 <sys:String>macos</sys:String>
                               </col:ArrayList>
-                            </ui:ComboBox.Items>
-                          </ui:ComboBox>
+                            </AutoCompleteBox.Items>
+                          </AutoCompleteBox>
                         </DockPanel>
 
                         <Grid ColumnDefinitions="*,*,*">
-                          <ui:Button HorizontalAlignment="Stretch"
+                          <Button HorizontalAlignment="Stretch"
                                      HorizontalContentAlignment="Center"
                                      Margin="5"
                                      Content="{ReflectionBinding Path=Res.MoveUp,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                      Command="{ReflectionBinding #u.DataContext.UpLaunchItem}"
                                      CommandParameter="{Binding}"
                                      Cursor="Hand" />
-                          <ui:Button HorizontalAlignment="Stretch"
+                          <Button HorizontalAlignment="Stretch"
                                      HorizontalContentAlignment="Center"
                                      Grid.Column="1"
                                      Margin="5"
@@ -396,7 +396,7 @@
                                      Command="{ReflectionBinding #u.DataContext.DownLaunchItem}"
                                      CommandParameter="{Binding}"
                                      Cursor="Hand" />
-                          <ui:Button HorizontalAlignment="Stretch"
+                          <Button HorizontalAlignment="Stretch"
                                      HorizontalContentAlignment="Center"
                                      Grid.Column="2"
                                      Margin="5"
@@ -411,14 +411,14 @@
                 </ItemsRepeater.ItemTemplate>
               </ItemsRepeater>
               <Border Classes="Item">
-                <ui:Button HorizontalAlignment="Stretch"
+                <Button HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
                            Command="{ReflectionBinding AddLaunchItem}"
                            Cursor="Hand">
                   <ui:SymbolIcon Symbol="Add"
                                  Margin="0 20"
                                  FontSize="32"/>
-                </ui:Button>
+                </Button>
               </Border>
             </StackPanel>
           </ScrollViewer>

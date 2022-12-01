@@ -106,10 +106,10 @@
                   </DataTemplate>
                 </Button.DataTemplates>
                 <FlyoutBase.AttachedFlyout>
-                  <ui:MenuFlyout Placement="RightEdgeAlignedTop"
+                  <MenuFlyout Placement="RightEdgeAlignedTop"
                               Items="{Binding MenuItems}"
                               ShowMode="TransientWithDismissOnPointerMoveAway">
-                  </ui:MenuFlyout>
+                  </MenuFlyout>
                 </FlyoutBase.AttachedFlyout>
               </Button>
             </DataTemplate>
