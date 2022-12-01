@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <!--<DefineConstants>StartWatchTrace;$(DefineConstants)</DefineConstants>-->
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <SignAssembly>false</SignAssembly>
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
     <RootNamespace>System.Application.UI</RootNamespace>
@@ -52,7 +52,7 @@
     <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
     <!-- 注意：RuntimeIdentifier win-x86 会导致亚克力效果会丢失 -->
@@ -63,13 +63,13 @@
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or $(ExtraDefineConstants.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <DefineConstants>MAC;$(DefineConstants)</DefineConstants>
-    <!--<TargetFramework>net6.0-macos</TargetFramework>-->
+    <!--<TargetFramework>net7.0-macos</TargetFramework>-->
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or $(ExtraDefineConstants.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <DefineConstants>LINUX;$(DefineConstants)</DefineConstants>
-    <!--<TargetFramework>net6.0</TargetFramework>-->
+    <!--<TargetFramework>net7.0</TargetFramework>-->
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 

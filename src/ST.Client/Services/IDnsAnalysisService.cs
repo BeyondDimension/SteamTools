@@ -134,7 +134,10 @@ namespace System.Application.Services
         /// <param name="isIPv6"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        IAsyncEnumerable<IPAddress> DohAnalysisDomainIpAsync(string hostNameOrAddress, string? dnsServers, bool isIPv6, CancellationToken cancellationToken = default);
+        IAsyncEnumerable<IPAddress>? DohAnalysisDomainIpAsync(string hostNameOrAddress, string? dnsServers, bool isIPv6, CancellationToken cancellationToken = default)
+        {
+            return null;
+        }
 
         async Task<string?> GetHostByIPAddress(IPAddress ip)
         {
