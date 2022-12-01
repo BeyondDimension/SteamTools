@@ -66,8 +66,7 @@ namespace System.Application.Services.Implementation
                 url += "&dimensions=600x900";
             }
 
-            var rsp = await s.SendAsync<SteamGridItemData>
-                            (url, () =>
+            var rsp = await s.SendAsync<SteamGridItemData>(url, () =>
                             {
                                 var rq = new HttpRequestMessage(HttpMethod.Get, url);
                                 rq.Headers.Authorization = new Net.Http.Headers.AuthenticationHeaderValue("Bearer", ApiKey);

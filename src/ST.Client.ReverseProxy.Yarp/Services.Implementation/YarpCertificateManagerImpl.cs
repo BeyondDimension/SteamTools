@@ -78,7 +78,7 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
                 "Could not remove certificate as it is null or empty.");
         }
 
-        using var x509Store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+        using var x509Store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
 
         try
         {
@@ -96,7 +96,7 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
         catch (Exception e)
         {
             Log.Error(TAG, new ApplicationException(
-                "Failed to remove root certificate trust for CurrentUser store location. You may need admin rights.", e), nameof(SharedRemoveTrustedRootCertificate));
+                "Failed to remove root certificate trust for LocalMachine store location. You may need admin rights.", e), nameof(SharedRemoveTrustedRootCertificate));
         }
         finally
         {
@@ -112,7 +112,7 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
                 "Could not install certificate as it is null or empty.");
         }
 
-        using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+        using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
         try
         {
             store.Open(OpenFlags.ReadWrite);

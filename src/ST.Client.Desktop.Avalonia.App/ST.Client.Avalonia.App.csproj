@@ -32,12 +32,20 @@
     <DefineConstants>MAC;PUBLISH;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'win-x64' Or '$(ExtraDefineConstants)' == 'dev-win-x64' ">
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'win-x64' Or '$(ExtraDefineConstants)' == 'dev-win-x64' Or '$(ExtraDefineConstants)' == 'win-x86' Or '$(ExtraDefineConstants)' == 'dev-win-x86' ">
     <DefineConstants>PUBLISH;PUBLISH_WIN7;WINDOWS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'fd-win-x64' Or '$(ExtraDefineConstants)' == 'dev-fd-win-x64' ">
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'win-arm64' Or '$(ExtraDefineConstants)' == 'dev-arm64' ">
+    <DefineConstants>PUBLISH;WINDOWS;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'fd-win-x64' Or '$(ExtraDefineConstants)' == 'dev-fd-win-x64' Or '$(ExtraDefineConstants)' == 'fd-win-x86' Or '$(ExtraDefineConstants)' == 'dev-fd-win-x86' ">
     <DefineConstants>FRAMEWORK_DEPENDENT;PUBLISH;PUBLISH_WIN7;WINDOWS;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'fd-win-arm64' Or '$(ExtraDefineConstants)' == 'dev-fd-arm64' ">
+    <DefineConstants>FRAMEWORK_DEPENDENT;PUBLISH;WINDOWS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or $(ExtraDefineConstants.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">

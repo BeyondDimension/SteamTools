@@ -12,13 +12,13 @@ abstract class ReverseProxyServiceImpl
 
     public ReverseProxyServiceImpl(
         IPlatformService platformService,
-        IDnsAnalysisService dnsAnalysis)
+        IDnsAnalysisService dnsAnalyses)
     {
         this.platformService = platformService;
-        DnsAnalysis = dnsAnalysis;
+        DnsAnalysis = dnsAnalyses;
     }
 
-    public IDnsAnalysisService DnsAnalysis { get; }
+    public IDnsAnalysisService? DnsAnalysis { get; }
 
     public abstract ICertificateManager CertificateManager { get; }
 

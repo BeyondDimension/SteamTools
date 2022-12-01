@@ -64,14 +64,15 @@ sealed class HttpReverseProxyMiddleware
             return;
         }
 
-        if (domainConfig == defaultDomainConfig)
+        if (domainConfig == defaultDomainConfig &&
+            !reverseProxyConfig.Service.OnlyEnableProxyScript)
         {
             //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
-            var ip = await IDnsAnalysisService.Instance.AnalysisDomainIpAsync(url, IDnsAnalysisService.DNS_Alis).FirstOrDefaultAsync();
+            var ip = await reverseProxyConfig.DnsAnalysis.AnalysisDomainIpAsync(context.Request.Host.Value, IDnsAnalysisService.DNS_Dnspods).FirstOrDefaultAsync();
             if (ip == null || IPAddress.IsLoopback(ip))
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await context.Response.WriteAsync($"域名 {context.Request.Host.Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
+                await context.Response.WriteAsync($"域名 {context.Request.Host.Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。", Encoding.UTF8);
                 return;
             }
         }
@@ -190,11 +191,7 @@ sealed class HttpReverseProxyMiddleware
     /// <returns></returns>
     static async Task HandleErrorAsync(HttpContext context, ForwarderError error)
     {
-        await context.Response.WriteAsJsonAsync(new
-        {
-            error = error.ToString(),
-            message = context.GetForwarderErrorFeature()?.Exception?.Message,
-        });
+        await context.Response.WriteAsync($"{error}:{context.GetForwarderErrorFeature()?.Exception?.Message}");
     }
 
     /// <summary>
