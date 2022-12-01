@@ -197,7 +197,7 @@
 
     <!-- ORM -->
     <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
-    <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.1.0" />
+    <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.1.3" />
 
     <!-- MonoMac(NETSTANDARD) -->
     <PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
