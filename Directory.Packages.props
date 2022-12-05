@@ -114,7 +114,7 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageVersion Include="nunit.xamarin" Version="3.6.1" />
     <PackageVersion Include="PCLStorage" Version="1.0.2" />
-    <PackageVersion Include="Moq" Version="4.18.2" />
+    <PackageVersion Include="Moq" Version="4.18.3" />
 
     <!-- NLog -->
     <PackageVersion Include="NLog" Version="5.0.4" />
