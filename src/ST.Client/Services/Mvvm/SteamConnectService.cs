@@ -447,7 +447,7 @@ namespace System.Application.Services
                                          IsDisposedClient = false;
                                          SteamApps.Clear();
                                          var apps = await ISteamService.Instance.GetAppInfos();
-                                         if (apps.Any())
+                                         if (apps != null)
                                          {
                                              var temps = swLocalService.OwnsApps(apps);
                                              LoadGames(temps);
