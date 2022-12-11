@@ -204,7 +204,7 @@
 
     <!-- .NET Compat -->
     <PackageVersion Include="OperatingSystem2" Version="2.0.0" />
-    <PackageVersion Include="JustArchiNET.Madness" Version="3.7.0" />
+    <PackageVersion Include="JustArchiNET.Madness" Version="3.8.0" />
 
     <!-- Serialize -->
     <PackageVersion Include="MessagePack" Version="2.4.35" />
