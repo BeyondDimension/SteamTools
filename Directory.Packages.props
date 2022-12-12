@@ -103,7 +103,7 @@
     <PackageVersion Include="System.Management" Version="6.0.0" />
 
     <!-- Xamarin -->
-    <PackageVersion Include="Xamarin.Essentials" Version="1.7.3" />
+    <PackageVersion Include="Xamarin.Essentials" Version="1.7.4" />
     <!-- Xamarin.Forms -->
     <PackageVersion Include="Xamarin.Forms" Version="5.0.0.2478" />
     <PackageVersion Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2478" />
