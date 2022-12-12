@@ -74,11 +74,11 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Microsoft.* -->
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
     <!--<PackageVersion Include="Microsoft.Windows.CsWinRT" Version="1.4.1" />-->
     <!--<PackageVersion Include="Microsoft.Windows.SDK.NET.Ref" Version="10.0.19041.22" />-->
     <!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
-    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
+    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <PackageVersion Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Net.Http.Headers" Version="2.2.255.255" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
@@ -88,9 +88,9 @@
     <PackageVersion Include="System.Net.Http.WinHttpHandler" Version="6.0.1" />
 
     <!-- AppCenter.* -->
-    <PackageVersion Include="Microsoft.AppCenter" Version="4.5.3" />
-    <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.5.3" />
-    <PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.5.3" />
+    <PackageVersion Include="Microsoft.AppCenter" Version="5.0.1" />
+    <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="5.0.1" />
+    <PackageVersion Include="Microsoft.AppCenter.Crashes" Version="5.0.1" />
     <PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.5.3" />
     <PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.5.3" />
     <PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.5.3" />
@@ -111,26 +111,26 @@
 
     <!-- NUnit & NUnit.Xamarin & Moq -->
     <PackageVersion Include="NUnit" Version="3.13.3" />
-    <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="4.3.1" />
     <PackageVersion Include="nunit.xamarin" Version="3.6.1" />
     <PackageVersion Include="PCLStorage" Version="1.0.2" />
-    <PackageVersion Include="Moq" Version="4.18.2" />
+    <PackageVersion Include="Moq" Version="4.18.3" />
 
     <!-- NLog -->
-    <PackageVersion Include="NLog" Version="5.0.4" />
-    <PackageVersion Include="NLog.Extensions.Logging" Version="5.0.4" />
-    <PackageVersion Include="NLog.Web.AspNetCore" Version="5.1.4" />
+    <PackageVersion Include="NLog" Version="5.1.0" />
+    <PackageVersion Include="NLog.Extensions.Logging" Version="5.2.0" />
+    <PackageVersion Include="NLog.Web.AspNetCore" Version="5.2.0" />
     <PackageVersion Include="AspNetCore2.NETStandard.NLog.Web.AspNetCore" Version="5.0.0" />
 
     <!-- ReactiveUI -->
     <PackageVersion Include="System.Reactive" Version="5.0.0" />
-    <PackageVersion Include="Splat" Version="14.4.1" />
-    <PackageVersion Include="DynamicData" Version="7.12.1" />
-    <PackageVersion Include="ReactiveUI" Version="18.3.1" />
-    <PackageVersion Include="ReactiveUI.Fody" Version="18.3.1" />
-    <PackageVersion Include="ReactiveUI.XamForms" Version="18.3.1" />
-    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.3.1" />
-    <PackageVersion Include="ReactiveUI.Maui" Version="18.3.1" />
+    <PackageVersion Include="Splat" Version="14.6.1" />
+    <PackageVersion Include="DynamicData" Version="7.12.11" />
+    <PackageVersion Include="ReactiveUI" Version="18.4.1" />
+    <PackageVersion Include="ReactiveUI.Fody" Version="18.4.1" />
+    <PackageVersion Include="ReactiveUI.XamForms" Version="18.4.1" />
+    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.4.1" />
+    <PackageVersion Include="ReactiveUI.Maui" Version="18.4.1" />
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
     <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.3" />
@@ -143,7 +143,7 @@
     <PackageVersion Include="AutoMapper" Version="12.0.0" />
     <PackageVersion Include="AutoMapper.Collection" Version="9.0.0" />
     <PackageVersion Include="AutoMapper.Collection.EntityFrameworkCore" Version="8.0.0" />
-    <PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="6.0.0" />
+    <PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="6.0.2" />
     <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 
     <!-- QRCode -->
@@ -158,7 +158,7 @@
     <!--<PackageVersion Include="GtkSharp" Version="3.24.24.38" />-->
 
     <!-- Compression -->
-    <PackageVersion Include="SharpZipLib" Version="1.4.0" />
+    <PackageVersion Include="SharpZipLib" Version="1.4.1" />
     <PackageVersion Include="Squid-Box.SevenZipSharp.Lite" Version="1.5.0.366" />
     <PackageVersion Include="7-Zip.NativeAssets.Win32" Version="21.7.0-preview.1" />
     <PackageVersion Include="ZstdNet" Version="1.4.5" />
@@ -190,31 +190,31 @@
     <!--<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.109" />-->
 
     <!-- Excel -->
-    <PackageVersion Include="NPOI" Version="2.5.6" />
+    <PackageVersion Include="NPOI" Version="2.6.0" />
 
     <!-- Github API -->
-    <PackageVersion Include="Octokit" Version="2.0.1" />
+    <PackageVersion Include="Octokit" Version="4.0.3" />
 
     <!-- ORM -->
     <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
-    <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.1.0" />
+    <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.1.3" />
 
     <!-- MonoMac(NETSTANDARD) -->
     <PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
 
     <!-- .NET Compat -->
     <PackageVersion Include="OperatingSystem2" Version="2.0.0" />
-    <PackageVersion Include="JustArchiNET.Madness" Version="3.7.0" />
+    <PackageVersion Include="JustArchiNET.Madness" Version="3.8.0" />
 
     <!-- Serialize -->
-    <PackageVersion Include="MessagePack" Version="2.4.35" />
-    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageVersion Include="MessagePack" Version="2.4.59" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
 
     <!-- Html Parser -->
     <PackageVersion Include="HtmlAgilityPack" Version="1.11.46" />
 
     <!-- Clipboard -->
-    <PackageVersion Include="TextCopy" Version="6.1.0" />
+    <PackageVersion Include="TextCopy" Version="6.2.0" />
 
     <!-- Nito.* -->
     <PackageVersion Include="Nito.Comparers" Version="6.2.2" />
@@ -253,7 +253,7 @@
     <!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
     <!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
     <!--<PackageVersion Include="FluentAvaloniaUI" Version="1.4.4" />-->
-    <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.514" />
+    <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.603" />
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
     <PackageVersion Include="Avalonia.Native" Version="0.10.18" />
     <PackageVersion Include="Avalonia.Win32" Version="0.10.18" />
@@ -263,7 +263,7 @@
     <!--Avalonia End-->
 
     <!-- Xamarin.Android -->
-    <PackageVersion Include="Xamarin.Build.Download" Version="0.11.3" />
+    <PackageVersion Include="Xamarin.Build.Download" Version="0.11.4" />
     <PackageVersion Include="Xamarin.Google.Dagger" Version="2.40.5" />
     <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.5" />
     <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
@@ -308,8 +308,8 @@
     <PackageVersion Include="Toast.iOS" Version="1.2.0" />
 
     <!-- UWP -->
-    <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
-    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.1.4" />
+    <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.2.221116.1" />
 
     <!-- Code Style -->
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />

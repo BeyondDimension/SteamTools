@@ -3,28 +3,27 @@
 2. 因经济状况原因，现已停止短信服务节约开销，后续会推出邮箱注册登录，对于仅使用手机号登录的用户请绑定第三方快速登录，否则注销后将无法再次登录，需要等待至邮箱服务推出后支持会暂时在开放短信服务提供换绑邮箱。
 3. 自动更新目前仅 Windows 端可用，且由于下载渠道限速可能导致无法更新成功，推荐在官网链接的网盘或群文件中下载压缩包解压覆盖更新(应用商店版由商店更新不受此影响)
 4. 在 Android 上因系统限制，目前的加速功能无法正常使用，所以此功能已放弃继续开发，如仍想使用需要自行导入证书到系统目录，使用 adb 工具或 Magisk 之类的软件操作，未来会使用不需要证书的加速功能替换此功能
-5. fde 版本需要安装 [ASP.NET Core 运行时 6.0.8 (x64) 与 .NET Core 运行时 6.0.8 (x64)](https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0)
+5. fde 版本需要安装 [ASP.NET Core 运行时 6.0.11 (x64) 与 .NET Core 运行时 6.0.11 (x64)](https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0)
 6. Windows x86 与 x64 版本令牌本机加密互不兼容，使用两者版本时注意令牌加密后的文件不能共用。
 7. 由于新版本加速功能重构，调整了部分加速项目，这会影响旧版本程序使用加速功能
 8. 为了能继续维持开发，从此版本开始将会添加程序内广告，赞助用户可以在设置中关闭所有广告
 
 ### 版本亮点
-1. .NET 运行时升级至 6.0.8，使用 fde 版本需要升级运行时
-2. ASF 升级至 V5.2.8.4
+1. .NET 运行时升级至 6.0.11，使用 fde 版本需要升级运行时
+2. ASF 升级至 V5.3.2.4
 
 ### 修复问题
-1. 修复 2.8.0 ~ 2.8.2 中 AppData/Config.mpo 文件大小为 0 时导致的程序无法正常启动
-2. 修复 Windows 上版本更新在 2.8.0 ~ 2.8.2 中非 FDE 版本识别为 FDE 版
-3. 改进 调整代理模式顺序，Hosts 模式置顶
-4. 修复 划词翻译等一些 JS 脚本
-5. 改进 macOS 上的证书安装
-6. 尝试修复 网络加速中能导致内存泄露的问题
-7. 改进 非简中默认隐藏加速与脚本仅在 Windows 上生效
-8. 改进 减少 Android 上的启动时间
-9. 修复 退出程序时可能引发的闪退
-10. 修复 macOS/Linux 上设置页面打不开的问题
-11. 修复 网络加速中网页上出现 Because https://... actually points to WattToolkit itself...
-12. 尝试修复 ASF 控制台中输入时卡死
+1. 改进 Mac 安装证书的提示，显示执行命令
+2. 修复 Steam 启动参数在一些场景下无效
+3. 修复 网络加速 关闭 http 重定向到 https 依然监听80端口错误
+4. 修复 网络加速 仅启用脚本功能 导致代理网站无法访问的错误
+5. 修复 网络加速 开启系统代理和 PAC 代理后，非代理网站无法正常访问的错误
+6. 修改 证书安装路径 为本地计算机 而不在是 当前用户 以支持跨用户访问，这项改动可能导致大家需要重新安装一次证书
+7. 修复 库存游戏 因 Steam 客户端更新导致的加载游戏数据失败问题
+8. 修复 捐助列表金额显示错位问题
+9. 修复 Twitch 聊天连接失败问题
+10. 修复 discord.gg 无法访问导致无法加入频道分享链接问题
+
 
 <!--
 
@@ -61,7 +60,7 @@
 
 
 [![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.8.3](https://img.shields.io/badge/Steam++-v2.8.3-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.8.5](https://img.shields.io/badge/Steam++-v2.8.5-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -70,28 +69,28 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.8.3.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.8.3.7z  | SHA256 |
+| Steam++_win_x64_v2.8.5.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.8.5.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.8.3.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.8.3.exe  | SHA256 |
+| Steam++_win_x64_v2.8.5.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.8.5.exe  | SHA256 |
 | | |
-| Steam++_win_x86_v2.8.3.7z  | SHA256 |
-| Steam++_win_x86_fde_v2.8.3.7z  | SHA256 |
+| Steam++_win_x86_v2.8.5.7z  | SHA256 |
+| Steam++_win_x86_fde_v2.8.5.7z  | SHA256 |
 | | |
-| Steam++_win_x86_v2.8.3.exe  | SHA256 |
-| Steam++_win_x86_fde_v2.8.3.exe  | SHA256 |
+| Steam++_win_x86_v2.8.5.exe  | SHA256 |
+| Steam++_win_x86_fde_v2.8.5.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.3.7z  | SHA256 |
-| Steam++_linux_arm64_v2.8.3.7z  | SHA256 |
+| Steam++_linux_x64_v2.8.5.7z  | SHA256 |
+| Steam++_linux_arm64_v2.8.5.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.3.deb  | SHA256 |
-| Steam++_linux_arm64_v2.8.3.deb  | SHA256 |
+| Steam++_linux_x64_v2.8.5.deb  | SHA256 |
+| Steam++_linux_arm64_v2.8.5.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.8.3.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.8.3.rpm  | SHA256 |
+| Steam++_linux_x64_v2.8.5.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.8.5.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.8.3.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.8.3.dmg  | SHA256 |
+| Steam++_macos_x64_v2.8.5.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.8.5.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.8.3.apk  | SHA256 |
+| Steam++_android_v2.8.5.apk  | SHA256 |
