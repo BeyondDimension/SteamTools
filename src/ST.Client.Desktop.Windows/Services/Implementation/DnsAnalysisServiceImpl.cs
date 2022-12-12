@@ -151,7 +151,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddDnsAnalysisService(this IServiceCollection services)
         {
-            services.AddSingleton<IDnsAnalysisService, DnsDohAnalysisService>();
+            //services.AddSingleton<IDnsAnalysisService, DnsDohAnalysisService>();
             services.AddSingleton<IDnsAnalysisService, DnsAnalysisServiceImpl>();
             return services;
         }
