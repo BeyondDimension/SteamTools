@@ -14,6 +14,7 @@ public sealed class SteamSettings : SettingsHost2<SteamSettings>
         if (!IApplication.IsDesktopPlatform) return;
         IsRunSteamMinimized.ValueChanged += IsRunSteamMinimized_ValueChanged;
         IsRunSteamNoCheckUpdate.ValueChanged += IsRunSteamNoCheckUpdate_ValueChanged;
+        IsRunSteamChina.ValueChanged += IsRunSteamChina_ValueChanged;
     }
 
     static void IsRunSteamNoCheckUpdate_ValueChanged(object? sender, ValueChangedEventArgs<bool> e)
@@ -30,6 +31,14 @@ public sealed class SteamSettings : SettingsHost2<SteamSettings>
             SteamStratParameter.Value += " -silent";
         else if (SteamStratParameter.Value != null)
             SteamStratParameter.Value = SteamStratParameter.Value.Replace("-silent", "").Trim();
+    }
+
+    static void IsRunSteamChina_ValueChanged(object? sender, ValueChangedEventArgs<bool> e)
+    {
+        if (e.NewValue)
+            SteamStratParameter.Value += " -steamchina";
+        else if (SteamStratParameter.Value != null)
+            SteamStratParameter.Value = SteamStratParameter.Value.Replace("-steamchina", "").Trim();
     }
 
     static readonly SerializableProperty<string?>? _SteamStratParameter = IApplication.IsDesktopPlatform ?
@@ -81,6 +90,16 @@ public sealed class SteamSettings : SettingsHost2<SteamSettings>
     [SupportedOSPlatform("macOS")]
     [SupportedOSPlatform("Linux")]
     public static SerializableProperty<bool> IsRunSteamNoCheckUpdate => _IsRunSteamNoCheckUpdate ?? throw new PlatformNotSupportedException();
+
+    static readonly SerializableProperty<bool>? _IsRunSteamChina = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false) : null;
+
+    /// <summary>
+    /// Steam 启动时模拟为蒸汽平台（Steam国服）启动
+    /// </summary>
+    [SupportedOSPlatform("Windows7.0")]
+    [SupportedOSPlatform("macOS")]
+    [SupportedOSPlatform("Linux")]
+    public static SerializableProperty<bool> IsRunSteamChina => _IsRunSteamChina ?? throw new PlatformNotSupportedException();
 
     static readonly SerializableProperty<bool>? _IsEnableSteamLaunchNotification = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true) : null;
 

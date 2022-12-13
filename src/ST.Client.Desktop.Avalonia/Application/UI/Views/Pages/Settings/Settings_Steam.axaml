@@ -41,6 +41,13 @@
 
       <Border Classes="Item">
         <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_RunSteamChina,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamNoCheckUpdate},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_CheckSteamRuningNotification,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsEnableSteamLaunchNotification},Path=Value, Mode=TwoWay}"/>
         </DockPanel>
