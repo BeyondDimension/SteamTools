@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <!-- BCL(NETSTANDARD) -->
-    <PackageVersion Include="System.Text.Json" Version="6.0.2" />
+    <PackageVersion Include="System.Text.Json" Version="7.0.1" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="6.0.0" />
     <PackageVersion Include="System.Drawing.Common" Version="6.0.0" />
     <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
