@@ -1,14 +1,22 @@
 using System.Application;
 using System.Application.Models;
 
-return _(args, "客户端发布命令行工具(Command Line Tools/CLT)", init: () =>
+try
 {
-    if (args.FirstOrDefault() == "apphostpatcher")
+    return _(args, "客户端发布命令行工具(Command Line Tools/CLT)", init: () =>
     {
-        var args_ = args.Skip(1).ToArray();
-        return AppHostPatcher.Program.M(args_);
-    }
+        if (args.FirstOrDefault() == "apphostpatcher")
+        {
+            var args_ = args.Skip(1).ToArray();
+            return AppHostPatcher.Program.M(args_);
+        }
 
-    FileSystem2.InitFileSystem();
-    return null;
-}, action: ToolConfig.AddInitCommand);
+        FileSystem2.InitFileSystem();
+        return null;
+    }, action: ToolConfig.AddInitCommand);
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex);
+    return 500;
+}
