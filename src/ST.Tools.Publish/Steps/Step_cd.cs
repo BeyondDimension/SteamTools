@@ -124,7 +124,7 @@ namespace System.Application.Steps
             if (rsp.StatusCode == HttpStatusCode.InternalServerError)
             {
                 var html = await rsp.Content.ReadAsStringAsync();
-                throw new HttpRequestException(html);
+                Console.WriteLine(html);
             }
             rsp.EnsureSuccessStatusCode();
             var apiResponse = await GetResponseAsync<AppIdWithPublicKey>(rsp);
