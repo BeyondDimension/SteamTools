@@ -50,6 +50,8 @@ namespace System.Application.Services
         /// <returns></returns>
         int GetSteamProcessPid();
 
+        bool IsSteamChinaLauncher();
+
         /// <summary>
         /// 启动 Steam
         /// </summary>

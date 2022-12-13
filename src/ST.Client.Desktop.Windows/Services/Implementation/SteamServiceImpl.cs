@@ -8,10 +8,12 @@ using System.Application.Settings;
 using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Versioning;
@@ -142,6 +144,43 @@ namespace System.Application.Services.Implementation
         /// </summary>
         /// <returns></returns>
         private Process? GetSteamProces() => GetSteamProcesses().FirstOrDefault();
+
+        public bool IsSteamChinaLauncher()
+        {
+            if (OperatingSystem2.IsWindows())
+            {
+                var process = GetSteamProces();
+
+                if (process != null)
+                {
+                    try
+                    {
+                        return GetCommandLineArgsCore().Contains("-steamchina", StringComparison.OrdinalIgnoreCase);
+                    }
+                    catch (Win32Exception ex) when ((uint)ex.ErrorCode == 0x80004005)
+                    {
+                        // 没有对该进程的安全访问权限。
+                        return false;
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        // 进程已退出。
+                        return false;
+                    }
+                }
+                string GetCommandLineArgsCore()
+                {
+                    using (var searcher = new ManagementObjectSearcher(
+                        "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id))
+                    using (var objects = searcher.Get())
+                    {
+                        var @object = objects.Cast<ManagementBaseObject>().SingleOrDefault();
+                        return @object?["CommandLine"]?.ToString() ?? "";
+                    }
+                }
+            }
+            return false;
+        }
 
         public void StartSteam(string? arguments = null)
         {

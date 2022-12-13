@@ -274,10 +274,9 @@ namespace System.Application.Services
                                     CurrentSteamUser = await swWebService.GetUserInfo(id);
                                     CurrentSteamUser.AvatarStream = httpService.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
                                     //AvatarPath = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
-
                                     CurrentSteamUser.IPCountry = swLocalService.GetIPCountry();
 
-                                    IsSteamChinaLauncher = swLocalService.IsSteamChinaLauncher();
+                                    IsSteamChinaLauncher = stmService.IsSteamChinaLauncher();
                                     var steamServerTime = ((long)swLocalService.GetServerRealTime()).ToDateTimeOffsetS();
                                     //var steamRunTime = swLocalService.GetSecondsSinceAppActive();
 
