@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <!--<TargetFrameworks>MonoAndroid12.0;Xamarin.iOS10;net6.0-android;net6.0-windows</TargetFrameworks>-->
-    <!--<TargetFrameworks>MonoAndroid12.0;Xamarin.iOS10;net6.0-windows</TargetFrameworks>-->
-    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid12.0;Xamarin.iOS10;net6.0-windows</TargetFrameworks>
+    <!--<TargetFrameworks>net6.0-windows</TargetFrameworks>-->
     <RootNamespace>System.Application.AppCenter</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.AppCenter</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>

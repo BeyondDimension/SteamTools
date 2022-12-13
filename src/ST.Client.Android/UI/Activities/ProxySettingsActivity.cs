@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Binding;
+using System.Application.Settings;
 using System.Application.UI.Fragments;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -193,5 +194,11 @@ namespace System.Application.UI.Activities
         void SetProxySettingsTwoLevelAgent() => binding!.swProxySettingsTwoLevelAgent.Checked = TwoLevelAgentEnable.Value;
 
         void SetIsVpnMode() => binding!.swIsVpnMode.Checked = ProxyModeValue == ProxyMode.VPN;
+
+        protected override void OnDestroy()
+        {
+            SettingsHost.Save();
+            base.OnDestroy();
+        }
     }
 }
