@@ -109,7 +109,7 @@ namespace System.Application.Steps
 #endif
         }
 
-        static async Task VerHandlerAsync(string token, bool use_last_skey, bool dev)
+        public static async Task VerHandlerAsync(string token, bool use_last_skey, bool dev)
         {
             var desc = ReadVersionDesc();
             var request = new CreateVersionRequest
@@ -505,7 +505,7 @@ namespace System.Application.Steps
             //content.Headers.ContentType = new(MediaTypeNames.MessagePack);
             //return content;
 
-            var json = Serializable.SJSON_Original(request);
+            var json = Serializable.SJSON(request);
             var content = new StringContent(json, Encoding.UTF8, MediaTypeNames.JSON);
             return content;
         }
@@ -516,7 +516,7 @@ namespace System.Application.Steps
             //return await ApiResponse.DeserializeAsync<T>(stream, default);
 
             var json = await responseMessage.Content.ReadAsStringAsync();
-            return Serializable.DJSON_Original<ApiRsp<T>>(json)!;
+            return Serializable.DJSON<ApiRsp<T>>(json)!;
         }
 
         static async Task<IApiResponse> GetResponseAsync(HttpResponseMessage responseMessage)
@@ -525,7 +525,7 @@ namespace System.Application.Steps
             //return await ApiResponse.DeserializeAsync<object>(stream, default);
 
             var json = await responseMessage.Content.ReadAsStringAsync();
-            return Serializable.DJSON_Original<ApiRsp>(json)!;
+            return Serializable.DJSON<ApiRsp>(json)!;
         }
 
         const string dev_api_base_url = "https://pan.mossimo.net:9911";
