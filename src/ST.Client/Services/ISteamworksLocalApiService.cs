@@ -33,6 +33,12 @@ namespace System.Application.Services
 
         bool IsSteamChinaLauncher();
 
+        bool IsSteamInBigPictureMode();
+
+        uint GetSecondsSinceAppActive();
+
+        uint GetServerRealTime();
+
         bool IsAppInstalled(uint appid);
 
         string GetAppInstallDir(uint appid);

@@ -5673,6 +5673,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam 服务端时间： 的本地化字符串。
+        /// </summary>
+        public static string Steam_ServerTime {
+            get {
+                return ResourceManager.GetString("Steam_ServerTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 是否删除此家庭库共享。 的本地化字符串。
         /// </summary>
         public static string Steam_Share_RemoveShare {

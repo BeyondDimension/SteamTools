@@ -106,6 +106,21 @@ namespace System.Application.Services.Implementation
             return SteamClient.SteamUtils.IsSteamChinaLauncher();
         }
 
+        public bool IsSteamInBigPictureMode()
+        {
+            return SteamClient.SteamUtils.IsSteamInBigPictureMode();
+        }
+
+        public uint GetSecondsSinceAppActive()
+        {
+            return SteamClient.SteamUtils.GetSecondsSinceAppActive();
+        }
+
+        public uint GetServerRealTime()
+        {
+            return SteamClient.SteamUtils.GetServerRealTime();
+        }
+
         public bool IsAppInstalled(uint appid)
         {
             return SteamClient.SteamApps008.IsAppInstalled(appid);

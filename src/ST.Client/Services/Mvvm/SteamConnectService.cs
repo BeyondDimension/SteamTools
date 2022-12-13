@@ -278,11 +278,13 @@ namespace System.Application.Services
                                     CurrentSteamUser.IPCountry = swLocalService.GetIPCountry();
 
                                     IsSteamChinaLauncher = swLocalService.IsSteamChinaLauncher();
+                                    var steamServerTime = ((long)swLocalService.GetServerRealTime()).ToDateTimeOffsetS();
+                                    //var steamRunTime = swLocalService.GetSecondsSinceAppActive();
 
                                     #region 初始化需要steam启动才能使用的功能
                                     if (SteamSettings.IsEnableSteamLaunchNotification.Value)
                                     {
-                                        INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}", NotificationType.Message);
+                                        INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}{Environment.NewLine}{AppResources.Steam_ServerTime}{steamServerTime:yyyy-MM-dd HH:mm:ss}", NotificationType.Message);
                                     }
 
                                     if (GameLibrarySettings.IsAutoAFKApps.Value)

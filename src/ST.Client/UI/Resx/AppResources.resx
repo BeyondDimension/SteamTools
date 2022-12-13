@@ -1723,6 +1723,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Steam_CurrentUser" xml:space="preserve">
     <value>Steam 登录用户：</value>
   </data>
+  <data name="Steam_ServerTime" xml:space="preserve">
+    <value>Steam 服务端时间：</value>
+  </data>
   <data name="Steam_SteamChina" xml:space="preserve">
     <value>Steam 国服</value>
   </data>
