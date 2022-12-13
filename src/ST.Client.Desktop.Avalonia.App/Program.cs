@@ -10,6 +10,7 @@ using NLog;
 using Avalonia;
 using Avalonia.ReactiveUI;
 using Avalonia.Controls;
+using System.Net.Http;
 
 #if WINDOWS || WINDOWS_DESKTOP_BRIDGE
 using WPFMessageBox = System.Windows.MessageBox;
@@ -46,6 +47,10 @@ namespace System.Application.UI
 
             // fix The request was aborted: Could not create SSL/TLS secure channel
             TrySetSecurityProtocol();
+
+#if WINDOWS || WINDOWS_DESKTOP_BRIDGE
+            HttpClient.DefaultProxy = DynamicHttpWindowsProxy.Instance;
+#endif
 
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
