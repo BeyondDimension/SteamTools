@@ -11,6 +11,8 @@ using System.Linq;
 using System.Management;
 using System.Net;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using _SR = System.Application.Properties.SR;
 
 namespace System.Application.Services.Implementation;
@@ -199,15 +201,71 @@ internal sealed partial class WindowsPlatformServiceImpl : IPlatformService
     /// <returns></returns>
     static Process? StartProcessRegedit(string? args) => Process2.Start(Regedit, args, workingDirectory: _windir.Value);
 
+    /// <summary>
+    /// 使用 Explorer 降权运行进程
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <param name="arguments"></param>
+    /// <returns></returns>
     static Process? StartAsInvokerByExplorer(string fileName, string? arguments = null)
     {
         if (string.IsNullOrEmpty(arguments))
             return StartProcessExplorer($"\"{fileName}\"");
+        var processName = Path.GetFileNameWithoutExtension(fileName);
         var cacheCmdFile = IOPath.GetCacheFilePath(CacheTempDirName, "StartAsInvokerByExplorer", FileEx.CMD);
-        File.WriteAllText(cacheCmdFile, $"@echo {Constants.HARDCODED_APP_NAME} StartAsInvokerByExplorer{Environment.NewLine}start \"\" \"{fileName}\" {arguments}{Environment.NewLine}exit 0");
+        File.WriteAllText(cacheCmdFile, $"@echo {Constants.HARDCODED_APP_NAME} StartAsInvokerByExplorer({processName}){Environment.NewLine}start \"\" \"{fileName}\" {arguments}{Environment.NewLine}del %0");
         var process = StartProcessExplorer($"\"{cacheCmdFile}\"");
-        IOPath.TryDeleteInDelay(process, cacheCmdFile);
+        //if (process != null)
+        //{
+        //    TryDeleteInDelay(process, cacheCmdFile, processName);
+        //}
         return process;
+
+        //static async void TryDeleteInDelay(Process process, string filePath, string processName, int millisecondsDelay = 9000, int processWaitMillisecondsDelay = 9000)
+        //{
+        //    try
+        //    {
+        //        var waitForExitResult = process.WaitForExit(processWaitMillisecondsDelay);
+        //        if (!waitForExitResult)
+        //        {
+        //            try
+        //            {
+        //                process.KillEntireProcessTree();
+        //            }
+        //            catch
+        //            {
+
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        millisecondsDelay = 0;
+        //    }
+        //    if (millisecondsDelay > 0)
+        //    {
+        //        var token = new CancellationTokenSource(millisecondsDelay);
+        //        try
+        //        {
+        //            await Task.Run(async () =>
+        //            {
+        //                while (true)
+        //                {
+        //                    await Task.Delay(100, token.Token);
+        //                    if (Process.GetProcessesByName(processName).Any())
+        //                    {
+        //                        return;
+        //                    }
+        //                }
+        //            }, token.Token);
+        //        }
+        //        catch (TaskCanceledException)
+        //        {
+
+        //        }
+        //    }
+        //    IOPath.FileTryDelete(filePath);
+        //}
     }
 
     public Process? StartAsInvoker(string fileName, string? arguments = null)

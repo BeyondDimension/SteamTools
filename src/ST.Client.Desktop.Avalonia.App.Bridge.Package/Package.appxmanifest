@@ -11,7 +11,7 @@
   <Identity
     Name="4651ED44255E.47979655102CE"
     Publisher="CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66"
-    Version="2.8.5.0" />
+    Version="2.8.6.0" />
 
   <Properties>
     <DisplayName>Watt Toolkit</DisplayName>
