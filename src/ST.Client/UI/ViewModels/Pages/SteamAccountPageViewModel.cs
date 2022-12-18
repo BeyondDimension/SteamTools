@@ -114,19 +114,19 @@ namespace System.Application.UI.ViewModels
             #endregion
         }
 
-        public void SteamId_Click(SteamUser user)
+        public async Task SteamId_Click(SteamUser user)
         {
             user.WantsOfflineMode = false;
-            ReStartSteamByUser(user);
+            await ReStartSteamByUser(user);
         }
 
-        public void OfflineModeButton_Click(SteamUser user)
+        public async Task OfflineModeButton_Click(SteamUser user)
         {
             user.WantsOfflineMode = true;
-            ReStartSteamByUser(user);
+            await ReStartSteamByUser(user);
         }
 
-        private async void ReStartSteamByUser(SteamUser? user = null)
+        private async Task ReStartSteamByUser(SteamUser? user = null)
         {
             foreach (var item in SteamUsers.Where(x => x.MostRecent))
                 item.MostRecent = false;
@@ -144,7 +144,10 @@ namespace System.Application.UI.ViewModels
                 steamService.SetCurrentUser(string.Empty);
             }
 
-            steamService.StartSteamWithParameter();
+            await Task.Run(() =>
+            {
+                steamService.StartSteamWithParameter();
+            });
         }
 
         public async void DeleteUserButton_Click(SteamUser user)

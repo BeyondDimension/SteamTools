@@ -276,11 +276,8 @@ internal sealed partial class WindowsPlatformServiceImpl : IPlatformService
             //return StartAsInvokerByRunas(fileName, arguments);
             //return StartAsInvokerByExplorer(fileName, arguments);
             var currentDirectory = Path.GetDirectoryName(fileName) ?? "";
-            Task.Run(() =>
-            {
-                Microsoft.NodejsTools.SharedProject.SystemUtility.
-                    ExecuteProcessUnElevated(fileName, arguments ?? "", currentDirectory);
-            });
+            Microsoft.NodejsTools.SharedProject.SystemUtility.
+                      ExecuteProcessUnElevated(fileName, arguments ?? "", currentDirectory);
             return null;
 
         }
