@@ -134,7 +134,7 @@ namespace System.Application.Services
         /// <param name="isIPv6"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        IAsyncEnumerable<IPAddress>? DohAnalysisDomainIpAsync(string hostNameOrAddress, string? dnsServers, bool isIPv6, CancellationToken cancellationToken = default) 
+        IAsyncEnumerable<IPAddress>? DohAnalysisDomainIpAsync(string hostNameOrAddress, string? dnsServers, bool isIPv6, CancellationToken cancellationToken = default)
         {
             return null;
         }
@@ -146,5 +146,7 @@ namespace System.Application.Services
         }
 
         Task<bool> GetIsIpv6Support() => Task.FromResult(false);
+
+        Task<IPAddress?> GetHostIpv6Addres() => Task.FromResult(default(IPAddress));
     }
 }

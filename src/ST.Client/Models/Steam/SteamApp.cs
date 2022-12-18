@@ -805,7 +805,7 @@ namespace System.Application.Models
             return this;
         }
 
-        public static SteamApp? FromReader(BinaryReader reader, uint[]? installedAppIds = null, bool isSaveProperties = false)
+        public static SteamApp? FromReader(BinaryReader reader, uint[]? installedAppIds = null, bool isSaveProperties = false, bool is0x07564428 = true)
         {
             uint id = reader.ReadUInt32();
             if (id == 0)
@@ -824,6 +824,9 @@ namespace System.Application.Models
                 app._stuffBeforeHash = binaryReader.ReadBytes(16);
                 binaryReader.ReadBytes(20);
                 app._changeNumber = binaryReader.ReadUInt32();
+
+                if (is0x07564428)
+                    binaryReader.ReadBytes(20);
 
                 var properties = SteamAppPropertyHelper.ReadPropertyTable(binaryReader);
 

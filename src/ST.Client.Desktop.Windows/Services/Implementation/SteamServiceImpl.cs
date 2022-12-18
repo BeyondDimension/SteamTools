@@ -556,7 +556,7 @@ namespace System.Application.Services.Implementation
                     }
                     using BinaryReader binaryReader = new(stream);
                     uint num = binaryReader.ReadUInt32();
-                    if (num != MagicNumberV2 && num != MagicNumber)
+                    if (num is not MagicNumberV2 or MagicNumber)
                     {
                         Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
                         return apps;
@@ -564,7 +564,7 @@ namespace System.Application.Services.Implementation
                     SteamApp? app = new();
                     univeseNumber = binaryReader.ReadUInt32();
                     var installAppIds = GetInstalledAppIds();
-                    while ((app = SteamApp.FromReader(binaryReader, installAppIds, isSaveProperties)) != null)
+                    while ((app = SteamApp.FromReader(binaryReader, installAppIds, isSaveProperties, num == MagicNumberV2)) != null)
                     {
                         if (app.AppId > 0)
                         {

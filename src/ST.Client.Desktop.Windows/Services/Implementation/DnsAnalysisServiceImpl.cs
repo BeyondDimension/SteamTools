@@ -15,6 +15,11 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
     {
+        public DnsAnalysisServiceImpl()
+        {
+
+        }
+
         private static readonly LookupClient lookupClient = new();
 
         public async Task<int> AnalysisHostnameTime(string url, CancellationToken cancellationToken = default)
@@ -140,6 +145,11 @@ namespace System.Application.Services.Implementation
             {
             }
             return false;
+        }
+
+        public async Task<IPAddress?> GetHostIpv6Addres()
+        {
+            return null;
         }
     }
 }

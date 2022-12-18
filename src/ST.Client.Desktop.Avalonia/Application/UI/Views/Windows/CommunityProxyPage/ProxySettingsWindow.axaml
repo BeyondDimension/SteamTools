@@ -49,6 +49,12 @@
               </DockPanel>-->
 
               <DockPanel>
+                <TextBlock Text="IPV6支持：" />
+                <TextBlock Text="IPV6地址" ></TextBlock>
+                <Button Content="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
+              </DockPanel>
+
+              <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AutoRunProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>
                 <ToggleSwitch
                             IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy},Path=Value, Mode=TwoWay}"/>
@@ -59,13 +65,13 @@
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
-              
+
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_EnableHttpProxyToHttps,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.EnableHttpProxyToHttps},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
-              
+
               <!--<DockPanel>
                 <Label Content="自定义根证书密码"></Label>
                 <TextBox></TextBox>
@@ -86,11 +92,13 @@
               </DockPanel>
             </Expander.Header>
             <StackPanel Spacing="10">
-              --><!--<DockPanel>
+              -->
+          <!--<DockPanel>
                 <TextBlock Text="启用" ></TextBlock>
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyEnable},Path=Value, Mode=TwoWay}"/>
-              </DockPanel>--><!--
+              </DockPanel>-->
+          <!--
               <DockPanel>
                 <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_ProxyPort,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
                 <NumericUpDown Maximum="65535"
@@ -109,11 +117,13 @@
               </DockPanel>
             </Expander.Header>
             <StackPanel Spacing="10">
-              --><!--<DockPanel>
+              -->
+          <!--<DockPanel>
                 <TextBlock Text="启用" ></TextBlock>
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentEnable},Path=Value, Mode=TwoWay}"/>
-              </DockPanel>--><!--
+              </DockPanel>-->
+          <!--
 
               <DockPanel>
                 <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_ProxyType,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
