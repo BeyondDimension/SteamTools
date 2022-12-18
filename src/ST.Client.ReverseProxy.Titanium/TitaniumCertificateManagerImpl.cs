@@ -56,8 +56,8 @@ sealed partial class TitaniumCertificateManagerImpl : CertificateManagerImpl, IC
         => manager.CreateRootCertificate(true);
 
     protected override void SharedRemoveTrustedRootCertificate()
-        => manager.RemoveTrustedRootCertificate(false);
+        => manager.RemoveTrustedRootCertificate(true);
 
     protected override void SharedTrustRootCertificate()
-        => manager.TrustRootCertificate(false);
+        => manager.TrustRootCertificate(true);
 }

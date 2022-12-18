@@ -131,7 +131,7 @@ namespace System.Application.UI.ViewModels
             foreach (var item in SteamUsers.Where(x => x.MostRecent))
                 item.MostRecent = false;
 
-            await steamService.ShutdownSteamAsync();
+            steamService.TryKillSteamProcess();
 
             if (user != null)
             {

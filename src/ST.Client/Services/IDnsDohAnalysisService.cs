@@ -12,6 +12,8 @@ namespace System.Application.Services
     /// </summary>
     public interface IDnsDohAnalysisService
     {
+        protected const string TAG = "DnsDohAnalysisService";
+
         static IDnsDohAnalysisService Instance => DI.Get<IDnsDohAnalysisService>();
 
         #region DNS常量

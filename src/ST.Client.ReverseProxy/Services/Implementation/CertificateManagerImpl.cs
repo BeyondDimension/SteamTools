@@ -210,7 +210,7 @@ abstract partial class CertificateManagerImpl
     [SupportedOSPlatform("Linux")]
     void DeleteRootCertificateLinux()
     {
-        using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+        using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
         store.Open(OpenFlags.ReadOnly);
         var collection = store.Certificates.Find(X509FindType.FindByIssuerName, IReverseProxyService.RootCertificateName, false);
         foreach (var item in collection)
@@ -233,7 +233,7 @@ abstract partial class CertificateManagerImpl
     [SupportedOSPlatform("macOS")]
     async void DeleteRootCertificateMacOS()
     {
-        using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+        using var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
         store.Open(OpenFlags.ReadOnly);
         var collection = store.Certificates.Find(X509FindType.FindByIssuerName, IReverseProxyService.RootCertificateName, false);
         foreach (var item in collection)
@@ -287,7 +287,7 @@ abstract partial class CertificateManagerImpl
         }
         else
         {
-            using var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+            using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
             store.Open(OpenFlags.ReadOnly);
             return store.Certificates.Contains(certificate2);
         }

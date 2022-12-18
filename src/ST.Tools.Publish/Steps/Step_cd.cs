@@ -109,7 +109,7 @@ namespace System.Application.Steps
 #endif
         }
 
-        static async Task VerHandlerAsync(string token, bool use_last_skey, bool dev)
+        public static async Task VerHandlerAsync(string token, bool use_last_skey, bool dev)
         {
             var desc = ReadVersionDesc();
             var request = new CreateVersionRequest
@@ -124,7 +124,7 @@ namespace System.Application.Steps
             if (rsp.StatusCode == HttpStatusCode.InternalServerError)
             {
                 var html = await rsp.Content.ReadAsStringAsync();
-                throw new HttpRequestException(html);
+                Console.WriteLine(html);
             }
             rsp.EnsureSuccessStatusCode();
             var apiResponse = await GetResponseAsync<AppIdWithPublicKey>(rsp);
@@ -505,7 +505,7 @@ namespace System.Application.Steps
             //content.Headers.ContentType = new(MediaTypeNames.MessagePack);
             //return content;
 
-            var json = Serializable.SJSON_Original(request);
+            var json = Serializable.SJSON(request);
             var content = new StringContent(json, Encoding.UTF8, MediaTypeNames.JSON);
             return content;
         }
@@ -516,7 +516,7 @@ namespace System.Application.Steps
             //return await ApiResponse.DeserializeAsync<T>(stream, default);
 
             var json = await responseMessage.Content.ReadAsStringAsync();
-            return Serializable.DJSON_Original<ApiRsp<T>>(json)!;
+            return Serializable.DJSON<ApiRsp<T>>(json)!;
         }
 
         static async Task<IApiResponse> GetResponseAsync(HttpResponseMessage responseMessage)
@@ -525,11 +525,11 @@ namespace System.Application.Steps
             //return await ApiResponse.DeserializeAsync<object>(stream, default);
 
             var json = await responseMessage.Content.ReadAsStringAsync();
-            return Serializable.DJSON_Original<ApiRsp>(json)!;
+            return Serializable.DJSON<ApiRsp>(json)!;
         }
 
         const string dev_api_base_url = "https://pan.mossimo.net:9911";
-        const string api_base_url = "https://cycyadmin.steampp.net";
+        const string api_base_url = "https://adminapi.steampp.net";
         const string api_version_create = "/api/version";
 
         static string GetFullVersion(bool dev)

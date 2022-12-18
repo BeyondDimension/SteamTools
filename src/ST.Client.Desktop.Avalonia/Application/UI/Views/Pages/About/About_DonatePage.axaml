@@ -193,15 +193,15 @@
                                   Margin="10">
                         <controls:ScrollingTextBlock Text="{Binding Name}" Classes="h6 semibold"/>
                         <!--Foreground="#D22222"-->
-                        <!--<controls:ScrollingTextBlock Text="{Binding Amount,Converter={StaticResource StringFormatConverter},ConverterParameter={ReflectionBinding CurrencyCode}}"/>-->
-                        <controls:ScrollingTextBlock>
+                        <controls:ScrollingTextBlock Text="{Binding Amount,Converter={StaticResource StringFormatConverter},ConverterParameter={ReflectionBinding CurrencyCode}}"/>
+                        <!--<controls:ScrollingTextBlock>
                           <controls:ScrollingTextBlock.Text>
                             <MultiBinding Converter="{StaticResource StringFormatConverter}" ConverterParameter="money">
                               <Binding Path="Amount"/>
                               <Binding Path="CurrencyCode"/>
                             </MultiBinding>
                           </controls:ScrollingTextBlock.Text>
-                        </controls:ScrollingTextBlock>
+                        </controls:ScrollingTextBlock>-->
                       </StackPanel>
                     </DockPanel>
                   </Border>

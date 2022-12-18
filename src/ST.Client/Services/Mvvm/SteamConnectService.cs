@@ -274,15 +274,16 @@ namespace System.Application.Services
                                     CurrentSteamUser = await swWebService.GetUserInfo(id);
                                     CurrentSteamUser.AvatarStream = httpService.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
                                     //AvatarPath = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
-
                                     CurrentSteamUser.IPCountry = swLocalService.GetIPCountry();
 
-                                    IsSteamChinaLauncher = swLocalService.IsSteamChinaLauncher();
+                                    IsSteamChinaLauncher = stmService.IsSteamChinaLauncher();
+                                    var steamServerTime = ((long)swLocalService.GetServerRealTime()).ToDateTimeOffsetS();
+                                    //var steamRunTime = swLocalService.GetSecondsSinceAppActive();
 
                                     #region 初始化需要steam启动才能使用的功能
                                     if (SteamSettings.IsEnableSteamLaunchNotification.Value)
                                     {
-                                        INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}", NotificationType.Message);
+                                        INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}{Environment.NewLine}{AppResources.Steam_ServerTime}{steamServerTime:yyyy-MM-dd HH:mm:ss}", NotificationType.Message);
                                     }
 
                                     if (GameLibrarySettings.IsAutoAFKApps.Value)
@@ -447,7 +448,7 @@ namespace System.Application.Services
                                          IsDisposedClient = false;
                                          SteamApps.Clear();
                                          var apps = await ISteamService.Instance.GetAppInfos();
-                                         if (apps.Any())
+                                         if (apps != null)
                                          {
                                              var temps = swLocalService.OwnsApps(apps);
                                              LoadGames(temps);

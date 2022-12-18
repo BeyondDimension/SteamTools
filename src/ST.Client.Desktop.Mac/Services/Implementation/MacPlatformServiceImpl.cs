@@ -95,7 +95,7 @@ namespace System.Application.Services.Implementation
             TextBoxWindowViewModel vm = new()
             {
                 Title = AppResources.MacTrustRootCertificateTips,
-                InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
+                InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
                 Description = AppResources.MacSudoPasswordTips + $"\r\n sudo {script} \"{filePath}\"",
             };
             var scriptContent = $"osascript -e 'tell app \"Terminal\" to do script \"sudo -S {script} \\\"{filePath}\\\"\"'";

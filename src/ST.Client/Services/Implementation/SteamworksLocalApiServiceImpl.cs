@@ -24,6 +24,12 @@ namespace System.Application.Services.Implementation
 
         public bool IsSteamChinaLauncher() => default;
 
+        public bool IsSteamInBigPictureMode() => default;
+
+        public uint GetSecondsSinceAppActive() => default;
+
+        public uint GetServerRealTime() => default;
+
         public bool IsAppInstalled(uint appid) => default;
 
         public string GetAppInstallDir(uint appid) => string.Empty;
