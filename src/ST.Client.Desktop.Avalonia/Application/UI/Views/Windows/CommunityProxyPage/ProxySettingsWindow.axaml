@@ -48,11 +48,11 @@
                                Maximum="65535"/>
               </DockPanel>-->
 
-              <DockPanel>
+              <!--<DockPanel>
                 <TextBlock Text="IPV6支持：" />
                 <TextBlock Text="IPV6地址" ></TextBlock>
                 <Button Content="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
-              </DockPanel>
+              </DockPanel>-->
 
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AutoRunProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>

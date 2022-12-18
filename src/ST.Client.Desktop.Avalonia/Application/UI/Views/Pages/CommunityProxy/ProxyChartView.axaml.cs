@@ -34,7 +34,7 @@ namespace System.Application.UI.Views.Pages
             EnableNullSplitting = false,
             DataLabelsSize = 12,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
-            TooltipLabelFormatter = (e) => $"{AppResources.Upload} {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"Upload {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -51,7 +51,7 @@ namespace System.Application.UI.Views.Pages
             EnableNullSplitting = false,
             DataLabelsSize = 12,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
-            TooltipLabelFormatter = (e) => $"{AppResources.Download} {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"Download {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;

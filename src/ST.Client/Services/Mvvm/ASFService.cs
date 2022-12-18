@@ -96,6 +96,12 @@ namespace System.Application.Services
 
             IsASFRunOrStoping = true;
 
+            //if (ASF.GlobalConfig?.SteamOwnerID is null or 0)
+            //{
+            //    Toast.Show(AppResources.ASF_Starting, ToastLength.Long);
+            //    return;
+            //}
+
             var isOk = await archiSteamFarmService.Start();
             if (!isOk)
             {
