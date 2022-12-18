@@ -90,6 +90,8 @@ namespace System.Application.Services
             }
         }
 
+        public DateTimeOffset? LastSignInTime { get; set; }
+
         public async Task SignIn()
         {
             if (User == null)
@@ -101,16 +103,12 @@ namespace System.Application.Services
                 var state = await csc.AccountClockIn();
                 if (state.IsSuccess)
                 {
+                    LastSignInTime = DateTimeOffset.Now;
                     User.Experience = state.Content!.Experience;
                     User.NextExperience = state.Content!.NextExperience;
                     User.Level = state.Content!.Level;
                     User.EngineOil = state.Content!.Strength;
                     User.IsSignIn = true;
-                    //_ = Task.Run(async () =>
-                    //{
-                    //    await Task.Delay(DateTime.Now.Date.AddDays(1).Subtract(DateTime.Now));
-                    //    IsSignedIn = false;
-                    //});
                     Toast.Show(AppResources.User_SignIn_Ok);
                 }
                 else
