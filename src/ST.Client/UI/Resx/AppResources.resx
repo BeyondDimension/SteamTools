@@ -1230,6 +1230,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
     <value>Steam 启动时最小化到托盘</value>
   </data>
+  <data name="Settings_Steam_RunSteamChina" xml:space="preserve">
+    <value>Steam 启动时模拟为蒸汽平台（Steam国服）启动</value>
+  </data>
   <data name="Settings_Steam_RuningAdmin" xml:space="preserve">
     <value>以管理员权限运行 Steam</value>
   </data>
@@ -1722,6 +1725,9 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Steam_CurrentUser" xml:space="preserve">
     <value>Steam 登录用户：</value>
+  </data>
+  <data name="Steam_ServerTime" xml:space="preserve">
+    <value>Steam 服务端时间：</value>
   </data>
   <data name="Steam_SteamChina" xml:space="preserve">
     <value>Steam 国服</value>

@@ -5357,6 +5357,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam 启动时模拟为蒸汽平台（Steam国服）启动 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_RunSteamChina {
+            get {
+                return ResourceManager.GetString("Settings_Steam_RunSteamChina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam 启动参数 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_SteamStratParameter {
@@ -5669,6 +5678,15 @@ namespace System.Application.UI.Resx {
         public static string Steam_Password {
             get {
                 return ResourceManager.GetString("Steam_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam 服务端时间： 的本地化字符串。
+        /// </summary>
+        public static string Steam_ServerTime {
+            get {
+                return ResourceManager.GetString("Steam_ServerTime", resourceCulture);
             }
         }
         

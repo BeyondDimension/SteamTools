@@ -41,6 +41,8 @@
     <!--<PackageReference Include="CommunityToolkit.Mvvm"/>-->
     <PackageReference Include="ReactiveUI.Fody" />
     <!--<PackageReference Include="ArchiSteamFarm.Library" />-->
+    <PackageReference Include="Ae.DNS.Client" />
+    <!--<PackageReference Include="Ae.Dns.Protocol" />-->
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <PackageReference Include="JustArchiNET.Madness" />

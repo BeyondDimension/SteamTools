@@ -1,5 +1,6 @@
 using DnsClient;
 using DnsClient.Protocol;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Collections.Generic;
@@ -14,18 +15,23 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
     {
+        public DnsAnalysisServiceImpl()
+        {
+
+        }
+
         private static readonly LookupClient lookupClient = new();
 
-        public int AnalysisHostnameTime(string url)
+        public async Task<int> AnalysisHostnameTime(string url, CancellationToken cancellationToken = default)
         {
             if (!string.IsNullOrEmpty(url))
             {
                 var client = lookupClient;
-                var result = client.Query(url, QueryType.A);
+                var result = await client.QueryAsync(url, QueryType.A, QueryClass.IN, cancellationToken);
                 if (result.Answers.Count > 0)
                 {
                     var value = result.Answers.ARecords().FirstOrDefault()?.InitialTimeToLive;
-                    if (value.HasValue) return value.Value;
+                    return value ?? 0;
                 }
             }
             return 0;
@@ -140,6 +146,11 @@ namespace System.Application.Services.Implementation
             }
             return false;
         }
+
+        public async Task<IPAddress?> GetHostIpv6Addres()
+        {
+            return null;
+        }
     }
 }
 
@@ -150,6 +161,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddDnsAnalysisService(this IServiceCollection services)
         {
+            //services.AddSingleton<IDnsAnalysisService, DnsDohAnalysisService>();
             services.AddSingleton<IDnsAnalysisService, DnsAnalysisServiceImpl>();
             return services;
         }

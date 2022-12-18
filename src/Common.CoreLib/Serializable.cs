@@ -190,6 +190,13 @@ namespace System
 
         #endregion
 
+        // https://learn.microsoft.com/zh-cn/dotnet/standard/serialization/system-text-json/character-casing#case-insensitive-property-matching
+
+        static readonly SJsonSerializerOptions S_options = new()
+        {
+            PropertyNameCaseInsensitive = true,
+        };
+
         #region Deserialize(反序列化)
 
         /// <summary>
@@ -204,7 +211,7 @@ namespace System
         {
             return implType switch
             {
-                JsonImplType.SystemTextJson => SJsonSerializer.Deserialize<T>(value),
+                JsonImplType.SystemTextJson => SJsonSerializer.Deserialize<T>(value, S_options),
                 _ =>
 #if NOT_NJSON
                 throw new NotSupportedException(),

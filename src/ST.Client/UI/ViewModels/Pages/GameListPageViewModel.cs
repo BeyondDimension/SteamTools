@@ -126,9 +126,6 @@ namespace System.Application.UI.ViewModels
                           this.RaisePropertyChanged(nameof(TypeFilterString));
                       }));
 
-            SteamConnectService.Current.WhenAnyValue(x => x.IsLoadingGameList)
-                .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamAppsEmpty)));
-
             SteamConnectService.Current.SteamApps
                 .Connect()
                 .Filter(nameFilter)
@@ -143,6 +140,9 @@ namespace System.Application.UI.ViewModels
                     this.RaisePropertyChanged(nameof(IsSteamAppsEmpty));
                     CalcTypeCount();
                 });
+
+            SteamConnectService.Current.WhenAnyValue(x => x.IsLoadingGameList)
+                .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamAppsEmpty)));
 
             HideAppCommand = ReactiveCommand.Create(() =>
             {
@@ -217,7 +217,7 @@ namespace System.Application.UI.ViewModels
         [Reactive]
         public string? SearchText { get; set; }
 
-        public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable() && !SteamConnectService.Current.IsLoadingGameList;
+        public bool IsSteamAppsEmpty => !SteamConnectService.Current.SteamApps.Items.Any_Nullable() && !SteamConnectService.Current.IsLoadingGameList;
 
         [Reactive]
         public ObservableCollection<EnumModel<SteamAppType>>? AppTypeFiltres { get; set; }

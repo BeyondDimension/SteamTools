@@ -8,10 +8,14 @@ using System.Application.Settings;
 using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+#if WINDOWS
+using System.Management;
+#endif
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Versioning;
@@ -142,6 +146,41 @@ namespace System.Application.Services.Implementation
         /// </summary>
         /// <returns></returns>
         private Process? GetSteamProces() => GetSteamProcesses().FirstOrDefault();
+
+        public bool IsSteamChinaLauncher()
+        {
+#if WINDOWS
+            var process = GetSteamProces();
+            if (process != null)
+            {
+                try
+                {
+                    return GetCommandLineArgsCore().Contains("-steamchina", StringComparison.OrdinalIgnoreCase);
+                }
+                catch (Win32Exception ex) when ((uint)ex.ErrorCode == 0x80004005)
+                {
+                    // 没有对该进程的安全访问权限。
+                    return false;
+                }
+                catch (InvalidOperationException)
+                {
+                    // 进程已退出。
+                    return false;
+                }
+            }
+            string GetCommandLineArgsCore()
+            {
+                using (var searcher = new ManagementObjectSearcher(
+                    "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id))
+                using (var objects = searcher.Get())
+                {
+                    var @object = objects.Cast<ManagementBaseObject>().SingleOrDefault();
+                    return @object?["CommandLine"]?.ToString() ?? "";
+                }
+            }
+#endif
+            return false;
+        }
 
         public void StartSteam(string? arguments = null)
         {
@@ -495,6 +534,7 @@ namespace System.Application.Services.Implementation
 
         private uint univeseNumber;
         private const uint MagicNumber = 123094055U;
+        private const uint MagicNumberV2 = 123094056U;
 
         /// <summary>
         /// 从steam本地客户端缓存文件中读取游戏数据
@@ -516,7 +556,7 @@ namespace System.Application.Services.Implementation
                     }
                     using BinaryReader binaryReader = new(stream);
                     uint num = binaryReader.ReadUInt32();
-                    if (num != MagicNumber)
+                    if (num is not MagicNumberV2 or MagicNumber)
                     {
                         Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
                         return apps;
@@ -524,7 +564,7 @@ namespace System.Application.Services.Implementation
                     SteamApp? app = new();
                     univeseNumber = binaryReader.ReadUInt32();
                     var installAppIds = GetInstalledAppIds();
-                    while ((app = SteamApp.FromReader(binaryReader, installAppIds, isSaveProperties)) != null)
+                    while ((app = SteamApp.FromReader(binaryReader, installAppIds, isSaveProperties, num == MagicNumberV2)) != null)
                     {
                         if (app.AppId > 0)
                         {
