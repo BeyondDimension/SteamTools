@@ -274,7 +274,14 @@ internal sealed partial class WindowsPlatformServiceImpl : IPlatformService
         {
             // runas /trustlevel:0x20000 没有真正的降权，只是作为具有限制特权，使用 explorer 最好，但不接受参数，可以创建一个临时cmd脚本启动
             //return StartAsInvokerByRunas(fileName, arguments);
-            return StartAsInvokerByExplorer(fileName, arguments);
+            //return StartAsInvokerByExplorer(fileName, arguments);
+            var currentDirectory = Path.GetDirectoryName(fileName) ?? "";
+            Task.Run(() =>
+            {
+                Microsoft.NodejsTools.SharedProject.SystemUtility.
+                    ExecuteProcessUnElevated(fileName, arguments ?? "", currentDirectory);
+            });
+            return null;
 
         }
         else

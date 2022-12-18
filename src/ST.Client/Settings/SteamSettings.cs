@@ -119,7 +119,7 @@ public sealed class SteamSettings : SettingsHost2<SteamSettings>
     [SupportedOSPlatform("Linux")]
     public static SerializableProperty<SystemEndMode>? DownloadCompleteSystemEndMode = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: SystemEndMode.Sleep) : null;
 
-    static readonly SerializableProperty<bool>? _IsRunSteamAdministrator = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false) : null;
+    static readonly SerializableProperty<bool>? _IsRunSteamAdministrator = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true) : null;
 
     /// <summary>
     /// 以管理员权限运行 Steam
