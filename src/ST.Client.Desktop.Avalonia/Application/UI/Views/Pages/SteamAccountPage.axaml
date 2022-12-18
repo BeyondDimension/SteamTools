@@ -94,13 +94,13 @@
                 <Border.ContextFlyout>
                   <MenuFlyout>
                     <MenuItem
-                        Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
+                        Command="{ReflectionBinding #u.DataContext.SteamId_ClickCommand}"
                         CommandParameter="{Binding}"
                         Header="{ReflectionBinding Path=Res.UserChange_BtnText,
                                                                        Mode=OneWay,
                                                                        Source={x:Static resx:R.Current}}" />
                     <MenuItem
-                        Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
+                        Command="{ReflectionBinding #u.DataContext.OfflineModeButton_ClickCommand}"
                         CommandParameter="{Binding}"
                         Header="{ReflectionBinding Path=Res.UserChange_OfflineBtn,
                                                                        Mode=OneWay,
@@ -231,7 +231,7 @@
                                                                                     Source={x:Static resx:R.Current}}">
                           <i:Interaction.Behaviors>
                             <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
-                              <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}" />
+                              <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_ClickCommand}" CommandParameter="{Binding}" />
                             </ia:EventTriggerBehavior>
                           </i:Interaction.Behaviors>
                         </controls:ScrollingTextBlock>
@@ -343,7 +343,7 @@
                                                                                     Mode=OneWay,
                                                                                     Source={x:Static resx:R.Current}}"
                             Classes="flatbutton"
-                            Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
+                            Command="{ReflectionBinding #u.DataContext.OfflineModeButton_ClickCommand}"
                             CommandParameter="{Binding}"
                             Cursor="Hand">
                           <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_OfflineBtn, Mode=OneWay, Source={x:Static resx:R.Current}}" />
@@ -359,7 +359,7 @@
                             MaxWidth="250"
                             HorizontalAlignment="Stretch"
                             Classes="flatbutton"
-                            Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
+                            Command="{ReflectionBinding #u.DataContext.SteamId_ClickCommand}"
                             CommandParameter="{Binding}"
                             Cursor="Hand">
                           <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_BtnText, Mode=OneWay, Source={x:Static resx:R.Current}}" />

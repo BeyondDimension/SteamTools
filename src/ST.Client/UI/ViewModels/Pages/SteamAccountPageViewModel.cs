@@ -29,8 +29,11 @@ namespace System.Application.UI.ViewModels
         {
             this.WhenAnyValue(x => x.SteamUsers)
                   .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
-            LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
+            LoginAccountCommand = ReactiveCommand.CreateFromTask(LoginNewSteamAccount);
             RefreshCommand = ReactiveCommand.Create(SteamConnectService.Current.RefreshSteamUsers);
+
+            SteamId_ClickCommand = ReactiveCommand.CreateFromTask<SteamUser>(SteamId_Click);
+            OfflineModeButton_ClickCommand = ReactiveCommand.CreateFromTask<SteamUser>(OfflineModeButton_Click);
 
             ShareManageCommand = ReactiveCommand.Create(OpenShareManageWindow);
             OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
@@ -60,6 +63,10 @@ namespace System.Application.UI.ViewModels
         }
 
         public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
+
+        public ReactiveCommand<SteamUser, Unit> SteamId_ClickCommand { get; }
+
+        public ReactiveCommand<SteamUser, Unit> OfflineModeButton_ClickCommand { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
 
@@ -99,9 +106,9 @@ namespace System.Application.UI.ViewModels
 
                     menus.Add(new MenuItemCustomName(title, AppResources.UserChange_BtnTootlip)
                     {
-                        Command = ReactiveCommand.Create(() =>
+                        Command = ReactiveCommand.CreateFromTask(async () =>
                         {
-                            SteamId_Click(user);
+                            await ReStartSteamByUser(user);
 
                             INotificationService.Instance.Notify(string.Format(AppResources.UserChange_ChangeUserTip, title), NotificationType.Message);
                         }),
@@ -144,10 +151,7 @@ namespace System.Application.UI.ViewModels
                 steamService.SetCurrentUser(string.Empty);
             }
 
-            await Task.Run(() =>
-            {
-                steamService.StartSteamWithParameter();
-            });
+            await Task.Run(steamService.StartSteamWithParameter);
         }
 
         public async void DeleteUserButton_Click(SteamUser user)
@@ -178,15 +182,14 @@ namespace System.Application.UI.ViewModels
             IPlatformService.Instance.OpenFolder(Path.Combine(ISteamService.Instance.SteamDirPath, user.UserdataPath));
         }
 
-        public void LoginNewSteamAccount()
+        public async Task LoginNewSteamAccount()
         {
-            var result = MessageBox.ShowAsync(AppResources.UserChange_LoginNewAccountTip, button: MessageBox.Button.OKCancel).ContinueWith(s =>
+            var result = await MessageBox.ShowAsync(AppResources.UserChange_LoginNewAccountTip, button: MessageBox.Button.OKCancel);
+
+            if (result == MessageBox.Result.OK)
             {
-                if (s.Result == MessageBox.Result.OK)
-                {
-                    ReStartSteamByUser();
-                }
-            });
+                await ReStartSteamByUser();
+            }
         }
 
         public async void EditRemarkAsync(SteamUser user)
