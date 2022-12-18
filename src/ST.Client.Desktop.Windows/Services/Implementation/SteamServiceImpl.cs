@@ -558,7 +558,9 @@ namespace System.Application.Services.Implementation
                     uint num = binaryReader.ReadUInt32();
                     if (num is not MagicNumberV2 or MagicNumber)
                     {
-                        Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                        var msg = string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num);
+                        Log.Error(nameof(GetAppInfos), msg);
+                        Toast.Show(msg, ToastLength.Long);
                         return apps;
                     }
                     SteamApp? app = new();

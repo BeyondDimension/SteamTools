@@ -1,5 +1,6 @@
 using DnsClient;
 using DnsClient.Protocol;
+using DynamicData;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Services;
 using System.Application.Services.Implementation;
