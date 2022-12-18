@@ -211,9 +211,9 @@ internal sealed partial class WindowsPlatformServiceImpl : IPlatformService
     {
         if (string.IsNullOrEmpty(arguments))
             return StartProcessExplorer($"\"{fileName}\"");
-        var processName = Path.GetFileNameWithoutExtension(fileName);
+        //var processName = Path.GetFileNameWithoutExtension(fileName);
         var cacheCmdFile = IOPath.GetCacheFilePath(CacheTempDirName, "StartAsInvokerByExplorer", FileEx.CMD);
-        File.WriteAllText(cacheCmdFile, $"@echo {Constants.HARDCODED_APP_NAME} StartAsInvokerByExplorer({processName}){Environment.NewLine}start \"\" \"{fileName}\" {arguments}{Environment.NewLine}del %0");
+        File.WriteAllText(cacheCmdFile, $"@echo {Constants.HARDCODED_APP_NAME} StartAsInvokerByExplorer{Environment.NewLine}start \"\" \"{fileName}\" {arguments}{Environment.NewLine}del %0");
         var process = StartProcessExplorer($"\"{cacheCmdFile}\"");
         //if (process != null)
         //{
