@@ -536,6 +536,8 @@ namespace System.Application.Services.Implementation
         private const uint MagicNumber = 123094055U;
         private const uint MagicNumberV2 = 123094056U;
 
+        private static readonly Lazy<uint[]> MagicNumbers = new(new uint[] { MagicNumber, MagicNumberV2 });
+
         /// <summary>
         /// 从steam本地客户端缓存文件中读取游戏数据
         /// </summary>
@@ -556,7 +558,7 @@ namespace System.Application.Services.Implementation
                     }
                     using BinaryReader binaryReader = new(stream);
                     uint num = binaryReader.ReadUInt32();
-                    if (num is not MagicNumberV2 or MagicNumber)
+                    if (!MagicNumbers.Value.Contains(num))
                     {
                         var msg = string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num);
                         Log.Error(nameof(GetAppInfos), msg);
