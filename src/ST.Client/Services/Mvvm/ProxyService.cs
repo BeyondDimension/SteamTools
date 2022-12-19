@@ -460,7 +460,7 @@ namespace System.Application.Services
             var result = await client.All(reverseProxyService.ReverseProxyEngine);
 #if DEBUG
             stopwatch.Stop();
-            Toast.Show($"加载代理服务数据耗时：{stopwatch.ElapsedMilliseconds}ms，IsSuccess：{result.IsSuccess}，Count：{result.Content?.Count}");
+            Toast.Show($"加载代理服务数据耗时：{stopwatch.ElapsedMilliseconds}ms，IsSuccess：{result.IsSuccess}，Code：{result.Code}，Count：{result.Content?.Count}");
 #endif
             if (result.IsSuccess)
             {
