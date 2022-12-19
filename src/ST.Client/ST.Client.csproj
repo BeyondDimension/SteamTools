@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>-->
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <DefineConstants>ORM_SQLITE_PCL;$(DefineConstants)</DefineConstants>
     <AssemblyName>System.Application.SteamTools.Client</AssemblyName>
