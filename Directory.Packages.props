@@ -79,7 +79,7 @@
     <!--<PackageVersion Include="Microsoft.Windows.SDK.NET.Ref" Version="10.0.19041.22" />-->
     <!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
-    <PackageVersion Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Primitives" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Net.Http.Headers" Version="2.2.255.255" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <!--<PackageVersion Include="CommunityToolkit.Mvvm" Version="7.1.2" />-->
