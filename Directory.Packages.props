@@ -194,7 +194,7 @@
     <PackageVersion Include="NPOI" Version="2.6.0" />
 
     <!-- Github API -->
-    <PackageVersion Include="Octokit" Version="4.0.3" />
+    <PackageVersion Include="Octokit" Version="5.0.0" />
 
     <!-- ORM -->
     <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
