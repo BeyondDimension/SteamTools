@@ -144,7 +144,7 @@
     <PackageVersion Include="AutoMapper" Version="12.0.0" />
     <PackageVersion Include="AutoMapper.Collection" Version="9.0.0" />
     <PackageVersion Include="AutoMapper.Collection.EntityFrameworkCore" Version="8.0.0" />
-    <PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="6.0.2" />
+    <PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="6.0.3" />
     <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 
     <!-- QRCode -->
