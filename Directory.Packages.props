@@ -159,7 +159,7 @@
     <!--<PackageVersion Include="GtkSharp" Version="3.24.24.38" />-->
 
     <!-- Compression -->
-    <PackageVersion Include="SharpZipLib" Version="1.4.1" />
+    <PackageVersion Include="SharpZipLib" Version="1.4.2" />
     <PackageVersion Include="Squid-Box.SevenZipSharp.Lite" Version="1.5.0.366" />
     <PackageVersion Include="7-Zip.NativeAssets.Win32" Version="21.7.0-preview.1" />
     <PackageVersion Include="ZstdNet" Version="1.4.5" />
