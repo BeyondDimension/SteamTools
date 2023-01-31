@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>BD.WTTS</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BD.Common" />
+		<PackageReference Include="BD.Common.Primitives" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BD.WTTS.Client.ReverseProxy\BD.WTTS.Client.ReverseProxy.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NET7.props" />
+
+</Project>

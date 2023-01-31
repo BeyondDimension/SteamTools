@@ -1,0 +1,473 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*.{sh}]
+end_of_line = lf
+insert_final_newline = true
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*]
+charset = utf-8
+
+# Tab indentation (no size specified)
+[Makefile]
+indent_style = tab
+
+[*.{js,json}]
+indent_style = space
+indent_size = 2
+
+[*.{xaml,axaml,xml,resx,resw,csproj,wapproj,appxmanifest,props}]
+indent_style = tab
+
+# c# 文件
+[*.cs]
+
+#### Core EditorConfig 选项 ####
+
+# 缩进和间距
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+# 新行首选项
+end_of_line = crlf
+insert_final_newline = false
+
+#### .NET 编码约定 ####
+
+# 组织 Using
+dotnet_separate_import_directive_groups = false
+dotnet_sort_system_directives_first = false
+file_header_template = unset
+
+# this. 和 Me. 首选项
+dotnet_style_qualification_for_event = false:suggestion
+dotnet_style_qualification_for_field = false
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+
+# 语言关键字与 bcl 类型首选项
+dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
+dotnet_style_predefined_type_for_member_access = true:suggestion
+
+# 括号首选项
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity
+
+# 修饰符首选项
+dotnet_style_require_accessibility_modifiers = never
+
+# 表达式级首选项
+dotnet_style_coalesce_expression = true
+dotnet_style_collection_initializer = true
+dotnet_style_explicit_tuple_names = true
+dotnet_style_null_propagation = true
+dotnet_style_object_initializer = true
+dotnet_style_operator_placement_when_wrapping = beginning_of_line
+dotnet_style_prefer_auto_properties = true
+dotnet_style_prefer_compound_assignment = true
+dotnet_style_prefer_conditional_expression_over_assignment = true
+dotnet_style_prefer_conditional_expression_over_return = true
+dotnet_style_prefer_inferred_anonymous_type_member_names = true
+dotnet_style_prefer_inferred_tuple_names = true
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true
+dotnet_style_prefer_simplified_boolean_expressions = true
+dotnet_style_prefer_simplified_interpolation = true
+
+# 字段首选项
+dotnet_style_readonly_field = true
+
+# 参数首选项
+dotnet_code_quality_unused_parameters = all
+
+# 禁止显示首选项
+dotnet_remove_unnecessary_suppression_exclusions = none
+
+#### c# 编码约定 ####
+
+# var 首选项
+csharp_style_var_elsewhere = true
+csharp_style_var_for_built_in_types = true
+csharp_style_var_when_type_is_apparent = true
+
+# Expression-bodied 成员
+csharp_style_expression_bodied_accessors = true
+csharp_style_expression_bodied_constructors = false
+csharp_style_expression_bodied_indexers = true
+csharp_style_expression_bodied_lambdas = true
+csharp_style_expression_bodied_local_functions = false
+csharp_style_expression_bodied_methods = false
+csharp_style_expression_bodied_operators = false
+csharp_style_expression_bodied_properties = true
+
+# 模式匹配首选项
+csharp_style_pattern_matching_over_as_with_null_check = true
+csharp_style_pattern_matching_over_is_with_cast_check = true
+csharp_style_prefer_not_pattern = true
+csharp_style_prefer_pattern_matching = true
+csharp_style_prefer_switch_expression = true
+
+# Null 检查首选项
+csharp_style_conditional_delegate_call = true
+
+# 修饰符首选项
+csharp_prefer_static_local_function = true
+csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async
+
+# 代码块首选项
+csharp_prefer_braces = false
+csharp_prefer_simple_using_statement = true
+
+# 表达式级首选项
+csharp_prefer_simple_default_expression = true
+csharp_style_deconstructed_variable_declaration = true
+csharp_style_implicit_object_creation_when_type_is_apparent = true
+csharp_style_inlined_variable_declaration = true
+csharp_style_pattern_local_over_anonymous_function = true
+csharp_style_prefer_index_operator = true
+csharp_style_prefer_range_operator = true
+csharp_style_throw_expression = true
+csharp_style_unused_value_assignment_preference = discard_variable
+csharp_style_unused_value_expression_statement_preference = discard_variable
+
+# "using" 指令首选项
+csharp_using_directive_placement = outside_namespace
+
+#### C# 格式规则 ####
+
+# 新行首选项
+csharp_new_line_before_catch = true
+csharp_new_line_before_else = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_open_brace = all
+csharp_new_line_between_query_expression_clauses = true
+
+# 缩进首选项
+csharp_indent_block_contents = true
+csharp_indent_braces = false
+csharp_indent_case_contents = true
+csharp_indent_case_contents_when_block = true
+csharp_indent_labels = one_less_than_current
+csharp_indent_switch_labels = true
+
+# 空格键首选项
+csharp_space_after_cast = false
+csharp_space_after_colon_in_inheritance_clause = true
+csharp_space_after_comma = true
+csharp_space_after_dot = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_after_semicolon_in_for_statement = true
+csharp_space_around_binary_operators = before_and_after
+csharp_space_around_declaration_statements = false
+csharp_space_before_colon_in_inheritance_clause = true
+csharp_space_before_comma = false
+csharp_space_before_dot = false
+csharp_space_before_open_square_brackets = false
+csharp_space_before_semicolon_in_for_statement = false
+csharp_space_between_empty_square_brackets = false
+csharp_space_between_method_call_empty_parameter_list_parentheses = false
+csharp_space_between_method_call_name_and_opening_parenthesis = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
+csharp_space_between_method_declaration_name_and_open_parenthesis = false
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_parentheses = false
+csharp_space_between_square_brackets = false
+
+# 包装首选项
+csharp_preserve_single_line_blocks = true
+csharp_preserve_single_line_statements = true
+
+#### 命名样式 ####
+
+# 命名规则
+
+dotnet_naming_rule.interface_should_be_以_i_开始.severity = suggestion
+dotnet_naming_rule.interface_should_be_以_i_开始.symbols = interface
+dotnet_naming_rule.interface_should_be_以_i_开始.style = 以_i_开始
+
+dotnet_naming_rule.类型_should_be_帕斯卡拼写法.severity = suggestion
+dotnet_naming_rule.类型_should_be_帕斯卡拼写法.symbols = 类型
+dotnet_naming_rule.类型_should_be_帕斯卡拼写法.style = 帕斯卡拼写法
+
+dotnet_naming_rule.非字段成员_should_be_帕斯卡拼写法.severity = suggestion
+dotnet_naming_rule.非字段成员_should_be_帕斯卡拼写法.symbols = 非字段成员
+dotnet_naming_rule.非字段成员_should_be_帕斯卡拼写法.style = 帕斯卡拼写法
+
+# 符号规范
+
+dotnet_naming_symbols.interface.applicable_kinds = interface
+dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.interface.required_modifiers =
+
+dotnet_naming_symbols.类型.applicable_kinds = class, struct, interface, enum
+dotnet_naming_symbols.类型.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.类型.required_modifiers =
+
+dotnet_naming_symbols.非字段成员.applicable_kinds = property, event, method
+dotnet_naming_symbols.非字段成员.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.非字段成员.required_modifiers =
+
+# 命名样式
+
+dotnet_naming_style.帕斯卡拼写法.required_prefix =
+dotnet_naming_style.帕斯卡拼写法.required_suffix =
+dotnet_naming_style.帕斯卡拼写法.word_separator =
+dotnet_naming_style.帕斯卡拼写法.capitalization = pascal_case
+
+dotnet_naming_style.以_i_开始.required_prefix = I
+dotnet_naming_style.以_i_开始.required_suffix =
+dotnet_naming_style.以_i_开始.word_separator =
+dotnet_naming_style.以_i_开始.capitalization = pascal_case
+
+# IDE0010: 添加缺失的事例
+dotnet_diagnostic.IDE0010.severity = none
+
+# IDE0011: 添加大括号
+dotnet_diagnostic.IDE0011.severity = none
+
+# IDE0040: 添加可访问性修饰符
+dotnet_diagnostic.IDE0040.severity = none
+
+# IDE0130: 命名空间与文件夹结构不匹配
+dotnet_style_namespace_match_folder = false
+
+# IDE0130: 命名空间与文件夹结构不匹配
+dotnet_diagnostic.IDE0130.severity = none
+
+# IDE0055: 修正格式
+dotnet_diagnostic.IDE0055.severity = error
+
+# IDE1006: 命名样式
+dotnet_diagnostic.IDE1006.severity = error
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
+
+# SA1629: Documentation text should end with a period
+dotnet_diagnostic.SA1629.severity = silent
+
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = silent
+
+# SA1623: Property summary documentation should match accessors
+dotnet_diagnostic.SA1623.severity = none
+
+# SA1200: Using directives should be placed correctly
+dotnet_diagnostic.SA1200.severity = none
+
+# SA1208: System using directives should be placed before other using directives
+dotnet_diagnostic.SA1208.severity = silent
+
+# Default severity for analyzer diagnostics with category 'StyleCop.CSharp.LayoutRules'
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.LayoutRules.severity = error
+
+# SA1400: Access modifier should be declared
+dotnet_diagnostic.SA1400.severity = silent
+
+# SA1633: File should have header
+dotnet_diagnostic.SA1633.severity = silent
+
+# SA1128: Put constructor initializers on their own line
+dotnet_diagnostic.SA1128.severity = silent
+
+# SA1413: Use trailing comma in multi-line initializers
+dotnet_diagnostic.SA1413.severity = suggestion
+
+# SA1005: Single line comments should begin with single space
+dotnet_diagnostic.SA1005.severity = none
+
+# SA1515: Single-line comment should be preceded by blank line
+dotnet_diagnostic.SA1515.severity = silent
+
+# SA1512: Single-line comments should not be followed by blank line
+dotnet_diagnostic.SA1512.severity = silent
+
+# SA1122: Use string.Empty for empty strings
+dotnet_diagnostic.SA1122.severity = silent
+
+# SA1616: Element return value documentation should have text
+dotnet_diagnostic.SA1616.severity = silent
+
+# SA1310: Field names should not contain underscore
+dotnet_diagnostic.SA1310.severity = silent
+
+# SA1137: Elements should have the same indentation
+dotnet_diagnostic.SA1137.severity = error
+
+# SA1503: Braces should not be omitted
+dotnet_diagnostic.SA1503.severity = silent
+
+# SA1513: Closing brace should be followed by blank line
+dotnet_diagnostic.SA1513.severity = silent
+
+# SA1402: File may only contain a single type
+dotnet_diagnostic.SA1402.severity = silent
+
+# SA1133: Do not combine attributes
+dotnet_diagnostic.SA1133.severity = silent
+
+# SA1011: Closing square brackets should be spaced correctly
+dotnet_diagnostic.SA1011.severity = silent
+
+# SA1502: Element should not be on a single line
+dotnet_diagnostic.SA1502.severity = silent
+
+# SA1201: Elements should appear in the correct order
+dotnet_diagnostic.SA1201.severity = silent
+
+# SA1505: Opening braces should not be followed by blank line
+dotnet_diagnostic.SA1505.severity = silent
+
+# SA1508: Closing braces should not be preceded by blank line
+dotnet_diagnostic.SA1508.severity = silent
+
+# SA1614: Element parameter documentation should have text
+dotnet_diagnostic.SA1614.severity = silent
+
+# SA1116: Split parameters should start on line after declaration
+dotnet_diagnostic.SA1116.severity = silent
+
+# SA1601: Partial elements should be documented
+dotnet_diagnostic.SA1601.severity = silent
+
+# SA1009: Closing parenthesis should be spaced correctly
+dotnet_diagnostic.SA1009.severity = silent
+
+# SA1202: Elements should be ordered by access
+dotnet_diagnostic.SA1202.severity = silent
+
+# SA1311: Static readonly fields should begin with upper-case letter
+dotnet_diagnostic.SA1311.severity = silent
+
+# SA1127: Generic type constraints should be on their own line
+dotnet_diagnostic.SA1127.severity = silent
+
+# SA1503: Braces should not be omitted
+dotnet_diagnostic.SA1503.severity = silent
+
+# SA1649: File name should match first type name
+dotnet_diagnostic.SA1649.severity = silent
+
+# SA1210: Using directives should be ordered alphabetically by namespace
+dotnet_diagnostic.SA1210.severity = silent
+
+# SA1028: Code should not contain trailing whitespace
+dotnet_diagnostic.SA1028.severity = silent
+
+# SA1204: Static elements should appear before instance elements
+dotnet_diagnostic.SA1204.severity = silent
+
+# SA1203: Constants should appear before fields
+dotnet_diagnostic.SA1203.severity = silent
+
+# SA1123: Do not place regions within elements
+dotnet_diagnostic.SA1123.severity = silent
+
+# SA1615: Element return value should be documented
+dotnet_diagnostic.SA1615.severity = silent
+
+# SA1611: Element parameters should be documented
+dotnet_diagnostic.SA1611.severity = silent
+
+# SA1124: Do not use regions
+dotnet_diagnostic.SA1124.severity = silent
+
+# SA1520: Use braces consistently
+dotnet_diagnostic.SA1520.severity = silent
+
+# SA1107: Code should not contain multiple statements on one line
+dotnet_diagnostic.SA1107.severity = silent
+
+# SA1312: Variable names should begin with lower-case letter
+dotnet_diagnostic.SA1312.severity = error
+
+# SA1519: Braces should not be omitted from multi-line child statement
+dotnet_diagnostic.SA1519.severity = silent
+
+# SA1000: Keywords should be spaced correctly
+dotnet_diagnostic.SA1000.severity = silent
+
+# SA1205: Partial elements should declare access
+dotnet_diagnostic.SA1205.severity = silent
+
+# SA1401: Fields should be private
+dotnet_diagnostic.SA1401.severity = silent
+
+# SA1622: Generic type parameter documentation should have text
+dotnet_diagnostic.SA1622.severity = silent
+
+# SA1627: Documentation text should not be empty
+dotnet_diagnostic.SA1627.severity = silent
+
+# SA1403: File may only contain a single namespace
+dotnet_diagnostic.SA1403.severity = silent
+
+# SA1602: Enumeration items should be documented
+dotnet_diagnostic.SA1602.severity = silent
+
+# SA1108: Block statements should not contain embedded comments
+dotnet_diagnostic.SA1108.severity = silent
+
+# SA1642: Constructor summary documentation should begin with standard text
+dotnet_diagnostic.SA1642.severity = silent
+
+# SA1117: Parameters should be on same line or separate lines
+dotnet_diagnostic.SA1117.severity = silent
+
+# SA1501: Statement should not be on a single line
+dotnet_diagnostic.SA1501.severity = silent
+
+# SA1500: Braces for multi-line statements should not share line
+dotnet_diagnostic.SA1500.severity = silent
+
+# SA1518: Use line endings correctly at end of file
+dotnet_diagnostic.SA1518.severity = silent
+
+# SA1118: Parameter should not span multiple lines
+dotnet_diagnostic.SA1118.severity = silent
+
+# SA1214: Readonly fields should appear before non-readonly fields
+dotnet_diagnostic.SA1214.severity = silent
+
+# SA1309: Field names should not begin with underscore
+dotnet_diagnostic.SA1309.severity = silent
+
+# SA1027: Use tabs correctly
+dotnet_diagnostic.SA1027.severity = silent
+
+# SA1306: Field names should begin with lower-case letter
+dotnet_diagnostic.SA1306.severity = silent
+
+# SA1643: Destructor summary documentation should begin with standard text
+dotnet_diagnostic.SA1643.severity = silent
+
+# SA1303: Const field names should begin with upper-case letter
+dotnet_diagnostic.SA1303.severity = silent
+
+# SA1300: Element should begin with upper-case letter
+dotnet_diagnostic.SA1300.severity = silent
+
+# SA1316: Tuple element names should use correct casing
+dotnet_diagnostic.SA1316.severity = silent
+
+# SA1405: Debug.Assert should provide message text
+dotnet_diagnostic.SA1405.severity = silent
+
+# CS1572: XML 注释中有 param 标记，但是没有该名称的参数
+dotnet_diagnostic.CS1572.severity = silent
+
+# SA1112: Closing parenthesis should be on line of opening parenthesis
+dotnet_diagnostic.SA1112.severity = silent
+
+# SA1111: Closing parenthesis should be on line of last parameter
+dotnet_diagnostic.SA1111.severity = silent

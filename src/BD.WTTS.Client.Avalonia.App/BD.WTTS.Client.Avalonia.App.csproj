@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<RootNamespace>BD.WTTS</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BD.Common" />
+		<PackageReference Include="BD.Common.Primitives" />
+		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Avalonia.Desktop" />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BD.WTTS.Client.Accelerator\BD.WTTS.Client.Accelerator.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client.AppCenter.Avalonia\BD.WTTS.Client.AppCenter.Avalonia.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client.ArchiSteamFarm\BD.WTTS.Client.ArchiSteamFarm.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client.Authenticator\BD.WTTS.Client.Authenticator.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client.Host.CommandLine\BD.WTTS.Client.Host.CommandLine.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client.JumpList.Avalonia\BD.WTTS.Client.JumpList.Avalonia.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client.ReverseProxy.Yarp\BD.WTTS.Client.ReverseProxy.Yarp.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client.ReverseProxy\BD.WTTS.Client.ReverseProxy.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client.Steam\BD.WTTS.Client.Steam.csproj" />
+	  <ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NET7.props" />
+
+</Project>
+
