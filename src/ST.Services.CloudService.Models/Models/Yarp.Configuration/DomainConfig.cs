@@ -38,10 +38,10 @@ public sealed class DomainConfig : IDomainConfig
     [MPKey(7)]
     public string? ForwardDestination { get; init; }
 
-    [MPKey(7)]
+    [MPKey(8)]
     public string? UserAgent { get; init; }
 
-    [MPKey(8)]
+    [MPKey(9)]
     public IReadOnlyDictionary<DomainPattern, IDomainConfig>? Items { get; init; }
 
     IResponseConfig? IDomainConfig.Response => Response;

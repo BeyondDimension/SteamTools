@@ -81,7 +81,7 @@ public static partial class ProjectPathUtil
     static string GetProjectPath(string? path = null)
     {
         path ??= AppContext.BaseDirectory;
-        if (!Directory.GetFiles(path, "*.sln").Any())
+        if (!Directory.EnumerateFiles(path, "*.sln").Any())
         {
             var parent = Directory.GetParent(path);
             if (parent == null) return string.Empty;
