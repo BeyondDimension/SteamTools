@@ -128,7 +128,7 @@
     <PackageVersion Include="DynamicData" Version="7.12.11" />
     <PackageVersion Include="ReactiveUI" Version="18.4.1" />
     <PackageVersion Include="ReactiveUI.Fody" Version="18.4.1" />
-    <PackageVersion Include="ReactiveUI.XamForms" Version="18.4.1" />
+    <PackageVersion Include="ReactiveUI.XamForms" Version="18.4.20" />
     <PackageVersion Include="ReactiveUI.AndroidX" Version="18.4.1" />
     <PackageVersion Include="ReactiveUI.Maui" Version="18.4.1" />
     
