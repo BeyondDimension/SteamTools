@@ -124,7 +124,7 @@
 
     <!-- ReactiveUI -->
     <PackageVersion Include="System.Reactive" Version="5.0.0" />
-    <PackageVersion Include="Splat" Version="14.6.1" />
+    <PackageVersion Include="Splat" Version="14.6.8" />
     <PackageVersion Include="DynamicData" Version="7.12.11" />
     <PackageVersion Include="ReactiveUI" Version="18.4.1" />
     <PackageVersion Include="ReactiveUI.Fody" Version="18.4.1" />
