@@ -1,3 +1,21 @@
 [submodule "ref/DirectoryPackages"]
 	path = ref/DirectoryPackages
 	url = https://github.com/BeyondDimension/DirectoryPackages.git
+[submodule "ref/ArchiSteamFarm"]
+	path = ref/ArchiSteamFarm
+	url = https://github.com/BeyondDimension/ArchiSteamFarm.git
+[submodule "ref/Avalonia.Image2"]
+	path = ref/Avalonia.Image2
+	url = https://github.com/BeyondDimension/Avalonia.Image2.git
+[submodule "ref/Gameloop.Vdf"]
+	path = ref/Gameloop.Vdf
+	url = https://github.com/BeyondDimension/Gameloop.Vdf.git
+[submodule "ref/Steam4NET"]
+	path = ref/Steam4NET
+	url = https://github.com/BeyondDimension/Steam4NET.git
+[submodule "ref/Titanium-Web-Proxy"]
+	path = ref/Titanium-Web-Proxy
+	url = https://github.com/BeyondDimension/Titanium-Web-Proxy.git
+[submodule "ref/SteamAchievementManager"]
+	path = ref/SteamAchievementManager
+	url = https://github.com/BeyondDimension/SteamAchievementManager.git
