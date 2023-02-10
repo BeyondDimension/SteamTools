@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace BD.WTTS;
+namespace BD.WTTS.UI.Views;
 
 public partial class MainWindow : Window
 {

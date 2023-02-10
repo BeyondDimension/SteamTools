@@ -8,6 +8,10 @@
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.Common.Primitives" />
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="UI\ViewModels\" />
+	</ItemGroup>
 
 	<Import Project="..\TFM_NET7.props" />
 
