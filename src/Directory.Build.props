@@ -18,16 +18,6 @@
 		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
 		<GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)'=='Release'">
-		<AllowedReferenceRelatedFileExtensions>
-			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
-           		 Only *.allowedextension files will be included, which doesn't exist in my case.
-       		-->
-			.allowedextension
-		</AllowedReferenceRelatedFileExtensions>
-		<DebugType>none</DebugType>
-		<DebugSymbols>false</DebugSymbols>
-	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.cs">
 			<LinkBase>Properties</LinkBase>

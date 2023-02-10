@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplicitUsings", "ImplicitUsings", "{FCD20B30-EF95-401D-BD0D-3067604B9C1B}"
 	ProjectSection(SolutionItems) = preProject
 		src\ImplicitUsings.AspNetCore.cs = src\ImplicitUsings.AspNetCore.cs
+		src\ImplicitUsings.Avalonia.cs = src\ImplicitUsings.Avalonia.cs
 		src\ImplicitUsings.BCL.cs = src\ImplicitUsings.BCL.cs
 		src\ImplicitUsings.Common.cs = src\ImplicitUsings.Common.cs
 		src\ImplicitUsings.Controllers.cs = src\ImplicitUsings.Controllers.cs
@@ -33,7 +34,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplicitUsings", "ImplicitU
 		src\ImplicitUsings.NLog.cs = src\ImplicitUsings.NLog.cs
 		src\ImplicitUsings.Quartz.cs = src\ImplicitUsings.Quartz.cs
 		src\ImplicitUsings.ReactiveUI.cs = src\ImplicitUsings.ReactiveUI.cs
+		src\ImplicitUsings.Repositories.cs = src\ImplicitUsings.Repositories.cs
 		src\ImplicitUsings.Services.cs = src\ImplicitUsings.Services.cs
+		src\ImplicitUsings.SQLite.cs = src\ImplicitUsings.SQLite.cs
+		src\ImplicitUsings.UI.cs = src\ImplicitUsings.UI.cs
+		src\ImplicitUsings.UI.ViewModels.cs = src\ImplicitUsings.UI.ViewModels.cs
+		src\ImplicitUsings.UI.Views.cs = src\ImplicitUsings.UI.Views.cs
 		src\ImplicitUsings.UnitTest.cs = src\ImplicitUsings.UnitTest.cs
 	EndProjectSection
 EndProject
@@ -112,6 +118,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium.Web.Proxy", "ref\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj", "{9FE34A02-40A3-4933-AD2F-BACDADB9C970}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiSteamFarm.Library", "ref\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj", "{EC671563-E6CD-4678-A376-6962CF2508E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.UI", "src\BD.WTTS.Client.UI\BD.WTTS.Client.UI.csproj", "{22842FC7-34C4-402E-87DC-2BEB73681D0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -203,6 +211,10 @@ Global
 		{EC671563-E6CD-4678-A376-6962CF2508E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC671563-E6CD-4678-A376-6962CF2508E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC671563-E6CD-4678-A376-6962CF2508E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22842FC7-34C4-402E-87DC-2BEB73681D0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22842FC7-34C4-402E-87DC-2BEB73681D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22842FC7-34C4-402E-87DC-2BEB73681D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22842FC7-34C4-402E-87DC-2BEB73681D0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -235,6 +247,7 @@ Global
 		{55A9A4EA-D4C6-4446-B1E9-673C9DC77D50} = {F150BA97-308C-4E13-AEBF-83BEBC2EC31A}
 		{9FE34A02-40A3-4933-AD2F-BACDADB9C970} = {31DDD1ED-4FE7-4530-B522-02821B2A2CC4}
 		{EC671563-E6CD-4678-A376-6962CF2508E4} = {CB5DA3D1-1A0B-4EE7-9095-16EDC2EE5D7E}
+		{22842FC7-34C4-402E-87DC-2BEB73681D0D} = {B1848690-B510-47BD-BC0E-CCCF2A3FAAEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {082A84C3-694F-4EF3-82E7-C965111EF098}

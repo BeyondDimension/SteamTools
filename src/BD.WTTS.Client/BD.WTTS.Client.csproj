@@ -3,16 +3,43 @@
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
 	</PropertyGroup>
-	
+
+	<ItemGroup>
+		<Compile Include="..\ImplicitUsings.MessagePack.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.SQLite.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Repositories.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.Common.Primitives" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="UI\ViewModels\" />
+		<PackageReference Include="BD.Common.Repositories.SQLitePCL" />
+		<PackageReference Include="BD.WTTS.MicroServices.ClientSDK" />
+		<PackageReference Include="WinAuth.Library" />
 	</ItemGroup>
 
-	<Import Project="..\TFM_NET7.props" />
+	<ItemGroup>
+	  <Compile Update="Resources\Strings.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Strings.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Strings.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+	    <CustomToolNamespace>BD.WTTS.Client.Resources</CustomToolNamespace>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<Import Project="..\TFM_NET7_WITH_WINDOWS.props" />
 
 </Project>

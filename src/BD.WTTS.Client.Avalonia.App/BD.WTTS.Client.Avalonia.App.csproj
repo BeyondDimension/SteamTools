@@ -5,6 +5,29 @@
 		<RootNamespace>BD.WTTS</RootNamespace>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<AllowedReferenceRelatedFileExtensions>
+			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           		 Only *.allowedextension files will be included, which doesn't exist in my case.
+       		-->
+			.allowedextension
+		</AllowedReferenceRelatedFileExtensions>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\ImplicitUsings.Avalonia.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.Views.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.Common.Primitives" />
@@ -15,19 +38,34 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\BD.WTTS.Client.Accelerator\BD.WTTS.Client.Accelerator.csproj" />
-	  <ProjectReference Include="..\BD.WTTS.Client.AppCenter.Avalonia\BD.WTTS.Client.AppCenter.Avalonia.csproj" />
-	  <ProjectReference Include="..\BD.WTTS.Client.ArchiSteamFarm\BD.WTTS.Client.ArchiSteamFarm.csproj" />
-	  <ProjectReference Include="..\BD.WTTS.Client.Authenticator\BD.WTTS.Client.Authenticator.csproj" />
-	  <ProjectReference Include="..\BD.WTTS.Client.Host.CommandLine\BD.WTTS.Client.Host.CommandLine.csproj" />
-	  <ProjectReference Include="..\BD.WTTS.Client.JumpList.Avalonia\BD.WTTS.Client.JumpList.Avalonia.csproj" />
-	  <ProjectReference Include="..\BD.WTTS.Client.ReverseProxy.Yarp\BD.WTTS.Client.ReverseProxy.Yarp.csproj" />
-	  <ProjectReference Include="..\BD.WTTS.Client.ReverseProxy\BD.WTTS.Client.ReverseProxy.csproj" />
-	  <ProjectReference Include="..\BD.WTTS.Client.Steam\BD.WTTS.Client.Steam.csproj" />
-	  <ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Accelerator\BD.WTTS.Client.Accelerator.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.AppCenter.Avalonia\BD.WTTS.Client.AppCenter.Avalonia.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.ArchiSteamFarm\BD.WTTS.Client.ArchiSteamFarm.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Authenticator\BD.WTTS.Client.Authenticator.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Host.CommandLine\BD.WTTS.Client.Host.CommandLine.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.JumpList.Avalonia\BD.WTTS.Client.JumpList.Avalonia.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.ReverseProxy.Yarp\BD.WTTS.Client.ReverseProxy.Yarp.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.ReverseProxy\BD.WTTS.Client.ReverseProxy.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Steam\BD.WTTS.Client.Steam.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.UI\BD.WTTS.Client.UI.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
-	<Import Project="..\TFM_NET7.props" />
+	<ItemGroup>
+	  <Folder Include="Services\Implementation\" />
+	  <Folder Include="UI\Views\Pages\Accelerator\" />
+	  <Folder Include="UI\Views\Pages\AccountSwitch\" />
+	  <Folder Include="UI\Views\Pages\Library\" />
+	  <Folder Include="UI\Views\Pages\Authenticator\" />
+	  <Folder Include="UI\Views\Pages\ArchiSteamFarm\" />
+	  <Folder Include="UI\Views\Pages\GameTools\" />
+	  <Folder Include="UI\Styles\" />
+	  <Folder Include="UI\Assets\" />
+	  <Folder Include="Converters\" />
+	  <Folder Include="UI\ViewModels\" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NET7_WITH_WINDOWS.props" />
 
 </Project>
 

@@ -1,10 +1,6 @@
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
-
 namespace BD.WTTS.UI;
 
-public class App : Application
+public sealed partial class App : Application
 {
     public override void Initialize()
     {
