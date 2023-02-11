@@ -57,24 +57,46 @@ public enum ImageChannelType : byte
 public static class ImageChannelTypeEnumExtensions
 {
     /// <inheritdoc cref="IImageHttpClientService.GetImageAsync(string, string, CancellationToken)"/>
-    public static Task<string?> GetImageAsync(this IImageHttpClientService httpService,
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Task<string?> GetImageAsync(this IImageHttpClientService imageHttpClientService,
         string? requestUri,
         ImageChannelType channelType,
         CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(requestUri)) return Task.FromResult((string?)null);
         var channelType_ = channelType.ToString();
-        return httpService.GetImageAsync(requestUri, channelType_, cancellationToken);
+        return imageHttpClientService.GetImageAsync(requestUri, channelType_, cancellationToken);
+    }
+
+    /// <inheritdoc cref="IImageHttpClientService.GetImageAsync(string, string, CancellationToken)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Task<string?> GetImageAsync(this ImageChannelType channelType,
+        string? requestUri,
+        CancellationToken cancellationToken = default)
+    {
+        var imageHttpClientService = Ioc.Get<IImageHttpClientService>();
+        return imageHttpClientService.GetImageAsync(requestUri, channelType, cancellationToken);
     }
 
     /// <inheritdoc cref="IImageHttpClientService.GetImageStreamAsync(string, string, CancellationToken)"/>
-    public static Task<Stream?> GetImageStreamAsync(this IImageHttpClientService httpService,
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Task<Stream?> GetImageStreamAsync(this IImageHttpClientService imageHttpClientService,
         string? requestUri,
         ImageChannelType channelType,
         CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(requestUri)) return Task.FromResult((Stream?)null);
         var channelType_ = channelType.ToString();
-        return httpService.GetImageStreamAsync(requestUri, channelType_, cancellationToken);
+        return imageHttpClientService.GetImageStreamAsync(requestUri, channelType_, cancellationToken);
+    }
+
+    /// <inheritdoc cref="IImageHttpClientService.GetImageStreamAsync(string, string, CancellationToken)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Task<Stream?> GetImageStreamAsync(this ImageChannelType channelType,
+        string? requestUri,
+        CancellationToken cancellationToken = default)
+    {
+        var imageHttpClientService = Ioc.Get<IImageHttpClientService>();
+        return imageHttpClientService.GetImageStreamAsync(requestUri, channelType, cancellationToken);
     }
 }

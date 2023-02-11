@@ -16,5 +16,5 @@ global using BD.WTTS.Enums;
 global using BD.WTTS.Columns;
 global using BD.WTTS.Entities;
 //global using BD.WTTS.Entities.Abstractions;
-//global using BD.WTTS.Repositories;
-//global using BD.WTTS.Repositories.Abstractions;
+global using BD.WTTS.Repositories;
+global using BD.WTTS.Repositories.Abstractions;

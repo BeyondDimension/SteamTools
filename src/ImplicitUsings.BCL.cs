@@ -7,8 +7,10 @@
 
 global using Microsoft.Win32;
 global using System.Collections.Concurrent;
+global using System.Collections.ObjectModel;
 #if !NETFRAMEWORK
 global using System.Collections.Immutable;
+global using System.ComponentModel;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 #endif
@@ -38,16 +40,12 @@ global using System.Runtime.Devices;
 global using System.Runtime.InteropServices;
 global using System.Runtime.Versioning;
 
-#if MVVM_VM
-global using DynamicData;
-global using DynamicData.Binding;
-global using System.Collections.ObjectModel;
-global using System.Reactive.Linq;
-#endif
-
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 
 #if WINDOWS7_0_OR_GREATER
 global using MessageBox = MS.Win32.MessageBox;
 #endif
+
+global using System.Xml;
+global using System.Xml.Serialization;
