@@ -39,4 +39,12 @@ public static partial class AssemblyInfo
     /// 简体中文的区域性名称。
     /// </summary>
     public const string CultureName_SimplifiedChinese = "zh-Hans";
+    public const string CultureName_PRC = "zh-CN";
+    public const string CultureName_TraditionalChinese = "zh-Hant";
+    public const string CultureName_English = "en";
+    public const string CultureName_Korean = "ko";
+    public const string CultureName_Japanese = "ja";
+    public const string CultureName_Russian = "ru";
+    public const string CultureName_Spanish = "es";
+    public const string CultureName_Italian = "it";
 }

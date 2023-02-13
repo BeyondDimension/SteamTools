@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Root", "0.Root", "{7C0425
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplicitUsings", "ImplicitUsings", "{FCD20B30-EF95-401D-BD0D-3067604B9C1B}"
 	ProjectSection(SolutionItems) = preProject
+		src\ImplicitUsings.ArchiSteamFarm.cs = src\ImplicitUsings.ArchiSteamFarm.cs
 		src\ImplicitUsings.AspNetCore.cs = src\ImplicitUsings.AspNetCore.cs
+		src\ImplicitUsings.AutoMapper.cs = src\ImplicitUsings.AutoMapper.cs
 		src\ImplicitUsings.Avalonia.cs = src\ImplicitUsings.Avalonia.cs
 		src\ImplicitUsings.BCL.cs = src\ImplicitUsings.BCL.cs
 		src\ImplicitUsings.Common.cs = src\ImplicitUsings.Common.cs
@@ -50,6 +52,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TFM", "TFM", "{6311B1A1-E19
 	ProjectSection(SolutionItems) = preProject
 		src\TFM_NET7.props = src\TFM_NET7.props
 		src\TFM_NET7_WINDOWS.props = src\TFM_NET7_WINDOWS.props
+		src\TFM_NET7_WITH_ALL.props = src\TFM_NET7_WITH_ALL.props
 		src\TFM_NET7_WITH_WINDOWS.props = src\TFM_NET7_WITH_WINDOWS.props
 	EndProjectSection
 EndProject
@@ -59,8 +62,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{1C
 		doc\download-guide.md = doc\download-guide.md
 		doc\release-keylol.md = doc\release-keylol.md
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Steam", "src\BD.WTTS.Client.Steam\BD.WTTS.Client.Steam.csproj", "{76AAA4A0-4B2A-48B1-B327-A55398313BB9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.ArchiSteamFarm", "src\BD.WTTS.Client.ArchiSteamFarm\BD.WTTS.Client.ArchiSteamFarm.csproj", "{0C387553-F13F-4AD2-99F9-E8E48D0E0698}"
 EndProject
@@ -122,8 +123,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium.Web.Proxy", "ref\T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiSteamFarm.Library", "ref\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj", "{EC671563-E6CD-4678-A376-6962CF2508E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.UI", "src\BD.WTTS.Client.UI\BD.WTTS.Client.UI.csproj", "{22842FC7-34C4-402E-87DC-2BEB73681D0D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -134,10 +133,6 @@ Global
 		{266A772C-98F7-43B8-AA58-638986691EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{266A772C-98F7-43B8-AA58-638986691EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{266A772C-98F7-43B8-AA58-638986691EB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76AAA4A0-4B2A-48B1-B327-A55398313BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76AAA4A0-4B2A-48B1-B327-A55398313BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76AAA4A0-4B2A-48B1-B327-A55398313BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76AAA4A0-4B2A-48B1-B327-A55398313BB9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C387553-F13F-4AD2-99F9-E8E48D0E0698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0C387553-F13F-4AD2-99F9-E8E48D0E0698}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C387553-F13F-4AD2-99F9-E8E48D0E0698}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -214,10 +209,6 @@ Global
 		{EC671563-E6CD-4678-A376-6962CF2508E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC671563-E6CD-4678-A376-6962CF2508E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC671563-E6CD-4678-A376-6962CF2508E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22842FC7-34C4-402E-87DC-2BEB73681D0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22842FC7-34C4-402E-87DC-2BEB73681D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22842FC7-34C4-402E-87DC-2BEB73681D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22842FC7-34C4-402E-87DC-2BEB73681D0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -227,7 +218,6 @@ Global
 		{FCD20B30-EF95-401D-BD0D-3067604B9C1B} = {7C042563-2DD2-4BB3-A43B-0E34FC6D07E0}
 		{6311B1A1-E190-4308-9DD3-23261FB07F5B} = {7C042563-2DD2-4BB3-A43B-0E34FC6D07E0}
 		{1CCF158F-524F-48C6-9F00-6455CC1C9224} = {7C042563-2DD2-4BB3-A43B-0E34FC6D07E0}
-		{76AAA4A0-4B2A-48B1-B327-A55398313BB9} = {B1848690-B510-47BD-BC0E-CCCF2A3FAAEF}
 		{0C387553-F13F-4AD2-99F9-E8E48D0E0698} = {E43BDF5B-0976-40CD-8D42-47F208EE4FA6}
 		{3088D731-9D49-48FF-977F-2DB86277CBB9} = {E43BDF5B-0976-40CD-8D42-47F208EE4FA6}
 		{7A1B872F-740B-4DD9-B342-1EFECA1C7AD0} = {E43BDF5B-0976-40CD-8D42-47F208EE4FA6}
@@ -250,7 +240,6 @@ Global
 		{55A9A4EA-D4C6-4446-B1E9-673C9DC77D50} = {F150BA97-308C-4E13-AEBF-83BEBC2EC31A}
 		{9FE34A02-40A3-4933-AD2F-BACDADB9C970} = {31DDD1ED-4FE7-4530-B522-02821B2A2CC4}
 		{EC671563-E6CD-4678-A376-6962CF2508E4} = {CB5DA3D1-1A0B-4EE7-9095-16EDC2EE5D7E}
-		{22842FC7-34C4-402E-87DC-2BEB73681D0D} = {B1848690-B510-47BD-BC0E-CCCF2A3FAAEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {082A84C3-694F-4EF3-82E7-C965111EF098}

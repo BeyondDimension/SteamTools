@@ -1,4 +1,5 @@
-namespace BD.WTTS.Entities.Accelerator;
+// ReSharper disable once CheckNamespace
+namespace BD.WTTS.Entities;
 
 /// <summary>
 /// JS 脚本

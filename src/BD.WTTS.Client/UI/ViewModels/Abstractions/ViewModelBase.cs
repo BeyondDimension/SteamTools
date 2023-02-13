@@ -1,3 +1,4 @@
+// ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels.Abstractions;
 
 public abstract partial class ViewModelBase : BaseNotifyPropertyChanged, IViewModelBase, IActivatableViewModel

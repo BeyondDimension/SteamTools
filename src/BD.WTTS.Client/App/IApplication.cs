@@ -14,7 +14,15 @@ public partial interface IApplication
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static bool IsDesktop()
+#if WINDOWS || MACOS || LINUX
+        => true;
+#elif MACCATALYST
+        => OperatingSystem.IsMacOS();
+#elif IOS || ANDROID
+        => false;
+#else
         => OperatingSystem.IsWindows() || OperatingSystem.IsMacOS() || (OperatingSystem.IsLinux() && !OperatingSystem.IsAndroid());
+#endif
 
     [Obsolete("use IsDesktop", true)]
     static bool IsDesktopPlatform => IsDesktop();

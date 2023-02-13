@@ -26,3 +26,6 @@ global using BD.Common.Services.Implementation.SmsSender;
 #if _IMPORT_COMMON_MIDDLEWARE__
 global using BD.Common.Middleware;
 #endif
+#if ANDROID
+global using Toast = BD.Common.Toast;
+#endif

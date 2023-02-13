@@ -1,3 +1,4 @@
+// ReSharper disable once CheckNamespace
 namespace BD.WTTS.Repositories.Abstractions;
 
 public interface INotificationRepository : IRepository<Notification, Guid>

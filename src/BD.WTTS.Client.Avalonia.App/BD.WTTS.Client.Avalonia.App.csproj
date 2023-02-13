@@ -46,8 +46,6 @@
 		<ProjectReference Include="..\BD.WTTS.Client.JumpList.Avalonia\BD.WTTS.Client.JumpList.Avalonia.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.ReverseProxy.Yarp\BD.WTTS.Client.ReverseProxy.Yarp.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.ReverseProxy\BD.WTTS.Client.ReverseProxy.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.Steam\BD.WTTS.Client.Steam.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.UI\BD.WTTS.Client.UI.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 

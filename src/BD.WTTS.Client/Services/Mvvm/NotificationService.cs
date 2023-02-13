@@ -123,7 +123,7 @@ public sealed class NotificationService : ReactiveObject
         var data = await notificationRepo.GetAllAsync(w => w.ExpirationTime > DateTimeOffset.Now);
         var newData = notices
                 .Where(w => !data.Any(d => d.Id == w.Id))
-                .Select(s => new Entities.Notification()
+                .Select(s => new Notification()
                 {
                     Id = s.Id,
                     HasRead = false,

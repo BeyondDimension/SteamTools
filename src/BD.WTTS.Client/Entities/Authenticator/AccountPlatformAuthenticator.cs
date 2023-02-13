@@ -1,4 +1,5 @@
-namespace BD.WTTS.Entities.Authenticator;
+// ReSharper disable once CheckNamespace
+namespace BD.WTTS.Entities;
 
 /// <summary>
 /// 账号平台令牌数据

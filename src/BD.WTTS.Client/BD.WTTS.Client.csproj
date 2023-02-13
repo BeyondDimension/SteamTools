@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,17 +33,37 @@
 		<Compile Include="..\ImplicitUsings.Settings.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\ImplicitUsings.AutoMapper.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.Common.Mvvm" />
 		<PackageReference Include="BD.Common.Primitives" />
+		<PackageReference Include="BD.Common.Primitives.ApiResponse" />
 		<PackageReference Include="BD.Common.Settings" />
 		<PackageReference Include="BD.Common.Repositories.SQLitePCL" />
 		<PackageReference Include="BD.WTTS.MicroServices.ClientSDK" />
-		<PackageReference Include="WinAuth.Library" />
 		<PackageReference Include="BD.WTTS.Primitives.ViewModels" />
+		<PackageReference Include="WinAuth.Library" />
+		<PackageReference Include="AutoMapper" />
+		<PackageReference Include="SharpZipLib" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
+		<PackageReference Include="SteamKit2" />
+		<ProjectReference Include="..\..\ref\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj" />
+		<ProjectReference Include="..\..\ref\Steam4NET\Steam4NET\Steam4NET.csproj" />
+		<ProjectReference Include="..\..\ref\SteamAchievementManager\SAM.API\SAM.API.csproj" />
+		<ProjectReference Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj" />
+		<Compile Include="..\ImplicitUsings.Steam.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.ArchiSteamFarm.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -62,9 +83,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Services\Implementation\" />
+		<Folder Include="Services\Implementation\Steam\" />
+		<Folder Include="UI\ViewModels\Pages\Accelerator\" />
+		<Folder Include="UI\ViewModels\Pages\AccountSwitch\" />
+		<Folder Include="UI\ViewModels\Pages\ArchiSteamFarm\" />
+		<Folder Include="UI\ViewModels\Pages\Authenticator\" />
+		<Folder Include="UI\ViewModels\Pages\GameTools\" />
+		<Folder Include="UI\ViewModels\Pages\Library\" />
 	</ItemGroup>
 
-	<Import Project="..\TFM_NET7_WITH_WINDOWS.props" />
+	<Import Project="..\TFM_NET7_WITH_ALL.props" />
 
 </Project>

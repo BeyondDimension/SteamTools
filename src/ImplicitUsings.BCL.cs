@@ -49,3 +49,5 @@ global using MessageBox = MS.Win32.MessageBox;
 
 global using System.Xml;
 global using System.Xml.Serialization;
+global using System.Security.Cryptography.X509Certificates;
+global using IPAddress = System.Net.IPAddress;
