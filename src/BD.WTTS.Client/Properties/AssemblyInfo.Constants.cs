@@ -47,4 +47,12 @@ public static partial class AssemblyInfo
     public const string CultureName_Russian = "ru";
     public const string CultureName_Spanish = "es";
     public const string CultureName_Italian = "it";
+
+    public const bool Debuggable =
+#if DEBUG
+true
+#else
+false
+#endif
+        ;
 }

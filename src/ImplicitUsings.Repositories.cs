@@ -7,6 +7,7 @@
 
 global using BD.Common.Enums;
 global using BD.Common.Columns;
+global using BD.Common.Data;
 global using BD.Common.Entities;
 global using BD.Common.Entities.Abstractions;
 global using BD.Common.Repositories;

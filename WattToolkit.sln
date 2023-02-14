@@ -46,6 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplicitUsings", "ImplicitU
 		src\ImplicitUsings.UI.ViewModels.cs = src\ImplicitUsings.UI.ViewModels.cs
 		src\ImplicitUsings.UI.Views.cs = src\ImplicitUsings.UI.Views.cs
 		src\ImplicitUsings.UnitTest.cs = src\ImplicitUsings.UnitTest.cs
+		src\ImplicitUsings.WTTS.cs = src\ImplicitUsings.WTTS.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TFM", "TFM", "{6311B1A1-E190-4308-9DD3-23261FB07F5B}"

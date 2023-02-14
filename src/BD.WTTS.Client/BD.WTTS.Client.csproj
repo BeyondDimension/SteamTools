@@ -27,6 +27,9 @@
 		<Compile Include="..\ImplicitUsings.Models.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 		<Compile Include="..\ImplicitUsings.UI.ViewModels.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -36,10 +39,20 @@
 		<Compile Include="..\ImplicitUsings.AutoMapper.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\ImplicitUsings.WTTS.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.MSEX.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Nito.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="BD.Common" />
+		<PackageReference Include="BD.Common.Area" />
 		<PackageReference Include="BD.Common.Mvvm" />
 		<PackageReference Include="BD.Common.Primitives" />
 		<PackageReference Include="BD.Common.Primitives.ApiResponse" />
@@ -49,6 +62,7 @@
 		<PackageReference Include="BD.WTTS.Primitives.ViewModels" />
 		<PackageReference Include="WinAuth.Library" />
 		<PackageReference Include="AutoMapper" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
 		<PackageReference Include="SharpZipLib" />
 	</ItemGroup>
 

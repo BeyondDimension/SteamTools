@@ -1,5 +1,5 @@
 // ReSharper disable once CheckNamespace
-namespace BD.WTTS;
+namespace BD.WTTS.UI;
 
 /// <summary>
 /// 显示消息框

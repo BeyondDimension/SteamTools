@@ -3,7 +3,9 @@ namespace BD.WTTS.Services;
 
 partial interface IPlatformService
 {
-#if WINDOWS7_0_OR_GREATER
+    void SetResizeMode(IntPtr hWnd, ResizeMode value) { }
+
+#if WINDOWS
 
     /// <summary>
     /// 拖拽指针获取目标窗口

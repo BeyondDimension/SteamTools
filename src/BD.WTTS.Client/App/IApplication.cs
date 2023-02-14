@@ -32,4 +32,8 @@ public partial interface IApplication
     /// <para>reference to the ViewController (if using Xamarin.iOS), Activity (if using Xamarin.Android) IWin32Window or IntPtr (if using .Net Framework).</para>
     /// </summary>
     object CurrentPlatformUIHost { get; }
+
+    bool IsAvaloniaUI() => false;
+
+    bool IsMAUI() => false;
 }

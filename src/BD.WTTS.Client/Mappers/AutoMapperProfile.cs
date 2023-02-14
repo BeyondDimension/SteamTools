@@ -1,4 +1,4 @@
-namespace BD.WTTS;
+namespace BD.WTTS.Mappers;
 
 public sealed class AutoMapperProfile : Profile
 {
