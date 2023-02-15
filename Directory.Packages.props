@@ -230,7 +230,7 @@
     <PackageVersion Include="Fleck" Version="1.2.0" />
 
     <!-- DNS -->
-    <PackageVersion Include="Ae.DNS.Client" Version="0.0.16" />
+    <PackageVersion Include="Ae.DNS.Client" Version="0.0.21" />
     <!--<PackageVersion Include="Ae.Dns.Protocol" Version="0.0.16" />-->
     <PackageVersion Include="DnsClient" Version="1.7.0" />
     <PackageVersion Include="DNS" Version="7.0.0" />
