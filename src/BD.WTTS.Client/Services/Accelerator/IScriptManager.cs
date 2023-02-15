@@ -31,7 +31,7 @@ public interface IScriptManager
     /// <param name="pid"></param>
     /// <param name="ignoreCache"></param>
     /// <returns></returns>
-    Task<IApiResponse<ScriptDTO?>> AddScriptAsync(string path, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
+    Task<IApiRsp<ScriptDTO?>> AddScriptAsync(string path, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
 
     /// <summary>
     /// 添加 JS
@@ -45,7 +45,7 @@ public interface IScriptManager
     /// <param name="pid"></param>
     /// <param name="ignoreCache"></param>
     /// <returns></returns>
-    Task<IApiResponse<ScriptDTO?>> AddScriptAsync(FileInfo path, ScriptDTO? info, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
+    Task<IApiRsp<ScriptDTO?>> AddScriptAsync(FileInfo path, ScriptDTO? info, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
 
     /// <summary>
     /// 获取全部脚本
@@ -59,14 +59,14 @@ public interface IScriptManager
     /// <param name="item"></param>
     /// <param name="removeByDataBase"></param>
     /// <returns></returns>
-    Task<IApiResponse> DeleteScriptAsync(ScriptDTO item, bool removeByDataBase = true);
+    Task<IApiRsp> DeleteScriptAsync(ScriptDTO item, bool removeByDataBase = true);
 
     /// <summary>
     /// 通过 Url 下载 JS
     /// </summary>
     /// <param name="url"></param>
     /// <returns></returns>
-    Task<IApiResponse<string>> DownloadScriptAsync(string url);
+    Task<IApiRsp<string?>> DownloadScriptAsync(string url);
 
     /// <summary>
     /// 保存脚本启用状态

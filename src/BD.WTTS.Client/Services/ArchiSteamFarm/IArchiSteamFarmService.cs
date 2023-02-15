@@ -89,6 +89,12 @@ public partial interface IArchiSteamFarmService : IArchiSteamFarmHelperService
             return CurrentIPCPortValue;
         }
     }
+
+    /// <summary>
+    /// 使用弹窗密码框输入自定义密钥并设置与保存
+    /// </summary>
+    /// <returns></returns>
+    Task SetEncryptionKeyAsync();
 }
 
 #endif

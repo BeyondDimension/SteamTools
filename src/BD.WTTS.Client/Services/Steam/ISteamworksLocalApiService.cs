@@ -1,5 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
@@ -15,67 +13,88 @@ public interface ISteamworksLocalApiService
     /// <summary>
     /// 当前平台是否支持
     /// </summary>
-    bool IsSupported { get; }
+    bool IsSupported => false;
 
-    void DisposeSteamClient();
+    void DisposeSteamClient() { }
 
-    bool Initialize();
+    bool Initialize() => default;
 
-    bool Initialize(int appid);
+    bool Initialize(int appid) => default;
 
-    long GetSteamId64();
+    long GetSteamId64() => default;
 
-    bool OwnsApps(uint appid);
+    bool OwnsApps(uint appid) => default;
 
-    IEnumerable<SteamApp> OwnsApps(IEnumerable<SteamApp> apps);
+    IEnumerable<SteamApp> OwnsApps(IEnumerable<SteamApp> apps) => Array.Empty<SteamApp>();
 
-    string GetAppData(uint appid, string key);
+    string GetAppData(uint appid, string key) => string.Empty;
 
-    bool IsSteamChinaLauncher();
+    bool IsSteamChinaLauncher() => default;
 
-    bool IsSteamInBigPictureMode();
+    bool IsSteamInBigPictureMode() => default;
 
-    uint GetSecondsSinceAppActive();
+    uint GetSecondsSinceAppActive() => default;
 
-    uint GetServerRealTime();
+    uint GetServerRealTime() => default;
 
-    bool IsAppInstalled(uint appid);
+    bool IsAppInstalled(uint appid) => default;
 
-    string GetAppInstallDir(uint appid);
+    string GetAppInstallDir(uint appid) => string.Empty;
 
-    string GetIPCountry();
+    string GetIPCountry() => string.Empty;
 
-    string GetCurrentGameLanguage();
+    string GetCurrentGameLanguage() => string.Empty;
 
-    string GetAvailableGameLanguages();
+    string GetAvailableGameLanguages() => string.Empty;
 
-    bool GetStatValue(string name, out int value);
+    bool GetStatValue(string name, out int value)
+    {
+        value = default;
+        return default;
+    }
 
-    bool GetStatValue(string name, out float value);
+    bool GetStatValue(string name, out float value)
+    {
+        value = default;
+        return default;
+    }
 
-    bool GetAchievementState(string name, out bool isAchieved);
+    bool GetAchievementState(string name, out bool isAchieved)
+    {
+        isAchieved = default;
+        return default;
+    }
 
-    bool GetAchievementAndUnlockTime(string name, out bool isAchieved, out long unlockTime);
+    bool GetAchievementAndUnlockTime(string name, out bool isAchieved, out long unlockTime)
+    {
+        isAchieved = default;
+        unlockTime = default;
+        return default;
+    }
 
-    bool GetAchievementAchievedPercent(string name, out float percent);
+    bool GetAchievementAchievedPercent(string name, out float percent)
+    {
+        percent = default;
+        return default;
+    }
 
-    void AddUserStatsReceivedCallback(Action<IUserStatsReceived> action);
+    void AddUserStatsReceivedCallback(Action<IUserStatsReceived> action) { }
 
-    bool RequestCurrentStats();
+    bool RequestCurrentStats() => default;
 
-    bool ResetAllStats(bool achievementsToo);
+    bool ResetAllStats(bool achievementsToo) => default;
 
-    bool SetAchievement(string name, bool state);
+    bool SetAchievement(string name, bool state) => default;
 
-    bool SetStatValue(string name, int value);
+    bool SetStatValue(string name, int value) => default;
 
-    bool SetStatValue(string name, float value);
+    bool SetStatValue(string name, float value) => default;
 
-    bool StoreStats();
+    bool StoreStats() => default;
 
-    void RequestGlobalAchievementPercentages();
+    void RequestGlobalAchievementPercentages() { }
 
-    void RunCallbacks(bool server);
+    void RunCallbacks(bool server) { }
 
     interface IUserStatsReceived
     {
@@ -84,17 +103,24 @@ public interface ISteamworksLocalApiService
         int Result { get; }
     }
 
-    bool GetCloudArchiveQuota(out ulong totalBytes, out ulong availableBytes);
+    #region SteamRemoteStorage
 
-    List<SteamRemoteFile>? GetCloudArchiveFiles();
+    bool GetCloudArchiveQuota(out ulong totalBytes, out ulong availableBytes)
+    {
+        totalBytes = 0;
+        availableBytes = 0;
+        return false;
+    }
 
-    int FileRead(string name, byte[] buffer);
+    List<SteamRemoteFile>? GetCloudArchiveFiles() => default;
 
-    bool FileWrite(string name, byte[] buffer);
+    int FileRead(string name, byte[] buffer) => default;
 
-    bool FileForget(string name);
+    bool FileWrite(string name, byte[] buffer) => default;
 
-    bool FileDelete(string name);
+    bool FileForget(string name) => default;
+
+    bool FileDelete(string name) => default;
+
+    #endregion
 }
-
-#endif

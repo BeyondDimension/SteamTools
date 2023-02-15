@@ -53,6 +53,7 @@
 	<ItemGroup>
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.Common.Area" />
+		<PackageReference Include="BD.Common.Security" />
 		<PackageReference Include="BD.Common.Mvvm" />
 		<PackageReference Include="BD.Common.Primitives" />
 		<PackageReference Include="BD.Common.Primitives.ApiResponse" />
@@ -64,6 +65,7 @@
 		<PackageReference Include="AutoMapper" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
 		<PackageReference Include="SharpZipLib" />
+		<PackageReference Include="Ae.DNS.Client" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -97,7 +99,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Services\Implementation\Steam\" />
 		<Folder Include="UI\ViewModels\Pages\Accelerator\" />
 		<Folder Include="UI\ViewModels\Pages\AccountSwitch\" />
 		<Folder Include="UI\ViewModels\Pages\ArchiSteamFarm\" />

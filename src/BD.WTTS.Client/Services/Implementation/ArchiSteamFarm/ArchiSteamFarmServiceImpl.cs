@@ -111,7 +111,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         Toast.Show(AppResources.ASF_Restarted, ToastLength.Short);
     }
 
-    MSEXLog.LogLevel IArchiSteamFarmHelperService.MinimumLevel => IApplication.LoggerMinLevel;
+    LogLevel IArchiSteamFarmHelperService.MinimumLevel => IApplication.LoggerMinLevel;
 
     private void InitHistoryLogger()
     {
@@ -126,10 +126,6 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             };
     }
 
-    /// <summary>
-    /// 执行asf指令
-    /// </summary>
-    /// <param name="command"></param>
     public async Task<string?> ExecuteCommand(string command)
     {
         Bot? targetBot = Bot.Bots?.OrderBy(bot => bot.Key, Bot.BotsComparer).Select(bot => bot.Value).FirstOrDefault();
@@ -154,10 +150,6 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         return response;
     }
 
-    /// <summary>
-    /// 获取bot只读集合
-    /// </summary>
-    /// <returns></returns>
     public IReadOnlyDictionary<string, Bot>? GetReadOnlyAllBots()
     {
         var bots = Bot.Bots;
@@ -169,10 +161,6 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         return bots;
     }
 
-    /// <summary>
-    /// 设置并保存 Bot
-    /// </summary>
-    /// <param name="bot"></param>
     public async void SaveBot(Bot bot)
     {
         //var bot = Bot.GetBot(botName);
@@ -204,7 +192,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             var loopback = IPAddress.Loopback.ToString();
             if (a != null)
             {
-                value = a.FirstOrDefault(x => x.Contains(loopback) && x.StartsWith(CC.Prefix_HTTP))
+                value = a.FirstOrDefault(x => x.Contains(loopback) && x.StartsWith(String2.Prefix_HTTP))
                     ?? a.FirstOrDefault(x => x.Contains(loopback))
                     ?? a.FirstOrDefault();
             }
@@ -265,6 +253,53 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
     //        }
     //    }
     //}
+
+    string EncryptionKey
+    {
+        set => ArchiCryptoHelper.SetEncryptionKey(value);
+    }
+
+    const string ASF_CRYPTKEY = "ASF_CRYPTKEY";
+    const string ASF_CRYPTKEY_DEF_VALUE = nameof(ArchiSteamFarm);
+
+    public async Task SetEncryptionKeyAsync()
+    {
+        var result = await TextBoxWindowViewModel.ShowDialogAsync(new TextBoxWindowViewModel
+        {
+            Title = AppResources.ASF_SetCryptKey,
+            Placeholder = ASF_CRYPTKEY,
+            InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+        });
+        var isUseDefaultCryptKey = string.IsNullOrEmpty(result) || result == ASF_CRYPTKEY_DEF_VALUE;
+        if (!isUseDefaultCryptKey)
+        {
+            await ISecureStorage.Instance.SetAsync(ASF_CRYPTKEY, result);
+        }
+        else
+        {
+            await ISecureStorage.Instance.RemoveAsync(ASF_CRYPTKEY);
+            result = ASF_CRYPTKEY_DEF_VALUE;
+        }
+        ArchiCryptoHelper.SetEncryptionKey(result!);
+    }
+
+    /// <summary>
+    /// 尝试读取已保存的自定义密钥并应用
+    /// </summary>
+    /// <returns></returns>
+    static async Task ReadEncryptionKeyAsync()
+    {
+        if (!ArchiCryptoHelper.HasDefaultCryptKey)
+        {
+            // 当前运行中已设置了自定义密钥，则跳过
+            return;
+        }
+        var result = await ISecureStorage.Instance.GetAsync(ASF_CRYPTKEY);
+        if (!string.IsNullOrEmpty(result))
+        {
+            ArchiCryptoHelper.SetEncryptionKey(result);
+        }
+    }
 }
 
 #endif

@@ -7,4 +7,6 @@
 
 global using SteamKit2;
 global using SteamUser = BD.WTTS.Models.SteamUser;
+global using SteamApps = BD.WTTS.Models.SteamApps;
 global using SteamKit2SteamUser = SteamKit2.SteamUser;
+global using SteamKit2SteamApps = SteamKit2.SteamApps;

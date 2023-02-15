@@ -19,3 +19,8 @@ global using BD.WTTS.Entities;
 //global using BD.WTTS.Entities.Abstractions;
 global using BD.WTTS.Repositories;
 global using BD.WTTS.Repositories.Abstractions;
+
+global using Notification = BD.WTTS.Entities.Notification;
+#if ANDROID
+global using AndroidAppNotification = Android.App.Notification;
+#endif

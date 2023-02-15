@@ -9,3 +9,4 @@ global using ArchiSteamFarm;
 global using ArchiSteamFarm.Steam;
 global using ArchiSteamFarm.Storage;
 global using ArchiSteamFarm.Library;
+global using ArchiSteamFarm.Helpers;

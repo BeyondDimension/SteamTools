@@ -22,7 +22,7 @@ public interface IOperationResult
 }
 
 /// <inheritdoc cref="IOperationResult"/>
-public interface IOperationResult<T> : IOperationResult where T : notnull
+public interface IOperationResult<T> : IOperationResult
 {
     /// <summary>
     /// 获取或设置 操作结果附加信息
@@ -31,7 +31,7 @@ public interface IOperationResult<T> : IOperationResult where T : notnull
 }
 
 /// <inheritdoc cref="IOperationResult{T}"/>
-public abstract class OperationResultBase<T> : IOperationResult<T> where T : notnull
+public abstract class OperationResultBase<T> : IOperationResult<T>
 {
     #region 构造函数
 
@@ -163,7 +163,7 @@ public class OperationResult : OperationResultBase<object>
 }
 
 /// <inheritdoc cref="OperationResultBase{T}"/>
-public class OperationResult<T> : OperationResultBase<T> where T : notnull
+public class OperationResult<T> : OperationResultBase<T>
 {
     /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType)"/>
     public OperationResult()

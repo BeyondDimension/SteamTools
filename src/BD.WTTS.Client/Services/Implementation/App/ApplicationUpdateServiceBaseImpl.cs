@@ -1,4 +1,6 @@
+using static BD.WTTS.Services.IApplicationUpdateService;
 using AppResources = BD.WTTS.Client.Resources.Strings;
+using FailCode = BD.WTTS.Enums.ApplicationUpdateFailCode;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
@@ -54,14 +56,12 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
     {
         get
         {
-            if (DesktopBridge.IsRunningAsUwp ||
-                OperatingSystem2.IsOnlySupportedStore() ||
-                OperatingSystem2.IsLinux() ||
-                OperatingSystem2.IsMacOS())
-            {
-                return false;
-            }
+#if WINDOWS
+            if (DesktopBridge.IsRunningAsUwp) return false;
             return true;
+#else
+            return false;
+#endif
         }
     }
 
@@ -95,10 +95,10 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
         }
     }
 
-    public string NewVersionInfoTitle => AppResources.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version, ThisAssembly.AssemblyTrademark);
+    public string NewVersionInfoTitle => AppResources.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version, AssemblyInfo.Trademark);
 
     /// <summary>
-    /// 当存在新的版本时，重写此方法实现弹窗提示用户
+    /// 当存在新的版本时，重写此方法实现弹窗提示用户 
     /// </summary>
     protected virtual async void OnExistNewVersion()
     {
@@ -223,13 +223,13 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
         {
             if (value == 0)
             {
-                progress?.Report(CC.MaxProgress);
+                progress?.Report(100f);
                 progress = notification.NotifyDownload(() => ProgressString,
                     NotificationType.NewVersion);
             }
-            else if (value == CC.MaxProgress)
+            else if (value == 100f)
             {
-                progress?.Report(CC.MaxProgress);
+                progress?.Report(100f);
                 progress = null;
             }
             else
@@ -251,7 +251,7 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
             using var fs = File.OpenRead(filePath);
             var sha256_ = Hashs.String.SHA256(fs);  // 改为带进度的哈希计算
             var value = string.Equals(sha256_, sha256, StringComparison.OrdinalIgnoreCase);
-            onReportCalcHashing(CC.MaxProgress);
+            onReportCalcHashing(100f);
             return value;
         }
         catch (FileNotFoundException)
@@ -290,7 +290,7 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
             }
 
             var isAndroid = OperatingSystem2.IsAndroid();
-            var isDesktop = OperatingSystem2.IsDesktop();
+            var isDesktop = IApplication.IsDesktop();
             if (!isAndroid && !isDesktop)
             {
                 OpenInAppStore();
@@ -306,7 +306,7 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
 
                 if (Path.DirectorySeparatorChar != '\\') // 路径分隔符在客户端系统上与服务端纪录的值不同时，替换分隔符
                 {
-                    void CorrectionDirectorySeparatorChar(IEnumerable<AppVersionDTO.IncrementalUpdateDownload> items)
+                    void CorrectionDirectorySeparatorChar(IEnumerable<AppVersionDTOIncrementalUpdateDownload> items)
                     {
                         foreach (var item in items)
                         {
@@ -345,7 +345,8 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
                     var (downloadPath, filePath) = allFiles[item]; // (downloadPath)文件下载存放路径，(filePath)文件要覆盖的路径
                     var hashFileKey = (item.SHA256!, item.Length); // 使用 sha256 与 文件大小 作为唯一标识
                     var fileInfo = new FileInfo(filePath);
-                    if (!fileInfo.Directory.Exists) fileInfo.Directory.Create(); // 文件所在目录必须存在
+                    if (fileInfo.Directory != null && !fileInfo.Directory.Exists)
+                        fileInfo.Directory.Create(); // 文件所在目录必须存在
 
                     #region 当前下载更新文件缓存文件夹存在，检查是否已下载了文件
                     if (packDirPathExists)
@@ -424,15 +425,15 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
                 #endregion
 
                 for_end: i++;
-                    OnReportDownloading3_(i / (float)allFiles.Count * CC.MaxProgress);
+                    OnReportDownloading3_(i / (float)allFiles.Count * 100f);
                 }
 
-                OnReport(CC.MaxProgress);
+                OnReport(100f);
                 OverwriteUpgrade(packDirPath, isIncrement: true);
             }
             else // 全量更新
             {
-                AppVersionDTO.Download? download = null;
+                AppVersionDTODownload? download = null;
                 if (newVersionInfo.Downloads != null)
                 {
                     if (isAndroid)
@@ -543,7 +544,7 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
                         var downloadFileName = $"{filePlatform}-{fileArch}_{newVersionInfo.Version}{fileEx}";
                         requestUri = GetPackFileUrl(downloadFileName);
                     }
-                    else if (IsHttpUrl(download.FileIdOrUrl))
+                    else if (String2.IsHttpUrl(download.FileIdOrUrl))
                     {
                         requestUri = download.FileIdOrUrl;
                     }
@@ -559,7 +560,7 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
                         requestUri: requestUri,
                         cacheFilePath,
                         new Progress<float>(OnReportDownloading));
-                    OnReportDownloading(CC.MaxProgress);
+                    OnReportDownloading(100f);
 
                     if (rsp.IsSuccess)
                     {
@@ -596,7 +597,7 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
         {
             var error = failCode.ToString2(args);
             toast.Show(error);
-            Open(string.Format(Constants.Urls.OfficialWebsite_ApplicationUpdateFailCode_, (byte)failCode));
+            Browser2.Open(string.Format(Constants.Urls.OfficialWebsite_ApplicationUpdateFailCode_, (byte)failCode));
             OnReport(100f);
         }
     }
@@ -694,14 +695,14 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
     /// </summary>
     protected virtual async void OpenInAppStore()
     {
+#if WINDOWS
         if (DesktopBridge.IsRunningAsUwp)
         {
-            await OpenAsync(Constants.Urls.MicrosoftStoreProtocolLink);
+            await Browser2.OpenAsync(Constants.Urls.MicrosoftStoreProtocolLink);
+            return;
         }
-        else
-        {
-            await OpenAsync(Constants.Urls.OfficialWebsite);
-        }
+#endif
+        await Browser2.OpenAsync(Constants.Urls.OfficialWebsite);
     }
 
 #if DEBUG

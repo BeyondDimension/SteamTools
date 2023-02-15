@@ -96,17 +96,17 @@ public sealed class AdvertiseService : ReactiveObject
         }
     }
 
-    public async void ClickAdvertisement(AdvertisementDTO ad)
+    public async void ClickAdvertisement(AdvertisementDTO dto)
     {
-        if (ad != null)
+        if (dto != null)
         {
-            await Browser2.OpenAsync(ad.Url);
+            await Browser2.OpenAsync(dto.Url);
         }
     }
 
-    private void CheckShow()
+    void CheckShow()
     {
-        if (!AdvertiseService.Current.IsInitialized)
+        if (!IsInitialized)
         {
             IsShowAdvertise = false;
             return;
@@ -121,7 +121,7 @@ public sealed class AdvertiseService : ReactiveObject
             }
         }
 
-        //if (AdvertiseService.Current.IsInitialized && !AdvertiseService.Current.AdvertisementsSource.Items.Any_Nullable())
+        //if (IsInitialized && !AdvertisementsSource.Items.Any_Nullable())
         //{
         //    IsShowAdvertise = false;
         //    return;

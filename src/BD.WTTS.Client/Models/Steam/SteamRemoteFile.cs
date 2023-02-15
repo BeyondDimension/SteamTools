@@ -1,5 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Models;
 
@@ -60,5 +58,3 @@ public class SteamRemoteFile : ReactiveObject
         return ISteamworksLocalApiService.Instance.FileDelete(Name);
     }
 }
-
-#endif
