@@ -55,4 +55,6 @@ true
 false
 #endif
         ;
+
+    public const string APPLICATION_ID = "net.steampp.app";
 }

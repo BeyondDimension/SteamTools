@@ -14,7 +14,7 @@ public interface IJumpListService
 
     static IJumpListService Instance => Ioc.Get<IJumpListService>();
 
-    Task AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items);
+    ValueTask AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items);
 
-    Task AddJumpItemsAsync(params (string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)[] items) => AddJumpItemsAsync(items.AsEnumerable());
+    ValueTask AddJumpItemsAsync(params (string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)[] items) => AddJumpItemsAsync(items.AsEnumerable());
 }

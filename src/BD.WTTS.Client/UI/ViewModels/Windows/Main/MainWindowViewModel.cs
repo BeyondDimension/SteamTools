@@ -45,7 +45,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         if (IApplication.IsDesktop())
         {
             var adminTag = platformService.IsAdministrator ? (OperatingSystem.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
-            var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName()}{adminTag}";
+            var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.Version} for {DeviceInfo2.OSName()}{adminTag}";
 #if DEBUG
             title = $"[Debug] {title}";
 #endif
@@ -124,6 +124,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
             Thread.CurrentThread.IsBackground = true;
             if (!IsInitialized)
             {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
                 Task.Run(async () =>
                 {
                     if (ResourceService.IsChineseSimplified)
@@ -142,12 +143,14 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                         }
                     }
                 });
+#endif
 
-                if (IApplication.IsDesktop())
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
                 {
                     SteamConnectService.Current.Initialize();
                     SteamConnectService.Current.RefreshSteamUsers();
                 }
+#endif
 
                 Parallel.ForEach(TabItems, item =>
                 {
@@ -172,4 +175,73 @@ public sealed partial class MainWindowViewModel : WindowViewModel
     //    }
     //    base.Activation();
     //}
+
+    #region TabItems Impl
+
+    readonly object mTabItemsLock = new();
+    static TabItemViewModel[]? mTabItems;
+
+    public TabItemViewModel[] TabItems
+    {
+        get
+        {
+            lock (mTabItemsLock)
+            {
+                if (mTabItems == null) mTabItems = GetTabItems().ToArray();
+                return mTabItems;
+            }
+            IEnumerable<TabItemViewModel> GetTabItems()
+            {
+                foreach (var item in TabIdItems)
+                {
+                    var type = TabItemViewModel.GetType(item);
+                    yield return AllTabLazyItems[type].Value;
+                }
+            }
+        }
+    }
+
+    readonly object mFooterTabItemsLock = new();
+    static TabItemViewModel[]? mFooterTabItems;
+
+    public TabItemViewModel[] FooterTabItems
+    {
+        get
+        {
+            lock (mFooterTabItemsLock)
+            {
+                if (mFooterTabItems == null) mFooterTabItems = GetFooterTabItems().ToArray();
+                return mFooterTabItems;
+            }
+            IEnumerable<TabItemViewModel> GetFooterTabItems()
+            {
+                foreach (var item in FooterTabIdItems)
+                {
+                    var type = TabItemViewModel.GetType(item);
+                    yield return AllTabLazyItems[type].Value;
+                }
+            }
+        }
+    }
+
+    public TabItemViewModel.TabItemId[] TabIdItems { get; }
+
+    public TabItemViewModel.TabItemId[] FooterTabIdItems { get; }
+
+    public IReadOnlyCollection<TabItemViewModel.TabItemId> AllTabIdItems { get; }
+
+    public Dictionary<Type, Lazy<TabItemViewModel>> AllTabLazyItems { get; }
+
+    internal TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel
+    {
+        var type = typeof(TabItemVM);
+        if (AllTabLazyItems.ContainsKey(type))
+        {
+            return (TabItemVM)AllTabLazyItems[type].Value;
+        }
+
+        throw new KeyNotFoundException($"type: {type} not found.");
+    }
+
+    #endregion
 }

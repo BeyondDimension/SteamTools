@@ -1,8 +1,6 @@
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using ASFNLogManager = ArchiSteamFarm.LogManager;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-using NInternalLogger = NLog.Common.InternalLogger;
-using NLogLevel = NLog.LogLevel;
-using NLogManager = NLog.LogManager;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
@@ -54,7 +52,7 @@ partial interface IApplication
         SetNLoggerMinLevel(ConvertLogLevel(logLevel));
     }
 
-    static LoggerFilterOptions? _LoggerFilterOptions;
+    private static LoggerFilterOptions? _LoggerFilterOptions;
 
     /// <summary>
     /// 日志过滤选项
@@ -64,7 +62,7 @@ partial interface IApplication
         get
         {
             if (_LoggerFilterOptions != null) return _LoggerFilterOptions;
-            return DI.Get_Nullable<IOptions<LoggerFilterOptions>>()?.Value;
+            return Ioc.Get_Nullable<IOptions<LoggerFilterOptions>>()?.Value;
         }
         set => _LoggerFilterOptions = value;
     }
@@ -89,7 +87,7 @@ partial interface IApplication
             builder.AddNLog(NLogManager.Configuration); // 添加 NLog 日志
         }
 
-        return (minLevel, (Action<ILoggingBuilder>)_);
+        return (minLevel, _);
     }
 
     /// <summary>
@@ -140,10 +138,14 @@ partial interface IApplication
     /// </summary>
     public static string LogDirPath { get; private set; } = string.Empty;
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     /// <summary>
     /// 日志存放文件夹路径(ASF)
     /// </summary>
     public static string LogDirPathASF { get; private set; } = string.Empty;
+
+#endif
 
 #if DEBUG
     /// <summary>
@@ -193,6 +195,8 @@ partial interface IApplication
         if (isTrace) StartWatchTrace.Record("InitLogDir.CreateCfg");
         NLogManager.Configuration = objConfig;
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
         LogDirPathASF = ASFPathHelper.GetLogDirectory(logDirPath_);
         IArchiSteamFarmService.InitCoreLoggers = () =>
         {
@@ -221,6 +225,8 @@ partial interface IApplication
             InitializeTarget(config, historyTarget, NLogLevel.Debug);
             ASFNLogManager.Configuration = config;
         };
+
+#endif
 
         LogDirPath = logDirPath;
         static void InitializeTarget(LoggingConfiguration config, Target target, NLogLevel minLevel)

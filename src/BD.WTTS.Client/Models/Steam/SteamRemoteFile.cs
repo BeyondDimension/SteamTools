@@ -13,7 +13,11 @@ public class SteamRemoteFile : ReactiveObject
 
     public DateTimeOffset Timestamp { get; }
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     public ERemoteStoragePlatform SyncPlatforms { get; set; }
+
+#endif
 
     public SteamRemoteFile(string name)
     {

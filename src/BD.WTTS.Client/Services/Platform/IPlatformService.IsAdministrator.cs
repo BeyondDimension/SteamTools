@@ -1,7 +1,3 @@
-#if WINDOWS
-using System.Security.Principal;
-#endif
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
@@ -25,7 +21,7 @@ partial interface IPlatformService
         }
     }
 
-#if MACCATALYST || MACOS || LINUX
+#if MACCATALYST || MACOS || LINUX || IOS || ANDROID
     [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
     [LibraryImport("libc", EntryPoint = "geteuid", SetLastError = true)]
     private static partial uint GetEUID();

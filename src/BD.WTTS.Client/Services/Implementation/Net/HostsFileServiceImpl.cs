@@ -1,13 +1,18 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
 using static BD.WTTS.Services.IHostsFileService;
 using AppResources = BD.WTTS.Client.Resources.Strings;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
-internal sealed class HostsFileServiceImpl : IHostsFileService
+internal sealed class HostsFileServiceImpl
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+    : IHostsFileService
+#endif
 {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     readonly IPlatformService s;
     readonly object lockObj = new();
 
@@ -16,7 +21,7 @@ internal sealed class HostsFileServiceImpl : IHostsFileService
         this.s = s;
     }
 
-    // ----- Mark -----
+    #region Mark
 
     internal const string MarkStart = "# Steam++ Start";
     internal const string MarkEnd = "# Steam++ End";
@@ -59,7 +64,9 @@ internal sealed class HostsFileServiceImpl : IHostsFileService
         return default;
     }
 
-    // ----- FileVerify -----
+    #endregion
+
+    #region FileVerify
 
     /// <summary>
     /// 最大支持文件大小，50MB
@@ -175,7 +182,9 @@ internal sealed class HostsFileServiceImpl : IHostsFileService
         }
     }
 
-    // ----- Handle -----
+    #endregion
+
+    #region Handle
 
     static string[] GetLineSplitArray(string line_value) => line_value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
@@ -480,6 +489,8 @@ internal sealed class HostsFileServiceImpl : IHostsFileService
         }
     }
 
+    #endregion
+
     public void OpenFile() => s.OpenFileByTextReader(s.HostsFilePath);
 
     public void OpenFileDir() => s.OpenFolder(s.HostsFilePath);
@@ -731,6 +742,6 @@ internal sealed class HostsFileServiceImpl : IHostsFileService
 
         }
     }
-}
 
 #endif
+}

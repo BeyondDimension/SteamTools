@@ -1,3 +1,4 @@
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Models;
 
@@ -17,7 +18,10 @@ public partial class ModifiedApp
             throw new ArgumentException("New ModifiedApp Failed. SteamApp.ChangesData is null.");
         }
         AppId = app.AppId;
-        OriginalData = (byte[])app.OriginalData.Clone();
+        if (app.OriginalData?.Clone() is byte[] originalData)
+        {
+            OriginalData = originalData;
+        }
 
         using BinaryWriter binaryWriter = new BinaryWriter(new MemoryStream());
         binaryWriter.Write(app.ChangesData);
@@ -61,3 +65,4 @@ public partial class ModifiedApp
         return null;
     }
 }
+#endif

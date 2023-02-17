@@ -5,6 +5,8 @@ namespace BD.WTTS.Models;
 
 public class SteamAppSaveFile : ReactiveObject
 {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     public SteamAppSaveFile(uint appid, string? root, string? path, string? pattern)
     {
         ParentAppId = appid;
@@ -92,4 +94,6 @@ public class SteamAppSaveFile : ReactiveObject
 
         FormatFilePath = SysIOPath.GetFullPath(SysIOPath.Combine(path, Pattern));
     }
+
+#endif
 }

@@ -18,32 +18,34 @@ internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
 
     public void InitViewModels()
     {
-        try
-        {
-            if (isCloudManageMain)
-            {
-                mMainWindow = new CloudArchiveWindowViewModel(steamaAppid);
-            }
-            else if (isUnlockAchievementMain)
-            {
-                mMainWindow = new AchievementWindowViewModel(steamaAppid);
-            }
-            else
-            {
-                //mainWindow = new MainWindowViewModel();
-                //mMainWindow = mainWindow;
-                mMainWindow = new MainWindowViewModel();
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.Error(nameof(ViewModelManager), ex, "Init WindowViewModel");
-            throw;
-        }
-        finally
-        {
-            InitTaskBarWindowViewModel();
-        }
+        // TODO: CloudArchiveWindowViewModel/AchievementWindowViewModel
+        throw new NotImplementedException();
+        //try
+        //{
+        //    if (isCloudManageMain)
+        //    {
+        //        mMainWindow = new CloudArchiveWindowViewModel(steamaAppid);
+        //    }
+        //    else if (isUnlockAchievementMain)
+        //    {
+        //        mMainWindow = new AchievementWindowViewModel(steamaAppid);
+        //    }
+        //    else
+        //    {
+        //        //mainWindow = new MainWindowViewModel();
+        //        //mMainWindow = mainWindow;
+        //        mMainWindow = new MainWindowViewModel();
+        //    }
+        //}
+        //catch (Exception ex)
+        //{
+        //    Log.Error(nameof(ViewModelManager), ex, "Init WindowViewModel");
+        //    throw;
+        //}
+        //finally
+        //{
+        //    InitTaskBarWindowViewModel();
+        //}
     }
 
     int steamaAppid;

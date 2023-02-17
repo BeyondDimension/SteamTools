@@ -17,10 +17,52 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="..\ImplicitUsings.Avalonia.cs">
+		<Compile Include="..\ImplicitUsings.MessagePack.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.JsonProperty.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.SQLite.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Repositories.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Services.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.ReactiveUI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Models.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 		<Compile Include="..\ImplicitUsings.UI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.ViewModels.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Settings.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.AutoMapper.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.WTTS.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.MSEX.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Nito.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.NLog.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Avalonia.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 		<Compile Include="..\ImplicitUsings.UI.Views.cs">
@@ -38,14 +80,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BD.WTTS.Client.Accelerator\BD.WTTS.Client.Accelerator.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.AppCenter.Avalonia\BD.WTTS.Client.AppCenter.Avalonia.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.ArchiSteamFarm\BD.WTTS.Client.ArchiSteamFarm.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.Authenticator\BD.WTTS.Client.Authenticator.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.Host.CommandLine\BD.WTTS.Client.Host.CommandLine.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.JumpList.Avalonia\BD.WTTS.Client.JumpList.Avalonia.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.ReverseProxy.Yarp\BD.WTTS.Client.ReverseProxy.Yarp.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.ReverseProxy\BD.WTTS.Client.ReverseProxy.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 

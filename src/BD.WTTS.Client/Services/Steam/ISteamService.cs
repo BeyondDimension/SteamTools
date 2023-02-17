@@ -20,6 +20,8 @@ public partial interface ISteamService
     const string url_steamcommunity_checkclientautologin = url_steamcommunity + "/login/checkclientautologin";
     static readonly Uri uri_store_steampowered_checkclientautologin = new(url_store_steampowered_checkclientautologin);
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     /// <summary>
     /// Steam 文件夹目录
     /// </summary>
@@ -158,4 +160,6 @@ public partial interface ISteamService
         }
         return keys;
     }
+
+#endif
 }

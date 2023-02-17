@@ -1,3 +1,6 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+using EProxyMode = BD.WTTS.Enums.ProxyMode;
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings;
 
@@ -132,41 +135,43 @@ public sealed partial class ProxySettings : SettingsHost2<ProxySettings>
 
     #region 代理模式设置
 
-    static ProxyMode DefaultProxyMode => ProxyModes.FirstOrDefault();
+    static EProxyMode DefaultProxyMode => ProxyModes[0];
 
-    static IEnumerable<ProxyMode> GetProxyModes()
+    static IEnumerable<EProxyMode> GetProxyModes()
     {
-        if (OperatingSystem2.IsWindows())
+#if WINDOWS
+        yield return EProxyMode.Hosts;
+        yield return EProxyMode.DNSIntercept;
+        yield return EProxyMode.PAC;
+        yield return EProxyMode.System;
+#elif ANDROID
+        yield return EProxyMode.VPN;
+        yield return EProxyMode.ProxyOnly;
+#elif LINUX || MACOS || MACCATALYST
+#if MACCATALYST
+        if (OperatingSystem.IsMacOS())
+#endif
         {
-            yield return ProxyMode.Hosts;
-            yield return ProxyMode.DNSIntercept;
-            yield return ProxyMode.PAC;
-            yield return ProxyMode.System;
+            yield return EProxyMode.Hosts;
+            yield return EProxyMode.System;
         }
-        else if (OperatingSystem2.IsAndroid())
-        {
-            yield return ProxyMode.VPN;
-            yield return ProxyMode.ProxyOnly;
-        }
-        else if (OperatingSystem2.IsLinux() || OperatingSystem2.IsMacOS())
-        {
-            yield return ProxyMode.Hosts;
-            yield return ProxyMode.System;
-        }
+#else
+        return Array.Empty<EProxyMode>();
+#endif
     }
 
-    public static IReadOnlyList<ProxyMode> ProxyModes => mProxyModes.Value;
+    public static IReadOnlyList<EProxyMode> ProxyModes => mProxyModes.Value;
 
-    static readonly Lazy<IReadOnlyList<ProxyMode>> mProxyModes = new(() => GetProxyModes().ToArray());
+    static readonly Lazy<IReadOnlyList<EProxyMode>> mProxyModes = new(() => GetProxyModes().ToArray());
 
     /// <summary>
     /// 当前代理模式
     /// </summary>
-    public static SerializableProperty<ProxyMode> ProxyMode { get; }
+    public static SerializableProperty<EProxyMode> ProxyMode { get; }
        = GetProperty(defaultValue: DefaultProxyMode);
 
     /// <inheritdoc cref="ProxyMode"/>
-    public static ProxyMode ProxyModeValue
+    public static EProxyMode ProxyModeValue
     {
         get
         {
@@ -177,17 +182,37 @@ public sealed partial class ProxySettings : SettingsHost2<ProxySettings>
         set => ProxyMode.Value = value;
     }
 
-    public static string ToStringByProxyMode(ProxyMode mode) => mode switch
+    public static string ToStringByProxyMode(EProxyMode mode) => mode switch
     {
-        ProxyMode.DNSIntercept => AppResources.ProxyMode_DNSIntercept,
-        ProxyMode.Hosts => AppResources.ProxyMode_Hosts,
-        ProxyMode.System => AppResources.ProxyMode_System,
-        ProxyMode.VPN => AppResources.ProxyMode_VPN,
-        ProxyMode.ProxyOnly => AppResources.ProxyMode_ProxyOnly,
+        EProxyMode.DNSIntercept => AppResources.ProxyMode_DNSIntercept,
+        EProxyMode.Hosts => AppResources.ProxyMode_Hosts,
+        EProxyMode.System => AppResources.ProxyMode_System,
+        EProxyMode.VPN => AppResources.ProxyMode_VPN,
+        EProxyMode.ProxyOnly => AppResources.ProxyMode_ProxyOnly,
         _ => string.Empty,
     };
 
     public static string ProxyModeValueString => ToStringByProxyMode(ProxyModeValue);
 
     #endregion
+
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
+    static readonly SerializableProperty<bool> _IsProxyGOG
+       = GetProperty(defaultValue: false);
+
+    /// <summary>
+    /// 启用 GOG 插件代理
+    /// </summary>
+    public static SerializableProperty<bool> IsProxyGOG => _IsProxyGOG;
+
+    static readonly SerializableProperty<bool> _IsOnlyWorkSteamBrowser
+         = GetProperty(defaultValue: false);
+
+    /// <summary>
+    /// 是否只针对 Steam 内置浏览器启用脚本
+    /// </summary>
+    public static SerializableProperty<bool> IsOnlyWorkSteamBrowser => _IsOnlyWorkSteamBrowser;
+
+#endif
 }

@@ -22,6 +22,7 @@ public partial class WindowViewModel : PageViewModel, IWindowViewModel
     {
         var name = GetType().Name;
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         bool isSupportedSizePosition = IApplication.IsDesktop();
         if (isSupportedSizePosition)
         {
@@ -44,6 +45,7 @@ public partial class WindowViewModel : PageViewModel, IWindowViewModel
                     UISettings.WindowSizePositions.RaiseValueChanged();
                 });
         }
+#endif
     }
 
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]

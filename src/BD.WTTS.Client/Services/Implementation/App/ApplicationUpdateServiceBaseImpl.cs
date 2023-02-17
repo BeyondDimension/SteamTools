@@ -663,6 +663,24 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
             }
         }
 
+        const string ProgramUpdateCmd_ = """
+            @echo off
+            :loop
+            ping -n 1 127.0.0.1 
+            tasklist|find /i "{0}"
+            if %errorlevel%==0 (
+            taskkill /im "{0}" /f
+            )
+            else(
+            taskkill /im "{0}" /f
+            xcopy /y /c /h /r /s "{1}\*.*" "{2}"
+            rmdir /s /q "{1}"
+            "{3}"
+            del %0
+            )
+            goto :loop
+            """;
+
         void OverwriteUpgradePrivate(string dirPath)
         {
             OnExit();
@@ -671,7 +689,7 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
             IOPath.FileIfExistsItDelete(updateCommandPath);
 
             var updateCommand = string.Format(
-               _SR.ProgramUpdateCmd_,
+               ProgramUpdateCmd_,
                IApplication.ProgramName,
                dirPath.TrimEnd(Path.DirectorySeparatorChar),
                IOPath.BaseDirectory,

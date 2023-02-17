@@ -46,10 +46,12 @@ public sealed class UserService : ReactiveObject
 
     public void NavigateUserCenterPage()
     {
-        if (IViewModelManager.Instance.MainWindow is MainWindowViewModel main)
-        {
-            main.SelectedItem = new AccountPageViewModel();
-        }
+        // TODO: UserCenterPage
+        throw new NotImplementedException();
+        //if (IViewModelManager.Instance.MainWindow is MainWindowViewModel main)
+        //{
+        //    main.SelectedItem = new AccountPageViewModel();
+        //}
     }
 
     public async Task SignOutAsync(Func<Task<IApiRsp>>? apiCall = null, string? message = null)

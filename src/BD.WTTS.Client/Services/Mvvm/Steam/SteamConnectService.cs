@@ -1,12 +1,17 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
 using AppResources = BD.WTTS.Client.Resources.Strings;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-public sealed class SteamConnectService : ReactiveObject, IDisposable
+public sealed class SteamConnectService
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+    : ReactiveObject, IDisposable
+#endif
 {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     bool disposedValue;
 
     public const int SteamAFKMaxCount = 32;
@@ -54,8 +59,8 @@ public sealed class SteamConnectService : ReactiveObject, IDisposable
                 if (x)
                 {
                     InitializeDownloadGameList();
-                    if (OperatingSystem2.IsLinux())
-                        IPlatformService.Instance.TryGetSystemUserPassword();
+                    if (OperatingSystem.IsLinux())
+                        IPlatformService.Instance.GetSystemUserPassword();
                     stmService.StartWatchSteamDownloading(app =>
                     {
                         var optional = DownloadApps.Lookup(app.AppId);
@@ -226,7 +231,7 @@ public sealed class SteamConnectService : ReactiveObject, IDisposable
                     RuningSteamApps.TryAdd(item.Key, new SteamApp
                     {
                         AppId = item.Key,
-                        Name = item.Value
+                        Name = item.Value,
                     });
             }
             var t = new Task(() =>
@@ -314,6 +319,7 @@ public sealed class SteamConnectService : ReactiveObject, IDisposable
                                 //await mainViewModel.AccountPage.Initialize(id);
 
                                 #endregion
+
                                 if (!IsDisposedClient)
                                     DisposeSteamClient();
                             }
@@ -408,7 +414,14 @@ public sealed class SteamConnectService : ReactiveObject, IDisposable
     {
         var endMode = SteamSettings.DownloadCompleteSystemEndMode?.Value ?? OSExitMode.Sleep;
 
-        INotificationService.Instance.Notify(string.Format(AppResources.GameList_SteamShutdown_DownloadCompleteTip, 30, AppResources.ResourceManager.GetString(Enum2.GetDescription(endMode) ?? "System Sleep", R.Culture)), NotificationType.Message);
+        INotificationService.Instance.Notify(
+            string.Format(
+                AppResources.GameList_SteamShutdown_DownloadCompleteTip,
+                30,
+                AppResources.ResourceManager.GetString(
+                    Enum2.GetDescription(endMode) ??
+                    "System Sleep",
+                    ResourceService.Culture)), NotificationType.Message);
 
         switch (endMode)
         {
@@ -432,7 +445,7 @@ public sealed class SteamConnectService : ReactiveObject, IDisposable
         if (IsLoadingGameList == false)
         {
             IsLoadingGameList = true;
-            if (stmService.IsRunningSteamProcess && OperatingSystem2.IsWindows())
+            if (stmService.IsRunningSteamProcess && OperatingSystem.IsWindows())
             {
                 await Task.Factory.StartNew(async () =>
                 {
@@ -508,8 +521,7 @@ public sealed class SteamConnectService : ReactiveObject, IDisposable
                     title = user.SteamNickName + "(" + user.Remark + ")";
                 }
 
-                if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((
-                    title: title,
+                if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((title,
                     applicationPath: IApplication.ProgramPath,
                     iconResourcePath: IApplication.ProgramPath,
                     arguments: $"-clt steam -account {user.AccountName}",
@@ -620,6 +632,6 @@ public sealed class SteamConnectService : ReactiveObject, IDisposable
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
-}
 
 #endif
+}

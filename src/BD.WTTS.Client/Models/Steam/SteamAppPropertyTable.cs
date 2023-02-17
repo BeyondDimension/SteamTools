@@ -1,3 +1,4 @@
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Models;
 
@@ -251,3 +252,4 @@ public class SteamAppPropertyTable
         return ToStringInternal(0);
     }
 }
+#endif

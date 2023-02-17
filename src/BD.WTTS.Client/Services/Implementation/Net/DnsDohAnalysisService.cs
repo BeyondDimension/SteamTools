@@ -1,3 +1,4 @@
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using Ae.Dns.Client;
 using Ae.Dns.Protocol;
 using Ae.Dns.Protocol.Records;
@@ -26,7 +27,7 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
         if (!string.IsNullOrEmpty(url))
         {
             var client = CreateClient();
-            client.BaseAddress = new Uri(IDnsAnalysisService.Dnspod_DohAddres);
+            client.BaseAddress = new Uri(Dnspod_DohAddres);
             IDnsClient dnsClient = new DnsHttpClient(client);
 
             var queryType = DnsQueryType.A;
@@ -96,3 +97,4 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
         }
     }
 }
+#endif

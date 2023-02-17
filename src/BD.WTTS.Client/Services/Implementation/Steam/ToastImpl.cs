@@ -6,7 +6,7 @@ namespace BD.WTTS.Services.Implementation;
 /// </summary>
 internal sealed class ToastImpl : ToastBaseImpl
 {
-    public ToastImpl(IToastIntercept intercept) : base(intercept)
+    public ToastImpl(IToastIntercept intercept, IMainThreadPlatformService mainThread) : base(intercept, mainThread)
     {
     }
 

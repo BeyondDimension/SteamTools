@@ -73,6 +73,9 @@ partial interface IPlatformService
         return SystemUserPassword;
     }
 
+    /// <inheritdoc cref="GetSystemUserPasswordAsync(sbyte)"/>
+    async void GetSystemUserPassword(sbyte retry = GetSystemUserPasswordRetry) => await GetSystemUserPasswordAsync(retry);
+
     /// <summary>
     /// 获取系统用户密码（不进行缓存）
     /// </summary>

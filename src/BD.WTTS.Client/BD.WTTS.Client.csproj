@@ -48,6 +48,9 @@
 		<Compile Include="..\ImplicitUsings.Nito.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\ImplicitUsings.NLog.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -55,6 +58,7 @@
 		<PackageReference Include="BD.Common.Area" />
 		<PackageReference Include="BD.Common.Security" />
 		<PackageReference Include="BD.Common.Mvvm" />
+		<PackageReference Include="BD.Common.Mvvm.ReactiveUI" />
 		<PackageReference Include="BD.Common.Primitives" />
 		<PackageReference Include="BD.Common.Primitives.ApiResponse" />
 		<PackageReference Include="BD.Common.Settings" />
@@ -65,11 +69,19 @@
 		<PackageReference Include="AutoMapper" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
 		<PackageReference Include="SharpZipLib" />
-		<PackageReference Include="Ae.DNS.Client" />
+		<PackageReference Include="NLog" />
+		<PackageReference Include="NLog.Extensions.Logging" />
+		<PackageReference Include="SkiaSharp" />
+		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
+		<PackageReference Include="Fleck" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<PackageReference Include="SteamKit2" />
+		<PackageReference Include="Yarp.ReverseProxy" />
+		<PackageReference Include="JumpLists.Win32.Avalonia" />
+		<PackageReference Include="Ae.DNS.Client" />
+		<PackageReference Include="DNS" />
 		<ProjectReference Include="..\..\ref\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj" />
 		<ProjectReference Include="..\..\ref\Steam4NET\Steam4NET\Steam4NET.csproj" />
 		<ProjectReference Include="..\..\ref\SteamAchievementManager\SAM.API\SAM.API.csproj" />
@@ -80,6 +92,18 @@
 		<Compile Include="..\ImplicitUsings.ArchiSteamFarm.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\ImplicitUsings.AspNetCore.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<PackageReference Include="Aigio.WinDivertSharp" />
+		<!--<PackageReference Include="DNS" />-->
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<Compile Remove="Services\Mvvm\Steam\SteamConnectService.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -99,6 +123,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Services\Mvvm\Steam\" />
 		<Folder Include="UI\ViewModels\Pages\Accelerator\" />
 		<Folder Include="UI\ViewModels\Pages\AccountSwitch\" />
 		<Folder Include="UI\ViewModels\Pages\ArchiSteamFarm\" />

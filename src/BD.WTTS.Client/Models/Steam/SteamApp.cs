@@ -3,7 +3,10 @@ using static BD.WTTS.SteamApiUrls;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Models;
 
-public class SteamApp : ReactiveObject, IComparable<SteamApp>
+public class SteamApp
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+    : ReactiveObject, IComparable<SteamApp>
+#endif
 {
     const string NodeAppInfo = "appinfo";
 
@@ -44,23 +47,7 @@ public class SteamApp : ReactiveObject, IComparable<SteamApp>
         AppId = appid;
     }
 
-    public int Index { get; set; }
-
-    public int State { get; set; }
-
-    /// <summary>
-    /// Returns a value indicating whether the game is being downloaded.
-    /// </summary>
-    public bool IsDownloading => CheckDownloading(State);
-
     public uint AppId { get; set; }
-
-    //public bool IsInstalled { get; set; }
-    public bool IsInstalled => IsBitSet(State, 2);
-
-    public string? InstalledDrive => !string.IsNullOrEmpty(InstalledDir) ? Path.GetPathRoot(InstalledDir)?.ToUpper()?.Replace(Path.DirectorySeparatorChar.ToString(), "") : null;
-
-    public string? InstalledDir { get; set; }
 
     public string? BaseName { get; set; }
 
@@ -79,6 +66,24 @@ public class SteamApp : ReactiveObject, IComparable<SteamApp>
             }
         }
     }
+
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
+    public int Index { get; set; }
+
+    public int State { get; set; }
+
+    /// <summary>
+    /// Returns a value indicating whether the game is being downloaded.
+    /// </summary>
+    public bool IsDownloading => CheckDownloading(State);
+
+    //public bool IsInstalled { get; set; }
+    public bool IsInstalled => IsBitSet(State, 2);
+
+    public string? InstalledDrive => !string.IsNullOrEmpty(InstalledDir) ? Path.GetPathRoot(InstalledDir)?.ToUpper()?.Replace(Path.DirectorySeparatorChar.ToString(), "") : null;
+
+    public string? InstalledDir { get; set; }
 
     string? _SortAs;
 
@@ -106,6 +111,7 @@ public class SteamApp : ReactiveObject, IComparable<SteamApp>
     public string? OSList { get; set; }
 
     #region 暂时不用
+
     //public string? EditName
     //{
     //    get
@@ -165,6 +171,7 @@ public class SteamApp : ReactiveObject, IComparable<SteamApp>
     //            NodePublisher);
     //    }
     //}
+
     #endregion
 
     public bool SetEditProperty(SteamApp appInfo)
@@ -894,6 +901,8 @@ public class SteamApp : ReactiveObject, IComparable<SteamApp>
         EditLibraryLogoStream = IOPath.OpenRead(await LibraryLogoStream);
         EditHeaderLogoStream = IOPath.OpenRead(await HeaderLogoStream);
     }
+
+#endif
 
     public enum LibCacheType : byte
     {

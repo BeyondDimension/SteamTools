@@ -11,10 +11,14 @@ global using Microsoft.Extensions.Hosting;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+global using Microsoft.AspNetCore.Connections.Features;
 global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Http.Features;
+global using Microsoft.AspNetCore.Http.Extensions;
 global using Microsoft.AspNetCore.HttpOverrides;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Server.Kestrel.Https;
 global using Microsoft.AspNetCore.Server.Kestrel.Core;
 global using Microsoft.AspNetCore.Mvc.ApplicationParts;
 global using Microsoft.AspNetCore.Mvc.Controllers;
@@ -29,10 +33,14 @@ global using Microsoft.Extensions.Caching.Distributed;
 global using Microsoft.AspNetCore.StaticFiles;
 //global using IOFile = System.IO.File;
 
-#if !PROJ_TYPE_MODELS
-global using StackExchange.Redis;
-#endif
+//#if !PROJ_TYPE_MODELS
+//global using StackExchange.Redis;
+//#endif
 
 #if NET7_0_OR_GREATER && _IMPORT_MS_OPENAPI_MODELS_ && DEBUG
 global using Microsoft.OpenApi.Models;
 #endif
+
+global using Microsoft.AspNetCore.Connections;
+global using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
+global using AspNetCoreHttpMethod = Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod;

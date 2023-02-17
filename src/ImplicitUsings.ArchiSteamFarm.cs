@@ -6,7 +6,11 @@
 #pragma warning disable SA1211 // Using alias directives should be ordered alphabetically by alias name
 
 global using ArchiSteamFarm;
+global using ArchiSteamFarm.Core;
 global using ArchiSteamFarm.Steam;
+global using ArchiSteamFarm.Localization;
 global using ArchiSteamFarm.Storage;
 global using ArchiSteamFarm.Library;
 global using ArchiSteamFarm.Helpers;
+global using ArchiSteamFarm.NLog.Targets;
+global using ArchiSteamFarm.Steam.Storage;
