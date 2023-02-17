@@ -1,3 +1,4 @@
+#if WINDOWS
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
@@ -18,3 +19,4 @@ public interface IJumpListService
 
     ValueTask AddJumpItemsAsync(params (string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)[] items) => AddJumpItemsAsync(items.AsEnumerable());
 }
+#endif

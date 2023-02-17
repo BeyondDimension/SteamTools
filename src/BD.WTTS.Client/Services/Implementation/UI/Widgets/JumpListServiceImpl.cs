@@ -1,9 +1,8 @@
 #if WINDOWS
 using Avalonia.Win32.JumpLists;
+using static BD.WTTS.Services.IJumpListService;
 using AvaloniaApplication = Avalonia.Application;
 using WinUI = Windows.UI.StartScreen;
-using static BD.WTTS.Services.IJumpListService;
-#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
@@ -138,3 +137,4 @@ internal sealed class JumpListServiceImpl : IJumpListService
     }
 #endif
 }
+#endif

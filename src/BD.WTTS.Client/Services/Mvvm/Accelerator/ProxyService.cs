@@ -1,12 +1,16 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using AppResources = BD.WTTS.Client.Resources.Strings;
 using KeyValuePair = System.Collections.Generic.KeyValuePair;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-public sealed class ProxyService : ReactiveObject, IDisposable
+public sealed class ProxyService
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+    : ReactiveObject, IDisposable, IAsyncDisposable
+#endif
 {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     static ProxyService? mCurrent;
 
     public static ProxyService Current => mCurrent ?? new();
@@ -69,7 +73,7 @@ public sealed class ProxyService : ReactiveObject, IDisposable
                     }
 
                     // Android VPN 模式使用 tun2socks
-                    reverseProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem2.IsAndroid() && ProxySettings.ProxyModeValue == ProxyMode.VPN);
+                    reverseProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem.IsAndroid() && ProxySettings.ProxyModeValue == ProxyMode.VPN);
                     reverseProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
                     if (!ModelValidatorProvider.IsPortId(reverseProxyService.Socks5ProxyPortId)) reverseProxyService.Socks5ProxyPortId = ProxySettings.DefaultSocks5ProxyPortId;
 
@@ -98,7 +102,7 @@ public sealed class ProxyService : ReactiveObject, IDisposable
                         if (inUse)
                         {
                             string? error_CommunityFix_StartProxyFaild443 = null;
-                            if (OperatingSystem2.IsWindows())
+                            if (OperatingSystem.IsWindows())
                             {
                                 var p = SocketHelper.GetProcessByTcpPort(httpsPort);
                                 if (p != null)
@@ -107,7 +111,7 @@ public sealed class ProxyService : ReactiveObject, IDisposable
                                 }
                             }
                             error_CommunityFix_StartProxyFaild443 ??= AppResources.CommunityFix_StartProxyFaild443_.Format(httpsPort);
-                            if (OperatingSystem2.IsLinux())
+                            if (OperatingSystem.IsLinux())
                             {
                                 Browser2.Open(string.Format(Constants.Urls.OfficialWebsite_UnixHostAccess_, WebUtility.UrlEncode(IApplication.ProgramPath)));
                             }
@@ -118,7 +122,7 @@ public sealed class ProxyService : ReactiveObject, IDisposable
                     else if (reverseProxyService.ProxyMode == ProxyMode.System)
                     {
                         var proxyip = reverseProxyService.ProxyIp;
-                        if (OperatingSystem2.IsWindows() && IReverseProxyService.Instance.ProxyIp.Equals(IPAddress.Any))
+                        if (OperatingSystem.IsWindows() && IReverseProxyService.Instance.ProxyIp.Equals(IPAddress.Any))
                         {
                             proxyip = IPAddress.Loopback;
                         }
@@ -131,7 +135,7 @@ public sealed class ProxyService : ReactiveObject, IDisposable
                     else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
                     {
                         var proxyip = reverseProxyService.ProxyIp;
-                        if (OperatingSystem2.IsWindows() && IReverseProxyService.Instance.ProxyIp.Equals(IPAddress.Any))
+                        if (OperatingSystem.IsWindows() && IReverseProxyService.Instance.ProxyIp.Equals(IPAddress.Any))
                         {
                             proxyip = IPAddress.Loopback;
                         }
@@ -214,12 +218,12 @@ public sealed class ProxyService : ReactiveObject, IDisposable
                             {
                                 Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
 
-                                if (OperatingSystem2.IsMacOS() || (OperatingSystem2.IsLinux() && !platformService.IsAdministrator))
+                                if (OperatingSystem.IsMacOS() || (OperatingSystem.IsLinux() && !platformService.IsAdministrator))
                                 {
                                     Browser2.Open(Constants.Urls.OfficialWebsite_UnixHostAccess);
                                 }
                                 //return;
-                                //if (OperatingSystem2.IsMacOS() && !ProxySettings.EnableWindowsProxy.Value)
+                                //if (OperatingSystem.IsMacOS() && !ProxySettings.EnableWindowsProxy.Value)
                                 //{
                                 //    //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"", true);
                                 //}
@@ -334,23 +338,19 @@ public sealed class ProxyService : ReactiveObject, IDisposable
     {
         get
         {
-            if (OperatingSystem2.IsAndroid() || OperatingSystem2.IsIOS()) return false;
-#pragma warning disable CA1416 // 验证平台兼容性
+            if (OperatingSystem.IsAndroid() || OperatingSystem.IsIOS()) return false;
             return ProxySettings.IsOnlyWorkSteamBrowser.Value;
-#pragma warning restore CA1416 // 验证平台兼容性
         }
 
         set
         {
-            if (OperatingSystem2.IsAndroid() || OperatingSystem2.IsIOS()) return;
-#pragma warning disable CA1416 // 验证平台兼容性
+            if (OperatingSystem.IsAndroid() || OperatingSystem.IsIOS()) return;
             if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
             {
                 ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
                 reverseProxyService.IsOnlyWorkSteamBrowser = value;
                 this.RaisePropertyChanged();
             }
-#pragma warning restore CA1416 // 验证平台兼容性
         }
     }
 
@@ -426,7 +426,7 @@ public sealed class ProxyService : ReactiveObject, IDisposable
 
     public async Task InitializeAccelerate()
     {
-        #region 加载代理服务数据
+        // 加载代理服务数据
         var client = IMicroServiceClient.Instance.Accelerate;
 #if DEBUG
         var stopwatch = Stopwatch.StartNew();
@@ -477,7 +477,6 @@ public sealed class ProxyService : ReactiveObject, IDisposable
                   IsChangeSupportProxyServicesStatus = true;
                   ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains?.Select(k => k.Id.ToString()).ToImmutableHashSet();
               }));
-        #endregion
     }
 
     public static bool IsChangeSupportProxyServicesStatus { get; set; }
@@ -554,7 +553,7 @@ public sealed class ProxyService : ReactiveObject, IDisposable
     /// <returns></returns>
     public async Task InitializeScript()
     {
-        #region 加载脚本数据
+        // 加载脚本数据
 
         var scriptList = await scriptManager.GetAllScriptAsync();
 
@@ -585,11 +584,10 @@ public sealed class ProxyService : ReactiveObject, IDisposable
                       this.RaisePropertyChanged(nameof(EnableProxyScripts));
                   }
               }));
-        #endregion
     }
 
     /// <summary>
-    /// 找不到 GM.js 下载，有多个删除全部重新下载。
+    /// 找不到 GM.js 下载，有多个删除全部重新下载
     /// </summary>
     public async Task BasicsInfoAsync()
     {
@@ -794,12 +792,34 @@ public sealed class ProxyService : ReactiveObject, IDisposable
         Toast.Show(AppResources.FixNetworkComplete);
     }
 
-    public async void Dispose()
+    public void Dispose()
     {
-        await Exit();
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 
-    public async Task Exit()
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore().ConfigureAwait(false);
+
+        Dispose(disposing: false);
+        GC.SuppressFinalize(this);
+    }
+
+    async void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            await Exit().ConfigureAwait(false);
+        }
+    }
+
+    async ValueTask DisposeAsyncCore()
+    {
+        await Exit().ConfigureAwait(false);
+    }
+
+    public async ValueTask Exit()
     {
         if (ProxyStatus)
         {
@@ -825,5 +845,6 @@ public sealed class ProxyService : ReactiveObject, IDisposable
     public int ProxyPort => reverseProxyService.ProxyPort;
 
     public int Socks5ProxyPortId => reverseProxyService.Socks5ProxyPortId;
-}
+
 #endif
+}

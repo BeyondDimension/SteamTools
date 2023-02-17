@@ -506,14 +506,16 @@ public sealed class SteamConnectService
 
         IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
 
-        List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = OperatingSystem2.IsWindows() ? new() : null;
+#if WINDOWS
+        List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = new();
+#endif
         foreach (var user in SteamUsers.Items)
         {
             if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
                 !string.IsNullOrEmpty(remark))
                 user.Remark = remark;
 
-            if (OperatingSystem.IsWindows())
+#if WINDOWS
             {
                 var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
                 if (!string.IsNullOrEmpty(user.Remark))
@@ -528,9 +530,11 @@ public sealed class SteamConnectService
                     description: AppResources.UserChange_BtnTootlip,
                     customCategory: AppResources.UserFastChange));
             }
+#endif
         }
 
-        if (jumplistData.Any_Nullable())
+#if WINDOWS
+        if (jumplistData.Any())
         {
             MainThread2.BeginInvokeOnMainThread(async () =>
             {
@@ -538,6 +542,7 @@ public sealed class SteamConnectService
                 await s.AddJumpItemsAsync(jumplistData);
             });
         }
+#endif
 
         SteamUsers.Refresh();
 
