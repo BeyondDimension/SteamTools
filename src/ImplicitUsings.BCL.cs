@@ -23,6 +23,7 @@ global using System.Buffers;
 global using System.IO.Pipes;
 global using System.IO.Pipelines;
 global using System.IO.Compression;
+global using System.IO.FileFormats;
 global using System.Linq;
 global using System.Linq.Expressions;
 global using System.Net;

@@ -3,9 +3,9 @@ using static BD.WTTS.SteamApiUrls;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Models;
 
-public class SteamApp
+public class SteamApp : ReactiveObject
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-    : ReactiveObject, IComparable<SteamApp>
+    , IComparable<SteamApp>
 #endif
 {
     const string NodeAppInfo = "appinfo";
@@ -67,24 +67,6 @@ public class SteamApp
         }
     }
 
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
-    public int Index { get; set; }
-
-    public int State { get; set; }
-
-    /// <summary>
-    /// Returns a value indicating whether the game is being downloaded.
-    /// </summary>
-    public bool IsDownloading => CheckDownloading(State);
-
-    //public bool IsInstalled { get; set; }
-    public bool IsInstalled => IsBitSet(State, 2);
-
-    public string? InstalledDrive => !string.IsNullOrEmpty(InstalledDir) ? Path.GetPathRoot(InstalledDir)?.ToUpper()?.Replace(Path.DirectorySeparatorChar.ToString(), "") : null;
-
-    public string? InstalledDir { get; set; }
-
     string? _SortAs;
 
     public string? SortAs
@@ -99,6 +81,26 @@ public class SteamApp
             }
         }
     }
+
+    public int Index { get; set; }
+
+    public int State { get; set; }
+
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
+    /// <summary>
+    /// Returns a value indicating whether the game is being downloaded.
+    /// </summary>
+    public bool IsDownloading => CheckDownloading(State);
+
+    //public bool IsInstalled { get; set; }
+    public bool IsInstalled => IsBitSet(State, 2);
+
+#endif
+
+    public string? InstalledDrive => !string.IsNullOrEmpty(InstalledDir) ? Path.GetPathRoot(InstalledDir)?.ToUpper()?.Replace(Path.DirectorySeparatorChar.ToString(), "") : null;
+
+    public string? InstalledDir { get; set; }
 
     public string? Developer { get; set; }
 
@@ -174,11 +176,13 @@ public class SteamApp
 
     #endregion
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     public bool SetEditProperty(SteamApp appInfo)
     {
         if (_properties != null)
         {
-            #region steam_edit Data
+            // steam_edit Data
             //SteamAppPropertyTable? propertyValue = _properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeCommon);
             //if (propertyValue != null)
             //{
@@ -218,7 +222,6 @@ public class SteamApp
             //    //    Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null type!");
             //    //}
             //}
-            #endregion
 
             //SortAs = appInfo.SortAs;
             //Developer = appInfo.Developer;
@@ -306,6 +309,8 @@ public class SteamApp
         }
         return false;
     }
+
+#endif
 
     private bool _IsEdited;
 
@@ -436,7 +441,11 @@ public class SteamApp
 
     public string LibraryGridUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     public Task<string> LibraryGridStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Grid);
+
+#endif
 
     private Stream? _EditLibraryGridStream;
 
@@ -448,7 +457,11 @@ public class SteamApp
 
     public string LibraryHeroUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     public Task<string> LibraryHeroStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero);
+
+#endif
 
     private Stream? _EditLibraryHeroStream;
 
@@ -460,11 +473,19 @@ public class SteamApp
 
     public string LibraryHeroBlurUrl => string.Format(STEAMAPP_LIBRARYHEROBLUR_URL, AppId);
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     public Task<string> LibraryHeroBlurStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero_Blur);
+
+#endif
 
     public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Logo);
+
+#endif
 
     private Stream? _EditLibraryLogoStream;
 
@@ -476,7 +497,11 @@ public class SteamApp
 
     public string HeaderLogoUrl => string.Format(STEAMAPP_HEADIMAGE_URL, AppId);
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     public Task<string> HeaderLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Header);
+
+#endif
 
     private Stream? _EditHeaderLogoStream;
 
@@ -525,6 +550,8 @@ public class SteamApp
     byte[]? _originalData;
 
     public byte[]? OriginalData { get => _originalData; set => _originalData = value; }
+
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 
     SteamAppPropertyTable? _properties;
 

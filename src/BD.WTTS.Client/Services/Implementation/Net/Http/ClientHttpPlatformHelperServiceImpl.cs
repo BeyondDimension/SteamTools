@@ -1,3 +1,5 @@
+using NetworkAccess = BD.Common.Enums.NetworkAccess;
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
