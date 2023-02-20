@@ -27,5 +27,15 @@ partial interface IPlatformService
     /// <summary>
     /// 默认 hosts 文件内容
     /// </summary>
+    [Obsolete("use WriteDefaultHostsContent(Stream", true)]
     string DefaultHostsContent => string.Empty;
+
+    /// <summary>
+    /// 写入默认 hosts 文件内容
+    /// </summary>
+    /// <param name="stream"></param>
+    void WriteDefaultHostsContent(Stream stream)
+    {
+        stream.SetLength(0);
+    }
 }

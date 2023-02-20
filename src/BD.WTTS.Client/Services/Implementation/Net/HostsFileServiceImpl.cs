@@ -73,15 +73,6 @@ internal sealed class HostsFileServiceImpl
     /// </summary>
     const long MaxFileLength = 52428800;
 
-    void WriteDefaultHostsContent(FileStream stream)
-    {
-        var encoding = GetEncoding();
-        using StreamWriter sw = new(stream, encoding);
-        sw.Write(s.DefaultHostsContent);
-        sw.Flush();
-        stream.SetLength(stream.Position);
-    }
-
     /// <summary>
     /// 尝试开始操作前
     /// </summary>
@@ -106,7 +97,7 @@ internal sealed class HostsFileServiceImpl
             {
                 try
                 {
-                    WriteDefaultHostsContent(fileInfo.Create());
+                    s.WriteDefaultHostsContent(fileInfo.Create());
                     return true;
                 }
                 catch (Exception ex)
@@ -506,7 +497,7 @@ internal sealed class HostsFileServiceImpl
         {
             try
             {
-                WriteDefaultHostsContent(new FileStream(s.HostsFilePath, FileMode.OpenOrCreate));
+                s.WriteDefaultHostsContent(new FileStream(s.HostsFilePath, FileMode.OpenOrCreate));
                 Toast.Show(AppResources.CommunityFix_ResetHostsFileOk);
             }
             catch (Exception e)

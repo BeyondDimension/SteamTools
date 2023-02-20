@@ -15,6 +15,7 @@ public static class SystemWebExtensions
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string? UserAgent(this HttpRequest request)
     {
         return request.Headers.TryGetValue("User-Agent", out var value) ? value.ToString() : null;
@@ -26,6 +27,7 @@ public static class SystemWebExtensions
     /// </summary>
     /// <param name="response"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Encoding? ContentTextEncoding(this HttpResponse response)
     {
         if (MediaTypeHeaderValue.TryParse(response.ContentType, out var contentType))
@@ -44,58 +46,13 @@ public static class SystemWebExtensions
         return null;
     }
 
-#if DEBUG
-    /// <summary>
-    /// 获取所提供的服务端响应的ContentType中的Charset编码类型。 
-    /// </summary>
-    /// <param name="response"></param>  
-    /// <returns></returns>
-    [Obsolete("use ContentEncoding", true)]
-    internal static Encoding GetEncodingFromContentType(this HttpResponse response)
-    {
-        try
-        {
-            if (string.IsNullOrEmpty(response.ContentType))
-            {
-                return Encoding.Latin1;
-            }
-
-            foreach (var parameter in response.ContentType.Split(';'))
-            {
-                int equalsIndex = parameter.IndexOf('=');
-                if (equalsIndex != -1 && "charset".Equals(parameter[..equalsIndex].TrimStart(), StringComparison.OrdinalIgnoreCase))
-                {
-                    var value = parameter[(equalsIndex + 1)..];
-                    if (value.Equals("x-user-defined", StringComparison.OrdinalIgnoreCase))
-                    {
-                        continue;
-                    }
-
-                    if (value.Length > 2 && value[0] == '"' && value[^1] == '"')
-                    {
-                        value = value[1..^1];
-                    }
-
-                    return Encoding.GetEncoding(value);
-                }
-            }
-        }
-        catch
-        {
-            // parsing errors
-            // ignored
-        }
-
-        return Encoding.Latin1;
-    }
-#endif
-
     /// <summary>
     /// 获取当前请求的原始 URL
     /// </summary>
     /// <remarks>原始 URL 定义为后面包含域信息的 URL 部分。 在 URL 字符串 http://www.contoso.com/articles/recent.aspx中，原始 URL 为/articles/recent.aspx。 原始 URL 包括查询字符串（如果存在）</remarks>
     /// <param name="request"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string RawUrl(this HttpRequest request)
     {
         // 实现参考：https://github.com/dotnet/aspnetcore/blob/v3.1.5/src/Http/Http.Extensions/src/UriHelper.cs#L196
@@ -110,7 +67,8 @@ public static class SystemWebExtensions
             .ToString();
     }
 
-    public static string Action(this IUrlHelper helper, string action, QueryString values)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? Action(this IUrlHelper helper, string action, QueryString values)
     {
         var url = helper.Action(action);
         if (values.HasValue)
@@ -133,6 +91,7 @@ public static class SystemWebExtensions
     /// <param name="request"></param>
     /// <param name="ipv4"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string UserHostAddress(this HttpRequest request, bool ipv4 = true)
     {
         var remoteIpAddress = request.HttpContext.Connection.RemoteIpAddress;

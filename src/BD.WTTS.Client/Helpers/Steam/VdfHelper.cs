@@ -10,6 +10,8 @@ namespace BD.WTTS;
 /// </summary>
 public static class VdfHelper
 {
+    const string TAG = nameof(VdfHelper);
+
     /// <summary>
     /// 根据路径读取 Valve Data File 内容
     /// </summary>
@@ -29,7 +31,7 @@ public static class VdfHelper
         }
         catch (Exception e)
         {
-            Log.Error(nameof(VdfHelper), e, "Write Vdf Error");
+            Log.Error(TAG, e, "Write vdf file error, filePath: {filePath}", filePath);
         }
     }
 }

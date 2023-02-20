@@ -15,11 +15,11 @@ public interface IReverseProxyService : IDisposable
 
     const ExternalProxyType DefaultTwoLevelAgentProxyType = ExternalProxyType.Socks5;
 
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
     static IReverseProxyService Instance => Ioc.Get<IReverseProxyService>();
 
     ICertificateManager CertificateManager { get; }
+
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 
     /// <summary>
     /// 当前勾选的加速项目组

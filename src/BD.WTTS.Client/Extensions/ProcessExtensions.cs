@@ -7,6 +7,7 @@ namespace System;
 public static class ProcessExtensions
 {
     /// <inheritdoc cref="IPlatformService.GetCommandLineArgs(Process)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string GetCommandLineArgs(this Process process)
     {
         try

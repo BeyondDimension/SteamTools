@@ -53,7 +53,8 @@ global using System.Runtime.Versioning;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 
-#if WINDOWS7_0_OR_GREATER
+#if WINDOWS
+global using System.Management;
 global using WPFMessageBox = MS.Win32.MessageBox;
 #endif
 

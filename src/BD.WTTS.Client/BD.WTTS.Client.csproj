@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
@@ -6,6 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<!-- ImplicitUsings -->
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -54,6 +55,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- PackageReference -->
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.Common.Area" />
 		<PackageReference Include="BD.Common.Security" />
@@ -76,12 +78,38 @@
 		<PackageReference Include="Fleck" />
 	</ItemGroup>
 
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
+		<!-- Not Windows -->
+		<Compile Remove="Services\Implementation\Platform\Windows\**" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != ''">
+		<!-- Not Linux -->
+		<Compile Remove="Services\Implementation\Platform\Linux\**" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'macos' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'maccatalyst' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'ios'">
+		<!-- Not MacCatalyst(macOS/iOS) -->
+		<Compile Remove="Services\Implementation\Platform\MacCatalyst\**" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<!-- Windows Only -->
+		<PackageReference Include="JumpLists.Win32.Avalonia" />
+		<PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" />
+		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
+		<PackageReference Include="7-Zip.NativeAssets.Win32" />
+		<PackageReference Include="System.Management" />
+		<PackageReference Include="Aigio.WinDivertSharp" />
+	</ItemGroup>
+
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
+		<!-- Desktop Only -->
 		<PackageReference Include="SteamKit2" />
 		<PackageReference Include="Yarp.ReverseProxy" />
-		<PackageReference Include="JumpLists.Win32.Avalonia" />
 		<PackageReference Include="Ae.DNS.Client" />
 		<PackageReference Include="DNS" />
+		<PackageReference Include="DnsClient" />
 		<ProjectReference Include="..\..\ref\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj" />
 		<ProjectReference Include="..\..\ref\Steam4NET\Steam4NET\Steam4NET.csproj" />
 		<ProjectReference Include="..\..\ref\SteamAchievementManager\SAM.API\SAM.API.csproj" />
@@ -97,12 +125,8 @@
 		</Compile>
 	</ItemGroup>
 
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
-		<PackageReference Include="Aigio.WinDivertSharp" />
-		<!--<PackageReference Include="DNS" />-->
-	</ItemGroup>
-
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<!-- Mobile Only -->
 		<Compile Remove="Services\Mvvm\Steam\SteamConnectService.cs" />
 	</ItemGroup>
 

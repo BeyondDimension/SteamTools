@@ -27,5 +27,30 @@ partial interface IPlatformService
 #endif
 
     /// <inheritdoc cref="ISteamService.SetCurrentUser(string)"/>
-    void SetSteamCurrentUser(string userName) { }
+    void SetSteamCurrentUser(string userName)
+    {
+#if LINUX || MACOS || MACCATALYST
+        try
+        {
+            var registryVdfPath = GetRegistryVdfPath();
+            if (!string.IsNullOrWhiteSpace(registryVdfPath) && File.Exists(registryVdfPath))
+            {
+                dynamic v = VdfHelper.Read(registryVdfPath);
+                if (v.Value.HKCU.Software.Valve.Steam.AutoLoginUser != null)
+                {
+                    v.Value.HKCU.Software.Valve.Steam.AutoLoginUser = userName;
+                    VdfHelper.Write(registryVdfPath, v);
+                }
+                else
+                {
+                    Log.Error(TAG, "SetSteamCurrentUser fail(1), AutoLoginUser is null.");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Log.Error(TAG, e, "SetSteamCurrentUser fail(0).");
+        }
+#endif
+    }
 }

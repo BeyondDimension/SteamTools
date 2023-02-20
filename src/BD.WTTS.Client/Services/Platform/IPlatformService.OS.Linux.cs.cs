@@ -54,6 +54,7 @@ partial interface IPlatformService
 
     #region SystemUserPassword
 
+#if LINUX
     private const sbyte GetSystemUserPasswordRetry = 3;
 
     /// <summary>
@@ -88,6 +89,7 @@ partial interface IPlatformService
 #if DEBUG
     [Obsolete("use GetSystemUserPasswordAsync", true)]
     async void TryGetSystemUserPassword(sbyte retry = GetSystemUserPasswordRetry) => await GetSystemUserPasswordAsync(retry);
+#endif
 #endif
 
     #endregion

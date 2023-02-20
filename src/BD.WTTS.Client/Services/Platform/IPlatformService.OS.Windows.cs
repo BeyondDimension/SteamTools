@@ -16,21 +16,8 @@ partial interface IPlatformService
     /// <param name="fileName"></param>
     /// <param name="arguments"></param>
     /// <returns></returns>
-    Process? StartAsInvoker(string fileName, string? arguments = null) => Process2.Start(fileName, arguments);
-
-    /// <summary>
-    /// 获取占用端口的进程
-    /// </summary>
-    /// <param name="port"></param>
-    /// <param name="isTCPorUDP"></param>
-    /// <returns></returns>
-    Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true) => null;
-
-    /// <summary>
-    /// 从管理员权限进程中降权到普通权限启动进程
-    /// </summary>
-    /// <param name="cmdArgs"></param>
-    void UnelevatedProcessStart(string cmdArgs) { }
+    Process? StartAsInvoker(string fileName, string? arguments = null)
+        => Process2.Start(fileName, arguments);
 
     /// <summary>
     /// 设置窗口右上角系统按钮显示或隐藏

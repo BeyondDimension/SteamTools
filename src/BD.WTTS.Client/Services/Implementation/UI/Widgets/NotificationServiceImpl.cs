@@ -14,11 +14,6 @@ internal sealed class NotificationServiceImpl : INotificationService
 
     }
 
-    void INotificationService.Notify(NotificationBuilder.IInterface builder)
-    {
-
-    }
-
     void INotificationService.Notify(string text, NotificationType notificationType, bool autoCancel, string? title, Entrance entrance, string? requestUri)
     {
 

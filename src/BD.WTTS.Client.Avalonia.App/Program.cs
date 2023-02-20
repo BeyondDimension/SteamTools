@@ -8,6 +8,7 @@ static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        var a = DefaultHostsContent;
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
@@ -16,4 +17,6 @@ static class Program
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .LogToTrace();
+
+    static string DefaultHostsContent => $"127.0.0.1\tlocalhost\n127.0.1.1\t${Environment.UserName}";
 }

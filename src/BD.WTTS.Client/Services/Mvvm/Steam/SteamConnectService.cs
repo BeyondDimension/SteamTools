@@ -59,8 +59,9 @@ public sealed class SteamConnectService
                 if (x)
                 {
                     InitializeDownloadGameList();
-                    if (OperatingSystem.IsLinux())
-                        IPlatformService.Instance.GetSystemUserPassword();
+#if LINUX
+                    IPlatformService.Instance.GetSystemUserPassword();
+#endif
                     stmService.StartWatchSteamDownloading(app =>
                     {
                         var optional = DownloadApps.Lookup(app.AppId);

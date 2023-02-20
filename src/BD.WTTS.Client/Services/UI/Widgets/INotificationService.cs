@@ -18,7 +18,10 @@ public interface INotificationService
     /// 显示本地通知，使用 new <see cref="NotificationBuilder"/>() 构建参数
     /// </summary>
     /// <param name="builder"></param>
-    void Notify(NotificationBuilder.IInterface builder);
+    void Notify(NotificationBuilder.IInterface builder)
+        => Notify(builder.Content, builder.Type, builder.AutoCancel,
+            builder.Title, builder.Click?.Entrance ?? default,
+            builder.Click?.RequestUri);
 
     /// <summary>
     /// 显示本地通知

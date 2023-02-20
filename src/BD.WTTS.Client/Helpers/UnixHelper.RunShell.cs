@@ -9,15 +9,15 @@ static partial class UnixHelper
     const string TAG = nameof(UnixHelper);
 
     /// <inheritdoc cref="IPlatformService.RunShellAsync(string, bool)"/>
-    public static ValueTask RunShellAsync(string script, bool admin)
-        => RunShellAsync(script, admin, 3);
+    public static ValueTask RunShellAsync(string script, bool requiredAdministrator)
+        => RunShellAsync(script, requiredAdministrator, 3);
 
     /// <inheritdoc cref="IPlatformService.RunShellAsync(string, bool)"/>
-    static async ValueTask RunShellAsync(string script, bool admin, sbyte retry)
+    static async ValueTask RunShellAsync(string script, bool requiredAdministrator, sbyte retry)
     {
         if (retry <= 0) return;
         var scriptContent = new StringBuilder();
-        if (admin)
+        if (requiredAdministrator)
         {
             TextBoxWindowViewModel vm = new()
             {
