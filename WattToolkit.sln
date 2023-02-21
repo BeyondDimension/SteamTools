@@ -54,6 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TFM", "TFM", "{6311B1A1-E19
 		src\TFM_NET7.props = src\TFM_NET7.props
 		src\TFM_NET7_WINDOWS.props = src\TFM_NET7_WINDOWS.props
 		src\TFM_NET7_WITH_ALL.props = src\TFM_NET7_WITH_ALL.props
+		src\TFM_NET7_WITH_DESKTOP.props = src\TFM_NET7_WITH_DESKTOP.props
 		src\TFM_NET7_WITH_WINDOWS.props = src\TFM_NET7_WITH_WINDOWS.props
 	EndProjectSection
 EndProject

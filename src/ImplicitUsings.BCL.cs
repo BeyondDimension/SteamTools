@@ -56,6 +56,9 @@ global using Microsoft.Extensions.DependencyInjection.Extensions;
 #if WINDOWS
 global using System.Management;
 global using WPFMessageBox = MS.Win32.MessageBox;
+global using WPFMessageBoxButton = MS.Win32.MessageBoxButton;
+global using WPFMessageBoxImage = MS.Win32.MessageBoxImage;
+global using WPFMessageBoxResult = MS.Win32.MessageBoxResult;
 #endif
 
 global using System.Xml;

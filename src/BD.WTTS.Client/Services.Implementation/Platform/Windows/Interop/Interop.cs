@@ -19,6 +19,18 @@ static partial class Interop
             string fullPath = sb.ToString(0, capacity);
             return fullPath;
         }
+
+        [LibraryImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool AttachConsole(int dwProcessId = -1);
+
+        [LibraryImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool FreeConsole();
+
+        [LibraryImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool AllocConsole();
     }
 
     public static partial class User32

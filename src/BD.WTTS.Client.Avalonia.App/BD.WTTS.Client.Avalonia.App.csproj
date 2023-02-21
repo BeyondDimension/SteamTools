@@ -75,8 +75,20 @@
 		<PackageReference Include="BD.Common.Primitives" />
 		<PackageReference Include="Avalonia" />
 		<PackageReference Include="Avalonia.Desktop" />
+		<PackageReference Include="Avalonia.ReactiveUI" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" />
+		<PackageReference Include="Avalonia.Xaml.Behaviors" />
+		<PackageReference Include="Avalonia.AvaloniaEdit" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<!-- Windows Only -->
+		<PackageReference Include="Aigio.Avalonia.AppCenter" />
+		<PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
+		<PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -98,7 +110,7 @@
 		<Folder Include="Properties\" />
 	</ItemGroup>
 
-	<Import Project="..\TFM_NET7_WITH_WINDOWS.props" />
+	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />
 
 </Project>
 

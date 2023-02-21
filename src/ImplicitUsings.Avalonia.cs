@@ -42,3 +42,4 @@ global using Avalonia.Skia;
 global using Avalonia.Layout;
 global using Avalonia.LogicalTree;
 global using Avalonia.Rendering;
+global using Avalonia.ReactiveUI;

@@ -80,21 +80,21 @@
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
 		<!-- Not Windows -->
-		<Compile Remove="Services\Implementation\Platform\Windows\*.cs" />
-		<None Include="Services\Implementation\Platform\Windows\*.cs" />
+		<Compile Remove="Services.Implementation\Platform\Windows\*.cs" />
+		<None Include="Services.Implementation\Platform\Windows\*.cs" />
 		<!--<Compile Remove="Services\Implementation\Platform\Windows\WindowsPlatformServiceImpl.Net.Hosts.cs" />-->
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != ''">
 		<!-- Not Linux -->
-		<Compile Remove="Services\Implementation\Platform\Linux\*.cs" />
-		<None Include="Services\Implementation\Platform\Linux\*.cs" />
+		<Compile Remove="Services.Implementation\Platform\Linux\*.cs" />
+		<None Include="Services.Implementation\Platform\Linux\*.cs" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'macos' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'maccatalyst' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'ios'">
 		<!-- Not MacCatalyst(macOS/iOS) -->
-		<Compile Remove="Services\Implementation\Platform\MacCatalyst\*.cs" />
-		<None Include="Services\Implementation\Platform\MacCatalyst\*.cs" />
+		<Compile Remove="Services.Implementation\Platform\MacCatalyst\*.cs" />
+		<None Include="Services.Implementation\Platform\MacCatalyst\*.cs" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
@@ -110,6 +110,8 @@
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
+		<PackageReference Include="System.CommandLine" />
+		<PackageReference Include="System.CommandLine.NamingConventionBinder" />
 		<PackageReference Include="SteamKit2" />
 		<PackageReference Include="Yarp.ReverseProxy" />
 		<PackageReference Include="Ae.DNS.Client" />
@@ -145,7 +147,7 @@
 
 	<ItemGroup>
 		<EmbeddedResource Update="Resources\Strings.resx">
-			<Generator>PublishResXFileCodeGenerator</Generator>
+			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>Strings.Designer.cs</LastGenOutput>
 			<CustomToolNamespace>BD.WTTS.Client.Resources</CustomToolNamespace>
 		</EmbeddedResource>
