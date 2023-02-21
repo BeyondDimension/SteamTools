@@ -8,6 +8,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddViewModelManager(this IServiceCollection services)
     {
         services.AddSingleton<IViewModelManager, ViewModelManager>();

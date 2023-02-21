@@ -11,6 +11,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection TryAddSteamworksLocalApiService(this IServiceCollection services)
     {
         services.TryAddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
@@ -24,6 +25,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddSteamDbWebApiService(this IServiceCollection services)
     {
         services.AddSingleton<ISteamDbWebApiService, SteamDbWebApiServiceImpl>();
@@ -35,6 +37,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddSteamGridDBWebApiService(this IServiceCollection services)
     {
         services.AddSingleton<ISteamGridDBWebApiServiceImpl, SteamGridDBWebApiServiceImpl>();
@@ -46,6 +49,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddSteamworksWebApiService(this IServiceCollection services)
     {
         services.AddSingleton<ISteamworksWebApiService, SteamworksWebApiServiceImpl>();

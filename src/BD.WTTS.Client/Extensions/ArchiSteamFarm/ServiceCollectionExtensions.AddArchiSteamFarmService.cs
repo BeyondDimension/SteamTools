@@ -11,6 +11,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddArchiSteamFarmService(this IServiceCollection services)
     {
         services.AddSingleton<IArchiSteamFarmService, ArchiSteamFarmServiceImpl>();

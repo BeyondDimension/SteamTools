@@ -7,10 +7,15 @@ namespace BD.WTTS;
 /// <para>XDG Base Directory Specification</para>
 /// <para>https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html</para>
 /// <para>https://wiki.archlinux.org/title/XDG_Base_Directory</para>
+/// <list type="bullet">
+/// <item>AppData: $XDG_DATA_HOME/Steam++ or $HOME/.local/share/Steam++</item>
+/// <item>Cache: $XDG_CACHE_HOME/Steam++ or $HOME/.cache/Steam++</item>
+/// <item>Logs: $XDG_CACHE_HOME/Steam++/Logs or $HOME/.cache/Steam++/Logs</item>
+/// </list>
 /// </summary>
-sealed class FileSystemDesktopXDG : IOPath.FileSystemBase
+sealed class LinuxFileSystem : IOPath.FileSystemBase
 {
-    private FileSystemDesktopXDG() => throw new NotSupportedException();
+    private LinuxFileSystem() => throw new NotSupportedException();
 
     /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
     public static void InitFileSystem()

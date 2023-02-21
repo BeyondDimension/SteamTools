@@ -2,7 +2,7 @@
 using Kernel32_ = PInvoke.Kernel32;
 
 // ReSharper disable once CheckNamespace
-namespace Microsoft.Win32;
+namespace BD.WTTS;
 
 static partial class Interop
 {
@@ -28,10 +28,18 @@ static partial class Interop
 
         [LibraryImport("user32.dll")]
         public static partial int SetLayeredWindowAttributes(IntPtr hwnd, int crKey, int bAlpha, int dwFlags);
+
+        [LibraryImport("user32.dll")]
+        public static partial int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
     }
 
     public static partial class DWMApi
     {
+#if DEBUG
+        [DllImport("dwmapi.dll", PreserveSig = false)]
+        public static extern bool DwmIsCompositionEnabled();
+#endif
+
         public const int DWM_TNP_VISIBLE = 0x8;
         public const int DWM_TNP_OPACITY = 0x4;
         public const int DWM_TNP_RECTDESTINATION = 0x1;
@@ -51,19 +59,23 @@ static partial class Interop
         [StructLayout(LayoutKind.Sequential)]
         public struct DWM_THUMBNAIL_PROPERTIES
         {
+#pragma warning disable SA1307 // Accessible fields should begin with upper-case letter
             public int dwFlags;
             public RECT rcDestination;
             public RECT rcSource;
             public byte opacity;
             public bool fVisible;
             public bool fSourceClientAreaOnly;
+#pragma warning restore SA1307 // Accessible fields should begin with upper-case letter
         }
 
         [StructLayout(LayoutKind.Sequential)]
         public struct PSIZE
         {
+#pragma warning disable SA1307 // Accessible fields should begin with upper-case letter
             public int x;
             public int y;
+#pragma warning restore SA1307 // Accessible fields should begin with upper-case letter
         }
 
         [StructLayout(LayoutKind.Sequential)]

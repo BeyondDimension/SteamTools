@@ -15,15 +15,9 @@ partial interface IPlatformService
             return identity.IsSystem || new WindowsPrincipal(identity)
                 .IsInRole(WindowsBuiltInRole.Administrator);
 #elif MACCATALYST || MACOS || LINUX || IOS || ANDROID
-            return GetEUID() == 0;
+            return Interop.Libc.GetEUID() == 0;
             throw new PlatformNotSupportedException();
 #endif
         }
     }
-
-#if MACCATALYST || MACOS || LINUX || IOS || ANDROID
-    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
-    [LibraryImport("libc", EntryPoint = "geteuid", SetLastError = true)]
-    private static partial uint GetEUID();
-#endif
 }

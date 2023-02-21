@@ -8,6 +8,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection TryAddClientHttpPlatformHelperService(this IServiceCollection services)
     {
         services.TryAddSingleton<IHttpPlatformHelperService, ClientHttpPlatformHelperServiceImpl>();

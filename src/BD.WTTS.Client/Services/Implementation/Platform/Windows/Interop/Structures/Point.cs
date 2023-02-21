@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // https://github.com/dotnet/wpf/blob/v6.0.0-rc.2.21501.7/src/Microsoft.DotNet.Wpf/src/WindowsBase/System/Windows/Point.cs
 
+using System.Drawing;
 using PointInt32 = System.Drawing.Point;
 
 // ReSharper disable once CheckNamespace

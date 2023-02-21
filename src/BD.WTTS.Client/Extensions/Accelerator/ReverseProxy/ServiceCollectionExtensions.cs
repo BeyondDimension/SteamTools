@@ -9,12 +9,14 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddReverseProxyService(this IServiceCollection services)
     {
         services.AddSingleton<IReverseProxyService, YarpReverseProxyServiceImpl>();
         return services;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IServiceCollection AddConfiguration(this IServiceCollection services, YarpReverseProxyServiceImpl reverseProxyService)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/ServiceCollectionExtensions.cs#L18
@@ -31,6 +33,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IServiceCollection AddDomainResolve(this IServiceCollection services)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.DomainResolve/ServiceCollectionExtensions.cs#L17
@@ -48,6 +51,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IServiceCollection AddReverseProxyHttpClient(this IServiceCollection services)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Http/ServiceCollectionExtensions.cs#L17
@@ -60,6 +64,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IServiceCollection AddReverseProxyServer(this IServiceCollection services)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/ServiceCollectionExtensions.cs#L15
@@ -95,6 +100,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IServiceCollection AddFlowAnalyze(this IServiceCollection services)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.FlowAnalyze/ServiceCollectionExtensions.cs#L16
@@ -108,6 +114,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IServiceCollection AddPacketIntercept(this IServiceCollection services)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/ServiceCollectionExtensions.cs#L21

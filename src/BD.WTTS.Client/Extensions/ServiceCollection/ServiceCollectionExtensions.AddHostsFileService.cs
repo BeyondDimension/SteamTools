@@ -9,6 +9,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddHostsFileService(this IServiceCollection services)
     {
         services.AddSingleton<IHostsFileService, HostsFileServiceImpl>();

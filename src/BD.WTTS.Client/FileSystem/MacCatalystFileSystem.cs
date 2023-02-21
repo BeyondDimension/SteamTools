@@ -2,10 +2,16 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
-/// <inheritdoc cref="FileSystem2"/>
-sealed class FileSystemDesktopMac : IOPath.FileSystemBase
+/// <summary>
+/// <list type="bullet">
+/// <item>AppData: ~/Library/Steam++</item>
+/// <item>Cache: ~/Library/Caches/Steam++</item>
+/// <item>Logs: ~/Library/Caches/Steam++/Logs</item>
+/// </list>
+/// </summary>
+sealed class MacCatalystFileSystem : IOPath.FileSystemBase
 {
-    private FileSystemDesktopMac() => throw new NotSupportedException();
+    private MacCatalystFileSystem() => throw new NotSupportedException();
 
     /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
     public static void InitFileSystem()

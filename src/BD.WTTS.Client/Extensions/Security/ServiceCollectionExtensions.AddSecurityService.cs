@@ -4,14 +4,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static partial class ServiceCollectionExtensions
 {
     /// <summary>
-    /// 添加 JS 脚本管理
+    /// 添加安全服务
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IServiceCollection TryAddScriptManager(this IServiceCollection services)
+    public static IServiceCollection AddSecurityService(this IServiceCollection services)
     {
-        services.TryAddSingleton<IScriptManager, ScriptManager>();
+        services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
         return services;
     }
 }

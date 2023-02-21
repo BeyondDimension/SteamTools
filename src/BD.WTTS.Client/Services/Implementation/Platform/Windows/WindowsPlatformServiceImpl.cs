@@ -129,6 +129,7 @@ sealed partial class WindowsPlatformServiceImpl : IPlatformService
             //return StartAsInvokerByRunas(fileName, arguments);
             //return StartAsInvokerByExplorer(fileName, arguments);
             var currentDirectory = Path.GetDirectoryName(fileName) ?? "";
+            // 通过 explorer 降权启动，但在 Win11 上 explorer 启动非常缓慢😅
             ExecuteProcessUnElevated(fileName, arguments ?? "", currentDirectory);
             return null;
 
@@ -141,11 +142,7 @@ sealed partial class WindowsPlatformServiceImpl : IPlatformService
 
 #if DEBUG
 
-    /// <inheritdoc cref="IPlatformService.DwmIsCompositionEnabled"/>
-    [DllImport("dwmapi.dll", PreserveSig = false)]
-    static extern bool DwmIsCompositionEnabled();
-
-    bool IPlatformService.DwmIsCompositionEnabled => DwmIsCompositionEnabled();
+    bool IPlatformService.DwmIsCompositionEnabled => Interop.DWMApi.DwmIsCompositionEnabled();
 
 #endif
 }

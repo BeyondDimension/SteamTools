@@ -10,6 +10,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddGeneralLogging(this IServiceCollection services)
     {
         // 移动端平台日志与文件日志对性能影响较大，仅 Debug 时使用平台日志，文件日志应由设置项启用

@@ -44,5 +44,4 @@ public static class UrlConstants
     public const string DonateUrl_afdian = Constants.Urls.DonateUrl_afdian;
     public const string DonateUrl_ko_fi = Constants.Urls.DonateUrl_ko_fi;
     public const string DonateUrl_patreon = Constants.Urls.DonateUrl_patreon;
-
 }
