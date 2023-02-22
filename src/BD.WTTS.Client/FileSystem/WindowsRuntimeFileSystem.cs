@@ -16,7 +16,7 @@ public sealed class WindowsRuntimeFileSystem : IOPath.FileSystemBase
 {
     private WindowsRuntimeFileSystem() => throw new NotSupportedException();
 
-    internal static void InitFileSystem()
+    public static void InitFileSystem()
     {
         // https://github.com/xamarin/Essentials/blob/1.6.1/Xamarin.Essentials/FileSystem/FileSystem.uwp.cs#L12
         // https://docs.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-behind-the-scenes

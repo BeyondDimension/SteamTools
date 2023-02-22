@@ -54,10 +54,17 @@ static partial class Program
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void ConfigureServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
     {
-        ConfigureRequiredServices(services, args, options, isTrace);
-        if (isTrace) StartWatchTrace.Record("DI.ConfigureRequiredServices");
         ConfigureDemandServices(services, args, options, isTrace);
         if (isTrace) StartWatchTrace.Record("DI.D");
+        ConfigureRequiredServices(services, args, options, isTrace);
+        if (isTrace) StartWatchTrace.Record("DI.ConfigureRequiredServices");
+    }
+
+    sealed class Essentials_AppVerS : IApplicationVersionService
+    {
+        string IApplicationVersionService.ApplicationVersion => AssemblyInfo.Version;
+
+        string IApplicationVersionService.AssemblyTrademark => AssemblyInfo.Trademark;
     }
 
     /// <summary>
@@ -70,7 +77,9 @@ static partial class Program
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
     {
+        services.AddSingleton(_ => Host.Instance.App);
         services.AddSingleton(Host.Instance);
+
 #if WINDOWS && !WINDOWS_DESKTOP_BRIDGE
         services.AddScheduledTaskService();
 #endif
@@ -85,29 +94,26 @@ static partial class Program
 
         // 添加日志实现
         services.AddGeneralLogging();
-#if MAUI || __MOBILE__ || ANDROID || IOS || __ANDROID__
-        services.TryAddEssentials();
-#endif
-#if __MOBILE__ || ANDROID || IOS || __ANDROID__
-            // 添加运行时权限
+#if ANDROID || IOS
+        // 添加运行时权限
         services.AddPlatformPermissions();
 #endif
-#if !CONSOLEAPP
         // 添加 app 配置项
         services.TryAddSingleton(Options.Create(AppSettings.Instance));
-#if MAUI || __MOBILE__ || ANDROID || IOS || __ANDROID__
-            // 键值对存储 - 由 Essentials 提供
-            services.TryAddEssentialsSecureStorage();
+#if MAUI || ANDROID || IOS
+        // 键值对存储 - 由 Essentials 提供
+        services.TryAddEssentialsSecureStorage();
 #else
         // 键值对存储 - 由 Repository 提供
         services.TryAddRepositorySecureStorage();
         // 首选项(Preferences) - 由 Repository 提供
         services.AddRepositoryPreferences();
 #endif
+        // Essentials
+        services.TryAddEssentials<Essentials_AppVerS>();
 
         // 添加安全服务
         services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
-#endif
     }
 
     static IDisposable? PlatformApp
@@ -137,38 +143,27 @@ static partial class Program
     {
         if (isTrace) StartWatchTrace.Record("DI.D.Calc");
         services.AddDnsAnalysisService();
-#if !CONSOLEAPP
         if (options.HasGUI)
         {
             services.AddPinyin();
-#if __MOBILE__ || MAUI
+#if MAUI || ANDROID || IOS
             services.TryAddFontManager();
-#else
+#elif AVALONIA
             services.TryAddAvaloniaFontManager(useGdiPlusFirst: true);
+#else
 #endif
             // 添加 Toast 提示服务
-#if !DEBUG
             services.AddStartupToastIntercept();
-#endif
+
             services.TryAddToast();
 
-            services.AddSingleton(_ => Host.Instance.App);
-
             services.AddSingleton<IApplication>(s => s.GetRequiredService<App>());
-#if __ANDROID__
-            services.AddSingleton<IAndroidApplication>(s => s.GetRequiredService<PlatformApplication>());
-#endif
-#if __MOBILE__
-            //services.AddMSALPublicClientApp(AppSettings.MASLClientId);
-#elif MAUI
-            services.AddSingleton<IMauiApplication>(s => s.GetRequiredService<PlatformApplication>());
-#else
 
             // 添加主线程助手(MainThreadDesktop)
             services.AddMainThreadPlatformService();
 
             //services.TryAddAvaloniaFilePickerPlatformService();
-#endif
+
             #region MessageBox
 
             /* System.Windows.MessageBox 在 WPF 库中，仅支持 Win 平台
@@ -190,11 +185,6 @@ static partial class Program
              */
             services.TryAddWindowManager();
 
-#if WINDOWS
-            // 可选项，在 Win 平台使用 WPF 实现的 MessageBox
-            //services.AddSingleton<IMessageBoxCompatService, WPFMessageBoxCompatService>();
-#endif
-
             #endregion
 
             // 添加管理主窗口服务
@@ -202,11 +192,7 @@ static partial class Program
 
             if (isTrace) StartWatchTrace.Record("DI.D.GUI");
         }
-#endif
-        if (options.HasHttpClientFactory
-#if !CONSOLEAPP
-            || options.HasServerApiClient
-#endif
+        if (options.HasHttpClientFactory || options.HasServerApiClient
             )
         {
             // 添加 Http 平台助手桌面端或移动端实现
@@ -216,7 +202,7 @@ static partial class Program
 
         if (options.HasHttpClientFactory)
         {
-#if __MOBILE__
+#if ANDROID || IOS
             // 添加 HttpClientFactory 平台原生实现
             services.AddNativeHttpClient();
 #endif
@@ -227,15 +213,12 @@ static partial class Program
         services.TryAddScriptManager();
         if (isTrace) StartWatchTrace.Record("DI.D.ScriptManager");
 
-#if !CONSOLEAPP
         if (options.HasHttpProxy)
         {
             // 通用 Http 代理服务
             services.AddReverseProxyService();
             if (isTrace) StartWatchTrace.Record("DI.D.HttpProxy");
         }
-#endif
-#if !CONSOLEAPP
         if (options.HasServerApiClient)
         {
             if (isTrace) StartWatchTrace.Record("DI.D.AppSettings");
@@ -254,7 +237,6 @@ static partial class Program
             services.TryAddUserManager();
             if (isTrace) StartWatchTrace.Record("DI.D.ServerApiClient");
         }
-#endif
         // 添加通知服务
         AddNotificationService();
         if (isTrace) StartWatchTrace.Record("DI.D.AddNotificationService");

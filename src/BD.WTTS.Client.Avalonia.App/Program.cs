@@ -43,6 +43,10 @@ static partial class Program
 #if WINDOWS
         HttpClient.DefaultProxy = DynamicHttpWindowsProxy.Instance;
 #endif
+#if WINDOWS_DESKTOP_BRIDGE
+        if (!DesktopBridgeHelper.Init()) return 0;
+        InitWithDesktopBridge(ref args);
+#endif
 
         var host = Host.Instance;
         host.IsMainProcess = args.Length == 0;
@@ -77,6 +81,13 @@ static partial class Program
             LogManager.Shutdown();
         }
     }
+
+#if WINDOWS_DESKTOP_BRIDGE
+    static void InitWithDesktopBridge(ref string[] args)
+    {
+        DesktopBridgeHelper.OnActivated(ref args);
+    }
+#endif
 
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
