@@ -32,27 +32,75 @@ partial class App : IApplication
 
         UISettings.WindowBackgroundMateria.Subscribe(SetAllWindowransparencyMateria, false);
 
-        if (OperatingSystem2.IsWindows())
+#if WINDOWS
+        UISettings.EnableDesktopBackground.Subscribe(x =>
         {
-            UISettings.EnableDesktopBackground.Subscribe(x =>
+            if (x)
             {
-                if (x)
-                {
-                    //var t = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
-                    //if (t == WindowTransparencyLevel.None ||
-                    //    t == WindowTransparencyLevel.Mica)
-                    //{
-                    //    UISettings.EnableDesktopBackground.Value = false;
-                    //    Toast.Show(string.Format(AppResources.Settings_UI_EnableDesktopBackground_Error, t));
-                    //    return;
-                    //}
-                    SetDesktopBackgroundWindow();
-                }
-            }, false);
-        }
+                //var t = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+                //if (t == WindowTransparencyLevel.None ||
+                //    t == WindowTransparencyLevel.Mica)
+                //{
+                //    UISettings.EnableDesktopBackground.Value = false;
+                //    Toast.Show(string.Format(AppResources.Settings_UI_EnableDesktopBackground_Error, t));
+                //    return;
+                //}
+                SetDesktopBackgroundWindow();
+            }
+        }, false);
+#endif
     }
 
     void IApplication.PlatformInitSettingSubscribe() => PlatformInitSettingSubscribe();
+
+    /// <summary>
+    /// Restores the app's main window by setting its <c>WindowState</c> to
+    /// <c>WindowState.Normal</c> and showing the window.
+    /// </summary>
+    public void RestoreMainWindow()
+    {
+        Window? mainWindow = null;
+
+    ReTry:
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            mainWindow = desktop.MainWindow;
+            if (mainWindow == null)
+            {
+                //mainWindow = MainWindow;
+                //desktop.MainWindow = MainWindow;
+                mainWindow = MainWindow = desktop.MainWindow = new MainWindow();
+                mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
+            }
+
+        }
+
+        if (mainWindow == null)
+        {
+            throw new ArgumentNullException(nameof(mainWindow));
+        }
+
+        try
+        {
+            mainWindow.Show();
+        }
+        catch (InvalidOperationException)
+        {
+            mainWindow = null;
+            goto ReTry;
+        }
+
+        mainWindow.WindowState = WindowState.Normal;
+        mainWindow.Topmost = true;
+        mainWindow.Topmost = false;
+        mainWindow.BringIntoView();
+        mainWindow.ActivateWorkaround(); // Extension method hack because of https://github.com/AvaloniaUI/Avalonia/issues/2975
+        mainWindow.Focus();
+
+        //// Again, ugly hack because of https://github.com/AvaloniaUI/Avalonia/issues/2994
+        //mainWindow.Width += 0.1;
+        //mainWindow.Width -= 0.1;
+    }
 
     public void SetTopmostOneTime()
     {
@@ -86,6 +134,51 @@ partial class App : IApplication
             }
         }
         return MainWindow!;
+    }
+
+    /// <summary>
+    /// 打开子窗口
+    /// </summary>
+    /// <param name="window"></param>
+    /// <returns></returns>
+    public async Task ShowDialogWindow(Window window)
+    {
+        var owner = GetActiveWindow();
+        if (owner != null)
+        {
+            try
+            {
+                await window.ShowDialog(owner);
+                return;
+            }
+            catch (InvalidOperationException)
+            {
+            }
+        }
+        window.Show();
+    }
+
+    public void ShowWindow(Window window)
+    {
+        var owner = GetActiveWindow();
+        if (owner != null)
+        {
+            try
+            {
+                window.Show(owner);
+                return;
+            }
+            catch (InvalidOperationException)
+            {
+            }
+
+        }
+        window.Show();
+    }
+
+    public void ShowWindowNoParent(Window window)
+    {
+        window.Show();
     }
 
     void IApplication.Shutdown() => Shutdown();

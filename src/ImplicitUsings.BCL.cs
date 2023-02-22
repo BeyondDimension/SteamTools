@@ -49,6 +49,7 @@ global using DeploymentMode = System.Runtime.DeploymentMode;
 global using System.Runtime.Devices;
 global using System.Runtime.InteropServices;
 global using System.Runtime.Versioning;
+global using System.Runtime.Serialization.Formatters;
 
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;

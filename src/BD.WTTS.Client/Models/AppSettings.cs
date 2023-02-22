@@ -30,7 +30,7 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
     [MPKey(2), MP2Key(1)]
     [N_JsonProperty("2")]
     [S_JsonProperty("2")]
-    public string? AesSecret { get; set; }
+    public byte[]? AesSecret { get; set; }
 
     Aes? aes;
 
@@ -57,7 +57,7 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
     [MPKey(3), MP2Key(2)]
     [N_JsonProperty("3")]
     [S_JsonProperty("3")]
-    public string? RSASecret { get; set; }
+    public byte[]? RSASecret { get; set; }
 
     RSA? rsa;
 
@@ -72,7 +72,7 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
             if (rsa == null)
             {
                 if (RSASecret == null) throw new IsNotOfficialChannelPackageException(nameof(RSA), new ArgumentNullException(nameof(RSASecret)));
-                rsa = RSAUtils.CreateFromJsonString(RSASecret);
+                rsa = RSA.Create(Serializable.DMP2<RSAParameters>(RSASecret));
             }
             return rsa;
         }
@@ -83,41 +83,64 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
     //[S_JsonProperty("4")]
     //public Guid MASLClientId { get; set; }
 
-    bool? mGetIsOfficialChannelPackage;
+    //    bool? mGetIsOfficialChannelPackage;
 
-    public bool GetIsOfficialChannelPackage()
+    //    public bool GetIsOfficialChannelPackage()
+    //    {
+    //        bool GetIsOfficialChannelPackage_()
+    //        {
+    //#if SIGN_ASSEMBLY
+    //            var pk = typeof(AppSettings).Assembly.GetName().GetPublicKey();
+    //            if (pk == null) return false;
+    //            var pkStr = ", PublicKey=" + string.Join(string.Empty, pk.Select(x => x.ToString("x2")));
+    //            var r = pkStr == ThisAssembly.PublicKey;
+    //            if (!r) return false;
+    //#endif
+    //            try
+    //            {
+    //                return Aes != null && RSA != null;
+    //            }
+    //            catch (IsNotOfficialChannelPackageException)
+    //            {
+    //                return false;
+    //            }
+    //        }
+    //        if (!mGetIsOfficialChannelPackage.HasValue)
+    //            mGetIsOfficialChannelPackage = GetIsOfficialChannelPackage_();
+    //        return mGetIsOfficialChannelPackage.Value;
+    //    }
+
+    //    static readonly Lazy<bool> mIsOfficialChannelPackage = new(() =>
+    //    {
+    //        var s = Ioc.Get_Nullable<IOptions<AppSettings>>()?.Value;
+    //        return s != null && s.GetIsOfficialChannelPackage();
+    //    });
+
+    //    /// <summary>
+    //    /// 当前运行程序是否为官方渠道包
+    //    /// </summary>
+    //    public static bool IsOfficialChannelPackage => mIsOfficialChannelPackage.Value;
+
+    public static AppSettings Instance { get; } = GetAppSettings();
+
+    static AppSettings GetAppSettings()
     {
-        bool GetIsOfficialChannelPackage_()
+        var s = new AppSettings()
         {
-#if SIGN_ASSEMBLY
-            var pk = typeof(AppSettings).Assembly.GetName().GetPublicKey();
-            if (pk == null) return false;
-            var pkStr = ", PublicKey=" + string.Join(string.Empty, pk.Select(x => x.ToString("x2")));
-            var r = pkStr == ThisAssembly.PublicKey;
-            if (!r) return false;
+            AesSecret = MicroServices.ClientSDK.Resources.aes_key,
+            RSASecret = MicroServices.ClientSDK.Resources.
+#if DEBUG
+            rsa_public_key_debug,
+#else
+            rsa_public_key_release,
 #endif
-            try
-            {
-                return Aes != null && RSA != null;
-            }
-            catch (IsNotOfficialChannelPackageException)
-            {
-                return false;
-            }
-        }
-        if (!mGetIsOfficialChannelPackage.HasValue)
-            mGetIsOfficialChannelPackage = GetIsOfficialChannelPackage_();
-        return mGetIsOfficialChannelPackage.Value;
+        };
+#if DEBUG
+        s.ApiBaseUrl = Constants.Urls.BaseUrl_API_Debug;
+        //s.ApiBaseUrl = Constants.Urls.BaseUrl_API_Development;
+#else
+        s.ApiBaseUrl = Constants.Urls.BaseUrl_API_Production;
+#endif
+        return s;
     }
-
-    static readonly Lazy<bool> mIsOfficialChannelPackage = new(() =>
-    {
-        var s = Ioc.Get_Nullable<IOptions<AppSettings>>()?.Value;
-        return s != null && s.GetIsOfficialChannelPackage();
-    });
-
-    /// <summary>
-    /// 当前运行程序是否为官方渠道包
-    /// </summary>
-    public static bool IsOfficialChannelPackage => mIsOfficialChannelPackage.Value;
 }

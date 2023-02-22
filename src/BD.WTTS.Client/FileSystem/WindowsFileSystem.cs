@@ -10,7 +10,7 @@ namespace BD.WTTS;
 /// <item>Logs: \Logs or %Tmp%\Steam++\Logs</item>
 /// </list>
 /// </summary>
-sealed class WindowsFileSystem : IOPath.FileSystemBase
+public sealed class WindowsFileSystem : IOPath.FileSystemBase
 {
     private WindowsFileSystem() => throw new NotSupportedException();
 

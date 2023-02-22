@@ -19,6 +19,7 @@ internal sealed class ToastImpl : ToastBaseImpl
         ToastService.Current.Notify(text);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IServiceCollection TryAddToast(IServiceCollection services)
         => TryAddToast<ToastImpl>(services);
 }

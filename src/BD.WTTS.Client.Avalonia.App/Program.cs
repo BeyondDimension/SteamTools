@@ -19,7 +19,7 @@ static partial class Program
 #if WINDOWS
         if (!OperatingSystem.IsWindowsVersionAtLeast(10, 0, 17763))
         {
-            ShowErrMessageBox("此应用程序仅兼容 Windows 10 版本 1809（OS 内部版本 17763）或更高版本");
+            ShowErrMessageBox("此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本");
             return 0;
         }
         if (AppContext.BaseDirectory.StartsWith(Path.GetTempPath(), StringComparison.OrdinalIgnoreCase))
@@ -32,6 +32,8 @@ static partial class Program
             return 0;
         }
 #endif
+
+        MemoryPackFormatterProvider.Register<MemoryPackFormatters>();
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -122,10 +124,12 @@ static partial class Program
         return builder;
     }
 
-    static void StartAvaloniaApp(string[] args, ShutdownMode shutdownMode = ShutdownMode.OnLastWindowClose)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static void StartAvaloniaApp(string[] args,
+        ShutdownMode shutdownMode = ShutdownMode.OnLastWindowClose)
     {
+        if (!Environment.UserInteractive) return;
         var builder = BuildAvaloniaApp();
-        //builder.StartWithClassicDesktopLifetime2(args, shutdownMode);
-        builder.StartWithClassicDesktopLifetime(args, shutdownMode);
+        builder.StartWithClassicDesktopLifetime2(args, shutdownMode);
     }
 }

@@ -5,8 +5,6 @@ namespace BD.WTTS.Services.Implementation;
 
 internal sealed class SteamGridDBWebApiServiceImpl : GeneralHttpClientFactory, ISteamGridDBWebApiServiceImpl
 {
-    const string ApiKey = "ae93db7411cac53190aa5a9b633bf5e2";
-
     const string TAG = "SteamGridDBWebApiS";
 
     protected override string? DefaultClientName => TAG;
@@ -31,7 +29,7 @@ internal sealed class SteamGridDBWebApiServiceImpl : GeneralHttpClientFactory, I
             () =>
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", ApiKey);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", ApiConstants.ApiKeySteamGridDB);
                 request.Headers.Accept.ParseAdd(accept);
                 var userAgent = http_helper.UserAgent;
                 if (userAgent != null)

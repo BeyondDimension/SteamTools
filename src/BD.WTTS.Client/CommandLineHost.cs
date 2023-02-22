@@ -11,7 +11,15 @@ public abstract class CommandLineHost : IDisposable
     const string key_shutdown = "shutdown";
     public const string command_main = "main";
 
-    protected abstract IApplication.IDesktopProgramHost Host { get; }
+    protected virtual IApplication.IDesktopProgramHost Host
+    {
+        get
+        {
+            if (this is IApplication.IDesktopProgramHost desktopProgramHost)
+                return desktopProgramHost;
+            throw new ArgumentNullException(nameof(desktopProgramHost));
+        }
+    }
 
     protected abstract void ConfigureServices(AppServicesLevel level, bool isTrace = false);
 
@@ -23,7 +31,7 @@ public abstract class CommandLineHost : IDisposable
 
     protected abstract void StartApplication(string[] args);
 
-    public abstract IApplication? Application { get; protected set; }
+    public virtual IApplication? Application { get; }
 
     Task<IApplication>? _WaitForApplication;
 
@@ -453,7 +461,6 @@ public abstract class CommandLineHost : IDisposable
             // 释放未托管的资源(未托管的对象)并重写终结器
             // 将大型字段设置为 null
             AppInstance = null;
-            Application = null;
             disposedValue = true;
         }
     }

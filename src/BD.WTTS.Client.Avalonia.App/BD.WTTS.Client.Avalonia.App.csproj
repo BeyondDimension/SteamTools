@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<RootNamespace>BD.WTTS</RootNamespace>
+		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -92,11 +93,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Services\Implementation\" />
 		<Folder Include="UI\Views\Pages\Accelerator\" />
 		<Folder Include="UI\Views\Pages\AccountSwitch\" />
 		<Folder Include="UI\Views\Pages\Library\" />

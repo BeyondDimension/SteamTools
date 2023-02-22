@@ -66,9 +66,9 @@ public sealed partial class TaskBarWindowViewModel : WindowViewModel
         if (IViewModelManager.Instance.MainWindow is MainWindowViewModel main)
         {
             var tabItemType = TabItemViewModel.GetType(tabItemId);
-            if (main.AllTabLazyItems.ContainsKey(tabItemType))
+            if (main.AllTabLazyItems.TryGetValue(tabItemType, out var value))
             {
-                var tab = main.AllTabLazyItems[tabItemType].Value;
+                var tab = value.Value;
                 IApplication.Instance.RestoreMainWindow();
                 main.SelectedItem = tab;
                 hideTaskBarWindow?.Invoke();

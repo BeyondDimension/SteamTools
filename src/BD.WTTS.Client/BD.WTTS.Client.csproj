@@ -65,6 +65,12 @@
 		<PackageReference Include="BD.Common.Primitives.ApiResponse" />
 		<PackageReference Include="BD.Common.Settings" />
 		<PackageReference Include="BD.Common.Repositories.SQLitePCL" />
+		<PackageReference Include="BD.Common.Essentials" />
+		<PackageReference Include="BD.Common.Essentials.Maui" />
+		<PackageReference Include="BD.Common.Essentials.Primitives" />
+		<PackageReference Include="BD.Common.Essentials.Utils" />
+		<PackageReference Include="BD.Common.Essentials.Preferences.SQLite" />
+		<PackageReference Include="BD.Common.Pinyin" />
 		<PackageReference Include="BD.WTTS.MicroServices.ClientSDK" />
 		<PackageReference Include="BD.WTTS.Primitives.ViewModels" />
 		<PackageReference Include="WinAuth.Library" />
@@ -106,6 +112,8 @@
 		<PackageReference Include="System.Management" />
 		<PackageReference Include="Aigio.WinDivertSharp" />
 		<PackageReference Include="NotifyIcon.Windows" />
+		<PackageReference Include="System.Net.Http.WinHttpHandler" />
+		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -132,9 +140,24 @@
 		</Compile>
 	</ItemGroup>
 
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
+		<!-- Linux Only -->
+		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<!-- Android Only -->
+		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
+	</ItemGroup>
+
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
 		<!-- Mobile Only -->
 		<Compile Remove="Services\Mvvm\Steam\SteamConnectService.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
+		<!-- iOS/macOS/MacCatalyst Only -->
+		<PackageReference Include="BD.Common.Pinyin.CFStringTransform" />
 	</ItemGroup>
 
 	<ItemGroup>

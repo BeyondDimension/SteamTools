@@ -3,11 +3,10 @@ namespace BD.WTTS.UI;
 partial class App : IDisposableHolder, IDisposable
 {
     bool disposedValue;
-    readonly CompositeDisposable compositeDisposable = new();
 
-    CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
+    public CompositeDisposable CompositeDisposable { get; } = new();
 
-    ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
+    ICollection<IDisposable> IDisposableHolder.CompositeDisposable => CompositeDisposable;
 
     void Dispose(bool disposing)
     {
@@ -16,7 +15,7 @@ partial class App : IDisposableHolder, IDisposable
             if (disposing)
             {
                 // 释放托管状态(托管对象)
-                compositeDisposable.Dispose();
+                CompositeDisposable.Dispose();
             }
 
             // 释放未托管的资源(未托管的对象)并重写终结器

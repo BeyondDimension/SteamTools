@@ -18,24 +18,7 @@ partial class App
             {
                 IViewModelManager.Instance.InitTaskBarWindowViewModel();
 
-                NotifyIconHelper.Init(this, () =>
-                {
-                    RestoreMainWindow();
-                });
-                //                        if (!OperatingSystem2.IsLinux())
-                //                        {
-                //                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
-                //                            notifyIcon.Click += NotifyIcon_Click;
-                //                            notifyIcon.DoubleClick += NotifyIcon_Click;
-                //                            if (menuItemDisposable != null) menuItemDisposable.AddTo(this);
-                //                            notifyIcon.AddTo(this);
-                //                        }
-                //                        else
-                //                        {
-                //#if LINUX || DEBUG
-                //                            NotifyIconHelper.StartPipeServer();
-                //#endif
-                //                        }
+                NotifyIconHelper.Init(this, NotifyIcon_Click);
             }
             else
             {
@@ -51,5 +34,10 @@ partial class App
 #endif
 
         }
+    }
+
+    void NotifyIcon_Click(object? sender, EventArgs e)
+    {
+        RestoreMainWindow();
     }
 }

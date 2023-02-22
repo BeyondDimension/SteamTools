@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>Avalonia.Skia</RootNamespace>
+		<AssemblyName>Avalonia.Skia.UnitTests</AssemblyName>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\avalonia.snk</AssemblyOriginatorKeyFile>
+		<!--https://github.com/AvaloniaUI/Avalonia/blob/0.10.10/build/SharedVersion.props#L18-->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia.Skia" Aliases="AvaloniaSkia" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NET7.props" />
+
+</Project>
