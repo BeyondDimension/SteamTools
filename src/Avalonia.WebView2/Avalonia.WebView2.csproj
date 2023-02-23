@@ -12,6 +12,7 @@
 		<Compile Include="..\AssemblyInfo.Version.Max.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Remove="..\AssemblyInfo.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
