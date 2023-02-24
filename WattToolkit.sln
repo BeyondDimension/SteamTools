@@ -113,6 +113,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Themes.Fluent", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Skia.Internals", "src\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj", "{73F8C2DB-04EB-4D6C-9725-89F23CC7D494}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.UnitTest", "src\BD.WTTS.UnitTest\BD.WTTS.UnitTest.csproj", "{F05AAAD8-EE2B-4E94-BE5D-1394189F7EA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Test", "3.Test", "{59062296-8DD9-446B-8D15-26B3A99D3861}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +195,10 @@ Global
 		{73F8C2DB-04EB-4D6C-9725-89F23CC7D494}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73F8C2DB-04EB-4D6C-9725-89F23CC7D494}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73F8C2DB-04EB-4D6C-9725-89F23CC7D494}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F05AAAD8-EE2B-4E94-BE5D-1394189F7EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F05AAAD8-EE2B-4E94-BE5D-1394189F7EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F05AAAD8-EE2B-4E94-BE5D-1394189F7EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F05AAAD8-EE2B-4E94-BE5D-1394189F7EA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -221,6 +229,7 @@ Global
 		{715D0B36-5047-4A59-8B3F-FB746A88FA26} = {8494FB13-5C0D-4A52-93D8-0C88602C6039}
 		{73C4948A-852C-47C5-B080-463D5B9820D4} = {8494FB13-5C0D-4A52-93D8-0C88602C6039}
 		{73F8C2DB-04EB-4D6C-9725-89F23CC7D494} = {8494FB13-5C0D-4A52-93D8-0C88602C6039}
+		{F05AAAD8-EE2B-4E94-BE5D-1394189F7EA6} = {59062296-8DD9-446B-8D15-26B3A99D3861}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {082A84C3-694F-4EF3-82E7-C965111EF098}

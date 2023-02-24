@@ -412,7 +412,7 @@ sealed class HttpReverseProxyMiddleware
     /// <param name="insertPosition">Insert Script Xml Position</param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    static bool FindScriptInjectInsertPosition(byte[] buffer_, Encoding encoding, out ReadOnlyMemory<byte> buffer, out int insertPosition)
+    internal static bool FindScriptInjectInsertPosition(byte[] buffer_, Encoding encoding, out ReadOnlyMemory<byte> buffer, out int insertPosition)
     {
         buffer = buffer_.AsMemory();
 
