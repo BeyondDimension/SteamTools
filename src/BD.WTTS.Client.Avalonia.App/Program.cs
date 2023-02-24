@@ -43,6 +43,8 @@ static partial class Program
 #if WINDOWS_DESKTOP_BRIDGE
         if (!DesktopBridgeHelper.Init()) return 0;
         InitWithDesktopBridge(ref args);
+#elif IOS || MACOS || MACCATALYST
+        UIApplication.Main(args, null, typeof(AppDelegate));
 #endif
 
         var host = Host.Instance;

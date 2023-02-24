@@ -3,9 +3,10 @@
 	<PropertyGroup>
 		<AssemblyName>Steam++</AssemblyName>
 		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
-		<OutputType>WinExe</OutputType>
+		<OutputType>Exe</OutputType>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
+		<RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">osx-x64</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
