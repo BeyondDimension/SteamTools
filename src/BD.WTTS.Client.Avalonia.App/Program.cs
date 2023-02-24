@@ -32,11 +32,8 @@ static partial class Program
             return 0;
         }
 #endif
-
         MemoryPackFormatterProvider.Register<MemoryPackFormatters>();
-
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
         // fix The request was aborted: Could not create SSL/TLS secure channel
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 

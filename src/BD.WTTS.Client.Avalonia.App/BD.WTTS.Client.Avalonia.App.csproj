@@ -1,6 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<AssemblyName>Steam++</AssemblyName>
+		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
 		<OutputType>WinExe</OutputType>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>

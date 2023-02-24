@@ -30,6 +30,7 @@ static partial class Program
 #else
             FileSystem2.InitFileSystem();
 #endif
+            Repository.DataBaseDirectory = IOPath.AppDataDirectory;
             if (isTrace) StartWatchTrace.Record("FileSystem");
 
             IApplication.InitLogDir(isTrace: isTrace);

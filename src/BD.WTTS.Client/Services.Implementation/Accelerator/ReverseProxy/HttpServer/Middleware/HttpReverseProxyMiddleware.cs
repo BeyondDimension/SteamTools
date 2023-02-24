@@ -141,7 +141,7 @@ sealed class HttpReverseProxyMiddleware
         if (IsDomain(host))
         {
             logger.LogWarning(
-                $"域名 {host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
+                "域名 {host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。", host);
             domainConfig = defaultDomainConfig;
             return true;
         }
@@ -172,7 +172,7 @@ sealed class HttpReverseProxyMiddleware
 
         var baseUri = new Uri(defaultValue);
         var result = new Uri(baseUri, destination).ToString();
-        logger.LogInformation($"{defaultValue} => {result}");
+        logger.LogInformation("{defaultValue} => {result}", defaultValue, result);
         return result;
     }
 
@@ -208,6 +208,7 @@ sealed class HttpReverseProxyMiddleware
         if (!scripts.Any_Nullable() ||
             context.Request.Method != HttpMethods.Get ||
             context.Response.StatusCode != StatusCodes.Status200OK ||
+            context.Response.ContentType == null ||
             !context.Response.ContentType.Contains("text/html", StringComparison.OrdinalIgnoreCase))
         {
             await ResetBody();
@@ -282,7 +283,8 @@ sealed class HttpReverseProxyMiddleware
                         //                        var html_start_string = encoding.GetString(html_start.Span);
                         //#endif
                         await bodyCoreWriter.WriteAsync(html_start);
-                        (var script_xml_start, var script_xml_end) = GetScriptXmls(encoding);
+                        var script_xml_start = "<script type=\"text/javascript\" src=\"https://local.steampp.net/"u8.ToArray();
+                        var script_xml_end = "\"></script>"u8.ToArray();
                         foreach (var script in scripts)
                         {
                             await bodyCoreWriter.WriteAsync(script_xml_start);
@@ -401,41 +403,6 @@ sealed class HttpReverseProxyMiddleware
     //const int BigEndianUnicodePreambleLength = 2;
     const int BigEndianUnicodePreambleFirst2Bytes = 0xFEFF;
 
-    static readonly object marksLock = new();
-    static readonly object scriptXmlsLock = new();
-    static readonly Dictionary<int, (byte[] mark_start, byte[] mark_end)> marksDict = new();
-    static readonly Dictionary<int, (byte[] script_xml_start, byte[] script_xml_end)> scriptXmlsDict = new();
-
-    static (byte[] mark_start, byte[] mark_end) GetMarks(Encoding encoding)
-    {
-        var codePage = encoding.CodePage;
-        if (marksDict.ContainsKey(codePage)) return marksDict[codePage];
-        lock (marksLock)
-        {
-            var mark_start = encoding.GetBytes("</");
-            var mark_end = encoding.GetBytes(">");
-            var value = (mark_start, mark_end);
-            marksDict.Add(codePage, value);
-            return value;
-        }
-    }
-
-    static (byte[] script_xml_start, byte[] script_xml_end) GetScriptXmls(Encoding encoding)
-    {
-        var codePage = encoding.CodePage;
-        if (scriptXmlsDict.ContainsKey(codePage)) return scriptXmlsDict[codePage];
-        lock (scriptXmlsLock)
-        {
-            const string scriptXmlStart = $"<script type=\"text/javascript\" src=\"https://{IReverseProxyService.LocalDomain}/";
-            const string scriptXmlEnd = "\"></script>";
-            var script_xml_start = encoding.GetBytes(scriptXmlStart);
-            var script_xml_end = encoding.GetBytes(scriptXmlEnd);
-            var value = (script_xml_start, script_xml_end);
-            scriptXmlsDict.Add(codePage, value);
-            return value;
-        }
-    }
-
     /// <summary>
     /// 查找脚本注入位置
     /// </summary>
@@ -450,7 +417,8 @@ sealed class HttpReverseProxyMiddleware
         buffer = buffer_.AsMemory();
 
         // 匹配 </...> 60 47 ... 62
-        (var mark_start, var mark_end) = GetMarks(encoding);
+        var mark_start = "</"u8.ToArray();
+        var mark_end = ">"u8.ToArray();
         if (mark_start.Length <= 0 || mark_end.Length <= 0) goto notfound;
 
         int index_name_end = 0;
@@ -495,9 +463,10 @@ sealed class HttpReverseProxyMiddleware
                         var charCount = encoding.GetCharCount(bytes);
                         if (charCount == matchCharCount)
                         {
-                            var name = encoding.GetString(bytes);
-                            if (name.Equals("body", StringComparison.OrdinalIgnoreCase) ||
-                                name.Equals("head", StringComparison.OrdinalIgnoreCase))
+                            var body = "BODY"u8;
+                            var head = "HEAD"u8;
+                            if ((bytes.Length == body.Length && bytes.SequenceEqual(body, Utf8StringComparerOrdinalIgnoreCase.Instance)) ||
+                                (bytes.Length == head.Length && bytes.SequenceEqual(head, Utf8StringComparerOrdinalIgnoreCase.Instance)))
                             {
                                 insertPosition = index_name_start - mark_start.Length;
                                 return true;
@@ -516,6 +485,28 @@ sealed class HttpReverseProxyMiddleware
 
     notfound: insertPosition = -1;
         return false;
+    }
+
+    sealed class Utf8StringComparerOrdinalIgnoreCase : IEqualityComparer<byte>
+    {
+        Utf8StringComparerOrdinalIgnoreCase() { }
+
+        public static readonly Utf8StringComparerOrdinalIgnoreCase Instance = new();
+
+        // https://www.geeksforgeeks.org/lower-case-upper-case-interesting-fact/
+
+        static byte Convert(byte b)
+        {
+            int i = b;
+            i &= ~32;
+            return (byte)i;
+        }
+
+        bool IEqualityComparer<byte>.Equals(byte x, byte y)
+            => Convert(x) == Convert(y);
+
+        int IEqualityComparer<byte>.GetHashCode(byte obj)
+            => EqualityComparer<byte>.Default.GetHashCode(Convert(obj));
     }
 }
 #endif

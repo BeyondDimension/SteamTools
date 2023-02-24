@@ -40,8 +40,7 @@ public abstract class CommandLineHost : IDisposable
         if (Application != null) return Task.FromResult(Application);
         lock (this)
         {
-            if (_WaitForApplication == null)
-                _WaitForApplication = Task.Run(async () =>
+            _WaitForApplication ??= Task.Run(async () =>
                 {
                     while (Application == null)
                     {
