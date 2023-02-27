@@ -1,4 +1,4 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+#if WINDOWS
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/GithubGitReverseProxyHandler.cs
 
 // ReSharper disable once CheckNamespace

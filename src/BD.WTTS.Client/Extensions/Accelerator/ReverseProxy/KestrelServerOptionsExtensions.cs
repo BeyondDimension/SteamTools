@@ -9,6 +9,7 @@ public static class KestrelServerOptionsExtensions
     /// 无限制
     /// </summary>
     /// <param name="options"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void NoLimit(this KestrelServerOptions options)
     {
         options.Limits.MaxRequestBodySize = null;
@@ -20,6 +21,7 @@ public static class KestrelServerOptionsExtensions
     /// 监听 Http 代理
     /// </summary>
     /// <param name="options"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ListenHttpProxy(this KestrelServerOptions options)
     {
         var reverseProxyConfig = options.ApplicationServices.GetRequiredService<IReverseProxyConfig>();
@@ -43,13 +45,16 @@ public static class KestrelServerOptionsExtensions
         });
 
         options.GetLogger().LogInformation(
-            $"Listened http://{IReverseProxyService.Instance.ProxyIp}:{httpProxyPort}, HTTP proxy service startup completed.");
+            "Listened http://{ProxyIp}:{httpProxyPort}, HTTP proxy service startup completed.",
+            IReverseProxyService.Instance.ProxyIp, httpProxyPort);
     }
 
+#if WINDOWS
     /// <summary>
     /// 监听 SSH 反向代理
     /// </summary>
     /// <param name="options"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ListenSshReverseProxy(this KestrelServerOptions options)
     {
         var sshPort = IReverseProxyConfig.SshPort;
@@ -61,13 +66,16 @@ public static class KestrelServerOptionsExtensions
 
         var logger = options.GetLogger();
         logger.LogInformation(
-            $"Listened ssh://localhost:{sshPort}, the SSH reverse proxy service of GitHub is started.");
+            "Listened ssh://localhost:{sshPort}, the SSH reverse proxy service of GitHub is started.", sshPort);
     }
+#endif
 
+#if WINDOWS
     /// <summary>
     /// 监听 Git 反向代理
     /// </summary>
     /// <param name="options"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ListenGitReverseProxy(this KestrelServerOptions options)
     {
         var gitPort = IReverseProxyConfig.GitPort;
@@ -79,13 +87,15 @@ public static class KestrelServerOptionsExtensions
 
         var logger = options.GetLogger();
         logger.LogInformation(
-            $"Listened git://localhost:{gitPort}, the Git reverse proxy service of GitHub has been started.");
+            "Listened git://localhost:{gitPort}, the Git reverse proxy service of GitHub has been started.", gitPort);
     }
+#endif
 
     /// <summary>
     /// 监听 HTTP 反向代理
     /// </summary>
     /// <param name="options"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ListenHttpReverseProxy(this KestrelServerOptions options)
     {
         var httpPort = IReverseProxyConfig.HttpPort;
@@ -93,13 +103,15 @@ public static class KestrelServerOptionsExtensions
 
         var logger = options.GetLogger();
         logger.LogInformation(
-            $"Listened http://{IReverseProxyService.Instance.ProxyIp}:{httpPort}, HTTP reverse proxy service startup completed.");
+            "Listened http://{ProxyIp}:{httpPort}, HTTP reverse proxy service startup completed.",
+            IReverseProxyService.Instance.ProxyIp, httpPort);
     }
 
     /// <summary>
     /// 监听 HTTPS 反向代理
     /// </summary>
     /// <param name="options"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ListenHttpsReverseProxy(this KestrelServerOptions options)
     {
         var certService = options.ApplicationServices.GetRequiredService<CertService>();
@@ -117,9 +129,11 @@ public static class KestrelServerOptionsExtensions
 
         var logger = options.GetLogger();
         logger.LogInformation(
-            $"Listened https://{IReverseProxyService.Instance.ProxyIp}:{httpsPort}, HTTPS reverse proxy service startup completed.");
+            "Listened https://{ProxyIp}:{httpsPort}, HTTPS reverse proxy service startup completed.",
+            IReverseProxyService.Instance.ProxyIp, httpsPort);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static ILogger GetLogger(this KestrelServerOptions kestrel)
     {
         var loggerFactory = kestrel.ApplicationServices.GetRequiredService<ILoggerFactory>();

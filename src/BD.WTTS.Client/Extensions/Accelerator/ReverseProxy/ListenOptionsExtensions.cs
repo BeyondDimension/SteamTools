@@ -8,6 +8,7 @@ static partial class ListenOptionsExtensions
     /// </summary>
     /// <param name="listen"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ListenOptions UseFlowAnalyze(this ListenOptions listen)
     {
         var flowAnalyzer = listen.ApplicationServices.GetRequiredService<IFlowAnalyzer>();
@@ -29,10 +30,11 @@ static partial class ListenOptionsExtensions
     }
 
     /// <summary>
-    /// 使用Tls中间件
+    /// 使用 Tls 中间件
     /// </summary>
     /// <param name="listen"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ListenOptions UseTls(this ListenOptions listen)
     {
         var certService = listen.ApplicationServices.GetRequiredService<CertService>();
@@ -42,12 +44,13 @@ static partial class ListenOptionsExtensions
     }
 
     /// <summary>
-    /// 使用Tls中间件
+    /// 使用 Tls 中间件
     /// </summary>
     /// <param name="listen"></param>
     /// <param name="configureOptions">https配置</param>
     /// <returns></returns>
-    private static ListenOptions UseTls(this ListenOptions listen, Action<HttpsConnectionAdapterOptions> configureOptions)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static ListenOptions UseTls(this ListenOptions listen, Action<HttpsConnectionAdapterOptions> configureOptions)
     {
         var invadeMiddleware = listen.ApplicationServices.GetRequiredService<TlsInvadeMiddleware>();
         var restoreMiddleware = listen.ApplicationServices.GetRequiredService<TlsRestoreMiddleware>();

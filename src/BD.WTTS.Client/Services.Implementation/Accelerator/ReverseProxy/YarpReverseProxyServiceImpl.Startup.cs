@@ -6,8 +6,16 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class YarpReverseProxyServiceImpl
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void StartupConfigureServices(IServiceCollection services)
     {
+        services.Configure<HostOptions>(hostOptions =>
+        {
+            // Windows 上有一些情况下无法监听某些端口会抛出异常，忽略后台服务中的异常避免整个 Host 中止
+            hostOptions.BackgroundServiceExceptionBehavior =
+                BackgroundServiceExceptionBehavior.Ignore;
+        });
+
         services.AddConfiguration(this);
         services.AddDomainResolve();
         services.AddReverseProxyHttpClient();
@@ -22,7 +30,8 @@ partial class YarpReverseProxyServiceImpl
 #endif
     }
 
-    void StartupConfigure(IApplicationBuilder app)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static void StartupConfigure(IApplicationBuilder app)
     {
         app.UseHttpLocalRequest();
 

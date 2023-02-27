@@ -10,6 +10,7 @@ static class ApplicationBuilderExtensions
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IApplicationBuilder UseHttpProxyPac(this IApplicationBuilder app)
     {
         var middleware = app.ApplicationServices.GetRequiredService<HttpProxyPacMiddleware>();
@@ -21,6 +22,7 @@ static class ApplicationBuilderExtensions
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IApplicationBuilder UseHttpLocalRequest(this IApplicationBuilder app)
     {
         var middleware = app.ApplicationServices.GetRequiredService<HttpLocalRequestMiddleware>();
@@ -32,6 +34,7 @@ static class ApplicationBuilderExtensions
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IApplicationBuilder UseRequestLogging(this IApplicationBuilder app)
     {
         var middleware = app.ApplicationServices.GetRequiredService<RequestLoggingMiddleware>();
@@ -43,6 +46,7 @@ static class ApplicationBuilderExtensions
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IApplicationBuilder DisableRequestLogging(this IApplicationBuilder app)
     {
         return app.Use(next => context =>
@@ -61,6 +65,7 @@ static class ApplicationBuilderExtensions
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IApplicationBuilder UseHttpReverseProxy(this IApplicationBuilder app)
     {
         var middleware = app.ApplicationServices.GetRequiredService<HttpReverseProxyMiddleware>();
