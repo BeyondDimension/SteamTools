@@ -26,27 +26,30 @@ public class EnumModel<TEnum> : EnumModel where TEnum : struct, Enum
         set => this.RaiseAndSetIfChanged(ref _Name, value);
     }
 
-    /// <summary>
-    /// 获取该枚举值的本地化显示字符串，兼容之前的 Xaml，已弃用
-    /// </summary>
-    [Obsolete("use LocalizationName", true)]
-    public string? Name_Localiza => LocalizationName;
+    ///// <summary>
+    ///// 获取该枚举值的本地化显示字符串，兼容之前的 Xaml，已弃用
+    ///// </summary>
+    //[Obsolete("use LocalizationName", true)]
+    //public string? Name_Localiza => LocalizationName;
 
-    /// <summary>
-    /// 获取该枚举值的本地化显示字符串，使用 <see cref="Description"/> 或 <see cref="Name"/> 查找本地化资源
-    /// </summary>
-    [Obsolete("use LocalizationName2")]
-    public string? LocalizationName
-    {
-        get => string.IsNullOrEmpty(Description)
-            ? AppResources.ResourceManager.GetString(Name, AppResources.Culture)
-            : AppResources.ResourceManager.GetString(Description, AppResources.Culture);
-    }
+    ///// <summary>
+    ///// 获取该枚举值的本地化显示字符串，使用 <see cref="Description"/> 或 <see cref="Name"/> 查找本地化资源
+    ///// </summary>
+    //[Obsolete("use LocalizationName2")]
+    //public string? LocalizationName
+    //{
+    //    get => string.IsNullOrEmpty(Description)
+    //        ? AppResources.ResourceManager.GetString(Name, AppResources.Culture)
+    //        : AppResources.ResourceManager.GetString(Description, AppResources.Culture);
+    //}
 
     /// <summary>
     /// 获取该枚举值的本地化显示字符串，使用 枚举类型_枚举名 查找本地化资源
     /// </summary>
-    public string? LocalizationName2 => AppResources.ResourceManager.GetString($"{typeof(TEnum).Name}_{Name}", AppResources.Culture);
+    public string? LocalizationName =>
+        AppResources.ResourceManager.GetString(
+            $"{typeof(TEnum).Name}_{Name}",
+            AppResources.Culture);
 
     string? _Description;
 

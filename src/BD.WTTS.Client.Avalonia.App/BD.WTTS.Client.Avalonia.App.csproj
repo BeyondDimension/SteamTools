@@ -6,7 +6,7 @@
 		<OutputType>Exe</OutputType>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
-		<RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">osx-x64</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('windows'))">win-x64</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">

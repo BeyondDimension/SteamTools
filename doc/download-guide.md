@@ -67,3 +67,11 @@
 		- 文件名中**包含** x64 的，例如 ```Steam++_android_x64_v3.0.0.apk```。
 ## ~~iOS/iPadOS~~(开发中…) <img src="../res/brands/apple.svg" width="16" height="16" />
 - 在 App Store 中下载
+
+<!--
+TODO: new fileName
+Steam++_win_x64_v3.0.0.exe
+Steam++_win_x64_v3.0.0.7z
+Steam++_win_x64_with_runtime_v3.0.0.exe
+Steam++_win_x64_with_runtime_v3.0.0.7z
+-->

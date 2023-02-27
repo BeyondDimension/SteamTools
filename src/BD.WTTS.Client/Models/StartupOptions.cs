@@ -18,8 +18,11 @@ public sealed class StartupOptions
 
     public bool HasSteam { get; set; }
 
-    public StartupOptions(AppServicesLevel level)
+    public bool IsTrace { get; set; }
+
+    public StartupOptions(AppServicesLevel level, bool isTrace)
     {
+        IsTrace = isTrace;
         mValue = this;
         HasMainProcessRequired = level.HasFlag(AppServicesLevel.MainProcessRequired);
         HasNotifyIcon = HasMainProcessRequired;

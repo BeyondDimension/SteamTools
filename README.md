@@ -121,13 +121,6 @@
 - [高级 Web 前端工程师](https://www.zhipin.com/job_detail/e59317c527f3f49e1XJ92d24FVRV.html)
 -->
 
-## Windows 目录解构
-- modules 模块
-- shared 共享运行时
-	- Microsoft.AspNetCore.App
-	- Microsoft.NETCore.App
-- Steam++.exe 主程序
-
 <!--👇图标如果发生更改，还需更改 Tools.OpenSourceLibraryList(Program.OpenSourceLibraryListEmoji) -->
 ## 📄 感谢以下开源项目
 * [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)

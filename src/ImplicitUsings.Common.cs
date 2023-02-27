@@ -5,6 +5,7 @@
 #pragma warning disable SA1209 // Using alias directives should be placed after other using directives
 #pragma warning disable SA1211 // Using alias directives should be ordered alphabetically by alias name
 
+#if !NETFRAMEWORK
 global using BD.Common;
 global using BD.Common.Columns;
 global using BD.Common.Enums;
@@ -19,4 +20,5 @@ global using BD.Common.Middleware;
 #endif
 #if ANDROID
 global using Toast = BD.Common.Toast;
+#endif
 #endif

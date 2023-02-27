@@ -1,5 +1,7 @@
 using static BD.WTTS.CommandLineHost;
+#if WINDOWS
 using AppResources = BD.WTTS.Client.Resources.Strings;
+#endif
 
 namespace BD.WTTS;
 
@@ -17,6 +19,7 @@ static partial class Program
     public static int Main(string[] args)
     {
 #if WINDOWS
+        // 兼容性检查
         if (!OperatingSystem.IsWindowsVersionAtLeast(10, 0, 17763))
         {
             ShowErrMessageBox("此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本");
@@ -32,12 +35,46 @@ static partial class Program
             return 0;
         }
 #endif
+
+#if DEBUG
+        // 调试时移动本机库到 native，通常指定了单个 RID(RuntimeIdentifier) 后本机库将位于程序根目录上否则将位于 runtimes 文件夹中
+        GlobalDllImportResolver.MoveFiles();
+#endif
+
+        // 监听当前应用程序域的程序集加载
+        AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+        static void CurrentDomain_AssemblyLoad(object? sender, AssemblyLoadEventArgs args)
+        {
+#if DEBUG
+            Console.WriteLine($"loadasm: {args.LoadedAssembly}");
+#endif
+            // 使用 native 文件夹导入解析本机库
+            try
+            {
+                NativeLibrary.SetDllImportResolver(args.LoadedAssembly, GlobalDllImportResolver.Delegate);
+            }
+            catch
+            {
+                // ArgumentNullException assembly 或 resolver 为 null。
+                // ArgumentException 已为此程序集设置解析程序。
+                // 此每程序集解析程序是第一次尝试解析此程序集启动的本机库加载。
+                // 此方法的调用方应仅为自己的程序集注册解析程序。
+                // 每个程序集只能注册一个解析程序。 尝试注册第二个解析程序失败并出现 InvalidOperationException。
+                // https://learn.microsoft.com/zh-cn/dotnet/api/system.runtime.interopservices.nativelibrary.setdllimportresolver
+            }
+        }
+
+        // 注册 MemoryPack 某些自定义类型的格式化，如 Cookie, IPAddress, RSAParameters
         MemoryPackFormatterProvider.Register<MemoryPackFormatters>();
+
+        // 添加 .NET Framework 中可用的代码页提供对编码提供程序
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
         // fix The request was aborted: Could not create SSL/TLS secure channel
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
 #if WINDOWS
+        // 在 Windows 上还原 .NET Framework 中网络请求跟随系统网络代理变化而动态切换代理行为
         HttpClient.DefaultProxy = DynamicHttpWindowsProxy.Instance;
 #endif
 #if WINDOWS_DESKTOP_BRIDGE

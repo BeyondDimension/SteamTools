@@ -1,6 +1,6 @@
 namespace BD.WTTS.UnitTest;
 
-public sealed class Tests
+public sealed class HttpReverseProxyMiddlewareUnitTest
 {
     [SetUp]
     public void Setup()
@@ -43,7 +43,7 @@ public sealed class Tests
         var html_end = buffer[position..];
         s.Write(html_end);
 
-        var new_html = encoding.GetString(s.ToByteArray());
+        var new_html = encoding.GetString(s.ToArray());
         TestContext.WriteLine(new_html);
     }
 }

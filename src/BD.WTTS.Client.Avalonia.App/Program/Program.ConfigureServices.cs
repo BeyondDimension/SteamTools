@@ -9,12 +9,15 @@ static partial class Program
     /// 初始化启动
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void ConfigureServices(IApplication.IStartupArgs args, AppServicesLevel level, IServiceCollection? services = null, bool isTrace = false)
+    static void ConfigureServices(IApplication.IStartupArgs args,
+        AppServicesLevel level,
+        IServiceCollection? services = null,
+        bool isTrace = false)
     {
         if (!isInitialized)
         {
             isInitialized = true;
-            var options = new StartupOptions(level);
+            var options = new StartupOptions(level, isTrace);
             if (options.HasServerApiClient)
             {
                 ModelValidatorProvider.Init();
@@ -24,7 +27,7 @@ static partial class Program
             if (services == null)
             {
                 // new ServiceCollection 创建服务集合
-                ConfigureServices(args, options, isTrace);
+                ConfigureServices(args, options);
                 OnBuild(isTrace);
             }
             else
@@ -46,18 +49,18 @@ static partial class Program
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void ConfigureServices(IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
-    {
-        Ioc.ConfigureServices(s => ConfigureServices(s, args, options, isTrace));
-    }
+    static void ConfigureServices(IApplication.IStartupArgs args, StartupOptions options)
+        => Ioc.ConfigureServices(s => ConfigureServices(s, args, options));
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void ConfigureServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
+    static void ConfigureServices(IServiceCollection services,
+        IApplication.IStartupArgs args,
+        StartupOptions options)
     {
-        ConfigureDemandServices(services, args, options, isTrace);
-        if (isTrace) StartWatchTrace.Record("DI.D");
-        ConfigureRequiredServices(services, args, options, isTrace);
-        if (isTrace) StartWatchTrace.Record("DI.ConfigureRequiredServices");
+        ConfigureDemandServices(services, args, options);
+        if (options.IsTrace) StartWatchTrace.Record("DI.D");
+        ConfigureRequiredServices(services, args, options);
+        if (options.IsTrace) StartWatchTrace.Record("DI.ConfigureRequiredServices");
     }
 
     sealed class Essentials_AppVerS : IApplicationVersionService
@@ -75,7 +78,7 @@ static partial class Program
     /// <param name="options"></param>
     /// <param name="isTrace"></param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
+    static void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
     {
         services.AddSingleton(_ => Host.Instance.App);
         services.AddSingleton(Host.Instance);
@@ -139,9 +142,9 @@ static partial class Program
     /// <param name="options"></param>
     /// <param name="isTrace"></param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options, bool isTrace = false)
+    static void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
     {
-        if (isTrace) StartWatchTrace.Record("DI.D.Calc");
+        if (options.IsTrace) StartWatchTrace.Record("DI.D.Calc");
         services.AddDnsAnalysisService();
         if (options.HasGUI)
         {
@@ -190,14 +193,14 @@ static partial class Program
             // 添加管理主窗口服务
             services.AddViewModelManager();
 
-            if (isTrace) StartWatchTrace.Record("DI.D.GUI");
+            if (options.IsTrace) StartWatchTrace.Record("DI.D.GUI");
         }
         if (options.HasHttpClientFactory || options.HasServerApiClient
             )
         {
             // 添加 Http 平台助手桌面端或移动端实现
             services.TryAddClientHttpPlatformHelperService();
-            if (isTrace) StartWatchTrace.Record("DI.D.ClientHttpPlatformHelperService");
+            if (options.IsTrace) StartWatchTrace.Record("DI.D.ClientHttpPlatformHelperService");
         }
 
         if (options.HasHttpClientFactory)
@@ -208,20 +211,20 @@ static partial class Program
 #endif
             // 通用 Http 服务
             services.AddSingleton<IHttpClientFactory, LiteHttpClientFactory>();
-            if (isTrace) StartWatchTrace.Record("DI.D.HttpClientFactory");
+            if (options.IsTrace) StartWatchTrace.Record("DI.D.HttpClientFactory");
         }
         services.TryAddScriptManager();
-        if (isTrace) StartWatchTrace.Record("DI.D.ScriptManager");
+        if (options.IsTrace) StartWatchTrace.Record("DI.D.ScriptManager");
 
         if (options.HasHttpProxy)
         {
             // 通用 Http 代理服务
             services.AddReverseProxyService();
-            if (isTrace) StartWatchTrace.Record("DI.D.HttpProxy");
+            if (options.IsTrace) StartWatchTrace.Record("DI.D.HttpProxy");
         }
         if (options.HasServerApiClient)
         {
-            if (isTrace) StartWatchTrace.Record("DI.D.AppSettings");
+            if (options.IsTrace) StartWatchTrace.Record("DI.D.AppSettings");
             // 添加模型验证框架
             services.TryAddModelValidator();
 
@@ -235,11 +238,11 @@ static partial class Program
 
             // 业务平台用户管理
             services.TryAddUserManager();
-            if (isTrace) StartWatchTrace.Record("DI.D.ServerApiClient");
+            if (options.IsTrace) StartWatchTrace.Record("DI.D.ServerApiClient");
         }
         // 添加通知服务
         AddNotificationService();
-        if (isTrace) StartWatchTrace.Record("DI.D.AddNotificationService");
+        if (options.IsTrace) StartWatchTrace.Record("DI.D.AddNotificationService");
         void AddNotificationService()
         {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
@@ -251,7 +254,7 @@ static partial class Program
         {
             // hosts 文件助手服务
             services.AddHostsFileService();
-            if (isTrace) StartWatchTrace.Record("DI.D.HostsFileService");
+            if (options.IsTrace) StartWatchTrace.Record("DI.D.HostsFileService");
         }
         if (options.HasSteam)
         {
@@ -274,13 +277,13 @@ static partial class Program
 
             // ASF Service
             services.AddArchiSteamFarmService();
-            if (isTrace) StartWatchTrace.Record("DI.D.Steam");
+            if (options.IsTrace) StartWatchTrace.Record("DI.D.Steam");
         }
         if (options.HasMainProcessRequired)
         {
             // 应用程序更新服务
             services.AddApplicationUpdateService();
-            if (isTrace) StartWatchTrace.Record("DI.D.AppUpdateService");
+            if (options.IsTrace) StartWatchTrace.Record("DI.D.AppUpdateService");
         }
     }
 }
