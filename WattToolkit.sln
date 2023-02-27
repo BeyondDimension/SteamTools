@@ -145,6 +145,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Loca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Update", "src\BD.WTTS.Client.Plugins.Update\BD.WTTS.Client.Plugins.Update.csproj", "{8DED0728-D54E-4A1E-B1D1-3740EC04ABAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Client.AppHost", "src\BD.WTTS.Client.AppHost\BD.WTTS.Client.AppHost.csproj", "{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -255,6 +257,10 @@ Global
 		{8DED0728-D54E-4A1E-B1D1-3740EC04ABAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DED0728-D54E-4A1E-B1D1-3740EC04ABAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DED0728-D54E-4A1E-B1D1-3740EC04ABAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -294,6 +300,7 @@ Global
 		{E959F339-B52B-44A1-85EC-D5FB384255E5} = {A5828819-62AB-4B03-A083-8B6ED4915AA3}
 		{861E33DB-C9C0-4C40-9042-75F7740F6DED} = {A5828819-62AB-4B03-A083-8B6ED4915AA3}
 		{8DED0728-D54E-4A1E-B1D1-3740EC04ABAA} = {A5828819-62AB-4B03-A083-8B6ED4915AA3}
+		{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4} = {5541B406-4A9A-4AC8-AA77-CE14E133DB80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {567F588F-E95C-4286-8B30-DB3B2200221C}

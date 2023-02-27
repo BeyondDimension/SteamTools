@@ -1,17 +1,10 @@
 using static BD.WTTS.CommandLineHost;
-#if WINDOWS
-using AppResources = BD.WTTS.Client.Resources.Strings;
-#endif
 
 namespace BD.WTTS;
 
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
 static partial class Program
 {
-#if WINDOWS
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void ShowErrMessageBox(string error) => WPFMessageBox.Show(error, AppResources.Error, WPFMessageBoxButton.OK, WPFMessageBoxImage.Error);
-#endif
-
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
@@ -19,21 +12,7 @@ static partial class Program
     public static int Main(string[] args)
     {
 #if WINDOWS
-        // 兼容性检查
-        if (!OperatingSystem.IsWindowsVersionAtLeast(10, 0, 17763))
-        {
-            ShowErrMessageBox("此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本");
-            return 0;
-        }
-        if (AppContext.BaseDirectory.StartsWith(Path.GetTempPath(), StringComparison.OrdinalIgnoreCase))
-        {
-            // 检测当前目录 Temp\Rar$ 这类目录，可能是在压缩包中直接启动程序导致的，还有一堆 文件找不到/加载失败的异常
-            //  System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\USER\AppData\Local\Temp\Rar$EXa15528.13350\Cache\switchproxy.reg'.
-            //  System.IO.FileLoadException ...
-            //  System.IO.FileNotFoundException: Could not load file or assembly ...
-            ShowErrMessageBox(AppResources.Error_BaseDir_StartsWith_Temp);
-            return 0;
-        }
+        if (!IsCustomEntryPoint && !CompatibilityCheck()) return 0;
 #endif
 
 #if DEBUG
@@ -116,6 +95,19 @@ static partial class Program
             Ioc.Dispose();
             LogManager.Shutdown();
         }
+    }
+
+    public static bool IsCustomEntryPoint { get; private set; }
+
+    /// <summary>
+    /// 自定义 .NET Host 入口点
+    /// </summary>
+    /// <returns></returns>
+    [STAThread]
+    public static int CustomEntryPoint()
+    {
+        IsCustomEntryPoint = true;
+        return Main(Environment.GetCommandLineArgs());
     }
 
 #if WINDOWS_DESKTOP_BRIDGE

@@ -3,8 +3,11 @@
 	<PropertyGroup>
 		<TargetFramework>net40</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
+		<IsTrimmable>false</IsTrimmable>
+		<OutputType>Exe</OutputType>
+		<Prefer32Bit>false</Prefer32Bit>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Constants.cs">
 			<LinkBase>Properties</LinkBase>

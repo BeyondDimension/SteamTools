@@ -4,7 +4,7 @@
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IsTrimmable>true</IsTrimmable>

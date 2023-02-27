@@ -20,6 +20,7 @@ global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Globalization;
 global using System.Web;
+global using System.IO;
 #if !NETFRAMEWORK
 global using System.Buffers;
 global using System.IO.Pipes;

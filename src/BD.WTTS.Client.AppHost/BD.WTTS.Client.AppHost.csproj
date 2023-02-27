@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>Steam++</AssemblyName>
+		<TargetFrameworks>net40;net451</TargetFrameworks>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<IsTrimmable>false</IsTrimmable>
+		<OutputType>WinExe</OutputType>
+		<Prefer32Bit>false</Prefer32Bit>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+		<DefineConstants>APP_HOST;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<AllowedReferenceRelatedFileExtensions>
+			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           		 Only *.allowedextension files will be included, which doesn't exist in my case.
+       		-->
+			.allowedextension
+		</AllowedReferenceRelatedFileExtensions>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\AssemblyInfo.Constants.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Avalonia.App\Program\Program.CompatibilityCheck.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="PresentationFramework" />
+	</ItemGroup>
+
+</Project>
