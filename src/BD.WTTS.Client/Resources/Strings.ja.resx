@@ -1067,7 +1067,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>files フォルダーで、&apos;SteamGuard-NNNNNNNN&apos; ファイルを開き、ファイルの内容全体を貼り付けます</value>
+    <value>files フォルダーで、'SteamGuard-NNNNNNNN' ファイルを開き、ファイルの内容全体を貼り付けます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
@@ -1104,7 +1104,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>shared_prefs フォルダーに、&apos;steam_uuid.xml&apos; の uuidKey を貼り付けます</value>
+    <value>shared_prefs フォルダーに、'steam_uuid.xml' の uuidKey を貼り付けます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
@@ -3132,5 +3132,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
     <value>WinHttpHandler を使用します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>エラー</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
 </root>

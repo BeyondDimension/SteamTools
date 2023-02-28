@@ -7,6 +7,7 @@
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
 		<RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('windows'))">win-x64</RuntimeIdentifier>
+		<SelfContained>false</SelfContained>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">

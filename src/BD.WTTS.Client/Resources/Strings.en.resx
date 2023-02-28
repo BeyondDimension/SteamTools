@@ -366,7 +366,7 @@
     <comment>Comment=;Author=deepl</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
-    <value>Route your traffic by setting up a Windows system proxy. It does not require a free port 443, yet it will affect all local network traffic. If hosts routing mode works, you won&apos;t be needing this mode.</value>
+    <value>Route your traffic by setting up a Windows system proxy. It does not require a free port 443, yet it will affect all local network traffic. If hosts routing mode works, you won't be needing this mode.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_ScriptManage" xml:space="preserve">
@@ -426,7 +426,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="DelAccountTips" xml:space="preserve">
-    <value>Your account information will be permanently deleted and you cannot log in again using this account&apos;s credentials. Ready to deactivate your account?</value>
+    <value>Your account information will be permanently deleted and you cannot log in again using this account's credentials. Ready to deactivate your account?</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Delete" xml:space="preserve">
@@ -726,7 +726,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
-    <value>*Game running as a desktop wallpaper may be incontrollable and irresponsive to inputs. This bug can be fixed but it has not yet become the primary focus of this software. Hence, this bug may persist in several future updates. The wallpaper will freeze at the last remaining frame of the game after it stops running. A single click on &apos;Refresh wallpaper&apos; button may reset the wallpaper to default. This feature conflicts with other live wallpaper softwares such as Wallpaper Engine. Quit other softwares like Wallpaper Engine before using this feature.</value>
+    <value>*Game running as a desktop wallpaper may be incontrollable and irresponsive to inputs. This bug can be fixed but it has not yet become the primary focus of this software. Hence, this bug may persist in several future updates. The wallpaper will freeze at the last remaining frame of the game after it stops running. A single click on 'Refresh wallpaper' button may reset the wallpaper to default. This feature conflicts with other live wallpaper softwares such as Wallpaper Engine. Quit other softwares like Wallpaper Engine before using this feature.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Gender" xml:space="preserve">
@@ -854,7 +854,7 @@
     <comment>Comment=同意 or 取消;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
-    <value>You don&apos;t have permission to view confirmation messages. Check if you have enabled  &apos;community-generated content&apos; in Family View.</value>
+    <value>You don't have permission to view confirmation messages. Check if you have enabled  'community-generated content' in Family View.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
@@ -990,7 +990,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>In addition, you can use Windows built-in account encryption to protect your data. This locks your Authenticators to the current user on this computer, so even if they&apos;re duplicated, they will remain inaccessible. You must turn this feature off if you want to reformat your disk, reinstall Windows or delete this user account.</value>
+    <value>In addition, you can use Windows built-in account encryption to protect your data. This locks your Authenticators to the current user on this computer, so even if they're duplicated, they will remain inaccessible. You must turn this feature off if you want to reformat your disk, reinstall Windows or delete this user account.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
@@ -1038,7 +1038,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>A desktop implementation of Steam Authenticator. Please import from file named &apos;maFile&apos; in &apos;maFiles&apos; folders under SDA path. (Encrypted files not supported. Remove password before continuing)</value>
+    <value>A desktop implementation of Steam Authenticator. Please import from file named 'maFile' in 'maFiles' folders under SDA path. (Encrypted files not supported. Remove password before continuing)</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
@@ -1074,7 +1074,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>In the &apos;files&apos; folder, open the &apos;SteamGuard-NNNNNNNNN&apos; file and paste the entire contents of the file</value>
+    <value>In the 'files' folder, open the 'SteamGuard-NNNNNNNNN' file and paste the entire contents of the file</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
@@ -1110,7 +1110,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>In &apos;shared_prefs&apos; folder, paste uuidKey from &apos;steam_uuid.xml&apos;</value>
+    <value>In 'shared_prefs' folder, paste uuidKey from 'steam_uuid.xml'</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
@@ -1122,7 +1122,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_WinAuthTip" xml:space="preserve">
-    <value>WinAuth is Windows&apos; portable open source authenticator, which provides counter-based or time-based RFC 6238 authenticators and common implementations. Import method: After exporting the txt file from WinAuth, select it here for importing.</value>
+    <value>WinAuth is Windows' portable open source authenticator, which provides counter-based or time-based RFC 6238 authenticators and common implementations. Import method: After exporting the txt file from WinAuth, select it here for importing.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Lock" xml:space="preserve">
@@ -1166,7 +1166,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="My" xml:space="preserve">
-    <value>It&apos;s mine</value>
+    <value>It's mine</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NextStep" xml:space="preserve">
@@ -2433,7 +2433,7 @@ Are you really sure?</value>
   </data>
   <data name="Achievement_Warning_2" xml:space="preserve">
     <value>Error code: {0}
-An error occurred while retrieving achievement statistics, either because the game doesn&apos;t have achievements, or you don&apos;t have the game.</value>
+An error occurred while retrieving achievement statistics, either because the game doesn't have achievements, or you don't have the game.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
@@ -2463,7 +2463,7 @@ This action ends with a running Steam jump to the new account login window.</val
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>The release of the current version of Watt Toolkit can&apos;t be separated from everyone&apos;s support, and if Watt Toolkit is helpful to you, and you want us to keep new features developed and maintained for a long time, you may consider giving us a little contribution to make our more dynamic update maintenance Watt Toolkit.
+    <value>The release of the current version of Watt Toolkit can't be separated from everyone's support, and if Watt Toolkit is helpful to you, and you want us to keep new features developed and maintained for a long time, you may consider giving us a little contribution to make our more dynamic update maintenance Watt Toolkit.
 *Please remember to have the UID of your Watt Toolkit account in the notes message when making a donation, so that we can feed the donation reward back to your account later.</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
@@ -2492,7 +2492,7 @@ This action ends with a running Steam jump to the new account login window.</val
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_ImageCodeShowError" xml:space="preserve">
-    <value>Can&apos;t display image verification codes?</value>
+    <value>Can't display image verification codes?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
@@ -2829,7 +2829,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
-    <value>Check out more of this author&apos;s work</value>
+    <value>Check out more of this author's work</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GetImageFromSteamGridDB" xml:space="preserve">
@@ -3009,7 +3009,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_CloudArchiveDeleteAllTip" xml:space="preserve">
-    <value>If you&apos;re sure you want to delete all your saves, be sure you&apos;re doing what you&apos;re doing, which will clear all of your current game&apos;s cloud saves!!!</value>
+    <value>If you're sure you want to delete all your saves, be sure you're doing what you're doing, which will clear all of your current game's cloud saves!!!</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
@@ -3127,5 +3127,9 @@ The system will {1} after {0} seconds.</value>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
     <value>Use WinHttpHandler</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
 </root>

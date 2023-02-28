@@ -3,23 +3,186 @@
 // https://github.com/dotnet/runtime/blob/main/docs/design/features/host-error-codes.md
 // https://github.com/dotnet/samples/blob/91355ef22a10ec614a2e8daefd68785066860d57/core/hosting/src/NativeHost/nativehost.cpp
 
-// 合并32位与64位本机库？检查进程是否是x64，加载不同的运行库与程序集
+using static BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
 static partial class Program
 {
-    const string dotnet_type = "BD.WTTS.Program, BD.WTTS.Client.Avalonia.App";
+    public const string dotnet_version_major = "7";
+    public const string dotnet_version_minor = "0";
+    public const string dotnet_version_build = "3";
+    public const string dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}";
+    const string dotnet_runtime = "Microsoft.NETCore.App";
+    const string aspnetcore_runtime = "Microsoft.AspNetCore.App";
+
+    const string dotnet_dll_name = "Steam++";
+    const string dotnet_type = "BD.WTTS.Program, Steam++";
     const string dotnet_type_method = "CustomEntryPoint";
 
+    /// <summary>
+    /// 获取当前正在运行的应用的进程架构。
+    /// </summary>
+    /// <returns></returns>
+#if NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+    static Architecture GetProcessArchitecture()
+    {
+        Architecture processArchitecture;
+#if NET471_OR_GREATER || NETCOREAPP
+        processArchitecture = RuntimeInformation.ProcessArchitecture;
+#else
+        try
+        {
+            processArchitecture = (Architecture)Type.GetType("System.Runtime.InteropServices.RuntimeInformation").GetProperty("ProcessArchitecture", BindingFlags.Public | BindingFlags.Static).GetValue(null, null);
+        }
+        catch
+        {
+            processArchitecture = Environment.Is64BitProcess ? Architecture.X64 : Architecture.X86;
+        }
+#endif
+        return processArchitecture;
+    }
+
+    /// <summary>
+    /// 将处理器体系结构转换为显示字符串
+    /// </summary>
+    /// <param name="architecture"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+#if NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+    static string ToString(Architecture architecture) => architecture switch
+    {
+        Architecture.X86 => "x86",
+        Architecture.X64 => "x64",
+        Architecture.Arm64 => "Arm64",
+        _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, null),
+    };
+
+#if NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+    static void OpenCoreByProcess(string url)
+    {
+        try
+        {
+            var psi = new ProcessStartInfo(url)
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(psi);
+        }
+        catch (Win32Exception e)
+        {
+            var text = string.Format(OpenCoreByProcess_Win32Exception_,
+                Convert.ToString(e.NativeErrorCode, 16));
+            ShowErrMessageBox(text);
+        }
+    }
+
+    /// <summary>
+    /// 下载 .NET 运行时
+    /// </summary>
+#if NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+    static void DownloadDotNetRuntime()
+    {
+        const string urlFormat1 = $"https://dotnet.microsoft.com/{{0}}/download/dotnet/{dotnet_version_major}.{dotnet_version_minor}";
+        var url = string.Format(urlFormat1, GetLang());
+        OpenCoreByProcess(url);
+    }
+
+    [STAThread]
     static int Main()
     {
+        // TODO 合并32位与64位本机库？检查进程是否是x64，加载不同的运行库与程序集
+
+#if DEBUG
+        Console.WriteLine($"Environment.Version: {Environment.Version}");
+#endif
+
         if (!CompatibilityCheck()) return 0;
 
-        var hostfxr_path = @"C:\Program Files\dotnet\host\fxr\7.0.3\hostfxr.dll";
-        var config_path = @"TODO\Steam++.runtimeconfig.json";
-        var dotnetlib_path = @"TODO\bin\Debug\Steam++.dll";
+        var baseDirectory =
+#if NET46_OR_GREATER || NETCOREAPP
+                AppContext.BaseDirectory;
+#else
+                AppDomain.CurrentDomain.BaseDirectory;
+#endif
+        string hostfxr_path, dotnet_runtime_path, aspnetcore_runtime_path, config_path, dotnetlib_path;
+
+        // STEP 0: Search HostFxr
+        for (int i = 0; true; i++)
+        {
+            var dotnet_root = i switch
+            {
+                0 => Path.Combine(baseDirectory, "dotnet"), // 优先使用根目录上的运行时
+                1 => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "dotnet"), // 查找已安装的运行时
+                2 => Environment.GetEnvironmentVariable("DOTNET_ROOT") ?? string.Empty, // 检查环境变量中设定的路径
+                _ => null,
+            };
+            if (dotnet_root == null)
+            {
+                // 此应用程序必须安装 {0} 才能运行，你想现在就下载并安装运行时吗？
+                var archStr = ToString(GetProcessArchitecture());
+                var _AspNetCoreRuntime = string.Format(AspNetCoreRuntimeFormat1, archStr);
+                var _NetRuntime = string.Format(NetRuntimeFormat1, archStr);
+                var _Runtime = $"{_AspNetCoreRuntime} {And} {_NetRuntime}";
+                var text = string.Format(FrameworkMissingFailureFormat1, _Runtime);
+                var result = ShowErrMessageBox(text, WPFMessageBoxButton.YesNo);
+                if (result == WPFMessageBoxResult.Yes)
+                {
+                    DownloadDotNetRuntime();
+                }
+                return (int)ExitCode.FrameworkMissingFailure;
+            }
+            if (string.IsNullOrWhiteSpace(dotnet_root)) continue;
+            try
+            {
+                if (Directory.Exists(dotnet_root) && Directory.EnumerateFiles(dotnet_root).Any())
+                {
+                    hostfxr_path = Path.Combine(dotnet_root, "host", "fxr", dotnet_version, "hostfxr.dll");
+                    dotnet_runtime_path = Path.Combine(dotnet_root, "shared", dotnet_runtime, dotnet_version);
+                    aspnetcore_runtime_path = Path.Combine(dotnet_root, "shared", aspnetcore_runtime, dotnet_version);
+                    if (File.Exists(hostfxr_path) &&
+                        Directory.Exists(dotnet_runtime_path) && Directory.EnumerateFiles(dotnet_runtime_path).Any() &&
+                        Directory.Exists(aspnetcore_runtime_path) && Directory.EnumerateFiles(aspnetcore_runtime_path).Any())
+                    {
+                        break;
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        config_path = Path.Combine(baseDirectory, "assemblies", $"{dotnet_dll_name}.runtimeconfig.json");
+        dotnetlib_path = Path.Combine(baseDirectory, "assemblies", $"{dotnet_dll_name}.dll");
+        if (!File.Exists(config_path) || !File.Exists(dotnetlib_path))
+        {
+#if DEBUG
+            config_path = Path.Combine(Utils.ProjPath, "src", "BD.WTTS.Client.Avalonia.App", "bin", "Debug", $"net{dotnet_version_major}.{dotnet_version_minor}-windows10.0.19041.0", "win-x64", $"{dotnet_dll_name}.runtimeconfig.json");
+            dotnetlib_path = Path.Combine(Utils.ProjPath, "src", "BD.WTTS.Client.Avalonia.App", "bin", "Debug", $"net{dotnet_version_major}.{dotnet_version_minor}-windows10.0.19041.0", "win-x64", $"{dotnet_dll_name}.dll");
+#else
+                            return (int)ExitCode.EntryPointFileNotFound;
+#endif
+        }
 
         hostfxr_initialize_for_runtime_config_fn init_fptr;
         hostfxr_get_runtime_delegate_fn get_delegate_fptr;
@@ -28,7 +191,6 @@ static partial class Program
         // STEP 1: Load HostFxr and get exported hosting functions
 
         #region load_hostfxr Using the nethost library, discover the location of hostfxr and get exports
-
         // Pre-allocate a large buffer for the path to hostfxr
         // Load hostfxr and get desired exports
         var lib = LoadLibrary(hostfxr_path);
@@ -133,7 +295,7 @@ static partial class Program
         var main = (component_entry_point_fn)Marshal.GetDelegateForFunctionPointer(main_, typeof(component_entry_point_fn));
 #endif
 
-        var exitCode = main();
+        var exitCode = main(default, default);
         return exitCode;
     }
 
@@ -163,13 +325,15 @@ static partial class Program
 
     delegate int load_assembly_and_get_function_pointer_fn(nint assembly_path, nint type_name, nint method_name, nint delegate_type_name, nint reserved, out nint @delegate);
 
-    delegate int component_entry_point_fn();
+    delegate int component_entry_point_fn(nint arg, int arg_size_in_bytes);
 
     enum ExitCode
     {
         Failure_load_hostfxr = 5701,
         Failure_get_dotnet_load_assembly,
         Failure_load_assembly_and_get_function_pointer,
+        FrameworkMissingFailure,
+        EntryPointFileNotFound,
     }
 
 #if NETFRAMEWORK
@@ -181,7 +345,18 @@ static partial class Program
     /// <param name="lpFileName"></param>
     /// <returns></returns>
     [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
-    static extern nint LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
+    static extern nint LoadLibrary([MarshalAs(UnmanagedType.LPWStr)] string lpFileName);
+
+    ///// <summary>
+    ///// https://www.pinvoke.net/default.aspx/kernel32/LoadLibraryEx
+    ///// <para>https://learn.microsoft.com/zh-cn/dotnet/api/system.runtime.interopservices.nativelibrary.load</para>
+    ///// </summary>
+    ///// <param name="lpFileName"></param>
+    ///// <param name="hReservedNull"></param>
+    ///// <param name="dwFlags"></param>
+    ///// <returns></returns>
+    //[DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
+    //static extern nint LoadLibraryEx([MarshalAs(UnmanagedType.LPWStr)] string lpFileName, nint hReservedNull = default, uint dwFlags = 0);
 
     /// <summary>
     /// https://www.pinvoke.net/default.aspx/kernel32.GetProcAddress
@@ -191,7 +366,7 @@ static partial class Program
     /// <param name="procName"></param>
     /// <returns></returns>
     [DllImport("kernel32", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true)]
-    static extern nint GetProcAddress(nint hModule, string procName);
+    static extern nint GetProcAddress(nint hModule, [MarshalAs(UnmanagedType.LPStr)] string procName);
 
     ///// <summary>
     ///// https://www.pinvoke.net/default.aspx/kernel32/FreeLibrary.html
@@ -202,6 +377,15 @@ static partial class Program
     //[DllImport("kernel32.dll", SetLastError = true)]
     //[return: MarshalAs(UnmanagedType.Bool)]
     //static extern bool FreeLibrary(nint hModule);
+
+#if !NET471_OR_GREATER
+    enum Architecture
+    {
+        X86 = 0,
+        X64 = 1,
+        Arm64 = 3,
+    }
+#endif
 
 #endif
 }

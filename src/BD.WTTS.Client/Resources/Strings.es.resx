@@ -854,7 +854,7 @@
     <comment>Comment=同意 or 取消;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
-    <value>¿No tiene permiso para ver la confirmación. Está habilitado &apos;community-generated content&apos; in Family View?</value>
+    <value>¿No tiene permiso para ver la confirmación. Está habilitado 'community-generated content' in Family View?</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
@@ -874,7 +874,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
-    <value></value>
+    <value />
     <comment>Comment=同意 or 取消;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
@@ -1074,7 +1074,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>En files archivos, abra el archivo &apos;steamguard - nnnnnn&apos; y pegue todo el contenido del archivo</value>
+    <value>En files archivos, abra el archivo 'steamguard - nnnnnn' y pegue todo el contenido del archivo</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
@@ -3127,5 +3127,9 @@ El sistema se {1} después de {0} segundos.</value>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
     <value>Usar WinHttpHandler</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
 </root>

@@ -70,9 +70,9 @@ public static partial class GlobalDllImportResolver
         => Path.Combine(BaseDirectory, "native", RID, libraryName ?? string.Empty);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static string GetLibraryFileName(string libraryName)
+    static string GetLibraryFileName(string libraryName, string? fileExtension = null)
     {
-        const string fileExtension =
+        const string fileExtension_ =
 #if WINDOWS
                 ".dll";
 #elif MACCATALYST || MACOS
@@ -81,22 +81,35 @@ public static partial class GlobalDllImportResolver
                 ".so";
 #else
 #endif
+        fileExtension ??= fileExtension_;
         if (!libraryName.EndsWith(fileExtension, StringComparison.OrdinalIgnoreCase))
             libraryName += fileExtension;
         return libraryName;
     }
 
+    static readonly ConcurrentDictionary<string, string> pairs = new();
+
     public static nint Delegate(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
     {
+        if (pairs.TryGetValue(libraryName, out var libraryPath) &&
+            NativeLibrary.TryLoad(libraryPath, out var handle))
+        {
+            return handle;
+        }
+
 #if DEBUG
-        Console.WriteLine($"path: {searchPath}, name: {libraryName}, asm: {assembly}");
+        if (Pairs.All(x => x.Key != libraryName))
+            Console.WriteLine($"path: {searchPath}, name: {libraryName}, asm: {assembly}");
 #endif
 
         if (libraryNames.Contains(libraryName))
         {
-            var libraryPath = GetLibraryPath(GetLibraryFileName(libraryName));
-            if (File.Exists(libraryPath) && NativeLibrary.TryLoad(libraryPath, out var handle))
+            libraryPath = GetLibraryPath(GetLibraryFileName(libraryName));
+            if (File.Exists(libraryPath) && NativeLibrary.TryLoad(libraryPath, out handle))
+            {
+                pairs[libraryName] = libraryPath;
                 return handle;
+            }
         }
 
 #if DEBUG
@@ -109,13 +122,34 @@ public static partial class GlobalDllImportResolver
     }
 
 #if DEBUG
+    /// <summary>
+    /// 调试时加载本机库之前将本机库位置移动到预设文件夹中
+    /// </summary>
     public static void MoveFiles()
     {
+        //Console.WriteLine("MoveFiles");
         foreach (var libraryName_ in libraryNames)
         {
             var libraryName = GetLibraryFileName(libraryName_);
+            MoveFiles(libraryName);
+        }
+
+#if WINDOWS
+        MoveFiles(GetLibraryFileName(WinDivert32, ".sys"));
+        MoveFiles(GetLibraryFileName(WinDivert64, ".sys"));
+#endif
+
+        static void MoveFiles(string libraryName)
+        {
             var rootLibraryPath = Path.Combine(BaseDirectory, libraryName);
+            //Console.WriteLine($"rootLibraryPath: {rootLibraryPath}");
             var rootLibraryFileExists = File.Exists(rootLibraryPath);
+            if (!rootLibraryFileExists)
+            {
+                rootLibraryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location!)!, libraryName);
+                //Console.WriteLine($"rootLibraryPath: {rootLibraryPath}");
+                rootLibraryFileExists = File.Exists(rootLibraryPath);
+            }
             if (rootLibraryFileExists)
             {
                 var destLibraryPath = GetLibraryPath(libraryName);
@@ -123,6 +157,8 @@ public static partial class GlobalDllImportResolver
                 var libraryDirPath = Path.GetDirectoryName(destLibraryPath);
                 if (libraryDirPath != null)
                     IOPath.DirCreateByNotExists(libraryDirPath);
+
+                Console.WriteLine($"MoveFiles rootLibraryPath: {rootLibraryPath}, destLibraryPath: {destLibraryPath}");
                 File.Move(rootLibraryPath, destLibraryPath, true);
             }
         }

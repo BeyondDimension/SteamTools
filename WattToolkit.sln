@@ -38,6 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{202026
 		src\AssemblyInfo.cs = src\AssemblyInfo.cs
 		src\AssemblyInfo.Version.Max.cs = src\AssemblyInfo.Version.Max.cs
 		src\README.md = src\README.md
+		src\Utils.cs = src\Utils.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplicitUsings", "ImplicitUsings", "{F776BA87-0B9B-4C3C-B04F-688DCC021BF1}"
@@ -145,7 +146,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Loca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Update", "src\BD.WTTS.Client.Plugins.Update\BD.WTTS.Client.Plugins.Update.csproj", "{8DED0728-D54E-4A1E-B1D1-3740EC04ABAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Client.AppHost", "src\BD.WTTS.Client.AppHost\BD.WTTS.Client.AppHost.csproj", "{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.AppHost", "src\BD.WTTS.Client.AppHost\BD.WTTS.Client.AppHost.csproj", "{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

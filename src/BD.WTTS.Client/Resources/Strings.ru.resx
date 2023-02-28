@@ -1251,7 +1251,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>В папке Files откройте файл &apos;SteamGuard-NNNNNNNNNN&apos; и вставьте всё содержимое файла</value>
+    <value>В папке Files откройте файл 'SteamGuard-NNNNNNNNNN' и вставьте всё содержимое файла</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
@@ -1288,7 +1288,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>В папку shared_prefs вставьте uuidKey из файла &apos;steam_uuid.xml&apos;.</value>
+    <value>В папку shared_prefs вставьте uuidKey из файла 'steam_uuid.xml'.</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
@@ -3132,5 +3132,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
     <value>Использование WinHttpHandler</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
 </root>

@@ -34,6 +34,16 @@ static partial class GlobalDllImportResolver
     /// WinDivert
     /// </summary>
     const string WinDivert = "WinDivert";
+
+    /// <summary>
+    /// WinDivert
+    /// </summary>
+    const string WinDivert32 = "WinDivert32";
+
+    /// <summary>
+    /// WinDivert
+    /// </summary>
+    const string WinDivert64 = "WinDivert64";
 #endif
 
     static IEnumerable<string> GetLibraryNames()

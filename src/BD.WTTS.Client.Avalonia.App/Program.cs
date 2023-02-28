@@ -9,13 +9,24 @@ static partial class Program
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
     [STAThread]
-    public static int Main(string[] args)
+    internal static int Main(string[] args)
     {
 #if WINDOWS
         if (!IsCustomEntryPoint && !CompatibilityCheck()) return 0;
 #endif
 
 #if DEBUG
+        Console.WriteLine($"Environment.Version: {Environment.Version}");
+        Console.WriteLine($"args: {string.Join(' ', args)}");
+        Console.WriteLine($"AppContext.BaseDirectory: {AppContext.BaseDirectory}");
+        //Console.WriteLine($"AppDomain.CurrentDomain.BaseDirectory: {AppDomain.CurrentDomain.BaseDirectory}");
+        Console.WriteLine($"Environment.CurrentDirectory: {Environment.CurrentDirectory}");
+        Console.WriteLine($"Environment.ProcessPath: {Environment.ProcessPath}");
+        Console.WriteLine($"Environment.UserInteractive: {Environment.UserInteractive}");
+        Console.WriteLine($"Assembly.GetEntryAssembly()?.Location: {Assembly.GetEntryAssembly()?.Location}");
+        Console.WriteLine($"Directory.GetCurrentDirectory: {Directory.GetCurrentDirectory()}");
+        Console.WriteLine($"CurrentThread.ManagedThreadId: {Environment.CurrentManagedThreadId}");
+        Console.WriteLine($"CurrentThread.ApartmentState: {Thread.CurrentThread.GetApartmentState()}");
         // 调试时移动本机库到 native，通常指定了单个 RID(RuntimeIdentifier) 后本机库将位于程序根目录上否则将位于 runtimes 文件夹中
         GlobalDllImportResolver.MoveFiles();
 #endif
@@ -25,7 +36,7 @@ static partial class Program
         static void CurrentDomain_AssemblyLoad(object? sender, AssemblyLoadEventArgs args)
         {
 #if DEBUG
-            Console.WriteLine($"loadasm: {args.LoadedAssembly}");
+            Console.WriteLine($"loadasm: {args.LoadedAssembly}, location: {args.LoadedAssembly.Location}");
 #endif
             // 使用 native 文件夹导入解析本机库
             try
@@ -97,17 +108,22 @@ static partial class Program
         }
     }
 
-    public static bool IsCustomEntryPoint { get; private set; }
+    public static bool IsCustomEntryPoint { get; internal set; }
 
     /// <summary>
     /// 自定义 .NET Host 入口点
+    /// <para>https://github.com/dotnet/runtime/blob/v7.0.3/docs/design/features/native-hosting.md#loading-and-calling-managed-components</para>
     /// </summary>
+    /// <param name="args"></param>
+    /// <param name="sizeBytes"></param>
     /// <returns></returns>
-    [STAThread]
-    public static int CustomEntryPoint()
+#pragma warning disable IDE0060 // 删除未使用的参数
+    public static int CustomEntryPoint(nint args, int sizeBytes)
+#pragma warning restore IDE0060 // 删除未使用的参数
     {
         IsCustomEntryPoint = true;
-        return Main(Environment.GetCommandLineArgs());
+        AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", Environment.CurrentDirectory);
+        return Main(Environment.GetCommandLineArgs().Skip(1).ToArray());
     }
 
 #if WINDOWS_DESKTOP_BRIDGE

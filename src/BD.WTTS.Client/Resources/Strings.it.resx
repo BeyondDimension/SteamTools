@@ -146,7 +146,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="About_UpdateHistory" xml:space="preserve">
-    <value>Storia dell&apos;aggiornamento</value>
+    <value>Storia dell'aggiornamento</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="About_UpdateLog" xml:space="preserve">
@@ -158,7 +158,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>Regola l&apos;ordine di priorità dell&apos;account Steam condiviso sul dispositivo corrente per risolvere il problema che la condivisione dell&apos;account B che vuole giocare utilizza sempre la condivisione dell&apos;account A, dall&apos;alto verso il basso, viene utilizzato l&apos;ordine di priorità della libreria condivisa, oppure puoi scegliere di disabilitare temporaneamente o abilitare la condivisione dell&apos;account specificato. Salva dopo la regolazione e riavvia Steam per avere effetto!</value>
+    <value>Regola l'ordine di priorità dell'account Steam condiviso sul dispositivo corrente per risolvere il problema che la condivisione dell'account B che vuole giocare utilizza sempre la condivisione dell'account A, dall'alto verso il basso, viene utilizzato l'ordine di priorità della libreria condivisa, oppure puoi scegliere di disabilitare temporaneamente o abilitare la condivisione dell'account specificato. Salva dopo la regolazione e riavvia Steam per avere effetto!</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
@@ -310,7 +310,7 @@
     <comment>Comment=末尾带空格;Author=Zhengye</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
-    <value>Accelerare automaticamente all&apos;avvio del programma</value>
+    <value>Accelerare automaticamente all'avvio del programma</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="CommunityFix_CertificateSettings" xml:space="preserve">
@@ -386,15 +386,15 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
-    <value>Fallito l&apos;avvio del servizio di accelerazione, installazione del certificato fallita.</value>
+    <value>Fallito l'avvio del servizio di accelerazione, installazione del certificato fallita.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
-    <value>L&apos;accelerazione è iniziata con successo</value>
+    <value>L'accelerazione è iniziata con successo</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="CommunityFix_StopProxy" xml:space="preserve">
-    <value>Fermare l&apos;accelerazione</value>
+    <value>Fermare l'accelerazione</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Confirm" xml:space="preserve">
@@ -402,7 +402,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="ConfirmImport" xml:space="preserve">
-    <value>Confermare l&apos;importazione</value>
+    <value>Confermare l'importazione</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -422,7 +422,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="DelAccount" xml:space="preserve">
-    <value>Cancellazione dell&apos;account</value>
+    <value>Cancellazione dell'account</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="DelAccountTips" xml:space="preserve">
@@ -490,11 +490,11 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
-    <value>Aggiungi all&apos;elenco degli hangtime con successo</value>
+    <value>Aggiungi all'elenco degli hangtime con successo</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
-    <value>Attenzione: Steam permette l&apos;esecuzione di {0} giochi allo stesso tempo, se appendi {1} gioco allo stesso tempo, non sarai in grado di giocare correttamente!</value>
+    <value>Attenzione: Steam permette l'esecuzione di {0} giochi allo stesso tempo, se appendi {1} gioco allo stesso tempo, non sarai in grado di giocare correttamente!</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_AddAfkGameList" xml:space="preserve">
@@ -502,7 +502,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_AddHideAppEmpty" xml:space="preserve">
-    <value>L&apos;elenco dei giochi nascosti è vuoto, clicca con il tasto destro del mouse dall&apos;elenco dei giochi per aggiungere il gioco che vuoi nascondere.</value>
+    <value>L'elenco dei giochi nascosti è vuoto, clicca con il tasto destro del mouse dall'elenco dei giochi per aggiungere il gioco che vuoi nascondere.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_AddIdeaAppEmpty" xml:space="preserve">
@@ -510,7 +510,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>Blocca automaticamente le ore all&apos;avvio del programma</value>
+    <value>Blocca automaticamente le ore all'avvio del programma</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
@@ -538,7 +538,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_HideGameManger" xml:space="preserve">
-    <value>Gestire l&apos;elenco dei giochi nascosti</value>
+    <value>Gestire l'elenco dei giochi nascosti</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
@@ -602,7 +602,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_RefreshGamesList" xml:space="preserve">
-    <value>Aggiorna l&apos;elenco dei giochi</value>
+    <value>Aggiorna l'elenco dei giochi</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
@@ -694,7 +694,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
-    <value>Trascina la croce sulla finestra di gioco per ottenere le informazioni di gioco per eseguire l&apos;azione corrispondente.</value>
+    <value>Trascina la croce sulla finestra di gioco per ottenere le informazioni di gioco per eseguire l'azione corrispondente.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameRelated_Borderless_Normal" xml:space="preserve">
@@ -726,7 +726,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
-    <value>I giochi posizionati sul livello dello sfondo possono essere ingestibili, questo può essere risolto ma lo sforzo di sviluppo non è su questo al momento, quindi per ora questa è l&apos;unica caratteristica. Il desktop rimarrà congelato quando il gioco è finito, quindi è possibile fare clic su Refresh Wallpaper per ripristinare lo sfondo predefinito. E mettere la finestra sul desktop wallpaper layer feature non è compatibile con Wallpaper Engine e altri software per il desktop dinamico, quando lo si usa, fare attenzione a spegnere Wallpaper Engine e altri software.</value>
+    <value>I giochi posizionati sul livello dello sfondo possono essere ingestibili, questo può essere risolto ma lo sforzo di sviluppo non è su questo al momento, quindi per ora questa è l'unica caratteristica. Il desktop rimarrà congelato quando il gioco è finito, quindi è possibile fare clic su Refresh Wallpaper per ripristinare lo sfondo predefinito. E mettere la finestra sul desktop wallpaper layer feature non è compatibile con Wallpaper Engine e altri software per il desktop dinamico, quando lo si usa, fare attenzione a spegnere Wallpaper Engine e altri software.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Gender" xml:space="preserve">
@@ -750,7 +750,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookiesFail_" xml:space="preserve">
-    <value>Impossibile ottenere lo stato di accesso a Steam {0}, inserisci nome utente e password di Steam per l&apos;accesso rapido</value>
+    <value>Impossibile ottenere lo stato di accesso a Steam {0}, inserisci nome utente e password di Steam per l'accesso rapido</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Hosts_Exists" xml:space="preserve">
@@ -798,7 +798,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
-    <value>Sincronizzazione dell&apos;orologio del token server</value>
+    <value>Sincronizzazione dell'orologio del token server</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_AddAuth_PartSuccess" xml:space="preserve">
@@ -854,11 +854,11 @@
     <comment>Comment=同意 or 取消;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
-    <value>Non hai il permesso di visualizzare i messaggi di conferma. Il &quot;contenuto generato dalla comunità&quot; in Family View è abilitato?</value>
+    <value>Non hai il permesso di visualizzare i messaggi di conferma. Il "contenuto generato dalla comunità" in Family View è abilitato?</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
-    <value>Impossibile ottenere i dati della transazione del token di Steam, conferma se l&apos;indirizzo della comunità Steam è accelerato correttamente.</value>
+    <value>Impossibile ottenere i dati della transazione del token di Steam, conferma se l'indirizzo della comunità Steam è accelerato correttamente.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
@@ -874,7 +874,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
-    <value></value>
+    <value />
     <comment>Comment=同意 or 取消;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
@@ -906,7 +906,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
-    <value>Inserisci il codice inviato al tuo indirizzo e-mail per approvare l&apos;accesso dal nuovo dispositivo.</value>
+    <value>Inserisci il codice inviato al tuo indirizzo e-mail per approvare l'accesso dal nuovo dispositivo.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_ExportAuth" xml:space="preserve">
@@ -914,7 +914,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ConfirmExport" xml:space="preserve">
-    <value>Confermare l&apos;esportazione</value>
+    <value>Confermare l'esportazione</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_ExportAuth_EncryptionExport" xml:space="preserve">
@@ -922,7 +922,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_ExportAuth_Error" xml:space="preserve">
-    <value>Si è verificato un errore nell&apos;importazione dei dati, codice di errore:{0}</value>
+    <value>Si è verificato un errore nell'importazione dei dati, codice di errore:{0}</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
@@ -950,7 +950,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>Non hai importato nessun token oh, puoi aggiungere un token nell&apos;angolo in alto a destra della piccola icona dell&apos;ingranaggio.</value>
+    <value>Non hai importato nessun token oh, puoi aggiungere un token nell'angolo in alto a destra della piccola icona dell'ingranaggio.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
@@ -990,7 +990,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>Potete anche usare la crittografia integrata dell&apos;account di Windows per proteggere e crittografare i vostri dati. Questo bloccherà il tuo token a questo computer, quindi anche se i file vengono copiati, non possono essere aperti. Se dovete riformattare il vostro disco, reinstallare Windows o rimuovere questo account utente, dovete disattivare questa funzione o i vostri dati non saranno decifrabili.</value>
+    <value>Potete anche usare la crittografia integrata dell'account di Windows per proteggere e crittografare i vostri dati. Questo bloccherà il tuo token a questo computer, quindi anche se i file vengono copiati, non possono essere aperti. Se dovete riformattare il vostro disco, reinstallare Windows o rimuovere questo account utente, dovete disattivare questa funzione o i vostri dati non saranno decifrabili.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
@@ -1034,11 +1034,11 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SDAImport" xml:space="preserve">
-    <value>Importazione dell&apos;autorizzazione del desktop di Steam</value>
+    <value>Importazione dell'autorizzazione del desktop di Steam</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Implementazione desktop dell&apos;applicazione Mobile Authenticator di Steam. Metodo di importazione: selezionare il file maFile nella cartella maFiles nella directory SDA da importare. (L&apos;importazione di file criptati non è supportata, si prega di rimuovere la password prima di importare)</value>
+    <value>Implementazione desktop dell'applicazione Mobile Authenticator di Steam. Metodo di importazione: selezionare il file maFile nella cartella maFiles nella directory SDA da importare. (L'importazione di file criptati non è supportata, si prega di rimuovere la password prima di importare)</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
@@ -1074,7 +1074,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>Nella cartella dei file, aprite il file &apos;SteamGuard-NNNNNNNN&apos; e incollate l&apos;intero contenuto del file</value>
+    <value>Nella cartella dei file, aprite il file 'SteamGuard-NNNNNNNN' e incollate l'intero contenuto del file</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
@@ -1094,7 +1094,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
-    <value>Importazione dell&apos;account Steam</value>
+    <value>Importazione dell'account Steam</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
@@ -1102,7 +1102,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
-    <value>Il tuo account sembra avere un autenticatore aggiunto, e devi rimuovere l&apos;autenticatore esistente prima che possa essere importato attraverso il tuo account.</value>
+    <value>Il tuo account sembra avere un autenticatore aggiunto, e devi rimuovere l'autenticatore esistente prima che possa essere importato attraverso il tuo account.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
@@ -1110,11 +1110,11 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>Nella cartella shared_prefs, incollare la uuidKey di &apos;steam_uuid.xml&apos;.</value>
+    <value>Nella cartella shared_prefs, incollare la uuidKey di 'steam_uuid.xml'.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
-    <value>Sincronizzare l&apos;orologio</value>
+    <value>Sincronizzare l'orologio</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_WinAuthImport" xml:space="preserve">
@@ -1122,7 +1122,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_WinAuthTip" xml:space="preserve">
-    <value>WinAuth è un autenticatore open source portatile per Windows che fornisce autenticatori RFC 6238 basati su contatori o tempo e implementazioni comuni. Metodo di importazione: dopo aver esportato il file txt da WinAuth seleziona il file txt esportato da WinAuth per l&apos;importazione qui.</value>
+    <value>WinAuth è un autenticatore open source portatile per Windows che fornisce autenticatori RFC 6238 basati su contatori o tempo e implementazioni comuni. Metodo di importazione: dopo aver esportato il file txt da WinAuth seleziona il file txt esportato da WinAuth per l'importazione qui.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Lock" xml:space="preserve">
@@ -1206,7 +1206,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>Il tuo autenticatore è stato aggiunto al tuo account Steam ed è stato importato con successo in Watt Toolkit. Questo è il tuo codice di recupero che puoi usare per rimuovere l&apos;autenticatore dal tuo account se lo perdi. Per favore, scrivetelo ora e tenetelo in un posto sicuro.</value>
+    <value>Il tuo autenticatore è stato aggiunto al tuo account Steam ed è stato importato con successo in Watt Toolkit. Questo è il tuo codice di recupero che puoi usare per rimuovere l'autenticatore dal tuo account se lo perdi. Per favore, scrivetelo ora e tenetelo in un posto sicuro.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
@@ -1230,11 +1230,11 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
-    <value>Nessun file di script corrispondente è stato interrogato, puoi scaricare il file di script dall&apos;officina degli script.</value>
+    <value>Nessun file di script corrispondente è stato interrogato, puoi scaricare il file di script dall'officina degli script.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="ScriptShop_GetTableError" xml:space="preserve">
-    <value>Impossibile ottenere l&apos;elenco delle officine di script.</value>
+    <value>Impossibile ottenere l'elenco delle officine di script.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
@@ -1326,11 +1326,11 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
-    <value>Controlla automaticamente gli aggiornamenti all&apos;avvio</value>
+    <value>Controlla automaticamente gli aggiornamenti all'avvio</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Settings_General_RuningMinimize" xml:space="preserve">
-    <value>Ridurre a icona all&apos;avvio</value>
+    <value>Ridurre a icona all'avvio</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Settings_General_StartAutoRun" xml:space="preserve">
@@ -1346,15 +1346,15 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
-    <value>Eseguire automaticamente Steam all&apos;avvio del programma</value>
+    <value>Eseguire automaticamente Steam all'avvio del programma</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
-    <value>Steam non controlla gli aggiornamenti all&apos;avvio</value>
+    <value>Steam non controlla gli aggiornamenti all'avvio</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
-    <value>Steam minimizza nel vassoio all&apos;avvio</value>
+    <value>Steam minimizza nel vassoio all'avvio</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
@@ -1366,7 +1366,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Settings_UI" xml:space="preserve">
-    <value>Impostazioni dell&apos;interfaccia</value>
+    <value>Impostazioni dell'interfaccia</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Settings_UI_AcrylicTransparency" xml:space="preserve">
@@ -1486,7 +1486,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
-    <value>Inserisci il codice di verifica nell&apos;immagine</value>
+    <value>Inserisci il codice di verifica nell'immagine</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Steam_Password" xml:space="preserve">
@@ -1538,7 +1538,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>Carica un file dal tuo dispositivo. L&apos;immagine deve essere quadrata e almeno 400px x 400px</value>
+    <value>Carica un file dal tuo dispositivo. L'immagine deve essere quadrata e almeno 400px x 400px</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
@@ -1546,7 +1546,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
-    <value>Premendo questo pulsante si riavvia Steam e si accede con quell&apos;account</value>
+    <value>Premendo questo pulsante si riavvia Steam e si accede con quell'account</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="UserChange_DeleteUser" xml:space="preserve">
@@ -1570,7 +1570,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="UserChange_NoUserTip" xml:space="preserve">
-    <value>Nessun dato dell&apos;account Steam è stato letto sul tuo computer.</value>
+    <value>Nessun dato dell'account Steam è stato letto sul tuo computer.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_AccountBind" xml:space="preserve">
-    <value>Rilegatura dell&apos;account</value>
+    <value>Rilegatura dell'account</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_AccountBindTip" xml:space="preserve">
@@ -1614,7 +1614,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_Agreement" xml:space="preserve">
-    <value>Accordo con l&apos;utente</value>
+    <value>Accordo con l'utente</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_AppleLogin" xml:space="preserve">
@@ -1666,11 +1666,11 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_LoginError_Auth" xml:space="preserve">
-    <value>Token non valido: sei sicuro di essere connesso all&apos;account del tuo attuale token?</value>
+    <value>Token non valido: sei sicuro di essere connesso all'account del tuo attuale token?</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_LoginError_CodeImage" xml:space="preserve">
-    <value>Inserisci il codice di verifica dell&apos;immagine</value>
+    <value>Inserisci il codice di verifica dell'immagine</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_LoginError_Null" xml:space="preserve">
@@ -1682,7 +1682,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_LoiginSuccess" xml:space="preserve">
-    <value>L&apos;accesso è stato effettuato con successo</value>
+    <value>L'accesso è stato effettuato con successo</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_MicroSoftLogin" xml:space="preserve">
@@ -1746,7 +1746,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
-    <value>La connessione alla comunità di Steam è scaduta, controlla se l&apos;accelerazione della comunità è abilitata.</value>
+    <value>La connessione alla comunità di Steam è scaduta, controlla se l'accelerazione della comunità è abilitata.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_SteamLogoTip" xml:space="preserve">
@@ -1758,7 +1758,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_UnbundleAccountTip" xml:space="preserve">
-    <value>Lo scollegamento di un account di terze parti ti impedirà di accedere rapidamente con quell&apos;account di terze parti.</value>
+    <value>Lo scollegamento di un account di terze parti ti impedirà di accedere rapidamente con quell'account di terze parti.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_UseFastLoginChannel_" xml:space="preserve">
@@ -1790,7 +1790,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Code_Desc" xml:space="preserve">
-    <value>Puoi usare un codice password monouso generato da questa app per verificare l&apos;accesso</value>
+    <value>Puoi usare un codice password monouso generato da questa app per verificare l'accesso</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Code_Title" xml:space="preserve">
@@ -1830,7 +1830,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_LogoutTip" xml:space="preserve">
-    <value>Sei sicuro di voler disconnettere le informazioni sull&apos;account per l&apos;accesso al token corrente?</value>
+    <value>Sei sicuro di voler disconnettere le informazioni sull'account per l'accesso al token corrente?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ToQRCode" xml:space="preserve">
@@ -1846,7 +1846,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown" xml:space="preserve">
-    <value>Il download di Steam completa l&apos;arresto programmato</value>
+    <value>Il download di Steam completa l'arresto programmato</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Translators" xml:space="preserve">
@@ -1870,7 +1870,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>Dettagli dell&apos;applicazione</value>
+    <value>Dettagli dell'applicazione</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
@@ -1898,11 +1898,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
-    <value>L&apos;abilitazione dell&apos;avvio automatico non è riuscita perché: {0}</value>
+    <value>L'abilitazione dell'avvio automatico non è riuscita perché: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
-    <value>Viene visualizzata una notifica quando il client di Steam effettua l&apos;accesso</value>
+    <value>Viene visualizzata una notifica quando il client di Steam effettua l'accesso</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_CheckStarted" xml:space="preserve">
@@ -1946,7 +1946,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AsyncSteamAvatarDesc" xml:space="preserve">
-    <value>Dopo aver associato un account Steam, puoi sincronizzare e aggiornare manualmente l&apos;avatar dell&apos;account Steam.</value>
+    <value>Dopo aver associato un account Steam, puoi sincronizzare e aggiornare manualmente l'avatar dell'account Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_ThemeAccent" xml:space="preserve">
@@ -1958,7 +1958,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
-    <value>Abilitare l&apos;interfaccia dell&apos;angolo arrotondato</value>
+    <value>Abilitare l'interfaccia dell'angolo arrotondato</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_UnLogin" xml:space="preserve">
@@ -1978,7 +1978,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
-    <value>Personalizzare l&apos;immagine di sfondo</value>
+    <value>Personalizzare l'immagine di sfondo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Reset" xml:space="preserve">
@@ -1986,7 +1986,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_SelectImage" xml:space="preserve">
-    <value>Seleziona un&apos;immagine</value>
+    <value>Seleziona un'immagine</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login_ManualLogin" xml:space="preserve">
@@ -1998,7 +1998,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login_ManualLoginEmpt" xml:space="preserve">
-    <value>L&apos;input non può essere vuoto.</value>
+    <value>L'input non può essere vuoto.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login_WebSocketOnMessage" xml:space="preserve">
@@ -2026,7 +2026,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
-    <value>L&apos;agente abilita solo la funzionalità di scripting</value>
+    <value>L'agente abilita solo la funzionalità di scripting</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_AppReview" xml:space="preserve">
@@ -2058,7 +2058,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsExistUpdateFalse" xml:space="preserve">
-    <value>Attualmente è l&apos;ultima versione</value>
+    <value>Attualmente è l'ultima versione</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdate" xml:space="preserve">
@@ -2070,7 +2070,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
-    <value>Notifica immediata quando c&apos;è un nuovo annuncio.</value>
+    <value>Notifica immediata quando c'è un nuovo annuncio.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
@@ -2139,7 +2139,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
-    <value>L&apos;accesso ai file viene negato senza autorizzazioni</value>
+    <value>L'accesso ai file viene negato senza autorizzazioni</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
@@ -2179,7 +2179,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Start" xml:space="preserve">
-    <value>Avviare l&apos;ASF</value>
+    <value>Avviare l'ASF</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Stop" xml:space="preserve">
@@ -2215,7 +2215,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
-    <value>L&apos;ASF viene eseguito automaticamente all&apos;avvio</value>
+    <value>L'ASF viene eseguito automaticamente all'avvio</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
@@ -2231,7 +2231,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
-    <value>{0} chiave è stata aggiunta alla coda di attivazione e la chiave nella coda viene automaticamente accodata per l&apos;attivazione.</value>
+    <value>{0} chiave è stata aggiunta alla coda di attivazione e la chiave nella coda viene automaticamente accodata per l'attivazione.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_CardsRemaining" xml:space="preserve">
@@ -2275,7 +2275,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput" xml:space="preserve">
-    <value>L&apos;input è obbligatorio</value>
+    <value>L'input è obbligatorio</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
@@ -2307,7 +2307,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
-    <value>Hai importato con successo il tuo token tramite l&apos;accesso all&apos;account, infine verifica se il tuo token può essere utilizzato normalmente, se non è disponibile, l&apos;importazione potrebbe non riuscire, prova a reimportare ed elimina il token non valido.</value>
+    <value>Hai importato con successo il tuo token tramite l'accesso all'account, infine verifica se il tuo token può essere utilizzato normalmente, se non è disponibile, l'importazione potrebbe non riuscire, prova a reimportare ed elimina il token non valido.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
@@ -2323,7 +2323,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
-    <value>L&apos;immagine selezionata è formattata in modo non corretto</value>
+    <value>L'immagine selezionata è formattata in modo non corretto</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
@@ -2423,7 +2423,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateRecord_Error" xml:space="preserve">
-    <value>Errore durante il caricamento dei dati dell&apos;elenco delle donazioni:</value>
+    <value>Errore durante il caricamento dei dati dell'elenco delle donazioni:</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_ResetWaring_3" xml:space="preserve">
@@ -2437,7 +2437,7 @@ Si è verificato un errore durante il recupero delle statistiche degli obiettivi
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
-    <value>Puoi digitare qualsiasi testo che verrà automaticamente riconosciuto e aggiunto all&apos;elenco di attivazione purché contenga una SteamKey, oppure puoi inserirlo nel seguente formato:
+    <value>Puoi digitare qualsiasi testo che verrà automaticamente riconosciuto e aggiunto all'elenco di attivazione purché contenga una SteamKey, oppure puoi inserirlo nel seguente formato:
 AAAAA-BBBBB-CCCC1
 AAAAA-BBBBB-CCCC2
 AAAAA-BBBBB-CCCC3</value>
@@ -2445,12 +2445,12 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
     <value>*Funzione sperimentale (si consiglia di impostare materiali trasparenti su Transparent o AcrylicBlur quando acceso)
-Questa funzione può impostare lo sfondo di Wallpaper Engine e altri software di sfondo come sfondo del programma e, se non hai avviato Wallpaper Engine, utilizzerai lo sfondo del desktop per impostazione predefinita. Lo sfondo funziona solo nella finestra principale, altre finestre consigliano di regolare la trasparenza per non essere completamente trasparente o di utilizzare lo sfondo dell&apos;immagine. Durante l&apos;utilizzo, prestare attenzione a cambiare il tema corrispondente in base alla luminosità e all&apos;oscurità dello sfondo per ottenere risultati migliori.</value>
+Questa funzione può impostare lo sfondo di Wallpaper Engine e altri software di sfondo come sfondo del programma e, se non hai avviato Wallpaper Engine, utilizzerai lo sfondo del desktop per impostazione predefinita. Lo sfondo funziona solo nella finestra principale, altre finestre consigliano di regolare la trasparenza per non essere completamente trasparente o di utilizzare lo sfondo dell'immagine. Durante l'utilizzo, prestare attenzione a cambiare il tema corrispondente in base alla luminosità e all'oscurità dello sfondo per ottenere risultati migliori.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>Accedi al tuo account Steam per l&apos;importazione di token, devi rimuovere il vecchio token prima di importarlo e questo metodo di importazione avrà un periodo di raffreddamento di 15 giorni per le transazioni di mercato.
-(Impossibile accedere correttamente senza l&apos;accelerazione della rete di Steam)</value>
+    <value>Accedi al tuo account Steam per l'importazione di token, devi rimuovere il vecchio token prima di importarlo e questo metodo di importazione avrà un periodo di raffreddamento di 15 giorni per le transazioni di mercato.
+(Impossibile accedere correttamente senza l'accelerazione della rete di Steam)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
@@ -2463,8 +2463,8 @@ Questa azione termina con un salto di Steam in esecuzione alla finestra di acces
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>Il rilascio dell&apos;attuale versione di Watt Toolkit non può essere separato dal supporto di tutti, e se Watt Toolkit ti è utile e vuoi che manteniamo le nuove funzionalità sviluppate e mantenute per lungo tempo, potresti considerare di darci un piccolo contributo per rendere il nostro vapore di manutenzione degli aggiornamenti più dinamico.
-Ricorda di avere l&apos;UID del tuo account Watt Toolkit nel messaggio delle note quando effettui una donazione, in modo che possiamo restituire la ricompensa della donazione al tuo account in un secondo momento.</value>
+    <value>Il rilascio dell'attuale versione di Watt Toolkit non può essere separato dal supporto di tutti, e se Watt Toolkit ti è utile e vuoi che manteniamo le nuove funzionalità sviluppate e mantenute per lungo tempo, potresti considerare di darci un piccolo contributo per rendere il nostro vapore di manutenzione degli aggiornamenti più dinamico.
+Ricorda di avere l'UID del tuo account Watt Toolkit nel messaggio delle note quando effettui una donazione, in modo che possiamo restituire la ricompensa della donazione al tuo account in un secondo momento.</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
@@ -2472,7 +2472,7 @@ Ricorda di avere l&apos;UID del tuo account Watt Toolkit nel messaggio delle not
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
-    <value>Clicca qui per copiare l&apos;UID negli appunti</value>
+    <value>Clicca qui per copiare l'UID negli appunti</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
@@ -2492,7 +2492,7 @@ Ricorda di avere l&apos;UID del tuo account Watt Toolkit nel messaggio delle not
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_ImageCodeShowError" xml:space="preserve">
-    <value>Non riesci a visualizzare i codici di verifica dell&apos;immagine?</value>
+    <value>Non riesci a visualizzare i codici di verifica dell'immagine?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
@@ -2512,7 +2512,7 @@ Ricorda di avere l&apos;UID del tuo account Watt Toolkit nel messaggio delle not
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
-    <value>Esegui al termine del download e dell&apos;installazione del gioco selezionato</value>
+    <value>Esegui al termine del download e dell'installazione del gioco selezionato</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
@@ -2520,11 +2520,11 @@ Ricorda di avere l&apos;UID del tuo account Watt Toolkit nel messaggio delle not
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
-    <value>L&apos;attributo file è di sola lettura, la modifica non è riuscita, seguire la guida della pagina Web {0}</value>
+    <value>L'attributo file è di sola lettura, la modifica non è riuscita, seguire la guida della pagina Web {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailTryBakDelAgain" xml:space="preserve">
-    <value>L&apos;attributo file è di sola lettura, la modifica non è riuscita, è possibile provare prima a eseguire il backup del file, eliminarlo e riprovare</value>
+    <value>L'attributo file è di sola lettura, la modifica non è riuscita, è possibile provare prima a eseguire il backup del file, eliminarlo e riprovare</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
@@ -2552,7 +2552,7 @@ Ricorda di avere l&apos;UID del tuo account Watt Toolkit nel messaggio delle not
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
-    <value>Attendi l&apos;avvio dell&apos;IPC...</value>
+    <value>Attendi l'avvio dell'IPC...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ShowHide" xml:space="preserve">
@@ -2629,7 +2629,7 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
-    <value>È necessario trovare {0} in Impostazioni di sistema - Sicurezza - Crittografia e credenziali - Archivio credenziali - Credenziali utente Fare clic sull&apos;elemento e fare clic su Disinstalla nella finestra pop-up.</value>
+    <value>È necessario trovare {0} in Impostazioni di sistema - Sicurezza - Crittografia e credenziali - Archivio credenziali - Credenziali utente Fare clic sull'elemento e fare clic su Disinstalla nella finestra pop-up.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
@@ -2693,7 +2693,7 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_RemoveAuth" xml:space="preserve">
-    <value>Annullare l&apos;associazione del token</value>
+    <value>Annullare l'associazione del token</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_ShareDisable" xml:space="preserve">
@@ -2729,7 +2729,7 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
-    <value>Abilitare l&apos;inoltro del protocollo Http a Https (richiede l&apos;ascolto sulla porta 80)</value>
+    <value>Abilitare l'inoltro del protocollo Http a Https (richiede l'ascolto sulla porta 80)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
@@ -2821,7 +2821,7 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenImageInBrowser" xml:space="preserve">
-    <value>Aprire l&apos;immagine originale in un browser</value>
+    <value>Aprire l'immagine originale in un browser</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
@@ -2921,15 +2921,15 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
-    <value>Impossibile ottenere le ultime informazioni sull&apos;account steam connesso, impossibile modificare la copertina personalizzata sì.</value>
+    <value>Impossibile ottenere le ultime informazioni sull'account steam connesso, impossibile modificare la copertina personalizzata sì.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
-    <value>Si prega di scegliere l&apos;immagine corretta da applicare</value>
+    <value>Si prega di scegliere l'immagine corretta da applicare</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Notice_Tray" xml:space="preserve">
-    <value>Attualmente ci sono {0} {1} notifiche, si prega di controllare l&apos;ufficio notifiche e annunci nel programma per i dettagli.</value>
+    <value>Attualmente ci sono {0} {1} notifiche, si prega di controllare l'ufficio notifiche e annunci nel programma per i dettagli.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="HorizontalTitlePage" xml:space="preserve">
@@ -2953,7 +2953,7 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_EnableTrayIcon" xml:space="preserve">
-    <value>Abilitare l&apos;icona della barra delle applicazioni</value>
+    <value>Abilitare l'icona della barra delle applicazioni</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_EnableTrayIcon_Tip" xml:space="preserve">
@@ -3001,7 +3001,7 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_CloudArchiveManager" xml:space="preserve">
-    <value>Gestione dell&apos;archivio cloud di Steam</value>
+    <value>Gestione dell'archivio cloud di Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
@@ -3093,7 +3093,7 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Advertisement_NoShow" xml:space="preserve">
-    <value>Disattiva tutti gli annunci all&apos;interno del programma</value>
+    <value>Disattiva tutti gli annunci all'interno del programma</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Advertisement_NoShow_Tip" xml:space="preserve">
@@ -3117,7 +3117,7 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_DNSErrorNotify" xml:space="preserve">
-    <value>La risoluzione DNS ha rilevato un&apos;eccezione, provare a modificare nuovamente altri DNS nelle impostazioni proxy</value>
+    <value>La risoluzione DNS ha rilevato un'eccezione, provare a modificare nuovamente altri DNS nelle impostazioni proxy</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_RuningAdmin" xml:space="preserve">
@@ -3127,5 +3127,9 @@ Il sistema verrà {1} dopo {0} secondi.</value>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
     <value>Utilizzare WinHttpHandler</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Errore</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
 </root>

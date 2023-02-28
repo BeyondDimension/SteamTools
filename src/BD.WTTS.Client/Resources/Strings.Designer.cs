@@ -1995,6 +1995,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本 的本地化字符串。
+        /// </summary>
+        public static string Error_IncompatibleOS {
+            get {
+                return ResourceManager.GetString("Error_IncompatibleOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 对于 Windows 10 操作系统最低需要 version 1607(10.0.14393) 的本地化字符串。
         /// </summary>
         public static string Error_Lower_Than_Windows10_1607 {

@@ -1,18 +1,21 @@
 #if WINDOWS || NETFRAMEWORK
 #if NETFRAMEWORK
-using WPFMessageBox = System.Windows.MessageBox;
-using WPFMessageBoxButton = System.Windows.MessageBoxButton;
-using WPFMessageBoxImage = System.Windows.MessageBoxImage;
+global using WPFMessageBox = System.Windows.MessageBox;
+global using WPFMessageBoxButton = System.Windows.MessageBoxButton;
+global using WPFMessageBoxImage = System.Windows.MessageBoxImage;
+global using WPFMessageBoxResult = System.Windows.MessageBoxResult;
 #endif
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
-public static partial class Program
+static partial class Program
 {
     /// <summary>
     /// 兼容性检查
+    /// <para>此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本</para>
+    /// <para>不能在临时文件夹中运行此程序，请将所有文件复制或解压到其他路径后再启动程序</para>
     /// </summary>
     /// <returns></returns>
 #if NET40
@@ -29,7 +32,7 @@ public static partial class Program
         if (!OperatingSystem.IsWindowsVersionAtLeast(major, minor, build))
 #endif
         {
-            ShowErrMessageBox("此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本");
+            ShowErrMessageBox(AppResources.Error_IncompatibleOS);
             return false;
         }
         var baseDirectory =
@@ -55,6 +58,6 @@ public static partial class Program
 #else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-    internal static void ShowErrMessageBox(string error) => WPFMessageBox.Show(error, AppResources.Error, WPFMessageBoxButton.OK, WPFMessageBoxImage.Error);
+    internal static WPFMessageBoxResult ShowErrMessageBox(string error, WPFMessageBoxButton button = WPFMessageBoxButton.OK) => WPFMessageBox.Show(error, AppResources.Error, button, WPFMessageBoxImage.Error);
 }
 #endif

@@ -134,6 +134,7 @@ namespace Microsoft.Extensions.DependencyInjection
         - WebView2Loader.dll
         - WinDivert.dll
         - WinDivert64.sys
+- assemblies 主模块程序集
 - modules 可选模块
     - Update 自更新模块，删除该文件夹后禁用更新
         - Steam++.Update.exe 更新程序，CDN 分发更新包，下载与解压在主程序中，此进程仅退出主程序执行覆盖操作

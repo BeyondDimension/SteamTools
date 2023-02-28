@@ -5,7 +5,7 @@
 		<TargetFrameworks>net40;net451</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<IsTrimmable>false</IsTrimmable>
-		<OutputType>WinExe</OutputType>
+		<OutputType>Exe</OutputType>
 		<Prefer32Bit>false</Prefer32Bit>
 		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 		<DefineConstants>APP_HOST;$(DefineConstants)</DefineConstants>
@@ -27,6 +27,7 @@
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 		<Compile Include="..\BD.WTTS.Client.Avalonia.App\Program\Program.CompatibilityCheck.cs" />
+		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

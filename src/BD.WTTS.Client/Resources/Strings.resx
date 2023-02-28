@@ -2407,4 +2407,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="MacTrustRootCertificateTips" xml:space="preserve">
     <value>请在弹出的控制台窗口输入系统密码以安装信任证书。信任完成后点击确定按钮继续。</value>
   </data>
+  <data name="Error_IncompatibleOS" xml:space="preserve">
+    <value>此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本</value>
+  </data>
 </root>

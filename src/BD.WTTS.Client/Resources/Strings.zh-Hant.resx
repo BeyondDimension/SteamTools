@@ -1067,7 +1067,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>在 files 資料夾中，打開 &apos;SteamGuard-NNNNNNN&apos; 檔，粘貼檔的全部內容</value>
+    <value>在 files 資料夾中，打開 'SteamGuard-NNNNNNN' 檔，粘貼檔的全部內容</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
@@ -1104,7 +1104,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>在 shared_prefs 資料夾中，粘貼 &apos;steam_uuid.xml&apos; 的 uuidKey</value>
+    <value>在 shared_prefs 資料夾中，粘貼 'steam_uuid.xml' 的 uuidKey</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
@@ -3132,5 +3132,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
     <value>使用 WinHttpHandler</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>錯誤</value>
+    <comment>Comment=;Author=baidu</comment>
   </data>
 </root>
