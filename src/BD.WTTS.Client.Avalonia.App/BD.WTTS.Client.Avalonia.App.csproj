@@ -85,7 +85,8 @@
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
-		<PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
+		<PackageReference Include="FluentAvaloniaUI" />
+		<!--<PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />-->
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
 	</ItemGroup>
