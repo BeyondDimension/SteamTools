@@ -26,8 +26,6 @@ global using Avalonia.Media.Imaging;
 global using Avalonia.Media.Immutable;
 global using Avalonia.Threading;
 global using Avalonia.Visuals;
-global using Avalonia.Visuals.Media;
-global using Avalonia.Visuals.Media.Imaging;
 global using Avalonia.Styling;
 global using Avalonia.Input;
 #if _IMPORT_AVALONIA_GIF__

@@ -1,4 +1,3 @@
-using Avalonia.Shared.PlatformSupport;
 #if WINDOWS
 using System.Windows;
 #endif

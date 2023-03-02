@@ -200,7 +200,7 @@ namespace Avalonia
     {
         public static int StartWithClassicDesktopLifetime2<T>(
             this T builder, string[] args, ShutdownMode shutdownMode = ShutdownMode.OnLastWindowClose)
-            where T : AppBuilderBase<T>, new()
+            where T : AppBuilder, new()
         {
             var lifetime = new ClassicDesktopStyleApplicationLifetime2()
             {

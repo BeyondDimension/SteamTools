@@ -1,7 +1,7 @@
 extern alias AvaloniaSkia;
 
+using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using Avalonia.Visuals.Media.Imaging;
 using ISkiaGpu = AvaloniaSkia::Avalonia.Skia.ISkiaGpu;
 using @this = AvaloniaSkia::Avalonia.Skia.PlatformRenderInterface;
 
@@ -11,7 +11,7 @@ namespace Avalonia.Skia;
 
 sealed class PlatformRenderInterface : @this, IPlatformRenderInterface
 {
-    public PlatformRenderInterface(ISkiaGpu? skiaGpu, long? maxResourceBytes = null) : base(skiaGpu, maxResourceBytes)
+    public PlatformRenderInterface(long? maxResourceBytes = null) : base(maxResourceBytes)
     {
     }
 

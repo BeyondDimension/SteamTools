@@ -3,7 +3,6 @@ extern alias AvaloniaSkia;
 using SkiaSharp;
 using Avalonia.Media.Imaging;
 using Avalonia.Utilities;
-using Avalonia.Visuals.Media.Imaging;
 
 namespace Avalonia.Skia;
 

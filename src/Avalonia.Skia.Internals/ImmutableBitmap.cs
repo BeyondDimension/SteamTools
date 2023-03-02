@@ -2,11 +2,12 @@ extern alias AvaloniaSkia;
 
 using Avalonia.Platform;
 using AvaloniaSkia::Avalonia.Skia.Helpers;
-using Avalonia.Visuals.Media.Imaging;
 using SkiaSharp;
 using AvaloniaSkia::Avalonia.Skia;
 using DrawingContextImpl = AvaloniaSkia::Avalonia.Skia.DrawingContextImpl;
 using IDrawableBitmapImpl = AvaloniaSkia::Avalonia.Skia.IDrawableBitmapImpl;
+using Avalonia.Media.Imaging;
+using System.Drawing;
 
 // https://github.com/AvaloniaUI/Avalonia/blob/0.10.13/src/Skia/Avalonia.Skia/ImmutableBitmap.cs
 
@@ -15,9 +16,10 @@ namespace Avalonia.Skia;
 /// <summary>
 /// Immutable Skia bitmap.
 /// </summary>
-internal class ImmutableBitmap : IDrawableBitmapImpl
+internal class ImmutableBitmap : IDrawableBitmapImpl, IReadableBitmapImpl
 {
     private readonly SKImage _image;
+    private readonly SKBitmap? _bitmap;
 
     public ImmutableBitmap(SKImage image)
     {
@@ -165,13 +167,13 @@ internal class ImmutableBitmap : IDrawableBitmapImpl
     }
 
     /// <inheritdoc />
-    public void Save(string fileName)
+    public void Save(string fileName, int? quality = null)
     {
         ImageSavingHelper.SaveImage(_image, fileName);
     }
 
     /// <inheritdoc />
-    public void Save(Stream stream)
+    public void Save(Stream stream, int? quality = null)
     {
         ImageSavingHelper.SaveImage(_image, stream);
     }
@@ -180,5 +182,17 @@ internal class ImmutableBitmap : IDrawableBitmapImpl
     public void Draw(DrawingContextImpl context, SKRect sourceRect, SKRect destRect, SKPaint paint)
     {
         context.Canvas.DrawImage(_image, sourceRect, destRect, paint);
+    }
+
+    public PixelFormat? Format => _bitmap?.ColorType.ToAvalonia();
+    public ILockedFramebuffer Lock()
+    {
+        if (_bitmap is null)
+            throw new NotSupportedException("A bitmap is needed for locking");
+
+        if (_bitmap.ColorType.ToAvalonia() is not { } format)
+            throw new NotSupportedException($"Unsupported format {_bitmap.ColorType}");
+
+        return new LockedFramebuffer(_bitmap.GetPixels(), PixelSize, _bitmap.RowBytes, Dpi, format, null);
     }
 }

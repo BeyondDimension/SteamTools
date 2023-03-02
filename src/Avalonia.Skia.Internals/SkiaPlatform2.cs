@@ -14,8 +14,7 @@ public static class SkiaPlatform2
     static IPlatformRenderInterface GetPlatformRenderInterface()
     {
         var options = AvaloniaLocator.Current.GetService<SkiaOptions>() ?? new();
-        var customGpu = options.CustomGpuFactory?.Invoke();
-        var renderInterface = new PlatformRenderInterface(customGpu, options.MaxGpuResourceSizeBytes);
+        var renderInterface = new PlatformRenderInterface(options.MaxGpuResourceSizeBytes);
         return renderInterface;
     }
 }
