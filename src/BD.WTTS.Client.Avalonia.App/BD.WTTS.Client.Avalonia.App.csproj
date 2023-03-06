@@ -88,7 +88,6 @@
 		<PackageReference Include="BD.Common.Primitives" />
 		<PackageReference Include="BD.Common.Essentials" />
 		<PackageReference Include="Avalonia" />
-		<PackageReference Include="Avalonia.Desktop" />
 		<PackageReference Include="Avalonia.ReactiveUI" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />
@@ -109,18 +108,21 @@
 		<PackageReference Include="Aigio.Avalonia.AppCenter" />
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
+		<PackageReference Include="Avalonia.Win32" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
 		<!-- iOS/macOS/MacCatalyst Only -->
 		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
 		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
+		<PackageReference Include="Avalonia.Native" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Linux Only -->
 		<ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
 		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
+		<PackageReference Include="Avalonia.X11" />
 	</ItemGroup>
 
 	<ItemGroup>

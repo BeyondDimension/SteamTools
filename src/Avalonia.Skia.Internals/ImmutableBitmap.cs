@@ -185,6 +185,7 @@ internal class ImmutableBitmap : IDrawableBitmapImpl, IReadableBitmapImpl
     }
 
     public PixelFormat? Format => _bitmap?.ColorType.ToAvalonia();
+
     public ILockedFramebuffer Lock()
     {
         if (_bitmap is null)

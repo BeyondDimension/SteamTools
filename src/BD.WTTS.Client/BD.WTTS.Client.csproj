@@ -135,6 +135,15 @@
 		<PackageReference Include="Ae.DNS.Client" />
 		<PackageReference Include="DNS" />
 		<PackageReference Include="DnsClient" />
+		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
+		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
+		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Avalonia.Desktop" />
+		<PackageReference Include="Avalonia.ReactiveUI" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" />
+		<PackageReference Include="Avalonia.Xaml.Behaviors" />
+		<PackageReference Include="Avalonia.AvaloniaEdit" />
+		<PackageReference Include="FluentAvaloniaUI" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">

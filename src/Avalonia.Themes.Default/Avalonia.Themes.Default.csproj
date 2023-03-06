@@ -13,6 +13,8 @@
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 		<Compile Remove="..\AssemblyInfo.cs" />
+		<Compile Remove="..\ImplicitUsings.BCL.cs" />
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

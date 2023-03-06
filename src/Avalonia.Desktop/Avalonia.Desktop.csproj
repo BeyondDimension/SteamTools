@@ -13,23 +13,18 @@
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 		<Compile Remove="..\AssemblyInfo.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" />
+		<Compile Remove="..\ImplicitUsings.BCL.cs" />
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia.Win32" />
+		<PackageReference Include="Avalonia.Skia" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
 		<PackageReference Include="Avalonia.X11" />
 		<PackageReference Include="Avalonia.Native" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />

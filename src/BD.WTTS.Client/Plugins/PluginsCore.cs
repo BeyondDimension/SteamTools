@@ -1,5 +1,4 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
 namespace BD.WTTS.Plugins;
 
 public static class PluginsCore
@@ -14,6 +13,63 @@ public static class PluginsCore
     internal static HashSet<Assembly>? LoadAssemblies()
     {
         HashSet<Assembly>? assemblies = null;
+#if DEBUG
+        var modules = new[] { "Accelerator", "AccountSwitch", "ArchiSteamFarm", "GameList", "GameTools", "LocalAuth" };
+        foreach (var item in modules)
+        {
+            const string tfm =
+#if WINDOWS
+                "-windows10.0.19041.0";
+#elif LINUX
+                "";
+#elif MACCATALYST
+                "maccatalyst";
+#elif MACOS
+                "macos";
+#endif
+            //HashSet<string?>? entryAssemblyNames_ = null;
+            //HashSet<string?> GetEntryAssemblyNames()
+            //{
+            //    entryAssemblyNames_ ??= new HashSet<string?>(DependencyContext.Load(Assembly.GetEntryAssembly()!)?.GetDefaultAssemblyNames().Select(x => x.Name) ?? Array.Empty<string?>());
+            //    return entryAssemblyNames_;
+            //}
+
+            var assemblyPath = Path.Combine(Utils.ProjPath, "src", $"BD.WTTS.Client.Plugins.{item}", "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}{tfm}", $"BD.WTTS.Client.Plugins.{item}.dll");
+            if (File.Exists(assemblyPath))
+            {
+                Assembly assembly;
+                try
+                {
+                    assembly = Assembly.LoadFrom(assemblyPath);
+                    //var assemblyNames = DependencyContext.Load(assembly)?.GetDefaultAssemblyNames()?.ToArray();
+                    //if (assemblyNames.Any_Nullable())
+                    //{
+                    //    var entryAssemblyNames = GetEntryAssemblyNames();
+                    //    assemblyNames = assemblyNames.Where(x => !entryAssemblyNames!.Contains(x.Name)).ToArray();
+                    //    foreach (var assemblyName in assemblyNames)
+                    //    {
+                    //        try
+                    //        {
+                    //            Assembly.Load(assemblyName);
+                    //        }
+                    //        catch (Exception e)
+                    //        {
+                    //            Log.Error(TAG, e, $"AssemblyLoad fail, assemblyName: {assemblyName}");
+                    //        }
+                    //    }
+                    //}
+                }
+                catch (Exception e)
+                {
+                    Log.Error(TAG, e, $"AssemblyLoadFrom fail, assemblyPath: {assemblyPath}");
+                    continue;
+                }
+
+                assemblies ??= new();
+                assemblies.Add(assembly);
+            }
+        }
+#else
         var pluginsPath = Path.Combine(AppContext.BaseDirectory, "modules");
         if (Directory.Exists(pluginsPath))
         {
@@ -46,6 +102,7 @@ public static class PluginsCore
                 }
             }
         }
+#endif
         return assemblies;
     }
 
@@ -79,7 +136,7 @@ public static class PluginsCore
         ConventionBuilder conventions = new();
         conventions.ForTypesDerivedFrom<IPlugin>().Export<IPlugin>();
 
-        var configuration = new ContainerConfiguration().WithAssemblies(assemblies, conventions);
+        var configuration = new ContainerConfiguration().WithAssemblies(assemblies_, conventions);
 
         HashSet<IPlugin> activePlugins;
         try
