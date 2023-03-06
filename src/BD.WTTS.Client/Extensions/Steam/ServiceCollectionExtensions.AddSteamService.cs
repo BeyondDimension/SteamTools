@@ -10,9 +10,9 @@ public static partial class ServiceCollectionExtensions
     /// <param name="services"></param>
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IServiceCollection AddSteamService(this IServiceCollection services)
+    public static IServiceCollection AddSteamService2(this IServiceCollection services)
     {
-        services.AddSingleton<ISteamService, SteamServiceImpl>();
+        services.AddSingleton<ISteamService, SteamServiceImpl2>();
         return services;
     }
 #endif

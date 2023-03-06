@@ -21,7 +21,7 @@ public abstract class CommandLineHost : IDisposable
         }
     }
 
-    protected abstract void ConfigureServices(AppServicesLevel level, bool isTrace = false);
+    protected abstract ValueTask ConfigureServices(AppServicesLevel level, bool isTrace = false);
 
 #if StartWatchTrace
     protected abstract void StartWatchTraceRecord(string? mark = null, bool dispose = false);
@@ -92,12 +92,12 @@ public abstract class CommandLineHost : IDisposable
             return true;
         }
         void MainHandler() => MainHandler_(null);
-        void MainHandler_(Action? onInitStartuped, Func<string>? sendMessage = null)
+        async void MainHandler_(Action? onInitStartuped, Func<string>? sendMessage = null)
         {
 #if StartWatchTrace
             StartWatchTraceRecord("ProcessCheck");
 #endif
-            ConfigureServices(Host.IsMainProcess ? AppServicesLevel.MainProcess : AppServicesLevel.Min);
+            await ConfigureServices(Host.IsMainProcess ? AppServicesLevel.MainProcess : AppServicesLevel.Min);
 #if StartWatchTrace
             StartWatchTraceRecord("Startup.Init");
 #endif
@@ -137,11 +137,13 @@ public abstract class CommandLineHost : IDisposable
                                                 {
                                                     MainThread2.BeginInvokeOnMainThread(() =>
                                                     {
-                                                        ProxyService.Current.ProxyStatus = value switch
+                                                        var proxyService = Ioc.Get<IProxyService>();
+                                                        if (proxyService == null) return;
+                                                        proxyService.ProxyStatus = value switch
                                                         {
                                                             OnOffToggle.On => true,
                                                             OnOffToggle.Off => false,
-                                                            _ => !ProxyService.Current.ProxyStatus,
+                                                            _ => !proxyService.ProxyStatus,
                                                         };
                                                     });
                                                 }
@@ -338,7 +340,7 @@ public abstract class CommandLineHost : IDisposable
                 Console.WriteLine("RootCertificate: ");
                 try
                 {
-                    using X509Certificate2 rootCert = new(ICertificateManager.DefaultPfxFilePath, (string?)null, X509KeyStorageFlags.Exportable);
+                    using X509Certificate2 rootCert = new(CertificateConstants.DefaultPfxFilePath, (string?)null, X509KeyStorageFlags.Exportable);
                     Console.WriteLine("Subject：");
                     Console.WriteLine(rootCert.Subject);
                     Console.WriteLine("SerialNumber：");
@@ -396,7 +398,8 @@ public abstract class CommandLineHost : IDisposable
             var steamService = ISteamService.Instance;
             var users = steamService.GetRememberUserList();
 
-            IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
+            IReadOnlyDictionary<long, string?>? accountRemarks = Ioc.Get<ISteamAccountSettings>()?.AccountRemarks;
+
             var sUsers = users.Select(s =>
             {
                 if (accountRemarks?.TryGetValue(s.SteamId64, out var remark) == true &&

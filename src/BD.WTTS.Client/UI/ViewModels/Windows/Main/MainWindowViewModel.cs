@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using JetBrains.Annotations;
+
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class MainWindowViewModel : WindowViewModel
@@ -127,21 +129,24 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
                 Task.Run(async () =>
                 {
-                    if (ResourceService.IsChineseSimplified)
+                    if (StartupOptions.Value.HasPlugins)
                     {
-                        await ProxyService.Current.Initialize();
-                    }
-                    if (ASFSettings.AutoRunArchiSteamFarm.Value)
-                    {
-                        if (platformService.UsePlatformForegroundService)
+                        foreach (var plugin in StartupOptions.Value.Plugins!)
                         {
-                            await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
-                        }
-                        else
-                        {
-                            await ASFService.Current.InitASF();
+                            await plugin.OnInitialize();
                         }
                     }
+                    //if (ASFSettings.AutoRunArchiSteamFarm.Value)
+                    //{
+                    //    if (platformService.UsePlatformForegroundService)
+                    //    {
+                    //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
+                    //    }
+                    //    else
+                    //    {
+                    //        await ASFService.Current.InitASF();
+                    //    }
+                    //}
                 });
 #endif
 
@@ -187,7 +192,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         {
             lock (mTabItemsLock)
             {
-                if (mTabItems == null) mTabItems = GetTabItems().ToArray();
+                mTabItems ??= GetTabItems().ToArray();
                 return mTabItems;
             }
             IEnumerable<TabItemViewModel> GetTabItems()
@@ -210,7 +215,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         {
             lock (mFooterTabItemsLock)
             {
-                if (mFooterTabItems == null) mFooterTabItems = GetFooterTabItems().ToArray();
+                mFooterTabItems ??= GetFooterTabItems().ToArray();
                 return mFooterTabItems;
             }
             IEnumerable<TabItemViewModel> GetFooterTabItems()
@@ -235,9 +240,9 @@ public sealed partial class MainWindowViewModel : WindowViewModel
     internal TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel
     {
         var type = typeof(TabItemVM);
-        if (AllTabLazyItems.ContainsKey(type))
+        if (AllTabLazyItems.TryGetValue(type, out var value))
         {
-            return (TabItemVM)AllTabLazyItems[type].Value;
+            return (TabItemVM)value.Value;
         }
 
         throw new KeyNotFoundException($"type: {type} not found.");

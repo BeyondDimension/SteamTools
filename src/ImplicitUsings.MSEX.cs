@@ -10,8 +10,5 @@ global using Microsoft.Extensions.Configuration;
 #endif
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
-#if !BLAZOR && !__NOT_IMPORT_WEBENCODERS__ && !IOS && !ANDROID
-global using Microsoft.Extensions.WebEncoders;
-#endif
 global using Microsoft.Extensions.Primitives;
 global using ILogger = Microsoft.Extensions.Logging.ILogger;

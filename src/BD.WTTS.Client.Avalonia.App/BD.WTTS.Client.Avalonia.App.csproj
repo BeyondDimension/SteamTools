@@ -10,6 +10,14 @@
 		<SelfContained>false</SelfContained>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release' AND ($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows')">
+		<OutputType>WinExe</OutputType>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<AllowedReferenceRelatedFileExtensions>
 			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
@@ -89,13 +97,30 @@
 		<!--<PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />-->
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+		<ProjectReference Include="..\Avalonia.Themes.Default\Avalonia.Themes.Default.csproj" />
+		<ProjectReference Include="..\Avalonia.Themes.Fluent\Avalonia.Themes.Fluent.csproj" />
+		<ProjectReference Include="..\Avalonia.Desktop\Avalonia.Desktop.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<!-- Windows Only -->
+		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
+		<ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
 		<PackageReference Include="Aigio.Avalonia.AppCenter" />
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
+		<!-- iOS/macOS/MacCatalyst Only -->
+		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
+		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
+		<!-- Linux Only -->
+		<ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
+		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

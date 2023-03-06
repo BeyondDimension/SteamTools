@@ -8,3 +8,4 @@
 global using BD.Common.Settings;
 
 global using BD.WTTS.Settings;
+global using BD.WTTS.Settings.Abstractions;

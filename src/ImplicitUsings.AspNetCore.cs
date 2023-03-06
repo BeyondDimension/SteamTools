@@ -31,6 +31,7 @@ global using Microsoft.AspNetCore.Mvc.Filters;
 global using Microsoft.Extensions.Caching.Memory;
 global using Microsoft.Extensions.Caching.Distributed;
 global using Microsoft.AspNetCore.StaticFiles;
+global using Microsoft.Extensions.WebEncoders;
 //global using IOFile = System.IO.File;
 
 //#if !PROJ_TYPE_MODELS

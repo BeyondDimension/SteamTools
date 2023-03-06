@@ -874,7 +874,8 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
-    <value />
+    <value>Questo farà {0} tutte le quotazioni correnti della transazione.
+Sicura di voler continuare?</value>
     <comment>Comment=同意 or 取消;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">

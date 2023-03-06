@@ -12,6 +12,10 @@ public static class AppBuilderDesktopExtensions
     {
 #if WINDOWS
         builder.UseWin32();
+#elif MACCATALYST || MACOS
+        builder.UseAvaloniaNative();
+#elif LINUX
+        builder.UseX11();
 #else
         var os = builder.RuntimePlatform.GetRuntimeInfo().OperatingSystem;
 

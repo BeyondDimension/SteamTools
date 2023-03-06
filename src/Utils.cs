@@ -20,7 +20,13 @@ static partial class Utils
 #else
         AppDomain.CurrentDomain.BaseDirectory;
 #endif
-        if (!Directory.EnumerateFiles(path, "*.sln").Any())
+        if (!
+#if NET35
+            Directory.GetFiles
+#else
+            Directory.EnumerateFiles
+#endif
+            (path, "*.sln").Any())
         {
             var parent = Directory.GetParent(path);
             if (parent == null) return string.Empty;

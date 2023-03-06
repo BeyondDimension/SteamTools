@@ -20,14 +20,6 @@ public static partial class CurrencyCodeEnumExtensions
         if (Enum.TryParse<CurrencyCode>(value, out var result)) return result;
         throw new ArgumentOutOfRangeException(nameof(eCurrencyCode), eCurrencyCode, null);
     }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static CultureInfo? GetCultureInfo(this ECurrencyCode eCurrencyCode)
-    {
-        if (eCurrencyCode == ECurrencyCode.Invalid) return null;
-        return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-            .FirstOrDefault(culture => new RegionInfo(culture.LCID).ISOCurrencySymbol == eCurrencyCode.ToString());
-    }
 }
 
 #endif

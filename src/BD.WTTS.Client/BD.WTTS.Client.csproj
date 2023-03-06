@@ -55,6 +55,12 @@
 		<Compile Include="..\ImplicitUsings.NLog.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\ImplicitUsings.Steam.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Plugins.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -74,6 +80,7 @@
 		<PackageReference Include="BD.Common.Essentials.Utils" />
 		<PackageReference Include="BD.Common.Essentials.Preferences.SQLite" />
 		<PackageReference Include="BD.Common.Pinyin" />
+		<PackageReference Include="BD.SteamClient" />
 		<PackageReference Include="BD.WTTS.MicroServices.ClientSDK" />
 		<PackageReference Include="BD.WTTS.Primitives.ViewModels" />
 		<PackageReference Include="WinAuth.Library" />
@@ -85,6 +92,7 @@
 		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
 		<PackageReference Include="Fleck" />
+		<PackageReference Include="System.Linq.Async" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
@@ -108,39 +116,25 @@
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<!-- Windows Only -->
+		<PackageReference Include="System.Reactive" />
 		<PackageReference Include="JumpLists.Win32.Avalonia" />
 		<PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" />
 		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
 		<PackageReference Include="7-Zip.NativeAssets.Win32" />
 		<PackageReference Include="System.Management" />
 		<PackageReference Include="Aigio.WinDivertSharp" />
-		<PackageReference Include="NotifyIcon.Windows" />
-		<PackageReference Include="System.Net.Http.WinHttpHandler" />
 		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
+		<PackageReference Include="System.Composition" />
 		<PackageReference Include="System.CommandLine" />
 		<PackageReference Include="System.CommandLine.NamingConventionBinder" />
 		<PackageReference Include="SteamKit2" />
-		<PackageReference Include="Yarp.ReverseProxy" />
 		<PackageReference Include="Ae.DNS.Client" />
 		<PackageReference Include="DNS" />
 		<PackageReference Include="DnsClient" />
-		<ProjectReference Include="..\..\ref\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj" />
-		<ProjectReference Include="..\..\ref\Steam4NET\Steam4NET\Steam4NET.csproj" />
-		<ProjectReference Include="..\..\ref\SteamAchievementManager\SAM.API\SAM.API.csproj" />
-		<ProjectReference Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj" />
-		<Compile Include="..\ImplicitUsings.Steam.cs">
-			<LinkBase>Properties</LinkBase>
-		</Compile>
-		<Compile Include="..\ImplicitUsings.ArchiSteamFarm.cs">
-			<LinkBase>Properties</LinkBase>
-		</Compile>
-		<Compile Include="..\ImplicitUsings.AspNetCore.cs">
-			<LinkBase>Properties</LinkBase>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">

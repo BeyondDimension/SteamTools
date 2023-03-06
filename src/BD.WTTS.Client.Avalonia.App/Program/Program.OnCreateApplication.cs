@@ -55,8 +55,6 @@ static partial class Program
         {
             if (isTrace) StartWatchTrace.Record(dispose: true);
         }
-
-        ArchiSteamFarm.Web.WebBrowser.CreateHttpHandlerDelegate = CreateHttpHandler;
     }
 
     /// <summary>

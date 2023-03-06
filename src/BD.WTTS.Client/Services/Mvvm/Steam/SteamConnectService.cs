@@ -24,9 +24,9 @@ public sealed class SteamConnectService
 
     SteamConnectService()
     {
-        SteamApps = new SourceCache<SteamApp, uint>(t => t.AppId);
-        DownloadApps = new SourceCache<SteamApp, uint>(t => t.AppId);
-        SteamUsers = new SourceCache<SteamUser, long>(t => t.SteamId64);
+        SteamApps = new(t => t.AppId);
+        DownloadApps = new(t => t.AppId);
+        SteamUsers = new(t => t.SteamId64);
 
         DownloadApps
             .Connect()
@@ -223,9 +223,10 @@ public sealed class SteamConnectService
 
     public void RunAFKApps()
     {
-        if (GameLibrarySettings.AFKAppList.Value?.Count > 0)
+        var aFKAppList = Ioc.Get<IGameLibrarySettings>()?.AFKAppList;
+        if (aFKAppList?.Count > 0)
         {
-            foreach (var item in GameLibrarySettings.AFKAppList.Value)
+            foreach (var item in aFKAppList)
             {
                 RuningSteamApps.TryGetValue(item.Key, out var runState);
                 if (runState == null)
@@ -291,7 +292,8 @@ public sealed class SteamConnectService
                                     INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}{Environment.NewLine}{AppResources.Steam_ServerTime}{steamServerTime:yyyy-MM-dd HH:mm:ss}", NotificationType.Message);
                                 }
 
-                                if (GameLibrarySettings.IsAutoAFKApps.Value)
+                                var isAutoAFKApps = Ioc.Get<IGameLibrarySettings>()?.IsAutoAFKApps ?? default;
+                                if (isAutoAFKApps)
                                 {
                                     RunAFKApps();
                                 }
@@ -411,7 +413,7 @@ public sealed class SteamConnectService
         }
     }
 
-    void WatchDownloadingComplete()
+    static void WatchDownloadingComplete()
     {
         var endMode = SteamSettings.DownloadCompleteSystemEndMode?.Value ?? OSExitMode.Sleep;
 
@@ -505,7 +507,7 @@ public sealed class SteamConnectService
 
         #region 加载备注信息和 JumpList
 
-        IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
+        IReadOnlyDictionary<long, string?>? accountRemarks = Ioc.Get<ISteamAccountSettings>()?.AccountRemarks;
 
 #if WINDOWS
         List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = new();
@@ -524,9 +526,11 @@ public sealed class SteamConnectService
                     title = user.SteamNickName + "(" + user.Remark + ")";
                 }
 
+                var processPath = Environment.ProcessPath;
+                processPath.ThrowIsNull();
                 if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((title,
-                    applicationPath: IApplication.ProgramPath,
-                    iconResourcePath: IApplication.ProgramPath,
+                    applicationPath: processPath,
+                    iconResourcePath: processPath,
                     arguments: $"-clt steam -account {user.AccountName}",
                     description: AppResources.UserChange_BtnTootlip,
                     customCategory: AppResources.UserFastChange));

@@ -80,15 +80,21 @@ static partial class Program
             // NLog: catch any exception and log it.
             Logger?.Error(ex, "Stopped program because of exception, name: {1}, isTerminating: {0}", isTerminating, name);
 
-#if !__MOBILE__
-            try
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+            if (StartupOptions.Value.HasPlugins)
             {
-                Ioc.Get_Nullable<IReverseProxyService>()?.StopProxy();
-                ProxyService.OnExitRestoreHosts();
-            }
-            catch (Exception ex_restore_hosts)
-            {
-                Logger?.Error(ex_restore_hosts, "(App)Close exception when OnExitRestoreHosts");
+                foreach (var plugin in StartupOptions.Value.Plugins!)
+                {
+                    try
+                    {
+                        plugin.OnUnhandledException(ex, name, isTerminating);
+                    }
+                    catch (Exception ex_restore_hosts)
+                    {
+                        Logger?.Error(ex_restore_hosts,
+                            "(App)Close exception when OnExitRestoreHosts");
+                    }
+                }
             }
 #endif
         }

@@ -1,4 +1,4 @@
-#if WINDOWS || NETFRAMEWORK
+#if WINDOWS || NETFRAMEWORK || APP_HOST
 #if NETFRAMEWORK
 global using WPFMessageBox = System.Windows.MessageBox;
 global using WPFMessageBoxButton = System.Windows.MessageBoxButton;
@@ -18,7 +18,7 @@ static partial class Program
     /// <para>不能在临时文件夹中运行此程序，请将所有文件复制或解压到其他路径后再启动程序</para>
     /// </summary>
     /// <returns></returns>
-#if NET40
+#if NET35 || NET40
     [MethodImpl((MethodImplOptions)0x100)]
 #else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -53,11 +53,63 @@ static partial class Program
         return true;
     }
 
-#if NET40
+#if NET35 || NET40
     [MethodImpl((MethodImplOptions)0x100)]
 #else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-    internal static WPFMessageBoxResult ShowErrMessageBox(string error, WPFMessageBoxButton button = WPFMessageBoxButton.OK) => WPFMessageBox.Show(error, AppResources.Error, button, WPFMessageBoxImage.Error);
+    internal static WPFMessageBoxResult ShowErrMessageBox(string error, WPFMessageBoxButton button = WPFMessageBoxButton.OK)
+    {
+        try
+        {
+            if (Environment.UserInteractive)
+            {
+                return WPFMessageBox.Show(error, AppResources.Error, button, WPFMessageBoxImage.Error);
+            }
+        }
+        catch
+        {
+
+        }
+
+        Console.WriteLine(AppResources.Error);
+        Console.WriteLine(error);
+        switch (button)
+        {
+            case WPFMessageBoxButton.OKCancel:
+                {
+                    Console.WriteLine("OK/Cancel");
+                    var line = Console.ReadLine();
+                    if (string.Equals(line, nameof(WPFMessageBoxResult.OK)) || string.Equals(line, nameof(WPFMessageBoxResult.Yes)) || string.Equals(line, "o") || string.Equals(line, "y"))
+                        return WPFMessageBoxResult.OK;
+                    if (string.Equals(line, nameof(WPFMessageBoxResult.Cancel)) || string.Equals(line, nameof(WPFMessageBoxResult.No)) || string.Equals(line, "c") || string.Equals(line, "n"))
+                        return WPFMessageBoxResult.Cancel;
+                }
+                break;
+            case WPFMessageBoxButton.YesNoCancel:
+                {
+                    Console.WriteLine("Yes/No/Cancel");
+                    var line = Console.ReadLine();
+                    if (string.Equals(line, nameof(WPFMessageBoxResult.OK)) || string.Equals(line, nameof(WPFMessageBoxResult.Yes)) || string.Equals(line, "o") || string.Equals(line, "y"))
+                        return WPFMessageBoxResult.Yes;
+                    if (string.Equals(line, nameof(WPFMessageBoxResult.No)) || string.Equals(line, "n"))
+                        return WPFMessageBoxResult.No;
+                    if (string.Equals(line, nameof(WPFMessageBoxResult.Cancel)) || string.Equals(line, "c"))
+                        return WPFMessageBoxResult.Cancel;
+                }
+                break;
+            case WPFMessageBoxButton.YesNo:
+                {
+                    Console.WriteLine("Yes/No");
+                    var line = Console.ReadLine();
+                    if (string.Equals(line, nameof(WPFMessageBoxResult.OK)) || string.Equals(line, nameof(WPFMessageBoxResult.Yes)) || string.Equals(line, "o") || string.Equals(line, "y"))
+                        return WPFMessageBoxResult.Yes;
+                    if (string.Equals(line, nameof(WPFMessageBoxResult.Cancel)) || string.Equals(line, nameof(WPFMessageBoxResult.No)) || string.Equals(line, "c") || string.Equals(line, "n"))
+                        return WPFMessageBoxResult.No;
+                }
+                break;
+        }
+        return WPFMessageBoxResult.OK;
+    }
 }
 #endif

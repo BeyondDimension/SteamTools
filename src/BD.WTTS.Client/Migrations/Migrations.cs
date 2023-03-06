@@ -6,6 +6,8 @@ namespace BD.WTTS;
 /// </summary>
 public static class Migrations
 {
+    public const string DirName_Scripts = "Scripts";
+
     static Version? PreviousVersion { get; } = Version.TryParse(VersionTracking2.PreviousVersion, out var value) ? value : null;
 
     /// <summary>
@@ -23,7 +25,7 @@ public static class Migrations
                 {
                     try
                     {
-                        var cacheScript = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName);
+                        var cacheScript = Path.Combine(IOPath.CacheDirectory, DirName_Scripts);
                         if (Directory.Exists(cacheScript))
                             Directory.Delete(cacheScript, true);
                     }
@@ -33,7 +35,7 @@ public static class Migrations
                     }
                 }
 
-                if (OperatingSystem2.IsWindows() &&
+                if (OperatingSystem.IsWindows() &&
                     !DesktopBridge.IsRunningAsUwp &&
                     PreviousVersion < new Version(2, 7, 3)) // 上一次运行的版本小于 2.7.3 时将执行以下迁移
                 {

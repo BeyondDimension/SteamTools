@@ -61,6 +61,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplicitUsings", "ImplicitU
 		src\ImplicitUsings.MSEX.cs = src\ImplicitUsings.MSEX.cs
 		src\ImplicitUsings.Nito.cs = src\ImplicitUsings.Nito.cs
 		src\ImplicitUsings.NLog.cs = src\ImplicitUsings.NLog.cs
+		src\ImplicitUsings.Plugins.cs = src\ImplicitUsings.Plugins.cs
 		src\ImplicitUsings.Quartz.cs = src\ImplicitUsings.Quartz.cs
 		src\ImplicitUsings.ReactiveUI.cs = src\ImplicitUsings.ReactiveUI.cs
 		src\ImplicitUsings.Repositories.cs = src\ImplicitUsings.Repositories.cs

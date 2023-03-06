@@ -443,10 +443,7 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
                     else if (isDesktop)
                     {
                         download = GetByDownloadChannelSettings(newVersionInfo.Downloads.Where(x => x.DownloadType == AppDownloadType.Compressed_7z));
-                        if (download == null)
-                        {
-                            download = GetByDownloadChannelSettings(newVersionInfo.Downloads.Where(x => x.DownloadType == AppDownloadType.Compressed_GZip));
-                        }
+                        download ??= GetByDownloadChannelSettings(newVersionInfo.Downloads.Where(x => x.DownloadType == AppDownloadType.Compressed_GZip));
                     }
                     else
                     {
@@ -688,12 +685,13 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
             var updateCommandPath = Path.Combine(IOPath.CacheDirectory, "update.cmd");
             IOPath.FileIfExistsItDelete(updateCommandPath);
 
+            var processPath = Environment.ProcessPath;
             var updateCommand = string.Format(
                ProgramUpdateCmd_,
                IApplication.ProgramName,
                dirPath.TrimEnd(Path.DirectorySeparatorChar),
                IOPath.BaseDirectory,
-               IApplication.ProgramPath);
+               processPath.ThrowIsNull());
 
             updateCommand = "chcp 65001" + Environment.NewLine + updateCommand;
 

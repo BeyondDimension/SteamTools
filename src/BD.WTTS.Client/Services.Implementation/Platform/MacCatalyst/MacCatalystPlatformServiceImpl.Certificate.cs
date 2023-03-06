@@ -8,16 +8,17 @@ partial class MacCatalystPlatformServiceImpl
 {
     internal static bool IsCertificateInstalled(X509Certificate2 certificate2)
     {
-        using var p = new Process();
-        p.StartInfo.FileName = "security";
-        p.StartInfo.Arguments = $" verify-cert -c \"{IReverseProxyService.Instance.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists()}\"";
-        p.StartInfo.UseShellExecute = false;
-        p.StartInfo.RedirectStandardOutput = true;
-        p.Start();
-        var returnStr = p.StandardOutput.ReadToEnd().TrimEnd();
-        p.Kill();
-        var r = returnStr.Contains("...certificate verification successful.", StringComparison.OrdinalIgnoreCase);
-        return r;
+        return default;
+        //using var p = new Process();
+        //p.StartInfo.FileName = "security";
+        //p.StartInfo.Arguments = $" verify-cert -c \"{IReverseProxyService.Instance.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists()}\"";
+        //p.StartInfo.UseShellExecute = false;
+        //p.StartInfo.RedirectStandardOutput = true;
+        //p.Start();
+        //var returnStr = p.StandardOutput.ReadToEnd().TrimEnd();
+        //p.Kill();
+        //var r = returnStr.Contains("...certificate verification successful.", StringComparison.OrdinalIgnoreCase);
+        //return r;
 
         // XAMARIN_MAC
         //bool result = false;

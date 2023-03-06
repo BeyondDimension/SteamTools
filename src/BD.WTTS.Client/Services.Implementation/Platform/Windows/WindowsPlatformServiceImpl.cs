@@ -11,7 +11,7 @@ sealed partial class WindowsPlatformServiceImpl : IPlatformService
     /// <summary>
     /// 用于 <see cref="IOPath.GetCacheFilePath(string, string, string)"/> 中 dirName，临时文件夹名称，在程序退出时将删除整个文件夹
     /// </summary>
-    const string CacheTempDirName = "Temporary";
+    internal const string CacheTempDirName = "Temporary";
 
     public WindowsPlatformServiceImpl()
     {

@@ -1,7 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-using ASFNLogManager = ArchiSteamFarm.LogManager;
-#endif
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
@@ -136,14 +132,14 @@ partial interface IApplication
     /// <summary>
     /// 日志存放文件夹路径
     /// </summary>
-    public static string LogDirPath { get; private set; } = string.Empty;
+    static string LogDirPath { get; private set; } = string.Empty;
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 
     /// <summary>
     /// 日志存放文件夹路径(ASF)
     /// </summary>
-    public static string LogDirPathASF { get; private set; } = string.Empty;
+    static string LogDirPathASF { get; set; } = string.Empty;
 
 #endif
 
@@ -152,12 +148,14 @@ partial interface IApplication
     /// 日志文件夹是否存放在缓存文件夹中，通常日志文件夹将存放在基目录上，因某些平台基目录为只读，则只能放在缓存文件夹中
     /// </summary>
     [Obsolete("only True.", true)]
-    public static bool LogUnderCache => true;
+    static bool LogUnderCache => true;
 #endif
 
-    public const string LogDirName = "Logs";
+    const string LogDirName = "Logs";
 
-    public static void InitLogDir(string? alias = null, bool isTrace = false)
+    static Action? ASFInitCoreLoggers { get; private set; }
+
+    static void InitLogDir(string? alias = null, bool isTrace = false)
     {
         if (!string.IsNullOrEmpty(LogDirPath)) return;
 
@@ -196,52 +194,24 @@ partial interface IApplication
         NLogManager.Configuration = objConfig;
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
-        LogDirPathASF = ASFPathHelper.GetLogDirectory(logDirPath_);
-        IArchiSteamFarmService.InitCoreLoggers = () =>
-        {
-            if (ASFNLogManager.Configuration != null) return;
-            LoggingConfiguration config = new();
-            FileTarget fileTarget = new("File")
-            {
-                ArchiveFileName = ASFPathHelper.GetNLogArchiveFileName(LogDirPathASF),
-                ArchiveNumbering = ArchiveNumberingMode.Rolling,
-                ArchiveOldFileOnStartup = true,
-                CleanupFileName = false,
-                ConcurrentWrites = false,
-                DeleteOldFileOnStartup = true,
-                FileName = ASFPathHelper.GetNLogFileName(LogDirPathASF),
-                Layout = ASFPathHelper.NLogGeneralLayout,
-                ArchiveAboveSize = 10485760,
-                MaxArchiveFiles = 10,
-                MaxArchiveDays = 7,
-            };
-            InitializeTarget(config, fileTarget, NLogLevel.Debug);
-            var historyTarget = new HistoryTarget("History")
-            {
-                Layout = ASFPathHelper.NLogGeneralLayout,
-                MaxCount = 20,
-            };
-            InitializeTarget(config, historyTarget, NLogLevel.Debug);
-            ASFNLogManager.Configuration = config;
-        };
-
+        LogDirPathASF = logDirPath_;
 #endif
 
         LogDirPath = logDirPath;
-        static void InitializeTarget(LoggingConfiguration config, Target target, NLogLevel minLevel)
-        {
-            config.AddTarget(target);
-            if (minLevel < NLogLevel.Warn)
-            {
-                config.LoggingRules.Add(new LoggingRule("Microsoft*", target) { FinalMinLevel = NLogLevel.Warn });
-                config.LoggingRules.Add(new LoggingRule("Microsoft.Hosting.Lifetime*", target) { FinalMinLevel = NLogLevel.Info });
-                config.LoggingRules.Add(new LoggingRule("System*", target) { FinalMinLevel = NLogLevel.Warn });
-            }
-            config.LoggingRules.Add(new LoggingRule("*", minLevel, target));
-        }
 
         Log.LoggerFactory = () => new LoggerFactory(new[] { new NLogLoggerProvider() });
+    }
+
+    static void InitializeTarget(LoggingConfiguration config, Target target, NLogLevel minLevel)
+    {
+        config.AddTarget(target);
+        if (minLevel < NLogLevel.Warn)
+        {
+            config.LoggingRules.Add(new LoggingRule("Microsoft*", target) { FinalMinLevel = NLogLevel.Warn });
+            config.LoggingRules.Add(new LoggingRule("Microsoft.Hosting.Lifetime*", target) { FinalMinLevel = NLogLevel.Info });
+            config.LoggingRules.Add(new LoggingRule("System*", target) { FinalMinLevel = NLogLevel.Warn });
+        }
+        config.LoggingRules.Add(new LoggingRule("*", minLevel, target));
     }
 
     #endregion

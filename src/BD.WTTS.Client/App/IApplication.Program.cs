@@ -3,11 +3,13 @@ namespace BD.WTTS;
 
 partial interface IApplication
 {
+#if DEBUG
     private static string? _ProgramPath;
 
     /// <summary>
     /// 当前主程序所在绝对路径
     /// </summary>
+    [Obsolete("use var processPath = Environment.ProcessPath; processPath.ThrowIsNull()", true)]
     static string ProgramPath
     {
         get
@@ -16,6 +18,7 @@ partial interface IApplication
             return _ProgramPath;
         }
     }
+#endif
 
     private static string? _ProgramName;
 
@@ -26,8 +29,15 @@ partial interface IApplication
     {
         get
         {
-            _ProgramName ??= Path.GetFileName(ProgramPath) ?? "";
+            _ProgramName ??= GetProgramName();
             return _ProgramName;
         }
+    }
+
+    private static string GetProgramName()
+    {
+        var processPath = Environment.ProcessPath;
+        var programName = Path.GetFileName(processPath.ThrowIsNull());
+        return programName.ThrowIsNull();
     }
 }

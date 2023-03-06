@@ -26,9 +26,7 @@ public static partial class ServiceCollectionExtensions
         services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
         if (options.HasMainProcessRequired)
         {
-#pragma warning disable IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
-            services.AddSingleton(typeof(NotifyIcon), NotifyIcon.ImplType);
-#pragma warning restore IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
+            services.AddSingleton<NotifyIcon, WindowsNotifyIcon>();
         }
         services.AddSingleton<ISevenZipHelper, SevenZipHelper>();
         if (!DesktopBridge.IsRunningAsUwp && OperatingSystem.IsWindowsVersionAtLeast(10, 0, 17763))
@@ -43,12 +41,6 @@ public static partial class ServiceCollectionExtensions
 #else
         throw new PlatformNotSupportedException();
 #endif
-        if (options.HasSteam)
-        {
-#if WINDOWS || MACOS || MACCATALYST || IOS || LINUX
-            services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
-#endif
-        }
         return services;
     }
 }

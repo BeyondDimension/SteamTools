@@ -35,14 +35,20 @@ static class Strings
         _ => "en-us",
     });
 
-#if NET40
+#if NET35 || NET40
     [MethodImpl((MethodImplOptions)0x100)]
 #else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
     public static bool IsMatch(this CultureInfo cultureInfo, string cultureName)
     {
-        if (string.IsNullOrWhiteSpace(cultureInfo.Name))
+        if (
+#if NET35
+            Program
+#else
+            string
+#endif
+            .IsNullOrWhiteSpace(cultureInfo.Name))
         {
             return false;
         }
@@ -56,7 +62,7 @@ static class Strings
         }
     }
 
-#if NET40
+#if NET35 || NET40
     [MethodImpl((MethodImplOptions)0x100)]
 #else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

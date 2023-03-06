@@ -99,15 +99,15 @@ public sealed partial class GeneralSettings : SettingsHost2<GeneralSettings>
     //public static SerializableProperty<bool> IsEnableLogRecord { get; }
     //    = GetProperty(defaultValue: false, autoSave: true);
 
-    static readonly SerializableProperty<bool> _UseWinHttpHandler = GetProperty(defaultValue: false);
+    //static readonly SerializableProperty<bool> _UseWinHttpHandler = GetProperty(defaultValue: false);
 
-    /// <summary>
-    /// (仅 Windows)使用基于 Windows 的 WinHTTP 接口处理消息
-    /// <para>https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.winhttphandler?view=dotnet-plat-ext-6.0</para>
-    /// <para>https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.socketshttphandler?view=net-6.0</para>
-    /// </summary>
-    [SupportedOSPlatform("Windows")]
-    public static SerializableProperty<bool> UseWinHttpHandler => _UseWinHttpHandler;
+    ///// <summary>
+    ///// (仅 Windows)使用基于 Windows 的 WinHTTP 接口处理消息
+    ///// <para>https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.winhttphandler?view=dotnet-plat-ext-6.0</para>
+    ///// <para>https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.socketshttphandler?view=net-6.0</para>
+    ///// </summary>
+    //[SupportedOSPlatform("Windows")]
+    //public static SerializableProperty<bool> UseWinHttpHandler => _UseWinHttpHandler;
 
 #endif
 

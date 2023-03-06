@@ -5,17 +5,17 @@ static partial class Program
 {
     sealed partial class Host : CommandLineHost
     {
-        public Action<AppServicesLevel>? ConfigureServicesDelegate { get; set; }
+        public Func<AppServicesLevel, ValueTask>? ConfigureServicesDelegate { get; set; }
 
-        protected override void ConfigureServices(AppServicesLevel level, bool isTrace = false)
+        protected override async ValueTask ConfigureServices(AppServicesLevel level, bool isTrace = false)
         {
             if (ConfigureServicesDelegate != null)
             {
-                ConfigureServicesDelegate.Invoke(level);
+                await ConfigureServicesDelegate.Invoke(level);
             }
             else
             {
-                Program.ConfigureServices(this, level, isTrace: isTrace);
+                await Program.ConfigureServices(this, level, isTrace: isTrace);
             }
         }
 

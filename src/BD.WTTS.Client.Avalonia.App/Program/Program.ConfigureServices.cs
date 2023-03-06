@@ -9,7 +9,7 @@ static partial class Program
     /// 初始化启动
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void ConfigureServices(IApplication.IStartupArgs args,
+    static async ValueTask ConfigureServices(IApplication.IStartupArgs args,
         AppServicesLevel level,
         IServiceCollection? services = null,
         bool isTrace = false)
@@ -36,6 +36,13 @@ static partial class Program
                 // 但需要在完成时调用 DI.ConfigureServices(IServiceProvider) 与 OnBuild
                 ConfigureServices(services, args, options);
             }
+            if (options.HasPlugins)
+            {
+                foreach (var plugin in options.Plugins!)
+                {
+                    await plugin.OnLoaded();
+                }
+            }
         }
     }
 
@@ -58,8 +65,22 @@ static partial class Program
         StartupOptions options)
     {
         ConfigureDemandServices(services, args, options);
+        if (options.HasPlugins)
+        {
+            foreach (var plugin in options.Plugins!)
+            {
+                plugin.ConfigureDemandServices(services, args, options);
+            }
+        }
         if (options.IsTrace) StartWatchTrace.Record("DI.D");
         ConfigureRequiredServices(services, args, options);
+        if (options.HasPlugins)
+        {
+            foreach (var plugin in options.Plugins!)
+            {
+                plugin.ConfigureRequiredServices(services, args, options);
+            }
+        }
         if (options.IsTrace) StartWatchTrace.Record("DI.ConfigureRequiredServices");
     }
 
@@ -213,15 +234,6 @@ static partial class Program
             services.AddSingleton<IHttpClientFactory, LiteHttpClientFactory>();
             if (options.IsTrace) StartWatchTrace.Record("DI.D.HttpClientFactory");
         }
-        services.TryAddScriptManager();
-        if (options.IsTrace) StartWatchTrace.Record("DI.D.ScriptManager");
-
-        if (options.HasHttpProxy)
-        {
-            // 通用 Http 代理服务
-            services.AddReverseProxyService();
-            if (options.IsTrace) StartWatchTrace.Record("DI.D.HttpProxy");
-        }
         if (options.HasServerApiClient)
         {
             if (options.IsTrace) StartWatchTrace.Record("DI.D.AppSettings");
@@ -229,9 +241,18 @@ static partial class Program
             services.TryAddModelValidator();
 
             // 添加服务端API调用
-            services.TryAddMicroServiceClient(configureHandler: ConfigureHandler());
+            services.TryAddMicroServiceClient(configureHandler: IApplication.ConfigureHandler());
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(cfg =>
+            {
+                if (options.HasPlugins)
+                {
+                    foreach (var plugin in options.Plugins!)
+                    {
+                        plugin.OnAddAutoMapper(cfg);
+                    }
+                }
+            });
 
             // 添加仓储服务
             services.AddRepositories();
@@ -260,14 +281,14 @@ static partial class Program
         {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             // Steam 相关助手、工具类服务
-            services.AddSteamService();
+            services.AddSteamService2();
 
             // Steamworks LocalApi Service
             services.TryAddSteamworksLocalApiService();
 #endif
 
             // SteamDb WebApi Service
-            //services.AddSteamDbWebApiService();
+            services.AddSteamDbWebApiService();
 
             // Steamworks WebApi Service
             services.AddSteamworksWebApiService();
@@ -275,8 +296,6 @@ static partial class Program
             // SteamGridDB WebApi Service
             services.AddSteamGridDBWebApiService();
 
-            // ASF Service
-            services.AddArchiSteamFarmService();
             if (options.IsTrace) StartWatchTrace.Record("DI.D.Steam");
         }
         if (options.HasMainProcessRequired)

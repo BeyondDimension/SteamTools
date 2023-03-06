@@ -874,7 +874,8 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
-    <value />
+    <value>Esto hará una oferta de todas sus transacciones actuales.
+¿Estás seguro de que quieres continuar?</value>
     <comment>Comment=同意 or 取消;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">

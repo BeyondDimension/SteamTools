@@ -5,30 +5,33 @@ public abstract class TabItemViewModel : TabItemViewModel<TabItemViewModel.TabIt
 {
     public enum TabItemId : byte
     {
-        CommunityProxy = 1,
+        Accelerator = 1,
         ProxyScriptManage,
-        SteamAccount,
+        AccountSwitch,
         GameList,
         LocalAuth,
         ArchiSteamFarmPlus,
-        GameRelated,
+        GameTools,
         Settings,
         About,
 #if DEBUG
         Debug = byte.MaxValue,
 #endif
+        CommunityProxy = Accelerator,
+        SteamAccount = AccountSwitch,
+        GameRelated = GameTools,
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string GetName(TabItemId tabItemId) => tabItemId switch
     {
-        TabItemId.CommunityProxy => CommunityProxyPageViewModel.DisplayName,
+        TabItemId.Accelerator => CommunityProxyPageViewModel.DisplayName,
         TabItemId.ProxyScriptManage => ProxyScriptManagePageViewModel.DisplayName,
-        TabItemId.SteamAccount => SteamAccountPageViewModel.DisplayName,
+        TabItemId.AccountSwitch => SteamAccountPageViewModel.DisplayName,
         TabItemId.GameList => GameListPageViewModel.DisplayName,
         TabItemId.LocalAuth => LocalAuthPageViewModel.DisplayName,
         TabItemId.ArchiSteamFarmPlus => ArchiSteamFarmPlusPageViewModel.DisplayName,
-        TabItemId.GameRelated => GameRelatedPageViewModel.DisplayName,
+        TabItemId.GameTools => GameRelatedPageViewModel.DisplayName,
         TabItemId.Settings => SettingsPageViewModel.DisplayName,
         TabItemId.About => AboutPageViewModel.DisplayName,
 #if DEBUG
@@ -40,13 +43,13 @@ public abstract class TabItemViewModel : TabItemViewModel<TabItemViewModel.TabIt
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Type GetType(TabItemId tabItemId) => tabItemId switch
     {
-        TabItemId.CommunityProxy => typeof(CommunityProxyPageViewModel),
+        TabItemId.Accelerator => typeof(CommunityProxyPageViewModel),
         TabItemId.ProxyScriptManage => typeof(ProxyScriptManagePageViewModel),
-        TabItemId.SteamAccount => typeof(SteamAccountPageViewModel),
+        TabItemId.AccountSwitch => typeof(SteamAccountPageViewModel),
         TabItemId.GameList => typeof(GameListPageViewModel),
         TabItemId.LocalAuth => typeof(LocalAuthPageViewModel),
         TabItemId.ArchiSteamFarmPlus => typeof(ArchiSteamFarmPlusPageViewModel),
-        TabItemId.GameRelated => typeof(GameRelatedPageViewModel),
+        TabItemId.GameTools => typeof(GameRelatedPageViewModel),
         TabItemId.Settings => typeof(SettingsPageViewModel),
         TabItemId.About => typeof(AboutPageViewModel),
 #if DEBUG

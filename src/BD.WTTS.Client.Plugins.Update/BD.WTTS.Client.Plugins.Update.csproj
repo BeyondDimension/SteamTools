@@ -6,6 +6,7 @@
 		<IsTrimmable>false</IsTrimmable>
 		<OutputType>Exe</OutputType>
 		<Prefer32Bit>false</Prefer32Bit>
+		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>

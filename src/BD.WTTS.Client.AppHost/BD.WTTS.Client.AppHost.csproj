@@ -2,13 +2,19 @@
 
 	<PropertyGroup>
 		<AssemblyName>Steam++</AssemblyName>
-		<TargetFrameworks>net40;net451</TargetFrameworks>
+		<TargetFrameworks>net35;net40;net451;net7.0</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<IsTrimmable>false</IsTrimmable>
-		<OutputType>Exe</OutputType>
+		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
+		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
 		<Prefer32Bit>false</Prefer32Bit>
 		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 		<DefineConstants>APP_HOST;$(DefineConstants)</DefineConstants>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -31,7 +37,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="PresentationFramework" />
+		<Reference Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4'))" Include="PresentationFramework" />
 	</ItemGroup>
 
 </Project>

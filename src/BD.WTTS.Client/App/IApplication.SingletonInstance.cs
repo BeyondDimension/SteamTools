@@ -82,7 +82,11 @@ partial interface IApplication
 
         #region Pipes
 
-        static string GetPipeName() => AssemblyInfo.APPLICATION_ID + "_" + Hashs.String.Crc32(ProgramPath);
+        static string GetPipeName()
+        {
+            var processPath = Environment.ProcessPath;
+            return AssemblyInfo.APPLICATION_ID + "_" + Hashs.String.Crc32(processPath.ThrowIsNull());
+        }
 
         CancellationTokenSource? cts;
 
