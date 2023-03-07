@@ -26,7 +26,9 @@ global using System.IO;
 #if !NETFRAMEWORK && !APP_HOST
 global using System.Buffers;
 global using System.IO.Pipes;
+global using PipeOptions = System.IO.Pipes.PipeOptions;
 global using System.IO.Pipelines;
+global using PipelineOptions = System.IO.Pipelines.PipeOptions;
 #endif
 global using System.IO.Compression;
 #if !NETFRAMEWORK && !APP_HOST

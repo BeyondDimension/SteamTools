@@ -139,7 +139,7 @@ namespace Microsoft.Extensions.DependencyInjection
     - Update 自更新模块，删除该文件夹后禁用更新
         - Steam++.Update.exe 更新程序，CDN 分发更新包，下载与解压在主程序中，此进程仅退出主程序执行覆盖操作
     - Accelerator 网络加速
-        - Steam++.Accelerator.exe 控制台子服务进程
+        - Steam++.Accelerator.exe 控制台子服务进程，使用匿名管道与主进程通信，无参数或指定某个参数(待定)启动时可读取配置文件启动加速，可完全独立运行，ASP.NET Core Web API 项目，可支持 Docker
         - Steam++.Plugins.Accelerator.dll 插件程序集
     - AccountSwitch 账号切换
         - Steam++.Plugins.AccountSwitch.dll
