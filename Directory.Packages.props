@@ -155,7 +155,7 @@
     <PackageVersion Include="NotifyIcon.Base" Version="1.1.0" />
     <!--<PackageVersion Include="NotifyIcon.Linux" Version="1.1.0" />-->
     <!--<PackageVersion Include="NotifyIcon.Mac" Version="1.1.0" />-->
-    <PackageVersion Include="NotifyIcon.Windows" Version="1.1.0" />
+    <PackageVersion Include="NotifyIcon.Windows" Version="1.23.10209.11223" />
     <!--<PackageVersion Include="GtkSharp" Version="3.24.24.38" />-->
 
     <!-- Compression -->
