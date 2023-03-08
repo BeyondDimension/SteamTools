@@ -215,7 +215,7 @@
     <PackageVersion Include="HtmlAgilityPack" Version="1.11.46" />
 
     <!-- Clipboard -->
-    <PackageVersion Include="TextCopy" Version="6.2.0" />
+    <PackageVersion Include="TextCopy" Version="6.2.1" />
 
     <!-- Nito.* -->
     <PackageVersion Include="Nito.Comparers" Version="6.2.2" />
