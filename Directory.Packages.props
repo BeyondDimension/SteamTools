@@ -100,7 +100,7 @@
 
     <!-- .NET Platform Extensions 6 -->
     <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
-    <PackageVersion Include="System.Management" Version="6.0.0" />
+    <PackageVersion Include="System.Management" Version="7.0.0" />
 
     <!-- Xamarin -->
     <PackageVersion Include="Xamarin.Essentials" Version="1.7.3" />
