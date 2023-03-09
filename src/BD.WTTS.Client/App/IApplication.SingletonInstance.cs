@@ -1,5 +1,3 @@
-using PipeOptions = System.IO.Pipes.PipeOptions;
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 

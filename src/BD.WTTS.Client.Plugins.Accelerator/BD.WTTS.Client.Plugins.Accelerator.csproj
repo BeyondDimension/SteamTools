@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<!--<EnableDynamicLoading>true</EnableDynamicLoading>-->
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -59,23 +59,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
-		<PackageReference Include="Yarp.ReverseProxy" />
-		<PackageReference Include="NLog.Web.AspNetCore" />
-		<Compile Include="..\ImplicitUsings.AspNetCore.cs">
-			<LinkBase>Properties</LinkBase>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Models\" />
 		<Folder Include="UI\ViewModels\" />
 		<Folder Include="UI\Views\" />
 	</ItemGroup>

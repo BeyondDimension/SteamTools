@@ -18,6 +18,9 @@
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 		<Compile Remove="..\ImplicitUsings.Common.cs" />
+		<Compile Include="..\ImplicitUsings.Services.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -32,7 +35,6 @@
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
 		<PackageReference Include="Yarp.ReverseProxy" />
-		<PackageReference Include="NLog.Web.AspNetCore" />
 		<Compile Include="..\ImplicitUsings.AspNetCore.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
