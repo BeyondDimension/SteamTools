@@ -74,7 +74,7 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 #endif
 
-#if WINDOWS
+#if WINDOWS && !APP_HOST
 global using System.Management;
 #endif
 
