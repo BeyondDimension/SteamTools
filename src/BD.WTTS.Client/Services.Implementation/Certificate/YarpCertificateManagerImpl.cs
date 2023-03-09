@@ -4,7 +4,7 @@ namespace BD.WTTS.Services.Implementation;
 
 sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICertificateManager
 {
-    public YarpCertificateManagerImpl(IPlatformService platformService, IReverseProxyService reverseProxyService) : base(platformService, reverseProxyService)
+    public YarpCertificateManagerImpl(IPlatformService platformService) : base(platformService)
     {
         RootCertificate = LoadRootCertificate();
     }
@@ -26,9 +26,9 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
         var validFrom = DateTime.Today.AddDays(-1);
         var validTo = DateTime.Today.AddDays(ICertificateManager.CertificateValidDays);
 
-        var rootCertificateName = IReverseProxyService.RootCertificateName;
+        var rootCertificateName = ICertificateManager.RootCertificateName;
 
-        RootCertificate = CertGenerator.GenerateBySelfPfx(new[] { rootCertificateName }, CertService.KEY_SIZE_BITS, validFrom, validTo, Interface.PfxFilePath, Interface.PfxPassword);
+        RootCertificate = CertGenerator.GenerateBySelfPfx(new[] { rootCertificateName }, CertGenerator.KEY_SIZE_BITS, validFrom, validTo, Interface.PfxFilePath, Interface.PfxPassword);
 
         return RootCertificate != null;
     }

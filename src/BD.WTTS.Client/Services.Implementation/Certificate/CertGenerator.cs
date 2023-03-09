@@ -28,6 +28,8 @@ static class CertGenerator
 {
     static readonly SecureRandom secureRandom = new();
 
+    public const int KEY_SIZE_BITS = 2048;
+
     /// <summary>
     /// 生成自签名证书
     /// </summary>

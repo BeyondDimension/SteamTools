@@ -13,8 +13,6 @@ sealed class CertService
     readonly ILogger<CertService> logger;
     readonly IReverseProxyConfig reverseProxyConfig;
 
-    public const int KEY_SIZE_BITS = 2048;
-
     IReverseProxyService ReverseProxyService => reverseProxyConfig.Service;
 
     /// <summary>
@@ -80,7 +78,7 @@ sealed class CertService
             var validTo = DateTime.Today.AddYears(1);
 
             entry.SetAbsoluteExpiration(validTo);
-            return CertGenerator.GenerateByCaPfx(domains, KEY_SIZE_BITS, validFrom, validTo, CaPfxFilePath);
+            return CertGenerator.GenerateByCaPfx(domains, CertGenerator.KEY_SIZE_BITS, validFrom, validTo, CaPfxFilePath);
         }
     }
 

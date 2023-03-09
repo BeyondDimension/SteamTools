@@ -15,6 +15,8 @@ public interface ICertificateManager
     /// </summary>
     const string CertificateName = CertificateConstants.CertificateName;
 
+    const string RootCertificateName = $"{CertificateName} Certificate";
+
     #region FileName
 
     /// <summary>

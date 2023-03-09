@@ -16,7 +16,7 @@ sealed class Plugin : PluginBase<Plugin>
         {
 #if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             // 通用 Http 代理服务
-            services.AddReverseProxyService();
+            services.AddSingleton<IReverseProxyService, IPCReverseProxyServiceImpl>();
             if (options.IsTrace) StartWatchTrace.Record("DI.D.HttpProxy");
 #endif
         }

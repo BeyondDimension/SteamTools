@@ -93,6 +93,7 @@
 		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="System.Linq.Async" />
+		<PackageReference Include="Portable.BouncyCastle" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">

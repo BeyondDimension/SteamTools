@@ -9,16 +9,13 @@ abstract partial class CertificateManagerImpl
     protected const string TAG = "CertificateManager";
 
     protected readonly IPlatformService platformService;
-    protected readonly IReverseProxyService reverseProxyService;
 
     protected ICertificateManager Interface => (ICertificateManager)this;
 
     public CertificateManagerImpl(
-        IPlatformService platformService,
-        IReverseProxyService reverseProxyService)
+        IPlatformService platformService)
     {
         this.platformService = platformService;
-        this.reverseProxyService = reverseProxyService;
     }
 
     /// <inheritdoc cref="ICertificateManager.RootCertificate"/>
@@ -108,11 +105,11 @@ abstract partial class CertificateManagerImpl
     {
         try
         {
-            if (OperatingSystem2.IsMacOS())
+            if (OperatingSystem.IsMacOS())
             {
                 await TrustRootCertificateMacOS();
             }
-            else if (OperatingSystem2.IsLinux() && !OperatingSystem2.IsAndroid())
+            else if (OperatingSystem.IsLinux() && !OperatingSystem.IsAndroid())
             {
                 TrustRootCertificateLinux();
             }
@@ -144,7 +141,7 @@ abstract partial class CertificateManagerImpl
         var filePath = GetCerFilePathGeneratedWhenNoFileExists();
         if (filePath == null) return;
         //全部屏蔽 Linux 浏览器全部不信任系统证书 只能手动导入 如需导入请手动操作
-        //var crtFile = $"{Path.Combine(IOPath.AppDataDirectory, $@"{IReverseProxyService.CertificateName}.Certificate.crt")}";
+        //var crtFile = $"{Path.Combine(IOPath.AppDataDirectory, $@"{ICertificateManager.CertificateName}.Certificate.crt")}";
         ////复制一份Crt导入系统用 ca-certificates 只识别Crt后缀 
         //platformService.RunShell($"cp -f \"{filePath}\" \"{crtFile}\"", false);
         //platformService.RunShell($"cp -f \"{crtFile}\" \"/usr/local/share/ca-certificates\" && sudo update-ca-certificates", true);
@@ -167,8 +164,8 @@ abstract partial class CertificateManagerImpl
     /// <inheritdoc cref="ICertificateManager.DeleteRootCertificate"/>
     public bool DeleteRootCertificate()
     {
-        if (reverseProxyService.ProxyRunning)
-            return false;
+        //if (reverseProxyService.ProxyRunning)
+        //    return false;
         if (RootCertificate == null)
             return true;
         try
@@ -210,7 +207,7 @@ abstract partial class CertificateManagerImpl
     {
         using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
         store.Open(OpenFlags.ReadOnly);
-        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, IReverseProxyService.RootCertificateName, false);
+        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, ICertificateManager.RootCertificateName, false);
         foreach (var item in collection)
         {
             if (item != null)
@@ -222,7 +219,7 @@ abstract partial class CertificateManagerImpl
                 }
                 catch
                 {
-                    platformService.RunShell($"rm -f \"/usr/local/share/ca-certificates/{IReverseProxyService.CertificateName}.Certificate.pem\" && sudo update-ca-certificates", true);
+                    platformService.RunShell($"rm -f \"/usr/local/share/ca-certificates/{ICertificateManager.CertificateName}.Certificate.pem\" && sudo update-ca-certificates", true);
                 }
             }
         }
@@ -233,7 +230,7 @@ abstract partial class CertificateManagerImpl
     {
         using var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
         store.Open(OpenFlags.ReadOnly);
-        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, IReverseProxyService.RootCertificateName, false);
+        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, ICertificateManager.RootCertificateName, false);
         foreach (var item in collection)
         {
             if (item != null)
@@ -274,12 +271,12 @@ abstract partial class CertificateManagerImpl
         if (certificate2.NotAfter <= DateTime.Now)
             return false;
 
-        if (!OperatingSystem2.IsAndroid() && OperatingSystem2.IsLinux())
+        if (!OperatingSystem.IsAndroid() && OperatingSystem.IsLinux())
         {
             // Linux 目前没有实现检测
             return true;
         }
-        else if (OperatingSystem2.IsAndroid() || OperatingSystem2.IsMacOS())
+        else if (OperatingSystem.IsAndroid() || OperatingSystem.IsMacOS())
         {
             return platformService.IsCertificateInstalled(certificate2);
         }

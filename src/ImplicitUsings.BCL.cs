@@ -74,7 +74,7 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 #endif
 
-#if WINDOWS && !APP_HOST
+#if WINDOWS && !APP_HOST && !APP_REVERSE_PROXY
 global using System.Management;
 #endif
 

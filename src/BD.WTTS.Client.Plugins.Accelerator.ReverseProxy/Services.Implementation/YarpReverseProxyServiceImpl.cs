@@ -13,10 +13,10 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
     WebApplication? app;
 
     public YarpReverseProxyServiceImpl(
-        IPlatformService platformService,
-        IDnsAnalysisService dnsAnalysis) : base(platformService, dnsAnalysis)
+        IDnsAnalysisService dnsAnalysis,
+        ICertificateManager certificateManager) : base(dnsAnalysis)
     {
-        CertificateManager = new YarpCertificateManagerImpl(platformService, this);
+        CertificateManager = certificateManager;
     }
 
     public override ICertificateManager CertificateManager { get; }
@@ -85,7 +85,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         }
     }
 
-    public async Task StopProxy()
+    public async ValueTask StopProxy()
     {
         if (app == null) return;
         await app.StopAsync();

@@ -62,6 +62,24 @@
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\IReverseProxyService.Constants.cs">
+			<LinkBase>Services</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Enums\ExternalProxyType.cs">
+			<LinkBase>Enums</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Enums\ReverseProxyCommand.cs">
+			<LinkBase>Enums</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Models\IReverseProxyPacket.cs">
+			<LinkBase>Models</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Models\FlowStatistics.cs">
+			<LinkBase>Models</LinkBase>
+		</Compile>
+	</ItemGroup>
+
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
 	</ItemGroup>

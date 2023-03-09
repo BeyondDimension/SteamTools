@@ -6,13 +6,9 @@ namespace BD.WTTS.Services.Implementation;
 
 abstract class ReverseProxyServiceImpl
 {
-    protected readonly IPlatformService platformService;
-
     public ReverseProxyServiceImpl(
-        IPlatformService platformService,
         IDnsAnalysisService dnsAnalyses)
     {
-        this.platformService = platformService;
         DnsAnalysis = dnsAnalyses;
     }
 
@@ -48,7 +44,7 @@ abstract class ReverseProxyServiceImpl
     public int ProxyPort { get; set; } = 26501;
 
     /// <inheritdoc cref="IReverseProxyService.ProxyIp"/>
-    public IPAddress ProxyIp { get; set; } = IPAddress.Any;
+    public IPAddress ProxyIp { get; set; } = IReverseProxySettings.DefaultProxyIp;
 
     /// <inheritdoc cref="IReverseProxyService.ProxyMode"/>
     public ProxyMode ProxyMode { get; set; }
@@ -91,9 +87,6 @@ abstract class ReverseProxyServiceImpl
     /// </summary>
     /// <returns></returns>
     protected int GetRandomUnusedPort() => SocketHelper.GetRandomUnusedPort(ProxyIp);
-
-    /// <inheritdoc cref="IReverseProxyService.PortInUse(int)"/>
-    public bool PortInUse(int port) => SocketHelper.IsUsePort(ProxyIp, port);
 
     /// <inheritdoc cref="IReverseProxyService.WirtePemCertificateToGoGSteamPlugins"/>
     public bool WirtePemCertificateToGoGSteamPlugins()
