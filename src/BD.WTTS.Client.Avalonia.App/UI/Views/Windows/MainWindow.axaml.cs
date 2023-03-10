@@ -1,8 +1,9 @@
 using FluentAvalonia.UI;
+using FluentAvalonia.UI.Windowing;
 
 namespace BD.WTTS.UI.Views.Windows;
 
-public sealed partial class MainWindow : Window
+public sealed partial class MainWindow : AppWindow
 {
     public MainWindow()
     {
