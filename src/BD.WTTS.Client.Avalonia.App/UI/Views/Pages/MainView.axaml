@@ -2,7 +2,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:wnd="using:FluentAvalonia.UI.Windowing"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BD.WTTS.UI.Views.Pages.MainView">
-  Welcome to Avalonia!
+	<Grid RowDefinitions="Auto, *">
+
+		<Grid Name="TitleBarHost" ColumnDefinitions="Auto,Auto,*" Background="Transparent">
+			<Image Margin="12 4"
+                   IsHitTestVisible="False"
+                   Width="18" Height="18"
+                   DockPanel.Dock="Left"
+                   Name="WindowIcon"/>
+
+			<TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                       FontSize="12"
+                       IsHitTestVisible="False"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"/>
+
+			<Border Grid.Column="2" Padding="6">
+				<AutoCompleteBox Name="SearchBox"
+                                 MaxWidth="500"
+                                 Watermark="Search"
+                                 Classes="SampleApp"
+                                 Items="{Binding MainSearchItems}"
+                                 wnd:AppWindow.AllowInteractionInTitleBar="True">
+				</AutoCompleteBox>
+			</Border>
+		</Grid>
+
+		<ui:NavigationView Classes="SampleAppNav"
+                           AlwaysShowHeader="False"
+                           PaneDisplayMode="Left"
+                           IsPaneOpen="True"
+                           Grid.RowSpan="2"
+                           Name="NavView"
+                           IsSettingsVisible="False"
+                           IsBackEnabled="{Binding #FrameView.CanGoBack}">
+			<Panel>
+				<ui:Frame Name="FrameView"/>
+			</Panel>
+		</ui:NavigationView>
+
+	</Grid>
 </UserControl>
