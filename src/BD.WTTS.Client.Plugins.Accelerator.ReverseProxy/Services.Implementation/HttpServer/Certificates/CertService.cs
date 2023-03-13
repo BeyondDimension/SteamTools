@@ -78,7 +78,7 @@ sealed class CertService
             var validTo = DateTime.Today.AddYears(1);
 
             entry.SetAbsoluteExpiration(validTo);
-            return CertGenerator.GenerateByCaPfx(domains, CertGenerator.KEY_SIZE_BITS, validFrom, validTo, CaPfxFilePath);
+            return CertGenerator.GenerateByCaPfx(domains, validFrom, validTo, CaPfxFilePath);
         }
     }
 

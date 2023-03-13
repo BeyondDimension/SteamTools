@@ -35,18 +35,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="..\BD.WTTS.Client\Constants\CertificateConstants.cs">
-			<LinkBase>Constants</LinkBase>
-		</Compile>
-		<Compile Include="..\BD.WTTS.Client\Services\Certificate\ICertificateManager.cs">
-			<LinkBase>Services\Certificate</LinkBase>
-		</Compile>
-		<Compile Include="..\BD.WTTS.Client\Services.Implementation\Certificate\CertGenerator.cs">
-			<LinkBase>Services.Implementation\HttpServer\Certificates</LinkBase>
-		</Compile>
-		<Compile Include="..\BD.WTTS.Client\Services\Net\IDnsAnalysisService.cs">
-			<LinkBase>Services\Net</LinkBase>
-		</Compile>
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator\Enums\ProxyMode.cs">
 			<LinkBase>Enums</LinkBase>
 		</Compile>
@@ -56,7 +44,7 @@
 		<!-- PackageReference -->
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.WTTS.MicroServices.Primitives.ViewModels" />
-		<PackageReference Include="Portable.BouncyCastle" />
+		<!--<PackageReference Include="Portable.BouncyCastle" />-->
 		<PackageReference Include="DNS" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="System.Linq.Async" />
@@ -74,6 +62,10 @@
 		<Compile Include="..\ImplicitUsings.AspNetCore.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_WINDOWS.props" />

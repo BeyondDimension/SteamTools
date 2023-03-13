@@ -1,7 +1,8 @@
 # Steam++ v3.X Source Code
 
+### 🏗️ 项目结构
+TODO
 <!-- TODO
-## 🏗️ 项目结构
 - Common **通用基础类库**
     - Common.AreaLib **地区数据**
     - Common.ClientLib **适用于客户端的通用基础类库**
@@ -65,7 +66,7 @@
     - ~~ST.Client.Desktop.Avalonia.Demo.App~~ **桌面客户端(UI演示)**
     - ST.Client.Maui.App **MAUI 客户端**
 
-## 🗂️ 命名空间/文件夹
+### 🗂️ 命名空间/文件夹
 - ~~中划线~~ 表示此文件夹下的命名空间使用上一级的值
 - Properties
     - AssemblyInfo.cs **程序集信息**
@@ -108,12 +109,12 @@ namespace Microsoft.Extensions.DependencyInjection
 </pre>
 -->
 
-## 自定义 .NET Host 文档
+### 自定义 .NET Host 文档
 - [编写自定义 .NET 主机以从本机代码控制 .NET 运行时](https://learn.microsoft.com/zh-cn/dotnet/core/tutorials/netcore-hosting)  
 - [.NET 分发打包](https://learn.microsoft.com/zh-cn/dotnet/core/distribution-packaging)  
 - [环境变量 - 指定 .NET 运行时的位置](https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet-environment-variables#dotnet_root-dotnet_rootx86)  
 
-## 程序目录结构
+### 程序目录结构
 - dotnet 共享运行时，删除后将使用已安装的运行时，此目录参考 ```C:\Program Files\dotnet```，可自行升级运行库小版本号，二进制兼容
 	- host
 		- fxr
@@ -155,7 +156,7 @@ namespace Microsoft.Extensions.DependencyInjection
 - Steam++.exe 主程序
 - Steam++.Uninstall.exe 卸载程序(WinForms?AOT?)
 
-## 应用分发(安装包程序方案)
+### 应用分发(安装包程序方案)
 - Steam 软件商店
     - 待上架
     - 对接 API 加入 CI/CD 自动化
@@ -186,7 +187,7 @@ namespace Microsoft.Extensions.DependencyInjection
     - 手机厂商应用商店
         - TODO
 
-## 📁 存储空间
+### 📁 存储空间
 - AppData
     - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalState```
     - Windows ```\AppData``` or ```%LocalAppData%\Steam++```

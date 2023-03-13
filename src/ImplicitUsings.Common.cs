@@ -8,23 +8,27 @@
 #if !APP_HOST
 #if !NETFRAMEWORK
 
+#if !__NOT_IMPORT_COMMON_PRIMITIVES__
 global using BD.Common;
 global using BD.Common.Columns;
 global using BD.Common.Enums;
+#endif
 
 #if _IMPORT_COMMON_IDENTITY__
 global using BD.Common.Identity;
 global using BD.Common.Identity.Abstractions;
 #endif
 
+#if !__NOT_IMPORT_COMMON_SERVICES__
 global using BD.Common.Services;
 global using BD.Common.Services.Implementation;
+#endif
 
 #if _IMPORT_COMMON_MIDDLEWARE__
 global using BD.Common.Middleware;
 #endif
 
-#if ANDROID
+#if !__NOT_IMPORT_COMMON_PRIMITIVES__ && ANDROID
 global using Toast = BD.Common.Toast;
 #endif
 

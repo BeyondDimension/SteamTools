@@ -5,7 +5,9 @@
 #pragma warning disable SA1209 // Using alias directives should be placed after other using directives
 #pragma warning disable SA1211 // Using alias directives should be ordered alphabetically by alias name
 
+#if !__NOT_IMPORT_COMMON_SERVICES__
 global using BD.Common.Services;
+#endif
 
 global using BD.WTTS.Services;
 #if !MVVM_VM

@@ -149,7 +149,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Upda
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.AppHost", "src\BD.WTTS.Client.AppHost\BD.WTTS.Client.AppHost.csproj", "{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "src\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj", "{521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "src\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj", "{521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Client.IPC", "src\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj", "{407BE171-FB57-4C39-BF26-7FAF4450635F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -269,6 +271,10 @@ Global
 		{521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{407BE171-FB57-4C39-BF26-7FAF4450635F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{407BE171-FB57-4C39-BF26-7FAF4450635F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{407BE171-FB57-4C39-BF26-7FAF4450635F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{407BE171-FB57-4C39-BF26-7FAF4450635F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -310,6 +316,7 @@ Global
 		{8DED0728-D54E-4A1E-B1D1-3740EC04ABAA} = {A5828819-62AB-4B03-A083-8B6ED4915AA3}
 		{AC034643-EC5B-4BCD-BD1A-007FC3C50DF4} = {5541B406-4A9A-4AC8-AA77-CE14E133DB80}
 		{521D4676-8E8A-4A4C-9835-B09FF4AFFBBC} = {A5828819-62AB-4B03-A083-8B6ED4915AA3}
+		{407BE171-FB57-4C39-BF26-7FAF4450635F} = {CE475939-6363-4144-B18F-2F91CC297E91}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {567F588F-E95C-4286-8B30-DB3B2200221C}
