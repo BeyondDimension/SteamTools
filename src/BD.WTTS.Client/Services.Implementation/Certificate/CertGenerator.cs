@@ -26,7 +26,7 @@ namespace BD.WTTS.Services.Implementation;
 /// </summary>
 public static class CertGenerator
 {
-    const string X500DistinguishedNameValue = $"C=CN/O=BeyondDimension/OU=Technical Department/CN={CertificateConstants.RootCertificateName}";
+    const string X500DistinguishedNameValue = $"C=CN, O=BeyondDimension, OU=Technical Department, CN={CertificateConstants.RootCertificateName}";
 
     const string tlsServerOid = "1.3.6.1.5.5.7.3.1";
     const string tlsClientOid = "1.3.6.1.5.5.7.3.2";
@@ -44,10 +44,10 @@ public static class CertGenerator
     /// <param name="caPublicCerPath"></param>
     /// <param name="caPrivateKeyPath"></param>
     public static void GenerateBySelf(
-        IEnumerable<string> extraDnsNames,
+        IEnumerable<string>? extraDnsNames,
         //int keySizeBits,
-        DateTime notBefore,
-        DateTime notAfter,
+        DateTimeOffset notBefore,
+        DateTimeOffset notAfter,
         string caPublicCerPath,
         string? caPrivateKeyPath)
     {
@@ -88,10 +88,10 @@ public static class CertGenerator
     /// <param name="password"></param>
     /// <returns></returns>
     public static X509Certificate2 GenerateBySelfPfx(
-        IEnumerable<string> extraDnsNames,
+        IEnumerable<string>? extraDnsNames,
         //int keySizeBits,
-        DateTime notBefore,
-        DateTime notAfter,
+        DateTimeOffset notBefore,
+        DateTimeOffset notAfter,
         string? caPfxPath,
         string? password = default)
     {
@@ -129,7 +129,7 @@ public static class CertGenerator
     /// <returns></returns>
     /// <exception cref="FileNotFoundException"></exception>
     public static X509Certificate2 GenerateByCa(
-        IEnumerable<string> extraDnsNames,
+        IEnumerable<string>? extraDnsNames,
         //int keySizeBits,
         DateTimeOffset notBefore,
         DateTimeOffset notAfter,
@@ -176,7 +176,7 @@ public static class CertGenerator
     /// <returns></returns>
     /// <exception cref="FileNotFoundException"></exception>
     public static X509Certificate2 GenerateByCaPfx(
-        IEnumerable<string> extraDnsNames,
+        IEnumerable<string>? extraDnsNames,
         DateTimeOffset notBefore,
         DateTimeOffset notAfter,
         string caPfxPath,
