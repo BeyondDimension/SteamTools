@@ -2,7 +2,8 @@
     x:Class="BD.WTTS.UI.App"
 	xmlns:sty="using:FluentAvalonia.Styling"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
     <Application.Styles>
 		<sty:FluentAvaloniaTheme PreferUserAccentColor="True" PreferSystemTheme="True" />
     </Application.Styles>

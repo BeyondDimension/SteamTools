@@ -31,73 +31,6 @@ static partial class Program
         GlobalDllImportResolver.MoveFiles();
 #endif
 
-        // 监听当前应用程序域的程序集加载
-        AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
-        static void CurrentDomain_AssemblyLoad(object? sender, AssemblyLoadEventArgs args)
-        {
-#if DEBUG
-            Console.WriteLine($"loadasm: {args.LoadedAssembly}, location: {args.LoadedAssembly.Location}");
-#endif
-            // 使用 native 文件夹导入解析本机库
-            try
-            {
-                NativeLibrary.SetDllImportResolver(args.LoadedAssembly, GlobalDllImportResolver.Delegate);
-            }
-            catch
-            {
-                // ArgumentNullException assembly 或 resolver 为 null。
-                // ArgumentException 已为此程序集设置解析程序。
-                // 此每程序集解析程序是第一次尝试解析此程序集启动的本机库加载。
-                // 此方法的调用方应仅为自己的程序集注册解析程序。
-                // 每个程序集只能注册一个解析程序。 尝试注册第二个解析程序失败并出现 InvalidOperationException。
-                // https://learn.microsoft.com/zh-cn/dotnet/api/system.runtime.interopservices.nativelibrary.setdllimportresolver
-            }
-        }
-
-        AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-        static Assembly? CurrentDomain_AssemblyResolve(object? sender, ResolveEventArgs args)
-        {
-            try
-            {
-                var fileNameWithoutEx = args.Name.Split(',', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-                if (!string.IsNullOrEmpty(fileNameWithoutEx))
-                {
-                    var isResources = fileNameWithoutEx.EndsWith(".resources");
-                    if (isResources)
-                    {
-                        // System.Composition.Convention.resources
-                        // 已包含默认资源，通过反射调用已验证成功
-                        // typeof(ConventionBuilder).Assembly.GetType("System.SR").GetProperty("ArgumentOutOfRange_InvalidEnumInSet", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null)
-                        return null;
-                    }
-                    // 当前根目录下搜索程序集
-                    var filePath = Path.Combine(AppContext.BaseDirectory, $"{fileNameWithoutEx}.dll");
-                    if (File.Exists(filePath)) return Assembly.LoadFile(filePath);
-                    // 当前根目录下独立框架运行时中搜索程序集
-                    filePath = Path.Combine(AppContext.BaseDirectory, "..", "dotnet", "shared", "Microsoft.AspNetCore.App", Environment.Version.ToString(), $"{fileNameWithoutEx}.dll");
-                    if (File.Exists(filePath)) return Assembly.LoadFile(filePath);
-                    // 当前已安装的运行时
-                    filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "dotnet", "shared", "Microsoft.AspNetCore.App", Environment.Version.ToString(), $"{fileNameWithoutEx}.dll");
-                    if (File.Exists(filePath)) return Assembly.LoadFile(filePath);
-                    var dotnet_root = Environment.GetEnvironmentVariable("DOTNET_ROOT");
-                    if (!string.IsNullOrWhiteSpace(dotnet_root) && Directory.Exists(dotnet_root))
-                    {
-                        filePath = Path.Combine(dotnet_root, "shared", "Microsoft.AspNetCore.App", Environment.Version.ToString(), $"{fileNameWithoutEx}.dll");
-                        if (File.Exists(filePath)) return Assembly.LoadFile(filePath);
-                    }
-
-                }
-            }
-            catch
-            {
-
-            }
-#if DEBUG
-            Console.WriteLine($"asm-resolve fail, name: {args.Name}");
-#endif
-            return null;
-        }
-
         // 注册 MemoryPack 某些自定义类型的格式化，如 Cookie, IPAddress, RSAParameters
         MemoryPackFormatterProvider.Register<MemoryPackFormatters>();
 
@@ -208,7 +141,10 @@ static partial class Program
         {
             UseWgl = useWgl,
             AllowEglInitialization = useGpu,
+            UseWindowsUIComposition = true,
+            CompositionBackdropCornerRadius = 8f,
         };
+
         builder.With(options);
 
         var skiaOptions = new SkiaOptions

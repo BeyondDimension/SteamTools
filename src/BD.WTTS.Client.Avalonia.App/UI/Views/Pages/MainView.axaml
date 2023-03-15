@@ -4,15 +4,126 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+             xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BD.WTTS.UI.Views.Pages.MainView">
-	<Grid RowDefinitions="Auto, *">
+	<UserControl.Styles>
+		<Style Selector="ui|NavigationView.SampleAppNav">
+			<Setter Property="IsPaneToggleButtonVisible" Value="False" />
+			<Setter Property="OpenPaneLength" Value="72" />
+		</Style>
+		<Style Selector="ui|NavigationView.SampleAppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
+			<Setter Property="Margin" Value="0 40 0 0" />
+		</Style>
 
+		<Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter">
+			<Setter Property="Width" Value="72" />
+			<Setter Property="MinHeight" Value="60" />
+			<Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Name="LayoutRoot"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Margin="4 2"
+                            TemplatedControl.IsTemplateFocusTarget="True">
+						<Panel>
+							<Panel HorizontalAlignment="Left"
+                                   VerticalAlignment="Center">
+
+								<Border Name="SelectionIndicator"
+                                        Background="{DynamicResource NavigationViewSelectionIndicatorForeground}"
+                                        Width="3"
+                                        Opacity="0"
+                                        VerticalAlignment="Center"
+                                        Height="20"
+                                        CornerRadius="{StaticResource ControlCornerRadius}"/>
+							</Panel>
+
+
+							<DockPanel>
+								<ContentPresenter Name="ContentPresenter"
+                                                  Grid.Row="1"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  Content="{TemplateBinding Content}"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Bottom"
+                                                  FontSize="10"
+                                                  Padding="0 4"
+                                                  Margin="0 -15 0 3"
+                                                  DockPanel.Dock="Bottom">
+									<ContentPresenter.Styles>
+										<Style Selector="TextBlock">
+											<Setter Property="TextWrapping" Value="Wrap" />
+										</Style>
+									</ContentPresenter.Styles>
+								</ContentPresenter>
+
+								<Viewbox Name="IconBox"
+                                         Height="28"
+										 HorizontalAlignment="Center"
+                                         VerticalAlignment="Center">
+									<ContentPresenter Name="Icon"
+                                                      Content="{Binding TemplateSettings.Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+								</Viewbox>
+
+							</DockPanel>
+						</Panel>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		
+		<Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#ContentPresenter">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+		</Style>
+		<Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+		</Style>
+
+		<Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+		</Style>
+		<Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#Icon">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+		</Style>
+
+		<Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
+			<Setter Property="IsVisible" Value="False" />
+		</Style>
+		<Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
+			<Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+		</Style>
+
+		<!-- AutoCompleteBox -->
+		<Style Selector="AutoCompleteBox.SampleApp /template/ TextBox#PART_TextBox">
+			<Setter Property="InnerRightContent">
+				<Template>
+					<StackPanel Orientation="Horizontal">
+						<Button Content="&#xE8BB;"
+                                   FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                   Theme="{StaticResource TransparentButton}"
+                                   Command="{Binding $parent[TextBox].Clear}"
+                                   IsVisible="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+						<Button Content="&#xE721;"
+                                   FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                   Theme="{StaticResource TransparentButton}"
+                                   Command="{Binding $parent[TextBox].Clear}"
+                                   IsHitTestVisible="False"/>
+					</StackPanel>
+				</Template>
+			</Setter>
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid RowDefinitions="Auto, *">
 		<Grid Name="TitleBarHost" ColumnDefinitions="Auto,Auto,*" Background="Transparent">
 			<Image Margin="12 4"
                    IsHitTestVisible="False"
                    Width="18" Height="18"
                    DockPanel.Dock="Left"
+				   Source="/UI/Assets/Icon.ico"
                    Name="WindowIcon"/>
 
 			<TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
@@ -40,6 +151,54 @@
                            Name="NavView"
                            IsSettingsVisible="False"
                            IsBackEnabled="{Binding #FrameView.CanGoBack}">
+			<ui:NavigationView.Resources>
+				<!-- Override this -->
+				<Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+			</ui:NavigationView.Resources>
+			<ui:NavigationView.MenuItems>
+				<ui:NavigationViewItem Content="Home" Classes="SampleAppNav" >
+					<ui:NavigationViewItem.IconSource>
+						<ui:SymbolIconSource Symbol="Home"/>
+					</ui:NavigationViewItem.IconSource>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Content="Acc" Classes="SampleAppNav" >
+					<ui:NavigationViewItem.IconSource>
+						<ui:SymbolIconSource Symbol="Wifi4"/>
+					</ui:NavigationViewItem.IconSource>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Content="Switch" Classes="SampleAppNav" >
+					<ui:NavigationViewItem.IconSource>
+						<ui:SymbolIconSource Symbol="Switch"/>
+					</ui:NavigationViewItem.IconSource>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Content="Library" Classes="SampleAppNav" >
+					<ui:NavigationViewItem.IconSource>
+						<ui:SymbolIconSource Symbol="Library"/>
+					</ui:NavigationViewItem.IconSource>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Content="Tools" Classes="SampleAppNav" >
+					<ui:NavigationViewItem.IconSource>
+						<ui:SymbolIconSource Symbol="More"/>
+					</ui:NavigationViewItem.IconSource>
+				</ui:NavigationViewItem>
+			</ui:NavigationView.MenuItems>
+			<ui:NavigationView.FooterMenuItems>
+				<ui:NavigationViewItem Content="Message" Classes="SampleAppNav" >
+					<ui:NavigationViewItem.IconSource>
+						<ui:SymbolIconSource Symbol="Message"/>
+					</ui:NavigationViewItem.IconSource>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Content="User" Classes="SampleAppNav" >
+					<ui:NavigationViewItem.IconSource>
+						<ui:SymbolIconSource Symbol="People"/>
+					</ui:NavigationViewItem.IconSource>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Content="Settings" Classes="SampleAppNav" >
+					<ui:NavigationViewItem.IconSource>
+						<ui:SymbolIconSource Symbol="Settings"/>
+					</ui:NavigationViewItem.IconSource>
+				</ui:NavigationViewItem>
+			</ui:NavigationView.FooterMenuItems>
 			<Panel>
 				<ui:Frame Name="FrameView"/>
 			</Panel>

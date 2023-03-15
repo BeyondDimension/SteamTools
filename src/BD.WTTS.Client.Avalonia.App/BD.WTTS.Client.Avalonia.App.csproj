@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<AssemblyName>Steam++</AssemblyName>
@@ -28,6 +28,14 @@
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="UI\Assets\Icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="UI\Assets\Icon.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
@@ -138,7 +146,6 @@
 		<Folder Include="UI\Views\Pages\ArchiSteamFarm\" />
 		<Folder Include="UI\Views\Pages\GameTools\" />
 		<Folder Include="UI\Styles\" />
-		<Folder Include="UI\Assets\" />
 		<Folder Include="Converters\" />
 		<Folder Include="UI\ViewModels\" />
 		<Folder Include="Properties\" />
