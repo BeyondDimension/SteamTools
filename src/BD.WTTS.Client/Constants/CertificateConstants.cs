@@ -10,6 +10,8 @@ public static class CertificateConstants
     /// </summary>
     public const string CertificateName = "SteamTools";
 
+    public const string RootCertificateName = $"{CertificateName} Certificate";
+
     /// <summary>
     /// PFX 证书文件名
     /// </summary>

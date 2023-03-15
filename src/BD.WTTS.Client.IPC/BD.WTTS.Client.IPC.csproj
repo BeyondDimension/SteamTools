@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>BD.WTTS</RootNamespace>
+		<DefineConstants>LIB_CLIENT_IPC;__NOT_IMPORT_COMMON_SERVICES__;__NOT_IMPORT_COMMON_PRIMITIVES__;__NOT_IMPORT_CONFIGURATION__;$(DefineConstants)</DefineConstants>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\AssemblyInfo.Constants.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<!-- ImplicitUsings -->
+		<Compile Include="..\ImplicitUsings.MessagePack.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.JsonProperty.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Services.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.MSEX.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Nito.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\BD.WTTS.Client\Constants\CertificateConstants.cs">
+			<LinkBase>Constants</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Services\Certificate\ICertificateManager.cs">
+			<LinkBase>Services\Certificate</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Services\Net\IDnsAnalysisService.cs">
+			<LinkBase>Services\Net</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- PackageReference -->
+		<PackageReference Include="BD.Common" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NET7_WITH_ALL.props" />
+
+</Project>

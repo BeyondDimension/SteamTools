@@ -1,3 +1,5 @@
+using MessagePack;
+
 namespace BD.WTTS.Services;
 
 /// <summary>
@@ -191,6 +193,7 @@ public sealed partial class ReverseProxySettings : IReverseProxySettings
     public int ProxyPort { get; set; }
 
     [MP2Key(5)]
+    [MemoryPackAllowSerialize]
     [MessagePackFormatter(typeof(IPAddressFormatter))]
     public IPAddress ProxyIp { get; set; } = IReverseProxySettings.DefaultProxyIp;
 
@@ -231,6 +234,7 @@ public sealed partial class ReverseProxySettings : IReverseProxySettings
     public string? TwoLevelAgentPassword { get; set; }
 
     [MP2Key(18)]
+    [MemoryPackAllowSerialize]
     [MessagePackFormatter(typeof(IPAddressFormatter))]
     public IPAddress? ProxyDNS { get; set; }
 }

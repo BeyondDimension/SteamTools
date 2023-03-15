@@ -28,7 +28,7 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
 
         var rootCertificateName = ICertificateManager.RootCertificateName;
 
-        RootCertificate = CertGenerator.GenerateBySelfPfx(new[] { rootCertificateName }, CertGenerator.KEY_SIZE_BITS, validFrom, validTo, Interface.PfxFilePath, Interface.PfxPassword);
+        RootCertificate = CertGenerator.GenerateBySelfPfx(new[] { rootCertificateName }, validFrom, validTo, Interface.PfxFilePath, Interface.PfxPassword);
 
         return RootCertificate != null;
     }
