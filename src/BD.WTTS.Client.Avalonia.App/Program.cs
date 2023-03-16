@@ -27,8 +27,6 @@ static partial class Program
         Console.WriteLine($"Directory.GetCurrentDirectory: {Directory.GetCurrentDirectory()}");
         Console.WriteLine($"CurrentThread.ManagedThreadId: {Environment.CurrentManagedThreadId}");
         Console.WriteLine($"CurrentThread.ApartmentState: {Thread.CurrentThread.GetApartmentState()}");
-        // 调试时移动本机库到 native，通常指定了单个 RID(RuntimeIdentifier) 后本机库将位于程序根目录上否则将位于 runtimes 文件夹中
-        GlobalDllImportResolver.MoveFiles();
 #endif
 
         // 注册 MemoryPack 某些自定义类型的格式化，如 Cookie, IPAddress, RSAParameters

@@ -7,7 +7,9 @@ static partial class Program
     {
         public static Host Instance { get; } = new();
 
-        public App App { get; } = new();
+        readonly Lazy<App> mApp = new(() => new());
+
+        public App App => mApp.Value;
 
         Host()
         {

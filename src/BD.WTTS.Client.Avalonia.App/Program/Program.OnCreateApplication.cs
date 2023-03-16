@@ -14,6 +14,11 @@ static partial class Program
         if (isOnCreateAppExecuting) return;
         isOnCreateAppExecuting = true;
 
+#if DEBUG
+        // 调试时移动本机库到 native，通常指定了单个 RID(RuntimeIdentifier) 后本机库将位于程序根目录上否则将位于 runtimes 文件夹中
+        GlobalDllImportResolver.MoveFiles();
+#endif
+
         // 监听当前应用程序域的程序集加载
         AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
         static void CurrentDomain_AssemblyLoad(object? sender, AssemblyLoadEventArgs args)
