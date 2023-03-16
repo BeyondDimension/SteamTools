@@ -87,14 +87,11 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
                                 window.Close();
                             }
                         });
-                    if (dialogWindowViewModel.Cancel == null)
+                    dialogWindowViewModel.Cancel ??= ReactiveCommand.Create(() =>
                     {
-                        dialogWindowViewModel.Cancel = ReactiveCommand.Create(() =>
-                        {
-                            dialogWindowViewModel.DialogResult = false;
-                            window.Close();
-                        });
-                    }
+                        dialogWindowViewModel.DialogResult = false;
+                        window.Close();
+                    });
                 }
                 if (viewModel == null)
                 {

@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{1E
 	ProjectSection(SolutionItems) = preProject
 		doc\download-guide.en.md = doc\download-guide.en.md
 		doc\download-guide.md = doc\download-guide.md
+		doc\openwrt.md = doc\openwrt.md
 		doc\release-keylol.md = doc\release-keylol.md
 	EndProjectSection
 EndProject
@@ -151,7 +152,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.AppHost", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "src\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj", "{521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Client.IPC", "src\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj", "{407BE171-FB57-4C39-BF26-7FAF4450635F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.IPC", "src\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj", "{407BE171-FB57-4C39-BF26-7FAF4450635F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

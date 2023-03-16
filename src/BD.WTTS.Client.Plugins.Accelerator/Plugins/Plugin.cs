@@ -53,9 +53,13 @@ sealed class Plugin : PluginBase<Plugin>
         cfg.AddProfile<AcceleratorAutoMapperProfile>();
     }
 
-    public override void OnUnhandledException(Exception ex, string name, bool? isTerminating = null)
+    public override async void OnUnhandledException(Exception ex, string name, bool? isTerminating = null)
     {
-        Ioc.Get_Nullable<IReverseProxyService>()?.StopProxy();
+        IReverseProxyService reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
+        if (reverseProxyService != null)
+        {
+            await reverseProxyService.StartProxy();
+        }
         ProxyService.OnExitRestoreHosts();
     }
 }

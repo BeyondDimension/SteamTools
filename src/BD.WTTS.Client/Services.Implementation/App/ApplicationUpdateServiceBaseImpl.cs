@@ -388,9 +388,9 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
                     #endregion
 
                     #region 根据哈希值匹配已有文件
-                    if (hashFiles.ContainsKey(hashFileKey))
+                    if (hashFiles.TryGetValue(hashFileKey, out var value))
                     {
-                        var hashFilePath = hashFiles[hashFileKey];
+                        var hashFilePath = value;
                         File.Copy(hashFilePath, fileInfo.FullName);
                         goto for_end;
                     }
