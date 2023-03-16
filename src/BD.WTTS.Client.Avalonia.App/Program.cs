@@ -120,9 +120,17 @@ static partial class Program
         }
 
         var builder = AppBuilder.Configure(() => Host.Instance.App)
-               .UsePlatformDetect2()
-               .LogToTrace()
-               .UseReactiveUI();
+#if WINDOWS
+            .UseWin32()
+#elif MACCATALYST || MACOS
+            .UseAvaloniaNative()
+#elif LINUX
+            .UseX11()
+#else
+#endif
+            .UseSkia()
+            .LogToTrace()
+            .UseReactiveUI();
 
         var useGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value;
 #if MACOS
