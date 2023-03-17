@@ -146,9 +146,7 @@
 		<Folder Include="UI\Views\Pages\ArchiSteamFarm\" />
 		<Folder Include="UI\Views\Pages\GameTools\" />
 		<Folder Include="Converters\" />
-		<Folder Include="UI\ViewModels\" />
 		<Folder Include="Properties\" />
-		<Folder Include="UI\ViewModels\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />

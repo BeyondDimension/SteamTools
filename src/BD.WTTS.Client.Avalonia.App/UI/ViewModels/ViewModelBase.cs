@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BD.WTTS.UI.Views.Controls;
+namespace BD.WTTS.UI.ViewModels;
 
-class Class1
+class ViewModelBase
 {
 }
