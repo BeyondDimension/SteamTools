@@ -47,16 +47,19 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
 
     IFontManagerImpl IFontManagerImpl2.Impl => impl;
 
-    string IFontManagerImpl2.DefaultFontFamilyName => ResourceService.DefaultFontFamilyName;
+    string IFontManagerImpl2.DefaultFontFamilyName => platformService.GetDefaultFontFamily();
 
     internal static bool IsDefaultFontFamilyName(string name)
+        => IsDefaultFontFamilyName(IPlatformService.Instance, name);
+
+    internal static bool IsDefaultFontFamilyName(IPlatformService platformService, string name)
     {
         if (string.IsNullOrWhiteSpace(name)) return true;
         if (string.Equals(name, IFontManager.KEY_Default, StringComparison.OrdinalIgnoreCase))
             return true;
         if (string.Equals(name, IFontManager.KEY_WinUI, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (new FontFamily(ResourceService.DefaultFontFamilyName).FamilyNames.Contains(name))
+        if (new FontFamily(platformService.GetDefaultFontFamily()).FamilyNames.Contains(name))
             return true;
         return name switch
         {
@@ -68,8 +71,8 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
     Typeface IFontManagerImpl2.OnCreateGlyphTypeface(Typeface typeface)
     {
         var name = typeface.FontFamily.Name;
-        if (IsDefaultFontFamilyName(name))
-            return new Typeface(ResourceService.DefaultFontFamilyName);
+        if (IsDefaultFontFamilyName(platformService, name))
+            return new Typeface(platformService.GetDefaultFontFamily());
         return typeface;
     }
 
@@ -77,7 +80,7 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
     {
         var name = IPlatformService.Instance.GetDefaultFontFamily();
         if (string.IsNullOrEmpty(name))
-            return new FontFamily(ResourceService.DefaultFontFamilyName);
+            return FontFamily.Default;
         return new FontFamily(name);
     });
 

@@ -20,10 +20,9 @@ static partial class Program
 #endif
 
         // 监听当前应用程序域的程序集加载
-        AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
-        static void CurrentDomain_AssemblyLoad(object? sender, AssemblyLoadEventArgs args)
-            => CurrentDomain_AssemblyLoad2(args.LoadedAssembly);
-        static void CurrentDomain_AssemblyLoad2(Assembly loadedAssembly)
+        AppDomain.CurrentDomain.AssemblyLoad += (_, args)
+            => CurrentDomain_AssemblyLoad(args.LoadedAssembly);
+        static void CurrentDomain_AssemblyLoad(Assembly loadedAssembly)
         {
 #if DEBUG
             Console.WriteLine($"loadasm: {loadedAssembly}, location: {loadedAssembly.Location}");
@@ -45,12 +44,9 @@ static partial class Program
         }
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         foreach (var assembly in assemblies)
-        {
-            CurrentDomain_AssemblyLoad2(assembly);
-        }
+            CurrentDomain_AssemblyLoad(assembly);
 
-        AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-        static Assembly? CurrentDomain_AssemblyResolve(object? sender, ResolveEventArgs args)
+        AppDomain.CurrentDomain.AssemblyResolve += (_, args) =>
         {
             try
             {
@@ -91,7 +87,7 @@ static partial class Program
             Console.WriteLine($"asm-resolve fail, name: {args.Name}");
 #endif
             return null;
-        }
+        };
 
         bool isDesignMode = Design.IsDesignMode;
 
@@ -134,28 +130,6 @@ static partial class Program
         {
             if (isTrace) StartWatchTrace.Record(dispose: true);
         }
-
-#if DEBUG
-        Console.WriteLine($"RID: {GlobalDllImportResolver.RID}");
-        Console.WriteLine($"DefaultFontFamilyName: {SkiaSharp.SKTypeface.Default.FamilyName}");
-        Console.WriteLine($"DefaultFontFamilyName2: {ResourceService.DefaultFontFamilyName}");
-        Console.WriteLine("FontFamilies: ");
-        foreach (var item in SkiaSharp.SKFontManager.Default.GetFontFamilies())
-        {
-            Console.WriteLine(item);
-        }
-        Console.WriteLine($"Environment.Version: {Environment.Version}");
-        Console.WriteLine($"args: {string.Join(' ', Environment.GetCommandLineArgs())}");
-        Console.WriteLine($"AppContext.BaseDirectory: {AppContext.BaseDirectory}");
-        //Console.WriteLine($"AppDomain.CurrentDomain.BaseDirectory: {AppDomain.CurrentDomain.BaseDirectory}");
-        Console.WriteLine($"Environment.CurrentDirectory: {Environment.CurrentDirectory}");
-        Console.WriteLine($"Environment.ProcessPath: {Environment.ProcessPath}");
-        Console.WriteLine($"Environment.UserInteractive: {Environment.UserInteractive}");
-        Console.WriteLine($"Assembly.GetEntryAssembly()?.Location: {Assembly.GetEntryAssembly()?.Location}");
-        Console.WriteLine($"Directory.GetCurrentDirectory: {Directory.GetCurrentDirectory()}");
-        Console.WriteLine($"CurrentThread.ManagedThreadId: {Environment.CurrentManagedThreadId}");
-        Console.WriteLine($"CurrentThread.ApartmentState: {Thread.CurrentThread.GetApartmentState()}");
-#endif
     }
 
     /// <summary>
@@ -184,5 +158,27 @@ static partial class Program
         {
             if (isTrace) StartWatchTrace.Record(dispose: true);
         }
+
+#if DEBUG
+        Console.WriteLine($"RID: {GlobalDllImportResolver.RID}");
+        Console.WriteLine($"DefaultFontFamilyName: {SkiaSharp.SKTypeface.Default.FamilyName}");
+        Console.WriteLine($"DefaultFontFamilyName2: {IPlatformService.Instance.GetDefaultFontFamily()}");
+        Console.WriteLine("FontFamilies: ");
+        foreach (var item in SkiaSharp.SKFontManager.Default.GetFontFamilies())
+        {
+            Console.WriteLine(item);
+        }
+        Console.WriteLine($"Environment.Version: {Environment.Version}");
+        Console.WriteLine($"args: {string.Join(' ', Environment.GetCommandLineArgs())}");
+        Console.WriteLine($"AppContext.BaseDirectory: {AppContext.BaseDirectory}");
+        //Console.WriteLine($"AppDomain.CurrentDomain.BaseDirectory: {AppDomain.CurrentDomain.BaseDirectory}");
+        Console.WriteLine($"Environment.CurrentDirectory: {Environment.CurrentDirectory}");
+        Console.WriteLine($"Environment.ProcessPath: {Environment.ProcessPath}");
+        Console.WriteLine($"Environment.UserInteractive: {Environment.UserInteractive}");
+        Console.WriteLine($"Assembly.GetEntryAssembly()?.Location: {Assembly.GetEntryAssembly()?.Location}");
+        Console.WriteLine($"Directory.GetCurrentDirectory: {Directory.GetCurrentDirectory()}");
+        Console.WriteLine($"CurrentThread.ManagedThreadId: {Environment.CurrentManagedThreadId}");
+        Console.WriteLine($"CurrentThread.ApartmentState: {Thread.CurrentThread.GetApartmentState()}");
+#endif
     }
 }

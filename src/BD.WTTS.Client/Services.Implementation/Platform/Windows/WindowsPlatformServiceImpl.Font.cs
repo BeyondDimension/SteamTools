@@ -26,6 +26,15 @@ partial class WindowsPlatformServiceImpl
     {
         // (版权、许可)不能在非 Windows 上使用 微软雅黑字体，不可将字体嵌入程序
         var fontsPath = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
+
+        var fontWeightValue = (ushort)fontWeight;
+        if (fontWeightValue < 350)
+            fontWeight = FontWeight.Light;
+        else if (fontWeightValue >= 650)
+            fontWeight = FontWeight.Bold;
+        else
+            fontWeight = FontWeight.Normal;
+
         var msyh_ttc = Path.Combine(fontsPath, fontWeight switch
         {
             // Microsoft YaHei UI: The font glyphs are certified compliant with China standard GB18030-2000 with the font name Founder Lan Ting Hei. Microsoft Licensed the font glyph from Beijing Founder Electronics Co. Ltd. GB18030-2000
@@ -79,14 +88,23 @@ partial class WindowsPlatformServiceImpl
 
     static string? GetDefaultFontFamilyCore(FontWeight fontWeight) => mDefaultFontFamily[fontWeight].Value;
 
-    string? IPlatformService.GetDefaultFontFamily(FontWeight fontWeight)
+    string IPlatformService.GetDefaultFontFamily(FontWeight fontWeight)
     {
         var fontFamily = GetDefaultFontFamilyCore(fontWeight);
-        if (fontFamily == null && fontWeight != FontWeight.Normal)
+        if (string.IsNullOrWhiteSpace(fontFamily))
         {
-            return GetDefaultFontFamilyCore(FontWeight.Normal);
+            if (fontWeight != FontWeight.Normal)
+            {
+                var defaultFontFamily = GetDefaultFontFamilyCore(FontWeight.Normal);
+                if (!string.IsNullOrWhiteSpace(defaultFontFamily))
+                    return defaultFontFamily;
+            }
+            return IPlatformService.DefaultGetDefaultFontFamily();
         }
-        return fontFamily;
+        else
+        {
+            return fontFamily;
+        }
     }
 }
 #endif

@@ -12,7 +12,8 @@ static partial class Program
     internal static int Main(string[] args)
     {
 #if WINDOWS
-        if (!IsCustomEntryPoint && !CompatibilityCheck()) return 0;
+        if (!IsCustomEntryPoint && !CompatibilityCheck())
+            return 0;
 #endif
 
         // 注册 MemoryPack 某些自定义类型的格式化，如 Cookie, IPAddress, RSAParameters
@@ -47,7 +48,8 @@ static partial class Program
             if (host.IsCLTProcess) // 命令行模式
             {
                 args_clt = args.Skip(1).ToArray();
-                if (args_clt.Length == 1 && args_clt[0].Equals(command_main, StringComparison.OrdinalIgnoreCase)) return default;
+                if (args_clt.Length == 1 && args_clt[0].Equals(command_main, StringComparison.OrdinalIgnoreCase))
+                    return default;
             }
             else
             {
@@ -152,7 +154,7 @@ static partial class Program
 
         builder.With(skiaOptions);
 #else
-        throw new PlatformNotSupportedException();
+        throw new PlatformNotSupportedException("Avalonia.Desktop package was referenced on non-desktop platform or it isn't supported");
 #endif
         return builder;
     }

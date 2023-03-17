@@ -8,5 +8,9 @@ partial interface IPlatformService
     /// </summary>
     /// <param name="fontWeight"></param>
     /// <returns></returns>
-    string? GetDefaultFontFamily(FontWeight fontWeight = FontWeight.Normal) => null;
+    string GetDefaultFontFamily(FontWeight fontWeight = FontWeight.Normal)
+        => DefaultGetDefaultFontFamily();
+
+    protected static string DefaultGetDefaultFontFamily()
+        => SkiaSharp.SKTypeface.Default.FamilyName;
 }
