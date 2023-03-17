@@ -138,10 +138,8 @@
                 IsHitTestVisible="False"
                 Source="/UI/Assets/Icon.ico" />
 
-
             <StackPanel
                 Grid.Column="1"
-                Margin="12,4"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal"
                 Spacing="5">

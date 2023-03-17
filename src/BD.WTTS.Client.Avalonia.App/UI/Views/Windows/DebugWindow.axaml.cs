@@ -46,6 +46,10 @@ public partial class DebugWindow : CoreWindow
         {
             WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         };
+        this.Get<Button>("RestoreButton").Click += (sender, e) =>
+        {
+            WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        };
         this.Get<Button>("CloseButton").Click += (sender, e) =>
         {
             Close();
