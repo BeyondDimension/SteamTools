@@ -11,6 +11,14 @@ public sealed partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
+    public override void RegisterServices()
+    {
+        AvaloniaLocator.CurrentMutable
+            .Bind<IFontManagerImpl>().ToConstant(Ioc.Get<IFontManagerImpl>());
+
+        base.RegisterServices();
+    }
+
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

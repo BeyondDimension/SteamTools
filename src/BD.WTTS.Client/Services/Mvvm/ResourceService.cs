@@ -16,7 +16,14 @@ public sealed class ResourceService : ReactiveObject
 
     public static readonly IReadOnlyDictionary<string, string> Languages;
     public static readonly IReadOnlyDictionary<string, string> SteamLanguages;
-    static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(IFontManager.Instance.GetFonts);
+    static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(GetFonts);
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    static IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
+    {
+        var fonts = IFontManager.Instance.GetFonts();
+        return fonts;
+    }
 
     public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 
@@ -38,6 +45,45 @@ public sealed class ResourceService : ReactiveObject
     public static CultureInfo DefaultCurrentUICulture { get; private set; }
 
     public static bool IsChineseSimplified => Culture.IsMatch(AssemblyInfo.CultureName_SimplifiedChinese);
+
+    public static string DefaultFontFamilyName
+    {
+        get
+        {
+            try
+            {
+                return File.ReadAllText("DefaultFontFamilyName.txt");
+            }
+            catch
+            {
+
+            }
+#if LINUX
+            var culture = Culture;
+            if (culture.IsMatch(AssemblyInfo.CultureName_SimplifiedChinese))
+            {
+                return "Noto Sans CJK SC";
+            }
+            else if (culture.IsMatch("zh-HK"))
+            {
+                return "Noto Sans CJK HK";
+            }
+            else if (culture.IsMatch(AssemblyInfo.CultureName_TraditionalChinese))
+            {
+                return "Noto Sans CJK TC";
+            }
+            else if (culture.IsMatch(AssemblyInfo.CultureName_Japanese))
+            {
+                return "Noto Sans CJK JP";
+            }
+            else if (culture.IsMatch(AssemblyInfo.CultureName_Korean))
+            {
+                return "Noto Sans CJK KR";
+            }
+#endif
+            return SkiaSharp.SKTypeface.Default.FamilyName;
+        }
+    }
 
     static ResourceService()
     {

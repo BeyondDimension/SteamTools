@@ -22,14 +22,16 @@ static partial class Program
         // 监听当前应用程序域的程序集加载
         AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
         static void CurrentDomain_AssemblyLoad(object? sender, AssemblyLoadEventArgs args)
+            => CurrentDomain_AssemblyLoad2(args.LoadedAssembly);
+        static void CurrentDomain_AssemblyLoad2(Assembly loadedAssembly)
         {
 #if DEBUG
-            Console.WriteLine($"loadasm: {args.LoadedAssembly}, location: {args.LoadedAssembly.Location}");
+            Console.WriteLine($"loadasm: {loadedAssembly}, location: {loadedAssembly.Location}");
 #endif
             // 使用 native 文件夹导入解析本机库
             try
             {
-                NativeLibrary.SetDllImportResolver(args.LoadedAssembly, GlobalDllImportResolver.Delegate);
+                NativeLibrary.SetDllImportResolver(loadedAssembly, GlobalDllImportResolver.Delegate);
             }
             catch
             {
@@ -40,6 +42,11 @@ static partial class Program
                 // 每个程序集只能注册一个解析程序。 尝试注册第二个解析程序失败并出现 InvalidOperationException。
                 // https://learn.microsoft.com/zh-cn/dotnet/api/system.runtime.interopservices.nativelibrary.setdllimportresolver
             }
+        }
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        foreach (var assembly in assemblies)
+        {
+            CurrentDomain_AssemblyLoad2(assembly);
         }
 
         AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
@@ -127,6 +134,28 @@ static partial class Program
         {
             if (isTrace) StartWatchTrace.Record(dispose: true);
         }
+
+#if DEBUG
+        Console.WriteLine($"RID: {GlobalDllImportResolver.RID}");
+        Console.WriteLine($"DefaultFontFamilyName: {SkiaSharp.SKTypeface.Default.FamilyName}");
+        Console.WriteLine($"DefaultFontFamilyName2: {ResourceService.DefaultFontFamilyName}");
+        Console.WriteLine("FontFamilies: ");
+        foreach (var item in SkiaSharp.SKFontManager.Default.GetFontFamilies())
+        {
+            Console.WriteLine(item);
+        }
+        Console.WriteLine($"Environment.Version: {Environment.Version}");
+        Console.WriteLine($"args: {string.Join(' ', Environment.GetCommandLineArgs())}");
+        Console.WriteLine($"AppContext.BaseDirectory: {AppContext.BaseDirectory}");
+        //Console.WriteLine($"AppDomain.CurrentDomain.BaseDirectory: {AppDomain.CurrentDomain.BaseDirectory}");
+        Console.WriteLine($"Environment.CurrentDirectory: {Environment.CurrentDirectory}");
+        Console.WriteLine($"Environment.ProcessPath: {Environment.ProcessPath}");
+        Console.WriteLine($"Environment.UserInteractive: {Environment.UserInteractive}");
+        Console.WriteLine($"Assembly.GetEntryAssembly()?.Location: {Assembly.GetEntryAssembly()?.Location}");
+        Console.WriteLine($"Directory.GetCurrentDirectory: {Directory.GetCurrentDirectory()}");
+        Console.WriteLine($"CurrentThread.ManagedThreadId: {Environment.CurrentManagedThreadId}");
+        Console.WriteLine($"CurrentThread.ApartmentState: {Thread.CurrentThread.GetApartmentState()}");
+#endif
     }
 
     /// <summary>

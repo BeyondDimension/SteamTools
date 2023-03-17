@@ -15,20 +15,6 @@ static partial class Program
         if (!IsCustomEntryPoint && !CompatibilityCheck()) return 0;
 #endif
 
-#if DEBUG
-        Console.WriteLine($"Environment.Version: {Environment.Version}");
-        Console.WriteLine($"args: {string.Join(' ', args)}");
-        Console.WriteLine($"AppContext.BaseDirectory: {AppContext.BaseDirectory}");
-        //Console.WriteLine($"AppDomain.CurrentDomain.BaseDirectory: {AppDomain.CurrentDomain.BaseDirectory}");
-        Console.WriteLine($"Environment.CurrentDirectory: {Environment.CurrentDirectory}");
-        Console.WriteLine($"Environment.ProcessPath: {Environment.ProcessPath}");
-        Console.WriteLine($"Environment.UserInteractive: {Environment.UserInteractive}");
-        Console.WriteLine($"Assembly.GetEntryAssembly()?.Location: {Assembly.GetEntryAssembly()?.Location}");
-        Console.WriteLine($"Directory.GetCurrentDirectory: {Directory.GetCurrentDirectory()}");
-        Console.WriteLine($"CurrentThread.ManagedThreadId: {Environment.CurrentManagedThreadId}");
-        Console.WriteLine($"CurrentThread.ApartmentState: {Thread.CurrentThread.GetApartmentState()}");
-#endif
-
         // 注册 MemoryPack 某些自定义类型的格式化，如 Cookie, IPAddress, RSAParameters
         MemoryPackFormatterProvider.Register<MemoryPackFormatters>();
 

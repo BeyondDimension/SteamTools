@@ -2,17 +2,17 @@ namespace BD.WTTS.Services.Implementation;
 
 sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
 {
-    readonly string _defaultFamilyName;
+    //readonly string _defaultFamilyName;
     readonly IFontManagerImpl impl;
 
-    static readonly Typeface _defaultTypeface =
-        new("avares://BD.WTTS.Client.Avalonia.App/Application/UI/Assets/Fonts#WenQuanYi Micro Hei");
+    //static readonly Typeface _defaultTypeface =
+    //    new("avares://BD.WTTS.Client.Avalonia.App/Application/UI/Assets/Fonts#WenQuanYi Micro Hei");
 
     public static bool UseGdiPlusFirst { get; set; }
 
     public AvaloniaFontManagerImpl(IPlatformService platformService) : base(platformService)
     {
-        _defaultFamilyName = _defaultTypeface.FontFamily.FamilyNames.PrimaryFamilyName;
+        //_defaultFamilyName = _defaultTypeface.FontFamily.FamilyNames.PrimaryFamilyName;
         impl = IFontManagerImpl2.CreateFontManager();
     }
 
@@ -47,7 +47,7 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
 
     IFontManagerImpl IFontManagerImpl2.Impl => impl;
 
-    string IFontManagerImpl2.DefaultFontFamilyName => _defaultFamilyName;
+    string IFontManagerImpl2.DefaultFontFamilyName => ResourceService.DefaultFontFamilyName;
 
     internal static bool IsDefaultFontFamilyName(string name)
     {
@@ -56,7 +56,7 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
             return true;
         if (string.Equals(name, IFontManager.KEY_WinUI, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (_defaultTypeface.FontFamily.FamilyNames.Contains(name))
+        if (new FontFamily(ResourceService.DefaultFontFamilyName).FamilyNames.Contains(name))
             return true;
         return name switch
         {
@@ -68,14 +68,16 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
     Typeface IFontManagerImpl2.OnCreateGlyphTypeface(Typeface typeface)
     {
         var name = typeface.FontFamily.Name;
-        if (IsDefaultFontFamilyName(name)) return _defaultTypeface;
+        if (IsDefaultFontFamilyName(name))
+            return new Typeface(ResourceService.DefaultFontFamilyName);
         return typeface;
     }
 
     static readonly Lazy<FontFamily> mDefault = new(() =>
     {
         var name = IPlatformService.Instance.GetDefaultFontFamily();
-        if (string.IsNullOrEmpty(name)) return _defaultTypeface.FontFamily;
+        if (string.IsNullOrEmpty(name))
+            return new FontFamily(ResourceService.DefaultFontFamilyName);
         return new FontFamily(name);
     });
 
