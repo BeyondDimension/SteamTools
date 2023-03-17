@@ -13,5 +13,14 @@ public partial class MainView : UserControl
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
+
+        var debug = this.FindControl<Button>("DebugButton");
+
+        if (debug != null)
+            debug.Click += (s, e) =>
+            {
+                var window = new DebugWindow();
+                window.Show();
+            };
     }
 }

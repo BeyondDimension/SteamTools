@@ -13,11 +13,15 @@ public sealed partial class MainWindow : AppWindow
 #if DEBUG
         this.AttachDevTools();
 #endif
-        MinWidth = 1080;
-        MinHeight = 660;
+        Width = 1080;
+        Height = 660;
+        WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
+        //ExtendClientAreaToDecorationsHint = true;
+        //ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
         TitleBar.ExtendsContentIntoTitleBar = true;
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
+
         TransparencyBackgroundFallback = Brushes.Transparent;
         TransparencyLevelHint = WindowTransparencyLevel.Mica;
 

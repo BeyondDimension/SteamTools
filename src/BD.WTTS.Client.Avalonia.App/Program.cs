@@ -135,11 +135,17 @@ static partial class Program
         builder.With(new AvaloniaNativePlatformOptions
         {
             UseGpu = useGpu,
+            EnableMultiTouch = true,
+            UseDBusMenu = true,
+            EnableIme = true
         });
 #elif LINUX
         builder.With(new X11PlatformOptions
         {
             UseGpu = useGpu,
+            EnableMultiTouch = true,
+            UseDBusMenu = true,
+            EnableIme = true
         });
 #elif WINDOWS
         var useWgl = IApplication.UseWgl || GeneralSettings.UseWgl.Value;

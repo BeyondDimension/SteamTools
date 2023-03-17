@@ -10,7 +10,6 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Panel>
-		<spp:MainView></spp:MainView>
-	</Panel>
+        <spp:MainView />
+    </Panel>
 </Window>
- 

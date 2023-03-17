@@ -1,0 +1,35 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:wnd="clr-namespace:FluentAvalonia.UI.Windowing;assembly=FluentAvalonia">
+    <Design.PreviewWith>
+        <spp:CoreWindow Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+        </spp:CoreWindow>
+
+    </Design.PreviewWith>
+    <Styles.Resources>
+        <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type spp:CoreWindow}">
+            <Panel>
+                <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+                <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+                <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
+                <VisualLayerManager>
+                    <VisualLayerManager.ChromeOverlayLayer>
+                        <TitleBar />
+                    </VisualLayerManager.ChromeOverlayLayer>
+                    <ContentPresenter
+                        Name="PART_ContentPresenter"
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </VisualLayerManager>
+                <wnd:AppSplashScreen Name="SplashHost" IsVisible="False" />
+            </Panel>
+        </ControlTemplate>
+    </Styles.Resources>
+</Styles>
