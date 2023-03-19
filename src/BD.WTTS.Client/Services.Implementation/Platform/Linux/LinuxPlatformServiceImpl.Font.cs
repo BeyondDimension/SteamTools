@@ -38,6 +38,8 @@ partial class LinuxPlatformServiceImpl
         // Noto Sans CJK TC Thin
         // Noto Sans CJK HK Thin
 
+        // deepin-desktop-community-20.8-amd64.iso
+
         const ushort Thin = 100;
         const ushort ExtraLight = 200;
         const ushort Light = 300;
@@ -46,7 +48,7 @@ partial class LinuxPlatformServiceImpl
         const ushort Black = 900;
 
         var fontWeightValue = (ushort)fontWeight;
-        if (fontWeightValue < 50)
+        if (fontWeightValue < 150)
             fontWeightValue = Thin;
         else if (fontWeightValue < 250)
             fontWeightValue = ExtraLight;

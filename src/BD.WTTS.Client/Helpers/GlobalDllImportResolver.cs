@@ -104,12 +104,25 @@ public static partial class GlobalDllImportResolver
 
         if (libraryNames.Contains(libraryName))
         {
-            libraryPath = GetLibraryPath(GetLibraryFileName(libraryName));
+            var libraryFileName = GetLibraryFileName(libraryName);
+            libraryPath = GetLibraryPath(libraryFileName);
             if (File.Exists(libraryPath) && NativeLibrary.TryLoad(libraryPath, out handle))
             {
                 pairs[libraryName] = libraryPath;
                 return handle;
             }
+#if LINUX || MACCATALYST || MACOS
+            if (!libraryFileName.StartsWith("lib"))
+            {
+                libraryFileName = $"lib{libraryFileName}";
+                libraryPath = GetLibraryPath(libraryFileName);
+                if (File.Exists(libraryPath) && NativeLibrary.TryLoad(libraryPath, out handle))
+                {
+                    pairs[libraryName] = libraryPath;
+                    return handle;
+                }
+            }
+#endif
         }
 
 #if DEBUG
@@ -128,10 +141,17 @@ public static partial class GlobalDllImportResolver
     public static void MoveFiles()
     {
         //Console.WriteLine("MoveFiles");
-        foreach (var libraryName_ in libraryNames)
+        foreach (var libraryName in libraryNames)
         {
-            var libraryName = GetLibraryFileName(libraryName_);
-            MoveFiles(libraryName);
+            var libraryFileName = GetLibraryFileName(libraryName);
+            MoveFiles(libraryFileName);
+#if LINUX || MACCATALYST || MACOS
+            if (!libraryFileName.StartsWith("lib"))
+            {
+                libraryFileName = $"lib{libraryFileName}";
+                MoveFiles(libraryFileName);
+            }
+#endif
         }
 
 #if WINDOWS
