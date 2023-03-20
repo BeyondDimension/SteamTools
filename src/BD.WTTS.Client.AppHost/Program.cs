@@ -49,26 +49,21 @@ static partial class Program
         return false;
     }
 
-#if NET7_0_OR_GREATER
+#if NETFRAMEWORK
+    [DllImport("shlwapi.dll", EntryPoint = "PathIsDirectoryEmptyW", SetLastError = true, CharSet = CharSet.Unicode)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static extern bool PathIsDirectoryEmpty([MarshalAs(UnmanagedType.LPTStr)] string pszPath);
+#elif NET7_0_OR_GREATER && WINDOWS
     [LibraryImport("shlwapi.dll", EntryPoint = "PathIsDirectoryEmptyW", SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool PathIsDirectoryEmpty_([MarshalAs(UnmanagedType.LPTStr)] string pszPath);
-
+    private static partial bool PathIsDirectoryEmpty([MarshalAs(UnmanagedType.LPTStr)] string pszPath);
+#else
 #if NET35 || NET40
     [MethodImpl((MethodImplOptions)0x100)]
 #else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-    static bool PathIsDirectoryEmpty(string pszPath)
-    {
-        if (OperatingSystem.IsWindows())
-            return PathIsDirectoryEmpty_(pszPath);
-        return Directory.EnumerateFiles(pszPath).Any();
-    }
-#elif NETFRAMEWORK
-    [DllImport("shlwapi.dll", EntryPoint = "PathIsDirectoryEmptyW", SetLastError = true, CharSet = CharSet.Unicode)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool PathIsDirectoryEmpty([MarshalAs(UnmanagedType.LPTStr)] string pszPath);
+    static bool PathIsDirectoryEmpty(string pszPath) => !Directory.EnumerateFiles(pszPath).Any();
 #endif
 
     /// <summary>
