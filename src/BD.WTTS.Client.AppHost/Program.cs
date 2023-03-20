@@ -158,6 +158,15 @@ static partial class Program
         OpenCoreByProcess(url);
     }
 
+    enum DotNetRootType : byte
+    {
+        BaseDir,
+#if NETFRAMEWORK || WINDOWS
+        ProgramFiles,
+#endif
+        EnvironmentVariable,
+    }
+
     [STAThread]
     static int Main()
     {
@@ -182,13 +191,15 @@ static partial class Program
         string hostfxr_path, dotnet_runtime_path, aspnetcore_runtime_path, config_path, dotnetlib_path;
 
         // STEP 0: Search HostFxr
-        for (int i = 0; true; i++)
+        for (byte i = 0; true; i++)
         {
             var dotnet_root = i switch
             {
-                0 => Path.Combine(baseDirectory, "dotnet"), // 优先使用根目录上的运行时
-                1 => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "dotnet"), // 查找已安装的运行时
-                2 => Environment.GetEnvironmentVariable("DOTNET_ROOT") ?? string.Empty, // 检查环境变量中设定的路径
+                (byte)DotNetRootType.BaseDir => Path.Combine(baseDirectory, "dotnet"), // 优先使用根目录上的运行时
+#if NETFRAMEWORK || WINDOWS
+                (byte)DotNetRootType.ProgramFiles => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "dotnet"), // 查找已安装的运行时
+#endif
+                (byte)DotNetRootType.EnvironmentVariable => Environment.GetEnvironmentVariable("DOTNET_ROOT") ?? string.Empty, // 检查环境变量中设定的路径
                 _ => null,
             };
             if (dotnet_root == null)

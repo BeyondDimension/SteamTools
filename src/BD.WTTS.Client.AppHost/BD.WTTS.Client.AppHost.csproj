@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>Steam++</AssemblyName>
 		<TargetFrameworks>net7.0</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net35;net40;net451</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net35;net40;net451;net7.0-windows</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<IsTrimmable>false</IsTrimmable>
 		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
