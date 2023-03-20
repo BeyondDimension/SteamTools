@@ -144,12 +144,6 @@
 		<Folder Include="UI\Views\Pages\GameTools\" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="UI\Styles\Controls.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </None>
-	</ItemGroup>
-
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />
 
 </Project>
