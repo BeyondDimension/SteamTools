@@ -134,7 +134,7 @@ public static partial class MessageBox
             IsShowRememberChoose = isDoNotShow,
         };
 
-        var r = await IWindowManager.Instance.ShowDialog(
+        var r = await IWindowManager.Instance.ShowDialogAsync(
             AppEndPoint.MessageBox, viewModel, caption, ResizeMode.NoResize);
 
         if (r && viewModel.RememberChoose && isDoNotShow)

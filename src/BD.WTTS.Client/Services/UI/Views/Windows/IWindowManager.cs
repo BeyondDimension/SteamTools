@@ -19,7 +19,7 @@ public interface IWindowManager
     /// <param name="isDialog"></param>
     /// <param name="isParent"></param>
     /// <returns></returns>
-    Task Show<TWindowViewModel>(
+    Task ShowAsync<TWindowViewModel>(
         AppEndPoint appEndPoint,
         TWindowViewModel? viewModel = null,
         string title = "",
@@ -39,7 +39,7 @@ public interface IWindowManager
     /// <param name="isDialog"></param>
     /// <param name="isParent"></param>
     /// <returns></returns>
-    Task Show(Type typeWindowViewModel,
+    Task ShowAsync(Type typeWindowViewModel,
         AppEndPoint appEndPoint,
         WindowViewModel? viewModel = null,
         string title = "",
@@ -57,7 +57,7 @@ public interface IWindowManager
     /// <param name="isDialog"></param>
     /// <param name="isParent"></param>
     /// <returns></returns>
-    Task Show(AppEndPoint appEndPoint,
+    Task ShowAsync(AppEndPoint appEndPoint,
         WindowViewModel? viewModel = null,
         string title = "",
         ResizeMode resizeMode = ResizeMode.NoResize,
@@ -75,7 +75,7 @@ public interface IWindowManager
     /// <param name="isDialog"></param>
     /// <param name="isParent"></param>
     /// <returns></returns>
-    Task<bool> ShowDialog<TWindowViewModel>(
+    Task<bool> ShowDialogAsync<TWindowViewModel>(
         AppEndPoint appEndPoint,
         TWindowViewModel? viewModel = null,
         string title = "",
@@ -94,7 +94,7 @@ public interface IWindowManager
     /// <param name="resizeMode"></param>
     /// <param name="isDialog"></param>
     /// <returns></returns>
-    Task ShowDialog(Type typeWindowViewModel,
+    Task ShowDialogAsync(Type typeWindowViewModel,
         AppEndPoint appEndPoint,
         WindowViewModel? viewModel = null,
         string title = "",
@@ -110,7 +110,7 @@ public interface IWindowManager
     /// <param name="resizeMode"></param>
     /// <param name="isDialog"></param>
     /// <returns></returns>
-    Task ShowDialog(AppEndPoint appEndPoint,
+    Task ShowDialogAsync(AppEndPoint appEndPoint,
         WindowViewModel? viewModel = null,
         string title = "",
         ResizeMode resizeMode = ResizeMode.NoResize,
@@ -144,7 +144,7 @@ public interface IWindowManager
         var windowName = vm.GetType().Name.TrimEnd(nameof(WindowViewModel));
         if (Enum.TryParse<AppEndPoint>(windowName, out var appEndPoint))
         {
-            await Show(appEndPoint, vm);
+            await ShowAsync(appEndPoint, vm);
         }
     }
 }

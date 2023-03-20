@@ -74,13 +74,13 @@ public sealed class AdvertiseService : ReactiveObject
     {
         if (IsInitialized == false)
         {
-            await RefrshAdvertise();
+            await RefrshAdvertiseAsync();
             IsInitialized = true;
             CheckShow();
         }
     }
 
-    public async Task RefrshAdvertise()
+    public async Task RefrshAdvertiseAsync()
     {
         var client = IMicroServiceClient.Instance.Advertisement;
         var result = await client.All();

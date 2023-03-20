@@ -41,7 +41,7 @@ public sealed class UserService : ReactiveObject
                     break;
                 }
         }
-        await windowManager.ShowDialog(windowName, isDialog: isDialog, resizeMode: default);
+        await windowManager.ShowDialogAsync(windowName, isDialog: isDialog, resizeMode: default);
     }
 
     public void NavigateUserCenterPage()
@@ -85,7 +85,7 @@ public sealed class UserService : ReactiveObject
 
     public DateTimeOffset? LastSignInTime { get; set; }
 
-    public async Task SignIn()
+    public async Task SignInAsync()
     {
         if (User == null)
         {

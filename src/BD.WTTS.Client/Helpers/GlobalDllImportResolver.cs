@@ -41,6 +41,7 @@ public static partial class GlobalDllImportResolver
             Architecture.X64 => "linux-x64", // 大多数桌面发行版，如 CentOS、Debian、Fedora、Ubuntu 及派生版本
             Architecture.Arm64 => "linux-arm64", // 在 64 位 ARM 上运行的 Linux 发行版本，如 Raspberry Pi Model 3 及更高版本上的 Ubuntu 服务器 64 位
             Architecture.Arm => "linux-arm", // 在 ARM 上运行的 Linux 发行版本，如 Raspberry Pi Model 2 及更高版本上的 Raspbian
+            Architecture.Armv6 => "linux-armv6",
             _ => throw new PlatformNotSupportedException(),
         };
 #else

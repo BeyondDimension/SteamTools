@@ -50,7 +50,7 @@ public static partial class CompositeDisposableExtensions
 
         public async ValueTask DisposeAsync()
         {
-            await DisposeAsyncCore().ConfigureAwait(false);
+            await DisposeAsyncCoreAsync().ConfigureAwait(false);
 
             Dispose(disposing: false);
             GC.SuppressFinalize(this);
@@ -67,7 +67,7 @@ public static partial class CompositeDisposableExtensions
             }
         }
 
-        async ValueTask DisposeAsyncCore()
+        async ValueTask DisposeAsyncCoreAsync()
         {
             if (_asyncDisposableResource is not null)
             {

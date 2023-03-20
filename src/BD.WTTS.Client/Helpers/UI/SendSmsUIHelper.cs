@@ -33,7 +33,7 @@ public static class SendSmsUIHelper
         var isStartSendSmsTimer = validator.Validate(request_);
         if (isStartSendSmsTimer) i.StartSendSmsTimer();
 
-        await i.SendSms(request_, isStartSendSmsTimer);
+        await i.SendSmsAsync(request_, isStartSendSmsTimer);
     }
 
     static async void StartSendSmsTimer(this IViewModel i)
@@ -85,7 +85,7 @@ public static class SendSmsUIHelper
         while (b);
     }
 
-    static async ValueTask<IApiRsp> SendSms(this IViewModel i, SendSmsRequest request, bool isStartSendSmsTimer)
+    static async ValueTask<IApiRsp> SendSmsAsync(this IViewModel i, SendSmsRequest request, bool isStartSendSmsTimer)
     {
         i.TbSmsCodeFocus?.Invoke();
 

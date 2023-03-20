@@ -133,7 +133,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                     {
                         foreach (var plugin in StartupOptions.Value.Plugins!)
                         {
-                            await plugin.OnInitialize();
+                            await plugin.OnInitializeAsync();
                         }
                     }
                     //if (ASFSettings.AutoRunArchiSteamFarm.Value)

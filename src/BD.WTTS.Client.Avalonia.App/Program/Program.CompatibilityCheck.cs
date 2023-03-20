@@ -64,6 +64,8 @@ static partial class Program
         {
             if (Environment.UserInteractive)
             {
+                // 在 Win 11 上 MessageBox 与 net35 WPF 上的样式不一致，net35 中的 Title 缺少一些 Padding
+                // 发布此 win-any 与 win-x64 可比较区别
                 return WPFMessageBox.Show(error, AppResources.Error, button, WPFMessageBoxImage.Error);
             }
         }
@@ -72,13 +74,17 @@ static partial class Program
 
         }
 
+        Console.WriteLine("---------------------------");
         Console.WriteLine(AppResources.Error);
+        Console.WriteLine("---------------------------");
         Console.WriteLine(error);
+        Console.WriteLine("---------------------------");
         switch (button)
         {
             case WPFMessageBoxButton.OKCancel:
                 {
                     Console.WriteLine("OK/Cancel");
+                    Console.WriteLine("---------------------------");
                     var line = Console.ReadLine();
                     if (string.Equals(line, nameof(WPFMessageBoxResult.OK)) || string.Equals(line, nameof(WPFMessageBoxResult.Yes)) || string.Equals(line, "o") || string.Equals(line, "y"))
                         return WPFMessageBoxResult.OK;
@@ -89,6 +95,7 @@ static partial class Program
             case WPFMessageBoxButton.YesNoCancel:
                 {
                     Console.WriteLine("Yes/No/Cancel");
+                    Console.WriteLine("---------------------------");
                     var line = Console.ReadLine();
                     if (string.Equals(line, nameof(WPFMessageBoxResult.OK)) || string.Equals(line, nameof(WPFMessageBoxResult.Yes)) || string.Equals(line, "o") || string.Equals(line, "y"))
                         return WPFMessageBoxResult.Yes;
@@ -101,6 +108,7 @@ static partial class Program
             case WPFMessageBoxButton.YesNo:
                 {
                     Console.WriteLine("Yes/No");
+                    Console.WriteLine("---------------------------");
                     var line = Console.ReadLine();
                     if (string.Equals(line, nameof(WPFMessageBoxResult.OK)) || string.Equals(line, nameof(WPFMessageBoxResult.Yes)) || string.Equals(line, "o") || string.Equals(line, "y"))
                         return WPFMessageBoxResult.Yes;

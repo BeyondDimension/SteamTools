@@ -28,7 +28,7 @@ public sealed class NotificationService : ReactiveObject
         NoticeTypes = new();
     }
 
-    public async Task GetNews()
+    public async Task GetNewsAsync()
     {
         var data = await notificationRepo.GetAllAsync(w => w.ExpirationTime > DateTimeOffset.Now);
         UnreadNotificationsCount = data.Count(x => !x.HasRead);
@@ -50,7 +50,7 @@ public sealed class NotificationService : ReactiveObject
 #pragma warning disable CS0618 // 类型或成员已过时
                         Click = new NotificationBuilderClickAction(() =>
                         {
-                            IWindowManager.Instance.Show(AppEndPoint.Notice);
+                            IWindowManager.Instance.ShowAsync(AppEndPoint.Notice);
                         }),
 #pragma warning restore CS0618 // 类型或成员已过时
                     });
@@ -61,14 +61,14 @@ public sealed class NotificationService : ReactiveObject
                     INotificationService.Instance.Notify(notice);
                 }
 
-                await InsertNotificationRecord(noticeList);
+                await InsertNotificationRecordAsync(noticeList);
             }
 
-            DeleteExpiredRecordAsync();
+            DeleteExpiredRecord();
         }
     }
 
-    public async Task LoadNoticeTypes()
+    public async Task LoadNoticeTypesAsync()
     {
         var client = IMicroServiceClient.Instance.Notice;
         var result = await client.Types();
@@ -81,7 +81,7 @@ public sealed class NotificationService : ReactiveObject
         }
     }
 
-    public async Task LoadNotification(NoticeGroupDTO? selectGroup)
+    public async Task LoadNotificationAsync(NoticeGroupDTO? selectGroup)
     {
         var client = IMicroServiceClient.Instance.Notice;
         var typeid = selectGroup == DefaultType ? null : selectGroup?.Id;
@@ -94,12 +94,12 @@ public sealed class NotificationService : ReactiveObject
             //        item.PictureStream = httpService.GetImageAsync(item.Picture, ImageChannelType.NoticePicture);
             //}
             NoticesSource.Clear();
-            var data = await LoadHasReadRecord(result.Content.DataSource);
+            var data = await LoadHasReadRecordAsync(result.Content.DataSource);
             NoticesSource.AddOrUpdate(data);
         }
     }
 
-    public async Task<IEnumerable<NoticeDTO>> LoadHasReadRecord(IEnumerable<NoticeDTO> notices)
+    public async Task<IEnumerable<NoticeDTO>> LoadHasReadRecordAsync(IEnumerable<NoticeDTO> notices)
     {
         var data = await notificationRepo.GetAllAsync(w => w.ExpirationTime > DateTimeOffset.Now);
         if (data.Any_Nullable())
@@ -118,7 +118,7 @@ public sealed class NotificationService : ReactiveObject
         return notices;
     }
 
-    public async Task InsertNotificationRecord(IEnumerable<NoticeDTO> notices)
+    public async Task InsertNotificationRecordAsync(IEnumerable<NoticeDTO> notices)
     {
         var data = await notificationRepo.GetAllAsync(w => w.ExpirationTime > DateTimeOffset.Now);
         var newData = notices
@@ -136,14 +136,14 @@ public sealed class NotificationService : ReactiveObject
         }
     }
 
-    public async Task MarkNotificationHasRead(params Notification[] notice)
+    public async Task MarkNotificationHasReadAsync(params Notification[] notice)
     {
         await notificationRepo.UpdateRangeAsync(notice);
         UnreadNotificationsCount -= notice.Length;
         UnreadNotificationsCount = UnreadNotificationsCount < 0 ? 0 : UnreadNotificationsCount;
     }
 
-    public async void DeleteExpiredRecordAsync()
+    public async void DeleteExpiredRecord()
     {
         var data = await notificationRepo.GetAllAsync(w => w.ExpirationTime < DateTimeOffset.Now);
         await notificationRepo.DeleteRangeAsync(data);

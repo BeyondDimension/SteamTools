@@ -45,7 +45,7 @@ public static class ThirdPartyLoginHelper
             }
             else
             {
-                await OnMessage(modelvm.Value, null);
+                await OnMessageAsync(modelvm.Value, null);
             }
         });
     }
@@ -56,7 +56,7 @@ public static class ThirdPartyLoginHelper
     /// <param name="msg"></param>
     /// <param name="socket"></param>
     /// <returns></returns>
-    public static async Task OnMessage(string msg, IWebSocketConnection? socket = null)
+    public static async Task OnMessageAsync(string msg, IWebSocketConnection? socket = null)
     {
         if (tempAes == null) return;
         var byteArray = msg.Base64UrlDecodeToByteArray();
@@ -177,7 +177,7 @@ public static class ThirdPartyLoginHelper
 
         ws.Start(socket =>
         {
-            socket.OnMessage = async message => await OnMessage(message, socket);
+            socket.OnMessage = async message => await OnMessageAsync(message, socket);
         });
     }
 

@@ -11,9 +11,6 @@
 		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 		<DefineConstants>APP_HOST;$(DefineConstants)</DefineConstants>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
@@ -27,6 +24,10 @@
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
+
+	<ItemGroup Condition="!$(TargetFramework.StartsWith('net3')) OR !$(TargetFramework.StartsWith('net4'))">
+		<None Remove="App.config" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Constants.cs">

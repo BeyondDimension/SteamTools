@@ -160,6 +160,7 @@ static partial class Program
         }
 
 #if DEBUG
+        Console.WriteLine($"CurrentUICulture: {CultureInfo.CurrentUICulture}");
         Console.WriteLine($"RID: {GlobalDllImportResolver.RID}");
         Console.WriteLine($"DefaultFontFamilyName: {SkiaSharp.SKTypeface.Default.FamilyName}");
         Console.WriteLine($"DefaultFontFamilyName2: {IPlatformService.Instance.GetDefaultFontFamily()}");

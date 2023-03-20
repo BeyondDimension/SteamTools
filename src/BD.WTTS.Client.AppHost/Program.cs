@@ -12,14 +12,42 @@ static partial class Program
 {
     public const string dotnet_version_major = "7";
     public const string dotnet_version_minor = "0";
-    public const string dotnet_version_build = "3";
+    public const string dotnet_version_build = "4";
     public const string dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}";
+
     const string dotnet_runtime = "Microsoft.NETCore.App";
     const string aspnetcore_runtime = "Microsoft.AspNetCore.App";
 
     const string dotnet_dll_name = "Steam++";
     const string dotnet_type = "BD.WTTS.Program, Steam++";
     const string dotnet_type_method = "CustomEntryPoint";
+
+    /// <summary>
+    /// 是否依赖 AspNetCore
+    /// </summary>
+    /// <returns></returns>
+    static bool RequireAspNetCore(string baseDirectory)
+    {
+        foreach (var moduleName in new[] {
+            // 依赖 AspNetCore 的模块名
+            "Accelerator",
+            "ArchiSteamFarm",
+        })
+        {
+            var module_path =
+#if NET35
+                PathCombine
+#else
+                Path.Combine
+#endif
+                (baseDirectory, "modules", moduleName);
+            if (Directory.Exists(module_path) && !PathIsDirectoryEmpty(module_path))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 #if NET7_0_OR_GREATER
     [LibraryImport("shlwapi.dll", EntryPoint = "PathIsDirectoryEmptyW", SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
@@ -91,7 +119,9 @@ static partial class Program
     {
         Architecture.X86 => "x86",
         Architecture.X64 => "x64",
+        Architecture.Arm => "Arm32",
         Architecture.Arm64 => "Arm64",
+        Architecture.Armv6 => "Armv6",
         _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, null),
     };
 
@@ -136,7 +166,8 @@ static partial class Program
     [STAThread]
     static int Main()
     {
-        // TODO 合并32位与64位本机库？检查进程是否是x64，加载不同的运行库与程序集
+        // TODO 合并 32 位与 64 位本机库？检查进程是否是 x64，加载不同的运行库与程序集
+        // 允许在 64 位系统上使用 32 位运行
 
 #if DEBUG
         Console.WriteLine($"Environment.Version: {Environment.Version}");
@@ -150,6 +181,7 @@ static partial class Program
 #else
                 AppDomain.CurrentDomain.BaseDirectory;
 #endif
+        var requireAspNetCore = RequireAspNetCore(baseDirectory);
         string hostfxr_path, dotnet_runtime_path, aspnetcore_runtime_path, config_path, dotnetlib_path;
 
         // STEP 0: Search HostFxr
@@ -166,9 +198,17 @@ static partial class Program
             {
                 // 此应用程序必须安装 {0} 才能运行，你想现在就下载并安装运行时吗？
                 var archStr = ToString(GetProcessArchitecture());
-                var _AspNetCoreRuntime = string.Format(AspNetCoreRuntimeFormat1, archStr);
                 var _NetRuntime = string.Format(NetRuntimeFormat1, archStr);
-                var _Runtime = $"{_AspNetCoreRuntime} {And} {_NetRuntime}";
+                string _Runtime;
+                if (requireAspNetCore)
+                {
+                    var _AspNetCoreRuntime = string.Format(AspNetCoreRuntimeFormat1, archStr);
+                    _Runtime = $"{_AspNetCoreRuntime} {And} {_NetRuntime}";
+                }
+                else
+                {
+                    _Runtime = _NetRuntime;
+                }
                 var text = string.Format(FrameworkMissingFailureFormat1, _Runtime);
                 var result = ShowErrMessageBox(text, WPFMessageBoxButton.YesNo);
                 if (result == WPFMessageBoxResult.Yes)
@@ -187,30 +227,56 @@ static partial class Program
             {
                 if (Directory.Exists(dotnet_root) && !PathIsDirectoryEmpty(dotnet_root))
                 {
+                    var dir_hostfxr_path =
+#if NET35
+                        PathCombine
+#else
+                        Path.Combine
+#endif
+                        (dotnet_root, "host", "fxr");
+                    string usable_dotnet_version = dotnet_version;
+                    var dotnet_version_max = Directory.GetDirectories(dir_hostfxr_path, $"{dotnet_version_major}.*").Select(x =>
+                      {
+                          try
+                          {
+                              return new Version(Path.GetFileName(x));
+                          }
+                          catch
+                          {
+                              return null;
+                          }
+                      }).Where(x => x != null).Max();
+                    if (dotnet_version_max != null)
+                    {
+                        usable_dotnet_version = dotnet_version_max.ToString();
+                    }
+
                     hostfxr_path =
 #if NET35
                         PathCombine
 #else
                         Path.Combine
 #endif
-                        (dotnet_root, "host", "fxr", dotnet_version, "hostfxr.dll");
+                        (dir_hostfxr_path, usable_dotnet_version, "hostfxr.dll");
+
                     dotnet_runtime_path =
 #if NET35
                         PathCombine
 #else
                         Path.Combine
 #endif
-                        (dotnet_root, "shared", dotnet_runtime, dotnet_version);
-                    aspnetcore_runtime_path =
+                        (dotnet_root, "shared", dotnet_runtime, usable_dotnet_version);
+
+                    aspnetcore_runtime_path = requireAspNetCore ?
 #if NET35
                         PathCombine
 #else
                         Path.Combine
 #endif
-                        (dotnet_root, "shared", aspnetcore_runtime, dotnet_version);
+                        (dotnet_root, "shared", aspnetcore_runtime, usable_dotnet_version) : null!;
                     if (File.Exists(hostfxr_path) &&
                         Directory.Exists(dotnet_runtime_path) && !PathIsDirectoryEmpty(dotnet_runtime_path) &&
-                        Directory.Exists(aspnetcore_runtime_path) && !PathIsDirectoryEmpty(aspnetcore_runtime_path))
+                        (!requireAspNetCore || (Directory.Exists(aspnetcore_runtime_path) && !PathIsDirectoryEmpty(aspnetcore_runtime_path))))
                     {
                         break;
                     }
@@ -465,7 +531,13 @@ static partial class Program
     {
         X86 = 0,
         X64 = 1,
+        Arm = 2,
         Arm64 = 3,
+        //Wasm = 4,
+        //S390x = 5,
+        //LoongArch64 = 6, // SkiaSharp incompatibility.
+        Armv6 = 7,
+        //Ppc64le = 8,
     }
 #endif
 
