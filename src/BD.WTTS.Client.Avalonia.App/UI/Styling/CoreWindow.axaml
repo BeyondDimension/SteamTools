@@ -1,4 +1,4 @@
-<Styles
+<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:spp="https://steampp.net/ui"
@@ -6,60 +6,164 @@
     xmlns:wnd="using:FluentAvalonia.UI.Windowing">
 
     <Design.PreviewWith>
-        <spp:CoreWindow Padding="20">
+        <spp:DebugWindow>
             <!--  Add Controls for Previewer Here  -->
-        </spp:CoreWindow>
+        </spp:DebugWindow>
     </Design.PreviewWith>
 
-    <Styles.Resources>
-        <ControlTheme x:Key="{x:Type spp:MinMaxCloseControl}" TargetType="spp:MinMaxCloseControl">
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Name="MinimizeButton">
-                            <PathIcon Data="M929.8 528.1H93.5c-15.5 0-28-12.5-28-28s12.5-28 28-28h836.3c15.5 0 28 12.5 28 28s-12.5 28-28 28z" />
-                        </Button>
-                        <Button Name="MaxRestoreButton">
-                            <PathIcon Data="M812.3 959.4H213.7c-81.6 0-148-66.4-148-148V212.9c0-81.6 66.4-148 148-148h598.5c81.6 0 148 66.4 148 148v598.5C960.3 893 893.9 959.4 812.3 959.4zM213.7 120.9c-50.7 0-92 41.3-92 92v598.5c0 50.7 41.3 92 92 92h598.5c50.7 0 92-41.3 92-92V212.9c0-50.7-41.3-92-92-92H213.7z" />
-                        </Button>
-                        <Button Name="CloseButton">
-                            <PathIcon Data="M96.6 915c-10.9-10.9-10.9-28.7 0-39.6L887 85c10.9-10.9 28.7-10.9 39.6 0 10.9 10.9 10.9 28.7 0 39.6L136.2 915c-10.9 10.9-28.6 10.9-39.6 0z M887 915L96.6 124.6c-10.9-10.9-10.9-28.7 0-39.6 10.9-10.9 28.7-10.9 39.6 0l790.4 790.4c10.9 10.9 10.9 28.7 0 39.6-10.9 10.9-28.6 10.9-39.6 0z" />
-                        </Button>
-                    </StackPanel>
-                </ControlTemplate>
-            </Setter>
+    <ControlTheme x:Key="{x:Type spp:MinMaxCloseControl}" TargetType="spp:MinMaxCloseControl">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="MinimizeButton">
+                        <PathIcon Data="M929.8 528.1H93.5c-15.5 0-28-12.5-28-28s12.5-28 28-28h836.3c15.5 0 28 12.5 28 28s-12.5 28-28 28z" />
+                    </Button>
+                    <Button Name="MaxRestoreButton">
+                        <PathIcon Data="M812.3 959.4H213.7c-81.6 0-148-66.4-148-148V212.9c0-81.6 66.4-148 148-148h598.5c81.6 0 148 66.4 148 148v598.5C960.3 893 893.9 959.4 812.3 959.4zM213.7 120.9c-50.7 0-92 41.3-92 92v598.5c0 50.7 41.3 92 92 92h598.5c50.7 0 92-41.3 92-92V212.9c0-50.7-41.3-92-92-92H213.7z" />
+                    </Button>
+                    <Button Name="CloseButton">
+                        <PathIcon Data="M96.6 915c-10.9-10.9-10.9-28.7 0-39.6L887 85c10.9-10.9 28.7-10.9 39.6 0 10.9 10.9 10.9 28.7 0 39.6L136.2 915c-10.9 10.9-28.6 10.9-39.6 0z M887 915L96.6 124.6c-10.9-10.9-10.9-28.7 0-39.6 10.9-10.9 28.7-10.9 39.6 0l790.4 790.4c10.9 10.9 10.9 28.7 0 39.6-10.9 10.9-28.6 10.9-39.6 0z" />
+                    </Button>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
 
-            <Style Selector="^ /template/ Button">
-                <Setter Property="Margin" Value="2 1" />
-                <Setter Property="Cursor" Value="Hand" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="BorderThickness" Value="0" />
-            </Style>
-            <Style Selector="^ /template/ PathIcon">
-                <Setter Property="Width" Value="12" />
-            </Style>
+        <Style Selector="^ /template/ Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Height" Value="36" />
+            <Setter Property="Width" Value="36" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
 
-            <Style Selector="^:maximized /template/ Button#MaxRestoreButton PathIcon">
-                <Setter Property="Data" Value="M812.2 65H351.6c-78.3 0-142.5 61.1-147.7 138.1-77 5.1-138.1 69.4-138.1 147.7v460.6c0 81.6 66.4 148 148 148h460.6c78.3 0 142.5-61.1 147.7-138.1 77-5.1 138.1-69.4 138.1-147.7V213c0-81.6-66.4-148-148-148z m-45.8 746.3c0 50.7-41.3 92-92 92H213.8c-50.7 0-92-41.3-92-92V350.7c0-50.7 41.3-92 92-92h460.6c50.7 0 92 41.3 92 92v460.6z m137.8-137.7c0 47.3-35.8 86.3-81.8 91.4V350.7c0-81.6-66.4-148-148-148H260.2c5.1-45.9 44.2-81.8 91.4-81.8h460.6c50.7 0 92 41.3 92 92v460.7z" />
-            </Style>
-        </ControlTheme>
+        <Style Selector="^ /template/ PathIcon">
+            <Setter Property="Width" Value="14" />
+        </Style>
 
-        <ControlTemplate x:Key="CoreWindowTemplate" TargetType="{x:Type spp:CoreWindow}">
-            <Panel>
-                <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
-                <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
-                <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
-                <VisualLayerManager>
+        <Style Selector="^:maximized /template/ Button#MaxRestoreButton PathIcon">
+            <Setter Property="Data" Value="M812.2 65H351.6c-78.3 0-142.5 61.1-147.7 138.1-77 5.1-138.1 69.4-138.1 147.7v460.6c0 81.6 66.4 148 148 148h460.6c78.3 0 142.5-61.1 147.7-138.1 77-5.1 138.1-69.4 138.1-147.7V213c0-81.6-66.4-148-148-148z m-45.8 746.3c0 50.7-41.3 92-92 92H213.8c-50.7 0-92-41.3-92-92V350.7c0-50.7 41.3-92 92-92h460.6c50.7 0 92 41.3 92 92v460.6z m137.8-137.7c0 47.3-35.8 86.3-81.8 91.4V350.7c0-81.6-66.4-148-148-148H260.2c5.1-45.9 44.2-81.8 91.4-81.8h460.6c50.7 0 92 41.3 92 92v460.7z" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTemplate x:Key="CoreWindowOnWindowsTemplate" TargetType="{x:Type spp:CoreWindow}">
+        <VisualLayerManager>
+            <Border
+                Name="RootBorder"
+                Padding="{TemplateBinding Padding}"
+                Background="{TemplateBinding Background}">
+                <Panel>
+                    <Panel
+                        Name="DefaultTitleBar"
+                        Height="40"
+                        VerticalAlignment="Top"
+                        Background="{DynamicResource FATitle_TitleBarBackground}"
+                        TextElement.Foreground="{DynamicResource FATitle_TitleBarForeground}">
+
+                        <Image
+                            Name="Icon"
+                            Width="16"
+                            Height="16"
+                            Margin="8,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            IsVisible="true"
+                            Source="{TemplateBinding Icon}" />
+
+                        <TextBlock
+                            Name="TitleText"
+                            Margin="12,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            IsVisible="true"
+                            Text="{TemplateBinding Title}" />
+                    </Panel>
+
                     <ContentPresenter
                         Name="PART_ContentPresenter"
-                        Margin="{TemplateBinding Padding}"
-                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        ClipToBounds="False"
                         Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding ContentTemplate}" />
-                </VisualLayerManager>
-                <wnd:AppSplashScreen Name="SplashHost" IsVisible="False" />
-            </Panel>
-        </ControlTemplate>
-    </Styles.Resources>
-</Styles>
+
+                    <wnd:AppSplashScreen Name="SplashHost" IsVisible="False" />
+
+                    <!--  Add the Caption Buttons, these should ALWAYS overlay the window  -->
+                    <spp:MinMaxCloseControl
+                        Name="SystemCaptionButtons"
+                        Height="40"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top" />
+
+                </Panel>
+            </Border>
+        </VisualLayerManager>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="CoreWindowDefaultTemplate" TargetType="{x:Type spp:CoreWindow}">
+        <Panel>
+            <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+            <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+            <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
+            <VisualLayerManager>
+                <VisualLayerManager.ChromeOverlayLayer>
+                    <TitleBar />
+                </VisualLayerManager.ChromeOverlayLayer>
+                <ContentPresenter
+                    Name="PART_ContentPresenter"
+                    Margin="{TemplateBinding Padding}"
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                    Content="{TemplateBinding Content}"
+                    ContentTemplate="{TemplateBinding ContentTemplate}" />
+            </VisualLayerManager>
+            <wnd:AppSplashScreen Name="SplashHost" IsVisible="False" />
+        </Panel>
+    </ControlTemplate>
+
+    <ControlTheme x:Key="{x:Type spp:CoreWindow}" TargetType="spp:CoreWindow">
+        <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+        <Setter Property="Background" Value="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+        <Setter Property="Template" Value="{StaticResource CoreWindowDefaultTemplate}" />
+
+        <Style Selector="^:windows">
+            <Setter Property="Template" Value="{StaticResource CoreWindowOnWindowsTemplate}" />
+
+            <Style Selector="^:icon">
+                <Style Selector="^ /template/ Image#Icon">
+                    <Setter Property="IsVisible" Value="True" />
+                </Style>
+                <Style Selector="^ /template/ TextBlock#TitleText">
+                    <Setter Property="Margin" Value="32 0 0 0" />
+                </Style>
+            </Style>
+
+            <Style Selector="^[WindowState=FullScreen]">
+                <Style Selector="^ /template/ Panel#DefaultTitleBar">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
+                <Style Selector="^ /template/ spp|MinMaxCloseControl#SystemCaptionButtons">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
+            </Style>
+
+            <Style Selector="^[IsActive=False]">
+                <Style Selector="^ /template/ Panel#DefaultTitleBar">
+                    <Setter Property="Background" Value="{DynamicResource FATitle_TitleBarBackgroundInactive}" />
+                    <Setter Property="TextElement.Foreground" Value="{DynamicResource FATitle_TitleBarForegroundInactive}" />
+                </Style>
+            </Style>
+        </Style>
+
+        <Style Selector="^:splashOpen">
+            <Style Selector="^ /template/ wnd|AppSplashScreen#SplashHost">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

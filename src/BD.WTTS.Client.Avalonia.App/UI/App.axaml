@@ -1,10 +1,11 @@
 <Application
     x:Class="BD.WTTS.UI.App"
-	xmlns:sty="using:FluentAvalonia.Styling"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    xmlns:sty="using:FluentAvalonia.Styling"
+    xmlns:ui="https://steampp.net/ui">
     <Application.Styles>
-		<sty:FluentAvaloniaTheme PreferUserAccentColor="True" PreferSystemTheme="True" />
+        <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
+        <ui:CustomTheme Mode="Default" />
     </Application.Styles>
 </Application>

@@ -5,10 +5,10 @@
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="/Styling/Themes.axaml" />
+                <ResourceInclude Source="/UI/Styling/Themes.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>
 
-    <StyleInclude Source="/Styling/Controls.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls.axaml" />
 </Styles>

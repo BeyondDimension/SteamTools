@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using System.Reactive.Disposables;
 
 namespace BD.WTTS.UI.Views.Windows;
 
@@ -7,10 +8,9 @@ public partial class DebugWindow : CoreWindow
     public DebugWindow()
     {
         InitializeComponent();
-
-        Width = 1080;
-        Height = 660;
-        WindowStartupLocation = WindowStartupLocation.CenterScreen;
+#if DEBUG
+        this.AttachDevTools();
+#endif
     }
 
     void SetupSide(string name, StandardCursorType cursor, WindowEdge edge)
@@ -26,33 +26,27 @@ public partial class DebugWindow : CoreWindow
     void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
-        this.Get<Control>("TitleBar").PointerPressed += (i, e) =>
+
+        var titleBar = this.Get<Control>("TitleBar");
+
+        titleBar.PointerPressed += (i, e) =>
         {
             PlatformImpl?.BeginMoveDrag(e);
         };
-        SetupSide("Left", StandardCursorType.LeftSide, WindowEdge.West);
-        SetupSide("Right", StandardCursorType.RightSide, WindowEdge.East);
-        SetupSide("Top", StandardCursorType.TopSide, WindowEdge.North);
-        SetupSide("Bottom", StandardCursorType.BottomSide, WindowEdge.South);
-        SetupSide("TopLeft", StandardCursorType.TopLeftCorner, WindowEdge.NorthWest);
-        SetupSide("TopRight", StandardCursorType.TopRightCorner, WindowEdge.NorthEast);
-        SetupSide("BottomLeft", StandardCursorType.BottomLeftCorner, WindowEdge.SouthWest);
-        SetupSide("BottomRight", StandardCursorType.BottomRightCorner, WindowEdge.SouthEast);
-        this.Get<Button>("MinimizeButton").Click += (sender, e) =>
+
+        titleBar.DoubleTapped += (i, e) =>
         {
-            this.WindowState = WindowState.Minimized;
+            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         };
-        this.Get<Button>("MaximizeButton").Click += (sender, e) =>
-        {
-            WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-        };
-        this.Get<Button>("RestoreButton").Click += (sender, e) =>
-        {
-            WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-        };
-        this.Get<Button>("CloseButton").Click += (sender, e) =>
-        {
-            Close();
-        };
+
+        //SetupSide("Left", StandardCursorType.LeftSide, WindowEdge.West);
+        //SetupSide("Right", StandardCursorType.RightSide, WindowEdge.East);
+        //SetupSide("Top", StandardCursorType.TopSide, WindowEdge.North);
+        //SetupSide("Bottom", StandardCursorType.BottomSide, WindowEdge.South);
+        //SetupSide("TopLeft", StandardCursorType.TopLeftCorner, WindowEdge.NorthWest);
+        //SetupSide("TopRight", StandardCursorType.TopRightCorner, WindowEdge.NorthEast);
+        //SetupSide("BottomLeft", StandardCursorType.BottomLeftCorner, WindowEdge.SouthWest);
+        //SetupSide("BottomRight", StandardCursorType.BottomRightCorner, WindowEdge.SouthEast);
     }
+
 }

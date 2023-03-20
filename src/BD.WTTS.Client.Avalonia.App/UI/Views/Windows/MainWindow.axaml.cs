@@ -19,6 +19,7 @@ public sealed partial class MainWindow : AppWindow
 
         //ExtendClientAreaToDecorationsHint = true;
         //ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
+        TitleBar.Height = 40;
         TitleBar.ExtendsContentIntoTitleBar = true;
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
 

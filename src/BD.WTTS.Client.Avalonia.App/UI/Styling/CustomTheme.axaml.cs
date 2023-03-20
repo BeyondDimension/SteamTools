@@ -98,4 +98,7 @@ public class CustomTheme : Styles, IResourceProvider
             Resources.Add(key, value);
         }
     }
+
+    bool IResourceNode.HasResources => true;
+
 }

@@ -1,8 +1,12 @@
+using FluentAvalonia.UI.Windowing;
+
 namespace BD.WTTS.UI.Views.Windows;
 
 public partial class CoreWindow : Window, IStyleable
 {
     private bool _hideSizeButtons;
+
+    Type IStyleable.StyleKey => typeof(CoreWindow);
 
     /// <summary>
     /// Gets or sets a value whether the AppWindow should hide its minimize/maximize buttons like 
