@@ -92,7 +92,7 @@ public interface INotificationService
     static async void Notify(ActiveUserType type)
     {
         if (type == ActiveUserType.OnStartup)
-            await NotificationService.Current.GetNews();
+            await NotificationService.Current.GetNewsAsync();
     }
 
     /// <summary>

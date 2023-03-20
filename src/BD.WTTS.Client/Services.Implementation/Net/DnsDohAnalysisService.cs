@@ -22,7 +22,7 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
     {
     }
 
-    public async Task<int> AnalysisHostnameTime(string url, CancellationToken cancellationToken = default)
+    public async Task<int> AnalysisHostnameTimeAsync(string url, CancellationToken cancellationToken = default)
     {
         if (!string.IsNullOrEmpty(url))
         {

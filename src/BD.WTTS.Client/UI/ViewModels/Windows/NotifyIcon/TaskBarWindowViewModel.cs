@@ -17,7 +17,7 @@ public sealed partial class TaskBarWindowViewModel : WindowViewModel
     public async void Show(int x, int y)
     {
         SetPosition(x, y);
-        await IWindowManager.Instance.Show(AppEndPoint.TaskBar, this, resizeMode: ResizeMode.NoResize, isParent: false);
+        await IWindowManager.Instance.ShowAsync(AppEndPoint.TaskBar, this, resizeMode: ResizeMode.NoResize, isParent: false);
     }
 
     public void SetPosition(int x, int y)

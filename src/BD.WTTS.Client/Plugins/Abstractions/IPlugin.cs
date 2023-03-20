@@ -19,13 +19,13 @@ public interface IPlugin
     /// 插件加载完成时
     /// </summary>
     /// <returns></returns>
-    ValueTask OnLoaded();
+    ValueTask OnLoadedAsync();
 
     /// <summary>
     /// MainWindowViewModel.Initialize
     /// </summary>
     /// <returns></returns>
-    ValueTask OnInitialize();
+    ValueTask OnInitializeAsync();
 
     /// <summary>
     /// 配置按需使用的依赖注入服务

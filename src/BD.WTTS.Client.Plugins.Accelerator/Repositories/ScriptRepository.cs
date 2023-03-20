@@ -3,7 +3,7 @@ namespace BD.WTTS.Repositories;
 
 internal sealed class ScriptRepository : Repository<Script, int>, IScriptRepository
 {
-    public async Task<bool> ExistsScript(string md5, string sha512)
+    public async Task<bool> ExistsScriptAsync(string md5, string sha512)
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
         return await AttemptAndRetry(async () =>
@@ -12,7 +12,7 @@ internal sealed class ScriptRepository : Repository<Script, int>, IScriptReposit
         });
     }
 
-    public async Task SaveScriptEnable(ScriptDTO item)
+    public async Task SaveScriptEnableAsync(ScriptDTO item)
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
         await AttemptAndRetry(async () =>
@@ -49,7 +49,7 @@ internal sealed class ScriptRepository : Repository<Script, int>, IScriptReposit
         }).ConfigureAwait(false);
     }
 
-    public async Task<Script> ExistsScriptName(string name)
+    public async Task<Script> ExistsScriptNameAsync(string name)
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
         return await AttemptAndRetry(async () =>

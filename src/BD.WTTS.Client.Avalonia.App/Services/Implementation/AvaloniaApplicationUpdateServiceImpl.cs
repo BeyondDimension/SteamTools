@@ -20,7 +20,7 @@ sealed class AvaloniaApplicationUpdateServiceImpl : ApplicationUpdateServiceBase
 
     protected override async Task ShowNewVersionWindowAsync()
     {
-        await windowManager.Show(typeof(object), AppEndPoint.NewVersion, isParent: false);
+        await windowManager.ShowAsync(typeof(object), AppEndPoint.NewVersion, isParent: false);
     }
 
     public override async void OnMainOpenTryShowNewVersionWindow()

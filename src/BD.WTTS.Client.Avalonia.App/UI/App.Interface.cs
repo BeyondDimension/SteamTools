@@ -141,7 +141,7 @@ partial class App : IApplication
     /// </summary>
     /// <param name="window"></param>
     /// <returns></returns>
-    public async Task ShowDialogWindow(Window window)
+    public async Task ShowDialogWindowAsync(Window window)
     {
         var owner = GetActiveWindow();
         if (owner != null)

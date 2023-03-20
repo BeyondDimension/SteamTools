@@ -136,7 +136,7 @@
                 Margin="12,4"
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
-                Source="/UI/Assets/Icon.ico" />
+                Source="/UI/Assets/ApplicationIcon.ico" />
 
             <StackPanel
                 Grid.Column="1"

@@ -18,7 +18,7 @@ partial interface IPlatformService
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    ValueTask<bool?> TrustRootCertificate(string filePath)
+    ValueTask<bool?> TrustRootCertificateAsync(string filePath)
         => throw new PlatformNotSupportedException();
 
     /// <summary>

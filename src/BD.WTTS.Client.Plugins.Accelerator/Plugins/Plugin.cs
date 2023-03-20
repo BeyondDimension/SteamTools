@@ -35,16 +35,16 @@ sealed class Plugin : PluginBase<Plugin>
 #endif
     }
 
-    public override ValueTask OnLoaded()
+    public override ValueTask OnLoadedAsync()
     {
         return ValueTask.CompletedTask;
     }
 
-    public override async ValueTask OnInitialize()
+    public override async ValueTask OnInitializeAsync()
     {
         if (ResourceService.IsChineseSimplified)
         {
-            await ProxyService.Current.Initialize();
+            await ProxyService.Current.InitializeAsync();
         }
     }
 
@@ -58,7 +58,7 @@ sealed class Plugin : PluginBase<Plugin>
         IReverseProxyService reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
         if (reverseProxyService != null)
         {
-            await reverseProxyService.StartProxy();
+            await reverseProxyService.StartProxyAsync();
         }
         ProxyService.OnExitRestoreHosts();
     }

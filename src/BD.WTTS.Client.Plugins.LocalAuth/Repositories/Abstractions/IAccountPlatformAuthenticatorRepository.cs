@@ -72,7 +72,7 @@ public interface IAccountPlatformAuthenticatorRepository
     /// <param name="sources"></param>
     /// <param name="secondaryPassword"></param>
     /// <returns></returns>
-    Task<List<IAuthenticatorDTO>> ConvertToList(IEnumerable<AccountPlatformAuthenticator> sources, string? secondaryPassword = null);
+    Task<List<IAuthenticatorDTO>> ConvertToListAsync(IEnumerable<AccountPlatformAuthenticator> sources, string? secondaryPassword = null);
 
     /// <summary>
     /// 插入或更新一条到本地，插入前需要判断当前值是否超过了 <see cref="MaxValue"/>

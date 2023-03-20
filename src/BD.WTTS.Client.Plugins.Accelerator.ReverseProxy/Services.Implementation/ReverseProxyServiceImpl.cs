@@ -140,7 +140,7 @@ abstract class ReverseProxyServiceImpl
 
     public abstract ReverseProxyEngine ReverseProxyEngine { get; }
 
-    public async ValueTask<bool> StartProxy()
+    public async ValueTask<bool> StartProxyAsync()
     {
         if (!CertificateManager.IsRootCertificateInstalled)
         {

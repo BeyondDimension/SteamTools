@@ -43,7 +43,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         return false;
     }
 
-    Task Show(Type typeWindowViewModel,
+    Task ShowAsync(Type typeWindowViewModel,
         bool isDialog,
         AppEndPoint customWindow,
         string title,
@@ -120,7 +120,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             {
                 if (isDialog)
                 {
-                    await App.Instance.ShowDialogWindow(window);
+                    await App.Instance.ShowDialogWindowAsync(window);
                 }
                 else
                 {
@@ -137,34 +137,34 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             }
         });
 
-    public Task Show<TWindowViewModel>(
+    public Task ShowAsync<TWindowViewModel>(
         AppEndPoint customWindow,
         TWindowViewModel? viewModel = null,
         string title = "",
         ResizeMode resizeMode = ResizeMode.NoResize,
         bool isDialog = false,
         bool isParent = true)
-        where TWindowViewModel : WindowViewModel, new() => Show(typeof(TWindowViewModel),
+        where TWindowViewModel : WindowViewModel, new() => ShowAsync(typeof(TWindowViewModel),
             customWindow, viewModel, title, resizeMode, isDialog, isParent);
 
-    public Task Show(Type typeWindowViewModel,
+    public Task ShowAsync(Type typeWindowViewModel,
         AppEndPoint customWindow,
         WindowViewModel? viewModel = null,
         string title = "",
         ResizeMode resizeMode = ResizeMode.NoResize,
         bool isDialog = false,
-        bool isParent = true) => Show(typeWindowViewModel, isDialog, customWindow,
+        bool isParent = true) => ShowAsync(typeWindowViewModel, isDialog, customWindow,
             title, viewModel, resizeMode, isParent);
 
-    public Task Show(AppEndPoint customWindow,
+    public Task ShowAsync(AppEndPoint customWindow,
        WindowViewModel? viewModel = null,
        string title = "",
        ResizeMode resizeMode = ResizeMode.NoResize,
        bool isDialog = false,
-       bool isParent = true) => Show(GetWindowViewModelType(customWindow), isDialog, customWindow,
+       bool isParent = true) => ShowAsync(GetWindowViewModelType(customWindow), isDialog, customWindow,
             title, viewModel, resizeMode, isParent);
 
-    public async Task<bool> ShowDialog<TWindowViewModel>(
+    public async Task<bool> ShowDialogAsync<TWindowViewModel>(
         AppEndPoint customWindow,
         TWindowViewModel? viewModel = null,
         string title = "",
@@ -174,7 +174,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         where TWindowViewModel : WindowViewModel, new()
     {
         DialogWindowViewModel? dialogWindowViewModel = null;
-        await Show(typeof(TWindowViewModel), isDialog, customWindow,
+        await ShowAsync(typeof(TWindowViewModel), isDialog, customWindow,
             title, viewModel, resizeMode, isParent, dwvm =>
             {
                 dialogWindowViewModel = dwvm;
@@ -182,19 +182,19 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         return dialogWindowViewModel?.DialogResult ?? false;
     }
 
-    public Task ShowDialog(Type typeWindowViewModel,
+    public Task ShowDialogAsync(Type typeWindowViewModel,
             AppEndPoint customWindow,
             WindowViewModel? viewModel = null,
             string title = "",
             ResizeMode resizeMode = ResizeMode.NoResize,
-            bool isDialog = true) => Show(typeWindowViewModel, isDialog, customWindow,
+            bool isDialog = true) => ShowAsync(typeWindowViewModel, isDialog, customWindow,
                 title, viewModel, resizeMode);
 
-    public Task ShowDialog(AppEndPoint customWindow,
+    public Task ShowDialogAsync(AppEndPoint customWindow,
         WindowViewModel? viewModel = null,
         string title = "",
         ResizeMode resizeMode = ResizeMode.NoResize,
-        bool isDialog = true) => Show(GetWindowViewModelType(customWindow), isDialog, customWindow,
+        bool isDialog = true) => ShowAsync(GetWindowViewModelType(customWindow), isDialog, customWindow,
             title, viewModel, resizeMode);
 
     public void CloseWindow(WindowViewModel vm)

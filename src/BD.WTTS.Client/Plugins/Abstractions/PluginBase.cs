@@ -24,9 +24,9 @@ public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<T
 
     public virtual string Version => mVersion.Value;
 
-    public virtual ValueTask OnLoaded() => ValueTask.CompletedTask;
+    public virtual ValueTask OnLoadedAsync() => ValueTask.CompletedTask;
 
-    public virtual ValueTask OnInitialize() => ValueTask.CompletedTask;
+    public virtual ValueTask OnInitializeAsync() => ValueTask.CompletedTask;
 
     public virtual void ConfigureDemandServices(
         IServiceCollection services,

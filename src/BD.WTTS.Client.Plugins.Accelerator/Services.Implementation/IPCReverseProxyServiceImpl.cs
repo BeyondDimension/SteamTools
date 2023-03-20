@@ -49,17 +49,17 @@ sealed class IPCReverseProxyServiceImpl : IReverseProxyService
         throw new NotImplementedException();
     }
 
-    public ValueTask<bool> StartProxy()
+    public ValueTask<bool> StartProxyAsync()
     {
         throw new NotImplementedException();
     }
 
-    public ValueTask StopProxy()
+    public ValueTask StopProxyAsync()
     {
         throw new NotImplementedException();
     }
 
-    public ValueTask SyncSettings()
+    public ValueTask SyncSettingsAsync()
     {
         throw new NotImplementedException();
     }

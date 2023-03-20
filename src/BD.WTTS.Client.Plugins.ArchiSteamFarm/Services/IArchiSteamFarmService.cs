@@ -25,15 +25,15 @@ public partial interface IArchiSteamFarmService : IArchiSteamFarmHelperService
     /// 启动 ArchiSteamFarm
     /// </summary>
     /// <param name="args"></param>
-    Task<bool> Start(string[]? args = null);
+    Task<bool> StartAsync(string[]? args = null);
 
-    Task Stop();
+    Task StopAsync();
 
     /// <summary>
     /// 执行 ArchiSteamFarm 指令
     /// </summary>
     /// <param name="command"></param>
-    Task<string?> ExecuteCommand(string command);
+    Task<string?> ExecuteCommandAsync(string command);
 
     /// <summary>
     /// 获取 IPC 地址
@@ -60,7 +60,7 @@ public partial interface IArchiSteamFarmService : IArchiSteamFarmHelperService
             {
                 command = command.Remove(0, 1);
             }
-            await ExecuteCommand(command);
+            await ExecuteCommandAsync(command);
         }
         else
         {

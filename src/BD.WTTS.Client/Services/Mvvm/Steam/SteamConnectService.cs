@@ -443,7 +443,7 @@ public sealed class SteamConnectService
         }
     }
 
-    public async Task RefreshGamesList()
+    public async Task RefreshGamesListAsync()
     {
         if (IsLoadingGameList == false)
         {

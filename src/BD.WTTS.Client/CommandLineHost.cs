@@ -21,7 +21,7 @@ public abstract class CommandLineHost : IDisposable
         }
     }
 
-    protected abstract ValueTask ConfigureServices(AppServicesLevel level, bool isTrace = false);
+    protected abstract ValueTask ConfigureServicesAsync(AppServicesLevel level, bool isTrace = false);
 
 #if StartWatchTrace
     protected abstract void StartWatchTraceRecord(string? mark = null, bool dispose = false);
@@ -97,7 +97,7 @@ public abstract class CommandLineHost : IDisposable
 #if StartWatchTrace
             StartWatchTraceRecord("ProcessCheck");
 #endif
-            await ConfigureServices(Host.IsMainProcess ? AppServicesLevel.MainProcess : AppServicesLevel.Min);
+            await ConfigureServicesAsync(Host.IsMainProcess ? AppServicesLevel.MainProcess : AppServicesLevel.Min);
 #if StartWatchTrace
             StartWatchTraceRecord("Startup.Init");
 #endif
@@ -248,7 +248,7 @@ public abstract class CommandLineHost : IDisposable
         {
             if (!string.IsNullOrEmpty(account))
             {
-                ConfigureServices(AppServicesLevel.Steam);
+                ConfigureServicesAsync(AppServicesLevel.Steam);
 
                 var steamService = ISteamService.Instance;
 
@@ -283,19 +283,19 @@ public abstract class CommandLineHost : IDisposable
                 if (id <= 0) return;
                 if (cloudmanager)
                 {
-                    ConfigureServices(AppServicesLevel.GUI | AppServicesLevel.Steam | AppServicesLevel.HttpClientFactory);
+                    ConfigureServicesAsync(AppServicesLevel.GUI | AppServicesLevel.Steam | AppServicesLevel.HttpClientFactory);
                     IViewModelManager.Instance.InitCloudManageMain(id);
                     StartApplication(args);
                 }
                 else if (achievement)
                 {
-                    ConfigureServices(AppServicesLevel.GUI | AppServicesLevel.Steam | AppServicesLevel.HttpClientFactory);
+                    ConfigureServicesAsync(AppServicesLevel.GUI | AppServicesLevel.Steam | AppServicesLevel.HttpClientFactory);
                     IViewModelManager.Instance.InitUnlockAchievement(id);
                     StartApplication(args);
                 }
                 else
                 {
-                    ConfigureServices(AppServicesLevel.Steam);
+                    ConfigureServicesAsync(AppServicesLevel.Steam);
                     SteamConnectService.Current.Initialize(id);
                     TaskCompletionSource tcs = new();
                     await tcs.Task;
@@ -394,7 +394,7 @@ public abstract class CommandLineHost : IDisposable
         ayaneo.AddOption(new Option<string>("-path", "json 生成路径"));
         ayaneo.Handler = CommandHandler.Create((string path) =>
         {
-            ConfigureServices(AppServicesLevel.Steam);
+            ConfigureServicesAsync(AppServicesLevel.Steam);
             var steamService = ISteamService.Instance;
             var users = steamService.GetRememberUserList();
 

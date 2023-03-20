@@ -15,7 +15,7 @@ sealed class Plugin : PluginBase<Plugin>
     {
     }
 
-    public override ValueTask OnLoaded()
+    public override ValueTask OnLoadedAsync()
     {
         return ValueTask.CompletedTask;
     }

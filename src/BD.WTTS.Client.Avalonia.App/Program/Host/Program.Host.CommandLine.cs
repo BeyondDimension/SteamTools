@@ -7,7 +7,7 @@ static partial class Program
     {
         public Func<AppServicesLevel, ValueTask>? ConfigureServicesDelegate { get; set; }
 
-        protected override async ValueTask ConfigureServices(AppServicesLevel level, bool isTrace = false)
+        protected override async ValueTask ConfigureServicesAsync(AppServicesLevel level, bool isTrace = false)
         {
             if (ConfigureServicesDelegate != null)
             {
@@ -15,7 +15,7 @@ static partial class Program
             }
             else
             {
-                await Program.ConfigureServices(this, level, isTrace: isTrace);
+                await Program.ConfigureServicesAsync(this, level, isTrace: isTrace);
             }
         }
 

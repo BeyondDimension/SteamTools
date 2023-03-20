@@ -10,7 +10,7 @@ sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
 {
     static readonly LookupClient lookupClient = new();
 
-    public async Task<int> AnalysisHostnameTime(string url, CancellationToken cancellationToken = default)
+    public async Task<int> AnalysisHostnameTimeAsync(string url, CancellationToken cancellationToken = default)
     {
         if (!string.IsNullOrEmpty(url))
         {
@@ -103,7 +103,7 @@ sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
         }
     }
 
-    public async Task<string?> GetHostByIPAddress(IPAddress ip)
+    public async Task<string?> GetHostByIPAddressAsync(IPAddress ip)
     {
         //var hostName = Dns.GetHostEntry(IPAddress2.Parse(ip)).HostName;
         var client = lookupClient;
@@ -112,7 +112,7 @@ sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
         return hostName;
     }
 
-    public async Task<bool> GetIsIpv6Support()
+    public async Task<bool> GetIsIpv6SupportAsync()
     {
         try
         {
@@ -135,7 +135,7 @@ sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
         return false;
     }
 
-    public Task<IPAddress?> GetHostIpv6Addres()
+    public Task<IPAddress?> GetHostIpv6AddresAsync()
     {
         return Task.FromResult<IPAddress?>(null);
     }

@@ -74,9 +74,9 @@ public sealed class ASFService : ReactiveObject
     /// </summary>
     public bool IsASFRunOrStoping { get; private set; }
 
-    public Task InitASF() => InitASFCore(true);
+    public Task InitASFAsync() => InitASFCoreAsync(true);
 
-    public async Task InitASFCore(bool showToast)
+    public async Task InitASFCoreAsync(bool showToast)
     {
         if (IsASFRunOrStoping) return;
 
@@ -90,7 +90,7 @@ public sealed class ASFService : ReactiveObject
         //    return;
         //}
 
-        var isOk = await archiSteamFarmService.Start();
+        var isOk = await archiSteamFarmService.StartAsync();
         if (!isOk)
         {
             if (showToast) Toast.Show(AppResources.ASF_Stoped, ToastLength.Short);
@@ -111,9 +111,9 @@ public sealed class ASFService : ReactiveObject
         if (showToast) Toast.Show(AppResources.ASF_Started, ToastLength.Short);
     }
 
-    public Task StopASF() => StopASFCore(true);
+    public Task StopASFAsync() => StopASFCoreAsync(true);
 
-    public async Task StopASFCore(bool showToast)
+    public async Task StopASFCoreAsync(bool showToast)
     {
         if (IsASFRunOrStoping) return;
 
@@ -121,7 +121,7 @@ public sealed class ASFService : ReactiveObject
 
         IsASFRunOrStoping = true;
 
-        await archiSteamFarmService.Stop();
+        await archiSteamFarmService.StopAsync();
 
         MainThread2.BeginInvokeOnMainThread(() =>
         {

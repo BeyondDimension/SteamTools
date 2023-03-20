@@ -41,7 +41,7 @@ partial class MacCatalystPlatformServiceImpl
     bool IPlatformService.IsCertificateInstalled(X509Certificate2 certificate2)
         => IsCertificateInstalled(certificate2);
 
-    async ValueTask<bool?> IPlatformService.TrustRootCertificate(string filePath)
+    async ValueTask<bool?> IPlatformService.TrustRootCertificateAsync(string filePath)
     {
         var script = $"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db";
         TextBoxWindowViewModel vm = new()

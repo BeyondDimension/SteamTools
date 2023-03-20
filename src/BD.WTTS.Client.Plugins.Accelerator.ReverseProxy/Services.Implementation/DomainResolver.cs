@@ -41,7 +41,7 @@ sealed class DomainResolver : IDomainResolver
 
     public async void CheckIpv6SupportAsync(CancellationToken cancellationToken = default)
     {
-        isIpv6 = await reverseProxyConfig.Service.DnsAnalysis.GetIsIpv6Support();
+        isIpv6 = await reverseProxyConfig.Service.DnsAnalysis.GetIsIpv6SupportAsync();
     }
 
     public Task TestSpeedAsync(CancellationToken cancellationToken = default)

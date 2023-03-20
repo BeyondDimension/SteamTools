@@ -18,11 +18,11 @@ sealed class NotifyIconHelper : INotificationService.NotifyIconHelper
         string iconPath;
         if (OperatingSystem2.IsMacOS())
         {
-            iconPath = "avares://BD.WTTS.Client.Avalonia.App/Application/UI/Assets/Icon_16.png";
+            iconPath = "avares://BD.WTTS.Client.Avalonia.App/Application/UI/Assets/ApplicationIcon_16.png";
         }
         else
         {
-            iconPath = "avares://BD.WTTS.Client.Avalonia.App/Application/UI/Assets/Icon.ico";
+            iconPath = "avares://BD.WTTS.Client.Avalonia.App/Application/UI/Assets/ApplicationIcon.ico";
         }
         return assets.Open(new(iconPath));
     }

@@ -30,11 +30,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="UI\Assets\Icon.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <AvaloniaResource Include="UI\Assets\Icon.ico" />
+		<None Remove="UI\Assets\**\*" />
+		<AvaloniaResource Include="UI\Assets\**\*" />
 	</ItemGroup>
 
 	<ItemGroup>

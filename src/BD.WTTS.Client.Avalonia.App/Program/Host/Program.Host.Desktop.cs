@@ -18,7 +18,7 @@ static partial class Program
         public OnOffToggle ProxyStatus { get; set; }
 
         void IApplication.IProgramHost.ConfigureServices(AppServicesLevel level, bool isTrace)
-            => ConfigureServices(level, isTrace);
+            => ConfigureServicesAsync(level, isTrace);
 
         bool isInitVisualStudioAppCenterSDK = false;
 

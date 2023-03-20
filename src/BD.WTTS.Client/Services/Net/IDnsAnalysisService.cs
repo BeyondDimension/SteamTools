@@ -60,7 +60,7 @@ public interface IDnsAnalysisService
     protected const string IPV6_TESTDOMAIN = "ipv6.rmbgame.net";
     protected const string IPV6_TESTDOMAIN_SUCCESS = PrimaryDNS_IPV6_Ali;
 
-    async Task<long> PingHostname(string url)
+    async Task<long> PingHostnameAsync(string url)
     {
         var pin = new Ping();
         var r = await pin.SendPingAsync(url, 30);
@@ -71,7 +71,7 @@ public interface IDnsAnalysisService
         return r.RoundtripTime;
     }
 
-    Task<int> AnalysisHostnameTime(string url, CancellationToken cancellationToken = default);
+    Task<int> AnalysisHostnameTimeAsync(string url, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 解析域名 IP 地址
@@ -137,13 +137,13 @@ public interface IDnsAnalysisService
         return null;
     }
 
-    async Task<string?> GetHostByIPAddress(IPAddress ip)
+    async Task<string?> GetHostByIPAddressAsync(IPAddress ip)
     {
         var hostEntry = await Dns.GetHostEntryAsync(ip);
         return hostEntry.HostName;
     }
 
-    Task<bool> GetIsIpv6Support() => Task.FromResult(false);
+    Task<bool> GetIsIpv6SupportAsync() => Task.FromResult(false);
 
-    Task<IPAddress?> GetHostIpv6Addres() => Task.FromResult(default(IPAddress));
+    Task<IPAddress?> GetHostIpv6AddresAsync() => Task.FromResult(default(IPAddress));
 }

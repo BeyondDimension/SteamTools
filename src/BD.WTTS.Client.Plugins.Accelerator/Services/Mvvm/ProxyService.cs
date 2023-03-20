@@ -146,7 +146,7 @@ public sealed class ProxyService
                         }
                     }
 
-                    var isRun = await reverseProxyService.StartProxy();
+                    var isRun = await reverseProxyService.StartProxyAsync();
 
                     if (isRun)
                     {
@@ -186,7 +186,7 @@ public sealed class ProxyService
                                         //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"");
                                     }
                                     Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
-                                    await reverseProxyService.StopProxy();
+                                    await reverseProxyService.StopProxyAsync();
                                     return;
                                 }
                             }
@@ -203,7 +203,7 @@ public sealed class ProxyService
                 }
                 else
                 {
-                    await reverseProxyService.StopProxy();
+                    await reverseProxyService.StopProxyAsync();
                     StopTimer();
                     reverseProxyService.Scripts = null;
                     void OnStopRemoveHostsByTag()
@@ -310,7 +310,7 @@ public sealed class ProxyService
         return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x => x.Order);
     }
 
-    public Task<IEnumerable<ScriptDTO>?> EnableProxyScripts => scriptManager.LoadingScriptContent(GetEnableProxyScripts());
+    public Task<IEnumerable<ScriptDTO>?> EnableProxyScripts => scriptManager.LoadingScriptContentAsync(GetEnableProxyScripts());
 
     private DateTimeOffset _StartAccelerateTime;
 
@@ -392,11 +392,11 @@ public sealed class ProxyService
         return false;
     }
 
-    public async Task Initialize()
+    public async Task InitializeAsync()
     {
         //reverseProxyService.StopProxy();
-        await InitializeAccelerate();
-        await InitializeScript();
+        await InitializeAccelerateAsync();
+        await InitializeScriptAsync();
 
         if (IsProgramStartupRunProxy())
         {
@@ -424,7 +424,7 @@ public sealed class ProxyService
         }
     }
 
-    public async Task InitializeAccelerate()
+    public async Task InitializeAccelerateAsync()
     {
         // 加载代理服务数据
         var client = IMicroServiceClient.Instance.Accelerate;
@@ -551,7 +551,7 @@ public sealed class ProxyService
     /// 初始化脚本数据
     /// </summary>
     /// <returns></returns>
-    public async Task InitializeScript()
+    public async Task InitializeScriptAsync()
     {
         // 加载脚本数据
 
@@ -571,7 +571,7 @@ public sealed class ProxyService
               .Subscribe(async item =>
               {
                   item.Sender.Enable = item.Value;
-                  await scriptManager.SaveEnableScript(item.Sender);
+                  await scriptManager.SaveEnableScriptAsync(item.Sender);
                   //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                   //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                   if (reverseProxyService.ProxyRunning)
@@ -626,7 +626,7 @@ public sealed class ProxyService
         }
     }
 
-    public async Task AddNewScript(string filename)
+    public async Task AddNewScriptAsync(string filename)
     {
         var fileInfo = new FileInfo(filename);
         if (fileInfo.Exists)
@@ -641,18 +641,18 @@ public sealed class ProxyService
                     {
                         if (s.Result == MessageBox.Result.OK)
                         {
-                            await AddNewScript(fileInfo, info, scriptItem);
+                            await AddNewScriptAsync(fileInfo, info, scriptItem);
                         }
                     });
                 }
                 else
                 {
-                    await AddNewScript(fileInfo, info);
+                    await AddNewScriptAsync(fileInfo, info);
                 }
             }
             else
             {
-                await AddNewScript(fileInfo, info);
+                await AddNewScriptAsync(fileInfo, info);
             }
         }
         else
@@ -662,7 +662,7 @@ public sealed class ProxyService
         }
     }
 
-    public async Task AddNewScript(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null)
+    public async Task AddNewScriptAsync(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null)
     {
         IsLoading = true;
         bool isbuild = true;
@@ -782,7 +782,7 @@ public sealed class ProxyService
 
 #if WINDOWS
         {
-            await reverseProxyService.StopProxy();
+            await reverseProxyService.StopProxyAsync();
             platformService.SetAsSystemProxy(false);
             platformService.SetAsSystemPACProxy(false);
             Process.Start("cmd.exe", "netsh winsock reset");
@@ -800,7 +800,7 @@ public sealed class ProxyService
 
     public async ValueTask DisposeAsync()
     {
-        await DisposeAsyncCore().ConfigureAwait(false);
+        await DisposeAsyncCoreAsync().ConfigureAwait(false);
 
         Dispose(disposing: false);
         GC.SuppressFinalize(this);
@@ -810,20 +810,20 @@ public sealed class ProxyService
     {
         if (disposing)
         {
-            await Exit().ConfigureAwait(false);
+            await ExitAsync().ConfigureAwait(false);
         }
     }
 
-    async ValueTask DisposeAsyncCore()
+    async ValueTask DisposeAsyncCoreAsync()
     {
-        await Exit().ConfigureAwait(false);
+        await ExitAsync().ConfigureAwait(false);
     }
 
-    public async ValueTask Exit()
+    public async ValueTask ExitAsync()
     {
         if (ProxyStatus)
         {
-            await reverseProxyService.StopProxy();
+            await reverseProxyService.StopProxyAsync();
             if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
             {
                 OnExitRestoreHosts();

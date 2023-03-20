@@ -9,7 +9,7 @@ static partial class Program
     /// 初始化启动
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static async ValueTask ConfigureServices(IApplication.IStartupArgs args,
+    static async ValueTask ConfigureServicesAsync(IApplication.IStartupArgs args,
         AppServicesLevel level,
         IServiceCollection? services = null,
         bool isTrace = false)
@@ -40,7 +40,7 @@ static partial class Program
             {
                 foreach (var plugin in options.Plugins!)
                 {
-                    await plugin.OnLoaded();
+                    await plugin.OnLoadedAsync();
                 }
             }
         }

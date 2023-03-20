@@ -68,7 +68,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                     var sha512 = Hashs.String.SHA512(info.Content);
                     if (!ignoreCache)
                     {
-                        if (await scriptRepository.ExistsScript(md5, sha512))
+                        if (await scriptRepository.ExistsScriptAsync(md5, sha512))
                         {
                             return ApiRspHelper.Fail<ScriptDTO?>(AppResources.Script_FileRepeat);
                         }
@@ -299,7 +299,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         static IApiRsp OK_Script_DeleteSuccess() => ApiRspHelper.Ok(AppResources.Script_DeleteSuccess);
     }
 
-    public async Task<ScriptDTO> TryReadFile(ScriptDTO item)
+    public async Task<ScriptDTO> TryReadFileAsync(ScriptDTO item)
     {
         var cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
         if (File.Exists(cachePath))
@@ -337,12 +337,12 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         return item;
     }
 
-    public async Task SaveEnableScript(ScriptDTO item)
+    public async Task SaveEnableScriptAsync(ScriptDTO item)
     {
-        await scriptRepository.SaveScriptEnable(item);
+        await scriptRepository.SaveScriptEnableAsync(item);
     }
 
-    public async Task<IEnumerable<ScriptDTO>?> LoadingScriptContent(IEnumerable<ScriptDTO>? all)
+    public async Task<IEnumerable<ScriptDTO>?> LoadingScriptContentAsync(IEnumerable<ScriptDTO>? all)
     {
         if (all.Any_Nullable())
         {
@@ -352,7 +352,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 {
                     if (string.IsNullOrEmpty(item.Content))
                     {
-                        await TryReadFile(item);
+                        await TryReadFileAsync(item);
                     }
                 }
             }

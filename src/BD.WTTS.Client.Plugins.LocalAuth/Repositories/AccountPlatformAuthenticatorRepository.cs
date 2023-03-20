@@ -67,9 +67,9 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         return index;
     }
 
-    async Task<IAuthenticatorDTO?> Convert(AccountPlatformAuthenticator item, string? secondaryPassword)
+    async Task<IAuthenticatorDTO?> ConvertAsync(AccountPlatformAuthenticator item, string? secondaryPassword)
     {
-        (var value, var _) = await Convert2(item, secondaryPassword);
+        (var value, var _) = await Convert2Async(item, secondaryPassword);
         return value;
     }
 
@@ -80,7 +80,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         return resultCode__;
     }
 
-    async Task<(IAuthenticatorDTO? value, ImportResultCode resultCode)> Convert2(AccountPlatformAuthenticator item, string? secondaryPassword)
+    async Task<(IAuthenticatorDTO? value, ImportResultCode resultCode)> Convert2Async(AccountPlatformAuthenticator item, string? secondaryPassword)
     {
         var (value_bytes, result_code) = await ss.DB2(item.Value, secondaryPassword);
         if (result_code != DResultCode.Success) return (null, Convert(result_code));
@@ -113,18 +113,18 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         return (result, ImportResultCode.Success);
     }
 
-    async IAsyncEnumerable<IAuthenticatorDTO?> Convert(IEnumerable<AccountPlatformAuthenticator> sources, string? secondaryPassword)
+    async IAsyncEnumerable<IAuthenticatorDTO?> ConvertAsync(IEnumerable<AccountPlatformAuthenticator> sources, string? secondaryPassword)
     {
         foreach (var item in sources)
         {
-            var value = await Convert(item, secondaryPassword);
+            var value = await ConvertAsync(item, secondaryPassword);
             yield return value;
         }
     }
 
-    public async Task<List<IAuthenticatorDTO>> ConvertToList(IEnumerable<AccountPlatformAuthenticator> sources, string? secondaryPassword = null)
+    public async Task<List<IAuthenticatorDTO>> ConvertToListAsync(IEnumerable<AccountPlatformAuthenticator> sources, string? secondaryPassword = null)
     {
-        var query = Convert(sources, secondaryPassword);
+        var query = ConvertAsync(sources, secondaryPassword);
 
         var list = new List<IAuthenticatorDTO>();
 
@@ -142,7 +142,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
     public async Task<List<IAuthenticatorDTO>> GetAllAsync(string? secondaryPassword = null)
     {
         var sources = await GetAllSourceAsync();
-        return await ConvertToList(sources);
+        return await ConvertToListAsync(sources);
     }
 
     static EncryptionMode GetEncryptionMode(bool isLocal, string? secondaryPassword)
@@ -165,7 +165,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         return (notSecondaryPassword, encryptionMode);
     }
 
-    async Task<AccountPlatformAuthenticator> Convert(IAuthenticatorDTO item, bool isLocal,
+    async Task<AccountPlatformAuthenticator> ConvertAsync(IAuthenticatorDTO item, bool isLocal,
        string? secondaryPassword = null)
     {
         var value = Serializable.SMP(item.Value);
@@ -196,7 +196,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
     public async Task InsertOrUpdateAsync(IAuthenticatorDTO item, bool isLocal,
         string? secondaryPassword = null)
     {
-        var entity = await Convert(item, isLocal, secondaryPassword);
+        var entity = await ConvertAsync(item, isLocal, secondaryPassword);
 
         await InsertOrUpdateAsync(entity);
 
@@ -289,7 +289,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         var list = new List<AccountPlatformAuthenticator>();
         foreach (var item in items)
         {
-            var entity = await Convert(item, isLocal, secondaryPassword);
+            var entity = await ConvertAsync(item, isLocal, secondaryPassword);
             list.Add(entity);
         }
         return list;
@@ -324,7 +324,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
             var list = new List<IAuthenticatorDTO>();
             foreach (var source in sources)
             {
-                (var item, var item_result_code) = await Convert2(source, secondaryPassword);
+                (var item, var item_result_code) = await Convert2Async(source, secondaryPassword);
                 if (item_result_code != ImportResultCode.Success)
                 {
                     resultCode = item_result_code;

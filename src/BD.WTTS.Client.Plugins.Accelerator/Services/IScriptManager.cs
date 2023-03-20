@@ -12,7 +12,7 @@ public interface IScriptManager
     /// </summary>
     /// <param name="all">加载的列表</param>
     /// <returns></returns>
-    Task<IEnumerable<ScriptDTO>?> LoadingScriptContent(IEnumerable<ScriptDTO>? all);
+    Task<IEnumerable<ScriptDTO>?> LoadingScriptContentAsync(IEnumerable<ScriptDTO>? all);
 
     /// <summary>
     /// 绑定 JS
@@ -73,5 +73,5 @@ public interface IScriptManager
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    Task SaveEnableScript(ScriptDTO item);
+    Task SaveEnableScriptAsync(ScriptDTO item);
 }

@@ -16,7 +16,7 @@ sealed class Plugin : PluginBase<Plugin>, IGameLibrarySettings
         services.AddSingleton<IGameLibrarySettings>(_ => this);
     }
 
-    public override ValueTask OnLoaded()
+    public override ValueTask OnLoadedAsync()
     {
         return ValueTask.CompletedTask;
     }

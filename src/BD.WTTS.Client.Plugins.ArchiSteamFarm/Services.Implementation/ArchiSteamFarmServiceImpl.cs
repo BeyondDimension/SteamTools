@@ -67,7 +67,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         ASFNLogManager.Configuration = config;
     }
 
-    public async Task<bool> Start(string[]? args = null)
+    public async Task<bool> StartAsync(string[]? args = null)
     {
         try
         {
@@ -106,7 +106,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             {
                 if (!await Program.InitASF().ConfigureAwait(false))
                 {
-                    await Stop().ConfigureAwait(false);
+                    await StopAsync().ConfigureAwait(false);
                     return false;
                 }
             }
@@ -115,12 +115,12 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         catch (Exception e)
         {
             e.LogAndShowT(TAG, msg: "ASF Start Fail.");
-            await Stop().ConfigureAwait(false);
+            await StopAsync().ConfigureAwait(false);
             return false;
         }
     }
 
-    public async Task Stop()
+    public async Task StopAsync()
     {
         StartTime = null;
         ReadLineTask?.TrySetResult("");
@@ -134,9 +134,9 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         var s = ASFService.Current;
         if (s.IsASFRuning)
         {
-            await s.StopASFCore(false);
+            await s.StopASFCoreAsync(false);
         }
-        await s.InitASFCore(false);
+        await s.InitASFCoreAsync(false);
 
         Toast.Show(AppResources.ASF_Restarted, ToastLength.Short);
     }
@@ -156,7 +156,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             };
     }
 
-    public async Task<string?> ExecuteCommand(string command)
+    public async Task<string?> ExecuteCommandAsync(string command)
     {
         Bot? targetBot = Bot.Bots?.OrderBy(bot => bot.Key, Bot.BotsComparer).Select(bot => bot.Value).FirstOrDefault();
 

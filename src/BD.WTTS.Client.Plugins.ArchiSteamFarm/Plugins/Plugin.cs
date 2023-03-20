@@ -21,7 +21,7 @@ sealed class Plugin : PluginBase<Plugin>
         ArchiSteamFarm.Web.WebBrowser.CreateHttpHandlerDelegate = IApplication.CreateHttpHandler;
     }
 
-    public override ValueTask OnLoaded()
+    public override ValueTask OnLoadedAsync()
     {
         return ValueTask.CompletedTask;
     }

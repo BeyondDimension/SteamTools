@@ -37,13 +37,13 @@ public partial interface IReverseProxyService : IDisposable, IReverseProxySettin
     /// 启动代理服务
     /// </summary>
     /// <returns></returns>
-    ValueTask<bool> StartProxy();
+    ValueTask<bool> StartProxyAsync();
 
     /// <summary>
     /// 停止代理服务
     /// </summary>
     /// <returns></returns>
-    ValueTask StopProxy();
+    ValueTask StopProxyAsync();
 
     /// <summary>
     /// 获取当前反向代理实现引擎

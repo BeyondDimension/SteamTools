@@ -8,11 +8,11 @@ public interface IScriptRepository : IRepository<Script, int>
     /// </summary>
     const int MaxValue = 100;
 
-    Task<bool> ExistsScript(string md5, string sha512);
+    Task<bool> ExistsScriptAsync(string md5, string sha512);
 
-    Task<Script> ExistsScriptName(string name);
+    Task<Script> ExistsScriptNameAsync(string name);
 
     Task<IList<Script>> GetAllAsync();
 
-    Task SaveScriptEnable(ScriptDTO item);
+    Task SaveScriptEnableAsync(ScriptDTO item);
 }

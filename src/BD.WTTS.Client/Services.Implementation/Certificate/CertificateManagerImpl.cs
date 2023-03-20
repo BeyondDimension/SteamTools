@@ -82,7 +82,7 @@ abstract partial class CertificateManagerImpl
         }
     }
 
-    async ValueTask TrustRootCertificate()
+    async ValueTask TrustRootCertificateAsync()
     {
         try
         {
@@ -97,17 +97,17 @@ abstract partial class CertificateManagerImpl
         catch { }
 #endif
 
-        await PlatformTrustRootCertificateGuide();
+        await PlatformTrustRootCertificateGuideAsync();
     }
 
-    /// <inheritdoc cref="ICertificateManager.PlatformTrustRootCertificateGuide"/>
-    public async ValueTask PlatformTrustRootCertificateGuide()
+    /// <inheritdoc cref="ICertificateManager.PlatformTrustRootCertificateGuideAsync"/>
+    public async ValueTask PlatformTrustRootCertificateGuideAsync()
     {
         try
         {
             if (OperatingSystem.IsMacOS())
             {
-                await TrustRootCertificateMacOS();
+                await TrustRootCertificateMacOSAsync();
             }
             else if (OperatingSystem.IsLinux() && !OperatingSystem.IsAndroid())
             {
@@ -125,14 +125,14 @@ abstract partial class CertificateManagerImpl
     }
 
     [SupportedOSPlatform("macOS")]
-    async ValueTask TrustRootCertificateMacOS()
+    async ValueTask TrustRootCertificateMacOSAsync()
     {
         var filePath = GetCerFilePathGeneratedWhenNoFileExists();
         if (filePath == null) return;
-        var state = await platformService.TrustRootCertificate(filePath);
+        var state = await platformService.TrustRootCertificateAsync(filePath);
         //await platformService.RunShellAsync($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
         if (state != null && !IsRootCertificateInstalled)
-            await TrustRootCertificateMacOS();
+            await TrustRootCertificateMacOSAsync();
     }
 
     [SupportedOSPlatform("Linux")]
@@ -150,12 +150,12 @@ abstract partial class CertificateManagerImpl
     }
 
     /// <inheritdoc cref="ICertificateManager.SetupRootCertificate"/>
-    public async ValueTask<bool> SetupRootCertificate()
+    public async ValueTask<bool> SetupRootCertificateAsync()
     {
         if (!GenerateCertificate()) return false;
         if (!IsRootCertificateInstalled)
         {
-            await TrustRootCertificate();
+            await TrustRootCertificateAsync();
             return IsRootCertificateInstalled;
         }
         return true;
