@@ -1,0 +1,65 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:wnd="using:FluentAvalonia.UI.Windowing">
+
+    <Design.PreviewWith>
+        <spp:CoreWindow Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+        </spp:CoreWindow>
+    </Design.PreviewWith>
+
+    <Styles.Resources>
+        <ControlTheme x:Key="{x:Type spp:MinMaxCloseControl}" TargetType="spp:MinMaxCloseControl">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="MinimizeButton">
+                            <PathIcon Data="M929.8 528.1H93.5c-15.5 0-28-12.5-28-28s12.5-28 28-28h836.3c15.5 0 28 12.5 28 28s-12.5 28-28 28z" />
+                        </Button>
+                        <Button Name="MaxRestoreButton">
+                            <PathIcon Data="M812.3 959.4H213.7c-81.6 0-148-66.4-148-148V212.9c0-81.6 66.4-148 148-148h598.5c81.6 0 148 66.4 148 148v598.5C960.3 893 893.9 959.4 812.3 959.4zM213.7 120.9c-50.7 0-92 41.3-92 92v598.5c0 50.7 41.3 92 92 92h598.5c50.7 0 92-41.3 92-92V212.9c0-50.7-41.3-92-92-92H213.7z" />
+                        </Button>
+                        <Button Name="CloseButton">
+                            <PathIcon Data="M96.6 915c-10.9-10.9-10.9-28.7 0-39.6L887 85c10.9-10.9 28.7-10.9 39.6 0 10.9 10.9 10.9 28.7 0 39.6L136.2 915c-10.9 10.9-28.6 10.9-39.6 0z M887 915L96.6 124.6c-10.9-10.9-10.9-28.7 0-39.6 10.9-10.9 28.7-10.9 39.6 0l790.4 790.4c10.9 10.9 10.9 28.7 0 39.6-10.9 10.9-28.6 10.9-39.6 0z" />
+                        </Button>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter>
+
+            <Style Selector="^ /template/ Button">
+                <Setter Property="Margin" Value="2 1" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+            <Style Selector="^ /template/ PathIcon">
+                <Setter Property="Width" Value="12" />
+            </Style>
+
+            <Style Selector="^:maximized /template/ Button#MaxRestoreButton PathIcon">
+                <Setter Property="Data" Value="M812.2 65H351.6c-78.3 0-142.5 61.1-147.7 138.1-77 5.1-138.1 69.4-138.1 147.7v460.6c0 81.6 66.4 148 148 148h460.6c78.3 0 142.5-61.1 147.7-138.1 77-5.1 138.1-69.4 138.1-147.7V213c0-81.6-66.4-148-148-148z m-45.8 746.3c0 50.7-41.3 92-92 92H213.8c-50.7 0-92-41.3-92-92V350.7c0-50.7 41.3-92 92-92h460.6c50.7 0 92 41.3 92 92v460.6z m137.8-137.7c0 47.3-35.8 86.3-81.8 91.4V350.7c0-81.6-66.4-148-148-148H260.2c5.1-45.9 44.2-81.8 91.4-81.8h460.6c50.7 0 92 41.3 92 92v460.7z" />
+            </Style>
+        </ControlTheme>
+
+        <ControlTemplate x:Key="CoreWindowTemplate" TargetType="{x:Type spp:CoreWindow}">
+            <Panel>
+                <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+                <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+                <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
+                <VisualLayerManager>
+                    <ContentPresenter
+                        Name="PART_ContentPresenter"
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </VisualLayerManager>
+                <wnd:AppSplashScreen Name="SplashHost" IsVisible="False" />
+            </Panel>
+        </ControlTemplate>
+    </Styles.Resources>
+</Styles>

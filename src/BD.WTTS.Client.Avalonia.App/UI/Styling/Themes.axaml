@@ -1,0 +1,12 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="https://steampp.net/ui">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="{x:Static ui:CustomTheme.HighContrastTheme}">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/UI/Styling/Theme/Dark.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>
