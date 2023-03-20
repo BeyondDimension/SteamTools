@@ -11,8 +11,9 @@ static partial class Program
     [STAThread]
     internal static int Main(string[] args)
     {
+        var baseDirectory = AppContext.BaseDirectory;
 #if WINDOWS
-        if (!IsCustomEntryPoint && !CompatibilityCheck())
+        if (!IsCustomEntryPoint && !CompatibilityCheck(baseDirectory))
             return 0;
 #endif
 
