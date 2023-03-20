@@ -23,8 +23,9 @@ static partial class Program
 #else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-    static bool CompatibilityCheck()
+    static bool CompatibilityCheck(string baseDirectory)
     {
+#if NETFRAMEWORK || WINDOWS
         int major = 10, minor = 0, build = 17763;
 #if NETFRAMEWORK
         if (Environment.OSVersion.Version < new Version(major, minor, build))
@@ -35,11 +36,6 @@ static partial class Program
             ShowErrMessageBox(AppResources.Error_IncompatibleOS);
             return false;
         }
-        var baseDirectory =
-#if NET46_OR_GREATER || NETCOREAPP
-        AppContext.BaseDirectory;
-#else
-        AppDomain.CurrentDomain.BaseDirectory;
 #endif
         if (baseDirectory.StartsWith(Path.GetTempPath(), StringComparison.OrdinalIgnoreCase))
         {

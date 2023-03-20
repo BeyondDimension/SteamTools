@@ -173,14 +173,16 @@ static partial class Program
         Console.WriteLine($"Environment.Version: {Environment.Version}");
 #endif
 
-        if (!CompatibilityCheck()) return 0;
-
         var baseDirectory =
 #if NET46_OR_GREATER || NETCOREAPP
                 AppContext.BaseDirectory;
 #else
                 AppDomain.CurrentDomain.BaseDirectory;
 #endif
+
+        if (!CompatibilityCheck(baseDirectory))
+            return 0;
+
         var requireAspNetCore = RequireAspNetCore(baseDirectory);
         string hostfxr_path, dotnet_runtime_path, aspnetcore_runtime_path, config_path, dotnetlib_path;
 
