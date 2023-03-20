@@ -259,7 +259,15 @@ static partial class Program
 #else
                         Path.Combine
 #endif
-                        (dir_hostfxr_path, usable_dotnet_version, "hostfxr.dll");
+                        (dir_hostfxr_path, usable_dotnet_version,
+#if NETFRAMEWORK || WINDOWS
+                        "hostfxr.dll"
+#elif MACOS || MACCATALYST
+                        "libhostfxr.dylib"
+#else
+                        "libhostfxr.so"
+#endif
+                        );
 
                     dotnet_runtime_path =
 #if NET35
