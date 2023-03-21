@@ -14,11 +14,16 @@ static partial class Program
         if (isOnCreateAppExecuting) return;
         isOnCreateAppExecuting = true;
 
+#if WINDOWS
+        //#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 #if DEBUG
         // 调试时移动本机库到 native，通常指定了单个 RID(RuntimeIdentifier) 后本机库将位于程序根目录上否则将位于 runtimes 文件夹中
         GlobalDllImportResolver.MoveFiles();
 #endif
+#endif
 
+#if WINDOWS
+        //#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         // 监听当前应用程序域的程序集加载
         AppDomain.CurrentDomain.AssemblyLoad += (_, args)
             => CurrentDomain_AssemblyLoad(args.LoadedAssembly);
@@ -45,6 +50,7 @@ static partial class Program
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         foreach (var assembly in assemblies)
             CurrentDomain_AssemblyLoad(assembly);
+#endif
 
         AppDomain.CurrentDomain.AssemblyResolve += (_, args) =>
         {
@@ -161,7 +167,10 @@ static partial class Program
 
 #if DEBUG
         Console.WriteLine($"CurrentUICulture: {CultureInfo.CurrentUICulture}");
+#if WINDOWS
+        //#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         Console.WriteLine($"RID: {GlobalDllImportResolver.RID}");
+#endif
         Console.WriteLine($"DefaultFontFamilyName: {SkiaSharp.SKTypeface.Default.FamilyName}");
         Console.WriteLine($"DefaultFontFamilyName2: {IPlatformService.Instance.GetDefaultFontFamily()}");
         Console.WriteLine("FontFamilies: ");

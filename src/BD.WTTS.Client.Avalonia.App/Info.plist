@@ -24,5 +24,7 @@
 	<string>© 长沙次元超越科技有限公司. All Rights Reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>

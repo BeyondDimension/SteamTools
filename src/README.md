@@ -114,7 +114,7 @@ namespace Microsoft.Extensions.DependencyInjection
 - [.NET 分发打包](https://learn.microsoft.com/zh-cn/dotnet/core/distribution-packaging)  
 - [环境变量 - 指定 .NET 运行时的位置](https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet-environment-variables#dotnet_root-dotnet_rootx86)  
 
-### 程序目录结构
+### 程序目录结构(Windows)
 - dotnet 共享运行时，删除后将使用已安装的运行时，此目录参考 ```C:\Program Files\dotnet```，可自行升级运行库小版本号，二进制兼容
 	- host
 		- fxr
@@ -153,8 +153,44 @@ namespace Microsoft.Extensions.DependencyInjection
         - Steam++.Plugins.LocalAuth.dll
     - GameTools 游戏工具
         - Steam++.Plugins.GameTools.dll
-- Steam++.exe 主程序
-- Steam++.Uninstall.exe 卸载程序(WinForms?AOT?)
+- Steam++.exe .NET Framework 二进制主程序  
+- Steam++.exe.config 使用该配置文件以允许在 .NET Framework 3.5 ~ 4.8.1 中任意版本中兼容运行(从 Windows 7 ~ 11 中所有系统自带运行时)  
+- Steam++.Uninstall.exe 卸载程序(WinForms?AOT?)  
+
+### 程序目录结构(Linux)
+- Steam++ 本机二进制主程序  
+- libe_sqlite3.so  
+- libHarfBuzzSharp.so  
+- libSkiaSharp.so  
+- native
+    - linux-x64
+        - TODO?
+- modules 可选模块
+    - TODO
+```
+改成 Windows 的目录结构，但在 AOT 的 AppHost 中无法加载已使用框架依赖发布的程序集，错误 Initialization for self-contained components is not supported
+参考  
+https://github.com/dotnet/runtime/issues/35329  
+https://github.com/dotnet/runtime/search?l=C%2B%2B&q=get_is_framework_dependent  
+https://github.com/dotnet/runtime/blob/6702dc5c7814e624a42ab4615224920a5635beeb/src/native/corehost/runtime_config.cpp  
+https://github.com/dotnet/runtime/blob/main/docs/design/features/host-error-codes.md  
+https://github.com/dotnet/samples/blob/91355ef22a10ec614a2e8daefd68785066860d57/core/hosting/src/NativeHost/nativehost.cpp  
+```
+
+### 程序目录结构(macOS)
+- Steam++.app  
+    - Contents  
+        - Info.plist 
+        - MacOS  
+            - Steam++ 本机二进制主程序  
+        - MonoBundle  
+            - Steam++.Accelerator.X64 网络加速控制台子服务进程二进制程序  
+            - Steam++.Accelerator.Arm64   
+        - PkgInfo  
+        - Resources  
+
+对子服务进程二进制程序的 RID 使用 ```RuntimeInformation.ProcessArchitecture.ToString()```  
+通过 ```PublishFolderType="Assembly"``` 指定 Copy 到 MonoBundle 中，没有其他选项能够将其放在 MacOS 文件夹中
 
 ### 应用分发(安装包程序方案)
 - Steam 软件商店
