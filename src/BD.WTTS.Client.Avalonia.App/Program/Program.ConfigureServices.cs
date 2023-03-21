@@ -134,7 +134,11 @@ static partial class Program
         services.AddRepositoryPreferences();
 #endif
         // Essentials
+#if LINUX
+        services.TryAddSingleton<IApplicationVersionService, Essentials_AppVerS>();
+#else
         services.TryAddEssentials<Essentials_AppVerS>();
+#endif
 
         // 添加安全服务
         services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();

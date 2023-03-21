@@ -115,6 +115,7 @@
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
 		<PackageReference Include="Avalonia.Win32" />
+		<PackageReference Include="BD.Common.Essentials.Maui.Runtime" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
@@ -122,6 +123,7 @@
 		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
 		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
 		<PackageReference Include="Avalonia.Native" />
+		<PackageReference Include="BD.Common.Essentials.Maui.Runtime" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">

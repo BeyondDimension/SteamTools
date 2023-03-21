@@ -75,7 +75,6 @@
 		<PackageReference Include="BD.Common.Settings" />
 		<PackageReference Include="BD.Common.Repositories.SQLitePCL" />
 		<PackageReference Include="BD.Common.Essentials" />
-		<PackageReference Include="BD.Common.Essentials.Maui" />
 		<PackageReference Include="BD.Common.Essentials.Primitives" />
 		<PackageReference Include="BD.Common.Essentials.Utils" />
 		<PackageReference Include="BD.Common.Essentials.Preferences.SQLite" />

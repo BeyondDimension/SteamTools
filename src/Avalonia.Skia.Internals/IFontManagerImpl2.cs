@@ -38,5 +38,11 @@ public interface IFontManagerImpl2 : IFontManagerImpl
         return Impl.TryCreateGlyphTypeface(stream, out glyphTypeface);
     }
 
+    //IGlyphTypeface IFontManagerImpl.CreateGlyphTypeface(Typeface typeface)
+    //{
+    //    typeface = OnCreateGlyphTypeface(typeface);
+    //    return Impl.CreateGlyphTypeface(typeface);
+    //}
+
     protected static IFontManagerImpl CreateFontManager() => new FontManagerImpl();
 }
