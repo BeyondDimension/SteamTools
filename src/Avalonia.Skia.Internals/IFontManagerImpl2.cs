@@ -13,11 +13,11 @@ public interface IFontManagerImpl2 : IFontManagerImpl
 
     string DefaultFontFamilyName { get; }
 
-    Typeface OnCreateGlyphTypeface(Typeface typeface);
+    string OnCreateGlyphTypeface(string familyName);
 
     string IFontManagerImpl.GetDefaultFontFamilyName() => DefaultFontFamilyName;
 
-    IEnumerable<string> IFontManagerImpl.GetInstalledFontFamilyNames(bool checkForUpdates)
+    string[] IFontManagerImpl.GetInstalledFontFamilyNames(bool checkForUpdates)
     {
         return Impl.GetInstalledFontFamilyNames(checkForUpdates);
     }
@@ -27,10 +27,15 @@ public interface IFontManagerImpl2 : IFontManagerImpl
         return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontStretch, fontFamily, culture, out typeface);
     }
 
-    IGlyphTypeface IFontManagerImpl.CreateGlyphTypeface(Typeface typeface)
+    bool IFontManagerImpl.TryCreateGlyphTypeface(string familyName, FontStyle style, FontWeight weight, FontStretch stretch, [NotNullWhen(returnValue: true)] out IGlyphTypeface? glyphTypeface)
     {
-        typeface = OnCreateGlyphTypeface(typeface);
-        return Impl.CreateGlyphTypeface(typeface);
+        familyName = OnCreateGlyphTypeface(familyName);
+        return Impl.TryCreateGlyphTypeface(familyName, style, weight, stretch, out glyphTypeface);
+    }
+
+    bool IFontManagerImpl.TryCreateGlyphTypeface(Stream stream, [NotNullWhen(returnValue: true)] out IGlyphTypeface? glyphTypeface)
+    {
+        return Impl.TryCreateGlyphTypeface(stream, out glyphTypeface);
     }
 
     protected static IFontManagerImpl CreateFontManager() => new FontManagerImpl();

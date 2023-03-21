@@ -52,7 +52,7 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
     internal static bool IsDefaultFontFamilyName(string name)
         => IsDefaultFontFamilyName(IPlatformService.Instance, name);
 
-    internal static bool IsDefaultFontFamilyName(IPlatformService platformService, string name)
+    internal static bool IsDefaultFontFamilyName(IPlatformService platformService, string? name)
     {
         if (string.IsNullOrWhiteSpace(name)) return true;
         if (string.Equals(name, IFontManager.KEY_Default, StringComparison.OrdinalIgnoreCase))
@@ -68,12 +68,11 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
         };
     }
 
-    Typeface IFontManagerImpl2.OnCreateGlyphTypeface(Typeface typeface)
+    string IFontManagerImpl2.OnCreateGlyphTypeface(string? fontFamilyName)
     {
-        var name = typeface.FontFamily.Name;
-        if (IsDefaultFontFamilyName(platformService, name))
-            return new Typeface(platformService.GetDefaultFontFamily());
-        return typeface;
+        if (IsDefaultFontFamilyName(platformService, fontFamilyName))
+            return platformService.GetDefaultFontFamily();
+        return fontFamilyName;
     }
 
     static readonly Lazy<FontFamily> mDefault = new(() =>
