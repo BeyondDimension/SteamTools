@@ -458,7 +458,7 @@ static partial class Program
 #else
         var main = (component_entry_point_fn)Marshal.GetDelegateForFunctionPointer(main_, typeof(component_entry_point_fn));
 #endif
-
+        GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
         var exitCode = main(default, default);
         return exitCode;
     }

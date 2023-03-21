@@ -1,10 +1,10 @@
 #if WINDOWS || NETFRAMEWORK || APP_HOST
-#if NETFRAMEWORK
-global using WPFMessageBox = System.Windows.MessageBox;
-global using WPFMessageBoxButton = System.Windows.MessageBoxButton;
-global using WPFMessageBoxImage = System.Windows.MessageBoxImage;
-global using WPFMessageBoxResult = System.Windows.MessageBoxResult;
-#endif
+//#if NETFRAMEWORK
+//global using WPFMessageBox = System.Windows.MessageBox;
+//global using WPFMessageBoxButton = System.Windows.MessageBoxButton;
+//global using WPFMessageBoxImage = System.Windows.MessageBoxImage;
+//global using WPFMessageBoxResult = System.Windows.MessageBoxResult;
+//#endif
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace

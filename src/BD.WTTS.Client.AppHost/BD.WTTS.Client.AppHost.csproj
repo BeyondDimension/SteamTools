@@ -26,10 +26,6 @@
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
 
-	<ItemGroup Condition="!$(TargetFramework.StartsWith('net3')) OR !$(TargetFramework.StartsWith('net4'))">
-		<None Remove="App.config" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<Compile Remove="..\ImplicitUsings.Common.cs" />
 		<Compile Include="..\AssemblyInfo.Constants.cs">
@@ -39,8 +35,8 @@
 		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<!--<ItemGroup>
 		<Reference Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4'))" Include="PresentationFramework" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 </Project>

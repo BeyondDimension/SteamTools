@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // https://github.com/dotnet/wpf/blob/v6.0.6/src/Microsoft.DotNet.Wpf/src/PresentationFramework/System/Windows/MessageBox.cs
 
-#if NET7_0_OR_GREATER
+#if NET7_0_OR_GREATER || NETFRAMEWORK
 
 namespace MS.Win32;
 
@@ -15,14 +15,28 @@ public static partial class MessageBox
 
     sealed partial class User32
     {
+#if NET7_0_OR_GREATER
         [LibraryImport(nameof(User32), SetLastError = true)]
         public static partial IntPtr GetActiveWindow();
 
         [LibraryImport(nameof(User32), EntryPoint = "MessageBoxW", StringMarshalling = StringMarshalling.Utf16)]
         public static partial MessageBoxResult MessageBox(IntPtr hWnd, string text, string caption, uint options);
+#elif NETFRAMEWORK
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        [ResourceExposure(ResourceScope.Process)]
+        public static extern IntPtr GetActiveWindow();
+
+        [DllImport("user32.dll", EntryPoint = "MessageBoxW", SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern MessageBoxResult MessageBox(IntPtr hWnd, string text, string caption, uint type);
+
+#endif
     }
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     public static MessageBoxResult Show(
             string messageBoxText,
             string caption,
@@ -31,7 +45,11 @@ public static partial class MessageBox
             MessageBoxResult defaultResult,
             MessageBoxOptions options) => ShowCore(IntPtr.Zero, messageBoxText, caption, button, icon, defaultResult, options);
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     public static MessageBoxResult Show(
           string messageBoxText,
           string caption,
@@ -39,26 +57,46 @@ public static partial class MessageBox
           MessageBoxImage icon,
           MessageBoxResult defaultResult) => ShowCore(IntPtr.Zero, messageBoxText, caption, button, icon, defaultResult, 0);
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     public static MessageBoxResult Show(
          string messageBoxText,
          string caption,
          MessageBoxButton button,
          MessageBoxImage icon) => ShowCore(IntPtr.Zero, messageBoxText, caption, button, icon, 0, 0);
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     public static MessageBoxResult Show(
           string messageBoxText,
           string caption,
           MessageBoxButton button) => ShowCore(IntPtr.Zero, messageBoxText, caption, button, MessageBoxImage.None, 0, 0);
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     public static MessageBoxResult Show(string messageBoxText, string caption) => ShowCore(IntPtr.Zero, messageBoxText, caption, MessageBoxButton.OK, MessageBoxImage.None, 0, 0);
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     public static MessageBoxResult Show(string messageBoxText) => ShowCore(IntPtr.Zero, messageBoxText, string.Empty, MessageBoxButton.OK, MessageBoxImage.None, 0, 0);
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     static uint DefaultResultToButtonNumber(MessageBoxResult result, MessageBoxButton button)
     {
         if (result == 0) return DEFAULT_BUTTON1;
@@ -147,13 +185,21 @@ public static partial class MessageBox
         return result;
     }
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     static bool IsValidMessageBoxButton(MessageBoxButton value) => value == MessageBoxButton.OK
            || value == MessageBoxButton.OKCancel
            || value == MessageBoxButton.YesNo
            || value == MessageBoxButton.YesNoCancel;
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     static bool IsValidMessageBoxImage(MessageBoxImage value) => value == MessageBoxImage.Asterisk
            || value == MessageBoxImage.Error
            || value == MessageBoxImage.Exclamation
@@ -164,14 +210,22 @@ public static partial class MessageBox
            || value == MessageBoxImage.Stop
            || value == MessageBoxImage.Warning;
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     static bool IsValidMessageBoxResult(MessageBoxResult value) => value == MessageBoxResult.Cancel
            || value == MessageBoxResult.No
            || value == MessageBoxResult.None
            || value == MessageBoxResult.OK
            || value == MessageBoxResult.Yes;
 
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
     static bool IsValidMessageBoxOptions(MessageBoxOptions value)
     {
         int mask = ~((int)MessageBoxOptions.ServiceNotification |
