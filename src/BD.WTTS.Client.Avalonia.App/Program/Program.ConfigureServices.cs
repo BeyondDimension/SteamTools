@@ -244,7 +244,7 @@ static partial class Program
             // 添加模型验证框架
             services.TryAddModelValidator();
 
-            // 添加服务端API调用
+            // 添加服务端 API 调用(BD.WTTS.MicroServices.ClientSDK)
             services.TryAddMicroServiceClient(configureHandler: IApplication.ConfigureHandler());
 
             services.AddAutoMapper(cfg =>
