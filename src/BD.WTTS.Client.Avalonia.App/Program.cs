@@ -33,7 +33,7 @@ static partial class Program
         if (!DesktopBridgeHelper.Init()) return 0;
         InitWithDesktopBridge(ref args);
 #elif IOS || MACOS || MACCATALYST
-        UIApplication.Main(args, null, typeof(AppDelegate));
+        NSApplication.Init();
 #endif
 
         var host = Host.Instance;
@@ -71,6 +71,7 @@ static partial class Program
         }
     }
 
+#if WINDOWS
     public static bool IsCustomEntryPoint { get; internal set; }
 
     /// <summary>
@@ -88,6 +89,7 @@ static partial class Program
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", Environment.CurrentDirectory);
         return Main(Environment.GetCommandLineArgs().Skip(1).ToArray());
     }
+#endif
 
 #if WINDOWS_DESKTOP_BRIDGE
     static void InitWithDesktopBridge(ref string[] args)
@@ -123,9 +125,6 @@ static partial class Program
         builder.With(new AvaloniaNativePlatformOptions
         {
             UseGpu = useGpu,
-            EnableMultiTouch = true,
-            UseDBusMenu = true,
-            EnableIme = true
         });
 #elif LINUX
         builder.With(new X11PlatformOptions
@@ -133,7 +132,7 @@ static partial class Program
             UseGpu = useGpu,
             EnableMultiTouch = true,
             UseDBusMenu = true,
-            EnableIme = true
+            EnableIme = true,
         });
 #elif WINDOWS
         var useWgl = IApplication.UseWgl || GeneralSettings.UseWgl.Value;

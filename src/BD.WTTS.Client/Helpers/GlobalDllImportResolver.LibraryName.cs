@@ -1,4 +1,5 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+#if WINDOWS
+//#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
