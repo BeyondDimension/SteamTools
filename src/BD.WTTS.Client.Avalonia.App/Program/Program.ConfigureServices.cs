@@ -133,6 +133,10 @@ static partial class Program
         // 首选项(Preferences) - 由 Repository 提供
         services.AddRepositoryPreferences();
 #endif
+
+        // 添加主线程助手(MainThreadDesktop)
+        services.AddMainThreadPlatformService();
+
         // Essentials
 #if LINUX
         services.TryAddSingleton<IApplicationVersionService, Essentials_AppVerS>();
@@ -186,9 +190,6 @@ static partial class Program
             services.TryAddToast();
 
             services.AddSingleton<IApplication>(s => s.GetRequiredService<App>());
-
-            // 添加主线程助手(MainThreadDesktop)
-            services.AddMainThreadPlatformService();
 
             //services.TryAddAvaloniaFilePickerPlatformService();
 

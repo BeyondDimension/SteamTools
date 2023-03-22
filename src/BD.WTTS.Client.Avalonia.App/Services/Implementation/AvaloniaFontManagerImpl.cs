@@ -68,7 +68,7 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
         };
     }
 
-    string IFontManagerImpl2.OnCreateGlyphTypeface(string? fontFamilyName)
+    string IFontManagerImpl2.OnCreateGlyphTypeface(string fontFamilyName)
     {
         if (IsDefaultFontFamilyName(platformService, fontFamilyName))
             return platformService.GetDefaultFontFamily();

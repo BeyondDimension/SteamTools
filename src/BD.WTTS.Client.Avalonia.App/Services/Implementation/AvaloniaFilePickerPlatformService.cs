@@ -1,9 +1,12 @@
+#if IOS || MACOS || MACCATALYST
+using MobileCoreServices;
+#endif
+using AvaloniaFilePickerFileType = Avalonia.Platform.Storage.FilePickerFileType;
 using BaseService = BD.Common.Services.IFilePickerPlatformService;
+using FilePickerFileType = BD.Common.Models.FilePickerFileType;
 using IOpenFileDialogService = BD.Common.Services.IFilePickerPlatformService.IOpenFileDialogService;
 using ISaveFileDialogService = BD.Common.Services.IFilePickerPlatformService.ISaveFileDialogService;
 using IServiceBase = BD.Common.Services.IFilePickerPlatformService.IServiceBase;
-using OpenFileDialog = Avalonia.Controls.OpenFileDialog;
-using SaveFileDialog = Avalonia.Controls.SaveFileDialog;
 
 namespace BD.WTTS.Services.Implementation;
 
@@ -13,30 +16,40 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
 
     ISaveFileDialogService BaseService.SaveFileDialogService => this;
 
-    static Window MainWindow
-    {
-        get
-        {
-            var mainWindow = App.Instance.MainWindow;
-            return mainWindow.ThrowIsNull();
-        }
-    }
-
     // https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/FilePicker/FilePicker.uwp.cs
     // https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/FileSystem/FileSystem.shared.cs
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Images => FilePickerFileType.Parse(FileEx.Images);
+    IFilePickerFileType IInternalFilePickerPlatformService.Images =>
+#if IOS || MACOS || MACCATALYST
+        FilePickerFileType.Parse(new string[] {
+            UTType.PNG, UTType.JPEG, "jpeg",
+        });
+#else
+        FilePickerFileType.Parse(FileEx.Images);
+#endif
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Png => FilePickerFileType.Parse(new[] {
+    IFilePickerFileType IInternalFilePickerPlatformService.Png => FilePickerFileType.Parse(new string[] {
+#if IOS || MACOS || MACCATALYST
+        UTType.PNG,
+#else
         FileEx.PNG,
+#endif
     });
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Jpeg => FilePickerFileType.Parse(new[] {
+    IFilePickerFileType IInternalFilePickerPlatformService.Jpeg => FilePickerFileType.Parse(new string[] {
+#if IOS || MACOS || MACCATALYST
+        UTType.JPEG,
+        "jpeg",
+#else
         FileEx.JPG,
         FileEx.JPEG,
+#endif
     });
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Videos => FilePickerFileType.Parse(new[] {
+    IFilePickerFileType IInternalFilePickerPlatformService.Videos => FilePickerFileType.Parse(new string[] {
+#if IOS || MACOS || MACCATALYST
+        UTType.MPEG4, UTType.Video, UTType.AVIMovie, UTType.AppleProtectedMPEG4Video, "mp4", "m4v", "mpg", "mpeg", "mp2", "mov", "avi", "mkv", "flv", "gifv", "qt",
+#else
         FileEx.Mp4,
         FileEx.Mov,
         FileEx.Avi,
@@ -49,24 +62,40 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
         FileEx.Flv,
         FileEx.Gifv,
         FileEx.Qt,
+#endif
     });
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Pdf => FilePickerFileType.Parse(new[] {
+    IFilePickerFileType IInternalFilePickerPlatformService.Pdf => FilePickerFileType.Parse(new string[] {
+#if IOS || MACOS || MACCATALYST
+        UTType.PDF,
+#else
         FileEx.PDF,
+#endif
     });
 
-    static List<FileDialogFilter>? Convert(IFilePickerFileType? fileTypes)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static AvaloniaFilePickerFileType Convert(string name, IEnumerable<string>? extensions)
+    {
+        var result = new AvaloniaFilePickerFileType(name)
+        {
+#if IOS || MACOS || MACCATALYST
+            AppleUniformTypeIdentifiers = extensions?.ToArray(),
+#else
+            Patterns = IServiceBase.FormatExtensions(extensions, trimLeadingPeriod: true).ToArray(),
+#endif
+        };
+        return result;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static List<AvaloniaFilePickerFileType>? Convert(IFilePickerFileType? fileTypes)
     {
         if (fileTypes is FilePickerFileType.IFilePickerFileTypeWithName @interface)
         {
             var values = @interface.GetFileTypes();
             if (values.Any())
             {
-                return values.Select(x => new FileDialogFilter
-                {
-                    Name = x.Item1,
-                    Extensions = IServiceBase.FormatExtensions(x.Item2, trimLeadingPeriod: true).ToList(),
-                }).ToList();
+                return values.Select(x => Convert(x.Item1, x.Item2)).ToList();
             }
         }
         else
@@ -75,20 +104,32 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
             if (extensions.Any_Nullable())
             {
                 return new()
-                    {
-                        new FileDialogFilter
-                        {
-                            Extensions = IServiceBase.FormatExtensions(extensions, trimLeadingPeriod: true).ToList(),
-                        },
-                    };
+                {
+                    Convert(string.Empty, extensions),
+                };
             }
         }
         return null;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static IEnumerable<IFileResult> Convert(IReadOnlyList<IStorageFile> fileResults)
+    {
+        foreach (var fileResult in fileResults)
+        {
+            var filePath = fileResult?.Path?.ToString();
+            if (filePath != null)
+                yield return new FileResult(filePath);
+        }
+    }
+
     async Task<IEnumerable<IFileResult>> IOpenFileDialogService.PlatformPickAsync(PickOptions? options, bool allowMultiple)
     {
-        OpenFileDialog fileDialog = new()
+        var storageProvider = App.Instance.MainWindow?.StorageProvider;
+        if (storageProvider == null || !storageProvider.CanOpen)
+            return Array.Empty<IFileResult>();
+
+        FilePickerOpenOptions options_ = new()
         {
             AllowMultiple = allowMultiple,
         };
@@ -96,48 +137,57 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
         {
             if (options.PickerTitle != default)
             {
-                fileDialog.Title = options.PickerTitle;
+                options_.Title = options.PickerTitle;
             }
             if (options.FileTypes != default)
             {
                 var filters = Convert(options.FileTypes);
                 if (filters != default)
                 {
-                    fileDialog.Filters = filters;
+                    options_.FileTypeFilter = filters;
                 }
             }
         }
 
-        var fileResults = await fileDialog.ShowAsync(MainWindow);
+        var fileResults = await storageProvider.OpenFilePickerAsync(options_);
 
-        return fileResults.Any_Nullable() ? fileResults.Select(x => new FileResult(x)) : Array.Empty<FileResult>();
+        if (fileResults.Any_Nullable())
+        {
+            return Convert(fileResults);
+        }
+        return Array.Empty<FileResult>();
     }
 
     async Task<SaveFileResult?> ISaveFileDialogService.PlatformSaveAsync(PickOptions? options)
     {
-        SaveFileDialog fileDialog = new();
+        var storageProvider = App.Instance.MainWindow?.StorageProvider;
+        if (storageProvider == null || !storageProvider.CanSave)
+            return null;
+
+        FilePickerSaveOptions options_ = new();
+
         if (options != default)
         {
             if (options.PickerTitle != default)
             {
-                fileDialog.Title = options.PickerTitle;
+                options_.Title = options.PickerTitle;
             }
             if (options.FileTypes != default)
             {
                 var filters = Convert(options.FileTypes);
                 if (filters != default)
                 {
-                    fileDialog.Filters = filters;
+                    options_.FileTypeChoices = filters;
                 }
             }
             if (options.InitialFileName != default)
             {
-                fileDialog.InitialFileName = options.InitialFileName;
+                options_.SuggestedFileName = options.InitialFileName;
             }
         }
 
-        var fileResult = await fileDialog.ShowAsync(MainWindow);
-
-        return string.IsNullOrEmpty(fileResult) ? null : new(fileResult);
+        var fileResult = await storageProvider.SaveFilePickerAsync(options_);
+        var filePath = fileResult?.Path?.ToString();
+        return string.IsNullOrEmpty(filePath) ? null : new(filePath);
     }
 }
