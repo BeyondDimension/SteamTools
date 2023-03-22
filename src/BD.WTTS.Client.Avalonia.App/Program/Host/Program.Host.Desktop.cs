@@ -40,7 +40,7 @@ static partial class Program
 
         IApplication IApplication.IProgramHost.Application => App.Instance;
 
-        void IApplication.IDesktopProgramHost.OnCreateAppExecuted(Action<IViewModelManager>? handlerViewModelManager, bool isTrace) => Program.OnCreateAppExecuted(this, handlerViewModelManager, isTrace);
+        void IApplication.IDesktopProgramHost.OnCreateAppExecuted(Action<IViewModelManager>? handlerViewModelManager) => Program.OnCreateAppExecuted(this, handlerViewModelManager);
 
         public DeploymentMode DeploymentMode => DeploymentMode.
 #if FRAMEWORK_DEPENDENT || !PUBLISH

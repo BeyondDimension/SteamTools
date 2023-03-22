@@ -51,7 +51,7 @@ partial interface IApplication
 
     interface IDesktopProgramHost : IProgramHost, IDesktopStartupArgs
     {
-        void OnCreateAppExecuted(Action<IViewModelManager>? handlerViewModelManager = null, bool isTrace = false);
+        void OnCreateAppExecuted(Action<IViewModelManager>? handlerViewModelManager = null);
 
         DeploymentMode DeploymentMode { get; }
     }

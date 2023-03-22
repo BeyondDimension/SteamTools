@@ -66,31 +66,34 @@ partial interface IApplication
     /// <summary>
     /// 配置 NLog 提供程序，仅初始化时调用
     /// </summary>
-    /// <returns></returns>
-    public static (LogLevel minLevel, Action<ILoggingBuilder> cfg) ConfigureLogging()
+    public static Action<ILoggingBuilder> ConfigureLogging(LogLevel minLevel = DefaultLoggerMinLevel)
     {
-        var minLevel = DefaultLoggerMinLevel;
-
-        void _(ILoggingBuilder builder)
+        return (ILoggingBuilder builder) =>
         {
             builder.ClearProviders();
 
-            builder.SetMinimumLevel(minLevel);
-            SetNLoggerMinLevel(minLevel);
+            //builder.SetMinimumLevel(minLevel);
+            //SetNLoggerMinLevel(minLevel);
 
             builder.AddNLog(NLogManager.Configuration); // 添加 NLog 日志
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             builder.AddConsole(); // 添加控制台日志
 #endif
-#if WINDOWS
-            builder.AddEventLog(new Microsoft.Extensions.Logging.EventLog.EventLogSettings()
-            {
-                SourceName = Constants.HARDCODED_APP_NAME,
-            }); // 添加 Windows 事件日志
-#endif
-        }
-
-        return (minLevel, _);
+            //#if WINDOWS
+            //            builder.AddEventLog(new Microsoft.Extensions.Logging.EventLog.EventLogSettings()
+            //            {
+            //                SourceName = Constants.HARDCODED_APP_NAME,
+            //            }); // 添加 Windows 事件日志
+            //#endif
+            //#if ANDROID
+            //#if DEBUG
+            //            // Android Logcat Provider Impl
+            //            //builder.AddProvider(PlatformLoggerProvider.Instance);
+            //#endif
+            //#elif MACOS || MACCATALYST || (IOS && DEBUG)
+            //            builder.AddProvider(Logging.OSLogLoggerProvider.Instance);
+            //#endif
+        };
     }
 
     /// <summary>

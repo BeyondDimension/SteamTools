@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using System.Reflection;
+
 namespace BD.WTTS;
 
 static partial class Program
@@ -143,9 +145,9 @@ static partial class Program
     /// </summary>
     /// <param name="host"></param>
     /// <param name="handlerViewModelManager"></param>
-    /// <param name="isTrace"></param>
-    static void OnCreateAppExecuted(IApplication.IProgramHost host, Action<IViewModelManager>? handlerViewModelManager = null, bool isTrace = false)
+    static void OnCreateAppExecuted(IApplication.IProgramHost host, Action<IViewModelManager>? handlerViewModelManager = null)
     {
+        var isTrace = StartupOptions.Value.IsTrace;
         if (isTrace) StartWatchTrace.Record();
         try
         {
@@ -165,7 +167,6 @@ static partial class Program
             if (isTrace) StartWatchTrace.Record(dispose: true);
         }
 
-#if DEBUG
         Console.WriteLine($"CurrentUICulture: {CultureInfo.CurrentUICulture}");
 #if WINDOWS
         //#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
@@ -178,6 +179,24 @@ static partial class Program
         {
             Console.WriteLine(item);
         }
+#if DEBUG
+        Console.Write($"OS: ");
+#if WINDOWS
+        Console.WriteLine("WINDOWS");
+#elif MACCATALYST
+        Console.WriteLine("MACCATALYST");
+#elif MACOS
+        Console.WriteLine("MACOS");
+#elif LINUX
+        Console.WriteLine("LINUX");
+#elif IOS
+        Console.WriteLine("IOS");
+#elif ANDROID
+        Console.WriteLine("ANDROID");
+#else
+        Console.WriteLine();
+#endif
+        Console.WriteLine($"Avalonia.Version: {typeof(TopLevel).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}");
         Console.WriteLine($"Environment.Version: {Environment.Version}");
         Console.WriteLine($"args: {string.Join(' ', Environment.GetCommandLineArgs())}");
         Console.WriteLine($"AppContext.BaseDirectory: {AppContext.BaseDirectory}");

@@ -14,31 +14,7 @@ public static partial class ServiceCollectionExtensions
     public static IServiceCollection AddGeneralLogging(this IServiceCollection services)
     {
         // 移动端平台日志与文件日志对性能影响较大，仅 Debug 时使用平台日志，文件日志应由设置项启用
-        var (minLevel, action) = IApplication.ConfigureLogging();
-        services.AddLogging(b =>
-        {
-            action(b);
-#if ANDROID
-#if DEBUG
-            // Android Logcat Provider Impl
-            //b.AddProvider(PlatformLoggerProvider.Instance);
-#endif
-#elif MACOS || MACCATALYST || (IOS && DEBUG)
-            b.AddProvider(OSLogLoggerProvider.Instance);
-#endif
-#if MACOS || MACCATALYST
-#if MACCATALYST
-            if (OperatingSystem.IsMacOS())
-#endif
-            {
-                b.AddProvider(OSLogLoggerProvider.Instance);
-            }
-#endif
-        });
-        services.Configure<LoggerFilterOptions>(o =>
-        {
-            o.MinLevel = minLevel;
-        });
+        services.AddLogging(IApplication.ConfigureLogging());
         services.AddSingleton(new NLogDisposable());
         return services;
     }

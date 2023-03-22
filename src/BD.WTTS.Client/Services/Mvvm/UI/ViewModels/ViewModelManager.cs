@@ -19,7 +19,6 @@ internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
     public void InitViewModels()
     {
         // TODO: CloudArchiveWindowViewModel/AchievementWindowViewModel
-        throw new NotImplementedException();
         //try
         //{
         //    if (isCloudManageMain)
