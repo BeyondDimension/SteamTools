@@ -10,12 +10,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Remove="..\AssemblyInfo.cs" />
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BD.Common" />
 		<PackageReference Include="Avalonia.Skia" Aliases="AvaloniaSkia" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Avalonia.Controls.Internals\Avalonia.Controls.Internals.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7.props" />
