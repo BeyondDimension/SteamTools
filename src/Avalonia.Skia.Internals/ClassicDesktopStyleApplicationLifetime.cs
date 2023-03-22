@@ -1,4 +1,4 @@
-// https://github.com/AvaloniaUI/Avalonia/blob/0.10.17/src/Avalonia.Controls/ApplicationLifetimes/ClassicDesktopStyleApplicationLifetime.cs
+// https://github.com/AvaloniaUI/Avalonia/blob/e1138f2cb6a393802b235a073d28e85a64690ffe/src/Avalonia.Controls/ApplicationLifetimes/ClassicDesktopStyleApplicationLifetime.cs
 
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -10,36 +10,39 @@ namespace Avalonia.Controls.ApplicationLifetimes
 {
     sealed class ClassicDesktopStyleApplicationLifetime2 : IClassicDesktopStyleApplicationLifetime, IDisposable
     {
-        private int _exitCode;
-        private CancellationTokenSource? _cts;
-        private bool _isShuttingDown;
-        private HashSet<Window> _windows = new();
+        int _exitCode;
+        CancellationTokenSource? _cts;
+        bool _isShuttingDown;
+        readonly HashSet<Window> _windows = new();
 
-        private static ClassicDesktopStyleApplicationLifetime2? _activeLifetime;
+#pragma warning disable SA1308 // Variable names should not be prefixed
+        static ClassicDesktopStyleApplicationLifetime2? s_activeLifetime;
+#pragma warning restore SA1308 // Variable names should not be prefixed
 
         static ClassicDesktopStyleApplicationLifetime2()
         {
             Window.WindowOpenedEvent.AddClassHandler(typeof(Window), OnWindowOpened);
-            Window.WindowClosedEvent.AddClassHandler(typeof(Window), WindowClosedEvent);
+            Window.WindowClosedEvent.AddClassHandler(typeof(Window), OnWindowClosed);
         }
 
-        private static void WindowClosedEvent(object sender, RoutedEventArgs e)
+        static void OnWindowClosed(object? sender, RoutedEventArgs e)
         {
-            _activeLifetime?._windows.Remove((Window)sender);
-            _activeLifetime?.HandleWindowClosed((Window)sender);
+            var window = (Window)sender!;
+            s_activeLifetime?._windows.Remove(window);
+            s_activeLifetime?.HandleWindowClosed(window);
         }
 
-        private static void OnWindowOpened(object sender, RoutedEventArgs e)
+        static void OnWindowOpened(object? sender, RoutedEventArgs e)
         {
-            _activeLifetime?._windows.Add((Window)sender);
+            s_activeLifetime?._windows.Add((Window)sender!);
         }
 
         public ClassicDesktopStyleApplicationLifetime2()
         {
-            if (_activeLifetime != null)
+            if (s_activeLifetime != null)
                 throw new InvalidOperationException(
                     "Can not have multiple active ClassicDesktopStyleApplicationLifetime instances and the previously created one was not disposed");
-            _activeLifetime = this;
+            s_activeLifetime = this;
         }
 
         /// <inheritdoc/>
@@ -62,9 +65,10 @@ namespace Avalonia.Controls.ApplicationLifetimes
         /// <inheritdoc/>
         public Window? MainWindow { get; set; }
 
-        public IReadOnlyList<Window> Windows => _windows.ToList();
+        /// <inheritdoc />
+        public IReadOnlyList<Window> Windows => _windows.ToArray();
 
-        private void HandleWindowClosed(Window window)
+        void HandleWindowClosed(Window? window)
         {
             if (window == null)
                 return;
@@ -80,12 +84,12 @@ namespace Avalonia.Controls.ApplicationLifetimes
 
         public void Shutdown(int exitCode = 0)
         {
-            DoShutdown(new ShutdownRequestedEventArgs(), true, exitCode);
+            DoShutdown(new ShutdownRequestedEventArgs(), true, true, exitCode);
         }
 
         public bool TryShutdown(int exitCode = 0)
         {
-            return DoShutdown(new ShutdownRequestedEventArgs(), false, exitCode);
+            return DoShutdown(new ShutdownRequestedEventArgs(), true, false, exitCode);
         }
 
         public int Start(string[] args)
@@ -120,18 +124,22 @@ namespace Avalonia.Controls.ApplicationLifetimes
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private void ShowMainWindow()
+        void ShowMainWindow()
         {
             MainWindow?.Show();
         }
 
         public void Dispose()
         {
-            if (_activeLifetime == this)
-                _activeLifetime = null;
+            if (s_activeLifetime == this)
+                s_activeLifetime = null;
         }
 
-        private bool DoShutdown(ShutdownRequestedEventArgs e, bool force = false, int exitCode = 0)
+        bool DoShutdown(
+             ShutdownRequestedEventArgs e,
+             bool isProgrammatic,
+             bool force = false,
+             int exitCode = 0)
         {
             if (!force)
             {
@@ -166,7 +174,7 @@ namespace Avalonia.Controls.ApplicationLifetimes
                 {
                     if (w.Owner is null)
                     {
-                        w.Close();
+                        w.CloseCore_(WindowCloseReason.ApplicationShutdown, isProgrammatic);
                     }
                 }
 
@@ -190,7 +198,8 @@ namespace Avalonia.Controls.ApplicationLifetimes
             return true;
         }
 
-        private void OnShutdownRequested(object sender, ShutdownRequestedEventArgs e) => DoShutdown(e);
+        void OnShutdownRequested(object? sender, ShutdownRequestedEventArgs e)
+            => DoShutdown(e, false);
     }
 }
 
@@ -198,9 +207,9 @@ namespace Avalonia
 {
     public static class ClassicDesktopStyleApplicationLifetimeExtensions
     {
-        public static int StartWithClassicDesktopLifetime2<T>(
-            this T builder, string[] args, ShutdownMode shutdownMode = ShutdownMode.OnLastWindowClose)
-            where T : AppBuilder, new()
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int StartWithClassicDesktopLifetime2(
+            this AppBuilder builder, string[] args, ShutdownMode shutdownMode = ShutdownMode.OnLastWindowClose)
         {
             var lifetime = new ClassicDesktopStyleApplicationLifetime2()
             {

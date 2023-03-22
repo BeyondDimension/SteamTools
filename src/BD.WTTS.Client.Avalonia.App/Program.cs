@@ -99,6 +99,7 @@ static partial class Program
 #endif
 
     // Avalonia configuration, don't remove; also used by visual designer.
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static AppBuilder BuildAvaloniaApp()
     {
         // 设计器模式不会执行 Main 函数所以以此区分来初始化文件系统
@@ -162,7 +163,9 @@ static partial class Program
     static void StartAvaloniaApp(string[] args,
         ShutdownMode shutdownMode = ShutdownMode.OnLastWindowClose)
     {
-        if (!Environment.UserInteractive) return;
+        if (!Environment.UserInteractive)
+            return;
+
         var builder = BuildAvaloniaApp();
         builder.StartWithClassicDesktopLifetime2(args, shutdownMode);
     }

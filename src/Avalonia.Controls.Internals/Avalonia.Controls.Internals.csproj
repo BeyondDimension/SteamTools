@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<RootNamespace>Avalonia.Skia</RootNamespace>
-		<AssemblyName>Avalonia.Skia.UnitTests</AssemblyName>
+		<RootNamespace>Avalonia.Controls</RootNamespace>
+		<AssemblyName>Avalonia.Controls.UnitTests</AssemblyName>
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\avalonia.snk</AssemblyOriginatorKeyFile>
@@ -10,12 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia.Skia" Aliases="AvaloniaSkia" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Avalonia.Controls.Internals\Avalonia.Controls.Internals.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+		<PackageReference Include="Avalonia" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7.props" />
