@@ -574,6 +574,9 @@ iOSInjectionProject/
 *.out
 *.app
 
+# macOS
+.DS_Store
+
 # WTTS
 .idea
 /pkg

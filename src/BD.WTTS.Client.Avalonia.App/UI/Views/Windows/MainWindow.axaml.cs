@@ -1,12 +1,9 @@
-using FluentAvalonia.Styling;
-using FluentAvalonia.UI;
-using FluentAvalonia.UI.Media;
-using FluentAvalonia.UI.Windowing;
-
 namespace BD.WTTS.UI.Views.Windows;
 
 public sealed partial class MainWindow : AppWindow
 {
+    const string TAG = "MainWindow";
+
     public MainWindow()
     {
         InitializeComponent();
@@ -30,6 +27,13 @@ public sealed partial class MainWindow : AppWindow
 
     void InitializeComponent()
     {
-        AvaloniaXamlLoader.Load(this);
+        try
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(TAG, ex, "load Xaml fail.");
+        }
     }
 }

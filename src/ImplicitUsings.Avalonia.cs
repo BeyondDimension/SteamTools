@@ -20,6 +20,7 @@ global using Avalonia.Data.Converters;
 global using Avalonia.Metadata;
 global using Avalonia.Markup;
 global using Avalonia.Markup.Xaml;
+global using Avalonia.Markup.Xaml.Styling;
 global using Avalonia.Platform;
 global using Avalonia.Media;
 global using Avalonia.Media.Imaging;
@@ -42,3 +43,11 @@ global using Avalonia.LogicalTree;
 global using Avalonia.Rendering;
 global using Avalonia.ReactiveUI;
 global using Avalonia.Platform.Storage;
+
+// FluentAvaloniaUI
+global using FluentAvalonia.Interop;
+global using FluentAvalonia.Styling;
+global using FluentAvalonia.UI.Controls;
+global using FluentAvalonia.UI.Windowing;
+global using FluentAvalonia.UI;
+global using FluentAvalonia.UI.Media;

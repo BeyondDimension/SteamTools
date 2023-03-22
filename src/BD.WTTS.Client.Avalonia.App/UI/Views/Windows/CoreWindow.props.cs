@@ -1,5 +1,3 @@
-using FluentAvalonia.UI.Windowing;
-
 namespace BD.WTTS.UI.Views.Windows;
 
 public partial class CoreWindow : Window, IStyleable

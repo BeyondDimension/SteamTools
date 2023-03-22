@@ -8,7 +8,14 @@ public sealed partial class App : Application
 
     public override void Initialize()
     {
-        AvaloniaXamlLoader.Load(this);
+        try
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(TAG, ex, "load Xaml fail.");
+        }
     }
 
     public override void RegisterServices()

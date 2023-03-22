@@ -124,6 +124,7 @@
 		<PackageReference Include="System.Management" />
 		<PackageReference Include="Aigio.WinDivertSharp" />
 		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
+		<PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -144,6 +145,7 @@
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<PackageReference Include="FluentAvaloniaUI" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">

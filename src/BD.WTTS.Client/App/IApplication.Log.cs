@@ -78,9 +78,16 @@ partial interface IApplication
             builder.SetMinimumLevel(minLevel);
             SetNLoggerMinLevel(minLevel);
 
-            // 可以多个日志提供同时用，比如还可以在 Win 平台再添加一个 Windows 事件日志
-
             builder.AddNLog(NLogManager.Configuration); // 添加 NLog 日志
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+            builder.AddConsole(); // 添加控制台日志
+#endif
+#if WINDOWS
+            builder.AddEventLog(new Microsoft.Extensions.Logging.EventLog.EventLogSettings()
+            {
+                SourceName = Constants.HARDCODED_APP_NAME,
+            }); // 添加 Windows 事件日志
+#endif
         }
 
         return (minLevel, _);
