@@ -244,11 +244,11 @@ public abstract class CommandLineHost : IDisposable
         // -clt steam -account
         var steamuser = new Command("steam", "Steam 相关操作");
         steamuser.AddOption(new Option<string>("-account", "指定对应 Steam 用户名"));
-        steamuser.Handler = CommandHandler.Create((string account) =>
+        steamuser.Handler = CommandHandler.Create(async (string account) =>
         {
             if (!string.IsNullOrEmpty(account))
             {
-                ConfigureServicesAsync(AppServicesLevel.Steam);
+                await ConfigureServicesAsync(AppServicesLevel.Steam);
 
                 var steamService = ISteamService.Instance;
 
@@ -283,19 +283,19 @@ public abstract class CommandLineHost : IDisposable
                 if (id <= 0) return;
                 if (cloudmanager)
                 {
-                    ConfigureServicesAsync(AppServicesLevel.GUI | AppServicesLevel.Steam | AppServicesLevel.HttpClientFactory);
+                    await ConfigureServicesAsync(AppServicesLevel.GUI | AppServicesLevel.Steam | AppServicesLevel.HttpClientFactory);
                     IViewModelManager.Instance.InitCloudManageMain(id);
                     StartApplication(args);
                 }
                 else if (achievement)
                 {
-                    ConfigureServicesAsync(AppServicesLevel.GUI | AppServicesLevel.Steam | AppServicesLevel.HttpClientFactory);
+                    await ConfigureServicesAsync(AppServicesLevel.GUI | AppServicesLevel.Steam | AppServicesLevel.HttpClientFactory);
                     IViewModelManager.Instance.InitUnlockAchievement(id);
                     StartApplication(args);
                 }
                 else
                 {
-                    ConfigureServicesAsync(AppServicesLevel.Steam);
+                    await ConfigureServicesAsync(AppServicesLevel.Steam);
                     SteamConnectService.Current.Initialize(id);
                     TaskCompletionSource tcs = new();
                     await tcs.Task;
@@ -392,9 +392,9 @@ public abstract class CommandLineHost : IDisposable
         // -clt ayaneo -path
         var ayaneo = new Command("ayaneo", "生成 ayaneo 数据在指定位置");
         ayaneo.AddOption(new Option<string>("-path", "json 生成路径"));
-        ayaneo.Handler = CommandHandler.Create((string path) =>
+        ayaneo.Handler = CommandHandler.Create(async (string path) =>
         {
-            ConfigureServicesAsync(AppServicesLevel.Steam);
+            await ConfigureServicesAsync(AppServicesLevel.Steam);
             var steamService = ISteamService.Instance;
             var users = steamService.GetRememberUserList();
 
@@ -410,13 +410,11 @@ public abstract class CommandLineHost : IDisposable
                 if (!string.IsNullOrEmpty(s.Remark))
                     title = s.SteamNickName + "(" + s.Remark + ")";
 
-#pragma warning disable CS8619 // 值中的引用类型的为 Null 性与目标类型不匹配。
                 return new
                 {
                     Name = title,
                     Account = s.AccountName,
                 };
-#pragma warning restore CS8619 // 值中的引用类型的为 Null 性与目标类型不匹配。
             });
 
             var content = new
@@ -428,7 +426,7 @@ public abstract class CommandLineHost : IDisposable
             {
                 path = Path.Combine(IOPath.BaseDirectory, "steampp.json");
             }
-            File.WriteAllText(path, Serializable.SJSON(content));
+            File.WriteAllText(path, Serializable.SJSON(content, writeIndented: true));
         });
         rootCommand.AddCommand(ayaneo);
 
