@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleName</key>
 	<string>Watt Toolkit</string>
-	<key>CFBundleIdentifier</key>
-	<string>net.steampp.app</string>
 	<key>CFBundleShortVersionString</key>
 	<string>3.0.0</string>
 	<key>CFBundleVersion</key>
@@ -26,5 +24,7 @@
 	<string>NSApplication</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.steampp.app.v3</string>
 </dict>
 </plist>

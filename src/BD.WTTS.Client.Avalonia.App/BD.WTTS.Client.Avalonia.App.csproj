@@ -5,6 +5,7 @@
 		<OutputType>Exe</OutputType>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
+		<ApplicationId>net.steampp.app.v3</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
