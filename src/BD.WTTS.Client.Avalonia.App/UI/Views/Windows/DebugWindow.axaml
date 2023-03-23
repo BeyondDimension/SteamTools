@@ -31,7 +31,7 @@
             </NativeMenuItem>
         </NativeMenu>
     </NativeMenu.Menu>
-    <Grid ColumnDefinitions="1,*,1" RowDefinitions="1,*,1">
+    <Grid ColumnDefinitions="3,*,3" RowDefinitions="3,*,3">
         <DockPanel Grid.Row="1" Grid.Column="1">
             <Grid
                 Name="TitleBar"

@@ -16,11 +16,14 @@ public partial class DebugWindow : CoreWindow
     void SetupSide(string name, StandardCursorType cursor, WindowEdge edge)
     {
         var ctl = this.Get<Control>(name);
-        ctl.Cursor = new Cursor(cursor);
-        ctl.PointerPressed += (i, e) =>
+        if (ctl != null)
         {
-            PlatformImpl?.BeginResizeDrag(edge, e);
-        };
+            ctl.Cursor = new Cursor(cursor);
+            ctl.PointerPressed += (i, e) =>
+            {
+                PlatformImpl?.BeginResizeDrag(edge, e);
+            };
+        }
     }
 
     void InitializeComponent()
@@ -39,14 +42,14 @@ public partial class DebugWindow : CoreWindow
             this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         };
 
-        //SetupSide("Left", StandardCursorType.LeftSide, WindowEdge.West);
-        //SetupSide("Right", StandardCursorType.RightSide, WindowEdge.East);
-        //SetupSide("Top", StandardCursorType.TopSide, WindowEdge.North);
-        //SetupSide("Bottom", StandardCursorType.BottomSide, WindowEdge.South);
-        //SetupSide("TopLeft", StandardCursorType.TopLeftCorner, WindowEdge.NorthWest);
-        //SetupSide("TopRight", StandardCursorType.TopRightCorner, WindowEdge.NorthEast);
-        //SetupSide("BottomLeft", StandardCursorType.BottomLeftCorner, WindowEdge.SouthWest);
-        //SetupSide("BottomRight", StandardCursorType.BottomRightCorner, WindowEdge.SouthEast);
+        SetupSide("Left", StandardCursorType.LeftSide, WindowEdge.West);
+        SetupSide("Right", StandardCursorType.RightSide, WindowEdge.East);
+        SetupSide("Top", StandardCursorType.TopSide, WindowEdge.North);
+        SetupSide("Bottom", StandardCursorType.BottomSide, WindowEdge.South);
+        SetupSide("TopLeft", StandardCursorType.TopLeftCorner, WindowEdge.NorthWest);
+        SetupSide("TopRight", StandardCursorType.TopRightCorner, WindowEdge.NorthEast);
+        SetupSide("BottomLeft", StandardCursorType.BottomLeftCorner, WindowEdge.SouthWest);
+        SetupSide("BottomRight", StandardCursorType.BottomRightCorner, WindowEdge.SouthEast);
     }
 
 }

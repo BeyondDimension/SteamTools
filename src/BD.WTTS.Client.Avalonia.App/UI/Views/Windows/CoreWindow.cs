@@ -12,17 +12,32 @@ public partial class CoreWindow : Window, IStyleable
 
     public CoreWindow() : base()
     {
-        this.SystemDecorations = SystemDecorations.Full;
+        if (OperatingSystem.IsWindows())
+        {
+            this.SystemDecorations = SystemDecorations.BorderOnly;
+            //this.ExtendClientAreaTitleBarHeightHint = -1;
+            this.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.SystemChrome;
+            //this.ExtendClientAreaToDecorationsHint = true;
+        }
+        else if (OperatingSystem.IsMacOS())
+        {
+            this.SystemDecorations = SystemDecorations.Full;
+            //this.ExtendClientAreaTitleBarHeightHint = -1;
+            this.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
+            this.ExtendClientAreaToDecorationsHint = true;
+        }
+        else
+        {
+            this.SystemDecorations = SystemDecorations.Full;
+            this.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.SystemChrome;
+        }
+
         this.CanResize = true;
-        //this.ExtendClientAreaTitleBarHeightHint = -1;
-        this.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-        this.ExtendClientAreaToDecorationsHint = true;
+        this.Width = 1080;
+        this.Height = 660;
+        this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-        Width = 1080;
-        Height = 660;
-        WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-        if (OperatingSystem2.IsWindows() && !Design.IsDesignMode)
+        if (OperatingSystem.IsWindows() && !Design.IsDesignMode)
         {
             PseudoClasses.Add(":windows");
         }
@@ -34,7 +49,7 @@ public partial class CoreWindow : Window, IStyleable
     {
         base.OnApplyTemplate(e);
 
-        if (OperatingSystem2.IsWindows() && !Design.IsDesignMode)
+        if (OperatingSystem.IsWindows() && !Design.IsDesignMode)
         {
             _templateRoot = e.NameScope.Find<Border>("RootBorder");
 
