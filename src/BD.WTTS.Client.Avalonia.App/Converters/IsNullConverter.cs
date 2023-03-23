@@ -1,6 +1,6 @@
 namespace BD.WTTS.Converters;
 
-public class IsNullConverter : IValueConverter
+public sealed class IsNullConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

@@ -1,6 +1,3 @@
-using Avalonia.Controls;
-using System.Reactive.Disposables;
-
 namespace BD.WTTS.UI.Views.Windows;
 
 public partial class DebugWindow : CoreWindow
