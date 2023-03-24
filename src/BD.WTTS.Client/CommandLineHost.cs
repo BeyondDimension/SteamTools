@@ -21,7 +21,7 @@ public abstract class CommandLineHost : IDisposable
         }
     }
 
-    protected abstract ValueTask ConfigureServicesAsync(AppServicesLevel level, bool isTrace = false);
+    public abstract ValueTask ConfigureServicesAsync(AppServicesLevel level, bool isTrace = false);
 
 #if StartWatchTrace
     protected abstract void StartWatchTraceRecord(string? mark = null, bool dispose = false);

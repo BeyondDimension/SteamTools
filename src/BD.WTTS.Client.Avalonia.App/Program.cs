@@ -15,7 +15,6 @@ static partial class Program
         if (!IsCustomEntryPoint && !CompatibilityCheck(AppContext.BaseDirectory))
             return 0;
 #endif
-
         // 注册 MemoryPack 某些自定义类型的格式化，如 Cookie, IPAddress, RSAParameters
         MemoryPackFormatterProvider.Register<MemoryPackFormatters>();
 
@@ -106,6 +105,7 @@ static partial class Program
         if (Design.IsDesignMode)
         {
             OnCreateAppExecuting();
+            Host.Instance.ConfigureServicesAsync(AppServicesLevel.GUI).GetAwaiter().GetResult();
         }
 
         var builder = AppBuilder.Configure(() => Host.Instance.App)

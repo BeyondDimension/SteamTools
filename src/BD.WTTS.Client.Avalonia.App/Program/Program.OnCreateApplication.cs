@@ -4,17 +4,12 @@ namespace BD.WTTS;
 
 static partial class Program
 {
-    static bool isOnCreateAppExecuting = false;
-
     /// <summary>
     /// 在创建 App 前执行的初始化
     /// </summary>
     /// <param name="isTrace"></param>
     static void OnCreateAppExecuting(bool isTrace = false)
     {
-        if (isOnCreateAppExecuting) return;
-        isOnCreateAppExecuting = true;
-
 #if WINDOWS
         //#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 #if DEBUG
