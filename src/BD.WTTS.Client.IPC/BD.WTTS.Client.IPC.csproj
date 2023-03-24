@@ -38,6 +38,9 @@
 		<Compile Include="..\BD.WTTS.Client\Services\Net\IDnsAnalysisService.cs">
 			<LinkBase>Services\Net</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Services.Implementation\Certificate\CertGenerator.cs">
+			<LinkBase>Services.Implementation\Certificate</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -65,7 +65,7 @@ sealed class CertService
     /// </summary>
     /// <param name="domain"></param> 
     /// <returns></returns>
-    public X509Certificate2 GetOrCreateServerCert(string? domain)
+    public X509Certificate2? GetOrCreateServerCert(string? domain)
     {
         var key = $"{nameof(CertService)}:{domain}";
         return serverCertCache.GetOrCreate(key, GetOrCreateCert);

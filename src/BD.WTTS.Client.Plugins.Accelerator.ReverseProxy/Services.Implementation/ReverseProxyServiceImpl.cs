@@ -145,7 +145,7 @@ abstract class ReverseProxyServiceImpl
         if (!CertificateManager.IsRootCertificateInstalled)
         {
             //CertificateManager.DeleteRootCertificate();
-            var isOk = await CertificateManager.SetupRootCertificate();
+            var isOk = await CertificateManager.SetupRootCertificateAsync();
             if (!isOk)
             {
                 Log.Error("StartProxy", "证书安装失败，或未信任。");

@@ -1,0 +1,126 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ windows-latest ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 7.0.x
+
+      - name: Install Android SDK
+        run: dotnet workload install android
+
+      - name: Install iOS SDK
+        run: dotnet workload install ios
+
+      - name: Install macOS SDK
+        run: dotnet workload install macos
+
+      - name: Install Mac Catalyst SDK
+        run: dotnet workload install maccatalyst
+
+      - name: Install Maui
+        run: dotnet workload install maui
+
+#      - name: Install wasm-tools
+#        run: dotnet workload install wasm-tools
+
+      - name: Restore Workload
+        run: dotnet workload restore
+
+      - name: Verify dotnet info
+        run: dotnet --info
+
+#      - name: Test
+#        shell: pwsh
+#        run: dotnet test src/BD.Common.UnitTest/BD.Common.UnitTest.csproj -c Release -p:GeneratePackageOnBuild=false
+
+  build:
+    name: Build
+    needs: [ test ]
+    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        ProjectName: [
+            BD.WTTS.Client.Avalonia.App,
+          ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 7.0.x
+
+      - name: Install Android SDK
+        run: dotnet workload install android
+
+      - name: Install iOS SDK
+        run: dotnet workload install ios
+
+      - name: Install macOS SDK
+        run: dotnet workload install macos
+
+      - name: Install Mac Catalyst SDK
+        run: dotnet workload install maccatalyst
+
+      - name: Install Maui
+        run: dotnet workload install maui
+
+#      - name: Install wasm-tools
+#        run: dotnet workload install wasm-tools
+
+      - name: Restore Workload
+        run: dotnet workload restore
+
+      - name: Verify dotnet info
+        run: dotnet --info
+
+      - name: Build
+        shell: pwsh
+        run: dotnet build -c Release src\${{ matrix.ProjectName }}\${{ matrix.ProjectName }}.csproj
+
+#  release:
+#    name: Release
+#    needs: build
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Changelog
+#        uses: glennawatson/ChangeLog@v1
+#        id: changelog
+#
+#      - name: Create Release
+#        uses: ncipollo/release-action@v1
+#        with:
+#          token: ${{ secrets.RMBADMIN_TOKEN }}
+#          body: ${{ steps.changelog.outputs.commitLog }}
+#          draft: false
+#          prerelease: false

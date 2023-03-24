@@ -3,6 +3,7 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
+[Obsolete("更改为公告与文章业务服务")]
 public sealed class NotificationService : ReactiveObject
 {
     static NotificationService? mCurrent;
