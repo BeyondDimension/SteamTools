@@ -1,8 +1,39 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BD.WTTS.UI.Views.Controls.TitleBar">
-  Welcome to Avalonia!
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.TitleBar"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="65"
+    d:DesignWidth="1080"
+    mc:Ignorable="d">
+    <Grid ColumnDefinitions="65,*,Auto,Auto">
+        <Button
+            Width="40"
+            Height="40"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            BorderThickness="0">
+            <ui:SymbolIcon Symbol="Back" />
+        </Button>
+        <StackPanel
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            Orientation="Horizontal"
+            Spacing="10">
+            <Image />
+            <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+        </StackPanel>
+		<Border Grid.Column="3" Padding="6">
+			<AutoCompleteBox
+				Name="SearchBox"
+				MaxWidth="500"
+				wnd:AppWindow.AllowInteractionInTitleBar="True"
+				Classes="SampleApp"
+				Items="{Binding MainSearchItems}"
+				Watermark="Search" />
+		</Border>
+    </Grid>
 </UserControl>

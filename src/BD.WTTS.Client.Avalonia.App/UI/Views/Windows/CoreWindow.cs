@@ -16,7 +16,7 @@ public partial class CoreWindow : Window, IStyleable
         {
             this.SystemDecorations = SystemDecorations.BorderOnly;
             //this.ExtendClientAreaTitleBarHeightHint = -1;
-            this.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.SystemChrome;
+            //this.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
             //this.ExtendClientAreaToDecorationsHint = true;
         }
         else if (OperatingSystem.IsMacOS())

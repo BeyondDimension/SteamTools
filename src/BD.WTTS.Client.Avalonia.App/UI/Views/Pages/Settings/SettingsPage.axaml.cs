@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 
-namespace BD.WTTS.UI.Views.Pages.Settings;
-public partial class UserControl1 : UserControl
+namespace BD.WTTS.UI.Views.Pages;
+public partial class SettingsPage : UserControl
 {
-    public UserControl1()
+    public SettingsPage()
     {
         InitializeComponent();
     }
