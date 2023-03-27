@@ -53,7 +53,7 @@
                 Padding="{TemplateBinding Padding}"
                 Background="{TemplateBinding Background}">
                 <Panel>
-                    <Panel
+                    <!--<Panel
                         Name="DefaultTitleBar"
                         Height="40"
                         VerticalAlignment="Top"
@@ -78,7 +78,7 @@
                             FontSize="12"
                             IsVisible="true"
                             Text="{TemplateBinding Title}" />
-                    </Panel>
+                    </Panel>-->
 
                     <ContentPresenter
                         Name="PART_ContentPresenter"

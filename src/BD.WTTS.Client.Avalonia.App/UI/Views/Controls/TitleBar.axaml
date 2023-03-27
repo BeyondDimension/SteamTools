@@ -7,33 +7,76 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="65"
     d:DesignWidth="1080"
-    mc:Ignorable="d">
-    <Grid ColumnDefinitions="65,*,Auto,Auto">
-        <Button
-            Width="40"
-            Height="40"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Background="Transparent"
-            BorderThickness="0">
-            <ui:SymbolIcon Symbol="Back" />
-        </Button>
-        <StackPanel
-            Grid.Column="1"
-            VerticalAlignment="Center"
-            Orientation="Horizontal"
-            Spacing="10">
-            <Image />
-            <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
-        </StackPanel>
-		<Border Grid.Column="3" Padding="6">
+    mc:Ignorable="d"
+	Background="Transparent">
+	<UserControl.Styles>
+		<!--  AutoCompleteBox  -->
+		<Style Selector="AutoCompleteBox.Search /template/ TextBox#PART_TextBox">
+			<Setter Property="InnerRightContent">
+				<Template>
+					<StackPanel Orientation="Horizontal">
+						<Button
+                            Command="{Binding $parent[TextBox].Clear}"
+                            Content="&#xE8BB;"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            IsVisible="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                            Theme="{StaticResource TransparentButton}" />
+						<Button
+                            Command="{Binding $parent[TextBox].Clear}"
+                            Content="&#xE721;"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            IsHitTestVisible="False"
+                            Theme="{StaticResource TransparentButton}" />
+					</StackPanel>
+				</Template>
+			</Setter>
+		</Style>
+	</UserControl.Styles>
+	<Grid ColumnDefinitions="65,Auto,*,100">
+		<Button
+			Width="40"
+			Height="40"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			Background="Transparent"
+			BorderThickness="0">
+			<ui:SymbolIcon Symbol="Back" />
+		</Button>
+		<StackPanel
+			Grid.Column="1"
+			VerticalAlignment="Center"
+			Orientation="Horizontal"
+			Spacing="8">
+			<Image Width="16"
+				   Height="16"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Center"
+				   IsVisible="{Binding Icon,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
+			<TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+		</StackPanel>
+		<Border Grid.Column="2" Padding="6">
 			<AutoCompleteBox
+				VerticalAlignment="Center"
 				Name="SearchBox"
 				MaxWidth="500"
-				wnd:AppWindow.AllowInteractionInTitleBar="True"
-				Classes="SampleApp"
-				Items="{Binding MainSearchItems}"
+				Classes="Search"
 				Watermark="Search" />
 		</Border>
-    </Grid>
+		<!--<StackPanel Grid.Column="4" Orientation="Horizontal">
+			<StackPanel.Styles>
+				<Style Selector="Button">
+					<Setter Property="Margin" Value="2 1" />
+					<Setter Property="Cursor" Value="Hand" />
+					<Setter Property="Background" Value="Transparent" />
+					<Setter Property="BorderThickness" Value="0" />
+				</Style>
+				<Style Selector="PathIcon">
+					<Setter Property="Width" Value="12" />
+				</Style>
+			</StackPanel.Styles>
+			-->
+		<!--<spp:MinMaxCloseControl />-->
+		<!--
+		</StackPanel>-->
+	</Grid>
 </UserControl>

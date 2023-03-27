@@ -33,7 +33,7 @@
     </NativeMenu.Menu>
     <Grid ColumnDefinitions="3,*,3" RowDefinitions="3,*,3">
         <DockPanel Grid.Row="1" Grid.Column="1">
-            <Grid
+            <!--<Grid
                 Name="TitleBar"
                 Height="40"
                 Background="Transparent"
@@ -44,7 +44,7 @@
                     VerticalAlignment="Center"
                     FontSize="12"
                     Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                --><!--<StackPanel Grid.Column="2" Orientation="Horizontal">
                     <StackPanel.Styles>
                         <Style Selector="Button">
                             <Setter Property="Margin" Value="2 1" />
@@ -56,9 +56,11 @@
                             <Setter Property="Width" Value="12" />
                         </Style>
                     </StackPanel.Styles>
-                    <!--<spp:MinMaxCloseControl />-->
-                </StackPanel>
-            </Grid>
+                    --><!--<spp:MinMaxCloseControl />--><!--
+                </StackPanel>--><!--
+            </Grid>-->
+			<spp:TitleBar Name="TitleBar" 
+						  DockPanel.Dock="Top"/>
             <Border>
                 <spp:MainView />
             </Border>

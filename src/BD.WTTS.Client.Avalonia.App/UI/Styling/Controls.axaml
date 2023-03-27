@@ -20,6 +20,7 @@
             <FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>
 
             <ResourceDictionary.MergedDictionaries>
+				<MergeResourceInclude Source="/UI/Styling/Window.axaml" />
                 <MergeResourceInclude Source="/UI/Styling/CoreWindow.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

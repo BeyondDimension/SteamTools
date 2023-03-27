@@ -5,14 +5,29 @@ public partial class DebugWindow : CoreWindow
     public DebugWindow()
     {
         InitializeComponent();
-#if DEBUG
-        this.AttachDevTools();
-#endif
+
+        TitleBar.PointerPressed += (i, e) =>
+        {
+            PlatformImpl?.BeginMoveDrag(e);
+        };
+
+        TitleBar.DoubleTapped += (i, e) =>
+        {
+            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        };
+
+        SetupSide(Left, StandardCursorType.LeftSide, WindowEdge.West);
+        SetupSide(Right, StandardCursorType.RightSide, WindowEdge.East);
+        SetupSide(Top, StandardCursorType.TopSide, WindowEdge.North);
+        SetupSide(Bottom, StandardCursorType.BottomSide, WindowEdge.South);
+        SetupSide(TopLeft, StandardCursorType.TopLeftCorner, WindowEdge.NorthWest);
+        SetupSide(TopRight, StandardCursorType.TopRightCorner, WindowEdge.NorthEast);
+        SetupSide(BottomLeft, StandardCursorType.BottomLeftCorner, WindowEdge.SouthWest);
+        SetupSide(BottomRight, StandardCursorType.BottomRightCorner, WindowEdge.SouthEast);
     }
 
-    void SetupSide(string name, StandardCursorType cursor, WindowEdge edge)
+    void SetupSide(Control ctl, StandardCursorType cursor, WindowEdge edge)
     {
-        var ctl = this.Get<Control>(name);
         if (ctl != null)
         {
             ctl.Cursor = new Cursor(cursor);
@@ -22,31 +37,4 @@ public partial class DebugWindow : CoreWindow
             };
         }
     }
-
-    void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-
-        var titleBar = this.Get<Control>("TitleBar");
-
-        titleBar.PointerPressed += (i, e) =>
-        {
-            PlatformImpl?.BeginMoveDrag(e);
-        };
-
-        titleBar.DoubleTapped += (i, e) =>
-        {
-            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-        };
-
-        SetupSide("Left", StandardCursorType.LeftSide, WindowEdge.West);
-        SetupSide("Right", StandardCursorType.RightSide, WindowEdge.East);
-        SetupSide("Top", StandardCursorType.TopSide, WindowEdge.North);
-        SetupSide("Bottom", StandardCursorType.BottomSide, WindowEdge.South);
-        SetupSide("TopLeft", StandardCursorType.TopLeftCorner, WindowEdge.NorthWest);
-        SetupSide("TopRight", StandardCursorType.TopRightCorner, WindowEdge.NorthEast);
-        SetupSide("BottomLeft", StandardCursorType.BottomLeftCorner, WindowEdge.SouthWest);
-        SetupSide("BottomRight", StandardCursorType.BottomRightCorner, WindowEdge.SouthEast);
-    }
-
 }
