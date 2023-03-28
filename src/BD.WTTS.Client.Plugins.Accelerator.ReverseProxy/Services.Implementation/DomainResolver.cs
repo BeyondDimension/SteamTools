@@ -34,7 +34,7 @@ sealed class DomainResolver : IDomainResolver
         }
         catch (Exception ex)
         {
-            INotificationIPCService.Instance.NotifyDNSErrorNotify(ex);
+            IPCService.Instance.NotifyDNSError(ex);
             //INotificationService.Instance.Notify(AppResources.CommunityFix_DNSErrorNotify + Environment.NewLine + "Exception Message :" + ex.Message, NotificationType.Message);
             throw;
         }
