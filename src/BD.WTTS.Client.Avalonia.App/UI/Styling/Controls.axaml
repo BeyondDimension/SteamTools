@@ -8,7 +8,7 @@
             <Thickness x:Key="PageMargin">10 0 10 0</Thickness>
             <Easing x:Key="FluentEasing">0.4,0,0.6,1</Easing>
             <KeySpline x:Key="FluentKeySpline">0.4,0,0.6,1</KeySpline>
-            <sys:Double x:Key="TitleBarHeight">32</sys:Double>
+            <sys:Double x:Key="TitleBarHeight">75</sys:Double>
             <Thickness x:Key="TitleBarAfterMargin">0, 32, 0, 0</Thickness>
             <sys:Double x:Key="ContentOpacity">0.85</sys:Double>
             <Thickness x:Key="UnifyTitleBarAfterContentMargin">34, 30, 34, 0</Thickness>
@@ -20,11 +20,11 @@
             <FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>
 
             <ResourceDictionary.MergedDictionaries>
-				<MergeResourceInclude Source="/UI/Styling/Window.axaml" />
+                <MergeResourceInclude Source="/UI/Styling/Window.axaml" />
                 <MergeResourceInclude Source="/UI/Styling/CoreWindow.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>
 
-    <!--<StyleInclude Source="/UI/Styling/CoreWindow.axaml" />-->
+    <StyleInclude Source="/UI/Styling/Controls/Separator.axaml" />
 </Styles>

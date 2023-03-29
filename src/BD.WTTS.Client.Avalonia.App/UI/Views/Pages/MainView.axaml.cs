@@ -6,13 +6,10 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
 
-        var debug = this.FindControl<Button>("DebugButton");
-
-        if (debug != null)
-            debug.Click += (s, e) =>
-            {
-                var window = new DebugWindow();
-                window.Show();
-            };
+        DebugButton.Click += (s, e) =>
+        {
+            var window = new DebugWindow();
+            window.Show();
+        };
     }
 }

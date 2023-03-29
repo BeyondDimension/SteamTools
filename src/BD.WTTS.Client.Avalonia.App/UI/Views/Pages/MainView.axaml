@@ -4,11 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
     xmlns:wnd="using:FluentAvalonia.UI.Windowing"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:MainWindowViewModel"
     mc:Ignorable="d">
     <UserControl.Styles>
         <Style Selector="ui|NavigationView.SampleAppNav">
@@ -16,7 +19,7 @@
             <Setter Property="OpenPaneLength" Value="72" />
         </Style>
         <Style Selector="ui|NavigationView.SampleAppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
-            <Setter Property="Margin" Value="0 40 0 0" />
+            <Setter Property="Margin" Value="0 75 0 0" />
         </Style>
 
         <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter">
@@ -127,10 +130,24 @@
     <Grid RowDefinitions="Auto, *">
         <Grid
             Name="TitleBarHost"
+            Height="{StaticResource TitleBarHeight}"
+            VerticalAlignment="Center"
             Background="Transparent"
-            ColumnDefinitions="Auto,Auto,*">
+            ColumnDefinitions="Auto,Auto,Auto,*,Auto,150">
+
+            <Button
+                Width="36"
+                Height="36"
+                Margin="18,4"
+                Background="Transparent"
+                BorderThickness="0"
+                Cursor="Hand">
+                <ui:SymbolIcon Symbol="Back" />
+            </Button>
+
             <Image
                 Name="WindowIcon"
+                Grid.Column="1"
                 Width="18"
                 Height="18"
                 Margin="12,4"
@@ -139,7 +156,7 @@
                 Source="/UI/Assets/ApplicationIcon.ico" />
 
             <StackPanel
-                Grid.Column="1"
+                Grid.Column="2"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal"
                 Spacing="5">
@@ -155,15 +172,26 @@
             </StackPanel>
 
 
-            <Border Grid.Column="2" Padding="6">
+            <Border
+                Grid.Column="3"
+                Padding="6"
+                VerticalAlignment="Center">
                 <AutoCompleteBox
                     Name="SearchBox"
                     MaxWidth="500"
+                    VerticalAlignment="Center"
                     wnd:AppWindow.AllowInteractionInTitleBar="True"
                     Classes="SampleApp"
-                    Items="{Binding MainSearchItems}"
                     Watermark="Search" />
             </Border>
+
+            <Separator
+                Grid.Column="4"
+                Height="18"
+                Margin="10,0"
+                VerticalAlignment="Center"
+                Background="{DynamicResource ButtonBorderBrush}"
+                Classes="Vertical" />
         </Grid>
 
         <ui:NavigationView
@@ -171,15 +199,26 @@
             Grid.RowSpan="2"
             AlwaysShowHeader="False"
             Classes="SampleAppNav"
+            FooterMenuItems="{Binding FooterTabItems}"
             IsBackEnabled="{Binding #FrameView.CanGoBack}"
             IsPaneOpen="True"
             IsSettingsVisible="False"
+            MenuItems="{Binding TabItems}"
             PaneDisplayMode="Left">
             <ui:NavigationView.Resources>
                 <!--  Override this  -->
-                <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+                <Thickness x:Key="NavigationViewContentMargin">0,75,0,0</Thickness>
             </ui:NavigationView.Resources>
-            <ui:NavigationView.MenuItems>
+            <ui:NavigationView.MenuItemTemplate>
+                <DataTemplate DataType="{x:Type spp:TabItemViewModel}">
+                    <ui:NavigationViewItem Content="{Binding Name}">
+                        <ui:NavigationViewItem.IconSource>
+                            <ui:BitmapIconSource UriSource="{Binding IconSource}" />
+                        </ui:NavigationViewItem.IconSource>
+                    </ui:NavigationViewItem>
+                </DataTemplate>
+            </ui:NavigationView.MenuItemTemplate>
+            <!--<ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Classes="SampleAppNav" Content="Home">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="Home" />
@@ -222,11 +261,8 @@
                         <ui:SymbolIconSource Symbol="Settings" />
                     </ui:NavigationViewItem.IconSource>
                 </ui:NavigationViewItem>
-            </ui:NavigationView.FooterMenuItems>
-            <Panel>
-                <ui:Frame Name="FrameView" />
-            </Panel>
+            </ui:NavigationView.FooterMenuItems>-->
+            <ui:Frame Name="FrameView" DataContext="{Binding SelectedItem}" />
         </ui:NavigationView>
-
     </Grid>
 </UserControl>
