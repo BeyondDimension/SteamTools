@@ -9,11 +9,13 @@ namespace BD.WTTS.Services.Implementation;
 sealed class DomainResolver : IDomainResolver
 {
     readonly IReverseProxyConfig reverseProxyConfig;
+    readonly IPCService ipc;
 
     bool isIpv6 = false;
 
-    public DomainResolver(IReverseProxyConfig reverseProxyConfig)
+    public DomainResolver(IPCService ipc, IReverseProxyConfig reverseProxyConfig)
     {
+        this.ipc = ipc;
         this.reverseProxyConfig = reverseProxyConfig;
     }
 
@@ -34,7 +36,7 @@ sealed class DomainResolver : IDomainResolver
         }
         catch (Exception ex)
         {
-            IPCService.Instance.NotifyDNSError(ex);
+            ipc.Send(ReverseProxyCommand.NotifyDNSError, ex.Message);
             //INotificationService.Instance.Notify(AppResources.CommunityFix_DNSErrorNotify + Environment.NewLine + "Exception Message :" + ex.Message, NotificationType.Message);
             throw;
         }

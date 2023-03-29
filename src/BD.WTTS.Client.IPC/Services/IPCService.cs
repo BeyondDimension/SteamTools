@@ -1,6 +1,6 @@
 namespace BD.WTTS.Services;
 
-public interface IPCService<TPacket> where TPacket : class
+public interface IPCService<TPacket> : IDisposable where TPacket : class
 {
     /// <summary>
     /// 启动 IPC 服务

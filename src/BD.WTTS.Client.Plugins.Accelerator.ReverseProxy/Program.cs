@@ -1,49 +1,24 @@
-if (!args.Any()) return (int)ExitCode.EmptyArrayArgs;
+using Microsoft.Extensions.DependencyInjection;
+
+if (!args.Any())
+    return (int)IPCExitCode.EmptyArrayArgs;
 var pipeName = args[0];
-if (string.IsNullOrWhiteSpace(pipeName)) return (int)ExitCode.EmptyPipeName;
+if (string.IsNullOrWhiteSpace(pipeName))
+    return (int)IPCExitCode.EmptyPipeName;
 
-using var pipeClient = new NamedPipeClientStream(".", pipeName, PipeDirection.InOut, PipeOptions.None, TokenImpersonationLevel.Impersonation);
+Ioc.ConfigureServices(ConfigureServices);
 
-try
+static void ConfigureServices(IServiceCollection services)
 {
-    // 尝试在 45 秒内连接主进程
-    pipeClient.Connect(TimeSpan.FromSeconds(45d));
-}
-catch (TimeoutException)
-{
-    return (int)ExitCode.ConnectServerTimeout;
-}
-
-while (true)
-{
-    var packet = IReverseProxyPacket.ReadBytes(pipeClient);
-    if (packet != default)
+    services.AddLogging(l =>
     {
-        if (packet is ReverseProxyPacket packet1)
-        {
-            switch (packet1.Command)
-            {
-                case ReverseProxyCommand.Exit:
-                    goto exit;
-                case ReverseProxyCommand.GetFlowStatistics:
-                    FlowStatistics flowStatistics = null!;
-                    IReverseProxyPacket.Write(pipeClient, flowStatistics);
-                    break;
-                case ReverseProxyCommand.Start:
-                    break;
-                case ReverseProxyCommand.Stop:
-                    break;
-            }
-        }
-    }
+        l.AddConsole();
+    });
+
+    services.AddReverseProxyService();
+    services.AddSingleton<IPCService, IPCServiceImpl>();
 }
 
-exit: return (int)ExitCode.Ok;
-
-enum ExitCode
-{
-    Ok = 0,
-    EmptyArrayArgs = 4001,
-    EmptyPipeName,
-    ConnectServerTimeout,
-}
+using var ipc = IPCService.Instance;
+var exitCode = await ipc.RunAsync(pipeName);
+return exitCode;

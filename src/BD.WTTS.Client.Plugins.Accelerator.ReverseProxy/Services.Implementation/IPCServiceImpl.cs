@@ -2,21 +2,31 @@ namespace BD.WTTS.Services.Implementation;
 
 sealed class IPCServiceImpl : IPCServiceImpl<IReverseProxyPacket>, IPCService
 {
-    protected override ValueTask<int?> HandleCommand(IReverseProxyPacket packet)
+    public IPCServiceImpl()
+    {
+        // 保持无依赖注入的空构造函数
+    }
+
+    protected override async ValueTask<int?> HandleCommand(IReverseProxyPacket packet)
     {
         if (packet is ReverseProxyPacket packet1)
         {
             switch (packet1.Command)
             {
                 case ReverseProxyCommand.Exit:
-                    return new ValueTask<int?>((int)IPCExitCode.Ok);
+                    return (int)IPCExitCode.Ok;
                 case ReverseProxyCommand.GetFlowStatistics:
                     FlowStatistics flowStatistics = null!;
                     Send(flowStatistics);
                     break;
                 case ReverseProxyCommand.Start:
+                    var startResult = await IReverseProxyService.Instance.StartProxyAsync();
+                    Send(ReverseProxyCommand.StartResult, startResult ? null : "Startup failed.");
                     break;
                 case ReverseProxyCommand.Stop:
+                    await IReverseProxyService.Instance.StopProxyAsync();
+                    break;
+                case ReverseProxyCommand.HotReloadConfig:
                     break;
             }
         }
@@ -24,18 +34,9 @@ sealed class IPCServiceImpl : IPCServiceImpl<IReverseProxyPacket>, IPCService
         return default;
     }
 
-    public void NotifyDNSError(Exception ex)
+    public void Send(ReverseProxyCommand command, string? data = null)
     {
-
-    }
-
-    protected override IReverseProxyPacket? ReadBytes(Stream stream)
-    {
-        return IReverseProxyPacket.ReadBytes(stream);
-    }
-
-    protected override void Write(Stream stream, IReverseProxyPacket packet)
-    {
-        IReverseProxyPacket.Write(stream, packet);
+        ReverseProxyPacket packet = new(command, data);
+        Send(packet);
     }
 }
