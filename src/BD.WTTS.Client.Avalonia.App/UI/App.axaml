@@ -2,14 +2,13 @@
     x:Class="BD.WTTS.UI.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:sty="using:FluentAvalonia.Styling"
     xmlns:spp="https://steampp.net/ui"
-    xmlns:converters="https://steampp.net/converter">
-	<Application.Resources>
-		<converters:IsNullConverter x:Key="IsNullConverter" />
-	</Application.Resources>
+    xmlns:sty="using:FluentAvalonia.Styling">
+    <Application.Resources>
+        <spp:IsNullConverter x:Key="IsNullConverter" />
+    </Application.Resources>
     <Application.Styles>
         <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
-		<spp:CustomTheme Mode="Default" />
+        <spp:CustomTheme Mode="Default" />
     </Application.Styles>
 </Application>

@@ -5,11 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
-    Title="Watt Toolkit"
-    d:DesignHeight="450"
+    Title="Watet Toolkit"
+    d:DesignHight="450"
     d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:MainWindowViewModel"
     mc:Ignorable="d">
     <Panel>
-        <spp:MainView />
+        <spp:MainView DataContext="{Binding}" />
     </Panel>
 </Window>
