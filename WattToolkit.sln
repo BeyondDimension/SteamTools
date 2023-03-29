@@ -159,7 +159,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{09F4FC1E
 		build\publish_apphost_linux_x64.sh = build\publish_apphost_linux_x64.sh
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avalonia.Controls.Internals", "src\Avalonia.Controls.Internals\Avalonia.Controls.Internals.csproj", "{BAEF69C3-9347-424D-B2B4-74BD2B3C90F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Controls.Internals", "src\Avalonia.Controls.Internals\Avalonia.Controls.Internals.csproj", "{BAEF69C3-9347-424D-B2B4-74BD2B3C90F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avalonia.Base", "src\Avalonia.Base\Avalonia.Base.csproj", "{02B5BE74-E75D-4573-B640-58DF2B01B4E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -287,6 +289,10 @@ Global
 		{BAEF69C3-9347-424D-B2B4-74BD2B3C90F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAEF69C3-9347-424D-B2B4-74BD2B3C90F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAEF69C3-9347-424D-B2B4-74BD2B3C90F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B5BE74-E75D-4573-B640-58DF2B01B4E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B5BE74-E75D-4573-B640-58DF2B01B4E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B5BE74-E75D-4573-B640-58DF2B01B4E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B5BE74-E75D-4573-B640-58DF2B01B4E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -331,6 +337,7 @@ Global
 		{407BE171-FB57-4C39-BF26-7FAF4450635F} = {CE475939-6363-4144-B18F-2F91CC297E91}
 		{09F4FC1E-88A6-4264-9871-C0AF59DEA89D} = {46259E8D-32A4-4065-953D-D6F835B57A28}
 		{BAEF69C3-9347-424D-B2B4-74BD2B3C90F9} = {1BD19276-7DEF-4659-9DBF-28E8E5078698}
+		{02B5BE74-E75D-4573-B640-58DF2B01B4E9} = {1BD19276-7DEF-4659-9DBF-28E8E5078698}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {567F588F-E95C-4286-8B30-DB3B2200221C}

@@ -144,6 +144,7 @@
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<PackageReference Include="FluentAvaloniaUI" />-->
+		<ProjectReference Include="..\Avalonia.Base\Avalonia.Base.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
