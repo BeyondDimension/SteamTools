@@ -37,10 +37,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="UI\Views\Controls\TitleBar.axaml~RFc48ce5.TMP" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -121,6 +117,7 @@
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
 		<PackageReference Include="Avalonia.Win32" />
 		<PackageReference Include="BD.Common.Essentials.Maui.Runtime" />
+		<PackageReference Include="JumpLists.Win32.Avalonia" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
@@ -141,12 +138,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="UI\Views\Controls\TitleBar.axaml.cs">
-	    <DependentUpon>TitleBar.axaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />

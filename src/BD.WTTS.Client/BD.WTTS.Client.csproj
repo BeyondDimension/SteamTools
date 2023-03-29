@@ -117,7 +117,7 @@
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<!-- Windows Only -->
 		<PackageReference Include="System.Reactive" />
-		<PackageReference Include="JumpLists.Win32.Avalonia" />
+		<!--<PackageReference Include="JumpLists.Win32.Avalonia" />-->
 		<PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" />
 		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
 		<PackageReference Include="7-Zip.NativeAssets.Win32" />
@@ -125,6 +125,7 @@
 		<PackageReference Include="Aigio.WinDivertSharp" />
 		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
 		<PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
+		<PackageReference Include="Microsoft.Win32.SystemEvents" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -133,19 +134,16 @@
 		<PackageReference Include="System.CommandLine" />
 		<PackageReference Include="System.CommandLine.NamingConventionBinder" />
 		<PackageReference Include="SteamKit2" />
-		<PackageReference Include="Ae.DNS.Client" />
-		<PackageReference Include="DNS" />
-		<PackageReference Include="DnsClient" />
 		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
 		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
-		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
+		<!--<PackageReference Include="Avalonia" />
 		<PackageReference Include="Avalonia.Desktop" />
 		<PackageReference Include="Avalonia.ReactiveUI" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
-		<PackageReference Include="FluentAvaloniaUI" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
+		<PackageReference Include="FluentAvaloniaUI" />-->
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">

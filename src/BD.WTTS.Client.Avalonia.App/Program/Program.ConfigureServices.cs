@@ -174,7 +174,7 @@ static partial class Program
     static void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
     {
         if (options.IsTrace) StartWatchTrace.Record("DI.D.Calc");
-        services.AddDnsAnalysisService();
+
         if (options.HasGUI)
         {
             services.AddPinyin();

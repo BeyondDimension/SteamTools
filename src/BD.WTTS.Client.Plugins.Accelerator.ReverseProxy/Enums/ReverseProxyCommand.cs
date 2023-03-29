@@ -39,4 +39,9 @@ public enum ReverseProxyCommand : byte
     /// 启动反向代理控制台结果
     /// </summary>
     StartResult,
+
+    /// <summary>
+    /// 当发生导致中断服务的异常时，需要在主进程中中止加速中的 UI，并显示错误
+    /// </summary>
+    OnExceptionTerminating,
 }

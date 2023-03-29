@@ -3,9 +3,9 @@ namespace BD.WTTS;
 
 public static class DeviceIdHelper
 {
-    const int DeviceIdRLength = Constants.DeviceIdRLength;
+    const int DeviceIdRLength = Constants.Lengths.DeviceIdR;
 
-    public const int MaxLength = Constants.DeviceIdMaxLength;
+    public const int MaxLength = Constants.Lengths.Max_DeviceId;
 
     static Guid GetGuid(string key)
     {

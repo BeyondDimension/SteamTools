@@ -1,4 +1,5 @@
 #if WINDOWS
+using Nito.Comparers.Linq;
 using System.Drawing;
 using System.Drawing.Text;
 
@@ -20,7 +21,7 @@ partial class WindowsPlatformServiceImpl
         return list;
     }
 
-    static readonly IReadOnlyDictionary<FontWeight, Lazy<string?>> mDefaultFontFamily = Enum2.GetAll<FontWeight>().ToDictionary(k => k, v => new Lazy<string?>(() => GetDefaultFontFamily(v)));
+    static readonly IReadOnlyDictionary<FontWeight, Lazy<string?>> mDefaultFontFamily = Enum2.GetAll<FontWeight>().Distinct().ToDictionary(k => k, v => new Lazy<string?>(() => GetDefaultFontFamily(v)));
 
     static string? GetDefaultFontFamily(FontWeight fontWeight)
     {

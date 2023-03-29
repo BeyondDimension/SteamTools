@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-
 if (!args.Any())
     return (int)IPCExitCode.EmptyArrayArgs;
 var pipeName = args[0];
@@ -15,6 +13,7 @@ static void ConfigureServices(IServiceCollection services)
         l.AddConsole();
     });
 
+    services.AddDnsAnalysisService();
     services.AddReverseProxyService();
     services.AddSingleton<IPCService, IPCServiceImpl>();
 }

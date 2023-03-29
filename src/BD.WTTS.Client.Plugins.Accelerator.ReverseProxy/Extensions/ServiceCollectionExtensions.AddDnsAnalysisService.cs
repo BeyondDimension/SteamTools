@@ -4,6 +4,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static partial class ServiceCollectionExtensions
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddDnsAnalysisService(this IServiceCollection services)
     {
         //services.AddSingleton<IDnsAnalysisService, DnsDohAnalysisService>();

@@ -28,7 +28,7 @@ partial class YarpReverseProxyServiceImpl
             services.AddPacketIntercept();
         }
 #endif
-        services.AddSingleton<IPCService>(_ => ipc);
+        services.AddSingleton(_ => ipc);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

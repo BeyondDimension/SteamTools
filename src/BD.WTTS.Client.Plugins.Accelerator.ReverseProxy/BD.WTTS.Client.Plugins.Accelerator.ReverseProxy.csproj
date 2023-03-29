@@ -44,10 +44,11 @@
 		<!-- PackageReference -->
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.WTTS.MicroServices.Primitives.ViewModels" />
-		<!--<PackageReference Include="Portable.BouncyCastle" />-->
-		<PackageReference Include="DNS" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="System.Linq.Async" />
+		<PackageReference Include="Ae.DNS.Client" />
+		<PackageReference Include="DNS" />
+		<PackageReference Include="DnsClient" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

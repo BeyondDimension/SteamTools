@@ -580,3 +580,4 @@ iOSInjectionProject/
 # WTTS
 .idea
 /pkg
+!**/BD.WTTS.Client.Avalonia.App
