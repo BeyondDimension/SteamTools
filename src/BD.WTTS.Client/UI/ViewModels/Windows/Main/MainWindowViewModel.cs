@@ -152,8 +152,8 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
                 {
-                    SteamConnectService.Current.Initialize();
-                    SteamConnectService.Current.RefreshSteamUsers();
+                    //SteamConnectService.Current.Initialize();
+                    //SteamConnectService.Current.RefreshSteamUsers();
                 }
 #endif
 

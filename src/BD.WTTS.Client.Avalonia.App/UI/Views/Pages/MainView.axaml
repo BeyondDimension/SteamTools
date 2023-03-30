@@ -16,14 +16,14 @@
     <UserControl.Styles>
         <Style Selector="ui|NavigationView.SampleAppNav">
             <Setter Property="IsPaneToggleButtonVisible" Value="False" />
-            <Setter Property="OpenPaneLength" Value="72" />
+            <Setter Property="OpenPaneLength" Value="75" />
         </Style>
         <Style Selector="ui|NavigationView.SampleAppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
             <Setter Property="Margin" Value="0 75 0 0" />
         </Style>
 
         <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter">
-            <Setter Property="Width" Value="72" />
+            <Setter Property="Width" Value="75" />
             <Setter Property="MinHeight" Value="60" />
             <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
@@ -60,7 +60,7 @@
                                     Content="{TemplateBinding Content}"
                                     ContentTemplate="{TemplateBinding ContentTemplate}"
                                     DockPanel.Dock="Bottom"
-                                    FontSize="10">
+                                    FontSize="12">
                                     <ContentPresenter.Styles>
                                         <Style Selector="TextBlock">
                                             <Setter Property="TextWrapping" Value="Wrap" />
@@ -199,11 +199,12 @@
             Grid.RowSpan="2"
             AlwaysShowHeader="False"
             Classes="SampleAppNav"
-            FooterMenuItems="{Binding FooterTabItems}"
+            FooterMenuItemsSource="{Binding FooterTabItems}"
             IsBackEnabled="{Binding #FrameView.CanGoBack}"
             IsPaneOpen="True"
             IsSettingsVisible="False"
-            MenuItems="{Binding TabItems}"
+            MenuItemsSource="{Binding TabItems}"
+			SelectedItem="{Binding SelectedItem}"
             PaneDisplayMode="Left">
             <ui:NavigationView.Resources>
                 <!--  Override this  -->
@@ -211,7 +212,7 @@
             </ui:NavigationView.Resources>
             <ui:NavigationView.MenuItemTemplate>
                 <DataTemplate DataType="{x:Type spp:TabItemViewModel}">
-                    <ui:NavigationViewItem Content="{Binding Name}">
+                    <ui:NavigationViewItem Classes="SampleAppNav" Content="{Binding Name}">
                         <ui:NavigationViewItem.IconSource>
                             <ui:BitmapIconSource UriSource="{Binding IconSource}" />
                         </ui:NavigationViewItem.IconSource>

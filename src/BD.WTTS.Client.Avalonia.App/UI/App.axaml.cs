@@ -20,35 +20,36 @@ public sealed partial class App : Application
         IApplication.IDesktopProgramHost desktopProgramHost = Program.Host.Instance;
         desktopProgramHost.OnCreateAppExecuted(handlerViewModelManager: vmService =>
         {
-            //            switch (vmService.MainWindow)
-            //            {
-            //                case CloudArchiveWindowViewModel:
-            //                    ProgramHost.IsMinimize = false;
-            //                    MainWindow = new CloudArchiveWindow();
-            //                    break;
+            vmService.InitViewModels();
+            switch (vmService.MainWindow)
+            {
+                //case CloudArchiveWindowViewModel:
+                //    ProgramHost.IsMinimize = false;
+                //    MainWindow = new CloudArchiveWindow();
+                //    break;
 
-            //                case AchievementWindowViewModel:
-            //                    ProgramHost.IsMinimize = false;
-            //                    MainWindow = new AchievementWindow();
-            //                    break;
+                //case AchievementWindowViewModel:
+                //    ProgramHost.IsMinimize = false;
+                //    MainWindow = new AchievementWindow();
+                //    break;
 
-            //                default:
-            //                    #region 主窗口启动时加载的资源
-            //#if !UI_DEMO
-            //                    compositeDisposable.Add(SettingsHost.Save);
-            //                    compositeDisposable.Add(ProxyService.Current.Exit);
-            //                    compositeDisposable.Add(SteamConnectService.Current.Dispose);
-            //                    compositeDisposable.Add(ASFService.Current.StopASF);
-            //#pragma warning disable CA1416 // 验证平台兼容性
-            //                    if (GeneralSettings.IsStartupAppMinimized.Value)
-            //                        ProgramHost.IsMinimize = true;
-            //#pragma warning restore CA1416 // 验证平台兼容性
-            //#endif
-            //                    #endregion
-            //                    MainWindow = new MainWindow();
-            //                    break;
-            //            }
-            //            MainWindow.DataContext = vmService.MainWindow;
+                default:
+                    #region 主窗口启动时加载的资源
+#if !UI_DEMO
+                    CompositeDisposable.Add(SettingsHost.Save);
+                    //CompositeDisposable.Add(ProxyService.Current.Exit);
+                    CompositeDisposable.Add(SteamConnectService.Current.Dispose);
+                    //CompositeDisposable.Add(ASFService.Current.StopASF);
+#pragma warning disable CA1416 // 验证平台兼容性
+                    //if (GeneralSettings.IsStartupAppMinimized.Value)
+                    //    ProgramHost.IsMinimize = true;
+#pragma warning restore CA1416 // 验证平台兼容性
+#endif
+                    #endregion
+                    MainWindow = new MainWindow();
+                    break;
+            }
+            MainWindow.DataContext = vmService.MainWindow;
         });
     }
 
@@ -66,7 +67,7 @@ public sealed partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            desktop.MainWindow = MainWindow = new MainWindow();
+            desktop.MainWindow = MainWindow ??= new MainWindow();
 
         base.OnFrameworkInitializationCompleted();
     }
