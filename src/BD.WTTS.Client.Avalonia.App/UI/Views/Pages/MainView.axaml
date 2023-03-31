@@ -16,27 +16,28 @@
     <UserControl.Styles>
         <Style Selector="ui|NavigationView.SampleAppNav">
             <Setter Property="IsPaneToggleButtonVisible" Value="False" />
-            <Setter Property="OpenPaneLength" Value="75" />
+            <Setter Property="OpenPaneLength" Value="80" />
         </Style>
         <Style Selector="ui|NavigationView.SampleAppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
             <Setter Property="Margin" Value="0 75 0 0" />
         </Style>
 
         <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter">
-            <Setter Property="Width" Value="75" />
-            <Setter Property="MinHeight" Value="60" />
+            <Setter Property="Width" Value="80" />
+            <Setter Property="MinHeight" Value="80" />
+			<Setter Property="Cursor" Value="Hand" />
             <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
             <Setter Property="Template">
                 <ControlTemplate>
                     <Border
                         Name="LayoutRoot"
-                        Margin="4,2"
+                        Margin="4,8"
                         Background="{TemplateBinding Background}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         TemplatedControl.IsTemplateFocusTarget="True">
                         <Panel>
-                            <Panel HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <!--<Panel HorizontalAlignment="Left" VerticalAlignment="Center">
 
                                 <Border
                                     Name="SelectionIndicator"
@@ -46,7 +47,7 @@
                                     Background="{DynamicResource NavigationViewSelectionIndicatorForeground}"
                                     CornerRadius="{StaticResource ControlCornerRadius}"
                                     Opacity="0" />
-                            </Panel>
+                            </Panel>-->
 
 
                             <DockPanel>
@@ -70,7 +71,7 @@
 
                                 <Viewbox
                                     Name="IconBox"
-                                    Height="28"
+                                    Height="30"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center">
                                     <ContentPresenter Name="Icon" Content="{Binding TemplateSettings.Icon, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -89,7 +90,7 @@
         <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
         </Style>
-
+		
         <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
         </Style>
@@ -98,8 +99,10 @@
         </Style>
 
         <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
-            <Setter Property="IsVisible" Value="False" />
+            <!--<Setter Property="IsVisible" Value="False" />-->
+			<Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
         </Style>
+		
         <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
             <Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
         </Style>
@@ -135,41 +138,38 @@
             Background="Transparent"
             ColumnDefinitions="Auto,Auto,Auto,*,Auto,150">
 
-            <Button
-                Width="36"
-                Height="36"
-                Margin="18,4"
-                Background="Transparent"
-                BorderThickness="0"
-                Cursor="Hand">
-                <ui:SymbolIcon Symbol="Back" />
-            </Button>
+			<Panel Width="90"
+				   Height="75">
+				<Button
+					Name="BackViewButton"
+					Width="36"
+					Height="36"
+					HorizontalAlignment="Center"
+					Background="Transparent"
+					BorderThickness="0"
+					Cursor="Hand">
+					<Viewbox Height="18" Width="18">
+						<ui:SymbolIcon Symbol="Back"/>
+					</Viewbox>
+				</Button>
+			</Panel>
 
             <Image
                 Name="WindowIcon"
                 Grid.Column="1"
-                Width="18"
-                Height="18"
-                Margin="12,4"
+                Width="48"
+                Height="48"
+                Margin="10,4"
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
                 Source="/UI/Assets/ApplicationIcon.ico" />
 
-            <StackPanel
-                Grid.Column="2"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal"
-                Spacing="5">
-                <TextBlock
+				<TextBlock
+                    Grid.Column="2"
                     VerticalAlignment="Center"
-                    FontSize="12"
+                    FontSize="14"
                     IsHitTestVisible="False"
                     Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
-                <Button
-                    x:Name="DebugButton"
-                    Content="DebugWindow"
-                    FontSize="12" />
-            </StackPanel>
 
 
             <Border
@@ -200,10 +200,10 @@
             AlwaysShowHeader="False"
             Classes="SampleAppNav"
             FooterMenuItemsSource="{Binding FooterTabItems}"
+            MenuItemsSource="{Binding TabItems}"
             IsBackEnabled="{Binding #FrameView.CanGoBack}"
             IsPaneOpen="True"
             IsSettingsVisible="False"
-            MenuItemsSource="{Binding TabItems}"
 			SelectedItem="{Binding SelectedItem}"
             PaneDisplayMode="Left">
             <ui:NavigationView.Resources>
@@ -214,7 +214,7 @@
                 <DataTemplate DataType="{x:Type spp:TabItemViewModel}">
                     <ui:NavigationViewItem Classes="SampleAppNav" Content="{Binding Name}">
                         <ui:NavigationViewItem.IconSource>
-                            <ui:BitmapIconSource UriSource="{Binding IconSource}" />
+                            <ui:SymbolIconSource Symbol="HomeFilled" />
                         </ui:NavigationViewItem.IconSource>
                     </ui:NavigationViewItem>
                 </DataTemplate>

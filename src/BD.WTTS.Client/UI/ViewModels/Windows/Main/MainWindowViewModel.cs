@@ -53,10 +53,10 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 #endif
             Title = title;
 
-            IUserManager.Instance.OnSignOut += () =>
-            {
-                IsOpenUserMenu = false;
-            };
+            //IUserManager.Instance.OnSignOut += () =>
+            //{
+            //    IsOpenUserMenu = false;
+            //};
 
             //OpenUserMenu = ReactiveCommand.Create(() =>
             //{

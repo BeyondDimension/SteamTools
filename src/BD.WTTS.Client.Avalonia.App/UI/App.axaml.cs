@@ -38,7 +38,7 @@ public sealed partial class App : Application
 #if !UI_DEMO
                     CompositeDisposable.Add(SettingsHost.Save);
                     //CompositeDisposable.Add(ProxyService.Current.Exit);
-                    CompositeDisposable.Add(SteamConnectService.Current.Dispose);
+                    //CompositeDisposable.Add(SteamConnectService.Current.Dispose);
                     //CompositeDisposable.Add(ASFService.Current.StopASF);
 #pragma warning disable CA1416 // 验证平台兼容性
                     //if (GeneralSettings.IsStartupAppMinimized.Value)
