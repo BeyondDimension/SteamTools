@@ -26,5 +26,6 @@
         </ResourceDictionary>
     </Styles.Resources>
 
-    <StyleInclude Source="/UI/Styling/Controls/Separator.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/OptionsDisplayItemStyles.axaml" />
+	<StyleInclude Source="/UI/Styling/Controls/Separator.axaml" />
 </Styles>
