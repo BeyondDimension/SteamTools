@@ -6,6 +6,7 @@
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.UI.Views.Windows")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Converters")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.UI.ViewModels")]
+[assembly: XmlnsDefinition("https://steampp.net/services", "BD.WTTS.Services")]
 
 // FluentAvaloniaUI
 [assembly: XmlnsDefinition("https://github.com/amwx/FluentAvalonia", "FluentAvalonia.UI.Controls")]

@@ -1198,7 +1198,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>字体</value>
   </data>
   <data name="Settings_General" xml:space="preserve">
-    <value>通用设置</value>
+    <value>常规</value>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
     <value>自动检查更新</value>

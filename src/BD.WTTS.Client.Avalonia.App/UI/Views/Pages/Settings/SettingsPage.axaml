@@ -8,16 +8,11 @@
     d:DesignHeight="680"
     d:DesignWidth="1080"
     mc:Ignorable="d">
-	<StackPanel Margin="15" Spacing="5">
-		<TextBlock Text="常规" Margin="0 0 0 5"/>
-		<spp:OptionsDisplayItem Header="测试项"
-								Description="这是一个测试项目"
-								Icon="A"
-								Navigates="True"/>
-		<spp:OptionsDisplayItem Header="测试项"
-								Description="这是一个测试设置项目"
-								Icon="C"
-								Expands="True"
-								Content="这是一个测试设置项目"/>
-	</StackPanel>
+	<ScrollViewer>
+		<StackPanel Margin="15">
+			<spp:Settings_General/>
+			<spp:Settings_General/>
+			<spp:Settings_General/>
+		</StackPanel>
+	</ScrollViewer>
 </UserControl>

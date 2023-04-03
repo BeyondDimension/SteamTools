@@ -1,0 +1,27 @@
+<UserControl x:Class="BD.WTTS.UI.Views.Pages.Settings_General"
+		xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:spp="https://steampp.net/ui"
+		xmlns:s="https://steampp.net/services"
+		xmlns:ms="https://steampp.net/settings"
+        d:DesignHeight="680"
+		d:DesignWidth="1080"
+		mc:Ignorable="d">
+	<StackPanel Margin="15" Spacing="5">
+		<TextBlock Text="{ReflectionBinding Path=Res.Settings_General,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Margin="0 0 0 5"/>
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								Icon="S">
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+		
+		<spp:OptionsDisplayItem Header="测试项"
+								Description="这是一个测试设置项目"
+								Icon="C"
+								Expands="True"
+								Content="这是一个测试设置项目"/>
+	</StackPanel>
+</UserControl>

@@ -6,6 +6,10 @@
         <Border Padding="20" MinHeight="300">
             <StackPanel>
 				<spp:OptionsDisplayItem Header="Header"
+                                          Icon="Save"
+                                          Navigates="True"/>
+				
+				<spp:OptionsDisplayItem Header="Header"
                                           Description="This is a description of whatver this does"
                                           Icon="Save" 
                                           Navigates="True"/>
@@ -61,7 +65,7 @@
                                        VerticalAlignment="Top"
                                        TextWrapping="Wrap"
                                        Grid.Column="1"
-                                       Grid.Row="1" />
+                                       Grid.Row="1"/>
 
                             <ContentPresenter Content="{TemplateBinding ActionButton}"
                                               Grid.Column="2"
