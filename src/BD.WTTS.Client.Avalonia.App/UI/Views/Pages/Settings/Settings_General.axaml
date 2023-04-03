@@ -14,7 +14,8 @@
 		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
 								Icon="S">
 			<spp:OptionsDisplayItem.ActionButton>
-				<ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun},Path=Value, Mode=TwoWay}"/>
+				<ToggleSwitch Classes="OnlySwitch" 
+							  IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun},Path=Value, Mode=TwoWay}"/>
 			</spp:OptionsDisplayItem.ActionButton>
 		</spp:OptionsDisplayItem>
 		

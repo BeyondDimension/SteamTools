@@ -144,6 +144,9 @@
 	  <None Update="UI\Styling\Controls\Separator.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
+	  <None Update="UI\Styling\Controls\ToggleSwitch.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />
