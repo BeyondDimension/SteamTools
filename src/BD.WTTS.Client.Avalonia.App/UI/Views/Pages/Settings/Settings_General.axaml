@@ -18,6 +18,16 @@
 							  IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun},Path=Value, Mode=TwoWay}"/>
 			</spp:OptionsDisplayItem.ActionButton>
 		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="测试项"
+								Icon="C"
+								Navigates="True"/>
+		
+		<spp:OptionsDisplayItem Header="测试项"
+								Description="这是一个测试设置项目"
+								Icon="C"
+								Expands="True"
+								Content="这是一个测试设置项目"/>
 		
 		<spp:OptionsDisplayItem Header="测试项"
 								Description="这是一个测试设置项目"

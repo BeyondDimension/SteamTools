@@ -110,6 +110,10 @@ public class OptionsDisplayItem : TemplatedControl
 
             PseudoClasses.Set(":expands", change.GetNewValue<bool>());
         }
+        else if (change.Property == DescriptionProperty)
+        {
+            PseudoClasses.Set(":desc", !string.IsNullOrEmpty(change.GetNewValue<string>()));
+        }
         else if (change.Property == IsExpandedProperty)
             PseudoClasses.Set(":expanded", change.GetNewValue<bool>());
         else if (change.Property == IconProperty)
@@ -129,7 +133,7 @@ public class OptionsDisplayItem : TemplatedControl
         }
     }
 
-    private void OnLayoutRootPointerPressed(object sender, PointerPressedEventArgs e)
+    private void OnLayoutRootPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed)
         {
@@ -138,7 +142,7 @@ public class OptionsDisplayItem : TemplatedControl
         }
     }
 
-    private void OnLayoutRootPointerReleased(object sender, PointerReleasedEventArgs e)
+    private void OnLayoutRootPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         var pt = e.GetCurrentPoint(this);
         if (_isPressed && pt.Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonReleased)
@@ -158,7 +162,7 @@ public class OptionsDisplayItem : TemplatedControl
         }
     }
 
-    private void OnLayoutRootPointerCaptureLost(object sender, PointerCaptureLostEventArgs e)
+    private void OnLayoutRootPointerCaptureLost(object? sender, PointerCaptureLostEventArgs e)
     {
         _isPressed = false;
         PseudoClasses.Set(":pressed", false);

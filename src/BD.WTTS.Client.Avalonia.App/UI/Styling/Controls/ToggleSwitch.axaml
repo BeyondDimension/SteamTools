@@ -1,30 +1,39 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Design.PreviewWith>
-    <Border Padding="20">
-      <StackPanel Spacing="5">
-        <ToggleSwitch Content="Button" />
-        <WrapPanel>
-          <TextBlock Text="OnlySwitch" VerticalAlignment="Center"/>
-          <ToggleSwitch Classes="OnlySwitch" VerticalAlignment="Center"/>
-          <TextBlock Text="test margin" VerticalAlignment="Center"/>
-        </WrapPanel>
-      </StackPanel>
-    </Border>
-  </Design.PreviewWith>
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<StackPanel Spacing="5">
+				<ToggleSwitch Content="Button" />
+				<WrapPanel>
+					<TextBlock Text="OnlySwitch" VerticalAlignment="Center"/>
+					<ToggleSwitch Classes="OnlySwitch" VerticalAlignment="Center"/>
+					<TextBlock Text="OnlySwitch test margin" VerticalAlignment="Center"/>
+				</WrapPanel>
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
+	<Styles.Resources>
+		<GridLength x:Key="ToggleSwitchPreContentMargin">5</GridLength>
+		<GridLength x:Key="ToggleSwitchPostContentMargin">5</GridLength>
+	</Styles.Resources>
 
-  <Style Selector="ToggleSwitch">
-    <Setter Property="MinWidth" Value="0"></Setter>
-  </Style>
-  
-  <Style Selector="ToggleSwitch.OnlySwitch">
-    <Setter Property="Content" Value=""></Setter>
-    <Setter Property="OffContent" Value=""></Setter>
-    <Setter Property="OnContent" Value=""></Setter>
-    <Setter Property="Width" Value="40"></Setter>
-  </Style>
+	<Style Selector="ToggleSwitch">
+		<Setter Property="MinWidth" Value="0"></Setter>
+	</Style>
 
-  <Style Selector="RadioButton">
-    <Setter Property="MinWidth" Value="0" />
-  </Style>
+	<Style Selector="ToggleSwitch.OnlySwitch">
+		<Setter Property="Content" Value=""></Setter>
+		<Setter Property="OffContent" Value=""></Setter>
+		<Setter Property="OnContent" Value=""></Setter>
+		<Setter Property="Width" Value="40"></Setter>
+	</Style>
+
+	<Style Selector="ToggleSwitch.OnlySwitch /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Height" Value="0"></Setter>
+		<Setter Property="IsVisible" Value="False"></Setter>
+	</Style>
+
+	<Style Selector="RadioButton">
+		<Setter Property="MinWidth" Value="0" />
+	</Style>
 </Styles>

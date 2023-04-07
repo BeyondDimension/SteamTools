@@ -44,20 +44,25 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Padding="12"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto,Auto">
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" 
+							  RowDefinitions="Auto,Auto,Auto"
+							  MinHeight="40">
                             <Viewbox Name="IconHost"
                                      Width="24" Height="24"
                                      Grid.RowSpan="2"
-                                     Margin="8 4 12 4">
+                                     Margin="8 4 12 4"
+									 VerticalAlignment="Center">
                                 <ContentPresenter Content="{TemplateBinding Icon}" />
                             </Viewbox>
 
                             <TextBlock Text="{TemplateBinding Header}"
+									   Name="HeaderText"
                                        Classes="BaseTextBlockStyle"
-                                       VerticalAlignment="Bottom"
+                                       VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        TextTrimming="CharacterEllipsis"
-                                       Grid.Column="1"/>
+                                       Grid.Column="1"
+									   Grid.RowSpan="2"/>
 
                             <TextBlock Text="{TemplateBinding Description}"
                                        Classes="CaptionTextBlockStyle"
@@ -78,6 +83,7 @@
                                            Margin="8 4"
                                            Grid.Column="3"
                                            Grid.RowSpan="2"
+										   VerticalAlignment="Center"
                                            FontSize="20"/> 
                         </Grid>
                     </Border>
@@ -125,22 +131,30 @@
         <Setter Property="IsVisible" Value="True" />
         <Setter Property="Symbol" Value="ChevronRight" />
     </Style>
-
-
+	
+	<Style Selector="spp|OptionsDisplayItem:desc /template/ TextBlock#HeaderText">
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="Grid.RowSpan" Value="1" />
+	</Style>
+	
     <Style Selector="spp|OptionsDisplayItem:expands /template/ ui|SymbolIcon#Chevron">
         <Setter Property="IsVisible" Value="True" />
         <Setter Property="Symbol" Value="ChevronDown" />
     </Style>
+	
     <Style Selector="spp|OptionsDisplayItem:expanded /template/ ui|SymbolIcon#Chevron">
         <Setter Property="Symbol" Value="ChevronUp" />
     </Style>
+	
     <Style Selector="spp|OptionsDisplayItem:expanded /template/ ContentPresenter#ExpandedContentPresenter">
         <Setter Property="IsVisible" Value="True" />
         <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BottomCornerRadiusFilterConverter}}" />
     </Style>
+	
     <Style Selector="spp|OptionsDisplayItem:expanded /template/ Border#LayoutRoot">
         <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TopCornerRadiusFilterConverter}}" />
     </Style>
+	
     <Style Selector="spp|OptionsDisplayItem:not(:expands):expanded /template/ ContentPresenter#ExpandedContentPresenter">
         <Setter Property="IsVisible" Value="False" />
     </Style>
