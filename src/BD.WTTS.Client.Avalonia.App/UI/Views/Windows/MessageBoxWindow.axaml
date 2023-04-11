@@ -5,5 +5,5 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BD.WTTS.UI.Views.Windows.MessageBoxWindow"
         Title="MessageBoxWindow">
-	
+	  
 </Window>
