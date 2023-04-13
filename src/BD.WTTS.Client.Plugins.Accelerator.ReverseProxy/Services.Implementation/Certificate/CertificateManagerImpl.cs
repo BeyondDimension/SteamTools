@@ -1,36 +1,153 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-using AppResources = BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
-abstract partial class CertificateManagerImpl
+sealed partial class CertificateManagerImpl : ICertificateManager
 {
-    protected const string TAG = "CertificateManager";
+    const string TAG = "CertificateManager";
 
-    protected readonly IPlatformService platformService;
+    ICertificateManager Interface => this;
 
-    protected ICertificateManager Interface => (ICertificateManager)this;
+    readonly IPCService ipc;
 
-    public CertificateManagerImpl(
-        IPlatformService platformService)
+    public CertificateManagerImpl(IPCService ipc)
     {
-        this.platformService = platformService;
+        this.ipc = ipc;
     }
 
     /// <inheritdoc cref="ICertificateManager.RootCertificate"/>
-    public abstract X509Certificate2? RootCertificate { get; set; }
+    public X509Certificate2? RootCertificate { get; set; }
 
     /// <inheritdoc cref="ICertificateManager.PfxPassword"/>
-    public virtual string? PfxPassword { get; set; }
+    public string? PfxPassword { get; set; }
 
-    protected abstract X509Certificate2? LoadRootCertificate();
+    X509Certificate2? LoadRootCertificate()
+    {
+        try
+        {
+            ICertificateManager thiz = Interface;
+            if (!File.Exists(thiz.PfxFilePath))
+                return null;
+            X509Certificate2 rootCert;
+            try
+            {
+                rootCert = new(thiz.PfxFilePath, thiz.PfxPassword, X509KeyStorageFlags.Exportable);
+            }
+            catch (PlatformNotSupportedException)
+            {
+                // https://github.com/dotnet/runtime/issues/71603
+                return null;
+            }
+            catch (CryptographicException e)
+            {
+                if (e.InnerException is PlatformNotSupportedException) return null;
+                throw;
+            }
+            if (rootCert.NotAfter <= DateTime.Now)
+            {
+                Log.Error(TAG, "Loaded root certificate has expired.");
+                return null;
+            }
+            return rootCert;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(TAG, ex, nameof(LoadRootCertificate));
+            return null;
+        }
+    }
 
-    protected abstract void SharedTrustRootCertificate();
+    void SharedTrustRootCertificate()
+    {
+        if (RootCertificate == null)
+        {
+            throw new ApplicationException(
+                "Could not install certificate as it is null or empty.");
+        }
 
-    protected abstract bool SharedCreateRootCertificate();
+        using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
+        try
+        {
+            store.Open(OpenFlags.ReadWrite);
 
-    protected abstract void SharedRemoveTrustedRootCertificate();
+            //var subjectName = RootCertificate.Subject[3..];
+            //foreach (var item in store.Certificates.Find(X509FindType.FindBySubjectName, subjectName, false))
+            //{
+            //    if (item.Thumbprint != RootCertificate.Thumbprint)
+            //    {
+            //        store.Remove(item);
+            //    }
+            //}
+
+            if (store.Certificates.Find(X509FindType.FindByThumbprint, RootCertificate.Thumbprint, true).Count == 0)
+            {
+                store.Add(RootCertificate);
+            }
+        }
+        catch (Exception e)
+        {
+            Log.Error(TAG, e,
+                $"Please manually install the CA certificate {Interface.PfxFilePath} to a trusted root certificate authority.");
+        }
+        finally
+        {
+            store.Close();
+        }
+    }
+
+    bool SharedCreateRootCertificate()
+    {
+        RootCertificate ??= LoadRootCertificate();
+
+        if (RootCertificate != null)
+        {
+            return true;
+        }
+
+        var validFrom = DateTime.Today.AddDays(-1);
+        var validTo = DateTime.Today.AddDays(ICertificateManager.CertificateValidDays);
+
+        var rootCertificateName = ICertificateManager.RootCertificateName;
+
+        RootCertificate = CertGenerator.GenerateBySelfPfx(new[] { rootCertificateName }, validFrom, validTo, Interface.PfxFilePath, Interface.PfxPassword);
+
+        return RootCertificate != null;
+    }
+
+    void SharedRemoveTrustedRootCertificate()
+    {
+        if (RootCertificate == null)
+        {
+            throw new ApplicationException(
+                "Could not remove certificate as it is null or empty.");
+        }
+
+        using var x509Store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
+
+        try
+        {
+            x509Store.Open(OpenFlags.ReadWrite);
+            var subjectName = RootCertificate.Subject[3..];
+            foreach (var item in x509Store.Certificates.Find(X509FindType.FindBySubjectName, subjectName, false))
+            {
+                //if (item.Thumbprint == RootCertificate.Thumbprint)
+                //{
+                x509Store.Remove(item);
+                //}
+            }
+            //x509Store.Remove(RootCertificate);
+        }
+        catch (Exception e)
+        {
+            Log.Error(TAG, new ApplicationException(
+                "Failed to remove root certificate trust for LocalMachine store location. You may need admin rights.", e), nameof(SharedRemoveTrustedRootCertificate));
+        }
+        finally
+        {
+            x509Store.Close();
+        }
+    }
 
     static readonly object lockGenerateCertificate = new();
 
@@ -58,8 +175,8 @@ abstract partial class CertificateManagerImpl
         var result = SharedCreateRootCertificate();
         if (!result || RootCertificate == null)
         {
-            Log.Error(TAG, AppResources.CreateCertificateFaild);
-            Toast.Show(AppResources.CreateCertificateFaild);
+            Log.Error(TAG, "Failed to create certificate");
+            ipc.Send(ReverseProxyCommand.ToastShowCreateCertificateFaild);
             return false;
         }
 
@@ -73,7 +190,7 @@ abstract partial class CertificateManagerImpl
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    protected bool GenerateCertificate(string? filePath = null)
+    bool GenerateCertificate(string? filePath = null)
     {
         filePath ??= Interface.CerFilePath;
         lock (lockGenerateCertificate)

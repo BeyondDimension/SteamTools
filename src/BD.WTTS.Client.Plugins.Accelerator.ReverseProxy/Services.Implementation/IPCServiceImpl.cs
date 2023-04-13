@@ -1,3 +1,4 @@
+// ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
 sealed class IPCServiceImpl : IPCServiceImpl<IReverseProxyPacket>, IPCService
