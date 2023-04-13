@@ -2,7 +2,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:spp="https://steampp.net/ui"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BD.WTTS.UI.Views.Pages.DebugPage">
-  Welcome to Avalonia!
+             x:Class="BD.WTTS.UI.Views.Pages.DebugPage"
+			 x:DataType="spp:DebugPageViewModel"
+             x:CompileBindings="True">
+	<Design.DataContext>
+		<spp:DebugPageViewModel/>
+	</Design.DataContext>
+	<Grid RowDefinitions="*,Auto">
+		<TextBox BorderThickness="0" 
+				 Background="Transparent" 
+				 IsReadOnly="True"
+				 Text="{Binding DebugString}"></TextBox>
+		<TextBox Name="CommandTextBox" Grid.Row="1">
+		</TextBox>
+	</Grid>
 </UserControl>

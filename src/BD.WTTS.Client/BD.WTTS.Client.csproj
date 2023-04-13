@@ -93,6 +93,7 @@
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="System.Linq.Async" />
 		<!--<PackageReference Include="Portable.BouncyCastle" />-->
+		<PackageReference Include="ReactiveUI.Fody" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">

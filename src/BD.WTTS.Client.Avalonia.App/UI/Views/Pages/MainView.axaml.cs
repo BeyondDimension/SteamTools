@@ -56,7 +56,7 @@ public partial class MainView : ReactiveUserControl<MainWindowViewModel>
                 }
                 catch
                 {
-                    FrameView?.Navigate(typeof(DebugPage));
+                    FrameView?.GoBack();
                 }
             }
         };

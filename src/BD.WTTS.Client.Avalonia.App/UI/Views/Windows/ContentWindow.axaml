@@ -17,7 +17,7 @@
             Height="{StaticResource TitleBarHeight}"
             VerticalAlignment="Center"
             Background="Transparent"
-            ColumnDefinitions="Auto,Auto,*,Auto">
+            ColumnDefinitions="Auto,Auto,*,Auto,150">
 
 			<Image
                 Name="WindowIcon"

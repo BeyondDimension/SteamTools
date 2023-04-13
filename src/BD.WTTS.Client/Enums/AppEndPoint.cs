@@ -30,6 +30,7 @@ public enum AppEndPoint : byte
     ProxySettings,
     Notice,
     SaveEditedAppInfo,
+    Content,
 }
 
 #if DEBUG

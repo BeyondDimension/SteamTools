@@ -1,4 +1,4 @@
-namespace BD.WTTS.Services.UI.ViewModels;
+namespace BD.WTTS.UI.ViewModels;
 
 public class ContentWindowViewModel : WindowViewModel
 {
