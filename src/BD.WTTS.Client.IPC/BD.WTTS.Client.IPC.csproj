@@ -32,18 +32,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="..\BD.WTTS.Client\Constants\CertificateConstants.cs">
-			<LinkBase>Constants</LinkBase>
-		</Compile>
-		<Compile Include="..\BD.WTTS.Client\Services\Certificate\ICertificateManager.cs">
-			<LinkBase>Services\Certificate</LinkBase>
-		</Compile>
-		<Compile Include="..\BD.WTTS.Client\Services.Implementation\Certificate\CertGenerator.cs">
-			<LinkBase>Services.Implementation\Certificate</LinkBase>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 		<!-- PackageReference -->
 		<PackageReference Include="BD.Common" />
 	</ItemGroup>

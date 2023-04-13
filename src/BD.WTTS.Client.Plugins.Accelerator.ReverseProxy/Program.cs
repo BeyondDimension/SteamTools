@@ -15,6 +15,7 @@ static void ConfigureServices(IServiceCollection services)
 
     services.AddDnsAnalysisService();
     services.AddReverseProxyService();
+    services.AddSingleton<ICertificateManager, CertificateManagerImpl>();
     services.AddSingleton<IPCService, IPCServiceImpl>();
 }
 

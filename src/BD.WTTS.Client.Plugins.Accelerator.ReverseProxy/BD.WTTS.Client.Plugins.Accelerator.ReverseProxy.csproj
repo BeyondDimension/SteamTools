@@ -18,7 +18,6 @@
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
-		<Compile Remove="..\ImplicitUsings.Common.cs" />
 		<Compile Include="..\ImplicitUsings.Services.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -27,6 +26,12 @@
 		</Compile>
 		<Compile Include="..\ImplicitUsings.Nito.cs">
 			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\BD.WTTS.Client\Constants\CertificateConstants.cs">
+			<LinkBase>Constants</LinkBase>
 		</Compile>
 	</ItemGroup>
 
@@ -66,7 +71,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_WINDOWS.props" />

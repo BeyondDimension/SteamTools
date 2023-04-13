@@ -472,3 +472,13 @@ dotnet_diagnostic.SA1112.severity = silent
 
 # SA1111: Closing parenthesis should be on line of last parameter
 dotnet_diagnostic.SA1111.severity = silent
+
+# CS8618: 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+dotnet_diagnostic.CS8618.severity = error
+
+# CS8604: 引用类型参数可能为 null。
+dotnet_diagnostic.CS8604.severity = error
+
+# CA1829: 在可用时使用 Length/Count 属性而不是 Count()
+dotnet_diagnostic.CA1829.severity = error
+

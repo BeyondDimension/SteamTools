@@ -1,5 +1,3 @@
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
 using static BD.WTTS.CommandLineHost;
 
 namespace BD.WTTS;

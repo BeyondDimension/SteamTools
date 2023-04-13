@@ -35,13 +35,21 @@ public static class CertificateConstants
         }
     }
 
+    static string? _AppDataDirectory;
+
+    public static string AppDataDirectory
+    {
+        get => _AppDataDirectory ?? IOPath.AppDataDirectory;
+        set => _AppDataDirectory = value;
+    }
+
     /// <summary>
     /// 默认 PFX 证书文件路径
     /// </summary>
-    public static string DefaultPfxFilePath => Path.Combine(IOPath.AppDataDirectory, PfxFileName);
+    public static string DefaultPfxFilePath => Path.Combine(AppDataDirectory, PfxFileName);
 
     /// <summary>
     /// 默认 CER 证书文件路径
     /// </summary>
-    public static string DefaultCerFilePath => Path.Combine(IOPath.AppDataDirectory, CerFileName);
+    public static string DefaultCerFilePath => Path.Combine(AppDataDirectory, CerFileName);
 }
