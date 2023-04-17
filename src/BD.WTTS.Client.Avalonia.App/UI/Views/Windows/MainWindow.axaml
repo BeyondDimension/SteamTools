@@ -10,6 +10,9 @@
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:MainWindowViewModel"
+	Width="1080"
+	Height="660"
+	WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Panel>
         <spp:MainView DataContext="{Binding}" />

@@ -31,7 +31,7 @@ public partial class DebugPageViewModel
             case "demo":
                 break;
             case "window":
-                ContentWindowViewModel vm = new() { };
+                ContentWindowViewModel vm = new() { PageViewModel = new SettingsPageViewModel { } };
                 await IWindowManager.Instance.ShowAsync(AppEndPoint.Content, vm);
                 break;
             default:

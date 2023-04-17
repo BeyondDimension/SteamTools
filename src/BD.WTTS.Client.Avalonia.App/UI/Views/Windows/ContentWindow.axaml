@@ -3,12 +3,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:spp="https://steampp.net/ui"
+		xmlns:vm="using:BD.WTTS.UI.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BD.WTTS.UI.Views.Windows.ContentWindow"
 		xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
 		xmlns:wnd="using:FluentAvalonia.UI.Windowing"
 		xmlns:ui="using:FluentAvalonia.UI.Controls"
         Title="ContentWindow"
+		WindowStartupLocation="CenterScreen"
 		x:DataType="spp:ContentWindowViewModel"
 		x:CompileBindings="True">
 	<Grid RowDefinitions="Auto, *">
@@ -22,8 +24,8 @@
 			<Image
                 Name="WindowIcon"
                 Grid.Column="0"
-                Width="48"
-                Height="48"
+                Width="36"
+                Height="36"
                 Margin="10,4"
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
@@ -44,10 +46,13 @@
                 Background="{DynamicResource ButtonBorderBrush}"
                 Classes="Vertical" />
 		</Grid>
-		<ContentControl DataContext="{Binding PageViewModel}">
+		<ContentControl Grid.Row="1" Content="{Binding PageViewModel}">
 			<ContentControl.DataTemplates>
 				<DataTemplate DataType="spp:SettingsPageViewModel">
 					<spp:SettingsPage/>
+				</DataTemplate>
+				<DataTemplate DataType="spp:DebugPageViewModel">
+					<spp:DebugPage/>
 				</DataTemplate>
 			</ContentControl.DataTemplates>
 		</ContentControl>
