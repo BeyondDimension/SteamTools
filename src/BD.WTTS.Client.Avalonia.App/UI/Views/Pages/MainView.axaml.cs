@@ -41,10 +41,10 @@ public partial class MainView : ReactiveUserControl<MainWindowViewModel>
         //    window.Show();
         //};
 
-        BackViewButton.Click += (s, e) =>
-        {
-            FrameView.GoBack();
-        };
+        //BackViewButton.Click += (s, e) =>
+        //{
+        //    FrameView.GoBack();
+        //};
 
         NavView.SelectionChanged += (s, e) =>
         {

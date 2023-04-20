@@ -14,6 +14,7 @@ public abstract class TabItemViewModel : TabItemViewModel<TabItemViewModel.TabIt
         GameTools,
         Settings,
         About,
+        Start,
 #if DEBUG
         Debug = byte.MaxValue,
 #endif
@@ -34,6 +35,7 @@ public abstract class TabItemViewModel : TabItemViewModel<TabItemViewModel.TabIt
         TabItemId.GameTools => GameRelatedPageViewModel.DisplayName,
         TabItemId.Settings => SettingsPageViewModel.DisplayName,
         TabItemId.About => AboutPageViewModel.DisplayName,
+        TabItemId.Start => StartPageViewModel.DisplayName,
 #if DEBUG
         TabItemId.Debug => DebugPageViewModel.DisplayName,
 #endif
@@ -52,6 +54,7 @@ public abstract class TabItemViewModel : TabItemViewModel<TabItemViewModel.TabIt
         TabItemId.GameTools => typeof(GameRelatedPageViewModel),
         TabItemId.Settings => typeof(SettingsPageViewModel),
         TabItemId.About => typeof(AboutPageViewModel),
+        TabItemId.Start => typeof(StartPageViewModel),
 #if DEBUG
         TabItemId.Debug => typeof(DebugPageViewModel),
 #endif

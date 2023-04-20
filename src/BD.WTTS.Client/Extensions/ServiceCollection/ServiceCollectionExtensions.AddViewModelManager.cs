@@ -24,6 +24,7 @@ public static partial class ServiceCollectionExtensions
         services.AddTransient<GameRelatedPageViewModel>();
         services.AddTransient<SettingsPageViewModel>();
         services.AddTransient<AboutPageViewModel>();
+        services.AddTransient<StartPageViewModel>();
 
 #if DEBUG
         services.AddTransient<DebugPageViewModel>();

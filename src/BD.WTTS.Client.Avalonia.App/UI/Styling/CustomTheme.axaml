@@ -7,6 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/UI/Styling/Themes.axaml" />
                 <ResourceInclude Source="/UI/Styling/Fonts.axaml" />
+				<ResourceInclude Source="/UI/Styling/Icons.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>

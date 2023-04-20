@@ -17,7 +17,6 @@
 		<Grid
             Name="TitleBarHost"
             Height="{StaticResource TitleBarHeight}"
-            VerticalAlignment="Center"
             Background="Transparent"
             ColumnDefinitions="Auto,Auto,*,Auto,150">
 
@@ -26,9 +25,10 @@
                 Grid.Column="0"
                 Width="36"
                 Height="36"
-                Margin="10,4"
+                Margin="22,4,12,4"
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
+				VerticalAlignment="Center"
                 Source="/UI/Assets/ApplicationIcon.ico" />
 
 			<TextBlock

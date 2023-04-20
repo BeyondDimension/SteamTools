@@ -75,7 +75,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 
         var showProxyScript = !OperatingSystem.IsWindows() || ResourceService.IsChineseSimplified;
 
-        //tabIdItems.Add(TabItemViewModel.TabItemId.StartPage);
+        tabIdItems.Add(TabItemViewModel.TabItemId.Start);
         if (showProxyScript)
         {
             // Android 目前底部菜单实现要隐藏需要改多个地方

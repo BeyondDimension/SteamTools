@@ -1,6 +1,6 @@
 namespace BD.WTTS.UI;
 
-public sealed partial class App : Application
+public sealed partial class App : Application, IApplication
 {
     const string TAG = "AvaloniaApp";
 

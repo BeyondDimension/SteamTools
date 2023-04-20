@@ -6,6 +6,7 @@
     xmlns:sty="using:FluentAvalonia.Styling">
     <Application.Resources>
         <spp:IsNullConverter x:Key="IsNullConverter" />
+		<spp:ResourceKeyValueConverter x:Key="ResourceKeyValueConverter" />
     </Application.Resources>
     <Application.Styles>
         <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
