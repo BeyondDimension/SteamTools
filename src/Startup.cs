@@ -138,14 +138,15 @@ namespace System.Application.UI
                     //                            }
                     //                        }
                     //#endif
-                    var value =
-                        (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
-#if USE_DEBUG_SERVER
-                                Constants.Urls.BaseUrl_API_Debug
-#else
-                            Constants.Urls.BaseUrl_API_Development
-#endif
-                           : Constants.Urls.BaseUrl_API_Production;
+                    //                    var value =
+                    //                        (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
+                    //#if USE_DEBUG_SERVER
+                    //                                Constants.Urls.BaseUrl_API_Debug
+                    //#else
+                    //                            Constants.Urls.BaseUrl_API_Development
+                    //#endif
+                    //                           : Constants.Urls.BaseUrl_API_Production;
+                    const string value = "https://steampp.mossimo.net:8800";
                     s.ApiBaseUrl = Constants.Urls.ApiBaseUrl = value;
                 }
             }
