@@ -140,6 +140,12 @@
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="UI\Views\Pages\Settings\Settings_UI.axaml.cs">
+	    <DependentUpon>Settings_UI.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />
 
 </Project>

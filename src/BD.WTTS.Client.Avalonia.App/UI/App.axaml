@@ -7,6 +7,7 @@
     <Application.Resources>
         <spp:IsNullConverter x:Key="IsNullConverter" />
 		<spp:ResourceKeyValueConverter x:Key="ResourceKeyValueConverter" />
+		<spp:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
     </Application.Resources>
     <Application.Styles>
         <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
