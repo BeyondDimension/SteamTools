@@ -94,7 +94,7 @@ public sealed partial class UISettings : SettingsHost2<UISettings>
     /// </summary>
     public static SerializableProperty<bool> EnableCustomBackgroundImage => _EnableCustomBackgroundImage;
 
-    static readonly SerializableProperty<string> _BackgroundImagePath = GetProperty(defaultValue: "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png");
+    static readonly SerializableProperty<string> _BackgroundImagePath = GetProperty(defaultValue: "/UI/Assets/back.png");
 
     /// <summary>
     /// 背景图片路径

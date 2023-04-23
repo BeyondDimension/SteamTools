@@ -7,12 +7,13 @@
 	xmlns:spp="https://steampp.net/ui"
     d:DesignHeight="680"
     d:DesignWidth="1080"
+	x:DataType="spp:SettingsPageViewModel"
+    x:CompileBindings="True"
     mc:Ignorable="d">
 	<ScrollViewer>
 		<StackPanel Margin="15">
 			<spp:Settings_General/>
-			<spp:Settings_General/>
-			<spp:Settings_General/>
+			<spp:Settings_UI/>
 		</StackPanel>
 	</ScrollViewer>
 </UserControl>

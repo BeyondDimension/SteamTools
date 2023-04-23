@@ -4,16 +4,7 @@ namespace BD.WTTS.UI.Views.Pages;
 
 public partial class Settings_UI : UserControl
 {
-    public List<Color> PredefinedColors { get; private set; }
-
-    public Settings_UI()
-    {
-        InitializeComponent();
-    }
-
-    private void GetPredefColors()
-    {
-        PredefinedColors = new List<Color>
+    public List<Color> PredefinedColors { get; } = new List<Color>
         {
             Color.FromRgb(255,185,0),
             Color.FromRgb(255,140,0),
@@ -64,5 +55,11 @@ public partial class Settings_UI : UserControl
             Color.FromRgb(132,117,69),
             Color.FromRgb(126,115,95)
         };
+
+    public Settings_UI()
+    {
+        InitializeComponent();
+        if (ColorListBox != null)
+            ColorListBox.ItemsSource = PredefinedColors;
     }
 }

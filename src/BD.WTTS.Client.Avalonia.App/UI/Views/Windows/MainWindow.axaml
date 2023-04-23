@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
+	xmlns:ms="https://steampp.net/settings"
     Title="Watt Toolkit"
     d:DesignHight="450"
     d:DesignWidth="800"
@@ -14,7 +15,7 @@
 	Height="660"
 	WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Panel>
-        <spp:MainView DataContext="{Binding}" />
-    </Panel>
+	<Panel>
+		<spp:MainView DataContext="{Binding}" />
+	</Panel>
 </Window>

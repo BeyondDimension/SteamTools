@@ -113,5 +113,5 @@
             <Setter Property="Content" Value="&#xE923;" />
         </Style>
     </ControlTheme>
-
+	
 </ResourceDictionary>

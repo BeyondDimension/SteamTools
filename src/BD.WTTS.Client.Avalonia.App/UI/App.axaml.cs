@@ -1,6 +1,6 @@
 namespace BD.WTTS.UI;
 
-public sealed partial class App : Application, IApplication
+public sealed partial class App : Application
 {
     const string TAG = "AvaloniaApp";
 
@@ -105,15 +105,15 @@ public sealed partial class App : Application, IApplication
             {
                 window.TransparencyLevelHint = (WindowTransparencyLevel)level;
 
-                if (window.TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
-                    window.TransparencyLevelHint == WindowTransparencyLevel.Blur)
-                {
-                    ((IPseudoClasses)window.Classes).Set(":transparent", true);
-                }
-                else
-                {
-                    ((IPseudoClasses)window.Classes).Set(":transparent", false);
-                }
+                //if (window.TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
+                //    window.TransparencyLevelHint == WindowTransparencyLevel.Blur)
+                //{
+                //    ((IPseudoClasses)window.Classes).Set(":transparent", true);
+                //}
+                //else
+                //{
+                //    ((IPseudoClasses)window.Classes).Set(":transparent", false);
+                //}
             }
         }
     }

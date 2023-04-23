@@ -72,7 +72,8 @@
                                        Grid.Column="1"
                                        Grid.Row="1"/>
 
-                            <ContentPresenter Content="{TemplateBinding ActionButton}"
+                            <ContentPresenter Name="ActionButton"
+											  Content="{TemplateBinding ActionButton}"
                                               Grid.Column="2"
                                               Grid.RowSpan="2"
                                               VerticalAlignment="Stretch"
@@ -159,6 +160,9 @@
         <Setter Property="IsVisible" Value="False" />
     </Style>
 
+	<Style Selector="spp|OptionsDisplayItem /template/ ContentPresenter#ActionButton ComboBox">
+		<Setter Property="MinWidth" Value="150" />
+	</Style>
 
     <!-- Vertical Style -->
     <Style Selector="spp|OptionsDisplayItem.Vertical">

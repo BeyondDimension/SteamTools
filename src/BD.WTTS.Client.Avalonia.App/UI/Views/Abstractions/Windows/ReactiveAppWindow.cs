@@ -30,9 +30,11 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
         TitleBar.ExtendsContentIntoTitleBar = true;
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
 
-        //Background = Brushes.Transparent;
+        //SystemDecorations = SystemDecorations.BorderOnly;
+
+        //Background = null;
         TransparencyBackgroundFallback = Brushes.Transparent;
-        TransparencyLevelHint = WindowTransparencyLevel.Mica;
+        TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
     }
 
     /// <summary>

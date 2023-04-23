@@ -1,15 +1,11 @@
 using Avalonia.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
+
 public partial class SettingsPage : UserControl
 {
     public SettingsPage()
     {
         InitializeComponent();
-    }
-
-    void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
     }
 }

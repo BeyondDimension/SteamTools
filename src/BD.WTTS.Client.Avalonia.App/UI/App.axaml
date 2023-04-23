@@ -8,6 +8,8 @@
         <spp:IsNullConverter x:Key="IsNullConverter" />
 		<spp:ResourceKeyValueConverter x:Key="ResourceKeyValueConverter" />
 		<spp:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
+		<spp:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
+		<spp:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
     </Application.Resources>
     <Application.Styles>
         <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
