@@ -147,6 +147,7 @@ namespace System.Application.UI
                     //#endif
                     //                           : Constants.Urls.BaseUrl_API_Production;
                     const string value = "https://steampp.mossimo.net:8800";
+                    //const string value = "https://localhost:7068";
                     s.ApiBaseUrl = Constants.Urls.ApiBaseUrl = value;
                 }
             }
@@ -680,7 +681,7 @@ namespace System.Application.UI
                 };
                 req.SetDeviceId();
                 // 匿名统计与通知公告
-                await csc.ActiveUser.Post(req);
+                var rsp = await csc.ActiveUser.Post(req);
 #if DEBUG
                 INotificationService.Notify(type);
 #endif
