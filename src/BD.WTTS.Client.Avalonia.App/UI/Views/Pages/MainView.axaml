@@ -14,15 +14,15 @@
     x:DataType="spp:MainWindowViewModel"
     mc:Ignorable="d">
     <UserControl.Styles>
-        <Style Selector="ui|NavigationView.SampleAppNav">
+        <Style Selector="ui|NavigationView.AppNav">
             <Setter Property="IsPaneToggleButtonVisible" Value="False" />
             <Setter Property="OpenPaneLength" Value="80" />
         </Style>
-        <Style Selector="ui|NavigationView.SampleAppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
+        <Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
             <Setter Property="Margin" Value="0 75 0 0" />
         </Style>
 
-        <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter">
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter">
             <Setter Property="Width" Value="80" />
             <Setter Property="MinHeight" Value="80" />
 			<Setter Property="Cursor" Value="Hand" />
@@ -84,26 +84,26 @@
             </Setter>
         </Style>
 
-        <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#ContentPresenter">
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#ContentPresenter">
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
         </Style>
-        <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
         </Style>
 		
-        <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
         </Style>
-        <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#Icon">
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#Icon">
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
         </Style>
 
-        <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
             <Setter Property="IsVisible" Value="False" />
 			<Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
         </Style>
 		
-        <Style Selector="ui|NavigationViewItem.SampleAppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
             <Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
         </Style>
 
@@ -198,7 +198,7 @@
             Name="NavView"
             Grid.RowSpan="2"
             AlwaysShowHeader="False"
-            Classes="SampleAppNav"
+            Classes="AppNav"
             FooterMenuItemsSource="{Binding FooterTabItems}"
             MenuItemsSource="{Binding TabItems}"
             IsBackEnabled="{Binding #FrameView.CanGoBack}"
@@ -212,7 +212,7 @@
             </ui:NavigationView.Resources>
             <ui:NavigationView.MenuItemTemplate>
                 <DataTemplate DataType="{x:Type spp:TabItemViewModel}">
-                    <ui:NavigationViewItem Classes="SampleAppNav" Content="{Binding Name}">
+                    <ui:NavigationViewItem Classes="AppNav" Content="{Binding Name}">
                         <ui:NavigationViewItem.IconSource>
                             <ui:FontIconSource Glyph="{Binding IconKey,
 															   Converter={StaticResource ResourceKeyValueConverter},
@@ -223,44 +223,44 @@
                 </DataTemplate>
             </ui:NavigationView.MenuItemTemplate>
             <!--<ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Classes="SampleAppNav" Content="Home">
+                <ui:NavigationViewItem Classes="AppNav" Content="Home">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="Home" />
                     </ui:NavigationViewItem.IconSource>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="SampleAppNav" Content="Acc">
+                <ui:NavigationViewItem Classes="AppNav" Content="Acc">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="Wifi4" />
                     </ui:NavigationViewItem.IconSource>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="SampleAppNav" Content="Switch">
+                <ui:NavigationViewItem Classes="AppNav" Content="Switch">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="Switch" />
                     </ui:NavigationViewItem.IconSource>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="SampleAppNav" Content="Library">
+                <ui:NavigationViewItem Classes="AppNav" Content="Library">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="Library" />
                     </ui:NavigationViewItem.IconSource>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="SampleAppNav" Content="Tools">
+                <ui:NavigationViewItem Classes="AppNav" Content="Tools">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="More" />
                     </ui:NavigationViewItem.IconSource>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItem Classes="SampleAppNav" Content="Message">
+                <ui:NavigationViewItem Classes="AppNav" Content="Message">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="Message" />
                     </ui:NavigationViewItem.IconSource>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="SampleAppNav" Content="User">
+                <ui:NavigationViewItem Classes="AppNav" Content="User">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="People" />
                     </ui:NavigationViewItem.IconSource>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="SampleAppNav" Content="Settings">
+                <ui:NavigationViewItem Classes="AppNav" Content="Settings">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="Settings" />
                     </ui:NavigationViewItem.IconSource>
