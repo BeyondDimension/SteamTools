@@ -32,7 +32,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="UI\Assets\**\*" />
 		<AvaloniaResource Include="UI\Assets\**\*" />
 	</ItemGroup>
 
@@ -88,6 +87,11 @@
 		<Compile Include="..\ImplicitUsings.UI.Views.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="UI\Assets\ApplicationIcon.ico" />
+	  <Content Include="UI\Assets\back.png" />
 	</ItemGroup>
 
 	<ItemGroup>

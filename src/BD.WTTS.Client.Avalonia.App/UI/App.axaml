@@ -15,4 +15,26 @@
         <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
         <spp:CustomTheme Mode="Default" />
     </Application.Styles>
+	<TrayIcon.Icons>
+		<TrayIcons>
+			<TrayIcon Icon="/UI/Assets/ApplicationIcon.ico" 
+					  ToolTipText="Steam++ Tray Icon ToolTip">
+				<TrayIcon.Menu>
+					<NativeMenu>
+						<NativeMenuItem Header="Settings">
+							<NativeMenu>
+								<NativeMenuItem Header="Option 1" ToggleType="Radio" IsChecked="True" />
+								<NativeMenuItem Header="Option 2" ToggleType="Radio" IsChecked="True" />
+								<NativeMenuItemSeparator />
+								<NativeMenuItem Header="Option 3" ToggleType="CheckBox" IsChecked="True" Command="{Binding ToggleCommand}" />
+								<NativeMenuItem Icon="/UI/Assets/ApplicationIcon.ico" Header="Restore Defaults" />
+								<NativeMenuItem Header="Disabled option" IsEnabled="False" />
+							</NativeMenu>
+						</NativeMenuItem>
+						<NativeMenuItem Header="Exit" Command="{Binding ExitCommand}" />
+					</NativeMenu>
+				</TrayIcon.Menu>
+			</TrayIcon>
+		</TrayIcons>
+	</TrayIcon.Icons>
 </Application>
