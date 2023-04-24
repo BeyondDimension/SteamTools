@@ -31,7 +31,7 @@
 								<NativeMenuItem Header="Disabled option" IsEnabled="False" />
 							</NativeMenu>
 						</NativeMenuItem>
-						<NativeMenuItem Header="Exit" Command="{Binding ExitCommand}" />
+						<NativeMenuItem Header="Exit" />
 					</NativeMenu>
 				</TrayIcon.Menu>
 			</TrayIcon>

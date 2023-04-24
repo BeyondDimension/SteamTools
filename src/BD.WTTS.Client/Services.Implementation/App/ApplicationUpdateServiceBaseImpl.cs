@@ -323,9 +323,9 @@ public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplic
                 var packDirPath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packDirName);
                 var packDirPathExists = Directory.Exists(packDirPath);
 
-                string GetDownloadPath(string fileRelativePath)
+                string GetDownloadPath(string? fileRelativePath)
                     => packDirPath + Path.DirectorySeparatorChar + fileRelativePath;
-                static string GetFilePath(string fileRelativePath)
+                static string GetFilePath(string? fileRelativePath)
                     => IOPath.AppDataDirectory + Path.DirectorySeparatorChar + fileRelativePath;
                 var allFiles = newVersionInfo.AllFiles.ToDictionary(x => x, x => (
                     downloadPath: GetDownloadPath(x.FileRelativePath),
