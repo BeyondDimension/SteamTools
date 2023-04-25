@@ -14,6 +14,7 @@
 		<StackPanel Margin="15">
 			<spp:Settings_General/>
 			<spp:Settings_UI/>
+			<spp:Settings_Steam/>
 		</StackPanel>
 	</ScrollViewer>
 </UserControl>

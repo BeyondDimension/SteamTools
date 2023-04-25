@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Off" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>开</value>
+  </data>
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
@@ -1254,8 +1260,11 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_UI" xml:space="preserve">
     <value>界面设置</value>
   </data>
-  <data name="Settings_UI_AcrylicTransparency" xml:space="preserve">
-    <value>背景透明度</value>
+  <data name="Settings_UI_BackgroundOpacity" xml:space="preserve">
+    <value>背景不透明度</value>
+  </data>
+  <data name="Settings_UI_BackgroundImageOpacity" xml:space="preserve">
+    <value>背景图片不透明度</value>
   </data>
   <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
     <value>使用动态桌面背景</value>

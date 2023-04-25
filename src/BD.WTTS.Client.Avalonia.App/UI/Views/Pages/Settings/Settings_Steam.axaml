@@ -1,0 +1,98 @@
+<UserControl x:Class="BD.WTTS.UI.Views.Pages.Settings_Steam"
+		xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:spp="https://steampp.net/ui"
+		xmlns:s="https://steampp.net/services"
+		xmlns:ms="https://steampp.net/settings"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+        d:DesignHeight="680"
+		d:DesignWidth="1080"
+	    x:DataType="spp:SettingsPageViewModel"
+        x:CompileBindings="True"
+		mc:Ignorable="d">
+	<StackPanel Margin="15" Spacing="5">
+		<TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Margin="0 0 0 5"/>
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE770;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_RuningAdmin,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								IsVisible="{spp:OnPlatform Windows}"
+								Description="Steam 默认不应该以管理员运行，但如果有特殊需求可以勾选此项">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE7EF;" FontFamily="Segoe Fluent Icons"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamAdministrator},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_RuningMinimize,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+						Description="设置后程序启动 Steam 时默认不弹出主窗口">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE9E9;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamMinimized},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_NotCheckUpdate,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								Description="设置此参数后程序启动 Steam 将不会在自动检查更新">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE895;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamNoCheckUpdate},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_RunSteamChina,Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE9E9;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamChina},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_CheckSteamRuningNotification,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								Description="程序检测到 Steam 启动后自动弹出相关信息通知">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE7E7;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsEnableSteamLaunchNotification},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								Description="可填写自定义 Steam 启动参数"
+								Expands="True"
+								IsExpanded="True">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE756;" FontFamily="Segoe Fluent Icons"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.Content>
+				<TextBox Classes="clearButton"
+						 MinHeight="80"
+						 AcceptsReturn="True"
+						 Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
+						 TextWrapping="Wrap"/>
+			</spp:OptionsDisplayItem.Content>
+		</spp:OptionsDisplayItem>
+	</StackPanel>
+</UserControl>

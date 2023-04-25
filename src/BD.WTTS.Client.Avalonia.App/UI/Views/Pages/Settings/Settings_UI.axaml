@@ -244,7 +244,7 @@
 			</spp:OptionsDisplayItem.ActionButton>
 		</spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_UI_AcrylicTransparency,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_UI_BackgroundOpacity,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
 							Navigates="False">
 			<spp:OptionsDisplayItem.Icon>
 				<ui:FontIcon Glyph="&#xE706;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
@@ -259,17 +259,17 @@
 
 		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_UI_CustomBackgroundImage,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
 								Expands="True"
-								Navigates="False">
+								Navigates="False"
+								IsExpanded="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay}">
 			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon Glyph="&#xEE71;" FontFamily="Segoe Fluent Icons"/>
+				<ui:FontIcon Glyph="&#xE91B;" FontFamily="Segoe Fluent Icons"/>
 			</spp:OptionsDisplayItem.Icon>
 			<spp:OptionsDisplayItem.ActionButton>
-				<ToggleSwitch Classes="OnlySwitch" 
+				<ToggleSwitch Classes="LeftContent"
 							  IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=TwoWay}"/>
 			</spp:OptionsDisplayItem.ActionButton>
 
 			<spp:OptionsDisplayItem.Content>
-
 				<StackPanel Spacing="4" >
 					<DockPanel LastChildFill="False" Margin="24 0 0 6">
 						<TextBlock Text="预览图片"
@@ -279,7 +279,7 @@
 						<Image Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
 							   DockPanel.Dock="Right"
 							   HorizontalAlignment="Left"
-							   Stretch="UniformToFill"
+							   Stretch="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImageStretch},Path=Value, Mode=OneWay}"
 							   Width="250"
 							   Height="150"/>
 					</DockPanel>
@@ -290,12 +290,29 @@
 
 
 					<DockPanel LastChildFill="False" Margin="24 6 0 6">
+						<TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_BackgroundImageOpacity,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								   VerticalAlignment="Center"
+								   DockPanel.Dock="Left" />
+						<Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.BackgroundImageOpacity},Mode=TwoWay}"
+								DockPanel.Dock="Right"
+								MinWidth="250"
+								Minimum="0"
+								Maximum="1.0"/>
+					</DockPanel>
+					
+					<Border Background="{DynamicResource ApplicationPageBackgroundThemeBrush}"
+							Height="1"
+							Margin="-20"/>
+
+
+					<DockPanel LastChildFill="False" Margin="24 6 0 6">
 						<TextBlock Text="选择一张照片"
 								   VerticalAlignment="Center"
 								   DockPanel.Dock="Left" />
-						<Button DockPanel.Dock="Right" 
+						<Button DockPanel.Dock="Right"
 								MinWidth="150"
-								Content="{ReflectionBinding Path=Res.Settings_UI_SelectImage,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>
+								Content="{ReflectionBinding Path=Res.Settings_UI_SelectImage,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								Command="{Binding SelectImage_Click}"/>
 					</DockPanel>
 
 					<Border Background="{DynamicResource ApplicationPageBackgroundThemeBrush}"
@@ -307,7 +324,8 @@
 								   VerticalAlignment="Center"
 								   DockPanel.Dock="Left" />
 						<ComboBox DockPanel.Dock="Right"
-								  MinWidth="150">
+								  MinWidth="150"
+								  SelectedIndex="{Binding Source={x:Static ms:UISettings.BackgroundImageStretch},Path=Value, Mode=TwoWay}">
 							<ComboBoxItem Content="{x:Static Stretch.Fill}" />
 							<ComboBoxItem Content="{x:Static Stretch.None}" />
 							<ComboBoxItem Content="{x:Static Stretch.Uniform}" />

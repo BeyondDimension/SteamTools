@@ -26,15 +26,28 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
         //ExtendClientAreaToDecorationsHint = true;
         //ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
         this.TryFindResource("TitleBarHeight", App.Instance.RequestedThemeVariant, out object? titleBarHeight);
-        TitleBar.Height = (double?)titleBarHeight ?? 70;
+        TitleBar.Height = (double?)titleBarHeight ?? 60;
         TitleBar.ExtendsContentIntoTitleBar = true;
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
 
         //SystemDecorations = SystemDecorations.BorderOnly;
-
-        //Background = null;
+        Background = null;
         TransparencyBackgroundFallback = Brushes.Transparent;
         TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+
+        //this.GetObservable(TransparencyLevelHintProperty)
+        //    .Subscribe(x =>
+        //    {
+        //        PseudoClasses.Set(":transparent", TransparencyLevelHint == WindowTransparencyLevel.Mica ||
+        //            TransparencyLevelHint == WindowTransparencyLevel.Blur ||
+        //            TransparencyLevelHint == WindowTransparencyLevel.AcrylicBlur);
+        //    });
+
+        //UISettings.EnableCustomBackgroundImage.ValueChanged += (sender, e) =>
+        //{
+        //    PseudoClasses.Set(":image", e.NewValue);
+        //};
+        //UISettings.EnableCustomBackgroundImage.RaiseValueChanged();
     }
 
     /// <summary>

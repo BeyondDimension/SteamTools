@@ -47,7 +47,7 @@ public sealed partial class UISettings : SettingsHost2<UISettings>
     static readonly SerializableProperty<double> _AcrylicOpacity = GetProperty(defaultValue: .8);
 
     /// <summary>
-    /// 窗口背景透明度
+    /// 窗口背景不透明度
     /// </summary>
     public static SerializableProperty<double> AcrylicOpacity => _AcrylicOpacity;
 
@@ -100,6 +100,20 @@ public sealed partial class UISettings : SettingsHost2<UISettings>
     /// 背景图片路径
     /// </summary>
     public static SerializableProperty<string> BackgroundImagePath => _BackgroundImagePath;
+
+    static readonly SerializableProperty<double> _BackgroundImageOpacity = GetProperty(defaultValue: .8);
+
+    /// <summary>
+    /// 背景图片不透明度
+    /// </summary>
+    public static SerializableProperty<double> BackgroundImageOpacity => _BackgroundImageOpacity;
+
+    static readonly SerializableProperty<int> _BackgroundImageStretch = GetProperty(defaultValue: 3);
+
+    /// <summary>
+    /// 背景图片缩放方式
+    /// </summary>
+    public static SerializableProperty<int> BackgroundImageStretch => _BackgroundImageStretch;
 
     static readonly SerializableProperty<string> _ThemeAccent = GetProperty(defaultValue: "#FF0078D7");
 

@@ -6,33 +6,177 @@
 		xmlns:spp="https://steampp.net/ui"
 		xmlns:s="https://steampp.net/services"
 		xmlns:ms="https://steampp.net/settings"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
         d:DesignHeight="680"
 		d:DesignWidth="1080"
+	    x:DataType="spp:SettingsPageViewModel"
+        x:CompileBindings="True"
 		mc:Ignorable="d">
 	<StackPanel Margin="15" Spacing="5">
 		<TextBlock Text="{ReflectionBinding Path=Res.Settings_General,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Margin="0 0 0 5"/>
 		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
-								Icon="S">
+								Description="系统启动时程序自动运行">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE770;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
 			<spp:OptionsDisplayItem.ActionButton>
-				<ToggleSwitch Classes="OnlySwitch" 
+				<ToggleSwitch Classes="LeftContent"
 							  IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun},Path=Value, Mode=TwoWay}"/>
 			</spp:OptionsDisplayItem.ActionButton>
 		</spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem Header="测试项"
-								Icon="C"
-								Navigates="True"/>
-		
-		<spp:OptionsDisplayItem Header="测试项"
-								Description="这是一个测试设置项目"
-								Icon="C"
-								Expands="True"
-								Content="这是一个测试设置项目"/>
-		
-		<spp:OptionsDisplayItem Header="测试项"
-								Description="这是一个测试设置项目"
-								Icon="C"
-								Expands="True"
-								Content="这是一个测试设置项目"/>
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_RuningMinimize,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								Description="设置后程序启动时不再主动显示主窗口">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xEA6C;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsStartupAppMinimized},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+						Description="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon_Tip,Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE9E9;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsEnableTrayIcon},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_AutoCheckUpdate,Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE895;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_UpdateChannel,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								IsVisible="{ReflectionBinding Path=!.,Source={spp:OnPlatform DesktopBridge}}">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE71D;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ComboBox Items="{Binding UpdateChannels}"
+						  SelectedItem="{ReflectionBinding Source={x:Static ms:GeneralSettings.UpdateChannel},Path=Value, Mode=TwoWay}">
+				</ComboBox>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_UseGPURendering,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+								Description="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE950;" FontFamily="Segoe Fluent Icons"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<ToggleSwitch Classes="LeftContent"
+							  IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseGPURendering},Path=Value, Mode=TwoWay}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_StorageSpace,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+						IsVisible="{spp:OnPlatform Windows}"
+						Expands="True">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE7F1;" FontFamily="Segoe Fluent Icons"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static s:ResourceService.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=App}"
+						Command="{ReflectionBinding OpenFolder_Click}"
+						CommandParameter="{x:Null}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+			<spp:OptionsDisplayItem.Content>
+				<StackPanel Spacing="4" >
+					<Button HorizontalAlignment="Stretch"
+							HorizontalContentAlignment="Stretch"
+							VerticalContentAlignment="Center"
+							Background="Transparent"
+							Height="50"
+							BorderThickness="0"
+							Margin="0 0 0 6"
+							Padding="24 0 10 0"
+							Command="{Binding OpenFolder_Click}"
+							CommandParameter="AppData">
+						<DockPanel LastChildFill="False">
+							<TextBlock Text="AppData 数据"
+									   HorizontalAlignment="Stretch"
+									   VerticalAlignment="Center"
+									   DockPanel.Dock="Left" />
+							<ui:SymbolIcon Symbol="ChevronRight"
+										   DockPanel.Dock="Right"/>
+						</DockPanel>
+					</Button>
+
+					<Border Background="{DynamicResource ApplicationPageBackgroundThemeBrush}"
+							DockPanel.Dock="Bottom"
+							Height="1"
+							Margin="-20"/>
+					<Button HorizontalAlignment="Stretch"
+							HorizontalContentAlignment="Stretch"
+							VerticalContentAlignment="Center"
+							Background="Transparent"
+							Height="50"
+							BorderThickness="0"
+							Margin="0 6"
+							Padding="24 0 10 0"
+							Command="{Binding OpenFolder_Click}"
+							CommandParameter="Cache">
+						<DockPanel LastChildFill="False">
+							<TextBlock Text="Cache 数据"
+									   HorizontalAlignment="Stretch"
+									   VerticalAlignment="Center"
+									   DockPanel.Dock="Left" />
+							<WrapPanel DockPanel.Dock="Right"
+									   HorizontalAlignment="Stretch"
+									   VerticalAlignment="Center">
+								<TextBlock Name="CacheSize" 
+										   FontSize="{DynamicResource DefaultFontSize}"
+										   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+								<ui:SymbolIcon Symbol="ChevronRight"
+											   DockPanel.Dock="Right"/>
+							</WrapPanel>
+						</DockPanel>
+					</Button>
+
+					<Border Background="{DynamicResource ApplicationPageBackgroundThemeBrush}"
+							DockPanel.Dock="Bottom"
+							Height="1"
+							Margin="-20"/>
+					<Button HorizontalAlignment="Stretch"
+							HorizontalContentAlignment="Stretch"
+							VerticalContentAlignment="Center"
+							Background="Transparent"
+							Height="50"
+							BorderThickness="0"
+							Margin="0 6 0 0"
+							Padding="24 0 10 0"
+							Command="{Binding OpenFolder_Click}"
+							CommandParameter="Logs">
+						<DockPanel LastChildFill="False">
+							<TextBlock Text="Logs 数据"
+									   HorizontalAlignment="Stretch"
+									   VerticalAlignment="Center"
+									   DockPanel.Dock="Left" />
+							<WrapPanel DockPanel.Dock="Right"
+									   HorizontalAlignment="Stretch"
+									   VerticalAlignment="Center">
+								<TextBlock Name="LogSize"
+										   FontSize="{DynamicResource DefaultFontSize}"
+										   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+								<ui:SymbolIcon Symbol="ChevronRight"
+											   DockPanel.Dock="Right"/>
+							</WrapPanel>
+						</DockPanel>
+					</Button>
+
+				</StackPanel>
+			</spp:OptionsDisplayItem.Content>
+		</spp:OptionsDisplayItem>
 	</StackPanel>
 </UserControl>

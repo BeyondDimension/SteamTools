@@ -19,7 +19,7 @@
             <Setter Property="OpenPaneLength" Value="80" />
         </Style>
         <Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
-            <Setter Property="Margin" Value="0 75 0 0" />
+            <Setter Property="Margin" Value="{StaticResource TitleBarAfterMargin}" />
         </Style>
 
         <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter">

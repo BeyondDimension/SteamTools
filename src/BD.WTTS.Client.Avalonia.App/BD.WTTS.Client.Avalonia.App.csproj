@@ -145,6 +145,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="UI\Views\Pages\Settings\Settings_Steam.axaml.cs">
+	    <DependentUpon>Settings_Steam.axaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="UI\Views\Pages\Settings\Settings_UI.axaml.cs">
 	    <DependentUpon>Settings_UI.axaml</DependentUpon>
 	  </Compile>

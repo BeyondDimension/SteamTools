@@ -4240,6 +4240,24 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 关 的本地化字符串。
+        /// </summary>
+        public static string Off {
+            get {
+                return ResourceManager.GetString("Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开 的本地化字符串。
+        /// </summary>
+        public static string On {
+            get {
+                return ResourceManager.GetString("On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 在浏览器中打开原图 的本地化字符串。
         /// </summary>
         public static string OpenImageInBrowser {
@@ -5420,11 +5438,20 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 背景透明度 的本地化字符串。
+        ///   查找类似 背景图片不透明度 的本地化字符串。
         /// </summary>
-        public static string Settings_UI_AcrylicTransparency {
+        public static string Settings_UI_BackgroundImageOpacity {
             get {
-                return ResourceManager.GetString("Settings_UI_AcrylicTransparency", resourceCulture);
+                return ResourceManager.GetString("Settings_UI_BackgroundImageOpacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 背景不透明度 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_BackgroundOpacity {
+            get {
+                return ResourceManager.GetString("Settings_UI_BackgroundOpacity", resourceCulture);
             }
         }
         

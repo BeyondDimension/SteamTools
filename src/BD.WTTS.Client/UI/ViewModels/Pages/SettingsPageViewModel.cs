@@ -1,3 +1,4 @@
+using System.Reactive;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
@@ -12,6 +13,8 @@ public partial class SettingsPageViewModel
               .Subscribe(x => UISettings.Language.Value = x.Key);
 
         UpdateChannels = Enum2.GetAll<UpdateChannelType>();
+
+        OpenFolder_Click = ReactiveCommand.Create<string>(OpenFolder);
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (IApplication.IsDesktop())
@@ -56,6 +59,8 @@ public partial class SettingsPageViewModel
     public ICommand? SelectImage_Click { get; }
 
     public ICommand? ResetImage_Click { get; }
+
+    public ICommand? OpenFolder_Click { get; }
 
     public IReadOnlyCollection<UpdateChannelType> UpdateChannels { get; }
 
