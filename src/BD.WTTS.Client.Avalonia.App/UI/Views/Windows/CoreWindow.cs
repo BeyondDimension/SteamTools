@@ -60,7 +60,7 @@ public partial class CoreWindow : Window, IStyleable
             {
                 _defaultTitleBar.PointerPressed += (i, e) =>
                 {
-                    PlatformImpl?.BeginMoveDrag(e);
+                    this.BeginMoveDrag(e);
                 };
             }
         }

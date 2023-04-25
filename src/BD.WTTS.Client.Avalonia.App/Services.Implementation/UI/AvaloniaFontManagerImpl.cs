@@ -39,13 +39,15 @@ sealed class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl2
 
     IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByAvalonia()
     {
-        var fonts = impl.GetInstalledFontFamilyNames();
+        var fonts = Impl.GetInstalledFontFamilyNames(true);
         var list = fonts.Select(x => new KeyValuePair<string, string>(x, x)).ToList();
         list.Insert(0, IFontManager.Default);
         return list;
     }
 
     IFontManagerImpl IFontManagerImpl2.Impl => impl;
+
+    IFontManagerImpl2 Impl => (IFontManagerImpl2)impl;
 
     string IFontManagerImpl2.DefaultFontFamilyName => platformService.GetDefaultFontFamily();
 

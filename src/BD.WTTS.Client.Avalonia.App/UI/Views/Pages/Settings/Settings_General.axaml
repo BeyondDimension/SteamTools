@@ -63,7 +63,7 @@
 				<ui:FontIcon Glyph="&#xE71D;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
 			</spp:OptionsDisplayItem.Icon>
 			<spp:OptionsDisplayItem.ActionButton>
-				<ComboBox Items="{Binding UpdateChannels}"
+				<ComboBox ItemsSource="{Binding UpdateChannels}"
 						  SelectedItem="{ReflectionBinding Source={x:Static ms:GeneralSettings.UpdateChannel},Path=Value, Mode=TwoWay}">
 				</ComboBox>
 			</spp:OptionsDisplayItem.ActionButton>

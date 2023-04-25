@@ -42,10 +42,10 @@ public class BitmapAssetValueConverter : ImageValueConverter
             TryReset(s);
             return GetDecodeBitmap(s, width);
         }
-        else if (value is ImageSouce.ClipStream clipStream)
-        {
-            return GetBitmap(clipStream);
-        }
+        //else if (value is ImageSouce.ClipStream clipStream)
+        //{
+        //    return GetBitmap(clipStream);
+        //}
         else if (value is Guid imageid)
         {
             if (imageid == default)

@@ -212,7 +212,7 @@
 								Icon="Font"
 								Navigates="False">
 			<spp:OptionsDisplayItem.ActionButton>
-				<ComboBox Items="{ReflectionBinding Mode=OneWay,Source={x:Static s:ResourceService.Fonts}}"
+				<ComboBox ItemsSource="{ReflectionBinding Mode=OneWay,Source={x:Static s:ResourceService.Fonts}}"
 						  SelectedItem="{Binding SelectFont}"
 						  AutoScrollToSelectedItem="True"
 						  MaxDropDownHeight="300">

@@ -40,7 +40,7 @@ public static partial class WindowExtensions
                 window.CanResize = true;
                 break;
         }
-        p.SetResizeMode(window.PlatformImpl.Handle.Handle, value);
+        p.SetResizeMode(window.TryGetPlatformHandle().Handle, value);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -53,13 +53,13 @@ public static partial class WindowExtensions
 
         // Skip workaround for non-windows platforms.
 #if WINDOWS
-        var platformImpl = window.PlatformImpl;
+        var platformImpl = window.TryGetPlatformHandle();
         if (ReferenceEquals(platformImpl, null)) return;
 
         var platformHandle = platformImpl.Handle;
         if (ReferenceEquals(platformHandle, null)) return;
 
-        var handle = platformHandle.Handle;
+        var handle = platformHandle;
         if (handle == IntPtr.Zero) return;
 
         try

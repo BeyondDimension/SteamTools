@@ -55,11 +55,11 @@ public sealed partial class App : Application
 
     public override void RegisterServices()
     {
-        if (!Design.IsDesignMode)
-        {
-            AvaloniaLocator.CurrentMutable
-                .Bind<IFontManagerImpl>().ToConstant(Ioc.Get<IFontManagerImpl>());
-        }
+        //if (!Design.IsDesignMode)
+        //{
+        //    AvaloniaLocator.CurrentMutable
+        //        .Bind<IFontManagerImpl>().ToConstant(Ioc.Get<IFontManagerImpl>());
+        //}
 
         base.RegisterServices();
     }

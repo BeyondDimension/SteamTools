@@ -35,7 +35,7 @@ sealed class MainThreadPlatformServiceImpl : IMainThreadPlatformService
     static DispatcherPriority GetPriority(ThreadingDispatcherPriority priority) => priority switch
     {
 #pragma warning disable CS0618 // 类型或成员已过时
-        ThreadingDispatcherPriority.Invalid or ThreadingDispatcherPriority.Inactive => DispatcherPriority.MinValue,
+        ThreadingDispatcherPriority.Invalid or ThreadingDispatcherPriority.Inactive => DispatcherPriority.Inactive,
         ThreadingDispatcherPriority.SystemIdle => DispatcherPriority.SystemIdle,
         ThreadingDispatcherPriority.ApplicationIdle => DispatcherPriority.ApplicationIdle,
         ThreadingDispatcherPriority.ContextIdle => DispatcherPriority.ContextIdle,
@@ -46,7 +46,7 @@ sealed class MainThreadPlatformServiceImpl : IMainThreadPlatformService
         ThreadingDispatcherPriority.DataBind => DispatcherPriority.DataBind,
         ThreadingDispatcherPriority.Normal => DispatcherPriority.Normal,
         ThreadingDispatcherPriority.Send => DispatcherPriority.Send,
-        _ => priority > ThreadingDispatcherPriority.Send ? DispatcherPriority.MaxValue : DispatcherPriority.MinValue,
+        _ => priority > ThreadingDispatcherPriority.Send ? DispatcherPriority.Send : DispatcherPriority.Inactive,
 #pragma warning restore CS0618 // 类型或成员已过时
     };
 }

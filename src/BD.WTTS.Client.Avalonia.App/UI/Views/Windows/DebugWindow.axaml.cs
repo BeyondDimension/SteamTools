@@ -8,7 +8,7 @@ public partial class DebugWindow : CoreWindow
 
         TitleBar.PointerPressed += (i, e) =>
         {
-            PlatformImpl?.BeginMoveDrag(e);
+            this.BeginMoveDrag(e);
         };
 
         TitleBar.DoubleTapped += (i, e) =>
@@ -33,7 +33,7 @@ public partial class DebugWindow : CoreWindow
             ctl.Cursor = new Cursor(cursor);
             ctl.PointerPressed += (i, e) =>
             {
-                PlatformImpl?.BeginResizeDrag(edge, e);
+                this.BeginResizeDrag(edge, e);
             };
         }
     }

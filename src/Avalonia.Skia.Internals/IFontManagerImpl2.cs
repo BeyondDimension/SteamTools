@@ -22,9 +22,14 @@ public interface IFontManagerImpl2 : IFontManagerImpl
         return Impl.GetInstalledFontFamilyNames(checkForUpdates);
     }
 
-    bool IFontManagerImpl.TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, FontFamily? fontFamily, CultureInfo? culture, out Typeface typeface)
+    new string[] GetInstalledFontFamilyNames(bool checkForUpdates)
     {
-        return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontStretch, fontFamily, culture, out typeface);
+        return Impl.GetInstalledFontFamilyNames(checkForUpdates);
+    }
+
+    bool IFontManagerImpl.TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, CultureInfo? culture, out Typeface typeface)
+    {
+        return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontStretch, culture, out typeface);
     }
 
     bool IFontManagerImpl.TryCreateGlyphTypeface(string familyName, FontStyle style, FontWeight weight, FontStretch stretch, [NotNullWhen(returnValue: true)] out IGlyphTypeface? glyphTypeface)

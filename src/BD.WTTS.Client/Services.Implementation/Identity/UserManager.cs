@@ -246,7 +246,7 @@ public class UserManager : IUserManager
                 userTable.UserInfo = userTable2.UserInfo;
             }
         }
-        (var rowCount, var result) = await userRepository.InsertOrUpdateAsync(userTable);
+        (var rowCount, var result) = await userRepository.InsertOrUpdateAsync(userTable, cancellationToken: default);
         PrintInsertOrUpdateResult(user, rowCount, result);
     }
 
