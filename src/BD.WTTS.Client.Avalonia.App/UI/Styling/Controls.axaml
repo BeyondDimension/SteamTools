@@ -21,6 +21,7 @@
 	<StyleInclude Source="/UI/Styling/Controls/OptionsDisplayItem.axaml" />
 	<StyleInclude Source="/UI/Styling/Controls/ToggleSwitch.axaml" />
 	<StyleInclude Source="/UI/Styling/Controls/Separator.axaml" />
+	<StyleInclude Source="/UI/Styling/Controls/ProgressBar.axaml" />
 
 	<Style Selector=":is(TemplatedControl)">
 		<Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName}, Path=Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" />
