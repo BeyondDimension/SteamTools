@@ -108,8 +108,7 @@
 									   HorizontalAlignment="Stretch"
 									   VerticalAlignment="Center"
 									   DockPanel.Dock="Left" />
-							<ui:SymbolIcon Symbol="ChevronRight"
-										   DockPanel.Dock="Right"/>
+							<ui:SymbolIcon Symbol="ChevronRight"/>
 						</DockPanel>
 					</Button>
 
@@ -138,8 +137,7 @@
 								<TextBlock Name="CacheSize" 
 										   FontSize="{DynamicResource DefaultFontSize}"
 										   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
-								<ui:SymbolIcon Symbol="ChevronRight"
-											   DockPanel.Dock="Right"/>
+								<ui:SymbolIcon Symbol="ChevronRight"/>
 							</WrapPanel>
 						</DockPanel>
 					</Button>
@@ -169,8 +167,7 @@
 								<TextBlock Name="LogSize"
 										   FontSize="{DynamicResource DefaultFontSize}"
 										   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
-								<ui:SymbolIcon Symbol="ChevronRight"
-											   DockPanel.Dock="Right"/>
+								<ui:SymbolIcon Symbol="ChevronRight"/>
 							</WrapPanel>
 						</DockPanel>
 					</Button>

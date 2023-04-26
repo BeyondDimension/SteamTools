@@ -15,6 +15,7 @@
 			<spp:Settings_General/>
 			<spp:Settings_UI/>
 			<spp:Settings_Steam/>
+			<spp:AboutPage DataContext="{x:Static spp:AboutPageViewModel.Instance}"/>
 		</StackPanel>
 	</ScrollViewer>
 </UserControl>

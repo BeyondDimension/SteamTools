@@ -20,25 +20,25 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 
     #endregion
 
-    public StartPageViewModel StartPage => GetTabItemVM<StartPageViewModel>();
+    //public StartPageViewModel StartPage => GetTabItemVM<StartPageViewModel>();
 
-    public CommunityProxyPageViewModel CommunityProxyPage => GetTabItemVM<CommunityProxyPageViewModel>();
+    //public CommunityProxyPageViewModel CommunityProxyPage => GetTabItemVM<CommunityProxyPageViewModel>();
 
-    public ProxyScriptManagePageViewModel ProxyScriptPage => GetTabItemVM<ProxyScriptManagePageViewModel>();
+    //public ProxyScriptManagePageViewModel ProxyScriptPage => GetTabItemVM<ProxyScriptManagePageViewModel>();
 
-    public SteamAccountPageViewModel SteamAccountPage => GetTabItemVM<SteamAccountPageViewModel>();
+    //public SteamAccountPageViewModel SteamAccountPage => GetTabItemVM<SteamAccountPageViewModel>();
 
-    public GameListPageViewModel GameListPage => GetTabItemVM<GameListPageViewModel>();
+    //public GameListPageViewModel GameListPage => GetTabItemVM<GameListPageViewModel>();
 
-    public LocalAuthPageViewModel LocalAuthPage => GetTabItemVM<LocalAuthPageViewModel>();
+    //public LocalAuthPageViewModel LocalAuthPage => GetTabItemVM<LocalAuthPageViewModel>();
 
-    public SteamIdlePageViewModel SteamIdlePage => GetTabItemVM<SteamIdlePageViewModel>();
+    //public SteamIdlePageViewModel SteamIdlePage => GetTabItemVM<SteamIdlePageViewModel>();
 
-    public ArchiSteamFarmPlusPageViewModel ASFPage => GetTabItemVM<ArchiSteamFarmPlusPageViewModel>();
+    //public ArchiSteamFarmPlusPageViewModel ASFPage => GetTabItemVM<ArchiSteamFarmPlusPageViewModel>();
 
-    public GameRelatedPageViewModel GameRelatedPage => GetTabItemVM<GameRelatedPageViewModel>();
+    //public GameRelatedPageViewModel GameRelatedPage => GetTabItemVM<GameRelatedPageViewModel>();
 
-    public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
+    //public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
 
     static readonly IPlatformService platformService = IPlatformService.Instance;
 
@@ -107,7 +107,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         }
 #endif
         footerTabIdItems.Add(TabItemViewModel.TabItemId.Settings);
-        footerTabIdItems.Add(TabItemViewModel.TabItemId.About);
+        //footerTabIdItems.Add(TabItemViewModel.TabItemId.About);
 
         TabIdItems = tabIdItems.ToArray();
         FooterTabIdItems = footerTabIdItems.ToArray();

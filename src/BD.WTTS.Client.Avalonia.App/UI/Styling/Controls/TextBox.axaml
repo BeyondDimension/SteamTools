@@ -1,0 +1,106 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<StackPanel Spacing="5">
+				<TextBox />
+				<TextBox Text="Hello Down there" />
+				<TextBox Watermark="Watermark" />
+				<TextBox IsEnabled="False" Text="Test" />
+				<TextBox Classes="clearButton" Text="Test Clear" />
+				<TextBox
+                    Classes="revealPasswordButton"
+                    PasswordChar="{StaticResource PasswordChar}"
+                    Text="Test Password" />
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
+	<Styles.Resources>
+		<FontFamily x:Key="UnicodeFont">avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei</FontFamily>
+
+		<Thickness x:Key="TextBoxIconMargin">12,0,0,0</Thickness>
+
+		<!--<MenuFlyout x:Key="DefaultTextBoxContextMenu" x:Name="TextBoxContextMenu">-->
+		<MenuFlyout x:Key="DefaultTextBoxContextFlyout">
+			<MenuItem
+                x:Name="TextBoxContextMenuCutItem"
+                Command="{Binding $parent[TextBox].Cut}"
+                Header="{ReflectionBinding Path=Res.Cut,
+                                           Mode=OneWay,
+                                           Source={x:Static s:ResourceService.Current}}"
+                InputGesture="{x:Static TextBox.CutGesture}"
+                IsEnabled="{Binding $parent[TextBox].CanCut}" />
+			<MenuItem
+                x:Name="TextBoxContextMenuCopyItem"
+                Command="{Binding $parent[TextBox].Copy}"
+                Header="{ReflectionBinding Path=Res.Copy,
+                                           Mode=OneWay,
+                                           Source={x:Static s:ResourceService.Current}}"
+                InputGesture="{x:Static TextBox.CopyGesture}"
+                IsEnabled="{Binding $parent[TextBox].CanCopy}" />
+			<MenuItem
+                x:Name="TextBoxContextMenuPasteItem"
+                Command="{Binding $parent[TextBox].Paste}"
+                Header="{ReflectionBinding Path=Res.Paste,
+                                           Mode=OneWay,
+                                           Source={x:Static s:ResourceService.Current}}"
+                InputGesture="{x:Static TextBox.PasteGesture}"
+                IsEnabled="{Binding $parent[TextBox].CanPaste}" />
+			<MenuItem Header="-" />
+			<MenuItem
+                x:Name="TextBoxContextMenuSelectAllItem"
+                Command="{Binding $parent[TextBox].SelectAll}"
+                Header="{ReflectionBinding Path=Res.SelectAll,
+                                           Mode=OneWay,
+                                           Source={x:Static s:ResourceService.Current}}"
+                InputGesture="Ctrl + A"
+                IsEnabled="{Binding $parent[TextBox].Text, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+		</MenuFlyout>
+	</Styles.Resources>
+
+	<Style Selector="PathIcon.TextBoxIcon">
+		<Setter Property="Height" Value="18" />
+		<Setter Property="Width" Value="18" />
+		<Setter Property="Opacity" Value="0.8" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="Margin" Value="{StaticResource TextBoxIconMargin}" />
+	</Style>
+
+	<Style Selector="TextBox">
+		<Setter Property="ContextMenu" Value="{x:Null}" />
+		<Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
+	</Style>
+
+	<Style Selector="TextBox[AcceptsReturn=False]">
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+	</Style>
+
+	<Style Selector="TextBox.revealPasswordButton[AcceptsReturn=False]:not(TextBox:empty)">
+		<Setter Property="InnerRightContent">
+			<Template>
+				<ToggleButton Classes="passwordBoxRevealButton" IsChecked="{Binding $parent[TextBox].RevealPassword, Mode=TwoWay}" />
+			</Template>
+		</Setter>
+	</Style>
+
+
+	<Style Selector="TextBox.readonlybox">
+		<Setter Property="Focusable" Value="False" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderBrush" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+	</Style>
+	<Style Selector="TextBox.readonlybox:pointerover /template/ Border#PART_BorderElement">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderBrush" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+	</Style>
+	<Style Selector="TextBox.readonlybox:focus  /template/ Border#PART_BorderElement">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderBrush" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+	</Style>
+</Styles>

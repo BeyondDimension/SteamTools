@@ -11,9 +11,7 @@
 		<spp:DebugPageViewModel/>
 	</Design.DataContext>
 	<Grid RowDefinitions="*,Auto">
-		<TextBox BorderThickness="0" 
-				 Background="Transparent" 
-				 IsReadOnly="True"
+		<TextBox Classes="readonlybox"
 				 Text="{Binding DebugString}"></TextBox>
 		<TextBox Name="CommandTextBox" Grid.Row="1">
 		</TextBox>

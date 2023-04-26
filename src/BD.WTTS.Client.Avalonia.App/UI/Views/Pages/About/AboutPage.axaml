@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:spp="https://steampp.net/ui"
+			 xmlns:s="https://steampp.net/services"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 x:DataType="spp:AboutPageViewModel"
+             x:CompileBindings="True"
+             x:Class="BD.WTTS.UI.Views.Pages.AboutPage">
+
+	<StackPanel Margin="15" Spacing="5">
+		<TextBlock Text="{ReflectionBinding Path=Res.About,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Margin="0 0 0 5"/>
+
+		<spp:OptionsDisplayItem Header="{Binding AppName}"
+								Description="{Binding Copyright}"
+								Expands="True">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:BitmapIcon UriSource="avares://Steam++/UI/Assets/ApplicationIcon.ico"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<TextBlock Text="{Binding VersionDisplay}"
+						   FontSize="12"
+						   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+						   VerticalAlignment="Center"/>
+			</spp:OptionsDisplayItem.ActionButton>
+			<spp:OptionsDisplayItem.Content>
+				<StackPanel Spacing="4" >
+					<DockPanel LastChildFill="False" Margin="24 0 0 6">
+						<TextBlock Text="感谢支持"
+								   VerticalAlignment="Center"
+								   DockPanel.Dock="Left" />
+
+					</DockPanel>
+
+					<Border Background="{DynamicResource ApplicationPageBackgroundThemeBrush}"
+							Height="1"
+							Margin="-20"/>
+				</StackPanel>
+			</spp:OptionsDisplayItem.Content>
+		</spp:OptionsDisplayItem>
+	</StackPanel>
+</UserControl>

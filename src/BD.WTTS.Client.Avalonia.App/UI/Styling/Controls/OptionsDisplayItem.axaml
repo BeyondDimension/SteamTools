@@ -66,6 +66,7 @@
 
                             <TextBlock Text="{TemplateBinding Description}"
                                        Classes="CaptionTextBlockStyle"
+									   FontSize="12"
                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                        VerticalAlignment="Top"
                                        TextWrapping="Wrap"
