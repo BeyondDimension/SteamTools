@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using BD.WTTS.Services.Implementation;
+
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static partial class ServiceCollectionExtensions
@@ -12,10 +14,7 @@ public static partial class ServiceCollectionExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection TryAddAvaloniaFontManager(this IServiceCollection services, bool useGdiPlusFirst)
     {
-        AvaloniaFontManagerImpl.UseGdiPlusFirst = useGdiPlusFirst;
-        services.TryAddSingleton<AvaloniaFontManagerImpl>();
-        services.AddSingleton<IFontManager>(s => s.GetRequiredService<AvaloniaFontManagerImpl>());
-        services.AddSingleton<IFontManagerImpl>(s => s.GetRequiredService<AvaloniaFontManagerImpl>());
+        services.AddSingleton<IFontManager, FontManagerImpl>();
         return services;
     }
 }

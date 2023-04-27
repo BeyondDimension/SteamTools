@@ -196,4 +196,9 @@ internal class ImmutableBitmap : IDrawableBitmapImpl, IReadableBitmapImpl
 
         return new LockedFramebuffer(_bitmap.GetPixels(), PixelSize, _bitmap.RowBytes, Dpi, format, null);
     }
+
+    public void NotClientImplementable()
+    {
+
+    }
 }

@@ -8,8 +8,8 @@ public class NameToFontFamilyConverter : IValueConverter
     {
         if (value is string s)
         {
-            if (AvaloniaFontManagerImpl.IsDefaultFontFamilyName(s))
-                return AvaloniaFontManagerImpl.Default;
+            //if (AvaloniaFontManagerImpl.IsDefaultFontFamilyName(s))
+            //    return AvaloniaFontManagerImpl.Default;
             //if (s.Equals(IFontManager.KEY_DefaultConsole, StringComparison.OrdinalIgnoreCase))
             //    return AvaloniaFontManagerImpl.DefaultConsole;
             return FontFamily.Parse(s);

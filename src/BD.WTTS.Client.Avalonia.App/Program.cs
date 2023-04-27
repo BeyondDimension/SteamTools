@@ -119,6 +119,17 @@ static partial class Program
 #endif
             .UseSkia()
             .LogToTrace()
+            .With(new FontManagerOptions
+            {
+                DefaultFamilyName = "Microsoft YaHei UI",
+                FontFallbacks = new[]
+                {
+                    new FontFallback
+                    {
+                        FontFamily = "Microsoft YaHei UI",
+                    }
+                },
+            })
             .UseReactiveUI();
 
         var useGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value;

@@ -109,7 +109,7 @@ namespace Avalonia.Controls.ApplicationLifetimes
             var lifetimeEvents = AvaloniaLocator.Current.GetService<IPlatformLifetimeEventsImpl>();
 
             if (lifetimeEvents != null)
-                lifetimeEvents.ShutdownRequested += OnShutdownRequested;
+                lifetimeEvents.SetShutdownRequested(OnShutdownRequested);
 
             _cts = new CancellationTokenSource();
 
