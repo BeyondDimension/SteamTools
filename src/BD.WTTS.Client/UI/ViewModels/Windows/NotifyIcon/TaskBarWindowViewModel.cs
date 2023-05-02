@@ -6,11 +6,15 @@ namespace BD.WTTS.UI.ViewModels;
 /// </summary>
 public sealed partial class TaskBarWindowViewModel : WindowViewModel
 {
+    public static TaskBarWindowViewModel Instance => IViewModelManager.Instance.TaskBarWindow ?? new TaskBarWindowViewModel();
+
     public string Version => AssemblyInfo.Version;
 
     public static string TitleString => AssemblyInfo.Trademark;
 
     public const string CommandExit = "Exit";
+
+    public const string CommandRestore = "Restore";
 
     public IEnumerable<TabItemViewModel>? Tabs { get; }
 
@@ -80,6 +84,9 @@ public sealed partial class TaskBarWindowViewModel : WindowViewModel
     {
         switch (tag)
         {
+            case CommandRestore:
+                IApplication.Instance.RestoreMainWindow();
+                return true;
             case CommandExit:
                 IApplication.Instance.Shutdown();
                 return true;

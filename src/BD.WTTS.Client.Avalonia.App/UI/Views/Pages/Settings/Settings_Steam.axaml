@@ -14,6 +14,16 @@
 		mc:Ignorable="d">
 	<StackPanel Margin="15" Spacing="5">
 		<TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Margin="0 0 0 5"/>
+		<spp:OptionsDisplayItem Header="Steam 路径"
+								Description="C://steam">
+			<spp:OptionsDisplayItem.Icon>
+				<ui:FontIcon Glyph="&#xE756;" FontFamily="Segoe Fluent Icons"/>
+			</spp:OptionsDisplayItem.Icon>
+			<spp:OptionsDisplayItem.ActionButton>
+				<Button Content="选择路径"/>
+			</spp:OptionsDisplayItem.ActionButton>
+		</spp:OptionsDisplayItem>
+		
 		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
 			<spp:OptionsDisplayItem.Icon>
 				<ui:FontIcon Glyph="&#xE770;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>

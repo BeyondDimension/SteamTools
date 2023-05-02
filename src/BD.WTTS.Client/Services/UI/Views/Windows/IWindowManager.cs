@@ -9,6 +9,26 @@ public interface IWindowManager
     static IWindowManager Instance => Ioc.Get<IWindowManager>();
 
     /// <summary>
+    /// 显示一个页内弹窗
+    /// </summary>
+    /// <typeparam name="TPageViewModel"></typeparam>
+    /// <param name="viewModel"></param>
+    /// <param name="title"></param>
+    /// <param name="subHeader"></param>
+    /// <param name="isDialog"></param>
+    /// <param name="isFooterExpanded"></param>
+    /// <returns></returns>
+    Task ShowTaskDialogAsync<TPageViewModel>(
+        TPageViewModel? viewModel = null,
+        string title = "",
+        string header = "",
+        string subHeader = "",
+        bool isDialog = false,
+        bool showProgressBar = false,
+        bool isFooterExpanded = false)
+        where TPageViewModel : PageViewModel, new();
+
+    /// <summary>
     /// 显示一个窗口
     /// </summary>
     /// <typeparam name="TWindowViewModel"></typeparam>

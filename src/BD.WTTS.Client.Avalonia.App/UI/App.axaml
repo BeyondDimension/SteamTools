@@ -3,6 +3,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:spp="https://steampp.net/ui"
+	xmlns:ms="https://steampp.net/settings"
+	xmlns:s="https://steampp.net/services"
     xmlns:sty="using:FluentAvalonia.Styling">
     <Application.Resources>
         <spp:IsNullConverter x:Key="IsNullConverter" />
@@ -18,7 +20,10 @@
     </Application.Styles>
 	<TrayIcon.Icons>
 		<TrayIcons>
-			<TrayIcon Icon="/UI/Assets/ApplicationIcon.ico" 
+			<TrayIcon Icon="/UI/Assets/ApplicationIcon.ico"
+					  IsVisible="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsEnableTrayIcon},Path=Value, Mode=OneWay}"
+					  Command="{ReflectionBinding Source={x:Static spp:TaskBarWindowViewModel.Instance},Path=MenuClickCommand, Mode=OneWay}"
+					  CommandParameter="{x:Static spp:TaskBarWindowViewModel.CommandRestore}"
 					  ToolTipText="Steam++ Tray Icon ToolTip">
 				<TrayIcon.Menu>
 					<NativeMenu>
@@ -32,7 +37,9 @@
 								<NativeMenuItem Header="Disabled option" IsEnabled="False" />
 							</NativeMenu>
 						</NativeMenuItem>
-						<NativeMenuItem Header="Exit" />
+						<NativeMenuItem Header="Exit" 
+										Command="{ReflectionBinding Source={x:Static spp:TaskBarWindowViewModel.Instance},Path=MenuClickCommand, Mode=OneWay}"
+										CommandParameter="{x:Static spp:TaskBarWindowViewModel.CommandExit}"/>
 					</NativeMenu>
 				</TrayIcon.Menu>
 			</TrayIcon>

@@ -43,6 +43,44 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         return false;
     }
 
+    /// <summary>
+    /// 显示一个页内弹窗
+    /// </summary>
+    /// <typeparam name="TPageViewModel"></typeparam>
+    /// <param name="viewModel"></param>
+    /// <param name="title"></param>
+    /// <param name="subHeader"></param>
+    /// <param name="isDialog"></param>
+    /// <param name="isFooterExpanded"></param>
+    /// <returns></returns>
+    public Task ShowTaskDialogAsync<TPageViewModel>(
+        TPageViewModel? viewModel = null,
+        string title = "",
+        string header = "",
+        string subHeader = "",
+        bool isDialog = false,
+        bool showProgressBar = false,
+        bool isFooterExpanded = false)
+        where TPageViewModel : PageViewModel, new()
+        => MainThread2.InvokeOnMainThreadAsync(async () =>
+        {
+            var td = new TaskDialog
+            {
+                Title = title,
+                Header = header,
+                SubHeader = subHeader,
+                //Content = ,
+                //IconSource = ,
+                ShowProgressBar = showProgressBar,
+                FooterVisibility = TaskDialogFooterVisibility.Auto,
+                IsFooterExpanded = isFooterExpanded,
+                Footer = new CheckBox { Content = "Never show me this again", },
+            };
+
+            var result = await td.ShowAsync(isDialog);
+
+        });
+
     Task ShowAsync(Type typeWindowViewModel,
         bool isDialog,
         AppEndPoint customWindow,

@@ -43,7 +43,7 @@ internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
         }
         finally
         {
-            //InitTaskBarWindowViewModel();
+            InitTaskBarWindowViewModel();
         }
     }
 
