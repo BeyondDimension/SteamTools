@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:spp="https://steampp.net/ui"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BD.WTTS.UI.Views.Pages.TextInputDialogPage"
+			 x:DataType="spp:TextBoxWindowViewModel"
+             x:CompileBindings="True">
+	<TextBox AcceptsReturn="True"
+			 MinWidth="450"
+			 VerticalAlignment="Stretch"
+			 HorizontalAlignment="Stretch"
+			 Watermark="{Binding Placeholder}"
+			 Text="{Binding Value}"
+             MaxLength="{Binding MaxLength}"
+			 Name="PasswordBox"
+			 Classes="revealPasswordButton"
+			 PasswordChar="{StaticResource PasswordChar}"/>
+</UserControl>

@@ -18,14 +18,16 @@ public interface IWindowManager
     /// <param name="isDialog"></param>
     /// <param name="isFooterExpanded"></param>
     /// <returns></returns>
-    Task ShowTaskDialogAsync<TPageViewModel>(
+    Task<bool> ShowTaskDialogAsync<TPageViewModel>(
         TPageViewModel viewModel,
         string title = "",
         string header = "",
         string subHeader = "",
         bool isDialog = false,
         bool showProgressBar = false,
-        bool isFooterExpanded = false)
+        bool isRememberChooseFooter = false,
+        bool isCancelButton = false,
+        bool isRetryButton = false)
         where TPageViewModel : ViewModelBase, new();
 
     /// <summary>

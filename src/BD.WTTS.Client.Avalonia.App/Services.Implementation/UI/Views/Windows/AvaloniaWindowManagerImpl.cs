@@ -1,9 +1,22 @@
+using BD.WTTS.Client.Resources;
+
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="IWindowManager"/>
 sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
 {
     Type? IWindowManagerImpl.WindowType => typeof(Window);
+
+    object? GetPageContent(ViewModelBase viewModel)
+    {
+        return viewModel switch
+        {
+            DebugPageViewModel => new DebugPage(),
+            TextBoxWindowViewModel => new TextInputDialogPage(),
+            MessageBoxWindowViewModel => new MessageBoxPage(),
+            _ => null,
+        };
+    }
 
     Type GetWindowType(AppEndPoint customWindow)
     {
@@ -53,37 +66,53 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
     /// <param name="isDialog"></param>
     /// <param name="isFooterExpanded"></param>
     /// <returns></returns>
-    public Task ShowTaskDialogAsync<TPageViewModel>(
+    public Task<bool> ShowTaskDialogAsync<TPageViewModel>(
         TPageViewModel viewModel,
         string title = "",
         string header = "",
         string subHeader = "",
         bool isDialog = false,
         bool showProgressBar = false,
-        bool isFooterExpanded = false)
+        bool isRememberChooseFooter = false,
+        bool isCancelButton = false,
+        bool isRetryButton = false)
         where TPageViewModel : ViewModelBase, new()
-        => MainThread2.InvokeOnMainThreadAsync(async () =>
+        => MainThread2.InvokeOnMainThreadAsync<bool>(async () =>
         {
             var td = new TaskDialog
             {
                 Title = title,
-                Header = header,
+                Header = string.IsNullOrEmpty(header) ? title : header,
                 SubHeader = subHeader,
                 DataContext = viewModel,
-                Content = viewModel,
-                //IconSource = ,
+                Content = GetPageContent(viewModel),
+                //IconSource = new SymbolIconSource { Symbol = Symbol.Accept },
                 ShowProgressBar = showProgressBar,
                 FooterVisibility = TaskDialogFooterVisibility.Never,
-                IsFooterExpanded = isFooterExpanded,
-                //Footer = new CheckBox { Content = "Never show me this again", },
+                //IsFooterExpanded = isFooterExpanded,
+                //Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, },
                 Buttons =
                 {
-                    TaskDialogButton.OKButton,
-                    TaskDialogButton.CancelButton
+                    new TaskDialogButton(Strings.Confirm, TaskDialogStandardResult.OK),
                 }
             };
 
-            td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
+            if (isRememberChooseFooter)
+            {
+                td.FooterVisibility = TaskDialogFooterVisibility.Always;
+                td.Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, };
+            }
+
+            if (isCancelButton)
+            {
+                td.Buttons.Add(new TaskDialogButton(Strings.Cancel, TaskDialogStandardResult.Cancel));
+            }
+            if (isRetryButton)
+            {
+                td.Buttons.Add(new TaskDialogButton(Strings.Retry, TaskDialogStandardResult.Retry));
+            }
+
+            //td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
 
             try
             {
@@ -111,6 +140,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             }
 
             var result = await td.ShowAsync(!isDialog);
+            return result is TaskDialogStandardResult.OK;
         });
 
     Task ShowAsync(Type typeWindowViewModel,

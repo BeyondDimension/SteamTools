@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
 	xmlns:ms="https://steampp.net/settings"
-    Title="Watt Toolkit"
+    Title="{Binding Title}"
     d:DesignHight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
