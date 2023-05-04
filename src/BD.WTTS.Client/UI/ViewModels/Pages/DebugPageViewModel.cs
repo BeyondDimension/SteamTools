@@ -24,6 +24,10 @@ public partial class DebugPageViewModel
         switch (cmds[0])
         {
             case "dialog":
+                var isDialog = cmds.Length > 1 && cmds[1].Contains('1');
+                await IWindowManager.Instance.ShowTaskDialogAsync(this, "test", isDialog: isDialog);
+                break;
+            case "notify":
                 INotificationService.Instance.Notify("测试Test🎆🎇→→", NotificationType.Announcement);
                 break;
             case "webview":

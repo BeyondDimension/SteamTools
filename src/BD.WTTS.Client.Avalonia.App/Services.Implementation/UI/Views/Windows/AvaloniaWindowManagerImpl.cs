@@ -54,14 +54,14 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
     /// <param name="isFooterExpanded"></param>
     /// <returns></returns>
     public Task ShowTaskDialogAsync<TPageViewModel>(
-        TPageViewModel? viewModel = null,
+        TPageViewModel viewModel,
         string title = "",
         string header = "",
         string subHeader = "",
         bool isDialog = false,
         bool showProgressBar = false,
         bool isFooterExpanded = false)
-        where TPageViewModel : PageViewModel, new()
+        where TPageViewModel : ViewModelBase, new()
         => MainThread2.InvokeOnMainThreadAsync(async () =>
         {
             var td = new TaskDialog
@@ -69,16 +69,48 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
                 Title = title,
                 Header = header,
                 SubHeader = subHeader,
-                //Content = ,
+                DataContext = viewModel,
+                Content = viewModel,
                 //IconSource = ,
                 ShowProgressBar = showProgressBar,
-                FooterVisibility = TaskDialogFooterVisibility.Auto,
+                FooterVisibility = TaskDialogFooterVisibility.Never,
                 IsFooterExpanded = isFooterExpanded,
-                Footer = new CheckBox { Content = "Never show me this again", },
+                //Footer = new CheckBox { Content = "Never show me this again", },
+                Buttons =
+                {
+                    TaskDialogButton.OKButton,
+                    TaskDialogButton.CancelButton
+                }
             };
 
-            var result = await td.ShowAsync(isDialog);
+            td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
 
+            try
+            {
+                if (App.Instance.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                {
+                    var window = desktop.MainWindow;
+                    if (window != null)
+                    {
+                        td.XamlRoot = window;
+                    }
+                }
+                else if (App.Instance.ApplicationLifetime is ISingleViewApplicationLifetime view)
+                {
+                    var mainView = view.MainView;
+                    if (mainView != null)
+                    {
+                        td.XamlRoot = mainView;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(AvaloniaWindowManagerImpl), e,
+                    "ShowTaskDialogAsync fail, vmType: {0}", viewModel.GetType().Name);
+            }
+
+            var result = await td.ShowAsync(!isDialog);
         });
 
     Task ShowAsync(Type typeWindowViewModel,

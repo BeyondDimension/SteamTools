@@ -48,6 +48,9 @@
 		</Grid>
 		<ContentControl Grid.Row="1" Content="{Binding PageViewModel}">
 			<ContentControl.DataTemplates>
+				<DataTemplate DataType="spp:AboutPageViewModel">
+					<spp:AboutPage/>
+				</DataTemplate>
 				<DataTemplate DataType="spp:SettingsPageViewModel">
 					<spp:SettingsPage/>
 				</DataTemplate>

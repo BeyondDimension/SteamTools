@@ -19,14 +19,14 @@ public interface IWindowManager
     /// <param name="isFooterExpanded"></param>
     /// <returns></returns>
     Task ShowTaskDialogAsync<TPageViewModel>(
-        TPageViewModel? viewModel = null,
+        TPageViewModel viewModel,
         string title = "",
         string header = "",
         string subHeader = "",
         bool isDialog = false,
         bool showProgressBar = false,
         bool isFooterExpanded = false)
-        where TPageViewModel : PageViewModel, new();
+        where TPageViewModel : ViewModelBase, new();
 
     /// <summary>
     /// 显示一个窗口

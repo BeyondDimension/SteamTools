@@ -90,7 +90,6 @@
 		<Setter Property="Template">
 			<ControlTemplate>
 				<StackPanel
-                    Margin="18,10"
                     Orientation="Horizontal"
                     Spacing="8">
 					<Button
@@ -168,6 +167,7 @@
 					<!-- Add the Caption Buttons, these should ALWAYS overlay the window -->
 					<wnd:MinMaxCloseControl HorizontalAlignment="Right"
                                             VerticalAlignment="Top"
+											Margin="18,0"
                                             Name="SystemCaptionButtons"
                                             Height="{Binding TemplateSettings.TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}}"/>
 
@@ -213,6 +213,12 @@
 				</Style>
 				<Style Selector="^ /template/ TextBlock#TitleText">
 					<Setter Property="Margin" Value="32 0 0 0" />
+				</Style>
+			</Style>
+
+			<Style Selector="^:dialog">
+				<Style Selector="^ /template/ wnd|MinMaxCloseControl#SystemCaptionButtons">
+					<Setter Property="Margin" Value="0" />
 				</Style>
 			</Style>
 
