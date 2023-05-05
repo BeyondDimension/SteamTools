@@ -90,19 +90,20 @@
 		</spp:OptionsDisplayItem>
 
 		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
-								Description="可填写自定义 Steam 启动参数"
-								Expands="True"
-								IsExpanded="True">
+								Description="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=OneWay}">
 			<spp:OptionsDisplayItem.Icon>
 				<ui:FontIcon Glyph="&#xE756;" FontFamily="Segoe Fluent Icons"/>
 			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.Content>
+			<spp:OptionsDisplayItem.ActionButton>
+				<Button Content="{ReflectionBinding Path=Res.Edit,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Command="{ReflectionBinding EditSteamParameter}"/>
+			</spp:OptionsDisplayItem.ActionButton>
+			<!--<spp:OptionsDisplayItem.Content>
 				<TextBox Classes="clearButton"
 						 MinHeight="80"
 						 AcceptsReturn="True"
 						 Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
 						 TextWrapping="Wrap"/>
-			</spp:OptionsDisplayItem.Content>
+			</spp:OptionsDisplayItem.Content>-->
 		</spp:OptionsDisplayItem>
 	</StackPanel>
 </UserControl>

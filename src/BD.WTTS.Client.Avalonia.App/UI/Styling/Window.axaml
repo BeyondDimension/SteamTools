@@ -164,6 +164,8 @@
 					<wnd:AppSplashScreen Name="SplashHost"
                                          IsVisible="False"/>
 
+					<spp:Snackbar/>
+
 					<!-- Add the Caption Buttons, these should ALWAYS overlay the window -->
 					<wnd:MinMaxCloseControl HorizontalAlignment="Right"
                                             VerticalAlignment="Top"
@@ -194,6 +196,7 @@
 			</VisualLayerManager>
 			<wnd:AppSplashScreen Name="SplashHost"
                                  IsVisible="False"/>
+			<spp:Snackbar/>
 		</Panel>
 	</ControlTemplate>
 

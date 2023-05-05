@@ -27,6 +27,11 @@
 			</spp:OptionsDisplayItem.ActionButton>
 			<spp:OptionsDisplayItem.Content>
 				<StackPanel Spacing="4" >
+					<TextBox Text=""
+							 Classe="readonlybox"
+							 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+							 FontSize="12"/>
+					
 					<DockPanel LastChildFill="False" Margin="24 0 0 6">
 						<TextBlock Text="感谢支持"
 								   VerticalAlignment="Center"

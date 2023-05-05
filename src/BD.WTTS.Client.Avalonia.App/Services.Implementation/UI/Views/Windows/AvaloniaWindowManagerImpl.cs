@@ -121,7 +121,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
                     var window = desktop.MainWindow;
                     if (window != null)
                     {
-                        td.XamlRoot = window;
+                        td.XamlRoot = TopLevel.GetTopLevel(window);
                     }
                 }
                 else if (App.Instance.ApplicationLifetime is ISingleViewApplicationLifetime view)
@@ -129,7 +129,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
                     var mainView = view.MainView;
                     if (mainView != null)
                     {
-                        td.XamlRoot = mainView;
+                        td.XamlRoot = TopLevel.GetTopLevel(mainView);
                     }
                 }
             }

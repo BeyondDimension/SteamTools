@@ -195,24 +195,8 @@ static partial class Program
 
             #region MessageBox
 
-            /* System.Windows.MessageBox 在 WPF 库中，仅支持 Win 平台
-             * 改为 System.Windows.MessageBoxCompat 可跨平台兼容
-             * 在其他平台上使用 MessageBox.Avalonia 库实现
-             * API变更说明：
-             * - 如果需要获取返回值，即点击那个按钮，则使用异步版本 ShowAsync
-             * - 如果不需要获取返回值，则可直接使用 同步版本 Show
-             * 注意事项：
-             * - 图标(Icon)与按钮(Button)不要使用标记为 Obsolete 的
-             * - WPF 中 显示窗口(Show)会锁死父窗口等，类似 ShowDialog
-             * - MessageBox.Avalonia 中则不会锁死窗口
-             * 已知问题：
-             * - 在 MessageBox.Avalonia 中
-             *  - 如果内容文本(messageBoxText)过短 UI 上的文字显示不全
-             *  - 点击窗口按 Ctrl+C 无法复制弹窗中的文本内容
-             *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
-             *  - 某些图标图片与枚举值不太匹配，例如 Information
-             */
             services.TryAddWindowManager();
+            services.TryToastService();
 
             #endregion
 

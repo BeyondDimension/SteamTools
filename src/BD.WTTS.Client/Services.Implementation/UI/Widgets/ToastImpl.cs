@@ -16,7 +16,8 @@ internal sealed class ToastImpl : ToastBaseImpl
 
     protected override void PlatformShow(string text, int duration)
     {
-        ToastService.Current.Notify(text);
+        //ToastService.Current.Notify(text);
+        IToastService.Instance.Show(text, duration);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -29,7 +29,7 @@ static partial class Program
                 });
             }
 
-            INotificationService.ILifeCycle.Instance?.OnStartup();
+            //INotificationService.ILifeCycle.Instance?.OnStartup();
         }
     }
 

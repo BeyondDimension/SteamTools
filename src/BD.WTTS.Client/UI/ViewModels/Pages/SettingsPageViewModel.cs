@@ -1,4 +1,3 @@
-using System.Reactive;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
@@ -104,6 +103,19 @@ public partial class SettingsPageViewModel
             }
         }
         Toast.Show(AppResources.Settings_UI_CustomBackgroundImage_Error);
+    }
+
+    public async void EditSteamParameter()
+    {
+        var vm = new TextBoxWindowViewModel
+        {
+            InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
+            Value = SteamSettings.SteamStratParameter.Value,
+        };
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(vm, AppResources.Edit + AppResources.Settings_Steam_SteamStratParameter, subHeader: "可添加自定义的参数来启动 Steam", isDialog: false, isCancelButton: true))
+        {
+            SteamSettings.SteamStratParameter.Value = vm.Value;
+        }
     }
 #endif
 

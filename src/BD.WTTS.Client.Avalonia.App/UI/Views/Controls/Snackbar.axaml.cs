@@ -6,9 +6,4 @@ public partial class Snackbar : UserControl
     {
         InitializeComponent();
     }
-
-    void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

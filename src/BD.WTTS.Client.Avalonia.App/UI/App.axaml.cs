@@ -67,9 +67,17 @@ public sealed partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
             desktop.MainWindow = MainWindow ??= new MainWindow();
+            desktop.Startup += Desktop_Startup;
+        }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
+    {
+        Program.Host.Instance.OnStartup();
     }
 
 #if WINDOWS

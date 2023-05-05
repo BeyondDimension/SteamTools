@@ -108,7 +108,8 @@
 									   HorizontalAlignment="Stretch"
 									   VerticalAlignment="Center"
 									   DockPanel.Dock="Left" />
-							<ui:SymbolIcon Symbol="ChevronRight"/>
+							<ui:SymbolIcon Symbol="ChevronRight"
+										   DockPanel.Dock="Right"/>
 						</DockPanel>
 					</Button>
 
