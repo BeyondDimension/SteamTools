@@ -1762,7 +1762,7 @@ Sicura di voler continuare?</value>
     <value>Lo scollegamento di un account di terze parti ti impedirà di accedere rapidamente con quell'account di terze parti.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="User_UseFastLoginChannel_" xml:space="preserve">
+  <data name="User_UseExternalLoginChannel_" xml:space="preserve">
     <value>Accedi con {0}</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>

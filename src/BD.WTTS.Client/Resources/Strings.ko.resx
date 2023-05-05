@@ -1755,7 +1755,7 @@
     <value>타사 계정의 바인딩을 해제 한 후에는 타사 계정으로 신속하게 로그인 할 수 없으며 바인딩을 해제하는 것이 확실합니까?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="User_UseFastLoginChannel_" xml:space="preserve">
+  <data name="User_UseExternalLoginChannel_" xml:space="preserve">
     <value>{0}로 로그인</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>

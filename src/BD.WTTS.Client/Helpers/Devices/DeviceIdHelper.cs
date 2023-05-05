@@ -29,11 +29,11 @@ public static class DeviceIdHelper
         return value;
     }
 
-    static Guid DeviceIdG => GetGuid("KEY_DEVICE_ID_G");
+    internal static Guid DeviceIdG => GetGuid("KEY_DEVICE_ID_G");
 
-    static string DeviceIdR => Get("KEY_DEVICE_ID_R");
+    internal static string DeviceIdR => Get("KEY_DEVICE_ID_R");
 
-    static string DeviceIdN
+    internal static string DeviceIdN
     {
         get
         {
@@ -42,16 +42,5 @@ public static class DeviceIdHelper
             var data = key.FirstOrDefault() % 2 == 0 ? key.Concat(iv) : iv.Concat(key);
             return Hashs.String.SHA256(data.ToArray(), isLower: false);
         }
-    }
-
-    public static void SetDeviceId(this ActiveUserRecordDTO value)
-    {
-        var deviceIdG = DeviceIdG;
-        var deviceIdR = DeviceIdR;
-        var deviceIdN = DeviceIdN;
-
-        value.DeviceIdG = deviceIdG;
-        value.DeviceIdR = deviceIdR;
-        value.DeviceIdN = deviceIdN;
     }
 }

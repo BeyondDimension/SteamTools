@@ -1595,7 +1595,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="User_UnbundleAccountTip" xml:space="preserve">
     <value>解绑第三方账号关联后将无法以该第三方账号快速登录，是否确定解绑？</value>
   </data>
-  <data name="User_UseFastLoginChannel_" xml:space="preserve">
+  <data name="User_UseExternalLoginChannel_" xml:space="preserve">
     <value>使用 {0} 登录</value>
   </data>
   <data name="User_UsePhoneNumLoginChannel" xml:space="preserve">

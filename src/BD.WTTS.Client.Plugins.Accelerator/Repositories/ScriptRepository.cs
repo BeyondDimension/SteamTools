@@ -23,7 +23,7 @@ internal sealed class ScriptRepository : Repository<Script, int>, IScriptReposit
             $"{SQLStrings.Update}[{Script.TableName}] " +
                 $"set [{Script.ColumnName_Enable}] = {{0}} " +
                 $"where [{Script.ColumnName_Id}] = {{1}}";
-            var sql = string.Format(sql_, item.Enable, item.LocalId);
+            var sql = string.Format(sql_, !item.Disable, item.LocalId);
             //var sql =
             //    SQLStrings.Update +
             //    "[" + Script.TableName + "]" +

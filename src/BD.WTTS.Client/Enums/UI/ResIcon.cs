@@ -30,13 +30,13 @@ public enum ResIcon
 public static class ResIconEnumExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ResIcon ToIcon(this FastLoginChannel fastLoginChannel)
+    public static ResIcon ToIcon(this ExternalLoginChannel fastLoginChannel)
         => fastLoginChannel switch
         {
-            FastLoginChannel.Steam => ResIcon.Steam,
-            FastLoginChannel.Microsoft => ResIcon.Xbox,
-            FastLoginChannel.QQ => ResIcon.QQ,
-            FastLoginChannel.Apple => ResIcon.Apple,
+            ExternalLoginChannel.Steam => ResIcon.Steam,
+            ExternalLoginChannel.Microsoft => ResIcon.Xbox,
+            ExternalLoginChannel.QQ => ResIcon.QQ,
+            ExternalLoginChannel.Apple => ResIcon.Apple,
             _ => throw new ArgumentOutOfRangeException(nameof(fastLoginChannel), fastLoginChannel, null),
         };
 }

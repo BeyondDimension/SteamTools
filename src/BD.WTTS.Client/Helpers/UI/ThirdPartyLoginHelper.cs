@@ -90,7 +90,7 @@ public static class ThirdPartyLoginHelper
         {
             if (isBind)
             {
-                var chan = rsp.Content?.FastLRBChannel;
+                var chan = rsp.Content?.ExternalLoginChannel;
                 if (!chan.HasValue) return;
                 await MainThread2.InvokeOnMainThreadAsync(async () =>
                 {
@@ -202,7 +202,7 @@ public static class ThirdPartyLoginHelper
     /// <param name="channel"></param>
     /// <param name="isBind"></param>
     /// <returns></returns>
-    public static async Task StartAsync(WindowViewModel vm, FastLoginChannel channel, bool isBind)
+    public static async Task StartAsync(WindowViewModel vm, ExternalLoginChannel channel, bool isBind)
     {
         var app = IApplication.Instance;
         if (!OperatingSystem2.IsAndroid() && !OperatingSystem2.IsIOS())
@@ -261,11 +261,11 @@ public static class ThirdPartyLoginHelper
         public string Msg { get; set; } = string.Empty;
     }
 
-    public static readonly FastLoginChannel[] FastLoginChannels = new[] // 更改此数组可控制UI列表的顺序
+    public static readonly ExternalLoginChannel[] ExternalLoginChannels = new[] // 更改此数组可控制UI列表的顺序
     {
-            FastLoginChannel.QQ,
-            FastLoginChannel.Steam,
-            FastLoginChannel.Microsoft,
-            FastLoginChannel.Apple,
+            ExternalLoginChannel.QQ,
+            ExternalLoginChannel.Steam,
+            ExternalLoginChannel.Microsoft,
+            ExternalLoginChannel.Apple,
     };
 }

@@ -1761,7 +1761,7 @@
     <value>Unlinking this third-party account will disable fast login via this way. Do you still want to unlink?</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="User_UseFastLoginChannel_" xml:space="preserve">
+  <data name="User_UseExternalLoginChannel_" xml:space="preserve">
     <value>Log in with {0}</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>

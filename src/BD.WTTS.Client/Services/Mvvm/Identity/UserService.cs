@@ -1,3 +1,4 @@
+using BD.WTTS.Models;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
@@ -100,7 +101,7 @@ public sealed class UserService : ReactiveObject
                 User.Experience = state.Content!.Experience;
                 User.NextExperience = state.Content!.NextExperience;
                 User.Level = state.Content!.Level;
-                User.EngineOil = state.Content!.Strength;
+                //User.EngineOil = state.Content!.Strength;
                 User.IsSignIn = true;
                 Toast.Show(AppResources.User_SignIn_Ok);
             }
@@ -124,7 +125,7 @@ public sealed class UserService : ReactiveObject
     }
 
     [Reactive]
-    public UserInfoDTO? User { get; set; }
+    public IdentityUserInfoDTO? User { get; set; }
 
     /// <summary>
     /// 指示当前用户是否已通过身份验证（已登录）
@@ -194,14 +195,14 @@ public sealed class UserService : ReactiveObject
         HasPhoneNumber = !string.IsNullOrWhiteSpace(currentUser?.PhoneNumber);
     }
 
-    public async Task SaveUserAsync(UserInfoDTO user)
+    public async Task SaveUserAsync(IdentityUserInfoDTO user)
     {
         await userManager.SetCurrentUserInfoAsync(user, true);
 
         await RefreshUserAsync(user, refreshCurrentUser: false);
     }
 
-    public async Task RefreshUserAsync(UserInfoDTO? user, bool refreshCurrentUser = true)
+    public async Task RefreshUserAsync(IdentityUserInfoDTO? user, bool refreshCurrentUser = true)
     {
         User = user;
         this.RaisePropertyChanged(nameof(IsAuthenticated));
@@ -227,13 +228,13 @@ public sealed class UserService : ReactiveObject
         {
             if (User.AvatarUrl.Any_Nullable())
             {
-                var settingPriority = FastLoginChannel.Steam; // 设置中优先选取头像渠道配置项
+                var settingPriority = ExternalLoginChannel.Steam; // 设置中优先选取头像渠道配置项
                 var order = new[] { settingPriority }.Concat(new[]
                 {
-                    FastLoginChannel.Steam,
-                    FastLoginChannel.QQ,
-                    FastLoginChannel.Apple,
-                    FastLoginChannel.Microsoft,
+                    ExternalLoginChannel.Steam,
+                    ExternalLoginChannel.QQ,
+                    ExternalLoginChannel.Apple,
+                    ExternalLoginChannel.Microsoft,
                 }.Where(x => x != settingPriority));
                 foreach (var item in order)
                 {
@@ -248,7 +249,7 @@ public sealed class UserService : ReactiveObject
                         }
                         return;
                     }
-                    else if (item == FastLoginChannel.Steam
+                    else if (item == ExternalLoginChannel.Steam
                         && await RefreshSteamUserAvatarAsync())
                     {
                         return;
@@ -299,22 +300,22 @@ public sealed class UserService : ReactiveObject
     /// </summary>
     /// <param name="channel"></param>
     /// <returns></returns>
-    public async Task UnbundleAccountAfterUpdateAsync(FastLoginChannel channel)
+    public async Task UnbundleAccountAfterUpdateAsync(ExternalLoginChannel channel)
     {
         var user = await userManager.GetCurrentUserInfoAsync();
         if (user == null) return;
         switch (channel)
         {
-            case FastLoginChannel.Steam:
+            case ExternalLoginChannel.Steam:
                 user.SteamAccountId = null;
                 break;
-            case FastLoginChannel.Microsoft:
+            case ExternalLoginChannel.Microsoft:
                 user.MicrosoftAccountEmail = null;
                 break;
-            case FastLoginChannel.QQ:
+            case ExternalLoginChannel.QQ:
                 user.QQNickName = null;
                 break;
-            case FastLoginChannel.Apple:
+            case ExternalLoginChannel.Apple:
                 user.AppleAccountEmail = null;
                 break;
             default:
@@ -334,23 +335,23 @@ public sealed class UserService : ReactiveObject
     /// <param name="channel"></param>
     /// <param name="rsp"></param>
     /// <returns></returns>
-    public async Task BindAccountAfterUpdateAsync(FastLoginChannel channel, LoginOrRegisterResponse rsp)
+    public async Task BindAccountAfterUpdateAsync(ExternalLoginChannel channel, LoginOrRegisterResponse rsp)
     {
         var user = await userManager.GetCurrentUserInfoAsync();
         if (user == null) return;
         switch (channel)
         {
-            case FastLoginChannel.Steam:
+            case ExternalLoginChannel.Steam:
                 user.SteamAccountId = rsp.User?.SteamAccountId;
                 break;
-            case FastLoginChannel.Microsoft:
+            case ExternalLoginChannel.Microsoft:
                 user.MicrosoftAccountEmail = rsp.User?.MicrosoftAccountEmail;
                 break;
-            case FastLoginChannel.QQ:
+            case ExternalLoginChannel.QQ:
                 user.QQNickName = rsp.User?.QQNickName;
                 if (string.IsNullOrEmpty(user.NickName)) user.NickName = user.QQNickName ?? "";
                 break;
-            case FastLoginChannel.Apple:
+            case ExternalLoginChannel.Apple:
                 user.AppleAccountEmail = rsp.User?.AppleAccountEmail;
                 break;
             default:

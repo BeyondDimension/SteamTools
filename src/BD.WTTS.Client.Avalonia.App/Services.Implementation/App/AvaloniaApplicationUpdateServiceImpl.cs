@@ -42,7 +42,7 @@ sealed class AvaloniaApplicationUpdateServiceImpl : ApplicationUpdateServiceBase
         else
         {
             ShowNewVersionWindowOnMainOpen = true;
-            notification.Notify(AppResources.NewVersionUpdateNotifyText_.Format(NewVersionInfo?.Version), NotificationType.NewVersion);
+            //notification.Notify(AppResources.NewVersionUpdateNotifyText_.Format(NewVersionInfo?.Version), NotificationType.NewVersion);
         }
     }
 

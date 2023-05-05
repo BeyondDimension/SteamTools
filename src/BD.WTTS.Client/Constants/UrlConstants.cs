@@ -41,7 +41,7 @@ public static class UrlConstants
     public const string MicrosoftStoreProtocolLink = Constants.Urls.MicrosoftStoreProtocolLink;
     public const string MicrosoftStoreReviewLink = Constants.Urls.MicrosoftStoreReviewLink;
 
-    public const string DonateUrl_afdian = Constants.Urls.DonateUrl_afdian;
-    public const string DonateUrl_ko_fi = Constants.Urls.DonateUrl_ko_fi;
-    public const string DonateUrl_patreon = Constants.Urls.DonateUrl_patreon;
+    public const string SponsorUrl_afdian = Constants.Urls.SponsorUrl_afdian;
+    public const string SponsorUrl_ko_fi = Constants.Urls.SponsorUrl_ko_fi;
+    public const string SponsorUrl_patreon = Constants.Urls.SponsorUrl_patreon;
 }

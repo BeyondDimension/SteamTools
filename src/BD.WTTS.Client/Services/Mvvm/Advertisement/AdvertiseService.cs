@@ -35,7 +35,7 @@ public sealed class AdvertiseService : ReactiveObject
         AdvertisementsSource
             .Connect()
             .ObserveOn(RxApp.MainThreadScheduler)
-            .Filter(x => x.Standard == AdvertisementStandard.Horizontal)
+            .Filter(x => x.Standard == AdvertisementOrientation.Horizontal)
             .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
             .Bind(out _HorizontalBannerAdvertisements)
             .Subscribe(_ => this.RaisePropertyChanged(nameof(HorizontalBannerAdvertisements)));
@@ -43,7 +43,7 @@ public sealed class AdvertiseService : ReactiveObject
         AdvertisementsSource
             .Connect()
             .ObserveOn(RxApp.MainThreadScheduler)
-            .Filter(x => x.Standard == AdvertisementStandard.Vertical)
+            .Filter(x => x.Standard == AdvertisementOrientation.Vertical)
             .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
             .Bind(out _VerticalBannerAdvertisements)
             .Subscribe(_ => this.RaisePropertyChanged(nameof(VerticalBannerAdvertisements)));
@@ -83,7 +83,7 @@ public sealed class AdvertiseService : ReactiveObject
     public async Task RefrshAdvertiseAsync()
     {
         var client = IMicroServiceClient.Instance.Advertisement;
-        var result = await client.All();
+        var result = await client.All(AdvertisementType.Embedded);
 
         if (result.IsSuccess && result.Content != null)
         {

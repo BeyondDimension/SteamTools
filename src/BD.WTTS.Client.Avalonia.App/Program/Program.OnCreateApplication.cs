@@ -91,7 +91,11 @@ static partial class Program
             return null;
         };
 
-        bool isDesignMode = Design.IsDesignMode;
+#if DEBUG
+        bool isDesignMode = Program.IsDesignMode;
+#else
+        const bool isDesignMode = false;
+#endif
 
         if (isTrace) StartWatchTrace.Record();
         try

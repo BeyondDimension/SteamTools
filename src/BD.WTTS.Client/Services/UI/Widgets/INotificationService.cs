@@ -5,8 +5,7 @@ public interface INotificationService
 {
     static INotificationService Instance => Ioc.Get<INotificationService>();
 
-    /// <inheritdoc cref="NotificationBuilder.DefaultTitle"/>
-    protected const string DefaultTitle = NotificationBuilder.DefaultTitle;
+    protected const string DefaultTitle = AssemblyInfo.Product;
 
     /// <summary>
     /// 获取是否有通知权限
@@ -14,14 +13,14 @@ public interface INotificationService
     /// <returns></returns>
     bool AreNotificationsEnabled() => true;
 
-    /// <summary>
-    /// 显示本地通知，使用 new <see cref="NotificationBuilder"/>() 构建参数
-    /// </summary>
-    /// <param name="builder"></param>
-    void Notify(NotificationBuilder.IInterface builder)
-        => Notify(builder.Content, builder.Type, builder.AutoCancel,
-            builder.Title, builder.Click?.Entrance ?? default,
-            builder.Click?.RequestUri);
+    ///// <summary>
+    ///// 显示本地通知，使用 new <see cref="NotificationBuilder"/>() 构建参数
+    ///// </summary>
+    ///// <param name="builder"></param>
+    //void Notify(NotificationBuilder.IInterface builder)
+    //    => Notify(builder.Content, builder.Type, builder.AutoCancel,
+    //        builder.Title, builder.Click?.Entrance ?? default,
+    //        builder.Click?.RequestUri);
 
     /// <summary>
     /// 显示本地通知
@@ -38,29 +37,29 @@ public interface INotificationService
         bool autoCancel = true,
         string? title = default,
         Entrance entrance = default,
-        string? requestUri = default)
-    {
-        var builder = new NotificationBuilder
-        {
-            Title = string.IsNullOrWhiteSpace(title) ? DefaultTitle : title,
-            Content = text,
-            AutoCancel = autoCancel,
-            Click = entrance switch
-            {
-                Entrance.Main => new NotificationBuilderClickAction
-                {
-                    Entrance = Entrance.Main,
-                },
-                Entrance.Browser => new NotificationBuilderClickAction
-                {
-                    Entrance = Entrance.Browser,
-                    RequestUri = requestUri,
-                },
-                _ => null,
-            },
-        };
-        Notify(builder);
-    }
+        string? requestUri = default);
+    //{
+    //    var builder = new NotificationBuilder
+    //    {
+    //        Title = string.IsNullOrWhiteSpace(title) ? DefaultTitle : title,
+    //        Content = text,
+    //        AutoCancel = autoCancel,
+    //        Click = entrance switch
+    //        {
+    //            Entrance.Main => new NotificationBuilderClickAction
+    //            {
+    //                Entrance = Entrance.Main,
+    //            },
+    //            Entrance.Browser => new NotificationBuilderClickAction
+    //            {
+    //                Entrance = Entrance.Browser,
+    //                RequestUri = requestUri,
+    //            },
+    //            _ => null,
+    //        },
+    //    };
+    //    Notify(builder);
+    //}
 
     /// <summary>
     /// 取消通知
@@ -86,14 +85,14 @@ public interface INotificationService
         NotificationType notificationType,
         string? title = default) => throw new PlatformNotSupportedException();
 
-    /// <summary>
-    /// 显示从服务端获取到通知纪录
-    /// </summary> 
-    static async void Notify(ActiveUserType type)
-    {
-        if (type == ActiveUserType.OnStartup)
-            await NotificationService.Current.GetNewsAsync();
-    }
+    ///// <summary>
+    ///// 显示从服务端获取到通知纪录
+    ///// </summary> 
+    //static async void Notify(ActiveUserType type)
+    //{
+    //    if (type == ActiveUserType.OnStartup)
+    //        await NotificationService.Current.GetNewsAsync();
+    //}
 
     /// <summary>
     /// NotifyIcon / TrayIcon 右下角托盘菜单助手类

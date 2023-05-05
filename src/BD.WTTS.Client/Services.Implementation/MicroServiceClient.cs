@@ -1,4 +1,3 @@
-using BD.WTTS.Models.Abstractions;
 using HttpVersion = System.Net.HttpVersion;
 
 namespace BD.WTTS.Services.Implementation;
@@ -29,7 +28,7 @@ sealed class MicroServiceClient : MicroServiceClientBase
         this.userManager = userManager;
     }
 
-    protected override HttpClient CreateClient()
+    protected sealed override HttpClient CreateClient()
     {
         var client = base.CreateClient();
         client.BaseAddress = new Uri(ApiBaseUrl, UriKind.Absolute);
@@ -40,7 +39,7 @@ sealed class MicroServiceClient : MicroServiceClientBase
         return client;
     }
 
-    public override async Task SaveAuthTokenAsync(JWTEntity authToken)
+    public sealed override async Task SaveAuthTokenAsync(JWTEntity authToken)
     {
         var user = await userManager.GetCurrentUserAsync();
         if (user != null)
@@ -50,7 +49,7 @@ sealed class MicroServiceClient : MicroServiceClientBase
         }
     }
 
-    public override async Task OnLoginedAsync(
+    public sealed override async Task OnLoginedAsync(
         IReadOnlyPhoneNumber? phoneNumber,
         ILoginResponse response)
     {
@@ -69,6 +68,17 @@ sealed class MicroServiceClient : MicroServiceClientBase
         };
 
         await userManager.SetCurrentUserAsync(cUser);
+    }
+
+    protected sealed override void SetDeviceId(IDeviceId deviceId)
+    {
+        var deviceIdG = DeviceIdHelper.DeviceIdG;
+        var deviceIdR = DeviceIdHelper.DeviceIdR;
+        var deviceIdN = DeviceIdHelper.DeviceIdN;
+
+        deviceId.DeviceIdG = deviceIdG;
+        deviceId.DeviceIdR = deviceIdR;
+        deviceId.DeviceIdN = deviceIdN;
     }
 
     public sealed class HttpClientFactory : IHttpClientFactory, IDisposable

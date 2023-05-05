@@ -32,65 +32,65 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
         return (tag, group);
     }
 
-    void INotificationService.Notify(NotificationBuilder.IInterface b)
-    {
-        var builder = new ToastContentBuilder()
-            .AddToastActivationInfo(null, ToastActivationType.Foreground)
-            .AddText(b.Title, hintStyle: AdaptiveTextStyle.Header)
-            .AddText(b.Content, hintStyle: AdaptiveTextStyle.Body);
+    //void INotificationService.Notify(NotificationBuilder.IInterface b)
+    //{
+    //    var builder = new ToastContentBuilder()
+    //        .AddToastActivationInfo(null, ToastActivationType.Foreground)
+    //        .AddText(b.Title, hintStyle: AdaptiveTextStyle.Header)
+    //        .AddText(b.Content, hintStyle: AdaptiveTextStyle.Body);
 
-        if (String2.IsHttpUrl(b.ImageUri))
-        {
-            switch (b.ImageDisplayType)
-            {
-                case ImageDisplayType.HeroImage:
-                    builder.AddHeroImage(new(b.ImageUri));
-                    break;
-                case ImageDisplayType.InlineImage:
-                    builder.AddInlineImage(new(b.ImageUri));
-                    break;
-            }
-        }
+    //    if (String2.IsHttpUrl(b.ImageUri))
+    //    {
+    //        switch (b.ImageDisplayType)
+    //        {
+    //            case ImageDisplayType.HeroImage:
+    //                builder.AddHeroImage(new(b.ImageUri));
+    //                break;
+    //            case ImageDisplayType.InlineImage:
+    //                builder.AddInlineImage(new(b.ImageUri));
+    //                break;
+    //        }
+    //    }
 
-        if (!string.IsNullOrWhiteSpace(b.AttributionText))
-        {
-            builder.AddAttributionText(b.AttributionText);
-        }
+    //    if (!string.IsNullOrWhiteSpace(b.AttributionText))
+    //    {
+    //        builder.AddAttributionText(b.AttributionText);
+    //    }
 
-        if (b.CustomTimeStamp != default)
-        {
-            builder.Content.DisplayTimestamp = b.CustomTimeStamp;
-        }
+    //    if (b.CustomTimeStamp != default)
+    //    {
+    //        builder.Content.DisplayTimestamp = b.CustomTimeStamp;
+    //    }
 
-        builder.Show(t =>
-        {
-            (var tag, var group) = GetTagAndGroup(b.Type);
-            t.Tag = tag;
-            t.Group = group;
-            t.Activated += (_, _) =>
-            {
-                if (b.Click != null)
-                {
-                    switch (b.Click.Entrance)
-                    {
-                        case Entrance.Main:
-                            break;
-                        case Entrance.Browser:
-                            Browser2.Open(b.Click.RequestUri);
-                            break;
-                        case Entrance.Delegate:
-                            b.Click.Action?.Invoke();
-                            break;
-                    }
-                }
+    //    builder.Show(t =>
+    //    {
+    //        (var tag, var group) = GetTagAndGroup(b.Type);
+    //        t.Tag = tag;
+    //        t.Group = group;
+    //        t.Activated += (_, _) =>
+    //        {
+    //            if (b.Click != null)
+    //            {
+    //                switch (b.Click.Entrance)
+    //                {
+    //                    case Entrance.Main:
+    //                        break;
+    //                    case Entrance.Browser:
+    //                        Browser2.Open(b.Click.RequestUri);
+    //                        break;
+    //                    case Entrance.Delegate:
+    //                        b.Click.Action?.Invoke();
+    //                        break;
+    //                }
+    //            }
 
-                if (b.AutoCancel)
-                {
-                    ToastNotificationManagerCompat.History.Remove(tag, group);
-                }
-            };
-        });
-    }
+    //            if (b.AutoCancel)
+    //            {
+    //                ToastNotificationManagerCompat.History.Remove(tag, group);
+    //            }
+    //        };
+    //    });
+    //}
 
     void INotificationService.Notify(string text, NotificationType notificationType, bool autoCancel, string? title, Entrance entrance, string? requestUri)
     {

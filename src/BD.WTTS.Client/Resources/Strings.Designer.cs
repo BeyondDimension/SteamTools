@@ -6621,9 +6621,9 @@ namespace BD.WTTS.Client.Resources {
         /// <summary>
         ///   查找类似 使用 {0} 登录 的本地化字符串。
         /// </summary>
-        public static string User_UseFastLoginChannel_ {
+        public static string User_UseExternalLoginChannel_ {
             get {
-                return ResourceManager.GetString("User_UseFastLoginChannel_", resourceCulture);
+                return ResourceManager.GetString("User_UseExternalLoginChannel_", resourceCulture);
             }
         }
         

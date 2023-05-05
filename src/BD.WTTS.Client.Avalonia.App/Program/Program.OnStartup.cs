@@ -21,7 +21,7 @@ static partial class Program
             {
                 await Task.Run(() =>
                 {
-                    ActiveUserPost(host, ActiveUserType.OnStartup);
+                    ActiveUserPost(host, ActiveUserAnonymousStatisticType.OnStartup);
                     if (GeneralSettings.IsAutoCheckUpdate.Value)
                     {
                         IApplicationUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
@@ -33,7 +33,7 @@ static partial class Program
         }
     }
 
-    static async void ActiveUserPost(IApplication.IStartupArgs args, ActiveUserType type)
+    static async void ActiveUserPost(IApplication.IStartupArgs args, ActiveUserAnonymousStatisticType type)
     {
         if (!args.IsMainProcess) return;
         try
@@ -69,20 +69,16 @@ static partial class Program
                 SumScreenHeight = mainDisplayInfoH,
 #else
                 ScreenCount = screens.ScreenCount,
-                PrimaryScreenPixelDensity = screens.Primary.Scaling,
-                PrimaryScreenWidth = screens.Primary.Bounds.Width,
-                PrimaryScreenHeight = screens.Primary.Bounds.Height,
+                PrimaryScreenPixelDensity = screens.Primary?.Scaling ?? default,
+                PrimaryScreenWidth = screens.Primary?.Bounds.Width ?? default,
+                PrimaryScreenHeight = screens.Primary?.Bounds.Height ?? default,
                 SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
                 SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
 #endif
                 IsAuthenticated = isAuthenticated,
             };
-            req.SetDeviceId();
             // 匿名统计与通知公告
-            await csc.ActiveUser.Post(req);
-#if DEBUG
-            INotificationService.Notify(type);
-#endif
+            await csc.ActiveUser.Record(req);
         }
         catch (Exception e)
         {

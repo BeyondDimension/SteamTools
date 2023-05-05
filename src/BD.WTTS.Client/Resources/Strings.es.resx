@@ -1762,7 +1762,7 @@
     <value>¿Después de desbloquear la Asociación de la cuenta de terceros, no se puede iniciar sesión rápidamente con la cuenta de terceros. Está seguro de desbloquear?</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
-  <data name="User_UseFastLoginChannel_" xml:space="preserve">
+  <data name="User_UseExternalLoginChannel_" xml:space="preserve">
     <value>Iniciar sesión usando {0}.</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>

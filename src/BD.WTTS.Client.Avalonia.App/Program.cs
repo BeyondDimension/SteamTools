@@ -97,77 +97,104 @@ static partial class Program
     }
 #endif
 
+#if DEBUG
+    internal static bool IsDesignMode { get; private set; }
+#endif
+
     // Avalonia configuration, don't remove; also used by visual designer.
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static AppBuilder BuildAvaloniaApp()
     {
-        // 设计器模式不会执行 Main 函数所以以此区分来初始化文件系统
-        if (Design.IsDesignMode)
+#if DEBUG
+        try
         {
-            OnCreateAppExecuting();
-            Host.Instance.ConfigureServicesAsync(AppServicesLevel.GUI).GetAwaiter().GetResult();
+            IsDesignMode = Assembly.GetCallingAssembly() != Assembly.GetExecutingAssembly();
         }
+        catch
+        {
 
-        var builder = AppBuilder.Configure(() => Host.Instance.App)
+        }
+#endif
+
+        try
+        {
+            // 设计器模式不会执行 Main 函数所以以此区分来初始化文件系统
+            if (IsDesignMode)
+            {
+                OnCreateAppExecuting();
+                Host.Instance.ConfigureServicesAsync(AppServicesLevel.GUI).GetAwaiter().GetResult();
+            }
+
+            var builder = AppBuilder.Configure(() => Host.Instance.App)
 #if WINDOWS
-            .UseWin32()
+                .UseWin32()
 #elif MACCATALYST || MACOS
-            .UseAvaloniaNative()
+                .UseAvaloniaNative()
 #elif LINUX
-            .UseX11()
+                .UseX11()
 #else
 #endif
-            .UseSkia()
-            .LogToTrace()
-            .UseReactiveUI()
-            .With(new FontManagerOptions
-            {
-                DefaultFamilyName = "Microsoft YaHei UI",
-                FontFallbacks = new[]
+                .UseSkia()
+                .LogToTrace()
+                .UseReactiveUI()
+                .With(new FontManagerOptions
                 {
+                    DefaultFamilyName = "Microsoft YaHei UI",
+                    FontFallbacks = new[]
+                    {
                     new FontFallback
                     {
                         FontFamily = "Microsoft YaHei UI",
-                    }
-                },
-            });
+                    },
+                    },
+                });
 
-        var useGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value;
+            var useGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value;
 #if MACOS
-        builder.With(new AvaloniaNativePlatformOptions
-        {
-            UseGpu = useGpu,
-        });
+            builder.With(new AvaloniaNativePlatformOptions
+            {
+                UseGpu = useGpu,
+            });
 #elif LINUX
-        builder.With(new X11PlatformOptions
-        {
-            UseGpu = useGpu,
-            EnableMultiTouch = true,
-            UseDBusMenu = true,
-            EnableIme = true,
-        });
+            builder.With(new X11PlatformOptions
+            {
+                UseGpu = useGpu,
+                EnableMultiTouch = true,
+                UseDBusMenu = true,
+                EnableIme = true,
+            });
 #elif WINDOWS
-        var useWgl = IApplication.UseWgl || GeneralSettings.UseWgl.Value;
-        var options = new Win32PlatformOptions
-        {
-            UseWgl = useWgl,
-            AllowEglInitialization = useGpu,
-            UseWindowsUIComposition = true,
-            CompositionBackdropCornerRadius = 8f,
-        };
-
-        builder.With(options);
-
-        var skiaOptions = new SkiaOptions
-        {
-            MaxGpuResourceSizeBytes = 1024000000,
-        };
-
-        builder.With(skiaOptions);
+            var useWgl = IApplication.UseWgl || GeneralSettings.UseWgl.Value;
+            var options = new Win32PlatformOptions
+            {
+                UseWgl = useWgl,
+                AllowEglInitialization = useGpu,
+                UseWindowsUIComposition = true,
+                CompositionBackdropCornerRadius = 8f,
+            };
+            
+            builder.With(options);
+            
+            var skiaOptions = new SkiaOptions
+            {
+                MaxGpuResourceSizeBytes = 1024000000,
+            };
+            
+            builder.With(skiaOptions);
 #else
-        throw new PlatformNotSupportedException("Avalonia.Desktop package was referenced on non-desktop platform or it isn't supported");
+            throw new PlatformNotSupportedException("Avalonia.Desktop package was referenced on non-desktop platform or it isn't supported");
 #endif
-        return builder;
+            return builder;
+        }
+        catch (Exception ex)
+        {
+#if DEBUG
+            throw new Exception(
+                $"Design.IsDesignMode: {Design.IsDesignMode}, CallingAssemblyName: {Assembly.GetCallingAssembly().GetName().Name}, ExecutingAssemblyName: {Assembly.GetExecutingAssembly()}", ex);
+#else
+            throw;
+#endif
+        }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

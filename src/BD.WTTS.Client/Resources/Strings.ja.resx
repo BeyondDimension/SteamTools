@@ -1755,7 +1755,7 @@
     <value>サード パーティアカウントの関連付けを解除した後、そのサード パーティアカウントですばやくサインインすることはできません。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="User_UseFastLoginChannel_" xml:space="preserve">
+  <data name="User_UseExternalLoginChannel_" xml:space="preserve">
     <value>{0} を使用してサインインします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
