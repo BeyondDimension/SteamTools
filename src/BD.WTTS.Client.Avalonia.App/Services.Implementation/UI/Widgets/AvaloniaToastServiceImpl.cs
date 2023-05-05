@@ -35,9 +35,21 @@ sealed class AvaloniaToastServiceImpl : IToastService
             }
         }
 
-        NotificationManager ??= new WindowNotificationManager(host);
+        NotificationManager ??= new WindowNotificationManager(host)
+        {
+            Position = NotificationPosition.BottomRight,
+            MaxItems = 4,
+        };
 
-        NotificationManager.Show(new AvaloniaNotification("Welcome", "Avalonia now supports Notifications.", Avalonia.Controls.Notifications.NotificationType.Information));
+        var info = new InfoBar()
+        {
+            Title = "Welcome",
+            Message = "Avalonia now supports Notifications.",
+            Severity = InfoBarSeverity.Informational,
+            IsClosable = true,
+        };
+
+        NotificationManager.Show(info);
     }
 
     /// <inheritdoc cref="Show(string, int?)"/>

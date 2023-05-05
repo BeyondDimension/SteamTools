@@ -185,13 +185,21 @@
                     Watermark="Search" />
             </Border>
 
-            <Separator
-                Grid.Column="4"
-                Height="18"
-                Margin="10,0"
-                VerticalAlignment="Center"
-                Background="{DynamicResource ButtonBorderBrush}"
-                Classes="Vertical" />
+			<DockPanel Grid.Column="4">
+				<Image Width="24"
+					Height="24"
+					DockPanel.Dock="Left"
+					Source="/UI/Assets/ApplicationIcon.ico" />
+
+				<Separator
+					Height="18"
+					Margin="10,0"
+					DockPanel.Dock="Right"
+					VerticalAlignment="Center"
+					IsHitTestVisible="False"
+					Background="{DynamicResource ButtonBorderBrush}"
+					Classes="Vertical" />
+			</DockPanel>
         </Grid>
 
         <ui:NavigationView
