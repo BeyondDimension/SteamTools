@@ -1,5 +1,5 @@
 using Avalonia.Controls.Notifications;
-using Notification = Avalonia.Controls.Notifications.Notification;
+using AvaloniaNotification = Avalonia.Controls.Notifications.Notification;
 
 namespace BD.WTTS.Services.Implementation;
 
@@ -37,7 +37,7 @@ sealed class AvaloniaToastServiceImpl : IToastService
 
         NotificationManager ??= new WindowNotificationManager(host);
 
-        NotificationManager.Show(new Notification("Welcome", "Avalonia now supports Notifications.", Avalonia.Controls.Notifications.NotificationType.Information));
+        NotificationManager.Show(new AvaloniaNotification("Welcome", "Avalonia now supports Notifications.", Avalonia.Controls.Notifications.NotificationType.Information));
     }
 
     /// <inheritdoc cref="Show(string, int?)"/>
