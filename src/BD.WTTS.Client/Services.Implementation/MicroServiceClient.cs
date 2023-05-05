@@ -1,3 +1,4 @@
+using BD.WTTS.Models.Abstractions;
 using HttpVersion = System.Net.HttpVersion;
 
 namespace BD.WTTS.Services.Implementation;
@@ -53,7 +54,12 @@ sealed class MicroServiceClient : MicroServiceClientBase
         IReadOnlyPhoneNumber? phoneNumber,
         ILoginResponse response)
     {
-        await userManager.SetCurrentUserInfoAsync(response.User, true);
+        if (response is LoginOrRegisterResponse loginOrRegisterResponse)
+        {
+            var user = loginOrRegisterResponse.User;
+            if (user != null)
+                await userManager.SetCurrentUserInfoAsync(user, true);
+        }
 
         CurrentUser cUser = new()
         {

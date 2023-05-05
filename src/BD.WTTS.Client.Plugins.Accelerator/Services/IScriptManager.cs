@@ -25,13 +25,13 @@ public interface IScriptManager
     /// </summary>
     /// <param name="path"></param>
     /// <param name="oldInfo"></param>
-    /// <param name="build"></param>
+    /// <param name="isCompile"></param>
     /// <param name="order"></param>
     /// <param name="deleteFile"></param>
     /// <param name="pid"></param>
     /// <param name="ignoreCache"></param>
     /// <returns></returns>
-    Task<IApiRsp<ScriptDTO?>> AddScriptAsync(string path, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
+    Task<IApiRsp<ScriptDTO?>> AddScriptAsync(string path, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
 
     /// <summary>
     /// 添加 JS
@@ -39,13 +39,13 @@ public interface IScriptManager
     /// <param name="path"></param>
     /// <param name="info"></param>
     /// <param name="oldInfo"></param>
-    /// <param name="build"></param>
+    /// <param name="isCompile"></param>
     /// <param name="order"></param>
     /// <param name="deleteFile"></param>
     /// <param name="pid"></param>
     /// <param name="ignoreCache"></param>
     /// <returns></returns>
-    Task<IApiRsp<ScriptDTO?>> AddScriptAsync(FileInfo path, ScriptDTO? info, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
+    Task<IApiRsp<ScriptDTO?>> AddScriptAsync(FileInfo path, ScriptDTO? info, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
 
     /// <summary>
     /// 获取全部脚本

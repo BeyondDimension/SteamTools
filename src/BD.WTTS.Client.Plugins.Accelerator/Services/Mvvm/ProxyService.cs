@@ -160,7 +160,7 @@ public sealed class ProxyService
                                 {
                                     if (s == null) return default!;
 
-                                    return s.HostsArray.Select(host =>
+                                    return s.ListeningDomainNamesArray.Select(host =>
                                     {
                                         if (host.Contains(' '))
                                         {
@@ -277,7 +277,7 @@ public sealed class ProxyService
             return null;
         var data = ProxyDomains.Items
             .Where(x => x.Items != null)
-            .SelectMany(s => s.Items!.Where(w => w.Enable));
+            .SelectMany(s => s.Items!.Where(w => w.Checked));
         //return data.Concat(data.SelectMany(s => GetProxyDomainsItems(s)));
         return data;
     }
@@ -295,7 +295,7 @@ public sealed class ProxyService
         {
             foreach (var item in accelerates.Items)
             {
-                item.Enable = accelerates.Enable;
+                item.Checked = accelerates.Checked;
                 EnableProxyDomainsItems(item);
             }
         }
@@ -307,7 +307,7 @@ public sealed class ProxyService
         //return null;
         if (!ProxyScripts.Items.Any_Nullable())
             return null;
-        return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x => x.Order);
+        return ProxyScripts.Items!.Where(w => !w.Disable).OrderBy(x => x.Order);
     }
 
     public Task<IEnumerable<ScriptDTO>?> EnableProxyScripts => scriptManager.LoadingScriptContentAsync(GetEnableProxyScripts());
@@ -431,8 +431,7 @@ public sealed class ProxyService
 #if DEBUG
         var stopwatch = Stopwatch.StartNew();
 #endif
-        //var result = await client.All(reverseProxyService.ReverseProxyEngine);
-        var result = await client.All(reverseProxyService.ReverseProxyEngine);
+        var result = await client.All();
 #if DEBUG
         stopwatch.Stop();
         Toast.Show($"加载代理服务数据耗时：{stopwatch.ElapsedMilliseconds}ms，IsSuccess：{result.IsSuccess}，Code：{result.Code}，Count：{result.Content?.Count}");
@@ -446,7 +445,7 @@ public sealed class ProxyService
                 {
                     if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
                     {
-                        item.Enable = true;
+                        item.Checked = true;
                     }
                 }
             }
@@ -461,7 +460,7 @@ public sealed class ProxyService
         {
             foreach (var item in ProxyDomains.Items)
             {
-                item.ImageStream = ImageChannelType.AccelerateGroup.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId));
+                //item.ImageStream = ImageChannelType.AccelerateGroup.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId));
             }
         }
 
@@ -470,8 +469,8 @@ public sealed class ProxyService
               .ToObservableChangeSet()
               .AutoRefresh(x => x.ObservableItems)
               .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-              .AutoRefresh(x => x.Enable)
-              .WhenPropertyChanged(x => x.Enable, false)
+              .AutoRefresh(x => x.Checked)
+              .WhenPropertyChanged(x => x.Checked, false)
               .Subscribe(_ =>
               {
                   IsChangeSupportProxyServicesStatus = true;
@@ -566,11 +565,11 @@ public sealed class ProxyService
         this.WhenAnyValue(v => v.ProxyScripts)
               .Subscribe(script => script?
               .Connect()
-              .AutoRefresh(x => x.Enable)
-              .WhenPropertyChanged(x => x.Enable, false)
+              .AutoRefresh(x => x.Disable)
+              .WhenPropertyChanged(x => x.Disable, false)
               .Subscribe(async item =>
               {
-                  item.Sender.Enable = item.Value;
+                  item.Sender.Disable = !item.Value;
                   await scriptManager.SaveEnableScriptAsync(item.Sender);
                   //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                   //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
@@ -603,13 +602,13 @@ public sealed class ProxyService
                 ProxyScripts.Remove(item);
             }
         }
-        var basicsInfo = await IMicroServiceClient.Instance.Script.Basics(AppResources.Script_UpdateError);
+        var basicsInfo = await IMicroServiceClient.Instance.Script.GM(AppResources.Script_UpdateError);
         if (basicsInfo.Code == ApiRspCode.OK && basicsInfo.Content != null)
         {
             var jspath = await scriptManager.DownloadScriptAsync(basicsInfo.Content.UpdateLink);
             if (jspath.IsSuccess)
             {
-                var build = await scriptManager.AddScriptAsync(jspath.Content!, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
+                var build = await scriptManager.AddScriptAsync(jspath.Content!, isCompile: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
                 if (build.IsSuccess)
                 {
                     if (build.Content != null)
@@ -665,14 +664,14 @@ public sealed class ProxyService
     public async Task AddNewScriptAsync(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null)
     {
         IsLoading = true;
-        bool isbuild = true;
-        int order = 10;
+        bool isCompile = true;
+        long order = 10;
         if (oldInfo != null)
         {
-            isbuild = oldInfo.IsBuild;
+            isCompile = oldInfo.IsCompile;
             order = oldInfo.Order;
         }
-        var item = await scriptManager.AddScriptAsync(fileInfo, info, oldInfo, build: isbuild, order: order);
+        var item = await scriptManager.AddScriptAsync(fileInfo, info, oldInfo, isCompile: isCompile, order: order);
         if (item.IsSuccess)
         {
             if (item.Content != null)
@@ -714,7 +713,7 @@ public sealed class ProxyService
         var jspath = await scriptManager.DownloadScriptAsync(model.UpdateLink);
         if (jspath.IsSuccess)
         {
-            var build = await scriptManager.AddScriptAsync(jspath.Content!, model, build: model.IsBuild, order: model.Order, deleteFile: true, pid: model.Id);
+            var build = await scriptManager.AddScriptAsync(jspath.Content!, model, isCompile: model.IsCompile, order: model.Order, deleteFile: true, pid: model.Id);
             if (build.IsSuccess)
             {
                 if (build.Content != null)
@@ -754,7 +753,7 @@ public sealed class ProxyService
     {
         var items = ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id!.Value).ToList();
         var client = IMicroServiceClient.Instance.Script;
-        var response = await client.ScriptUpdateInfo(items, AppResources.Script_UpdateError);
+        var response = await client.GetInfoByIds(AppResources.Script_UpdateError, items);
         if (response.Code == ApiRspCode.OK && response.Content != null)
         {
             foreach (var item in ProxyScripts.Items)

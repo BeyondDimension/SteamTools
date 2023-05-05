@@ -40,13 +40,13 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             cancellationToken: cancellationToken, userAgent: http_helper.UserAgent);
     }
 
-    public async Task<IApiRsp<ScriptDTO?>> AddScriptAsync(string filePath, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false)
+    public async Task<IApiRsp<ScriptDTO?>> AddScriptAsync(string filePath, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false)
     {
         var fileInfo = new FileInfo(filePath);
         if (fileInfo.Exists)
         {
             _ = ScriptDTO.TryParse(filePath, out ScriptDTO? info);
-            return await AddScriptAsync(fileInfo, info, oldInfo, build, order, deleteFile, pid, ignoreCache);
+            return await AddScriptAsync(fileInfo, info, oldInfo, isCompile, order, deleteFile, pid, ignoreCache);
         }
         else
         {
@@ -56,7 +56,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         }
     }
 
-    public async Task<IApiRsp<ScriptDTO?>> AddScriptAsync(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null, bool build = true, int? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false)
+    public async Task<IApiRsp<ScriptDTO?>> AddScriptAsync(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false)
     {
         if (info != null)
         {
@@ -109,24 +109,24 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                         info.Id = pid.Value;
                     var cachePath = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName, fileName);
                     info.FilePath = path;
-                    info.IsBuild = build;
+                    info.IsCompile = isCompile;
                     info.CachePath = path;
                     saveInfo = new FileInfo(cachePath);
-                    if (await BuildScriptAsync(info, saveInfo, build))
+                    if (await BuildScriptAsync(info, saveInfo, isCompile))
                     {
-                        var db = mapper.Map<Script>(info);
-                        db.MD5 = md5;
-                        db.SHA512 = sha512;
-                        if (db.Pid != null && db.Pid == Guid.Parse("00000000-0000-0000-0000-000000000001"))
+                        var entity = mapper.Map<Script>(info);
+                        entity.MD5 = md5;
+                        entity.SHA512 = sha512;
+                        if (entity.Pid != null && entity.Pid == Guid.Parse("00000000-0000-0000-0000-000000000001"))
                         {
                             info.IsBasics = true;
                             order = 1;
                         }
                         if (order.HasValue)
-                            db.Order = order.Value;
-                        else if (db.Order == 0)
-                            db.Order = 10;
-                        info.Order = db.Order;
+                            entity.Order = order.Value > int.MaxValue ? int.MaxValue : (order.Value < int.MinValue ? int.MinValue : ((int)order.Value));
+                        else if (entity.Order == 0)
+                            entity.Order = 10;
+                        info.Order = entity.Order;
                         try
                         {
                             if (deleteFile)
@@ -136,8 +136,8 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                         {
                             logger.LogError(e.ToString());
                         }
-                        var isSuccess = (await scriptRepository.InsertOrUpdateAsync(db)).rowCount > 0;
-                        info.LocalId = db.Id;
+                        var isSuccess = (await scriptRepository.InsertOrUpdateAsync(entity, CancellationToken.None)).rowCount > 0;
+                        info.LocalId = entity.Id;
                         if (isSuccess)
                         {
                             return ApiRspHelper.Code<ScriptDTO?>(ApiRspCode.OK, AppResources.Script_SaveDbSuccess, info);
@@ -313,7 +313,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             if (File.Exists(infoPath))
             {
                 item.Content = File.ReadAllText(infoPath);
-                if (!await BuildScriptAsync(item, fileInfo, item.IsBuild))
+                if (!await BuildScriptAsync(item, fileInfo, item.IsCompile))
                 {
                     toast.Show(AppResources.Script_ReadFileError.Format(item.Name));
                 }

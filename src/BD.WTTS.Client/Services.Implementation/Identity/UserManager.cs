@@ -27,7 +27,7 @@ public class UserManager : IUserManager
 
     protected bool isAnonymous;
     protected CurrentUser? currentUser;
-    protected UserInfoDTO? currentUserInfo;
+    protected IdentityUserInfoDTO? currentUserInfo;
 
     protected CurrentUser? CurrentUser
     {
@@ -97,7 +97,7 @@ public class UserManager : IUserManager
         PrintCurrentUser("SetCurrentUser");
     }
 
-    public async ValueTask<UserInfoDTO?> GetCurrentUserInfoAsync()
+    public async ValueTask<IdentityUserInfoDTO?> GetCurrentUserInfoAsync()
     {
         if (currentUserInfo == null && !isAnonymous)
         {
@@ -110,7 +110,7 @@ public class UserManager : IUserManager
         return currentUserInfo;
     }
 
-    public async Task SetCurrentUserInfoAsync(UserInfoDTO value, bool updateToDataBase)
+    public async Task SetCurrentUserInfoAsync(IdentityUserInfoDTO value, bool updateToDataBase)
     {
         currentUserInfo = value;
         if (updateToDataBase)
@@ -160,14 +160,14 @@ public class UserManager : IUserManager
         return value;
     }
 
-    public async Task<UserDTO?> GetUserByIdAsync(Guid userId)
-    {
-        var user = await GetUserTableByIdAsync(userId);
-        var value = await GetUserByTableAsync(user, BindingUserAsync<UserDTO>);
-        return value;
-    }
+    //public async Task<UserDTO?> GetUserByIdAsync(Guid userId)
+    //{
+    //    var user = await GetUserTableByIdAsync(userId);
+    //    var value = await GetUserByTableAsync(user, BindingUserAsync<UserDTO>);
+    //    return value;
+    //}
 
-    async Task<bool> VerifyUserInfoAsync(User user, UserInfoDTO userInfo)
+    async Task<bool> VerifyUserInfoAsync(User user, IdentityUserInfoDTO userInfo)
     {
         if (user.Id != userInfo.Id)
         {
@@ -188,7 +188,7 @@ public class UserManager : IUserManager
         return true;
     }
 
-    async Task<UserInfoDTO?> BindingUserInfoAsync(User user)
+    async Task<IdentityUserInfoDTO?> BindingUserInfoAsync(User user)
     {
         if (user.UserInfo != null)
         {
@@ -197,7 +197,7 @@ public class UserManager : IUserManager
                 var userInfoBytes = await security.DB(user.UserInfo);
                 if (userInfoBytes != null)
                 {
-                    var value = Serializable.DMP<UserInfoDTO>(userInfoBytes);
+                    var value = Serializable.DMP<IdentityUserInfoDTO>(userInfoBytes);
                     if (value != null)
                     {
                         var v = await VerifyUserInfoAsync(user, value);
@@ -213,11 +213,11 @@ public class UserManager : IUserManager
                 logger.LogError(e, "BindingUserInfo Serializable & Verify Fail.");
             }
         }
-        var r = await BindingUserAsync<UserInfoDTO>(user);
+        var r = await BindingUserAsync<IdentityUserInfoDTO>(user);
         return r;
     }
 
-    public async Task<UserInfoDTO?> GetUserInfoByIdAsync(Guid userId)
+    public async Task<IdentityUserInfoDTO?> GetUserInfoByIdAsync(Guid userId)
     {
         var user = await GetUserTableByIdAsync(userId);
         return await GetUserByTableAsync(user, BindingUserInfoAsync);
@@ -233,7 +233,7 @@ public class UserManager : IUserManager
             NickName = nickName_,
             Avatar = user.Avatar,
         };
-        if (user is UserInfoDTO userInfo)
+        if (user is IdentityUserInfoDTO userInfo)
         {
             userTable.UserInfo = Serializable.SMP(userInfo);
             userTable.UserInfo = await security.EB(userTable.UserInfo);

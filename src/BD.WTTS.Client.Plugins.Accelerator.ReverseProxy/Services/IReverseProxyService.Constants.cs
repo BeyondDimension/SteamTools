@@ -1,5 +1,3 @@
-using MessagePack;
-
 namespace BD.WTTS.Services;
 
 /// <summary>
@@ -13,10 +11,12 @@ public partial interface IReverseProxyService : IDisposable, IReverseProxySettin
 
     static IReverseProxyService Instance => Ioc.Get<IReverseProxyService>();
 
-    /// <inheritdoc cref="ICertificateManager.CertificateName"/>
-    const string CertificateName = ICertificateManager.CertificateName;
+    /// <inheritdoc cref="CertificateConstants.CertificateName"/>
+    const string CertificateName = CertificateConstants.CertificateName;
 
-    const string RootCertificateName = ICertificateManager.RootCertificateName;
+    /// <inheritdoc cref="CertificateConstants.RootCertificateName"/>
+    const string RootCertificateName = CertificateConstants.RootCertificateName;
+
     const string LocalDomain = "local.steampp.net";
 
     const ExternalProxyType DefaultTwoLevelAgentProxyType = ExternalProxyType.Socks5;
