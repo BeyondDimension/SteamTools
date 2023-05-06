@@ -7,7 +7,7 @@ namespace BD.WTTS.Services.Implementation;
 [PseudoClasses(":topleft", ":topright", ":bottomleft", ":bottomright")]
 sealed class AvaloniaToastServiceImpl : IToastService
 {
-    public WindowNotificationManager? NotificationManager { get; set; }
+    public SnackbarManager? NotificationManager { get; set; }
 
     /// <summary>
     /// 显示Toast
@@ -35,21 +35,21 @@ sealed class AvaloniaToastServiceImpl : IToastService
             }
         }
 
-        NotificationManager ??= new WindowNotificationManager(host)
+        NotificationManager ??= new SnackbarManager(host)
         {
             Position = NotificationPosition.BottomRight,
             MaxItems = 4,
         };
 
-        var info = new InfoBar()
-        {
-            Title = "Welcome",
-            Message = "Avalonia now supports Notifications.",
-            Severity = InfoBarSeverity.Informational,
-            IsClosable = true,
-        };
+        //var info = new InfoBar()
+        //{
+        //    Title = "Welcome",
+        //    Message = "Avalonia now supports Notifications.",
+        //    Severity = InfoBarSeverity.Informational,
+        //    IsClosable = true,
+        //};
 
-        NotificationManager.Show(info);
+        NotificationManager.Show("Test");
     }
 
     /// <inheritdoc cref="Show(string, int?)"/>

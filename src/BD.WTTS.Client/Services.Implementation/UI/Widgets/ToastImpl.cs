@@ -2,7 +2,7 @@
 namespace BD.WTTS.Services.Implementation;
 
 /// <summary>
-/// 使用 <see cref="ToastService"/> 实现的 <see cref="IToast"/>
+/// 使用 <see cref="IToastService"/> 实现的 <see cref="IToast"/>
 /// </summary>
 internal sealed class ToastImpl : ToastBaseImpl
 {

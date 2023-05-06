@@ -1,0 +1,100 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+        xmlns:uip="clr-namespace:FluentAvalonia.UI.Controls.Primitives;assembly=FluentAvalonia"
+        x:CompileBindings="True">
+
+	<Design.PreviewWith>
+		<Border Padding="40">
+			<StackPanel Spacing="10">
+				<ui:InfoBar IsOpen="True" Title="Title1" Message="Message" IsClosable="True" IsIconVisible="True" />
+				<ui:InfoBar IsOpen="True" Title="Title" Message="Message" IsClosable="False" IsIconVisible="True" />
+				<ui:InfoBar IsOpen="True" Title="Title" Message="Message" IsClosable="True" IsIconVisible="False" />
+
+				<Border Background="Black" Height="1" />
+
+				<ui:InfoBar IsOpen="True" Title="Title" Message="Message" Severity="Informational" />
+				<ui:InfoBar IsOpen="True" Title="Title" Message="Message" Severity="Warning" />
+				<ui:InfoBar IsOpen="True" Title="Title" Message="Message" Severity="Error" />
+				<ui:InfoBar IsOpen="True" Title="Title" Message="Message" Severity="Success" />
+
+				<ui:InfoBar IsOpen="True" Title="Title" Background="DarkSlateBlue" Message="Message" Severity="Success" Foreground="Red" />
+
+				<ui:InfoBar IsOpen="True" Title="Custom Icon" Message="akls;df">
+					<ui:InfoBar.IconSource>
+						<ui:SymbolIconSource Symbol="Add" />
+					</ui:InfoBar.IconSource>
+				</ui:InfoBar>
+
+				<ui:InfoBar IsOpen="True" Title="Title" Message="Action Button">
+					<ui:InfoBar.ActionButton>
+						<Button Content="Click" />
+					</ui:InfoBar.ActionButton>
+				</ui:InfoBar>
+
+				<ui:InfoBar IsOpen="True" Title="Title" Message="asdf">
+					<CheckBox Content="Custom Content" />
+				</ui:InfoBar>
+
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
+
+	<Style Selector="ui|InfoBar">
+		<Style.Animations>
+			<Animation Easing="QuadraticEaseIn"
+					   FillMode="Forward"
+					   Duration="0:0:0.45">
+				<KeyFrame Cue="0%">
+					<Setter Property="Opacity" Value="0" />
+					<Setter Property="TranslateTransform.Y" Value="20" />
+					<Setter Property="ScaleTransform.ScaleX" Value="0.85" />
+					<Setter Property="ScaleTransform.ScaleY" Value="0.85" />
+				</KeyFrame>
+				<KeyFrame Cue="30%">
+					<Setter Property="TranslateTransform.Y" Value="-20" />
+				</KeyFrame>
+				<KeyFrame Cue="100%">
+					<Setter Property="Opacity" Value="1" />
+					<Setter Property="TranslateTransform.Y" Value="0" />
+					<Setter Property="ScaleTransform.ScaleX" Value="1" />
+					<Setter Property="ScaleTransform.ScaleY" Value="1" />
+				</KeyFrame>
+			</Animation>
+		</Style.Animations>
+	</Style>
+
+	<Style Selector="ui|InfoBar[IsOpen=False] /template/ LayoutTransformControl#PART_LayoutTransformControl">
+		<Setter Property="RenderTransformOrigin" Value="50%,0%" />
+		<Style.Animations>
+			<Animation Easing="QuadraticEaseOut"
+					   FillMode="Forward"
+					   Duration="0:0:0.75">
+				<KeyFrame Cue="0%">
+					<Setter Property="TranslateTransform.X" Value="0" />
+					<Setter Property="ScaleTransform.ScaleY" Value="1" />
+				</KeyFrame>
+				<KeyFrame Cue="70%">
+					<Setter Property="TranslateTransform.X" Value="800" />
+					<Setter Property="ScaleTransform.ScaleY" Value="1" />
+				</KeyFrame>
+				<KeyFrame Cue="100%">
+					<Setter Property="ScaleTransform.ScaleY" Value="0" />
+					<Setter Property="TranslateTransform.X" Value="800" />
+				</KeyFrame>
+			</Animation>
+		</Style.Animations>
+	</Style>
+
+	<Style Selector="ui|InfoBar[IsOpen=False]">
+		<Style.Animations>
+			<Animation Easing="QuadraticEaseOut"
+					   FillMode="Forward"
+					   Duration="0:0:1.25">
+				<KeyFrame Cue="100%">
+					<Setter Property="IsOpen" Value="False" />
+				</KeyFrame>
+			</Animation>
+		</Style.Animations>
+	</Style>
+</Styles>

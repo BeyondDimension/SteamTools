@@ -6,13 +6,9 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:spp="https://steampp.net/ui"
 			 xmlns:s="https://steampp.net/services"
-			 xmlns:ui="using:FluentAvalonia.UI.Controls"
-			 VerticalAlignment="Bottom"
-			 HorizontalAlignment="Center"
-			 Margin="20"
-             IsVisible="{Binding Source={x:Static s:ToastService.Current},Path=IsVisible,Mode=OneWay}">
-	<ui:InfoBar Title="{Binding Source={x:Static s:ToastService.Current},Path=Title,Mode=OneWay}"
-				Message="{Binding Source={x:Static s:ToastService.Current},Path=Message,Mode=OneWay}"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls">
+	<ui:InfoBar Title=""
+				Message=""
 			    IsIconVisible="True"
 				IsClosable="True"
 				Severity="Informational">
