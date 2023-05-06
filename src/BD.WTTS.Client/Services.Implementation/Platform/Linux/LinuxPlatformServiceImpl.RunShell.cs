@@ -4,7 +4,7 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class LinuxPlatformServiceImpl
 {
-    ValueTask IPlatformService.RunShellAsync(string script, bool requiredAdministrator)
-        => UnixHelper.RunShellAsync(script, requiredAdministrator);
+    public ValueTask RunShellAsync(string script, bool requiredAdministrator)
+         => UnixHelper.RunShellAsync(script, requiredAdministrator);
 }
 #endif

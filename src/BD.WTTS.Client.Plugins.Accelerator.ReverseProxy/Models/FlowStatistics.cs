@@ -8,7 +8,7 @@ namespace BD.WTTS.Models;
 /// 流量统计
 /// </summary>
 [MemoryPackable]
-public partial record FlowStatistics : IReverseProxyPacket
+public partial record FlowStatistics
 {
     /// <summary>
     /// 获取总读上行

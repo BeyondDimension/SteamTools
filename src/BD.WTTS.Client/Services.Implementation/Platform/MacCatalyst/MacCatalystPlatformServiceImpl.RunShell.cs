@@ -6,7 +6,7 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
-    static async ValueTask RunShellAsync(string script, bool requiredAdministrator)
+    static async ValueTask RunShellCoreAsync(string script, bool requiredAdministrator)
     {
         var scriptContent = new StringBuilder();
         if (requiredAdministrator)
@@ -33,7 +33,7 @@ partial class MacCatalystPlatformServiceImpl
         }
     }
 
-    ValueTask IPlatformService.RunShellAsync(string script, bool requiredAdministrator)
-        => RunShellAsync(script, requiredAdministrator);
+    public ValueTask RunShellAsync(string script, bool requiredAdministrator)
+        => RunShellCoreAsync(script, requiredAdministrator);
 }
 #endif

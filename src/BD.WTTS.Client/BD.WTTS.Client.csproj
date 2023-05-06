@@ -94,6 +94,7 @@
 		<PackageReference Include="System.Linq.Async" />
 		<!--<PackageReference Include="Portable.BouncyCastle" />-->
 		<PackageReference Include="ReactiveUI.Fody" />
+		<PackageReference Include="dotnetCampus.Ipc" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">

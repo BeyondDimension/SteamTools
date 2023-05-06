@@ -6,7 +6,7 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
-    internal static bool IsCertificateInstalled(X509Certificate2 certificate2)
+    internal static bool IsCertificateInstalledCore(X509Certificate2 certificate2)
     {
         return default;
         //using var p = new Process();
@@ -38,10 +38,10 @@ partial class MacCatalystPlatformServiceImpl
         //return result;
     }
 
-    bool IPlatformService.IsCertificateInstalled(X509Certificate2 certificate2)
-        => IsCertificateInstalled(certificate2);
+    public bool IsCertificateInstalled(X509Certificate2 certificate2)
+          => IsCertificateInstalledCore(certificate2);
 
-    async ValueTask<bool?> IPlatformService.TrustRootCertificateAsync(string filePath)
+    public async ValueTask<bool?> TrustRootCertificateAsync(string filePath)
     {
         var script = $"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db";
         TextBoxWindowViewModel vm = new()
@@ -62,7 +62,7 @@ partial class MacCatalystPlatformServiceImpl
         return true;
     }
 
-    async void IPlatformService.RemoveCertificate(X509Certificate2 certificate2)
+    public async void RemoveCertificate(X509Certificate2 certificate2)
     {
         using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
         try

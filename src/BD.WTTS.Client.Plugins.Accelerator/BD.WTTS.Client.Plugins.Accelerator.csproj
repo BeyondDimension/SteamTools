@@ -69,12 +69,6 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Enums\ExternalProxyType.cs">
 			<LinkBase>Enums</LinkBase>
 		</Compile>
-		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Enums\ReverseProxyCommand.cs">
-			<LinkBase>Enums</LinkBase>
-		</Compile>
-		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Models\IReverseProxyPacket.cs">
-			<LinkBase>Models</LinkBase>
-		</Compile>
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Models\FlowStatistics.cs">
 			<LinkBase>Models</LinkBase>
 		</Compile>

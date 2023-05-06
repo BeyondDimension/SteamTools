@@ -2,7 +2,7 @@
 
 namespace BD.WTTS.Services;
 
-partial interface IPlatformService
+partial interface IPCPlatformService
 {
     /// <summary>
     /// 运行 Shell 脚本

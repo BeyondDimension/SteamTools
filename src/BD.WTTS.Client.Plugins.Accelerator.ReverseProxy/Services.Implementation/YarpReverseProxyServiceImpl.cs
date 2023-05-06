@@ -12,6 +12,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     WebApplication? app;
     readonly IPCService ipc;
+    readonly IPCToastService toast;
 
     public YarpReverseProxyServiceImpl(
         IPCService ipc,
@@ -20,6 +21,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
     {
         this.ipc = ipc;
         CertificateManager = certificateManager;
+        toast = ipc.GetService<IPCToastService>().ThrowIsNull(nameof(toast));
     }
 
     public override ICertificateManager CertificateManager { get; }
@@ -86,7 +88,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 catch (Exception ex)
                 {
                     app = null;
-                    ipc.Send(ReverseProxyCommand.OnExceptionTerminating, ex.Message);
+                    toast.ShowAppend(IPCToastService.ToastText.CommunityFix_OnRunCatch, Environment.NewLine + "ExceptionMessage: " + ex.Message);
                 }
             }, TaskCreationOptions.LongRunning);
 

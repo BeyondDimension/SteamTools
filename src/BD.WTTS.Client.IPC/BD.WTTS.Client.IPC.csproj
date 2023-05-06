@@ -26,14 +26,24 @@
 		<Compile Include="..\ImplicitUsings.Nito.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
-		<Compile Include="..\ImplicitUsings.Enums.cs">
+		<!--<Compile Include="..\ImplicitUsings.Enums.cs">
 			<LinkBase>Properties</LinkBase>
+		</Compile>-->
+		<Compile Include="..\BD.WTTS.Client\Services\IPC\IPCModuleService.cs">
+			<LinkBase>Services</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Services\Platform\IPC\*.cs">
+			<LinkBase>Services\Platform</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Services\UI\Widgets\IPC\*.cs">
+			<LinkBase>Services\UI\Widgets</LinkBase>
 		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 		<!-- PackageReference -->
 		<PackageReference Include="BD.Common" />
+		<PackageReference Include="dotnetCampus.Ipc" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_ALL.props" />

@@ -10,10 +10,14 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     ICertificateManager Interface => this;
 
     readonly IPCService ipc;
+    readonly IPCPlatformService platformService;
+    readonly IPCToastService toast;
 
     public CertificateManagerImpl(IPCService ipc)
     {
         this.ipc = ipc;
+        platformService = ipc.GetService<IPCPlatformService>().ThrowIsNull(nameof(platformService));
+        toast = ipc.GetService<IPCToastService>().ThrowIsNull(nameof(toast));
     }
 
     /// <inheritdoc cref="ICertificateManager.RootCertificate"/>
@@ -176,7 +180,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         if (!result || RootCertificate == null)
         {
             Log.Error(TAG, "Failed to create certificate");
-            ipc.Send(ReverseProxyCommand.ToastShowCreateCertificateFaild);
+            toast.Show(IPCToastService.ToastText.CreateCertificateFaild);
             return false;
         }
 

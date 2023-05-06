@@ -16,7 +16,7 @@ sealed class Plugin : PluginBase<Plugin>
         {
 #if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             // 通用 Http 代理服务
-            services.AddSingleton<IReverseProxyService, IPCReverseProxyServiceImpl>();
+            //services.AddSingleton<IReverseProxyService, IPCReverseProxyServiceImpl>();
             if (options.IsTrace) StartWatchTrace.Record("DI.D.HttpProxy");
 #endif
         }
@@ -55,7 +55,7 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override async void OnUnhandledException(Exception ex, string name, bool? isTerminating = null)
     {
-        IReverseProxyService reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
+        var reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
         if (reverseProxyService != null)
         {
             await reverseProxyService.StartProxyAsync();

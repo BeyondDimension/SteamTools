@@ -1,10 +1,6 @@
-if (!args.Any())
-    return (int)IPCExitCode.EmptyArrayArgs;
-var pipeName = args[0];
-if (string.IsNullOrWhiteSpace(pipeName))
-    return (int)IPCExitCode.EmptyPipeName;
-
-Ioc.ConfigureServices(ConfigureServices);
+const string moduleName = "Accelerator";
+var exitCode = await IPCService.MainAsync(moduleName, ConfigureServices, args);
+return exitCode;
 
 static void ConfigureServices(IServiceCollection services)
 {
@@ -16,9 +12,4 @@ static void ConfigureServices(IServiceCollection services)
     services.AddDnsAnalysisService();
     services.AddReverseProxyService();
     services.AddSingleton<ICertificateManager, CertificateManagerImpl>();
-    services.AddSingleton<IPCService, IPCServiceImpl>();
 }
-
-using var ipc = IPCService.Instance;
-var exitCode = await ipc.RunAsync(pipeName);
-return exitCode;

@@ -172,14 +172,14 @@ static partial class Program
                 UseWindowsUIComposition = true,
                 CompositionBackdropCornerRadius = 8f,
             };
-            
+
             builder.With(options);
-            
+
             var skiaOptions = new SkiaOptions
             {
                 MaxGpuResourceSizeBytes = 1024000000,
             };
-            
+
             builder.With(skiaOptions);
 #else
             throw new PlatformNotSupportedException("Avalonia.Desktop package was referenced on non-desktop platform or it isn't supported");

@@ -1,5 +1,4 @@
 // ReSharper disable once CheckNamespace
-
 namespace BD.WTTS.Services;
 
 partial interface IPlatformService
@@ -10,8 +9,6 @@ partial interface IPlatformService
         internal static readonly string HostsFilePath =
             Path.Combine(Environment.SystemDirectory, "drivers", "etc", "hosts");
     }
-#else
-    const string UnixHostsFilePath = $"/etc/hosts";
 #endif
 
     /// <summary>
@@ -21,7 +18,7 @@ partial interface IPlatformService
 #if WINDOWS
         WINDOWS_HostsFilePath.HostsFilePath;
 #else
-        UnixHostsFilePath;
+        "/etc/hosts";
 #endif
 
     /// <summary>

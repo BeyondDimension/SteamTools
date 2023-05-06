@@ -12,6 +12,8 @@
 global using BD.Common;
 global using BD.Common.Columns;
 global using BD.Common.Enums;
+#elif LIB_CLIENT_IPC
+global using BD.Common.Enums;
 #endif
 
 #if _IMPORT_COMMON_IDENTITY__

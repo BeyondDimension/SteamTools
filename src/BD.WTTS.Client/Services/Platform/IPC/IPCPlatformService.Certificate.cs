@@ -1,8 +1,7 @@
 // ReSharper disable once CheckNamespace
-
 namespace BD.WTTS.Services;
 
-partial interface IPlatformService
+partial interface IPCPlatformService
 {
     /// <summary>
     /// 判断证书是否已安装
