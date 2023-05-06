@@ -70,7 +70,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 打分&amp;评价 的本地化字符串。
+        ///   查找类似 打分 &amp; 评价 的本地化字符串。
         /// </summary>
         public static string About_AppReview {
             get {
@@ -100,7 +100,7 @@ namespace BD.WTTS.Client.Resources {
         ///   查找类似 「Watt Toolkit」当前版本的发布离不开大家的支持，如果 Watt Toolkit 有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护 Watt Toolkit。
         ///*捐助时请记得备注上您 Watt Toolkit 账号的 UID 在备注消息内，这样能方便我们后续将捐助奖励反馈到您的账号上。
         ///
-        ///在1.x版本捐助过的人我们之后会开发补录账号数据的网页链接，请留意更新信息，和保存好您曾经捐助支付的订单号。 的本地化字符串。
+        ///在 1.x 版本捐助过的人我们之后会开发补录账号数据的网页链接，请留意更新信息，和保存好您曾经捐助支付的订单号。 的本地化字符串。
         /// </summary>
         public static string About_Donate_Desc {
             get {
@@ -136,7 +136,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 这个月还没有人捐助过啊... 的本地化字符串。
+        ///   查找类似 这个月还没有人捐助过啊… 的本地化字符串。
         /// </summary>
         public static string About_DonateRecord_NoData {
             get {
@@ -444,7 +444,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 修改成就{0}时发生错误 的本地化字符串。
+        ///   查找类似 修改成就 {0} 时发生错误 的本地化字符串。
         /// </summary>
         public static string Achievement_Warning_3 {
             get {
@@ -453,7 +453,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 修改统计{0}时发生错误 的本地化字符串。
+        ///   查找类似 修改统计 {0} 时发生错误 的本地化字符串。
         /// </summary>
         public static string Achievement_Warning_4 {
             get {
@@ -534,7 +534,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 ASF 服务正在运行。 的本地化字符串。
+        ///   查找类似 ASF 服务正在运行 的本地化字符串。
         /// </summary>
         public static string ArchiSteamFarmForegroundService_NotificationText {
             get {
@@ -642,7 +642,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 确定要删除这个Bot吗？ 的本地化字符串。
+        ///   查找类似 确定要删除这个 Bot 吗？ 的本地化字符串。
         /// </summary>
         public static string ASF_DeleteBotTip {
             get {
@@ -825,7 +825,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 已将 {0} 个 Key 添加到激活队列，队列中的 Key 会自动排队激活。 的本地化字符串。
+        ///   查找类似 已将 {0} 个 Key 添加到激活队列，队列中的 Key 会自动排队激活 的本地化字符串。
         /// </summary>
         public static string ASF_RedeemKeyBotSuccessTip {
             get {
@@ -924,7 +924,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 ASF已经运行 的本地化字符串。
+        ///   查找类似 ASF 已经运行 的本地化字符串。
         /// </summary>
         public static string ASF_RuningTip {
             get {
@@ -1041,7 +1041,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像。 的本地化字符串。
+        ///   查找类似 绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像 的本地化字符串。
         /// </summary>
         public static string AsyncSteamAvatarDesc {
             get {
@@ -1293,7 +1293,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 DNS解析遇到异常，请尝试在代理设置中修改其它DNS再次尝试 的本地化字符串。
+        ///   查找类似 DNS 解析遇到异常，请尝试在代理设置中修改其它 DNS 再次尝试 的本地化字符串。
         /// </summary>
         public static string CommunityFix_DNSErrorNotify {
             get {
@@ -1401,6 +1401,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 启动网络加速失败 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_OnRunCatch {
+            get {
+                return ResourceManager.GetString("CommunityFix_OnRunCatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 打开证书文件夹 的本地化字符串。
         /// </summary>
         public static string CommunityFix_OpenCertificateDir {
@@ -1428,7 +1437,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用。 的本地化字符串。
+        ///   查找类似 修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_HostsTip {
             get {
@@ -1437,7 +1446,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 设置系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。 的本地化字符串。
+        ///   查找类似 设置系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_WinSystemTip {
             get {
@@ -1464,7 +1473,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 读取或还原文件时失败，因被其他进程占用，可能是其他不兼容的网络加速程序，请找到占用的进程将其关闭。 的本地化字符串。
+        ///   查找类似 读取或还原文件时失败，因被其他进程占用，可能是其他不兼容的网络加速程序，请找到占用的进程将其关闭 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ReadHosts_IOException {
             get {
@@ -1554,7 +1563,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 启动加速服务失败，遇到未知错误，具体原因请在 [设置] - [通用设置] - [存储空间] - [打开 Logs 文件夹] 查看当天日志。 的本地化字符串。
+        ///   查找类似 启动加速服务失败，遇到未知错误，具体原因请在 [设置] - [通用设置] - [存储空间] - [打开 Logs 文件夹] 查看当天日志 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild {
             get {
@@ -1563,7 +1572,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 加速服务启动失败，{0} 端口被占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。 的本地化字符串。
+        ///   查找类似 加速服务启动失败，{0} 端口被占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild443_ {
             get {
@@ -1572,7 +1581,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 加速服务启动失败，{0} 端口被 {1}({2}) 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。 的本地化字符串。
+        ///   查找类似 加速服务启动失败，{0} 端口被 {1}({2}) 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild443___ {
             get {
@@ -2166,7 +2175,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 警告：Steam允许的同时运行游戏数量为 {0} 个，如果您同时挂时长 {1} 款游戏，将无法正常游玩游戏！ 的本地化字符串。
+        ///   查找类似 警告：Steam 允许的同时运行游戏数量为 {0} 个，如果您同时挂时长 {1} 款游戏，将无法正常游玩游戏！ 的本地化字符串。
         /// </summary>
         public static string GameList_AddAFKAppsWarningCountTips {
             get {
@@ -2229,7 +2238,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam云存档管理 的本地化字符串。
+        ///   查找类似 Steam 云存档管理 的本地化字符串。
         /// </summary>
         public static string GameList_CloudArchiveManager {
             get {
@@ -2382,7 +2391,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 仅显示支持Steam云存档的游戏 的本地化字符串。
+        ///   查找类似 仅显示支持 Steam 云存档的游戏 的本地化字符串。
         /// </summary>
         public static string GameList_OnlyCloudArchive {
             get {
@@ -2589,8 +2598,8 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam游戏已下载完成
-        ///系统将在 {0} 秒后{1}。 的本地化字符串。
+        ///   查找类似 Steam 游戏已下载完成
+        ///系统将在 {0} 秒后{1} 的本地化字符串。
         /// </summary>
         public static string GameList_SteamShutdown_DownloadCompleteTip {
             get {
@@ -2716,7 +2725,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。 的本地化字符串。
+        ///   查找类似 拖拽十字到游戏窗口，即可获取游戏信息执行对应操作 的本地化字符串。
         /// </summary>
         public static string GameRelated_Borderless_MoveMouseTip {
             get {
@@ -2788,7 +2797,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与 Wallpaper Engine 和其它动态桌面软件不兼容，使用时注意关掉 Wallpaper Engine 等软件。 的本地化字符串。
+        ///   查找类似 置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与 Wallpaper Engine 和其它动态桌面软件不兼容，使用时注意关掉 Wallpaper Engine 等软件 的本地化字符串。
         /// </summary>
         public static string GameRelated_Borderless_ToWallerpaperTip {
             get {
@@ -3004,7 +3013,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 正在安装，请稍后... 的本地化字符串。
+        ///   查找类似 正在安装，请稍后… 的本地化字符串。
         /// </summary>
         public static string InstallingPleaseWait {
             get {
@@ -3049,7 +3058,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 加载中... 的本地化字符串。
+        ///   查找类似 加载中… 的本地化字符串。
         /// </summary>
         public static string Loading {
             get {
@@ -3229,7 +3238,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登录状态已失效请尝试重新登录。 的本地化字符串。
+        ///   查找类似 登录状态已失效请尝试重新登录 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_GetError3 {
             get {
@@ -3238,7 +3247,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 正在获取最新的交易报价信息... 的本地化字符串。
+        ///   查找类似 正在获取最新的交易报价信息… 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_GetTip {
             get {
@@ -3265,7 +3274,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 这将{0}您当前所有的交易报价。
+        ///   查找类似 这将{0}您当前所有的交易报价
         ///确定要继续吗? 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_MessageBoxTip {
@@ -3357,7 +3366,7 @@ namespace BD.WTTS.Client.Resources {
         
         /// <summary>
         ///   查找类似 确定要永久删除此令牌吗，这只是删除令牌文件数据，并不会解绑你的账号和令牌，
-        ///    如果需要解绑令牌请到 https://store.steampowered.com/twofactor/manage 解绑后在删除。 的本地化字符串。
+        ///    如果需要解绑令牌请到 https://store.steampowered.com/twofactor/manage 解绑后在删除 的本地化字符串。
         /// </summary>
         public static string LocalAuth_DeleteAuthTip {
             get {
@@ -3375,7 +3384,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请输入发送到您电子邮件地址的代码，以批准从新设备进行访问。 的本地化字符串。
+        ///   查找类似 请输入发送到您电子邮件地址的代码，以批准从新设备进行访问 的本地化字符串。
         /// </summary>
         public static string LocalAuth_EmailCodeTip {
             get {
@@ -3447,7 +3456,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 当前数据已加密，请先解锁才能访问。 的本地化字符串。
+        ///   查找类似 当前数据已加密，请先解锁才能访问 的本地化字符串。
         /// </summary>
         public static string LocalAuth_HasPasswordUnEncryptionAuth {
             get {
@@ -3456,7 +3465,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 导入失败，请检查数据是否正确。 的本地化字符串。
+        ///   查找类似 导入失败，请检查数据是否正确 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ImportFaild {
             get {
@@ -3474,7 +3483,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 正在加载令牌数据... 的本地化字符串。
+        ///   查找类似 正在加载令牌数据… 的本地化字符串。
         /// </summary>
         public static string LocalAuth_Loading {
             get {
@@ -3510,7 +3519,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 你还没有导入任何令牌，请先新增令牌。 的本地化字符串。
+        ///   查找类似 你还没有导入任何令牌，请先新增令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_NoAuthTip {
             get {
@@ -3564,7 +3573,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 *注意：你的令牌将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌。 的本地化字符串。
+        ///   查找类似 *注意：你的令牌将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_EnablePasswordTip {
             get {
@@ -3582,7 +3591,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 非常建议您使用密码保护您的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但您的令牌数据会有被盗取的风险!!! 的本地化字符串。
+        ///   查找类似 非常建议您使用密码保护您的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但您的令牌数据会有被盗取的风险！！！ 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_Info {
             get {
@@ -3600,7 +3609,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 你也可以使用系统内置的账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装系统或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。 的本地化字符串。
+        ///   查找类似 你也可以使用系统内置的账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装系统或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip {
             get {
@@ -3717,7 +3726,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入。(不支持导入加密文件，请先移除密码再导入) 的本地化字符串。
+        ///   查找类似 Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入（不支持导入加密文件，请先移除密码再导入） 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SDATip {
             get {
@@ -3753,7 +3762,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。 的本地化字符串。
+        ///   查找类似 在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ShowSteamAuthTip2 {
             get {
@@ -3816,7 +3825,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 导入 Watt Toolkit V1版本的导出的令牌数据 的本地化字符串。
+        ///   查找类似 导入 Watt Toolkit v1 版本的导出的令牌数据 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamToolsV1Import {
             get {
@@ -3825,7 +3834,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 导入 Watt Toolkit V2版本的导出的令牌数据 的本地化字符串。
+        ///   查找类似 导入 Watt Toolkit v2 版本的导出的令牌数据 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamToolsV2Import {
             get {
@@ -3834,8 +3843,8 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 确认交易需要登录 Steam，程序不会记录你的密码，只会在本地保存登录的状态。
-        ///    (如果没有开 Steam 网络加速会导致无法登录成功) 的本地化字符串。
+        ///   查找类似 确认交易需要登录 Steam，程序不会记录你的密码，只会在本地保存登录的状态
+        ///    （如果没有开 Steam 网络加速会导致无法登录成功） 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamTradeLoginTip {
             get {
@@ -3844,7 +3853,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 无法将添加身份验证器添加到您的帐户， 请稍后再试。 的本地化字符串。
+        ///   查找类似 无法将添加身份验证器添加到您的帐户， 请稍后再试 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUser_Error {
             get {
@@ -3853,7 +3862,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 您的帐户似乎已添加了身份验证器，需要移除现有的身份验证器才可以通过账号导入。 的本地化字符串。
+        ///   查找类似 您的帐户似乎已添加了身份验证器，需要移除现有的身份验证器才可以通过账号导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUser_Requires2FA {
             get {
@@ -3871,7 +3880,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可。 的本地化字符串。
+        ///   查找类似 你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUserImportSuccess {
             get {
@@ -3880,7 +3889,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 设备ID(uuid) 的本地化字符串。
+        ///   查找类似 设备 ID(uuid) 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUUID {
             get {
@@ -3916,7 +3925,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 WinAuth 是 Windows 的便携式开放源代码身份验证器，它提供基于计数器或基于时间的 RFC 6238 身份验证器和常见的实现。导入方法：从 WinAuth 导出 txt 文件之后在此选择从 WinAuth 导出的 txt 文件进行导入。 的本地化字符串。
+        ///   查找类似 WinAuth 是 Windows 的便携式开放源代码身份验证器，它提供基于计数器或基于时间的 RFC 6238 身份验证器和常见的实现。导入方法：从 WinAuth 导出 txt 文件之后在此选择从 WinAuth 导出的 txt 文件进行导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WinAuthTip {
             get {
@@ -3952,7 +3961,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 输入的内容不能为空。 的本地化字符串。
+        ///   查找类似 输入的内容不能为空 的本地化字符串。
         /// </summary>
         public static string Login_ManualLoginEmpt {
             get {
@@ -3988,7 +3997,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请粘贴网页复制的内容。 的本地化字符串。
+        ///   查找类似 请粘贴网页复制的内容 的本地化字符串。
         /// </summary>
         public static string LoginInputManualLoginToken {
             get {
@@ -4015,7 +4024,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请在弹出的控制台窗口输入系统密码以安装信任证书。信任完成后点击确定按钮继续。 的本地化字符串。
+        ///   查找类似 请在弹出的控制台窗口输入系统密码以安装信任证书，信任完成后点击确定按钮继续 的本地化字符串。
         /// </summary>
         public static string MacTrustRootCertificateTips {
             get {
@@ -4141,7 +4150,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 收到{0}条新消息，详情请在程序内我的消息处查看。 的本地化字符串。
+        ///   查找类似 收到 {0} 条新消息，详情请在程序内我的消息处查看。 的本地化字符串。
         /// </summary>
         public static string Notice_Tray_Content {
             get {
@@ -4168,7 +4177,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 当有新公告时的提示通知。 的本地化字符串。
+        ///   查找类似 当有新公告时的提示通知 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Description_Announcement {
             get {
@@ -4177,7 +4186,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 当开启前台服务时的通知。 的本地化字符串。
+        ///   查找类似 当开启前台服务时的通知 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Description_ForegroundService {
             get {
@@ -4186,7 +4195,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 当有提示消息时的通知。 的本地化字符串。
+        ///   查找类似 当有提示消息时的通知 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Description_Message {
             get {
@@ -4195,7 +4204,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 当有新版本可用时的提示通知与下载新版本时的进度通知。 的本地化字符串。
+        ///   查找类似 当有新版本可用时的提示通知与下载新版本时的进度通知 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Description_NewVersion {
             get {
@@ -4348,7 +4357,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Watt Toolkit 替换升级中... 的本地化字符串。
+        ///   查找类似 Watt Toolkit 替换升级中… 的本地化字符串。
         /// </summary>
         public static string ProgramUpdateEcho {
             get {
@@ -4357,7 +4366,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 本地加速代理服务正在运行。 的本地化字符串。
+        ///   查找类似 本地加速代理服务正在运行 的本地化字符串。
         /// </summary>
         public static string ProxyForegroundService_NotificationText {
             get {
@@ -4456,7 +4465,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 您的令牌已被添加到您的 Steam 账户上并已经成功导入 Watt Toolkit。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
+        ///   查找类似 您的令牌已被添加到您的 Steam 账户上并已经成功导入 Watt Toolkit。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方 的本地化字符串。
         /// </summary>
         public static string RecoveryCode_RememberTip {
             get {
@@ -4618,7 +4627,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 获取最后登录的 Steam 账号信息失败，无法修改自定义封面是。 的本地化字符串。
+        ///   查找类似 获取最后登录的 Steam 账号信息失败，无法修改自定义封面 的本地化字符串。
         /// </summary>
         public static string SaveEditedAppInfo_SteamUserNullTip {
             get {
@@ -4736,7 +4745,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 是否完成脚本修改，点击确定刷新缓存。 的本地化字符串。
+        ///   查找类似 是否完成脚本修改，点击确定刷新缓存 的本地化字符串。
         /// </summary>
         public static string Script_EditTxt {
             get {
@@ -4817,7 +4826,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 该文本文件已丢失，是否删除脚本记录。 的本地化字符串。
+        ///   查找类似 该文本文件已丢失，是否删除脚本记录 的本地化字符串。
         /// </summary>
         public static string Script_NoFileDeleteItem {
             get {
@@ -4880,7 +4889,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 获取脚本新版本信息失败。 的本地化字符串。
+        ///   查找类似 获取脚本新版本信息失败 的本地化字符串。
         /// </summary>
         public static string Script_UpdateError {
             get {
@@ -4898,7 +4907,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 未查询到匹配的脚本文件，您可以从脚本工坊下载脚本文件。 的本地化字符串。
+        ///   查找类似 未查询到匹配的脚本文件，您可以从脚本工坊下载脚本文件 的本地化字符串。
         /// </summary>
         public static string ScriptConfig_ScriptEmptyTip {
             get {
@@ -4907,7 +4916,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 获取脚本工坊列表失败。 的本地化字符串。
+        ///   查找类似 获取脚本工坊列表失败 的本地化字符串。
         /// </summary>
         public static string ScriptShop_GetTableError {
             get {
@@ -4925,7 +4934,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 使用脚本工坊需要先登录。 的本地化字符串。
+        ///   查找类似 使用脚本工坊需要先登录 的本地化字符串。
         /// </summary>
         public static string ScriptShop_NoLogin {
             get {
@@ -4943,7 +4952,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 搜索... 的本地化字符串。
+        ///   查找类似 搜索… 的本地化字符串。
         /// </summary>
         public static string Search {
             get {
@@ -5078,7 +5087,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 打开{0}文件夹 的本地化字符串。
+        ///   查找类似 打开 {0} 文件夹 的本地化字符串。
         /// </summary>
         public static string Settings_General_BrowseCustomFolder {
             get {
@@ -5096,7 +5105,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 计算中... 的本地化字符串。
+        ///   查找类似 计算中… 的本地化字符串。
         /// </summary>
         public static string Settings_General_Calcing {
             get {
@@ -5195,7 +5204,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 使用GPU渲染界面(硬件加速) 的本地化字符串。
+        ///   查找类似 使用 GPU 渲染界面（硬件加速） 的本地化字符串。
         /// </summary>
         public static string Settings_General_UseGPURendering {
             get {
@@ -5384,7 +5393,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam 启动时模拟为蒸汽平台（Steam国服）启动 的本地化字符串。
+        ///   查找类似 Steam 启动时模拟为蒸汽平台（Steam 国服）启动 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_RunSteamChina {
             get {
@@ -5510,8 +5519,8 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 *实验性功能(开启此功能时建议将透明材质设置为 Transparent 或 AcrylicBlur)
-        ///这个功能可以将 Wallpaper Engine 以及其它壁纸软件的动态壁纸设置为程序背景，如果你没有启动 Wallpaper Engine ，则默认使用桌面背景。背景仅在主窗口生效，其它窗口建议调整透明度不要完全透明或者使用图片背景。使用时注意自行根据壁纸亮暗色情况切换对应主题以获得更好的效果。 的本地化字符串。
+        ///   查找类似 *实验性功能（开启此功能时建议将透明材质设置为 Transparent 或 AcrylicBlur）
+        ///这个功能可以将 Wallpaper Engine 以及其它壁纸软件的动态壁纸设置为程序背景，如果你没有启动 Wallpaper Engine ，则默认使用桌面背景。背景仅在主窗口生效，其它窗口建议调整透明度不要完全透明或者使用图片背景。使用时注意自行根据壁纸亮暗色情况切换对应主题以获得更好的效果 的本地化字符串。
         /// </summary>
         public static string Settings_UI_EnableDesktopBackground_Tip {
             get {
@@ -5736,7 +5745,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 (已禁用) 的本地化字符串。
+        ///   查找类似 （已禁用） 的本地化字符串。
         /// </summary>
         public static string Steam_ShareDisable {
             get {
@@ -5809,7 +5818,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 家庭共享库为空。 的本地化字符串。
+        ///   查找类似 家庭共享库为空 的本地化字符串。
         /// </summary>
         public static string SteamAccountPage_ShareEmpt {
             get {
@@ -6520,7 +6529,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 确定要登出Watt Toolkit账号吗? 的本地化字符串。
+        ///   查找类似 确定要登出 Watt Toolkit 账号吗? 的本地化字符串。
         /// </summary>
         public static string User_SignOutTip {
             get {
@@ -6574,7 +6583,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 连接到 Steam 社区超时，请检查是否开启Steam社区网络加速。 的本地化字符串。
+        ///   查找类似 连接到 Steam 社区超时，请检查是否开启 Steam 社区网络加速 的本地化字符串。
         /// </summary>
         public static string User_SteamFastLoginTimeoutErrorMessage {
             get {
@@ -6637,7 +6646,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 我们已使用您的系统浏览器打开快速登录窗口，请进入该页面并登录。保持该窗口打开 的本地化字符串。
+        ///   查找类似 我们已使用您的系统浏览器打开快速登录窗口，请进入该页面并登录，保持该窗口打开 的本地化字符串。
         /// </summary>
         public static string User_WaitFastLoginTip {
             get {
@@ -6682,7 +6691,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 是否也要同时删除此账户在本地的 Steam 缓存数据(包括此账号游戏的配置文件及创意工坊文件)。 的本地化字符串。
+        ///   查找类似 是否也要同时删除此账户在本地的 Steam 缓存数据（包括此账号游戏的配置文件及创意工坊文件） 的本地化字符串。
         /// </summary>
         public static string UserChange_DeleteUserDataTip {
             get {
@@ -6737,7 +6746,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 没有在您的电脑上读取到任何 Steam 帐户数据。 的本地化字符串。
+        ///   查找类似 没有在您的电脑上读取到任何 Steam 帐户数据 的本地化字符串。
         /// </summary>
         public static string UserChange_NoUserTip {
             get {

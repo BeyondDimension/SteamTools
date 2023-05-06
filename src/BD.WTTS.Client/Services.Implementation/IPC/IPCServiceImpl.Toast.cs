@@ -10,7 +10,7 @@ partial class IPCServiceImpl : IPCToastService
     {
         ToastText.CreateCertificateFaild => AppResources.CreateCertificateFaild,
         ToastText.CommunityFix_DNSErrorNotify => AppResources.CommunityFix_DNSErrorNotify,
-        ToastText.CommunityFix_OnRunCatch => "启动加速失败",
+        ToastText.CommunityFix_OnRunCatch => AppResources.CommunityFix_OnRunCatch,
         _ => string.Empty,
     };
 
