@@ -91,6 +91,15 @@ static partial class Program
         string IApplicationVersionService.AssemblyTrademark => AssemblyInfo.Trademark;
     }
 
+#if AVALONIA && WINDOWS
+    sealed class AvaWinDeviceInfoPlatformServiceImpl : Common.Services.Implementation.Essentials.DeviceInfoPlatformServiceImpl
+    {
+        public sealed override bool IsWinUI => default;
+
+        public sealed override bool IsUWP => default;
+    }
+#endif
+
     /// <summary>
     /// 配置任何进程都必要的依赖注入服务
     /// </summary>
@@ -141,6 +150,11 @@ static partial class Program
 #if LINUX
         services.TryAddSingleton<IApplicationVersionService, Essentials_AppVerS>();
 #else
+#if WINDOWS
+#if AVALONIA
+        services.AddSingleton<IDeviceInfoPlatformService, AvaWinDeviceInfoPlatformServiceImpl>();
+#endif
+#endif
         services.TryAddEssentials<Essentials_AppVerS>();
 #endif
 

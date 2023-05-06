@@ -46,6 +46,15 @@ public partial class DebugPageViewModel
                 ContentWindowViewModel vm = new() { PageViewModel = new SettingsPageViewModel { } };
                 await IWindowManager.Instance.ShowAsync(AppEndPoint.Content, vm);
                 break;
+            case "asm":
+                DebugString = string.Join(Environment.NewLine, AppDomain.CurrentDomain.GetAssemblies().Select(x => x.FullName).OrderBy(x => x));
+                break;
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+            case "plu":
+                var plugins_assemblies = PluginsCore.LoadAssemblies() ?? new();
+                DebugString = string.Join(Environment.NewLine, plugins_assemblies.Select(x => x.FullName).OrderBy(x => x));
+                break;
+#endif
             default:
                 DebugString += "未知命令" + Environment.NewLine;
                 break;

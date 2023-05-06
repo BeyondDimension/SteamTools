@@ -48,7 +48,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         {
             foreach (var item in accelerates)
             {
-                dict.Add(new DomainPattern(item.MatchDomainNames) { Sort = (int)item.Order }, item);
+                dict.Add(new DomainPattern(item.MatchDomainNames) { Order = item.Order }, item);
             }
         }
     }
@@ -66,7 +66,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
                 //    var domainNames2 = string.Join(DomainPattern.GeneralSeparator, item.ExcludeDomainNamesArray.Select(GetDomainPatternString));
                 //}
 
-                dict.Add(new KeyValuePair<DomainPattern, IScriptConfig>(new DomainPattern(domainNames) { Sort = (int)item.Order }, item));
+                dict.Add(new KeyValuePair<DomainPattern, IScriptConfig>(new DomainPattern(domainNames) { Order = item.Order }, item));
             }
 
             static string GetDomainPatternString(string s)

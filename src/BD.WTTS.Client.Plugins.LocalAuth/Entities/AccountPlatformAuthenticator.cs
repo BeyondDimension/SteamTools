@@ -7,7 +7,7 @@ namespace BD.WTTS.Entities;
 [SQLiteTable(TableName)]
 [DebuggerDisplay("{DebuggerDisplay,nq}")]
 [MPObj(keyAsPropertyName: true), MP2Obj]
-public sealed partial class AccountPlatformAuthenticator : IEntity<ushort>, IOrderInt32, IOrderAuthenticator
+public sealed partial class AccountPlatformAuthenticator : IEntity<ushort>, IOrder, IOrderAuthenticator
 {
     public const string TableName = "E4401864";
     public const string ColumnName_ServerId = "C9835F84";
@@ -66,10 +66,10 @@ public sealed partial class AccountPlatformAuthenticator : IEntity<ushort>, IOrd
     [MPIgnore]
     public Guid? ServerId { get; set; }
 
-    int IOrderInt32.Order
+    long IOrder.Order
     {
         get => Index;
-        set => Index = value;
+        set => Index = (int)value;
     }
 }
 

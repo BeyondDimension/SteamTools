@@ -6,7 +6,7 @@ namespace BD.WTTS.Entities;
 /// </summary>
 [SQLiteTable(TableName)]
 [DebuggerDisplay("{DebuggerDisplay(),nq}")]
-public sealed class Script : IEntity<int>, IOrderInt32
+public sealed class Script : IEntity<int>
 {
     public const string TableName = "1B2D820C";
     public const string ColumnName_Id = "E386BC36";

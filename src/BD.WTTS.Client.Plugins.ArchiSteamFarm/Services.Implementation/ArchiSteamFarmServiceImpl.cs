@@ -245,7 +245,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             var urlSection = configRoot.GetSection("Url").Value;
             try
             {
-                var url = new Uri(urlSection);
+                var url = new Uri(urlSection!);
                 if (IPAddress.Any.ToString() == url.Host)
                 {
                     return defaultUrl;

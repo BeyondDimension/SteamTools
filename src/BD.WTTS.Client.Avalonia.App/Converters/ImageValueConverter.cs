@@ -1,5 +1,4 @@
 using SkiaSharp;
-using IBinding = BD.Common.Converters.Abstractions.IBinding;
 
 namespace BD.WTTS.Converters;
 
@@ -9,7 +8,7 @@ public abstract class ImageValueConverter : IValueConverter
 
     public virtual object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return ((IBinding)this).DoNothing;
+        return this.DoNothing();
     }
 
     protected static Bitmap? DownloadImage(string? url, int width = 0)

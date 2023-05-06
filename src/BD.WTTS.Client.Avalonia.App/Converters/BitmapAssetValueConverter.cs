@@ -1,8 +1,6 @@
-using IBinding = BD.Common.Converters.Abstractions.IBinding;
-
 namespace BD.WTTS.Converters;
 
-public class BitmapAssetValueConverter : ImageValueConverter
+public sealed class BitmapAssetValueConverter : ImageValueConverter
 {
     public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -22,14 +20,16 @@ public class BitmapAssetValueConverter : ImageValueConverter
                 return GetDecodeBitmap(rawUri, width);
             }
             // 在列表中使用此方法性能极差
-            else if (Browser2.IsHttpUrl(rawUri))
+            else if (String2.IsHttpUrl(rawUri))
             {
                 return DownloadImage(rawUri, width);
             }
+#if AVALONIA
             else if (rawUri.StartsWith("avares://"))
             {
                 uri = new Uri(rawUri);
             }
+#endif
             else
             {
                 uri = GetResUri(rawUri);
@@ -54,6 +54,6 @@ public class BitmapAssetValueConverter : ImageValueConverter
             }
             return DownloadImage(ImageUrlHelper.GetImageApiUrlById(imageid), width);
         }
-        return ((IBinding)this).DoNothing;
+        return this.DoNothing();
     }
 }

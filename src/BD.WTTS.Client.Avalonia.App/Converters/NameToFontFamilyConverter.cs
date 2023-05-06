@@ -1,8 +1,6 @@
-using IBinding = BD.Common.Converters.Abstractions.IBinding;
-
 namespace BD.WTTS.Converters;
 
-public class NameToFontFamilyConverter : IValueConverter
+public sealed class NameToFontFamilyConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

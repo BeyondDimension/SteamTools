@@ -1,9 +1,6 @@
-using FluentAvalonia.UI.Controls;
-using IBinding = BD.Common.Converters.Abstractions.IBinding;
-
 namespace BD.WTTS.Converters;
 
-public class ResourceKeyValueConverter : IValueConverter
+public sealed class ResourceKeyValueConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -21,11 +18,11 @@ public class ResourceKeyValueConverter : IValueConverter
                 return App.Instance.FindResource("Unknown");
             return v;
         }
-        return ((IBinding)this).DoNothing;
+        return this.DoNothing();
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return ((IBinding)this).DoNothing;
+        return this.DoNothing();
     }
 }

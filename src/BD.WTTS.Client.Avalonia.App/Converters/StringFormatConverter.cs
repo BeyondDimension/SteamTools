@@ -1,9 +1,8 @@
 using SteamKit2;
-using IBinding = BD.Common.Converters.Abstractions.IBinding;
 
 namespace BD.WTTS.Converters;
 
-public class StringFormatConverter : IValueConverter, IMultiValueConverter
+public sealed class StringFormatConverter : IValueConverter, IMultiValueConverter
 {
     const string Size = "size";
     const string Money = "money";

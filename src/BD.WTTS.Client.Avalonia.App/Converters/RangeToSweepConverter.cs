@@ -1,8 +1,6 @@
-using IBinding = BD.Common.Converters.Abstractions.IBinding;
-
 namespace BD.WTTS.Converters;
 
-public class RangeToSweepConverter : IMultiValueConverter
+public sealed class RangeToSweepConverter : IMultiValueConverter
 {
     public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
     {

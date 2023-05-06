@@ -1,8 +1,6 @@
-using IBinding = BD.Common.Converters.Abstractions.IBinding;
-
 namespace BD.WTTS.Converters;
 
-public class ColorStringToBrushConverter : IValueConverter
+public sealed class ColorStringToBrushConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -43,7 +41,7 @@ public class ColorStringToBrushConverter : IValueConverter
             if (value is Color || value is Color2)
                 return value;
         }
-        return ((IBinding)this).DoNothing;
+        return this.DoNothing();
     }
 
     static string ColorToHex(Color color) => $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";

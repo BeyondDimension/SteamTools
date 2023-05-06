@@ -16,26 +16,29 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
     public async Task<AccountPlatformAuthenticator[]> GetAllSourceAsync()
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        return await AttemptAndRetry(() =>
+        return await AttemptAndRetry(t =>
         {
+            t.ThrowIfCancellationRequested();
             return dbConnection.Table<AccountPlatformAuthenticator>().Take(MaxValue).ToArrayAsync();
-        }).ConfigureAwait(false);
+        }, cancellationToken: CancellationToken.None).ConfigureAwait(false);
     }
 
     public async Task<AccountPlatformAuthenticator?> GetFirstOrDefaultSourceAsync()
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        return await AttemptAndRetry(() =>
+        return await AttemptAndRetry(t =>
         {
+            t.ThrowIfCancellationRequested();
             return dbConnection.Table<AccountPlatformAuthenticator>().FirstOrDefaultAsync();
-        }).ConfigureAwait(false);
+        }, cancellationToken: CancellationToken.None).ConfigureAwait(false);
     }
 
     public async Task<bool> HasLocalAsync()
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        return await AttemptAndRetry(async () =>
+        return await AttemptAndRetry(async t =>
         {
+            t.ThrowIfCancellationRequested();
             var item = await dbConnection.Table<AccountPlatformAuthenticator>().FirstOrDefaultAsync();
             if (item != null)
             {
@@ -43,14 +46,15 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
                 return item != null;
             }
             return false;
-        }).ConfigureAwait(false);
+        }, cancellationToken: CancellationToken.None).ConfigureAwait(false);
     }
 
     public async Task<bool> HasSecondaryPasswordAsync()
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        return await AttemptAndRetry(async () =>
+        return await AttemptAndRetry(async t =>
         {
+            t.ThrowIfCancellationRequested();
             var item = await dbConnection.Table<AccountPlatformAuthenticator>().FirstOrDefaultAsync();
             if (item != null)
             {
@@ -58,7 +62,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
                 return item != null;
             }
             return false;
-        }).ConfigureAwait(false);
+        }, cancellationToken: CancellationToken.None).ConfigureAwait(false);
     }
 
     static int GetOrder(IOrderAuthenticator item)
@@ -208,8 +212,9 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
     public async Task<int> DeleteAsync(Guid serverId)
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        return await AttemptAndRetry(() =>
+        return await AttemptAndRetry(t =>
         {
+            t.ThrowIfCancellationRequested();
             const string sql =
                 SQLStrings.DeleteFrom +
                 AccountPlatformAuthenticator.TableName +
@@ -218,7 +223,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
                 + " = ?";
             return dbConnection.ExecuteAsync(sql,
                 serverId);
-        }).ConfigureAwait(false);
+        }, cancellationToken: CancellationToken.None).ConfigureAwait(false);
     }
 
     async Task IAccountPlatformAuthenticatorRepository.DeleteAsync(Guid serverId)
@@ -350,8 +355,9 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
     async Task<int> UpdateIndexByItemAsync(IAuthenticatorDTO item)
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        return await AttemptAndRetry(async () =>
+        return await AttemptAndRetry(async t =>
         {
+            t.ThrowIfCancellationRequested();
             const string sql_ =
                 SQLStrings.Update +
                 "[" + AccountPlatformAuthenticator.TableName + "]" +
@@ -364,7 +370,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
             var sql = string.Format(sql_, item.Index, item.Id);
             var r = await dbConnection.ExecuteAsync(sql);
             return r;
-        }).ConfigureAwait(false);
+        }, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
         //var source = await FindAsync(item.Id);
         //if (source != null)
