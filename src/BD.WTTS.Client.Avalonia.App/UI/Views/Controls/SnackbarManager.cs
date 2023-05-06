@@ -1,5 +1,5 @@
 using Avalonia.Controls.Notifications;
-using static BD.WTTS.Program;
+using NotificationType = Avalonia.Controls.Notifications.NotificationType;
 
 namespace BD.WTTS.UI.Views.Controls;
 
@@ -78,7 +78,11 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
         _items = itemsControl?.Children;
     }
 
-    /// <inheritdoc/>
+    public void Show(string message, string? title = null, NotificationType notificationType = NotificationType.Information)
+    {
+        Show(new Avalonia.Controls.Notifications.Notification(title, message, notificationType));
+    }
+
     public void Show(INotification content)
     {
         Show(content as object);
@@ -102,11 +106,21 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
             infoBarControl.Message = notification.Message;
             infoBarControl.Severity = notification.Type switch
             {
-                Avalonia.Controls.Notifications.NotificationType.Warning => InfoBarSeverity.Warning,
-                Avalonia.Controls.Notifications.NotificationType.Success => InfoBarSeverity.Success,
-                Avalonia.Controls.Notifications.NotificationType.Error => InfoBarSeverity.Error,
+                NotificationType.Warning => InfoBarSeverity.Warning,
+                NotificationType.Success => InfoBarSeverity.Success,
+                NotificationType.Error => InfoBarSeverity.Error,
                 _ => InfoBarSeverity.Informational,
             };
+
+            if (notification.OnClick != null)
+            {
+                infoBarControl.ActionButton = new Button
+                {
+                    Content = notification.Title,
+                    Command = ReactiveCommand.Create(notification.OnClick),
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                };
+            }
         }
         else
         {
@@ -118,16 +132,6 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
             notification?.OnClose?.Invoke();
             _items?.Remove(sender);
         };
-
-        //infoBarControl.PointerPressed += (sender, args) =>
-        //{
-        //    if (notification != null && notification.OnClick != null)
-        //    {
-        //        notification.OnClick.Invoke();
-        //    }
-
-        //    //(sender as Snackbar)?.Close();
-        //};
 
         _items?.Add(infoBarControl);
 
