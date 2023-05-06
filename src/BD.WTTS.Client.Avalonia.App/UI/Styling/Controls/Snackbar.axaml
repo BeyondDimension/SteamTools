@@ -1,0 +1,310 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:spp="https://steampp.net/ui"
+		xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+        x:CompileBindings="True">
+
+	<Design.PreviewWith>
+		<Border Padding="40">
+			<StackPanel Spacing="10">
+				<spp:Snackbar IsOpen="True" Title="Title1" Message="Message" IsClosable="True" IsIconVisible="True" />
+				<spp:Snackbar IsOpen="True" Title="Title" Message="Message" IsClosable="False" IsIconVisible="True" />
+				<spp:Snackbar IsOpen="True" Title="Title" Message="Message" IsClosable="True" IsIconVisible="False" />
+
+				<Border Background="Black" Height="1" />
+
+				<spp:Snackbar IsOpen="True" Title="Title" Message="Message" Severity="Informational" />
+				<spp:Snackbar IsOpen="True" Title="Title" Message="Message" Severity="Warning" />
+				<spp:Snackbar IsOpen="True" Title="Title" Message="Message" Severity="Error" />
+				<spp:Snackbar IsOpen="True" Title="Title" Message="Message" Severity="Success" />
+
+				<spp:Snackbar IsOpen="True" Title="Title" Background="DarkSlateBlue" Message="Message" Severity="Success" Foreground="Red" />
+
+				<spp:Snackbar IsOpen="True" Title="Custom Icon" Message="akls;df">
+					<spp:Snackbar.IconSource>
+						<ui:SymbolIconSource Symbol="Add" />
+					</spp:Snackbar.IconSource>
+				</spp:Snackbar>
+
+				<spp:Snackbar IsOpen="True" Title="Title" Message="Action Button">
+					<spp:Snackbar.ActionButton>
+						<Button Content="Click" />
+					</spp:Snackbar.ActionButton>
+				</spp:Snackbar>
+
+				<spp:Snackbar IsOpen="True" Title="Title" Message="asdf">
+					<CheckBox Content="Custom Content" />
+				</spp:Snackbar>
+
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
+
+	<Styles.Resources>
+		<ControlTheme x:Key="{x:Type spp:Snackbar}" TargetType="spp:Snackbar">
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
+						<ui:FABorder Name="ContentRoot"
+									 VerticalAlignment="Top"
+									 BorderBrush="{DynamicResource InfoBarBorderBrush}"
+									 BorderThickness="{DynamicResource InfoBarBorderThickness}"
+									 CornerRadius="{TemplateBinding CornerRadius}">
+
+							<!-- Background is used here so that it overrides the severity status color if set. 
+                    Padding="{StaticResource InfoBarContentRootPadding}" applied as margin on grid b/c no Padding
+                    -->
+							<Panel>
+								<!-- use separate border for Background b/c no margin -->
+								<Border Background="{TemplateBinding Background}"
+										CornerRadius="{TemplateBinding CornerRadius}"/>
+								<Grid HorizontalAlignment="Stretch"
+									  MinHeight="{DynamicResource InfoBarMinHeight}"
+									  Margin="{StaticResource InfoBarContentRootPadding}"
+									  ColumnDefinitions="Auto,*,Auto"
+									  RowDefinitions="Auto,Auto">
+
+									<Panel Name="StandardIconArea"
+										   IsVisible="False">
+										<Ellipse Name="IconBackground"
+												 Width="16" Height="16"
+												 VerticalAlignment="Top"
+												 Margin="{StaticResource InfoBarIconMargin}"/>
+
+										<ui:FontIcon VerticalAlignment="Top"
+													 FontFamily="{StaticResource SymbolThemeFontFamily}"
+													 Name="StandardIcon"
+													 Margin="{DynamicResource InfoBarIconMargin}"/>
+									</Panel>
+
+									<Viewbox Name="UserIconBox"
+											 IsVisible="False"
+											 Grid.Column="0"
+											 VerticalAlignment="Top"
+											 MaxWidth="{DynamicResource InfoBarIconFontSize}"
+											 MaxHeight="{DynamicResource InfoBarIconFontSize}"
+											 Margin="{DynamicResource InfoBarIconMargin}">
+										<ui:IconSourceElement IconSource="{TemplateBinding IconSource}" />
+									</Viewbox>
+
+									<uip:InfoBarPanel Grid.Column="1"
+													  Margin="{StaticResource InfoBarPanelMargin}"
+													  HorizontalOrientationPadding="{StaticResource InfoBarPanelHorizontalOrientationPadding}"
+													  VerticalOrientationPadding="{StaticResource InfoBarPanelVerticalOrientationPadding}">
+
+										<TextBlock Name="Title"
+												   Foreground="{DynamicResource InfoBarTitleForeground}"
+												   Text="{TemplateBinding Title}"
+												   uip:InfoBarPanel.HorizontalOrientationMargin="{StaticResource InfoBarTitleHorizontalOrientationMargin}"
+												   uip:InfoBarPanel.VerticalOrientationMargin="{StaticResource InfoBarTitleVerticalOrientationMargin}"
+												   TextWrapping="Wrap"
+												   FontWeight="{StaticResource InfoBarTitleFontWeight}"
+												   FontSize="{StaticResource InfoBarTitleFontSize}" />
+
+										<TextBlock x:Name="Message"
+												   Foreground="{DynamicResource InfoBarMessageForeground}"
+												   Text="{TemplateBinding Message}"
+												   uip:InfoBarPanel.HorizontalOrientationMargin="{StaticResource InfoBarMessageHorizontalOrientationMargin}"
+												   uip:InfoBarPanel.VerticalOrientationMargin="{StaticResource InfoBarMessageVerticalOrientationMargin}"
+												   TextWrapping="Wrap"
+												   FontWeight="{StaticResource InfoBarMessageFontWeight}"
+												   FontSize="{StaticResource InfoBarMessageFontSize}"/>
+
+										<ContentPresenter uip:InfoBarPanel.HorizontalOrientationMargin="{StaticResource InfoBarActionHorizontalOrientationMargin}"
+														  uip:InfoBarPanel.VerticalOrientationMargin="{StaticResource InfoBarActionVerticalOrientationMargin}"
+														  VerticalAlignment="Top"
+														  Content="{TemplateBinding ActionButton}"
+														  HorizontalContentAlignment="Stretch"
+														  VerticalContentAlignment="Center" />
+
+									</uip:InfoBarPanel>
+
+									<ContentPresenter Grid.Column="1"
+													  Grid.Row="1"
+													  Content="{TemplateBinding Content}"
+													  ContentTemplate="{TemplateBinding ContentTemplate}"
+													  HorizontalContentAlignment="Stretch"
+													  VerticalContentAlignment="Stretch"
+													  Name="ContentPresenter"/>
+
+									<Button Name="CloseButton"
+											   VerticalAlignment="Center"
+											   Grid.Column="2"
+											   Command="{TemplateBinding CloseButtonCommand}"
+											   CommandParameter="{TemplateBinding CloseButtonCommandParameter}"
+											   Theme="{StaticResource InfoBarCloseButtonStyle}">
+
+										<Viewbox Width="{StaticResource InfoBarCloseButtonGlyphSize}"
+												 Height="{StaticResource InfoBarCloseButtonGlyphSize}"
+												 HorizontalAlignment="Center"
+												 VerticalAlignment="Center">
+											<ui:SymbolIcon Symbol="{StaticResource InfoBarCloseButtonSymbol}" />
+										</Viewbox>
+									</Button>
+								</Grid>
+							</Panel>
+						</ui:FABorder>
+					</LayoutTransformControl>
+				</ControlTemplate>
+			</Setter>
+
+			<Style Selector="^:informational">
+				<Style Selector="^ /template/ ui|FABorder#ContentRoot">
+					<Setter Property="Background" Value="{DynamicResource InfoBarInformationalSeverityBackgroundBrush}" />
+				</Style>
+				<Style Selector="^ /template/ Ellipse#IconBackground">
+					<Setter Property="Fill" Value="{DynamicResource InfoBarInformationalSeverityIconBackground}" />
+				</Style>
+				<Style Selector="^ /template/ ui|FontIcon#StandardIcon">
+					<Setter Property="Glyph" Value="&#x0069;" />
+					<Setter Property="FontSize" Value="10" />
+					<Setter Property="Foreground" Value="{DynamicResource InfoBarInformationalSeverityIconForeground}" />
+				</Style>
+			</Style>
+
+			<Style Selector="^:error">
+				<Style Selector="^ /template/ ui|FABorder#ContentRoot">
+					<Setter Property="Background" Value="{DynamicResource InfoBarErrorSeverityBackgroundBrush}" />
+				</Style>
+				<Style Selector="^ /template/ Ellipse#IconBackground">
+					<Setter Property="Fill" Value="{DynamicResource InfoBarErrorSeverityIconBackground}" />
+				</Style>
+				<Style Selector="^ /template/ ui|FontIcon#StandardIcon">
+					<Setter Property="Glyph" Value="&#xE10A;" />
+					<Setter Property="FontSize" Value="10" />
+					<Setter Property="Foreground" Value="{DynamicResource InfoBarInformationalSeverityIconForeground}" />
+					<Setter Property="Margin" Value="0,19,14,0" />
+				</Style>
+			</Style>
+
+			<Style Selector="^:warning">
+				<Style Selector="^ /template/ ui|FABorder#ContentRoot">
+					<Setter Property="Background" Value="{DynamicResource InfoBarWarningSeverityBackgroundBrush}" />
+				</Style>
+				<Style Selector="^ /template/ Ellipse#IconBackground">
+					<Setter Property="Fill" Value="{DynamicResource InfoBarWarningSeverityIconBackground}" />
+				</Style>
+				<Style Selector="^ /template/ ui|FontIcon#StandardIcon">
+					<Setter Property="Glyph" Value="&#x0021;" />
+					<Setter Property="FontSize" Value="10" />
+					<Setter Property="Foreground" Value="{DynamicResource InfoBarInformationalSeverityIconForeground}" />
+				</Style>
+			</Style>
+
+			<Style Selector="^:success">
+				<Style Selector="^ /template/ ui|FABorder#ContentRoot">
+					<Setter Property="Background" Value="{DynamicResource InfoBarSuccessSeverityBackgroundBrush}" />
+				</Style>
+				<Style Selector="^ /template/ Ellipse#IconBackground">
+					<Setter Property="Fill" Value="{DynamicResource InfoBarSuccessSeverityIconBackground}" />
+				</Style>
+				<Style Selector="^ /template/ ui|FontIcon#StandardIcon">
+					<Setter Property="Glyph" Value="&#xE10B;" />
+					<Setter Property="FontSize" Value="10" />
+					<Setter Property="Foreground" Value="{DynamicResource InfoBarInformationalSeverityIconForeground}" />
+					<Setter Property="Margin" Value="0,19,14,0" />
+				</Style>
+			</Style>
+
+
+			<Style Selector="^:standardIcon">
+				<Style Selector="^ /template/ Panel#StandardIconArea">
+					<Setter Property="IsVisible" Value="True" />
+				</Style>
+				<Style Selector="^ /template/ Viewbox#UserIconBox">
+					<Setter Property="IsVisible" Value="False" />
+				</Style>
+			</Style>
+
+			<Style Selector="^:icon">
+				<Style Selector="^ /template/ Panel#StandardIconArea">
+					<Setter Property="IsVisible" Value="False" />
+				</Style>
+				<Style Selector="^ /template/ Viewbox#UserIconBox">
+					<Setter Property="IsVisible" Value="True" />
+				</Style>
+			</Style>
+
+			<!-- CloseButton, visible is default -->
+			<Style Selector="^:closehidden /template/ Button#CloseButton">
+				<Setter Property="IsVisible" Value="False" />
+			</Style>
+
+			<!-- Visible -->
+			<Style Selector="^:hidden /template/ ui|FABorder#ContentRoot">
+				<Setter Property="IsVisible" Value="False" />
+			</Style>
+
+
+			<Style Selector="^:foregroundset">
+				<Style Selector="^ /template/ TextBlock#Title">
+					<Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
+				</Style>
+				<Style Selector="^ /template/ TextBlock#Message">
+					<Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
+				</Style>
+			</Style>
+			
+			<Style Selector="^">
+				<Style.Animations>
+					<Animation Easing="QuadraticEaseIn"
+							   FillMode="Forward"
+							   Duration="0:0:0.45">
+						<KeyFrame Cue="0%">
+							<Setter Property="Opacity" Value="0" />
+							<Setter Property="TranslateTransform.Y" Value="20" />
+							<Setter Property="ScaleTransform.ScaleX" Value="0.85" />
+							<Setter Property="ScaleTransform.ScaleY" Value="0.85" />
+						</KeyFrame>
+						<KeyFrame Cue="30%">
+							<Setter Property="TranslateTransform.Y" Value="-20" />
+						</KeyFrame>
+						<KeyFrame Cue="100%">
+							<Setter Property="Opacity" Value="1" />
+							<Setter Property="TranslateTransform.Y" Value="0" />
+							<Setter Property="ScaleTransform.ScaleX" Value="1" />
+							<Setter Property="ScaleTransform.ScaleY" Value="1" />
+						</KeyFrame>
+					</Animation>
+				</Style.Animations>
+			</Style>
+
+			<Style Selector="^[IsClosing=True] /template/ LayoutTransformControl#PART_LayoutTransformControl">
+				<Setter Property="RenderTransformOrigin" Value="50%,0%" />
+				<Style.Animations>
+					<Animation Easing="QuadraticEaseOut"
+							   FillMode="Forward"
+							   Duration="0:0:0.75">
+						<KeyFrame Cue="0%">
+							<Setter Property="TranslateTransform.X" Value="0" />
+							<Setter Property="ScaleTransform.ScaleY" Value="1" />
+						</KeyFrame>
+						<KeyFrame Cue="70%">
+							<Setter Property="TranslateTransform.X" Value="800" />
+							<Setter Property="ScaleTransform.ScaleY" Value="1" />
+						</KeyFrame>
+						<KeyFrame Cue="100%">
+							<Setter Property="ScaleTransform.ScaleY" Value="0" />
+							<Setter Property="TranslateTransform.X" Value="800" />
+						</KeyFrame>
+					</Animation>
+				</Style.Animations>
+			</Style>
+
+			<Style Selector="^[IsClosing=True]">
+				<Style.Animations>
+					<Animation Easing="QuadraticEaseOut"
+							   FillMode="Forward"
+							   Duration="0:0:1.25">
+						<KeyFrame Cue="100%">
+							<Setter Property="IsOpen" Value="False" />
+						</KeyFrame>
+					</Animation>
+				</Style.Animations>
+			</Style>
+		</ControlTheme>
+	</Styles.Resources>
+</Styles>

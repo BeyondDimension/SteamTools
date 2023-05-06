@@ -10,6 +10,11 @@
                     Height="50"
                     Classes="Circle"
                     IsIndeterminate="True" />
+				<ProgressBar
+                    Width="50"
+                    Height="50"
+                    Classes="Circle"
+					Value="60"/>
                 <ProgressBar Width="150" IsIndeterminate="True" />
                 <ProgressBar
                     Width="150"
@@ -19,12 +24,12 @@
                 <TextBlock Text="Material Progress" />
                 <ProgressBar
                     Width="150"
-                    Height="30"
+                    Height="5"
                     Classes="Material"
                     IsIndeterminate="True" />
                 <ProgressBar
                     Width="150"
-                    Height="30"
+                    Height="5"
                     Classes="Material notransitions"
                     Value="50" />
             </StackPanel>

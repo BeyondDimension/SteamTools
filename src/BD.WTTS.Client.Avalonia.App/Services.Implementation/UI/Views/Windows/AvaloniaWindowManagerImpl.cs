@@ -18,6 +18,27 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         };
     }
 
+    public static TopLevel? GetWindowTopLevel()
+    {
+        if (App.Instance.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            var window = desktop.MainWindow;
+            if (window != null)
+            {
+                return TopLevel.GetTopLevel(window);
+            }
+        }
+        else if (App.Instance.ApplicationLifetime is ISingleViewApplicationLifetime view)
+        {
+            var mainView = view.MainView;
+            if (mainView != null)
+            {
+                return TopLevel.GetTopLevel(mainView);
+            }
+        }
+        return null;
+    }
+
     Type GetWindowType(AppEndPoint customWindow)
     {
         IWindowManagerImpl @this = this;
@@ -91,6 +112,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
                 FooterVisibility = TaskDialogFooterVisibility.Never,
                 //IsFooterExpanded = isFooterExpanded,
                 //Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, },
+                XamlRoot = GetWindowTopLevel(),
                 Buttons =
                 {
                     new TaskDialogButton(Strings.Confirm, TaskDialogStandardResult.OK),
@@ -113,31 +135,6 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             }
 
             //td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
-
-            try
-            {
-                if (App.Instance.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-                {
-                    var window = desktop.MainWindow;
-                    if (window != null)
-                    {
-                        td.XamlRoot = TopLevel.GetTopLevel(window);
-                    }
-                }
-                else if (App.Instance.ApplicationLifetime is ISingleViewApplicationLifetime view)
-                {
-                    var mainView = view.MainView;
-                    if (mainView != null)
-                    {
-                        td.XamlRoot = TopLevel.GetTopLevel(mainView);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error(nameof(AvaloniaWindowManagerImpl), e,
-                    "ShowTaskDialogAsync fail, vmType: {0}", viewModel.GetType().Name);
-            }
 
             var result = await td.ShowAsync(!isDialog);
             return result is TaskDialogStandardResult.OK;

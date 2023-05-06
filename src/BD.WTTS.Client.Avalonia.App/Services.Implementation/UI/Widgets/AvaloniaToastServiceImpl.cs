@@ -1,4 +1,5 @@
 using Avalonia.Controls.Notifications;
+using BD.WTTS.UI.Views.Controls;
 using AvaloniaNotification = Avalonia.Controls.Notifications.Notification;
 
 namespace BD.WTTS.Services.Implementation;
@@ -16,40 +17,15 @@ sealed class AvaloniaToastServiceImpl : IToastService
     /// <param name="duration"></param>
     public void Show(string text, int? duration = null)
     {
-        TopLevel? host = null;
-
-        if (App.Instance.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            var window = desktop.MainWindow;
-            if (window != null)
-            {
-                host = TopLevel.GetTopLevel(window);
-            }
-        }
-        else if (App.Instance.ApplicationLifetime is ISingleViewApplicationLifetime view)
-        {
-            var mainView = view.MainView;
-            if (mainView != null)
-            {
-                host = TopLevel.GetTopLevel(mainView);
-            }
-        }
+        var host = AvaloniaWindowManagerImpl.GetWindowTopLevel();
 
         NotificationManager ??= new SnackbarManager(host)
         {
             Position = NotificationPosition.BottomRight,
-            MaxItems = 4,
+            MaxItems = 5,
         };
 
-        //var info = new InfoBar()
-        //{
-        //    Title = "Welcome",
-        //    Message = "Avalonia now supports Notifications.",
-        //    Severity = InfoBarSeverity.Informational,
-        //    IsClosable = true,
-        //};
-
-        NotificationManager.Show("Test");
+        NotificationManager.Show("Avalonia now supports Notifications.");
     }
 
     /// <inheritdoc cref="Show(string, int?)"/>

@@ -89,37 +89,51 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
     {
         var notification = content as INotification;
 
-        var infoBarControl = new InfoBar
+        var infoBarControl = new Snackbar
         {
             IsOpen = true,
-            Message = content.ToString(),
+            IsClosable = true,
             Severity = InfoBarSeverity.Informational,
         };
+
+        if (notification != null)
+        {
+            infoBarControl.Title = notification.Title;
+            infoBarControl.Message = notification.Message;
+            infoBarControl.Severity = notification.Type switch
+            {
+                Avalonia.Controls.Notifications.NotificationType.Warning => InfoBarSeverity.Warning,
+                Avalonia.Controls.Notifications.NotificationType.Success => InfoBarSeverity.Success,
+                Avalonia.Controls.Notifications.NotificationType.Error => InfoBarSeverity.Error,
+                _ => InfoBarSeverity.Informational,
+            };
+        }
+        else
+        {
+            infoBarControl.Message = content.ToString();
+        }
 
         infoBarControl.Closed += (sender, args) =>
         {
             notification?.OnClose?.Invoke();
-
             _items?.Remove(sender);
         };
 
-        infoBarControl.PointerPressed += (sender, args) =>
-        {
-            if (notification != null && notification.OnClick != null)
-            {
-                notification.OnClick.Invoke();
-            }
+        //infoBarControl.PointerPressed += (sender, args) =>
+        //{
+        //    if (notification != null && notification.OnClick != null)
+        //    {
+        //        notification.OnClick.Invoke();
+        //    }
 
-            var infoBarControl = sender as InfoBar;
-            if (infoBarControl != null)
-                infoBarControl.IsOpen = false;
-        };
+        //    //(sender as Snackbar)?.Close();
+        //};
 
         _items?.Add(infoBarControl);
 
-        if (_items?.OfType<InfoBar>().Count(i => i.IsOpen) > MaxItems)
+        if (_items?.OfType<Snackbar>().Count(i => !i.IsClosing) > MaxItems)
         {
-            _items.OfType<InfoBar>().First(i => i.IsOpen).IsOpen = false;
+            _items.OfType<Snackbar>().First(i => !i.IsClosing).Close();
         }
 
         if (notification != null && notification.Expiration == TimeSpan.Zero)
@@ -129,7 +143,7 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
 
         await Task.Delay(notification?.Expiration ?? TimeSpan.FromSeconds(5));
 
-        infoBarControl.IsOpen = false;
+        infoBarControl.Close();
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
