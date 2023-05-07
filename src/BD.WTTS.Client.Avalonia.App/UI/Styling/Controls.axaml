@@ -25,6 +25,7 @@
 	<StyleInclude Source="/UI/Styling/Controls/ProgressBar.axaml" />
 	<StyleInclude Source="/UI/Styling/Controls/TextBox.axaml" />
 	<StyleInclude Source="/UI/Styling/Controls/Snackbar.axaml" />
+	<StyleInclude Source="/UI/Styling/Controls/Button.axaml" />
 
 	<Style Selector=":is(TemplatedControl)">
 		<Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName}, Path=Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" />

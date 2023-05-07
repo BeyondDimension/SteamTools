@@ -36,6 +36,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="UI\Assets\avatar.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>

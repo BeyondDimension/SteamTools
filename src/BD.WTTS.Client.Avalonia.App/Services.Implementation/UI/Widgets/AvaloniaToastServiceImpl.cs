@@ -25,7 +25,7 @@ sealed class AvaloniaToastServiceImpl : IToastService
             MaxItems = 5,
         };
 
-        NotificationManager.Show("Avalonia now supports Notifications.");
+        NotificationManager.Show(text);
     }
 
     /// <inheritdoc cref="Show(string, int?)"/>

@@ -13,33 +13,33 @@
     x:CompileBindings="True"
     x:DataType="spp:MainWindowViewModel"
     mc:Ignorable="d">
-    <UserControl.Styles>
-        <Style Selector="ui|NavigationView.AppNav">
-            <Setter Property="IsPaneToggleButtonVisible" Value="False" />
-            <Setter Property="OpenPaneLength" Value="80" />
-        </Style>
-        <Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
-            <Setter Property="Margin" Value="{StaticResource TitleBarAfterMargin}" />
-        </Style>
+	<UserControl.Styles>
+		<Style Selector="ui|NavigationView.AppNav">
+			<Setter Property="IsPaneToggleButtonVisible" Value="False" />
+			<Setter Property="OpenPaneLength" Value="80" />
+		</Style>
+		<Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
+			<Setter Property="Margin" Value="{StaticResource TitleBarAfterMargin}" />
+		</Style>
 
-        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter">
-            <Setter Property="Width" Value="80" />
-            <Setter Property="MinHeight" Value="80" />
+		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter">
+			<Setter Property="Width" Value="80" />
+			<Setter Property="MinHeight" Value="80" />
 			<Setter Property="Cursor" Value="Hand" />
-            <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
-            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Border
+			<Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border
                         Name="LayoutRoot"
                         Margin="4,8"
                         Background="{TemplateBinding Background}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         TemplatedControl.IsTemplateFocusTarget="True">
-                        <Panel>
-                            <Panel HorizontalAlignment="Left" VerticalAlignment="Center">
+						<Panel>
+							<Panel HorizontalAlignment="Left" VerticalAlignment="Center">
 
-                                <Border
+								<Border
                                     Name="SelectionIndicator"
                                     Width="3"
                                     Height="20"
@@ -47,11 +47,11 @@
                                     Background="{DynamicResource NavigationViewSelectionIndicatorForeground}"
                                     CornerRadius="{StaticResource ControlCornerRadius}"
                                     Opacity="0" />
-                            </Panel>
+							</Panel>
 
 
-                            <DockPanel>
-                                <ContentPresenter
+							<DockPanel>
+								<ContentPresenter
                                     Name="ContentPresenter"
                                     Grid.Row="1"
                                     Margin="0,-15,0,3"
@@ -62,76 +62,76 @@
                                     ContentTemplate="{TemplateBinding ContentTemplate}"
                                     DockPanel.Dock="Bottom"
                                     FontSize="12">
-                                    <ContentPresenter.Styles>
-                                        <Style Selector="TextBlock">
-                                            <Setter Property="TextWrapping" Value="Wrap" />
-                                        </Style>
-                                    </ContentPresenter.Styles>
-                                </ContentPresenter>
+									<ContentPresenter.Styles>
+										<Style Selector="TextBlock">
+											<Setter Property="TextWrapping" Value="Wrap" />
+										</Style>
+									</ContentPresenter.Styles>
+								</ContentPresenter>
 
-                                <Viewbox
+								<Viewbox
                                     Name="IconBox"
                                     Height="30"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center">
-                                    <ContentPresenter Name="Icon" Content="{Binding TemplateSettings.Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                                </Viewbox>
+									<ContentPresenter Name="Icon" Content="{Binding TemplateSettings.Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+								</Viewbox>
 
-                            </DockPanel>
-                        </Panel>
-                    </Border>
-                </ControlTemplate>
-            </Setter>
-        </Style>
+							</DockPanel>
+						</Panel>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
 
-        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#ContentPresenter">
-            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-        </Style>
-        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
-            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-        </Style>
-		
-        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
-            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
-        </Style>
-        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#Icon">
-            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
-        </Style>
+		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#ContentPresenter">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+		</Style>
+		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+		</Style>
 
-        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
-            <Setter Property="IsVisible" Value="False" />
+		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+		</Style>
+		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#Icon">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+		</Style>
+
+		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
+			<Setter Property="IsVisible" Value="False" />
 			<Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
-        </Style>
-		
-        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
-            <Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
-        </Style>
+		</Style>
 
-        <!--  AutoCompleteBox  -->
-        <Style Selector="AutoCompleteBox.SampleApp /template/ TextBox#PART_TextBox">
-            <Setter Property="InnerRightContent">
-                <Template>
-                    <StackPanel Orientation="Horizontal">
-                        <Button
+		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
+			<Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+		</Style>
+
+		<!--  AutoCompleteBox  -->
+		<Style Selector="AutoCompleteBox.SampleApp /template/ TextBox#PART_TextBox">
+			<Setter Property="InnerRightContent">
+				<Template>
+					<StackPanel Orientation="Horizontal">
+						<Button
                             Command="{Binding $parent[TextBox].Clear}"
                             Content="&#xE8BB;"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
                             IsVisible="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                             Theme="{StaticResource TransparentButton}" />
-                        <Button
+						<Button
                             Command="{Binding $parent[TextBox].Clear}"
                             Content="&#xE721;"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
                             IsHitTestVisible="False"
                             Theme="{StaticResource TransparentButton}" />
-                    </StackPanel>
-                </Template>
-            </Setter>
-        </Style>
-    </UserControl.Styles>
+					</StackPanel>
+				</Template>
+			</Setter>
+		</Style>
+	</UserControl.Styles>
 
-    <Grid RowDefinitions="Auto, *">
-        <Grid
+	<Grid RowDefinitions="Auto, *">
+		<Grid
             Name="TitleBarHost"
             Height="{StaticResource TitleBarHeight}"
             VerticalAlignment="Center"
@@ -154,7 +154,7 @@
 				</Button>
 			</Panel>-->
 
-            <Image
+			<Image
                 Name="WindowIcon"
                 Grid.Column="1"
                 Width="40"
@@ -164,32 +164,67 @@
                 IsHitTestVisible="False"
                 Source="/UI/Assets/ApplicationIcon.ico" />
 
-				<TextBlock
-                    Grid.Column="2"
-                    VerticalAlignment="Center"
-                    FontSize="14"
-                    IsHitTestVisible="False"
-                    Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+			<TextBlock
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				FontSize="14"
+				IsHitTestVisible="False"
+				Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
 
 
-            <Border
+			<Border
                 Grid.Column="3"
                 Padding="6"
                 VerticalAlignment="Center">
-                <AutoCompleteBox
+				<AutoCompleteBox
                     Name="SearchBox"
                     MaxWidth="500"
                     VerticalAlignment="Center"
                     wnd:AppWindow.AllowInteractionInTitleBar="True"
                     Classes="SampleApp"
                     Watermark="Search" />
-            </Border>
+			</Border>
 
 			<DockPanel Grid.Column="4">
-				<Image Width="24"
-					Height="24"
-					DockPanel.Dock="Left"
-					Source="/UI/Assets/ApplicationIcon.ico" />
+				<Button DockPanel.Dock="Left"
+						Theme="{DynamicResource TransparentButton}">
+					<Border CornerRadius="30"
+							Width="30"
+							Height="30"
+							ClipToBounds="True">
+						<Image Source="/UI/Assets/avatar.jpg" />
+					</Border>
+					<Button.Flyout>
+						<MenuFlyout Placement="BottomEdgeAlignedRight"
+									FlyoutPresenterClasses="NoPadding">
+							<MenuItem IsHitTestVisible="False">
+								<MenuItem.Header>
+									<DockPanel>
+										<Border CornerRadius="64"
+												Width="64"
+												Height="64"
+												DockPanel.Dock="Left"
+												Margin="0 0 8 0"
+												ClipToBounds="True">
+											<Image Source="/UI/Assets/avatar.jpg"/>
+										</Border>
+										<StackPanel VerticalAlignment="Center">
+											<TextBlock Text="Name"/>
+											<TextBlock Text="rrrr@rwerwer.net"/>
+										</StackPanel>
+									</DockPanel>
+								</MenuItem.Header>
+							</MenuItem>
+							<MenuItem Header="-"/>
+							<MenuItem Header="个人中心"/>
+							<MenuItem Header="用户钱包"/>
+							<MenuItem Header="绑定第三方账号" />
+							<MenuItem Header="-"/>
+							<MenuItem Header="切换账号" />
+							<MenuItem Header="登出" />
+						</MenuFlyout>
+					</Button.Flyout>
+				</Button>
 
 				<Separator
 					Height="18"
@@ -200,9 +235,9 @@
 					Background="{DynamicResource ButtonBorderBrush}"
 					Classes="Vertical" />
 			</DockPanel>
-        </Grid>
+		</Grid>
 
-        <ui:NavigationView
+		<ui:NavigationView
             Name="NavView"
             Grid.RowSpan="2"
             AlwaysShowHeader="False"
@@ -214,23 +249,23 @@
             IsSettingsVisible="False"
 			SelectedItem="{Binding SelectedItem}"
             PaneDisplayMode="Left">
-            <ui:NavigationView.Resources>
-                <!--  Override this  -->
-                <Thickness x:Key="NavigationViewContentMargin">0,75,0,0</Thickness>
-            </ui:NavigationView.Resources>
-            <ui:NavigationView.MenuItemTemplate>
-                <DataTemplate DataType="{x:Type spp:TabItemViewModel}">
-                    <ui:NavigationViewItem Classes="AppNav" Content="{Binding Name}">
-                        <ui:NavigationViewItem.IconSource>
-                            <ui:FontIconSource Glyph="{Binding IconKey,
+			<ui:NavigationView.Resources>
+				<!--  Override this  -->
+				<Thickness x:Key="NavigationViewContentMargin">0,75,0,0</Thickness>
+			</ui:NavigationView.Resources>
+			<ui:NavigationView.MenuItemTemplate>
+				<DataTemplate DataType="{x:Type spp:TabItemViewModel}">
+					<ui:NavigationViewItem Classes="AppNav" Content="{Binding Name}">
+						<ui:NavigationViewItem.IconSource>
+							<ui:FontIconSource Glyph="{Binding IconKey,
 															   Converter={StaticResource ResourceKeyValueConverter},
-															   ConverterParameter=fonticon}" 
+															   ConverterParameter=fonticon}"
 											   FontFamily="{StaticResource SymbolThemeFontFamily}"/>
-                        </ui:NavigationViewItem.IconSource>
-                    </ui:NavigationViewItem>
-                </DataTemplate>
-            </ui:NavigationView.MenuItemTemplate>
-            <!--<ui:NavigationView.MenuItems>
+						</ui:NavigationViewItem.IconSource>
+					</ui:NavigationViewItem>
+				</DataTemplate>
+			</ui:NavigationView.MenuItemTemplate>
+			<!--<ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Classes="AppNav" Content="Home">
                     <ui:NavigationViewItem.IconSource>
                         <ui:SymbolIconSource Symbol="Home" />
@@ -274,7 +309,7 @@
                     </ui:NavigationViewItem.IconSource>
                 </ui:NavigationViewItem>
             </ui:NavigationView.FooterMenuItems>-->
-            <ui:Frame Name="FrameView" DataContext="{Binding SelectedItem}" />
-        </ui:NavigationView>
-    </Grid>
+			<ui:Frame Name="FrameView" DataContext="{Binding SelectedItem}" />
+		</ui:NavigationView>
+	</Grid>
 </UserControl>
