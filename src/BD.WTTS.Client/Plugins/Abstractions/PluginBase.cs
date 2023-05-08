@@ -1,7 +1,10 @@
 namespace BD.WTTS.Plugins.Abstractions;
 
+[DebuggerDisplay("{DebuggerDisplay,nq}")]
 public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<TPlugin>
 {
+    string DebuggerDisplay => Name;
+
     public abstract string Name { get; }
 
     readonly Lazy<string> mVersion = new(() =>
@@ -57,5 +60,10 @@ public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<T
     public virtual bool ExplicitHasValue()
     {
         return true;
+    }
+
+    public virtual ValueTask OnExit()
+    {
+        return ValueTask.CompletedTask;
     }
 }

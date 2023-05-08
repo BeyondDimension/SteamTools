@@ -12,7 +12,7 @@ namespace BD.WTTS;
 public static partial class GlobalDllImportResolver
 {
 #if DEBUG
-    public static readonly HashSet<KeyValuePair<string, Assembly>> Pairs = new();
+    public static readonly ConcurrentBag<KeyValuePair<string, Assembly>> Pairs = new();
 
     public static string DebugInfo => string.Join(Environment.NewLine, Pairs.Select(x => $"{x.Key} {x.Value}"));
 #endif
@@ -100,8 +100,15 @@ public static partial class GlobalDllImportResolver
         }
 
 #if DEBUG
-        if (Pairs.All(x => x.Key != libraryName))
-            Console.WriteLine($"path: {searchPath}, name: {libraryName}, asm: {assembly}");
+        try
+        {
+            if (Pairs.All(x => x.Key != libraryName))
+                Console.WriteLine($"path: {searchPath}, name: {libraryName}, asm: {assembly}");
+        }
+        catch
+        {
+
+        }
 #endif
 
         if (libraryNames.Contains(libraryName))
@@ -128,7 +135,14 @@ public static partial class GlobalDllImportResolver
         }
 
 #if DEBUG
-        Pairs.Add(new(libraryName, assembly));
+        try
+        {
+            Pairs.Add(new(libraryName, assembly));
+        }
+        catch
+        {
+
+        }
 #endif
 
         // Otherwise, fallback to default import resolver.

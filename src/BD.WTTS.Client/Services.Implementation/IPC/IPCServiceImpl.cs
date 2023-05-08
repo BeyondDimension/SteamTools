@@ -7,7 +7,7 @@ namespace BD.WTTS.Services.Implementation;
 /// <summary>
 /// 主进程的 IPC 服务实现
 /// </summary>
-sealed partial class IPCServiceImpl : IPCService
+public sealed partial class IPCServiceImpl : IPCService
 {
     bool disposedValue;
     IpcProvider? ipcProvider;
@@ -32,16 +32,23 @@ sealed partial class IPCServiceImpl : IPCService
         return process;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static string _()
+    {
+#if DEBUG
+        return "000";
+#else
+        return Random2.GenerateRandomString(randomChars: String2.LowerCaseLetters);
+#endif
+    }
+
     public void Run()
     {
         ipcProvider = new IpcProvider(
-            $"wtts_ipc_{Random2.GenerateRandomString(randomChars: String2.LowerCaseLetters)}_{Environment.TickCount64}_{Environment.ProcessId}");
+            $"wtts_ipc_{_()}_{Environment.TickCount64}_{Environment.ProcessId}");
         ConfigureServices();
         ipcProvider.StartServer();
     }
-
-    readonly Dictionary<string, PeerProxy> perrs = new();
-    readonly AsyncLock lock_perrs = new();
 
     public async ValueTask<T?> GetServiceAsync<T>(string moduleName) where T : class
     {
@@ -50,16 +57,9 @@ sealed partial class IPCServiceImpl : IPCService
 
         try
         {
-            PeerProxy? peer = null;
-            using (await lock_perrs.LockAsync())
-            {
-                if (!perrs.TryGetValue(moduleName, out peer))
-                {
-                    peer = await ipcProvider.GetAndConnectToPeerAsync(
-                    IPCModuleService.GetClientPipeName(moduleName, ipcProvider.IpcContext.PipeName));
-                    perrs.TryAdd(moduleName, peer);
-                }
-            }
+            var peerName = IPCModuleService.Constants.GetClientPipeName(
+                moduleName, ipcProvider.IpcContext.PipeName);
+            var peer = await ipcProvider.GetAndConnectToPeerAsync(peerName);
 
             if (peer != null)
             {
@@ -173,7 +173,17 @@ sealed partial class IPCServiceImpl : IPCService
             }
 
             // 释放托管状态(托管对象)
-            ipcProvider?.Dispose();
+            try
+            {
+                ipcProvider?.Dispose();
+            }
+            catch (InvalidOperationException)
+            {
+                // Unhandled exception. System.InvalidOperationException: 未启动之前，不能获取 IpcServerService 属性的值
+                // at dotnetCampus.Ipc.Pipes.IpcProvider.get_IpcServerService()
+                // at dotnetCampus.Ipc.Pipes.IpcProvider.Dispose()
+                // at BD.WTTS.Services.Implementation.IPCServiceImpl.Dispose(Boolean disposing)
+            }
 
             // 释放未托管的资源(未托管的对象)并重写终结器
             // 将大型字段设置为 null

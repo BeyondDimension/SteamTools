@@ -55,6 +55,18 @@ public partial class DebugPageViewModel
                 DebugString = string.Join(Environment.NewLine, plugins_assemblies.Select(x => x.FullName).OrderBy(x => x));
                 break;
 #endif
+            case "acc":
+                try
+                {
+                    dynamic reverseProxyS = Ioc.Get(
+                    Assembly.Load("BD.WTTS.Client.Plugins.Accelerator").GetType("BD.WTTS.Services.IReverseProxyService")!);
+                    await reverseProxyS.StartProxyAsync();
+                }
+                catch (Exception ex)
+                {
+                    DebugString = ex.ToString();
+                }
+                break;
             default:
                 DebugString += "未知命令" + Environment.NewLine;
                 break;

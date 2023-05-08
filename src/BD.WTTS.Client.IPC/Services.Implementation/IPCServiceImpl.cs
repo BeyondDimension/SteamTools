@@ -3,7 +3,7 @@ using dotnetCampus.Ipc.Pipes;
 
 namespace BD.WTTS.Services.Implementation;
 
-public sealed class IPCServiceImpl : IPCService, IPCModuleService
+public sealed class IPCServiceImpl : IPCService
 {
     bool disposedValue;
     IpcProvider? ipcProvider;
@@ -15,12 +15,24 @@ public sealed class IPCServiceImpl : IPCService, IPCModuleService
     {
         this.tcs = tcs;
         ipcProvider = new IpcProvider(
-            IPCModuleService.GetClientPipeName(moduleName, pipeName));
-        ipcProvider.CreateIpcJoint<IPCModuleService>(this);
+            IPCModuleService.Constants.GetClientPipeName(moduleName, pipeName));
+        ipcProvider.CreateIpcJoint<IPCModuleService>(new IPCModuleServiceImpl(this));
         configureIpcProvider?.Invoke(ipcProvider);
         ipcProvider.StartServer();
 
         peer = await ipcProvider.GetAndConnectToPeerAsync(pipeName);
+    }
+
+    sealed class IPCModuleServiceImpl : IPCModuleService
+    {
+        readonly IPCServiceImpl impl;
+
+        public IPCModuleServiceImpl(IPCServiceImpl impl)
+        {
+            this.impl = impl;
+        }
+
+        public void Dispose() => impl.Dispose();
     }
 
     public T? GetService<T>() where T : class
@@ -39,7 +51,17 @@ public sealed class IPCServiceImpl : IPCService, IPCModuleService
             if (disposing)
             {
                 // 释放托管状态(托管对象)
-                ipcProvider?.Dispose();
+                try
+                {
+                    ipcProvider?.Dispose();
+                }
+                catch (InvalidOperationException)
+                {
+                    // Unhandled exception. System.InvalidOperationException: 未启动之前，不能获取 IpcServerService 属性的值
+                    // at dotnetCampus.Ipc.Pipes.IpcProvider.get_IpcServerService()
+                    // at dotnetCampus.Ipc.Pipes.IpcProvider.Dispose()
+                    // at BD.WTTS.Services.Implementation.IPCServiceImpl.Dispose(Boolean disposing)
+                }
                 tcs?.TrySetResult();
             }
 

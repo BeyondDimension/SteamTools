@@ -440,8 +440,8 @@ public abstract class CommandLineHost : IDisposable
         };
         rootCommand.AddCommand(shutdown);
 
-        var r = rootCommand.InvokeAsync(args).GetAwaiter().GetResult();
-        return r;
+        var exitCode = rootCommand.InvokeAsync(args).GetAwaiter().GetResult();
+        return exitCode;
     }
 
     bool disposedValue;

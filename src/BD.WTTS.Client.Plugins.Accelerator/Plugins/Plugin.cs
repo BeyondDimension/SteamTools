@@ -11,9 +11,7 @@ sealed class Plugin : PluginBase<Plugin>
 
     IReverseProxyService? reverseProxyService;
 
-    public IReverseProxyService ReverseProxyService => reverseProxyService.ThrowIsNull();
-
-    public sealed override void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public override void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
     {
         services.TryAddScriptManager();
         if (options.IsTrace) StartWatchTrace.Record("DI.D.ScriptManager");
@@ -22,7 +20,7 @@ sealed class Plugin : PluginBase<Plugin>
         {
 #if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             // 添加反向代理服务（主进程插件）
-            services.AddSingleton(_ => ReverseProxyService);
+            services.AddSingleton(_ => reverseProxyService!);
             if (options.IsTrace) StartWatchTrace.Record("DI.D.HttpProxy");
 #endif
         }
@@ -34,14 +32,14 @@ sealed class Plugin : PluginBase<Plugin>
         }
     }
 
-    public sealed override void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public override void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
     {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         services.AddSingleton<IProxyService>(_ => ProxyService.Current);
 #endif
     }
 
-    public sealed override async ValueTask OnLoadedAsync()
+    public override async ValueTask OnLoadedAsync()
     {
         var ipc = IPCService.Instance;
 
@@ -52,7 +50,7 @@ sealed class Plugin : PluginBase<Plugin>
         reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);
     }
 
-    public sealed override async ValueTask OnInitializeAsync()
+    public override async ValueTask OnInitializeAsync()
     {
         if (ResourceService.IsChineseSimplified)
         {
@@ -60,19 +58,26 @@ sealed class Plugin : PluginBase<Plugin>
         }
     }
 
-    public sealed override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
+    public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
     {
         cfg.AddProfile<AcceleratorAutoMapperProfile>();
     }
 
-    public sealed override async void OnUnhandledException(Exception ex, string name, bool? isTerminating = null)
+    public override async ValueTask OnExit()
     {
-        var reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
-        if (reverseProxyService != null)
+        try
         {
-            await reverseProxyService.StartProxyAsync();
+            var reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
+            if (reverseProxyService != null)
+            {
+                await reverseProxyService.StopProxyAsync();
+            }
+            ProxyService.OnExitRestoreHosts();
         }
-        ProxyService.OnExitRestoreHosts();
+        catch (ObjectDisposedException)
+        {
+
+        }
     }
 
     string? subProcessPath;
@@ -124,7 +129,7 @@ sealed class Plugin : PluginBase<Plugin>
         return !string.IsNullOrWhiteSpace(subProcessPath) && File.Exists(subProcessPath);
     }
 
-    public sealed override bool ExplicitHasValue()
+    public override bool ExplicitHasValue()
     {
         return SubProcessExists();
     }

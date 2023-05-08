@@ -167,6 +167,11 @@ static partial class Program
 
         // 添加安全服务
         services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
+
+        if (options.HasMainProcessRequired)
+        {
+            services.AddSingleton<IPCService, IPCServiceImpl>();
+        }
     }
 
     static IDisposable? PlatformApp

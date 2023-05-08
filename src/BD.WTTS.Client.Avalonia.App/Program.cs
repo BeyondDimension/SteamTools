@@ -9,7 +9,7 @@ static partial class Program
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
     [STAThread]
-    internal static int Main(string[] args)
+    internal static async Task<int> Main(string[] args)
     {
 #if WINDOWS
         if (!IsCustomEntryPoint && !CompatibilityCheck(AppContext.BaseDirectory))
@@ -54,7 +54,25 @@ static partial class Program
             {
                 args_clt = new[] { command_main };
             }
-            return host.Run(args_clt);
+            var exitCode = host.Run(args_clt);
+
+            var plugins = StartupOptions.Value.Plugins;
+            if (plugins.Any_Nullable())
+            {
+                foreach (var plugin in plugins)
+                {
+                    try
+                    {
+                        await plugin.OnExit();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+
+            return exitCode;
         }
         catch (Exception ex)
         {
@@ -65,7 +83,7 @@ static partial class Program
         {
             // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
             PlatformApp?.Dispose();
-            Ioc.Dispose();
+            await Ioc.DisposeAsync();
             LogManager.Shutdown();
         }
     }
@@ -86,7 +104,7 @@ static partial class Program
     {
         IsCustomEntryPoint = true;
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", Environment.CurrentDirectory);
-        return Main(Environment.GetCommandLineArgs().Skip(1).ToArray());
+        return Main(Environment.GetCommandLineArgs().Skip(1).ToArray()).GetAwaiter().GetResult();
     }
 #endif
 

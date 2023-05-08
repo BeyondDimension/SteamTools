@@ -2,7 +2,7 @@ namespace BD.WTTS.UI;
 
 public sealed partial class App : Application
 {
-    const string TAG = "AvaloniaApp";
+    const string TAG = "AvaApp";
 
     public Window? MainWindow { get; set; }
 

@@ -63,4 +63,6 @@ public interface IPlugin : IExplicitHasValue
     /// <param name="ex"></param>
     /// <param name="name"></param>
     void OnUnhandledException(Exception ex, string name, bool? isTerminating = null);
+
+    ValueTask OnExit();
 }

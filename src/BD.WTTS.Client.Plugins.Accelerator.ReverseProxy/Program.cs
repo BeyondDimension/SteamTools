@@ -1,12 +1,20 @@
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 
 const string moduleName = "Accelerator";
-var exitCode = await IPCService.MainAsync(moduleName, ConfigureServices, static ipcProvider =>
+try
 {
-    // 添加反向代理服务（供主进程的 IPC 远程访问）
-    ipcProvider.CreateIpcJoint(IReverseProxyService.Constants.Instance);
-}, args);
-return exitCode;
+    var exitCode = await IPCService.MainAsync(moduleName, ConfigureServices, static ipcProvider =>
+    {
+        // 添加反向代理服务（供主进程的 IPC 远程访问）
+        ipcProvider.CreateIpcJoint(LazyReverseProxyServiceImpl.Instance);
+    }, args);
+
+    return exitCode;
+}
+finally
+{
+    Console.ReadLine();
+}
 
 static void ConfigureServices(IServiceCollection services)
 {
