@@ -4,7 +4,7 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
-partial class IPCServiceImpl : IPCToastService
+partial class IPCMainProcessServiceImpl : IPCToastService
 {
     static string GetText(ToastText text) => text switch
     {

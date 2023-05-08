@@ -9,11 +9,11 @@ sealed partial class CertificateManagerImpl : ICertificateManager
 
     ICertificateManager Interface => this;
 
-    readonly IPCService ipc;
+    readonly IPCSubProcessService ipc;
     readonly IPCPlatformService platformService;
     readonly IPCToastService toast;
 
-    public CertificateManagerImpl(IPCService ipc)
+    public CertificateManagerImpl(IPCSubProcessService ipc)
     {
         this.ipc = ipc;
         platformService = ipc.GetService<IPCPlatformService>().ThrowIsNull(nameof(platformService));

@@ -4,9 +4,9 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 主进程的 IPC 服务
 /// </summary>
-public interface IPCService : IAsyncDisposable
+public interface IPCMainProcessService : IAsyncDisposable
 {
-    static IPCService Instance => Ioc.Get<IPCService>();
+    static IPCMainProcessService Instance => Ioc.Get<IPCMainProcessService>();
 
     /// <summary>
     /// 启动子进程

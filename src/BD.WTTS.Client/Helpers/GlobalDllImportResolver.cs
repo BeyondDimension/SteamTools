@@ -12,9 +12,9 @@ namespace BD.WTTS;
 public static partial class GlobalDllImportResolver
 {
 #if DEBUG
-    public static readonly ConcurrentBag<KeyValuePair<string, Assembly>> Pairs = new();
+    //public static readonly ConcurrentBag<KeyValuePair<string, Assembly>> Pairs = new();
 
-    public static string DebugInfo => string.Join(Environment.NewLine, Pairs.Select(x => $"{x.Key} {x.Value}"));
+    //public static string DebugInfo => string.Join(Environment.NewLine, Pairs.Select(x => $"{x.Key} {x.Value}"));
 #endif
 
     /// <inheritdoc cref="RID"/>
@@ -99,17 +99,17 @@ public static partial class GlobalDllImportResolver
             return handle;
         }
 
-#if DEBUG
-        try
-        {
-            if (Pairs.All(x => x.Key != libraryName))
-                Console.WriteLine($"path: {searchPath}, name: {libraryName}, asm: {assembly}");
-        }
-        catch
-        {
+        //#if DEBUG
+        //        try
+        //        {
+        //            if (Pairs.All(x => x.Key != libraryName))
+        //                Console.WriteLine($"path: {searchPath}, name: {libraryName}, asm: {assembly}");
+        //        }
+        //        catch
+        //        {
 
-        }
-#endif
+        //        }
+        //#endif
 
         if (libraryNames.Contains(libraryName))
         {
@@ -134,16 +134,16 @@ public static partial class GlobalDllImportResolver
 #endif
         }
 
-#if DEBUG
-        try
-        {
-            Pairs.Add(new(libraryName, assembly));
-        }
-        catch
-        {
+        //#if DEBUG
+        //        try
+        //        {
+        //            Pairs.Add(new(libraryName, assembly));
+        //        }
+        //        catch
+        //        {
 
-        }
-#endif
+        //        }
+        //#endif
 
         // Otherwise, fallback to default import resolver.
 

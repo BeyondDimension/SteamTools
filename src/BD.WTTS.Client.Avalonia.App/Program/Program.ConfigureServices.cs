@@ -40,14 +40,14 @@ static partial class Program
             if (options.HasMainProcessRequired)
             {
                 // 仅在主进程中启动 IPC 服务端
-                IPCService.Instance.Run();
+                IPCMainProcessService.Instance.Run();
             }
 
             if (options.HasPlugins)
             {
                 foreach (var plugin in options.Plugins!)
                 {
-                    await plugin.OnLoadedAsync();
+                    plugin.OnLoadedAsync();
                 }
             }
         }
@@ -170,7 +170,7 @@ static partial class Program
 
         if (options.HasMainProcessRequired)
         {
-            services.AddSingleton<IPCService, IPCServiceImpl>();
+            services.AddSingleton<IPCMainProcessService, IPCMainProcessServiceImpl>();
         }
     }
 

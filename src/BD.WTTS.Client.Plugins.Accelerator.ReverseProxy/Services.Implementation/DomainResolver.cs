@@ -13,7 +13,7 @@ sealed class DomainResolver : IDomainResolver
 
     bool isIpv6 = false;
 
-    public DomainResolver(IPCService ipc, IReverseProxyConfig reverseProxyConfig)
+    public DomainResolver(IPCSubProcessService ipc, IReverseProxyConfig reverseProxyConfig)
     {
         this.reverseProxyConfig = reverseProxyConfig;
         toast = ipc.GetService<IPCToastService>().ThrowIsNull(nameof(toast));

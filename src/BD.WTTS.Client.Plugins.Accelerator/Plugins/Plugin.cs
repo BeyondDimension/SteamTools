@@ -41,7 +41,7 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override async ValueTask OnLoadedAsync()
     {
-        var ipc = IPCService.Instance;
+        var ipc = IPCMainProcessService.Instance;
 
         // 启动加速模块子进程
         ipc.StartProcess(SubProcessPath.ThrowIsNull());

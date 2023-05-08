@@ -1,5 +1,9 @@
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
+using dotnetCampus.Ipc.Context;
 using dotnetCampus.Ipc.Pipes;
+using dotnetCampus.Ipc.Utils.Logging;
+using IPCLogLevel = dotnetCampus.Ipc.Utils.Logging.LogLevel;
+using MSEXLogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
@@ -7,16 +11,47 @@ namespace BD.WTTS.Services.Implementation;
 /// <summary>
 /// 主进程的 IPC 服务实现
 /// </summary>
-public sealed partial class IPCServiceImpl : IPCService
+public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
 {
     bool disposedValue;
     IpcProvider? ipcProvider;
     readonly ILogger logger;
     readonly List<string> moduleNames = new();
+    readonly ILoggerFactory loggerFactory;
 
-    public IPCServiceImpl(ILogger<IPCServiceImpl> logger)
+    public IPCMainProcessServiceImpl(ILoggerFactory loggerFactory)
     {
-        this.logger = logger;
+        this.loggerFactory = loggerFactory;
+        logger = loggerFactory.CreateLogger<IPCMainProcessServiceImpl>();
+    }
+
+    sealed class IpcLogger_ : IpcLogger
+    {
+        readonly ILogger logger;
+
+        public IpcLogger_(ILoggerFactory loggerFactory, string name) : base(name)
+        {
+            logger = loggerFactory.CreateLogger(name);
+        }
+
+        static MSEXLogLevel Convert(IPCLogLevel logLevel)
+        {
+#if DEBUG
+            return MSEXLogLevel.Critical;
+#else
+            if (logLevel <= IPCLogLevel.Debug) return MSEXLogLevel.Debug;
+            return (MSEXLogLevel)logLevel;
+#endif
+        }
+
+        protected override void Log<TState>(
+            IPCLogLevel logLevel,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            logger.Log(Convert(logLevel), default, state, exception, formatter);
+        }
     }
 
     public Process? StartProcess(string fileName, Action<ProcessStartInfo>? configure = null)
@@ -45,7 +80,11 @@ public sealed partial class IPCServiceImpl : IPCService
     public void Run()
     {
         ipcProvider = new IpcProvider(
-            $"wtts_ipc_{_()}_{Environment.TickCount64}_{Environment.ProcessId}");
+            $"wtts_ipc_{_()}_{Environment.TickCount64}_{Environment.ProcessId}",
+            new IpcConfiguration
+            {
+                IpcLoggerProvider = _ => new IpcLogger_(loggerFactory, nameof(IPCMainProcessServiceImpl)),
+            });
         ConfigureServices();
         ipcProvider.StartServer();
     }
@@ -57,7 +96,7 @@ public sealed partial class IPCServiceImpl : IPCService
 
         try
         {
-            var peerName = IPCModuleService.Constants.GetClientPipeName(
+            var peerName = IPCSubProcessModuleService.Constants.GetClientPipeName(
                 moduleName, ipcProvider.IpcContext.PipeName);
             var peer = await ipcProvider.GetAndConnectToPeerAsync(peerName);
 
@@ -82,7 +121,7 @@ public sealed partial class IPCServiceImpl : IPCService
     {
         try
         {
-            var module = await GetServiceAsync<IPCModuleService>(moduleName);
+            var module = await GetServiceAsync<IPCSubProcessModuleService>(moduleName);
             module.ThrowIsNull().Dispose();
 
             return (true, moduleName);

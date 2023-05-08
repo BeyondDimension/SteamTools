@@ -5,7 +5,7 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 子进程的 IPC 服务实现
 /// </summary>
-public interface IPCService : IDisposable
+public interface IPCSubProcessService : IDisposable
 {
     /// <summary>
     /// 启动子进程的 IPC 服务
@@ -47,17 +47,24 @@ public interface IPCService : IDisposable
         if (string.IsNullOrWhiteSpace(pipeName))
             return ExitCode_EmptyPipeName;
 
-        using var ipc = new IPCServiceImpl();
-
+        IPCSubProcessServiceImpl? ipc = null;
         Ioc.ConfigureServices(services =>
         {
-            services.AddSingleton<IPCService>(ipc);
+            services.AddSingleton<IPCSubProcessService>(_ => ipc!);
             configureServices?.Invoke(services);
         });
 
-        TaskCompletionSource tcs = new();
-        await ipc.RunAsync(moduleName, tcs, pipeName, configureIpcProvider);
-        await tcs.Task;
+        try
+        {
+            ipc = new IPCSubProcessServiceImpl(Ioc.Get<ILoggerFactory>());
+            TaskCompletionSource tcs = new();
+            await ipc.RunAsync(moduleName, tcs, pipeName, configureIpcProvider);
+            await tcs.Task;
+        }
+        finally
+        {
+            ipc?.Dispose();
+        }
 
         return 0;
     }

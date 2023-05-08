@@ -29,7 +29,7 @@
 		<!--<Compile Include="..\ImplicitUsings.Enums.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>-->
-		<Compile Include="..\BD.WTTS.Client\Services\IPC\IPCModuleService.cs">
+		<Compile Include="..\BD.WTTS.Client\Services\IPC\IPCSubProcessModuleService.cs">
 			<LinkBase>Services</LinkBase>
 		</Compile>
 		<Compile Include="..\BD.WTTS.Client\Services\Platform\IPC\*.cs">

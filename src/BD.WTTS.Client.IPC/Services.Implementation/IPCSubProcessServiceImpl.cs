@@ -1,33 +1,76 @@
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
+using dotnetCampus.Ipc.Context;
 using dotnetCampus.Ipc.Pipes;
+using dotnetCampus.Ipc.Utils.Logging;
+using IPCLogLevel = dotnetCampus.Ipc.Utils.Logging.LogLevel;
+using MSEXLogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace BD.WTTS.Services.Implementation;
 
-public sealed class IPCServiceImpl : IPCService
+public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
 {
     bool disposedValue;
     IpcProvider? ipcProvider;
     PeerProxy? peer;
     TaskCompletionSource? tcs;
+    readonly ILoggerFactory loggerFactory;
+
+    public IPCSubProcessServiceImpl(ILoggerFactory loggerFactory)
+    {
+        this.loggerFactory = loggerFactory;
+    }
+
+    sealed class IpcLogger_ : IpcLogger
+    {
+        readonly ILogger logger;
+
+        public IpcLogger_(ILoggerFactory loggerFactory, string name) : base(name)
+        {
+            logger = loggerFactory.CreateLogger(name);
+        }
+
+        static MSEXLogLevel Convert(IPCLogLevel logLevel)
+        {
+#if DEBUG
+            return MSEXLogLevel.Critical;
+#else
+            if (logLevel <= IPCLogLevel.Debug) return MSEXLogLevel.Debug;
+            return (MSEXLogLevel)logLevel;
+#endif
+        }
+
+        protected override void Log<TState>(
+            IPCLogLevel logLevel,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            logger.Log(Convert(logLevel), default, state, exception, formatter);
+        }
+    }
 
     public async Task RunAsync(string moduleName, TaskCompletionSource tcs, string pipeName,
         Action<IpcProvider>? configureIpcProvider = null)
     {
         this.tcs = tcs;
         ipcProvider = new IpcProvider(
-            IPCModuleService.Constants.GetClientPipeName(moduleName, pipeName));
-        ipcProvider.CreateIpcJoint<IPCModuleService>(new IPCModuleServiceImpl(this));
+            IPCSubProcessModuleService.Constants.GetClientPipeName(moduleName, pipeName),
+            new IpcConfiguration
+            {
+                IpcLoggerProvider = _ => new IpcLogger_(loggerFactory, nameof(IPCSubProcessServiceImpl)),
+            });
+        ipcProvider.CreateIpcJoint<IPCSubProcessModuleService>(new IPCSubProcessModuleServiceImpl(this));
         configureIpcProvider?.Invoke(ipcProvider);
         ipcProvider.StartServer();
 
         peer = await ipcProvider.GetAndConnectToPeerAsync(pipeName);
     }
 
-    sealed class IPCModuleServiceImpl : IPCModuleService
+    sealed class IPCSubProcessModuleServiceImpl : IPCSubProcessModuleService
     {
-        readonly IPCServiceImpl impl;
+        readonly IPCSubProcessServiceImpl impl;
 
-        public IPCModuleServiceImpl(IPCServiceImpl impl)
+        public IPCSubProcessModuleServiceImpl(IPCSubProcessServiceImpl impl)
         {
             this.impl = impl;
         }

@@ -26,7 +26,7 @@ static partial class Program
         static void CurrentDomain_AssemblyLoad(Assembly loadedAssembly)
         {
 #if DEBUG
-            Console.WriteLine($"loadasm: {loadedAssembly}, location: {loadedAssembly.Location}");
+            //Console.WriteLine($"loadasm: {loadedAssembly}, location: {loadedAssembly.Location}");
 #endif
             // 使用 native 文件夹导入解析本机库
             try
@@ -86,7 +86,7 @@ static partial class Program
 
             }
 #if DEBUG
-            Console.WriteLine($"asm-resolve fail, name: {args.Name}");
+            //Console.WriteLine($"asm-resolve fail, name: {args.Name}");
 #endif
             return null;
         };

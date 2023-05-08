@@ -6,6 +6,7 @@ partial interface IApplication
     /// <summary>
     /// 检测应用程序的多次启动以及在正在运行的实例之间发送和接收消息
     /// </summary>
+    [Obsolete]
     sealed class SingletonInstance : IDisposable
     {
         private bool disposedValue;

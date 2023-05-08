@@ -9,11 +9,11 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
     static readonly string RootPath = Path.Combine(IOPath.AppDataDirectory, "Yarp");
 
     WebApplication? app;
-    readonly IPCService ipc;
+    readonly IPCSubProcessService ipc;
     readonly IPCToastService toast;
 
     public YarpReverseProxyServiceImpl(
-        IPCService ipc,
+        IPCSubProcessService ipc,
         IDnsAnalysisService dnsAnalysis,
         ICertificateManager certificateManager) : base(dnsAnalysis)
     {

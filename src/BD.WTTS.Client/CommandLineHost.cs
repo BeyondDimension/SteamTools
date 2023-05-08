@@ -63,34 +63,34 @@ public abstract class CommandLineHost : IDisposable
         // https://docs.microsoft.com/zh-cn/archive/msdn-magazine/2019/march/net-parse-the-command-line-with-system-commandline
         var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
 
-        bool InitAppInstance(Func<string>? sendMessage = null)
-        {
-            var isInitAppInstanceReset = false;
-        initAppInstance: AppInstance = new();
-            if (!AppInstance.IsFirst)
-            {
-                //Console.WriteLine("ApplicationInstance.SendMessage(string.Empty);");
-                if (IApplication.SingletonInstance.SendMessage(sendMessage?.Invoke() ?? ""))
-                {
-                    return false;
-                }
-                else
-                {
-                    if (!isInitAppInstanceReset &&
-                        IApplication.SingletonInstance.TryKillCurrentAllProcess())
-                    {
-                        isInitAppInstanceReset = true;
-                        AppInstance.Dispose();
-                        goto initAppInstance;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
+        //bool InitAppInstance(Func<string>? sendMessage = null)
+        //{
+        //    var isInitAppInstanceReset = false;
+        //initAppInstance: AppInstance = new();
+        //    if (!AppInstance.IsFirst)
+        //    {
+        //        //Console.WriteLine("ApplicationInstance.SendMessage(string.Empty);");
+        //        if (IApplication.SingletonInstance.SendMessage(sendMessage?.Invoke() ?? ""))
+        //        {
+        //            return false;
+        //        }
+        //        else
+        //        {
+        //            if (!isInitAppInstanceReset &&
+        //                IApplication.SingletonInstance.TryKillCurrentAllProcess())
+        //            {
+        //                isInitAppInstanceReset = true;
+        //                AppInstance.Dispose();
+        //                goto initAppInstance;
+        //            }
+        //            else
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    return true;
+        //}
         void MainHandler() => MainHandler_(null);
         async void MainHandler_(Action? onInitStartuped, Func<string>? sendMessage = null)
         {
@@ -102,73 +102,73 @@ public abstract class CommandLineHost : IDisposable
             StartWatchTraceRecord("Startup.Init");
 #endif
             onInitStartuped?.Invoke();
-            if (Host.IsMainProcess)
-            {
-                if (!InitAppInstance(sendMessage))
-                {
-                    return;
-                }
-                AppInstance!.MessageReceived += async value =>
-                {
-                    if (!string.IsNullOrEmpty(value))
-                    {
-                        switch (value)
-                        {
-                            case key_shutdown:
-                                (await WaitForApplicationAsync()).Shutdown();
-                                return;
-                            default:
-                                var args = value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                                if (args.Length >= 1)
-                                {
-                                    switch (args[0])
-                                    {
-                                        case key_proxy:
-                                            if (args.Length >= 2)
-                                            {
-                                                ProxyMessageReceived();
-                                                return;
+            //if (Host.IsMainProcess)
+            //{
+            //    if (!InitAppInstance(sendMessage))
+            //    {
+            //        return;
+            //    }
+            //    AppInstance!.MessageReceived += async value =>
+            //    {
+            //        if (!string.IsNullOrEmpty(value))
+            //        {
+            //            switch (value)
+            //            {
+            //                case key_shutdown:
+            //                    (await WaitForApplicationAsync()).Shutdown();
+            //                    return;
+            //                default:
+            //                    var args = value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            //                    if (args.Length >= 1)
+            //                    {
+            //                        switch (args[0])
+            //                        {
+            //                            case key_proxy:
+            //                                if (args.Length >= 2)
+            //                                {
+            //                                    ProxyMessageReceived();
+            //                                    return;
 
-                                            }
-                                            void ProxyMessageReceived()
-                                            {
-                                                var value = Enum.TryParse<OnOffToggle>(args[1], out var value_) ? value_ : default;
-                                                try
-                                                {
-                                                    MainThread2.BeginInvokeOnMainThread(() =>
-                                                    {
-                                                        var proxyService = Ioc.Get<IProxyService>();
-                                                        if (proxyService == null) return;
-                                                        proxyService.ProxyStatus = value switch
-                                                        {
-                                                            OnOffToggle.On => true,
-                                                            OnOffToggle.Off => false,
-                                                            _ => !proxyService.ProxyStatus,
-                                                        };
-                                                    });
-                                                }
-                                                catch
-                                                {
+            //                                }
+            //                                void ProxyMessageReceived()
+            //                                {
+            //                                    var value = Enum.TryParse<OnOffToggle>(args[1], out var value_) ? value_ : default;
+            //                                    try
+            //                                    {
+            //                                        MainThread2.BeginInvokeOnMainThread(() =>
+            //                                        {
+            //                                            var proxyService = Ioc.Get<IProxyService>();
+            //                                            if (proxyService == null) return;
+            //                                            proxyService.ProxyStatus = value switch
+            //                                            {
+            //                                                OnOffToggle.On => true,
+            //                                                OnOffToggle.Off => false,
+            //                                                _ => !proxyService.ProxyStatus,
+            //                                            };
+            //                                        });
+            //                                    }
+            //                                    catch
+            //                                    {
 
-                                                }
-                                            }
-                                            break;
-                                    }
-                                }
-                                break;
-                        }
-                    }
-                    try
-                    {
-                        var app = await WaitForApplicationAsync();
-                        MainThread2.BeginInvokeOnMainThread(app.RestoreMainWindow);
-                    }
-                    catch
-                    {
+            //                                    }
+            //                                }
+            //                                break;
+            //                        }
+            //                    }
+            //                    break;
+            //            }
+            //        }
+            //        try
+            //        {
+            //            var app = await WaitForApplicationAsync();
+            //            MainThread2.BeginInvokeOnMainThread(app.RestoreMainWindow);
+            //        }
+            //        catch
+            //        {
 
-                    }
-                };
-            }
+            //        }
+            //    };
+            //}
             //#if StartWatchTrace
             //                    StartWatchTraceRecord("ApplicationInstance");
             //#endif
@@ -435,7 +435,7 @@ public abstract class CommandLineHost : IDisposable
         {
             Handler = CommandHandler.Create(() =>
             {
-                InitAppInstance(() => key_shutdown);
+                //InitAppInstance(() => key_shutdown);
             }),
         };
         rootCommand.AddCommand(shutdown);
