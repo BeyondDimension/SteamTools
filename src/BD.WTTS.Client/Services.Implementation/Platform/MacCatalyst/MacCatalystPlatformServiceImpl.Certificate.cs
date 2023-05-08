@@ -11,7 +11,7 @@ partial class MacCatalystPlatformServiceImpl
         return default;
         //using var p = new Process();
         //p.StartInfo.FileName = "security";
-        //p.StartInfo.Arguments = $" verify-cert -c \"{IReverseProxyService.Instance.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists()}\"";
+        //p.StartInfo.Arguments = $" verify-cert -c \"{IReverseProxyService.Constants.Instance.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists()}\"";
         //p.StartInfo.UseShellExecute = false;
         //p.StartInfo.RedirectStandardOutput = true;
         //p.Start();

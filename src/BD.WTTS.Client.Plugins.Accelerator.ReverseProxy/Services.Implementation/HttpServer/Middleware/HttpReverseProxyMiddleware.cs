@@ -215,7 +215,7 @@ sealed partial class HttpReverseProxyMiddleware
             return;
         }
 
-        if (IReverseProxyService.Instance.IsOnlyWorkSteamBrowser && context.Request.UserAgent()?.Contains("Valve Steam") == false)
+        if (IReverseProxyService.Constants.Instance.IsOnlyWorkSteamBrowser && context.Request.UserAgent()?.Contains("Valve Steam") == false)
         {
             await ResetBody();
             return;
@@ -231,7 +231,7 @@ sealed partial class HttpReverseProxyMiddleware
             //    var cspIndex = csp.IndexOf(mark);
             //    if (cspIndex >= 0)
             //    {
-            //        context.Response.Headers.ContentSecurityPolicy = csp.Insert(cspIndex + mark.Length, " " + IReverseProxyService.LocalDomain);
+            //        context.Response.Headers.ContentSecurityPolicy = csp.Insert(cspIndex + mark.Length, " " + IReverseProxyService.Constants.LocalDomain);
             //    }
             //}
             context.Response.Headers.Remove("Content-Security-Policy");

@@ -56,7 +56,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     static void AddScriptConfigs(ICollection<KeyValuePair<DomainPattern, IScriptConfig>> dict,
     IEnumerable<ScriptDTO>? scripts)
     {
-        if (IReverseProxyService.Instance.IsEnableScript && scripts != null)
+        if (IReverseProxyService.Constants.Instance.IsEnableScript && scripts != null)
         {
             foreach (var item in scripts)
             {
@@ -139,7 +139,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
 
     public bool TryGetScriptConfig(string domain, [MaybeNullWhen(false)] out IEnumerable<IScriptConfig> value)
     {
-        if (!IReverseProxyService.Instance.IsEnableScript)
+        if (!IReverseProxyService.Constants.Instance.IsEnableScript)
         {
             value = null;
             return false;

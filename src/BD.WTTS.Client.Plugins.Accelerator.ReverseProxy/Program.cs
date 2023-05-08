@@ -1,5 +1,11 @@
+using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
+
 const string moduleName = "Accelerator";
-var exitCode = await IPCService.MainAsync(moduleName, ConfigureServices, args);
+var exitCode = await IPCService.MainAsync(moduleName, ConfigureServices, static ipcProvider =>
+{
+    // 添加反向代理服务（供主进程的 IPC 远程访问）
+    ipcProvider.CreateIpcJoint(IReverseProxyService.Constants.Instance);
+}, args);
 return exitCode;
 
 static void ConfigureServices(IServiceCollection services)
@@ -10,6 +16,7 @@ static void ConfigureServices(IServiceCollection services)
     });
 
     services.AddDnsAnalysisService();
+    // 添加反向代理服务（子进程实现）
     services.AddReverseProxyService();
     services.AddSingleton<ICertificateManager, CertificateManagerImpl>();
 }

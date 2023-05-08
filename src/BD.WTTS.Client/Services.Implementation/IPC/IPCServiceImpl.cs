@@ -4,6 +4,9 @@ using dotnetCampus.Ipc.Pipes;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+/// <summary>
+/// 主进程的 IPC 服务实现
+/// </summary>
 sealed partial class IPCServiceImpl : IPCService
 {
     bool disposedValue;
@@ -16,6 +19,19 @@ sealed partial class IPCServiceImpl : IPCService
         this.logger = logger;
     }
 
+    public Process? StartProcess(string fileName, Action<ProcessStartInfo>? configure = null)
+    {
+        var psi = new ProcessStartInfo
+        {
+            FileName = fileName,
+            Arguments = ipcProvider.ThrowIsNull().IpcContext.PipeName,
+            UseShellExecute = false,
+        };
+        configure?.Invoke(psi);
+        var process = Process.Start(psi);
+        return process;
+    }
+
     public void Run()
     {
         ipcProvider = new IpcProvider(
@@ -24,18 +40,50 @@ sealed partial class IPCServiceImpl : IPCService
         ipcProvider.StartServer();
     }
 
-    async Task<(bool result, string moduleName)> ExitModuleCoreAsync(string moduleName)
+    readonly Dictionary<string, PeerProxy> perrs = new();
+    readonly AsyncLock lock_perrs = new();
+
+    public async ValueTask<T?> GetServiceAsync<T>(string moduleName) where T : class
     {
         if (ipcProvider == null)
-            return (false, moduleName);
+            return default;
 
         try
         {
-            var peer = await ipcProvider.GetAndConnectToPeerAsync(
-                IPCModuleService.GetClientPipeName(moduleName, ipcProvider.IpcContext.PipeName));
+            PeerProxy? peer = null;
+            using (await lock_perrs.LockAsync())
+            {
+                if (!perrs.TryGetValue(moduleName, out peer))
+                {
+                    peer = await ipcProvider.GetAndConnectToPeerAsync(
+                    IPCModuleService.GetClientPipeName(moduleName, ipcProvider.IpcContext.PipeName));
+                    perrs.TryAdd(moduleName, peer);
+                }
+            }
 
-            var module = ipcProvider.CreateIpcProxy<IPCModuleService>(peer);
-            module.Dispose();
+            if (peer != null)
+            {
+                var s = ipcProvider.CreateIpcProxy<T>(peer);
+                return s;
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex,
+                "get service fail, moduleName: {moduleName}, T: {t}.",
+                moduleName,
+                typeof(T));
+        }
+
+        return default;
+    }
+
+    async Task<(bool result, string moduleName)> ExitModuleCoreAsync(string moduleName)
+    {
+        try
+        {
+            var module = await GetServiceAsync<IPCModuleService>(moduleName);
+            module.ThrowIsNull().Dispose();
 
             return (true, moduleName);
         }
@@ -93,6 +141,7 @@ sealed partial class IPCServiceImpl : IPCService
     /// 注册 IPC 调用服务
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TImpl"></typeparam>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void RegisterService<T, TImpl>()
         where T : class

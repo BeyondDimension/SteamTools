@@ -36,7 +36,7 @@ sealed class HttpLocalRequestMiddleware
             context.Response.Headers["Access-Control-Allow-Private-Network"] = "true";
         }
 
-        if (context.Request.Host.Host.Equals(IReverseProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
+        if (context.Request.Host.Host.Equals(IReverseProxyService.Constants.LocalDomain, StringComparison.OrdinalIgnoreCase))
         {
             if (HttpMethods.IsOptions(context.Request.Method))
             {

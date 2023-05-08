@@ -13,7 +13,7 @@ public sealed class ProxyService
 
     public static ProxyService Current => mCurrent ?? new();
 
-    readonly IReverseProxyService reverseProxyService = IReverseProxyService.Instance;
+    readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
     readonly IScriptManager scriptManager = IScriptManager.Instance;
     readonly IHostsFileService hostsFileService = IHostsFileService.Instance;
     readonly IPlatformService platformService = IPlatformService.Instance;
@@ -65,7 +65,7 @@ public sealed class ProxyService
                     reverseProxyService.ProxyIp = IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip) ? ip : IPAddress.Any;
 
                     // macOS\Linux 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
-                    if ((OperatingSystem.IsMacOS() || OperatingSystem.IsLinux()) && IPAddress.IsLoopback(IReverseProxyService.Instance.ProxyIp))
+                    if ((OperatingSystem.IsMacOS() || OperatingSystem.IsLinux()) && IPAddress.IsLoopback(IReverseProxyService.Constants.Instance.ProxyIp))
                     {
                         reverseProxyService.ProxyIp = IPAddress.Any;
                     }
@@ -79,7 +79,7 @@ public sealed class ProxyService
                     reverseProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
 
                     reverseProxyService.TwoLevelAgentProxyType = (ExternalProxyType)ProxySettings.TwoLevelAgentProxyType.Value;
-                    if (!reverseProxyService.TwoLevelAgentProxyType.IsDefined()) reverseProxyService.TwoLevelAgentProxyType = IReverseProxyService.DefaultTwoLevelAgentProxyType;
+                    if (!reverseProxyService.TwoLevelAgentProxyType.IsDefined()) reverseProxyService.TwoLevelAgentProxyType = IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType;
 
                     reverseProxyService.TwoLevelAgentIp = IPAddress2.TryParse(ProxySettings.TwoLevelAgentIp.Value, out var ip_t) ? ip_t.ToString() : IPAddress.Loopback.ToString();
                     reverseProxyService.TwoLevelAgentPortId = ProxySettings.TwoLevelAgentPortId.Value;
@@ -122,7 +122,7 @@ public sealed class ProxyService
                     else if (reverseProxyService.ProxyMode == ProxyMode.System)
                     {
                         var proxyip = reverseProxyService.ProxyIp;
-                        if (OperatingSystem.IsWindows() && IReverseProxyService.Instance.ProxyIp.Equals(IPAddress.Any))
+                        if (OperatingSystem.IsWindows() && IReverseProxyService.Constants.Instance.ProxyIp.Equals(IPAddress.Any))
                         {
                             proxyip = IPAddress.Loopback;
                         }
@@ -135,7 +135,7 @@ public sealed class ProxyService
                     else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
                     {
                         var proxyip = reverseProxyService.ProxyIp;
-                        if (OperatingSystem.IsWindows() && IReverseProxyService.Instance.ProxyIp.Equals(IPAddress.Any))
+                        if (OperatingSystem.IsWindows() && IReverseProxyService.Constants.Instance.ProxyIp.Equals(IPAddress.Any))
                         {
                             proxyip = IPAddress.Loopback;
                         }
@@ -173,7 +173,7 @@ public sealed class ProxyService
 
                                 if (reverseProxyService.IsEnableScript)
                                 {
-                                    hosts.TryAdd(IReverseProxyService.LocalDomain, localhost);
+                                    hosts.TryAdd(IReverseProxyService.Constants.LocalDomain, localhost);
                                 }
 
                                 var r = hostsFileService.UpdateHosts(hosts);

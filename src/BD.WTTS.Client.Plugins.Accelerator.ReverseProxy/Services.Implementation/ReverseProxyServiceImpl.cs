@@ -1,11 +1,12 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-using static BD.WTTS.Services.IReverseProxyService;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
 abstract class ReverseProxyServiceImpl
 {
+    protected const string TAG = "ReverseProxyS";
+
     public ReverseProxyServiceImpl(
         IDnsAnalysisService dnsAnalyses)
     {
@@ -44,7 +45,7 @@ abstract class ReverseProxyServiceImpl
     public int ProxyPort { get; set; } = 26501;
 
     /// <inheritdoc cref="IReverseProxyService.ProxyIp"/>
-    public IPAddress ProxyIp { get; set; } = IReverseProxySettings.DefaultProxyIp;
+    public IPAddress ProxyIp { get; set; } = IReverseProxyService.Constants.DefaultProxyIp;
 
     /// <inheritdoc cref="IReverseProxyService.ProxyMode"/>
     public ProxyMode ProxyMode { get; set; }
@@ -70,7 +71,7 @@ abstract class ReverseProxyServiceImpl
 
     public bool TwoLevelAgentEnable { get; set; }
 
-    public ExternalProxyType TwoLevelAgentProxyType { get; set; } = DefaultTwoLevelAgentProxyType;
+    public ExternalProxyType TwoLevelAgentProxyType { get; set; } = IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType;
 
     public string? TwoLevelAgentIp { get; set; }
 
@@ -137,8 +138,6 @@ abstract class ReverseProxyServiceImpl
     {
         Log.Error(TAG, exception, "ProxyServer ExceptionFunc");
     }
-
-    public abstract ReverseProxyEngine ReverseProxyEngine { get; }
 
     public async ValueTask<bool> StartProxyAsync()
     {

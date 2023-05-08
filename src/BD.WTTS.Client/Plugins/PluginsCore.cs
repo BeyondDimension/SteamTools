@@ -13,20 +13,10 @@ public static class PluginsCore
     internal static HashSet<Assembly>? LoadAssemblies()
     {
         HashSet<Assembly>? assemblies = null;
-#if DEBUG
+#if DEBUG // DEBUG 模式遍历项目查找模块
         var modules = new[] { "Accelerator", "AccountSwitch", "ArchiSteamFarm", "GameList", "GameTools", "LocalAuth" };
         foreach (var item in modules)
         {
-            const string tfm =
-#if WINDOWS
-                "-windows10.0.19041.0";
-#elif LINUX
-                "";
-#elif MACCATALYST
-                "maccatalyst";
-#elif MACOS
-                "macos";
-#endif
             //HashSet<string?>? entryAssemblyNames_ = null;
             //HashSet<string?> GetEntryAssemblyNames()
             //{
@@ -34,7 +24,7 @@ public static class PluginsCore
             //    return entryAssemblyNames_;
             //}
 
-            var assemblyPath = Path.Combine(Utils.ProjPath, "src", $"BD.WTTS.Client.Plugins.{item}", "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}{tfm}", $"BD.WTTS.Client.Plugins.{item}.dll");
+            var assemblyPath = Path.Combine(ProjectUtils.ProjPath, "src", $"BD.WTTS.Client.Plugins.{item}", "bin", "Debug", ProjectUtils.tfm, $"BD.WTTS.Client.Plugins.{item}.dll");
             if (File.Exists(assemblyPath))
             {
                 Assembly assembly;
@@ -142,7 +132,9 @@ public static class PluginsCore
         try
         {
             using CompositionHost container = configuration.CreateContainer();
-            activePlugins = container.GetExports<IPlugin>().ToHashSet();
+            activePlugins = container.GetExports<IPlugin>()
+                .Where(x => x.HasValue())
+                .ToHashSet();
         }
         catch (Exception e)
         {

@@ -23,11 +23,11 @@ sealed class DomainResolver : IDomainResolver
     {
         try
         {
-            if (IReverseProxyService.Instance.ProxyDNS != null)
+            if (IReverseProxyService.Constants.Instance.ProxyDNS != null)
             {
-                return reverseProxyConfig.Service.DnsAnalysis.AnalysisDomainIpAsync(endPoint.Host, new IPAddress[] { IReverseProxyService.Instance.ProxyDNS }, isIpv6, cancellationToken);
+                return reverseProxyConfig.Service.DnsAnalysis.AnalysisDomainIpAsync(endPoint.Host, new IPAddress[] { IReverseProxyService.Constants.Instance.ProxyDNS }, isIpv6, cancellationToken);
             }
-            else if (IReverseProxyService.Instance.ProxyMode is ProxyMode.DNSIntercept or ProxyMode.Hosts)
+            else if (IReverseProxyService.Constants.Instance.ProxyMode is ProxyMode.DNSIntercept or ProxyMode.Hosts)
             {
                 // hosts 加速下不能使用系统默认 DNS 解析代理，会解析到 hosts 或 DNS 拦截器 上无限循环
                 return reverseProxyConfig.Service.DnsAnalysis.AnalysisDomainIpAsync(endPoint.Host, IDnsAnalysisService.DNS_Dnspods, isIpv6, cancellationToken);

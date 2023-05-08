@@ -36,6 +36,13 @@ static partial class Program
                 // 但需要在完成时调用 DI.ConfigureServices(IServiceProvider) 与 OnBuild
                 ConfigureServices(services, args, options);
             }
+
+            if (options.HasMainProcessRequired)
+            {
+                // 仅在主进程中启动 IPC 服务端
+                IPCService.Instance.Run();
+            }
+
             if (options.HasPlugins)
             {
                 foreach (var plugin in options.Plugins!)

@@ -3,7 +3,7 @@ namespace BD.WTTS.Plugins.Abstractions;
 /// <summary>
 /// 插件接口
 /// </summary>
-public interface IPlugin
+public interface IPlugin : IExplicitHasValue
 {
     /// <summary>
     /// 插件的名称

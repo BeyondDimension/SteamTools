@@ -5,9 +5,15 @@ namespace BD.WTTS.Plugins;
 #endif
 sealed class Plugin : PluginBase<Plugin>
 {
-    public override string Name => nameof(TabItemViewModel.TabItemId.Accelerator);
+    const string moduleName = "Accelerator";
 
-    public override void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public sealed override string Name => moduleName;
+
+    IReverseProxyService? reverseProxyService;
+
+    public IReverseProxyService ReverseProxyService => reverseProxyService.ThrowIsNull();
+
+    public sealed override void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
     {
         services.TryAddScriptManager();
         if (options.IsTrace) StartWatchTrace.Record("DI.D.ScriptManager");
@@ -15,8 +21,8 @@ sealed class Plugin : PluginBase<Plugin>
         if (options.HasHttpProxy)
         {
 #if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-            // 通用 Http 代理服务
-            //services.AddSingleton<IReverseProxyService, IPCReverseProxyServiceImpl>();
+            // 添加反向代理服务（主进程插件）
+            services.AddSingleton(_ => ReverseProxyService);
             if (options.IsTrace) StartWatchTrace.Record("DI.D.HttpProxy");
 #endif
         }
@@ -28,19 +34,25 @@ sealed class Plugin : PluginBase<Plugin>
         }
     }
 
-    public override void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public sealed override void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
     {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         services.AddSingleton<IProxyService>(_ => ProxyService.Current);
 #endif
     }
 
-    public override ValueTask OnLoadedAsync()
+    public sealed override async ValueTask OnLoadedAsync()
     {
-        return ValueTask.CompletedTask;
+        var ipc = IPCService.Instance;
+
+        // 启动加速模块子进程
+        ipc.StartProcess(SubProcessPath.ThrowIsNull());
+
+        // 从子进程中获取 IPC 远程服务
+        reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);
     }
 
-    public override async ValueTask OnInitializeAsync()
+    public sealed override async ValueTask OnInitializeAsync()
     {
         if (ResourceService.IsChineseSimplified)
         {
@@ -48,12 +60,12 @@ sealed class Plugin : PluginBase<Plugin>
         }
     }
 
-    public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
+    public sealed override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
     {
         cfg.AddProfile<AcceleratorAutoMapperProfile>();
     }
 
-    public override async void OnUnhandledException(Exception ex, string name, bool? isTerminating = null)
+    public sealed override async void OnUnhandledException(Exception ex, string name, bool? isTerminating = null)
     {
         var reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
         if (reverseProxyService != null)
@@ -61,5 +73,59 @@ sealed class Plugin : PluginBase<Plugin>
             await reverseProxyService.StartProxyAsync();
         }
         ProxyService.OnExitRestoreHosts();
+    }
+
+    string? subProcessPath;
+
+    /// <summary>
+    /// 获取子进程文件所在路径
+    /// </summary>
+    string? SubProcessPath
+    {
+        get
+        {
+            if (subProcessPath == null)
+            {
+                try
+                {
+                    subProcessPath = Assembly.GetExecutingAssembly().Location;
+                    subProcessPath = Path.GetDirectoryName(subProcessPath);
+                    subProcessPath.ThrowIsNull();
+
+                    const string fileName = $"Steam++.{moduleName}";
+                    var subProcessFileName = OperatingSystem.IsWindows() ? $"{fileName}{FileEx.EXE}" : fileName;
+                    subProcessPath = Path.Combine(subProcessPath, subProcessFileName);
+
+#if DEBUG // DEBUG 模式遍历项目查找模块
+                    if (!File.Exists(subProcessPath))
+                    {
+                        subProcessPath = Path.Combine(ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "bin", "Debug", ProjectUtils.tfm, subProcessFileName);
+                    }
+#endif
+                    return subProcessPath;
+                }
+                catch
+                {
+                    subProcessPath = string.Empty;
+                }
+            }
+
+            return subProcessPath;
+        }
+    }
+
+    /// <summary>
+    /// 子进程是否存在
+    /// </summary>
+    /// <returns></returns>
+    bool SubProcessExists()
+    {
+        var subProcessPath = SubProcessPath;
+        return !string.IsNullOrWhiteSpace(subProcessPath) && File.Exists(subProcessPath);
+    }
+
+    public sealed override bool ExplicitHasValue()
+    {
+        return SubProcessExists();
     }
 }

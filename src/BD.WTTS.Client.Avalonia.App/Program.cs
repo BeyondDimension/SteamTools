@@ -142,10 +142,10 @@ static partial class Program
                     DefaultFamilyName = "Microsoft YaHei UI",
                     FontFallbacks = new[]
                     {
-                    new FontFallback
-                    {
-                        FontFamily = "Microsoft YaHei UI",
-                    },
+                        new FontFallback
+                        {
+                            FontFamily = "Microsoft YaHei UI",
+                        },
                     },
                 });
 

@@ -103,7 +103,7 @@ public sealed partial class ProxySettings : SettingsHost2<ProxySettings>
         = GetProperty(defaultValue: DefaultTwoLevelAgentProxyType, autoSave: false);
 
     public const short DefaultTwoLevelAgentProxyType =
-        (short)IReverseProxyService.DefaultTwoLevelAgentProxyType;
+        (short)IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType;
 
     /// <summary>
     /// 二级代理 IP

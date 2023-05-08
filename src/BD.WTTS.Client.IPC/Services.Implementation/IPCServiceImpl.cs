@@ -10,12 +10,14 @@ public sealed class IPCServiceImpl : IPCService, IPCModuleService
     PeerProxy? peer;
     TaskCompletionSource? tcs;
 
-    public async Task RunAsync(string moduleName, TaskCompletionSource tcs, string pipeName)
+    public async Task RunAsync(string moduleName, TaskCompletionSource tcs, string pipeName,
+        Action<IpcProvider>? configureIpcProvider = null)
     {
         this.tcs = tcs;
         ipcProvider = new IpcProvider(
             IPCModuleService.GetClientPipeName(moduleName, pipeName));
         ipcProvider.CreateIpcJoint<IPCModuleService>(this);
+        configureIpcProvider?.Invoke(ipcProvider);
         ipcProvider.StartServer();
 
         peer = await ipcProvider.GetAndConnectToPeerAsync(pipeName);

@@ -6,8 +6,6 @@ namespace BD.WTTS.Services.Implementation;
 
 sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService, IAsyncDisposable
 {
-    public override ReverseProxyEngine ReverseProxyEngine => ReverseProxyEngine.Yarp;
-
     static readonly string RootPath = Path.Combine(IOPath.AppDataDirectory, "Yarp");
 
     WebApplication? app;

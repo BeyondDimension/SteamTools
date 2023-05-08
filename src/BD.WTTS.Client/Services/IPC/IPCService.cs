@@ -1,10 +1,23 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
+/// <summary>
+/// 主进程的 IPC 服务
+/// </summary>
 public interface IPCService : IAsyncDisposable
 {
+    static IPCService Instance => Ioc.Get<IPCService>();
+
     /// <summary>
-    /// 启动 IPC 服务
+    /// 启动子进程
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <param name="configure"></param>
+    /// <returns></returns>
+    Process? StartProcess(string fileName, Action<ProcessStartInfo>? configure = null);
+
+    /// <summary>
+    /// 启动主进程的 IPC 服务
     /// </summary>
     void Run();
 
@@ -28,4 +41,12 @@ public interface IPCService : IAsyncDisposable
     /// <param name="moduleNames"></param>
     /// <returns></returns>
     Task<bool> ExitModules(IEnumerable<string> moduleNames);
+
+    /// <summary>
+    /// 获取子进程实现的 IPC 远程服务
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="moduleName"></param>
+    /// <returns></returns>
+    ValueTask<T?> GetServiceAsync<T>(string moduleName) where T : class;
 }

@@ -34,7 +34,7 @@ public static class KestrelServerOptionsExtensions
                 $"TCP port {httpProxyPort} is already occupied by other processes.");
         }
 
-        options.Listen(IReverseProxyService.Instance.ProxyIp, httpProxyPort, listen =>
+        options.Listen(IReverseProxyService.Constants.Instance.ProxyIp, httpProxyPort, listen =>
         {
             var proxyMiddleware = options.ApplicationServices.GetRequiredService<HttpProxyMiddleware>();
             var tunnelMiddleware = options.ApplicationServices.GetRequiredService<TunnelMiddleware>();
@@ -47,7 +47,7 @@ public static class KestrelServerOptionsExtensions
 
         options.GetLogger().LogInformation(
             "Listened http://{ProxyIp}:{httpProxyPort}, HTTP proxy service startup completed.",
-            IReverseProxyService.Instance.ProxyIp, httpProxyPort);
+            IReverseProxyService.Constants.Instance.ProxyIp, httpProxyPort);
     }
 
 #if WINDOWS
@@ -100,12 +100,12 @@ public static class KestrelServerOptionsExtensions
     public static void ListenHttpReverseProxy(this KestrelServerOptions options)
     {
         var httpPort = IReverseProxyConfig.HttpPort;
-        options.Listen(IReverseProxyService.Instance.ProxyIp, httpPort);
+        options.Listen(IReverseProxyService.Constants.Instance.ProxyIp, httpPort);
 
         var logger = options.GetLogger();
         logger.LogInformation(
             "Listened http://{ProxyIp}:{httpPort}, HTTP reverse proxy service startup completed.",
-            IReverseProxyService.Instance.ProxyIp, httpPort);
+            IReverseProxyService.Constants.Instance.ProxyIp, httpPort);
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ public static class KestrelServerOptionsExtensions
         domainResolver.CheckIpv6SupportAsync();
 
         var httpsPort = IReverseProxyConfig.HttpsPort;
-        options.Listen(IReverseProxyService.Instance.ProxyIp, httpsPort, listen =>
+        options.Listen(IReverseProxyService.Constants.Instance.ProxyIp, httpsPort, listen =>
         {
             listen.UseFlowAnalyze();
             listen.UseTls();
@@ -131,15 +131,17 @@ public static class KestrelServerOptionsExtensions
         var logger = options.GetLogger();
         logger.LogInformation(
             "Listened https://{ProxyIp}:{httpsPort}, HTTPS reverse proxy service startup completed.",
-            IReverseProxyService.Instance.ProxyIp, httpsPort);
+            IReverseProxyService.Constants.Instance.ProxyIp, httpsPort);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static ILogger GetLogger(this KestrelServerOptions kestrel)
     {
         var loggerFactory = kestrel.ApplicationServices.GetRequiredService<ILoggerFactory>();
-        return loggerFactory.CreateLogger(IReverseProxyService.TAG);
+        return loggerFactory.CreateLogger(TAG);
     }
+
+    const string TAG = "KestrelServerOptEx";
 
 }
 #endif

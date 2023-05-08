@@ -53,4 +53,9 @@ public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<T
     {
 
     }
+
+    public virtual bool ExplicitHasValue()
+    {
+        return true;
+    }
 }
