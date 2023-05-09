@@ -5,5 +5,5 @@ public interface IPageViewModel : IViewModelBase
 {
     string Title { get; set; }
 
-    void Initialize();
+    Task Initialize();
 }

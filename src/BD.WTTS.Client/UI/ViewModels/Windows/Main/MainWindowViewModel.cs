@@ -119,52 +119,55 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         SelectedItem = AllTabLazyItems.First().Value.Value;
     }
 
-    public override void Initialize()
+    public override Task Initialize()
     {
-        Task.Run(() =>
-        {
-            Thread.CurrentThread.IsBackground = true;
-            if (!IsInitialized)
-            {
+        var task = Task.Run(() =>
+         {
+             Thread.CurrentThread.IsBackground = true;
+             if (!IsInitialized)
+             {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-                Task.Run(async () =>
-                {
-                    if (StartupOptions.Value.HasPlugins)
-                    {
-                        foreach (var plugin in StartupOptions.Value.Plugins!)
-                        {
-                            await plugin.OnInitializeAsync();
-                        }
-                    }
-                    //if (ASFSettings.AutoRunArchiSteamFarm.Value)
-                    //{
-                    //    if (platformService.UsePlatformForegroundService)
-                    //    {
-                    //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
-                    //    }
-                    //    else
-                    //    {
-                    //        await ASFService.Current.InitASF();
-                    //    }
-                    //}
-                });
+                 Task.Run(async () =>
+                 {
+                     if (StartupOptions.Value.HasPlugins)
+                     {
+                         foreach (var plugin in StartupOptions.Value.Plugins!)
+                         {
+                             await plugin.OnInitializeAsync();
+                         }
+                     }
+                     //if (ASFSettings.AutoRunArchiSteamFarm.Value)
+                     //{
+                     //    if (platformService.UsePlatformForegroundService)
+                     //    {
+                     //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
+                     //    }
+                     //    else
+                     //    {
+                     //        await ASFService.Current.InitASF();
+                     //    }
+                     //}
+                 });
 #endif
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-                {
-                    //SteamConnectService.Current.Initialize();
-                    //SteamConnectService.Current.RefreshSteamUsers();
-                }
+                 {
+                     //SteamConnectService.Current.Initialize();
+                     //SteamConnectService.Current.RefreshSteamUsers();
+                 }
 #endif
 
-                Parallel.ForEach(TabItems, item =>
-                {
-                    item.Initialize();
-                    //Task.Run(item.Initialize).ForgetAndDispose();
-                });
-                IsInitialized = true;
-            }
-        }).ForgetAndDispose();
+                 Parallel.ForEach(TabItems, item =>
+                 {
+                     item.Initialize();
+                     //Task.Run(item.Initialize).ForgetAndDispose();
+                 });
+                 IsInitialized = true;
+             }
+         });
+
+        task.ForgetAndDispose();
+        return task;
     }
 
     //public async override void Activation()

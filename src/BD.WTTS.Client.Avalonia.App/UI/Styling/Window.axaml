@@ -114,6 +114,33 @@
 		</Style>
 	</ControlTheme>
 
+	<ControlTheme TargetType="wnd:AppSplashScreen" x:Key="{x:Type wnd:AppSplashScreen}">
+		<Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}" />
+		<Setter Property="Foreground" Value="{DynamicResource CoreSplashScreenForeground}" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel Name="Root"
+                       Background="{TemplateBinding Background}">
+					<TextBlock Name="AppNameText"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="{DynamicResource SplashScreenTextSize}"
+                               FontWeight="{DynamicResource SplashScreenTextFontWeight}"/>
+					<Image Name="AppImageHost"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Width="{DynamicResource SplashScreenImageWidth}"
+                           Height="{DynamicResource SplashScreenImageWidth}" />
+					<ContentPresenter Name="ContentHost"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"
+                                      HorizontalContentAlignment="Stretch"
+                                      VerticalContentAlignment="Stretch" />
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+
 	<ControlTemplate x:Key="AppWindowOnWindowsTemplate" TargetType="{x:Type wnd:AppWindow}">
 		<VisualLayerManager>
 			<!-- Because we use the System Border, we don't specify anything like that here.-->
@@ -164,8 +191,6 @@
 					<wnd:AppSplashScreen Name="SplashHost"
                                          IsVisible="False"/>
 
-					<!--<spp:Snackbar/>-->
-
 					<!-- Add the Caption Buttons, these should ALWAYS overlay the window -->
 					<wnd:MinMaxCloseControl HorizontalAlignment="Right"
                                             VerticalAlignment="Top"
@@ -182,21 +207,29 @@
 		<Panel>
 			<Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
 			<Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+			<Panel Name="WindowBackground" IsHitTestVisible="False">
+				<Border Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+						Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}">
+				</Border>
+				<Image Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+					   Stretch="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImageStretch},Path=Value, Mode=OneWay}"
+					   Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.BackgroundImageOpacity},Mode=OneWay}"
+					   IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay}"/>
+			</Panel>
 			<Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}" />
 			<VisualLayerManager>
 				<VisualLayerManager.ChromeOverlayLayer>
 					<TitleBar />
 				</VisualLayerManager.ChromeOverlayLayer>
 				<ContentPresenter Name="PART_ContentPresenter"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  Content="{TemplateBinding Content}"
-                                  Margin="{TemplateBinding Padding}"
-                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+								  ContentTemplate="{TemplateBinding ContentTemplate}"
+								  Content="{TemplateBinding Content}"
+								  Margin="{TemplateBinding Padding}"
+								  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+								  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
 			</VisualLayerManager>
 			<wnd:AppSplashScreen Name="SplashHost"
                                  IsVisible="False"/>
-			<!--<spp:Snackbar/>-->
 		</Panel>
 	</ControlTemplate>
 

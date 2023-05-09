@@ -80,101 +80,50 @@
 			</spp:OptionsDisplayItem.ActionButton>
 		</spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_StorageSpace,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
-						IsVisible="{spp:OnPlatform Windows}"
-						Expands="True">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon Glyph="&#xE7F1;" FontFamily="Segoe Fluent Icons"/>
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
+		<ui:SettingsExpander IconSource="Globe"
+							 Header="{ReflectionBinding Path=Res.Settings_General_StorageSpace,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+							 IsExpanded="True"
+							 IsVisible="{spp:OnPlatform Windows}"
+							 IsClickEnabled="False">
+			<ui:SettingsExpander.IconSource>
+				<ui:FontIconSource Glyph="&#xE7F1;" FontFamily="Segoe Fluent Icons"/>
+			</ui:SettingsExpander.IconSource>
+			<ui:SettingsExpander.Footer>
 				<Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static s:ResourceService.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=App}"
-						Command="{ReflectionBinding OpenFolder_Click}"
+						Command="{Binding OpenFolder_Click}"
 						CommandParameter="{x:Null}"/>
-			</spp:OptionsDisplayItem.ActionButton>
-			<spp:OptionsDisplayItem.Content>
-				<StackPanel Spacing="4" >
-					<Button HorizontalAlignment="Stretch"
-							HorizontalContentAlignment="Stretch"
-							VerticalContentAlignment="Center"
-							Background="Transparent"
-							Height="50"
-							BorderThickness="0"
-							Margin="0 0 0 6"
-							Padding="24 0 10 0"
-							Command="{Binding OpenFolder_Click}"
-							CommandParameter="AppData">
-						<DockPanel LastChildFill="False">
-							<TextBlock Text="AppData 数据"
-									   HorizontalAlignment="Stretch"
-									   VerticalAlignment="Center"
-									   DockPanel.Dock="Left" />
-							<ui:SymbolIcon Symbol="ChevronRight"
-										   DockPanel.Dock="Right"/>
-						</DockPanel>
-					</Button>
+			</ui:SettingsExpander.Footer>
 
-					<Border Background="{DynamicResource ApplicationPageBackgroundThemeBrush}"
-							DockPanel.Dock="Bottom"
-							Height="1"
-							Margin="-20"/>
-					<Button HorizontalAlignment="Stretch"
-							HorizontalContentAlignment="Stretch"
-							VerticalContentAlignment="Center"
-							Background="Transparent"
-							Height="50"
-							BorderThickness="0"
-							Margin="0 6"
-							Padding="24 0 10 0"
-							Command="{Binding OpenFolder_Click}"
-							CommandParameter="Cache">
-						<DockPanel LastChildFill="False">
-							<TextBlock Text="Cache 数据"
-									   HorizontalAlignment="Stretch"
-									   VerticalAlignment="Center"
-									   DockPanel.Dock="Left" />
-							<WrapPanel DockPanel.Dock="Right"
-									   HorizontalAlignment="Stretch"
-									   VerticalAlignment="Center">
-								<TextBlock Name="CacheSize" 
-										   FontSize="{DynamicResource DefaultFontSize}"
-										   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
-								<ui:SymbolIcon Symbol="ChevronRight"/>
-							</WrapPanel>
-						</DockPanel>
-					</Button>
-
-					<Border Background="{DynamicResource ApplicationPageBackgroundThemeBrush}"
-							DockPanel.Dock="Bottom"
-							Height="1"
-							Margin="-20"/>
-					<Button HorizontalAlignment="Stretch"
-							HorizontalContentAlignment="Stretch"
-							VerticalContentAlignment="Center"
-							Background="Transparent"
-							Height="50"
-							BorderThickness="0"
-							Margin="0 6 0 0"
-							Padding="24 0 10 0"
-							Command="{Binding OpenFolder_Click}"
-							CommandParameter="Logs">
-						<DockPanel LastChildFill="False">
-							<TextBlock Text="Logs 数据"
-									   HorizontalAlignment="Stretch"
-									   VerticalAlignment="Center"
-									   DockPanel.Dock="Left" />
-							<WrapPanel DockPanel.Dock="Right"
-									   HorizontalAlignment="Stretch"
-									   VerticalAlignment="Center">
-								<TextBlock Name="LogSize"
-										   FontSize="{DynamicResource DefaultFontSize}"
-										   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
-								<ui:SymbolIcon Symbol="ChevronRight"/>
-							</WrapPanel>
-						</DockPanel>
-					</Button>
-
-				</StackPanel>
-			</spp:OptionsDisplayItem.Content>
-		</spp:OptionsDisplayItem>
+			<ui:SettingsExpanderItem Content="AppData 数据"
+									 ActionIconSource="ChevronRight"
+									 IsClickEnabled="True"
+									 ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static s:ResourceService.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=AppData}"
+									 Command="{Binding OpenFolder_Click}"
+									 CommandParameter="AppData"/>
+			<ui:SettingsExpanderItem Content="Cache 数据"
+									 ActionIconSource="ChevronRight"
+									 IsClickEnabled="True"
+									 ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static s:ResourceService.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=Cache}"
+									 Command="{Binding OpenFolder_Click}"
+									 CommandParameter="Cache">
+				<ui:SettingsExpanderItem.Footer>
+					<TextBlock Name="CacheSize"
+							   FontSize="{DynamicResource DefaultFontSize}"
+							   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+				</ui:SettingsExpanderItem.Footer>
+			</ui:SettingsExpanderItem>
+			<ui:SettingsExpanderItem Content="Logs 数据"
+									 ActionIconSource="ChevronRight"
+									 IsClickEnabled="True"
+									 ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static s:ResourceService.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=Logs}"
+									 Command="{Binding OpenFolder_Click}"
+									 CommandParameter="Logs">
+				<ui:SettingsExpanderItem.Footer>
+					<TextBlock Name="LogSize"
+							   FontSize="{DynamicResource DefaultFontSize}"
+							   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+				</ui:SettingsExpanderItem.Footer>
+			</ui:SettingsExpanderItem>
+		</ui:SettingsExpander>
 	</StackPanel>
 </UserControl>

@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BD.WTTS.UI.Views.Controls.SplashScreen">
+	<Grid RowDefinitions="*,Auto,150">
+		<Image Width="128"
+			   Height="128"
+			   IsHitTestVisible="False"
+			   Source="/UI/Assets/ApplicationIcon.ico" />
+		<ProgressBar Classes="Circle"
+					 Grid.Row="1"
+					 IsIndeterminate="True"
+					 Width="32"
+					 Height="32"/>
+	</Grid>
+</UserControl>

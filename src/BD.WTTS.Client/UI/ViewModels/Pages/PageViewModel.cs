@@ -27,7 +27,8 @@ public partial class PageViewModel : ViewModelBase, IPageViewModel
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
     public bool IsInitialized { get; protected set; }
 
-    public virtual void Initialize()
+    public virtual Task Initialize()
     {
+        return Task.CompletedTask;
     }
 }
