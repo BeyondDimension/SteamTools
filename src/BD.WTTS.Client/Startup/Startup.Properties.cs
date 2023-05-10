@@ -1,0 +1,125 @@
+// ReSharper disable once CheckNamespace
+namespace BD.WTTS;
+
+[DebuggerDisplay("{DebuggerDisplay(),nq}")]
+partial class Startup // Properties
+{
+    string DebuggerDisplay =>
+        $"IsMainProcess: {IsMainProcess}, IsCustomEntryPoint: {IsCustomEntryPoint}, IsDesignMode: {IsDesignMode}, App: {App}";
+
+    static Startup? instance;
+
+    public static Startup Instance => instance ?? throw new NullReferenceException("Startup init fail.");
+
+    /// <summary>
+    /// 当前是否为主进程
+    /// </summary>
+    public bool IsMainProcess { get; private set; }
+
+    /// <summary>
+    /// 当前是否为控制台工具进程
+    /// </summary>
+    public bool IsConsoleLineToolProcess { get; private set; }
+
+#if DEBUG
+    /// <inheritdoc cref="IsConsoleLineToolProcess"/>
+    [Obsolete("use IsConsoleLineToolProcess", true)]
+    public bool IsCLTProcess => IsConsoleLineToolProcess;
+#endif
+
+    /// <summary>
+    /// 是否使用自定义 .NET Host 入口点
+    /// </summary>
+    public bool IsCustomEntryPoint { get; init; }
+
+    /// <summary>
+    /// 是否在设计器中运行
+    /// </summary>
+    public bool IsDesignMode { get; set; }
+
+    /// <summary>
+    /// 是否最小化启动
+    /// </summary>
+    public bool IsMinimize { get; private set; }
+
+    /// <summary>
+    /// 是否为代理服务
+    /// </summary>
+    public bool IsProxyService { get; private set; }
+
+    /// <summary>
+    /// 代理服务状态
+    /// </summary>
+    public OnOffToggle ProxyServiceStatus { get; private set; }
+
+    public object? App { private get; set; }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    async ValueTask DisposeAppAsync()
+    {
+        var app = App;
+        if (app == null)
+        {
+            return;
+        }
+        else if (app is IAsyncDisposable asyncDisposable)
+        {
+            await asyncDisposable.DisposeAsync();
+            return;
+        }
+        else if (app is IDisposable disposable)
+        {
+            disposable.Dispose();
+            return;
+        }
+    }
+
+    /// <inheritdoc cref="AppServicesLevel.AppUpdateAndTrayIcon"/>
+    public bool HasTrayIcon { get; set; }
+
+    /// <inheritdoc cref="AppServicesLevel.UI"/>
+    public bool HasUI { get; private set; }
+
+    /// <inheritdoc cref="AppServicesLevel.ServerApiClient"/>
+    public bool HasServerApiClient { get; private set; }
+
+    /// <inheritdoc cref="AppServicesLevel.HttpClientFactory"/>
+    public bool HasHttpClientFactory { get; private set; }
+
+    /// <inheritdoc cref="AppServicesLevel.HttpProxy"/>
+    public bool HasHttpProxy { get; private set; }
+
+    /// <inheritdoc cref="AppServicesLevel.Hosts"/>
+    public bool HasHosts { get; private set; }
+
+    /// <inheritdoc cref="AppServicesLevel.Steam"/>
+    public bool HasSteam { get; private set; }
+
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+    /// <summary>
+    /// 是否已加载插件
+    /// </summary>
+    public bool HasPlugins { get; private set; }
+
+    /// <summary>
+    /// 当前加载的插件集合
+    /// </summary>
+    HashSet<IPlugin>? plugins;
+
+    /// <summary>
+    /// 尝试获取已加载的插件集合
+    /// </summary>
+    /// <param name="plugins"></param>
+    /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public bool TryGetPlugins([NotNullWhen(true)] out HashSet<IPlugin>? plugins)
+    {
+        plugins = this.plugins;
+        return HasPlugins;
+    }
+#endif
+
+    readonly TaskCompletionSource waitConfiguredServices = new();
+
+    public Task WaitConfiguredServices => waitConfiguredServices.Task;
+}

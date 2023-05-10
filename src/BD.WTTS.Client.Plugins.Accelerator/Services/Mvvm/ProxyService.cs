@@ -380,16 +380,16 @@ public sealed class ProxyService
     }
     #endregion
 
-    bool IsProgramStartupRunProxy()
+    static bool IsProgramStartupRunProxy()
     {
-        if (IApplication.Instance.ProgramHost is
-            IApplication.IDesktopStartupArgs desktopStartupArgs &&
-            desktopStartupArgs.IsProxy &&
-                (desktopStartupArgs.ProxyStatus == OnOffToggle.On ||
-                desktopStartupArgs.ProxyStatus == OnOffToggle.Toggle))
+        var s = Startup.Instance;
+
+        if (s.IsProxyService &&
+            (s.ProxyServiceStatus == OnOffToggle.On ||
+                s.ProxyServiceStatus == OnOffToggle.Toggle))
             return true;
-        if (ProxySettings.ProgramStartupRunProxy.Value) return true;
-        return false;
+
+        return ProxySettings.ProgramStartupRunProxy.Value;
     }
 
     public async Task InitializeAsync()

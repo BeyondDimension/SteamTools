@@ -142,7 +142,7 @@ partial interface IApplication
     /// <summary>
     /// 日志存放文件夹路径
     /// </summary>
-    static string LogDirPath { get; private set; } = string.Empty;
+    static string LogDirPath { get; internal set; } = string.Empty;
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 
@@ -164,53 +164,6 @@ partial interface IApplication
     const string LogDirName = "Logs";
 
     static Action? ASFInitCoreLoggers { get; private set; }
-
-    static void InitLogDir(string? alias = null, bool isTrace = false)
-    {
-        if (!string.IsNullOrEmpty(LogDirPath)) return;
-
-        //var devicePlatform = DeviceInfo2.Platform();
-        //LogUnderCache = devicePlatform switch
-        //{
-        //    Platform.Windows => DesktopBridge.IsRunningAsUwp,
-        //    Platform.Linux or Platform.Android or Platform.Apple or Platform.UWP => true,
-        //    _ => throw new ArgumentOutOfRangeException(nameof(devicePlatform), devicePlatform, null),
-        //};
-
-        //var logDirPath = Path.Combine(/*LogUnderCache ?*/
-        //    IOPath.CacheDirectory /*:*/
-        //    /*IOPath.BaseDirectory*/,
-        //    LogDirName);
-        var logDirPath = Path.Combine(IOPath.CacheDirectory, LogDirName);
-        IOPath.DirCreateByNotExists(logDirPath);
-        if (isTrace) StartWatchTrace.Record("InitLogDir.IO");
-        var logDirPath_ = logDirPath + Path.DirectorySeparatorChar;
-
-        NInternalLogger.LogFile = logDirPath_ + "internal-nlog" + alias + ".txt";
-        NInternalLogger.LogLevel = NLogLevel.Error;
-        var objConfig = new LoggingConfiguration();
-        var defMinLevel = DefaultNLoggerMinLevel;
-        var logfile = new FileTarget("logfile")
-        {
-            FileName = logDirPath_ + "nlog-all-${shortdate}" + alias + ".log",
-            Layout = "${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
-            ArchiveAboveSize = 10485760,
-            MaxArchiveFiles = 14,
-            MaxArchiveDays = 7,
-        };
-        objConfig.AddTarget(logfile);
-        InitializeTarget(objConfig, logfile, defMinLevel);
-        if (isTrace) StartWatchTrace.Record("InitLogDir.CreateCfg");
-        NLogManager.Configuration = objConfig;
-
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-        LogDirPathASF = logDirPath_;
-#endif
-
-        LogDirPath = logDirPath;
-
-        Log.LoggerFactory = () => new LoggerFactory(new[] { new NLogLoggerProvider() });
-    }
 
     static void InitializeTarget(LoggingConfiguration config, Target target, NLogLevel minLevel)
     {

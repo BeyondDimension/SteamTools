@@ -7,21 +7,16 @@ sealed class Plugin : PluginBase<Plugin>
 {
     public override string Name => nameof(TabItemViewModel.TabItemId.LocalAuth);
 
-    public override void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {
-        if (options.HasServerApiClient)
+        if (startup.HasServerApiClient)
         {
             services.AddSingleton<IAccountPlatformAuthenticatorRepository, AccountPlatformAuthenticatorRepository>();
         }
     }
 
-    public override void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
-    }
-
-    public override ValueTask OnLoadedAsync()
-    {
-        return ValueTask.CompletedTask;
     }
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)

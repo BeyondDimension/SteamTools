@@ -4,7 +4,7 @@ namespace BD.WTTS.Entities;
 /// 通知记录
 /// </summary>
 [SQLiteTable("A765AD32")]
-[DebuggerDisplay("{DebuggerDisplay(),nq}")]
+[DebuggerDisplay("{DebuggerDisplay,nq}")]
 public sealed class Notification : IEntity<Guid>
 {
     string DebuggerDisplay => Id.ToString();

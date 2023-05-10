@@ -1,38 +1,43 @@
 using System.Reactive;
 using Logger = NLog.Logger;
+#if ANDROID || __ANDROID__
+using JavaObject = Java.Lang.Object;
+using JavaThread = Java.Lang.Thread;
+using JavaThrowable = Java.Lang.Throwable;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
-static partial class Program
+partial class Startup // 全局异常处理
 {
     /// <summary>
-    /// 全局异常助手类
+    /// 全局异常处理
     /// </summary>
-    static class GlobalExceptionHelpers
+    public static class GlobalExceptionHandler
     {
-        const string TAG = nameof(GlobalExceptionHelpers);
+        const string TAG = nameof(GlobalExceptionHandler);
 
         static int index_exceptions;
-        static readonly int[] exceptions = new int[6];
+        static readonly int[] exceptions = new int[3];
         static readonly object lock_global_ex_log = new();
         static readonly Lazy<Logger> _logger = new(LogManager.GetCurrentClassLogger);
 
         static Logger Logger => _logger.Value;
 
-#if __ANDROID__
-        sealed class UncaughtExceptionHandler : Java.Lang.Object, Java.Lang.Thread.IUncaughtExceptionHandler
+#if ANDROID || __ANDROID__
+        sealed class UncaughtExceptionHandler : JavaObject, JavaThread.IUncaughtExceptionHandler
         {
-            readonly Action<Java.Lang.Thread, Java.Lang.Throwable> action;
-            readonly Java.Lang.Thread.IUncaughtExceptionHandler? @interface;
+            readonly Action<JavaThread, JavaThrowable> action;
+            readonly JavaThread.IUncaughtExceptionHandler? @interface;
 
-            public UncaughtExceptionHandler(Action<Java.Lang.Thread, Java.Lang.Throwable> action, Java.Lang.Thread.IUncaughtExceptionHandler? @interface = null)
+            public UncaughtExceptionHandler(Action<JavaThread, JavaThrowable> action, JavaThread.IUncaughtExceptionHandler? @interface = null)
             {
                 this.action = action;
                 this.@interface = @interface;
             }
 
-            public void UncaughtException(Java.Lang.Thread t, Java.Lang.Throwable e)
+            public void UncaughtException(JavaThread t, JavaThrowable e)
             {
                 @interface?.UncaughtException(t, e);
                 action(t, e);
@@ -40,18 +45,15 @@ static partial class Program
         }
 #endif
 
-        /// <summary>
-        /// 初始化全局异常处理
-        /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Init()
         {
 #if __ANDROID__
-            Java.Lang.Thread.DefaultUncaughtExceptionHandler = new UncaughtExceptionHandler((_, ex) =>
+            JavaThread.DefaultUncaughtExceptionHandler = new UncaughtExceptionHandler((_, ex) =>
             {
                 Handler(ex, nameof(Java));
-            }, Java.Lang.Thread.DefaultUncaughtExceptionHandler);
-#else
+            }, JavaThread.DefaultUncaughtExceptionHandler);
+#endif
             AppDomain.CurrentDomain.UnhandledException += (_, e) =>
             {
                 if (e.ExceptionObject is Exception ex)
@@ -64,15 +66,8 @@ static partial class Program
                 // https://github.com/AvaloniaUI/Avalonia/issues/5290#issuecomment-760751036
                 Handler(ex, nameof(RxApp));
             });
-#endif
         }
 
-        /// <summary>
-        /// 全局异常处理
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <param name="name"></param>
-        /// <param name="isTerminating"></param>
         public static void Handler(Exception ex, string name, bool? isTerminating = null)
         {
             var hashCode = ex.GetHashCode();
@@ -87,28 +82,30 @@ static partial class Program
             }
 
             // NLog: catch any exception and log it.
+            var message = "Stopped program because of exception, name: {1}, isTerminating: {0}";
+            var args = new object?[] { isTerminating, name, };
 #if DEBUG
-            Console.WriteLine($"Stopped program because of exception, name: {name}, isTerminating: {isTerminating}");
+            Console.WriteLine(string.Format(message, args));
 #endif
-            Logger.Error(ex, "Stopped program because of exception, name: {1}, isTerminating: {0}", isTerminating, name);
+            Logger.Error(ex, message, args);
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-            if (StartupOptions.Value.HasPlugins)
+            if (Instance.TryGetPlugins(out var plugins))
             {
-                foreach (var plugin in StartupOptions.Value.Plugins!)
+                foreach (var plugin in plugins)
                 {
                     try
                     {
                         plugin.OnUnhandledException(ex, name, isTerminating);
                     }
-                    catch (Exception ex_restore_hosts)
+                    catch (Exception ex_plugin)
                     {
 #if DEBUG
-                        Console.WriteLine("(App)Close exception when OnExitRestoreHosts");
-                        Console.WriteLine(ex_restore_hosts);
+                        Console.WriteLine("(App)Close exception when OnUnhandledException");
+                        Console.WriteLine(ex_plugin);
 #endif
-                        Logger.Error(ex_restore_hosts,
-                            "(App)Close exception when OnExitRestoreHosts");
+                        Logger.Error(ex_plugin,
+                            "(App)Close exception when OnUnhandledException");
                     }
                 }
             }

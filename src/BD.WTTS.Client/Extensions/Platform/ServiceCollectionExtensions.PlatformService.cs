@@ -10,7 +10,7 @@ public static partial class ServiceCollectionExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddPlatformService(
         this IServiceCollection services,
-        StartupOptions options)
+        Startup options)
     {
 #if LINUX
         services.AddSingleton<IHttpPlatformHelperService, LinuxClientHttpPlatformHelperServiceImpl>();
@@ -24,7 +24,7 @@ public static partial class ServiceCollectionExtensions
         services.AddSingleton<IPlatformService, WindowsPlatformServiceImpl>();
         services.AddSingleton<ILocalDataProtectionProvider.IProtectedData, WindowsProtectedData>();
         services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
-        if (options.HasMainProcessRequired)
+        if (options.IsMainProcess)
         {
             services.AddSingleton<NotifyIcon, WindowsNotifyIcon>();
         }

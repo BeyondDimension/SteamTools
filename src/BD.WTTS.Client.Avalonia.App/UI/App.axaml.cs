@@ -4,7 +4,27 @@ public sealed partial class App : Application
 {
     const string TAG = "AvaApp";
 
-    public Window? MainWindow { get; set; }
+    /// <summary>
+    /// 获取当前主窗口
+    /// </summary>
+    public Window? MainWindow { get; internal set; }
+
+    /// <summary>
+    /// 获取任意一个窗口，优先返回主窗口
+    /// </summary>
+    /// <returns></returns>
+    public Window? GetFirstOrDefaultWindow()
+    {
+        var window = MainWindow;
+        if (window == null)
+        {
+            if (ApplicationLifetime is ClassicDesktopStyleApplicationLifetime classicDesktopStyleApplicationLifetime)
+            {
+                window = classicDesktopStyleApplicationLifetime.Windows.FirstOrDefault(x => x != null);
+            }
+        }
+        return window;
+    }
 
     public override void Initialize()
     {
@@ -14,43 +34,8 @@ public sealed partial class App : Application
         }
         catch (Exception ex)
         {
-            Log.Error(TAG, ex, "load Xaml fail.");
+            Startup.GlobalExceptionHandler.Handler(ex, "load App.Xaml fail.");
         }
-
-        IApplication.IDesktopProgramHost desktopProgramHost = Program.Host.Instance;
-        desktopProgramHost.OnCreateAppExecuted(handlerViewModelManager: vmService =>
-        {
-            vmService.InitViewModels();
-            switch (vmService.MainWindow)
-            {
-                //case CloudArchiveWindowViewModel:
-                //    ProgramHost.IsMinimize = false;
-                //    MainWindow = new CloudArchiveWindow();
-                //    break;
-
-                //case AchievementWindowViewModel:
-                //    ProgramHost.IsMinimize = false;
-                //    MainWindow = new AchievementWindow();
-                //    break;
-
-                default:
-                    #region 主窗口启动时加载的资源
-#if !UI_DEMO
-                    CompositeDisposable.Add(SettingsHost.Save);
-                    //CompositeDisposable.Add(ProxyService.Current.Exit);
-                    //CompositeDisposable.Add(SteamConnectService.Current.Dispose);
-                    //CompositeDisposable.Add(ASFService.Current.StopASF);
-#pragma warning disable CA1416 // 验证平台兼容性
-                    //if (GeneralSettings.IsStartupAppMinimized.Value)
-                    //    ProgramHost.IsMinimize = true;
-#pragma warning restore CA1416 // 验证平台兼容性
-#endif
-                    #endregion
-                    MainWindow = new MainWindow();
-                    break;
-            }
-            MainWindow.DataContext = vmService.MainWindow;
-        });
     }
 
     public override void RegisterServices()
@@ -69,37 +54,37 @@ public sealed partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = MainWindow ??= new MainWindow();
-            desktop.Startup += Desktop_Startup;
+            desktop.Startup += (_, _) =>
+            {
+                var s = Startup.Instance;
+                s.OnStartup();
+                desktop.MainWindow.DataContext = IViewModelManager.Instance.MainWindow;
+            };
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
-    {
-        Program.Host.Instance.OnStartup();
-    }
-
-#if WINDOWS
-    /// <inheritdoc cref="IPlatformService.SetDesktopBackgroundToWindow(nint, int, int)"/>
-    public void SetDesktopBackgroundWindow()
-    {
-        //try
-        //{
-        //    if (MainWindow is MainWindow window)
-        //    {
-        //        IPlatformService.Instance.SetDesktopBackgroundToWindow(
-        //            window.BackHandle,
-        //            Convert.ToInt32(window.Width),
-        //            Convert.ToInt32(window.Height));
-        //    }
-        //}
-        //catch (Exception ex)
-        //{
-        //    Log.Error(TAG, ex, "SetDesktopBackgroundToWindow fail.");
-        //}
-    }
-#endif
+    //#if WINDOWS
+    //    /// <inheritdoc cref="IPlatformService.SetDesktopBackgroundToWindow(nint, int, int)"/>
+    //    public void SetDesktopBackgroundWindow()
+    //    {
+    //        //try
+    //        //{
+    //        //    if (MainWindow is MainWindow window)
+    //        //    {
+    //        //        IPlatformService.Instance.SetDesktopBackgroundToWindow(
+    //        //            window.BackHandle,
+    //        //            Convert.ToInt32(window.Width),
+    //        //            Convert.ToInt32(window.Height));
+    //        //    }
+    //        //}
+    //        //catch (Exception ex)
+    //        //{
+    //        //    Log.Error(TAG, ex, "SetDesktopBackgroundToWindow fail.");
+    //        //}
+    //    }
+    //#endif
 
     /// <summary>
     /// 设置当前打开窗口的 AvaloniaWindow 背景透明材质
@@ -126,9 +111,6 @@ public sealed partial class App : Application
         }
     }
 
-    /// <summary>
-    /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
-    /// </summary>
     public bool Shutdown(int exitCode = 0)
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -140,5 +122,35 @@ public sealed partial class App : Application
             return true;
         }
         return false;
+    }
+
+    internal void InitSettingSubscribe()
+    {
+        GeneralSettings.IsEnableTrayIcon.Subscribe(x => InitTrayIcon());
+        UISettings.ThemeAccent.Subscribe(SetThemeAccent);
+        UISettings.GetUserThemeAccent.Subscribe(x =>
+            SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
+
+        GeneralSettings.WindowsStartupAutoRun.Subscribe(IApplication.SetBootAutoStart);
+
+        UISettings.WindowBackgroundMateria.Subscribe(SetAllWindowransparencyMateria, false);
+
+        //#if WINDOWS
+        //        UISettings.EnableDesktopBackground.Subscribe(x =>
+        //        {
+        //            if (x)
+        //            {
+        //                //var t = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+        //                //if (t == WindowTransparencyLevel.None ||
+        //                //    t == WindowTransparencyLevel.Mica)
+        //                //{
+        //                //    UISettings.EnableDesktopBackground.Value = false;
+        //                //    Toast.Show(string.Format(AppResources.Settings_UI_EnableDesktopBackground_Error, t));
+        //                //    return;
+        //                //}
+        //                SetDesktopBackgroundWindow();
+        //            }
+        //        }, false);
+        //#endif
     }
 }

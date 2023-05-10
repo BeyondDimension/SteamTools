@@ -3,6 +3,7 @@ namespace BD.WTTS.Diagnostics;
 /// <summary>
 /// 启动耗时跟踪
 /// </summary>
+[Obsolete]
 public static class StartWatchTrace
 {
     static Stopwatch? sw;

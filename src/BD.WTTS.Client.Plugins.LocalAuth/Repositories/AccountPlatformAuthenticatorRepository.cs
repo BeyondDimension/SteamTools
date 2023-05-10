@@ -207,7 +207,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         item.Id = entity.Id;
     }
 
-    public new async Task DeleteAsync(ushort id) => await base.DeleteAsync(id);
+    public async Task DeleteAsync(ushort id) => await base.DeleteAsync(id);
 
     public async Task<int> DeleteAsync(Guid serverId)
     {

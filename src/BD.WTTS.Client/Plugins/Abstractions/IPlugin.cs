@@ -16,12 +16,6 @@ public interface IPlugin : IExplicitHasValue
     string Version { get; }
 
     /// <summary>
-    /// 插件加载完成时
-    /// </summary>
-    /// <returns></returns>
-    ValueTask OnLoadedAsync();
-
-    /// <summary>
     /// MainWindowViewModel.Initialize
     /// </summary>
     /// <returns></returns>
@@ -31,25 +25,19 @@ public interface IPlugin : IExplicitHasValue
     /// 配置按需使用的依赖注入服务
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="args"></param>
-    /// <param name="options"></param>
-    /// <param name="isTrace"></param>
+    /// <param name="startup"></param>
     void ConfigureDemandServices(
         IServiceCollection services,
-        IApplication.IStartupArgs args,
-        StartupOptions options);
+        Startup startup);
 
     /// <summary>
     /// 配置任何进程都必要的依赖注入服务
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="args"></param>
-    /// <param name="options"></param>
-    /// <param name="isTrace"></param>
+    /// <param name="startup"></param>
     void ConfigureRequiredServices(
         IServiceCollection services,
-        IApplication.IStartupArgs args,
-        StartupOptions options);
+        Startup startup);
 
     /// <summary>
     /// 配置 AutoMapper

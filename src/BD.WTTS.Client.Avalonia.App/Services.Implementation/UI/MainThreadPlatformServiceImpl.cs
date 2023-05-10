@@ -6,7 +6,7 @@ sealed class MainThreadPlatformServiceImpl : IMainThreadPlatformService
     {
         get
         {
-            if (StartupOptions.Value.HasGUI)
+            if (Startup.Instance.HasUI)
             {
                 return Dispatcher.UIThread.CheckAccess();
             }
@@ -20,7 +20,7 @@ sealed class MainThreadPlatformServiceImpl : IMainThreadPlatformService
     public void PlatformBeginInvokeOnMainThread(Action action,
         ThreadingDispatcherPriority priority = ThreadingDispatcherPriority.Normal)
     {
-        if (StartupOptions.Value.HasGUI)
+        if (Startup.Instance.HasUI)
         {
             var priority_ = GetPriority(priority);
             Dispatcher.UIThread.Post(action, priority_);

@@ -133,6 +133,7 @@ sealed class NotifyIconHelper : INotificationService.NotifyIconHelper
     {
         if (IViewModelManager.Instance.MainWindow is not MainWindowViewModel main)
             return null;
+
         tabItems = new();
         foreach (var item in main.AllTabIdItems)
         {

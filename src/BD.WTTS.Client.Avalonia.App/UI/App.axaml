@@ -2,23 +2,23 @@
     x:Class="BD.WTTS.UI.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
-	xmlns:ms="https://steampp.net/settings"
-	xmlns:s="https://steampp.net/services"
     xmlns:sty="using:FluentAvalonia.Styling">
     <Application.Resources>
         <spp:IsNullConverter x:Key="IsNullConverter" />
-		<spp:ResourceKeyValueConverter x:Key="ResourceKeyValueConverter" />
-		<spp:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
-		<spp:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
-		<spp:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
-		<spp:StringFormatConverter x:Key="StringFormatConverter" />
+        <spp:ResourceKeyValueConverter x:Key="ResourceKeyValueConverter" />
+        <spp:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
+        <spp:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
+        <spp:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
+        <spp:StringFormatConverter x:Key="StringFormatConverter" />
     </Application.Resources>
     <Application.Styles>
         <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
         <spp:CustomTheme Mode="Default" />
     </Application.Styles>
-	<TrayIcon.Icons>
+    <!--<TrayIcon.Icons>
 		<TrayIcons>
 			<TrayIcon Icon="/UI/Assets/ApplicationIcon.ico"
 					  IsVisible="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsEnableTrayIcon},Path=Value, Mode=OneWay}"
@@ -37,12 +37,12 @@
 								<NativeMenuItem Header="Disabled option" IsEnabled="False" />
 							</NativeMenu>
 						</NativeMenuItem>
-						<NativeMenuItem Header="Exit" 
+						<NativeMenuItem Header="Exit"
 										Command="{ReflectionBinding Source={x:Static spp:TaskBarWindowViewModel.Instance},Path=MenuClickCommand, Mode=OneWay}"
 										CommandParameter="{x:Static spp:TaskBarWindowViewModel.CommandExit}"/>
 					</NativeMenu>
 				</TrayIcon.Menu>
 			</TrayIcon>
 		</TrayIcons>
-	</TrayIcon.Icons>
+	</TrayIcon.Icons>-->
 </Application>

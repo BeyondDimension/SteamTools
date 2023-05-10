@@ -26,12 +26,14 @@ sealed class DesktopBridgeHelper : DesktopBridge
         return true;
     }
 
+    [Obsolete]
     public static void OnActivated(ref string[] args)
     {
         var activatedArgs = AppInstance.GetActivatedEventArgs();
         if (activatedArgs != null) OnActivated(ref args, activatedArgs);
     }
 
+    [Obsolete]
     static void OnActivated(ref string[] main_args, IActivatedEventArgs args)
     {
         if (args.Kind == ActivationKind.StartupTask)

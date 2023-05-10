@@ -7,23 +7,18 @@ sealed class Plugin : PluginBase<Plugin>
 {
     public override string Name => nameof(TabItemViewModel.TabItemId.ArchiSteamFarmPlus);
 
-    public override void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {
-        if (options.HasSteam)
+        if (startup.HasSteam)
         {
             // ASF Service
             services.AddArchiSteamFarmService();
         }
     }
 
-    public override void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
         ArchiSteamFarm.Web.WebBrowser.CreateHttpHandlerDelegate = IApplication.CreateHttpHandler;
-    }
-
-    public override ValueTask OnLoadedAsync()
-    {
-        return ValueTask.CompletedTask;
     }
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)

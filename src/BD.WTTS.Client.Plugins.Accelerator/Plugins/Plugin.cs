@@ -11,43 +11,30 @@ sealed class Plugin : PluginBase<Plugin>
 
     IReverseProxyService? reverseProxyService;
 
-    public override void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {
         services.TryAddScriptManager();
-        if (options.IsTrace) StartWatchTrace.Record("DI.D.ScriptManager");
 
-        if (options.HasHttpProxy)
+        if (startup.HasHttpProxy)
         {
 #if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             // 添加反向代理服务（主进程插件）
             services.AddSingleton(_ => reverseProxyService!);
-            if (options.IsTrace) StartWatchTrace.Record("DI.D.HttpProxy");
 #endif
         }
 
-        if (options.HasServerApiClient)
+        if (startup.HasServerApiClient)
         {
             // 添加仓储服务
             services.AddSingleton<IScriptRepository, ScriptRepository>();
         }
     }
 
-    public override void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
+    public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         services.AddSingleton<IProxyService>(_ => ProxyService.Current);
 #endif
-    }
-
-    public override async ValueTask OnLoadedAsync()
-    {
-        var ipc = IPCMainProcessService.Instance;
-
-        // 启动加速模块子进程
-        ipc.StartProcess(SubProcessPath.ThrowIsNull());
-
-        // 从子进程中获取 IPC 远程服务
-        reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);
     }
 
     public override async ValueTask OnInitializeAsync()
@@ -56,6 +43,14 @@ sealed class Plugin : PluginBase<Plugin>
         {
             await ProxyService.Current.InitializeAsync();
         }
+
+        var ipc = IPCMainProcessService.Instance;
+
+        // 启动加速模块子进程
+        ipc.StartProcess(SubProcessPath.ThrowIsNull());
+
+        // 从子进程中获取 IPC 远程服务
+        reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);
     }
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)

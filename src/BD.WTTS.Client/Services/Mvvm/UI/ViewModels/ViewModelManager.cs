@@ -84,7 +84,10 @@ internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
     {
         try
         {
-            if (OperatingSystem.IsWindows() && StartupOptions.Value.HasNotifyIcon && taskbarWindow == null && mMainWindow != null)
+            if (OperatingSystem.IsWindows() &&
+                Startup.Instance.HasTrayIcon &&
+                taskbarWindow == null &&
+                mMainWindow != null)
             {
                 taskbarWindow = new TaskBarWindowViewModel(mMainWindow);
             }

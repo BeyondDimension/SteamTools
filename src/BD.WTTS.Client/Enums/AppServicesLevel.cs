@@ -19,7 +19,7 @@ public enum AppServicesLevel : uint
     /// <summary>
     /// 图形界面
     /// </summary>
-    GUI = 4,
+    UI = 4,
 
     /// <summary>
     /// <see cref="IHttpClientFactory"/> 服务
@@ -34,7 +34,7 @@ public enum AppServicesLevel : uint
     /// <summary>
     /// AppUpdate + 托盘图标(影响主窗口关闭与退出模式，仅在主进程中才会显示托盘)
     /// </summary>
-    MainProcessRequired = 32,
+    AppUpdateAndTrayIcon = 32,
 
     /// <summary>
     /// Steam 服务组
@@ -61,14 +61,14 @@ public enum AppServicesLevel : uint
     #region Group
 
     /// <summary>
-    /// 主进程所需级别组，仅用于指定DI等级，当前进程不一定为主进程
+    /// 主进程所需级别组，仅用于指定 DI 等级，当前进程不一定为主进程
     /// </summary>
     MainProcess =
         ServerApiClient |
-        GUI |
+        UI |
         HttpClientFactory |
         Hosts |
-        MainProcessRequired |
+        AppUpdateAndTrayIcon |
         Steam |
         HttpProxy,
 

@@ -29,7 +29,7 @@ partial interface IApplication : IDisposableHolder
     /// <summary>
     /// 托盘菜单
     /// </summary>
-    IReadOnlyDictionary<string, ICommand> NotifyIconMenus { get; }
+    IReadOnlyDictionary<string, ICommand> TrayIconMenus { get; }
 
     /// <summary>
     /// 是否有活动窗口

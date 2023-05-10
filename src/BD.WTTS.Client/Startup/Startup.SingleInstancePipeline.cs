@@ -1,35 +1,77 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
-partial interface IApplication
+partial class Startup // 本应用程序单例管道
 {
-    /// <summary>
-    /// 检测应用程序的多次启动以及在正在运行的实例之间发送和接收消息
-    /// </summary>
-    [Obsolete]
-    sealed class SingletonInstance : IDisposable
+    SingleInstancePipeline? singleInstancePipeline;
+
+    bool InitSingleInstancePipeline(Func<string>? sendMessage = null)
     {
-        private bool disposedValue;
+        var isInitSingleInstancePipelineReset = false;
+    initSingleInstancePipeline: singleInstancePipeline = new();
+        if (!singleInstancePipeline.IsFirstSelfApp)
+        {
+            if (SingleInstancePipeline.SendMessage(sendMessage?.Invoke() ?? ""))
+            {
+                return false;
+            }
+            else
+            {
+                if (!isInitSingleInstancePipelineReset &&
+                    SingleInstancePipeline.TryKillCurrentAllProcess())
+                {
+                    isInitSingleInstancePipelineReset = true;
+                    singleInstancePipeline.Dispose();
+                    goto initSingleInstancePipeline;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// 本应用程序单例管道
+    /// </summary>
+    sealed class SingleInstancePipeline : IDisposable
+    {
+        bool disposedValue;
 
         /// <summary>
-        /// 获取一个值，该值指示此实例是否是第一个要启动的实例
+        /// 是否是第一个启动的本应用程序
         /// </summary>
-        public bool IsFirst { get; }
+        public bool IsFirstSelfApp { get; }
 
         /// <summary>
         /// 在接收新启动的实例的消息时发生
         /// </summary>
         public event Action<string>? MessageReceived;
 
-        public SingletonInstance()
+        public SingleInstancePipeline()
         {
-            IsFirst = GetIsFirst();
-            if (IsFirst)
+            IsFirstSelfApp = GetIsFirstSelfApp();
+            if (IsFirstSelfApp)
             {
-                Task.Run(RunPipeServer);
+                Task.Factory.StartNew(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    RunSingleInstancePipeServer();
+                });
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        static bool GetIsFirstSelfApp()
+        {
+            var query = GetCurrentAllProcess();
+            var result = query.Any();
+            return !result;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static IEnumerable<Process> GetCurrentAllProcess()
         {
             var current = Process.GetCurrentProcess();
@@ -52,6 +94,7 @@ partial interface IApplication
             return query;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryKillCurrentAllProcess()
         {
             foreach (var p in GetCurrentAllProcess())
@@ -63,33 +106,28 @@ partial interface IApplication
 #else
                     p.Kill(true);
 #endif
-                    p.WaitForExit(500);
+                    p.WaitForExit(TimeSpan.FromSeconds(15));
                 }
                 catch
                 {
                 }
             }
-            return GetIsFirst();
-        }
-
-        static bool GetIsFirst()
-        {
-            var query = GetCurrentAllProcess();
-            var r = query.Any();
-            return !r;
+            return GetIsFirstSelfApp();
         }
 
         #region Pipes
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static string GetPipeName()
         {
-            var processPath = Environment.ProcessPath;
-            return AssemblyInfo.APPLICATION_ID + "_" + Hashs.String.Crc32(processPath.ThrowIsNull());
+            var processPath = Environment.ProcessPath ?? string.Empty;
+            return AssemblyInfo.APPLICATION_ID + "_v3_" + Hashs.String.Crc32(processPath);
         }
 
         CancellationTokenSource? cts;
 
-        void RunPipeServer()
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void RunSingleInstancePipeServer()
         {
             cts = new CancellationTokenSource();
             var name = GetPipeName();
@@ -119,9 +157,9 @@ partial interface IApplication
                 catch (OperationCanceledException)
                 {
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Log.Error(nameof(SingletonInstance), e, nameof(RunPipeServer));
+                    GlobalExceptionHandler.Handler(ex, nameof(RunSingleInstancePipeServer));
                     return;
                 }
             }
@@ -139,7 +177,7 @@ partial interface IApplication
                 using var pipeClient = new NamedPipeClientStream(".", name,
                     PipeDirection.Out, PipeOptions.None,
                     TokenImpersonationLevel.Impersonation);
-                pipeClient.Connect(1000);
+                pipeClient.Connect(TimeSpan.FromSeconds(25));
                 using StreamWriter sw = new StreamWriter(pipeClient);
                 sw.WriteLine(value);
                 return true;
@@ -152,19 +190,19 @@ partial interface IApplication
 
         #endregion
 
-        private void Dispose(bool disposing)
+        void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
-                    // TODO: 释放托管状态(托管对象)
+                    // 释放托管状态(托管对象)
                     cts?.Cancel();
                     MessageReceived = null;
                 }
 
-                // TODO: 释放未托管的资源(未托管的对象)并替代终结器
-                // TODO: 将大型字段设置为 null
+                // 释放未托管的资源(未托管的对象)并替代终结器
+                // 将大型字段设置为 null
                 disposedValue = true;
             }
         }

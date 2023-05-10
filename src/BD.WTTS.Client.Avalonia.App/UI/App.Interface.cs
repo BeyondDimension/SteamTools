@@ -2,61 +2,15 @@ namespace BD.WTTS.UI;
 
 partial class App : IApplication
 {
-    public static App Instance => Program.Host.Instance.App;
-
-    IApplication.IProgramHost IApplication.ProgramHost => Program.Host.Instance;
-
-    /// <summary>
-    /// 初始化设置项变更时监听
-    /// </summary>
-    void IApplication.InitSettingSubscribe()
+    static readonly Lazy<App> instance = new(() =>
     {
-        UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
-        UISettings.Language.Subscribe(ResourceService.ChangeLanguage);
+        App app = new();
+        Startup.Instance.App = app;
+        return app;
+    });
 
-        if (IApplication.IsDesktop())
-        {
-            GeneralSettings.IsEnableTrayIcon.Subscribe(x => InitTrayIcon(ApplicationLifetime as IClassicDesktopStyleApplicationLifetime));
-        }
-    }
+    public static App Instance => instance.Value;
 
-    /// <inheritdoc cref="IApplication.InitSettingSubscribe"/>
-    void PlatformInitSettingSubscribe()
-    {
-        IApplication @this = this;
-        @this.InitSettingSubscribe();
-        UISettings.ThemeAccent.Subscribe(SetThemeAccent);
-        UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
-
-        GeneralSettings.WindowsStartupAutoRun.Subscribe(IApplication.SetBootAutoStart);
-
-        UISettings.WindowBackgroundMateria.Subscribe(SetAllWindowransparencyMateria, false);
-
-#if WINDOWS
-        UISettings.EnableDesktopBackground.Subscribe(x =>
-        {
-            if (x)
-            {
-                //var t = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
-                //if (t == WindowTransparencyLevel.None ||
-                //    t == WindowTransparencyLevel.Mica)
-                //{
-                //    UISettings.EnableDesktopBackground.Value = false;
-                //    Toast.Show(string.Format(AppResources.Settings_UI_EnableDesktopBackground_Error, t));
-                //    return;
-                //}
-                SetDesktopBackgroundWindow();
-            }
-        }, false);
-#endif
-    }
-
-    void IApplication.PlatformInitSettingSubscribe() => PlatformInitSettingSubscribe();
-
-    /// <summary>
-    /// Restores the app's main window by setting its <c>WindowState</c> to
-    /// <c>WindowState.Normal</c> and showing the window.
-    /// </summary>
     public void RestoreMainWindow()
     {
         Window? mainWindow = null;
@@ -185,5 +139,11 @@ partial class App : IApplication
 
     object IApplication.CurrentPlatformUIHost => MainWindow!;
 
-    DeploymentMode IApplication.DeploymentMode => Program.Host.Instance.DeploymentMode;
+    DeploymentMode IApplication.DeploymentMode => DeploymentMode.
+#if FRAMEWORK_DEPENDENT || !PUBLISH
+           FDE
+#else
+           SCD
+#endif
+         ;
 }

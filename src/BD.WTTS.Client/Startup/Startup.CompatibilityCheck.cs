@@ -1,16 +1,10 @@
 #if WINDOWS || NETFRAMEWORK || APP_HOST
-//#if NETFRAMEWORK
-//global using WPFMessageBox = System.Windows.MessageBox;
-//global using WPFMessageBoxButton = System.Windows.MessageBoxButton;
-//global using WPFMessageBoxImage = System.Windows.MessageBoxImage;
-//global using WPFMessageBoxResult = System.Windows.MessageBoxResult;
-//#endif
-using AppResources = BD.WTTS.Client.Resources.Strings;
+using static BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
-static partial class Program
+partial class Startup // 平台兼容性检查
 {
     /// <summary>
     /// 兼容性检查
@@ -33,7 +27,7 @@ static partial class Program
         if (!OperatingSystem.IsWindowsVersionAtLeast(major, minor, build))
 #endif
         {
-            ShowErrMessageBox(AppResources.Error_IncompatibleOS);
+            ShowErrMessageBox(Error_IncompatibleOS);
             return false;
         }
 #endif
@@ -43,7 +37,7 @@ static partial class Program
             //  System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\USER\AppData\Local\Temp\Rar$EXa15528.13350\Cache\switchproxy.reg'.
             //  System.IO.FileLoadException ...
             //  System.IO.FileNotFoundException: Could not load file or assembly ...
-            ShowErrMessageBox(AppResources.Error_BaseDir_StartsWith_Temp);
+            ShowErrMessageBox(Error_BaseDir_StartsWith_Temp);
             return false;
         }
         return true;
@@ -62,7 +56,8 @@ static partial class Program
             {
                 // 在 Win 11 上 MessageBox 与 net35 WPF 上的样式不一致，net35 中的 Title 缺少一些 Padding
                 // 发布此 win-any 与 win-x64 可比较区别
-                return WPFMessageBox.Show(error, AppResources.Error, button, WPFMessageBoxImage.Error);
+                return WPFMessageBox.Show(error,
+                    Error, button, WPFMessageBoxImage.Error);
             }
         }
         catch
@@ -71,7 +66,7 @@ static partial class Program
         }
 
         Console.WriteLine("---------------------------");
-        Console.WriteLine(AppResources.Error);
+        Console.WriteLine(Error);
         Console.WriteLine("---------------------------");
         Console.WriteLine(error);
         Console.WriteLine("---------------------------");
@@ -116,4 +111,5 @@ static partial class Program
         return WPFMessageBoxResult.OK;
     }
 }
+
 #endif
