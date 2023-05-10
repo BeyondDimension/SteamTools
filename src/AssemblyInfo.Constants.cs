@@ -28,7 +28,7 @@ public static partial class AssemblyInfo
     /// <summary>
     /// 与该应用程序关联的公司名称。
     /// </summary>
-    public const string Description = $"「{Product}」是一个开源跨平台的多功能游戏工具箱。";
+    public const string Description = $"「{Trademark}」是一个开源跨平台的多功能游戏工具箱。";
 
     /// <summary>
     /// 与该应用程序关联的公司名称。
