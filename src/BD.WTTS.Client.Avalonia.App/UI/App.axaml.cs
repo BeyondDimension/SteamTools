@@ -54,12 +54,6 @@ public sealed partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = MainWindow ??= new MainWindow();
-            desktop.Startup += (_, _) =>
-            {
-                var s = Startup.Instance;
-                s.OnStartup();
-                desktop.MainWindow.DataContext = IViewModelManager.Instance.MainWindow;
-            };
         }
 
         base.OnFrameworkInitializationCompleted();

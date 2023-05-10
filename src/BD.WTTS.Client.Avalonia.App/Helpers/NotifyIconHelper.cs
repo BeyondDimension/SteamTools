@@ -13,10 +13,10 @@ sealed class NotifyIconHelper : INotificationService.NotifyIconHelper
 
     static object? Tray = null;
 
-    static Stream GetIcon(IAssetLoader assets)
+    static Stream? GetIcon(IAssetLoader assets)
     {
         string iconPath;
-        if (OperatingSystem2.IsMacOS())
+        if (OperatingSystem.IsMacOS())
         {
             iconPath = "avares://BD.WTTS.Client.Avalonia.App/Application/UI/Assets/ApplicationIcon_16.png";
         }
@@ -24,10 +24,18 @@ sealed class NotifyIconHelper : INotificationService.NotifyIconHelper
         {
             iconPath = "avares://BD.WTTS.Client.Avalonia.App/Application/UI/Assets/ApplicationIcon.ico";
         }
-        return assets.Open(new(iconPath));
+
+        try
+        {
+            return assets.Open(new(iconPath));
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    static Stream GetIconByCurrentAvaloniaLocator()
+    static Stream? GetIconByCurrentAvaloniaLocator()
     {
         var assets = AvaloniaLocator.Current.GetService<IAssetLoader>()!;
         return GetIcon(assets);
@@ -66,7 +74,7 @@ sealed class NotifyIconHelper : INotificationService.NotifyIconHelper
             menuItemDisposable = InitMenuItems(menu);
             TrayIcon trayIcon = new()
             {
-                Icon = new(icon),
+                Icon = icon == default ? default : new(icon),
                 ToolTipText = text,
                 IsVisible = true,
                 Menu = menu,
@@ -87,7 +95,7 @@ sealed class NotifyIconHelper : INotificationService.NotifyIconHelper
         return;
     }
 
-    public static Stream GetIcon()
+    public static Stream? GetIcon()
     {
         var assets = new AssetLoader(typeof(NotifyIconHelper).Assembly);
         return GetIcon(assets);

@@ -94,11 +94,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="UI\Assets\ApplicationIcon.ico" />
-	  <Content Include="UI\Assets\back.png" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.Common.Primitives" />
 		<PackageReference Include="BD.Common.Essentials" />

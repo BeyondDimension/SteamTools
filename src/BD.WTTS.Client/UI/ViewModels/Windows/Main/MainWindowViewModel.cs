@@ -127,27 +127,27 @@ public sealed partial class MainWindowViewModel : WindowViewModel
              if (!IsInitialized)
              {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-                Task.Run(async () =>
-                {
-                    if (Startup.Instance.TryGetPlugins(out var plugins))
-                    {
-                        foreach (var plugin in plugins)
-                        {
-                            await plugin.OnInitializeAsync();
-                        }
-                    }
-                    //if (ASFSettings.AutoRunArchiSteamFarm.Value)
-                    //{
-                    //    if (platformService.UsePlatformForegroundService)
-                    //    {
-                    //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
-                    //    }
-                    //    else
-                    //    {
-                    //        await ASFService.Current.InitASF();
-                    //    }
-                    //}
-                });
+                 Task.Run(async () =>
+                 {
+                     if (Startup.Instance.TryGetPlugins(out var plugins))
+                     {
+                         foreach (var plugin in plugins)
+                         {
+                             await plugin.OnInitializeAsync();
+                         }
+                     }
+                     //if (ASFSettings.AutoRunArchiSteamFarm.Value)
+                     //{
+                     //    if (platformService.UsePlatformForegroundService)
+                     //    {
+                     //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
+                     //    }
+                     //    else
+                     //    {
+                     //        await ASFService.Current.InitASF();
+                     //    }
+                     //}
+                 });
 #endif
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)

@@ -160,22 +160,6 @@ partial class Startup // 配置 Host
 
         waitConfiguredServices.TrySetResult();
 
-        if (IsMainProcess)
-        {
-            VersionTracking2.Track();
-#if STARTUP_WATCH_TRACE || DEBUG
-            WatchTrace.Record("VersionTracking2.Track");
-#endif
-
-            Migrations.Up();
-#if STARTUP_WATCH_TRACE || DEBUG
-            WatchTrace.Record("Migrations.Up");
-#endif
-
-            // 仅在主进程中启动 IPC 服务端
-            IPCMainProcessService.Instance.Run();
-        }
-
 #if STARTUP_WATCH_TRACE || DEBUG
         WatchTrace.Stop();
 #endif

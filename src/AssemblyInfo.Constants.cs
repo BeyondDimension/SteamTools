@@ -13,7 +13,12 @@ public static partial class AssemblyInfo
     /// <summary>
     /// 与应用程序关联的产品名称。
     /// </summary>
-    public const string Product = "Watt Toolkit";
+    public const string Product =
+#if APP_REVERSE_PROXY
+        "Watt Toolkit - Accelerator and script module sub-process";
+#else
+        "Watt Toolkit";
+#endif
 
     /// <summary>
     /// 与应用程序关联的产品名称。

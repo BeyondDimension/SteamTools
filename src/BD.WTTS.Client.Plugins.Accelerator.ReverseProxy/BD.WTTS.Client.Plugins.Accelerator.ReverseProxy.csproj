@@ -10,6 +10,10 @@
 		<DefineConstants>APP_REVERSE_PROXY;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Constants.cs">
 			<LinkBase>Properties</LinkBase>

@@ -31,11 +31,18 @@ sealed class MicroServiceClient : MicroServiceClientBase
     protected sealed override HttpClient CreateClient()
     {
         var client = base.CreateClient();
-        client.BaseAddress = new Uri(ApiBaseUrl, UriKind.Absolute);
-        client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
+        try
+        {
+            client.BaseAddress = new Uri(ApiBaseUrl, UriKind.Absolute);
+            client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
 #if NETCOREAPP3_0_OR_GREATER
-        client.DefaultRequestVersion = HttpVersion.Version20;
+            client.DefaultRequestVersion = HttpVersion.Version20;
 #endif
+        }
+        catch (InvalidOperationException)
+        {
+
+        }
         return client;
     }
 

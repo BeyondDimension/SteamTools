@@ -47,12 +47,6 @@ partial class Startup // OnStartup
             }
         }
 
-        var viewModelManager = IViewModelManager.Instance;
-        viewModelManager.InitViewModels();
-#if STARTUP_WATCH_TRACE || DEBUG
-        WatchTrace.Record("InitViewModels");
-#endif
-
 #if DEBUG
         DebugConsole.WriteInfo();
 #endif

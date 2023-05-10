@@ -7,7 +7,7 @@ partial class Startup // 启动耗时跟踪
     /// <summary>
     /// 启动耗时跟踪
     /// </summary>
-    protected static class WatchTrace
+    public static class WatchTrace
     {
         static Stopwatch? sw;
         static long elapsedMilliseconds;

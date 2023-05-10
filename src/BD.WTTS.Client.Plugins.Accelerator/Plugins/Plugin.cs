@@ -39,11 +39,6 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override async ValueTask OnInitializeAsync()
     {
-        if (ResourceService.IsChineseSimplified)
-        {
-            await ProxyService.Current.InitializeAsync();
-        }
-
         var ipc = IPCMainProcessService.Instance;
 
         // 启动加速模块子进程
@@ -51,6 +46,11 @@ sealed class Plugin : PluginBase<Plugin>
 
         // 从子进程中获取 IPC 远程服务
         reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);
+
+        if (ResourceService.IsChineseSimplified)
+        {
+            await ProxyService.Current.InitializeAsync();
+        }
     }
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)

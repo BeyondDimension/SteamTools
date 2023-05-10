@@ -8,36 +8,36 @@ partial class App
 
     void InitTrayIcon()
     {
-        if (IViewModelManager.Instance.MainWindow == null ||
-            ApplicationLifetime is not
-            IClassicDesktopStyleApplicationLifetime classicDesktopStyleApplicationLifetime)
-            return;
+        //        if (IViewModelManager.Instance.MainWindow == null ||
+        //            ApplicationLifetime is not
+        //            IClassicDesktopStyleApplicationLifetime classicDesktopStyleApplicationLifetime)
+        //            return;
 
-        var s = Startup.Instance;
-        if (s.IsMainProcess)
-        {
-            s.HasTrayIcon = GeneralSettings.IsEnableTrayIcon.Value;
+        //        var s = Startup.Instance;
+        //        if (s.IsMainProcess)
+        //        {
+        //            s.HasTrayIcon = GeneralSettings.IsEnableTrayIcon.Value;
 
-            if (s.HasTrayIcon)
-            {
-                IViewModelManager.Instance.InitTaskBarWindowViewModel();
+        //            if (s.HasTrayIcon)
+        //            {
+        //                IViewModelManager.Instance.InitTaskBarWindowViewModel();
 
-                NotifyIconHelper.Init(this,
-                    notifyIconClick: (_, _) => RestoreMainWindow());
-            }
-            else
-            {
-                NotifyIconHelper.Dispoe();
-                IViewModelManager.Instance.DispoeTaskBarWindowViewModel();
-            }
+        //                NotifyIconHelper.Init(this,
+        //                    notifyIconClick: (_, _) => RestoreMainWindow());
+        //            }
+        //            else
+        //            {
+        //                NotifyIconHelper.Dispoe();
+        //                IViewModelManager.Instance.DispoeTaskBarWindowViewModel();
+        //            }
 
-            classicDesktopStyleApplicationLifetime.ShutdownMode =
-#if UI_DEMO
-                ShutdownMode.OnMainWindowClose;
-#else
-                s.HasTrayIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
-#endif
+        //            classicDesktopStyleApplicationLifetime.ShutdownMode =
+        //#if UI_DEMO
+        //                ShutdownMode.OnMainWindowClose;
+        //#else
+        //                s.HasTrayIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
+        //#endif
 
-        }
+        //        }
     }
 }
