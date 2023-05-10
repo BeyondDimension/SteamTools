@@ -237,7 +237,7 @@ sealed partial class Program : Startup
     }
 #endif
 
-    protected override void InitSettingSubscribe()
+    public override void InitSettingSubscribe()
     {
         base.InitSettingSubscribe();
         UI.App.Instance.InitSettingSubscribe();

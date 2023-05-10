@@ -26,46 +26,52 @@ public class AppSplashScreen : IApplicationSplashScreen
 
     public object? SplashScreenContent { get; }
 
-    int IApplicationSplashScreen.MinimumShowTime => 1000;
+    int IApplicationSplashScreen.MinimumShowTime => 0;
 
-    async Task IApplicationSplashScreen.RunTasks(CancellationToken token)
+    Task IApplicationSplashScreen.RunTasks(CancellationToken token)
     {
+        return Task.Run(async () =>
+         {
 #if STARTUP_WATCH_TRACE || DEBUG
-        WatchTrace.Start();
+             WatchTrace.Start();
 #endif
 
-        var s = Instance;
-        if (s.IsMainProcess)
-        {
-            VersionTracking2.Track();
+             var s = Instance;
+             if (s.IsMainProcess)
+             {
+                 VersionTracking2.Track();
 #if STARTUP_WATCH_TRACE || DEBUG
-            WatchTrace.Record("VersionTracking2.Track");
+                 WatchTrace.Record("VersionTracking2.Track");
 #endif
 
-            Migrations.Up();
+                 Migrations.Up();
 #if STARTUP_WATCH_TRACE || DEBUG
-            WatchTrace.Record("Migrations.Up");
+                 WatchTrace.Record("Migrations.Up");
 #endif
 
-            // 仅在主进程中启动 IPC 服务端
-            IPCMainProcessService.Instance.Run();
-        }
+                 // 仅在主进程中启动 IPC 服务端
+                 IPCMainProcessService.Instance.Run();
+             }
 
-        var viewModelManager = IViewModelManager.Instance;
-        viewModelManager.InitViewModels();
+             var viewModelManager = IViewModelManager.Instance;
+             viewModelManager.InitViewModels();
 #if STARTUP_WATCH_TRACE || DEBUG
-        WatchTrace.Record("InitViewModels");
+             WatchTrace.Record("InitViewModels");
 #endif
-        var mainWindowVM = IViewModelManager.Instance.MainWindow;
-        mainWindowVM.ThrowIsNull();
-        App.Instance.MainWindow!.DataContext = mainWindowVM;
+             var mainWindowVM = IViewModelManager.Instance.MainWindow;
+             mainWindowVM.ThrowIsNull();
+
+             Dispatcher.UIThread.Post(() =>
+             {
+                 App.Instance.MainWindow!.DataContext = mainWindowVM;
+                 s.InitSettingSubscribe();
+             });
 
 #if STARTUP_WATCH_TRACE || DEBUG
-        WatchTrace.Stop();
+             WatchTrace.Stop();
 #endif
-
-        s.OnStartup();
-
-        await mainWindowVM!.Initialize();
+             s.OnStartup();
+             await mainWindowVM!.Initialize();
+         });
     }
 }

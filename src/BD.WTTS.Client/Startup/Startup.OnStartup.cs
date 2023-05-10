@@ -9,7 +9,7 @@ partial class Startup // OnStartup
 
     }
 
-    protected virtual void InitSettingSubscribe()
+    public virtual void InitSettingSubscribe()
     {
         var a = IApplication.Instance;
 
@@ -31,7 +31,7 @@ partial class Startup // OnStartup
 
         if (IsMainProcess)
         {
-            InitSettingSubscribe();
+            //InitSettingSubscribe();
 
             Task.Run(async () =>
             {
