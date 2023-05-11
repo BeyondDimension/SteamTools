@@ -105,6 +105,7 @@ partial class Startup // Properties
     /// 当前加载的插件集合
     /// </summary>
     HashSet<IPlugin>? plugins;
+#endif
 
     /// <summary>
     /// 尝试获取已加载的插件集合
@@ -114,10 +115,14 @@ partial class Startup // Properties
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool TryGetPlugins([NotNullWhen(true)] out HashSet<IPlugin>? plugins)
     {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         plugins = this.plugins;
         return HasPlugins;
-    }
+#else
+        plugins = default;
+        return default;
 #endif
+    }
 
     readonly TaskCompletionSource waitConfiguredServices = new();
 

@@ -5,10 +5,13 @@ namespace BD.WTTS.Plugins;
 #endif
 sealed class Plugin : PluginBase<Plugin>, ISteamAccountSettings
 {
-    public override string Name => nameof(TabItemViewModel.TabItemId.AccountSwitch);
+    const string moduleName = "GameAccount";
 
-    public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
+    public override string Name => moduleName;
+
+    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {
+        yield return new GameAccountMenuTabItemViewModel();
     }
 
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)

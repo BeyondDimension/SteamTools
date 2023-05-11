@@ -14,7 +14,14 @@ public static class PluginsCore
     {
         HashSet<Assembly>? assemblies = null;
 #if DEBUG // DEBUG 模式遍历项目查找模块
-        var modules = new[] { "Accelerator", "AccountSwitch", "ArchiSteamFarm", "GameList", "GameTools", "LocalAuth" };
+        var modules = new[] {
+            "Accelerator",
+            "GameAccount",
+            "GameList",
+            "ArchiSteamFarmPlus",
+            "Authenticator",
+            "GameTools",
+        };
         foreach (var item in modules)
         {
             //HashSet<string?>? entryAssemblyNames_ = null;

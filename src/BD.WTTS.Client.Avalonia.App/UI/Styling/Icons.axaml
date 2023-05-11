@@ -1,18 +1,17 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- Add Resources Here -->
-	<x:String x:Key="Unknown">&#xE9CE;</x:String>
-	<x:String x:Key="StartPageViewModel">&#xE80F;</x:String>
-	<x:String x:Key="CommunityProxyPageViewModel">&#xEC4A;</x:String>
-	<x:String x:Key="ProxyScriptManagePageViewModel">&#xF584;</x:String>
-	<x:String x:Key="SteamAccountPageViewModel">&#xE748;</x:String>
-	<x:String x:Key="GameListPageViewModel">&#xE7FC;</x:String>
-	<x:String x:Key="LocalAuthPageViewModel">&#xE83D;</x:String>
-	<x:String x:Key="ArchiSteamFarmPlusPageViewModel">ASF</x:String>
-	<x:String x:Key="SettingsPageViewModel">&#xE713;</x:String>
-	<x:String x:Key="AboutPageViewModel">&#xE9CE;</x:String>
-	<x:String x:Key="SteamIdlePageViewModel">&#xEC92;</x:String>
-	<x:String x:Key="OtherPlatformPageViewModel">&#xE712;</x:String>
-	<x:String x:Key="DebugPageViewModel">&#xEBE8;</x:String>
-	<x:String x:Key="GameRelatedPageViewModel">&#xEC7A;</x:String>
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Add Resources Here  -->
+    <x:String x:Key="Unknown">&#xE9CE;</x:String>
+    <x:String x:Key="WelcomeMenuTabItemViewModel">&#xE80F;</x:String>
+    <x:String x:Key="AcceleratorMenuTabItemViewModel">&#xEC4A;</x:String>
+    <x:String x:Key="AcceleratorScriptMenuTabItemViewModel">&#xF584;</x:String>
+    <x:String x:Key="GameAccountMenuTabItemViewModel">&#xE748;</x:String>
+    <x:String x:Key="GameListMenuTabItemViewModel">&#xE7FC;</x:String>
+    <x:String x:Key="AuthenticatorMenuTabItemViewModel">&#xE83D;</x:String>
+    <x:String x:Key="ArchiSteamFarmPlusMenuTabItemViewModel">ASF</x:String>
+    <x:String x:Key="SettingsMenuTabItemViewModel">&#xE713;</x:String>
+    <x:String x:Key="AboutMenuTabItemViewModel">&#xE9CE;</x:String>
+    <x:String x:Key="SteamIdleMenuTabItemViewModel">&#xEC92;</x:String>
+    <x:String x:Key="OtherPlatformMenuTabItemViewModel">&#xE712;</x:String>
+    <x:String x:Key="DebugMenuTabItemViewModel">&#xEBE8;</x:String>
+    <x:String x:Key="GameToolsMenuTabItemViewModel">&#xEC7A;</x:String>
 </ResourceDictionary>

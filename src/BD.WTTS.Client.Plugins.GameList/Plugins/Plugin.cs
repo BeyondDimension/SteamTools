@@ -5,7 +5,14 @@ namespace BD.WTTS.Plugins;
 #endif
 sealed class Plugin : PluginBase<Plugin>, IGameLibrarySettings
 {
-    public override string Name => nameof(TabItemViewModel.TabItemId.GameList);
+    const string moduleName = "GameList";
+
+    public override string Name => moduleName;
+
+    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    {
+        yield return new GameListMenuTabItemViewModel();
+    }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {

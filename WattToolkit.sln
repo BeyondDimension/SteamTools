@@ -136,15 +136,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Avalonia.App
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Accelerator", "src\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj", "{085B609C-083F-4698-9508-563CD6A8E71D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.AccountSwitch", "src\BD.WTTS.Client.Plugins.AccountSwitch\BD.WTTS.Client.Plugins.AccountSwitch.csproj", "{4D8D93B0-1B94-4FF7-BC36-B22AF3AEA41A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.GameAccount", "src\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj", "{4D8D93B0-1B94-4FF7-BC36-B22AF3AEA41A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.ArchiSteamFarm", "src\BD.WTTS.Client.Plugins.ArchiSteamFarm\BD.WTTS.Client.Plugins.ArchiSteamFarm.csproj", "{CABDF6AC-7AE0-445D-A4BE-BC9CD0B59AA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.ArchiSteamFarmPlus", "src\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus.csproj", "{CABDF6AC-7AE0-445D-A4BE-BC9CD0B59AA5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.GameList", "src\BD.WTTS.Client.Plugins.GameList\BD.WTTS.Client.Plugins.GameList.csproj", "{A36BA15F-11FF-41E3-B488-7D84152C4CE9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.GameTools", "src\BD.WTTS.Client.Plugins.GameTools\BD.WTTS.Client.Plugins.GameTools.csproj", "{E959F339-B52B-44A1-85EC-D5FB384255E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.LocalAuth", "src\BD.WTTS.Client.Plugins.LocalAuth\BD.WTTS.Client.Plugins.LocalAuth.csproj", "{861E33DB-C9C0-4C40-9042-75F7740F6DED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Authenticator", "src\BD.WTTS.Client.Plugins.Authenticator\BD.WTTS.Client.Plugins.Authenticator.csproj", "{861E33DB-C9C0-4C40-9042-75F7740F6DED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Update", "src\BD.WTTS.Client.Plugins.Update\BD.WTTS.Client.Plugins.Update.csproj", "{8DED0728-D54E-4A1E-B1D1-3740EC04ABAA}"
 EndProject
@@ -161,7 +161,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{09F4FC1E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Controls.Internals", "src\Avalonia.Controls.Internals\Avalonia.Controls.Internals.csproj", "{BAEF69C3-9347-424D-B2B4-74BD2B3C90F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avalonia.Base", "src\Avalonia.Base\Avalonia.Base.csproj", "{02B5BE74-E75D-4573-B640-58DF2B01B4E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Base", "src\Avalonia.Base\Avalonia.Base.csproj", "{02B5BE74-E75D-4573-B640-58DF2B01B4E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

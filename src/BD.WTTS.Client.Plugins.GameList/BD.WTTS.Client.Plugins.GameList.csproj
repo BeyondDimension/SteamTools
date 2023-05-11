@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstants>WTTS_PLUGIN;WTTS_PLUGIN_GAMELIST;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -59,10 +60,16 @@
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<!-- PackageReference -->
 		<PackageReference Include="BD.SteamClient" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\BD.WTTS.Client\UI\ViewModels\Windows\Main\MenuTabItemsViewModel.cs">
+			<LinkBase>UI\ViewModels\Windows\Main</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -74,8 +81,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="UI\ViewModels\" />
-	  <Folder Include="UI\Views\" />
+		<Folder Include="UI\ViewModels\" />
+		<Folder Include="UI\Views\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />

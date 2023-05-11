@@ -120,11 +120,11 @@ partial class Startup // 自定义控制台命令参数
 
                 if (cloudmanager)
                 {
-                    IViewModelManager.Instance.InitCloudManageMain(id);
+                    //IViewModelManager.Instance.InitCloudManageMain(id);
                 }
                 else if (achievement)
                 {
-                    IViewModelManager.Instance.InitUnlockAchievement(id);
+                    //IViewModelManager.Instance.InitUnlockAchievement(id);
                 }
                 else
                 {

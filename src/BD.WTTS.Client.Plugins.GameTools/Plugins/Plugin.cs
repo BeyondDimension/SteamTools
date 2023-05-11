@@ -5,7 +5,14 @@ namespace BD.WTTS.Plugins;
 #endif
 sealed class Plugin : PluginBase<Plugin>
 {
-    public override string Name => nameof(TabItemViewModel.TabItemId.GameTools);
+    const string moduleName = "GameTools";
+
+    public override string Name => moduleName;
+
+    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    {
+        yield return new GameToolsMenuTabItemViewModel();
+    }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {

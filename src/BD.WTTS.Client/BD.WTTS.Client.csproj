@@ -187,12 +187,6 @@
 
 	<ItemGroup>
 		<Folder Include="Services\Mvvm\Steam\" />
-		<Folder Include="UI\ViewModels\Pages\Accelerator\" />
-		<Folder Include="UI\ViewModels\Pages\AccountSwitch\" />
-		<Folder Include="UI\ViewModels\Pages\ArchiSteamFarm\" />
-		<Folder Include="UI\ViewModels\Pages\Authenticator\" />
-		<Folder Include="UI\ViewModels\Pages\GameTools\" />
-		<Folder Include="UI\ViewModels\Pages\Library\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_ALL.props" />

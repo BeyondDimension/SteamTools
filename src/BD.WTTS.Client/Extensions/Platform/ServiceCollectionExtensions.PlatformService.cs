@@ -24,10 +24,10 @@ public static partial class ServiceCollectionExtensions
         services.AddSingleton<IPlatformService, WindowsPlatformServiceImpl>();
         services.AddSingleton<ILocalDataProtectionProvider.IProtectedData, WindowsProtectedData>();
         services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
-        if (options.IsMainProcess)
-        {
-            services.AddSingleton<NotifyIcon, WindowsNotifyIcon>();
-        }
+        //if (options.IsMainProcess)
+        //{
+        //    services.AddSingleton<NotifyIcon, WindowsNotifyIcon>();
+        //}
         services.AddSingleton<ISevenZipHelper, SevenZipHelper>();
         if (!DesktopBridge.IsRunningAsUwp && OperatingSystem.IsWindowsVersionAtLeast(10, 0, 17763))
         {

@@ -97,7 +97,7 @@ sealed partial class Program : Startup
 
             #endregion
 
-            // 添加管理主窗口服务
+            // 添加视图模型管理服务
             services.AddViewModelManager();
 
 #if STARTUP_WATCH_TRACE || DEBUG

@@ -81,7 +81,8 @@ public sealed class ResourceService : ReactiveObject
 
     static void ChangeAutoLanguageCore(CultureInfo? cultureInfo = null)
     {
-        if (!string.IsNullOrWhiteSpace(Ioc.Get<SettingsPageViewModel>().SelectLanguage.Key)) return;
+        if (!string.IsNullOrWhiteSpace(SettingsPageViewModel.SelectLanguageKey))
+            return;
         cultureInfo ??= CultureInfo.CurrentUICulture;
         DefaultCurrentUICulture = cultureInfo;
         ChangeLanguageCore(cultureInfo.Name);

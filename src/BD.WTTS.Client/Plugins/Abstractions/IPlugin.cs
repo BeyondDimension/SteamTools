@@ -16,6 +16,24 @@ public interface IPlugin : IExplicitHasValue
     string Version { get; }
 
     /// <summary>
+    /// 获取当前插件需要加载的菜单项视图模型
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<TabItemViewModel>? GetMenuTabItems();
+
+    /// <summary>
+    /// 获取菜单项视图模型对应页面视图模型 MenuTabItemViewModel -> PageViewModel
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<KeyValuePair<Type, Type>>? GetMenuTabItemToPages();
+
+    /// <summary>
+    /// 获取菜单项视图模型对应页面视图 PageViewModel -> UserControl
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<KeyValuePair<Type, Type>>? GetPageToUserControls();
+
+    /// <summary>
     /// MainWindowViewModel.Initialize
     /// </summary>
     /// <returns></returns>

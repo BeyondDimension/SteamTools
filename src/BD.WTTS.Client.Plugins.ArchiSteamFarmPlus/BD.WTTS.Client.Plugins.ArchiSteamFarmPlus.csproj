@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstants>WTTS_PLUGIN;WTTS_PLUGIN_ASFPLUS;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -59,6 +60,12 @@
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\BD.WTTS.Client\UI\ViewModels\Windows\Main\MenuTabItemsViewModel.cs">
+			<LinkBase>UI\ViewModels\Windows\Main</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 

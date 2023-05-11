@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstants>WTTS_PLUGIN;WTTS_PLUGIN_ACCELERATOR;$(DefineConstants)</DefineConstants>
 		<!--<EnableDynamicLoading>true</EnableDynamicLoading>-->
 	</PropertyGroup>
 
@@ -72,6 +73,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Include="..\BD.WTTS.Client\UI\ViewModels\Windows\Main\MenuTabItemsViewModel.cs">
+			<LinkBase>UI\ViewModels\Windows\Main</LinkBase>
+		</Compile>
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\IReverseProxyService.Constants.cs">
 			<LinkBase>Services</LinkBase>
 		</Compile>

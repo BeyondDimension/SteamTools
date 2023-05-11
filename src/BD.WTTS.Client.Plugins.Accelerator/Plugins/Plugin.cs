@@ -9,6 +9,12 @@ sealed class Plugin : PluginBase<Plugin>
 
     public sealed override string Name => moduleName;
 
+    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    {
+        yield return new AcceleratorMenuTabItemViewModel();
+        yield return new AcceleratorScriptMenuTabItemViewModel();
+    }
+
     IReverseProxyService? reverseProxyService;
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
@@ -126,6 +132,7 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override bool ExplicitHasValue()
     {
-        return SubProcessExists();
+        // 网络加速模块仅在简体中文中加载
+        return ResourceService.IsChineseSimplified && SubProcessExists();
     }
 }

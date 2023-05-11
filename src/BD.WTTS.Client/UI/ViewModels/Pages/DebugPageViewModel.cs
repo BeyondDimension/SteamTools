@@ -3,12 +3,18 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels;
 
-public partial class DebugPageViewModel
+[MP2Obj]
+public sealed partial class DebugPageViewModel : TabItemViewModel
 {
+    protected override bool IsSingleInstance => true;
+
+    public override string Name => DebugMenuTabItemViewModel.DisplayName;
+
     public DebugPageViewModel() { }
 
     string _DebugString = string.Empty;
 
+    [Utf8StringFormatter]
     public string DebugString
     {
         get => _DebugString;

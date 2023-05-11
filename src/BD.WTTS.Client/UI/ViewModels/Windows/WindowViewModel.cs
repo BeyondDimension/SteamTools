@@ -3,9 +3,6 @@ namespace BD.WTTS.UI.ViewModels;
 
 public partial class WindowViewModel : PageViewModel, IWindowViewModel
 {
-    [Obsolete("use IApplication.IsDesktop()", true)]
-    public static bool IsSupportedSizePosition => IApplication.IsDesktop();
-
     protected SizePosition? _SizePosition;
 
     public SizePosition SizePosition
@@ -43,7 +40,7 @@ public partial class WindowViewModel : PageViewModel, IWindowViewModel
                     else
                         UISettings.WindowSizePositions.Value.TryAdd(name, SizePosition);
                     UISettings.WindowSizePositions.RaiseValueChanged();
-                });
+                }).AddTo(this);
         }
 #endif
     }

@@ -1,51 +1,44 @@
 // ReSharper disable once CheckNamespace
-using JetBrains.Annotations;
-
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class MainWindowViewModel : WindowViewModel
 {
     #region 更改通知
 
-    //[Reactive]
-    //public bool Topmost { get; set; }
+    ViewModelBase? selectedItem;
 
-    [Reactive]
-    public ViewModelBase? SelectedItem { get; set; }
+    public ViewModelBase? SelectedItem
+    {
+        get => selectedItem;
+        set
+        {
+            if (value != null)
+            {
+                if (MenuTabItemToPages.TryGetValue(value.GetType(), out var pageVMType))
+                {
+                    value = IViewModelManager.Instance.Get(pageVMType);
+                }
+            }
+            this.RaiseAndSetIfChanged(ref selectedItem, value);
+        }
+    }
 
     [Reactive]
     public bool IsOpenUserMenu { get; set; }
 
-    //public ICommand OpenUserMenu { get; }
-
     #endregion
 
-    //public StartPageViewModel StartPage => GetTabItemVM<StartPageViewModel>();
+    public ImmutableArray<TabItemViewModel> TabItems { get; }
 
-    //public CommunityProxyPageViewModel CommunityProxyPage => GetTabItemVM<CommunityProxyPageViewModel>();
+    public ImmutableArray<TabItemViewModel> FooterTabItems { get; }
 
-    //public ProxyScriptManagePageViewModel ProxyScriptPage => GetTabItemVM<ProxyScriptManagePageViewModel>();
-
-    //public SteamAccountPageViewModel SteamAccountPage => GetTabItemVM<SteamAccountPageViewModel>();
-
-    //public GameListPageViewModel GameListPage => GetTabItemVM<GameListPageViewModel>();
-
-    //public LocalAuthPageViewModel LocalAuthPage => GetTabItemVM<LocalAuthPageViewModel>();
-
-    //public SteamIdlePageViewModel SteamIdlePage => GetTabItemVM<SteamIdlePageViewModel>();
-
-    //public ArchiSteamFarmPlusPageViewModel ASFPage => GetTabItemVM<ArchiSteamFarmPlusPageViewModel>();
-
-    //public GameRelatedPageViewModel GameRelatedPage => GetTabItemVM<GameRelatedPageViewModel>();
-
-    //public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
-
-    static readonly IPlatformService platformService = IPlatformService.Instance;
+    public Dictionary<Type, Type> MenuTabItemToPages { get; }
 
     public MainWindowViewModel()
     {
         if (IApplication.IsDesktop())
         {
+            var platformService = IPlatformService.Instance;
             var adminTag = platformService.IsAdministrator ? (OperatingSystem.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
             var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.Version} for {DeviceInfo2.OSName()}{adminTag}";
 #if DEBUG
@@ -68,55 +61,65 @@ public sealed partial class MainWindowViewModel : WindowViewModel
             //});
         }
 
-        #region InitTabItems
-
-        List<TabItemViewModel.TabItemId> tabIdItems = new();
-        List<TabItemViewModel.TabItemId> footerTabIdItems = new();
-
-        var showProxyScript = !OperatingSystem.IsWindows() || ResourceService.IsChineseSimplified;
-
-        tabIdItems.Add(TabItemViewModel.TabItemId.Start);
-        if (showProxyScript)
+        IEnumerable<TabItemViewModel> tabItems = new TabItemViewModel[] {
+            new WelcomeMenuTabItemViewModel(),
+        };
+        IEnumerable<KeyValuePair<Type, Type>> menuTabItemToPages = new KeyValuePair<Type, Type>[]
         {
-            // Android 目前底部菜单实现要隐藏需要改多个地方
-            // 主要是初始化时不依赖 TabItems，两边逻辑暂不能同步一套代码
-            tabIdItems.Add(TabItemViewModel.TabItemId.CommunityProxy);
-        }
-        if (IApplication.IsDesktop())
-        {
-            if (showProxyScript)
-            {
-                tabIdItems.Add(TabItemViewModel.TabItemId.ProxyScriptManage);
-            }
-            tabIdItems.Add(TabItemViewModel.TabItemId.SteamAccount);
-            tabIdItems.Add(TabItemViewModel.TabItemId.GameList);
-        }
-        tabIdItems.Add(TabItemViewModel.TabItemId.LocalAuth);
-        tabIdItems.Add(TabItemViewModel.TabItemId.ArchiSteamFarmPlus);
-        //tabIdItems.Add(TabItemViewModel.TabItemId.SteamIdle);
+            //new KeyValuePair<Type, Type>(typeof(WelcomeMenuTabItemViewModel), typeof()),
+            new KeyValuePair<Type, Type>(typeof(DebugMenuTabItemViewModel), typeof(DebugPageViewModel)),
+            new KeyValuePair<Type, Type>(typeof(SettingsMenuTabItemViewModel), typeof(SettingsPageViewModel)),
+            new KeyValuePair<Type, Type>(typeof(AboutMenuTabItemViewModel), typeof(AboutPageViewModel)),
+        };
 
-#if !TRAY_INDEPENDENT_PROGRAM
-        if (OperatingSystem.IsWindows())
-            tabIdItems.Add(TabItemViewModel.TabItemId.GameRelated);
+        if (Startup.Instance.TryGetPlugins(out var plugins))
+        {
+            tabItems = tabItems.Concat(plugins
+                .Select(static x =>
+                   {
+                       try
+                       {
+                           return x.GetMenuTabItems();
+                       }
+                       catch (Exception ex)
+                       {
+                           Log.Error(nameof(MainWindowViewModel), ex,
+                               $"({x.Name}) Plugin.GetMenuTabItems fail.");
+                           return null;
+                       }
+                   })
+                .Where(static x => x != null)
+                .SelectMany(static x => x!));
+
+            menuTabItemToPages = menuTabItemToPages.Concat(plugins
+                .Select(static x =>
+                {
+                    try
+                    {
+                        return x.GetMenuTabItemToPages();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(nameof(MainWindowViewModel), ex,
+                            $"({x.Name}) Plugin.GetMenuTabItemToPages fail.");
+                        return null;
+                    }
+                })
+                .Where(static x => x != null)
+                .SelectMany(static x => x!));
+        }
+
+        TabItems = tabItems
+#if DEBUG
+            .Concat(new[] { new DebugMenuTabItemViewModel(), })
 #endif
+            .ToImmutableArray();
+        MenuTabItemToPages = new(menuTabItemToPages);
+        SelectedItem = TabItems.FirstOrDefault();
 
-#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
-        if (IApplication.EnableDevtools && IApplication.IsDesktop())
-        {
-            footerTabIdItems.Add(TabItemViewModel.TabItemId.Debug);
-        }
-#endif
-        footerTabIdItems.Add(TabItemViewModel.TabItemId.Settings);
-        //footerTabIdItems.Add(TabItemViewModel.TabItemId.About);
-
-        TabIdItems = tabIdItems.ToArray();
-        FooterTabIdItems = footerTabIdItems.ToArray();
-        AllTabIdItems = new HashSet<TabItemViewModel.TabItemId>(TabIdItems.Concat(FooterTabIdItems));
-        AllTabLazyItems = AllTabIdItems.ToDictionary(TabItemViewModel.GetType, v => new Lazy<TabItemViewModel>(() => TabItemViewModel.Create(v)));
-
-        #endregion
-
-        SelectedItem = AllTabLazyItems.First().Value.Value;
+        FooterTabItems = ImmutableArray.Create<TabItemViewModel>(
+            new SettingsMenuTabItemViewModel()/*,*/
+            /*new AboutMenuTabItemViewModel()*/);
     }
 
     public override Task Initialize()
@@ -133,7 +136,15 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                      {
                          foreach (var plugin in plugins)
                          {
-                             await plugin.OnInitializeAsync();
+                             try
+                             {
+                                 await plugin.OnInitializeAsync();
+                             }
+                             catch (Exception ex)
+                             {
+                                 Log.Error(nameof(MainWindowViewModel), ex,
+                                     $"({plugin.Name}) Plugin.OnInitializeAsync fail.");
+                             }
                          }
                      }
                      //if (ASFSettings.AutoRunArchiSteamFarm.Value)
@@ -183,73 +194,4 @@ public sealed partial class MainWindowViewModel : WindowViewModel
     //    }
     //    base.Activation();
     //}
-
-    #region TabItems Impl
-
-    readonly object mTabItemsLock = new();
-    static TabItemViewModel[]? mTabItems;
-
-    public TabItemViewModel[] TabItems
-    {
-        get
-        {
-            lock (mTabItemsLock)
-            {
-                mTabItems ??= GetTabItems().ToArray();
-                return mTabItems;
-            }
-            IEnumerable<TabItemViewModel> GetTabItems()
-            {
-                foreach (var item in TabIdItems)
-                {
-                    var type = TabItemViewModel.GetType(item);
-                    yield return AllTabLazyItems[type].Value;
-                }
-            }
-        }
-    }
-
-    readonly object mFooterTabItemsLock = new();
-    static TabItemViewModel[]? mFooterTabItems;
-
-    public TabItemViewModel[] FooterTabItems
-    {
-        get
-        {
-            lock (mFooterTabItemsLock)
-            {
-                mFooterTabItems ??= GetFooterTabItems().ToArray();
-                return mFooterTabItems;
-            }
-            IEnumerable<TabItemViewModel> GetFooterTabItems()
-            {
-                foreach (var item in FooterTabIdItems)
-                {
-                    var type = TabItemViewModel.GetType(item);
-                    yield return AllTabLazyItems[type].Value;
-                }
-            }
-        }
-    }
-
-    public TabItemViewModel.TabItemId[] TabIdItems { get; }
-
-    public TabItemViewModel.TabItemId[] FooterTabIdItems { get; }
-
-    public IReadOnlyCollection<TabItemViewModel.TabItemId> AllTabIdItems { get; }
-
-    public Dictionary<Type, Lazy<TabItemViewModel>> AllTabLazyItems { get; }
-
-    internal TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel
-    {
-        var type = typeof(TabItemVM);
-        if (AllTabLazyItems.TryGetValue(type, out var value))
-        {
-            return (TabItemVM)value.Value;
-        }
-
-        throw new KeyNotFoundException($"type: {type} not found.");
-    }
-
-    #endregion
 }

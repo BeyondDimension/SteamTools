@@ -5,7 +5,14 @@ namespace BD.WTTS.Plugins;
 #endif
 sealed class Plugin : PluginBase<Plugin>
 {
-    public override string Name => nameof(TabItemViewModel.TabItemId.LocalAuth);
+    const string moduleName = "Authenticator";
+
+    public override string Name => moduleName;
+
+    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    {
+        yield return new AuthenticatorMenuTabItemViewModel();
+    }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {

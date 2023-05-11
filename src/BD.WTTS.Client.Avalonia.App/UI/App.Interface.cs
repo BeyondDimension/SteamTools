@@ -24,7 +24,7 @@ partial class App : IApplication
                 //mainWindow = MainWindow;
                 //desktop.MainWindow = MainWindow;
                 mainWindow = MainWindow = desktop.MainWindow = new MainWindow();
-                mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
+                //mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
             }
 
         }

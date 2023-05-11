@@ -1,35 +1,8 @@
-using FluentAvalonia.UI.Controls;
-
 namespace BD.WTTS.UI.Views.Pages;
 
-public partial class MainView : ReactiveUserControl<MainWindowViewModel>
+public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
 {
-    private static IReadOnlyDictionary<Type, Type> PageTypes { get; }
-
-    static MainView()
-    {
-        PageTypes = new Dictionary<Type, Type>
-            {
-                //{ typeof(StartPageViewModel), typeof(StartPage) },
-                //{ typeof(CommunityProxyPageViewModel), typeof(CommunityProxyPage) },
-                //{ typeof(ProxyScriptManagePageViewModel), typeof(ProxyScriptManagePage) },
-                //{ typeof(SteamAccountPageViewModel), typeof(SteamAccountPage) },
-                //{ typeof(AboutPageViewModel), typeof(AboutPage) },
-                //{ typeof(GameListPageViewModel), typeof(GameListPage) },
-                //{ typeof(LocalAuthPageViewModel), typeof(LocalAuthPage) },
-                //{ typeof(GameRelatedPageViewModel), typeof(GameRelatedPage) },
-                //{ typeof(ArchiSteamFarmPlusPageViewModel), typeof(ArchiSteamFarmPlusPage) },
-                ////{ typeof(GameRelated_BorderlessPageViewModel), typeof(GameRelated_BorderlessPage) },
-                //{ typeof(AccountPageViewModel), typeof(AccountPage) },
-                { typeof(SettingsPageViewModel), typeof(SettingsPage) },
-#if DEBUG
-                { typeof(DebugPageViewModel), typeof(DebugPage) },
-//#if WINDOWS
-//                { typeof(DebugWebViewPageViewModel), typeof(DebugWebViewPage) },
-//#endif
-#endif
-            };
-    }
+    public Dictionary<Type, Type>? MenuTabItemToUserControls { get; private set; }
 
     public MainView()
     {
@@ -46,19 +19,58 @@ public partial class MainView : ReactiveUserControl<MainWindowViewModel>
         //    FrameView.GoBack();
         //};
 
-        NavView.SelectionChanged += (s, e) =>
+        NavView.SelectionChanged += (_, _) =>
         {
             if (NavView.SelectedItem != null)
             {
-                try
+                if (MenuTabItemToUserControls != null)
                 {
-                    FrameView?.Navigate(PageTypes[NavView.SelectedItem.GetType()]);
+                    var vmType = NavView.SelectedItem.GetType();
+                    if (MenuTabItemToUserControls.TryGetValue(vmType, out var pageType))
+                    {
+                        FrameView?.Navigate(pageType);
+                        return;
+                    }
                 }
-                catch
-                {
-                    FrameView?.GoBack();
-                }
+                FrameView?.GoBack();
             }
         };
+    }
+
+    protected override void OnDataContextChanged(EventArgs e)
+    {
+        base.OnDataContextChanged(e);
+        if (ViewModel != null)
+        {
+            IEnumerable<KeyValuePair<Type, Type>> menuTabItemToUserControls = new KeyValuePair<Type, Type>[]
+            {
+                //new KeyValuePair<Type, Type>(typeof(WelcomePageViewModel), typeof()),
+                new KeyValuePair<Type, Type>(typeof(DebugPageViewModel), typeof(DebugPage)),
+                new KeyValuePair<Type, Type>(typeof(SettingsPageViewModel), typeof(SettingsPage)),
+                //new KeyValuePair<Type, Type>(typeof(AboutPageViewModel), typeof(AboutPage)),
+            };
+
+            if (Startup.Instance.TryGetPlugins(out var plugins))
+            {
+                menuTabItemToUserControls = menuTabItemToUserControls.Concat(plugins
+                    .Select(static x =>
+                    {
+                        try
+                        {
+                            return x.GetPageToUserControls();
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error(nameof(MainWindowViewModel), ex,
+                                $"({x.Name}) Plugin.GetPageToUserControls fail.");
+                            return null;
+                        }
+                    })
+                    .Where(static x => x != null)
+                    .SelectMany(static x => x!));
+            }
+
+            MenuTabItemToUserControls = new(menuTabItemToUserControls);
+        }
     }
 }
