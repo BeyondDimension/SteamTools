@@ -49,23 +49,23 @@ public class AppSplashScreen : IApplicationSplashScreen
                  WatchTrace.Record("Migrations.Up");
 #endif
 
-            // 仅在主进程中启动 IPC 服务端
-            IPCMainProcessService.Instance.Run();
+                 // 仅在主进程中启动 IPC 服务端
+                 IPCMainProcessService.Instance.Run();
 #if STARTUP_WATCH_TRACE || DEBUG
-            WatchTrace.Record("IPC.StartServer");
+                 WatchTrace.Record("IPC.StartServer");
 #endif
-        }
+             }
 
-        var mainWindow = App.Instance.MainWindow;
-        mainWindow.ThrowIsNull();
-        var mainWindowVM = new MainWindowViewModel();
-        Dispatcher.UIThread.Post(() =>
-        {
-            mainWindow.DataContext = mainWindowVM;
-            s.InitSettingSubscribe();
-        });
+             var mainWindow = App.Instance.MainWindow;
+             mainWindow.ThrowIsNull();
+             var mainWindowVM = new MainWindowViewModel();
+             Dispatcher.UIThread.Post(() =>
+             {
+                 mainWindow.DataContext = mainWindowVM;
+                 s.InitSettingSubscribe();
+             });
 #if STARTUP_WATCH_TRACE || DEBUG
-        WatchTrace.Record("InitMainWindowViewModel");
+             WatchTrace.Record("InitMainWindowViewModel");
 #endif
 
 #if STARTUP_WATCH_TRACE || DEBUG

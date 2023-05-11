@@ -110,14 +110,14 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         }
 
         TabItems = tabItems
-#if DEBUG
-            .Concat(new[] { new DebugMenuTabItemViewModel(), })
-#endif
             .ToImmutableArray();
         MenuTabItemToPages = new(menuTabItemToPages);
         SelectedItem = TabItems.FirstOrDefault();
 
         FooterTabItems = ImmutableArray.Create<TabItemViewModel>(
+#if DEBUG
+            new DebugMenuTabItemViewModel(),
+#endif
             new SettingsMenuTabItemViewModel()/*,*/
             /*new AboutMenuTabItemViewModel()*/);
     }

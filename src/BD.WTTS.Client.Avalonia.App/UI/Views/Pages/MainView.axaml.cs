@@ -8,17 +8,6 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
     {
         InitializeComponent();
 
-        //DebugButton.Click += (s, e) =>
-        //{
-        //    var window = new DebugWindow();
-        //    window.Show();
-        //};
-
-        //BackViewButton.Click += (s, e) =>
-        //{
-        //    FrameView.GoBack();
-        //};
-
         NavView.SelectionChanged += (_, _) =>
         {
             if (NavView.SelectedItem != null)

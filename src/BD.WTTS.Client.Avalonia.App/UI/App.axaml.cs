@@ -55,7 +55,8 @@ public sealed partial class App : Application
         {
             desktop.MainWindow = MainWindow ??= new MainWindow();
         }
-
+        SetThemeNotChangeValue((AppTheme)UISettings.Theme.Value);
+        SetThemeAccent(UISettings.GetUserThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
         base.OnFrameworkInitializationCompleted();
     }
 

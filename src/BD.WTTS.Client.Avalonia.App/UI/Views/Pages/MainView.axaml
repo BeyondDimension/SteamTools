@@ -254,7 +254,7 @@
 				<Thickness x:Key="NavigationViewContentMargin">0,75,0,0</Thickness>
 			</ui:NavigationView.Resources>
 			<ui:NavigationView.MenuItemTemplate>
-				<DataTemplate DataType="{x:Type spp:TabItemViewModel}">
+				<DataTemplate DataType="spp:TabItemViewModel">
 					<ui:NavigationViewItem Classes="AppNav" Content="{Binding Name}">
 						<ui:NavigationViewItem.IconSource>
 							<ui:FontIconSource Glyph="{Binding IconKey,
