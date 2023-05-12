@@ -90,22 +90,36 @@ partial class Startup // 全局异常处理
             Logger.Error(ex, message, args);
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-            if (Instance.TryGetPlugins(out var plugins))
+
+            Startup? s;
+            try
             {
-                foreach (var plugin in plugins)
+                s = Instance;
+            }
+            catch
+            {
+                s = null;
+            }
+
+            if (s != null)
+            {
+                if (s.TryGetPlugins(out var plugins))
                 {
-                    try
+                    foreach (var plugin in plugins)
                     {
-                        plugin.OnUnhandledException(ex, name, isTerminating);
-                    }
-                    catch (Exception ex_plugin)
-                    {
+                        try
+                        {
+                            plugin.OnUnhandledException(ex, name, isTerminating);
+                        }
+                        catch (Exception ex_plugin)
+                        {
 #if DEBUG
-                        Console.WriteLine("(App)Close exception when OnUnhandledException");
-                        Console.WriteLine(ex_plugin);
+                            Console.WriteLine("(App)Close exception when OnUnhandledException");
+                            Console.WriteLine(ex_plugin);
 #endif
-                        Logger.Error(ex_plugin,
-                            "(App)Close exception when OnUnhandledException");
+                            Logger.Error(ex_plugin,
+                                "(App)Close exception when OnUnhandledException");
+                        }
                     }
                 }
             }

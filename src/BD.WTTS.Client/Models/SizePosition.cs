@@ -1,8 +1,11 @@
 namespace BD.WTTS.Models;
 
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
+[DebuggerDisplay("{DebuggerDisplay,nq}")]
 public sealed partial class SizePosition : BaseNotifyPropertyChanged
 {
+    string DebuggerDisplay => $"Position: {X}x{Y}, Size: {Width}x{Height}";
+
     int _X;
 
     [MPKey(0), MP2Key(0)]

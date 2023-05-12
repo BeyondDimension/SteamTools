@@ -6,6 +6,7 @@ namespace System;
 
 public static class HttpClientExtensions
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static async Task<T?> SendAsync<T>(
         this HttpClient client,
         ILogger logger,

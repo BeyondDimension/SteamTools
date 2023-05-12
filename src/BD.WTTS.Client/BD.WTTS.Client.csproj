@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
@@ -95,6 +95,8 @@
 		<!--<PackageReference Include="Portable.BouncyCastle" />-->
 		<PackageReference Include="ReactiveUI.Fody" />
 		<PackageReference Include="dotnetCampus.Ipc" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">

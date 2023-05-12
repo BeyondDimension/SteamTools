@@ -33,6 +33,10 @@ public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<T
 
     public virtual IEnumerable<KeyValuePair<Type, Type>>? GetPageToUserControls() => null;
 
+    public virtual IEnumerable<Action<IConfiguration, IServiceCollection>>? GetConfiguration(
+        ConfigurationBuilder builder,
+        bool directoryExists) => null;
+
     public virtual ValueTask OnInitializeAsync() => ValueTask.CompletedTask;
 
     public virtual void ConfigureDemandServices(

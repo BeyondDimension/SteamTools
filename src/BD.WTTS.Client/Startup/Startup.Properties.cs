@@ -1,7 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
-[DebuggerDisplay("{DebuggerDisplay(),nq}")]
+[DebuggerDisplay("{DebuggerDisplay,nq}")]
 partial class Startup // Properties
 {
     string DebuggerDisplay =>
@@ -53,6 +53,8 @@ partial class Startup // Properties
     public OnOffToggle ProxyServiceStatus { get; private set; }
 
     public object? App { private get; set; }
+
+    public IConfigurationRoot Configuration { get; private set; } = null!;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     async ValueTask DisposeAppAsync()

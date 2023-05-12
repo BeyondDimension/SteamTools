@@ -34,6 +34,16 @@ public interface IPlugin : IExplicitHasValue
     IEnumerable<KeyValuePair<Type, Type>>? GetPageToUserControls();
 
     /// <summary>
+    /// 获取插件的配置项
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="directoryExists"></param>
+    /// <returns></returns>
+    IEnumerable<Action<IConfiguration, IServiceCollection>>? GetConfiguration(
+        ConfigurationBuilder builder,
+        bool directoryExists);
+
+    /// <summary>
     /// MainWindowViewModel.Initialize
     /// </summary>
     /// <returns></returns>

@@ -135,7 +135,6 @@ partial class Startup // 配置 Host
     /// <summary>
     /// 加载应用程序逻辑
     /// </summary>
-    /// <returns></returns>
     public void LoadLogicApplication()
     {
 #if STARTUP_WATCH_TRACE || DEBUG
@@ -165,9 +164,20 @@ partial class Startup // 配置 Host
 #endif
     }
 
+    List<Action<IConfiguration, IServiceCollection>?>? configs;
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void ConfigureServices(IServiceCollection services)
     {
+        #region Configuration
+
+        services.AddSingleton<IConfiguration>(_ => Configuration);
+        services.AddSingleton<IConfigurationRoot>(_ => Configuration);
+        if (configs.Any_Nullable()) configs.ForEach(x => x?.Invoke(Configuration, services));
+        configs = null;
+
+        #endregion
+
         ConfigureDemandServices(services);
 #if STARTUP_WATCH_TRACE || DEBUG
         WatchTrace.Record("DI.ConfigureDemandServices");

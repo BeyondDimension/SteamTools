@@ -311,6 +311,44 @@ public abstract partial class Startup
                 if (isTrace) StartWatchTrace.Record("Preferences.Migrate");
 #endif
                 SettingsHost.Load();
+                {
+                    ConfigurationBuilder configurationBuilder = new();
+                    var directoryExists = ISettings.DirectoryExists();
+                    configs = new()
+                    {
+                        ISettings<GeneralSettings_>.Load(configurationBuilder, directoryExists),
+                        ISettings<UISettings_>.Load(configurationBuilder, directoryExists),
+                    };
+                    if (TryGetPlugins(out var plugins_cfg))
+                    {
+                        foreach (var plugin in plugins_cfg)
+                        {
+                            try
+                            {
+                                var plugin_cfg = plugin.GetConfiguration(configurationBuilder, directoryExists);
+                                if (plugin_cfg != null)
+                                {
+                                    configs.AddRange(plugin_cfg);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                GlobalExceptionHandler.Handler(ex,
+                                    $"{plugin.Name}{nameof(IPlugin.GetConfiguration)}");
+                            }
+                        }
+                    }
+
+                    try
+                    {
+                        Configuration = configurationBuilder.Build();
+                    }
+                    catch (InvalidDataException ex)
+                    {
+                        // 配置文件读取失败，使用默认配置加载运行 UI 后提示
+                        throw;
+                    }
+                }
 #if STARTUP_WATCH_TRACE || DEBUG
                 WatchTrace.Record("LoadSettings");
 #endif
@@ -345,6 +383,8 @@ public abstract partial class Startup
                     }
                 }
             }
+
+            await ISettings.SaveAllSettingsAsync();
 
             return exitCode;
         }

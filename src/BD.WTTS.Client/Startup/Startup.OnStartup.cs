@@ -31,8 +31,6 @@ partial class Startup // OnStartup
 
         if (IsMainProcess)
         {
-            //InitSettingSubscribe();
-
             Task.Run(async () =>
             {
                 await ActiveUserRecordAsync(ActiveUserAnonymousStatisticType.OnStartup);
