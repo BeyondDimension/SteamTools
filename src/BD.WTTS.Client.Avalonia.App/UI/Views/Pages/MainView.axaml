@@ -13,6 +13,9 @@
     x:CompileBindings="True"
     x:DataType="spp:MainWindowViewModel"
     mc:Ignorable="d">
+	<Design.DataContext>
+		<spp:MainWindowViewModel/>
+	</Design.DataContext>
 	<UserControl.Styles>
 		<Style Selector="ui|NavigationView.AppNav">
 			<Setter Property="IsPaneToggleButtonVisible" Value="False" />
@@ -247,7 +250,6 @@
             IsBackEnabled="{Binding #FrameView.CanGoBack}"
             IsPaneOpen="True"
             IsSettingsVisible="False"
-			SelectedItem="{Binding SelectedItem}"
             PaneDisplayMode="Left">
 			<ui:NavigationView.Resources>
 				<!--  Override this  -->
@@ -265,51 +267,7 @@
 					</ui:NavigationViewItem>
 				</DataTemplate>
 			</ui:NavigationView.MenuItemTemplate>
-			<!--<ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Classes="AppNav" Content="Home">
-                    <ui:NavigationViewItem.IconSource>
-                        <ui:SymbolIconSource Symbol="Home" />
-                    </ui:NavigationViewItem.IconSource>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="AppNav" Content="Acc">
-                    <ui:NavigationViewItem.IconSource>
-                        <ui:SymbolIconSource Symbol="Wifi4" />
-                    </ui:NavigationViewItem.IconSource>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="AppNav" Content="Switch">
-                    <ui:NavigationViewItem.IconSource>
-                        <ui:SymbolIconSource Symbol="Switch" />
-                    </ui:NavigationViewItem.IconSource>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="AppNav" Content="Library">
-                    <ui:NavigationViewItem.IconSource>
-                        <ui:SymbolIconSource Symbol="Library" />
-                    </ui:NavigationViewItem.IconSource>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="AppNav" Content="Tools">
-                    <ui:NavigationViewItem.IconSource>
-                        <ui:SymbolIconSource Symbol="More" />
-                    </ui:NavigationViewItem.IconSource>
-                </ui:NavigationViewItem>
-            </ui:NavigationView.MenuItems>
-            <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItem Classes="AppNav" Content="Message">
-                    <ui:NavigationViewItem.IconSource>
-                        <ui:SymbolIconSource Symbol="Message" />
-                    </ui:NavigationViewItem.IconSource>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="AppNav" Content="User">
-                    <ui:NavigationViewItem.IconSource>
-                        <ui:SymbolIconSource Symbol="People" />
-                    </ui:NavigationViewItem.IconSource>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem Classes="AppNav" Content="Settings">
-                    <ui:NavigationViewItem.IconSource>
-                        <ui:SymbolIconSource Symbol="Settings" />
-                    </ui:NavigationViewItem.IconSource>
-                </ui:NavigationViewItem>
-            </ui:NavigationView.FooterMenuItems>-->
-			<ui:Frame Name="FrameView" DataContext="{Binding SelectedItem}" />
+			<ui:Frame Name="FrameView"/>
 		</ui:NavigationView>
 	</Grid>
 </UserControl>

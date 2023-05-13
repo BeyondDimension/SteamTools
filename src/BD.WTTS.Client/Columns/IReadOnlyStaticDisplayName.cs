@@ -3,5 +3,5 @@ namespace BD.WTTS.Columns;
 
 public interface IReadOnlyStaticDisplayName
 {
-    static abstract string DisplayName { get; }
+    static abstract string? DisplayName { get; }
 }

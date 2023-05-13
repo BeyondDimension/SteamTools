@@ -1,8 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels.Abstractions;
 
-public abstract partial class ViewModelBase : BaseNotifyPropertyChanged,
-    IViewModelBase, IActivatableViewModel, IDisposable
+public abstract partial class ViewModelBase : BaseNotifyPropertyChanged, IViewModelBase, IActivatableViewModel, IDisposable
 {
     /// <summary>
     /// 当前视图模型是否为单例

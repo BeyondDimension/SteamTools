@@ -22,16 +22,10 @@ public interface IPlugin : IExplicitHasValue
     IEnumerable<TabItemViewModel>? GetMenuTabItems();
 
     /// <summary>
-    /// 获取菜单项视图模型对应页面视图模型 MenuTabItemViewModel -> PageViewModel
+    /// 获取菜单项视图模型对应页面视图 MenuTabItemViewModel -> UserControl
     /// </summary>
     /// <returns></returns>
     IEnumerable<KeyValuePair<Type, Type>>? GetMenuTabItemToPages();
-
-    /// <summary>
-    /// 获取菜单项视图模型对应页面视图 PageViewModel -> UserControl
-    /// </summary>
-    /// <returns></returns>
-    IEnumerable<KeyValuePair<Type, Type>>? GetPageToUserControls();
 
     /// <summary>
     /// 获取插件的配置项

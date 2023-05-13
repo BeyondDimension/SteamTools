@@ -1,7 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--  Add Resources Here  -->
     <x:String x:Key="Unknown">&#xE9CE;</x:String>
-    <x:String x:Key="WelcomeMenuTabItemViewModel">&#xE80F;</x:String>
+    <x:String x:Key="HomeMenuTabItemViewModel">&#xE80F;</x:String>
     <x:String x:Key="AcceleratorMenuTabItemViewModel">&#xEC4A;</x:String>
     <x:String x:Key="AcceleratorScriptMenuTabItemViewModel">&#xF584;</x:String>
     <x:String x:Key="GameAccountMenuTabItemViewModel">&#xE748;</x:String>

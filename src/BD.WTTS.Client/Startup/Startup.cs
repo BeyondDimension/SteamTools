@@ -92,10 +92,13 @@ public abstract partial class Startup
     public virtual async Task<int> StartAsync()
     {
 #if DEBUG && WINDOWS
-        var apartmentState = Thread.CurrentThread.GetApartmentState();
-        if (apartmentState != ApartmentState.STA)
+        if (!IsDesignMode)
         {
-            throw new ArgumentOutOfRangeException("CurrentThread != ApartmentState.STA");
+            var apartmentState = Thread.CurrentThread.GetApartmentState();
+            if (apartmentState != ApartmentState.STA)
+            {
+                throw new ArgumentOutOfRangeException("CurrentThread != ApartmentState.STA");
+            }
         }
 #endif
 

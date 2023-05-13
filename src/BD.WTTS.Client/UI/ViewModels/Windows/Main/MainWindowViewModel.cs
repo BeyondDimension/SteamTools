@@ -4,35 +4,17 @@ namespace BD.WTTS.UI.ViewModels;
 public sealed partial class MainWindowViewModel : WindowViewModel
 {
     #region 更改通知
-
-    ViewModelBase? selectedItem;
-
-    public ViewModelBase? SelectedItem
-    {
-        get => selectedItem;
-        set
-        {
-            if (value != null)
-            {
-                if (MenuTabItemToPages.TryGetValue(value.GetType(), out var pageVMType))
-                {
-                    value = IViewModelManager.Instance.Get(pageVMType);
-                }
-            }
-            this.RaiseAndSetIfChanged(ref selectedItem, value);
-        }
-    }
+    [Reactive]
+    public ViewModelBase? SelectedItem { get; set; }
 
     [Reactive]
     public bool IsOpenUserMenu { get; set; }
 
     #endregion
 
-    public ImmutableArray<TabItemViewModel> TabItems { get; }
+    public IEnumerable<TabItemViewModel> TabItems { get; }
 
     public ImmutableArray<TabItemViewModel> FooterTabItems { get; }
-
-    public Dictionary<Type, Type> MenuTabItemToPages { get; }
 
     public MainWindowViewModel()
     {
@@ -62,14 +44,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         }
 
         IEnumerable<TabItemViewModel> tabItems = new TabItemViewModel[] {
-            new WelcomeMenuTabItemViewModel(),
-        };
-        IEnumerable<KeyValuePair<Type, Type>> menuTabItemToPages = new KeyValuePair<Type, Type>[]
-        {
-            //new KeyValuePair<Type, Type>(typeof(WelcomeMenuTabItemViewModel), typeof()),
-            new KeyValuePair<Type, Type>(typeof(DebugMenuTabItemViewModel), typeof(DebugPageViewModel)),
-            new KeyValuePair<Type, Type>(typeof(SettingsMenuTabItemViewModel), typeof(SettingsPageViewModel)),
-            new KeyValuePair<Type, Type>(typeof(AboutMenuTabItemViewModel), typeof(AboutPageViewModel)),
+            new HomeMenuTabItemViewModel(),
         };
 
         if (Startup.Instance.TryGetPlugins(out var plugins))
@@ -90,36 +65,17 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                    })
                 .Where(static x => x != null)
                 .SelectMany(static x => x!));
-
-            menuTabItemToPages = menuTabItemToPages.Concat(plugins
-                .Select(static x =>
-                {
-                    try
-                    {
-                        return x.GetMenuTabItemToPages();
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(nameof(MainWindowViewModel), ex,
-                            $"({x.Name}) Plugin.GetMenuTabItemToPages fail.");
-                        return null;
-                    }
-                })
-                .Where(static x => x != null)
-                .SelectMany(static x => x!));
         }
 
-        TabItems = tabItems
-            .ToImmutableArray();
-        MenuTabItemToPages = new(menuTabItemToPages);
-        SelectedItem = TabItems.FirstOrDefault();
+        TabItems = tabItems;
+        //SelectedItem = TabItems.FirstOrDefault();
 
         FooterTabItems = ImmutableArray.Create<TabItemViewModel>(
 #if DEBUG
             new DebugMenuTabItemViewModel(),
 #endif
-            new SettingsMenuTabItemViewModel()/*,*/
-            /*new AboutMenuTabItemViewModel()*/);
+            new SettingsMenuTabItemViewModel()
+        );
     }
 
     public override Task Initialize()

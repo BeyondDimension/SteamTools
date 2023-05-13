@@ -1,10 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels.Abstractions;
 
-public abstract partial class ItemViewModel : ViewModelBase, IReadOnlyName
+public abstract partial class ItemViewModel : ViewModelBase
 {
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
-    public abstract string Name { get; }
+    public virtual string? Name { get; }
 
     #region IsSelected 変更通知
 

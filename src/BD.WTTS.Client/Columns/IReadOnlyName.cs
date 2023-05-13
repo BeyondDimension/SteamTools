@@ -3,5 +3,5 @@ namespace BD.WTTS.Columns;
 
 public interface IReadOnlyName
 {
-    string Name { get; }
+    string? Name { get; }
 }

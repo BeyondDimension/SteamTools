@@ -1,8 +1,13 @@
 // ReSharper disable once CheckNamespace
+using BD.WTTS.Client.Resources;
+using System.Resources;
+
 namespace BD.WTTS.UI.ViewModels.Abstractions;
 
-public abstract partial class TabItemViewModel : ItemViewModel
+public abstract partial class TabItemViewModel : ItemViewModel, IReadOnlyName
 {
+    protected static ResourceManager resourceManager = Strings.ResourceManager;
+
     #region TaskBarSubMenu 托盘菜单
 
     bool _IsTaskBarSubMenu = true;

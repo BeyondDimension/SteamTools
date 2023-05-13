@@ -5,13 +5,13 @@ namespace BD.WTTS.UI.ViewModels;
 
 #if !WTTS_PLUGIN
 /// <summary>
-/// 起始页/还原页的菜单项视图模型
+/// 起始页/主页的菜单项视图模型
 /// </summary>
-public sealed class WelcomeMenuTabItemViewModel : TabItemViewModel, IReadOnlyStaticDisplayName
+public sealed class HomeMenuTabItemViewModel : TabItemViewModel, IReadOnlyStaticDisplayName
 {
-    public static string DisplayName => AppResources.Welcome;
+    public static string? DisplayName => resourceManager.GetString("Welcome");
 
-    public override string Name => DisplayName;
+    public override string? Name => DisplayName;
 }
 #endif
 
@@ -19,21 +19,20 @@ public sealed class WelcomeMenuTabItemViewModel : TabItemViewModel, IReadOnlySta
 /// <summary>
 /// 网络加速的菜单项视图模型
 /// </summary>
-public sealed class AcceleratorMenuTabItemViewModel : TabItemViewModel, IReadOnlyStaticDisplayName
+/// 
+public sealed class AcceleratorMenuTabItemViewModel : TabItemViewModel
 {
-    public static string DisplayName => AppResources.CommunityFix;
+    public static string? DisplayName => resourceManager.GetString("CommunityFix");
 
-    public override string Name => DisplayName;
+    public override string? Name => DisplayName;
 }
 
 /// <summary>
 /// 网络加速脚本/脚本配置的菜单项视图模型
 /// </summary>
-public sealed class AcceleratorScriptMenuTabItemViewModel : TabItemViewModel, IReadOnlyStaticDisplayName
+public sealed class AcceleratorScriptMenuTabItemViewModel : TabItemViewModel
 {
-    public static string DisplayName => AppResources.ScriptConfig;
-
-    public override string Name => DisplayName;
+    public override string? Name => resourceManager.GetString("ScriptConfig");
 }
 #endif
 

@@ -8,21 +8,18 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
     {
         InitializeComponent();
 
-        NavView.SelectionChanged += (_, _) =>
+        NavView.SelectionChanged += (_, e) =>
         {
-            if (NavView.SelectedItem != null)
+            if (e.SelectedItem != null && MenuTabItemToUserControls != null)
             {
-                if (MenuTabItemToUserControls != null)
+                var vmType = e.SelectedItem.GetType();
+                if (MenuTabItemToUserControls.TryGetValue(vmType, out var pageType))
                 {
-                    var vmType = NavView.SelectedItem.GetType();
-                    if (MenuTabItemToUserControls.TryGetValue(vmType, out var pageType))
-                    {
-                        FrameView?.Navigate(pageType);
-                        return;
-                    }
+                    FrameView?.Navigate(pageType);
+                    return;
                 }
-                FrameView?.GoBack();
             }
+            FrameView?.Navigate(typeof(ErrorPage));
         };
     }
 
@@ -33,9 +30,9 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
         {
             IEnumerable<KeyValuePair<Type, Type>> menuTabItemToUserControls = new KeyValuePair<Type, Type>[]
             {
-                //new KeyValuePair<Type, Type>(typeof(WelcomePageViewModel), typeof()),
-                new KeyValuePair<Type, Type>(typeof(DebugPageViewModel), typeof(DebugPage)),
-                new KeyValuePair<Type, Type>(typeof(SettingsPageViewModel), typeof(SettingsPage)),
+                new KeyValuePair<Type, Type>(typeof(HomeMenuTabItemViewModel), typeof(HomePage)),
+                new KeyValuePair<Type, Type>(typeof(DebugMenuTabItemViewModel), typeof(DebugPage)),
+                new KeyValuePair<Type, Type>(typeof(SettingsMenuTabItemViewModel), typeof(SettingsPage)),
                 //new KeyValuePair<Type, Type>(typeof(AboutPageViewModel), typeof(AboutPage)),
             };
 
@@ -46,12 +43,12 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
                     {
                         try
                         {
-                            return x.GetPageToUserControls();
+                            return x.GetMenuTabItemToPages();
                         }
                         catch (Exception ex)
                         {
                             Log.Error(nameof(MainWindowViewModel), ex,
-                                $"({x.Name}) Plugin.GetPageToUserControls fail.");
+                                $"({x.Name}) Plugin.GetMenuTabItemToPages fail.");
                             return null;
                         }
                     })
