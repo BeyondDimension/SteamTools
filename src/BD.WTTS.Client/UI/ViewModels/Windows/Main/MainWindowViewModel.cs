@@ -5,14 +5,14 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 {
     #region 更改通知
     [Reactive]
-    public ViewModelBase? SelectedItem { get; set; }
+    public TabItemViewModel? SelectedItem { get; set; }
 
     [Reactive]
     public bool IsOpenUserMenu { get; set; }
 
     #endregion
 
-    public IEnumerable<TabItemViewModel> TabItems { get; }
+    public List<TabItemViewModel> TabItems { get; }
 
     public ImmutableArray<TabItemViewModel> FooterTabItems { get; }
 
@@ -49,26 +49,27 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 
         if (Startup.Instance.TryGetPlugins(out var plugins))
         {
-            tabItems = tabItems.Concat(plugins
-                .Select(static x =>
-                   {
-                       try
-                       {
-                           return x.GetMenuTabItems();
-                       }
-                       catch (Exception ex)
-                       {
-                           Log.Error(nameof(MainWindowViewModel), ex,
-                               $"({x.Name}) Plugin.GetMenuTabItems fail.");
-                           return null;
-                       }
-                   })
+            var tabs = plugins.Select(static x =>
+                 {
+                     try
+                     {
+                         return x.GetMenuTabItems();
+                     }
+                     catch (Exception ex)
+                     {
+                         Log.Error(nameof(MainWindowViewModel), ex,
+                             $"({x.Name}) Plugin.GetMenuTabItems fail.");
+                         return null;
+                     }
+                 })
                 .Where(static x => x != null)
-                .SelectMany(static x => x!));
+                .SelectMany(static x => x!);
+
+            tabItems = tabItems.Concat(tabs);
         }
 
-        TabItems = tabItems;
-        //SelectedItem = TabItems.FirstOrDefault();
+        TabItems = tabItems.ToList();
+        SelectedItem = TabItems.FirstOrDefault();
 
         FooterTabItems = ImmutableArray.Create<TabItemViewModel>(
 #if DEBUG

@@ -1,3 +1,5 @@
+using BD.WTTS.UI.Views.Pages;
+
 namespace BD.WTTS.Plugins;
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
@@ -13,6 +15,12 @@ sealed class Plugin : PluginBase<Plugin>
     {
         yield return new AcceleratorMenuTabItemViewModel();
         yield return new AcceleratorScriptMenuTabItemViewModel();
+    }
+
+    public override IEnumerable<KeyValuePair<Type, Type>>? GetMenuTabItemToPages()
+    {
+        yield return new KeyValuePair<Type, Type>(typeof(AcceleratorMenuTabItemViewModel), typeof(DemoPage));
+        yield return new KeyValuePair<Type, Type>(typeof(AcceleratorScriptMenuTabItemViewModel), typeof(DemoPage));
     }
 
     IReverseProxyService? reverseProxyService;

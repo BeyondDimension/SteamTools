@@ -249,6 +249,7 @@
             MenuItemsSource="{Binding TabItems}"
             IsBackEnabled="{Binding #FrameView.CanGoBack}"
             IsPaneOpen="True"
+			SelectedItem="{Binding SelectedItem}"
             IsSettingsVisible="False"
             PaneDisplayMode="Left">
 			<ui:NavigationView.Resources>

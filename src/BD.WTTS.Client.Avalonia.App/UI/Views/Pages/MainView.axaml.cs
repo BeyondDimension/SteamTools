@@ -1,3 +1,5 @@
+using FluentAvalonia.Core;
+
 namespace BD.WTTS.UI.Views.Pages;
 
 public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
@@ -7,7 +9,6 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
     public MainView()
     {
         InitializeComponent();
-
         NavView.SelectionChanged += (_, e) =>
         {
             if (e.SelectedItem != null && MenuTabItemToUserControls != null)
@@ -22,6 +23,12 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
             FrameView?.Navigate(typeof(ErrorPage));
         };
     }
+
+    //protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    //{
+    //    base.OnAttachedToVisualTree(e);
+    //    NavView.SelectedItem = NavView.MenuItemsSource.ElementAt(0);
+    //}
 
     protected override void OnDataContextChanged(EventArgs e)
     {
