@@ -29,8 +29,6 @@ public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<T
 
     public virtual IEnumerable<TabItemViewModel>? GetMenuTabItems() => null;
 
-    public virtual IEnumerable<KeyValuePair<Type, Type>>? GetMenuTabItemToPages() => null;
-
     public virtual IEnumerable<Action<IConfiguration, IServiceCollection>>? GetConfiguration(
         ConfigurationBuilder builder,
         bool directoryExists) => null;

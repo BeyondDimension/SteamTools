@@ -6,8 +6,6 @@ namespace BD.WTTS.UI.ViewModels.Abstractions;
 
 public abstract partial class TabItemViewModel : ItemViewModel, IReadOnlyName
 {
-    protected static ResourceManager resourceManager = Strings.ResourceManager;
-
     #region TaskBarSubMenu 托盘菜单
 
     bool _IsTaskBarSubMenu = true;
@@ -31,9 +29,6 @@ public abstract partial class TabItemViewModel : ItemViewModel, IReadOnlyName
 
     protected TabItemViewModel() : base()
     {
-        var typeName = GetType().Name;
-        IconKey = IApplication.Instance.GetIconKeyByTypeName(typeName);
-
         ResourceService.Subscribe(() =>
         {
             this.RaisePropertyChanged(nameof(Name));

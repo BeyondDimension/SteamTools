@@ -9,7 +9,7 @@ public sealed partial class AboutPageViewModel : TabItemViewModel
 
     protected override bool IsSingleInstance => true;
 
-    public override string Name => AboutMenuTabItemViewModel.DisplayName;
+    public override string Name => Strings.About;
 
     public const string Title_2_ = "({0} Steam++)";
 

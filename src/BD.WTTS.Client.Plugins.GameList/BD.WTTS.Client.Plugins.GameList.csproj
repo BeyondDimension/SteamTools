@@ -66,12 +66,6 @@
 		<PackageReference Include="BD.SteamClient" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Compile Include="..\BD.WTTS.Client\UI\ViewModels\Windows\Main\MenuTabItemsViewModel.cs">
-			<LinkBase>UI\ViewModels\Windows\Main</LinkBase>
-		</Compile>
-	</ItemGroup>
-
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
 	</ItemGroup>

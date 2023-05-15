@@ -11,7 +11,13 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {
-        yield return new GameToolsMenuTabItemViewModel();
+        yield return new MenuTabItemViewModel()
+        {
+            ResourceKeyOrName = "GameRelated",
+            PageType = null,
+            IsResourceGet = true,
+            IconKey = "DeveloperTools",
+        };
     }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)

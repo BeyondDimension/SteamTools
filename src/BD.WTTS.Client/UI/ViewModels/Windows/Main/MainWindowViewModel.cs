@@ -16,7 +16,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 
     public ImmutableArray<TabItemViewModel> FooterTabItems { get; }
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(IEnumerable<TabItemViewModel> tabItems, ImmutableArray<TabItemViewModel> footerTabItems)
     {
         if (IApplication.IsDesktop())
         {
@@ -43,10 +43,6 @@ public sealed partial class MainWindowViewModel : WindowViewModel
             //});
         }
 
-        IEnumerable<TabItemViewModel> tabItems = new TabItemViewModel[] {
-            new HomeMenuTabItemViewModel(),
-        };
-
         if (Startup.Instance.TryGetPlugins(out var plugins))
         {
             var tabs = plugins.Select(static x =>
@@ -71,12 +67,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         TabItems = tabItems.ToList();
         SelectedItem = TabItems.FirstOrDefault();
 
-        FooterTabItems = ImmutableArray.Create<TabItemViewModel>(
-#if DEBUG
-            new DebugMenuTabItemViewModel(),
-#endif
-            new SettingsMenuTabItemViewModel()
-        );
+        FooterTabItems = footerTabItems;
     }
 
     public override Task Initialize()

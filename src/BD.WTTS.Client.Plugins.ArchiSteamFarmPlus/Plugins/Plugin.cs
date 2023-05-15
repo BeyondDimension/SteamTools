@@ -11,7 +11,13 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {
-        yield return new ArchiSteamFarmPlusMenuTabItemViewModel();
+        yield return new MenuTabItemViewModel()
+        {
+            ResourceKeyOrName = "ArchiSteamFarmPlus",
+            PageType = null,
+            IsResourceGet = true,
+            IconKey = "ASF",
+        };
     }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)

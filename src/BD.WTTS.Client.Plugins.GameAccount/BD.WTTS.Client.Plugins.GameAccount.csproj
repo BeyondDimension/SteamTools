@@ -64,13 +64,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Include="..\BD.WTTS.Client\UI\ViewModels\Windows\Main\MenuTabItemsViewModel.cs">
-			<LinkBase>UI\ViewModels\Windows\Main</LinkBase>
-		</Compile>
-	</ItemGroup>
-
+	
 	<ItemGroup>
 	  <Folder Include="UI\ViewModels\" />
 	  <Folder Include="UI\Views\" />

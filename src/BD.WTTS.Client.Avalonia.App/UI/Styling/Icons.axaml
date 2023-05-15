@@ -1,17 +1,16 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--  Add Resources Here  -->
     <x:String x:Key="Unknown">&#xE9CE;</x:String>
-    <x:String x:Key="HomeMenuTabItemViewModel">&#xE80F;</x:String>
-    <x:String x:Key="AcceleratorMenuTabItemViewModel">&#xEC4A;</x:String>
-    <x:String x:Key="AcceleratorScriptMenuTabItemViewModel">&#xF584;</x:String>
-    <x:String x:Key="GameAccountMenuTabItemViewModel">&#xE748;</x:String>
-    <x:String x:Key="GameListMenuTabItemViewModel">&#xE7FC;</x:String>
-    <x:String x:Key="AuthenticatorMenuTabItemViewModel">&#xE83D;</x:String>
-    <x:String x:Key="ArchiSteamFarmPlusMenuTabItemViewModel">ASF</x:String>
-    <x:String x:Key="SettingsMenuTabItemViewModel">&#xE713;</x:String>
-    <x:String x:Key="AboutMenuTabItemViewModel">&#xE9CE;</x:String>
-    <x:String x:Key="SteamIdleMenuTabItemViewModel">&#xEC92;</x:String>
-    <x:String x:Key="OtherPlatformMenuTabItemViewModel">&#xE712;</x:String>
-    <x:String x:Key="DebugMenuTabItemViewModel">&#xEBE8;</x:String>
-    <x:String x:Key="GameToolsMenuTabItemViewModel">&#xEC7A;</x:String>
+    <x:String x:Key="Home">&#xE80F;</x:String>
+    <x:String x:Key="SpeedHigh">&#xEC4A;</x:String>
+    <x:String x:Key="DuplexPortraitOneSided">&#xF584;</x:String>
+    <x:String x:Key="SwitchUser">&#xE748;</x:String>
+    <x:String x:Key="Game">&#xE7FC;</x:String>
+    <x:String x:Key="DefenderApp">&#xE83D;</x:String>
+    <x:String x:Key="ASF">ASF</x:String>
+    <x:String x:Key="Settings">&#xE713;</x:String>
+    <x:String x:Key="DateTime">&#xEC92;</x:String>
+    <x:String x:Key="More">&#xE712;</x:String>
+    <x:String x:Key="Bug">&#xEBE8;</x:String>
+    <x:String x:Key="DeveloperTools">&#xEC7A;</x:String>
 </ResourceDictionary>

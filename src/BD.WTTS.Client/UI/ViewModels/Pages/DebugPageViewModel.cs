@@ -8,7 +8,7 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
 {
     protected override bool IsSingleInstance => true;
 
-    public override string Name => DebugMenuTabItemViewModel.DisplayName;
+    public override string Name => "Debug";
 
     public DebugPageViewModel() { }
 

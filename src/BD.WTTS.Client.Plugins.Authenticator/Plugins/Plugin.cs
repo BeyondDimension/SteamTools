@@ -11,7 +11,13 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {
-        yield return new AuthenticatorMenuTabItemViewModel();
+        yield return new MenuTabItemViewModel()
+        {
+            ResourceKeyOrName = "LocalAuth",
+            PageType = null,
+            IsResourceGet = true,
+            IconKey = "DefenderApp",
+        };
     }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)

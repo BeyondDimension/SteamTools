@@ -8,7 +8,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 {
     protected override bool IsSingleInstance => true;
 
-    public override string Name => SettingsMenuTabItemViewModel.DisplayName;
+    public override string Name => AppResources.Settings;
 
     public SettingsPageViewModel()
     {

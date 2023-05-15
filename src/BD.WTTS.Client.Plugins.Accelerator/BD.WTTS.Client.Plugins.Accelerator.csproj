@@ -73,9 +73,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="..\BD.WTTS.Client\UI\ViewModels\Windows\Main\MenuTabItemsViewModel.cs">
-			<LinkBase>UI\ViewModels\Windows\Main</LinkBase>
-		</Compile>
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\IReverseProxyService.Constants.cs">
 			<LinkBase>Services</LinkBase>
 		</Compile>

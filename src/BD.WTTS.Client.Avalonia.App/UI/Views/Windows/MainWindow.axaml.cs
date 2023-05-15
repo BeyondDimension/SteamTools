@@ -11,7 +11,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
     }
 }
 
-public class AppSplashScreen : IApplicationSplashScreen
+public sealed class AppSplashScreen : IApplicationSplashScreen
 {
     public AppSplashScreen()
     {
@@ -58,7 +58,37 @@ public class AppSplashScreen : IApplicationSplashScreen
 
              var mainWindow = App.Instance.MainWindow;
              mainWindow.ThrowIsNull();
-             var mainWindowVM = new MainWindowViewModel();
+
+#pragma warning disable SA1114 // Parameter list should follow declaration
+             var mainWindowVM = new MainWindowViewModel(new TabItemViewModel[]
+             {
+                 new MenuTabItemViewModel()
+                 {
+                    ResourceKeyOrName = "Welcome",
+                    PageType = typeof(HomePage),
+                    IsResourceGet = true,
+                    IconKey = "Home",
+                 },
+             }, ImmutableArray.Create<TabItemViewModel>(
+#if DEBUG
+                 new MenuTabItemViewModel()
+                 {
+                     ResourceKeyOrName = "Debug",
+                     PageType = typeof(DebugPage),
+                     IsResourceGet = false,
+                     IconKey = "Bug",
+                 },
+#endif   
+                 new MenuTabItemViewModel()
+                 {
+                     ResourceKeyOrName = "Settings",
+                     PageType = typeof(SettingsPage),
+                     IsResourceGet = true,
+                     IconKey = "Settings",
+                 }
+             ));
+#pragma warning restore SA1114 // Parameter list should follow declaration
+
              Dispatcher.UIThread.Post(() =>
              {
                  mainWindow.DataContext = mainWindowVM;

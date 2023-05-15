@@ -11,7 +11,13 @@ sealed class Plugin : PluginBase<Plugin>, ISteamAccountSettings
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {
-        yield return new GameAccountMenuTabItemViewModel();
+        yield return new MenuTabItemViewModel()
+        {
+            ResourceKeyOrName = "UserFastChange",
+            PageType = null,
+            IsResourceGet = true,
+            IconKey = "SwitchUser",
+        };
     }
 
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)

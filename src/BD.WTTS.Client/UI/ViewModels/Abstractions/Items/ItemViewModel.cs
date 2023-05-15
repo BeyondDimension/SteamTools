@@ -4,7 +4,7 @@ namespace BD.WTTS.UI.ViewModels.Abstractions;
 public abstract partial class ItemViewModel : ViewModelBase
 {
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
-    public virtual string? Name { get; }
+    public abstract string Name { get; }
 
     #region IsSelected 変更通知
 
@@ -39,7 +39,7 @@ public abstract partial class ItemViewModel : ViewModelBase
     public virtual string? IconKey
     {
         get => _IconKey;
-        protected set
+        set
         {
             this.RaiseAndSetIfChanged(ref _IconKey, value);
             this.RaisePropertyChanged(nameof(IconSource));

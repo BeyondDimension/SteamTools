@@ -13,14 +13,21 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {
-        yield return new AcceleratorMenuTabItemViewModel();
-        yield return new AcceleratorScriptMenuTabItemViewModel();
-    }
+        yield return new MenuTabItemViewModel()
+        {
+            ResourceKeyOrName = "CommunityFix",
+            PageType = typeof(DemoPage),
+            IsResourceGet = true,
+            IconKey = "SpeedHigh",
+        };
 
-    public override IEnumerable<KeyValuePair<Type, Type>>? GetMenuTabItemToPages()
-    {
-        yield return new KeyValuePair<Type, Type>(typeof(AcceleratorMenuTabItemViewModel), typeof(DemoPage));
-        yield return new KeyValuePair<Type, Type>(typeof(AcceleratorScriptMenuTabItemViewModel), typeof(DemoPage));
+        yield return new MenuTabItemViewModel()
+        {
+            ResourceKeyOrName = "ScriptConfig",
+            PageType = typeof(DemoPage),
+            IsResourceGet = true,
+            IconKey = "DuplexPortraitOneSided",
+        };
     }
 
     IReverseProxyService? reverseProxyService;
