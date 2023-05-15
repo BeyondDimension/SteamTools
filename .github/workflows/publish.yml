@@ -327,7 +327,7 @@ jobs:
 
     - name: Add msbuild to PATH
       if: matrix.os == 'windows-latest'
-      uses: microsoft/setup-msbuild@v1.1
+      uses: microsoft/setup-msbuild@v1.3
 
     - name: Verify dotnet info
       run: |
