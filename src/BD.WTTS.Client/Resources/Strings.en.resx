@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,39 +119,39 @@
   </resheader>
   <data name="About" xml:space="preserve">
     <value>About</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="About_Contactus" xml:space="preserve">
     <value>Contact us</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="About_FAQ" xml:space="preserve">
     <value>FAQs</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="About_Joinus" xml:space="preserve">
     <value>Join us</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="About_OpenSource" xml:space="preserve">
     <value>Open source license</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="About_ProductionStaff" xml:space="preserve">
     <value>Developers</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="About_ThisSoft" xml:space="preserve">
     <value>This software</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="About_UpdateHistory" xml:space="preserve">
     <value>Update history</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="About_UpdateLog" xml:space="preserve">
     <value>Update log</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="AccountChange_RestartSteam" xml:space="preserve">
     <value>Modified data requires a restart to steam and whether a restart to Steam is required.</value>
@@ -166,100 +166,100 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Description" xml:space="preserve">
-    <value>描述</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Description</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_EditSucces" xml:space="preserve">
     <value>Modified {0} achievements and {1} statistics</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Icon" xml:space="preserve">
     <value>Icon</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_IsProtection" xml:space="preserve">
     <value>Protected</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_LoadData" xml:space="preserve">
     <value>Load achievements and statistics...</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_LoadSucces" xml:space="preserve">
     <value>Retrieved {0} achievements and {1} statistics</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Manage" xml:space="preserve">
-    <value>管理成就</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Manage achievement progress</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Name" xml:space="preserve">
     <value>Name</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_RefreshTip" xml:space="preserve">
     <value>Refresh achievements and statistics</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_ResetTip" xml:space="preserve">
     <value>Reset achievements and statistics</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_ResetWaring_1" xml:space="preserve">
     <value>Confirm resetting game statistics?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_ResetWaring_2" xml:space="preserve">
     <value>Confirm resetting achievement progress as well?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_RiskWarning" xml:space="preserve">
     <value>Reminder: Unlocking achievements may be deemed as cheating by game developers</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
     <value>Statistics modifier</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_StoreTip" xml:space="preserve">
     <value>Save and apply achievement progress and game statistics</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
     <value>Unlocked at {0:yyyy-MM-dd HH:mm:ss}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
     <value>Achievement unlocker</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">
     <value>Failed to establish connections with Steam. This could be because this game does not have achievements, or because you do not own this game.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Warning_3" xml:space="preserve">
     <value>An error occurred when modifying achievement {0}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Warning_4" xml:space="preserve">
     <value>An error occurred when modifying statistics {0}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>新增</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>New</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Agree" xml:space="preserve">
-    <value>同意</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Agree</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="And" xml:space="preserve">
-    <value>和</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>and</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
-    <comment>Comment=;Author=AigioL</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ASF_RuningTip" xml:space="preserve">
     <value>The ASF is already running</value>
@@ -267,71 +267,71 @@
   </data>
   <data name="Bind" xml:space="preserve">
     <value>Link</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Btn_Text_Complete" xml:space="preserve">
-    <value>完成</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Finish</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Btn_Text_Continue" xml:space="preserve">
     <value>Continue</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="BugFeedback" xml:space="preserve">
     <value>Bug feedback</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>取消</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Cancel</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CheckUpdate" xml:space="preserve">
     <value>Check for updates</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CloudSync" xml:space="preserve">
     <value>Cloud sync</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix" xml:space="preserve">
     <value>Network routing</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=网络加速（因为不止加速steam社区）;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>Enabled network routing</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_AllCheck" xml:space="preserve">
     <value>Select all</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_AlreadyProxy" xml:space="preserve">
-    <value>已加速  </value>
-    <comment>Comment=末尾带空格;Author=MicrosoftTranslator</comment>
+    <value>Routing your connections</value>
+    <comment>Comment=末尾带空格;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
     <value>Start routing your connections upon launching Watt Toolkit</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_CertificateSettings" xml:space="preserve">
     <value>Certificate settings</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_DeleteCertificate" xml:space="preserve">
     <value>Remove certificate</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_EditHostsFile" xml:space="preserve">
     <value>Edit hosts file</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_EnableScriptService" xml:space="preserve">
     <value>Run userscripts</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_MenuName" xml:space="preserve">
     <value>Network routing settings</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_NetworkFix" xml:space="preserve">
     <value>Network repair</value>
@@ -339,111 +339,111 @@
   </data>
   <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
     <value>No routing services were selected</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
     <value>Only enable for Steam built-in browser</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
     <value>Open enclosing folder of certificate</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_ProxyMode" xml:space="preserve">
-    <value>加速模式</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Routing mode</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ProxyMode_Hosts" xml:space="preserve">
-    <value>Hosts 代理模式</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Hosts routing mode</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>Route your traffic by modifying the hosts file based on your preferences. This mode runs more smoothly and only affects those websites that you select below, but it requires port 443 not to be in use.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ProxyMode_System" xml:space="preserve">
     <value>System proxy mode</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=deepl</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
     <value>Route your traffic by setting up a Windows system proxy. It does not require a free port 443, yet it will affect all local network traffic. If hosts routing mode works, you won't be needing this mode.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_ScriptManage" xml:space="preserve">
     <value>Userscript manager</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_ScriptsEnable" xml:space="preserve">
     <value>Enabled userscripts</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_SetupCertificate" xml:space="preserve">
     <value>Install certificate</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_StartProxy" xml:space="preserve">
     <value>Start routing</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
     <value>Failed to route your connections. Certificate improperly installed.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>Routing started</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_StopProxy" xml:space="preserve">
-    <value>停止加速</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Stop routing</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Yes</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ConfirmImport" xml:space="preserve">
     <value>Confirm import</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Cut" xml:space="preserve">
-    <value>剪切</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Cut</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Default</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="DelAccount" xml:space="preserve">
     <value>Deactivate account</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="DelAccountTips" xml:space="preserve">
     <value>Your account information will be permanently deleted and you cannot log in again using this account's credentials. Ready to deactivate your account?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="DoNotUpdate" xml:space="preserve">
     <value>Skip this version</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Dow" xml:space="preserve">
-    <value>下移</value>
+    <value>Move down</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download" xml:space="preserve">
     <value>Download</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Downloading" xml:space="preserve">
     <value>Downloading: {0}%</value>
@@ -451,127 +451,127 @@
   </data>
   <data name="Download_ScriptError" xml:space="preserve">
     <value>Error occurred while downloading userscript. Please try again.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Download_ScriptOk" xml:space="preserve">
     <value>Userscript installed</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email address</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="EmailCode" xml:space="preserve">
     <value>Email verification code</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Encrypt" xml:space="preserve">
-    <value>加密</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Encrypt</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>退出</value>
+    <value>quit</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Export" xml:space="preserve">
     <value>Export</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList" xml:space="preserve">
     <value>Library</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_AddAFKAppsMaxCountTips" xml:space="preserve">
     <value>Idle Play waitlist capacity of maximum {0} games reached. Please remove some games from the waitlist first.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
     <value>Idle Play Mode enabled for waitlisted games</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
     <value>Warning: Steam only allow maximum {0} games running simultaneously. Putting more than {1} games on Idle Play Mode may cause games to freeze or crash upon launch.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_AddAfkGameList" xml:space="preserve">
     <value>Enable Idle Play Mode for waitlisted games</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_AddHideAppEmpty" xml:space="preserve">
     <value>No games are currently hidden. Right click on your selected games to hide them.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_AddIdeaAppEmpty" xml:space="preserve">
     <value>Empty Idle Play waitlist. Right click on your selected games to waitlist them for Idle Play Mode.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
     <value>Enable Idle Play Mode for waitlisted games upon launching Watt Toolkit</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
     <value>Remove all games from Idle Play waitlist?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_DeleteItem" xml:space="preserve">
     <value>Remove this game from Idle Play waitlist?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_DeleteSuccess" xml:space="preserve">
     <value>Removed</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_EditAppInfo" xml:space="preserve">
     <value>Edit game information</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_HideAppsSuccess" xml:space="preserve">
     <value>Game Hidden</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_HideApp_AllCheck" xml:space="preserve">
     <value>Select all</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_HideGameManger" xml:space="preserve">
     <value>Manage list of hidden games</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
     <value>Hide this game</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_IdleGamesManger" xml:space="preserve">
     <value>Idle Play waitlist</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_Install" xml:space="preserve">
     <value>Install</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_IsEmpty" xml:space="preserve">
     <value>No game data retrieved</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
     <value>Loading list of games</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_ListCount" xml:space="preserve">
     <value>({0}/{1}) added</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_LoaingTips" xml:space="preserve">
     <value>Action in progress. Please try again later.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>Show only installed games</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_OpenFolder" xml:space="preserve">
     <value>Browse to the installation folder</value>
@@ -579,611 +579,619 @@
   </data>
   <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
     <value>Steam Card Exchange</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
     <value>SteamDB Info</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_OpenSteamGridUrl" xml:space="preserve">
     <value>SteamGrid</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_OpenStoreUrl" xml:space="preserve">
     <value>Open Steam store page</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_OperationSuccess" xml:space="preserve">
-    <value>操作成功</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Action completed</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_Play" xml:space="preserve">
     <value>Start game</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_RefreshGamesList" xml:space="preserve">
     <value>Refresh library</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
     <value>Library refreshed</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_RemoveBtn" xml:space="preserve">
     <value>Remove all</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_RemoveItemBtn" xml:space="preserve">
     <value>Remove from Idle Play waitlist</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_ResizeAppLogo" xml:space="preserve">
     <value>Adjust cover image size</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_RuningBtn" xml:space="preserve">
     <value>Launch all</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_RuningCount" xml:space="preserve">
     <value>{0}/{1} running</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_RuningItemBtn" xml:space="preserve">
     <value>Launch game</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_RuningWait" xml:space="preserve">
     <value>Launching…</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_RunState" xml:space="preserve">
     <value>Running</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_SetCustomImage" xml:space="preserve">
     <value>Set custom cover image</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_SteamNotRuning" xml:space="preserve">
     <value>Steam not running</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_StopBtn" xml:space="preserve">
     <value>Pause all</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_StopItemBtn" xml:space="preserve">
     <value>Pause</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_StopState" xml:space="preserve">
     <value>Paused</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_Unsupport" xml:space="preserve">
     <value>Unsupported action</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>Gaming tools</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless" xml:space="preserve">
     <value>Borderless window mode</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_BorderlessWindow" xml:space="preserve">
-    <value>Borderless window mode</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Borderless window</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_ClassName" xml:space="preserve">
     <value>Type name</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_Hide" xml:space="preserve">
     <value>Hide</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_KillProcess" xml:space="preserve">
     <value>Kill process</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_Maximize" xml:space="preserve">
-    <value>最大化</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Maximize window</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
     <value>Drag the cross to game window to perform subsequent actions.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_Normal" xml:space="preserve">
     <value>Default window size</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_Path" xml:space="preserve">
     <value>Program path</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_Process" xml:space="preserve">
     <value>Process</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_ResetWallerpaper" xml:space="preserve">
     <value>Refresh wallpaper</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_Show" xml:space="preserve">
     <value>Show</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_Title" xml:space="preserve">
     <value>Title</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaper" xml:space="preserve">
     <value>Run game as desktop wallpaper</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
     <value>*Game running as a desktop wallpaper may be incontrollable and irresponsive to inputs. This bug can be fixed but it has not yet become the primary focus of this software. Hence, this bug may persist in several future updates. The wallpaper will freeze at the last remaining frame of the game after it stops running. A single click on 'Refresh wallpaper' button may reset the wallpaper to default. This feature conflicts with other live wallpaper softwares such as Wallpaper Engine. Quit other softwares like Wallpaper Engine before using this feature.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Gender" xml:space="preserve">
-    <value>性別</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Gender</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Gender_Female" xml:space="preserve">
-    <value>女</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Female</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Gender_Male" xml:space="preserve">
-    <value>男</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Male</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Gender_Unknown" xml:space="preserve">
-    <value>保密</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Prefer not to disclose</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
     <value>Retrieving Steam login status</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookiesFail_" xml:space="preserve">
     <value>Failed to retrieve Steam login status. Please enter your Steam account name and password for express login.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Hosts_Exists" xml:space="preserve">
     <value>Written hosts already exist</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Hosts_ReadError" xml:space="preserve">
     <value>Error while reading hosts file</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Hosts_ReadSuccess" xml:space="preserve">
     <value>Hosts file read</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Hosts_UpdateSuccess" xml:space="preserve">
     <value>Hosts file updated</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Hosts_WirteError" xml:space="preserve">
     <value>Error while updating hosts</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="IdleCard" xml:space="preserve">
     <value>Idle card collection</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Loading…</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth" xml:space="preserve">
-    <value>本地令牌</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Steam Authenticator</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AddAuth" xml:space="preserve">
     <value>Import Authenticator</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
     <value>Authenticator imported</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
     <value>Syncing Authenticator clock</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AddAuth_PartSuccess" xml:space="preserve">
     <value>Part of the data is imported.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthData" xml:space="preserve">
     <value>Authenticator data</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthName" xml:space="preserve">
     <value>Cuztomize name for Authenticator</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade" xml:space="preserve">
     <value>Transaction manager</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Cancel" xml:space="preserve">
-    <value>取消交易</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Reject transaction</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
-    <value>取消所有交易</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Reject all transactions</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
     <value>Unable to reject this transaction</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
-    <value>Transaction manager</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Confirm transaction</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmAll" xml:space="preserve">
     <value>Confirm all transactions</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmCancel" xml:space="preserve">
-    <value>已成功取消所有交易</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>All transactions rejected</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmError" xml:space="preserve">
     <value>Unable to confirm this transaction</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmSuccess" xml:space="preserve">
-    <value>已成功同意所有交易</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>All transactions confirmed</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
-    <value>正在{0}所有交易中...</value>
-    <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
+    <value>{0} all transactions...</value>
+    <comment>Comment=同意 or 取消;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
     <value>You don't have permission to view confirmation messages. Check if you have enabled  'community-generated content' in Family View.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
     <value>Failed to retrieve Steam Authenticator transaction information. Please check if Steam market connection is routed.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
     <value>Gathering the latest trading deal information</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
     <value>{0} transactions pending</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
     <value>There are currently no transactions to manage.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
+  </data>
+  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
+    <value>This will {0} all your transactions. Ready to continue?</value>
+    <comment>Comment=同意 or 取消;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
     <value>There are currently no transactions</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_TradeError" xml:space="preserve">
     <value>Invalid transactions</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_CloudSync" xml:space="preserve">
     <value>Cloud sync Authenticators</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_Copy" xml:space="preserve">
     <value>Copy Authenticator</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
     <value>Authenticator copied</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
     <value>Ready to permanently remove this Steam Authenticator?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_EditAuth" xml:space="preserve">
     <value>Edit Authenticator</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
     <value>Please enter the verification code sent to your email address to allow acccess from the new device. </value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ExportAuth" xml:space="preserve">
     <value>Export Authenticator</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ConfirmExport" xml:space="preserve">
     <value>Confirm export</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ExportAuth_EncryptionExport" xml:space="preserve">
     <value>Export encrypted data?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ExportAuth_Error" xml:space="preserve">
     <value>Failed to export data. Error code: {0}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>Enter password for exported data</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>Select path</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_HasPasswordUnEncryptionAuth" xml:space="preserve">
     <value>Data encrypted. Enter password to access.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ImportFaild" xml:space="preserve">
     <value>Failed to import Authenticator. Please check validity of your imported data.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_LockError" xml:space="preserve">
     <value>Cannot lock Authenticator without a password</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_MenuName" xml:space="preserve">
-    <value>Edit Authenticator</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Authenticator editor</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>No Authenticator imported. Click on gear icon in upper right corner to start import.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>Import from other apps</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_PasswordRequired" xml:space="preserve">
     <value>Enter password to continue</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_PasswordRequired1" xml:space="preserve">
     <value>Please enter password</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth" xml:space="preserve">
-    <value>令牌加密</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Encrypt Authenticator</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
     <value>Enable customized password</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
     <value>Your Authenticator will be encrypted by your password which is required for accessing the Authenticator. If you forget this password and do not have a valid back-up of the Authenticator, you will lose access to it.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Error" xml:space="preserve">
     <value>Error while saving entryption options</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
     <value>It is highly recommended to password protect your Authenticator, otherwise your data may be accessed and stolen by other malwares. This is not mandatory, however your Authenticator may run at risk of being stolen.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
     <value>This Authenticator can only decrypted on this PC</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
     <value>In addition, you can use Windows built-in account encryption to protect your data. This locks your Authenticators to the current user on this computer, so even if they're duplicated, they will remain inaccessible. You must turn this feature off if you want to reformat your disk, reinstall Windows or delete this user account.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
     <value>No changes made to be saved</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
     <value>Customize password</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_PasswordError" xml:space="preserve">
     <value>Wrong password</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_PasswordErrorTip" xml:space="preserve">
     <value>Please enter the correct password</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_PathError" xml:space="preserve">
     <value>Wrong file path</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
     <value>Save and apply</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Success" xml:space="preserve">
     <value>Encryption options saved</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
     <value>Enter your password again</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_VerifyPasswordErrorTip" xml:space="preserve">
     <value>Your entered password does not match</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
     <value>Authenticator data loaded</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SDAImport" xml:space="preserve">
     <value>Import from Steam Desktop Authenticator</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
+  </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>A desktop implementation of Steam Authenticator. Please import from file named 'maFile' in 'maFiles' folders under SDA path. (Encrypted files not supported. Remove password before continuing)</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
-    <value>查看令牌</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>View your Authenticator</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
     <value>View your Authenticator detailed data</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
     <value>Complete data of your Steam Authenticator which can be imported into different softwares:</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
     <value>After enabling two-step Authenticator in Steam, a recovery code is generated which you can use in Steam client to disable the Authenticator.Do remember and store it in a safe place.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
     <value>Please enter the SMS verification code sent to your phone.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
     <value>Import from mobile Steam app</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
     <value>You can import Steam Authenticator from your rooted Android device at: /data/data/com.valvesoftware.android.steam.community . Paste the corresponding data in these files into the text box below.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
-    <value>Transaction manager</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Confirm transaction</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
     <value>In the 'files' folder, open the 'SteamGuard-NNNNNNNNN' file and paste the entire contents of the file</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
     <value>Import from Watt Toolkit</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
     <value>Import from Watt Toolkit Version 1.0</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
     <value>Import from Watt Toolkit Version 2.0</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
     <value>Confirming transactions requires a logged in Steam status. Watt Toolkit will not record your password, but rather save a local logged-in status.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
     <value>Import from Steam account</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
     <value>Failed to add Steam Guard Authenticator to your account. Please try again later.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
     <value>There is an existing Authenticator for your Steam account. Please remove the current Authenticator before importing.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
     <value>Device ID (uuid):</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
     <value>In 'shared_prefs' folder, paste uuidKey from 'steam_uuid.xml'</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
     <value>Sync clock for Authenticator</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_WinAuthImport" xml:space="preserve">
     <value>Import from WinAuth</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_WinAuthTip" xml:space="preserve">
     <value>WinAuth is Windows' portable open source authenticator, which provides counter-based or time-based RFC 6238 authenticators and common implementations. Import method: After exporting the txt file from WinAuth, select it here for importing.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Lock" xml:space="preserve">
     <value>Lock</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Log in</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
     <value>Log in / Sign up</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Logining" xml:space="preserve">
     <value>Logging in…</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Log out</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
     <value>Enter the password in the console window that pops up or do it manually</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Modify" xml:space="preserve">
-    <value>修改</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Modify</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="More" xml:space="preserve">
-    <value>更多操作</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>More</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="MoveDown" xml:space="preserve">
-    <value>下移</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Move downwards</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="MoveUp" xml:space="preserve">
-    <value>上移</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Move updawards</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="My" xml:space="preserve">
-    <value>我的</value>
+    <value>It's mine</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NextStep" xml:space="preserve">
-    <value>下一步</value>
+    <value>Next</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>Nickname</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="OtherGamePlaform" xml:space="preserve">
     <value>Other platforms</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Paste" xml:space="preserve">
     <value>Paste</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="PleaseEnterNickName" xml:space="preserve">
     <value>Please enter your nickname</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="PleaseSelect" xml:space="preserve">
     <value>Please select</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ProductOfficialWebsite" xml:space="preserve">
     <value>Product official website</value>
@@ -1191,199 +1199,199 @@
   </data>
   <data name="RecoveryCode" xml:space="preserve">
     <value>Recovery code</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="RecoveryCode_Remember" xml:space="preserve">
     <value>I have written down my recovery code.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
     <value>Your Steam Authenticator has been added to your Steam account and imported into Watt Toolkit. This is your recovery code which you can use to remove this Authenticator from your Steam account if you lose it. Please write it down now and store it in a safe place.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
-    <value>刷新</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Refresh</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="RefreshList" xml:space="preserve">
     <value>Refresh the list</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="RefreshOK" xml:space="preserve">
-    <value>刷新成功</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Refreshed</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>保存修改</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Save changes</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ScriptConfig" xml:space="preserve">
     <value>Userscripts</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
     <value>Matching userscript not found. You can download the userscript from the userscript workshop.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ScriptShop_GetTableError" xml:space="preserve">
     <value>Failed to retrieve userscript workshop content.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
     <value>GM is the foundamental framework for all userscripts and cannot be deleted. </value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ScriptShop_NoLogin" xml:space="preserve">
     <value>Log in Watt Toolkit before accessing the userscript workshop.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ScriptStore" xml:space="preserve">
     <value>Userscript workshop</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_AutoUpdate" xml:space="preserve">
     <value>Enable userscript auto-updates</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_DeleteItem" xml:space="preserve">
     <value>Ready to delete this userscript?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_Edit" xml:space="preserve">
     <value>Edit this userscript</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_EditTxt" xml:space="preserve">
     <value>After editing the userscript, click Yes to refresh cache for changes to take effect.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_FileError" xml:space="preserve">
     <value>File not found. Please check path {0}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_Home" xml:space="preserve">
     <value>Userscript homepage</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_ImportLoading" xml:space="preserve">
     <value>Processing imported userscript</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_Install" xml:space="preserve">
     <value>Install userscript</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>The text file is missing. Do you want to delete this userscript history?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_Refresh" xml:space="preserve">
     <value>Refresh cache</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_ReplaceTips" xml:space="preserve">
     <value>This userscript has been installed. Replace the installed version?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_Update" xml:space="preserve">
     <value>Update userscript</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Script_UpdateError" xml:space="preserve">
     <value>Failed to retrieve userscript update information.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SelectFileImport" xml:space="preserve">
     <value>Select file {0} for import</value>
-    <comment>Comment=*.txt;Author=MicrosoftTranslator</comment>
+    <comment>Comment=*.txt;Author=沙中金</comment>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Auth" xml:space="preserve">
     <value>Authenticator settings</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Fonts" xml:space="preserve">
     <value>Font</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_General" xml:space="preserve">
     <value>General</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
     <value>Check update on launching Watt Toolkit</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_General_RuningMinimize" xml:space="preserve">
     <value>Minimize to system tray on launching Watt Toolkit</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_General_StartAutoRun" xml:space="preserve">
     <value>Launch Watt Toolkit on start-up</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>Language</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Steam" xml:space="preserve">
     <value>Steam preferences</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
     <value>Launch Steam on launching Steam ++</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
     <value>Forbid checking update on launching Steam</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
     <value>Minimize to system tray on launching Steam</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
     <value>Steam launch options</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Theme" xml:space="preserve">
     <value>Theme</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_UI" xml:space="preserve">
     <value>Display</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_UI_AcrylicTransparency" xml:space="preserve">
     <value>Background transparency</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
-    <value>深色</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Dark mode</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_UI_Light" xml:space="preserve">
     <value>Light mode</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_UI_SystemDefault" xml:space="preserve">
     <value>Follow system setting</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SignOut" xml:space="preserve">
     <value>Log out</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SMSCode" xml:space="preserve">
     <value>SMS verification code</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SourceRepository" xml:space="preserve">
     <value>Source repository</value>
@@ -1391,110 +1399,110 @@
   </data>
   <data name="StartUpdate" xml:space="preserve">
     <value>Start update</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAccount" xml:space="preserve">
     <value>Steam account name</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Application" xml:space="preserve">
     <value>Software</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Beta" xml:space="preserve">
     <value>Playtests</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Config" xml:space="preserve">
-    <value>配置</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Configurations</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Demo" xml:space="preserve">
     <value>Demo</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_DepotOnly" xml:space="preserve">
-    <value>倉庫</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Depots</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_DLC" xml:space="preserve">
     <value>DLC</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Driver" xml:space="preserve">
     <value>Drivers</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Franchise" xml:space="preserve">
     <value>Franchises</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Game" xml:space="preserve">
     <value>Games</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Guide" xml:space="preserve">
-    <value>指南</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Guides</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Hardware" xml:space="preserve">
     <value>Hardware</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Media" xml:space="preserve">
     <value>Media</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Mod" xml:space="preserve">
     <value>Mods</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Music" xml:space="preserve">
     <value>OSTs</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Plugin" xml:space="preserve">
     <value>Plugins</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Series" xml:space="preserve">
     <value>Videos</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Shortcut" xml:space="preserve">
-    <value>快捷方式</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Shortcuts</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Tool" xml:space="preserve">
-    <value>工具</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Tools</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Unknown" xml:space="preserve">
-    <value>未知</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Others</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SteamAppType_Video" xml:space="preserve">
     <value>Videos</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
     <value>Enter verification code from image</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Steam_Password" xml:space="preserve">
     <value>Steam password</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Steam_User" xml:space="preserve">
     <value>Steam account name</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Success_" xml:space="preserve">
-    <value>{0}成功</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>{0} success</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Toolbox" xml:space="preserve">
-    <value>工具箱</value>
+    <value>toolbox</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Top" xml:space="preserve">
@@ -1503,271 +1511,271 @@
   </data>
   <data name="Unbound" xml:space="preserve">
     <value>Not linked</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Unbundling" xml:space="preserve">
     <value>Unlink</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UnderConstruction" xml:space="preserve">
     <value>Feature under development for future updates.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UnsavedEditingWillBeDiscarded" xml:space="preserve">
     <value>Unsaved edits will be discarded</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Up" xml:space="preserve">
-    <value>上移</value>
+    <value>Move up</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateContent" xml:space="preserve">
     <value>Update content</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UploadYourAvatar" xml:space="preserve">
     <value>Upload your avatar</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
     <value>Upload a picture from your device. The picture should be square in shape and at least 400px*400px</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
     <value>Express Steam login</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
     <value>Restart Steam session and log in with this account</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_DeleteUser" xml:space="preserve">
     <value>Remove this account</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
     <value>Also delete cache related to this account?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
     <value>Ready to remove this account from Watt Toolkit on this computer?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
     <value>Click here to edit remarks</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
     <value>Log in to a new Steam account</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_NoUserTip" xml:space="preserve">
     <value>Failed to retrieve any Steam account data in your computer.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
     <value>Start in offline mode</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_OpenUserUrl" xml:space="preserve">
     <value>Open profile page</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_RecentLogin" xml:space="preserve">
     <value>Recent logins</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_RememberMe" xml:space="preserve">
     <value>Password remembered</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserFastChange" xml:space="preserve">
     <value>Account switching</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserProfile" xml:space="preserve">
     <value>Profile</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserProfile_BirthDate" xml:space="preserve">
-    <value>生日</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Birthday</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserProfile_Location" xml:space="preserve">
-    <value>所在地</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Location</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_AccountBind" xml:space="preserve">
     <value>Linked accounts</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_AccountBindTip" xml:space="preserve">
     <value>You must have a mobile number linked to your Watt Toolkit account before unlinking a third-party account from Watt Toolkit. If you want to relink this third-party account to another Watt Toolkit account, you need to go to About-This software-Deactivate account before doing that.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_Agreement" xml:space="preserve">
     <value>User Agreement</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_AppleLogin" xml:space="preserve">
     <value>Log in with Apple</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_BasicInfo" xml:space="preserve">
     <value>Basic information</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_BindPhoneNum" xml:space="preserve">
     <value>Link your mobile number</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_ChangePhoneNum" xml:space="preserve">
     <value>Change your linked mobile number</value>
-    <comment>Comment=修改手机号;Author=MicrosoftTranslator</comment>
+    <comment>Comment=修改手机号;Author=沙中金</comment>
   </data>
   <data name="User_EditProfile" xml:space="preserve">
     <value>Edit profile</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_FastLogin" xml:space="preserve">
     <value>Fast login</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
     <value>Choose how you would like to log in to your Watt Toolkit account</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
     <value>Fast login with {0}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>Send SMS code</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_Login" xml:space="preserve">
     <value>Log in</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
     <value>Resend SMS code</value>
-    <comment>Comment=短信验证码倒计时;Author=MicrosoftTranslator</comment>
+    <comment>Comment=短信验证码倒计时;Author=沙中金</comment>
   </data>
   <data name="User_LoginError" xml:space="preserve">
     <value>Incorrect account name or password</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_LoginError_Auth" xml:space="preserve">
     <value>Invalid Authenticator: The linked Authenticator does not match your current logged-in account </value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=中文建议改成：无效令牌：当前令牌账号与已登录账号不匹配;Author=沙中金</comment>
   </data>
   <data name="User_LoginError_CodeImage" xml:space="preserve">
     <value>Please complete reCAPCHA</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=暂未开发;Author=沙中金</comment>
   </data>
   <data name="User_LoginError_Null" xml:space="preserve">
     <value>Please enter your account number and password</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=暂未开发;Author=沙中金</comment>
   </data>
   <data name="User_LoginTroubleshoot" xml:space="preserve">
     <value>Cannot log in?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_LoiginSuccess" xml:space="preserve">
     <value>Log in successful</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_MicroSoftLogin" xml:space="preserve">
     <value>Log in with Microsoft account</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_NewPhone" xml:space="preserve">
     <value>New mobile number</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_OtherFastLogin" xml:space="preserve">
     <value>Other fast login</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_Phone" xml:space="preserve">
     <value>Mobile number</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_PhoneLogin" xml:space="preserve">
     <value>Log in with mobile number</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_Privacy" xml:space="preserve">
     <value>Privacy policy</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_QQLogin" xml:space="preserve">
     <value>Log in with QQ</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_Register" xml:space="preserve">
     <value>Sign up</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_RegisterAgreed" xml:space="preserve">
     <value>By signing up, you read and agree to</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_Rememberme" xml:space="preserve">
     <value>Remember me</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
     <value>Log out Watt Toolkit account?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
     <value>SMS verification code</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SMSCode_Error" xml:space="preserve">
     <value>Please request for an SMS code first.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SteamAvatarTip" xml:space="preserve">
     <value>Click on the avatar to quickly log in</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SteamFastLogin" xml:space="preserve">
     <value>Fast log in with Steam</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
     <value>Steam community connection timeout. Check if Steam community routing is on.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SteamLogoTip" xml:space="preserve">
     <value>Click to jump to fast log in window.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SteamUnLoginTip" xml:space="preserve">
     <value>Click on Steam Logo to log in</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_UnbundleAccountTip" xml:space="preserve">
     <value>Unlinking this third-party account will disable fast login via this way. Do you still want to unlink?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="User_UseFastLoginChannel_" xml:space="preserve">
-    <value>使用 {0} 登錄</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  <data name="User_UseExternalLoginChannel_" xml:space="preserve">
+    <value>Log in with {0}</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_UsePhoneNumLoginChannel" xml:space="preserve">
     <value>Sign in with your mobile phone number</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>警告</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Warning</value>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Home page</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_CertificateTrust" xml:space="preserve">
     <value>Trust the certificate</value>
@@ -1802,7 +1810,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cancelled" xml:space="preserve">
-    <value>已取消</value>
+    <value>Canceled</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Confirmed" xml:space="preserve">
@@ -1834,7 +1842,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RememberChooseNotToAskAgain" xml:space="preserve">
-    <value>不再提醒</value>
+    <value>No more reminders</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown" xml:space="preserve">
@@ -1886,7 +1894,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_Calcing" xml:space="preserve">
-    <value>計算中...</value>
+    <value>Calculating...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
@@ -1966,7 +1974,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Helper" xml:space="preserve">
-    <value>説明</value>
+    <value>Help</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
@@ -1974,7 +1982,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>重置</value>
+    <value>reset</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_SelectImage" xml:space="preserve">
@@ -2054,11 +2062,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdate" xml:space="preserve">
-    <value>新版本更新</value>
+    <value>New version update</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>{1} v{0} 版本更新</value>
+    <value>{1} v{0} version update</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
@@ -2066,7 +2074,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
-    <value>新版本通知</value>
+    <value>New version notification</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
@@ -2115,7 +2123,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
-    <value>添加成功</value>
+    <value>Added successfully</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
@@ -2163,11 +2171,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
-    <value>已使用</value>
+    <value>Used</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
-    <value>未使用</value>
+    <value>Not used</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Start" xml:space="preserve">
@@ -2175,15 +2183,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Stop" xml:space="preserve">
-    <value>停止 ASF</value>
+    <value>Stop ASF</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AddBot" xml:space="preserve">
-    <value>新增 Bot</value>
+    <value>Add a Bot</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RefreshBot" xml:space="preserve">
-    <value>刷新 Bot</value>
+    <value>Refresh the Bot</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_OpenWebUIConsole" xml:space="preserve">
@@ -2191,15 +2199,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Console" xml:space="preserve">
-    <value>ASF 控制台</value>
+    <value>ASF console</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_BotManage" xml:space="preserve">
-    <value>Bot 配置</value>
+    <value>Bot configuration</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_GlobalConfig" xml:space="preserve">
-    <value>ASF 配置</value>
+    <value>ASF configuration</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_VersionNum" xml:space="preserve">
@@ -2251,7 +2259,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Disable" xml:space="preserve">
-    <value>禁用</value>
+    <value>disable</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Offline" xml:space="preserve">
@@ -2271,7 +2279,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
-    <value>令牌</value>
+    <value>token</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput_Login" xml:space="preserve">
@@ -2327,7 +2335,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
-    <value>Socks5 本地代理</value>
+    <value>Socks5 local proxy</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
@@ -2359,7 +2367,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseOpenGL" xml:space="preserve">
-    <value>使用 OpenGL 渲染</value>
+    <value>Use OpenGL rendering</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download_ScriptError_" xml:space="preserve">
@@ -2371,7 +2379,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_AllEnable" xml:space="preserve">
-    <value>Select all</value>
+    <value>Enable all</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ImportSuccessTip" xml:space="preserve">
@@ -2395,11 +2403,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate" xml:space="preserve">
-    <value>捐助</value>
+    <value>donate</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateType" xml:space="preserve">
-    <value>捐助方式</value>
+    <value>Donation modalities</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateRecord" xml:space="preserve">
@@ -2416,10 +2424,6 @@
   </data>
   <data name="About_DonateRecord_Error" xml:space="preserve">
     <value>Error loading donation list data:</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="About_Donate_Title" xml:space="preserve">
-    <value>Supports the development of Watt Toolkit</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_ResetWaring_3" xml:space="preserve">
@@ -2439,10 +2443,6 @@ AAAAA-BBBBB-CCCC2
 AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
-    <value>This will {0} all your transactions. Ready to continue?</value>
-    <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
     <value>*Experimental feature (it is recommended to set transparent materials to Transparent or AcrylicBlur when turned on)
 This feature can set the wallpaper of Wallpaper Engine and other wallpaper software as the program background, and if you have not started Wallpaper Engine, you will use the desktop background by default. The background only works in the main window, other windows recommend adjusting the transparency not to be completely transparent or using the image background. When using, pay attention to switching the corresponding theme according to the brightness and darkness of the wallpaper to get better results.</value>
@@ -2458,10 +2458,14 @@ This feature can set the wallpaper of Wallpaper Engine and other wallpaper softw
 This action ends with a running Steam jump to the new account login window.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="About_Donate_Title" xml:space="preserve">
+    <value>Supports the development of Watt Toolkit</value>
+    <comment>Comment=;Author=AigioL</comment>
+  </data>
   <data name="About_Donate_Desc" xml:space="preserve">
     <value>The release of the current version of Watt Toolkit can't be separated from everyone's support, and if Watt Toolkit is helpful to you, and you want us to keep new features developed and maintained for a long time, you may consider giving us a little contribution to make our more dynamic update maintenance Watt Toolkit.
 *Please remember to have the UID of your Watt Toolkit account in the notes message when making a donation, so that we can feed the donation reward back to your account later.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
     <value>Copied to the clipboard</value>
@@ -2469,18 +2473,18 @@ This action ends with a running Steam jump to the new account login window.</val
   </data>
   <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
     <value>Click here to copy the UID to the clipboard</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
     <value>You will need to log in to your Watt Toolkit account to get your UID</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="Sleep" xml:space="preserve">
-    <value>睡眠</value>
+    <value>sleep</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hibernate" xml:space="preserve">
-    <value>休眠</value>
+    <value>dormancy</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Shutdown" xml:space="preserve">
@@ -2673,7 +2677,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_Message" xml:space="preserve">
-    <value>消息通知</value>
+    <value>Message notification</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="StopService" xml:space="preserve">
@@ -2692,16 +2696,12 @@ The system will {1} after {0} seconds.</value>
     <value>Unbind the token</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>A desktop implementation of Steam Authenticator. Please import from file named 'maFile' in 'maFiles' folders under SDA path. (Encrypted files not supported. Remove password before continuing)</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Steam_ShareDisable" xml:space="preserve">
     <value>(Disabled)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_ShareDisableBtn" xml:space="preserve">
-    <value>禁用</value>
+    <value>disable</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_ShareEnableBtn" xml:space="preserve">
@@ -2753,7 +2753,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>保存</value>
+    <value>Save</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_DNSIntercept" xml:space="preserve">
@@ -2765,7 +2765,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_VPN" xml:space="preserve">
-    <value>VPN 代理模式</value>
+    <value>VPN proxy mode</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CustomFilePicker_Tip" xml:space="preserve">
@@ -2777,7 +2777,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value>name</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SortAs" xml:space="preserve">
@@ -2837,11 +2837,11 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Background" xml:space="preserve">
-    <value>背景</value>
+    <value>background</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Icon" xml:space="preserve">
-    <value>Icon</value>
+    <value>icon</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RecommendedResolution" xml:space="preserve">
@@ -2893,11 +2893,11 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ResetAll" xml:space="preserve">
-    <value>重置全部</value>
+    <value>Reset all</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
-    <value>保存全部更改到 Steam</value>
+    <value>Save all changes to Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
@@ -2940,6 +2940,10 @@ The system will {1} after {0} seconds.</value>
     <value>Vertical cover</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="About_FormerName" xml:space="preserve">
+    <value>Former name</value>
+    <comment>Comment=;Author=AigioL</comment>
+  </data>
   <data name="CommunityFix_FlowStatistics" xml:space="preserve">
     <value>Traffic statistics</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2969,7 +2973,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_PAC" xml:space="preserve">
-    <value>PAC 代理模式</value>
+    <value>PAC proxy mode</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenInBrowser" xml:space="preserve">
@@ -2977,7 +2981,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Notice_Tray_Title" xml:space="preserve">
-    <value>消息提示</value>
+    <value>Message prompt</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Notice_Tray_Content" xml:space="preserve">
@@ -2986,10 +2990,6 @@ The system will {1} after {0} seconds.</value>
   </data>
   <data name="CommunityFix_CertificateStatus" xml:space="preserve">
     <value>Certificate status</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="About_FormerName" xml:space="preserve">
-    <value>原名</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileSize" xml:space="preserve">
@@ -3057,11 +3057,11 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadFlow" xml:space="preserve">
-    <value>上行流量</value>
+    <value>Upstream traffic</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadFlow" xml:space="preserve">
-    <value>下行流量</value>
+    <value>Downstream traffic</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadAndInstall" xml:space="preserve">
@@ -3125,11 +3125,11 @@ The system will {1} after {0} seconds.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
-    <value>使用 WinHttpHandler</value>
+    <value>Use WinHttpHandler</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
-    <comment>Comment=;Author=baidu</comment>
+    <comment>Comment=;Author=deepl</comment>
   </data>
 </root>
