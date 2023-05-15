@@ -41,6 +41,7 @@ global using System.Net.Security;
 #if !NETFRAMEWORK
 global using System.Net.Http.Headers;
 global using System.Net.Http.Json;
+global using System.Net.Http.Client;
 #endif
 global using System.Net.Sockets;
 global using System.Reflection;
