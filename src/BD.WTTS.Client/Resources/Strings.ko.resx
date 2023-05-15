@@ -117,2309 +117,3024 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Off" xml:space="preserve">
-    <value>关</value>
-  </data>
-  <data name="On" xml:space="preserve">
-    <value>开</value>
-  </data>
   <data name="About" xml:space="preserve">
-    <value>关于</value>
+    <value>Справка</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_Contactus" xml:space="preserve">
-    <value>联系我们</value>
+    <value>Обратная связь</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_FAQ" xml:space="preserve">
-    <value>常见问题疑难解答</value>
+    <value>ЧаВо</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_Joinus" xml:space="preserve">
-    <value>加入我们</value>
+    <value>Присоединяйтесь к нам</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_OpenSource" xml:space="preserve">
-    <value>开放源代码许可</value>
+    <value>Лицензии</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_ProductionStaff" xml:space="preserve">
-    <value>制作人员名单</value>
+    <value>Список создателей</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_ThisSoft" xml:space="preserve">
-    <value>此软件</value>
+    <value>Софт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_UpdateHistory" xml:space="preserve">
-    <value>更新记录</value>
+    <value>История обновлений</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_UpdateLog" xml:space="preserve">
-    <value>更新日志</value>
+    <value>Список изменений</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="AccountChange_RestartSteam" xml:space="preserve">
-    <value>修改的数据生效需要重启 Steam 是否需要重启 Steam。</value>
+    <value>Перезапустить Steam, чтобы применить изменённые данные?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号B的共享却一直使用的是账号A的共享这种问题，从上到下的排序为共享库使用的优先级顺序，也可以选择暂时禁用或启用指定账号的共享。调整后保存重启 Steam 生效！</value>
+    <value>Настройте порядок приоритетов учётной записи Steam, совместно используемой на текущем устройстве, чтобы решить проблему, заключающуюся в том, что совместное использование учётной записи B, на которой хочется играть, всегда использует общий доступ к учётной записи A, сверху вниз, используется порядок приоритетов общей библиотеки, или вы можете временно отключить или включить общий доступ к указанной учётной записи. Для применения изменений, сохраните настройки и перезапустите Steam!</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
-    <value>家庭共享库管理</value>
+    <value>Управление библиотекой совместного пользования</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_Description" xml:space="preserve">
-    <value>描述</value>
+    <value>Описание</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_EditSucces" xml:space="preserve">
-    <value>修改了 {0} 个成就和 {1} 条统计信息</value>
+    <value>Изменено достижений: {0}, статистик: {1}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_Icon" xml:space="preserve">
-    <value>图标</value>
+    <value>Иконка</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_IsProtection" xml:space="preserve">
-    <value>受保护</value>
+    <value>Под защитой</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_LoadData" xml:space="preserve">
-    <value>加载成就和统计数据...</value>
+    <value>Загрузка достижений и статистики...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_LoadSucces" xml:space="preserve">
-    <value>获取到 {0} 个成就和 {1} 条统计信息</value>
+    <value>Получено достижений: {0}, статистик: {1}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_Manage" xml:space="preserve">
-    <value>管理成就</value>
+    <value>Управление достижениями</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_Name" xml:space="preserve">
-    <value>名称</value>
+    <value>Название</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_RefreshTip" xml:space="preserve">
-    <value>刷新成就和统计</value>
+    <value>Обновить достижения и статистику</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_ResetTip" xml:space="preserve">
-    <value>复位成就和统计</value>
+    <value>Сброс достижений и статистики</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_ResetWaring_1" xml:space="preserve">
-    <value>确定要复位统计信息吗?</value>
+    <value>Сбросить статистику?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_ResetWaring_2" xml:space="preserve">
-    <value>也想要复位成就信息吗?</value>
-  </data>
-  <data name="Achievement_ResetWaring_3" xml:space="preserve">
-    <value>该操作不是还原当前修改，而是使所有成就和统计数据归零。
-真的确定吗?</value>
+    <value>Сбросить информацию о достижениях?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_RiskWarning" xml:space="preserve">
-    <value>【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。</value>
+    <value>Предупреждение о риске! Разблокировка достижений может быть расценена разработчиками игры как мошенничество и может быть заблокирована сайтами статистики достижений. Если вы решите продолжить использование разблокировку достижений, делайте это на свой страх и риск.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
-    <value>统计修改</value>
+    <value>Изменение статистики</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_StoreTip" xml:space="preserve">
-    <value>保存并应用成就和统计</value>
+    <value>Сохраняйте и применяйте достижения и статистику</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
-    <value>解锁于 {0:yyyy-MM-dd HH:mm:ss}</value>
+    <value>Разблокировано {0:yyyy-MM-dd HH:mm:ss}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
-    <value>成就解锁</value>
+    <value>Достижение разблокировано</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">
-    <value>与 Steam 建立连接失败，可能是该游戏没有成就，或者你没有该游戏。</value>
+    <value>Не удалось установить соединение со Steam, либо для этой игры нет достижений, либо у вас нет этой игры.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_Warning_2" xml:space="preserve">
-    <value>错误代码：{0}
-检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。</value>
+    <value>Код ошибки: {0}
+Произошла ошибка при получении статистики достижений, либо потому, что в игре нет достижений, либо у вас нет игры.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_Warning_3" xml:space="preserve">
-    <value>修改成就 {0} 时发生错误</value>
+    <value>Произошла ошибка при изменении достижения {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_Warning_4" xml:space="preserve">
-    <value>修改统计 {0} 时发生错误</value>
+    <value>Произошла ошибка при изменении статистики {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>新增</value>
+    <value>Новый</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Agree" xml:space="preserve">
-    <value>同意</value>
+    <value>Принять</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="And" xml:space="preserve">
-    <value>和</value>
+    <value>и</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
-    <value>自动挂卡</value>
+    <value>Автодобыча карт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
-    <value>未检测到有效的 Key 格式，请确认输入了正确的 Key</value>
+    <value>Не обнаружен правильный формат ключа, убедитесь, что вы ввели правильный ключ</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RuningTip" xml:space="preserve">
-    <value>ASF 已经运行</value>
+    <value>ASF уже запущен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RedeemKey" xml:space="preserve">
-    <value>批量激活 Key</value>
+    <value>Ключ пакетной активации</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RedeemKey_InputKey" xml:space="preserve">
-    <value>输入 Key</value>
+    <value>Клавиша ввода</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
-    <value>你可以键入任何文本只要其中包含 SteamKey 就会被自动识别添加到激活列表，也可以按以下格式输入：
+    <value>Вы можете ввести любой текст, содержащий SteamKey, и он будет автоматически распознан и добавлен в список активации, или же вы можете набрать его в следующем формате.
 AAAAA-BBBBB-CCCC1
 AAAAA-BBBBB-CCCC2
 AAAAA-BBBBB-CCCC3</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
-    <value>已使用</value>
+    <value>Используется</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
-    <value>未使用</value>
+    <value>Не используется</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Start" xml:space="preserve">
-    <value>启动 ASF</value>
+    <value>Запустить ASF</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Stop" xml:space="preserve">
-    <value>停止 ASF</value>
+    <value>Остановить ASF</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_AddBot" xml:space="preserve">
-    <value>新增 Bot</value>
+    <value>Добавить бота</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_DeleteBotTip" xml:space="preserve">
-    <value>确定要删除这个 Bot 吗？</value>
+    <value>Удалить этого бота?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RefreshBot" xml:space="preserve">
-    <value>刷新 Bot</value>
+    <value>Обновить бота</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_OpenWebUIConsole" xml:space="preserve">
-    <value>打开 WebUI 控制台</value>
+    <value>Открыть консоль веб-интерфейса</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Console" xml:space="preserve">
-    <value>ASF 控制台</value>
+    <value>Консоль ASF</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_BotManage" xml:space="preserve">
-    <value>Bot 配置</value>
+    <value>Конфигурация бота</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_GlobalConfig" xml:space="preserve">
-    <value>ASF 配置</value>
+    <value>Конфигурация ASF</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_VersionNum" xml:space="preserve">
-    <value>当前 ArchiSteamFarm 版本 ： </value>
+    <value>Текущая версия ArchiSteamFarm: </value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
-    <value>启动时自动运行 ASF</value>
+    <value>Запускть ASF вместе с запуском системы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
-    <value>跳转到 WebUI 全局设置</value>
+    <value>Перейти к глобальным настройкам WebUI</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_ImportBotFile" xml:space="preserve">
-    <value>导入已有的 ASF Bot 文件</value>
+    <value>Импорт существующего файла бота ASF</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RequirRunASF" xml:space="preserve">
-    <value>请先运行 ASF 功能</value>
+    <value>Сначала запустите ASF</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
-    <value>已将 {0} 个 Key 添加到激活队列，队列中的 Key 会自动排队激活</value>
+    <value>{0} ключей было добавлено в очередь активации, и ключи в очереди будут автоматически поставлены в очередь на активацию.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_CardsRemaining" xml:space="preserve">
-    <value>剩余卡片</value>
+    <value>Оставшиеся карты</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_TimeRemaining" xml:space="preserve">
-    <value>剩余时间</value>
+    <value>Оставшееся время</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_GamesRemaining" xml:space="preserve">
-    <value>剩余游戏</value>
+    <value>Оставшиеся игры</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RunCardFarming" xml:space="preserve">
-    <value>开始挂卡</value>
+    <value>Начать добычу карт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_StopCardFarming" xml:space="preserve">
-    <value>停止挂卡</value>
+    <value>Прекратить добычу</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Enable" xml:space="preserve">
-    <value>启用</value>
+    <value>Включить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Disable" xml:space="preserve">
-    <value>禁用</value>
+    <value>Отключить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Offline" xml:space="preserve">
-    <value>离线</value>
+    <value>Не в сети</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Online" xml:space="preserve">
-    <value>在线</value>
+    <value>В сети</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_NowCardFarming" xml:space="preserve">
-    <value>正在挂卡</value>
+    <value>Добыча карты</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RequiredInput" xml:space="preserve">
-    <value>需要输入</value>
+    <value>Требуется ввод</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
-    <value>令牌</value>
+    <value>Токен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RequiredInput_Login" xml:space="preserve">
-    <value>用户名</value>
+    <value>Имя пользователя</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RequiredInput_Password" xml:space="preserve">
-    <value>密码</value>
+    <value>Пароль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_RequiredInput_SteamParentalCode" xml:space="preserve">
-    <value>家庭监护代码</value>
+    <value>Код семейного мониторинга</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_WebConfigGenerator" xml:space="preserve">
-    <value>在线配置文件生成器</value>
+    <value>Онлайн-генератор профилей</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SelectFile" xml:space="preserve">
-    <value>选择文件</value>
+    <value>Выберите файл</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Bind" xml:space="preserve">
-    <value>绑定</value>
+    <value>Привязать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Btn_Text_Complete" xml:space="preserve">
-    <value>完成</value>
+    <value>Завершить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Btn_Text_Continue" xml:space="preserve">
-    <value>继续</value>
+    <value>Продолжить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="BugFeedback" xml:space="preserve">
-    <value>Bug 反馈</value>
+    <value>Сообщить об ошибке</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>取消</value>
+    <value>Отмена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CheckUpdate" xml:space="preserve">
-    <value>检查更新</value>
+    <value>Проверить обновления</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CloudSync" xml:space="preserve">
-    <value>云同步</value>
+    <value>Синхронизация с облаком</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix" xml:space="preserve">
-    <value>网络加速</value>
+    <value>Ускорение работы сети</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
-    <value>启用的加速服务</value>
+    <value>Включить службы ускорения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_AllCheck" xml:space="preserve">
-    <value>全部启用</value>
+    <value>Включить все</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_AlreadyProxy" xml:space="preserve">
-    <value>已加速  </value>
-    <comment>Comment=末尾带空格;</comment>
+    <value>Ускорено </value>
+    <comment>Comment=末尾带空格;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
-    <value>启动时自动启动加速</value>
+    <value>Автозапуск ускорения при запуске программы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_CertificateSettings" xml:space="preserve">
-    <value>证书设置</value>
+    <value>Настройки сертификата</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_DeleteCertificate" xml:space="preserve">
-    <value>移除证书</value>
+    <value>Удалить сертификат</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_EditHostsFile" xml:space="preserve">
-    <value>编辑 Hosts 文件</value>
+    <value>Редактировать файл Host</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_EnableScriptService" xml:space="preserve">
-    <value>启用脚本</value>
+    <value>Включить сценарий</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_MenuName" xml:space="preserve">
-    <value>加速设置</value>
+    <value>Настройки ускорения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_NetworkFix" xml:space="preserve">
-    <value>网络修复</value>
+    <value>Исправить сеть</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
-    <value>没有选择任何加速服务</value>
+    <value>Служба ускорения не выбрана</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
-    <value>使脚本仅 Steam 内置浏览器生效</value>
+    <value>Работает только со встроенным браузером Steam.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
-    <value>打开证书文件夹</value>
+    <value>Открыть папку с сертификатом</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ProxyMode" xml:space="preserve">
-    <value>加速模式</value>
+    <value>Режим ускорения</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="ProxyMode_Hosts" xml:space="preserve">
+    <value>Режим хоста прокси</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
-    <value>修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用</value>
+    <value>Измените файл Hosts, чтобы прослушивать локальные запросы для реализации прокси, это быстрее и влияет только на ускоренные сайты, и работает лучше всего, если локальный порт 443 не используется.</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="ProxyMode_System" xml:space="preserve">
+    <value>Режим системного прокси</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
-    <value>设置系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式</value>
+    <value>Настройка системного прокси для прослушивания запросов не требует порта 443 и глобально проксирует весь трафик на локальной машине, поэтому если у вас нет проблем с использованием метода Hosts, то вам не нужно использовать этот режим.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ScriptManage" xml:space="preserve">
-    <value>管理脚本</value>
+    <value>Управление сценариями</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ScriptsEnable" xml:space="preserve">
-    <value>启用的脚本服务</value>
+    <value>Включить службы сценариев</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_SetupCertificate" xml:space="preserve">
-    <value>安装证书</value>
+    <value>Установить сертификат</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_StartProxy" xml:space="preserve">
-    <value>一键加速</value>
+    <value>Запустить ускорение</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
-    <value>启动加速服务失败，遇到未知错误，具体原因请在 [设置] - [通用设置] - [存储空间] - [打开 Logs 文件夹] 查看当天日志</value>
+    <value>Не удалось запустить службу ускорения, т.к. не удалось установить сертификат.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
-    <value>加速服务启动失败，{0} 端口被占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式</value>
+    <value>Служба ускорения не запускается {0} порт занят. Закройте программу, занимающую {0} порт, или попробуйте использовать режим системного прокси.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild443___" xml:space="preserve">
-    <value>加速服务启动失败，{0} 端口被 {1}({2}) 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式</value>
+    <value>Не удалось запустить службу ускорения, и {0} порт был занят {1} ({2}). Закройте программу, занимающую {0} порт, или попробуйте использовать режим системного прокси.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ReadHosts_IOException" xml:space="preserve">
-    <value>读取或还原文件时失败，因被其他进程占用，可能是其他不兼容的网络加速程序，请找到占用的进程将其关闭</value>
+    <value>Чтение или восстановление файлов не удалось из-за того, что они заняты другими процессами, возможно, другими несовместимыми сетевыми ускорителями, пожалуйста, найдите занятый процесс и закройте его.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
-    <value>加速已启动成功</value>
-  </data>
-  <data name="CommunityFix_DNSErrorNotify" xml:space="preserve">
-    <value>DNS 解析遇到异常，请尝试在代理设置中修改其它 DNS 再次尝试</value>
+    <value>Ускорение успешно запущено</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_StopProxy" xml:space="preserve">
-    <value>停止加速</value>
-  </data>
-  <data name="CommunityFix_FlowStatistics" xml:space="preserve">
-    <value>流量统计</value>
-  </data>
-  <data name="CommunityFix_Services" xml:space="preserve">
-    <value>加速服务</value>
+    <value>Остановить ускорение</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>确定</value>
+    <value>Подтвердить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ConfirmImport" xml:space="preserve">
-    <value>确认导入</value>
+    <value>Подтвердить импорт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>继续</value>
+    <value>Продолжить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Copy" xml:space="preserve">
-    <value>复制</value>
+    <value>Копировать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Cut" xml:space="preserve">
-    <value>剪切</value>
+    <value>Вырезать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>默认</value>
+    <value>По умолчанию</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DelAccount" xml:space="preserve">
-    <value>账号注销</value>
+    <value>Удалить учётную запись</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DelAccountTips" xml:space="preserve">
-    <value>您现有的账号信息以及账号使用过程中的产生所有数据将被删除，且无法以原先的身份信息重新登录，确认前请注意备份重要数据避免造成无法挽回的损失，是否确定注销？</value>
+    <value>Информация о вашей существующей учетной записи и все данные, созданные во время использования вашей учётной записи, будут удалены, и вы не сможете войти в систему снова с вашей первоначальной идентификационной информацией. Позаботьтесь о резервном копировании ваших важных данных перед подтверждением, чтобы избежать непоправимого ущерба. Отменить?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>删除</value>
+    <value>Удалить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DoNotUpdate" xml:space="preserve">
-    <value>暂不更新</value>
+    <value>Не обновлять</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Dow" xml:space="preserve">
-    <value>下移</value>
+    <value>Переместить вниз</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>下载</value>
+    <value>Скачать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Downloading" xml:space="preserve">
-    <value>正在下载：{0}%</value>
+    <value>Скачивание: {0}%</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Download_ScriptError" xml:space="preserve">
-    <value>脚本下载错误请重试。</value>
+    <value>Ошибка скачивания сценария, попробуйте ещё раз.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Download_ScriptOk" xml:space="preserve">
-    <value>脚本安装成功</value>
+    <value>Сценарий успешно установлен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>编辑</value>
+    <value>Изменить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>邮箱</value>
+    <value>Электронный адрес</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="EmailCode" xml:space="preserve">
-    <value>邮箱验证代码</value>
+    <value>Код подтверждения электронной почты</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Encrypt" xml:space="preserve">
-    <value>加密</value>
+    <value>Зашифровать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>退出</value>
+    <value>Выйти</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Export" xml:space="preserve">
-    <value>导出</value>
+    <value>Экспорт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList" xml:space="preserve">
-    <value>库存游戏</value>
+    <value>Список игр</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_AddAFKAppsMaxCountTips" xml:space="preserve">
-    <value>挂机的游戏已达到限制 {0} 个，请移除部分游戏再添加。</value>
+    <value>Количество игр в списке ожидания достигло предела {0}. Удалите некоторые игры и добавьте их снова.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
-    <value>添加到挂时长列表成功</value>
+    <value>Успешное добавление в список ожидания</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
-    <value>警告：Steam 允许的同时运行游戏数量为 {0} 个，如果您同时挂时长 {1} 款游戏，将无法正常游玩游戏！</value>
+    <value>Внимание: Steam разрешает одновременно игр до {0}, если у вас в ожидание одновременно игр {1}, вы не сможете нормально играть в игру!</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_AddAfkGameList" xml:space="preserve">
-    <value>添加到挂时长列表</value>
+    <value>Добавить в список ожидания</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_AddHideAppEmpty" xml:space="preserve">
-    <value>隐藏游戏列表为空，请从游戏列表右键添加需要隐藏的游戏。</value>
+    <value>Список скрытых игр пуст. Щёлкните правой кнопкой мыши в списке игр, чтобы добавить игру, которую вы хотите скрыть.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_AddIdeaAppEmpty" xml:space="preserve">
-    <value>未添加挂时长的游戏，请从游戏列表右键添加。</value>
+    <value>Для игр, которые не добавлены в список ожидания, вы можете добавить их из списка игр, щёлкнув по ним правой кнопкой мыши.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>自动运行挂时长游戏</value>
+    <value>Автодобавление в список ожидания при запуске программы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
-    <value>是否移除全部挂时长的游戏？</value>
+    <value>Вы хотите удалить все игры, которые были добавлены в список ожидания в течение длительного времени?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_DeleteItem" xml:space="preserve">
-    <value>是否将此游戏移除挂时长列表?</value>
+    <value>Как долго игра будет в режиме ожидания?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_DeleteSuccess" xml:space="preserve">
-    <value>移除成功</value>
+    <value>Удаление выполнено успешно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_EditAppInfo" xml:space="preserve">
-    <value>编辑游戏信息</value>
+    <value>Редактировать информацию о игре</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_HideAppsSuccess" xml:space="preserve">
-    <value>隐藏游戏成功</value>
+    <value>Игра успешно скрыта</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_HideApp_AllCheck" xml:space="preserve">
-    <value>全部选中</value>
+    <value>Выбрать все</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_HideGameManger" xml:space="preserve">
-    <value>管理隐藏游戏列表</value>
+    <value>Управление списком скрытых игр</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
-    <value>隐藏此游戏</value>
+    <value>Скрыть игру</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_IdleGamesManger" xml:space="preserve">
-    <value>游戏时长挂机列表</value>
+    <value>Список простаиваемых игр</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_Install" xml:space="preserve">
-    <value>安装</value>
+    <value>Установить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_IsEmpty" xml:space="preserve">
-    <value>没有获取到任何游戏数据</value>
+    <value>Не удалось получить данные игры</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
-    <value>正在加载...</value>
+    <value>Загрузка списка игр...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_ListCount" xml:space="preserve">
-    <value>已添加 ({0}/{1})</value>
+    <value>Добавлено ({0}/{1})</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_LoaingTips" xml:space="preserve">
-    <value>操作进行中请稍后再试</value>
+    <value>Выполняется операция, повторите попытку позже</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_OnlyInstalled" xml:space="preserve">
-    <value>仅显示已安装的游戏</value>
-  </data>
-  <data name="GameList_OnlyCloudArchive" xml:space="preserve">
-    <value>仅显示支持 Steam 云存档的游戏</value>
+    <value>Показывать только установленные игры</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_OpenFolder" xml:space="preserve">
-    <value>浏览安装文件夹</value>
+    <value>Открыть папку установки</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
-    <value>Steam Card Exchange</value>
+    <value>Обмен картами Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
-    <value>SteamDB Info</value>
+    <value>Информация SteamDB</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_OpenSteamGridUrl" xml:space="preserve">
     <value>SteamGrid</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_OpenStoreUrl" xml:space="preserve">
-    <value>打开商店页</value>
+    <value>Открыть страницу магазина</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_OperationSuccess" xml:space="preserve">
-    <value>操作成功</value>
+    <value>Операция выполнена успешно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_Play" xml:space="preserve">
-    <value>开始游戏</value>
-  </data>
-  <data name="GameList_NavToSteamView" xml:space="preserve">
-    <value>在 Steam 客户端中查看</value>
+    <value>Играть</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_RefreshGamesList" xml:space="preserve">
-    <value>刷新游戏列表</value>
+    <value>Обновить список игр</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
-    <value>刷新游戏列表完成</value>
+    <value>Обновление списка игр выполнено успешно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_RemoveBtn" xml:space="preserve">
-    <value>移除全部</value>
+    <value>Удалить все</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_RemoveItemBtn" xml:space="preserve">
-    <value>取消挂时长</value>
+    <value>Отменить время ожидания</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_ResizeAppLogo" xml:space="preserve">
-    <value>调整封面大小</value>
+    <value>Изменить размер обложки</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_RuningBtn" xml:space="preserve">
-    <value>启动全部</value>
+    <value>Запустить все</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_RuningCount" xml:space="preserve">
-    <value>正在运行 {0}/{1}</value>
+    <value>Запущено {0}/{1}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_RuningItemBtn" xml:space="preserve">
-    <value>启动游戏</value>
+    <value>Запуск игры</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_RuningWait" xml:space="preserve">
-    <value>正在启动中...</value>
+    <value>Запуск...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_RunState" xml:space="preserve">
-    <value>运行中</value>
+    <value>Запущено</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_SetCustomImage" xml:space="preserve">
-    <value>设置自定义封面</value>
+    <value>Установить пользовательскую обложку</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_SteamNotRuning" xml:space="preserve">
-    <value>Steam 未启动</value>
+    <value>Steam не запущен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_StopBtn" xml:space="preserve">
-    <value>全部暂停</value>
+    <value>Приостановить все</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_StopItemBtn" xml:space="preserve">
-    <value>暂停</value>
+    <value>Приостановить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_StopState" xml:space="preserve">
-    <value>暂停中</value>
+    <value>Приостановлена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_Unsupport" xml:space="preserve">
-    <value>不支持的操作</value>
+    <value>Неподдерживаемае операция</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated" xml:space="preserve">
-    <value>游戏工具</value>
+    <value>Игровые инструменты</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless" xml:space="preserve">
-    <value>无边框窗口化</value>
+    <value>В окне без рамок</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_BorderlessWindow" xml:space="preserve">
-    <value>无边框窗口化</value>
+    <value>В окне без рамок</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_ClassName" xml:space="preserve">
-    <value>类名</value>
+    <value>Имя класса</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_Hide" xml:space="preserve">
-    <value>隐藏</value>
+    <value>Свернуть</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_KillProcess" xml:space="preserve">
-    <value>结束进程</value>
+    <value>Завершить процесс</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_Maximize" xml:space="preserve">
-    <value>最大化</value>
+    <value>На весь экран</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
-    <value>拖拽十字到游戏窗口，即可获取游戏信息执行对应操作</value>
+    <value>Перетащите крестик в окно игры, чтобы получить информацию об игре и выполнить соответствующую операцию.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_Normal" xml:space="preserve">
-    <value>默认大小</value>
+    <value>Размер по умолчанию</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_Path" xml:space="preserve">
-    <value>程序路径</value>
+    <value>Путь к программе</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_Process" xml:space="preserve">
-    <value>进程</value>
+    <value>Процесс</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_ResetWallerpaper" xml:space="preserve">
-    <value>刷新壁纸</value>
+    <value>Обновить обои</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_Show" xml:space="preserve">
-    <value>显示</value>
+    <value>Показать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_Title" xml:space="preserve">
-    <value>标题</value>
+    <value>Заголовок</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaper" xml:space="preserve">
-    <value>置于壁纸层</value>
+    <value>Поместить на слой обоев</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
-    <value>置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与 Wallpaper Engine 和其它动态桌面软件不兼容，使用时注意关掉 Wallpaper Engine 等软件</value>
+    <value>Игры, размещённые на слое обоев, могут быть неуправляемыми, это можно исправить, но в настоящее время усилия разработчиков не направлены на это, и на данный момент эта функция - всё, что доступно. По завершению игры, рабочий стол останется замороженым и в этот момент вы можете нажать кнопку «Обновить обои», чтобы восстановить обои по умолчанию. Это не совместимо с Wallpaper Engine и другими программами для динамического рабочего стола, поэтому, отключите Wallpaper Engine и другие программы.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Gender" xml:space="preserve">
-    <value>性别</value>
+    <value>Пол</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Gender_Female" xml:space="preserve">
-    <value>女</value>
+    <value>Женский</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Gender_Male" xml:space="preserve">
-    <value>男</value>
+    <value>Мужской</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Gender_Unknown" xml:space="preserve">
-    <value>保密</value>
+    <value>Конфидециально</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
-    <value>正在获取 Steam 登录状态</value>
+    <value>Получить статус входа в Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookiesFail_" xml:space="preserve">
-    <value>获取 Steam 登录状态失败 {0}，请输入 Steam 用户名密码进行快速登录</value>
+    <value>Не удалось получить статус входа в Steam {0}. Чтобы быстро войти, введите своё имя пользователя и пароль Steam.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Hosts_Exists" xml:space="preserve">
-    <value>写入的 Hosts 已经存在</value>
+    <value>Файлы Hosts на которые ведётся запись, уже существуют</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Hosts_ReadError" xml:space="preserve">
-    <value>读取 Hosts 文件时发生错误</value>
+    <value>Произошла ошибка при чтении Hosts</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Hosts_ReadSuccess" xml:space="preserve">
-    <value>读取 Hosts 成功</value>
+    <value>Успешное чтение Hosts</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Hosts_UpdateSuccess" xml:space="preserve">
-    <value>写入 Hosts 成功</value>
+    <value>Успешная запись Hosts</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Hosts_WirteError" xml:space="preserve">
-    <value>写入 Hosts 时发生错误</value>
+    <value>Произошла ошибка при записи Hosts</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="IdleCard" xml:space="preserve">
-    <value>自动集卡</value>
+    <value>Автосбор карт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Import" xml:space="preserve">
-    <value>导入</value>
+    <value>Импорт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>加载中…</value>
+    <value>Загрузка…</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth" xml:space="preserve">
-    <value>本地令牌</value>
+    <value>Локальный токен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_RemoveAuth" xml:space="preserve">
-    <value>解绑令牌</value>
+    <value>Отвязать токен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AddAuth" xml:space="preserve">
-    <value>导入令牌</value>
+    <value>Импорт токена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
-    <value>令牌导入完成</value>
+    <value>Импорт токена успешно завершён</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
-    <value>正在同步令牌服务器时钟</value>
+    <value>Токен синхронизации часов с сервером</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AddAuth_PartSuccess" xml:space="preserve">
-    <value>部分数据导入成功</value>
+    <value>Частичный импорт данных выполнен успешно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthData" xml:space="preserve">
-    <value>令牌数据</value>
+    <value>Данные токена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthName" xml:space="preserve">
-    <value>令牌自定义名称</value>
+    <value>Пользовательское имя токена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade" xml:space="preserve">
-    <value>确认交易</value>
+    <value>Подтверждение обмена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Cancel" xml:space="preserve">
-    <value>取消交易</value>
+    <value>Отменить обмен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
-    <value>取消所有交易</value>
+    <value>Отменить все сделки обмена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
-    <value>无法取消此交易</value>
+    <value>Невозможно отменить этот обмен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
-    <value>确认交易</value>
+    <value>Подтвердить обмен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmAll" xml:space="preserve">
-    <value>确认所有交易</value>
+    <value>Подтвердить все сделки обмена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmCancel" xml:space="preserve">
-    <value>已成功取消所有交易</value>
+    <value>Все сделки обменов были успешно отменены</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmError" xml:space="preserve">
-    <value>无法确认此交易</value>
+    <value>Невозможно подтвердить этот обмен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmSuccess" xml:space="preserve">
-    <value>已成功同意所有交易</value>
+    <value>Все сделки обмена были успешно подтверждены</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
-    <value>正在{0}所有交易中...</value>
-    <comment>Comment=同意 or 取消;</comment>
+    <value>Все сделки {0}...</value>
+    <comment>Comment=同意 or 取消;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
-    <value>您没有权限查看确认信息. 是否启用了家庭监护功能？暂时不支持管理启用家庭监护功能后的交易确认。</value>
+    <value>У вас нет разрешения на просмотр информации о подтверждении. Включена ли функция домашнего мониторинга? Управление подтверждениями обмена при включенной функции Home Guardianship в настоящее время не поддерживается.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
-    <value>获取 Steam 令牌交易数据失败，请确认是否正常加速了 Steam 社区地址。</value>
+    <value>Не удалось получить токен данных обмена Steam, убедитесь что вы правильно указали адрес сообщества Steam.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
-    <value>登录状态已失效请尝试重新登录</value>
+    <value>Срок действия статуса входа истёк. Повторите вход.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
-    <value>正在获取最新的交易报价信息…</value>
+    <value>Получение последней информации о торговых предложениях...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
-    <value>{0} 条交易待处理</value>
+    <value>Обмены в ожидании: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
-    <value>当前没有任何需要处理的交易报价</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
-    <value>这将{0}您当前所有的交易报价
-确定要继续吗?</value>
-    <comment>Comment=同意 or 取消;</comment>
+    <value>В настоящее время нет торговых предложений, которые необходимо обработать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
-    <value>当前没有任何交易</value>
+    <value>В настоящее время нет сделок обмена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_AuthTrade_TradeError" xml:space="preserve">
-    <value>无效的交易</value>
+    <value>Недействительные сделки обмена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_CloudSync" xml:space="preserve">
-    <value>令牌云同步</value>
+    <value>Токен синхронизации с облаком</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_Copy" xml:space="preserve">
-    <value>复制令牌</value>
+    <value>Копировать токен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
-    <value>已复制令牌 </value>
+    <value>Токен скопирован</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
-    <value>确定要永久删除此令牌吗，这只是删除令牌文件数据，并不会解绑你的账号和令牌，
-    如果需要解绑令牌请到 https://store.steampowered.com/twofactor/manage 解绑后在删除</value>
+    <value>Навсегда удалить этот токен? Это просто удаление данных файла токена и не отвяжет вашу учётную запись и токен.
+    Если необходимо отменить привязку токена, перейдите по ссылке https://store.steampowered.com/twofactor/manage и удалите после отмены привязки.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_EditAuth" xml:space="preserve">
-    <value>编辑令牌</value>
+    <value>Редактировать токен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
-    <value>请输入发送到您电子邮件地址的代码，以批准从新设备进行访问</value>
+    <value>Для подтверждения доступа для вашего нового устройства, ведите код отправленный на ваш адрес электронной почты.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ExportAuth" xml:space="preserve">
-    <value>导出令牌</value>
+    <value>Экспорт токена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ConfirmExport" xml:space="preserve">
-    <value>确认导出</value>
+    <value>Подтвердить экспорт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ExportAuth_EncryptionExport" xml:space="preserve">
-    <value>是否需要导出带加密的数据</value>
+    <value>Нужно ли экспортировать зашифрованные данные</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ExportAuth_Error" xml:space="preserve">
-    <value>导入数据出现错误，错误代码：{0}</value>
+    <value>Ошибка импорта данных, код ошибки: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
-    <value>请输入导出的数据密码</value>
+    <value>Введите пароль для экспортируемых данных</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
-    <value>选择路径</value>
+    <value>Выберите путь</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_HasPasswordUnEncryptionAuth" xml:space="preserve">
-    <value>当前数据已加密，请先解锁才能访问</value>
+    <value>Текущие данные зашифрованы. Разблокируйте их перед доступом к ним.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ImportFaild" xml:space="preserve">
-    <value>导入失败，请检查数据是否正确</value>
+    <value>Импорт не удался, проверьте правильность данных.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_LockError" xml:space="preserve">
-    <value>没有设置密码无法锁定令牌</value>
+    <value>Не установлен пароль для блокировки токена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_MenuName" xml:space="preserve">
-    <value>编辑令牌</value>
+    <value>Редактировать токен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>你还没有导入任何令牌，请先新增令牌</value>
+    <value>Вы еще не импортировали токены, сначала добавьте их.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
-    <value>其它软件导入</value>
+    <value>Импорт другого программного обеспечения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_PasswordRequired" xml:space="preserve">
-    <value>需要解密才能继续</value>
+    <value>Для продолжения необходимо расшифровать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_PasswordRequired1" xml:space="preserve">
-    <value>请输入密码</value>
+    <value>Введите пароль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth" xml:space="preserve">
-    <value>令牌加密</value>
+    <value>Шифрование токенов</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
-    <value>自定义密码保护</value>
+    <value>Пользовательская защита паролем</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
-    <value>*注意：你的令牌将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌</value>
+    <value>*Примечание: Ваш токен будет зашифрован с помощью вашего собственного пароля, и вам нужно будет вводить пароль, чтобы открыть ваш зашифрованный токен. если вы забудете свой пароль и у вас не будет резервной копии, ваш токен будет недоступен, и вы сможете разблокировать этот токен только с помощью кода восстановления или забыть свою учётную запись.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Error" xml:space="preserve">
-    <value>保存加密选项出现错误</value>
+    <value>Ошибка сохранения параметров шифрования</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
-    <value>非常建议您使用密码保护您的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但您的令牌数据会有被盗取的风险！！！</value>
+    <value>Настоятельно рекомендуется защитить ваш токен паролем, иначе ваши данные могут быть прочитаны и украдены вредоносными программами, запущенными на вашем компьютере. Конечно, вы также можете не включать никакое шифрование, это не обязательно, но есть риск, что данные вашего токена будут украдены!!!</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
-    <value>令牌仅在这台电脑上可解密</value>
+    <value>Токен может быть расшифрован только на этом компьютере</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>你也可以使用系统内置的账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装系统或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密</value>
+    <value>Вы также можете использовать встроенное в систему шифрование учетной записи для защиты и шифрования ваших данных. Это заблокирует ваш токен на этом компьютере так, что даже если файлы будут скопированы, их нельзя будет открыть. Если вам придётся переформатировать диск, переустановить систему или удалить эту учётную запись, вы должны отключить это, иначе ваши данные также не будут расшифрованы.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
-    <value>没有任何更改需要保存</value>
+    <value>Нет изменений для сохранения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
-    <value>自定义密码</value>
+    <value>Пользовательский пароль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_PasswordError" xml:space="preserve">
-    <value>密码错误</value>
+    <value>Неверный пароль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_PasswordErrorTip" xml:space="preserve">
-    <value>请输入正确的密码</value>
+    <value>Введите правильный пароль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_PathError" xml:space="preserve">
-    <value>文件路径不正确</value>
+    <value>Неправильный путь к файлу</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
-    <value>保存并应用</value>
+    <value>Сохранить и применить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Success" xml:space="preserve">
-    <value>保存加密设置成功</value>
+    <value>Успешное сохранение настроек шифрования</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
-    <value>再次输入密码</value>
+    <value>Введите пароль ещё раз</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_VerifyPasswordErrorTip" xml:space="preserve">
-    <value>两次输入的密码不一致</value>
+    <value>Второй введённый пароль, не совпадает</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
-    <value>令牌数据加载完成</value>
+    <value>Загрузка данных токена завершена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SDAImport" xml:space="preserve">
-    <value>Steam Desktop Auth导入</value>
+    <value>Импорт Steam Desktop Auth</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入（不支持导入加密文件，请先移除密码再导入）</value>
+    <value>Настольная реализация приложения Steam Mobile Authenticator. Метод импорта: выберите файл maFile в папке maFiles в каталоге SDA для импорта. (Импорт зашифрованных файлов не поддерживается, удалите пароль перед импортом)</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
-    <value>查看令牌</value>
+    <value>Показать токен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
-    <value>查看令牌详细数据</value>
+    <value>Посмотреть детали токена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
-    <value>Steam 身份验证器的完整数据，可在导入不同软件时使用</value>
+    <value>Полные данные Steam Authenticator, которые можно использовать при импорте различного программного обеспечения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
-    <value>在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方</value>
+    <value>После включения токена двухэтапной верификации в Steam, генерируется код восстановления, который вы можете использовать в клиенте Steam для разблокировки токена двухэтапной верификации, скопируйте его и сохраните в безопасное место.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。</value>
+    <value>Остался ещё шаг. Введите код проверки SMS, отправленный на ваш мобильный телефон, и нажмите кнопку «Продолжить».</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>手机 Steam 导入</value>
+    <value>Импорт мобильного Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
-    <value>您可以在已 root 的 Android 设备中导入您的 SteamGuard 身份验证器路径：/data/data/com.valvesoftware.android.steam.community 然后将以下两个文件的内容复制到下面的对应输入框中</value>
+    <value>Вы можете импортировать аутентификатор SteamGuard в своё устройство Android с рут, по адресу /data/data/com.valvesoftware.android.steam.community и скопировать содержимое следующих двух файлов в соответствующие поля ввода ниже</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
-    <value>确认交易</value>
+    <value>Подтвердите обмен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>在 files 文件夹中，打开 'SteamGuard-NNNNNNNN' 文件，粘贴文件的全部内容</value>
+    <value>В папке Files откройте файл 'SteamGuard-NNNNNNNNNN' и вставьте всё содержимое файла</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Watt Toolkit 导入</value>
+    <value>Импорт Watt Toolkit</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>导入 Watt Toolkit v1 版本的导出的令牌数据</value>
+    <value>Импорт экспортированных данных токенов из Watt Toolkit V1</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>导入 Watt Toolkit v2 版本的导出的令牌数据</value>
+    <value>Импорт экспортированных данных токенов из Watt Toolkit V2</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
-    <value>确认交易需要登录 Steam，程序不会记录你的密码，只会在本地保存登录的状态
-    （如果没有开 Steam 网络加速会导致无法登录成功）</value>
+    <value>Для подтверждения обмена, вам необходимо войти в Steam. Программа не записывает ваш пароль, она только сохраняет статус входа локально.
+    (Если у вас не включено сетевое ускорение Steam, вы не сможете войти)</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
-    <value>Steam 账号导入</value>
-  </data>
-  <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
-    <value>你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可</value>
+    <value>Импорт аккаунта Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
-    <value>无法将添加身份验证器添加到您的帐户， 请稍后再试</value>
+    <value>Не удалось добавить аутентификатор к вашей учётной записи, повторите попытку позже.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
-    <value>您的帐户似乎已添加了身份验证器，需要移除现有的身份验证器才可以通过账号导入</value>
+    <value>Похоже, что аутентификатор был добавлен в вашу учётную запись, и вам необходимо удалить существующий аутентификатор, прежде чем его можно будет импортировать.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
-    <value>设备 ID(uuid)</value>
+    <value>ID устройства (uuid)</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>在 shared_prefs 文件夹中，粘贴 'steam_uuid.xml' 的 uuidKey</value>
+    <value>В папку shared_prefs вставьте uuidKey из файла 'steam_uuid.xml'.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
-    <value>同步时钟</value>
+    <value>Синхронизировать часы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_WinAuthImport" xml:space="preserve">
-    <value>WinAuth 导入</value>
+    <value>Импорт WinAuth</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_WinAuthTip" xml:space="preserve">
-    <value>WinAuth 是 Windows 的便携式开放源代码身份验证器，它提供基于计数器或基于时间的 RFC 6238 身份验证器和常见的实现。导入方法：从 WinAuth 导出 txt 文件之后在此选择从 WinAuth 导出的 txt 文件进行导入</value>
+    <value>WinAuth - это переносной аутентификатор с открытым исходным кодом для Windows, который предоставляет аутентификаторы RFC 6238 на основе счётчика или времени и общие реализации. Метод импорта: после экспорта txt-файла из WinAuth выберите здесь txt-файл, экспортированный из WinAuth, для импорта.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Lock" xml:space="preserve">
-    <value>锁定</value>
+    <value>Блокировка</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Sleep" xml:space="preserve">
-    <value>睡眠</value>
+    <value>Спящий режим</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Hibernate" xml:space="preserve">
-    <value>休眠</value>
+    <value>Гибернация</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Shutdown" xml:space="preserve">
-    <value>关机</value>
+    <value>Завершение работы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>登 录</value>
+    <value>Войти</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
-    <value>登录 / 注册</value>
+    <value>Вход / Регистрация</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Logining" xml:space="preserve">
-    <value>正在登录中...</value>
+    <value>Выполняется вход...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>注销登录</value>
+    <value>Выйти</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
-  <data name="UnixSudoPasswordTips" xml:space="preserve">
-    <value>请输入系统密码继续或者复制命令手动执行</value>
+  <data name="MacSudoPasswordTips" xml:space="preserve">
+    <value>Введите пароль системы для продолжения или скопируйте команду, чтобы выполнить её вручную</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Modify" xml:space="preserve">
-    <value>修改</value>
+    <value>Модифицировать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="More" xml:space="preserve">
-    <value>更多操作</value>
+    <value>Дополнительные операции</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="MoveDown" xml:space="preserve">
-    <value>下移</value>
+    <value>Переместить вниз</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="MoveUp" xml:space="preserve">
-    <value>上移</value>
+    <value>Переместить вверх</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="My" xml:space="preserve">
-    <value>我的</value>
+    <value>Мой</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NextStep" xml:space="preserve">
-    <value>下一步</value>
+    <value>Следующий шаг</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NickName" xml:space="preserve">
-    <value>昵称</value>
+    <value>Никнейм</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="OtherGamePlaform" xml:space="preserve">
-    <value>其它平台</value>
+    <value>Другие платформы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Paste" xml:space="preserve">
-    <value>粘贴</value>
+    <value>Вставить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="PleaseEnterNickName" xml:space="preserve">
-    <value>请输入昵称</value>
+    <value>Введите никнейм</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="PleaseSelect" xml:space="preserve">
-    <value>请选择</value>
+    <value>Выберите</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ProductOfficialWebsite" xml:space="preserve">
-    <value>产品官网</value>
+    <value>Официальный сайт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="RecoveryCode" xml:space="preserve">
-    <value>恢复代码</value>
+    <value>Код восстановления</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="RecoveryCode_Remember" xml:space="preserve">
-    <value>我已经写下了我的恢复代码</value>
+    <value>Я записал свой код восстановления</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>您的令牌已被添加到您的 Steam 账户上并已经成功导入 Watt Toolkit。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方</value>
+    <value>Ваш токен был добавлен в вашу учётную запись Steam и успешно импортирован в Watt Toolkit. Это ваш код восстановления, который вы можете использовать для удаления аутентификатора из вашей учётной записи, если вы его потеряете. Запишите его сейчас и храните в надёжном месте.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
-    <value>刷新</value>
+    <value>Обновить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="RefreshList" xml:space="preserve">
-    <value>刷新列表</value>
+    <value>Обновить список</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="RefreshOK" xml:space="preserve">
-    <value>刷新成功</value>
+    <value>Обновление выполнено успешно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="RefreshAvatar" xml:space="preserve">
-    <value>刷新头像</value>
+    <value>Обновить аватар</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="AsyncSteamAvatar" xml:space="preserve">
-    <value>同步 Steam 头像</value>
+    <value>Синхронизировать аватары Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="AsyncSteamAvatarDesc" xml:space="preserve">
-    <value>绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像</value>
+    <value>Вы можете вручную синхронизировать и обновить аватар учётной записи Steam после того, как привяжете его к своей учётной записи Steam.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>保存修改</value>
+    <value>Сохранить изменения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ScriptConfig" xml:space="preserve">
-    <value>脚本配置</value>
+    <value>Конфигурация сценария</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
-    <value>未查询到匹配的脚本文件，您可以从脚本工坊下载脚本文件</value>
+    <value>Не найден подходящий файл сценария, вы можете скачать файл сценария с сайта Scriptworks.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ScriptShop_GetTableError" xml:space="preserve">
-    <value>获取脚本工坊列表失败</value>
+    <value>Не удалось получить список Scriptworks.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
-    <value>GM 是基础框架不允许删除</value>
+    <value>GM - это базовый сценарий, который нельзя удалить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ScriptShop_NoLogin" xml:space="preserve">
-    <value>使用脚本工坊需要先登录</value>
+    <value>Для использования Scriptworks вам необходимо войти в систему.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ScriptStore" xml:space="preserve">
-    <value>脚本工坊</value>
+    <value>Scriptworks</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_AutoUpdate" xml:space="preserve">
-    <value>启用脚本自动检查更新</value>
+    <value>Включите автопроверку сценариев на наличие обновлений</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_DeleteItem" xml:space="preserve">
-    <value>确定要删除这个脚本吗？</value>
+    <value>Удалить этот сценарий?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_Edit" xml:space="preserve">
-    <value>编辑脚本</value>
+    <value>Редактировать сценарий</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_EditTxt" xml:space="preserve">
-    <value>是否完成脚本修改，点击确定刷新缓存</value>
+    <value>После завершения редактирования сценария, нажмите OK, чтобы обновить кэш.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_FileError" xml:space="preserve">
-    <value>找不到文件，请检查路径 {0}</value>
+    <value>Файл не найден, проверьте путь {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_Home" xml:space="preserve">
-    <value>脚本主页</value>
+    <value>Сайт сценария</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_ImportLoading" xml:space="preserve">
-    <value>处理导入脚本中</value>
+    <value>Обработка импорта сценария</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_Install" xml:space="preserve">
-    <value>安装脚本</value>
+    <value>Установить сценарий</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
-    <value>该文本文件已丢失，是否删除脚本记录</value>
+    <value>Текстовый файл отсутствует, запись сценария удалена.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_Refresh" xml:space="preserve">
-    <value>刷新缓存</value>
+    <value>Обновить кэш</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_ReplaceTips" xml:space="preserve">
-    <value>已安装此脚本确定替换已安装的版本？</value>
+    <value>Этот скрипт уже установлен. Заменить установленную версию?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_Update" xml:space="preserve">
-    <value>更新脚本</value>
+    <value>Обновление сценария</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_UpdateError" xml:space="preserve">
-    <value>获取脚本新版本信息失败</value>
+    <value>Не удалось получить сведения о новой версии сценария.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>搜索…</value>
+    <value>Поиск...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SelectFileImport" xml:space="preserve">
-    <value>选择 {0} 文件导入</value>
-    <comment>Comment=*.txt;</comment>
+    <value>Выберите файл {0} для импорта</value>
+    <comment>Comment=*.txt;Author=vanja-san</comment>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>设置</value>
+    <value>Настройки</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Auth" xml:space="preserve">
-    <value>令牌设置</value>
+    <value>Настройки токена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Fonts" xml:space="preserve">
-    <value>字体</value>
+    <value>Шрифт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General" xml:space="preserve">
-    <value>常规</value>
+    <value>Общие</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
-    <value>自动检查更新</value>
-  </data>
-  <data name="Settings_General_EnableTrayIcon" xml:space="preserve">
-    <value>启用托盘图标</value>
-  </data>
-  <data name="Settings_General_EnableTrayIcon_Tip" xml:space="preserve">
-    <value>禁用此选项时关闭主窗口将直接退出程序</value>
+    <value>Автопроверка обновлений</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_RuningMinimize" xml:space="preserve">
-    <value>启动时最小化到托盘</value>
+    <value>При запуске сворачивать в область уведомлений</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_StartAutoRun" xml:space="preserve">
-    <value>开机自启动</value>
+    <value>Автозапуск</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Language" xml:space="preserve">
-    <value>语言</value>
+    <value>Язык</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Steam" xml:space="preserve">
-    <value>Steam 设置</value>
+    <value>Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
-    <value>启动时自动运行 Steam</value>
+    <value>Автозапускать Steam при запуске программы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
-    <value>Steam 启动时不检查更新</value>
+    <value>Не проверять обновления Steam при запуске</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
-    <value>Steam 启动时最小化到托盘</value>
-  </data>
-  <data name="Settings_Steam_RunSteamChina" xml:space="preserve">
-    <value>Steam 启动时模拟为蒸汽平台（Steam 国服）启动</value>
-  </data>
-  <data name="Settings_Steam_RuningAdmin" xml:space="preserve">
-    <value>以管理员权限运行 Steam</value>
+    <value>При запуске сворачивать Steam в область уведомлений</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
-    <value>Steam 启动参数</value>
+    <value>Параметры запуска Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Theme" xml:space="preserve">
-    <value>主题</value>
+    <value>Тема</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_ThemeAccent" xml:space="preserve">
-    <value>主题色</value>
+    <value>Цвет темы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_Custom" xml:space="preserve">
-    <value>自定义</value>
+    <value>Пользовательский</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
-    <value>启用圆角界面</value>
+    <value>Включить интерфейс с закругленными углами</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI" xml:space="preserve">
-    <value>界面设置</value>
+    <value>Интерфейс</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
-  <data name="Settings_UI_BackgroundOpacity" xml:space="preserve">
-    <value>背景不透明度</value>
-  </data>
-  <data name="Settings_UI_BackgroundImageOpacity" xml:space="preserve">
-    <value>背景图片不透明度</value>
+  <data name="Settings_UI_AcrylicTransparency" xml:space="preserve">
+    <value>Прозрачность фона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
-    <value>使用动态桌面背景</value>
+    <value>Использовать динамический фон рабочего стола</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Error" xml:space="preserve">
-    <value>不支持在背景透明材质为 {0} 时启用此功能</value>
+    <value>Не поддерживает включение этой функции, когда прозрачность фона равна {0}.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
-    <value>*实验性功能（开启此功能时建议将透明材质设置为 Transparent 或 AcrylicBlur）
-这个功能可以将 Wallpaper Engine 以及其它壁纸软件的动态壁纸设置为程序背景，如果你没有启动 Wallpaper Engine ，则默认使用桌面背景。背景仅在主窗口生效，其它窗口建议调整透明度不要完全透明或者使用图片背景。使用时注意自行根据壁纸亮暗色情况切换对应主题以获得更好的效果</value>
+    <value>* Экспериментальная функция (рекомендуется установить прозрачные материалы в Transparent или AcrylicBlur при включении)
+Эта функция может установить обои Wallpaper Engine и другое программное обеспечение для обоев в качестве фона программы, и если вы не запустили Wallpaper Engine, вы будете использовать фон рабочего стола по умолчанию. Фон работает только в главном окне, другие окна рекомендуют настроить прозрачность, чтобы она не была полностью прозрачной или использовать фон изображения. При использовании обратите внимание на переключение соответствующей темы в соответствии с яркостью и темнотой обоев, чтобы получить лучшие результаты.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
-    <value>深色</value>
+    <value>Тёмная</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_Light" xml:space="preserve">
-    <value>浅色</value>
-  </data>
-  <data name="Settings_UI_HighContrast" xml:space="preserve">
-    <value>高对比度</value>
+    <value>Светлая</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_SystemDefault" xml:space="preserve">
-    <value>跟随系统</value>
+    <value>Системная</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SignOut" xml:space="preserve">
-    <value>退出登录</value>
+    <value>Выйти</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SMSCode" xml:space="preserve">
-    <value>短信验证代码</value>
+    <value>Проверочный SMS код</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SourceRepository" xml:space="preserve">
-    <value>源码仓库</value>
+    <value>Репозиторий исходного кода</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="StartUpdate" xml:space="preserve">
-    <value>开始更新</value>
+    <value>Начать обновление</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAccount" xml:space="preserve">
-    <value>Steam 账号</value>
+    <value>Учётная запись Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Application" xml:space="preserve">
-    <value>软件</value>
+    <value>Программное обеспечение</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Beta" xml:space="preserve">
-    <value>测试</value>
+    <value>Бета</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Config" xml:space="preserve">
-    <value>配置</value>
+    <value>Конфиг</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Demo" xml:space="preserve">
-    <value>Demo</value>
+    <value>Демо</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_DepotOnly" xml:space="preserve">
-    <value>仓库</value>
+    <value>Склад</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_DLC" xml:space="preserve">
     <value>DLC</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Driver" xml:space="preserve">
-    <value>驱动</value>
+    <value>Гонки</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Franchise" xml:space="preserve">
-    <value>授权</value>
+    <value>Франшиза</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Game" xml:space="preserve">
-    <value>游戏</value>
+    <value>Игра</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Guide" xml:space="preserve">
-    <value>指南</value>
+    <value>Руководство</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Hardware" xml:space="preserve">
-    <value>硬件</value>
+    <value>Оборудование</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Media" xml:space="preserve">
-    <value>预告视频</value>
+    <value>Трейлер</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Mod" xml:space="preserve">
-    <value>模组</value>
+    <value>Мод</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Music" xml:space="preserve">
-    <value>原声音轨</value>
+    <value>Трек</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Plugin" xml:space="preserve">
-    <value>插件</value>
+    <value>Плагин</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Series" xml:space="preserve">
-    <value>影视集</value>
+    <value>Коллекция кино и тв</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Shortcut" xml:space="preserve">
-    <value>快捷方式</value>
+    <value>Ярлык</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Tool" xml:space="preserve">
-    <value>工具</value>
+    <value>Инструмент</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Unknown" xml:space="preserve">
-    <value>未知</value>
+    <value>Неизвестно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAppType_Video" xml:space="preserve">
-    <value>视频</value>
+    <value>Видео</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
-    <value>输入图中验证码</value>
+    <value>Введите код, указанный на картинке</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_ImageCodeShowError" xml:space="preserve">
-    <value>无法显示图片验证码？</value>
+    <value>Не отображается капча с изображения?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_Password" xml:space="preserve">
-    <value>Steam 密码</value>
+    <value>Пароль Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_User" xml:space="preserve">
-    <value>Steam 用户名</value>
+    <value>Имя пользователя Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。
-(如果没有开 Steam 网络加速会导致无法登录成功)</value>
+    <value>Войдите в свою учетную запись Steam для импорта токенов, вам нужно удалить старый токен перед импортом, и этот метод импорта будет иметь 15-дневный период охлаждения для рыночных транзакций.
+(Не удалось успешно войти в систему без ускорения сети Steam)</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Success_" xml:space="preserve">
-    <value>{0}成功</value>
+    <value>Успешно {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Toolbox" xml:space="preserve">
-    <value>工具箱</value>
+    <value>Ящик для инструментов</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>置顶</value>
+    <value>Топ</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Unbound" xml:space="preserve">
-    <value>未绑定</value>
+    <value>Без привязки</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Unbundling" xml:space="preserve">
-    <value>解绑</value>
+    <value>Отвязать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UnderConstruction" xml:space="preserve">
-    <value>该功能正在开发中，敬请期待</value>
+    <value>Эта функция находится в разработке, так что следите за обновлениями</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UnsavedEditingWillBeDiscarded" xml:space="preserve">
-    <value>将丢弃未保存的编辑</value>
+    <value>Несохранённые изменения будут удалены</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Up" xml:space="preserve">
-    <value>上移</value>
+    <value>Вверх</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UpdateContent" xml:space="preserve">
-    <value>更新内容</value>
+    <value>Обновить содержимое</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UploadYourAvatar" xml:space="preserve">
-    <value>上传您的头像</value>
+    <value>Загрузить свой аватар</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>从您的设备上传一个文件。图片应为方形，至少为 400px x 400px</value>
+    <value>Загрузите файл со своего устройства. Изображение должно быть квадратным и иметь размер не менее 400px на 400px</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_InGame" xml:space="preserve">
-    <value>游戏中</value>
+    <value>В игре</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
-    <value>一键登录 Steam</value>
+    <value>Вход в Steam одним щелчком мыши</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
-    <value>按下此按钮将重启 Steam 并以该账号登录</value>
+    <value>Нажатие этой кнопки приведёт к перезапуску Steam и входу в систему под этой учётной записью</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_DeleteUser" xml:space="preserve">
-    <value>删除此账号数据</value>
+    <value>Удалить данные учётной записи</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
-    <value>是否也要同时删除此账户在本地的 Steam 缓存数据（包括此账号游戏的配置文件及创意工坊文件）</value>
+    <value>Удаление также заденет локальные данные кэша Steam для этой учетной записи (включая профиль игры и файлы Creative Works для этой учётной записи).</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
-    <value>确定要删除这条本地记录帐户吗？</value>
+    <value>Удалить эту локальную учётную запись?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
-    <value>修改账号备注</value>
+    <value>Изменить заметки к учётной записи</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>登录新 Steam 账号</value>
+    <value>Войдите в новую учётную запись Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
-    <value>显示/隐藏用户名</value>
-  </data>
-  <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
-    <value>打开 Userdata 文件夹</value>
+    <value>Показать/скрыть имя пользователя</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
-    <value>确定要登录 Steam 新账户吗？
-此操作会结束正在运行的 Steam 跳转到新账号登录窗口。</value>
+    <value>Вы уверены, что хотите войти в свой новый аккаунт Steam?
+Это действие заканчивается запуском Steam в окно входа в новую учетную запись.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_NoUserTip" xml:space="preserve">
-    <value>没有在您的电脑上读取到任何 Steam 帐户数据</value>
+    <value>Данные учётной записи Steam не были считаны на вашем компьютере.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
-    <value>离线模式启动</value>
+    <value>Перейти в автономный режим</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_OpenUserUrl" xml:space="preserve">
-    <value>打开个人资料页面</value>
+    <value>Открыть страницу профиля</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_RecentLogin" xml:space="preserve">
-    <value>最近登录</value>
+    <value>Входил недавно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_RememberMe" xml:space="preserve">
-    <value>已记住登录状态</value>
+    <value>Запомнить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserFastChange" xml:space="preserve">
-    <value>账号切换</value>
+    <value>Переключить учётную запись</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserProfile" xml:space="preserve">
-    <value>个人资料</value>
+    <value>Персональные данные</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserProfile_BirthDate" xml:space="preserve">
-    <value>生日</value>
+    <value>Дата рождения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserProfile_Location" xml:space="preserve">
-    <value>所在地</value>
+    <value>Местонахождение</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_AccountBind" xml:space="preserve">
-    <value>账号绑定</value>
+    <value>Привязка учётной записи</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_AccountBindTip" xml:space="preserve">
-    <value>解绑第三方账号需要已绑定手机号才能解绑，如果要将已绑定第三方账号换绑至另一个账号，可以使用 [关于-此软件-账号注销] 注销已绑定的账号。</value>
+    <value>Для отмены привязки сторонней учётной записи требуется привязанный номер мобильного телефона. Если вы хотите привязать связанную стороннюю учётную запись к другой учётной записи, вы можете использовать [Справка — Софт — Отмена учётной записи] для отмены связанной учётной записи.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_Agreement" xml:space="preserve">
-    <value>用户协议</value>
+    <value>Пользовательское соглашение</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_AppleLogin" xml:space="preserve">
-    <value>使用 Apple 登录</value>
+    <value>Вход с помощью Apple</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_BasicInfo" xml:space="preserve">
-    <value>基本资料</value>
+    <value>Основная информация</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_BindPhoneNum" xml:space="preserve">
-    <value>绑定手机</value>
+    <value>Привязать номер телефона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_ChangePhoneNum" xml:space="preserve">
-    <value>换绑手机</value>
-    <comment>Comment=修改手机号;</comment>
+    <value>Изменить номер телефона</value>
+    <comment>Comment=修改手机号;Author=vanja-san</comment>
   </data>
   <data name="User_EditProfile" xml:space="preserve">
-    <value>编辑资料</value>
+    <value>Изменить профиль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_FastLogin" xml:space="preserve">
-    <value>快速登录</value>
+    <value>Быстрый вход</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
-    <value>选择如何登录您的 Watt Toolkit 帐户</value>
+    <value>Выберите способ входа в учётную запись Watt Toolkit</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
-    <value>{0} 快速登录</value>
+    <value>Быстрый вход {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_GetSMSCode" xml:space="preserve">
-    <value>获取验证码</value>
+    <value>Получить проверочный код</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_Login" xml:space="preserve">
-    <value>登录</value>
+    <value>Вошли</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_UnLogin" xml:space="preserve">
-    <value>未登录</value>
+    <value>Не вошли</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
-    <value>重新获取({0})</value>
-    <comment>Comment=短信验证码倒计时;</comment>
+    <value>Обновить ({0})</value>
+    <comment>Comment=短信验证码倒计时;Author=vanja-san</comment>
   </data>
   <data name="User_LoginError" xml:space="preserve">
-    <value>账号或密码错误</value>
+    <value>Неверная учётная запись или пароль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_LoginError_Auth" xml:space="preserve">
-    <value>当前令牌账号与已登录账号不匹配</value>
+    <value>Текущий токен учётной записи не совпадает с вошедшей учётной записью</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_LoginError_CodeImage" xml:space="preserve">
-    <value>请输入图片验证码</value>
+    <value>Введите код проверки с изображения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_LoginError_Null" xml:space="preserve">
-    <value>请输入您的账号和密码</value>
+    <value>Введите учётную запись и пароль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_LoginTroubleshoot" xml:space="preserve">
-    <value>无法登录？</value>
+    <value>Не удается войти?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_LoiginSuccess" xml:space="preserve">
-    <value>登录成功</value>
+    <value>Вход выполнен успешно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_MicroSoftLogin" xml:space="preserve">
-    <value>使用 Microsoft 登录</value>
+    <value>Войти с помощью Microsoft</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_NewPhone" xml:space="preserve">
-    <value>新手机号码</value>
+    <value>Новый номер телефона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_OtherFastLogin" xml:space="preserve">
-    <value>其它快速登录</value>
+    <value>Другой быстрый вход</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_Phone" xml:space="preserve">
-    <value>手机号码</value>
+    <value>Номер телефона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_PhoneLogin" xml:space="preserve">
-    <value>手机号登录</value>
+    <value>Вход по номеру телефона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_Privacy" xml:space="preserve">
-    <value>隐私政策</value>
+    <value>Политика конфиденциальности</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_QQLogin" xml:space="preserve">
-    <value>使用 QQ 登录</value>
+    <value>Вход с помощью QQ</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_Register" xml:space="preserve">
-    <value>注册</value>
+    <value>Зарегестрироваться</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_RegisterAgreed" xml:space="preserve">
-    <value>注册即代表您已阅读并同意</value>
+    <value>Регистрируясь, вы подтверждаете, что ознакомились и согласились с</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_Rememberme" xml:space="preserve">
-    <value>记住登录状态</value>
+    <value>Запомнить вход</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>确定要登出 Watt Toolkit 账号吗?</value>
+    <value>Вы уверены, что хотите выйти из своей учётной записи Watt Toolkit?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
-    <value>短信验证码</value>
+    <value>Проверочный код из SMS</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SMSCode_Error" xml:space="preserve">
-    <value>请先获取验证码</value>
+    <value>Сначала получите проверочный код</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SteamAvatarTip" xml:space="preserve">
-    <value>点击头像快速登录</value>
+    <value>Нажмите на аватар для быстрого входа</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SteamFastLogin" xml:space="preserve">
-    <value>Steam 快速登录</value>
+    <value>Быстрый вход в Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
-    <value>连接到 Steam 社区超时，请检查是否开启 Steam 社区网络加速</value>
+    <value>Истекло время ожидания при подключении к Steam Community, проверьте, включено ли ускорение сети Steam Community.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SteamLogoTip" xml:space="preserve">
-    <value>点击跳转到快速登录窗口</value>
+    <value>Нажмите для перехода к окну быстрого входа</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SteamUnLoginTip" xml:space="preserve">
-    <value>点击 Steam Logo 登录</value>
+    <value>Нажмите на логотип Steam, чтобы войти</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_UnbundleAccountTip" xml:space="preserve">
-    <value>解绑第三方账号关联后将无法以该第三方账号快速登录，是否确定解绑？</value>
+    <value>После отвязки сторонней учётной записи, вы не сможете быстро войти под сторонней учётной записью. Отвязать?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_UseExternalLoginChannel_" xml:space="preserve">
-    <value>使用 {0} 登录</value>
+    <value>Войти с помощью {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_UsePhoneNumLoginChannel" xml:space="preserve">
-    <value>使用手机号码登录</value>
+    <value>Войти с помощью номера телефона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>警告</value>
+    <value>Внимание</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>起始页</value>
+    <value>Начальная страница</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_CertificateTrust" xml:space="preserve">
-    <value>信任证书</value>
+    <value>Сертификат доверия</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_Loading" xml:space="preserve">
-    <value>正在加载令牌数据…</value>
+    <value>Загрузка данных токена...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_Code" xml:space="preserve">
-    <value>一次性密码代码</value>
+    <value>Код одноразового пароля</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_Code_Desc" xml:space="preserve">
-    <value>可以使用此应用生成的一次性密码代码来验证登录</value>
+    <value>Код одноразового пароля, сгенерированный этим приложением, может быть использован для аутентификации входа</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_Code_Title" xml:space="preserve">
-    <value>已启用一次性密码</value>
+    <value>Включен одноразовый пароль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="EditName" xml:space="preserve">
-    <value>修改名称</value>
+    <value>Изменить имя</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SeeData" xml:space="preserve">
-    <value>查看数据</value>
+    <value>Просмотр данных</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_Delete" xml:space="preserve">
-    <value>删除令牌</value>
+    <value>Удалить токен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Cancelled" xml:space="preserve">
-    <value>已取消</value>
+    <value>Отменено</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Confirmed" xml:space="preserve">
-    <value>已确认</value>
+    <value>Подтверждено</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SelectAllText_" xml:space="preserve">
-    <value>全选({0}/{1})</value>
+    <value>Выбрать все ({0}/{1})</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ImportByFilePicker" xml:space="preserve">
-    <value>文件导入</value>
+    <value>Импорт файлов</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ImportByQRCode" xml:space="preserve">
-    <value>扫码导入</value>
+    <value>Отсканируйте код для импорта</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_LogoutTip" xml:space="preserve">
-    <value>确定要注销当前令牌登录的账号信息吗？</value>
+    <value>Выйти из учётной записи для текущего токена входа?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ToQRCode" xml:space="preserve">
-    <value>导出为二维码</value>
+    <value>Экспорт в виде QR-кода</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="AuthLocal_ExportToQRCodeTooLongErrorTip" xml:space="preserve">
-    <value>数据长度超出二维码最大值，请尝试其他导出方式或单个导出</value>
+    <value>Длина данных превышает максимальное значение QR-кода, попробуйте другой метод экспорта или индивидуальный экспорт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="RememberChooseNotToAskAgain" xml:space="preserve">
-    <value>不再提醒</value>
+    <value>Больше не напоминать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_SteamShutdown" xml:space="preserve">
-    <value>Steam 下载完成定时关机</value>
+    <value>Загрузка Steam завершает запланированное завершение работы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_SteamShutdown_EnableWatchDownloading" xml:space="preserve">
-    <value>启用下载监控</value>
+    <value>Включить мониторинг скачивания</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Downloaded" xml:space="preserve">
-    <value>已下载</value>
+    <value>Скачано</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Installed" xml:space="preserve">
-    <value>已安装</value>
+    <value>Установлено</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
-    <value>在选中游戏下载并安装完成后执行</value>
+    <value>После загрузки и установки выбранной игры выполнить команду</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
-    <value>Steam 游戏已下载完成
-系统将在 {0} 秒后{1}</value>
-    <comment>Comment={0}倒计时时间 {1}执行操作;</comment>
+    <value>Игра Steam скачана
+Система выполнит {1} через {0} сек.</value>
+    <comment>Comment={0}倒计时时间 {1}执行操作;Author=vanja-san</comment>
   </data>
   <data name="Translators" xml:space="preserve">
-    <value>社区翻译</value>
+    <value>Локализаторы сообщества</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_RemarkReplaceName" xml:space="preserve">
-    <value>使用备注替换昵称显示</value>
+    <value>Замена отображения псевдонима заметкой</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_UseGPURendering" xml:space="preserve">
-    <value>使用 GPU 渲染界面（硬件加速）</value>
+    <value>Использовать рендеринг интерфейса с GPU (аппаратное ускорение)</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_RestartEffective" xml:space="preserve">
-    <value>*需重启软件后生效</value>
+    <value>*Чтобы изменения применились, требуется перезапуск программы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_UpdateChannel" xml:space="preserve">
-    <value>下载更新渠道</value>
+    <value>Канал скачивания обновлений</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>应用详情</value>
+    <value>Сведения о приложении</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>应用通知</value>
+    <value>Уведомления приложений</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
-    <value>打开 {0} 文件夹</value>
-    <comment>Comment={0}文件夹名称英文字母组成;</comment>
+    <value>Открыть папку {0}</value>
+    <comment>Comment={0}文件夹名称英文字母组成;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_CacheSize" xml:space="preserve">
-    <value>缓存文件已占用 {0}</value>
-    <comment>Comment={0}占用体积大小;</comment>
-  </data>
-  <data name="Settings_General_LogSize" xml:space="preserve">
-    <value>日志文件已占用 {0}</value>
-    <comment>Comment={0}占用体积大小;</comment>
+    <value>Кэш весит: {0}</value>
+    <comment>Comment={0}占用体积大小;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_ClearCache" xml:space="preserve">
-    <value>清理缓存文件</value>
+    <value>Очистить кэш</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_StorageSpace" xml:space="preserve">
-    <value>存储空间</value>
+    <value>Место хранилища</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_Calcing" xml:space="preserve">
-    <value>计算中…</value>
+    <value>Определение...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
-    <value>启用开机自启动失败，原因：{0}</value>
+    <value>Не удалось включить автозапуск при загрузке из-за: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
-    <value>当 Steam 客户端登录时弹出通知</value>
+    <value>Всплывающее уведомление при входе в Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_CheckStarted" xml:space="preserve">
-    <value>检测到启动：</value>
+    <value>Обнаружен запуск:</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_CurrentIPCountry" xml:space="preserve">
-    <value>Steam 客户端登录区域：</value>
+    <value>Область входа в Steam:</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_CurrentUser" xml:space="preserve">
-    <value>Steam 登录用户：</value>
-  </data>
-  <data name="Steam_ServerTime" xml:space="preserve">
-    <value>Steam 服务端时间：</value>
+    <value>Входившие в Steam:</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_SteamChina" xml:space="preserve">
-    <value>Steam 国服</value>
+    <value>Национальная служба Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_SteamWorld" xml:space="preserve">
-    <value>Steam 国际服</value>
+    <value>Steam International</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_WaitFastLoginTip" xml:space="preserve">
-    <value>我们已使用您的系统浏览器打开快速登录窗口，请进入该页面并登录，保持该窗口打开</value>
+    <value>Мы открыли окно быстрого входа с помощью вашего системного браузера, перейдите на эту страницу и войдите. Оставляйте это окно открытым.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Retry" xml:space="preserve">
-    <value>重试</value>
+    <value>Повторить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ScanQRCode" xml:space="preserve">
-    <value>扫描二维码</value>
+    <value>Сканировать QR-код</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>全选</value>
+    <value>Выбрать все</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Helper" xml:space="preserve">
-    <value>帮助</value>
+    <value>Помощь</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
-    <value>自定义背景图片</value>
-  </data>
-  <data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
-    <value>选择的图片格式不正确</value>
-  </data>
-  <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
-    <value>窗口背景透明材质</value>
+    <value>Пользовательское изображение фона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>重置</value>
+    <value>Сбросить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_SelectImage" xml:space="preserve">
-    <value>选择图片</value>
+    <value>Выбрать изображение</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Login_ManualLogin" xml:space="preserve">
-    <value>手动登录</value>
+    <value>Войти вручную</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LoginInputManualLoginToken" xml:space="preserve">
-    <value>请粘贴网页复制的内容</value>
+    <value>Вставьте содержимое, скопированное со страницы.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Login_ManualLoginEmpt" xml:space="preserve">
-    <value>输入的内容不能为空</value>
+    <value>Данные входа не могут быть пустыми.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Login_WebSocketOnMessage" xml:space="preserve">
-    <value>数据解密失败，请确定数据正确重试。</value>
+    <value>Расшифровка данных не удалась. Проверьте правильность данных и повторите попытку.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
-    <value>家庭共享库为空</value>
+    <value>Библиотека семейного доступа пуста.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ProxySettings" xml:space="preserve">
-    <value>代理设置</value>
+    <value>Настройки прокси</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
-    <value>代理监听 IP 地址</value>
+    <value>IP-адрес прокси</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
-    <value>自定义代理 DNS</value>
+    <value>Пользовательский DNS прокси</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
-    <value>Socks5 本地代理</value>
+    <value>Локальный Socks5 прокси</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
-    <value>监听端口</value>
+    <value>Порт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_TwoLevelAgent" xml:space="preserve">
-    <value>二级代理</value>
+    <value>Вторичный агент</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_ProxyType" xml:space="preserve">
-    <value>代理类型</value>
+    <value>Тип прокси</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_IPAddress" xml:space="preserve">
-    <value>地址</value>
+    <value>IP-адрес</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_Port" xml:space="preserve">
-    <value>端口</value>
+    <value>Порт</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_UserName" xml:space="preserve">
-    <value>用户名</value>
+    <value>Имя пользователя</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_Password" xml:space="preserve">
-    <value>密码</value>
+    <value>Пароль</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_CaptureScreen" xml:space="preserve">
-    <value>屏幕捕获</value>
+    <value>Снимок экрана</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
-    <value>允许其他应用程序捕获你的屏幕</value>
+    <value>Разрешить другим приложениям снимать ваш экран</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserChange_ChangeUserTip" xml:space="preserve">
-    <value>切换到 {0} 登录 Steam</value>
+    <value>Переключитесь на {0}, чтобы войти в Steam.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
-    <value>代理仅启用脚本功能</value>
-  </data>
-  <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
-    <value>启用 Http 协议转发到 Https (需监听 80 端口)</value>
+    <value>Только сценарии с поддержкой прокси</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_AppReview" xml:space="preserve">
-    <value>打分 &amp; 评价</value>
+    <value>Отзыв и оценка</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_UseOpenGL" xml:space="preserve">
-    <value>使用 OpenGL 渲染</value>
+    <value>Рендеринг с помощью OpenGL</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Download_ScriptError_" xml:space="preserve">
-    <value>脚本下载错误 {0}，请重试。</value>
+    <value>Ошибка загрузки сценария {0}, повторите попытку.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="FixNetworkComplete" xml:space="preserve">
-    <value>修复网络完成</value>
+    <value>Восстановление сети завершено</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CalcHashing3_" xml:space="preserve">
-    <value>正在校验（{1}/{2}）：{0}%</value>
+    <value>Проверка ({1}/{2}): {0}%</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CalcHashing_" xml:space="preserve">
-    <value>正在校验：{0}%</value>
+    <value>Проверка: {0}%</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CreateCertificateFaild" xml:space="preserve">
-    <value>创建证书失败</value>
-    <comment>Fail</comment>
+    <value>Не удалось создать сертификат</value>
+    <comment>Comment=Fail;Author=vanja-san</comment>
   </data>
   <data name="Decompressing_" xml:space="preserve">
-    <value>正在解压：{0}%</value>
+    <value>Распаковка: {0}%</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Downloading3_" xml:space="preserve">
-    <value>正在下载（{1}/{2}）：{0}%</value>
+    <value>Скачивание ({1}/{2}): {0}%</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Downloading_" xml:space="preserve">
-    <value>正在下载：{0}%</value>
+    <value>Скачивание: {0}%</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
-    <value>文件属性为只读，修改失败，请按网页指南操作 {0}</value>
+    <value>Атрибут файла доступен только для чтения, модификация не удалась, следуйте веб-руководству {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailTryBakDelAgain" xml:space="preserve">
-    <value>文件属性为只读，修改失败，你可以尝试先备份该文件后删除再重试一遍</value>
+    <value>Если атрибут файла доступен только для чтения и модификация не удалась, вы можете попробовать создать резервную копию файла, затем удалить его и повторить попытку</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
-    <value>文件大小过大</value>
+    <value>Слишком большой размер файла</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
-    <value>文件访问被拒绝，没有权限</value>
+    <value>Доступ к файлу запрещён, нет разрешения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="IsExistUpdateFalse" xml:space="preserve">
-    <value>当前已是最新版本</value>
+    <value>На данный момент последняя версия</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NewVersionUpdate" xml:space="preserve">
-    <value>新版本更新</value>
+    <value>Обновления новой версии</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>{1} v{0} 版本更新</value>
+    <value>Обновление версии {1} v{0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
-    <value>当有新公告时的提示通知</value>
+    <value>Уведомления о новых объявлениях.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>当有新版本可用时的提示通知与下载新版本时的进度通知</value>
+    <value>Уведомление о доступности новой версии и уведомление о ходе работы при загрузке новой версии.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
-    <value>我的消息</value>
+    <value>Уведомление о объявлении</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
-    <value>新版本通知</value>
+    <value>Уведомление о новой версии.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
-    <value>操作 Hosts 错误 {0}</value>
+    <value>Ошибка Hosts операции {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Watt Toolkit 替换升级中…</value>
+    <value>Идёт обновление с заменой Watt Toolkit...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
-    <value>脚本依赖下载出错：{0}
+    <value>Ошибка скачивания зависимости сценария. {0}
     {1}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_BuildError" xml:space="preserve">
-    <value>脚本绑定出错：{0}</value>
+    <value>Ошибка привязки скрипта: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_CacheDeleteError" xml:space="preserve">
-    <value>缓存文件删除失败：{0}</value>
+    <value>Сбой при удалении файла кэша: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_DeleteError" xml:space="preserve">
-    <value>删除失败</value>
+    <value>Не удалось удалить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_DeleteSuccess" xml:space="preserve">
-    <value>删除成功</value>
+    <value>Удаление выполнено успешно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_FileDeleteError" xml:space="preserve">
-    <value>文件删除失败：{0}</value>
+    <value>Сбой при удалении файла: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_FileRepeat" xml:space="preserve">
-    <value>脚本重复</value>
+    <value>Повтор сценария</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_NoFile" xml:space="preserve">
-    <value>脚本：{0} 文件丢失已删除</value>
+    <value>Сценарий: Файл {0} отсутствует или удалён</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_NoFileDeleteError" xml:space="preserve">
-    <value>脚本：{0} 文件丢失，删除失败去尝试手动删除</value>
+    <value>Сценарий: Файл {0} отсутствует, удаление не удалось, попробуйте удалить вручную</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_ReadFileError" xml:space="preserve">
-    <value>脚本读取异常请检查语法是否有错误：{0}</value>
+    <value>Исключение при чтении сценария, проверьте синтаксис на наличие ошибок: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_SaveDBError" xml:space="preserve">
-    <value>保存数据出错请重试</value>
+    <value>Ошибка сохранения данных, повторите попытку</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
-    <value>添加成功</value>
+    <value>Добавлено успешно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
-    <value>找不到 Steam 安装路径</value>
+    <value>Не удалось найти путь установки Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>更新包解压失败，请打开官网手动更新</value>
+    <value>Пакет обновления не может быть извлечен, пожалуйста, откройте официальный сайт для обновления вручную</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="GameList_NavToSteamView" xml:space="preserve">
+    <value>Просмотр в клиенте Steam</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
+    <value>Вы успешно импортировали свой токен через вход в учётную запись, проверьте, можно ли использовать ваш токен нормально, если он недоступен, импорт может завершиться ошибкой, попробуйте повторно импортировать и удалить недействительный токен.</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
+    <value>Выбранное изображение отформатировано неправильно</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
+    <value>Материальный прозрачный фон</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_AllEnable" xml:space="preserve">
-    <value>全部启用</value>
+    <value>Включить все</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ImportSuccessTip" xml:space="preserve">
-    <value>成功导入了 {0} 个文件</value>
+    <value>{0} файлы успешно импортированы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DelAccount_VerifyDesc_NickName" xml:space="preserve">
-    <value>请输入昵称进行验证</value>
+    <value>Введите никнейм для проверки</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DelAccount_VerifyDesc_PhoneNumber" xml:space="preserve">
-    <value>请输入手机号码进行验证</value>
+    <value>Для подтверждения введите свой номер телефона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DelAccount_VerifyError_NickName" xml:space="preserve">
-    <value>输入的昵称不正确，请重新输入</value>
+    <value>Введенный никнейм неправильный, повторите снова</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DelAccount_VerifyError_PhoneNumber" xml:space="preserve">
-    <value>输入的手机号码不正确，请重新输入</value>
+    <value>Введенный номер телефона неверен, повторите снова</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_Donate" xml:space="preserve">
-    <value>捐助</value>
-  </data>
-  <data name="About_Donate_Title" xml:space="preserve">
-    <value>支持 Watt Toolkit 的开发</value>
-  </data>
-  <data name="About_Donate_Desc" xml:space="preserve">
-    <value>「Watt Toolkit」当前版本的发布离不开大家的支持，如果 Watt Toolkit 有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护 Watt Toolkit。
-*捐助时请记得备注上您 Watt Toolkit 账号的 UID 在备注消息内，这样能方便我们后续将捐助奖励反馈到您的账号上。
-
-在 1.x 版本捐助过的人我们之后会开发补录账号数据的网页链接，请留意更新信息，和保存好您曾经捐助支付的订单号。</value>
+    <value>Пожертвовать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_DonateType" xml:space="preserve">
-    <value>捐助方式</value>
+    <value>Способы пожертвования</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_DonateRecord" xml:space="preserve">
-    <value>捐助记录</value>
+    <value>Записи о пожертвованиях</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_DonateRecord_Prompt" xml:space="preserve">
-    <value>在此感谢记录上的每一个人</value>
+    <value>Спасибо всем в записи</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_DonateRecord_NoData" xml:space="preserve">
-    <value>这个月还没有人捐助过啊…</value>
+    <value>Никто не пожертвовал в этом месяце...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_DonateRecord_Error" xml:space="preserve">
-    <value>加载捐助列表数据出错：</value>
+    <value>Ошибка загрузки данных списка пожертвований:</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="About_Donate_Title" xml:space="preserve">
+    <value>Поддержка разработки Watt Toolkit</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="Achievement_ResetWaring_3" xml:space="preserve">
+    <value>Вместо того, чтобы отменять текущие изменения, эта операция обнуляет все достижения и статистику.
+Вы действительно уверены?</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
+    <value>Это {0} все ваши текущие торговые котировки.
+Вы уверены, что хотите продолжить?</value>
+    <comment>Comment=同意 or 取消;Author=vanja-san</comment>
+  </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>Если Watt Toolkit помог вам, и вы хотите, чтобы мы продолжали разрабатывать и поддерживать новые функции в течение длительного времени, вы можете рассмотреть возможность сделать небольшое пожертвование, чтобы поддерживать нашу мотивацию обновлять и поддерживать Watt Toolkit.
+*Не забудьте указать UID вашей учётной записи Watt Toolkit в сообщении комментария при пожертвовании, чтобы мы могли отправить вам вознаграждение за пожертвование.
+
+Для тех, кто делал пожертвования в версии 1.x, мы будем разрабатывать ссылку на веб-страницу с обновлёнными данными учётной записи, поэтому, следите за обновлениями и сохраните номер заказа вашего предыдущего пожертвования.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>已复制到剪贴板</value>
+    <value>Скопировано в буфер обмена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
-    <value>点击此处复制 UID 到剪贴板</value>
+    <value>Нажмите здесь, чтобы скопировать UID</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>需要登录 Watt Toolkit 账号才能获取 UID</value>
+    <value>Вам нужно войти в свою учётную запись Watt Toolkit, чтобы получить UID</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
-    <value>下载更新包缓存文件验证失败，已删除缓存尝试重新下载，请等待</value>
+    <value>Загрузка пакета обновления проверка файла кэша не удалась, удаленный кэш пытается повторно загрузить, подождите</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_ConsoleFontName" xml:space="preserve">
-    <value>控制台字体</value>
+    <value>Шрифт консоли</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_ConsoleFontSize" xml:space="preserve">
-    <value>控制台字体大小</value>
+    <value>Размер шрифта консоли</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_ConsoleMaxLine" xml:space="preserve">
-    <value>控制台显示最大行数</value>
+    <value>Консоль отображает максимальное количество строк</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_IPCPortId" xml:space="preserve">
-    <value>IPC 端口号</value>
+    <value>Порт IPC</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_IPCPortOccupiedRandom" xml:space="preserve">
-    <value>IPC 端口被占用时使用随机端口号</value>
+    <value>Использовать случайный порт, когда порт IPC занят</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
-    <value>请等待 IPC 启动中...</value>
+    <value>Подождите, пока IPC загрузится...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ShowHide" xml:space="preserve">
-    <value>显示/隐藏</value>
+    <value>Показать/Скрыть</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LinuxSudoTips" xml:space="preserve">
-    <value>Linux 需要提供系统 root 密码才能正常使用该功能</value>
+    <value>Linux требует системного пароля root для правильного использования этой функции</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Restarted" xml:space="preserve">
-    <value>ASF 服务已重启</value>
+    <value>Служба ASF перезапущена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Restarting" xml:space="preserve">
-    <value>正在重启 ASF 服务，请稍后...</value>
+    <value>Перезапуск службы ASF...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Started" xml:space="preserve">
-    <value>ASF 服务已启动</value>
+    <value>Служба ASF запущена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Starting" xml:space="preserve">
-    <value>正在启动 ASF 服务，请稍后...</value>
+    <value>Запуск службы ASF...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Stoped" xml:space="preserve">
-    <value>ASF 服务已停止</value>
+    <value>Служба ASF остановлена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_Stoping" xml:space="preserve">
-    <value>正在停止 ASF 服务，请稍后...</value>
+    <value>Остановив ассафетный сервис, пожалуйста, подождите...</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_System" xml:space="preserve">
-    <value>系统设置</value>
+    <value>Настройки системы</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_CertificateExport" xml:space="preserve">
-    <value>导出证书文件</value>
+    <value>Экспорт файла сертификата</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
-    <value>打开安全设置</value>
+    <value>Перейти к параметрам безопасности</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ExportedToPath_" xml:space="preserve">
-    <value>已导出到路径：{0}</value>
+    <value>Экспортировано по пути: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
-    <value>必须在【系统设置 - 安全 - 加密与凭据 - 凭据存储 - 用户凭据】中找到 {0} 点击该项后在弹窗中点击卸载。</value>
+    <value>Вы должны найти {0} в Системных настройках - Безопасность - Шифрование и учетные данные - Хранилище учетных данных - Учетные данные пользователя Нажмите на элемент и нажмите Удалить во всплывающем окне.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
-    <value>在“安全设置”中移除证书</value>
+    <value>Удаление сертификата в параметрах безопасности</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_IsVpnMode" xml:space="preserve">
-    <value>启用 VPN 模式</value>
+    <value>Включить режим VPN</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
-    <value>打开 Hosts 所在文件夹</value>
+    <value>Откройте папку, в которой находится Hosts</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ResetHostsFile" xml:space="preserve">
-    <value>重置 Hosts 文件</value>
+    <value>Сброс файла Hosts</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
-    <value>重置 Hosts 文件失败，错误：{0}</value>
+    <value>Сбой сброса файла Hosts с ошибкой: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
-    <value>重置 Hosts 文件将删除所有数据并还原当前操作系统默认值，建议先编辑 Hosts 文件查看是否有需要的数据先进行备份后再执行此操作，是否确认重置？</value>
+    <value>Сброс файла Hosts удалит все данные и восстановит текущие значения операционной системы по умолчанию, рекомендуется сначала отредактировать файл Hosts, чтобы увидеть, есть ли необходимые данные для резервного копирования, прежде чем сделать это, вы хотите подтвердить сброс?</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
-    <value>Mark 出现多个 [{0}]，请尝试重置 Hosts 文件或编辑 Hosts 文件并删除多余的 Mark 后再试一次</value>
+    <value>Метка появляется несколько [{0}], попробуйте сбросить файл Hosts или отредактировать файл Hosts и удалить лишний Mark и повторите попытку</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
-    <value>重置 Hosts 文件成功</value>
+    <value>Сброс файла Hosts выполнен успешно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
-    <value>当开启前台服务时的通知</value>
+    <value>Уведомление о включении службы поддержки на стойке регистрации.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Description_Message" xml:space="preserve">
-    <value>当有提示消息时的通知</value>
+    <value>Уведомление о появлении сообщения с запросом.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
-    <value>前台服务通知</value>
+    <value>Уведомление службы регистрации</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Name_Message" xml:space="preserve">
-    <value>消息通知</value>
+    <value>Уведомление о сообщении</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="StopService" xml:space="preserve">
-    <value>停止服务</value>
+    <value>Остановить службу</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
-    <value>本地加速代理服务正在运行</value>
+    <value>Служба локального агента ускорения запущена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
-    <value>ASF 服务正在运行</value>
+    <value>Служба ASF запущена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_ShareDisable" xml:space="preserve">
-    <value>（已禁用）</value>
+    <value>(Отключено)</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_ShareDisableBtn" xml:space="preserve">
-    <value>禁用</value>
+    <value>Отключить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_ShareEnableBtn" xml:space="preserve">
-    <value>启用</value>
+    <value>Включить</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Steam_Share_RemoveShare" xml:space="preserve">
-    <value>是否删除此家庭库共享。</value>
+    <value>Следует ли удалять эту общую папку домашней библиотеки.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_SetCryptKey" xml:space="preserve">
-    <value>设置自定义密钥</value>
+    <value>Настройка пользовательского ключа</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ASF_ConsoleSettings" xml:space="preserve">
-    <value>控制台设置</value>
+    <value>Настройки консоли</value>
+    <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="Settings_General_LogSize" xml:space="preserve">
+    <value>Файл журнала занят {0}</value>
+    <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UnixSudoPasswordTips" xml:space="preserve">
+    <value>Пожалуйста, введите системный пароль, чтобы продолжить или скопировать команду вручную</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
+    <value>Открытие папки Userdata</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
+    <value>Включить переадресацию протокола HTTP на https (требуется прослушивание порта 80)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
-    <value>检测到新版本 v{0}</value>
+    <value>Новая версия v{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Balance" xml:space="preserve">
-    <value>余额</value>
+    <value>равновесие</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_EngineOil" xml:space="preserve">
-    <value>积分</value>
+    <value>Интеграл</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Sponsor" xml:space="preserve">
-    <value>赞助用户</value>
+    <value>Пожертвовать пользователям</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="User_SignIn_Ok" xml:space="preserve">
-    <value>签到成功</value>
+  <data name="Account_SignIn_Ok" xml:space="preserve">
+    <value>Регистрация прошла успешно</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>保存</value>
+    <value>Спасать</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_DNSIntercept" xml:space="preserve">
-    <value>DNS 驱动拦截模式</value>
-  </data>
-  <data name="ProxyMode_Hosts" xml:space="preserve">
-    <value>Hosts 代理模式</value>
+    <value>Режим блокировки на основе DNS</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_ProxyOnly" xml:space="preserve">
-    <value>仅代理模式</value>
-  </data>
-  <data name="ProxyMode_System" xml:space="preserve">
-    <value>系统代理模式</value>
+    <value>Только режим прокси</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_VPN" xml:space="preserve">
-    <value>VPN 代理模式</value>
-  </data>
-  <data name="ProxyMode_PAC" xml:space="preserve">
-    <value>PAC 代理模式</value>
-  </data>
-  <data name="MacSudoPasswordTips" xml:space="preserve">
-    <value>请在弹出的控制台窗口中输入密码或者手动执行</value>
+    <value>Режим прокси VPN</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CustomFilePicker_Tip" xml:space="preserve">
-    <value>选择文件</value>
+    <value>Выберите файл</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Info" xml:space="preserve">
-    <value>信息</value>
+    <value>Информация</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>名称</value>
+    <value>имя</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SortAs" xml:space="preserve">
-    <value>排序标题</value>
+    <value>Сортировка заголовков</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Developer" xml:space="preserve">
-    <value>开发商</value>
+    <value>Разработчики</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Publisher" xml:space="preserve">
-    <value>发行商</value>
+    <value>Издатель</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SupportSystem" xml:space="preserve">
-    <value>支持的系统</value>
+    <value>Поддерживаемые системы</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LastUpdatedDateTime" xml:space="preserve">
-    <value>最后更新时间</value>
+    <value>Последнее обновление</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DiskUsage" xml:space="preserve">
-    <value>磁盘占用</value>
+    <value>Заполняемость дисков</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="InstalledPath" xml:space="preserve">
-    <value>安装路径</value>
+    <value>Путь установки</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Media" xml:space="preserve">
-    <value>媒体</value>
+    <value>медиа</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamGridDBTitle" xml:space="preserve">
-    <value>SteamGridDB Image</value>
+    <value>Изображение SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
-    <value>未能从 SteamGridDB 获取到图片</value>
-  </data>
-  <data name="OpenInBrowser" xml:space="preserve">
-    <value>在浏览器中打开</value>
+    <value>Изображения не были доступны из SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenImageInBrowser" xml:space="preserve">
-    <value>在浏览器中打开原图</value>
+    <value>Открытие исходного изображения в браузере</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
-    <value>打开 SteamGridDB 网页浏览</value>
+    <value>Открыть просмотр веб-страниц SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
-    <value>查看该作者更多作品</value>
+    <value>Ознакомьтесь с другими работами этого автора</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GetImageFromSteamGridDB" xml:space="preserve">
-    <value>从 SteamGridDB 获取</value>
-  </data>
-  <data name="HorizontalTitlePage" xml:space="preserve">
-    <value>横版封面</value>
-  </data>
-  <data name="VerticalTitlePage" xml:space="preserve">
-    <value>竖版封面</value>
+    <value>Получите его из SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Background" xml:space="preserve">
-    <value>背景</value>
+    <value>фон</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Icon" xml:space="preserve">
-    <value>图标</value>
+    <value>икона</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RecommendedResolution" xml:space="preserve">
-    <value>建议的分辨率</value>
+    <value>Рекомендуемое решение</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LaunchItem" xml:space="preserve">
-    <value>启动项</value>
+    <value>Элементы автозагрузки</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExecutableFile" xml:space="preserve">
-    <value>可执行文件</value>
+    <value>исполняемый файл</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Arguments" xml:space="preserve">
-    <value>启动参数</value>
+    <value>Параметры запуска</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WorkingDir" xml:space="preserve">
-    <value>工作目录</value>
+    <value>Рабочий справочник</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_EditedAppsSaveManger" xml:space="preserve">
-    <value>保存 Steam 游戏自定义信息</value>
+    <value>Сохранение информации о настройке игры Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveFile" xml:space="preserve">
-    <value>存档</value>
+    <value>архив</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CloudSaveFileSize" xml:space="preserve">
-    <value>云存档空间大小</value>
+    <value>Размер пространства облачного архива</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CloudMaxnumFiles" xml:space="preserve">
-    <value>最大支持云存档数</value>
+    <value>Максимальное количество поддерживаемых облачных архивов</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>文件路径</value>
+    <value>Путь к файлу</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DirPath" xml:space="preserve">
-    <value>文件夹路径</value>
+    <value>Путь к папке</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveImageFileFailed" xml:space="preserve">
-    <value>保存 {0} 图片失败</value>
-    <comment> {0} 图片类型;</comment>
+    <value>Не удалось сохранить {0} изображение</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ResetAll" xml:space="preserve">
-    <value>重置全部</value>
+    <value>Сброс всех</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
-    <value>保存全部更改到 Steam</value>
+    <value>Сохраните все изменения в Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
-    <value>没有获取到已编辑的游戏数据</value>
+    <value>Отредактированные игровые данные не были получены</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
-    <value>保存 AppInfos 出现错误</value>
+    <value>Произошла ошибка сохранения AppInfos</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
-    <value>修改的数据已保存到 Steam 本地文件中，是否立即重启 Steam 生效？</value>
+    <value>Измененные данные были сохранены в локальном файле Steam, будет ли Steam немедленно перезапущен?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
-    <value>保存数据到 Steam 成功</value>
+    <value>Сохранение данных в Steam успешно</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
-    <value>保存数据失败，查看程序日志获取详细错误信息</value>
+    <value>Не удалось сохранить данные, просмотрите журнал программы для получения подробной информации об ошибках</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
-    <value>获取最后登录的 Steam 账号信息失败，无法修改自定义封面</value>
+    <value>Не удалось получить последнюю информацию об учетной записи Steam, не удалось изменить пользовательскую титульную страницу да.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
-    <value>请正确选择一张要应用的图片</value>
+    <value>Пожалуйста, выберите правильное изображение для применения</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray" xml:space="preserve">
+    <value>В настоящее время есть {0} {1} уведомлений, пожалуйста, проверьте офис уведомлений и объявлений в программе для деталей.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="HorizontalTitlePage" xml:space="preserve">
+    <value>Горизонтальная крышка</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="VerticalTitlePage" xml:space="preserve">
+    <value>Вертикальная крышка</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_FlowStatistics" xml:space="preserve">
+    <value>Статистика трафика</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_Services" xml:space="preserve">
+    <value>Услуги по акселерации</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_OnlyCloudArchive" xml:space="preserve">
+    <value>Отображаются только игры, поддерживающие Steam Cloud Save</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_EnableTrayIcon" xml:space="preserve">
+    <value>Включение значка в трее</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_EnableTrayIcon_Tip" xml:space="preserve">
+    <value>Закрытие главного окна, когда эта опция отключена, приведет к выходу из программы напрямую</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_HighContrast" xml:space="preserve">
+    <value>Высокая контрастность</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_SignIn_Ok" xml:space="preserve">
+    <value>Регистрация прошла успешно</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_PAC" xml:space="preserve">
+    <value>Режим прокси-сервера PAC</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenInBrowser" xml:space="preserve">
+    <value>Откройте в браузере</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Notice_Tray_Title" xml:space="preserve">
-    <value>消息提示</value>
+    <value>Запрос сообщения</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Notice_Tray_Content" xml:space="preserve">
-    <value>收到 {0} 条新消息，详情请在程序内我的消息处查看。</value>
+    <value>Я получил {0} новое сообщение, пожалуйста, проверьте раздел Мои сообщения программы для получения подробной информации.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_CertificateStatus" xml:space="preserve">
-    <value>证书状态</value>
+    <value>Статус сертификата</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_FormerName" xml:space="preserve">
-    <value>原名</value>
+    <value>Прежде</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileSize" xml:space="preserve">
-    <value>文件大小</value>
+    <value>Размер файла</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CreateTime" xml:space="preserve">
-    <value>创建时间</value>
+    <value>Время создания</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_CloudArchiveManager" xml:space="preserve">
-    <value>Steam 云存档管理</value>
+    <value>Управление облачным архивом Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
-    <value>确定要删除当前选中的存档数据吗？</value>
+    <value>Вы уверены, что хотите удалить выбранные данные архива?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_CloudArchiveDeleteAllTip" xml:space="preserve">
-    <value>确定要删除全部存档数据吗，请一定要明白你在做什么，该操作会清除当前游戏的全部云存档数据！！！</value>
+    <value>Если вы уверены, что хотите удалить все свои сохранения, убедитесь, что вы делаете то, что делаете, что очистит все облачные сохранения вашей текущей игры!!!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
-    <value>手动上传存档文件</value>
+    <value>Загрузка архивного файла вручную</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileNumber" xml:space="preserve">
-    <value>{0}个文件</value>
+    <value>{0} файлы</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadSuccess" xml:space="preserve">
-    <value>上传成功</value>
+    <value>Загрузка выполнена успешно</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadFailed" xml:space="preserve">
-    <value>上传失败</value>
+    <value>Ошибка загрузки</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Upload" xml:space="preserve">
-    <value>上传</value>
+    <value>закачать</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download_Failed_FileNameTip" xml:space="preserve">
-    <value>下载 {0} 失败</value>
+    <value>Не удалось загрузить {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download_Success_FileNameTip" xml:space="preserve">
-    <value>下载 {0} 成功</value>
+    <value>Загрузка {0} успешной</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Advertisement" xml:space="preserve">
-    <value>广告</value>
+    <value>объявление</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Advertisement_Close" xml:space="preserve">
-    <value>关闭广告</value>
+    <value>Отключение рекламы</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Sign" xml:space="preserve">
-    <value>签到</value>
+    <value>Войти</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Signed" xml:space="preserve">
-    <value>已签到</value>
+    <value>Заселен</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadFlow" xml:space="preserve">
-    <value>上行流量</value>
+    <value>Восходящий трафик</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadFlow" xml:space="preserve">
-    <value>下行流量</value>
+    <value>Нисходящий трафик</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadAndInstall" xml:space="preserve">
-    <value>下载并安装</value>
+    <value>Загрузка и установка</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="YouNeedInstallWebView2Runtime" xml:space="preserve">
-    <value>你需要安装 WebView2 Runtime 才能使用此功能</value>
+    <value>Для использования этой функции необходимо установить среду выполнения WebView2</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadFailedPleaseTryAgainLater" xml:space="preserve">
-    <value>下载失败，请稍后重试</value>
+    <value>Загрузка не удалась, повторите попытку позже</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="InstallingPleaseWait" xml:space="preserve">
-    <value>正在安装，请稍后…</value>
+    <value>Установка, пожалуйста, подождите...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FailedToRunSetupWithPath_PleaseRunItManually" xml:space="preserve">
-    <value>运行安装程序失败，路径为：{0}，请手动运行</value>
+    <value>Не удалось запустить установщик, путь: {0}, пожалуйста, запустите его вручную</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Level" xml:space="preserve">
-    <value>等级</value>
+    <value>степень</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Experience" xml:space="preserve">
-    <value>经验值</value>
+    <value>Очки опыта</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Advertisement_NoShow" xml:space="preserve">
-    <value>关闭程序内所有广告</value>
+    <value>Отключение всех объявлений в программе</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Advertisement_NoShow_Tip" xml:space="preserve">
-    <value>仅赞助用户可设置</value>
+    <value>Только спонсируемые пользователи могут установить его</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SeeDetails" xml:space="preserve">
-    <value>查看详情</value>
+    <value>Посмотреть подробности</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AllTyoe" xml:space="preserve">
-    <value>全部类型</value>
+    <value>Все типы</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Notice_AllMarkHasRead" xml:space="preserve">
-    <value>全部标记为已读</value>
+    <value>Все они помечены как прочитанные</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Notice_Type" xml:space="preserve">
-    <value>消息类型</value>
+    <value>Тип сообщения</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_DNSErrorNotify" xml:space="preserve">
+    <value>Разрешение DNS обнаружило исключение, попробуйте изменить другой DNS в настройках прокси-сервера еще раз</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Steam_RuningAdmin" xml:space="preserve">
+    <value>Запуск Steam с правами администратора</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
-    <value>使用 WinHttpHandler</value>
+    <value>Использование WinHttpHandler</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>错误</value>
-  </data>
-  <data name="Error_BaseDir_StartsWith_Temp" xml:space="preserve">
-    <value>不能在临时文件夹中运行此程序，请将所有文件复制或解压到其他路径后再启动程序</value>
-  </data>
-  <data name="Error_Lower_Than_Windows10_1607" xml:space="preserve">
-    <value>对于 Windows 10 操作系统最低需要 version 1607(10.0.14393)</value>
-  </data>
-  <data name="MacTrustRootCertificateTips" xml:space="preserve">
-    <value>请在弹出的控制台窗口输入系统密码以安装信任证书，信任完成后点击确定按钮继续</value>
-  </data>
-  <data name="Error_IncompatibleOS" xml:space="preserve">
-    <value>此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本</value>
-  </data>
-  <data name="CommunityFix_OnRunCatch" xml:space="preserve">
-    <value>启动网络加速失败</value>
+    <value>Ошибка</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
 </root>
