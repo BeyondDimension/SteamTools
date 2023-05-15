@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -166,7 +166,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Description" xml:space="preserve">
-    <value>描述</value>
+    <value>묘사</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_EditSucces" xml:space="preserve">
@@ -190,7 +190,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Manage" xml:space="preserve">
-    <value>管理成就</value>
+    <value>업적 관리</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Name" xml:space="preserve">
@@ -246,15 +246,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>新增</value>
+    <value>새로운</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Agree" xml:space="preserve">
-    <value>同意</value>
+    <value>동의하다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="And" xml:space="preserve">
-    <value>和</value>
+    <value>그리고</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
@@ -270,7 +270,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Btn_Text_Complete" xml:space="preserve">
-    <value>完成</value>
+    <value>끝내다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Btn_Text_Continue" xml:space="preserve">
@@ -282,7 +282,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>取消</value>
+    <value>취소</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CheckUpdate" xml:space="preserve">
@@ -306,7 +306,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AlreadyProxy" xml:space="preserve">
-    <value>已加速  </value>
+    <value>가속  </value>
     <comment>Comment=末尾带空格;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
@@ -350,11 +350,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode" xml:space="preserve">
-    <value>加速模式</value>
+    <value>가속 모드</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_Hosts" xml:space="preserve">
-    <value>Hosts 代理模式</value>
+    <value>호스트 프록시 모드</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
@@ -394,7 +394,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StopProxy" xml:space="preserve">
-    <value>停止加速</value>
+    <value>가속 중지</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Confirm" xml:space="preserve">
@@ -414,7 +414,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cut" xml:space="preserve">
-    <value>剪切</value>
+    <value>전단</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Default" xml:space="preserve">
@@ -438,7 +438,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Dow" xml:space="preserve">
-    <value>下移</value>
+    <value>아래로 이동</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download" xml:space="preserve">
@@ -470,11 +470,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Encrypt" xml:space="preserve">
-    <value>加密</value>
+    <value>암호화하다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>退出</value>
+    <value>사임하다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Export" xml:space="preserve">
@@ -578,15 +578,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
-    <value>Steam Card Exchange</value>
+    <value>스팀 카드 교환</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
-    <value>SteamDB Info</value>
+    <value>스팀DB 정보</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OpenSteamGridUrl" xml:space="preserve">
-    <value>SteamGrid</value>
+    <value>스팀그리드</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OpenStoreUrl" xml:space="preserve">
@@ -594,7 +594,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OperationSuccess" xml:space="preserve">
-    <value>操作成功</value>
+    <value>작업이 성공했습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_Play" xml:space="preserve">
@@ -690,7 +690,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_Maximize" xml:space="preserve">
-    <value>最大化</value>
+    <value>극대화</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
@@ -730,19 +730,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender" xml:space="preserve">
-    <value>性別</value>
+    <value>성별</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender_Female" xml:space="preserve">
-    <value>女</value>
+    <value>여자</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender_Male" xml:space="preserve">
-    <value>男</value>
+    <value>남자</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender_Unknown" xml:space="preserve">
-    <value>保密</value>
+    <value>비밀</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
@@ -786,7 +786,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth" xml:space="preserve">
-    <value>本地令牌</value>
+    <value>로컬 토큰</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AddAuth" xml:space="preserve">
@@ -818,11 +818,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Cancel" xml:space="preserve">
-    <value>取消交易</value>
+    <value>거래 취소</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
-    <value>取消所有交易</value>
+    <value>모든 거래 취소</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
@@ -838,7 +838,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmCancel" xml:space="preserve">
-    <value>已成功取消所有交易</value>
+    <value>모든 거래가 성공적으로 취소되었습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmError" xml:space="preserve">
@@ -846,11 +846,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmSuccess" xml:space="preserve">
-    <value>已成功同意所有交易</value>
+    <value>모든 거래가 성공적으로 합의되었습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
-    <value>正在{0}所有交易中...</value>
+    <value>모든 거래가 {0}되고 있습니다 ...</value>
     <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
@@ -963,7 +963,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth" xml:space="preserve">
-    <value>令牌加密</value>
+    <value>토큰 암호화</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
@@ -1035,7 +1035,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
-    <value>查看令牌</value>
+    <value>토큰 보기</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
@@ -1144,27 +1144,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Modify" xml:space="preserve">
-    <value>修改</value>
+    <value>복습하다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="More" xml:space="preserve">
-    <value>更多操作</value>
+    <value>추가 작업</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="MoveDown" xml:space="preserve">
-    <value>下移</value>
+    <value>아래로 이동</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="MoveUp" xml:space="preserve">
-    <value>上移</value>
+    <value>위로 이동</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="My" xml:space="preserve">
-    <value>我的</value>
+    <value>내 거에요</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NextStep" xml:space="preserve">
-    <value>下一步</value>
+    <value>다음</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NickName" xml:space="preserve">
@@ -1204,7 +1204,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
-    <value>刷新</value>
+    <value>플러시</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RefreshList" xml:space="preserve">
@@ -1212,11 +1212,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RefreshOK" xml:space="preserve">
-    <value>刷新成功</value>
+    <value>새로 고침 성공</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>保存修改</value>
+    <value>변경 내용 저장</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptConfig" xml:space="preserve">
@@ -1368,7 +1368,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
-    <value>深色</value>
+    <value>어둠</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_Light" xml:space="preserve">
@@ -1408,19 +1408,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Config" xml:space="preserve">
-    <value>配置</value>
+    <value>심성</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Demo" xml:space="preserve">
-    <value>Demo</value>
+    <value>데모</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_DepotOnly" xml:space="preserve">
-    <value>倉庫</value>
+    <value>창고</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_DLC" xml:space="preserve">
-    <value>DLC</value>
+    <value>증권 시세 표시기</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Driver" xml:space="preserve">
@@ -1436,7 +1436,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Guide" xml:space="preserve">
-    <value>指南</value>
+    <value>가이드</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Hardware" xml:space="preserve">
@@ -1464,15 +1464,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Shortcut" xml:space="preserve">
-    <value>快捷方式</value>
+    <value>지름길</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Tool" xml:space="preserve">
-    <value>工具</value>
+    <value>도구</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Unknown" xml:space="preserve">
-    <value>未知</value>
+    <value>알려지지 않은</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Video" xml:space="preserve">
@@ -1492,11 +1492,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Success_" xml:space="preserve">
-    <value>{0}成功</value>
+    <value>{0} 성공</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Toolbox" xml:space="preserve">
-    <value>工具箱</value>
+    <value>도구</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Top" xml:space="preserve">
@@ -1520,7 +1520,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Up" xml:space="preserve">
-    <value>上移</value>
+    <value>위로 이동</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateContent" xml:space="preserve">
@@ -1592,11 +1592,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserProfile_BirthDate" xml:space="preserve">
-    <value>生日</value>
+    <value>생일</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserProfile_Location" xml:space="preserve">
-    <value>所在地</value>
+    <value>위치</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_AccountBind" xml:space="preserve">
@@ -1755,8 +1755,8 @@
     <value>타사 계정의 바인딩을 해제 한 후에는 타사 계정으로 신속하게 로그인 할 수 없으며 바인딩을 해제하는 것이 확실합니까?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="User_UseFastLoginChannel_" xml:space="preserve">
-    <value>使用 {0} 登錄</value>
+  <data name="User_UseExternalLoginChannel_" xml:space="preserve">
+    <value>{0}로 로그인</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_UsePhoneNumLoginChannel" xml:space="preserve">
@@ -1764,7 +1764,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>警告</value>
+    <value>경고하다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Welcome" xml:space="preserve">
@@ -1804,7 +1804,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cancelled" xml:space="preserve">
-    <value>已取消</value>
+    <value>취소</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Confirmed" xml:space="preserve">
@@ -1836,7 +1836,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RememberChooseNotToAskAgain" xml:space="preserve">
-    <value>不再提醒</value>
+    <value>더 이상 미리 알림 없음</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown" xml:space="preserve">
@@ -1888,7 +1888,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_Calcing" xml:space="preserve">
-    <value>計算中...</value>
+    <value>계산...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
@@ -1968,7 +1968,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Helper" xml:space="preserve">
-    <value>説明</value>
+    <value>도움말</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
@@ -1976,7 +1976,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>重置</value>
+    <value>재설정</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_SelectImage" xml:space="preserve">
@@ -2056,11 +2056,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdate" xml:space="preserve">
-    <value>新版本更新</value>
+    <value>새 버전 업데이트</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>{1} v{0} 版本更新</value>
+    <value>{1} v{0} 버전 업데이트</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
@@ -2068,7 +2068,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
-    <value>新版本通知</value>
+    <value>새 버전 알림</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
@@ -2117,7 +2117,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
-    <value>添加成功</value>
+    <value>성공적으로 추가됨</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
@@ -2165,11 +2165,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
-    <value>已使用</value>
+    <value>사용</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
-    <value>未使用</value>
+    <value>사용되지 않음</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Start" xml:space="preserve">
@@ -2177,15 +2177,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Stop" xml:space="preserve">
-    <value>停止 ASF</value>
+    <value>ASF 중지</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AddBot" xml:space="preserve">
-    <value>新增 Bot</value>
+    <value>봇 추가</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RefreshBot" xml:space="preserve">
-    <value>刷新 Bot</value>
+    <value>봇 새로 고침</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_OpenWebUIConsole" xml:space="preserve">
@@ -2193,15 +2193,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Console" xml:space="preserve">
-    <value>ASF 控制台</value>
+    <value>ASF 콘솔</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_BotManage" xml:space="preserve">
-    <value>Bot 配置</value>
+    <value>봇 구성</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_GlobalConfig" xml:space="preserve">
-    <value>ASF 配置</value>
+    <value>ASF 구성</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_VersionNum" xml:space="preserve">
@@ -2253,7 +2253,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Disable" xml:space="preserve">
-    <value>禁用</value>
+    <value>비활성화</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Offline" xml:space="preserve">
@@ -2273,7 +2273,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
-    <value>令牌</value>
+    <value>토큰</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput_Login" xml:space="preserve">
@@ -2329,7 +2329,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
-    <value>Socks5 本地代理</value>
+    <value>Socks5 로컬 프록시</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
@@ -2361,7 +2361,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseOpenGL" xml:space="preserve">
-    <value>使用 OpenGL 渲染</value>
+    <value>OpenGL 렌더링 사용</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download_ScriptError_" xml:space="preserve">
@@ -2397,11 +2397,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate" xml:space="preserve">
-    <value>捐助</value>
+    <value>기부</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateType" xml:space="preserve">
-    <value>捐助方式</value>
+    <value>기부 양식</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateRecord" xml:space="preserve">
@@ -2481,11 +2481,11 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Sleep" xml:space="preserve">
-    <value>睡眠</value>
+    <value>자다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hibernate" xml:space="preserve">
-    <value>休眠</value>
+    <value>휴면</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Shutdown" xml:space="preserve">
@@ -2678,7 +2678,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_Message" xml:space="preserve">
-    <value>消息通知</value>
+    <value>메시지 알림</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="StopService" xml:space="preserve">
@@ -2706,7 +2706,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_ShareDisableBtn" xml:space="preserve">
-    <value>禁用</value>
+    <value>비활성화</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_ShareEnableBtn" xml:space="preserve">
@@ -2758,7 +2758,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>保存</value>
+    <value>구해내다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_DNSIntercept" xml:space="preserve">
@@ -2770,7 +2770,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_VPN" xml:space="preserve">
-    <value>VPN 代理模式</value>
+    <value>VPN 프록시 모드</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CustomFilePicker_Tip" xml:space="preserve">
@@ -2818,7 +2818,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamGridDBTitle" xml:space="preserve">
-    <value>SteamGridDB Image</value>
+    <value>스팀그리드DB 이미지</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
@@ -2842,7 +2842,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Background" xml:space="preserve">
-    <value>背景</value>
+    <value>배경</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Icon" xml:space="preserve">
@@ -2898,11 +2898,11 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ResetAll" xml:space="preserve">
-    <value>重置全部</value>
+    <value>모두 재설정</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
-    <value>保存全部更改到 Steam</value>
+    <value>모든 변경 사항을 Steam에 저장하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
@@ -2970,11 +2970,11 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SignIn_Ok" xml:space="preserve">
-    <value>체크인 성공</value>
+    <value>체크인에 성공했습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_PAC" xml:space="preserve">
-    <value>PAC 代理模式</value>
+    <value>PAC 프록시 모드입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenInBrowser" xml:space="preserve">
@@ -2982,7 +2982,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Notice_Tray_Title" xml:space="preserve">
-    <value>消息提示</value>
+    <value>메시지 프롬프트입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Notice_Tray_Content" xml:space="preserve">
@@ -2994,7 +2994,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_FormerName" xml:space="preserve">
-    <value>原名</value>
+    <value>원래 이름입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileSize" xml:space="preserve">
@@ -3062,11 +3062,11 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadFlow" xml:space="preserve">
-    <value>上行流量</value>
+    <value>업스트림 트래픽입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadFlow" xml:space="preserve">
-    <value>下行流量</value>
+    <value>다운스트림 트래픽입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadAndInstall" xml:space="preserve">
@@ -3130,11 +3130,11 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
-    <value>使用 WinHttpHandler</value>
+    <value>WinHttpHandler를 사용합니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Error" xml:space="preserve">
     <value>오류</value>
-    <comment>Comment=;Author=baidu</comment>
+    <comment>Comment=;Author=deepl</comment>
   </data>
 </root>
