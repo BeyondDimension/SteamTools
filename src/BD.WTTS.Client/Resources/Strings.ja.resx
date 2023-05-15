@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Off" xml:space="preserve">
-    <value>关</value>
+    <value>オフ</value>
   </data>
   <data name="On" xml:space="preserve">
-    <value>开</value>
+    <value>展開する</value>
   </data>
   <data name="About" xml:space="preserve">
     <value>について</value>
@@ -613,7 +613,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Steam Card Exchange</value>
   </data>
   <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
-    <value>SteamDB Info</value>
+    <value>SteamDBInfo から</value>
   </data>
   <data name="GameList_OpenSteamGridUrl" xml:space="preserve">
     <value>SteamGrid</value>
@@ -733,7 +733,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>女性</value>
   </data>
   <data name="Gender_Male" xml:space="preserve">
-    <value>男</value>
+    <value>男性</value>
   </data>
   <data name="Gender_Unknown" xml:space="preserve">
     <value>秘密にしてください</value>
@@ -1041,7 +1041,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>ロックします</value>
   </data>
   <data name="Sleep" xml:space="preserve">
-    <value>睡眠</value>
+    <value>スリープ</value>
   </data>
   <data name="Hibernate" xml:space="preserve">
     <value>休止状態</value>
@@ -1237,7 +1237,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Steam の起動時にトレイに最小化します</value>
   </data>
   <data name="Settings_Steam_RunSteamChina" xml:space="preserve">
-    <value>Steam 启动时模拟为蒸汽平台（Steam 国服）启动</value>
+    <value>Steam起動用のSteamプラットフォームである「Steamサーバー」にエミュレート起動する</value>
   </data>
   <data name="Settings_Steam_RuningAdmin" xml:space="preserve">
     <value>管理者権限で Steam を実行します</value>
@@ -1261,10 +1261,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>インターフェイスの設定</value>
   </data>
   <data name="Settings_UI_BackgroundOpacity" xml:space="preserve">
-    <value>背景不透明度</value>
+    <value>背景の透明度</value>
   </data>
   <data name="Settings_UI_BackgroundImageOpacity" xml:space="preserve">
-    <value>背景图片不透明度</value>
+    <value>背景画像の透過度</value>
   </data>
   <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
     <value>動的なデスクトップの背景を使用します</value>
@@ -1313,13 +1313,13 @@ AAAAA-BBBBB-CCCC3</value>
     <value>構成</value>
   </data>
   <data name="SteamAppType_Demo" xml:space="preserve">
-    <value>Demo</value>
+    <value>Deemoo</value>
   </data>
   <data name="SteamAppType_DepotOnly" xml:space="preserve">
     <value>倉庫</value>
   </data>
   <data name="SteamAppType_DLC" xml:space="preserve">
-    <value>DLC</value>
+    <value>DLLC</value>
   </data>
   <data name="SteamAppType_Driver" xml:space="preserve">
     <value>駆動</value>
@@ -1471,7 +1471,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>誕生日</value>
   </data>
   <data name="UserProfile_Location" xml:space="preserve">
-    <value>所在地</value>
+    <value>場所</value>
   </data>
   <data name="User_AccountBind" xml:space="preserve">
     <value>アカウント バインディング</value>
@@ -1602,7 +1602,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>携帯電話番号でサインインします</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>警告</value>
+    <value>注意</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>開始ページ</value>
@@ -1736,7 +1736,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Steam ログインユーザー:</value>
   </data>
   <data name="Steam_ServerTime" xml:space="preserve">
-    <value>Steam 服务端时间：</value>
+    <value>Steam サーバー時間：</value>
   </data>
   <data name="Steam_SteamChina" xml:space="preserve">
     <value>スチームの国服</value>
@@ -2227,7 +2227,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>縦書きのカバー</value>
   </data>
   <data name="Background" xml:space="preserve">
-    <value>背景</value>
+    <value>バックグラウンド</value>
   </data>
   <data name="Icon" xml:space="preserve">
     <value>アイコン</value>
@@ -2408,18 +2408,18 @@ AAAAA-BBBBB-CCCC3</value>
     <value>エラー</value>
   </data>
   <data name="Error_BaseDir_StartsWith_Temp" xml:space="preserve">
-    <value>不能在临时文件夹中运行此程序，请将所有文件复制或解压到其他路径后再启动程序</value>
+    <value>このプログラムは一時フォルダーでは実行できません。すべてのファイルを他のパスにコピーまたは展開してから開始してください。</value>
   </data>
   <data name="Error_Lower_Than_Windows10_1607" xml:space="preserve">
-    <value>对于 Windows 10 操作系统最低需要 version 1607(10.0.14393)</value>
+    <value>Windows 10 OS の最小サイズについては 1607(10.0.14393) が必要です。</value>
   </data>
   <data name="MacTrustRootCertificateTips" xml:space="preserve">
-    <value>请在弹出的控制台窗口输入系统密码以安装信任证书，信任完成后点击确定按钮继续</value>
+    <value>出動したコンソールウィンドウにシステムのパスワードを入力して、信頼の証明書をインストールしてください。信頼が完了したらボタンを押して続行してください。</value>
   </data>
   <data name="Error_IncompatibleOS" xml:space="preserve">
-    <value>此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本</value>
+    <value>このアプリケーションは、Windows 11またはWindows 10 バージョン 1809(OS 内部バージョン17763)以降のみ互換性があります。</value>
   </data>
   <data name="CommunityFix_OnRunCatch" xml:space="preserve">
-    <value>启动网络加速失败</value>
+    <value>ネットワークアクセラレーションの開始に失敗しました</value>
   </data>
 </root>
