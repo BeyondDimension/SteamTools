@@ -1,3 +1,7 @@
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Platform;
+
 namespace BD.WTTS.UI.Views.Windows;
 
 /// <summary>
@@ -11,6 +15,9 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
 {
     public static readonly StyledProperty<TViewModel?> ViewModelProperty = AvaloniaProperty
         .Register<ReactiveAppWindow<TViewModel>, TViewModel?>(nameof(ViewModel));
+
+    public static readonly StyledProperty<bool> IsSaveWindowSizeProperty = AvaloniaProperty
+        .Register<ReactiveAppWindow<TViewModel>, bool>(nameof(IsSaveWindowSize), true);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReactiveAppWindow{TViewModel}"/> class.
@@ -35,6 +42,15 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
         TransparencyBackgroundFallback = Brushes.Transparent;
         TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
 
+        if (IsSaveWindowSize)
+        {
+            var windowName = GetType().Name;
+            if (UISettings.WindowSizePositions.Value?.ContainsKey(windowName) == true)
+            {
+                SizePosition = UISettings.WindowSizePositions.Value[windowName];
+            }
+        }
+
         //this.GetObservable(TransparencyLevelHintProperty)
         //    .Subscribe(x =>
         //    {
@@ -48,6 +64,14 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
         //    PseudoClasses.Set(":image", e.NewValue);
         //};
         //UISettings.EnableCustomBackgroundImage.RaiseValueChanged();
+    }
+
+    SizePosition? SizePosition { get; set; }
+
+    public bool IsSaveWindowSize
+    {
+        get => GetValue(IsSaveWindowSizeProperty);
+        set => SetValue(IsSaveWindowSizeProperty, value);
     }
 
     /// <summary>
@@ -87,5 +111,70 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
         {
             DataContext = value;
         }
+    }
+
+    public override void Show()
+    {
+        if (IsSaveWindowSize && SizePosition != null)
+        {
+            var screen = Screens.ScreenFromPoint(Position);
+            if (screen != null)
+            {
+                var primaryScreenBounds = screen.Bounds;
+
+                if (CanResize)
+                {
+                    if (SizePosition.Width > 0 &&
+                        primaryScreenBounds.Width >= SizePosition.Width)
+                        Width = SizePosition.Width;
+
+                    if (SizePosition.Height > 0 &&
+                        primaryScreenBounds.Height >= SizePosition.Height)
+                        Height = SizePosition.Height;
+
+                    if (SizePosition.X > 0 && SizePosition.Y > 0)
+                    {
+                        var leftTopPoint = new PixelPoint(SizePosition.X, SizePosition.Y);
+                        var rightBottomPoint = new PixelPoint(SizePosition.X + (int)Width, SizePosition.Y + (int)Height);
+                        if (primaryScreenBounds.Contains(leftTopPoint) &&
+                           primaryScreenBounds.Contains(rightBottomPoint))
+                        {
+                            Position = leftTopPoint;
+                            WindowStartupLocation = WindowStartupLocation.Manual;
+                        }
+                    }
+                }
+            }
+        }
+        base.Show();
+    }
+
+    //protected override void OnOpened(EventArgs e)
+    //{
+    //    base.OnOpened(e);
+    //}
+
+    protected override void OnClosing(WindowClosingEventArgs e)
+    {
+        base.OnClosing(e);
+
+        if (IsSaveWindowSize && WindowState == WindowState.Normal)
+        {
+            SizePosition ??= new SizePosition();
+            SizePosition.X = Position.X;
+            SizePosition.Y = Position.Y;
+            SizePosition.Width = ClientSize.Width;
+            SizePosition.Height = ClientSize.Height;
+
+            UISettings.WindowSizePositions.Value!.AddOrUpdate(GetType().Name, SizePosition, (s, e) => SizePosition);
+            UISettings.WindowSizePositions.RaiseValueChanged();
+        }
+    }
+
+    protected override void OnClosed(EventArgs e)
+    {
+        base.OnClosed(e);
+        if (DataContext is IDisposable disposable)
+            disposable.Dispose();
     }
 }

@@ -19,7 +19,7 @@ public sealed partial class UISettings : SettingsHost2<UISettings>
     /// 不再提示的消息框数组
     /// </summary>
     public static SerializableProperty<HashSet<MessageBox.DontPromptType>?> DoNotShowMessageBoxs { get; }
-        = GetProperty<HashSet<MessageBox.DontPromptType>?>(defaultValue: null, autoSave: false);
+        = GetProperty<HashSet<MessageBox.DontPromptType>?>(defaultValue: null, autoSave: true);
 
     /// <summary>
     /// 是否显示广告
@@ -29,13 +29,13 @@ public sealed partial class UISettings : SettingsHost2<UISettings>
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 
-    static readonly SerializableProperty<ConcurrentDictionary<string, SizePosition>?>? _WindowSizePositions = IApplication.IsDesktop() ?
-      GetProperty<ConcurrentDictionary<string, SizePosition>?>(defaultValue: null, autoSave: false) : null;
+    static readonly SerializableProperty<ConcurrentDictionary<string, SizePosition>>? _WindowSizePositions = IApplication.IsDesktop() ?
+      GetProperty(defaultValue: new ConcurrentDictionary<string, SizePosition>(), autoSave: true) : null;
 
     /// <summary>
     /// 所有窗口位置记忆字典集合
     /// </summary>
-    public static SerializableProperty<ConcurrentDictionary<string, SizePosition>?> WindowSizePositions => _WindowSizePositions ?? throw new PlatformNotSupportedException();
+    public static SerializableProperty<ConcurrentDictionary<string, SizePosition>> WindowSizePositions => _WindowSizePositions ?? throw new PlatformNotSupportedException();
 
     static readonly SerializableProperty<string> _FontName = GetProperty(defaultValue: IFontManager.KEY_Default);
 

@@ -7,12 +7,60 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
     public MainWindow()
     {
         InitializeComponent();
-        SplashScreen = new AppSplashScreen();
+        if (!AppSplashScreen.IsInitialized)
+            SplashScreen = new AppSplashScreen();
+        else
+            DataContext = GetMainWinodwViewModel();
+    }
+
+    //protected override void OnClosing(WindowClosingEventArgs e)
+    //{
+    //    if (GeneralSettings.IsEnableTrayIcon.Value)
+    //    {
+    //        e.Cancel = true;
+    //        Hide();
+    //    }
+    //    base.OnClosing(e);
+    //}
+
+    public static MainWindowViewModel GetMainWinodwViewModel()
+    {
+#pragma warning disable SA1114 // Parameter list should follow declaration
+        return new MainWindowViewModel(new TabItemViewModel[]
+        {
+                 new MenuTabItemViewModel()
+                 {
+                    ResourceKeyOrName = "Welcome",
+                    PageType = typeof(HomePage),
+                    IsResourceGet = true,
+                    IconKey = "Home",
+                 },
+        }, ImmutableArray.Create<TabItemViewModel>(
+#if DEBUG
+            new MenuTabItemViewModel()
+            {
+                ResourceKeyOrName = "Debug",
+                PageType = typeof(DebugPage),
+                IsResourceGet = false,
+                IconKey = "Bug",
+            },
+#endif
+            new MenuTabItemViewModel()
+            {
+                ResourceKeyOrName = "Settings",
+                PageType = typeof(SettingsPage),
+                IsResourceGet = true,
+                IconKey = "Settings",
+            }
+        ));
+#pragma warning restore SA1114 // Parameter list should follow declaration
     }
 }
 
 public sealed class AppSplashScreen : IApplicationSplashScreen
 {
+    public static bool IsInitialized = false;
+
     public AppSplashScreen()
     {
         SplashScreenContent = new SplashScreen();
@@ -59,35 +107,7 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
              var mainWindow = App.Instance.MainWindow;
              mainWindow.ThrowIsNull();
 
-#pragma warning disable SA1114 // Parameter list should follow declaration
-             var mainWindowVM = new MainWindowViewModel(new TabItemViewModel[]
-             {
-                 new MenuTabItemViewModel()
-                 {
-                    ResourceKeyOrName = "Welcome",
-                    PageType = typeof(HomePage),
-                    IsResourceGet = true,
-                    IconKey = "Home",
-                 },
-             }, ImmutableArray.Create<TabItemViewModel>(
-#if DEBUG
-                 new MenuTabItemViewModel()
-                 {
-                     ResourceKeyOrName = "Debug",
-                     PageType = typeof(DebugPage),
-                     IsResourceGet = false,
-                     IconKey = "Bug",
-                 },
-#endif   
-                 new MenuTabItemViewModel()
-                 {
-                     ResourceKeyOrName = "Settings",
-                     PageType = typeof(SettingsPage),
-                     IsResourceGet = true,
-                     IconKey = "Settings",
-                 }
-             ));
-#pragma warning restore SA1114 // Parameter list should follow declaration
+             var mainWindowVM = MainWindow.GetMainWinodwViewModel();
 
              Dispatcher.UIThread.Post(() =>
              {
@@ -103,6 +123,7 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 #endif
              s.OnStartup();
              await mainWindowVM!.Initialize();
-         });
+             IsInitialized = true;
+         }, cancellationToken: token);
     }
 }

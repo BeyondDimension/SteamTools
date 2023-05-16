@@ -116,11 +116,11 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                  }
 #endif
 
-                 Parallel.ForEach(TabItems, item =>
-                 {
-                     item.Initialize();
-                     //Task.Run(item.Initialize).ForgetAndDispose();
-                 });
+                 //Parallel.ForEach(TabItems, item =>
+                 //{
+                 //    item.Initialize();
+                 //    //Task.Run(item.Initialize).ForgetAndDispose();
+                 //});
                  IsInitialized = true;
              }
          });

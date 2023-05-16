@@ -19,14 +19,16 @@ partial class App : IApplication
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             mainWindow = desktop.MainWindow;
-            if (mainWindow == null)
+            if (mainWindow == null || mainWindow.PlatformImpl == null)
             {
-                //mainWindow = MainWindow;
-                //desktop.MainWindow = MainWindow;
+                if (mainWindow != null)
+                {
+                    (mainWindow.DataContext as IDisposable)?.Dispose();
+                    (mainWindow as IDisposable)?.Dispose();
+                    MainWindow = desktop.MainWindow = null;
+                }
                 mainWindow = MainWindow = desktop.MainWindow = new MainWindow();
-                //mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
             }
-
         }
 
         if (mainWindow == null)
@@ -44,7 +46,8 @@ partial class App : IApplication
             goto ReTry;
         }
 
-        mainWindow.WindowState = WindowState.Normal;
+        if (mainWindow.WindowState == WindowState.Minimized)
+            mainWindow.WindowState = WindowState.Normal;
         mainWindow.Topmost = true;
         mainWindow.Topmost = false;
         mainWindow.BringIntoView();
