@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<AssemblyName>Steam++</AssemblyName>
@@ -37,6 +37,7 @@
 
 	<ItemGroup>
 	  <None Remove="UI\Assets\avatar.jpg" />
+	  <None Remove="UI\Assets\mona-loading-default.gif" />
 	</ItemGroup>
 
 	<ItemGroup>

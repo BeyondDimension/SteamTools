@@ -50,7 +50,7 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                 break;
             case "window":
                 ContentWindowViewModel vm = new() { PageViewModel = new SettingsPageViewModel { } };
-                await IWindowManager.Instance.ShowAsync(AppEndPoint.Content, vm);
+                await IWindowManager.Instance.ShowAsync(AppEndPoint.Content, vm, isParent: false);
                 break;
             case "asm":
                 DebugString = string.Join(Environment.NewLine, AppDomain.CurrentDomain.GetAssemblies().Select(x => x.FullName).OrderBy(x => x));

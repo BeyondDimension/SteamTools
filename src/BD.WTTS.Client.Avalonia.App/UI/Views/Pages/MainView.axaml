@@ -13,9 +13,6 @@
     x:CompileBindings="True"
     x:DataType="spp:MainWindowViewModel"
     mc:Ignorable="d">
-	<Design.DataContext>
-		<spp:MainWindowViewModel/>
-	</Design.DataContext>
 	<UserControl.Styles>
 		<Style Selector="ui|NavigationView.AppNav">
 			<Setter Property="IsPaneToggleButtonVisible" Value="False" />

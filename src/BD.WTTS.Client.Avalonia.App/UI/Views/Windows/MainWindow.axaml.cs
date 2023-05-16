@@ -11,6 +11,11 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
             SplashScreen = new AppSplashScreen();
         else
             DataContext = GetMainWinodwViewModel();
+
+#if DEBUG
+        if (Design.IsDesignMode)
+            Design.SetDataContext(this, MainWindow.GetMainWinodwViewModel());
+#endif
     }
 
     //protected override void OnClosing(WindowClosingEventArgs e)

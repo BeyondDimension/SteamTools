@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BD.WTTS.UI.Views.Pages.ErrorPage">
-	<Grid>
-		<TextBlock Text="发生了一些错误..." 
-				   VerticalAlignment="Center" 
-				   HorizontalAlignment="Center"/>
-	</Grid>
+	<Panel>
+		<Image Source="/UI/Assets/back.png"
+			   Stretch="UniformToFill"/>
+		<TextBlock Text="发生了一些错误，无法打开此页面" 
+				   FontSize="16"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Center"/>
+	</Panel>
 </UserControl>
