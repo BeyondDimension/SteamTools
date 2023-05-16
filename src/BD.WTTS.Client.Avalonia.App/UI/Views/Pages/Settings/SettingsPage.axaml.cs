@@ -7,6 +7,6 @@ public partial class SettingsPage : ReactiveUserControl<SettingsPageViewModel>
     public SettingsPage()
     {
         InitializeComponent();
-        DataContext = new SettingsPageViewModel();
+        DataContext = IViewModelManager.Instance.Get<SettingsPageViewModel>();
     }
 }

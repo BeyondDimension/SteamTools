@@ -62,9 +62,9 @@
 	<ItemGroup>
 		<PackageReference Include="Avalonia" />
 		<PackageReference Include="Avalonia.ReactiveUI" />
-		<PackageReference Include="Avalonia.Controls.DataGrid" />
+		<!--<PackageReference Include="Avalonia.Controls.DataGrid" />-->
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />
-		<PackageReference Include="Avalonia.AvaloniaEdit" />
+		<!--<PackageReference Include="Avalonia.AvaloniaEdit" />-->
 		<PackageReference Include="FluentAvaloniaUI" />
 	</ItemGroup>
 

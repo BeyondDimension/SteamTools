@@ -1,3 +1,5 @@
+using BD.WTTS.UI.Views;
+
 namespace BD.WTTS.Plugins;
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
@@ -14,7 +16,7 @@ sealed class Plugin : PluginBase<Plugin>, ISteamAccountSettings
         yield return new MenuTabItemViewModel()
         {
             ResourceKeyOrName = "UserFastChange",
-            PageType = null,
+            PageType = typeof(GameAccountPage),
             IsResourceGet = true,
             IconKey = "SwitchUser",
         };

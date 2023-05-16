@@ -5,8 +5,6 @@ namespace BD.WTTS.UI.ViewModels;
 [MP2Obj]
 public sealed partial class AboutPageViewModel : TabItemViewModel
 {
-    public static AboutPageViewModel Instance => IViewModelManager.Instance.Get<AboutPageViewModel>();
-
     protected override bool IsSingleInstance => true;
 
     public override string Name => Strings.About;

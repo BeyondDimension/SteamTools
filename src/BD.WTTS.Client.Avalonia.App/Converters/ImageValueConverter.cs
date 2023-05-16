@@ -189,9 +189,8 @@ public abstract class ImageValueConverter : IValueConverter
 
     protected static Stream? OpenAssets(Uri uri)
     {
-        var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-        if (assets == null) return null;
-        if (assets.Exists(uri)) return assets.Open(uri);
+        if (AssetLoader.Exists(uri))
+            return AssetLoader.Open(uri);
         return null;
     }
 
