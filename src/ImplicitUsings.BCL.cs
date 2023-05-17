@@ -54,10 +54,12 @@ global using System.Security.Claims;
 global using System.Security.Cryptography;
 global using System.Security.Principal;
 global using System.Text;
-#if !NETFRAMEWORK && !APP_HOST
+#if !NETFRAMEWORK && !APP_HOST && !__NOT_HAVE_S_JSON__
 global using System.Text.Encodings.Web;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
+global using System.Text.Json.Nodes;
+global using System.Text.Json.Serialization.Metadata;
 global using System.Text.Unicode;
 #endif
 global using System.Text.RegularExpressions;

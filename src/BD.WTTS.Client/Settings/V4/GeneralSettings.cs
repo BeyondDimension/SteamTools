@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization.Metadata;
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings;
 

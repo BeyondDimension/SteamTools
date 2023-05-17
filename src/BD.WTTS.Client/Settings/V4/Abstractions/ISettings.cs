@@ -1,10 +1,7 @@
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization.Metadata;
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
 
-public interface ISettings : IReactiveObject
+public interface ISettings
 {
     static readonly MethodInfo TrySaveMethod;
 
@@ -50,7 +47,7 @@ public interface ISettings : IReactiveObject
     {
         try
         {
-            var optionsType = typeof(IOptions<>).MakeGenericType(type);
+            var optionsType = typeof(IOptionsMonitor<>).MakeGenericType(type);
             var options = Ioc.Get_Nullable(optionsType);
             if (options != null)
                 TrySaveMethod.MakeGenericMethod(type).Invoke(null, new[] { options });
@@ -159,7 +156,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
             settings.Save_____(fs);
         }
 
-        builder.AddJsonFile(settingsFilePath);
+        builder.AddJsonFile(settingsFilePath, true, true);
 
         return (configuration, services) =>
         {
@@ -204,9 +201,9 @@ internal static class SettingsExtensions
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void TrySave_____<TSettings>(IOptions<TSettings> options) where TSettings : class, ISettings
+    public static void TrySave_____<TSettings>(IOptionsMonitor<TSettings> optionsMonitor) where TSettings : class, ISettings
     {
-        var settings = options.Value;
+        var settings = optionsMonitor.CurrentValue;
         var settingsFilePath = ISettings.GetFilePath(TSettings.Name);
         try
         {
