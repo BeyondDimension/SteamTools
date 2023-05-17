@@ -22,7 +22,7 @@
 //        }
 //        else
 //        {
-//            iconPath = "avares://BD.WTTS.Client.Avalonia.App/Application/UI/Assets/ApplicationIcon.ico";
+//            iconPath = "avares://BD.WTTS.Client.Avalonia/Application/UI/Assets/ApplicationIcon.ico";
 //        }
 
 //        try

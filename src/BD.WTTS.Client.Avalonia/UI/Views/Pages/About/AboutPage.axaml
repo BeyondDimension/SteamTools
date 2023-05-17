@@ -17,7 +17,7 @@
 								Description="{Binding Copyright}"
 								Expands="True">
 			<spp:OptionsDisplayItem.Icon>
-				<ui:BitmapIcon UriSource="avares://Steam++/UI/Assets/ApplicationIcon.ico"/>
+				<ui:BitmapIcon UriSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico"/>
 			</spp:OptionsDisplayItem.Icon>
 			<spp:OptionsDisplayItem.ActionButton>
 				<TextBlock Text="{Binding VersionDisplay}"

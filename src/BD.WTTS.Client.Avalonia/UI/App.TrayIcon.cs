@@ -25,7 +25,7 @@ partial class App
                 TrayIcon.SetIcons(this, TrayIcons);
                 TrayIcons.Add(new TrayIcon
                 {
-                    Icon = new WindowIcon(AssetLoader.Open(new Uri("avares://Steam++/UI/Assets/ApplicationIcon.ico"))),
+                    Icon = new WindowIcon(AssetLoader.Open(new Uri("avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico"))),
                     ToolTipText = AssemblyInfo.Trademark,
                     Command = ReactiveCommand.Create(RestoreMainWindow),
                     //[!TrayIcon.IsVisibleProperty] = new Binding { Path = "Value", Source = GeneralSettings.IsEnableTrayIcon, Mode = BindingMode.OneWay },

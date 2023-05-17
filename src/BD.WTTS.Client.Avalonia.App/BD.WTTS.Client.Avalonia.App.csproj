@@ -32,11 +32,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<AvaloniaResource Include="UI\Assets\**\*" />
-		<None Remove="UI\Assets\**\*" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>

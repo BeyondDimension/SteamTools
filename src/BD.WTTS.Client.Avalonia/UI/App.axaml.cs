@@ -119,7 +119,7 @@ public sealed partial class App : Application
         return false;
     }
 
-    internal void InitSettingSubscribe()
+    public void InitSettingSubscribe()
     {
         GeneralSettings.IsEnableTrayIcon.Subscribe(x => InitTrayIcon());
         UISettings.ThemeAccent.Subscribe(SetThemeAccent);
