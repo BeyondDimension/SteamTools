@@ -7,7 +7,6 @@
 
 	<ItemGroup>
 		<AvaloniaResource Include="UI\Assets\**\*" />
-		<None Remove="UI\Assets\**\*" />
 	</ItemGroup>
 
 	<ItemGroup>

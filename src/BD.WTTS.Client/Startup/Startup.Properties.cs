@@ -54,7 +54,20 @@ partial class Startup // Properties
 
     public object? App { private get; set; }
 
+    /// <summary>
+    /// 当前读取的应用配置
+    /// </summary>
     public IConfigurationRoot Configuration { get; private set; } = null!;
+
+    /// <summary>
+    /// 是否存在无效的配置项
+    /// </summary>
+    public bool InvalidConfiguration { get; private set; }
+
+    /// <summary>
+    /// 存在无效的配置项的文件名，有可能存在无效配置，但没有识别到无效的配置文件名
+    /// </summary>
+    public string? InvalidConfigurationFileName { get; private set; }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     async ValueTask DisposeAppAsync()

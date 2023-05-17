@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Converters;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization.Metadata;
 
@@ -78,7 +77,7 @@ public interface ISettings : IReactiveObject
         }
     }
 
-    public static JsonSerializerOptions GetDefaultOptions()
+    static JsonSerializerOptions GetDefaultOptions()
     {
         var o = new JsonSerializerOptions()
         {
@@ -90,6 +89,30 @@ public interface ISettings : IReactiveObject
         };
         o.Converters.Add(new JsonStringEnumConverter());
         return o;
+    }
+
+    /// <summary>
+    /// 使用默认配置 Build Configuration
+    /// </summary>
+    /// <returns></returns>
+    static IConfigurationRoot DefaultBuild()
+    {
+        ConfigurationBuilder builder = new();
+
+        var saveMethod = typeof(SettingsExtensions).GetMethod(nameof(SettingsExtensions.Save_____));
+        saveMethod.ThrowIsNull();
+
+        foreach (var type in types)
+        {
+            var settings = Activator.CreateInstance(type);
+            var memoryStream = new MemoryStream();
+            saveMethod.MakeGenericMethod(type)
+                .Invoke(null, new object?[] { settings, memoryStream });
+            memoryStream.Position = 0;
+            builder.AddJsonStream(memoryStream);
+        }
+
+        return builder.Build();
     }
 }
 
@@ -133,7 +156,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
         {
             using var fs = File.Create(settingsFilePath);
             var settings = new TSettings();
-            settings.Save(fs);
+            settings.Save_____(fs);
         }
 
         builder.AddJsonFile(settingsFilePath);
@@ -145,7 +168,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
     }
 }
 
-public static class SettingsExtensions
+internal static class SettingsExtensions
 {
     /// <summary>
     /// 将实例序列化为字符串
@@ -167,8 +190,8 @@ public static class SettingsExtensions
     public static void Serialize<TSettings>(this TSettings settings, Stream utf8Json) where TSettings : ISettings
         => JsonSerializer.Serialize(utf8Json, settings, typeof(TSettings), TSettings.JsonSerializerContext);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void Save<TSettings>(this TSettings settings, Stream utf8Json) where TSettings : ISettings
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void Save_____<TSettings>(this TSettings settings, Stream utf8Json) where TSettings : ISettings
     {
         utf8Json.Position = 0;
         utf8Json.Write("{\""u8);
@@ -203,6 +226,6 @@ public static class SettingsExtensions
         }
 
         using var fs = File.Open(settingsFilePath, FileMode.OpenOrCreate);
-        Save(settings, fs);
+        Save_____(settings, fs);
     }
 }
