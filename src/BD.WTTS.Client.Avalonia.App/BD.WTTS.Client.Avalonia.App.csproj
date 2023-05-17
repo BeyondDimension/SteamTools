@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<AssemblyName>Steam++</AssemblyName>
@@ -33,6 +33,7 @@
 
 	<ItemGroup>
 		<AvaloniaResource Include="UI\Assets\**\*" />
+		<None Remove="UI\Assets\**\*" />
 	</ItemGroup>
 
 	<ItemGroup>
