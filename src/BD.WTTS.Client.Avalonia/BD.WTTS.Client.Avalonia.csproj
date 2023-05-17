@@ -1,0 +1,119 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>BD.WTTS</RootNamespace>
+		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AvaloniaResource Include="UI\Assets\**\*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\ImplicitUsings.MessagePack.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.JsonProperty.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.SQLite.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Repositories.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Services.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.ReactiveUI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Models.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.ViewModels.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Settings.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.AutoMapper.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.WTTS.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.MSEX.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Nito.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.NLog.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Avalonia.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.Views.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BD.Common" />
+		<PackageReference Include="BD.Common.Primitives" />
+		<PackageReference Include="BD.Common.Essentials" />
+		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Avalonia.ReactiveUI" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" />
+		<PackageReference Include="Avalonia.Xaml.Behaviors" />
+		<PackageReference Include="Avalonia.AvaloniaEdit" />
+		<PackageReference Include="FluentAvaloniaUI" />
+		<!--<PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />-->
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+		<!--ProjectReference Include="..\Avalonia.Themes.Default\Avalonia.Themes.Default.csproj" />
+		<ProjectReference Include="..\Avalonia.Themes.Fluent\Avalonia.Themes.Fluent.csproj" />-->
+		<ProjectReference Include="..\Avalonia.Desktop\Avalonia.Desktop.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<!-- Windows Only -->
+		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
+		<ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
+		<PackageReference Include="Aigio.Avalonia.AppCenter" />
+		<PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
+		<PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
+		<PackageReference Include="Avalonia.Win32" />
+		<PackageReference Include="BD.Common.Essentials.Maui.Runtime" />
+		<PackageReference Include="JumpLists.Win32.Avalonia" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
+		<!-- iOS/macOS/MacCatalyst Only -->
+		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
+		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
+		<PackageReference Include="Avalonia.Native" />
+		<PackageReference Include="BD.Common.Essentials.Maui.Runtime" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
+		<!-- Linux Only -->
+		<ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
+		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
+		<PackageReference Include="Avalonia.X11" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />
+
+</Project>
+
