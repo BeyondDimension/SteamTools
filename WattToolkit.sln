@@ -167,9 +167,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Avalonia", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.Tools", "6.Tools", "{D6C8A54D-878F-44A9-857F-6ED01491C7BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Designer.HostApp", "BD.WTTS.Designer.HostApp\BD.WTTS.Designer.HostApp.csproj", "{80D023EB-F7BE-40D5-95B4-2831C1CABC35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Designer.HostApp", "src\BD.WTTS.Designer.HostApp\BD.WTTS.Designer.HostApp.csproj", "{80D023EB-F7BE-40D5-95B4-2831C1CABC35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Generators", "BD.WTTS.Generators\BD.WTTS.Generators.csproj", "{87282597-7AF9-4904-8DEF-2122335CB87C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Generators", "src\BD.WTTS.Generators\BD.WTTS.Generators.csproj", "{87282597-7AF9-4904-8DEF-2122335CB87C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
