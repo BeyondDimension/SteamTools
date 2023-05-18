@@ -35,8 +35,6 @@ public sealed class SettingsProperty<TValue, [DynamicallyAccessedMembers(Dynamic
     /// </summary>
     public bool AutoSave { get; set; } = true;
 
-    static readonly object lockSave = new();
-
     /// <summary>
     /// 值
     /// </summary>
@@ -56,13 +54,28 @@ public sealed class SettingsProperty<TValue, [DynamicallyAccessedMembers(Dynamic
 
             if (AutoSave) // 自动保存
             {
-                lock (lockSave)
-                {
-                    ISettings.TrySaveMethod
-                        .MakeGenericMethod(typeof(TSettings))
-                        .Invoke(null, new object?[] { monitor });
-                }
+                Save();
             }
+        }
+    }
+
+    static readonly object lockSave = new();
+
+    void Save()
+    {
+        lock (lockSave)
+        {
+            ISettings.TrySave(typeof(TSettings), monitor, true);
+        }
+    }
+
+    public void RaiseValueChanged(bool notSave = false)
+    {
+        setter(monitor.CurrentValue, value); // 赋值模型类属性
+        OnValueChanged(value, value); // 调用变更事件
+        if (!notSave && AutoSave) // 自动保存
+        {
+            Save();
         }
     }
 

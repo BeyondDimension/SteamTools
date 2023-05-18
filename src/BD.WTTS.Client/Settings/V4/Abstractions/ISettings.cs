@@ -3,7 +3,7 @@ namespace BD.WTTS.Settings.Abstractions;
 
 public interface ISettings
 {
-    static readonly MethodInfo TrySaveMethod;
+    private static readonly MethodInfo TrySaveMethod;
 
     static ISettings()
     {
@@ -11,9 +11,18 @@ public interface ISettings
         TrySaveMethod = trySaveMethod.ThrowIsNull();
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static void TrySave([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties)] Type type, object optionsMonitor, bool notRead = false)
+        => TrySaveMethod.MakeGenericMethod(type).Invoke(null, new object?[] {
+            optionsMonitor,
+            notRead ? bool.TrueString : null,
+        });
+
     static abstract string Name { get; }
 
     static abstract JsonSerializerContext JsonSerializerContext { get; }
+
+    static abstract JsonTypeInfo JsonTypeInfo { get; }
 
     protected const string DirName = "Settings";
 
@@ -43,14 +52,14 @@ public interface ISettings
     protected static readonly HashSet<Type> types = new();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void SaveSettings(Type type)
+    private static void SaveSettings([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type)
     {
         try
         {
             var optionsType = typeof(IOptionsMonitor<>).MakeGenericType(type);
             var options = Ioc.Get_Nullable(optionsType);
             if (options != null)
-                TrySaveMethod.MakeGenericMethod(type).Invoke(null, new[] { options });
+                TrySave(type, options);
         }
         catch (Exception ex)
         {
@@ -63,7 +72,7 @@ public interface ISettings
     {
         try
         {
-            await Parallel.ForEachAsync(types, async (type, _) => await Task.Run(() =>
+            await Parallel.ForEachAsync(types, async ([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] type, _) => await Task.Run(() =>
             {
                 SaveSettings(type);
             }).ConfigureAwait(false)).ConfigureAwait(false);
@@ -101,7 +110,9 @@ public interface ISettings
 
         foreach (var type in types)
         {
+#pragma warning disable IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
             var settings = Activator.CreateInstance(type);
+#pragma warning restore IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
             var memoryStream = new MemoryStream();
             saveMethod.MakeGenericMethod(type)
                 .Invoke(null, new object?[] { settings, memoryStream });
@@ -111,11 +122,51 @@ public interface ISettings
 
         return builder.Build();
     }
+
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+    sealed class JsonTypeInfoResolver : IJsonTypeInfoResolver
+    {
+        readonly DefaultJsonTypeInfoResolver resolver = new();
+
+        static readonly Lazy<JsonTypeInfoResolver> instance = new(() => new());
+
+        public static IJsonTypeInfoResolver Instance => instance.Value;
+
+        JsonTypeInfoResolver() { }
+
+        JsonTypeInfo? IJsonTypeInfoResolver.GetTypeInfo(Type type, JsonSerializerOptions options)
+        {
+            if (types.Contains(type))
+            {
+                try
+                {
+                    if (typeof(JsonTypeInfoResolver)
+                        .GetMethod(nameof(GetJsonTypeInfo), BindingFlags.NonPublic | BindingFlags.Static)
+                        .MakeGenericMethod(type).Invoke(null, null) is JsonTypeInfo jsonTypeInfo)
+                    {
+                        if (jsonTypeInfo.Options == options)
+                            return jsonTypeInfo;
+                        if (Activator.CreateInstance(jsonTypeInfo.GetType(), options) is JsonTypeInfo jsonTypeInfo1)
+                            return jsonTypeInfo1;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            return resolver.GetTypeInfo(type, options);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        static JsonTypeInfo<TSettings> GetJsonTypeInfo<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TSettings>() where TSettings : class, ISettings<TSettings>, new()
+            => TSettings.JsonTypeInfo;
+    }
 }
 
 public interface ISettings<TSettings> : ISettings where TSettings : class, ISettings<TSettings>, new()
 {
-    static abstract JsonTypeInfo<TSettings> JsonTypeInfo { get; }
+    static new abstract JsonTypeInfo<TSettings> JsonTypeInfo { get; }
 
     /// <summary>
     /// 从 UTF8 Json 流中反序列化实例
@@ -201,28 +252,46 @@ internal static class SettingsExtensions
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void TrySave_____<TSettings>(IOptionsMonitor<TSettings> optionsMonitor) where TSettings : class, ISettings
+    public static void TrySave_____<TSettings>(IOptionsMonitor<TSettings> optionsMonitor, string? notRead = null) where TSettings : class, ISettings
     {
         var settings = optionsMonitor.CurrentValue;
         var settingsFilePath = ISettings.GetFilePath(TSettings.Name);
-        try
+
+        if (notRead != bool.TrueString) // 通过读取配置文件与内存中的配置进行比较
         {
-            if (File.Exists(settingsFilePath))
+            try
             {
-                var left = Serializable.SMP2(settings);
-                var jobj = JsonSerializer.Deserialize<JsonObject>(settingsFilePath);
-                var settings_read = jobj![TSettings.Name]!.GetValue<TSettings>();
-                var right = Serializable.SMP2(settings_read);
-                if (left.SequenceEqual(right))
-                    return;
+                if (File.Exists(settingsFilePath))
+                {
+                    JsonObject? jobj;
+                    var options = ISettings.GetDefaultOptions();
+                    using var readStream = File.OpenRead(settingsFilePath);
+                    jobj = JsonSerializer.Deserialize<JsonObject>(readStream, options);
+                    if (jobj != null)
+                    {
+                        var jnode = jobj[TSettings.Name];
+                        if (jnode != null)
+                        {
+                            options = ISettings.GetDefaultOptions();
+                            options.TypeInfoResolver = ISettings.JsonTypeInfoResolver.Instance;
+                            var settingsByRead = JsonSerializer.Deserialize<TSettings>(jnode, options);
+
+                            // 使用 MemoryPack 序列化两者比较相等
+                            var right = MemoryPackSerializer.Serialize(settingsByRead);
+                            var left = MemoryPackSerializer.Serialize(settings);
+                            if (left.SequenceEqual(right))
+                                return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
             }
         }
-        catch
-        {
 
-        }
-
-        using var fs = File.Open(settingsFilePath, FileMode.OpenOrCreate);
-        Save_____(settings, fs);
+        using var writeStream = File.Open(settingsFilePath, FileMode.OpenOrCreate);
+        Save_____(settings, writeStream);
     }
 }

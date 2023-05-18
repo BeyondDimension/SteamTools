@@ -74,6 +74,9 @@ partial class GeneralSettings_ : ISettings<GeneralSettings_>
     static JsonSerializerContext ISettings.JsonSerializerContext
         => GeneralSettingsContext.Instance;
 
+    static JsonTypeInfo ISettings.JsonTypeInfo
+        => GeneralSettingsContext.Instance.GeneralSettings_;
+
     static JsonTypeInfo<GeneralSettings_> ISettings<GeneralSettings_>.JsonTypeInfo
         => GeneralSettingsContext.Instance.GeneralSettings_;
 }

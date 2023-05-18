@@ -80,6 +80,9 @@ partial class UISettings_ : ISettings<UISettings_>
     static JsonSerializerContext ISettings.JsonSerializerContext
         => UISettingsContext.Instance;
 
+    static JsonTypeInfo ISettings.JsonTypeInfo
+        => UISettingsContext.Instance.UISettings_;
+
     static JsonTypeInfo<UISettings_> ISettings<UISettings_>.JsonTypeInfo
         => UISettingsContext.Instance.UISettings_;
 }
