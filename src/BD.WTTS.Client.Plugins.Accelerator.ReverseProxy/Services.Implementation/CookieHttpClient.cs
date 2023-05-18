@@ -1,4 +1,6 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+using IHttpClientFactory = System.Net.Http.IHttpClientFactory;
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
@@ -23,11 +25,11 @@ sealed class CookieHttpClient
         services.AddHttpClient(HttpClientName, (s, c) =>
         {
             c.Timeout = GeneralHttpClientFactory.DefaultTimeout;
-        }).ConfigurePrimaryHttpMessageHandler(() => GeneralHttpClientFactory.CreateSocketsHttpHandler(new()
+        }).ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler()
         {
             UseCookies = true,
             CookieContainer = CookieContainer,
-        }));
+        });
     }
 }
 #endif

@@ -8,6 +8,7 @@ public static partial class ServiceCollectionExtensions
     {
         services.AddSingleton<IUserRepository, UserRepository>();
         services.AddSingleton<INotificationRepository, NotificationRepository>();
+        services.AddSingleton<IRequestCacheRepository, RequestCacheRepository>();
         return services;
     }
 }

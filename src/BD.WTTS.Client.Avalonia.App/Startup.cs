@@ -120,7 +120,8 @@ sealed partial class Program : Startup
             services.AddNativeHttpClient();
 #endif
             // 通用 Http 服务
-            services.AddSingleton<IHttpClientFactory, LiteHttpClientFactory>();
+            Fusillade.NetCache.RequestCache = this;
+            services.AddSingleton<IHttpClientFactory>(new FusilladeHttpClientFactory());
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("ConfigureDemandServices.HttpClientFactory");
 #endif
