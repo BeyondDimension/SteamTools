@@ -14,13 +14,9 @@ public static partial class ServiceCollectionExtensions
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection TryAddMicroServiceClient(
-        this IServiceCollection services,
-        Action<HttpClient>? config = null,
-        Func<HttpMessageHandler>? configureHandler = null)
+        this IServiceCollection services)
     {
-        services.AddSingleton(new MSC_IMPL.HttpClientFactory(config, configureHandler));
         services.AddSingleton<MSC_IMPL>();
-
         services.TryAddSingleton<MicroServiceClientBase>(s => s.GetRequiredService<MSC_IMPL>());
         services.TryAddSingleton<IApiConnectionPlatformHelper>(s => s.GetRequiredService<MSC_IMPL>());
         services.TryAddSingleton<IMicroServiceClient>(s => s.GetRequiredService<MSC_IMPL>());

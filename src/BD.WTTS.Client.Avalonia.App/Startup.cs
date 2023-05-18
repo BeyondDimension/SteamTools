@@ -132,7 +132,7 @@ sealed partial class Program : Startup
             services.TryAddModelValidator();
 
             // 添加服务端 API 调用(BD.WTTS.MicroServices.ClientSDK)
-            services.TryAddMicroServiceClient(configureHandler: IApplication.ConfigureHandler());
+            services.TryAddMicroServiceClient();
 
             services.AddAutoMapper(cfg =>
             {

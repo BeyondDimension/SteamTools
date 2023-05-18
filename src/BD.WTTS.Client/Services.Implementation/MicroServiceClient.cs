@@ -8,7 +8,7 @@ sealed class MicroServiceClient : MicroServiceClientBase
 
     public MicroServiceClient(
         ILoggerFactory loggerFactory,
-        HttpClientFactory clientFactory,
+        IHttpClientFactory clientFactory,
         IHttpPlatformHelperService httpPlatformHelper,
         IUserManager userManager,
         IToast toast,
@@ -28,9 +28,10 @@ sealed class MicroServiceClient : MicroServiceClientBase
         this.userManager = userManager;
     }
 
-    protected sealed override HttpClient CreateClient()
+    protected sealed override HttpClient CreateClient(HttpHandlerCategory category)
     {
-        var client = base.CreateClient();
+        var client = base.CreateClient(category);
+
         try
         {
             client.BaseAddress = new Uri(ApiBaseUrl, UriKind.Absolute);
@@ -43,6 +44,7 @@ sealed class MicroServiceClient : MicroServiceClientBase
         {
 
         }
+
         return client;
     }
 
@@ -86,56 +88,5 @@ sealed class MicroServiceClient : MicroServiceClientBase
         deviceId.DeviceIdG = deviceIdG;
         deviceId.DeviceIdR = deviceIdR;
         deviceId.DeviceIdN = deviceIdN;
-    }
-
-    public sealed class HttpClientFactory : IHttpClientFactory, IDisposable
-    {
-        readonly Lazy<HttpClient> client;
-        readonly Action<HttpClient>? config;
-        readonly Func<HttpMessageHandler>? configureHandler;
-        bool disposedValue;
-
-        public HttpClientFactory(Action<HttpClient>? config = null, Func<HttpMessageHandler>? configureHandler = null)
-        {
-            this.config = config;
-            this.configureHandler = configureHandler;
-            client = new(CreateClient);
-        }
-
-        HttpClient CreateClient()
-        {
-            HttpMessageHandler handler = configureHandler?.Invoke() ?? new SocketsHttpHandler();
-            var client = new HttpClient(handler);
-            config?.Invoke(client);
-            return client;
-        }
-
-        HttpClient IHttpClientFactory.CreateClient(string name) => client.Value;
-
-        void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // 释放托管状态(托管对象)
-                    if (client.IsValueCreated)
-                    {
-                        client.Value.Dispose();
-                    }
-                }
-
-                // 释放未托管的资源(未托管的对象)并重写终结器
-                // 将大型字段设置为 null
-                disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
     }
 }
