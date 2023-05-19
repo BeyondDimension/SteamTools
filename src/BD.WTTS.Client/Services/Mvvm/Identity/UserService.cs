@@ -238,14 +238,12 @@ public sealed class UserService : ReactiveObject
                 }.Where(x => x != settingPriority));
                 foreach (var item in order)
                 {
-                    if (User.AvatarUrl!.ContainsKey(item))
+                    if (User.AvatarUrl!.TryGetValue(item, out var value))
                     {
-                        var avatarUrl = User.AvatarUrl[item];
+                        var avatarUrl = value;
                         if (!string.IsNullOrWhiteSpace(avatarUrl))
                         {
-                            var avatarLocalFilePath = await ImageChannelType.SteamAvatars.GetImageAsync(avatarUrl);
-                            var avatarSouce = ImageSouce.TryParse(avatarLocalFilePath, isCircle: true);
-                            AvatarPath = avatarSouce;
+                            AvatarPath = await ImageSource.GetAsync(avatarUrl, isCircle: true, cache: true);
                         }
                         return;
                     }
@@ -266,9 +264,19 @@ public sealed class UserService : ReactiveObject
                 if (User != null && User.SteamAccountId.HasValue)
                 {
                     CurrentSteamUser = await steamworksWebApiService.GetUserInfo(User.SteamAccountId.Value);
-                    CurrentSteamUser.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(CurrentSteamUser.AvatarFull);
-                    var avatarSouce = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
-                    AvatarPath = avatarSouce;
+
+                    var avatarUri = CurrentSteamUser?.AvatarFull;
+                    if (avatarUri != null)
+                    {
+                        var avatarStream = await ImageSource.GetAsync(avatarUri, isCircle: false, cache: true);
+                        //CurrentSteamUser.AvatarStream = avatarStream;
+                        if (avatarStream?.Stream != null)
+                        {
+                            var avatarPath = avatarStream.Clone();
+                            avatarPath.Circle = true;
+                            AvatarPath = avatarPath;
+                        }
+                    }
                     return true;
                 }
                 else

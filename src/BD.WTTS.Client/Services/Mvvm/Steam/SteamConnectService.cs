@@ -277,7 +277,7 @@ public sealed class SteamConnectService
                                 IsConnectToSteam = true;
 
                                 CurrentSteamUser = await swWebService.GetUserInfo(id);
-                                CurrentSteamUser.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(CurrentSteamUser.AvatarFull);
+                                //CurrentSteamUser.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(CurrentSteamUser.AvatarFull);
                                 //AvatarPath = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
                                 CurrentSteamUser.IPCountry = swLocalService.GetIPCountry();
 
@@ -571,14 +571,14 @@ public sealed class SteamConnectService
                 user.AvatarFull = temp.AvatarFull;
                 user.MiniProfile = temp.MiniProfile;
 
-                if (user.MiniProfile != null && !string.IsNullOrEmpty(user.MiniProfile.AnimatedAvatar))
-                {
-                    user.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(user.MiniProfile.AnimatedAvatar);
-                }
-                else
-                {
-                    user.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(temp.AvatarFull);
-                }
+                //if (user.MiniProfile != null && !string.IsNullOrEmpty(user.MiniProfile.AnimatedAvatar))
+                //{
+                //    user.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(user.MiniProfile.AnimatedAvatar);
+                //}
+                //else
+                //{
+                //    user.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(temp.AvatarFull);
+                //}
             }
         }
 

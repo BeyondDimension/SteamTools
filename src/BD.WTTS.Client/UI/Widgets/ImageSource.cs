@@ -1,7 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI;
 
-public static class ImageSouce
+public static class ImageSource
 {
     public sealed class ClipStream : IDisposable, IFileStreamWrapper
     {
@@ -11,6 +11,21 @@ public static class ImageSouce
         ClipStream(Stream stream)
         {
             OriginStream = this.stream = stream;
+        }
+
+        public ClipStream Clone()
+        {
+            ClipStream clipStream = new(OriginStream)
+            {
+                Top = Top,
+                Bottom = Bottom,
+                Left = Left,
+                Right = Right,
+                Circle = Circle,
+                Radius_X = Radius_X,
+                Radius_Y = Radius_Y,
+            };
+            return clipStream;
         }
 
         public Stream? Stream
@@ -131,6 +146,53 @@ public static class ImageSouce
                 return filePathOrResUri;
         }
         ClipStream? clipStream = filePathOrResUri;
+        if (clipStream != null)
+        {
+            clipStream.Circle = isCircle;
+            config?.Invoke(clipStream);
+        }
+        return clipStream;
+    }
+
+    /// <summary>
+    /// 将图片文件本地路径或资源路径转为图像源
+    /// </summary>
+    /// <param name="filePathOrResUri"></param>
+    /// <param name="isCircle">是否为圆形</param>
+    /// <param name="config">图像可配置选项</param>
+    /// <returns></returns>
+    public static ClipStream? TryParse(Stream? imageStream, bool isCircle = false, Action<ClipStream>? config = null)
+    {
+        if (imageStream == null)
+            return null;
+
+        ClipStream? clipStream = imageStream;
+        if (clipStream != null)
+        {
+            clipStream.Circle = isCircle;
+            config?.Invoke(clipStream);
+        }
+        return clipStream;
+    }
+
+    public static async Task<ClipStream?> GetAsync(
+        string requestUri,
+        bool isPolly = true,
+        bool cache = false,
+        HttpHandlerCategory category = HttpHandlerCategory.UserInitiated,
+        bool isCircle = false,
+        Action<ClipStream>? config = null,
+        CancellationToken cancellationToken = default)
+    {
+        var imageHttpClientService = Ioc.Get_Nullable<IImageHttpClientService>();
+        if (imageHttpClientService == default)
+            return default;
+
+        var imageMemoryStream = await imageHttpClientService.GetImageMemoryStreamAsync(requestUri, isPolly, cache, category, cancellationToken);
+        if (imageMemoryStream == default)
+            return default;
+
+        ClipStream? clipStream = imageMemoryStream;
         if (clipStream != null)
         {
             clipStream.Circle = isCircle;

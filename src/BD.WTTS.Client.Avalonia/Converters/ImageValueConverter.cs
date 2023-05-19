@@ -13,14 +13,20 @@ public abstract class ImageValueConverter : IValueConverter
 
     protected static Bitmap? DownloadImage(string? url, int width = 0)
     {
-        if (url == null) return null;
-        var task = Ioc.Get<IImageHttpClientService>().GetImageStreamAsync(url);
+        if (url == null)
+            return null;
+
+        var imageHttpClientService = Ioc.Get_Nullable<IImageHttpClientService>();
+        if (imageHttpClientService == null)
+            return null;
+
+        var task = imageHttpClientService.GetImageMemoryStreamAsync(url);
+
         var stream = task.GetAwaiter().GetResult();
-        if (stream == null) return null;
-        var s = new MemoryStream();
-        stream.CopyTo(s);
-        stream.Dispose();
-        return GetDecodeBitmap(s, width);
+        if (stream == null)
+            return null;
+
+        return GetDecodeBitmap(stream, width);
     }
 
     protected static void TryReset(Stream s)
@@ -40,7 +46,7 @@ public abstract class ImageValueConverter : IValueConverter
     /// <param name="clipStream"></param>
     /// <param name="bitmap"></param>
     /// <returns></returns>
-    static bool TryGetBitmap([NotNullWhen(true)] ImageSouce.ClipStream? clipStream, [NotNullWhen(true)] out SKBitmap? bitmap)
+    static bool TryGetBitmap([NotNullWhen(true)] ImageSource.ClipStream? clipStream, [NotNullWhen(true)] out SKBitmap? bitmap)
     {
         if (clipStream?.Stream == null)
         {
