@@ -30,11 +30,11 @@ partial interface IApplication
         //        else
         //#endif
         {
-            return () => GeneralHttpClientFactory.CreateSocketsHttpHandler(new()
+            return () => new SocketsHttpHandler()
             {
                 UseCookies = false,
                 AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.GZip,
-            });
+            };
         }
 #elif ANDROID
             return () => PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler(new()
@@ -85,12 +85,12 @@ partial interface IApplication
         //        else
         //#endif
         {
-            var handler = GeneralHttpClientFactory.CreateSocketsHttpHandler(new()
+            var handler = new SocketsHttpHandler()
             {
                 AllowAutoRedirect = args.Item1,
                 AutomaticDecompression = args.Item2,
                 CookieContainer = args.Item3,
-            });
+            };
             if (useProxy)
             {
                 handler.Proxy = proxy;
