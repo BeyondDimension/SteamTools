@@ -87,7 +87,7 @@ partial class UISettings_ : ISettings<UISettings_>
         => UISettingsContext.Instance.UISettings_;
 }
 
-[SettingsGeneration]
+//[SettingsGeneration]
 public static class UISettings4
 {
     /// <inheritdoc cref="IUISettings.Theme"/>

@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
 	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<OutputType>Exe</OutputType>
+		<RootNamespace>BD.WTTS</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -13,5 +12,8 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameList\BD.WTTS.Client.Plugins.GameList.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameTools\BD.WTTS.Client.Plugins.GameTools.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
+
+	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />
 </Project>

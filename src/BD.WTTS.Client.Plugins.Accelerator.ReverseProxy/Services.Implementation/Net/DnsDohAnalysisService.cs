@@ -4,6 +4,7 @@ using Ae.Dns.Protocol;
 using Ae.Dns.Protocol.Records;
 using static BD.WTTS.Services.IDnsAnalysisService;
 using DnsQueryType = Ae.Dns.Protocol.Enums.DnsQueryType;
+using IHttpClientFactory = System.Net.Http.Client.IHttpClientFactory;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
@@ -26,7 +27,7 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
     {
         if (!string.IsNullOrEmpty(url))
         {
-            var client = CreateClient();
+            var client = CreateClient(null, HttpHandlerCategory.Default);
             client.BaseAddress = new Uri(Dnspod_DohAddres);
             IDnsClient dnsClient = new DnsHttpClient(client);
 

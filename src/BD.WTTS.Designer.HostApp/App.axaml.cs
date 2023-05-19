@@ -2,10 +2,11 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using BD.WTTS.UI.Views.Windows;
+using AvaApplication = Avalonia.Application;
 
-namespace BD.WTTS.Designer.HostApp;
+namespace BD.WTTS;
 
-public class App : Application
+public sealed class App : AvaApplication
 {
     public override void Initialize()
     {
