@@ -60,14 +60,10 @@
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 	</ItemGroup>
-
+	
 	<ItemGroup>
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="UI\ViewModels\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />

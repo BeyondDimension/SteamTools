@@ -129,7 +129,7 @@
 			</Setter>
 		</Style>
 	</UserControl.Styles>
-
+	
 	<Grid RowDefinitions="Auto, *">
 		<Grid
             Name="TitleBarHost"
@@ -137,7 +137,6 @@
             VerticalAlignment="Center"
             Background="Transparent"
             ColumnDefinitions="Auto,Auto,Auto,*,Auto,150">
-
 			<!--<Panel Width="90"
 				   Height="75">
 				<Button

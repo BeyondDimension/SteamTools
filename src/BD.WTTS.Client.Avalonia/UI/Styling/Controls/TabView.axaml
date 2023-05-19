@@ -1,0 +1,17 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+	<Style Selector="ui|TabView Button#AddButton">
+		<Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}"/>
+	</Style>
+	<Style Selector="ui|TabView Button#CloseButton">
+		<Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}"/>
+	</Style>
+</Styles>
