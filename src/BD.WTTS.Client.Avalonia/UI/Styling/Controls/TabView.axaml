@@ -4,6 +4,11 @@
     <Design.PreviewWith>
         <Border Padding="20">
             <!-- Add Controls for Previewer Here -->
+			<ui:TabView MinHeight="300">
+				<ui:TabViewItem Header="Hello" IsSelected="True" />
+				<ui:TabViewItem Header="Hello" />
+				<ui:TabViewItem Header="Hello" />
+			</ui:TabView>
         </Border>
     </Design.PreviewWith>
 
@@ -13,5 +18,9 @@
 	</Style>
 	<Style Selector="ui|TabView Button#CloseButton">
 		<Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}"/>
+	</Style>
+	<Style Selector="ui|TabView /template/ ContentPresenter#TabContentPresenter">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="ToolTip.Tip" Value="11111"/>
 	</Style>
 </Styles>

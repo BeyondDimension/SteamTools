@@ -8,6 +8,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <AvaloniaXaml Remove="UI\Views\Pages\新文件夹1\**" />
+	  <AvaloniaXaml Remove="UI\Views\Pages\新文件夹\**" />
+	  <Compile Remove="UI\Views\Pages\新文件夹1\**" />
+	  <Compile Remove="UI\Views\Pages\新文件夹\**" />
+	  <EmbeddedResource Remove="UI\Views\Pages\新文件夹1\**" />
+	  <EmbeddedResource Remove="UI\Views\Pages\新文件夹\**" />
+	  <None Remove="UI\Views\Pages\新文件夹1\**" />
+	  <None Remove="UI\Views\Pages\新文件夹\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<!-- ImplicitUsings -->
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
@@ -82,7 +93,6 @@
 
 	<ItemGroup>
 		<Folder Include="Models\" />
-		<Folder Include="UI\ViewModels\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />

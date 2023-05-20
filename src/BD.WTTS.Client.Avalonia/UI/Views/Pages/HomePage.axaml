@@ -3,9 +3,77 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:spp="https://steampp.net/ui"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BD.WTTS.UI.Views.Pages.HomePage">
-	<Grid>
-	
-	</Grid>
+	<ui:TabView Padding="0"
+				VerticalAlignment="Stretch"
+				Background="Transparent"
+				IsAddTabButtonVisible="False"
+				CloseButtonOverlayMode="OnPointerOver">
+		<ui:TabView.TabStripFooter>
+			<Button HorizontalAlignment="Left"
+					VerticalAlignment="Center"
+					Content="&#xE710;"
+					FontFamily="{StaticResource SymbolThemeFontFamily}"
+					Theme="{StaticResource TabViewButtonStyle}" >
+				<Button.Flyout>
+					<ui:FAMenuFlyout Placement="BottomEdgeAlignedLeft">
+						<ui:MenuFlyoutItem Text="Steam">
+							<ui:MenuFlyoutItem.IconSource>
+								<ui:PathIconSource Data="{StaticResource Steam}" />
+							</ui:MenuFlyoutItem.IconSource>
+						</ui:MenuFlyoutItem>
+						<ui:MenuFlyoutItem Text="EpicGames">
+							<ui:MenuFlyoutItem.IconSource>
+								<ui:PathIconSource Data="{StaticResource EpicGames}" />
+							</ui:MenuFlyoutItem.IconSource>
+						</ui:MenuFlyoutItem>
+						<ui:MenuFlyoutItem Text="Ubisoft">
+							<ui:MenuFlyoutItem.IconSource>
+								<ui:PathIconSource Data="{StaticResource Ubisoft}" />
+							</ui:MenuFlyoutItem.IconSource>
+						</ui:MenuFlyoutItem>
+						<ui:MenuFlyoutSeparator />
+						<ui:MenuFlyoutItem Text="添加新账号" IconSource="Bold" />
+						<ui:MenuFlyoutSeparator />
+						<ui:MenuFlyoutSubItem Text="结束进程方式">
+							<ui:RadioMenuFlyoutItem Text="TaskKill" 
+													GroupName="KillMethond"
+													IconSource="Games"/>
+							<ui:RadioMenuFlyoutItem Text="Direct"
+													IconSource="Icons"
+													GroupName="KillMethond" />
+						</ui:MenuFlyoutSubItem>
+						<ui:MenuFlyoutSubItem Text="启动进程方式">
+							<ui:RadioMenuFlyoutItem Text="Explorer"
+													GroupName="StartMethond"
+													IconSource="Games"/>
+							<ui:RadioMenuFlyoutItem Text="Direct"
+													IconSource="Icons"
+													GroupName="Test Group" />
+						</ui:MenuFlyoutSubItem>
+						<ui:MenuFlyoutSeparator />
+						<ui:ToggleMenuFlyoutItem Text="以管理员权限启动" IconSource="Safe">
+						</ui:ToggleMenuFlyoutItem>
+					</ui:FAMenuFlyout>
+				</Button.Flyout>
+			</Button>
+		</ui:TabView.TabStripFooter>
+		<ui:TabViewItem Header="Steam">
+			<ui:TabViewItem.IconSource>
+				<ui:PathIconSource Data="{StaticResource Steam}" />
+			</ui:TabViewItem.IconSource>
+		</ui:TabViewItem>
+		<ui:TabViewItem Header="EpicGames">
+			<ui:TabViewItem.IconSource>
+				<ui:PathIconSource Data="{StaticResource EpicGames}" />
+			</ui:TabViewItem.IconSource>
+		</ui:TabViewItem>
+		<ui:TabViewItem Header="Ubisoft">
+			<ui:TabViewItem.IconSource>
+				<ui:PathIconSource Data="{StaticResource Ubisoft}" />
+			</ui:TabViewItem.IconSource>
+		</ui:TabViewItem>
+	</ui:TabView>
 </UserControl>
