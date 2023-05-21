@@ -1,3 +1,4 @@
+using BD.WTTS.Client.Resources;
 using static BD.WTTS.Services.INotificationService;
 
 namespace BD.WTTS.UI;
@@ -38,7 +39,7 @@ partial class App
                         new NativeMenuItemSeparator(),
                         new NativeMenuItem
                         {
-                            Header = "Exit",
+                            [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.Exit", Source = ResourceService.Current, Mode = BindingMode.OneWay },
                             Command = ReactiveCommand.Create(() => { Shutdown(); })
                         }
                     }

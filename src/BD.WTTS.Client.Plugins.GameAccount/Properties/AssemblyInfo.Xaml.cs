@@ -9,4 +9,5 @@ using Avalonia.Metadata;
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Converters")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.UI.ViewModels")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Markup")]
+[assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Models")]
 [assembly: XmlnsDefinition("https://steampp.net/services", "BD.WTTS.Services")]

@@ -9,6 +9,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BD.WTTS.UI.Views.GameAccountPage">
 	<ui:TabView Padding="0"
+				TabItems="{Binding GamePlatforms}"
 				VerticalAlignment="Stretch"
 				Background="Transparent"
 				IsAddTabButtonVisible="False"
@@ -62,20 +63,31 @@
 				</Button.Flyout>
 			</Button>
 		</ui:TabView.TabStripFooter>
-		<ui:TabViewItem Header="Steam">
-			<ui:TabViewItem.IconSource>
-				<ui:PathIconSource Data="{StaticResource Steam}" />
-			</ui:TabViewItem.IconSource>
-		</ui:TabViewItem>
-		<ui:TabViewItem Header="EpicGames">
-			<ui:TabViewItem.IconSource>
-				<ui:PathIconSource Data="{StaticResource EpicGames}" />
-			</ui:TabViewItem.IconSource>
-		</ui:TabViewItem>
-		<ui:TabViewItem Header="Ubisoft">
-			<ui:TabViewItem.IconSource>
-				<ui:PathIconSource Data="{StaticResource Ubisoft}" />
-			</ui:TabViewItem.IconSource>
-		</ui:TabViewItem>
+		<ui:TabView.Styles>
+			<Style Selector="ui|TabViewItem" x:DataType="spp:PlatformAccount">
+				<!--<Setter Property="IconSource">
+					<ui:FontIconSource Glyph="{Binding Icon}" />
+				</Setter>-->
+				<Setter Property="Content" Value="{Binding}" />
+				<Setter Property="ContentTemplate">
+					<DataTemplate>
+						<spp:AccountItems />
+					</DataTemplate>
+				</Setter>
+			</Style>
+		</ui:TabView.Styles>
+		<ui:TabView.TabItemTemplate>
+			<DataTemplate x:DataType="spp:PlatformAccount">
+				<DockPanel>
+					<PathIcon Data="{Binding Icon,Converter={StaticResource ResourceKeyValueConverter}}"
+							  Width="16"
+							  Height="16"
+							  Margin="0 0 8 0"
+							  DockPanel.Dock="Left"/>
+					<TextBlock Text="{Binding FullName}" 
+							   DockPanel.Dock="Right"/>
+				</DockPanel>
+			</DataTemplate>
+		</ui:TabView.TabItemTemplate>
 	</ui:TabView>
 </UserControl>

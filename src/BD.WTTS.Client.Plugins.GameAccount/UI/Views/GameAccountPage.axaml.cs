@@ -7,5 +7,6 @@ public partial class GameAccountPage : ReactiveUserControl<GameAccountPageViewMo
     public GameAccountPage()
     {
         InitializeComponent();
+        DataContext = new GameAccountPageViewModel();
     }
 }

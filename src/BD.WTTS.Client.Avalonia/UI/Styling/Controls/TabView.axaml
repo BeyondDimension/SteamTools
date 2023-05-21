@@ -21,6 +21,5 @@
 	</Style>
 	<Style Selector="ui|TabView /template/ ContentPresenter#TabContentPresenter">
 		<Setter Property="Background" Value="Transparent"/>
-		<Setter Property="ToolTip.Tip" Value="11111"/>
 	</Style>
 </Styles>

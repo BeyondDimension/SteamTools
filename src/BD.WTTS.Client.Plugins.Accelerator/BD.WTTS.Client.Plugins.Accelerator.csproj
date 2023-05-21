@@ -8,17 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <AvaloniaXaml Remove="UI\Views\Pages\新文件夹1\**" />
-	  <AvaloniaXaml Remove="UI\Views\Pages\新文件夹\**" />
-	  <Compile Remove="UI\Views\Pages\新文件夹1\**" />
-	  <Compile Remove="UI\Views\Pages\新文件夹\**" />
-	  <EmbeddedResource Remove="UI\Views\Pages\新文件夹1\**" />
-	  <EmbeddedResource Remove="UI\Views\Pages\新文件夹\**" />
-	  <None Remove="UI\Views\Pages\新文件夹1\**" />
-	  <None Remove="UI\Views\Pages\新文件夹\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<!-- ImplicitUsings -->
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
