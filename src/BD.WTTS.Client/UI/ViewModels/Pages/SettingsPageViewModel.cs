@@ -107,9 +107,9 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     public void SetBackgroundImagePath(string? imagePath)
     {
-        if (imagePath == null)
+        if (string.IsNullOrWhiteSpace(imagePath))
         {
-            UISettings.BackgroundImagePath.Reset();
+            UISettings.WindowBackgroundCustomImagePath.Value = string.Empty;
             return;
         }
         if (File.Exists(imagePath))
@@ -119,7 +119,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
                 var (isImage, _) = FileFormat.IsImage(stream);
                 if (isImage)
                 {
-                    UISettings.BackgroundImagePath.Value = imagePath;
+                    UISettings.WindowBackgroundCustomImagePath.Value = imagePath;
                     return;
                 }
             }

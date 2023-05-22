@@ -35,7 +35,7 @@ partial class Startup // OnStartup
             {
                 await ActiveUserRecordAsync(ActiveUserAnonymousStatisticType.OnStartup);
             });
-            if (GeneralSettings.IsAutoCheckUpdate.Value)
+            if (GeneralSettings.AutoCheckAppUpdate.Value)
             {
                 Task.Run(async () =>
                 {

@@ -1,6 +1,4 @@
 // ReSharper disable once CheckNamespace
-using BD.Common.UI.Helpers;
-
 namespace BD.WTTS;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
@@ -40,7 +38,7 @@ partial class Program
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static AppBuilder BuildAvaloniaApp()
     {
-        UIFrameworkHelper.Init(isAvaloniaUI: true);
+        Common.UI.Helpers.UIFrameworkHelper.Init(isAvaloniaUI: true);
 
         if (instance == null)
         {
@@ -89,7 +87,7 @@ partial class Program
                     },
                 });
 
-            var useGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value;
+            var useGpu = !IApplication.DisableGPU && GeneralSettings.GPU.Value;
 #if MACOS
             builder.With(new AvaloniaNativePlatformOptions
             {
@@ -104,7 +102,7 @@ partial class Program
                 EnableIme = true,
             });
 #elif WINDOWS
-            var useWgl = IApplication.UseWgl || GeneralSettings.UseWgl.Value;
+            var useWgl = IApplication.UseWgl || GeneralSettings.NativeOpenGL.Value;
             var options = new Win32PlatformOptions
             {
                 UseWgl = useWgl,

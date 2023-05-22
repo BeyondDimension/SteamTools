@@ -55,8 +55,8 @@ public sealed partial class App : Application
         {
             desktop.MainWindow = MainWindow ??= new MainWindow();
         }
-        SetThemeNotChangeValue((AppTheme)UISettings.Theme.Value);
-        SetThemeAccent(UISettings.GetUserThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
+        SetThemeNotChangeValue(UISettings.Theme.Value);
+        SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
         base.OnFrameworkInitializationCompleted();
     }
 
@@ -85,7 +85,7 @@ public sealed partial class App : Application
     /// 设置当前打开窗口的 AvaloniaWindow 背景透明材质
     /// </summary>
     /// <param name="level"></param>
-    public void SetAllWindowransparencyMateria(int level)
+    public void SetAllWindowransparencyMateria(WindowBackgroundMaterial level)
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -121,14 +121,14 @@ public sealed partial class App : Application
 
     public void InitSettingSubscribe()
     {
-        GeneralSettings.IsEnableTrayIcon.Subscribe(x => InitTrayIcon());
+        GeneralSettings.TrayIcon.Subscribe(x => InitTrayIcon());
         UISettings.ThemeAccent.Subscribe(SetThemeAccent);
-        UISettings.GetUserThemeAccent.Subscribe(x =>
+        UISettings.UseSystemThemeAccent.Subscribe(x =>
             SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
 
-        GeneralSettings.WindowsStartupAutoRun.Subscribe(IApplication.SetBootAutoStart);
+        GeneralSettings.AutoRunOnStartup.Subscribe(IApplication.SetBootAutoStart);
 
-        UISettings.WindowBackgroundMateria.Subscribe(SetAllWindowransparencyMateria, false);
+        UISettings.WindowBackgroundMaterial.Subscribe(SetAllWindowransparencyMateria, false);
 
         //#if WINDOWS
         //        UISettings.EnableDesktopBackground.Subscribe(x =>

@@ -36,20 +36,13 @@ sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
 
     public override ISteamConnectService Conn => this;
 
-    protected override string AppResources_SaveEditedAppInfo_SaveFailed => AppResources.SaveEditedAppInfo_SaveFailed;
+    protected override string? StratSteamDefaultParameter => SteamSettings.SteamStratParameter.Value;
 
-    protected override string SteamSettings_StratParameter => SteamSettings.SteamStratParameter.Value;
+    protected override bool IsRunSteamAdministrator => SteamSettings.IsRunSteamAdministrator.Value;
 
-    protected override bool SteamSettings_IsRunSteamAdministrator => SteamSettings.IsRunSteamAdministrator.Value;
+    protected override Dictionary<uint, string?>? HideGameList => serviceProvider.GetService<IGameLibrarySettings>()?.HideGameList;
 
-    protected override Dictionary<uint, string?> GameLibrarySettings_HideGameList
-    {
-        get
-        {
-            return serviceProvider.GetService<IGameLibrarySettings>()?.HideGameList ?? new();
-            //return GameLibrarySettings.HideGameList.Value;
-        }
-    }
+    //protected override string? GetString(string name) => AppResources.ResourceManager.GetString(name);
 
     protected override Process? StartAsInvoker(string fileName, string? arguments = null)
     {

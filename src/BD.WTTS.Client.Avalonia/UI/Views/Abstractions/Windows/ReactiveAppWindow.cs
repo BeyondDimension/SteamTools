@@ -40,7 +40,7 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
         //SystemDecorations = SystemDecorations.BorderOnly;
         Background = null;
         TransparencyBackgroundFallback = Brushes.Transparent;
-        TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+        TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMaterial.Value;
 
         if (IsSaveWindowSize)
         {
