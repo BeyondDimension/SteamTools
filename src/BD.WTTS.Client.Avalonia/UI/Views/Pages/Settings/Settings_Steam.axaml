@@ -15,7 +15,7 @@
 	<StackPanel Margin="15" Spacing="5">
 		<TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Margin="0 0 0 5"/>
 		<spp:OptionsDisplayItem Header="Steam 路径"
-								Description="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamProgramPath},Path=Value,Mode=TwoWay}">
+								Description="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamProgramPath},Path=Value,Mode=OneWay}">
 			<spp:OptionsDisplayItem.Icon>
 				<ui:FontIcon Glyph="&#xE756;" FontFamily="Segoe Fluent Icons"/>
 			</spp:OptionsDisplayItem.Icon>

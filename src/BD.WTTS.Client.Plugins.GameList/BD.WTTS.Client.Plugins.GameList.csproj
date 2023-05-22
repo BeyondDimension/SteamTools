@@ -76,6 +76,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Settings\Abstractions\" />
 		<Folder Include="UI\ViewModels\" />
 		<Folder Include="UI\Views\" />
 	</ItemGroup>

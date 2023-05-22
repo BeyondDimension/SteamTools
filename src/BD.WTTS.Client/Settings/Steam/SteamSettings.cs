@@ -1,14 +1,75 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-// ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings;
 
-/// <summary>
-/// Steam 设置
-/// </summary>
-public sealed class SteamSettings : SettingsHost2<SteamSettings>
+[MPObj, MP2Obj(SerializeLayout.Explicit)]
+public sealed partial class SteamSettings_ : ISteamSettings
 {
-    private static readonly ISteamService _service = Ioc.Get<ISteamService>();
+    public const string Name = nameof(SteamSettings_);
+
+    [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
+    public string? SteamStratParameter { get; set; }
+
+    [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
+    public string SteamSkin { get; set; } = string.Empty;
+
+    [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
+    public string SteamProgramPath { get; set; } = string.Empty;
+
+    [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
+    public string CustomSteamPath { get; set; } = string.Empty;
+
+    [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
+    public bool IsAutoRunSteam { get; set; } = false;
+
+    [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
+    public bool IsRunSteamMinimized { get; set; } = false;
+
+    [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
+    public bool IsRunSteamNoCheckUpdate { get; set; } = false;
+
+    [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
+    public bool IsRunSteamChina { get; set; } = false;
+
+    [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
+    public bool IsEnableSteamLaunchNotification { get; set; } = true;
+
+    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
+    public OSExitMode DownloadCompleteSystemEndMode { get; set; } = OSExitMode.Sleep;
+
+    [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
+    public bool IsRunSteamAdministrator { get; set; } = true;
+}
+
+[JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true)]
+[JsonSerializable(typeof(SteamSettings_))]
+internal partial class SteamSettingsContext : JsonSerializerContext
+{
+    static SteamSettingsContext? instance;
+
+    public static SteamSettingsContext Instance
+        => instance ??= new SteamSettingsContext(ISettings.GetDefaultOptions());
+}
+
+partial class SteamSettings_ : ISettings<SteamSettings_>
+{
+    public static JsonTypeInfo<SteamSettings_> JsonTypeInfo => SteamSettingsContext.Instance.SteamSettings_;
+
+    public static JsonSerializerContext JsonSerializerContext => SteamSettingsContext.Instance;
+
+    static string ISettings.Name => Name;
+
+    static JsonTypeInfo ISettings.JsonTypeInfo => SteamSettingsContext.Instance.SteamSettings_;
+}
+
+[SettingsGeneration]
+public static class SteamSettings
+{
+    //private static readonly ISteamService _service = Ioc.Get<ISteamService>();
 
     static SteamSettings()
     {
@@ -42,77 +103,36 @@ public sealed class SteamSettings : SettingsHost2<SteamSettings>
             SteamStratParameter.Value = SteamStratParameter.Value.Replace("-steamchina", "").Trim();
     }
 
-    static readonly SerializableProperty<string?>? _SteamStratParameter = IApplication.IsDesktop() ?
-        GetProperty<string?>(defaultValue: null) : null;
+    /// <inheritdoc cref="ISteamSettings.SteamStratParameter"/>
+    public static SettingsProperty<string?, SteamSettings_> SteamStratParameter { get; } = new();
 
-    /// <summary>
-    /// Steam 启动参数
-    /// </summary>
-    public static SerializableProperty<string?> SteamStratParameter => _SteamStratParameter ?? throw new PlatformNotSupportedException();
+    /// <inheritdoc cref="ISteamSettings.SteamSkin"/>
+    public static SettingsProperty<string, SteamSettings_> SteamSkin { get; } = new();
 
-    //static readonly SerializableProperty<string>? _SteamSkin = IApplication.IsDesktop() ? GetProperty(defaultValue: string.Empty, autoSave: true) : null;
-    ///// <summary>
-    ///// Steam 皮肤
-    ///// </summary>
-    //[SupportedOSPlatform("Windows")]
-    //[SupportedOSPlatform("macOS")]
-    //[SupportedOSPlatform("Linux")]
-    //public static SerializableProperty<string> SteamSkin => _SteamSkin ?? throw new PlatformNotSupportedException();
+    /// <inheritdoc cref="ISteamSettings.SteamProgramPath"/>
+    public static SettingsProperty<string, SteamSettings_> SteamProgramPath = new();
 
-    static readonly SerializableProperty<string>? _SteamProgramPath = IApplication.IsDesktop() ? GetProperty(defaultValue: _service.SteamProgramPath) : null;
+    /// <inheritdoc cref="ISteamSettings.CustomSteamPath"/>
+    public static SettingsProperty<string, SteamSettings_> CustomSteamPath { get; } = new();
 
-    public static SerializableProperty<string> SteamProgramPath => (_CustomSteamPath == null || _CustomSteamPath.Value == null) ? _SteamProgramPath ?? throw new PlatformNotSupportedException() : _CustomSteamPath;
+    /// <inheritdoc cref="ISteamSettings.IsAutoRunSteam"/>
+    public static SettingsProperty<bool, SteamSettings_> IsAutoRunSteam { get; } = new();
 
-    static readonly SerializableProperty<string>? _CustomSteamPath = IApplication.IsDesktop() ? GetProperty<string>(null, true, "CustomSteamPath") : null;
+    /// <inheritdoc cref="ISteamSettings.IsRunSteamMinimized"/>
+    public static SettingsProperty<bool, SteamSettings_> IsRunSteamMinimized { get; } = new();
 
-    public static SerializableProperty<string> CustomSteamPath => _CustomSteamPath ?? throw new PlatformNotSupportedException();
+    /// <inheritdoc cref="ISteamSettings.IsRunSteamNoCheckUpdate"/>
+    public static SettingsProperty<bool, SteamSettings_> IsRunSteamNoCheckUpdate { get; } = new();
 
-    static readonly SerializableProperty<bool>? _IsAutoRunSteam = IApplication.IsDesktop() ? GetProperty(defaultValue: false) : null;
+    /// <inheritdoc cref="ISteamSettings.IsRunSteamChina"/>
+    public static SettingsProperty<bool, SteamSettings_> IsRunSteamChina { get; } = new();
 
-    /// <summary>
-    /// 自动运行 Steam
-    /// </summary>
-    public static SerializableProperty<bool> IsAutoRunSteam => _IsAutoRunSteam ?? throw new PlatformNotSupportedException();
+    /// <inheritdoc cref="ISteamSettings.IsEnableSteamLaunchNotification"/>
+    public static SettingsProperty<bool, SteamSettings_> IsEnableSteamLaunchNotification { get; } = new();
 
-    static readonly SerializableProperty<bool>? _IsRunSteamMinimized = IApplication.IsDesktop() ? GetProperty(defaultValue: false) : null;
+    /// <inheritdoc cref="ISteamSettings.DownloadCompleteSystemEndMode"/>
+    public static SettingsProperty<OSExitMode, SteamSettings_> DownloadCompleteSystemEndMode { get; } = new();
 
-    /// <summary>
-    /// Steam 启动时最小化到托盘
-    /// </summary>
-    public static SerializableProperty<bool> IsRunSteamMinimized => _IsRunSteamMinimized ?? throw new PlatformNotSupportedException();
-
-    static readonly SerializableProperty<bool>? _IsRunSteamNoCheckUpdate = IApplication.IsDesktop() ? GetProperty(defaultValue: false) : null;
-
-    /// <summary>
-    /// Steam 启动时不检查更新
-    /// </summary>
-    public static SerializableProperty<bool> IsRunSteamNoCheckUpdate => _IsRunSteamNoCheckUpdate ?? throw new PlatformNotSupportedException();
-
-    static readonly SerializableProperty<bool>? _IsRunSteamChina = IApplication.IsDesktop() ? GetProperty(defaultValue: false) : null;
-
-    /// <summary>
-    /// Steam 启动时模拟为蒸汽平台（Steam国服）启动
-    /// </summary>
-    public static SerializableProperty<bool> IsRunSteamChina => _IsRunSteamChina ?? throw new PlatformNotSupportedException();
-
-    static readonly SerializableProperty<bool>? _IsEnableSteamLaunchNotification = IApplication.IsDesktop() ? GetProperty(defaultValue: true) : null;
-
-    /// <summary>
-    /// 检测到 Steam 登录时弹出消息通知
-    /// </summary>
-    public static SerializableProperty<bool> IsEnableSteamLaunchNotification => _IsEnableSteamLaunchNotification ?? throw new PlatformNotSupportedException();
-
-    /// <summary>
-    /// Steam 下载完成执行任务
-    /// </summary>
-    public static SerializableProperty<OSExitMode>? DownloadCompleteSystemEndMode = IApplication.IsDesktop() ? GetProperty(defaultValue: OSExitMode.Sleep) : null;
-
-    static readonly SerializableProperty<bool>? _IsRunSteamAdministrator = IApplication.IsDesktop() ? GetProperty(defaultValue: true) : null;
-
-    /// <summary>
-    /// 以管理员权限运行 Steam
-    /// </summary>
-    public static SerializableProperty<bool> IsRunSteamAdministrator => _IsRunSteamAdministrator ?? throw new PlatformNotSupportedException();
+    /// <inheritdoc cref="ISteamSettings.IsRunSteamAdministrator"/>
+    public static SettingsProperty<bool, SteamSettings_> IsRunSteamAdministrator { get; } = new();
 }
-
-#endif

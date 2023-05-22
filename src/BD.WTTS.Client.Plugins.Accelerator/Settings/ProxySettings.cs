@@ -128,8 +128,6 @@ public static class ProxySettings
     /// <inheritdoc cref="IProxySettings.ProxyMasterDns"/>
     public static SettingsProperty<string?, ProxySettings_> ProxyMasterDns { get; } = new() { AutoSave = false };
 
-    //e.
-
     /// <inheritdoc cref="IProxySettings.EnableHttpProxyToHttps"/>
     public static SettingsProperty<bool, ProxySettings_> EnableHttpProxyToHttps { get; } = new();
 

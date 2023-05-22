@@ -1,8 +1,9 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
 using EProxyMode = BD.WTTS.Enums.ProxyMode;
 
-namespace BD.WTTS.Settings;
-public interface IProxySettings
+namespace BD.WTTS.Settings.Abstractions;
+
+public interface IProxySettings : ISettings
 {
     /// <summary>
     /// 启用脚本自动检查更新
