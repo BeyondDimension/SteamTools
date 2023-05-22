@@ -2,6 +2,7 @@
 using XmlnsDefinition = Avalonia.Metadata.XmlnsDefinitionAttribute;
 
 // steampp
+[assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Enums")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Models")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Models.Abstractions")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.UI.ViewModels")]

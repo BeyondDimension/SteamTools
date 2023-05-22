@@ -310,13 +310,11 @@
                 <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF4A5;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <ComboBox SelectedIndex="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundMaterial}, Path=Value, Mode=TwoWay}">
-                    <ComboBoxItem Content="None" />
-                    <ComboBoxItem Content="Transparent" />
-                    <ComboBoxItem Content="Blur" />
-                    <ComboBoxItem Content="AcrylicBlur" />
-                    <ComboBoxItem Content="ForceAcrylicBlur" />
-                    <ComboBoxItem Content="Mica" IsVisible="{spp:OnPlatform Windows11AtLeast}" />
+                <ComboBox SelectedItem="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundMaterial}, Path=Value, Mode=TwoWay}">
+                    <ComboBoxItem Content="{x:Static spp:WindowBackgroundMaterial.None}" />
+                    <ComboBoxItem Content="{x:Static spp:WindowBackgroundMaterial.Blur}" />
+                    <ComboBoxItem Content="{x:Static spp:WindowBackgroundMaterial.AcrylicBlur}" />
+                    <ComboBoxItem Content="{x:Static spp:WindowBackgroundMaterial.Mica}" IsVisible="{spp:OnPlatform Windows11AtLeast}" />
                 </ComboBox>
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>

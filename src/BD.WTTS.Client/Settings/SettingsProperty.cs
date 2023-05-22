@@ -118,9 +118,12 @@ public sealed class SettingsProperty<TValue, [DynamicallyAccessedMembers(Dynamic
 
     public event EventHandler<ValueChangedEventArgs<TValue>>? ValueChanged;
 
-    void OnValueChanged(TValue? oldValue, TValue? newValue)
+    async void OnValueChanged(TValue? oldValue, TValue? newValue)
     {
-        ValueChanged?.Invoke(this, new ValueChangedEventArgs<TValue>(oldValue, newValue));
+        await MainThread2.InvokeOnMainThreadAsync(() =>
+        {
+            ValueChanged?.Invoke(this, new ValueChangedEventArgs<TValue>(oldValue, newValue));
+        });
     }
 
     readonly Dictionary<PropertyChangedEventHandler, EventHandler<ValueChangedEventArgs<TValue>>>
