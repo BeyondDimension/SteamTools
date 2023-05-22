@@ -1,5 +1,7 @@
+#if !UNIT_TEST
 using System.Resources;
 using AssemblyInfo = BD.WTTS.AssemblyInfo;
+#endif
 
 #pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable SYSLIB0025 // 类型或成员已过时
@@ -10,6 +12,7 @@ using AssemblyInfo = BD.WTTS.AssemblyInfo;
 [assembly: SupportedOSPlatform("Windows10.0.17763")]
 #endif
 
+#if !UNIT_TEST
 [assembly: AssemblyTrademark(AssemblyInfo.Trademark)]
 [assembly: AssemblyDescription(AssemblyInfo.Description)]
 [assembly: AssemblyProduct(AssemblyInfo.Product)]
@@ -19,3 +22,4 @@ using AssemblyInfo = BD.WTTS.AssemblyInfo;
 [assembly: AssemblyFileVersion(AssemblyInfo.Version)]
 [assembly: AssemblyInformationalVersion(AssemblyInfo.Version)]
 [assembly: NeutralResourcesLanguage(AssemblyInfo.CultureName_SimplifiedChinese)]
+#endif

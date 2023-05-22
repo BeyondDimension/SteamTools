@@ -82,7 +82,6 @@
 
 	<ItemGroup>
 		<Folder Include="Models\" />
-		<Folder Include="UI\ViewModels\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />

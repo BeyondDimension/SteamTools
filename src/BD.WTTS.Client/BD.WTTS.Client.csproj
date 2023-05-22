@@ -190,10 +190,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Services\Mvvm\Steam\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\BD.WTTS.Generators\BD.WTTS.Generators.csproj"
 						  OutputItemType="Analyzer"
 						  ReferenceOutputAssembly="false" />

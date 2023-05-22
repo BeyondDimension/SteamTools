@@ -217,9 +217,9 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
             t.ThrowIfCancellationRequested();
             const string sql =
                 SQLStrings.DeleteFrom +
-                AccountPlatformAuthenticator.TableName +
+                $"[{AccountPlatformAuthenticator.TableName}]" +
                 " where " +
-                AccountPlatformAuthenticator.ColumnName_ServerId
+                $"[{AccountPlatformAuthenticator.ColumnName_ServerId}]"
                 + " = ?";
             return dbConnection.ExecuteAsync(sql,
                 serverId);

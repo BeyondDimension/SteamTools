@@ -3,7 +3,7 @@ using Fusillade;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Repositories;
 
-internal sealed class RequestCacheRepository : Repository<RequestCache, string>, IRequestCacheRepository
+internal sealed class RequestCacheRepository : CacheRepository<RequestCache, string>, IRequestCacheRepository
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static string GetRequestUri(HttpRequestMessage request)
@@ -44,6 +44,21 @@ internal sealed class RequestCacheRepository : Repository<RequestCache, string>,
         await InsertOrUpdateAsync(entity, cancellationToken);
     }
 
+    public async Task UpdateUsageTimeByIdAsync(string id, CancellationToken cancellationToken)
+    {
+        var dbConnection = await GetDbConnection().ConfigureAwait(false);
+        await AttemptAndRetry(async t =>
+        {
+            t.ThrowIfCancellationRequested();
+            const string sql_ = $"{SQLStrings.Update}[{RequestCache.TableName}] " +
+               $"set [{RequestCache.ColumnName_UsageTime}] = {{0}} " +
+               $"where [{RequestCache.ColumnName_Id}] = {{1}}";
+            var sql = string.Format(sql_, DateTimeOffset.Now.Ticks, id);
+            var r = await dbConnection.ExecuteAsync(sql);
+            return r;
+        }, cancellationToken: cancellationToken).ConfigureAwait(false);
+    }
+
     async Task<byte[]> IRequestCache.Fetch(
         HttpRequestMessage request,
         string key,
@@ -56,8 +71,27 @@ internal sealed class RequestCacheRepository : Repository<RequestCache, string>,
             cancellationToken);
 
         if (entity != null)
+        {
+            await UpdateUsageTimeByIdAsync(entity.Id, cancellationToken);
             return entity.Response;
+        }
 
         return Array.Empty<byte>();
+    }
+
+    public async Task<int> DeleteAllAsync()
+    {
+        var dbConnection = await GetDbConnection().ConfigureAwait(false);
+        var r = await dbConnection.DeleteAllAsync<RequestCache>();
+        return r;
+    }
+
+    public async Task<int> DeleteAllAsync(DateTimeOffset dateTimeOffset)
+    {
+        var dbConnection = await GetDbConnection().ConfigureAwait(false);
+        const string sql = $"{SQLStrings.DeleteFrom}[{RequestCache.TableName}] " +
+               $"where [{RequestCache.ColumnName_UsageTime}] < ?";
+        var r = await dbConnection.ExecuteAsync(sql, dateTimeOffset.UtcTicks);
+        return r;
     }
 }

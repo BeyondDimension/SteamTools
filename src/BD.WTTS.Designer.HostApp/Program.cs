@@ -1,8 +1,9 @@
 using Avalonia;
+using BD.WTTS.UI;
 
-namespace BD.WTTS.Designer.HostApp;
+namespace BD.WTTS;
 
-class Program
+static class Program
 {
     [STAThread]
     public static void Main(string[] args)
