@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using BD.Common.UI.Helpers;
+
 namespace BD.WTTS;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
@@ -38,6 +40,8 @@ partial class Program
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static AppBuilder BuildAvaloniaApp()
     {
+        UIFrameworkHelper.Init(isAvaloniaUI: true);
+
         if (instance == null)
         {
             instance = new()
