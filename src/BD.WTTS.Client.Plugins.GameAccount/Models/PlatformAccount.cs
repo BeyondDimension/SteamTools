@@ -6,7 +6,7 @@ public sealed class PlatformAccount : ReactiveObject
 
     public string? Icon { get; set; }
 
-    public AuthenticatorPlatform Platform { get; set; }
+    public GamePlatform Platform { get; set; }
 
     public ObservableCollection<Account>? Accounts { get; set; }
 

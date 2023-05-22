@@ -164,7 +164,9 @@
                                                        Converter={StaticResource BitmapAssetValueConverter}}"
                             Stretch="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImageStretch},
                                                         Path=Value,
-                                                        Mode=OneWay}" />
+                                                        Mode=OneWay,
+														Converter={StaticResource EnumConverter},
+														ConverterParameter={x:Type Stretch}}" />
                     </Panel>
                     <Panel
                         Name="DefaultTitleBar"

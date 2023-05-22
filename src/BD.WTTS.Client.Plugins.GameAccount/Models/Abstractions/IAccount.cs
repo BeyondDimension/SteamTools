@@ -12,7 +12,7 @@ public interface IAccount
 
     DateTime? LastLoginTime { get; set; }
 
-    AuthenticatorPlatform Platform { get; set; }
+    GamePlatform Platform { get; set; }
 
     string? PlatformName { get; set; }
 

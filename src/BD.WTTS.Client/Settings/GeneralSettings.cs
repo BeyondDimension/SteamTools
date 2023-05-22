@@ -10,7 +10,7 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings
     public bool AutoCheckAppUpdate { get; set; } = true;
 
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
-    public UpdateChannelType UpdateChannel { get; set; }
+    public UpdateChannelType UpdateChannel { get; set; } = UpdateChannelType.Auto;
 
     [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
     public bool AutoRunOnStartup { get; set; }

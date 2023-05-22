@@ -12,7 +12,7 @@ public sealed class Account : IAccount
 
     public DateTime? LastLoginTime { get; set; }
 
-    public AuthenticatorPlatform Platform { get; set; }
+    public GamePlatform Platform { get; set; }
 
     public string? PlatformName { get; set; }
 

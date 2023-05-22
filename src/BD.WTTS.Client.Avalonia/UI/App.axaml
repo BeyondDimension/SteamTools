@@ -13,6 +13,7 @@
         <spp:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
         <spp:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
         <spp:StringFormatConverter x:Key="StringFormatConverter" />
+		<spp:EnumConverter x:Key="EnumConverter" />
     </Application.Resources>
     <Application.Styles>
         <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
