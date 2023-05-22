@@ -190,9 +190,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BD.WTTS.Generators\BD.WTTS.Generators.csproj"
-						  OutputItemType="Analyzer"
-						  ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\BD.WTTS.Generators\BD.WTTS.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 	
 	<Import Project="..\TFM_NET7_WITH_ALL.props" />

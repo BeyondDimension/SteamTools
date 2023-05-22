@@ -1,218 +1,168 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
-using EProxyMode = BD.WTTS.Enums.ProxyMode;
-
-// ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings;
 
-public sealed partial class ProxySettings : SettingsHost2<ProxySettings>
+[MPObj, MP2Obj(SerializeLayout.Explicit)]
+public sealed partial class ProxySettings_ : IProxySettings
 {
-    /// <summary>
-    /// 启用脚本自动检查更新
-    /// </summary>
-    public static SerializableProperty<bool> IsAutoCheckScriptUpdate { get; }
-        = GetProperty(defaultValue: true);
+    public const string Name = nameof(ProxySettings_);
 
-    /// <summary>
-    /// 启用代理脚本
-    /// </summary>
-    public static SerializableProperty<bool> IsEnableScript { get; }
-        = GetProperty(defaultValue: false);
+    [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
+    public bool IsAutoCheckScriptUpdate { get; set; } = true;
 
-    /// <summary>
-    /// 代理服务启用状态
-    /// </summary>
-    public static SerializableProperty<IReadOnlyCollection<string>> SupportProxyServicesStatus { get; }
-        = GetProperty(defaultValue: (IReadOnlyCollection<string>)Array.Empty<string>(), autoSave: false);
+    [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
+    public bool IsEnableScript { get; set; } = false;
 
-    /// <summary>
-    /// 脚本启用状态
-    /// </summary>
-    public static SerializableProperty<IReadOnlyCollection<int>> ScriptsStatus { get; }
-        = GetProperty(defaultValue: (IReadOnlyCollection<int>)Array.Empty<int>());
+    [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
+    public IReadOnlyCollection<string> SupportProxyServicesStatus { get; set; } = Array.Empty<string>();
+
+    [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
+    public IReadOnlyCollection<int> ScriptsStatus { get; set; } = Array.Empty<int>();
 
     #region 代理设置
+    [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
+    public bool ProgramStartupRunProxy { get; set; } = false;
 
-    /// <summary>
-    /// 程序启动时自动启动代理
-    /// </summary>
-    public static SerializableProperty<bool> ProgramStartupRunProxy { get; }
-        = GetProperty(defaultValue: false);
+    [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
+    public int SystemProxyPortId { get; set; } = 26561;
 
-    /// <summary>
-    /// 系统代理模式端口
-    /// </summary>
-    public static SerializableProperty<int> SystemProxyPortId { get; }
-        = GetProperty(defaultValue: 26501, autoSave: false);
+    [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
+    public string SystemProxyIp { get; set; } = IPAddress.Any.ToString();
 
-    /// <summary>
-    /// 系统代理模式IP
-    /// </summary>
-    public static SerializableProperty<string> SystemProxyIp { get; }
-        = GetProperty(defaultValue: IPAddress.Any.ToString(), autoSave: false);
+    [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
+    public bool OnlyEnableProxyScript { get; set; } = false;
 
-    /// <summary>
-    /// 开启加速后仅代理脚本而不加速
-    /// </summary>
-    public static SerializableProperty<bool> OnlyEnableProxyScript { get; }
-        = GetProperty(defaultValue: false, autoSave: false);
+    [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
+    public string? ProxyMasterDns { get; set; } = "223.5.5.5";
 
-    /// <summary>
-    /// 代理时使用的解析主DNS
-    /// </summary>
-    public static SerializableProperty<string?> ProxyMasterDns { get; }
-        = GetProperty<string?>(defaultValue: "223.5.5.5", autoSave: false);
-
-    /// <summary>
-    /// 启用 Http 链接转发到 Https
-    /// </summary>
-    public static SerializableProperty<bool> EnableHttpProxyToHttps { get; }
-        = GetProperty(defaultValue: true);
-
+    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
+    public bool EnableHttpProxyToHttps { get; set; } = true;
     #endregion
 
     #region 本地代理设置
+    [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
+    public bool Socks5ProxyEnable { get; set; } = false;
 
-    /// <summary>
-    /// Socks5 Enable
-    /// </summary>
-    public static SerializableProperty<bool> Socks5ProxyEnable { get; }
-        = GetProperty(defaultValue: false, autoSave: false);
-
-    /// <summary>
-    /// Socks5 监听端口
-    /// </summary>
-    public static SerializableProperty<int> Socks5ProxyPortId { get; }
-        = GetProperty(defaultValue: DefaultSocks5ProxyPortId, autoSave: false);
-
-    public const int DefaultSocks5ProxyPortId = 8868;
-
+    [MPKey(11), MP2Key(11), JsonPropertyOrder(11)]
+    public int Socks5ProxyPortId { get; set; } = IProxySettings.DefaultSocks5ProxyPortId;
     #endregion
 
     #region 二级代理设置
+    [MPKey(12), MP2Key(12), JsonPropertyOrder(12)]
+    public bool TwoLevelAgentEnable { get; set; } = false;
 
-    /// <summary>
-    /// TwoLevelAgent Enable
-    /// </summary>
-    public static SerializableProperty<bool> TwoLevelAgentEnable { get; }
-        = GetProperty(defaultValue: false, autoSave: false);
+    [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
+    public short TwoLevelAgentProxyType { get; set; } = IProxySettings.DefaultTwoLevelAgentProxyType;
 
-    /// <summary>
-    /// TwoLevelAgent ProxyType
-    /// </summary>
-    public static SerializableProperty<short> TwoLevelAgentProxyType { get; }
-        = GetProperty(defaultValue: DefaultTwoLevelAgentProxyType, autoSave: false);
+    [MPKey(14), MP2Key(14), JsonPropertyOrder(14)]
+    public string TwoLevelAgentIp { get; set; } = IPAddress.Loopback.ToString();
 
-    public const short DefaultTwoLevelAgentProxyType =
-        (short)IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType;
+    [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
+    public int TwoLevelAgentPortId { get; set; } = IProxySettings.DefaultTwoLevelAgentPortId;
 
-    /// <summary>
-    /// 二级代理 IP
-    /// </summary>
-    public static SerializableProperty<string> TwoLevelAgentIp { get; }
-        = GetProperty(defaultValue: IPAddress.Loopback.ToString(), autoSave: false);
+    [MPKey(16), MP2Key(16), JsonPropertyOrder(16)]
+    public string TwoLevelAgentUserName { get; set; } = string.Empty;
 
-    /// <summary>
-    /// 二级代理 监听端口
-    /// </summary>
-    public static SerializableProperty<int> TwoLevelAgentPortId { get; }
-        = GetProperty(defaultValue: DefaultTwoLevelAgentPortId, autoSave: false);
-
-    public const int DefaultTwoLevelAgentPortId = 7890;
-
-    /// <summary>
-    /// TwoLevelAgent UserName
-    /// </summary>
-    public static SerializableProperty<string> TwoLevelAgentUserName { get; }
-        = GetProperty(defaultValue: string.Empty, autoSave: false);
-
-    /// <summary>
-    /// TwoLevelAgent Password
-    /// </summary>
-    public static SerializableProperty<string> TwoLevelAgentPassword { get; }
-        = GetProperty(defaultValue: string.Empty, autoSave: false);
-
+    [MPKey(17), MP2Key(17), JsonPropertyOrder(17)]
+    public string TwoLevelAgentPassword { get; set; } = string.Empty;
     #endregion
 
     #region 代理模式设置
-
-    static EProxyMode DefaultProxyMode => ProxyModes[0];
-
-    static IEnumerable<EProxyMode> GetProxyModes()
-    {
-#if WINDOWS
-        yield return EProxyMode.Hosts;
-        yield return EProxyMode.DNSIntercept;
-        yield return EProxyMode.PAC;
-        yield return EProxyMode.System;
-#elif ANDROID
-        yield return EProxyMode.VPN;
-        yield return EProxyMode.ProxyOnly;
-#elif LINUX || MACOS || MACCATALYST
-#if MACCATALYST
-        if (OperatingSystem.IsMacOS())
-#endif
-        {
-            yield return EProxyMode.Hosts;
-            yield return EProxyMode.System;
-        }
-#else
-        return Array.Empty<EProxyMode>();
-#endif
-    }
-
-    public static IReadOnlyList<EProxyMode> ProxyModes => mProxyModes.Value;
-
-    static readonly Lazy<IReadOnlyList<EProxyMode>> mProxyModes = new(() => GetProxyModes().ToArray());
-
-    /// <summary>
-    /// 当前代理模式
-    /// </summary>
-    public static SerializableProperty<EProxyMode> ProxyMode { get; }
-       = GetProperty(defaultValue: DefaultProxyMode);
-
-    /// <inheritdoc cref="ProxyMode"/>
-    public static EProxyMode ProxyModeValue
-    {
-        get
-        {
-            var value = ProxyMode.Value;
-            if (ProxyModes.Contains(value)) return value;
-            return DefaultProxyMode;
-        }
-        set => ProxyMode.Value = value;
-    }
-
-    public static string ToStringByProxyMode(EProxyMode mode) => mode switch
-    {
-        EProxyMode.DNSIntercept => AppResources.ProxyMode_DNSIntercept,
-        EProxyMode.Hosts => AppResources.ProxyMode_Hosts,
-        EProxyMode.System => AppResources.ProxyMode_System,
-        EProxyMode.VPN => AppResources.ProxyMode_VPN,
-        EProxyMode.ProxyOnly => AppResources.ProxyMode_ProxyOnly,
-        _ => string.Empty,
-    };
-
-    public static string ProxyModeValueString => ToStringByProxyMode(ProxyModeValue);
-
+    [MPKey(18), MP2Key(18), JsonPropertyOrder(18)]
+    public ProxyMode ProxyMode { get; set; } = IProxySettings.DefaultProxyMode;
     #endregion
 
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+    [MPKey(19), MP2Key(19), JsonPropertyOrder(19)]
+    public bool IsProxyGOG { get; set; } = false;
 
-    static readonly SerializableProperty<bool> _IsProxyGOG
-       = GetProperty(defaultValue: false);
+    [MPKey(20), MP2Key(20), JsonPropertyOrder(20)]
+    public bool IsOnlyWorkSteamBrowser { get; set; } = false;
+}
 
-    /// <summary>
-    /// 启用 GOG 插件代理
-    /// </summary>
-    public static SerializableProperty<bool> IsProxyGOG => _IsProxyGOG;
+[JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true)]
+[JsonSerializable(typeof(ProxySettings_))]
+internal partial class ProxySettingsContext : JsonSerializerContext
+{
+    static ProxySettingsContext? instance;
 
-    static readonly SerializableProperty<bool> _IsOnlyWorkSteamBrowser
-         = GetProperty(defaultValue: false);
+    public static ProxySettingsContext Instance
+        => instance ??= new ProxySettingsContext(ISettings.GetDefaultOptions());
+}
 
-    /// <summary>
-    /// 是否只针对 Steam 内置浏览器启用脚本
-    /// </summary>
-    public static SerializableProperty<bool> IsOnlyWorkSteamBrowser => _IsOnlyWorkSteamBrowser;
+partial class ProxySettings_ : ISettings<ProxySettings_>
+{
+    public static JsonTypeInfo<ProxySettings_> JsonTypeInfo => ProxySettingsContext.Instance.ProxySettings_;
 
-#endif
+    public static JsonSerializerContext JsonSerializerContext => ProxySettingsContext.Instance;
+
+    static string ISettings.Name => Name;
+
+    static JsonTypeInfo ISettings.JsonTypeInfo => ProxySettingsContext.Instance.ProxySettings_;
+}
+
+[SettingsGeneration]
+public static class ProxySettings
+{
+    /// <inheritdoc cref="IProxySettings.IsAutoCheckScriptUpdate"/>
+    public static SettingsProperty<bool, ProxySettings_> IsAutoCheckScriptUpdate { get; } = new();
+
+    /// <inheritdoc cref="IProxySettings.IsEnableScript"/>
+    public static SettingsProperty<bool, ProxySettings_> IsEnableScript { get; } = new();
+
+    /// <inheritdoc cref="IProxySettings.SupportProxyServicesStatus"/>
+    public static SettingsProperty<IReadOnlyCollection<string>, ProxySettings_> SupportProxyServicesStatus { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.ScriptsStatus"/>
+    public static SettingsProperty<IReadOnlyCollection<int>, ProxySettings_> ScriptsStatus { get; } = new();
+
+    /// <inheritdoc cref="IProxySettings.ProgramStartupRunProxy"/>
+    public static SettingsProperty<bool, ProxySettings_> ProgramStartupRunProxy { get; } = new();
+
+    /// <inheritdoc cref="IProxySettings.SystemProxyPortId"/>
+    public static SettingsProperty<int, ProxySettings_> SystemProxyPortId { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.SystemProxyIp"/>
+    public static SettingsProperty<string, ProxySettings_> SystemProxyIp { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.OnlyEnableProxyScript"/>
+    public static SettingsProperty<bool, ProxySettings_> OnlyEnableProxyScript { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.ProxyMasterDns"/>
+    public static SettingsProperty<string?, ProxySettings_> ProxyMasterDns { get; } = new() { AutoSave = false };
+
+    //e.
+
+    /// <inheritdoc cref="IProxySettings.EnableHttpProxyToHttps"/>
+    public static SettingsProperty<bool, ProxySettings_> EnableHttpProxyToHttps { get; } = new();
+
+    /// <inheritdoc cref="IProxySettings.Socks5ProxyEnable"/>
+    public static SettingsProperty<bool, ProxySettings_> Socks5ProxyEnable { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.Socks5ProxyPortId"/>
+    public static SettingsProperty<int, ProxySettings_> Socks5ProxyPortId { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.TwoLevelAgentEnable"/>
+    public static SettingsProperty<bool, ProxySettings_> TwoLevelAgentEnable { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.TwoLevelAgentProxyType"/>
+    public static SettingsProperty<short, ProxySettings_> TwoLevelAgentProxyType { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.TwoLevelAgentIp"/>
+    public static SettingsProperty<string, ProxySettings_> TwoLevelAgentIp { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.TwoLevelAgentPortId"/>
+    public static SettingsProperty<int, ProxySettings_> TwoLevelAgentPortId { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.TwoLevelAgentUserName"/>
+    public static SettingsProperty<string, ProxySettings_> TwoLevelAgentUserName { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.TwoLevelAgentPassword"/>
+    public static SettingsProperty<string, ProxySettings_> TwoLevelAgentPassword { get; } = new() { AutoSave = false };
+
+    /// <inheritdoc cref="IProxySettings.ProxyMode"/>
+    public static SettingsProperty<ProxyMode, ProxySettings_> ProxyMode { get; } = new();
+
+    /// <inheritdoc cref="IProxySettings.IsProxyGOG"/>
+    public static SettingsProperty<bool, ProxySettings_> IsProxyGOG { get; } = new();
+
+    /// <inheritdoc cref="IProxySettings.IsOnlyWorkSteamBrowser"/>
+    public static SettingsProperty<bool, ProxySettings_> IsOnlyWorkSteamBrowser { get; } = new();
 }

@@ -38,8 +38,8 @@ public sealed class ProxyService
                 if (x)
                 {
                     reverseProxyService.ProxyDomains = EnableProxyDomains;
-                    reverseProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
-                    reverseProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
+                    reverseProxyService.IsEnableScript = O_ProxySettings.IsEnableScript.Value;
+                    reverseProxyService.OnlyEnableProxyScript = O_ProxySettings.OnlyEnableProxyScript.Value;
 
                     if (reverseProxyService.IsEnableScript)
                     {
@@ -55,14 +55,14 @@ public sealed class ProxyService
                     if (OperatingSystem.IsMacOS())
 #endif
                     {
-                        reverseProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
-                        proxyMode = ProxySettings.ProxyModeValue;
-                        reverseProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
+                        reverseProxyService.IsOnlyWorkSteamBrowser = O_ProxySettings.IsOnlyWorkSteamBrowser.Value;
+                        proxyMode = O_ProxySettings.ProxyModeValue;
+                        reverseProxyService.IsProxyGOG = O_ProxySettings.IsProxyGOG.Value;
                     }
 #endif
                     reverseProxyService.ProxyMode = proxyMode;
 
-                    reverseProxyService.ProxyIp = IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip) ? ip : IPAddress.Any;
+                    reverseProxyService.ProxyIp = IPAddress2.TryParse(O_ProxySettings.SystemProxyIp.Value, out var ip) ? ip : IPAddress.Any;
 
                     // macOS\Linux 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
                     if ((OperatingSystem.IsMacOS() || OperatingSystem.IsLinux()) && IPAddress.IsLoopback(IReverseProxyService.Constants.Instance.ProxyIp))
@@ -71,24 +71,24 @@ public sealed class ProxyService
                     }
 
                     // Android VPN 模式使用 tun2socks
-                    reverseProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem.IsAndroid() && ProxySettings.ProxyModeValue == ProxyMode.VPN);
-                    reverseProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
-                    if (!ModelValidatorProvider.IsPortId(reverseProxyService.Socks5ProxyPortId)) reverseProxyService.Socks5ProxyPortId = ProxySettings.DefaultSocks5ProxyPortId;
+                    reverseProxyService.Socks5ProxyEnable = O_ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem.IsAndroid() && O_ProxySettings.ProxyModeValue == ProxyMode.VPN);
+                    reverseProxyService.Socks5ProxyPortId = O_ProxySettings.Socks5ProxyPortId.Value;
+                    if (!ModelValidatorProvider.IsPortId(reverseProxyService.Socks5ProxyPortId)) reverseProxyService.Socks5ProxyPortId = O_ProxySettings.DefaultSocks5ProxyPortId;
 
                     //reverseProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
-                    reverseProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
+                    reverseProxyService.TwoLevelAgentEnable = O_ProxySettings.TwoLevelAgentEnable.Value;
 
-                    reverseProxyService.TwoLevelAgentProxyType = (ExternalProxyType)ProxySettings.TwoLevelAgentProxyType.Value;
+                    reverseProxyService.TwoLevelAgentProxyType = (ExternalProxyType)O_ProxySettings.TwoLevelAgentProxyType.Value;
                     if (!reverseProxyService.TwoLevelAgentProxyType.IsDefined()) reverseProxyService.TwoLevelAgentProxyType = IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType;
 
-                    reverseProxyService.TwoLevelAgentIp = IPAddress2.TryParse(ProxySettings.TwoLevelAgentIp.Value, out var ip_t) ? ip_t.ToString() : IPAddress.Loopback.ToString();
-                    reverseProxyService.TwoLevelAgentPortId = ProxySettings.TwoLevelAgentPortId.Value;
-                    if (!ModelValidatorProvider.IsPortId(reverseProxyService.TwoLevelAgentPortId)) reverseProxyService.TwoLevelAgentPortId = ProxySettings.DefaultTwoLevelAgentPortId;
-                    reverseProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
-                    reverseProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
+                    reverseProxyService.TwoLevelAgentIp = IPAddress2.TryParse(O_ProxySettings.TwoLevelAgentIp.Value, out var ip_t) ? ip_t.ToString() : IPAddress.Loopback.ToString();
+                    reverseProxyService.TwoLevelAgentPortId = O_ProxySettings.TwoLevelAgentPortId.Value;
+                    if (!ModelValidatorProvider.IsPortId(reverseProxyService.TwoLevelAgentPortId)) reverseProxyService.TwoLevelAgentPortId = O_ProxySettings.DefaultTwoLevelAgentPortId;
+                    reverseProxyService.TwoLevelAgentUserName = O_ProxySettings.TwoLevelAgentUserName.Value;
+                    reverseProxyService.TwoLevelAgentPassword = O_ProxySettings.TwoLevelAgentPassword.Value;
 
-                    reverseProxyService.ProxyDNS = IPAddress2.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
-                    reverseProxyService.EnableHttpProxyToHttps = ProxySettings.EnableHttpProxyToHttps.Value;
+                    reverseProxyService.ProxyDNS = IPAddress2.TryParse(O_ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
+                    reverseProxyService.EnableHttpProxyToHttps = O_ProxySettings.EnableHttpProxyToHttps.Value;
 
                     this.RaisePropertyChanged(nameof(EnableProxyDomains));
                     this.RaisePropertyChanged(nameof(EnableProxyScripts));
@@ -324,10 +324,10 @@ public sealed class ProxyService
 
     public bool IsEnableScript
     {
-        get => ProxySettings.IsEnableScript.Value;
+        get => O_ProxySettings.IsEnableScript.Value;
         set
         {
-            ProxySettings.IsEnableScript.Value = value;
+            O_ProxySettings.IsEnableScript.Value = value;
             reverseProxyService.IsEnableScript = value;
             this.RaisePropertyChanged();
             this.RaisePropertyChanged(nameof(EnableProxyScripts));
@@ -339,15 +339,15 @@ public sealed class ProxyService
         get
         {
             if (OperatingSystem.IsAndroid() || OperatingSystem.IsIOS()) return false;
-            return ProxySettings.IsOnlyWorkSteamBrowser.Value;
+            return O_ProxySettings.IsOnlyWorkSteamBrowser.Value;
         }
 
         set
         {
             if (OperatingSystem.IsAndroid() || OperatingSystem.IsIOS()) return;
-            if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
+            if (O_ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
             {
-                ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
+                O_ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
                 reverseProxyService.IsOnlyWorkSteamBrowser = value;
                 this.RaisePropertyChanged();
             }
@@ -389,7 +389,7 @@ public sealed class ProxyService
                 s.ProxyServiceStatus == OnOffToggle.Toggle))
             return true;
 
-        return ProxySettings.ProgramStartupRunProxy.Value;
+        return O_ProxySettings.ProgramStartupRunProxy.Value;
     }
 
     public async Task InitializeAsync()
@@ -438,12 +438,12 @@ public sealed class ProxyService
 #endif
         if (result.IsSuccess)
         {
-            if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && result.Content.Any_Nullable())
+            if (O_ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && result.Content.Any_Nullable())
             {
                 var items = result.Content!.SelectMany(s => s.Items!);
                 foreach (var item in items)
                 {
-                    if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
+                    if (O_ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
                     {
                         item.Checked = true;
                     }
@@ -474,7 +474,7 @@ public sealed class ProxyService
               .Subscribe(_ =>
               {
                   IsChangeSupportProxyServicesStatus = true;
-                  ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains?.Select(k => k.Id.ToString()).ToImmutableHashSet();
+                  O_ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains?.Select(k => k.Id.ToString()).ToImmutableHashSet();
               }));
     }
 

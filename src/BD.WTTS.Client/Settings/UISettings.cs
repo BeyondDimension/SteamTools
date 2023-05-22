@@ -1,166 +1,144 @@
-//// ReSharper disable once CheckNamespace
-//namespace BD.WTTS.Settings;
+// ReSharper disable once CheckNamespace
+namespace BD.WTTS.Settings;
 
-//public sealed partial class UISettings : SettingsHost2<UISettings>
-//{
-//    /// <summary>
-//    /// 主题
-//    /// </summary>
-//    public static SerializableProperty<short> Theme { get; }
-//        = GetProperty(defaultValue: (short)0);
+[MPObj, MP2Obj(SerializeLayout.Explicit)]
+public sealed partial class UISettings_ : IUISettings
+{
+    public const string Name = nameof(UISettings_);
 
-//    /// <summary>
-//    /// 语言
-//    /// </summary>
-//    public static SerializableProperty<string> Language { get; }
-//        = GetProperty(defaultValue: string.Empty);
+    [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
+    public AppTheme Theme { get; set; }
 
-//    /// <summary>
-//    /// 不再提示的消息框数组
-//    /// </summary>
-//    public static SerializableProperty<HashSet<MessageBox.DontPromptType>?> DoNotShowMessageBoxs { get; }
-//        = GetProperty<HashSet<MessageBox.DontPromptType>?>(defaultValue: null, autoSave: true);
+    [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
+    public string ThemeAccent { get; set; } = "";
 
-//    /// <summary>
-//    /// 是否显示广告
-//    /// </summary>
-//    public static SerializableProperty<bool> IsShowAdvertise { get; }
-//        = GetProperty(defaultValue: true);
+    [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
+    public bool UseSystemThemeAccent { get; set; }
 
-//#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+    [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
+    public string Language { get; set; } = "";
 
-//    static readonly SerializableProperty<ConcurrentDictionary<string, SizePosition>>? _WindowSizePositions = IApplication.IsDesktop() ?
-//      GetProperty(defaultValue: new ConcurrentDictionary<string, SizePosition>(), autoSave: true) : null;
+    [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
+    public HashSet<MessageBox.DontPromptType> MessageBoxDontPrompts { get; set; } = new()
+    {
+#if DEBUG
+        MessageBox.DontPromptType.Undefined,
+#endif
+    };
 
-//    /// <summary>
-//    /// 所有窗口位置记忆字典集合
-//    /// </summary>
-//    public static SerializableProperty<ConcurrentDictionary<string, SizePosition>> WindowSizePositions => _WindowSizePositions ?? throw new PlatformNotSupportedException();
+    [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
+    public bool IsShowAdvertisement { get; set; }
 
-//    static readonly SerializableProperty<string> _FontName = GetProperty(defaultValue: IFontManager.KEY_Default);
+    [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
+    public ConcurrentDictionary<string, SizePosition> WindowSizePositions { get; set; } = new();
 
-//    /// <summary>
-//    /// 字体
-//    /// </summary>
-//    public static SerializableProperty<string> FontName => _FontName;
+    [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
+    public string FontName { get; set; } = "";
 
-//    static readonly SerializableProperty<double> _AcrylicOpacity = GetProperty(defaultValue: .8);
+    [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
+    public int GameListGridSize { get; set; }
 
-//    /// <summary>
-//    /// 窗口背景不透明度
-//    /// </summary>
-//    public static SerializableProperty<double> AcrylicOpacity => _AcrylicOpacity;
+    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
+    public bool Fillet { get; set; }
 
-//    static readonly SerializableProperty<int> _WindowBackgroundMateria = GetProperty(defaultValue: /*OperatingSystem2.IsWindows7() ? 0 : (*/OperatingSystem2.IsWindows11AtLeast() ? 5 : 3)/*)*/;
+    [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
+    public double WindowBackgroundOpacity { get; set; }
 
-//    /// <summary>
-//    /// 窗口背景材质
-//    /// </summary>
-//    public static SerializableProperty<int> WindowBackgroundMateria => _WindowBackgroundMateria;
+    [MPKey(11), MP2Key(11), JsonPropertyOrder(11)]
+    public WindowBackgroundMaterial WindowBackgroundMaterial { get; set; }
 
-//    static readonly SerializableProperty<int> _AppGridSize = GetProperty(defaultValue: 150);
+    [MPKey(12), MP2Key(12), JsonPropertyOrder(12)]
+    public bool WindowBackgroundDynamic { get; set; }
 
-//    /// <summary>
-//    /// 库存游戏封面大小
-//    /// </summary>
-//    public static SerializableProperty<int> AppGridSize => _AppGridSize;
+    [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
+    public bool WindowBackgroundCustomImage { get; set; }
 
-//    static readonly SerializableProperty<bool> _SteamAccountRemarkReplaceName = GetProperty(defaultValue: false);
+    [MPKey(14), MP2Key(14), JsonPropertyOrder(14)]
+    public string WindowBackgroundCustomImagePath { get; set; } = "";
 
-//    /// <summary>
-//    /// Steam 账号备注替换名称显示
-//    /// </summary>
-//    public static SerializableProperty<bool> SteamAccountRemarkReplaceName => _SteamAccountRemarkReplaceName;
+    [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
+    public double WindowBackgroundCustomImageOpacity { get; set; }
 
-//    static readonly SerializableProperty<bool> _EnableFilletUI = GetProperty(defaultValue: false);
+    [MPKey(16), MP2Key(16), JsonPropertyOrder(16)]
+    public XamlMediaStretch WindowBackgroundCustomImageStretch { get; set; }
+}
 
-//    /// <summary>
-//    /// 启用圆角界面
-//    /// </summary>
-//    public static SerializableProperty<bool> EnableFilletUI => _EnableFilletUI;
+[JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true)]
+[JsonSerializable(typeof(UISettings_))]
+internal partial class UISettingsContext : JsonSerializerContext
+{
+    static UISettingsContext? instance;
 
-//    static readonly SerializableProperty<bool> _EnableDesktopBackground = GetProperty(defaultValue: false);
+    public static UISettingsContext Instance
+        => instance ??= new UISettingsContext(ISettings.GetDefaultOptions());
+}
 
-//    /// <summary>
-//    /// 启用动态桌面背景
-//    /// </summary>
-//    public static SerializableProperty<bool> EnableDesktopBackground => _EnableDesktopBackground;
+partial class UISettings_ : ISettings<UISettings_>
+{
+    static string ISettings.Name => Name;
 
-//    static readonly SerializableProperty<bool> _EnableCustomBackgroundImage
-//        = GetProperty(defaultValue: false);
+    static JsonSerializerContext ISettings.JsonSerializerContext
+        => UISettingsContext.Instance;
 
-//    /// <summary>
-//    /// 启用自定义背景图片
-//    /// </summary>
-//    public static SerializableProperty<bool> EnableCustomBackgroundImage => _EnableCustomBackgroundImage;
+    static JsonTypeInfo ISettings.JsonTypeInfo
+        => UISettingsContext.Instance.UISettings_;
 
-//    static readonly SerializableProperty<string> _BackgroundImagePath = GetProperty(defaultValue: "/UI/Assets/back.png");
+    static JsonTypeInfo<UISettings_> ISettings<UISettings_>.JsonTypeInfo
+        => UISettingsContext.Instance.UISettings_;
+}
 
-//    /// <summary>
-//    /// 背景图片路径
-//    /// </summary>
-//    public static SerializableProperty<string> BackgroundImagePath => _BackgroundImagePath;
+[SettingsGeneration]
+public static class UISettings
+{
+    /// <inheritdoc cref="IUISettings.Theme"/>
+    public static SettingsProperty<AppTheme, UISettings_> Theme { get; } = new();
 
-//    static readonly SerializableProperty<double> _BackgroundImageOpacity = GetProperty(defaultValue: .8);
+    /// <inheritdoc cref="IUISettings.ThemeAccent"/>
+    public static SettingsProperty<string, UISettings_> ThemeAccent { get; } = new();
 
-//    /// <summary>
-//    /// 背景图片不透明度
-//    /// </summary>
-//    public static SerializableProperty<double> BackgroundImageOpacity => _BackgroundImageOpacity;
+    /// <inheritdoc cref="IUISettings.UseSystemThemeAccent"/>
+    public static SettingsProperty<bool, UISettings_> UseSystemThemeAccent { get; } = new();
 
-//    static readonly SerializableProperty<int> _BackgroundImageStretch = GetProperty(defaultValue: 3);
+    /// <inheritdoc cref="IUISettings.Language"/>
+    public static SettingsProperty<string, UISettings_> Language { get; } = new();
 
-//    /// <summary>
-//    /// 背景图片缩放方式
-//    /// </summary>
-//    public static SerializableProperty<int> BackgroundImageStretch => _BackgroundImageStretch;
+    /// <inheritdoc cref="IUISettings.MessageBoxDontPrompts"/>
+    public static SettingsProperty<HashSet<MessageBox.DontPromptType>, UISettings_> MessageBoxDontPrompts { get; } = new();
 
-//    static readonly SerializableProperty<string> _ThemeAccent = GetProperty(defaultValue: "#FF0078D7");
+    /// <inheritdoc cref="IUISettings.IsShowAdvertisement"/>
+    public static SettingsProperty<bool, UISettings_> IsShowAdvertisement { get; } = new();
 
-//    /// <summary>
-//    /// 主题颜色(十六进制字符串)
-//    /// </summary>
-//    public static SerializableProperty<string> ThemeAccent => _ThemeAccent;
+    /// <inheritdoc cref="IUISettings.WindowSizePositions"/>
+    public static SettingsProperty<ConcurrentDictionary<string, SizePosition>, UISettings_> WindowSizePositions { get; } = new();
 
-//    static readonly SerializableProperty<bool> _GetUserThemeAccent = GetProperty(defaultValue: true);
+    /// <inheritdoc cref="IUISettings.FontName"/>
+    public static SettingsProperty<string, UISettings_> FontName { get; } = new();
 
-//    /// <summary>
-//    /// 主题颜色从系统获取
-//    /// </summary>
-//    public static SerializableProperty<bool> GetUserThemeAccent => _GetUserThemeAccent;
+    /// <inheritdoc cref="IUISettings.GameListGridSize"/>
+    public static SettingsProperty<int, UISettings_> GameListGridSize { get; } = new();
 
-//    static readonly SerializableProperty<bool> _MainMenuExpandedState = GetProperty(defaultValue: false);
+    /// <inheritdoc cref="IUISettings.Fillet"/>
+    public static SettingsProperty<bool, UISettings_> Fillet { get; } = new();
 
-//    /// <summary>
-//    /// 主菜单展开状态
-//    /// </summary>
-//    public static SerializableProperty<bool> MainMenuExpandedState => _MainMenuExpandedState;
+    /// <inheritdoc cref="IUISettings.WindowBackgroundOpacity"/>
+    public static SettingsProperty<double, UISettings_> WindowBackgroundOpacity { get; } = new();
 
-//#endif
-//}
+    /// <inheritdoc cref="IUISettings.WindowBackgroundMaterial"/>
+    public static SettingsProperty<WindowBackgroundMaterial, UISettings_> WindowBackgroundMaterial { get; } = new();
 
-////static void EnableDesktopBackground_ValueChanged(object? sender, ValueChangedEventArgs<bool> e)
-////{
-////    if (e.NewValue)
-////    {
-////        IApplication.Instance.SetDesktopBackgroundWindow();
-////    }
-////    else
-////    {
-////        INativeWindowApiService.Instance.ResetWallerpaper();
-////    }
-////}
+    /// <inheritdoc cref="IUISettings.WindowBackgroundDynamic"/>
+    public static SettingsProperty<bool, UISettings_> WindowBackgroundDynamic { get; } = new();
 
-////static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
-////{
-////    // 当前 Avalonia App 主题切换存在问题
-////    //if (OperatingSystem2.Application.UseAvalonia()) return;
-////    if (e.NewValue != e.OldValue)
-////    {
-////        var value = (AppTheme)e.NewValue;
-////        if (value.IsDefined())
-////        {
-////            IApplication.Instance.Theme = value;
-////        }
-////    }
-////}
+    /// <inheritdoc cref="IUISettings.WindowBackgroundCustomImage"/>
+    public static SettingsProperty<bool, UISettings_> WindowBackgroundCustomImage { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundCustomImagePath"/>
+    public static SettingsProperty<string, UISettings_> WindowBackgroundCustomImagePath { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundCustomImageOpacity"/>
+    public static SettingsProperty<double, UISettings_> WindowBackgroundCustomImageOpacity { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundCustomImageStretch"/>
+    public static SettingsProperty<XamlMediaStretch, UISettings_> LanguaWindowBackgroundCustomImageStretchge { get; } = new();
+
+}
