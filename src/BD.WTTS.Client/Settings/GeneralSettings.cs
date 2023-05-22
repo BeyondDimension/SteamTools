@@ -7,7 +7,7 @@ public sealed partial class GeneralSettings_ : IGeneralSettings
     public const string Name = nameof(GeneralSettings_);
 
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
-    public bool AutoCheckAppUpdate { get; set; }
+    public bool AutoCheckAppUpdate { get; set; } = true;
 
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
     public UpdateChannelType UpdateChannel { get; set; }

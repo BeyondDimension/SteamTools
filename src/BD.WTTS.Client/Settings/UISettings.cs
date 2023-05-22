@@ -10,10 +10,10 @@ public sealed partial class UISettings_ : IUISettings
     public AppTheme Theme { get; set; }
 
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
-    public string ThemeAccent { get; set; } = "";
+    public string ThemeAccent { get; set; } = "#FF0078D7";
 
     [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
-    public bool UseSystemThemeAccent { get; set; }
+    public bool UseSystemThemeAccent { get; set; } = true;
 
     [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
     public string Language { get; set; } = "";
@@ -27,7 +27,7 @@ public sealed partial class UISettings_ : IUISettings
     };
 
     [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
-    public bool IsShowAdvertisement { get; set; }
+    public bool IsShowAdvertisement { get; set; } = true;
 
     [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
     public ConcurrentDictionary<string, SizePosition> WindowSizePositions { get; set; } = new();
@@ -36,16 +36,18 @@ public sealed partial class UISettings_ : IUISettings
     public string FontName { get; set; } = "";
 
     [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
-    public int GameListGridSize { get; set; }
+    public int GameListGridSize { get; set; } = 150;
 
     [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
     public bool Fillet { get; set; }
 
     [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
-    public double WindowBackgroundOpacity { get; set; }
+    public double WindowBackgroundOpacity { get; set; } = .8;
 
     [MPKey(11), MP2Key(11), JsonPropertyOrder(11)]
     public WindowBackgroundMaterial WindowBackgroundMaterial { get; set; }
+        = OperatingSystem2.IsWindows11AtLeast() ? WindowBackgroundMaterial.Mica
+        : WindowBackgroundMaterial.AcrylicBlur;
 
     [MPKey(12), MP2Key(12), JsonPropertyOrder(12)]
     public bool WindowBackgroundDynamic { get; set; }
@@ -54,13 +56,14 @@ public sealed partial class UISettings_ : IUISettings
     public bool WindowBackgroundCustomImage { get; set; }
 
     [MPKey(14), MP2Key(14), JsonPropertyOrder(14)]
-    public string WindowBackgroundCustomImagePath { get; set; } = "";
+    public string WindowBackgroundCustomImagePath { get; set; } = "/UI/Assets/back.png";
 
     [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
-    public double WindowBackgroundCustomImageOpacity { get; set; }
+    public double WindowBackgroundCustomImageOpacity { get; set; } = .8;
 
     [MPKey(16), MP2Key(16), JsonPropertyOrder(16)]
     public XamlMediaStretch WindowBackgroundCustomImageStretch { get; set; }
+        = XamlMediaStretch.UniformToFill;
 }
 
 [JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true)]
