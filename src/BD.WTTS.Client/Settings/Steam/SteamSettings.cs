@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BD.WTTS.Settings;
 
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
-public sealed partial class SteamSettings_ : ISteamSettings
+public sealed partial class SteamSettings_ : ISteamSettings, ISettings
 {
-    public const string Name = nameof(SteamSettings_);
+    public const string Name = nameof(SteamSettings);
 
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
     public string? SteamStratParameter { get; set; }

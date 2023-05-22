@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BD.WTTS.Settings.Abstractions;
 
 /// <summary>
 /// Steam 设置
 /// </summary>
-public interface ISteamSettings : ISettings
+public interface ISteamSettings
 {
     /// <summary>
     /// Steam 启动参数

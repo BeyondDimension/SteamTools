@@ -254,7 +254,7 @@ partial class Startup // 自定义控制台命令参数
             var users = steamService.GetRememberUserList();
 
             IReadOnlyDictionary<long, string?>? accountRemarks =
-                Ioc.Get<ISteamAccountSettings>()?.AccountRemarks;
+                Ioc.Get<IGameAccountSettings>()?.AccountRemarks;
 
             var sUsers = users.Select(s =>
             {

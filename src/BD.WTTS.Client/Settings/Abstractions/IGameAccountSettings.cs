@@ -3,7 +3,7 @@ namespace BD.WTTS.Settings.Abstractions;
 /// <summary>
 /// Steam 账号设置
 /// </summary>
-public interface IGameAccountSettings : ISettings
+public interface IGameAccountSettings
 {
     /// <summary>
     /// Steam 账号备注字典

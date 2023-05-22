@@ -507,7 +507,7 @@ public sealed class SteamConnectService
 
         #region 加载备注信息和 JumpList
 
-        IReadOnlyDictionary<long, string?>? accountRemarks = Ioc.Get<ISteamAccountSettings>()?.AccountRemarks;
+        IReadOnlyDictionary<long, string?>? accountRemarks = Ioc.Get<IGameAccountSettings>()?.AccountRemarks;
 
 #if WINDOWS
         List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = new();

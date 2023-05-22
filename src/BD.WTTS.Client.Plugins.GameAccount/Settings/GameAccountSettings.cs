@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BD.WTTS.Settings;
 
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
-public sealed partial class GameAccountSettings_ : IGameAccountSettings
+public sealed partial class GameAccountSettings_ : IGameAccountSettings, ISettings
 {
-    public const string Name = nameof(GameAccountSettings_);
+    public const string Name = nameof(GameAccountSettings);
 
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
     public ConcurrentDictionary<long, string?>? AccountRemarks { get; set; }

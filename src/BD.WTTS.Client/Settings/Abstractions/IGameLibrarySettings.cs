@@ -3,7 +3,7 @@ namespace BD.WTTS.Settings.Abstractions;
 /// <summary>
 /// Steam 游戏库存设置
 /// </summary>
-public interface IGameLibrarySettings : ISettings
+public interface IGameLibrarySettings
 {
     /// <summary>
     /// 已安装游戏筛选

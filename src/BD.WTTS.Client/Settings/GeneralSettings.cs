@@ -2,9 +2,9 @@
 namespace BD.WTTS.Settings;
 
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
-public sealed partial class GeneralSettings_ : IGeneralSettings
+public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings
 {
-    public const string Name = nameof(GeneralSettings_);
+    public const string Name = nameof(GeneralSettings);
 
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
     public bool AutoCheckAppUpdate { get; set; } = true;
@@ -37,7 +37,7 @@ public sealed partial class GeneralSettings_ : IGeneralSettings
     public EncodingType HostsFileEncodingType { get; set; }
 
     [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
-    public bool GPU { get; set; }
+    public bool GPU { get; set; } = true;
 
     [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
     public bool NativeOpenGL { get; set; }

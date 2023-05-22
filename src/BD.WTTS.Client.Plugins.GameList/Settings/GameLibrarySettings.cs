@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BD.WTTS.Settings;
 
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
-public sealed partial class GameLibrarySettings_ : IGameLibrarySettings
+public sealed partial class GameLibrarySettings_ : IGameLibrarySettings, ISettings
 {
-    public const string Name = nameof(GameLibrarySettings_);
+    public const string Name = nameof(GameLibrarySettings);
 
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
     public bool GameInstalledFilter { get; set; } = false;

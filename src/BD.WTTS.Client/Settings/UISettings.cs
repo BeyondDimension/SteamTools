@@ -2,9 +2,9 @@
 namespace BD.WTTS.Settings;
 
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
-public sealed partial class UISettings_ : IUISettings
+public sealed partial class UISettings_ : IUISettings, ISettings
 {
-    public const string Name = nameof(UISettings_);
+    public const string Name = nameof(UISettings);
 
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
     public AppTheme Theme { get; set; }

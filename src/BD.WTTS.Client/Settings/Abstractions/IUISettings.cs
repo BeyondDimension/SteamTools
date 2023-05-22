@@ -1,7 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
 
-public interface IUISettings : ISettings
+public interface IUISettings
 {
     #region 主题
 

@@ -1,7 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
 
-public interface IGeneralSettings : ISettings
+public interface IGeneralSettings
 {
     /// <summary>
     /// 自动检查应用更新
