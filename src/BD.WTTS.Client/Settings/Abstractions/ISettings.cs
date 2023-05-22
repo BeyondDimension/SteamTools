@@ -142,7 +142,7 @@ public interface ISettings
                 {
                     if (typeof(JsonTypeInfoResolver)
                         .GetMethod(nameof(GetJsonTypeInfo), BindingFlags.NonPublic | BindingFlags.Static)
-                        .MakeGenericMethod(type).Invoke(null, null) is JsonTypeInfo jsonTypeInfo)
+                        ?.MakeGenericMethod(type).Invoke(null, null) is JsonTypeInfo jsonTypeInfo)
                     {
                         if (jsonTypeInfo.Options == options)
                             return jsonTypeInfo;

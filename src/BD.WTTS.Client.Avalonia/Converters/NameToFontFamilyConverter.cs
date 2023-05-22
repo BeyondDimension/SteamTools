@@ -10,9 +10,16 @@ public sealed class NameToFontFamilyConverter : IValueConverter
             //    return AvaloniaFontManagerImpl.Default;
             //if (s.Equals(IFontManager.KEY_DefaultConsole, StringComparison.OrdinalIgnoreCase))
             //    return AvaloniaFontManagerImpl.DefaultConsole;
-            return FontFamily.Parse(s);
+            try
+            {
+                return FontFamily.Parse(s);
+            }
+            catch
+            {
+
+            }
         }
-        return null;
+        return App.DefaultFontFamily;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

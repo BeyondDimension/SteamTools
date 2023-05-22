@@ -139,6 +139,6 @@ public static class UISettings
     public static SettingsProperty<double, UISettings_> WindowBackgroundCustomImageOpacity { get; } = new();
 
     /// <inheritdoc cref="IUISettings.WindowBackgroundCustomImageStretch"/>
-    public static SettingsProperty<XamlMediaStretch, UISettings_> LanguaWindowBackgroundCustomImageStretchge { get; } = new();
+    public static SettingsProperty<XamlMediaStretch, UISettings_> WindowBackgroundCustomImageStretch { get; } = new();
 
 }

@@ -54,7 +54,7 @@ public sealed class AdvertiseService : ReactiveObject
         AdvertisementsSource.CountChanged
                 .Subscribe(_ => CheckShow());
 
-        UISettings.IsShowAdvertise.Subscribe(_ => CheckShow());
+        UISettings.IsShowAdvertisement.Subscribe(_ => CheckShow());
 
         //this.WhenValueChanged(x => x.IsShowAdvertise, false)
         //    .Subscribe(async x =>
@@ -114,7 +114,7 @@ public sealed class AdvertiseService : ReactiveObject
 
         if (UserService.Current.User != null && UserService.Current.User.UserType == UserType.Sponsor)
         {
-            if (!UISettings.IsShowAdvertise.Value)
+            if (!UISettings.IsShowAdvertisement.Value)
             {
                 IsShowAdvertise = false;
                 return;

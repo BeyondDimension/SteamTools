@@ -1,3 +1,5 @@
+using IHttpClientFactory = System.Net.Http.Client.IHttpClientFactory;
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 

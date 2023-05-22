@@ -20,7 +20,7 @@ partial class App
         var s = Startup.Instance;
         if (s.IsMainProcess)
         {
-            s.HasTrayIcon = GeneralSettings.IsEnableTrayIcon.Value;
+            s.HasTrayIcon = GeneralSettings.TrayIcon.Value;
             if (s.HasTrayIcon)
             {
                 TrayIcon.SetIcons(this, TrayIcons);

@@ -512,7 +512,7 @@ internal sealed class HostsFileServiceImpl
     /// 获取 hosts 文件编码
     /// </summary>
     /// <returns></returns>
-    Encoding GetEncoding() => GeneralSettings.HostsEncodingType.Value switch
+    Encoding GetEncoding() => GeneralSettings.HostsFileEncodingType.Value switch
     {
         EncodingType.ANSICodePage => s.Default,
         EncodingType.UTF8 => Encoding.Default,

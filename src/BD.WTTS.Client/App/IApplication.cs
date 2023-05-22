@@ -37,8 +37,4 @@ public partial interface IApplication
 
     /// <inheritdoc cref="IPlatformService.SetBootAutoStart(bool, string)"/>
     static void SetBootAutoStart(bool isAutoStart) => IPlatformService.Instance.SetBootAutoStart(isAutoStart, Constants.HARDCODED_APP_NAME);
-
-    bool IsAvaloniaUI() => false;
-
-    bool IsMAUI() => false;
 }

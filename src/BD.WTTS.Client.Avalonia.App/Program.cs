@@ -38,6 +38,8 @@ partial class Program
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static AppBuilder BuildAvaloniaApp()
     {
+        Common.UI.Helpers.UIFrameworkHelper.Init(isAvaloniaUI: true);
+
         if (instance == null)
         {
             instance = new()
@@ -75,17 +77,17 @@ partial class Program
                 .UseReactiveUI()
                 .With(new FontManagerOptions
                 {
-                    DefaultFamilyName = "Microsoft YaHei UI",
+                    DefaultFamilyName = UI.App.DefaultFontFamily.Name,
                     FontFallbacks = new[]
                     {
                         new FontFallback
                         {
-                            FontFamily = "Microsoft YaHei UI",
+                            FontFamily = UI.App.DefaultFontFamily.Name,
                         },
                     },
                 });
 
-            var useGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value;
+            var useGpu = !IApplication.DisableGPU && GeneralSettings.GPU.Value;
 #if MACOS
             builder.With(new AvaloniaNativePlatformOptions
             {
@@ -100,7 +102,7 @@ partial class Program
                 EnableIme = true,
             });
 #elif WINDOWS
-            var useWgl = IApplication.UseWgl || GeneralSettings.UseWgl.Value;
+            var useWgl = IApplication.UseWgl || GeneralSettings.NativeOpenGL.Value;
             var options = new Win32PlatformOptions
             {
                 UseWgl = useWgl,
