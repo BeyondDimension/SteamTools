@@ -148,4 +148,21 @@ public sealed partial class App : Application
         //        }, false);
         //#endif
     }
+
+    static FontFamily GetDefaultFontFamily()
+    {
+        try
+        {
+            var fontFamily = IPlatformService.Instance.GetDefaultFontFamily();
+            return FontFamily.Parse(fontFamily);
+        }
+        catch
+        {
+        }
+        return FontFamily.Default;
+    }
+
+    static readonly Lazy<FontFamily> _DefaultFontFamily = new(GetDefaultFontFamily);
+
+    public static FontFamily DefaultFontFamily => _DefaultFontFamily.Value;
 }

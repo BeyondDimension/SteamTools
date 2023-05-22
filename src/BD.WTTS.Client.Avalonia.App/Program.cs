@@ -77,12 +77,12 @@ partial class Program
                 .UseReactiveUI()
                 .With(new FontManagerOptions
                 {
-                    DefaultFamilyName = "Microsoft YaHei UI",
+                    DefaultFamilyName = UI.App.DefaultFontFamily.Name,
                     FontFallbacks = new[]
                     {
                         new FontFallback
                         {
-                            FontFamily = "Microsoft YaHei UI",
+                            FontFamily = UI.App.DefaultFontFamily.Name,
                         },
                     },
                 });
