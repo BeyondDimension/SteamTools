@@ -94,6 +94,16 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
     }
 
+#if WINDOWS
+    public void SelectSteamProgramLocation()
+    {
+        var openFileDialog = new OpenFileDialog();
+        openFileDialog.ShowDialog();
+        SteamSettings.SteamProgramPath.Value = openFileDialog.FileName;
+    }
+
+#endif
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     public void SetBackgroundImagePath(string? imagePath)
     {

@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using BD.SteamClient.Services.Implementation;
+
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static partial class ServiceCollectionExtensions

@@ -8,6 +8,8 @@ namespace BD.WTTS.Settings;
 /// </summary>
 public sealed class SteamSettings : SettingsHost2<SteamSettings>
 {
+    private static readonly ISteamService _service = Ioc.Get<ISteamService>();
+
     static SteamSettings()
     {
         if (!IApplication.IsDesktop()) return;
@@ -56,6 +58,14 @@ public sealed class SteamSettings : SettingsHost2<SteamSettings>
     //[SupportedOSPlatform("macOS")]
     //[SupportedOSPlatform("Linux")]
     //public static SerializableProperty<string> SteamSkin => _SteamSkin ?? throw new PlatformNotSupportedException();
+
+    static readonly SerializableProperty<string>? _SteamProgramPath = IApplication.IsDesktop() ? GetProperty(defaultValue: _service.SteamProgramPath) : null;
+
+    public static SerializableProperty<string> SteamProgramPath => (_CustomSteamPath == null || _CustomSteamPath.Value == null) ? _SteamProgramPath ?? throw new PlatformNotSupportedException() : _CustomSteamPath;
+
+    static readonly SerializableProperty<string>? _CustomSteamPath = IApplication.IsDesktop() ? GetProperty<string>(null, true, "CustomSteamPath") : null;
+
+    public static SerializableProperty<string> CustomSteamPath => _CustomSteamPath ?? throw new PlatformNotSupportedException();
 
     static readonly SerializableProperty<bool>? _IsAutoRunSteam = IApplication.IsDesktop() ? GetProperty(defaultValue: false) : null;
 

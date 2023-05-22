@@ -4,7 +4,7 @@ namespace BD.WTTS.Settings;
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
 public sealed partial class UISettings_ : IUISettings
 {
-    public const string Name = "UI";
+    public const string Name = nameof(UISettings_);
 
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
     public AppTheme Theme { get; set; }
@@ -88,8 +88,57 @@ partial class UISettings_ : ISettings<UISettings_>
 }
 
 [SettingsGeneration]
-public static class UISettings4
+public static class UISettings
 {
     /// <inheritdoc cref="IUISettings.Theme"/>
     public static SettingsProperty<AppTheme, UISettings_> Theme { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.ThemeAccent"/>
+    public static SettingsProperty<string, UISettings_> ThemeAccent { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.UseSystemThemeAccent"/>
+    public static SettingsProperty<bool, UISettings_> UseSystemThemeAccent { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.Language"/>
+    public static SettingsProperty<string, UISettings_> Language { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.MessageBoxDontPrompts"/>
+    public static SettingsProperty<HashSet<MessageBox.DontPromptType>, UISettings_> MessageBoxDontPrompts { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.IsShowAdvertisement"/>
+    public static SettingsProperty<bool, UISettings_> IsShowAdvertisement { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowSizePositions"/>
+    public static SettingsProperty<ConcurrentDictionary<string, SizePosition>, UISettings_> WindowSizePositions { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.FontName"/>
+    public static SettingsProperty<string, UISettings_> FontName { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.GameListGridSize"/>
+    public static SettingsProperty<int, UISettings_> GameListGridSize { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.Fillet"/>
+    public static SettingsProperty<bool, UISettings_> Fillet { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundOpacity"/>
+    public static SettingsProperty<double, UISettings_> WindowBackgroundOpacity { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundMaterial"/>
+    public static SettingsProperty<WindowBackgroundMaterial, UISettings_> WindowBackgroundMaterial { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundDynamic"/>
+    public static SettingsProperty<bool, UISettings_> WindowBackgroundDynamic { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundCustomImage"/>
+    public static SettingsProperty<bool, UISettings_> WindowBackgroundCustomImage { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundCustomImagePath"/>
+    public static SettingsProperty<string, UISettings_> WindowBackgroundCustomImagePath { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundCustomImageOpacity"/>
+    public static SettingsProperty<double, UISettings_> WindowBackgroundCustomImageOpacity { get; } = new();
+
+    /// <inheritdoc cref="IUISettings.WindowBackgroundCustomImageStretch"/>
+    public static SettingsProperty<XamlMediaStretch, UISettings_> LanguaWindowBackgroundCustomImageStretchge { get; } = new();
+
 }
