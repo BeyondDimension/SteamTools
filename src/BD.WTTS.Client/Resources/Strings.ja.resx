@@ -2422,4 +2422,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_OnRunCatch" xml:space="preserve">
     <value>ネットワークアクセラレーションの開始に失敗しました</value>
   </data>
+  <data name="Settings_Steam_Path" xml:space="preserve">
+    <value>Steam 路径</value>
+  </data>
 </root>
