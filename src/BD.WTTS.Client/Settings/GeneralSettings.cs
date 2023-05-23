@@ -1,3 +1,5 @@
+using static BD.WTTS.Settings.Abstractions.IGeneralSettings;
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings;
 
@@ -7,22 +9,22 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings
     public const string Name = nameof(GeneralSettings);
 
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
-    public bool AutoCheckAppUpdate { get; set; } = true;
+    public bool? AutoCheckAppUpdate { get; set; }
 
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
-    public UpdateChannelType UpdateChannel { get; set; } = UpdateChannelType.Auto;
+    public UpdateChannelType? UpdateChannel { get; set; }
 
     [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
-    public bool AutoRunOnStartup { get; set; }
+    public bool? AutoRunOnStartup { get; set; }
 
     [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
-    public bool MinimizeOnStartup { get; set; }
+    public bool? MinimizeOnStartup { get; set; }
 
     [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
-    public bool TrayIcon { get; set; }
+    public bool? TrayIcon { get; set; }
 
     [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
-    public bool GameListUseLocalCache { get; set; }
+    public bool? GameListUseLocalCache { get; set; }
 
     [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
 
@@ -34,16 +36,16 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings
     };
 
     [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
-    public EncodingType HostsFileEncodingType { get; set; }
+    public EncodingType? HostsFileEncodingType { get; set; }
 
     [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
-    public bool GPU { get; set; } = true;
+    public bool? GPU { get; set; }
 
     [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
-    public bool NativeOpenGL { get; set; }
+    public bool? NativeOpenGL { get; set; }
 
     [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
-    public bool ScreenCapture { get; set; }
+    public bool? ScreenCapture { get; set; }
 }
 
 [JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true)]
@@ -74,35 +76,45 @@ partial class GeneralSettings_ : ISettings<GeneralSettings_>
 public static class GeneralSettings
 {
     /// <inheritdoc cref="IGeneralSettings.AutoCheckAppUpdate"/>
-    public static SettingsProperty<bool, GeneralSettings_> AutoCheckAppUpdate { get; } = new();
+    public static SettingsStructProperty<bool, GeneralSettings_> AutoCheckAppUpdate { get; }
+        = new(DefaultAutoCheckAppUpdate);
 
     /// <inheritdoc cref="IGeneralSettings.UpdateChannel"/>
-    public static SettingsProperty<UpdateChannelType, GeneralSettings_> UpdateChannel { get; } = new();
+    public static SettingsStructProperty<UpdateChannelType, GeneralSettings_> UpdateChannel { get; }
+        = new(DefaultUpdateChannelType);
 
     /// <inheritdoc cref="IGeneralSettings.AutoRunOnStartup"/>
-    public static SettingsProperty<bool, GeneralSettings_> AutoRunOnStartup { get; } = new();
+    public static SettingsStructProperty<bool, GeneralSettings_> AutoRunOnStartup { get; }
+        = new(DefaultAutoRunOnStartup);
 
     /// <inheritdoc cref="IGeneralSettings.MinimizeOnStartup"/>
-    public static SettingsProperty<bool, GeneralSettings_> MinimizeOnStartup { get; } = new();
+    public static SettingsStructProperty<bool, GeneralSettings_> MinimizeOnStartup { get; }
+        = new(DefaultMinimizeOnStartup);
 
     /// <inheritdoc cref="IGeneralSettings.TrayIcon"/>
-    public static SettingsProperty<bool, GeneralSettings_> TrayIcon { get; } = new();
+    public static SettingsStructProperty<bool, GeneralSettings_> TrayIcon { get; }
+        = new(DefaultTrayIcon);
 
     /// <inheritdoc cref="IGeneralSettings.GameListUseLocalCache"/>
-    public static SettingsProperty<bool, GeneralSettings_> GameListUseLocalCache { get; } = new();
+    public static SettingsStructProperty<bool, GeneralSettings_> GameListUseLocalCache { get; }
+        = new(DefaultGameListUseLocalCache);
 
     /// <inheritdoc cref="IGeneralSettings.TextReaderProvider"/>
     public static SettingsProperty<KeyValuePair<Platform, string>, Dictionary<Platform, string>, GeneralSettings_> TextReaderProvider { get; } = new();
 
     /// <inheritdoc cref="IGeneralSettings.HostsFileEncodingType"/>
-    public static SettingsProperty<EncodingType, GeneralSettings_> HostsFileEncodingType { get; } = new();
+    public static SettingsStructProperty<EncodingType, GeneralSettings_> HostsFileEncodingType { get; }
+        = new(DefaultHostsFileEncodingType);
 
     /// <inheritdoc cref="IGeneralSettings.GPU"/>
-    public static SettingsProperty<bool, GeneralSettings_> GPU { get; } = new();
+    public static SettingsStructProperty<bool, GeneralSettings_> GPU { get; }
+        = new(DefaultGPU);
 
     /// <inheritdoc cref="IGeneralSettings.NativeOpenGL"/>
-    public static SettingsProperty<bool, GeneralSettings_> NativeOpenGL { get; } = new();
+    public static SettingsStructProperty<bool, GeneralSettings_> NativeOpenGL { get; }
+        = new(DefaultNativeOpenGL);
 
     /// <inheritdoc cref="IGeneralSettings.ScreenCapture"/>
-    public static SettingsProperty<bool, GeneralSettings_> ScreenCapture { get; } = new();
+    public static SettingsStructProperty<bool, GeneralSettings_> ScreenCapture { get; }
+        = new(DefaultScreenCapture);
 }

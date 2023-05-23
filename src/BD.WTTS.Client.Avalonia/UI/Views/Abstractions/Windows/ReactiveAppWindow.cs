@@ -45,9 +45,9 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
         if (IsSaveWindowSize)
         {
             var windowName = GetType().Name;
-            if (UISettings.WindowSizePositions.Value?.ContainsKey(windowName) == true)
+            if (UISettings.WindowSizePositions.ActualValue?.ContainsKey(windowName) == true)
             {
-                SizePosition = UISettings.WindowSizePositions.Value[windowName];
+                SizePosition = UISettings.WindowSizePositions.ActualValue[windowName];
             }
         }
 
@@ -166,7 +166,7 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
             SizePosition.Width = ClientSize.Width;
             SizePosition.Height = ClientSize.Height;
 
-            UISettings.WindowSizePositions.Value!.AddOrUpdate(GetType().Name, SizePosition, (s, e) => SizePosition);
+            UISettings.WindowSizePositions.ActualValue!.AddOrUpdate(GetType().Name, SizePosition, (s, e) => SizePosition);
             UISettings.WindowSizePositions.RaiseValueChanged();
         }
     }

@@ -5,6 +5,8 @@ namespace BD.WTTS.Settings.Abstractions;
 /// </summary>
 public interface IGameAccountSettings
 {
+    static IGameAccountSettings? Instance => Ioc.Get_Nullable<IOptionsMonitor<IGameAccountSettings>>()?.CurrentValue;
+
     /// <summary>
     /// Steam 账号备注字典
     /// </summary>

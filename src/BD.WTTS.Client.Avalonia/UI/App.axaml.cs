@@ -56,7 +56,7 @@ public sealed partial class App : Application
             desktop.MainWindow = MainWindow ??= new MainWindow();
         }
         SetThemeNotChangeValue(UISettings.Theme.Value);
-        SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
+        SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.ActualValue);
         base.OnFrameworkInitializationCompleted();
     }
 
@@ -123,8 +123,8 @@ public sealed partial class App : Application
     {
         GeneralSettings.TrayIcon.Subscribe(x => InitTrayIcon());
         UISettings.ThemeAccent.Subscribe(SetThemeAccent);
-        UISettings.UseSystemThemeAccent.Subscribe(x =>
-            SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
+        UISettings.UseSystemThemeAccent.Subscribe(useSystemThemeAccent
+            => SetThemeAccent(useSystemThemeAccent ? bool.TrueString : UISettings.ThemeAccent.ActualValue));
 
         GeneralSettings.AutoRunOnStartup.Subscribe(IApplication.SetBootAutoStart);
 

@@ -12,7 +12,7 @@ partial interface IPlatformService
     {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         TextReaderProvider? userProvider = null;
-        var p = GeneralSettings.TextReaderProvider.Value;
+        var p = GeneralSettings.TextReaderProvider.ActualValue;
         if (p != null)
         {
             var platform = DeviceInfo2.Platform();
