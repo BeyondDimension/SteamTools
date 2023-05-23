@@ -1,3 +1,5 @@
+using static BD.WTTS.Settings.Abstractions.IGameAccountSettings;
+
 namespace BD.WTTS.Settings;
 
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
@@ -6,10 +8,10 @@ public sealed partial class GameAccountSettings_ : IGameAccountSettings, ISettin
     public const string Name = nameof(GameAccountSettings);
 
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
-    public ConcurrentDictionary<long, string?>? AccountRemarks { get; set; }
+    public ConcurrentDictionary<long, string?>? AccountRemarks { get; set; } = new();
 
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
-    public IReadOnlyCollection<DisableAuthorizedDevice> DisableAuthorizedDevice { get; set; } = Array.Empty<DisableAuthorizedDevice>();
+    public IReadOnlyCollection<DisableAuthorizedDevice>? DisableAuthorizedDevice { get; set; }
 }
 
 [JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true)]
@@ -37,8 +39,8 @@ partial class GameAccountSettings_ : ISettings<GameAccountSettings_>
 public static class GameAccountSettings
 {
     /// <inheritdoc cref="IGameAccountSettings.AccountRemarks"/>
-    public static SettingsProperty<ConcurrentDictionary<long, string?>?, GameAccountSettings_> AccountRemarks { get; } = new() { AutoSave = false };
+    public static SettingsProperty<KeyValuePair<long, string?>, ConcurrentDictionary<long, string?>, GameAccountSettings_> AccountRemarks { get; } = new(null, false);
 
     /// <inheritdoc cref="IGameAccountSettings.DisableAuthorizedDevice"/>
-    public static SettingsProperty<IReadOnlyCollection<DisableAuthorizedDevice>, GameAccountSettings_> DisableAuthorizedDevice { get; } = new();
+    public static SettingsProperty<IReadOnlyCollection<DisableAuthorizedDevice>, GameAccountSettings_> DisableAuthorizedDevice { get; } = new(DefaultDisableAuthorizedDevice);
 }

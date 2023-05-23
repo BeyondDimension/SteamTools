@@ -23,11 +23,6 @@ public interface ISteamSettings
     string? SteamProgramPath { get; set; }
 
     /// <summary>
-    /// 用户自定义 Steam 程序路径
-    /// </summary>
-    string? CustomSteamPath { get; set; }
-
-    /// <summary>
     /// 自动运行 Steam
     /// </summary>
     bool? IsAutoRunSteam { get; set; }

@@ -15,5 +15,7 @@ public interface IGameAccountSettings
     /// <summary>
     /// Steam 家庭共享临时禁用
     /// </summary>
-    IReadOnlyCollection<DisableAuthorizedDevice> DisableAuthorizedDevice { get; set; }
+    IReadOnlyCollection<DisableAuthorizedDevice>? DisableAuthorizedDevice { get; set; }
+
+    static readonly IReadOnlyCollection<DisableAuthorizedDevice> DefaultDisableAuthorizedDevice = Array.Empty<DisableAuthorizedDevice>();
 }

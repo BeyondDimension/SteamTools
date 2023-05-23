@@ -17,27 +17,24 @@ public sealed partial class SteamSettings_ : ISteamSettings, ISettings
     public string? SteamProgramPath { get; set; }
 
     [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
-    public string? CustomSteamPath { get; set; }
-
-    [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
     public bool? IsAutoRunSteam { get; set; }
 
-    [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
+    [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
     public bool? IsRunSteamMinimized { get; set; }
 
-    [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
+    [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
     public bool? IsRunSteamNoCheckUpdate { get; set; }
 
-    [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
+    [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
     public bool? IsRunSteamChina { get; set; }
 
-    [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
+    [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
     public bool? IsEnableSteamLaunchNotification { get; set; }
 
-    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
+    [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
     public OSExitMode? DownloadCompleteSystemEndMode { get; set; }
 
-    [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
+    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
     public bool? IsRunSteamAdministrator { get; set; }
 }
 
@@ -65,6 +62,7 @@ partial class SteamSettings_ : ISettings<SteamSettings_>
 [SettingsGeneration]
 public static class SteamSettings
 {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     static readonly ISteamService steamService = Ioc.Get<ISteamService>();
 
     static SteamSettings()
@@ -112,18 +110,7 @@ public static class SteamSettings
     public static SettingsProperty<string, SteamSettings_> SteamSkin { get; } = new();
 
     /// <inheritdoc cref="ISteamSettings.SteamProgramPath"/>
-    public static SettingsProperty<string, SteamSettings_> SteamProgramPath = new()
-    {
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-        Value = steamService.SteamProgramPath,
-#endif
-    };
-
-    /// <inheritdoc cref="ISteamSettings.CustomSteamPath"/>
-    public static SettingsProperty<string, SteamSettings_> CustomSteamPath { get; } = new()
-    {
-        Value = (CustomSteamPath == null || CustomSteamPath.Value == null) ? SteamProgramPath.Value : CustomSteamPath.Value,
-    };
+    public static SettingsProperty<string, SteamSettings_> SteamProgramPath { get; } = new(steamService.SteamProgramPath);
 
     /// <inheritdoc cref="ISteamSettings.IsAutoRunSteam"/>
     public static SettingsStructProperty<bool, SteamSettings_> IsAutoRunSteam { get; }
@@ -152,5 +139,6 @@ public static class SteamSettings
     /// <inheritdoc cref="ISteamSettings.IsRunSteamAdministrator"/>
     public static SettingsStructProperty<bool, SteamSettings_> IsRunSteamAdministrator { get; }
         = new(DefaultIsRunSteamAdministrator);
+#endif
 }
 

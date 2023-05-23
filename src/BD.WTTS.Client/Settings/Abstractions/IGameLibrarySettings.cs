@@ -10,17 +10,24 @@ public interface IGameLibrarySettings
     /// <summary>
     /// 已安装游戏筛选
     /// </summary>
-    bool GameInstalledFilter { get; set; }
+    bool? GameInstalledFilter { get; set; }
+
+    const bool DefaultGameInstalledFilter = false;
 
     /// <summary>
     /// 支持云存档游戏筛选状态
     /// </summary>
-    bool GameCloudArchiveFilter { get; set; }
+    bool? GameCloudArchiveFilter { get; set; }
+
+    const bool DefaultGameCloudArchiveFilter = false;
 
     /// <summary>
     /// 游戏类型筛选状态列表
     /// </summary>
     List<SteamAppType> GameTypeFiltres { get; set; }
+
+    static readonly List<SteamAppType> DefaultGameTypeFiltres = new List<SteamAppType>
+    { SteamAppType.Game, SteamAppType.Application, SteamAppType.Demo, SteamAppType.Beta };
 
     /// <summary>
     /// 隐藏的游戏列表
@@ -35,5 +42,7 @@ public interface IGameLibrarySettings
     /// <summary>
     /// 启用自动挂机
     /// </summary>
-    bool IsAutoAFKApps { get; set; }
+    bool? IsAutoAFKApps { get; set; }
+
+    const bool DefaultIsAutoAFKApps = true;
 }
