@@ -92,7 +92,7 @@ public static class GeneralSettings
     public static SettingsProperty<bool, GeneralSettings_> GameListUseLocalCache { get; } = new();
 
     /// <inheritdoc cref="IGeneralSettings.TextReaderProvider"/>
-    public static SettingsProperty<Dictionary<Platform, string>, GeneralSettings_> TextReaderProvider { get; } = new();
+    public static SettingsProperty<KeyValuePair<Platform, string>, Dictionary<Platform, string>, GeneralSettings_> TextReaderProvider { get; } = new();
 
     /// <inheritdoc cref="IGeneralSettings.HostsFileEncodingType"/>
     public static SettingsProperty<EncodingType, GeneralSettings_> HostsFileEncodingType { get; } = new();

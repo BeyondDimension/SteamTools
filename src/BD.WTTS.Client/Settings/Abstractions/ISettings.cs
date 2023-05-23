@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using Polly;
+
 namespace BD.WTTS.Settings.Abstractions;
 
 public interface ISettings
@@ -50,6 +52,13 @@ public interface ISettings
     }
 
     protected static readonly HashSet<Type> types = new();
+
+    private static readonly Lazy<ConcurrentDictionary<Type, bool>> lazy_save_status = new(() =>
+     {
+         return new(types.Select(x => new KeyValuePair<Type, bool>(x, false)));
+     });
+
+    static ConcurrentDictionary<Type, bool> SaveStatus => lazy_save_status.Value;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void SaveSettings([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type)
@@ -257,41 +266,103 @@ internal static class SettingsExtensions
         var settings = optionsMonitor.CurrentValue;
         var settingsFilePath = ISettings.GetFilePath(TSettings.Name);
 
-        if (notRead != bool.TrueString) // 通过读取配置文件与内存中的配置进行比较
+        lock (TSettings.Name)
         {
+            ISettings.SaveStatus[typeof(TSettings)] = true;
+
             try
             {
-                if (File.Exists(settingsFilePath))
+                if (notRead != bool.TrueString) // 通过读取配置文件与内存中的配置进行比较
                 {
-                    JsonObject? jobj;
-                    var options = ISettings.GetDefaultOptions();
-                    using var readStream = File.OpenRead(settingsFilePath);
-                    jobj = JsonSerializer.Deserialize<JsonObject>(readStream, options);
-                    if (jobj != null)
+                    try
                     {
-                        var jnode = jobj[TSettings.Name];
-                        if (jnode != null)
+                        if (File.Exists(settingsFilePath))
                         {
-                            options = ISettings.GetDefaultOptions();
-                            options.TypeInfoResolver = ISettings.JsonTypeInfoResolver.Instance;
-                            var settingsByRead = JsonSerializer.Deserialize<TSettings>(jnode, options);
+                            JsonObject? jobj;
+                            var options = ISettings.GetDefaultOptions();
+                            using var readStream = new FileStream(
+                                settingsFilePath,
+                                FileMode.Open,
+                                FileAccess.Read,
+                                FileShare.ReadWrite | FileShare.Delete);
+                            jobj = JsonSerializer.Deserialize<JsonObject>(readStream, options);
+                            if (jobj != null)
+                            {
+                                var jnode = jobj[TSettings.Name];
+                                if (jnode != null)
+                                {
+                                    options = ISettings.GetDefaultOptions();
+                                    options.TypeInfoResolver = ISettings.JsonTypeInfoResolver.Instance;
+                                    var settingsByRead = JsonSerializer.Deserialize<TSettings>(jnode, options);
 
-                            // 使用 MemoryPack 序列化两者比较相等
-                            var right = MemoryPackSerializer.Serialize(settingsByRead);
-                            var left = MemoryPackSerializer.Serialize(settings);
-                            if (left.SequenceEqual(right))
-                                return;
+                                    // 使用 MemoryPack 序列化两者比较相等
+                                    var right = MemoryPackSerializer.Serialize(settingsByRead);
+                                    var left = MemoryPackSerializer.Serialize(settings);
+                                    if (left.SequenceEqual(right))
+                                        return;
+                                }
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
                 }
+
+                static FileStream? OpenOrCreate(string path)
+                {
+                    try
+                    {
+                        return new FileStream(
+                                        path,
+                                        FileMode.OpenOrCreate,
+                                        FileAccess.Write,
+                                        FileShare.ReadWrite | FileShare.Delete);
+                    }
+                    catch (Exception ex)
+                    {
+#if DEBUG
+                        Console.WriteLine(ex);
+#endif
+                        return default;
+                    }
+                }
+
+                try
+                {
+                    var settingsFilePath2 = $"{settingsFilePath}.bak";
+                    IOPath.FileTryDelete(settingsFilePath2);
+                    File.Move(settingsFilePath, settingsFilePath2);
+                }
+                catch (Exception ex)
+                {
+#if DEBUG
+                    Console.WriteLine("bak settings file fail, ex: " + ex);
+#endif
+                }
+
+                Policy.Handle<Exception>().Retry(3).Execute(() =>
+                {
+                    using var writeStream = OpenOrCreate(settingsFilePath);
+                    if (writeStream == null)
+                    {
+                        using var memoryStream = new MemoryStream();
+                        Save_____(settings, memoryStream);
+                        var bytes = memoryStream.ToByteArray();
+                        File.WriteAllBytes(settingsFilePath, bytes);
+                    }
+                    else
+                    {
+                        Save_____(settings, writeStream);
+                    }
+                });
+
             }
-            catch (Exception ex)
+            finally
             {
-                Debug.WriteLine(ex);
+                ISettings.SaveStatus[typeof(TSettings)] = false;
             }
         }
-
-        using var writeStream = File.Open(settingsFilePath, FileMode.OpenOrCreate);
-        Save_____(settings, writeStream);
     }
 }

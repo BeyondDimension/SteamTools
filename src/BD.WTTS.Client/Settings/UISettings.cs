@@ -106,13 +106,13 @@ public static class UISettings
     public static SettingsProperty<string, UISettings_> Language { get; } = new();
 
     /// <inheritdoc cref="IUISettings.MessageBoxDontPrompts"/>
-    public static SettingsProperty<HashSet<MessageBox.DontPromptType>, UISettings_> MessageBoxDontPrompts { get; } = new();
+    public static SettingsProperty<MessageBox.DontPromptType, HashSet<MessageBox.DontPromptType>, UISettings_> MessageBoxDontPrompts { get; } = new();
 
     /// <inheritdoc cref="IUISettings.IsShowAdvertisement"/>
     public static SettingsProperty<bool, UISettings_> IsShowAdvertisement { get; } = new();
 
     /// <inheritdoc cref="IUISettings.WindowSizePositions"/>
-    public static SettingsProperty<ConcurrentDictionary<string, SizePosition>, UISettings_> WindowSizePositions { get; } = new();
+    public static SettingsProperty<KeyValuePair<string, SizePosition>, ConcurrentDictionary<string, SizePosition>, UISettings_> WindowSizePositions { get; } = new();
 
     /// <inheritdoc cref="IUISettings.FontName"/>
     public static SettingsProperty<string, UISettings_> FontName { get; } = new();

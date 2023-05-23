@@ -2,15 +2,14 @@
 namespace BD.WTTS.Settings;
 
 [DebuggerDisplay("Value={Value}, PropertyName={PropertyName}, AutoSave={AutoSave}")]
-public sealed class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : IDisposable, INotifyPropertyChanged
+public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : IDisposable, INotifyPropertyChanged
 {
     readonly Action<TSettings, TValue?> setter;
     readonly Func<TSettings, TValue?> getter;
     readonly IDisposable? disposable;
     readonly IOptionsMonitor<TSettings> monitor;
     TValue? value;
-
-    void IDisposable.Dispose() => disposable?.Dispose();
+    bool disposedValue;
 
     public SettingsProperty([CallerMemberName] string? propertyName = null)
     {
@@ -26,7 +25,13 @@ public sealed class SettingsProperty<TValue, [DynamicallyAccessedMembers(Dynamic
         disposable = monitor.OnChange(OnChange);
     }
 
-    void OnChange(TSettings settings) => Value = getter(settings);
+    void OnChange(TSettings settings)
+    {
+        if (ISettings.SaveStatus[typeof(TSettings)])
+            return;
+
+        SetValue(getter(settings), false);
+    }
 
     public string PropertyName { get; }
 
@@ -43,31 +48,35 @@ public sealed class SettingsProperty<TValue, [DynamicallyAccessedMembers(Dynamic
         get => value;
         set
         {
-            if (EqualityComparer<TValue>.Default.Equals(value, this.value))
-                return; // 值相同无变化
-
-            var oldValue = this.value;
-            this.value = value; // 赋值当前字段
-            setter(monitor.CurrentValue, value); // 赋值模型类属性
-
-            OnValueChanged(oldValue, value); // 调用变更事件
-
-            if (AutoSave) // 自动保存
-            {
-                Save();
-            }
+            SetValue(value);
         }
     }
 
-    static readonly object lockSave = new();
-
-    void Save()
+    protected virtual bool Equals(TValue? left, TValue? right)
     {
-        lock (lockSave)
+        return EqualityComparer<TValue>.Default.Equals(left, right);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    void SetValue(TValue? value, bool save = true)
+    {
+        if (Equals(value, this.value))
+            return; // 值相同无变化
+
+        var oldValue = this.value;
+        this.value = value; // 赋值当前字段
+        setter(monitor.CurrentValue, value); // 赋值模型类属性
+
+        OnValueChanged(oldValue, value); // 调用变更事件
+
+        if (save && AutoSave) // 自动保存
         {
-            ISettings.TrySave(typeof(TSettings), monitor, true);
+            Save();
         }
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    void Save() => ISettings.TrySave(typeof(TSettings), monitor, true);
 
     public void RaiseValueChanged(bool notSave = false)
     {
@@ -111,6 +120,7 @@ public sealed class SettingsProperty<TValue, [DynamicallyAccessedMembers(Dynamic
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static implicit operator TValue?(SettingsProperty<TValue, TSettings> property)
         => property.Value;
 
@@ -148,5 +158,57 @@ public sealed class SettingsProperty<TValue, [DynamicallyAccessedMembers(Dynamic
         }
     }
 
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // 释放托管状态(托管对象)
+                disposable?.Dispose();
+            }
+
+            // 释放未托管的资源(未托管的对象)并重写终结器
+            // 将大型字段设置为 null
+            disposable = null;
+            disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
     #endregion
+}
+
+public class SettingsProperty<TValue, TEnumerable, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsProperty<TEnumerable, TSettings>
+    where TEnumerable : IEnumerable<TValue>
+{
+    public SettingsProperty([CallerMemberName] string? propertyName = null) : base(propertyName)
+    {
+
+    }
+
+    protected override bool Equals(TEnumerable? left, TEnumerable? right)
+    {
+        if (left == null)
+        {
+            return right == null;
+        }
+        else if (right == null)
+        {
+            return left == null;
+        }
+
+        if (EqualityComparer<TEnumerable>.Default.Equals(left, right))
+        {
+            return true;
+        }
+
+        return left.SequenceEqual(right);
+    }
 }
