@@ -1,0 +1,202 @@
+{
+  "Namespace": "BD.WTTS.Settings",
+  "Usings": "",
+  "DictionaryTypes": [
+    "ConcurrentDictionary<",
+    "Dictionary<"
+  ],
+  "CollectionTypes": [
+    "IList<",
+    "List<",
+    "HashSet<"
+  ],
+  "Settings": {
+    "UISettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "主题",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "AppTheme",
+          "PropertyName": "Theme",
+          "DefaultValue": "AppTheme.FollowingSystem",
+          "DefaultValueIsConst": true,
+          "Summary": "主题",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "ThemeAccent",
+          "DefaultValue": "\"#FF0078D7\"",
+          "DefaultValueIsConst": true,
+          "Summary": "主题强调色（16 进制 RGB 字符串）",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "UseSystemThemeAccent",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "从系统中获取主题强调色",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "Language",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "语言",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "HashSet<MessageBox.DontPromptType>",
+          "PropertyName": "MessageBoxDontPrompts",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "不再提示的消息框",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsShowAdvertisement",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "是否显示广告",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "ConcurrentDictionary<string, SizePosition>",
+          "PropertyName": "WindowSizePositions",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "不再提示的消息框",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "FontName",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "字体",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "GameListGridSize",
+          "DefaultValue": "150",
+          "DefaultValueIsConst": true,
+          "Summary": "库存游戏网格布局大小",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "Fillet",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "圆角",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "WindowBackground 窗口背景",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "double",
+          "PropertyName": "WindowBackgroundOpacity",
+          "DefaultValue": ".8",
+          "DefaultValueIsConst": true,
+          "Summary": "窗口背景不透明度",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "WindowBackgroundMaterial",
+          "PropertyName": "WindowBackgroundMaterial",
+          "DefaultValue": "OperatingSystem2.IsWindows11AtLeast() ? Enums.WindowBackgroundMaterial.Mica : Enums.WindowBackgroundMaterial.AcrylicBlur",
+          "DefaultValueIsConst": false,
+          "Summary": "窗口背景材质",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "WindowBackgroundDynamic",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "动态桌面背景",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "WindowBackgroundCustomImagePath",
+          "DefaultValue": "\"/UI/Assets/back.png\"",
+          "DefaultValueIsConst": true,
+          "Summary": "自定义背景图像路径",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "double",
+          "PropertyName": "WindowBackgroundCustomImageOpacity",
+          "DefaultValue": ".8",
+          "DefaultValueIsConst": true,
+          "Summary": "自定义背景图像不透明度",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "XamlMediaStretch",
+          "PropertyName": "WindowBackgroundCustomImageStretch",
+          "DefaultValue": "XamlMediaStretch.UniformToFill",
+          "DefaultValueIsConst": true,
+          "Summary": "自定义背景图像缩放方式",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
+        }
+      ],
+      "Usings": ""
+    }
+  }
+}

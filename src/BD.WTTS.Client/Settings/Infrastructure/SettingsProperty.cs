@@ -13,7 +13,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
     readonly Func<TSettings, TValue?> getter;
     IDisposable? disposable;
     readonly IOptionsMonitor<TSettings> monitor;
-    TValue? value;
+    protected TValue? value;
     bool disposedValue;
 
     public SettingsProperty(TValue? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null)
@@ -148,9 +148,13 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 /// <typeparam name="TValue"></typeparam>
 /// <typeparam name="TEnumerable"></typeparam>
 /// <typeparam name="TSettings"></typeparam>
-public class SettingsProperty<TValue, TEnumerable, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsProperty<TEnumerable, TSettings>
-    where TEnumerable : class, IEnumerable<TValue>
+public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TEnumerable, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsProperty<TEnumerable, TSettings>, ICollection<TValue>
+    where TEnumerable : class, ICollection<TValue>, new()
 {
+    int ICollection<TValue>.Count => throw new NotImplementedException();
+
+    bool ICollection<TValue>.IsReadOnly => throw new NotImplementedException();
+
     public SettingsProperty(TEnumerable? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null) : base(@default, autoSave, propertyName)
     {
 
@@ -174,4 +178,332 @@ public class SettingsProperty<TValue, TEnumerable, [DynamicallyAccessedMembers(D
 
         return left.SequenceEqual(right);
     }
+
+    static void AddRange(TEnumerable source, IEnumerable<TValue>? items)
+    {
+        if (items == null) return;
+
+        switch (source)
+        {
+            case List<TValue> list:
+                list.AddRange(items);
+                break;
+            case IExtendedList<TValue> extendedList:
+                extendedList.AddRange(items);
+                break;
+            default:
+                items.ForEach(source.Add);
+                break;
+        }
+    }
+
+    public virtual void Add(TValue item, bool raiseValueChanged = true, bool notSave = false)
+    {
+        if (value == null)
+        {
+            value = Activator.CreateInstance<TEnumerable>();
+            AddRange(value, Default);
+        }
+        value.Add(item);
+        if (raiseValueChanged)
+            RaiseValueChanged(notSave);
+    }
+
+    public virtual void AddRange(IEnumerable<TValue> items, bool raiseValueChanged = true, bool notSave = false)
+    {
+        if (value == null)
+        {
+            value = Activator.CreateInstance<TEnumerable>();
+            AddRange(value, Default);
+        }
+        AddRange(value, items);
+        if (raiseValueChanged)
+            RaiseValueChanged(notSave);
+    }
+
+    public virtual bool Remove(TValue item, bool raiseValueChanged = true, bool notSave = false)
+    {
+        bool result;
+        if (value == null)
+        {
+            if (Default.Any_Nullable())
+            {
+                value = Activator.CreateInstance<TEnumerable>();
+                AddRange(value, Default);
+
+                result = value.Remove(item);
+                if (raiseValueChanged)
+                    RaiseValueChanged(notSave);
+
+                return result;
+            }
+            return false;
+        }
+
+        result = value.Remove(item);
+        if (raiseValueChanged)
+            RaiseValueChanged(notSave);
+
+        return result;
+    }
+
+    public virtual bool Contains(TValue item)
+    {
+        if (value == null)
+        {
+            if (Default.Any_Nullable())
+            {
+                return Default.Contains(item);
+            }
+            return false;
+        }
+
+        return value.Contains(item);
+    }
+
+    public virtual void Clear(bool raiseValueChanged = true, bool notSave = false)
+    {
+        if (value == null)
+        {
+            value = Activator.CreateInstance<TEnumerable>();
+            if (raiseValueChanged)
+                RaiseValueChanged(notSave);
+            return;
+        }
+
+        value = null;
+        if (raiseValueChanged)
+            RaiseValueChanged(notSave);
+    }
+
+    void ICollection<TValue>.Add(TValue item) => Add(item);
+
+    void ICollection<TValue>.Clear() => Clear();
+
+    void ICollection<TValue>.CopyTo(TValue[] array, int arrayIndex)
+    {
+        if (value == null) return;
+
+        value.CopyTo(array, arrayIndex);
+    }
+
+    bool ICollection<TValue>.Remove(TValue item) => Remove(item);
+
+    IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator()
+    {
+        if (value == null)
+            return (IEnumerator<TValue>)Array.Empty<TValue>().GetEnumerator();
+        return value.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        if (value == null)
+            return Array.Empty<TValue>().GetEnumerator();
+        return value.GetEnumerator();
+    }
+}
+
+/// <summary>
+/// 字典的设置属性
+/// </summary>
+/// <typeparam name="TKey"></typeparam>
+/// <typeparam name="TValue"></typeparam>
+/// <typeparam name="TDictionary"></typeparam>
+/// <typeparam name="TSettings"></typeparam>
+public class SettingsProperty<TKey, TValue,
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TDictionary,
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsProperty<KeyValuePair<TKey, TValue>, TDictionary, TSettings>, IDictionary<TKey, TValue>
+     where TDictionary : class, IDictionary<TKey, TValue>, new()
+{
+    public SettingsProperty(TDictionary? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null) : base(@default, autoSave, propertyName)
+    {
+
+    }
+
+    TValue IDictionary<TKey, TValue>.this[TKey key]
+    {
+        get
+        {
+            if (value == null)
+            {
+                if (Default != null)
+                {
+                    if (Default.TryGetValue(key, out var value))
+                    {
+                        return value;
+                    }
+                }
+                return default!;
+            }
+            return value[key];
+        }
+
+        set
+        {
+            if (this.value == null)
+            {
+                this.value = Activator.CreateInstance<TDictionary>();
+                if (Default != null)
+                {
+                    foreach (var item in Default)
+                    {
+                        this.value.Add(item.Key, item.Value);
+                    }
+                }
+            }
+            this.value.Add(key, value);
+        }
+    }
+
+    ICollection<TKey> IDictionary<TKey, TValue>.Keys
+    {
+        get
+        {
+            if (value == null)
+            {
+                if (Default != null)
+                {
+                    return Default.Keys;
+                }
+                else
+                {
+                    return Array.Empty<TKey>();
+                }
+            }
+            return value.Keys;
+        }
+    }
+
+    ICollection<TValue> IDictionary<TKey, TValue>.Values
+    {
+        get
+        {
+            if (value == null)
+            {
+                if (Default != null)
+                {
+                    return Default.Values;
+                }
+                else
+                {
+                    return Array.Empty<TValue>();
+                }
+            }
+            return value.Values;
+        }
+    }
+
+    public virtual void Add(TKey key, TValue value, bool raiseValueChanged = true, bool notSave = false)
+    {
+        if (this.value == null)
+        {
+            this.value = Activator.CreateInstance<TDictionary>();
+            if (Default != null)
+            {
+                foreach (var item in Default)
+                {
+                    this.value.Add(item.Key, item.Value);
+                }
+            }
+        }
+        if (!this.value.TryAdd(key, value))
+        {
+            this.value[key] = value;
+        }
+
+        if (raiseValueChanged)
+            RaiseValueChanged(notSave);
+    }
+
+    public override void Add(KeyValuePair<TKey, TValue> pair, bool raiseValueChanged = true, bool notSave = false)
+    {
+        Add(pair.Key, pair.Value, raiseValueChanged, notSave);
+    }
+
+    public override void AddRange(IEnumerable<KeyValuePair<TKey, TValue>> items, bool raiseValueChanged = true, bool notSave = false)
+    {
+        if (value == null)
+        {
+            value = Activator.CreateInstance<TDictionary>();
+            if (Default != null)
+            {
+                foreach (var item in Default)
+                {
+                    value.Add(item.Key, item.Value);
+                }
+            }
+        }
+
+        foreach (var item in items)
+        {
+            if (!value.TryAdd(item.Key, item.Value))
+            {
+                value[item.Key] = item.Value;
+            }
+        }
+
+        if (raiseValueChanged)
+            RaiseValueChanged(notSave);
+    }
+
+    public virtual bool ContainsKey(TKey key)
+    {
+        if (value == null)
+        {
+            if (Default != null)
+            {
+                return Default.ContainsKey(key);
+            }
+            return false;
+        }
+        return value.ContainsKey(key);
+    }
+
+    public virtual bool Remove(TKey key, bool raiseValueChanged = true, bool notSave = false)
+    {
+        bool result;
+        if (value == null)
+        {
+            if (Default.Any_Nullable())
+            {
+                value = Activator.CreateInstance<TDictionary>();
+                foreach (var item in Default)
+                {
+                    value.Add(item.Key, item.Value);
+                }
+
+                result = value.Remove(key);
+                if (raiseValueChanged)
+                    RaiseValueChanged(notSave);
+
+                return result;
+            }
+            return false;
+        }
+
+        result = value.Remove(key);
+        if (raiseValueChanged)
+            RaiseValueChanged(notSave);
+
+        return result;
+    }
+
+    public virtual bool TryGetValue(TKey key, out TValue value)
+    {
+        if (this.value == null)
+        {
+            if (Default != null)
+            {
+                return Default.TryGetValue(key, out value!);
+            }
+            value = default!;
+            return false;
+        }
+        return this.value.TryGetValue(key, out value!);
+    }
+
+    void IDictionary<TKey, TValue>.Add(TKey key, TValue value) => Add(key, value);
+
+    bool IDictionary<TKey, TValue>.Remove(TKey key) => Remove(key);
 }
