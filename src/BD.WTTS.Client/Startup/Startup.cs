@@ -322,6 +322,7 @@ public abstract partial class Startup
                     {
                         ISettings<GeneralSettings_>.Load(configurationBuilder, directoryExists),
                         ISettings<UISettings_>.Load(configurationBuilder, directoryExists),
+                        ISettings<SteamSettings_>.Load(configurationBuilder, directoryExists),
                     };
                 if (TryGetPlugins(out var plugins_cfg))
                 {

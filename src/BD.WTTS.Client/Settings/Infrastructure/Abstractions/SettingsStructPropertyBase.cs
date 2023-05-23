@@ -14,6 +14,7 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
     public SettingsStructPropertyBase(TValue? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null)
     {
         PropertyName = propertyName.ThrowIsNull();
+
         AutoSave = autoSave;
         Default = @default;
         ParameterExpression parameter = Expression.Parameter(typeof(TSettings), "obj");

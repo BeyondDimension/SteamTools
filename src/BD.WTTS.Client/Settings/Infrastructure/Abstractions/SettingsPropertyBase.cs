@@ -15,7 +15,7 @@ public abstract class SettingsPropertyBase
     public abstract void Reset();
 }
 
-[DebuggerDisplay("Value={Value}, PropertyName={PropertyName}, AutoSave={AutoSave}")]
+[DebuggerDisplay("Value={ActualValue}, PropertyName={PropertyName}, AutoSave={AutoSave}")]
 public abstract class SettingsPropertyBase<TValue> : SettingsPropertyBase, INotifyPropertyChanged
 {
     /// <summary>
