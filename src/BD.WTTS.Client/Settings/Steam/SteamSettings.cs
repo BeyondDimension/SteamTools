@@ -109,9 +109,13 @@ public static class SteamSettings
     /// <inheritdoc cref="ISteamSettings.SteamSkin"/>
     public static SettingsProperty<string, SteamSettings_> SteamSkin { get; } = new();
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     /// <inheritdoc cref="ISteamSettings.SteamProgramPath"/>
-    public static SettingsProperty<string, SteamSettings_> SteamProgramPath { get; } 
+    public static SettingsProperty<string, SteamSettings_> SteamProgramPath { get; }
         = new(steamService.SteamProgramPath);
+
+#endif
 
     /// <inheritdoc cref="ISteamSettings.CustomSteamPath"/>
     public static SettingsProperty<string, SteamSettings_> CustomSteamPath { get; } = new()
