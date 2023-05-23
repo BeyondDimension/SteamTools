@@ -5,6 +5,8 @@ namespace BD.WTTS.Settings.Abstractions;
 /// </summary>
 public interface IGameLibrarySettings
 {
+    static IGameLibrarySettings? Instance => Ioc.Get_Nullable<IOptionsMonitor<IGameLibrarySettings>>()?.CurrentValue;
+
     /// <summary>
     /// 已安装游戏筛选
     /// </summary>

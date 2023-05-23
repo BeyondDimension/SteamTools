@@ -122,7 +122,7 @@ public static partial class MessageBox
         var isDoNotShow = rememberChooseKey != DontPromptType.Undefined;
 
         if (isDoNotShow &&
-            UISettings.MessageBoxDontPrompts.Value?.Contains(rememberChooseKey) == true)
+            UISettings.MessageBoxDontPrompts.ActualValue?.Contains(rememberChooseKey) == true)
         {
             return Result.OK;
         }
@@ -139,15 +139,15 @@ public static partial class MessageBox
 
         if (r && viewModel.RememberChoose && isDoNotShow)
         {
-            if (UISettings.MessageBoxDontPrompts.Value == null)
+            if (UISettings.MessageBoxDontPrompts.ActualValue == null)
             {
-                UISettings.MessageBoxDontPrompts.Value = new() { rememberChooseKey };
+                UISettings.MessageBoxDontPrompts.ActualValue = new() { rememberChooseKey };
             }
             else
             {
-                if (UISettings.MessageBoxDontPrompts.Value.Contains(rememberChooseKey) == false)
+                if (UISettings.MessageBoxDontPrompts.ActualValue.Contains(rememberChooseKey) == false)
                 {
-                    UISettings.MessageBoxDontPrompts.Value.Add(rememberChooseKey);
+                    UISettings.MessageBoxDontPrompts.ActualValue.Add(rememberChooseKey);
                 }
             }
             UISettings.MessageBoxDontPrompts.RaiseValueChanged();

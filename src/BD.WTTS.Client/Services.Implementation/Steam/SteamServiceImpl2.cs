@@ -36,7 +36,7 @@ sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
 
     public override ISteamConnectService Conn => this;
 
-    protected override string? StratSteamDefaultParameter => SteamSettings.SteamStratParameter.Value;
+    protected override string? StratSteamDefaultParameter => SteamSettings.SteamStratParameter.ActualValue;
 
     protected override bool IsRunSteamAdministrator => SteamSettings.IsRunSteamAdministrator.Value;
 
