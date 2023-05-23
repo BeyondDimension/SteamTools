@@ -15,7 +15,7 @@ public abstract class SettingsPropertyBase
     public abstract void Reset();
 }
 
-[DebuggerDisplay("Value={Value}, PropertyName={PropertyName}, AutoSave={AutoSave}")]
+[DebuggerDisplay("Value={ActualValue}, PropertyName={PropertyName}, AutoSave={AutoSave}")]
 public abstract class SettingsPropertyBase<TValue> : SettingsPropertyBase, INotifyPropertyChanged
 {
     /// <summary>
@@ -84,7 +84,7 @@ public abstract class SettingsPropertyBase<TValue> : SettingsPropertyBase, INoti
         add
         {
             if (value == null) return;
-            ValueChanged += _handlers[value] = (sender, args) => value(sender, new PropertyChangedEventArgs(nameof(ActualValue)));
+            ValueChanged += _handlers[value] = (sender, args) => value(sender, new PropertyChangedEventArgs("Value"));
         }
 
         remove

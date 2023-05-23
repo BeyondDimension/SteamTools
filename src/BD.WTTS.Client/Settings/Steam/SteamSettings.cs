@@ -69,40 +69,38 @@ public static class SteamSettings
 
     static SteamSettings()
     {
-        if (!IApplication.IsDesktop()) return;
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         IsRunSteamMinimized.ValueChanged += IsRunSteamMinimized_ValueChanged;
         IsRunSteamNoCheckUpdate.ValueChanged += IsRunSteamNoCheckUpdate_ValueChanged;
         IsRunSteamChina.ValueChanged += IsRunSteamChina_ValueChanged;
+#endif
     }
 
     static void IsRunSteamNoCheckUpdate_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool?> e)
     {
-        if (!e.NewValue.HasValue)
-            return;
+        if (!e.NewValue.HasValue) return;
         if (e.NewValue.Value)
-            SteamStratParameter.ActualValue += " -noverifyfiles";
-        else if (SteamStratParameter.ActualValue != null)
-            SteamStratParameter.ActualValue = SteamStratParameter.ActualValue.Replace("-noverifyfiles", "").Trim();
+            SteamStratParameter.Value += " -noverifyfiles";
+        else if (SteamStratParameter.Value != null)
+            SteamStratParameter.Value = SteamStratParameter.Value.Replace("-noverifyfiles", "").Trim();
     }
 
     static void IsRunSteamMinimized_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool?> e)
     {
-        if (!e.NewValue.HasValue)
-            return;
+        if (!e.NewValue.HasValue) return;
         if (e.NewValue.Value)
-            SteamStratParameter.ActualValue += " -silent";
-        else if (SteamStratParameter.ActualValue != null)
-            SteamStratParameter.ActualValue = SteamStratParameter.ActualValue.Replace("-silent", "").Trim();
+            SteamStratParameter.Value += " -silent";
+        else if (SteamStratParameter.Value != null)
+            SteamStratParameter.Value = SteamStratParameter.Value.Replace("-silent", "").Trim();
     }
 
     static void IsRunSteamChina_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool?> e)
     {
-        if (!e.NewValue.HasValue)
-            return;
+        if (!e.NewValue.HasValue) return;
         if (e.NewValue.Value)
-            SteamStratParameter.ActualValue += " -steamchina";
-        else if (SteamStratParameter.ActualValue != null)
-            SteamStratParameter.ActualValue = SteamStratParameter.ActualValue.Replace("-steamchina", "").Trim();
+            SteamStratParameter.Value += " -steamchina";
+        else if (SteamStratParameter.Value != null)
+            SteamStratParameter.Value = SteamStratParameter.Value.Replace("-steamchina", "").Trim();
     }
 
     /// <inheritdoc cref="ISteamSettings.SteamStratParameter"/>
@@ -112,12 +110,8 @@ public static class SteamSettings
     public static SettingsProperty<string, SteamSettings_> SteamSkin { get; } = new();
 
     /// <inheritdoc cref="ISteamSettings.SteamProgramPath"/>
-    public static SettingsProperty<string, SteamSettings_> SteamProgramPath = new()
-    {
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-        Value = steamService.SteamProgramPath,
-#endif
-    };
+    public static SettingsProperty<string, SteamSettings_> SteamProgramPath { get; } 
+        = new(steamService.SteamProgramPath);
 
     /// <inheritdoc cref="ISteamSettings.CustomSteamPath"/>
     public static SettingsProperty<string, SteamSettings_> CustomSteamPath { get; } = new()

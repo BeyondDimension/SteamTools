@@ -88,7 +88,12 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 
     public override void RaiseValueChanged(bool notSave = false)
     {
-        setter(monitor.CurrentValue, value); // 赋值模型类属性
+        var setter_value = value;
+        if (EqualityComparer<TValue?>.Default.Equals(value, Default))
+        {
+            setter_value = default;
+        }
+        setter(monitor.CurrentValue, setter_value); // 赋值模型类属性
         OnValueChanged(value, value); // 调用变更事件
         if (!notSave && AutoSave) // 自动保存
         {
