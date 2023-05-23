@@ -6,7 +6,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 {
     readonly Action<TSettings, TValue?> setter;
     readonly Func<TSettings, TValue?> getter;
-    readonly IDisposable? disposable;
+    IDisposable? disposable;
     readonly IOptionsMonitor<TSettings> monitor;
     TValue? value;
     bool disposedValue;

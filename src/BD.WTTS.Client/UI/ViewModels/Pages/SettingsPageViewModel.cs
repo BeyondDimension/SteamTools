@@ -61,7 +61,8 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         var openFileDialog = new OpenFileDialog();
         openFileDialog.Filter = "Steam|steam.exe";
         openFileDialog.ShowDialog();
-        SteamSettings.SteamProgramPath.Value = openFileDialog.FileName;
+        if (openFileDialog.FileName == string.Empty) return;
+        SteamSettings.CustomSteamPath.Value = openFileDialog.FileName;
     }
 
 #endif

@@ -63,7 +63,7 @@ partial class SteamSettings_ : ISettings<SteamSettings_>
 [SettingsGeneration]
 public static class SteamSettings
 {
-    //private static readonly ISteamService _service = Ioc.Get<ISteamService>();
+    static readonly ISteamService steamService = Ioc.Get<ISteamService>();
 
     static SteamSettings()
     {
@@ -104,10 +104,18 @@ public static class SteamSettings
     public static SettingsProperty<string, SteamSettings_> SteamSkin { get; } = new();
 
     /// <inheritdoc cref="ISteamSettings.SteamProgramPath"/>
-    public static SettingsProperty<string, SteamSettings_> SteamProgramPath = new();
+    public static SettingsProperty<string, SteamSettings_> SteamProgramPath = new()
+    {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+        Value = steamService.SteamProgramPath,
+#endif
+    };
 
     /// <inheritdoc cref="ISteamSettings.CustomSteamPath"/>
-    public static SettingsProperty<string, SteamSettings_> CustomSteamPath { get; } = new();
+    public static SettingsProperty<string, SteamSettings_> CustomSteamPath { get; } = new()
+    {
+        Value = (CustomSteamPath == null || CustomSteamPath.Value == null) ? SteamProgramPath.Value : CustomSteamPath.Value,
+    };
 
     /// <inheritdoc cref="ISteamSettings.IsAutoRunSteam"/>
     public static SettingsProperty<bool, SteamSettings_> IsAutoRunSteam { get; } = new();

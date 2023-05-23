@@ -5375,6 +5375,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Steam 路径 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_Path {
+            get {
+                return ResourceManager.GetString("Settings_Steam_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 以管理员权限运行 Steam 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_RuningAdmin {

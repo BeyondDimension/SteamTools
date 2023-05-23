@@ -16,7 +16,7 @@ public interface ISteamSettings
     string SteamSkin { get; set; }
 
     /// <summary>
-    /// Steam 程序路径
+    /// Steam 默认程序路径
     /// </summary>
     string SteamProgramPath { get; set; }
 
