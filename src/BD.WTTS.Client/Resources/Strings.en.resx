@@ -2417,4 +2417,7 @@ The system will {1} after {0} seconds.</value>
   <data name="CommunityFix_OnRunCatch" xml:space="preserve">
     <value>启动网络加速失败</value>
   </data>
+  <data name="Settings_Steam_Path" xml:space="preserve">
+    <value>Steam 路径</value>
+  </data>
 </root>
