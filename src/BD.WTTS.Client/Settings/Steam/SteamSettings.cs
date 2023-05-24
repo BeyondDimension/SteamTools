@@ -95,6 +95,7 @@ public sealed partial class SteamSettings_ : ISteamSettings, ISettings, ISetting
     public bool? IsRunSteamAdministrator { get; set; }
 
 }
+
 public static partial class SteamSettings
 {
     /// <summary>
@@ -109,12 +110,14 @@ public static partial class SteamSettings
     public static SettingsProperty<string, SteamSettings_> SteamSkin { get; }
         = new(DefaultSteamSkin);
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+
     /// <summary>
     /// Steam 默认程序路径
     /// </summary>
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     public static SettingsProperty<string, SteamSettings_> SteamProgramPath { get; }
         = new(DefaultSteamProgramPath);
+
 #endif
 
     /// <summary>

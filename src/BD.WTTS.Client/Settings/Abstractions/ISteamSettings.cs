@@ -19,7 +19,7 @@ public interface ISteamSettings
     /// <summary>
     /// Steam 启动参数的默认值
     /// </summary>
-    const string DefaultSteamStratParameter = null;
+    const string? DefaultSteamStratParameter = null;
 
     /// <summary>
     /// Steam 皮肤
@@ -29,7 +29,9 @@ public interface ISteamSettings
     /// <summary>
     /// Steam 皮肤的默认值
     /// </summary>
-    const string DefaultSteamSkin = null;
+    const string? DefaultSteamSkin = null;
+
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 
     /// <summary>
     /// Steam 默认程序路径
@@ -39,8 +41,8 @@ public interface ISteamSettings
     /// <summary>
     /// Steam 默认程序路径的默认值
     /// </summary>
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     static readonly string DefaultSteamProgramPath = Ioc.Get<ISteamService>().SteamProgramPath;
+
 #endif
 
     /// <summary>

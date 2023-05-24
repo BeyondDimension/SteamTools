@@ -501,6 +501,280 @@
         }
       ],
       "Usings": ""
+    },
+    "ProxySettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client.Plugins.Accelerator\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client.Plugins.Accelerator\\Settings\\Abstractions",
+      "Properties": [
+          {
+            "TypeName": "bool",
+            "PropertyName": "IsAutoCheckScriptUpdate",
+            "DefaultValue": "true",
+            "DefaultValueIsConst": true,
+            "Summary": "启用脚本自动检查更新",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "IsEnableScript",
+            "DefaultValue": "false",
+            "DefaultValueIsConst": true,
+            "Summary": "启用代理脚本",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "IReadOnlyCollection<string>",
+            "PropertyName": "SupportProxyServicesStatus",
+            "DefaultValue": "Array.Empty<string>()",
+            "DefaultValueIsConst": false,
+            "Summary": "代理服务启用状态",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "IReadOnlyCollection<int>",
+            "PropertyName": "ScriptsStatus",
+            "DefaultValue": "Array.Empty<int>()",
+            "DefaultValueIsConst": false,
+            "Summary": "脚本启用状态",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "",
+            "PropertyName": "",
+            "DefaultValue": "",
+            "DefaultValueIsConst": true,
+            "Summary": "代理设置",
+            "IsRegionOrEndregion": true,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "ProgramStartupRunProxy",
+            "DefaultValue": "false",
+            "DefaultValueIsConst": true,
+            "Summary": "程序启动时自动启动代理",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "int",
+            "PropertyName": "SystemProxyPortId",
+            "DefaultValue": "26561",
+            "DefaultValueIsConst": true,
+            "Summary": "系统代理模式端口",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "string",
+            "PropertyName": "SystemProxyIp",
+            "DefaultValue": "IPAddress.Any.ToString()",
+            "DefaultValueIsConst": false,
+            "Summary": "系统代理模式IP",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "OnlyEnableProxyScript",
+            "DefaultValue": "false",
+            "DefaultValueIsConst": true,
+            "Summary": "开启加速后仅代理脚本而不加速",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "string",
+            "PropertyName": "ProxyMasterDns",
+            "DefaultValue": "\"223.5.5.5\"",
+            "DefaultValueIsConst": true,
+            "Summary": "代理时使用的解析主DNS",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "EnableHttpProxyToHttps",
+            "DefaultValue": "true",
+            "DefaultValueIsConst": true,
+            "Summary": "启用 Http 链接转发到 Https",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "",
+            "PropertyName": "",
+            "DefaultValue": "",
+            "DefaultValueIsConst": true,
+            "Summary": "",
+            "IsRegionOrEndregion": false,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "",
+            "PropertyName": "",
+            "DefaultValue": "",
+            "DefaultValueIsConst": true,
+            "Summary": "本地代理设置",
+            "IsRegionOrEndregion": true,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "Socks5ProxyEnable",
+            "DefaultValue": "false",
+            "DefaultValueIsConst": true,
+            "Summary": "Socks5 Enable",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "int",
+            "PropertyName": "Socks5ProxyPortId",
+            "DefaultValue": "8868",
+            "DefaultValueIsConst": true,
+            "Summary": "Socks5 监听端口",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "",
+            "PropertyName": "",
+            "DefaultValue": "",
+            "DefaultValueIsConst": true,
+            "Summary": "",
+            "IsRegionOrEndregion": false,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "",
+            "PropertyName": "",
+            "DefaultValue": "",
+            "DefaultValueIsConst": true,
+            "Summary": "二级代理设置",
+            "IsRegionOrEndregion": true,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "TwoLevelAgentEnable",
+            "DefaultValue": "false",
+            "DefaultValueIsConst": true,
+            "Summary": "TwoLevelAgent Enable",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "short",
+            "PropertyName": "TwoLevelAgentProxyType",
+            "DefaultValue": "(short)IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType",
+            "DefaultValueIsConst": true,
+            "Summary": "TwoLevelAgent ProxyType",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "string",
+            "PropertyName": "TwoLevelAgentIp",
+            "DefaultValue": "IPAddress.Loopback.ToString()",
+            "DefaultValueIsConst": false,
+            "Summary": "二级代理 IP",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "int",
+            "PropertyName": "TwoLevelAgentPortId",
+            "DefaultValue": "7890",
+            "DefaultValueIsConst": true,
+            "Summary": "二级代理 监听端口",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "string",
+            "PropertyName": "TwoLevelAgentUserName",
+            "DefaultValue": "null",
+            "DefaultValueIsConst": true,
+            "Summary": "TwoLevelAgent UserName",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "string",
+            "PropertyName": "TwoLevelAgentPassword",
+            "DefaultValue": "null",
+            "DefaultValueIsConst": true,
+            "Summary": "TwoLevelAgent Password",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "",
+            "PropertyName": "",
+            "DefaultValue": "",
+            "DefaultValueIsConst": true,
+            "Summary": "",
+            "IsRegionOrEndregion": false,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "",
+            "PropertyName": "",
+            "DefaultValue": "",
+            "DefaultValueIsConst": true,
+            "Summary": "代理模式设置",
+            "IsRegionOrEndregion": true,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "ProxyMode",
+            "PropertyName": "ProxyMode",
+            "DefaultValue": "ProxySettings.ProxyModeValue",
+            "DefaultValueIsConst": false,
+            "Summary": "当前代理模式",
+            "IsRegionOrEndregion": null,
+            "IsValueType": true
+          },
+          {
+            "TypeName": "",
+            "PropertyName": "",
+            "DefaultValue": "",
+            "DefaultValueIsConst": true,
+            "Summary": "",
+            "IsRegionOrEndregion": false,
+            "IsValueType": null
+          },
+          {
+            "Sharp": "if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)"
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "IsProxyGOG",
+            "DefaultValue": "false",
+            "DefaultValueIsConst": true,
+            "Summary": "启用 GOG 插件代理",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "IsOnlyWorkSteamBrowser",
+            "DefaultValue": "false",
+            "DefaultValueIsConst": true,
+            "Summary": "是否只针对 Steam 内置浏览器启用脚本",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "Sharp": "endif"
+          }
+      ],
+      "Usings": ""
     }
   }
 }

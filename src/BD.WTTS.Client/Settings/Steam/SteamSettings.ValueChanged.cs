@@ -21,9 +21,9 @@ public static partial class SteamSettings
         if (!e.NewValue.HasValue)
             return;
         if (e.NewValue.Value)
-            SteamStratParameter.ActualValue += " -noverifyfiles";
-        else if (SteamStratParameter.ActualValue != null)
-            SteamStratParameter.ActualValue = SteamStratParameter.ActualValue.Replace("-noverifyfiles", "").Trim();
+            SteamStratParameter.Value += " -noverifyfiles";
+        else if (SteamStratParameter.Value != null)
+            SteamStratParameter.Value = SteamStratParameter.Value.Replace("-noverifyfiles", "").Trim();
     }
 
     static void IsRunSteamMinimized_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool?> e)
@@ -31,9 +31,9 @@ public static partial class SteamSettings
         if (!e.NewValue.HasValue)
             return;
         if (e.NewValue.Value)
-            SteamStratParameter.ActualValue += " -silent";
-        else if (SteamStratParameter.ActualValue != null)
-            SteamStratParameter.ActualValue = SteamStratParameter.ActualValue.Replace("-silent", "").Trim();
+            SteamStratParameter.Value += " -silent";
+        else if (SteamStratParameter.Value != null)
+            SteamStratParameter.Value = SteamStratParameter.Value.Replace("-silent", "").Trim();
     }
 
     static void IsRunSteamChina_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool?> e)
@@ -41,8 +41,8 @@ public static partial class SteamSettings
         if (!e.NewValue.HasValue)
             return;
         if (e.NewValue.Value)
-            SteamStratParameter.ActualValue += " -steamchina";
-        else if (SteamStratParameter.ActualValue != null)
-            SteamStratParameter.ActualValue = SteamStratParameter.ActualValue.Replace("-steamchina", "").Trim();
+            SteamStratParameter.Value += " -steamchina";
+        else if (SteamStratParameter.Value != null)
+            SteamStratParameter.Value = SteamStratParameter.Value.Replace("-steamchina", "").Trim();
     }
 }
