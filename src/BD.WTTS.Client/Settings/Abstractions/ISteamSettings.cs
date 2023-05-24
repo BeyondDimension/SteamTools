@@ -1,3 +1,8 @@
+#pragma warning disable IDE0079 // 请删除不必要的忽略
+#pragma warning disable SA1634 // File header should show copyright
+// <console-tools-generated/>
+#pragma warning restore SA1634 // File header should show copyright
+#pragma warning restore IDE0079 // 请删除不必要的忽略
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
 
@@ -31,10 +36,12 @@ public interface ISteamSettings
     /// </summary>
     string? SteamProgramPath { get; set; }
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     /// <summary>
     /// Steam 默认程序路径的默认值
     /// </summary>
-    const string DefaultSteamProgramPath = null;
+    static readonly string DefaultSteamProgramPath = Ioc.Get<ISteamService>().SteamProgramPath;
+#endif
 
     /// <summary>
     /// 自动运行 Steam

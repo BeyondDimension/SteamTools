@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BD.WTTS.Settings.Steam;
+namespace BD.WTTS.Settings;
 
 public static partial class SteamSettings
 {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     static SteamSettings()
     {
         if (!IApplication.IsDesktop()) return;
@@ -45,4 +46,5 @@ public static partial class SteamSettings
         else if (SteamStratParameter.ActualValue != null)
             SteamStratParameter.ActualValue = SteamStratParameter.ActualValue.Replace("-steamchina", "").Trim();
     }
+#endif
 }

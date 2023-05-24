@@ -47,7 +47,7 @@ public sealed partial class GameAccountSettings_ : IGameAccountSettings, ISettin
     public IReadOnlyCollection<DisableAuthorizedDevice>? DisableAuthorizedDevice { get; set; }
 
 }
-public static class GameAccountSettings
+public static partial class GameAccountSettings
 {
     /// <summary>
     /// Steam 账号备注字典
