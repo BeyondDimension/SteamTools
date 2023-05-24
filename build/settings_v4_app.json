@@ -422,14 +422,19 @@
           "IsValueType": null
         },
         {
+          "Sharp": "if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)"
+        },
+        {
           "TypeName": "string",
           "PropertyName": "SteamProgramPath",
           "DefaultValue": "Ioc.Get<ISteamService>().SteamProgramPath",
           "DefaultValueIsConst": false,
           "Summary": "Steam 默认程序路径",
           "IsRegionOrEndregion": null,
-          "IsValueType": null,
-          "Sharp": "#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)"
+          "IsValueType": null
+        },
+        {
+          "Sharp": "endif"
         },
         {
           "TypeName": "bool",
@@ -438,8 +443,7 @@
           "DefaultValueIsConst": true,
           "Summary": "自动运行 Steam",
           "IsRegionOrEndregion": null,
-          "IsValueType": null,
-          "Sharp": "endif"
+          "IsValueType": null
         },
         {
           "TypeName": "bool",

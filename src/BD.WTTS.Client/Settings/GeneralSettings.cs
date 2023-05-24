@@ -101,6 +101,7 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings, ISet
     public bool? ScreenCapture { get; set; }
 
 }
+
 public static partial class GeneralSettings
 {
     /// <summary>

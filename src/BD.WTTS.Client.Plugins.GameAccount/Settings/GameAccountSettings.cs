@@ -47,6 +47,7 @@ public sealed partial class GameAccountSettings_ : IGameAccountSettings, ISettin
     public IReadOnlyCollection<DisableAuthorizedDevice>? DisableAuthorizedDevice { get; set; }
 
 }
+
 public static partial class GameAccountSettings
 {
     /// <summary>

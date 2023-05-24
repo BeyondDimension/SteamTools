@@ -76,12 +76,12 @@ public interface IUISettings
     const bool? DefaultIsShowAdvertisement = true;
 
     /// <summary>
-    /// 不再提示的消息框
+    /// 窗口位置大小
     /// </summary>
     ConcurrentDictionary<string, SizePosition>? WindowSizePositions { get; set; }
 
     /// <summary>
-    /// 不再提示的消息框的默认值
+    /// 窗口位置大小的默认值
     /// </summary>
     const ConcurrentDictionary<string, SizePosition>? DefaultWindowSizePositions = null;
 
@@ -155,7 +155,7 @@ public interface IUISettings
     /// <summary>
     /// 是否打开自定义背景图像的默认值
     /// </summary>
-    const bool DefaultWindowBackgroundCustomImage = false;
+    const bool? DefaultWindowBackgroundCustomImage = false;
 
     /// <summary>
     /// 自定义背景图像路径

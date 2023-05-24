@@ -19,7 +19,7 @@ public interface IGameAccountSettings
     /// <summary>
     /// Steam 账号备注字典的默认值
     /// </summary>
-    const ConcurrentDictionary<long, string?> DefaultAccountRemarks = null;
+    const ConcurrentDictionary<long, string?>? DefaultAccountRemarks = null;
 
     /// <summary>
     /// Steam 家庭共享临时禁用
@@ -29,6 +29,6 @@ public interface IGameAccountSettings
     /// <summary>
     /// Steam 家庭共享临时禁用的默认值
     /// </summary>
-    const IReadOnlyCollection<DisableAuthorizedDevice> DefaultDisableAuthorizedDevice = null;
+    const IReadOnlyCollection<DisableAuthorizedDevice>? DefaultDisableAuthorizedDevice = null;
 
 }

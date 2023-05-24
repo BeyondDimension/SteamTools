@@ -71,6 +71,7 @@ public sealed partial class GameLibrarySettings_ : IGameLibrarySettings, ISettin
     public bool? IsAutoAFKApps { get; set; }
 
 }
+
 public static partial class GameLibrarySettings
 {
     /// <summary>

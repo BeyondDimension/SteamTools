@@ -19,7 +19,7 @@ public interface IGameLibrarySettings
     /// <summary>
     /// 已安装游戏筛选的默认值
     /// </summary>
-    const bool DefaultGameInstalledFilter = false;
+    const bool? DefaultGameInstalledFilter = false;
 
     /// <summary>
     /// 支持云存档游戏筛选状态
@@ -29,7 +29,7 @@ public interface IGameLibrarySettings
     /// <summary>
     /// 支持云存档游戏筛选状态的默认值
     /// </summary>
-    const bool DefaultGameCloudArchiveFilter = false;
+    const bool? DefaultGameCloudArchiveFilter = false;
 
     /// <summary>
     /// 游戏类型筛选状态列表
@@ -39,7 +39,7 @@ public interface IGameLibrarySettings
     /// <summary>
     /// 游戏类型筛选状态列表的默认值
     /// </summary>
-    static readonly List<SteamAppType> DefaultGameTypeFiltres = new List<SteamAppType> { SteamAppType.Game, SteamAppType.Application, SteamAppType.Demo, SteamAppType.Beta };
+    static readonly List<SteamAppType>? DefaultGameTypeFiltres = new List<SteamAppType> { SteamAppType.Game, SteamAppType.Application, SteamAppType.Demo, SteamAppType.Beta };
 
     /// <summary>
     /// 隐藏的游戏列表
@@ -49,7 +49,7 @@ public interface IGameLibrarySettings
     /// <summary>
     /// 隐藏的游戏列表的默认值
     /// </summary>
-    const Dictionary<uint, string?> DefaultHideGameList = null;
+    const Dictionary<uint, string?>? DefaultHideGameList = null;
 
     /// <summary>
     /// 挂时长游戏列表
@@ -59,7 +59,7 @@ public interface IGameLibrarySettings
     /// <summary>
     /// 挂时长游戏列表的默认值
     /// </summary>
-    const Dictionary<uint, string?> DefaultAFKAppList = null;
+    const Dictionary<uint, string?>? DefaultAFKAppList = null;
 
     /// <summary>
     /// 启用自动挂机
@@ -69,6 +69,6 @@ public interface IGameLibrarySettings
     /// <summary>
     /// 启用自动挂机的默认值
     /// </summary>
-    const bool DefaultIsAutoAFKApps = true;
+    const bool? DefaultIsAutoAFKApps = true;
 
 }

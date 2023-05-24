@@ -189,7 +189,7 @@ public static partial class UISettings
         = new(DefaultIsShowAdvertisement);
 
     /// <summary>
-    /// 不再提示的消息框
+    /// 窗口位置大小
     /// </summary>
     public static SettingsProperty<string, SizePosition, ConcurrentDictionary<string, SizePosition>, UISettings_> WindowSizePositions { get; }
         = new(DefaultWindowSizePositions);

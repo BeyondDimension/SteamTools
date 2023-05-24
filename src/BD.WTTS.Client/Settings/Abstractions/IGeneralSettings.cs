@@ -19,7 +19,7 @@ public interface IGeneralSettings
     /// <summary>
     /// 自动检查应用更新的默认值
     /// </summary>
-    const bool DefaultAutoCheckAppUpdate = true;
+    const bool? DefaultAutoCheckAppUpdate = true;
 
     /// <summary>
     /// 选择下载更新渠道
@@ -29,7 +29,7 @@ public interface IGeneralSettings
     /// <summary>
     /// 选择下载更新渠道的默认值
     /// </summary>
-    const UpdateChannelType DefaultUpdateChannel = UpdateChannelType.Auto;
+    const UpdateChannelType? DefaultUpdateChannel = UpdateChannelType.Auto;
 
     /// <summary>
     /// 开机自启动
@@ -39,7 +39,7 @@ public interface IGeneralSettings
     /// <summary>
     /// 开机自启动的默认值
     /// </summary>
-    const bool DefaultAutoRunOnStartup = false;
+    const bool? DefaultAutoRunOnStartup = false;
 
     /// <summary>
     /// 启动时最小化
@@ -49,7 +49,7 @@ public interface IGeneralSettings
     /// <summary>
     /// 启动时最小化的默认值
     /// </summary>
-    const bool DefaultMinimizeOnStartup = false;
+    const bool? DefaultMinimizeOnStartup = false;
 
     /// <summary>
     /// 启用托盘图标
@@ -59,7 +59,7 @@ public interface IGeneralSettings
     /// <summary>
     /// 启用托盘图标的默认值
     /// </summary>
-    const bool DefaultTrayIcon = false;
+    const bool? DefaultTrayIcon = false;
 
     /// <summary>
     /// 游戏列表使用本地缓存
@@ -69,7 +69,7 @@ public interface IGeneralSettings
     /// <summary>
     /// 游戏列表使用本地缓存的默认值
     /// </summary>
-    const bool DefaultGameListUseLocalCache = false;
+    const bool? DefaultGameListUseLocalCache = false;
 
     /// <summary>
     /// 文本阅读器提供商，值为程序路径
@@ -79,7 +79,7 @@ public interface IGeneralSettings
     /// <summary>
     /// 文本阅读器提供商，值为程序路径的默认值
     /// </summary>
-    const Dictionary<Platform, string> DefaultTextReaderProvider = null;
+    const Dictionary<Platform, string>? DefaultTextReaderProvider = null;
 
     /// <summary>
     /// Hosts 文件编码类型
@@ -89,7 +89,7 @@ public interface IGeneralSettings
     /// <summary>
     /// Hosts 文件编码类型的默认值
     /// </summary>
-    const EncodingType DefaultHostsFileEncodingType = EncodingType.Auto;
+    const EncodingType? DefaultHostsFileEncodingType = EncodingType.Auto;
 
     /// <summary>
     /// 是否使用硬件加速
@@ -99,7 +99,7 @@ public interface IGeneralSettings
     /// <summary>
     /// 是否使用硬件加速的默认值
     /// </summary>
-    const bool DefaultGPU = true;
+    const bool? DefaultGPU = true;
 
     /// <summary>
     /// 使用本机 OpenGL
@@ -109,7 +109,7 @@ public interface IGeneralSettings
     /// <summary>
     /// 使用本机 OpenGL的默认值
     /// </summary>
-    const bool DefaultNativeOpenGL = false;
+    const bool? DefaultNativeOpenGL = false;
 
     /// <summary>
     /// 屏幕捕获/允许截图，在一些含有机密的页面上是否允许截图，默认为 <see langword="false"/>
@@ -119,6 +119,6 @@ public interface IGeneralSettings
     /// <summary>
     /// 屏幕捕获/允许截图，在一些含有机密的页面上是否允许截图，默认为 <see langword="false"/>的默认值
     /// </summary>
-    const bool DefaultScreenCapture = false;
+    const bool? DefaultScreenCapture = false;
 
 }
