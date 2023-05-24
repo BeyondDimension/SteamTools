@@ -46,15 +46,11 @@ public sealed partial class SteamSettings_ : ISteamSettings, ISettings, ISetting
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
     public string? SteamSkin { get; set; }
 
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
     /// <summary>
     /// Steam 默认程序路径
     /// </summary>
     [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
     public string? SteamProgramPath { get; set; }
-
-#endif
 
     /// <summary>
     /// 自动运行 Steam

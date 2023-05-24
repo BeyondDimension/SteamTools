@@ -41,7 +41,7 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
     /// <summary>
     /// 值
     /// </summary>
-    public override TValue? ActualValue
+    protected override TValue? ActualValue
     {
         get => value ?? Default;
         set
