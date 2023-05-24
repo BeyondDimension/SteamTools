@@ -21,7 +21,7 @@ public abstract class SettingsPropertyBase<TValue> : SettingsPropertyBase, INoti
     /// <summary>
     /// 实际值
     /// </summary>
-    public abstract TValue? ActualValue { get; set; }
+    protected abstract TValue? ActualValue { get; set; }
 
     public abstract TValue? Default { get; }
 

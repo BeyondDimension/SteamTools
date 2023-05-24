@@ -21,7 +21,7 @@ public interface IUISettings
     /// <summary>
     /// 主题的默认值
     /// </summary>
-    const AppTheme? DefaultTheme = AppTheme.FollowingSystem;
+    const AppTheme DefaultTheme = AppTheme.FollowingSystem;
 
     /// <summary>
     /// 主题强调色（16 进制 RGB 字符串）
@@ -31,7 +31,7 @@ public interface IUISettings
     /// <summary>
     /// 主题强调色（16 进制 RGB 字符串）的默认值
     /// </summary>
-    const string? DefaultThemeAccent = "#FF0078D7";
+    const string DefaultThemeAccent = "#FF0078D7";
 
     /// <summary>
     /// 从系统中获取主题强调色
@@ -41,7 +41,7 @@ public interface IUISettings
     /// <summary>
     /// 从系统中获取主题强调色的默认值
     /// </summary>
-    const bool? DefaultUseSystemThemeAccent = true;
+    const bool DefaultUseSystemThemeAccent = true;
 
     #endregion
 
@@ -73,15 +73,15 @@ public interface IUISettings
     /// <summary>
     /// 是否显示广告的默认值
     /// </summary>
-    const bool? DefaultIsShowAdvertisement = true;
+    const bool DefaultIsShowAdvertisement = true;
 
     /// <summary>
-    /// 不再提示的消息框
+    /// 窗口位置大小
     /// </summary>
     ConcurrentDictionary<string, SizePosition>? WindowSizePositions { get; set; }
 
     /// <summary>
-    /// 不再提示的消息框的默认值
+    /// 窗口位置大小的默认值
     /// </summary>
     const ConcurrentDictionary<string, SizePosition>? DefaultWindowSizePositions = null;
 
@@ -103,7 +103,7 @@ public interface IUISettings
     /// <summary>
     /// 库存游戏网格布局大小的默认值
     /// </summary>
-    const int? DefaultGameListGridSize = 150;
+    const int DefaultGameListGridSize = 150;
 
     /// <summary>
     /// 圆角
@@ -113,7 +113,7 @@ public interface IUISettings
     /// <summary>
     /// 圆角的默认值
     /// </summary>
-    const bool? DefaultFillet = false;
+    const bool DefaultFillet = false;
 
     #region WindowBackground 窗口背景
 
@@ -125,7 +125,7 @@ public interface IUISettings
     /// <summary>
     /// 窗口背景不透明度的默认值
     /// </summary>
-    const double? DefaultWindowBackgroundOpacity = .8;
+    const double DefaultWindowBackgroundOpacity = .8;
 
     /// <summary>
     /// 窗口背景材质
@@ -135,7 +135,7 @@ public interface IUISettings
     /// <summary>
     /// 窗口背景材质的默认值
     /// </summary>
-    static readonly WindowBackgroundMaterial? DefaultWindowBackgroundMaterial = OperatingSystem2.IsWindows11AtLeast() ? Enums.WindowBackgroundMaterial.Mica : Enums.WindowBackgroundMaterial.AcrylicBlur;
+    static readonly WindowBackgroundMaterial DefaultWindowBackgroundMaterial = OperatingSystem2.IsWindows11AtLeast() ? Enums.WindowBackgroundMaterial.Mica : Enums.WindowBackgroundMaterial.AcrylicBlur;
 
     /// <summary>
     /// 动态桌面背景
@@ -145,7 +145,17 @@ public interface IUISettings
     /// <summary>
     /// 动态桌面背景的默认值
     /// </summary>
-    const bool? DefaultWindowBackgroundDynamic = false;
+    const bool DefaultWindowBackgroundDynamic = false;
+
+    /// <summary>
+    /// 是否打开自定义背景图像
+    /// </summary>
+    bool? WindowBackgroundCustomImage { get; set; }
+
+    /// <summary>
+    /// 是否打开自定义背景图像的默认值
+    /// </summary>
+    const bool DefaultWindowBackgroundCustomImage = false;
 
     /// <summary>
     /// 自定义背景图像路径
@@ -155,7 +165,7 @@ public interface IUISettings
     /// <summary>
     /// 自定义背景图像路径的默认值
     /// </summary>
-    const string? DefaultWindowBackgroundCustomImagePath = "/UI/Assets/back.png";
+    const string DefaultWindowBackgroundCustomImagePath = "/UI/Assets/back.png";
 
     /// <summary>
     /// 自定义背景图像不透明度
@@ -165,7 +175,7 @@ public interface IUISettings
     /// <summary>
     /// 自定义背景图像不透明度的默认值
     /// </summary>
-    const double? DefaultWindowBackgroundCustomImageOpacity = .8;
+    const double DefaultWindowBackgroundCustomImageOpacity = .8;
 
     /// <summary>
     /// 自定义背景图像缩放方式
@@ -175,7 +185,7 @@ public interface IUISettings
     /// <summary>
     /// 自定义背景图像缩放方式的默认值
     /// </summary>
-    const XamlMediaStretch? DefaultWindowBackgroundCustomImageStretch = XamlMediaStretch.UniformToFill;
+    const XamlMediaStretch DefaultWindowBackgroundCustomImageStretch = XamlMediaStretch.UniformToFill;
 
     #endregion
 

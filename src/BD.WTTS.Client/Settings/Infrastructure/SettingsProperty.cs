@@ -42,7 +42,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 
     public override string PropertyName { get; }
 
-    public override TValue? ActualValue
+    protected override TValue? ActualValue
     {
         get => value ?? Default;
         set

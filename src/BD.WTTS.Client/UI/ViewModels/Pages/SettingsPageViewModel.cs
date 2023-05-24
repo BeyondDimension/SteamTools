@@ -9,9 +9,9 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 {
     public SettingsPageViewModel()
     {
-        SelectLanguage = ResourceService.Languages.FirstOrDefault(x => x.Key == UISettings.Language.ActualValue);
+        SelectLanguage = ResourceService.Languages.FirstOrDefault(x => x.Key == UISettings.Language.Value);
         this.WhenValueChanged(x => x.SelectLanguage, false)
-              .Subscribe(x => UISettings.Language.ActualValue = x.Key);
+              .Subscribe(x => UISettings.Language.Value = x.Key);
 
         UpdateChannels = Enum2.GetAll<UpdateChannelType>();
 
@@ -20,9 +20,9 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (IApplication.IsDesktop())
         {
-            SelectFont = ResourceService.Fonts.FirstOrDefault(x => x.Value == UISettings.FontName.ActualValue);
+            SelectFont = ResourceService.Fonts.FirstOrDefault(x => x.Value == UISettings.FontName.Value);
             this.WhenValueChanged(x => x.SelectFont, false)
-                  .Subscribe(x => UISettings.FontName.ActualValue = x.Value);
+                  .Subscribe(x => UISettings.FontName.Value = x.Value);
 
             SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
             {
@@ -62,7 +62,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         openFileDialog.Filter = "Steam|steam.exe";
         openFileDialog.ShowDialog();
         if (openFileDialog.FileName == string.Empty) return;
-        SteamSettings.SteamProgramPath.ActualValue = openFileDialog.FileName;
+        SteamSettings.SteamProgramPath.Value = openFileDialog.FileName;
     }
 
 #endif
@@ -95,11 +95,11 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         var vm = new TextBoxWindowViewModel
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
-            Value = SteamSettings.SteamStratParameter.ActualValue,
+            Value = SteamSettings.SteamStratParameter.Value,
         };
         if (await IWindowManager.Instance.ShowTaskDialogAsync(vm, AppResources.Edit + " " + AppResources.Settings_Steam_SteamStratParameter, subHeader: "可添加自定义的参数来启动 Steam", isDialog: false, isCancelButton: true))
         {
-            SteamSettings.SteamStratParameter.ActualValue = vm.Value;
+            SteamSettings.SteamStratParameter.Value = vm.Value;
         }
     }
 #endif

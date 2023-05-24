@@ -45,9 +45,9 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
         if (IsSaveWindowSize)
         {
             var windowName = GetType().Name;
-            if (UISettings.WindowSizePositions.ActualValue?.ContainsKey(windowName) == true)
+            if (windowName != null && UISettings.WindowSizePositions.TryGetValue(windowName, out var sizePosition))
             {
-                SizePosition = UISettings.WindowSizePositions.ActualValue[windowName];
+                SizePosition = sizePosition;
             }
         }
 
