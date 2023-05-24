@@ -72,7 +72,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     {
         if (string.IsNullOrWhiteSpace(imagePath))
         {
-            UISettings.WindowBackgroundCustomImagePath.ActualValue = string.Empty;
+            UISettings.WindowBackgroundCustomImagePath.Reset();
             return;
         }
         if (File.Exists(imagePath))
@@ -82,7 +82,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
                 var (isImage, _) = FileFormat.IsImage(stream);
                 if (isImage)
                 {
-                    UISettings.WindowBackgroundCustomImagePath.ActualValue = imagePath;
+                    UISettings.WindowBackgroundCustomImagePath.Value = imagePath;
                     return;
                 }
             }

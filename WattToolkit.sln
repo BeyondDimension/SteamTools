@@ -158,6 +158,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{09F4FC1E-88A6-4264-9871-C0AF59DEA89D}"
 	ProjectSection(SolutionItems) = preProject
 		build\publish_apphost_linux_x64.sh = build\publish_apphost_linux_x64.sh
+		build\settings_v4_app.json = build\settings_v4_app.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Controls.Internals", "src\Avalonia.Controls.Internals\Avalonia.Controls.Internals.csproj", "{BAEF69C3-9347-424D-B2B4-74BD2B3C90F9}"
