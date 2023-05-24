@@ -139,6 +139,7 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     #endregion
 
 }
+
 public static partial class UISettings
 {
     #region 主题
@@ -184,7 +185,7 @@ public static partial class UISettings
     /// <summary>
     /// 不再提示的消息框
     /// </summary>
-    public static SettingsProperty<KeyValuePair<string, SizePosition>, ConcurrentDictionary<string, SizePosition>, UISettings_> WindowSizePositions { get; }
+    public static SettingsProperty<string, SizePosition, ConcurrentDictionary<string, SizePosition>, UISettings_> WindowSizePositions { get; }
         = new(DefaultWindowSizePositions);
 
     /// <summary>

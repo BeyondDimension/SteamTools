@@ -166,8 +166,12 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
             SizePosition.Width = ClientSize.Width;
             SizePosition.Height = ClientSize.Height;
 
-            UISettings.WindowSizePositions.ActualValue!.AddOrUpdate(GetType().Name, SizePosition, (s, e) => SizePosition);
-            UISettings.WindowSizePositions.RaiseValueChanged();
+            var typeName = GetType().Name;
+            if (typeName != null)
+            {
+                UISettings.WindowSizePositions.Add(typeName, SizePosition);
+                UISettings.WindowSizePositions.RaiseValueChanged();
+            }
         }
     }
 
