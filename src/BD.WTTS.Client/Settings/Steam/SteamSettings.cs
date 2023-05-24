@@ -97,7 +97,6 @@ public sealed partial class SteamSettings_ : ISteamSettings, ISettings, ISetting
 }
 public static partial class SteamSettings
 {
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     /// <summary>
     /// Steam 启动参数
     /// </summary>
@@ -113,8 +112,10 @@ public static partial class SteamSettings
     /// <summary>
     /// Steam 默认程序路径
     /// </summary>
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     public static SettingsProperty<string, SteamSettings_> SteamProgramPath { get; }
         = new(DefaultSteamProgramPath);
+#endif
 
     /// <summary>
     /// 自动运行 Steam
@@ -157,5 +158,5 @@ public static partial class SteamSettings
     /// </summary>
     public static SettingsStructProperty<bool, SteamSettings_> IsRunSteamAdministrator { get; }
         = new(DefaultIsRunSteamAdministrator);
-#endif
+
 }

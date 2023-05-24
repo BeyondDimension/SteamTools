@@ -75,7 +75,7 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     public bool? IsShowAdvertisement { get; set; }
 
     /// <summary>
-    /// 不再提示的消息框
+    /// 窗口位置大小
     /// </summary>
     [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
     public ConcurrentDictionary<string, SizePosition>? WindowSizePositions { get; set; }

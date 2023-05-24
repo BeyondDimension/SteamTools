@@ -36,10 +36,10 @@ public interface ISteamSettings
     /// </summary>
     string? SteamProgramPath { get; set; }
 
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     /// <summary>
     /// Steam 默认程序路径的默认值
     /// </summary>
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     static readonly string DefaultSteamProgramPath = Ioc.Get<ISteamService>().SteamProgramPath;
 #endif
 
