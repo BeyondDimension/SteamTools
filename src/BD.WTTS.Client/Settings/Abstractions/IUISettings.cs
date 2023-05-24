@@ -148,6 +148,16 @@ public interface IUISettings
     const bool? DefaultWindowBackgroundDynamic = false;
 
     /// <summary>
+    /// 是否打开自定义背景图像
+    /// </summary>
+    bool? WindowBackgroundCustomImage { get; set; }
+
+    /// <summary>
+    /// 是否打开自定义背景图像的默认值
+    /// </summary>
+    const bool DefaultWindowBackgroundCustomImage = false;
+
+    /// <summary>
     /// 自定义背景图像路径
     /// </summary>
     string? WindowBackgroundCustomImagePath { get; set; }

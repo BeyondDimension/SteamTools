@@ -119,21 +119,27 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     public bool? WindowBackgroundDynamic { get; set; }
 
     /// <summary>
-    /// 自定义背景图像路径
+    /// 是否打开自定义背景图像
     /// </summary>
     [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
+    public bool? WindowBackgroundCustomImage { get; set; }
+
+    /// <summary>
+    /// 自定义背景图像路径
+    /// </summary>
+    [MPKey(14), MP2Key(14), JsonPropertyOrder(14)]
     public string? WindowBackgroundCustomImagePath { get; set; }
 
     /// <summary>
     /// 自定义背景图像不透明度
     /// </summary>
-    [MPKey(14), MP2Key(14), JsonPropertyOrder(14)]
+    [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
     public double? WindowBackgroundCustomImageOpacity { get; set; }
 
     /// <summary>
     /// 自定义背景图像缩放方式
     /// </summary>
-    [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
+    [MPKey(16), MP2Key(16), JsonPropertyOrder(16)]
     public XamlMediaStretch? WindowBackgroundCustomImageStretch { get; set; }
 
     #endregion
@@ -225,6 +231,12 @@ public static partial class UISettings
     /// </summary>
     public static SettingsStructProperty<bool, UISettings_> WindowBackgroundDynamic { get; }
         = new(DefaultWindowBackgroundDynamic);
+
+    /// <summary>
+    /// 是否打开自定义背景图像
+    /// </summary>
+    public static SettingsStructProperty<bool, UISettings_> WindowBackgroundCustomImage { get; }
+        = new(DefaultWindowBackgroundCustomImage);
 
     /// <summary>
     /// 自定义背景图像路径

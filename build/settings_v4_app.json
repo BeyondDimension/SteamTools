@@ -159,6 +159,15 @@
           "IsRegionOrEndregion": null,
           "IsValueType": null
         },
+		        {
+          "TypeName": "bool",
+          "PropertyName": "WindowBackgroundCustomImage",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "是否打开自定义背景图像",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
         {
           "TypeName": "string",
           "PropertyName": "WindowBackgroundCustomImagePath",
@@ -193,6 +202,189 @@
           "DefaultValueIsConst": true,
           "Summary": "",
           "IsRegionOrEndregion": false,
+          "IsValueType": null
+        }
+      ],
+      "Usings": ""
+    },
+    "GameAccountSettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client.Plugins.GameAccount\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client\\Settings\\Abstractions",
+      "Properties": [
+          {
+            "TypeName": "ConcurrentDictionary<long, string?>",
+            "PropertyName": "AccountRemarks",
+            "DefaultValue": "null",
+            "DefaultValueIsConst": true,
+            "Summary": "Steam 账号备注字典",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "IReadOnlyCollection<DisableAuthorizedDevice>",
+            "PropertyName": "DisableAuthorizedDevice",
+            "DefaultValue": "null",
+            "DefaultValueIsConst": true,
+            "Summary": "Steam 家庭共享临时禁用",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          }
+      ],
+      "Usings": ""
+    },
+    "GameLibrarySettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client.Plugins.GameList\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client\\Settings\\Abstractions",
+      "Properties": [
+          {
+            "TypeName": "bool",
+            "PropertyName": "GameInstalledFilter",
+            "DefaultValue": "false",
+            "DefaultValueIsConst": true,
+            "Summary": "已安装游戏筛选",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "GameCloudArchiveFilter",
+            "DefaultValue": "false",
+            "DefaultValueIsConst": true,
+            "Summary": "支持云存档游戏筛选状态",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "List<SteamAppType>",
+            "PropertyName": "GameTypeFiltres",
+            "DefaultValue": "new List<SteamAppType> { SteamAppType.Game, SteamAppType.Application, SteamAppType.Demo, SteamAppType.Beta }",
+            "DefaultValueIsConst": false,
+            "Summary": "游戏类型筛选状态列表",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "Dictionary<uint, string?>",
+            "PropertyName": "HideGameList",
+            "DefaultValue": "null",
+            "DefaultValueIsConst": true,
+            "Summary": "隐藏的游戏列表",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "Dictionary<uint, string?>",
+            "PropertyName": "AFKAppList",
+            "DefaultValue": "null",
+            "DefaultValueIsConst": true,
+            "Summary": "挂时长游戏列表",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          },
+          {
+            "TypeName": "bool",
+            "PropertyName": "IsAutoAFKApps",
+            "DefaultValue": "true",
+            "DefaultValueIsConst": true,
+            "Summary": "启用自动挂机",
+            "IsRegionOrEndregion": null,
+            "IsValueType": null
+          }
+      ],
+      "Usings": ""
+    },
+    "SteamSettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client\\Settings\\Steam",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "string",
+          "PropertyName": "SteamStratParameter",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 启动参数",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "SteamSkin",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 皮肤",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "SteamProgramPath",
+          "DefaultValue": "Ioc.Get<ISteamService>().SteamProgramPath",
+          "DefaultValueIsConst": false,
+          "Summary": "Steam 默认程序路径",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsAutoRunSteam",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "自动运行 Steam",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsRunSteamMinimized",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 启动时最小化到托盘",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsRunSteamNoCheckUpdate",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 启动时不检查更新",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsRunSteamChina",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 启动时模拟为蒸汽平台（Steam 国服）启动",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsEnableSteamLaunchNotification",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 登录时弹出消息通知",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "OSExitMode",
+          "PropertyName": "DownloadCompleteSystemEndMode",
+          "DefaultValue": "OSExitMode.Sleep",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 下载完成执行任务",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsRunSteamAdministrator",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 以管理员权限运行",
+          "IsRegionOrEndregion": null,
           "IsValueType": null
         }
       ],
