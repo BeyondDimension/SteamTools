@@ -143,7 +143,7 @@ public static partial class GeneralSettings
     /// <summary>
     /// 文本阅读器提供商，值为程序路径
     /// </summary>
-    public static SettingsProperty<KeyValuePair<Platform, string>, Dictionary<Platform, string>, GeneralSettings_> TextReaderProvider { get; }
+    public static SettingsProperty<Platform, string, Dictionary<Platform, string>, GeneralSettings_> TextReaderProvider { get; }
         = new(DefaultTextReaderProvider);
 
     /// <summary>

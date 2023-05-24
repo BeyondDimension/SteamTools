@@ -53,7 +53,7 @@ public static partial class GameAccountSettings
     /// <summary>
     /// Steam 账号备注字典
     /// </summary>
-    public static SettingsProperty<KeyValuePair<long, string?>, ConcurrentDictionary<long, string?>, GameAccountSettings_> AccountRemarks { get; }
+    public static SettingsProperty<long, string?, ConcurrentDictionary<long, string?>, GameAccountSettings_> AccountRemarks { get; }
         = new(DefaultAccountRemarks);
 
     /// <summary>

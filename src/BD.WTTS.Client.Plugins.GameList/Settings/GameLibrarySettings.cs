@@ -95,13 +95,13 @@ public static partial class GameLibrarySettings
     /// <summary>
     /// 隐藏的游戏列表
     /// </summary>
-    public static SettingsProperty<KeyValuePair<uint, string?>, Dictionary<uint, string?>, GameLibrarySettings_> HideGameList { get; }
+    public static SettingsProperty<uint, string?, Dictionary<uint, string?>, GameLibrarySettings_> HideGameList { get; }
         = new(DefaultHideGameList);
 
     /// <summary>
     /// 挂时长游戏列表
     /// </summary>
-    public static SettingsProperty<KeyValuePair<uint, string?>, Dictionary<uint, string?>, GameLibrarySettings_> AFKAppList { get; }
+    public static SettingsProperty<uint, string?, Dictionary<uint, string?>, GameLibrarySettings_> AFKAppList { get; }
         = new(DefaultAFKAppList);
 
     /// <summary>
