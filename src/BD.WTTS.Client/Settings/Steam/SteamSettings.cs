@@ -60,7 +60,7 @@ partial class SteamSettings_ : ISettings<SteamSettings_>
 }
 
 [SettingsGeneration]
-public static class SteamSettings
+public static partial class SteamSettings
 {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     static readonly ISteamService steamService = Ioc.Get<ISteamService>();

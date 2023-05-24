@@ -139,7 +139,7 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     #endregion
 
 }
-public static class UISettings
+public static partial class UISettings
 {
     #region 主题
 
