@@ -59,7 +59,7 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         var psi = new ProcessStartInfo
         {
             FileName = fileName,
-            Arguments = ipcProvider.ThrowIsNull().IpcContext.PipeName,
+            Arguments = $"{ipcProvider.ThrowIsNull().IpcContext.PipeName} {Environment.ProcessId}",
             UseShellExecute = false,
         };
         configure?.Invoke(psi);

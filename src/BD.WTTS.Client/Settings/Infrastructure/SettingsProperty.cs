@@ -13,8 +13,9 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
     readonly Func<TSettings, TValue?> getter;
     IDisposable? disposable;
     readonly IOptionsMonitor<TSettings> monitor;
-    protected TValue? value;
     bool disposedValue;
+
+    protected sealed override TValue? ModelValue => getter(monitor.CurrentValue);
 
     public SettingsProperty(TValue? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null)
     {
@@ -42,9 +43,33 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 
     public override string PropertyName { get; }
 
+    protected virtual TValue? GetActualValue()
+    {
+        if (typeof(TValue) == typeof(string))
+        {
+            if (value == default || string.IsNullOrWhiteSpace(value?.ToString()))
+                return Default;
+            return value;
+        }
+        else
+        {
+            return value ?? Default;
+        }
+    }
+
+    protected virtual void SetModelValue(TValue? value)
+    {
+        if (typeof(TValue) == typeof(string))
+        {
+            if (value != default && string.IsNullOrWhiteSpace(value?.ToString()))
+                value = default;
+        }
+        setter(monitor.CurrentValue, value); // 赋值模型类属性
+    }
+
     protected override TValue? ActualValue
     {
-        get => value ?? Default;
+        get => GetActualValue();
         set
         {
             SetValue(value);
@@ -73,7 +98,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
         {
             setter_value = default;
         }
-        setter(monitor.CurrentValue, setter_value); // 赋值模型类属性
+        SetModelValue(setter_value); // 赋值模型类属性
 
         OnValueChanged(oldValue, value); // 调用变更事件
 
@@ -93,7 +118,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
         {
             setter_value = default;
         }
-        setter(monitor.CurrentValue, setter_value); // 赋值模型类属性
+        SetModelValue(setter_value); // 赋值模型类属性
         OnValueChanged(value, value); // 调用变更事件
         if (!notSave && AutoSave) // 自动保存
         {
@@ -105,7 +130,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
     {
         var oldValue = value;
         value = Default; // 赋值当前字段
-        setter(monitor.CurrentValue, default); // 赋值模型类属性
+        SetModelValue(default); // 赋值模型类属性
 
         OnValueChanged(oldValue, value); // 调用变更事件
 

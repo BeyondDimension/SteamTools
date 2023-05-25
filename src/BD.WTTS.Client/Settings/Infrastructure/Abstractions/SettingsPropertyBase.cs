@@ -15,9 +15,24 @@ public abstract class SettingsPropertyBase
     public abstract void Reset();
 }
 
-[DebuggerDisplay("Value={ActualValue}, PropertyName={PropertyName}, AutoSave={AutoSave}")]
+[DebuggerDisplay("Value={value}, ModelValue={ModelValue}, ModelValueIsNull={ModelValueIsNull}, Default={Default}, PropertyName={PropertyName}, AutoSave={AutoSave}")]
 public abstract class SettingsPropertyBase<TValue> : SettingsPropertyBase, INotifyPropertyChanged
 {
+    /// <summary>
+    /// 当前设置的值
+    /// </summary>
+    protected TValue? value;
+
+    /// <summary>
+    /// 获取模型上的值
+    /// </summary>
+    protected abstract TValue? ModelValue { get; }
+
+    /// <summary>
+    /// 获取模型上的值是否为 <see langword="null"/>
+    /// </summary>
+    protected bool ModelValueIsNull => ModelValue == null;
+
     /// <summary>
     /// 实际值
     /// </summary>
