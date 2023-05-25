@@ -315,6 +315,77 @@ partial class Startup // 自定义控制台命令参数
             }),
         };
         rootCommand.AddCommand(plugins);
+
+        // -clt types
+        var types = new Command("types", "显示所有类型")
+        {
+            Handler = CommandHandler.Create(() =>
+            {
+                int exitCode = default;
+                using var assemblies_stream = new FileStream(Path.Combine(IOPath.CacheDirectory, "assemblies.txt"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete);
+                using var types_stream = new FileStream(Path.Combine(IOPath.CacheDirectory, "types.txt"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete);
+                try
+                {
+                    var assemblies_ = AppDomain.CurrentDomain.GetAssemblies();
+                    HashSet<Assembly> assemblies = new(assemblies_);
+                    AppDomain.CurrentDomain.AssemblyLoad += (_, args) =>
+                    {
+                        var assembly = args.LoadedAssembly;
+                        if (assemblies.Add(assembly))
+                        {
+                            ShowAssembly(assembly);
+                        }
+                    };
+                    foreach (var assembly in assemblies_)
+                    {
+                        ShowAssembly(assembly);
+                    }
+
+                    void ShowAssembly(Assembly assembly)
+                    {
+                        lock (types_stream)
+                        {
+                            var assemblyName = assembly.FullName;
+                            if (!string.IsNullOrWhiteSpace(assemblyName))
+                            {
+                                assemblies_stream.Write(Encoding.UTF8.GetBytes(assemblyName));
+                                assemblies_stream.Write("\r\n"u8);
+                            }
+                            var types = assembly.GetTypes();
+                            foreach (var type in types)
+                            {
+                                var fullName = type.FullName;
+                                if (!string.IsNullOrWhiteSpace(fullName))
+                                {
+                                    types_stream.Write(Encoding.UTF8.GetBytes(fullName));
+                                    types_stream.Write("\r\n"u8);
+                                }
+                            }
+                        }
+                    }
+                    return exitCode = 200;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    return exitCode = 500;
+                }
+                finally
+                {
+                    types_stream.SetLength(types_stream.Position);
+                    types_stream.Flush();
+                    types_stream.Dispose();
+                    assemblies_stream.SetLength(assemblies_stream.Position);
+                    assemblies_stream.Flush();
+                    assemblies_stream.Dispose();
+                    Console.WriteLine($"ExitCode: {exitCode}");
+#if DEBUG
+                    Console.ReadLine();
+#endif
+                }
+            }),
+        };
+        rootCommand.AddCommand(types);
     }
 }
 #endif
