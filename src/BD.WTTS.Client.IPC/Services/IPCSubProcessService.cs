@@ -26,6 +26,8 @@ public interface IPCSubProcessService : IDisposable
 
     const int ExitCode_EmptyArrayArgs = 4001;
     const int ExitCode_EmptyPipeName = 4002;
+    const int ExitCode_EmptyProcessId = 4003;
+    const int ExitCode_NotFoundProcessId = 4004;
 
     /// <summary>
     /// 子进程 IPC 程序启动通用函数
@@ -41,11 +43,22 @@ public interface IPCSubProcessService : IDisposable
         Action<IpcProvider>? configureIpcProvider,
         params string[] args)
     {
-        if (!args.Any())
+        if (args.Length < 2)
             return ExitCode_EmptyArrayArgs;
         var pipeName = args[0];
         if (string.IsNullOrWhiteSpace(pipeName))
             return ExitCode_EmptyPipeName;
+        if (!int.TryParse(args[1], out var pid))
+            return ExitCode_EmptyProcessId;
+        var process = Process.GetProcessById(pid);
+        if (process == null)
+            return ExitCode_NotFoundProcessId;
+
+        TaskCompletionSource tcs = new();
+        process.Exited += (_, _) =>
+        {
+            tcs.TrySetResult();
+        };
 
         IPCSubProcessServiceImpl? ipc = null;
         Ioc.ConfigureServices(services =>
@@ -57,12 +70,12 @@ public interface IPCSubProcessService : IDisposable
         try
         {
             ipc = new IPCSubProcessServiceImpl(Ioc.Get<ILoggerFactory>());
-            TaskCompletionSource tcs = new();
             await ipc.RunAsync(moduleName, tcs, pipeName, configureIpcProvider);
             await tcs.Task;
         }
         finally
         {
+            await Ioc.DisposeAsync();
             ipc?.Dispose();
         }
 

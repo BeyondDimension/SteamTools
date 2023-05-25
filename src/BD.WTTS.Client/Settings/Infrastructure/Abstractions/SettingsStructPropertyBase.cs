@@ -8,8 +8,9 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
     readonly Func<TSettings, TValue?> getter;
     IDisposable? disposable;
     readonly IOptionsMonitor<TSettings> monitor;
-    TValue? value;
     bool disposedValue;
+
+    protected sealed override TValue? ModelValue => getter(monitor.CurrentValue);
 
     public SettingsStructPropertyBase(TValue? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null)
     {
