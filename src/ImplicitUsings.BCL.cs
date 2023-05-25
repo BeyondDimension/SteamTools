@@ -38,7 +38,7 @@ global using System.Linq;
 global using System.Linq.Expressions;
 global using System.Net;
 global using System.Net.Security;
-#if !NETFRAMEWORK
+#if !NETFRAMEWORK && !APP_HOST
 global using System.Net.Http.Headers;
 global using System.Net.Http.Json;
 global using System.Net.Http.Client;

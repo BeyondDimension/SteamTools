@@ -69,20 +69,22 @@ public abstract partial class Startup
                 // -clt main 禁止使用此参数
                 return null;
             }
+            else
+            {
+                args = args[1..];
+                if (args.IsEmpty)
+                {
+                    // 无参数且不为主进程的清空使用 help 参数
+                    return new[] { help_ };
+                }
+                return args.ToArray();
+            }
         }
         else
         {
             // 返回启动主进程的参数
             return new[] { command_main };
         }
-
-        if ((this.args != null && this.args.Length == 0) || args.IsEmpty)
-        {
-            // 无参数且不为主进程的清空使用 help 参数
-            return new[] { help_ };
-        }
-
-        return this.args ?? args.ToArray();
     }
 
     /// <summary>
