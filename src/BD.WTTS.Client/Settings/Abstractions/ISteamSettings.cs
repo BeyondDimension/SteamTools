@@ -41,7 +41,7 @@ public interface ISteamSettings
     /// <summary>
     /// Steam 默认程序路径的默认值
     /// </summary>
-    static readonly string DefaultSteamProgramPath = Ioc.Get<ISteamService>().SteamProgramPath;
+    static readonly string? DefaultSteamProgramPath = Ioc.Get<ISteamService>().SteamProgramPath;
 
 #endif
 

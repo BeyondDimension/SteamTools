@@ -10,10 +10,10 @@ public static partial class ProxySettings
     static IEnumerable<EProxyMode> GetProxyModes()
     {
 #if WINDOWS
-            yield return EProxyMode.Hosts;
-            yield return EProxyMode.DNSIntercept;
-            yield return EProxyMode.PAC;
-            yield return EProxyMode.System;
+        yield return EProxyMode.Hosts;
+        yield return EProxyMode.DNSIntercept;
+        yield return EProxyMode.PAC;
+        yield return EProxyMode.System;
 #elif ANDROID
             yield return EProxyMode.VPN;
             yield return EProxyMode.ProxyOnly;

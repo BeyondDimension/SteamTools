@@ -36,6 +36,10 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 
             ResetImage_Click = ReactiveCommand.Create(() => SetBackgroundImagePath(null));
         }
+        //if (SteamSettings.SteamProgramPath.Value == null || SteamSettings.SteamProgramPath.Value == string.Empty)
+        //{
+        //    SteamSettings.SteamProgramPath.Value = Ioc.Get<ISteamService>().SteamProgramPath;
+        //}
 #endif
     }
 
