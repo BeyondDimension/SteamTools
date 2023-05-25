@@ -9,6 +9,9 @@
 		<Compile Include="..\AssemblyInfo.Constants.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\AssemblyInfo.Xaml.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 		<!-- ImplicitUsings -->
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>

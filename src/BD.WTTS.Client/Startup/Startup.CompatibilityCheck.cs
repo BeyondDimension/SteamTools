@@ -4,7 +4,12 @@ using static BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
-partial class Startup // 平台兼容性检查
+partial class
+#if APP_HOST
+    Program // 平台兼容性检查
+#else
+    Startup // 平台兼容性检查
+#endif
 {
     /// <summary>
     /// 兼容性检查

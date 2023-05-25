@@ -31,7 +31,7 @@
 		<Compile Include="..\AssemblyInfo.Constants.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
-		<Compile Include="..\BD.WTTS.Client.Avalonia.App\Program\Program.CompatibilityCheck.cs" />
+		<Compile Include="..\BD.WTTS.Client\Startup\Startup.CompatibilityCheck.cs" />
 		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
 	</ItemGroup>
 
