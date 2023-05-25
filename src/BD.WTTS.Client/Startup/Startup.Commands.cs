@@ -295,6 +295,26 @@ partial class Startup // 自定义控制台命令参数
             }),
         };
         rootCommand.AddCommand(shutdown);
+
+        // -clt sudo
+        var sudo = new Command("sudo", "使用管理员权限启动 IPC 服务进程")
+        {
+            Handler = CommandHandler.Create(() =>
+            {
+                // TODO
+            }),
+        };
+        rootCommand.AddCommand(sudo);
+
+        // -clt plugins {插件名} {插件需要解析的参数}
+        var plugins = new Command("plugins", "插件使用的 IPC 服务进程")
+        {
+            Handler = CommandHandler.Create(() =>
+            {
+                // TODO
+            }),
+        };
+        rootCommand.AddCommand(plugins);
     }
 }
 #endif
