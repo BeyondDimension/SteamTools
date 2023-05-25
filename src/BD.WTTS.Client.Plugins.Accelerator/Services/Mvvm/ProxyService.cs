@@ -71,9 +71,9 @@ public sealed class ProxyService
                     }
 
                     // Android VPN 模式使用 tun2socks
-                    reverseProxyService.Socks5ProxyEnable = O_ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem.IsAndroid() && O_ProxySettings.ProxyModeValue == ProxyMode.VPN);
-                    reverseProxyService.Socks5ProxyPortId = O_ProxySettings.Socks5ProxyPortId.Value;
-                    if (!ModelValidatorProvider.IsPortId(reverseProxyService.Socks5ProxyPortId)) reverseProxyService.Socks5ProxyPortId = O_ProxySettings.DefaultSocks5ProxyPortId;
+                    reverseProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem.IsAndroid() && ProxySettings.ProxyModeValue == ProxyMode.VPN);
+                    reverseProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
+                    if (!ModelValidatorProvider.IsPortId(reverseProxyService.Socks5ProxyPortId)) reverseProxyService.Socks5ProxyPortId = IProxySettings.DefaultSocks5ProxyPortId;
 
                     //reverseProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
                     reverseProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
