@@ -1,93 +1,105 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:spp="https://steampp.net/ui"
-			 xmlns:ui="using:FluentAvalonia.UI.Controls"
-			 x:CompileBindings="True"
-			 x:DataType="spp:GameAccountPageViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BD.WTTS.UI.Views.GameAccountPage">
-	<ui:TabView Padding="0"
-				TabItems="{Binding GamePlatforms}"
-				VerticalAlignment="Stretch"
-				Background="Transparent"
-				IsAddTabButtonVisible="False"
-				CloseButtonOverlayMode="OnPointerOver">
-		<ui:TabView.TabStripFooter>
-			<Button HorizontalAlignment="Left"
-					VerticalAlignment="Center"
-					Content="&#xE710;"
-					FontFamily="{StaticResource SymbolThemeFontFamily}"
-					Theme="{StaticResource TabViewButtonStyle}" >
-				<Button.Flyout>
-					<ui:FAMenuFlyout Placement="BottomEdgeAlignedLeft">
-						<ui:MenuFlyoutItem Text="Steam">
-							<ui:MenuFlyoutItem.IconSource>
-								<ui:PathIconSource Data="{StaticResource Steam}" />
-							</ui:MenuFlyoutItem.IconSource>
-						</ui:MenuFlyoutItem>
-						<ui:MenuFlyoutItem Text="EpicGames">
-							<ui:MenuFlyoutItem.IconSource>
-								<ui:PathIconSource Data="{StaticResource EpicGames}" />
-							</ui:MenuFlyoutItem.IconSource>
-						</ui:MenuFlyoutItem>
-						<ui:MenuFlyoutItem Text="Ubisoft">
-							<ui:MenuFlyoutItem.IconSource>
-								<ui:PathIconSource Data="{StaticResource Ubisoft}" />
-							</ui:MenuFlyoutItem.IconSource>
-						</ui:MenuFlyoutItem>
-						<ui:MenuFlyoutSeparator />
-						<ui:MenuFlyoutItem Text="添加新账号" IconSource="Bold" />
-						<ui:MenuFlyoutSeparator />
-						<ui:MenuFlyoutSubItem Text="结束进程方式">
-							<ui:RadioMenuFlyoutItem Text="TaskKill"
-													GroupName="KillMethond"
-													IconSource="Games"/>
-							<ui:RadioMenuFlyoutItem Text="Direct"
-													IconSource="Icons"
-													GroupName="KillMethond" />
-						</ui:MenuFlyoutSubItem>
-						<ui:MenuFlyoutSubItem Text="启动进程方式">
-							<ui:RadioMenuFlyoutItem Text="Explorer"
-													GroupName="StartMethond"
-													IconSource="Games"/>
-							<ui:RadioMenuFlyoutItem Text="Direct"
-													IconSource="Icons"
-													GroupName="Test Group" />
-						</ui:MenuFlyoutSubItem>
-						<ui:MenuFlyoutSeparator />
-						<ui:ToggleMenuFlyoutItem Text="以管理员权限启动" IconSource="Safe">
-						</ui:ToggleMenuFlyoutItem>
-					</ui:FAMenuFlyout>
-				</Button.Flyout>
-			</Button>
-		</ui:TabView.TabStripFooter>
-		<ui:TabView.Styles>
-			<Style Selector="ui|TabViewItem" x:DataType="spp:PlatformAccount">
-				<!--<Setter Property="IconSource">
-					<ui:FontIconSource Glyph="{Binding Icon}" />
-				</Setter>-->
-				<Setter Property="Content" Value="{Binding}" />
-				<Setter Property="ContentTemplate">
-					<DataTemplate>
-						<spp:AccountItems />
-					</DataTemplate>
-				</Setter>
-			</Style>
-		</ui:TabView.Styles>
-		<ui:TabView.TabItemTemplate>
-			<DataTemplate x:DataType="spp:PlatformAccount">
-				<DockPanel>
-					<PathIcon Data="{Binding Icon,Converter={StaticResource ResourceKeyValueConverter}}"
-							  Width="16"
-							  Height="16"
-							  Margin="0 0 8 0"
-							  DockPanel.Dock="Left"/>
-					<TextBlock Text="{Binding FullName}" 
-							   DockPanel.Dock="Right"/>
-				</DockPanel>
-			</DataTemplate>
-		</ui:TabView.TabItemTemplate>
-	</ui:TabView>
+<UserControl
+    x:Class="BD.WTTS.UI.Views.GameAccountPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:Name="u"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:GameAccountPageViewModel"
+    mc:Ignorable="d">
+    <ui:TabView
+        Padding="0"
+        VerticalAlignment="Stretch"
+        Background="Transparent"
+        CloseButtonOverlayMode="OnPointerOver"
+        IsAddTabButtonVisible="False"
+        TabCloseRequested="TabView_TabCloseRequested"
+        TabItems="{Binding GamePlatforms}">
+        <ui:TabView.TabStripFooter>
+            <Button
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="&#xE710;"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                Theme="{StaticResource TabViewButtonStyle}">
+                <Button.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedLeft">
+                        <ui:MenuFlyoutSubItem
+                            IsVisible="{Binding !!AddGamePlatforms.Count}"
+                            Items="{Binding AddGamePlatforms}"
+                            Text="添加平台">
+                            <ui:MenuFlyoutSubItem.ItemTemplate>
+                                <DataTemplate DataType="spp:PlatformAccount">
+                                    <ui:MenuFlyoutItem
+                                        Command="{ReflectionBinding #u.DataContext.AddPlatformCommand}"
+                                        CommandParameter="{ReflectionBinding}"
+                                        Text="{Binding FullName}">
+                                        <ui:MenuFlyoutItem.IconSource>
+                                            <ui:PathIconSource Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}" />
+                                        </ui:MenuFlyoutItem.IconSource>
+                                    </ui:MenuFlyoutItem>
+                                </DataTemplate>
+                            </ui:MenuFlyoutSubItem.ItemTemplate>
+                        </ui:MenuFlyoutSubItem>
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem IconSource="Add" Text="添加新账号" />
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutSubItem Text="结束进程方式">
+                            <ui:RadioMenuFlyoutItem
+                                GroupName="KillMethond"
+                                IconSource="Games"
+                                Text="TaskKill" />
+                            <ui:RadioMenuFlyoutItem
+                                GroupName="KillMethond"
+                                IconSource="Icons"
+                                Text="Direct" />
+                        </ui:MenuFlyoutSubItem>
+                        <ui:MenuFlyoutSubItem Text="启动进程方式">
+                            <ui:RadioMenuFlyoutItem
+                                GroupName="StartMethond"
+                                IconSource="Games"
+                                Text="Explorer" />
+                            <ui:RadioMenuFlyoutItem
+                                GroupName="Test Group"
+                                IconSource="Icons"
+                                Text="Direct" />
+                        </ui:MenuFlyoutSubItem>
+                        <ui:MenuFlyoutSeparator />
+                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="以管理员权限启动" />
+                    </ui:FAMenuFlyout>
+                </Button.Flyout>
+            </Button>
+        </ui:TabView.TabStripFooter>
+        <ui:TabView.Styles>
+            <Style x:DataType="spp:PlatformAccount" Selector="ui|TabViewItem">
+                <!--<Setter Property="IconSource">
+                    <ui:FontIconSource Glyph="{Binding Icon}" />
+                </Setter>-->
+                <Setter Property="Content" Value="{Binding}" />
+                <Setter Property="ContentTemplate">
+                    <DataTemplate>
+                        <spp:AccountItems />
+                    </DataTemplate>
+                </Setter>
+            </Style>
+        </ui:TabView.Styles>
+        <ui:TabView.TabItemTemplate>
+            <DataTemplate DataType="spp:PlatformAccount">
+                <DockPanel>
+                    <PathIcon
+                        Width="16"
+                        Height="16"
+                        Margin="0,0,8,0"
+                        Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}"
+                        DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Right" Text="{Binding FullName}" />
+                </DockPanel>
+            </DataTemplate>
+        </ui:TabView.TabItemTemplate>
+    </ui:TabView>
 </UserControl>

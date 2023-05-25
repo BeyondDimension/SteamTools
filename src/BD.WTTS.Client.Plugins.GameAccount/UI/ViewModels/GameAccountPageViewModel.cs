@@ -13,6 +13,10 @@ public sealed partial class GameAccountPageViewModel
                 FullName = "Steam",
                 Icon = "Steam",
             },
+        };
+
+        AddGamePlatforms = new ObservableCollection<PlatformAccount>
+        {
             new PlatformAccount
             {
                 FullName = "Epic Games",
@@ -23,6 +27,19 @@ public sealed partial class GameAccountPageViewModel
                 FullName = "Ubisoft",
                 Icon = "Ubisoft",
             },
+            new PlatformAccount
+            {
+                FullName = "EA Desktop",
+                Icon = "Ubisoft",
+            },
         };
+
+        AddPlatformCommand = ReactiveCommand.Create<PlatformAccount>(AddPlatform);
+    }
+
+    void AddPlatform(PlatformAccount platform)
+    {
+        GamePlatforms?.Add(platform);
+        AddGamePlatforms?.Remove(platform);
     }
 }
