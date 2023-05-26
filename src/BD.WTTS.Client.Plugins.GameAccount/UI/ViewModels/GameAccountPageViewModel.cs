@@ -12,6 +12,7 @@ public sealed partial class GameAccountPageViewModel
             {
                 FullName = "Steam",
                 Icon = "Steam",
+                Platform = ThirdpartyPlatform.Steam,
             },
         };
 
@@ -21,16 +22,19 @@ public sealed partial class GameAccountPageViewModel
             {
                 FullName = "Epic Games",
                 Icon = "EpicGames",
+                Platform = ThirdpartyPlatform.Epic,
             },
             new PlatformAccount
             {
                 FullName = "Ubisoft",
                 Icon = "Ubisoft",
+                Platform = ThirdpartyPlatform.Uplay,
             },
             new PlatformAccount
             {
                 FullName = "EA Desktop",
                 Icon = "Ubisoft",
+                Platform = ThirdpartyPlatform.EADesktop,
             },
         };
 

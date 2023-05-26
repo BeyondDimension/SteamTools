@@ -1,40 +1,19 @@
+using System.Linq;
+
 namespace BD.WTTS.Models;
 
-public sealed class PlatformAccount : ReactiveObject
+public sealed partial class PlatformAccount
 {
-    public string? FullName { get; set; }
+    IPlatformSwitcher platformSwitcher;
 
-    public string? Icon { get; set; }
+    public PlatformAccount()
+    {
+        var platformSwitchers = Ioc.Get<IPlatformSwitcher[]>();
 
-    public GamePlatform Platform { get; set; }
-
-    public ObservableCollection<Account>? Accounts { get; set; }
-
-    public bool IsEnable { get; set; }
-
-    public bool ExitBeforeInteract { get; set; }
-
-    public string? DefaultExePath { get; set; }
-
-    public string? ExeExtraArgs { get; set; }
-
-    public string? DefaultFolderPath { get; set; }
-
-    public List<string>? PlatformIds { get; set; }
-
-    public List<string>? ExesToEnd { get; set; }
-
-    public List<string>? LoginFiles { get; set; }
-
-    public static List<string>? CachePaths { get; set; }
-
-    public static List<string>? BackupPaths { get; set; }
-
-    public static List<string>? BackupFileTypesIgnore { get; set; }
-
-    public static List<string>? BackupFileTypesInclude { get; set; }
-
-    public static ClosingMethod ClosingMethod { get; set; }
-
-    public static StartingMethod StartingMethod { get; set; }
+        this.platformSwitcher = Platform switch
+        {
+            ThirdpartyPlatform.Steam => platformSwitchers.OfType<SteamPlatformSwitcher>().First(),
+            _ => platformSwitchers.OfType<BasicPlatformSwitcher>().First(),
+        };
+    }
 }
