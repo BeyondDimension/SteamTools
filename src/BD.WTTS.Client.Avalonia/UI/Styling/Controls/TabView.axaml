@@ -1,25 +1,119 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:ui="using:FluentAvalonia.UI.Controls">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives">
     <Design.PreviewWith>
         <Border Padding="20">
-            <!-- Add Controls for Previewer Here -->
-			<ui:TabView MinHeight="300">
-				<ui:TabViewItem Header="Hello" IsSelected="True" />
-				<ui:TabViewItem Header="Hello" />
-				<ui:TabViewItem Header="Hello" />
-			</ui:TabView>
+            <!--  Add Controls for Previewer Here  -->
+            <ui:TabView MinHeight="300">
+                <ui:TabViewItem Header="Hello" IsSelected="True" />
+                <ui:TabViewItem Header="Hello" />
+                <ui:TabViewItem Header="Hello" />
+            </ui:TabView>
         </Border>
     </Design.PreviewWith>
+    <Styles.Resources>
+        <ControlTheme x:Key="{x:Type ui:TabView}" TargetType="ui:TabView">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Padding" Value="{DynamicResource TabViewHeaderPadding}" />
+            <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+            <Setter Property="Background" Value="{DynamicResource TabViewBackground}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid RowDefinitions="Auto,*">
 
-    <!-- Add Styles Here -->
-	<Style Selector="ui|TabView Button#AddButton">
-		<Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}"/>
-	</Style>
-	<Style Selector="ui|TabView Button#CloseButton">
-		<Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}"/>
-	</Style>
-	<Style Selector="ui|TabView /template/ ContentPresenter#TabContentPresenter">
-		<Setter Property="Background" Value="Transparent"/>
-	</Style>
+                        <Grid Name="TabContainerGrid" Background="{TemplateBinding Background}">
+
+                            <Grid.ColumnDefinitions>
+                                <!--  x:Name="LeftContentColumn  -->
+                                <ColumnDefinition Width="Auto" MinWidth="2" />
+                                <!--  x:Name="TabColumn"  -->
+                                <ColumnDefinition Width="Auto" />
+                                <!--  x:Name="AddButtonColumn"  -->
+                                <ColumnDefinition Width="Auto" />
+                                <!--  x:Name="RightContentColumn"  -->
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border
+                                Name="LeftBottomBorderLine"
+                                Height="1"
+                                VerticalAlignment="Bottom"
+                                BorderBrush="{DynamicResource TabViewBorderBrush}"
+                                BorderThickness="1" />
+
+                            <Border
+                                Name="RightBottomBorderLine"
+                                Grid.Column="2"
+                                Grid.ColumnSpan="2"
+                                Height="1"
+                                VerticalAlignment="Bottom"
+                                BorderBrush="{DynamicResource TabViewBorderBrush}"
+                                BorderThickness="1" />
+
+                            <ContentPresenter
+                                Name="LeftContentPresenter"
+                                Grid.Column="0"
+                                Content="{TemplateBinding TabStripHeader}"
+                                ContentTemplate="{TemplateBinding TabStripHeaderTemplate}" />
+
+                            <uip:TabViewListView
+                                Name="TabListView"
+                                Grid.Column="1"
+                                Padding="{TemplateBinding Padding}"
+                                CanDragItems="{TemplateBinding CanDragTabs}"
+                                CanReorderItems="{TemplateBinding CanReorderTabs}"
+                                DragDrop.AllowDrop="{TemplateBinding AllowDropTabs}"
+                                ItemTemplate="{TemplateBinding TabItemTemplate}"
+                                ItemsSource="{TemplateBinding TabItems}" />
+
+                            <Border
+                                Grid.Column="2"
+                                Padding="{DynamicResource TabViewItemAddButtonContainerPadding}"
+                                VerticalAlignment="Bottom"
+                                IsVisible="{Binding IsAddTabButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Button
+                                    Name="AddButton"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Command="{TemplateBinding AddTabButtonCommand}"
+                                    CommandParameter="{TemplateBinding AddTabButtonCommandParameter}"
+                                    Content="&#xE710;"
+                                    Theme="{StaticResource TabViewButtonStyle}" />
+                            </Border>
+
+                            <ContentPresenter
+                                Name="RightContentPresenter"
+                                Grid.Column="3"
+                                HorizontalAlignment="Stretch"
+                                Content="{TemplateBinding TabStripFooter}"
+                                ContentTemplate="{TemplateBinding TabStripFooterTemplate}" />
+                        </Grid>
+
+                        <ContentPresenter
+                            Name="TabContentPresenter"
+                            Grid.Row="1"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" />
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
+    </Styles.Resources>
+
+    <!--  Add Styles Here  -->
+    <Style Selector="ui|TabView Button#AddButton">
+        <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
+    </Style>
+    <Style Selector="ui|TabView Button#CloseButton">
+        <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
+    </Style>
+    <Style Selector="ui|TabView RepeatButton#ScrollDecreaseButton">
+        <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
+    </Style>
+    <Style Selector="ui|TabView RepeatButton#ScrollIncreaseButton">
+        <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
+    </Style>
 </Styles>

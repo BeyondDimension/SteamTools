@@ -13,9 +13,11 @@ public static partial class AssemblyInfo
     /// <summary>
     /// 与应用程序关联的产品名称。
     /// </summary>
-    public const string Product =
-#if APP_REVERSE_PROXY
-        $"{Trademark} - Accelerator and script module sub-process";
+    public const string Trademark = "Watt Toolkit";
+
+    public const string Title =
+#if DEBUG
+        $"[Debug] {Trademark}";
 #else
         Trademark;
 #endif
@@ -23,7 +25,7 @@ public static partial class AssemblyInfo
     /// <summary>
     /// 与应用程序关联的产品名称。
     /// </summary>
-    public const string Trademark = "Watt Toolkit";
+    public const string Product = Trademark;
 
     /// <summary>
     /// 与该应用程序关联的公司名称。

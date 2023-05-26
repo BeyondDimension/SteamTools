@@ -13,9 +13,22 @@ using AssemblyInfo = BD.WTTS.AssemblyInfo;
 #endif
 
 #if !UNIT_TEST
+#if APP_REVERSE_PROXY
+[assembly: AssemblyTitle($"{AssemblyInfo.Title}(Accelerator)")]
+#elif APP_HOST
+[assembly: AssemblyTitle($"{AssemblyInfo.Title}(AppHost)")]
+#elif DESIGNER
+[assembly: AssemblyTitle($"{AssemblyInfo.Title}(Designer)")]
+#else
+[assembly: AssemblyTitle(AssemblyInfo.Title)]
+#endif
 [assembly: AssemblyTrademark(AssemblyInfo.Trademark)]
 [assembly: AssemblyDescription(AssemblyInfo.Description)]
+#if APP_REVERSE_PROXY
+[assembly: AssemblyProduct($"{AssemblyInfo.Product} - Accelerator and script module sub-process")]
+#else
 [assembly: AssemblyProduct(AssemblyInfo.Product)]
+#endif
 [assembly: AssemblyCopyright(AssemblyInfo.Copyright)]
 [assembly: AssemblyCompany(AssemblyInfo.Company)]
 [assembly: AssemblyVersion(AssemblyInfo.Version)]

@@ -79,8 +79,10 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
 
     public void Run()
     {
+        var tickCount64 = Environment.TickCount64;
+        var pid = Environment.ProcessId;
         ipcProvider = new IpcProvider(
-            $"wtts_ipc_{_()}_{Environment.TickCount64}_{Environment.ProcessId}",
+            $"ipc_{_()}{tickCount64}{pid / 3}{pid % 3}",
             new IpcConfiguration
             {
                 IpcLoggerProvider = _ => new IpcLogger_(loggerFactory, nameof(IPCMainProcessServiceImpl)),

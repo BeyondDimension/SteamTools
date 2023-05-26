@@ -26,8 +26,8 @@ public interface IPCSubProcessService : IDisposable
 
     const int ExitCode_EmptyArrayArgs = 4001;
     const int ExitCode_EmptyPipeName = 4002;
-    const int ExitCode_EmptyProcessId = 4003;
-    const int ExitCode_NotFoundProcessId = 4004;
+    const int ExitCode_EmptyMainProcessId = 4003;
+    const int ExitCode_NotFoundMainProcessId = 4004;
 
     /// <summary>
     /// 子进程 IPC 程序启动通用函数
@@ -49,15 +49,16 @@ public interface IPCSubProcessService : IDisposable
         if (string.IsNullOrWhiteSpace(pipeName))
             return ExitCode_EmptyPipeName;
         if (!int.TryParse(args[1], out var pid))
-            return ExitCode_EmptyProcessId;
-        var process = Process.GetProcessById(pid);
-        if (process == null)
-            return ExitCode_NotFoundProcessId;
+            return ExitCode_EmptyMainProcessId;
+        var mainProcess = Process.GetProcessById(pid);
+        if (mainProcess == null)
+            return ExitCode_NotFoundMainProcessId;
 
         TaskCompletionSource tcs = new();
-        process.Exited += (_, _) =>
+        mainProcess.EnableRaisingEvents = true;
+        mainProcess.Exited += (_, _) =>
         {
-            tcs.TrySetResult();
+            tcs.TrySetResult(); // 监听主进程退出时关闭当前子进程
         };
 
         IPCSubProcessServiceImpl? ipc = null;
