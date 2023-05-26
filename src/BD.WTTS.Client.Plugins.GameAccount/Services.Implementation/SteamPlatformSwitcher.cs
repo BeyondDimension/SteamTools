@@ -8,5 +8,8 @@ namespace BD.WTTS.Services.Implementation;
 
 public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 {
+    public SteamPlatformSwitcher(ISteamService steamService)
+    {
 
+    }
 }
