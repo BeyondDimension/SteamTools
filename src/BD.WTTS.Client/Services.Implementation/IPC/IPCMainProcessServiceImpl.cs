@@ -54,12 +54,16 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         }
     }
 
-    public Process? StartProcess(string fileName, Action<ProcessStartInfo>? configure = null)
+    public Process? StartProcess(
+        string fileName,
+        Action<ProcessStartInfo>? configure = null)
     {
+        var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
+        var pid = Environment.ProcessId;
         var psi = new ProcessStartInfo
         {
             FileName = fileName,
-            Arguments = $"{ipcProvider.ThrowIsNull().IpcContext.PipeName} {Environment.ProcessId}",
+            Arguments = $"{pipeName} {pid}",
             UseShellExecute = false,
         };
         configure?.Invoke(psi);
@@ -89,6 +93,23 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             });
         ConfigureServices();
         ipcProvider.StartServer();
+
+#if WINDOWS
+        // 启动管理员权限服务进程
+        if (IPlatformService.Instance is WindowsPlatformServiceImpl windowsPlatformService)
+        {
+            Task2.InBackground(async () =>
+            {
+                var processPath = Environment.ProcessPath;
+                var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
+                const string arguments_ =
+                    $"-clt {IPlatformService.IPCRoot.CommandName} {IPlatformService.IPCRoot.args_PipeName} {{0}} {IPlatformService.IPCRoot.args_ProcessId} {{1}}";
+                var arguments = string.Format(arguments_, pipeName, pid);
+                await windowsPlatformService.StartAsAdministrator(processPath.ThrowIsNull(), arguments);
+                await IPlatformService.IPCRoot.SetIPC(this);
+            });
+        }
+#endif
     }
 
     public async ValueTask<T?> GetServiceAsync<T>(string moduleName) where T : class

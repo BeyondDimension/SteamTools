@@ -29,6 +29,10 @@ public interface IPCSubProcessService : IDisposable
     const int ExitCode_EmptyMainProcessId = 4003;
     const int ExitCode_NotFoundMainProcessId = 4004;
 
+    private static IPCSubProcessServiceImpl? iPCSubProcessServiceImpl;
+
+    static IPCSubProcessService Instance => iPCSubProcessServiceImpl.ThrowIsNull();
+
     /// <summary>
     /// 子进程 IPC 程序启动通用函数
     /// </summary>
@@ -61,23 +65,26 @@ public interface IPCSubProcessService : IDisposable
             tcs.TrySetResult(); // 监听主进程退出时关闭当前子进程
         };
 
-        IPCSubProcessServiceImpl? ipc = null;
+#if LIB_CLIENT_IPC
         Ioc.ConfigureServices(services =>
         {
-            services.AddSingleton<IPCSubProcessService>(_ => ipc!);
+            services.AddSingleton(_ => Instance);
             configureServices?.Invoke(services);
         });
+#endif
 
         try
         {
-            ipc = new IPCSubProcessServiceImpl(Ioc.Get<ILoggerFactory>());
-            await ipc.RunAsync(moduleName, tcs, pipeName, configureIpcProvider);
+            iPCSubProcessServiceImpl = new(Ioc.Get<ILoggerFactory>());
+            await iPCSubProcessServiceImpl
+                .RunAsync(moduleName, tcs,
+                pipeName, configureIpcProvider);
             await tcs.Task;
         }
         finally
         {
             await Ioc.DisposeAsync();
-            ipc?.Dispose();
+            iPCSubProcessServiceImpl?.Dispose();
         }
 
         return 0;

@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using dotnetCampus.Ipc.Pipes;
+
 namespace BD.WTTS;
 
 partial class Startup // 配置 Host
@@ -19,6 +21,7 @@ partial class Startup // 配置 Host
         HasHttpClientFactory = HasSteam || level.Value.HasFlag(AppServicesLevel.HttpClientFactory);
         HasHttpProxy = level.Value.HasFlag(AppServicesLevel.HttpProxy);
         HasHosts = level.Value.HasFlag(AppServicesLevel.Hosts);
+        HasIPCRoot = level.Value.HasFlag(AppServicesLevel.IPCRoot);
 #if STARTUP_WATCH_TRACE || DEBUG
         WatchTrace.Record("AppServicesLevel.HasFlag");
 #endif
@@ -62,7 +65,7 @@ partial class Startup // 配置 Host
 #endif
         LoadLogicApplication();
 
-        if (!IsDesignMode)
+        if (!IsDesignMode && IsMainProcess)
             StartUIApplication();
     }
 

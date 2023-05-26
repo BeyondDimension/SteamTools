@@ -64,6 +64,12 @@
 		<Compile Include="..\ImplicitUsings.Plugins.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.IPC\Services\IPCSubProcessService.cs">
+			<LinkBase>Services\IPC</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.IPC\Services.Implementation\IPCSubProcessServiceImpl.cs">
+			<LinkBase>Services.Implementation\IPC</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>

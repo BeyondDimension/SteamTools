@@ -14,7 +14,9 @@ public interface IPCMainProcessService : IAsyncDisposable
     /// <param name="fileName"></param>
     /// <param name="configure"></param>
     /// <returns></returns>
-    Process? StartProcess(string fileName, Action<ProcessStartInfo>? configure = null);
+    Process? StartProcess(
+        string fileName,
+        Action<ProcessStartInfo>? configure = null);
 
     /// <summary>
     /// 启动主进程的 IPC 服务
