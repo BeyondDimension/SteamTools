@@ -1,3 +1,6 @@
+using BD.WTTS.UI.Views.Pages;
+using WinAuth;
+
 namespace BD.WTTS.Plugins;
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
@@ -14,7 +17,7 @@ sealed class Plugin : PluginBase<Plugin>
         yield return new MenuTabItemViewModel()
         {
             ResourceKeyOrName = "LocalAuth",
-            PageType = null,
+            PageType = typeof(AuthenticatorPage),
             IsResourceGet = true,
             IconKey = "DefenderApp",
         };

@@ -1,0 +1,116 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto, *, Auto">
+        <!--  Title bar  -->
+        <Grid
+            Grid.Row="0"
+            Height="50"
+            Background="Gray"
+            ColumnDefinitions="Auto,Auto,*,Auto,Auto">
+            <StackPanel
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Rectangle
+                    Width="10"
+                    Height="10"
+                    Margin="5,0,0,0"
+                    Fill="Ivory" />
+                <Button Background="Gray" FontWeight="Black">
+                    刷新
+                </Button>
+            </StackPanel>
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Rectangle
+                    Width="10"
+                    Height="10"
+                    Margin="5,0,0,0"
+                    Fill="Ivory" />
+                <Button Background="Gray" FontWeight="Black">
+                    导出
+                </Button>
+            </StackPanel>
+            <StackPanel
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Label FontWeight="Black">本地令牌</Label>
+                <Label>Test</Label>
+            </StackPanel>
+            <StackPanel
+                Grid.Column="3"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Rectangle
+                    Width="10"
+                    Height="10"
+                    Margin="5,0,0,0"
+                    Fill="Ivory" />
+                <Button Background="Gray" FontWeight="Black">
+                    加密
+                </Button>
+            </StackPanel>
+            <StackPanel
+                Grid.Column="4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Rectangle
+                    Width="10"
+                    Height="10"
+                    Margin="5,0,0,0"
+                    Fill="Ivory" />
+                <Button Background="Gray" FontWeight="Black">
+                    锁定
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--  Main area  -->
+        <Grid Grid.Row="1" ColumnDefinitions="Auto,Auto,*">
+            <Rectangle
+                Grid.Column="0"
+                Width="50"
+                Fill="Purple" />
+            <Rectangle
+                Grid.Column="1"
+                Width="50"
+                Fill="Chartreuse" />
+            <Rectangle Grid.Column="2" Fill="Black" />
+        </Grid>
+        <!--  Bottom bar  -->
+        <Grid
+            Grid.Row="2"
+            Margin="8"
+            ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto,Auto"
+            ShowGridLines="False">
+            <Button Grid.Column="0" Margin="0,0,8,0">Test1</Button>
+            <Button Grid.Column="1" Margin="0,0,8,0">Test2</Button>
+            <Button Grid.Column="2" Margin="0,0,8,0">Test3</Button>
+            <Button Grid.Column="3" Margin="0,0,8,0">Test4</Button>
+            <Button Grid.Column="4" Margin="0,0,8,0">Test5</Button>
+            <Rectangle
+                Grid.Column="5"
+                Width="30"
+                Fill="Orange" />
+            <Rectangle
+                Grid.Column="6"
+                Width="30"
+                Fill="Red" />
+        </Grid>
+    </Grid>
+</UserControl>
