@@ -18,10 +18,8 @@
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="spp:Account">
-                <Border>
-                    <TextBlock Text="{Binding DisplayName}" />
-                </Border>
+            <DataTemplate DataType="spp:IAccount">
+                <TextBlock Text="{Binding DisplayName}" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>

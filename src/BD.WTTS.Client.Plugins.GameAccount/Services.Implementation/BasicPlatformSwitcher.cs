@@ -4,7 +4,7 @@ namespace BD.WTTS.Services.Implementation;
 
 public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 {
-    public void BasicPlatformSwitcher(IAccount account)
+    public BasicPlatformSwitcher()
     {
 
     }
@@ -14,9 +14,9 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
     }
 
-    public void KillPlatformProcess()
+    public bool KillPlatformProcess()
     {
-
+        return false;
     }
 
     public void RunPlatformProcess()
@@ -24,8 +24,26 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
     }
 
-    public void SwapToPlatform()
+    public void NewUserLogin()
     {
 
+    }
+
+    public bool CurrnetUserAdd(string name)
+    {
+        //if (isExitBeforeInteract)
+        if (!KillPlatformProcess())
+            return false;
+        return true;
+    }
+
+    public void ChangeUserRemark()
+    {
+
+    }
+
+    public Task<IEnumerable<IAccount>?> GetUsers()
+    {
+        return Task.FromResult<IEnumerable<IAccount>?>(null);
     }
 }

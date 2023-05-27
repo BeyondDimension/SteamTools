@@ -82,7 +82,7 @@
                 </Setter>-->
                 <Setter Property="Content" Value="{Binding}" />
                 <Setter Property="ContentTemplate">
-                    <DataTemplate>
+                    <DataTemplate DataType="spp:PlatformAccount">
                         <spp:AccountItems />
                     </DataTemplate>
                 </Setter>

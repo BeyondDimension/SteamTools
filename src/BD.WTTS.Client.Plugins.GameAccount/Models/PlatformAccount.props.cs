@@ -6,13 +6,15 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     public string? Icon { get; set; }
 
-    public ThirdpartyPlatform Platform { get; set; }
+    public ThirdpartyPlatform Platform { get; init; }
 
-    public ObservableCollection<Account>? Accounts { get; set; }
+    [Reactive]
+    public ObservableCollection<IAccount>? Accounts { get; set; }
 
+    [Reactive]
     public bool IsEnable { get; set; }
 
-    public bool ExitBeforeInteract { get; set; }
+    public bool IsExitBeforeInteract { get; set; }
 
     public string? DefaultExePath { get; set; }
 

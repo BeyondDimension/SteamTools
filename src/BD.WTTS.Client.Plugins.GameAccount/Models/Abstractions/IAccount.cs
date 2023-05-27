@@ -2,19 +2,17 @@ namespace BD.WTTS.Models;
 
 public interface IAccount
 {
-    string DisplayName { get; set; }
+    string? DisplayName { get; set; }
 
     string? AccountId { get; set; }
 
     string? AccountName { get; set; }
 
-    string? PlatformId { get; set; }
-
     DateTime? LastLoginTime { get; set; }
 
-    GamePlatform Platform { get; set; }
-
-    string? PlatformName { get; set; }
-
     string? ImagePath { get; set; }
+
+    ThirdpartyPlatform Platform { get; init; }
+
+    string? PlatformName { get; init; }
 }

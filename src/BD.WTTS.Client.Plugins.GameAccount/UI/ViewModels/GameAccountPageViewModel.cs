@@ -8,33 +8,29 @@ public sealed partial class GameAccountPageViewModel
     {
         GamePlatforms = new ObservableCollection<PlatformAccount>
         {
-            new PlatformAccount
+            new PlatformAccount(ThirdpartyPlatform.Steam)
             {
                 FullName = "Steam",
                 Icon = "Steam",
-                Platform = ThirdpartyPlatform.Steam,
             },
         };
 
         AddGamePlatforms = new ObservableCollection<PlatformAccount>
         {
-            new PlatformAccount
+            new PlatformAccount(ThirdpartyPlatform.Epic)
             {
                 FullName = "Epic Games",
                 Icon = "EpicGames",
-                Platform = ThirdpartyPlatform.Epic,
             },
-            new PlatformAccount
+            new PlatformAccount(ThirdpartyPlatform.Uplay)
             {
                 FullName = "Ubisoft",
                 Icon = "Ubisoft",
-                Platform = ThirdpartyPlatform.Uplay,
             },
-            new PlatformAccount
+            new PlatformAccount(ThirdpartyPlatform.EADesktop)
             {
                 FullName = "EA Desktop",
                 Icon = "Ubisoft",
-                Platform = ThirdpartyPlatform.EADesktop,
             },
         };
 

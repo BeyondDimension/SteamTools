@@ -25,8 +25,8 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
-        services.AddTransient<IPlatformSwitcher, BasicPlatformSwitcher>()
-                .AddTransient<IPlatformSwitcher, SteamPlatformSwitcher>();
+        services.AddSingleton<IPlatformSwitcher, BasicPlatformSwitcher>()
+                .AddSingleton<IPlatformSwitcher, SteamPlatformSwitcher>();
     }
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
