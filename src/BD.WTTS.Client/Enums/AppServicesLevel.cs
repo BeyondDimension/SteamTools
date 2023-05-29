@@ -46,7 +46,11 @@ public enum AppServicesLevel : uint
     /// </summary>
     HttpProxy = 128,
 
-    //256
+    /// <summary>
+    /// IPC 进程管理员权限
+    /// </summary>
+    IPCRoot = 256,
+
     // 512
     //Placeholder = 1024,
     //Placeholder1 = 2048,

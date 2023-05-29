@@ -66,6 +66,10 @@ sealed partial class Program : Startup
         {
             services.AddSingleton<IPCMainProcessService, IPCMainProcessServiceImpl>();
         }
+        else if (HasIPCRoot)
+        {
+            services.AddSingleton(_ => IPCSubProcessService.Instance);
+        }
     }
 
     protected override void ConfigureDemandServices(IServiceCollection services)

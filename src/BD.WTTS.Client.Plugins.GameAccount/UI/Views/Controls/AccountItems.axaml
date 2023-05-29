@@ -8,25 +8,18 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:PlatformAccount"
     mc:Ignorable="d">
-    <ItemsControl>
+    <ItemsControl ItemsSource="{Binding Accounts}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="spp:Account">
-                <Border
-                    Width="100"
-                    Height="100"
-                    Margin="10"
-                    Padding="10"
-                    Background="{Binding ColorBrush}"
-                    BorderBrush="Gray"
-                    BorderThickness="2">
-                    <TextBlock Text="{Binding ColorHexValue}" />
-                </Border>
+            <DataTemplate DataType="spp:IAccount">
+                <TextBlock Text="{Binding DisplayName}" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>

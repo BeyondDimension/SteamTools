@@ -1,4 +1,5 @@
 using BD.WTTS.UI.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BD.WTTS.Plugins;
 
@@ -24,7 +25,8 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
-
+        services.AddSingleton<IPlatformSwitcher, BasicPlatformSwitcher>()
+                .AddSingleton<IPlatformSwitcher, SteamPlatformSwitcher>();
     }
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)

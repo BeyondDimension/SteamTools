@@ -9,12 +9,32 @@ public interface IPCMainProcessService : IAsyncDisposable
     static IPCMainProcessService Instance => Ioc.Get<IPCMainProcessService>();
 
     /// <summary>
+    /// 添加模块的守护进程并启动进程
+    /// </summary>
+    /// <param name="moduleName"></param>
+    /// <param name="delegate"></param>
+    /// <param name="callStart"></param>
+    /// <returns></returns>
+    Process? AddDaemonWithStartSubProcess(string moduleName, Func<IPCMainProcessService, Process?> @delegate);
+
+    /// <summary>
+    /// 添加模块的守护进程并启动进程
+    /// </summary>
+    /// <param name="moduleName"></param>
+    /// <param name="delegate"></param>
+    /// <param name="callStart"></param>
+    /// <returns></returns>
+    ValueTask<Process?> AddDaemonWithStartSubProcessAsync(string moduleName, Func<IPCMainProcessService, ValueTask<Process?>> @delegate);
+
+    /// <summary>
     /// 启动子进程
     /// </summary>
     /// <param name="fileName"></param>
     /// <param name="configure"></param>
     /// <returns></returns>
-    Process? StartProcess(string fileName, Action<ProcessStartInfo>? configure = null);
+    Process? StartSubProcess(
+        string fileName,
+        Action<ProcessStartInfo>? configure = null);
 
     /// <summary>
     /// 启动主进程的 IPC 服务

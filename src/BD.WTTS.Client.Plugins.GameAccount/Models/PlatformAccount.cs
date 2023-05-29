@@ -1,40 +1,34 @@
+using System.Linq;
+
 namespace BD.WTTS.Models;
 
-public sealed class PlatformAccount : ReactiveObject
+public sealed partial class PlatformAccount
 {
-    public string? FullName { get; set; }
+    readonly IPlatformSwitcher platformSwitcher;
 
-    public string? Icon { get; set; }
+    public PlatformAccount(ThirdpartyPlatform platform)
+    {
+        var platformSwitchers = Ioc.Get<IEnumerable<IPlatformSwitcher>>();
+        this.Platform = platform;
+        this.platformSwitcher = Platform switch
+        {
+            ThirdpartyPlatform.Steam => platformSwitchers.OfType<SteamPlatformSwitcher>().First(),
+            _ => platformSwitchers.OfType<BasicPlatformSwitcher>().First(),
+        };
 
-    public GamePlatform Platform { get; set; }
+        LoadUsers();
+    }
 
-    public ObservableCollection<Account>? Accounts { get; set; }
+    public async void LoadUsers()
+    {
+        var users = await platformSwitcher.GetUsers();
+        if (users.Any_Nullable())
+            this.Accounts = new ObservableCollection<IAccount>(users);
+    }
 
-    public bool IsEnable { get; set; }
+    public bool CurrnetUserAdd(string name)
+    {
 
-    public bool ExitBeforeInteract { get; set; }
-
-    public string? DefaultExePath { get; set; }
-
-    public string? ExeExtraArgs { get; set; }
-
-    public string? DefaultFolderPath { get; set; }
-
-    public List<string>? PlatformIds { get; set; }
-
-    public List<string>? ExesToEnd { get; set; }
-
-    public List<string>? LoginFiles { get; set; }
-
-    public static List<string>? CachePaths { get; set; }
-
-    public static List<string>? BackupPaths { get; set; }
-
-    public static List<string>? BackupFileTypesIgnore { get; set; }
-
-    public static List<string>? BackupFileTypesInclude { get; set; }
-
-    public static ClosingMethod ClosingMethod { get; set; }
-
-    public static StartingMethod StartingMethod { get; set; }
+        return platformSwitcher.CurrnetUserAdd(name);
+    }
 }

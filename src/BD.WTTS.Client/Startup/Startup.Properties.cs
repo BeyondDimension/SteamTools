@@ -110,6 +110,9 @@ partial class Startup // Properties
     /// <inheritdoc cref="AppServicesLevel.Steam"/>
     public bool HasSteam { get; private set; }
 
+    /// <inheritdoc cref="AppServicesLevel.IPCRoot"/>
+    public bool HasIPCRoot { get; private set; }
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     /// <summary>
     /// 是否已加载插件
