@@ -63,7 +63,10 @@ sealed class Plugin : PluginBase<Plugin>
         var ipc = IPCMainProcessService.Instance;
 
         // 启动加速模块子进程
-        ipc.StartProcess(SubProcessPath.ThrowIsNull());
+        ipc.AddDaemonWithStartSubProcess(moduleName, ipc =>
+        {
+            return ipc.StartSubProcess(SubProcessPath.ThrowIsNull());
+        });
 
         // 从子进程中获取 IPC 远程服务
         reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);

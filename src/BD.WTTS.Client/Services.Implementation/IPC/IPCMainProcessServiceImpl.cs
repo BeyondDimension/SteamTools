@@ -54,7 +54,82 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         }
     }
 
-    public Process? StartProcess(
+    readonly ConcurrentDictionary<string, Process> subProcesses = new();
+    readonly ConcurrentDictionary<string, Func<IPCMainProcessService, ValueTask<Process?>>>
+        startSubProcesses = new();
+
+    void AddSubProcess(string moduleName, Process? process)
+    {
+        if (process == null)
+            return;
+
+        if (subProcesses.TryGetValue(moduleName, out var process1))
+        {
+            bool hasExited = false;
+            try
+            {
+                hasExited = process1.HasExited;
+            }
+            catch
+            {
+
+            }
+            if (!hasExited)
+            {
+                try
+                {
+                    process1.KillEntireProcessTree();
+                }
+                catch
+                {
+
+                }
+            }
+            subProcesses[moduleName] = process;
+        }
+        else
+        {
+            subProcesses.TryAdd(moduleName, process);
+        }
+    }
+
+    public Process? AddDaemonWithStartSubProcess(string moduleName, Func<IPCMainProcessService, Process?> @delegate)
+    {
+        ValueTask<Process?> StartSubProcessDelegate(IPCMainProcessService ipc)
+        {
+            var process = @delegate(ipc);
+            return ValueTask.FromResult(process);
+        }
+
+        if (startSubProcesses.ContainsKey(moduleName))
+        {
+            startSubProcesses[moduleName] = StartSubProcessDelegate;
+        }
+        else
+        {
+            startSubProcesses.TryAdd(moduleName, StartSubProcessDelegate);
+        }
+        var process = @delegate?.Invoke(this);
+        AddSubProcess(moduleName, process);
+        return process;
+    }
+
+    public async ValueTask<Process?> AddDaemonWithStartSubProcessAsync(string moduleName, Func<IPCMainProcessService, ValueTask<Process?>> @delegate)
+    {
+        if (startSubProcesses.ContainsKey(moduleName))
+        {
+            startSubProcesses[moduleName] = @delegate;
+        }
+        else
+        {
+            startSubProcesses.TryAdd(moduleName, @delegate);
+        }
+        var process = await @delegate.Invoke(this);
+        AddSubProcess(moduleName, process);
+        return process;
+    }
+
+    public Process? StartSubProcess(
         string fileName,
         Action<ProcessStartInfo>? configure = null)
     {
@@ -65,6 +140,9 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             FileName = fileName,
             Arguments = $"{pipeName} {pid}",
             UseShellExecute = false,
+#if !DEBUG
+            CreateNoWindow = true,
+#endif
         };
         configure?.Invoke(psi);
         var process = Process.Start(psi);
@@ -89,10 +167,14 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             $"ipc_{_()}{tickCount64}{pid / 3}{pid % 3}",
             new IpcConfiguration
             {
+                AutoReconnectPeers = true, // 允许重连
                 IpcLoggerProvider = _ => new IpcLogger_(loggerFactory, nameof(IPCMainProcessServiceImpl)),
             });
         ConfigureServices();
         ipcProvider.StartServer();
+#if DEBUG
+        ipcProvider.PeerConnected += IpcProvider_PeerConnected;
+#endif
 
 #if WINDOWS
         // 启动管理员权限服务进程
@@ -101,16 +183,30 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             Task2.InBackground(async () =>
             {
                 var processPath = Environment.ProcessPath;
+                processPath.ThrowIsNull();
                 var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
                 const string arguments_ =
                     $"-clt {IPlatformService.IPCRoot.CommandName} {IPlatformService.IPCRoot.args_PipeName} {{0}} {IPlatformService.IPCRoot.args_ProcessId} {{1}}";
                 var arguments = string.Format(arguments_, pipeName, pid);
-                await windowsPlatformService.StartAsAdministrator(processPath.ThrowIsNull(), arguments);
+                await AddDaemonWithStartSubProcessAsync(IPlatformService.IPCRoot.moduleName, async _ =>
+                {
+                    var process = await windowsPlatformService.StartAsAdministrator(processPath, arguments);
+                    return process;
+                });
                 await IPlatformService.IPCRoot.SetIPC(this);
             });
         }
 #endif
     }
+
+#if DEBUG
+    void IpcProvider_PeerConnected(object? sender, PeerConnectedArgs e)
+    {
+#if DEBUG
+        logger.LogError("收到 {peerName} 连接", e.Peer.PeerName);
+#endif
+    }
+#endif
 
     public async ValueTask<T?> GetServiceAsync<T>(string moduleName) where T : class
     {
@@ -122,9 +218,30 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             var peerName = IPCSubProcessModuleService.Constants.GetClientPipeName(
                 moduleName, ipcProvider.IpcContext.PipeName);
             var peer = await ipcProvider.GetAndConnectToPeerAsync(peerName);
+#if DEBUG
+            peer.PeerReconnected += (_, _) =>
+            {
+#if DEBUG
+                logger.LogError("断开重连 {peerName}", peer.PeerName);
+#endif
+            };
+#endif
 
             if (peer != null)
             {
+                peer.PeerConnectionBroken += async (_, _) =>
+                {
+                    if (disposedValue || ipcProvider == null)
+                        return;
+#if DEBUG
+                    logger.LogError("连接断开 {peerName}", peer.PeerName);
+#endif
+                    if (startSubProcesses.TryGetValue(moduleName, out var startSubProcess))
+                    {
+                        // 连接断开时重新启动进程
+                        await startSubProcess.Invoke(this);
+                    }
+                };
                 var s = ipcProvider.CreateIpcProxy<T>(peer);
                 return s;
             }
