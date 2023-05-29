@@ -7,20 +7,28 @@ public static class PluginsCore
 
     static readonly HashSet<string> ignoreDirNames = new(StringComparer.OrdinalIgnoreCase)
     {
-        "Update",
+        Update,
     };
 
-    internal static HashSet<Assembly>? LoadAssemblies()
+    public const string Accelerator = "Accelerator";
+    public const string GameAccount = "GameAccount";
+    public const string GameList = "GameList";
+    public const string ArchiSteamFarmPlus = "ArchiSteamFarmPlus";
+    public const string Authenticator = "Authenticator";
+    public const string GameTools = "GameTools";
+    public const string Update = "Update";
+
+    internal static HashSet<Assembly>? LoadAssemblies(params string[] loadModules)
     {
         HashSet<Assembly>? assemblies = null;
 #if DEBUG // DEBUG 模式遍历项目查找模块
-        var modules = new[] {
-            "Accelerator",
-            "GameAccount",
-            "GameList",
-            "ArchiSteamFarmPlus",
-            "Authenticator",
-            "GameTools",
+        var modules = loadModules.Any_Nullable() ? loadModules : new[] {
+            Accelerator,
+            GameAccount,
+            GameList,
+            ArchiSteamFarmPlus,
+            Authenticator,
+            GameTools,
         };
         foreach (var item in modules)
         {
@@ -70,12 +78,12 @@ public static class PluginsCore
         var pluginsPath = Path.Combine(AppContext.BaseDirectory, "modules");
         if (Directory.Exists(pluginsPath))
         {
-            var directories = Directory.EnumerateDirectories(pluginsPath);
-            foreach (var directory in directories)
+            bool EachDirectories(string directory, string? dirName = null)
             {
-                var dirName = Path.GetDirectoryName(directory);
-                if (dirName == null) continue;
-                if (ignoreDirNames.Contains(dirName)) continue;
+                dirName ??= Path.GetDirectoryName(directory);
+                if (dirName == null) return true;
+                if (ignoreDirNames.Contains(dirName))
+                    return true;
                 var dllPath = Path.Combine(directory,
                     $"Steam++.Plugins.{dirName}.dll");
                 if (File.Exists(dllPath))
@@ -90,12 +98,34 @@ public static class PluginsCore
                         catch (Exception e)
                         {
                             Log.Error(TAG, e, $"AssemblyLoadFrom fail, assemblyPath: {assemblyPath}");
-                            continue;
+                            return true;
                         }
 
                         assemblies ??= new();
                         assemblies.Add(assembly);
                     }
+                }
+                return false;
+            }
+
+            if (loadModules.Any_Nullable())
+            {
+                foreach (var loadModule in loadModules)
+                {
+                    var directory = Path.Combine(pluginsPath, loadModule);
+                    if (!Directory.Exists(directory))
+                        continue;
+                    if (EachDirectories(directory, loadModule))
+                        continue;
+                }
+            }
+            else
+            {
+                var directories = Directory.EnumerateDirectories(pluginsPath);
+                foreach (var directory in directories)
+                {
+                    if (EachDirectories(directory))
+                        continue;
                 }
             }
         }
@@ -122,9 +152,9 @@ public static class PluginsCore
         }
     }
 
-    internal static HashSet<IPlugin>? InitPlugins()
+    internal static HashSet<IPlugin>? InitPlugins(params string[] loadModules)
     {
-        HashSet<Assembly>? assemblies = LoadAssemblies();
+        HashSet<Assembly>? assemblies = LoadAssemblies(loadModules);
         if (!assemblies.Any_Nullable()) return null;
 
         var assemblies_ = VerifyAssemblies(assemblies).ToArray();

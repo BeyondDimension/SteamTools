@@ -51,7 +51,7 @@ partial class WindowsPlatformServiceImpl
         {
             var scheduledTaskService = IScheduledTaskService.Instance;
             scheduledTaskService.ThrowIsNull();
-            scheduledTaskService.SetBootAutoStart(this, isAutoStart, name);
+            scheduledTaskService.SetBootAutoStart(isAutoStart, name);
         }
     }
 }

@@ -303,6 +303,13 @@ partial class Startup // 自定义控制台命令参数
         {
             Handler = CommandHandler.Create(async (string n, string p) =>
             {
+                if (string.IsNullOrWhiteSpace(n) ||
+                    string.IsNullOrWhiteSpace(p))
+                    return 400;
+
+                if (!IPlatformService._IsAdministrator.Value)
+                    return 401;
+
                 RunUIApplication(AppServicesLevel.IPCRoot | AppServicesLevel.Hosts);
                 await WaitConfiguredServices;
 
@@ -329,14 +336,35 @@ partial class Startup // 自定义控制台命令参数
         rootCommand.AddCommand(sudo);
 #endif
 
-        // -clt plugins {插件名} {插件需要解析的参数}
+        // -clt plugins -l {AppServicesLevel} -m {插件名} -n {PipeName} -p {ProcessId} -a {插件需要解析的参数}
         var plugins = new Command("plugins", "插件使用的 IPC 服务进程")
         {
-            Handler = CommandHandler.Create(() =>
+            Handler = CommandHandler.Create(async (uint l, string m, string n, string p, string a) =>
             {
-                // TODO
+                if (string.IsNullOrWhiteSpace(n) ||
+                    string.IsNullOrWhiteSpace(p))
+                    return (int)CommandExitCode.HttpStatusBadRequest;
+
+                var level = (AppServicesLevel)l;
+                RunUIApplication(level, loadModules: m);
+                await WaitConfiguredServices;
+
+                if (!TryGetPlugins(out var plugins))
+                    return (int)CommandExitCode.GetPluginsFail;
+
+                var plugin = plugins.FirstOrDefault(x => x.Name == m);
+                if (plugin == null)
+                    return (int)CommandExitCode.GetPluginFail;
+
+                var exitCode = await plugin.RunSubProcessMainAsync(m, n, p, a);
+                return exitCode;
             }),
         };
+        plugins.AddOption(new Option<uint>("-l", "AppServicesLevel"));
+        plugins.AddOption(new Option<string>("-m", "需要加载的模块名称"));
+        plugins.AddOption(new Option<string>("-a", "需要解析的参数，使用 HttpUtility.UrlDecode 解码"));
+        plugins.AddOption(new Option<string>(IPlatformService.IPCRoot.args_PipeName, "IPC 管道名"));
+        plugins.AddOption(new Option<string>(IPlatformService.IPCRoot.args_ProcessId, "主进程 Id"));
         rootCommand.AddCommand(plugins);
 
         // -clt types
@@ -345,8 +373,16 @@ partial class Startup // 自定义控制台命令参数
             Handler = CommandHandler.Create(() =>
             {
                 int exitCode = default;
-                using var assemblies_stream = new FileStream(Path.Combine(IOPath.CacheDirectory, "assemblies.txt"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete);
-                using var types_stream = new FileStream(Path.Combine(IOPath.CacheDirectory, "types.txt"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete);
+                using var assemblies_stream = new FileStream(Path.Combine(
+                    IOPath.CacheDirectory, "assemblies.txt"),
+                    FileMode.OpenOrCreate,
+                    FileAccess.Write,
+                    FileShare.ReadWrite | FileShare.Delete);
+                using var types_stream = new FileStream(Path.Combine(
+                    IOPath.CacheDirectory, "types.txt"),
+                    FileMode.OpenOrCreate,
+                    FileAccess.Write,
+                    FileShare.ReadWrite | FileShare.Delete);
                 try
                 {
                     var assemblies_ = AppDomain.CurrentDomain.GetAssemblies();
@@ -386,12 +422,12 @@ partial class Startup // 自定义控制台命令参数
                             }
                         }
                     }
-                    return exitCode = 200;
+                    return exitCode = (int)CommandExitCode.HttpStatusCodeOk;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
-                    return exitCode = 500;
+                    return exitCode = (int)CommandExitCode.HttpStatusCodeInternalServerError;
                 }
                 finally
                 {
@@ -409,6 +445,61 @@ partial class Startup // 自定义控制台命令参数
             }),
         };
         rootCommand.AddCommand(types);
+    }
+
+    public enum CommandExitCode
+    {
+        #region 100 ~ 5xx HttpStatusCode
+
+        /// <inheritdoc cref="HttpStatusCode.OK"/>
+        HttpStatusCodeOk = 200,
+
+        /// <inheritdoc cref="HttpStatusCode.BadRequest"/>
+        HttpStatusBadRequest = 400,
+
+        /// <inheritdoc cref="HttpStatusCode.InternalServerError"/>
+        HttpStatusCodeInternalServerError = 500,
+
+        #endregion
+
+        #region xxxx 4 位数通用错误码
+
+        /// <summary>
+        /// 参数不能为空数组
+        /// </summary>
+        EmptyArrayArgs = 4001,
+
+        /// <summary>
+        /// IPC 管道名称不能为空
+        /// </summary>
+        EmptyPipeName = 4002,
+
+        /// <summary>
+        /// 主进程 Id 不能为空
+        /// </summary>
+        EmptyMainProcessId = 4003,
+
+        /// <summary>
+        /// 主进程 Id 找不到
+        /// </summary>
+        NotFoundMainProcessId = 4004,
+
+        /// <summary>
+        /// 获取一组插件失败
+        /// </summary>
+        GetPluginsFail = 4040,
+
+        /// <summary>
+        /// 获取单个插件失败
+        /// </summary>
+        GetPluginFail = 4041,
+
+        /// <summary>
+        /// 获取子进程启动配置失败
+        /// </summary>
+        GetSubProcessBootConfigurationFail = 4042,
+
+        #endregion
     }
 }
 #endif

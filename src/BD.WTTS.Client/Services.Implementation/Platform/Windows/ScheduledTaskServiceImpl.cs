@@ -6,7 +6,7 @@ namespace BD.WTTS.Services.Implementation;
 
 sealed partial class ScheduledTaskServiceImpl : IScheduledTaskService
 {
-    void IScheduledTaskService.SetBootAutoStart(IPlatformService platformService, bool isAutoStart, string name)
+    void IScheduledTaskService.SetBootAutoStart(bool isAutoStart, string name)
     {
         try
         {
@@ -16,7 +16,7 @@ sealed partial class ScheduledTaskServiceImpl : IScheduledTaskService
             var userId = hasSid ? identity.User!.ToString() : userName;
             var tdName = hasSid ? userId : userId.Replace(Path.DirectorySeparatorChar, '_');
             tdName = $"{name}_{{{tdName}}}";
-            SetBootAutoStartByPowerShell(platformService, isAutoStart, name, userId, userName, tdName, IApplication.ProgramName);
+            SetBootAutoStartByPowerShell(isAutoStart, name, userId, userName, tdName, IApplication.ProgramName);
         }
         catch (Exception e)
         {

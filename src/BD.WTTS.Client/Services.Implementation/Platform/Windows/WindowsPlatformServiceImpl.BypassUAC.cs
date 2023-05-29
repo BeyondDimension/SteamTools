@@ -44,7 +44,7 @@ partial class WindowsPlatformServiceImpl
     /// <param name="arguments"></param>
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static async Task<Process?> StartAsAdministratorByBypassUAC(string fileName, string? arguments = null)
+    internal static async Task<Process?> StartAsAdministratorByBypassUAC(string fileName, string? arguments = null)
     {
         /** 33. Author: winscripting.blog
          * https://github.com/hfiref0x/UACME
@@ -68,6 +68,15 @@ partial class WindowsPlatformServiceImpl
             if (!File.Exists(targetName))
                 return null;
 
+            var processPath = Environment.ProcessPath;
+            processPath.ThrowIsNull();
+            if (fileName != processPath) // 仅允许启动自己
+                throw new ArgumentOutOfRangeException(nameof(fileName));
+
+            var processName = Path.GetFileNameWithoutExtension(fileName);
+            if (string.IsNullOrWhiteSpace(processName))
+                throw new ArgumentNullException(nameof(processName));
+
             classes = Registry.CurrentUser.OpenSubKey(@"Software\Classes", true);
             using var command = classes!.CreateSubKey(@"ms-settings\Shell\Open\command", true);
             command.SetValue("DelegateExecute", "");
@@ -80,19 +89,21 @@ partial class WindowsPlatformServiceImpl
                 WindowStyle = ProcessWindowStyle.Hidden,
                 FileName = targetName,
             };
+            var processs_start_before = new HashSet<int>(
+                Process.GetProcessesByName(processName).Select(x => x.Id));
             var process = Process.Start(psi);
             process!.WaitForExit(6000);
 
-            var processName = Path.GetFileNameWithoutExtension(fileName);
             for (int i = 0; i < 7; i++)
             {
-                var processs = Process.GetProcessesByName(processName);
-                foreach (var item in processs)
+                var processs_start_after = Process.GetProcessesByName(processName);
+                foreach (var item in processs_start_after)
                 {
+                    if (processs_start_before.Contains(item.Id))
+                        continue;
+
                     if (IsProcessElevated(item))
-                    {
                         return item;
-                    }
                 }
 
                 await Task.Delay(800);
@@ -128,10 +139,9 @@ partial class WindowsPlatformServiceImpl
     /// <param name="fileName"></param>
     /// <param name="arguments"></param>
     /// <returns></returns>
-    public async ValueTask<Process?> StartAsAdministrator(string fileName, string? arguments = null)
+    internal static async ValueTask<Process?> StartAsAdministrator(string fileName, string? arguments = null)
     {
-        IPlatformService thiz = this;
-        if (thiz.IsAdministrator)
+        if (IPlatformService._IsAdministrator.Value)
             return Process2.Start(fileName, arguments);
 
         var process = await StartAsAdministratorByBypassUAC(fileName, arguments);

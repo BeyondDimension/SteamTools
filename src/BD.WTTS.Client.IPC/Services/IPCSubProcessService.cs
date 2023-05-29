@@ -1,4 +1,5 @@
 using dotnetCampus.Ipc.Pipes;
+using ExitCode = BD.WTTS.Startup.CommandExitCode;
 
 namespace BD.WTTS.Services;
 
@@ -24,11 +25,6 @@ public interface IPCSubProcessService : IDisposable
     /// <returns></returns>
     T? GetService<T>() where T : class;
 
-    const int ExitCode_EmptyArrayArgs = 4001;
-    const int ExitCode_EmptyPipeName = 4002;
-    const int ExitCode_EmptyMainProcessId = 4003;
-    const int ExitCode_NotFoundMainProcessId = 4004;
-
     private static IPCSubProcessServiceImpl? iPCSubProcessServiceImpl;
 
     static IPCSubProcessService Instance => iPCSubProcessServiceImpl.ThrowIsNull();
@@ -37,8 +33,8 @@ public interface IPCSubProcessService : IDisposable
     /// 子进程 IPC 程序启动通用函数
     /// </summary>
     /// <param name="moduleName"></param>
-    /// <param name="configureServices"></param>
-    /// <param name="configureIpcProvider"></param>
+    /// <param name="configureServices">配置子进程的依赖注入服务</param>
+    /// <param name="configureIpcProvider">配置 IPC 服务</param>
     /// <param name="args"></param>
     /// <returns></returns>
     static async Task<int> MainAsync(
@@ -48,15 +44,15 @@ public interface IPCSubProcessService : IDisposable
         params string[] args)
     {
         if (args.Length < 2)
-            return ExitCode_EmptyArrayArgs;
+            return (int)ExitCode.EmptyArrayArgs;
         var pipeName = args[0];
         if (string.IsNullOrWhiteSpace(pipeName))
-            return ExitCode_EmptyPipeName;
+            return (int)ExitCode.EmptyPipeName;
         if (!int.TryParse(args[1], out var pid))
-            return ExitCode_EmptyMainProcessId;
+            return (int)ExitCode.EmptyMainProcessId;
         var mainProcess = Process.GetProcessById(pid);
         if (mainProcess == null)
-            return ExitCode_NotFoundMainProcessId;
+            return (int)ExitCode.NotFoundMainProcessId;
 
         TaskCompletionSource tcs = new();
         mainProcess.EnableRaisingEvents = true;

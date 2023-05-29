@@ -6,7 +6,10 @@ namespace BD.WTTS;
 partial class Startup // 配置 Host
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    protected void RunUIApplication(AppServicesLevel? level = null, Func<string>? sendMessage = null)
+    protected void RunUIApplication(
+        AppServicesLevel? level = null,
+        Func<string>? sendMessage = null,
+        params string[] loadModules)
     {
 #if STARTUP_WATCH_TRACE || DEBUG
         WatchTrace.Start();
@@ -28,7 +31,7 @@ partial class Startup // 配置 Host
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (IsMainProcess)
         {
-            plugins = PluginsCore.InitPlugins();
+            plugins = PluginsCore.InitPlugins(loadModules);
             HasPlugins = plugins.Any_Nullable();
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("InitPlugins");
