@@ -5,112 +5,49 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:Name="u"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorPageViewModel"
     mc:Ignorable="d">
-    <Grid RowDefinitions="Auto, *, Auto">
-        <!--  Title bar  -->
-        <Grid
-            Grid.Row="0"
-            Height="50"
-            Background="Gray"
-            ColumnDefinitions="Auto,Auto,*,Auto,Auto">
-            <StackPanel
-                Grid.Column="0"
+    <TabControl IsVisible="{Binding MainTabControlIsVisible}">
+        <TabControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Grid ColumnDefinitions="*,*,*,*" />
+            </ItemsPanelTemplate>
+        </TabControl.ItemsPanel>
+        <TabItem
+            Grid.Column="0"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Header="已拥有令牌">
+            <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Rectangle
-                    Width="10"
-                    Height="10"
-                    Margin="5,0,0,0"
-                    Fill="Ivory" />
-                <Button Background="Gray" FontWeight="Black">
-                    刷新
-                </Button>
-            </StackPanel>
-            <StackPanel
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Rectangle
-                    Width="10"
-                    Height="10"
-                    Margin="5,0,0,0"
-                    Fill="Ivory" />
-                <Button Background="Gray" FontWeight="Black">
-                    导出
-                </Button>
-            </StackPanel>
-            <StackPanel
-                Grid.Column="2"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Label FontWeight="Black">本地令牌</Label>
-                <Label>Test</Label>
-            </StackPanel>
-            <StackPanel
-                Grid.Column="3"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Rectangle
-                    Width="10"
-                    Height="10"
-                    Margin="5,0,0,0"
-                    Fill="Ivory" />
-                <Button Background="Gray" FontWeight="Black">
-                    加密
-                </Button>
-            </StackPanel>
-            <StackPanel
-                Grid.Column="4"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Rectangle
-                    Width="10"
-                    Height="10"
-                    Margin="5,0,0,0"
-                    Fill="Ivory" />
-                <Button Background="Gray" FontWeight="Black">
-                    锁定
-                </Button>
-            </StackPanel>
-        </Grid>
-        <!--  Main area  -->
-        <Grid Grid.Row="1" ColumnDefinitions="Auto,Auto,*">
-            <Rectangle
-                Grid.Column="0"
-                Width="50"
-                Fill="Purple" />
-            <Rectangle
-                Grid.Column="1"
-                Width="50"
-                Fill="Chartreuse" />
-            <Rectangle Grid.Column="2" Fill="Black" />
-        </Grid>
-        <!--  Bottom bar  -->
-        <Grid
-            Grid.Row="2"
-            Margin="8"
-            ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto,Auto"
-            ShowGridLines="False">
-            <Button Grid.Column="0" Margin="0,0,8,0">Test1</Button>
-            <Button Grid.Column="1" Margin="0,0,8,0">Test2</Button>
-            <Button Grid.Column="2" Margin="0,0,8,0">Test3</Button>
-            <Button Grid.Column="3" Margin="0,0,8,0">Test4</Button>
-            <Button Grid.Column="4" Margin="0,0,8,0">Test5</Button>
-            <Rectangle
-                Grid.Column="5"
-                Width="30"
-                Fill="Orange" />
-            <Rectangle
-                Grid.Column="6"
-                Width="30"
-                Fill="Red" />
-        </Grid>
-    </Grid>
+                Text="无" />
+        </TabItem>
+        <TabItem
+            Grid.Column="1"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Header="已加密令牌">
+            <TextBlock Text="test2" />
+        </TabItem>
+        <TabItem
+            Grid.Column="2"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Header="新增令牌">
+            <TextBlock Text="test3" />
+        </TabItem>
+        <TabItem
+            Grid.Column="3"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Header="导出令牌">
+            <TextBlock Text="test4" />
+        </TabItem>
+    </TabControl>
 </UserControl>

@@ -67,7 +67,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="UI\ViewModels\" />
 	  <Folder Include="Services\" />
 	</ItemGroup>
 
