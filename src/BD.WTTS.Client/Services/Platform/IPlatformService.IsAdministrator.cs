@@ -10,9 +10,9 @@ partial interface IPlatformService
         return identity.IsSystem || new WindowsPrincipal(identity)
             .IsInRole(WindowsBuiltInRole.Administrator);
 #elif MACCATALYST || MACOS || LINUX || IOS || ANDROID
-            return Interop.Libc.GetEUID() == 0;
+        return Interop.Libc.GetEUID() == 0;
 #else
-            throw new PlatformNotSupportedException();
+        throw new PlatformNotSupportedException();
 #endif
     });
 

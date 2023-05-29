@@ -2,12 +2,14 @@
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
 partial class Startup // 自定义控制台命令参数
 {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void ConfigureCommands(RootCommand rootCommand)
     {
@@ -446,6 +448,7 @@ partial class Startup // 自定义控制台命令参数
         };
         rootCommand.AddCommand(types);
     }
+#endif
 
     public enum CommandExitCode
     {
@@ -502,4 +505,3 @@ partial class Startup // 自定义控制台命令参数
         #endregion
     }
 }
-#endif
