@@ -42,7 +42,7 @@ sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
 
     protected override Dictionary<uint, string?>? HideGameList => serviceProvider.GetService<IGameLibrarySettings>()?.HideGameList;
 
-    //protected override string? GetString(string name) => AppResources.ResourceManager.GetString(name);
+    protected override string? GetString(string name) => AppResources.ResourceManager.GetString(name);
 
     protected override Process? StartAsInvoker(string fileName, string? arguments = null)
     {
