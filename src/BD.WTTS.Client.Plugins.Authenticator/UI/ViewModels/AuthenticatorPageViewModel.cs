@@ -12,14 +12,21 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
 {
+    public override string Name => "AuthenticatorPage";
+
+    SteamAuthenticator? steamAuthenticator;
+
+    SteamAuthenticator.EnrollState enrollState = new() { RequiresLogin = true };
+
     public AuthenticatorPageViewModel()
     {
-        MainTabControlIsVisible = true;
+        ImportTabControlIsVisible = true;
+        AuthenticatorService.GetAllAuthenticators();
     }
     //[Reactive]
     //public ObservableCollection<string> AuthenticatorTab { get; set; }
 
-    public bool MainTabControlIsVisible { get; set; }
+    public bool ImportTabControlIsVisible { get; set; }
 
     public string? UserName
     {
@@ -107,24 +114,39 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
         }
     }
 
+    private bool _RequiresAdd;
+
     public bool RequiresAdd
     {
-        get => RequiresAdd;
+        get => _RequiresAdd;
+        set => this.RaiseAndSetIfChanged(ref _RequiresAdd, value);
+    }
+
+    public string? EmailAuthText
+    {
+        get => enrollState.EmailAuthText;
         set
         {
-            RequiresAdd = value;
+            enrollState.EmailAuthText = value;
             this.RaisePropertyChanged();
         }
     }
 
-    public override string Name => "AuthenticatorPage";
-
-    SteamAuthenticator? steamAuthenticator;
-
-    readonly SteamAuthenticator.EnrollState enrollState = new() { RequiresLogin = true };
+    /// <summary>
+    /// 重置界面状态
+    /// </summary>
+    public void Reset()
+    {
+        enrollState = new() { RequiresLogin = true };
+        RequiresLogin = true;
+        RequiresAdd = false;
+    }
 
     private bool _IsLogining;
 
+    /// <summary>
+    /// 登录Steam导入令牌
+    /// </summary>
     public async void LoginSteamImport()
     {
         if (string.IsNullOrWhiteSpace(UserName))
@@ -161,12 +183,13 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
             {
                 if (string.IsNullOrEmpty(enrollState.Error) == false)
                 {
-                    MessageBox.Show(enrollState.Error);
+                    await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = enrollState.Error, IsCancelcBtn = true });
+                    //Toast.Show(enrollState.Error, ToastLength.Long);
                 }
                 //已有令牌，无法导入
                 if (enrollState.Requires2FA == true)
                 {
-                    MessageBox.Show(Strings.LocalAuth_SteamUser_Requires2FA);
+                    await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUser_Requires2FA, IsCancelcBtn = true });
                     return;
                 }
                 //频繁登录需要图片验证码
@@ -203,7 +226,7 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
                     return;
                 }
                 string error = string.IsNullOrEmpty(enrollState.Error) ? Strings.LocalAuth_SteamUser_Error : enrollState.Error;
-                MessageBox.Show(error);
+                await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = error, IsCancelcBtn = true });
                 return;
             }
             //通过所有验证，开始导入令牌
@@ -212,20 +235,16 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
                 RequiresActivation = false;
                 RequiresAdd = true;
 
-                IAccountPlatformAuthenticatorRepository repository = Ioc.Get<AccountPlatformAuthenticatorRepository>();
                 var iADTO = new AuthenticatorDTO() { Name = $"Steam({UserName})", Value = steamAuthenticator };
-                var auths = await repository.GetAllSourceAsync();
-                var haspassword = repository.HasSecondaryPassword(auths);
-                var authIsLocal = repository.HasLocal(auths);
 
-                await repository.InsertOrUpdateAsync(iADTO, authIsLocal, null);
+                AuthenticatorService.AddOrUpdateSaveAuthenticators(iADTO, false, null);
             }
 
         }
         catch (Exception ex)
         {
             Log.Error(nameof(AuthenticatorPageViewModel), ex, nameof(LoginSteamImport));
-            MessageBox.Show(ex, "Error " + nameof(LoginSteamImport));
+            await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = ex + "\rError " + nameof(LoginSteamImport), IsCancelcBtn = true });
         }
         finally
         {
@@ -233,6 +252,22 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
             if (ToastService.IsSupported)
             {
                 ToastService.Current.Set();
+            }
+        }
+    }
+
+    public async void ShowCaptchaUrl()
+    {
+        if (string.IsNullOrEmpty(enrollState.CaptchaUrl))
+        {
+            Toast.Show("CaptchaUrl is null or white space.");
+        }
+        else
+        {
+            if (!await Browser2.OpenAsync(enrollState.CaptchaUrl))
+            {
+                await Clipboard2.SetTextAsync(enrollState.CaptchaUrl);
+                Toast.Show(Strings.CopyToClipboard);
             }
         }
     }

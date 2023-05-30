@@ -66,10 +66,6 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Services\" />
-	</ItemGroup>
-
 	<Import Project="..\TFM_NET7_WITH_ALL.props" />
 
 </Project>
