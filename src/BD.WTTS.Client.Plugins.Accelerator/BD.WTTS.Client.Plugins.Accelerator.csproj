@@ -71,6 +71,9 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\IReverseProxyService.Constants.cs">
 			<LinkBase>Services</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\IReverseProxyService.cs">
+			<LinkBase>Services</LinkBase>
+		</Compile>
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Enums\ExternalProxyType.cs">
 			<LinkBase>Enums</LinkBase>
 		</Compile>

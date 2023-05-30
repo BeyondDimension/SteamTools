@@ -1,3 +1,5 @@
+using dotnetCampus.Ipc.Pipes;
+
 namespace BD.WTTS.Plugins.Abstractions;
 
 [DebuggerDisplay("{DebuggerDisplay,nq}")]
@@ -67,5 +69,46 @@ public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<T
     public virtual ValueTask OnExit()
     {
         return ValueTask.CompletedTask;
+    }
+
+    /// <summary>
+    /// 将参数解析为字符串
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    protected static string DecodeArgs(string args)
+        => HttpUtility.UrlDecode(args);
+
+    /// <summary>
+    /// 将参数解析为字符串数组
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    protected static string[] DecodeToArrayArgs(string args)
+        => HttpUtility.UrlDecode(args).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+    public virtual async Task<int> RunSubProcessMainAsync(string moduleName, string pipeName, string processId, string encodedArgs)
+    {
+        var subProcessBootConfiguration = GetSubProcessBootConfiguration(encodedArgs ?? string.Empty);
+        if (subProcessBootConfiguration == default)
+            return (int)CommandExitCode.GetSubProcessBootConfigurationFail;
+
+        var exitCode = await IPCSubProcessService.MainAsync(moduleName,
+            subProcessBootConfiguration.configureServices,
+            subProcessBootConfiguration.configureIpcProvider,
+            new[] { pipeName, processId });
+        return exitCode;
+    }
+
+    /// <summary>
+    /// 获取子进程 IPC 程序启动配置
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected virtual (Action<IServiceCollection>? configureServices, Action<IpcProvider>? configureIpcProvider) GetSubProcessBootConfiguration(string args)
+    {
+        return default;
     }
 }

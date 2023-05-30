@@ -2,6 +2,7 @@ using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 using dotnetCampus.Ipc.Context;
 using dotnetCampus.Ipc.Pipes;
 using dotnetCampus.Ipc.Utils.Logging;
+using Polly;
 using IPCLogLevel = dotnetCampus.Ipc.Utils.Logging.LogLevel;
 using MSEXLogLevel = Microsoft.Extensions.Logging.LogLevel;
 
@@ -178,24 +179,26 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
 
 #if WINDOWS
         // 启动管理员权限服务进程
-        if (IPlatformService.Instance is WindowsPlatformServiceImpl windowsPlatformService)
+        Task2.InBackground(async () =>
         {
-            Task2.InBackground(async () =>
+            var processPath = Environment.ProcessPath;
+            processPath.ThrowIsNull();
+            var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
+            const string arguments_ =
+                $"-clt {IPlatformService.IPCRoot.CommandName} {IPlatformService.IPCRoot.args_PipeName} {{0}} {IPlatformService.IPCRoot.args_ProcessId} {{1}}";
+            var arguments = string.Format(arguments_, pipeName, pid);
+            await AddDaemonWithStartSubProcessAsync(IPlatformService.IPCRoot.moduleName, async _ =>
             {
-                var processPath = Environment.ProcessPath;
-                processPath.ThrowIsNull();
-                var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
-                const string arguments_ =
-                    $"-clt {IPlatformService.IPCRoot.CommandName} {IPlatformService.IPCRoot.args_PipeName} {{0}} {IPlatformService.IPCRoot.args_ProcessId} {{1}}";
-                var arguments = string.Format(arguments_, pipeName, pid);
-                await AddDaemonWithStartSubProcessAsync(IPlatformService.IPCRoot.moduleName, async _ =>
+                return await Policy.HandleResult<Process?>(x => x == null)
+                    .RetryAsync(3)
+                    .ExecuteAsync(async () =>
                 {
-                    var process = await windowsPlatformService.StartAsAdministrator(processPath, arguments);
+                    var process = await WindowsPlatformServiceImpl.StartAsAdministrator(processPath, arguments);
                     return process;
                 });
-                await IPlatformService.IPCRoot.SetIPC(this);
             });
-        }
+            await IPlatformService.IPCRoot.SetIPC(this);
+        });
 #endif
     }
 

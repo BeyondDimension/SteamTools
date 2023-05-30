@@ -1,3 +1,5 @@
+using dotnetCampus.Ipc.Pipes;
+
 namespace BD.WTTS.Plugins.Abstractions;
 
 /// <summary>
@@ -69,4 +71,14 @@ public interface IPlugin : IExplicitHasValue
     void OnUnhandledException(Exception ex, string name, bool? isTerminating = null);
 
     ValueTask OnExit();
+
+    /// <summary>
+    /// 启动子进程 IPC 程序的 Main 函数
+    /// </summary>
+    /// <param name="moduleName"></param>
+    /// <param name="pipeName"></param>
+    /// <param name="processId"></param>
+    /// <param name="encodedArgs"></param>
+    /// <returns></returns>
+    Task<int> RunSubProcessMainAsync(string moduleName, string pipeName, string processId, string encodedArgs);
 }

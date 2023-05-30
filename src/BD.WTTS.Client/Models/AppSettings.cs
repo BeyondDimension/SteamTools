@@ -123,6 +123,10 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
 
     public static AppSettings Instance { get; } = GetAppSettings();
 
+#if DEBUG
+    internal static bool UseLocalhostApiBaseUrl { get; set; }
+#endif
+
     static AppSettings GetAppSettings()
     {
         var s = new AppSettings()
@@ -136,8 +140,9 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
 #endif
         };
 #if DEBUG
-        s.ApiBaseUrl = Constants.Urls.BaseUrl_API_Debug;
-        //s.ApiBaseUrl = Constants.Urls.BaseUrl_API_Development;
+        s.ApiBaseUrl = UseLocalhostApiBaseUrl ?
+            Constants.Urls.BaseUrl_API_Debug :
+            Constants.Urls.BaseUrl_API_Development;
 #else
         s.ApiBaseUrl = Constants.Urls.BaseUrl_API_Production;
 #endif

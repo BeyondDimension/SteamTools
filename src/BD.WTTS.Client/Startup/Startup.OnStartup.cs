@@ -31,13 +31,13 @@ partial class Startup // OnStartup
 
         if (IsMainProcess)
         {
-            Task.Run(async () =>
+            Task2.InBackground(async () =>
             {
                 await ActiveUserRecordAsync(ActiveUserAnonymousStatisticType.OnStartup);
             });
             if (GeneralSettings.AutoCheckAppUpdate.Value)
             {
-                Task.Run(async () =>
+                Task2.InBackground(async () =>
                 {
                     await IApplicationUpdateService.Instance
                         .CheckUpdateAsync(showIsExistUpdateFalse: false);

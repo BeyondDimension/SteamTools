@@ -9,7 +9,7 @@ sealed class LazyReverseProxyServiceImpl : IReverseProxyService
     static IReverseProxyService instance() => Ioc.Get<IReverseProxyService>();
 #pragma warning restore IDE1006 // 命名样式
 
-    public ICertificateManager CertificateManager => instance().CertificateManager;
+    //public ICertificateManager CertificateManager => instance().CertificateManager;
 
     public bool ProxyRunning => instance().ProxyRunning;
 

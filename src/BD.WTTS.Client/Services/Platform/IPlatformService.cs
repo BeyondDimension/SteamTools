@@ -33,6 +33,17 @@ public partial interface IPlatformService : IPCPlatformService
             {
                 var iPCPlatformService = await ipc.GetServiceAsync<IPCPlatformService>(moduleName);
                 iPCPlatformService.ThrowIsNull();
+#if DEBUG
+                try
+                {
+                    var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(typeof(IPlatformService))?.FullName}{Environment.NewLine}{iPCPlatformService.GetDebugString()}";
+                    Console.WriteLine($"DebugString/IPCPlatformService: {debugStringIPC}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+#endif
                 tcs.TrySetResult(iPCPlatformService);
             }
             catch (Exception ex)

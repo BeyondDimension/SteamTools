@@ -6,7 +6,7 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 反向代理服务
 /// </summary>
-[IpcPublic(Timeout = 55000, IgnoresIpcException = false)]
+[IpcPublic(Timeout = 9000, IgnoresIpcException = false)]
 public partial interface IReverseProxyService : IDisposable, IReverseProxySettings
 {
     /// <summary>
@@ -52,6 +52,13 @@ public partial interface IReverseProxyService : IDisposable, IReverseProxySettin
     /// </summary>
     /// <returns></returns>
     ValueTask StopProxyAsync();
+
+#if DEBUG
+    string GetDebugString()
+    {
+        return $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(GetType())?.FullName}";
+    }
+#endif
 }
 
 /// <summary>

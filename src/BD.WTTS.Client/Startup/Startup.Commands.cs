@@ -2,12 +2,14 @@
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
 partial class Startup // 自定义控制台命令参数
 {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void ConfigureCommands(RootCommand rootCommand)
     {
@@ -44,8 +46,12 @@ partial class Startup // 自定义控制台命令参数
         var devtools = new Command("devtools");
         devtools.AddOption(new Option<bool>("-disable_gpu", () => false, "禁用 GPU 硬件加速"));
         devtools.AddOption(new Option<bool>("-use_wgl", () => false, "使用 Native OpenGL（仅 Windows）"));
-        devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_wgl) =>
+        devtools.AddOption(new Option<bool>("-use_localhost", () => false, "使用本机服务端"));
+        devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_wgl, bool use_localhost) =>
         {
+#if DEBUG
+            AppSettings.UseLocalhostApiBaseUrl = use_localhost;
+#endif
             IsMainProcess = true;
             IsConsoleLineToolProcess = false;
 
@@ -303,6 +309,13 @@ partial class Startup // 自定义控制台命令参数
         {
             Handler = CommandHandler.Create(async (string n, string p) =>
             {
+                if (string.IsNullOrWhiteSpace(n) ||
+                    string.IsNullOrWhiteSpace(p))
+                    return 400;
+
+                if (!IPlatformService._IsAdministrator.Value)
+                    return 401;
+
                 RunUIApplication(AppServicesLevel.IPCRoot | AppServicesLevel.Hosts);
                 await WaitConfiguredServices;
 
@@ -329,14 +342,35 @@ partial class Startup // 自定义控制台命令参数
         rootCommand.AddCommand(sudo);
 #endif
 
-        // -clt plugins {插件名} {插件需要解析的参数}
+        // -clt plugins -l {AppServicesLevel} -m {插件名} -n {PipeName} -p {ProcessId} -a {插件需要解析的参数}
         var plugins = new Command("plugins", "插件使用的 IPC 服务进程")
         {
-            Handler = CommandHandler.Create(() =>
+            Handler = CommandHandler.Create(async (uint l, string m, string n, string p, string a) =>
             {
-                // TODO
+                if (string.IsNullOrWhiteSpace(n) ||
+                    string.IsNullOrWhiteSpace(p))
+                    return (int)CommandExitCode.HttpStatusBadRequest;
+
+                var level = (AppServicesLevel)l;
+                RunUIApplication(level, loadModules: m);
+                await WaitConfiguredServices;
+
+                if (!TryGetPlugins(out var plugins))
+                    return (int)CommandExitCode.GetPluginsFail;
+
+                var plugin = plugins.FirstOrDefault(x => x.Name == m);
+                if (plugin == null)
+                    return (int)CommandExitCode.GetPluginFail;
+
+                var exitCode = await plugin.RunSubProcessMainAsync(m, n, p, a);
+                return exitCode;
             }),
         };
+        plugins.AddOption(new Option<uint>("-l", "AppServicesLevel"));
+        plugins.AddOption(new Option<string>("-m", "需要加载的模块名称"));
+        plugins.AddOption(new Option<string>("-a", "需要解析的参数，使用 HttpUtility.UrlDecode 解码"));
+        plugins.AddOption(new Option<string>(IPlatformService.IPCRoot.args_PipeName, "IPC 管道名"));
+        plugins.AddOption(new Option<string>(IPlatformService.IPCRoot.args_ProcessId, "主进程 Id"));
         rootCommand.AddCommand(plugins);
 
         // -clt types
@@ -345,8 +379,16 @@ partial class Startup // 自定义控制台命令参数
             Handler = CommandHandler.Create(() =>
             {
                 int exitCode = default;
-                using var assemblies_stream = new FileStream(Path.Combine(IOPath.CacheDirectory, "assemblies.txt"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete);
-                using var types_stream = new FileStream(Path.Combine(IOPath.CacheDirectory, "types.txt"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete);
+                using var assemblies_stream = new FileStream(Path.Combine(
+                    IOPath.CacheDirectory, "assemblies.txt"),
+                    FileMode.OpenOrCreate,
+                    FileAccess.Write,
+                    FileShare.ReadWrite | FileShare.Delete);
+                using var types_stream = new FileStream(Path.Combine(
+                    IOPath.CacheDirectory, "types.txt"),
+                    FileMode.OpenOrCreate,
+                    FileAccess.Write,
+                    FileShare.ReadWrite | FileShare.Delete);
                 try
                 {
                     var assemblies_ = AppDomain.CurrentDomain.GetAssemblies();
@@ -386,12 +428,12 @@ partial class Startup // 自定义控制台命令参数
                             }
                         }
                     }
-                    return exitCode = 200;
+                    return exitCode = (int)CommandExitCode.HttpStatusCodeOk;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
-                    return exitCode = 500;
+                    return exitCode = (int)CommandExitCode.HttpStatusCodeInternalServerError;
                 }
                 finally
                 {
@@ -410,5 +452,5 @@ partial class Startup // 自定义控制台命令参数
         };
         rootCommand.AddCommand(types);
     }
-}
 #endif
+}
