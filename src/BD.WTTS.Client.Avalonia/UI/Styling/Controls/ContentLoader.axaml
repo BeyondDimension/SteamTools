@@ -1,0 +1,34 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    x:CompileBindings="True">
+    <Design.PreviewWith>
+        <Border Padding="50">
+            <spp:ContentLoader />
+        </Border>
+    </Design.PreviewWith>
+    <!--  Add Resources Here  -->
+    <ControlTheme x:Key="{x:Type spp:ContentLoader}" TargetType="{x:Type spp:ContentLoader}">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <ProgressBar
+                        Width="200"
+                        Height="200"
+                        Classes="Circle"
+                        IsIndeterminate="True"
+                        IsVisible="{TemplateBinding IsLoading}" />
+
+                    <ContentPresenter
+                        Name="ContentPresenter"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Content="{TemplateBinding Content}"
+                        Foreground="{TemplateBinding Foreground}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>
