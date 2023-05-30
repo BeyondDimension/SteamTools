@@ -60,20 +60,30 @@ public interface IPCSubProcessService : IDisposable
             tcs.TrySetResult(); // 监听主进程退出时关闭当前子进程
         };
 
-#if LIB_CLIENT_IPC
-        Ioc.ConfigureServices(services =>
+        Task2.InBackground(async () =>
         {
-            services.AddSingleton(_ => Instance);
-            configureServices?.Invoke(services);
-        });
+            try
+            {
+#if LIB_CLIENT_IPC
+                Ioc.ConfigureServices(services =>
+                {
+                    services.AddSingleton(_ => Instance);
+                    configureServices?.Invoke(services);
+                });
 #endif
+                iPCSubProcessServiceImpl = new(Ioc.Get<ILoggerFactory>());
+                await iPCSubProcessServiceImpl
+                    .RunAsync(moduleName, tcs,
+                    pipeName, configureIpcProvider);
+            }
+            catch (Exception ex)
+            {
+                tcs.TrySetException(ex);
+            }
+        });
 
         try
         {
-            iPCSubProcessServiceImpl = new(Ioc.Get<ILoggerFactory>());
-            await iPCSubProcessServiceImpl
-                .RunAsync(moduleName, tcs,
-                pipeName, configureIpcProvider);
             await tcs.Task;
         }
         finally
