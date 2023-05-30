@@ -158,6 +158,7 @@
                             Opacity="{ReflectionBinding Value,
                                                         Source={x:Static ms:UISettings.WindowBackgroundCustomImageOpacity},
                                                         Mode=OneWay}"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
                             Source="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImagePath},
                                                        Path=Value,
                                                        Mode=OneWay,
@@ -165,8 +166,8 @@
                             Stretch="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImageStretch},
                                                         Path=Value,
                                                         Mode=OneWay,
-														Converter={StaticResource EnumConverter},
-														ConverterParameter={x:Type Stretch}}" />
+                                                        Converter={StaticResource EnumConverter},
+                                                        ConverterParameter={x:Type Stretch}}" />
                     </Panel>
                     <Panel
                         Name="DefaultTitleBar"
