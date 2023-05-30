@@ -93,7 +93,7 @@ public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<T
     {
         var subProcessBootConfiguration = GetSubProcessBootConfiguration(encodedArgs ?? string.Empty);
         if (subProcessBootConfiguration == default)
-            return (int)Startup.CommandExitCode.GetSubProcessBootConfigurationFail;
+            return (int)CommandExitCode.GetSubProcessBootConfigurationFail;
 
         var exitCode = await IPCSubProcessService.MainAsync(moduleName,
             subProcessBootConfiguration.configureServices,

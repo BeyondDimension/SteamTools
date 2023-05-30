@@ -70,6 +70,17 @@ sealed class Plugin : PluginBase<Plugin>
 
         // 从子进程中获取 IPC 远程服务
         reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);
+#if DEBUG
+        try
+        {
+            var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(GetType())?.FullName}{Environment.NewLine}{reverseProxyService?.GetDebugString()}";
+            Console.WriteLine($"DebugString/IReverseProxyService: {debugStringIPC}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+#endif
 
         if (ResourceService.IsChineseSimplified)
         {

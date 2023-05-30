@@ -2,7 +2,7 @@
 
 #if WINDOWS
 
-using static BD.WTTS.Models.IReverseProxyConfig;
+using static BD.WTTS.Models.Abstractions.IReverseProxyConfig;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;

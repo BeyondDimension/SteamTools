@@ -1,5 +1,4 @@
 using dotnetCampus.Ipc.Pipes;
-using ExitCode = BD.WTTS.Startup.CommandExitCode;
 
 namespace BD.WTTS.Services;
 
@@ -44,15 +43,15 @@ public interface IPCSubProcessService : IDisposable
         params string[] args)
     {
         if (args.Length < 2)
-            return (int)ExitCode.EmptyArrayArgs;
+            return (int)CommandExitCode.EmptyArrayArgs;
         var pipeName = args[0];
         if (string.IsNullOrWhiteSpace(pipeName))
-            return (int)ExitCode.EmptyPipeName;
+            return (int)CommandExitCode.EmptyPipeName;
         if (!int.TryParse(args[1], out var pid))
-            return (int)ExitCode.EmptyMainProcessId;
+            return (int)CommandExitCode.EmptyMainProcessId;
         var mainProcess = Process.GetProcessById(pid);
         if (mainProcess == null)
-            return (int)ExitCode.NotFoundMainProcessId;
+            return (int)CommandExitCode.NotFoundMainProcessId;
 
         TaskCompletionSource tcs = new();
         mainProcess.EnableRaisingEvents = true;

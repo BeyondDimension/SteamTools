@@ -497,7 +497,7 @@ internal sealed class HostsFileServiceImpl
         {
             try
             {
-                s.WriteDefaultHostsContent(new FileStream(s.HostsFilePath, FileMode.OpenOrCreate));
+                s.WriteDefaultHostsContent();
                 Toast.Show(AppResources.CommunityFix_ResetHostsFileOk);
             }
             catch (Exception e)

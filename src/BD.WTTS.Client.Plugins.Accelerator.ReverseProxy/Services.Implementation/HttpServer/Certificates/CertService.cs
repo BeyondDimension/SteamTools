@@ -13,7 +13,7 @@ sealed class CertService
     readonly ILogger<CertService> logger;
     readonly IReverseProxyConfig reverseProxyConfig;
 
-    IReverseProxyService ReverseProxyService => reverseProxyConfig.Service;
+    ReverseProxyServiceImpl ReverseProxyService => reverseProxyConfig.Service;
 
     /// <summary>
     /// 获取 CER 证书文件路径

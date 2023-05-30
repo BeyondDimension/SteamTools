@@ -4,7 +4,7 @@
 using System.Net.NetworkInformation;
 
 // ReSharper disable once CheckNamespace
-namespace BD.WTTS.Models;
+namespace BD.WTTS.Models.Abstractions;
 
 partial interface IReverseProxyConfig
 {

@@ -148,14 +148,22 @@ partial class WindowsPlatformServiceImpl
         if (process != null)
             return process;
 
-        ProcessStartInfo psi = new()
+        try
         {
-            FileName = fileName,
-            Arguments = arguments,
-            UseShellExecute = true,
-            Verb = "runas",
-        };
-        return Process.Start(psi);
+            ProcessStartInfo psi = new()
+            {
+                FileName = fileName,
+                Arguments = arguments,
+                UseShellExecute = true,
+                Verb = "runas",
+            };
+            var process_runas = Process.Start(psi);
+            return process_runas;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }
 #endif

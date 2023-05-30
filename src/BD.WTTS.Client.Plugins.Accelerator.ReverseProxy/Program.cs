@@ -3,6 +3,9 @@ using IHttpClientFactory_Common = System.Net.Http.Client.IHttpClientFactory;
 using IHttpClientFactory_Extensions_Http = System.Net.Http.IHttpClientFactory;
 
 const string moduleName = "Accelerator";
+#if DEBUG
+Console.WriteLine($"This: {moduleName} / Program.Start");
+#endif
 try
 {
     var exitCode = await IPCSubProcessService.MainAsync(moduleName, ConfigureServices, static ipcProvider =>

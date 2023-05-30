@@ -30,6 +30,18 @@ partial interface IPlatformService
     /// <summary>
     /// 写入默认 hosts 文件内容
     /// </summary>
+    void WriteDefaultHostsContent()
+    {
+        var fileStream = new FileStream(HostsFilePath,
+            FileMode.OpenOrCreate,
+            FileAccess.Write,
+            FileShare.ReadWrite | FileShare.Delete);
+        WriteDefaultHostsContent(fileStream);
+    }
+
+    /// <summary>
+    /// 写入默认 hosts 文件内容
+    /// </summary>
     /// <param name="stream"></param>
     void WriteDefaultHostsContent(Stream stream)
     {

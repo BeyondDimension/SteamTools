@@ -2,7 +2,7 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/FastGithubConfig.cs
 
 // ReSharper disable once CheckNamespace
-namespace BD.WTTS.Models;
+namespace BD.WTTS.Models.Abstractions;
 
 public partial interface IReverseProxyConfig
 {
