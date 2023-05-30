@@ -3,7 +3,9 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:gif="using:AvaloniaGif"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     x:Name="u"
@@ -22,31 +24,88 @@
             Grid.Column="0"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Header="已拥有令牌">
-            <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Text="无" />
+            Header="{ReflectionBinding Path=Res.LocalAuth_SteamUserImport,
+                                       Mode=OneWay,
+                                       Source={x:Static s:ResourceService.Current}}">
+            <Panel>
+                <Grid Margin="10" RowDefinitions="Auto,*,Auto">
+                    <StackPanel
+                        Grid.Row="1"
+                        VerticalAlignment="Center"
+                        Spacing="25">
+                        <!--<PathIcon
+                            Width="100"
+                            Height="100"
+                            Margin="0,0,0,25"
+                            HorizontalAlignment="Center"
+                            Data="" />-->
+                        <TextBox
+                            MaxWidth="300"
+                            Text="{Binding UserName}"
+                            Watermark="{ReflectionBinding Path=Res.Steam_User,
+                                                          Mode=OneWay,
+                                                          Source={x:Static s:ResourceService.Current}}" />
+                        <TextBox
+                            MaxWidth="300"
+                            Classes="revealPasswordButton"
+                            PasswordChar="{StaticResource PasswordChar}"
+                            Text="{Binding Password}"
+                            Watermark="{ReflectionBinding Path=Res.Steam_Password,
+                                                          Mode=OneWay,
+                                                          Source={x:Static s:ResourceService.Current}}" />
+                        <Button
+                            MinWidth="280"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Command="{ReflectionBinding LoginSteamImport}"
+                            Content="{ReflectionBinding Path=Res.Login,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}" />
+                    </StackPanel>
+                    <TextBlock
+                        Grid.Row="2"
+                        Margin="10,0"
+                        HorizontalAlignment="Center"
+                        Text="{ReflectionBinding Path=Res.Steam_UserLoginTip,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        TextAlignment="Center"
+                        TextWrapping="WrapWithOverflow" />
+                </Grid>
+                <StackPanel
+                    Margin="0,0,0,90"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    IsVisible="{Binding !CaptchaImage, Converter={StaticResource IsNullConverter}}"
+                    Orientation="Vertical"
+                    Spacing="10" />
+            </Panel>
         </TabItem>
         <TabItem
             Grid.Column="1"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Header="已加密令牌">
+            Header="{ReflectionBinding Path=Res.LocalAuth_SteamAppImport,
+                                       Mode=OneWay,
+                                       Source={x:Static s:ResourceService.Current}}">
             <TextBlock Text="test2" />
         </TabItem>
         <TabItem
             Grid.Column="2"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Header="新增令牌">
+            Header="{ReflectionBinding Path=Res.LocalAuth_SteamToolsImport,
+                                       Mode=OneWay,
+                                       Source={x:Static s:ResourceService.Current}}">
             <TextBlock Text="test3" />
         </TabItem>
         <TabItem
             Grid.Column="3"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Header="导出令牌">
+            Header="{ReflectionBinding Path=Res.LocalAuth_OtherImport,
+                                       Mode=OneWay,
+                                       Source={x:Static s:ResourceService.Current}}">
             <TextBlock Text="test4" />
         </TabItem>
     </TabControl>
