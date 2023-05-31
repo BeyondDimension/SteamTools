@@ -23,7 +23,7 @@ public static class UrlConstants
     public const string OfficialWebsite_LiunxSetupCer = Constants.Urls.OfficialWebsite_LiunxSetupCer;
     public const string OfficialWebsite_UnixHostAccess_ = Constants.Urls.OfficialWebsite_UnixHostAccess_;
     public const string OfficialWebsite_UnixHostAccess = Constants.Urls.OfficialWebsite_UnixHostAccess;
-    public const string OfficialWebsite_ApplicationUpdateFailCode_ = Constants.Urls.OfficialWebsite_ApplicationUpdateFailCode_;
+    public const string OfficialWebsite_ApplicationUpdateFailCode_ = Constants.Urls.OfficialWebsite_AppUpdateFailCode_;
     public const string OfficialWebsite_Notice = Constants.Urls.OfficialWebsite_Notice;
     public const string OfficialWebsite_UploadsPublishFiles = Constants.Urls.OfficialWebsite_UploadsPublishFiles;
     public const string OfficialWebsite_UploadsPublish = Constants.Urls.OfficialWebsite_UploadsPublish;

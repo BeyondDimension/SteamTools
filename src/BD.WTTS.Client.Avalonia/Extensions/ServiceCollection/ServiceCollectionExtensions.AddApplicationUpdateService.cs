@@ -17,7 +17,7 @@ public static partial class ServiceCollectionExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddApplicationUpdateService(this IServiceCollection services)
     {
-        services.AddSingleton<IApplicationUpdateService, AppUpdateServiceImpl>();
+        services.AddSingleton<IAppUpdateService, AppUpdateServiceImpl>();
         return services;
     }
 }

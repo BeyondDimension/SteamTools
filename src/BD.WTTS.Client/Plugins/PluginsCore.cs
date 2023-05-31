@@ -1,22 +1,16 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+using static BD.WTTS.AssemblyInfo;
+
 namespace BD.WTTS.Plugins;
 
 public static class PluginsCore
 {
     const string TAG = nameof(PluginsCore);
 
-    static readonly HashSet<string> ignoreDirNames = new(StringComparer.OrdinalIgnoreCase)
-    {
-        Update,
-    };
-
-    public const string Accelerator = "Accelerator";
-    public const string GameAccount = "GameAccount";
-    public const string GameList = "GameList";
-    public const string ArchiSteamFarmPlus = "ArchiSteamFarmPlus";
-    public const string Authenticator = "Authenticator";
-    public const string GameTools = "GameTools";
-    public const string Update = "Update";
+    //static readonly HashSet<string> ignoreDirNames = new(StringComparer.OrdinalIgnoreCase)
+    //{
+    //    Update,
+    //};
 
     internal static HashSet<Assembly>? LoadAssemblies(params string[] loadModules)
     {
@@ -82,8 +76,8 @@ public static class PluginsCore
             {
                 dirName ??= Path.GetDirectoryName(directory);
                 if (dirName == null) return true;
-                if (ignoreDirNames.Contains(dirName))
-                    return true;
+                //if (ignoreDirNames.Contains(dirName))
+                //    return true;
                 var dllPath = Path.Combine(directory,
                     $"Steam++.Plugins.{dirName}.dll");
                 if (File.Exists(dllPath))

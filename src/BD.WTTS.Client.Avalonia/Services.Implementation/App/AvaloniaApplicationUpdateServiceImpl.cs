@@ -2,8 +2,8 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.Services.Implementation;
 
-/// <inheritdoc cref="IApplicationUpdateService"/>
-sealed class AvaloniaApplicationUpdateServiceImpl : ApplicationUpdateServiceBaseImpl
+/// <inheritdoc cref="IAppUpdateService"/>
+sealed class AvaloniaApplicationUpdateServiceImpl : AppUpdateServiceBaseImpl
 {
     readonly IWindowManager windowManager;
 

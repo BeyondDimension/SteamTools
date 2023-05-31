@@ -27,18 +27,20 @@ global using System.IO;
 global using System.Buffers;
 global using System.IO.Pipes;
 global using PipeOptions = System.IO.Pipes.PipeOptions;
+#if !NETFRAMEWORK_SINGLE_FILE
 global using System.IO.Pipelines;
 global using PipelineOptions = System.IO.Pipelines.PipeOptions;
 #endif
+#endif
 global using System.IO.Compression;
-#if !NETFRAMEWORK && !APP_HOST
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE
 global using System.IO.FileFormats;
 #endif
 global using System.Linq;
 global using System.Linq.Expressions;
 global using System.Net;
 global using System.Net.Security;
-#if !NETFRAMEWORK && !APP_HOST
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE
 global using System.Net.Http.Headers;
 global using System.Net.Http.Json;
 global using System.Net.Http.Client;
@@ -64,7 +66,7 @@ global using System.Text.Unicode;
 #endif
 global using System.Text.RegularExpressions;
 global using System.Runtime;
-#if !NETFRAMEWORK && !APP_HOST
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE
 global using DeploymentMode = System.Runtime.DeploymentMode;
 global using System.Runtime.Devices;
 #endif
@@ -72,7 +74,7 @@ global using System.Runtime.InteropServices;
 global using System.Runtime.Versioning;
 global using System.Runtime.Serialization.Formatters;
 
-#if !NETFRAMEWORK && !APP_HOST
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 #endif
@@ -93,7 +95,7 @@ global using System.Xml;
 global using System.Xml.Serialization;
 global using System.Security.Cryptography.X509Certificates;
 global using IPAddress = System.Net.IPAddress;
-#if !NETFRAMEWORK && !APP_HOST
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE
 global using Ioc = System.Ioc;
 global using DateTimeFormat = System.DateTimeFormat;
 global using SerializationDateTimeFormat = System.Runtime.Serialization.DateTimeFormat;

@@ -67,4 +67,12 @@ false
 
     /// <inheritdoc cref="dotnetCampus.Ipc.CompilerServices.Attributes.IpcPublicAttribute.Timeout"/>
     public const int IpcTimeout = 8000;
+
+    public const string Accelerator = "Accelerator";
+    public const string GameAccount = "GameAccount";
+    public const string GameList = "GameList";
+    public const string ArchiSteamFarmPlus = "ArchiSteamFarmPlus";
+    public const string Authenticator = "Authenticator";
+    public const string GameTools = "GameTools";
+    //public const string Update = "Update";
 }

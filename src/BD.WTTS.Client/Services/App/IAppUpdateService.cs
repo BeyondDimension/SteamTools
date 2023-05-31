@@ -4,9 +4,9 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 应用程序更新服务
 /// </summary>
-public interface IApplicationUpdateService
+public interface IAppUpdateService
 {
-    static IApplicationUpdateService Instance => Ioc.Get<IApplicationUpdateService>();
+    static IAppUpdateService Instance => Ioc.Get<IAppUpdateService>();
 
     /// <summary>
     /// 升级包存放文件夹名称
@@ -36,10 +36,10 @@ public interface IApplicationUpdateService
     /// </summary>
     bool IsExistUpdate { get; }
 
-    ///// <summary>
-    ///// 新版本信息
-    ///// </summary>
-    //AppVersionDTO? NewVersionInfo { get; }
+    /// <summary>
+    /// 新版本信息
+    /// </summary>
+    AppVersionDTO? NewVersionInfo { get; }
 
     string NewVersionInfoDesc { get; }
 
@@ -60,13 +60,13 @@ public interface IApplicationUpdateService
 
     ICommand StartUpdateCommand { get; }
 
-    ///// <summary>
-    ///// 根据新版本信息获取升级包路径名
-    ///// </summary>
-    ///// <param name="m"></param>
-    ///// <param name="isDirOrFile"></param>
-    ///// <returns></returns>
-    //protected static string GetPackName(AppVersionDTO m, bool isDirOrFile) => $"{m.Version}@{Hashs.String.Crc32(m.Id.ToByteArray())}{(isDirOrFile ? "" : $"{FileEx.TAR_GZ}")}";
+    /// <summary>
+    /// 根据新版本信息获取升级包路径名
+    /// </summary>
+    /// <param name="m"></param>
+    /// <param name="isDirOrFile"></param>
+    /// <returns></returns>
+    protected static string GetPackName(AppVersionDTO m, bool isDirOrFile) => $"{m.Version}@{Hashs.String.Crc32(m.Id.ToByteArray())}{(isDirOrFile ? "" : $"{FileEx.TAR_GZ}")}";
 
     /// <summary>
     /// 获取存放升级包缓存文件夹的目录

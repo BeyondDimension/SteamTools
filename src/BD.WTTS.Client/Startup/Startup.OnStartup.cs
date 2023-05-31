@@ -39,7 +39,7 @@ partial class Startup // OnStartup
             {
                 Task2.InBackground(async () =>
                 {
-                    await IApplicationUpdateService.Instance
+                    await IAppUpdateService.Instance
                         .CheckUpdateAsync(showIsExistUpdateFalse: false);
                 });
             }

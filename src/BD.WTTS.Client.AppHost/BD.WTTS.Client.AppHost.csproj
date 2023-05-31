@@ -13,6 +13,7 @@
 		<DefineConstants>APP_HOST;$(DefineConstants)</DefineConstants>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
+		<RootNamespace>BD.WTTS</RootNamespace>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">

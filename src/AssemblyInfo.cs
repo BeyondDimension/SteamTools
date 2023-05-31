@@ -19,6 +19,8 @@ using AssemblyInfo = BD.WTTS.AssemblyInfo;
 [assembly: AssemblyTitle($"{AssemblyInfo.Title}(AppHost)")]
 #elif DESIGNER
 [assembly: AssemblyTitle($"{AssemblyInfo.Title}(Designer)")]
+#elif APP_UPDATE
+[assembly: AssemblyTitle($"{AssemblyInfo.Title}(Update)")]
 #else
 [assembly: AssemblyTitle(AssemblyInfo.Title)]
 #endif

@@ -3,6 +3,7 @@
 // https://github.com/dotnet/runtime/blob/main/docs/design/features/host-error-codes.md
 // https://github.com/dotnet/samples/blob/91355ef22a10ec614a2e8daefd68785066860d57/core/hosting/src/NativeHost/nativehost.cpp
 
+using static BD.WTTS.AssemblyInfo;
 using static BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
@@ -30,8 +31,8 @@ static unsafe partial class Program
     {
         foreach (var moduleName in new[] {
             // 依赖 AspNetCore 的模块名
-            "Accelerator",
-            "ArchiSteamFarm",
+            Accelerator,
+            ArchiSteamFarmPlus,
         })
         {
             var module_path =
