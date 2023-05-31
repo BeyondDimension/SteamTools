@@ -42,6 +42,8 @@
                             Margin="0,0,0,25"
                             HorizontalAlignment="Center"
                             Data="" />-->
+                        <!--  图片ing  -->
+
                         <TextBox
                             MaxWidth="300"
                             Text="{Binding UserName}"
