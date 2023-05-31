@@ -19,4 +19,13 @@ public sealed class AuthenticatorService
     {
         return await repository.GetAllAsync();
     }
+
+    public static async void DeleteAllAuthenticators()
+    {
+        var list = await repository.GetAllSourceAsync();
+        foreach (var item in list)
+        {
+            await repository.DeleteAsync(item.Id);
+        }
+    }
 }

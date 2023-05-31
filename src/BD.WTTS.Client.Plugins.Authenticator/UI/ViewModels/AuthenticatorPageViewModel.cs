@@ -21,6 +21,7 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
     public AuthenticatorPageViewModel()
     {
         ImportTabControlIsVisible = true;
+        //AuthenticatorService.DeleteAllAuthenticators();
     }
     //[Reactive]
     //public ObservableCollection<string> AuthenticatorTab { get; set; }
@@ -95,32 +96,6 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
         }
     }
 
-    public string? CaptchaImage
-    {
-        get => enrollState.CaptchaUrl;
-        set
-        {
-            this.RaisePropertyChanged();
-        }
-    }
-
-    public string? EmailDomain
-    {
-        get => enrollState.EmailDomain;
-        set
-        {
-            this.RaisePropertyChanged();
-        }
-    }
-
-    private bool _RequiresAdd;
-
-    public bool RequiresAdd
-    {
-        get => _RequiresAdd;
-        set => this.RaiseAndSetIfChanged(ref _RequiresAdd, value);
-    }
-
     public string? EmailAuthText
     {
         get => enrollState.EmailAuthText;
@@ -129,6 +104,30 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
             enrollState.EmailAuthText = value;
             this.RaisePropertyChanged();
         }
+    }
+
+    private string? _CaptchaImage;
+
+    public string? CaptchaImage
+    {
+        get => _CaptchaImage;
+        set => this.RaiseAndSetIfChanged(ref _CaptchaImage, value);
+    }
+
+    private string? _EmailDomain;
+
+    public string? EmailDomain
+    {
+        get => _EmailDomain;
+        set => this.RaiseAndSetIfChanged(ref _EmailDomain, value);
+    }
+
+    private bool _RequiresAdd;
+
+    public bool RequiresAdd
+    {
+        get => _RequiresAdd;
+        set => this.RaiseAndSetIfChanged(ref _RequiresAdd, value);
     }
 
     /// <summary>
@@ -241,7 +240,8 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
                 var iADTO = new AuthenticatorDTO() { Name = $"Steam({UserName})", Value = steamAuthenticator };
 
                 AuthenticatorService.AddOrUpdateSaveAuthenticators(iADTO, false, null);
-                Toast.Show(Strings.LocalAuth_SteamUserImportSuccess);
+                //Toast.Show(Strings.LocalAuth_SteamUserImportSuccess);
+                await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUserImportSuccess, IsCancelcBtn = true });
             }
 
         }
