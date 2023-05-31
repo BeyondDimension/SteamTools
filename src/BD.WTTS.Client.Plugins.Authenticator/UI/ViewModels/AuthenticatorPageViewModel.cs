@@ -245,6 +245,10 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
             }
 
         }
+        catch (WinAuthSteamToManyRequestException ex)
+        {
+            Toast.Show(ex.Message);
+        }
         catch (Exception ex)
         {
             Log.Error(nameof(AuthenticatorPageViewModel), ex, nameof(LoginSteamImport));
