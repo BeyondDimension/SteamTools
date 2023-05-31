@@ -11,16 +11,19 @@
     x:CompileBindings="True"
     x:DataType="spp:PlatformAccount"
     mc:Ignorable="d">
-    <ItemsControl ItemsSource="{Binding Accounts}">
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <WrapPanel />
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="spp:IAccount">
-                <TextBlock Text="{Binding DisplayName}" />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <Grid RowDefinitions="Auto,*">
+
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Accounts}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="spp:IAccount">
+                    <TextBlock Text="{Binding DisplayName}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 </UserControl>

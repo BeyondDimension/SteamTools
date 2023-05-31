@@ -9,5 +9,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <spp:Image2 Source="https://6tse5sb49lk6hk0n5edb56hibm4pc0iqom0ocsi2orftnim6hd5vuass.qc.dolfincdnx.net:5147/xdispatch2a304e1874a31533/media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif?bsreqid=f301830fb4dd3faaaa6a682f1482045a&amp;bsxdisp=se" />
+    <Panel>
+        <spp:Image2 Source="https://6tse5sb49lk6hk0n5edb56hibm4pc0iqom0ocsi2orftnim6hd5vuass.qc.dolfincdnx.net:5147/xdispatch2a304e1874a31533/media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif?bsreqid=f301830fb4dd3faaaa6a682f1482045a&amp;bsxdisp=se" />
+    </Panel>
 </UserControl>
