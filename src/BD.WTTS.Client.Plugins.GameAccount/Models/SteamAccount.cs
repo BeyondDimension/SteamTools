@@ -13,8 +13,8 @@ public sealed class SteamAccount : ReactiveObject, IAccount
 
     public string? DisplayName
     {
-        get => this.SteamUser.PersonaName;
-        set => this.SteamUser.PersonaName = value;
+        get => this.SteamUser.SteamNickName;
+        set => this.SteamUser.SteamID = value;
     }
 
     public string? AccountId
@@ -37,8 +37,8 @@ public sealed class SteamAccount : ReactiveObject, IAccount
 
     public string? ImagePath
     {
-        get => this.SteamUser.AvatarFull;
-        set => this.SteamUser.AvatarFull = value;
+        get => this.SteamUser.AvatarMedium;
+        set => this.SteamUser.AvatarMedium = value;
     }
 
     public ThirdpartyPlatform Platform { get; init; }

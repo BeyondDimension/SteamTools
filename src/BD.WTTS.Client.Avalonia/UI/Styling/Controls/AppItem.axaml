@@ -5,16 +5,27 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls">
     <Design.PreviewWith>
         <Border Padding="20">
-            <StackPanel>
+            <StackPanel Spacing="10">
+                <spp:AppItem
+                    Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
+                    MaxHeight="90"
+                    Description="This is a description of whatver this does"
+                    Status="免费下载"
+                    Tags="111">
+                    <spp:AppItem.Image>
+                        <spp:Image2 Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" />
+                    </spp:AppItem.Image>
+                </spp:AppItem>
+
                 <spp:AppItem
                     Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）1111111111111111111111111111"
                     MaxWidth="300"
                     Classes="Vertical"
                     Description="This is a description of whatver this does"
                     Status="免费下载">
-                    <spp:AppItem.Icon>
-                        <ui:BitmapIcon UriSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" />
-                    </spp:AppItem.Icon>
+                    <spp:AppItem.Image>
+                        <spp:Image2 Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" />
+                    </spp:AppItem.Image>
                 </spp:AppItem>
             </StackPanel>
         </Border>
@@ -28,81 +39,81 @@
         <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <StackPanel>
-                    <Border
-                        Name="LayoutRoot"
-                        Padding="12"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
-                        <Grid
-                            MinHeight="40"
-                            ColumnDefinitions="Auto,*,Auto,Auto"
-                            RowDefinitions="Auto,Auto,Auto">
-                            <Viewbox
-                                Name="IconHost"
-                                Grid.RowSpan="2"
-                                Width="24"
-                                Height="24"
-                                Margin="8,4,12,4"
-                                VerticalAlignment="Center">
-                                <ContentPresenter Content="{TemplateBinding Icon}" />
-                            </Viewbox>
+                <Border
+                    Name="LayoutRoot"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    ClipToBounds="True"
+                    CornerRadius="{StaticResource OverlayCornerRadius}">
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto,Auto">
+                        <Viewbox
+                            Name="IconHost"
+                            Grid.RowSpan="3"
+                            Height="{TemplateBinding Height}"
+                            MaxHeight="{TemplateBinding MaxHeight}"
+                            Margin="0,0,12,0"
+                            VerticalAlignment="Center">
+                            <ContentPresenter Content="{TemplateBinding Image}" />
+                        </Viewbox>
 
-                            <TextBlock
-                                Name="HeaderText"
-                                Grid.RowSpan="2"
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Classes="BaseTextBlockStyle"
-                                Text="{TemplateBinding Title}"
-                                TextTrimming="CharacterEllipsis" />
+                        <TextBlock
+                            Name="HeaderText"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Classes="BaseTextBlockStyle"
+                            FontWeight="SemiBold"
+                            Text="{TemplateBinding Title}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap" />
 
-                            <TextBlock
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                VerticalAlignment="Top"
-                                Classes="CaptionTextBlockStyle"
-                                FontSize="12"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{TemplateBinding Description}"
-                                TextWrapping="Wrap" />
+                        <ContentPresenter
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Content="{TemplateBinding Tags}"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            IsVisible="{TemplateBinding Tags,
+                                                        Converter={StaticResource IsNullConverter},
+                                                        ConverterParameter=invert}"
+                            TextWrapping="Wrap" />
 
-                            <ui:SymbolIcon
-                                Name="Chevron"
-                                Grid.RowSpan="2"
-                                Grid.Column="3"
-                                Margin="8,4"
-                                VerticalAlignment="Center"
-                                FontSize="20" />
-                        </Grid>
-                    </Border>
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            VerticalAlignment="Top"
+                            Classes="CaptionTextBlockStyle"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{TemplateBinding Description}"
+                            TextWrapping="Wrap" />
 
-                    <ContentPresenter
-                        Name="Tags"
-                        Grid.Row="2"
-                        Grid.ColumnSpan="4"
-                        Padding="12"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="1,0,1,1"
-                        Content="{TemplateBinding Tags}" />
-                </StackPanel>
-
+                        <WrapPanel
+                            Grid.RowSpan="2"
+                            Grid.Column="3"
+                            Margin="12,8"
+                            Orientation="Horizontal">
+                            <Border
+                                Padding="8,5"
+                                Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
+                                ClipToBounds="True"
+                                CornerRadius="{StaticResource ControlCornerRadius}">
+                                <TextBlock
+                                    VerticalAlignment="Top"
+                                    FontSize="12"
+                                    Text="{TemplateBinding Status}"
+                                    TextWrapping="Wrap" />
+                            </Border>
+                        </WrapPanel>
+                    </Grid>
+                </Border>
             </ControlTemplate>
         </Setter>
     </Style>
 
     <Style Selector="spp|AppItem /template/ Viewbox#IconHost">
-        <Setter Property="IsVisible" Value="False" />
-    </Style>
-    <Style Selector="spp|AppItem /template/ ui|SymbolIcon#Chevron">
         <Setter Property="IsVisible" Value="False" />
     </Style>
     <Style Selector="spp|AppItem /template/ ContentPresenter#ExpandedContentPresenter">
@@ -112,6 +123,16 @@
     <Style Selector="spp|AppItem /template/ Border#LayoutRoot:pointerover">
         <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
         <Setter Property="BoxShadow" Value="{StaticResource InfoBoxShadow}" />
+        <Style.Animations>
+            <Animation FillMode="Forward" Duration="0:0:0.1">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Margin" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Margin" Value="0 -3 0 3" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
     </Style>
     <Style Selector="spp|AppItem:pressed /template/ Border#LayoutRoot:pointerover">
         <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
@@ -121,23 +142,9 @@
         <Setter Property="IsVisible" Value="True" />
     </Style>
 
-    <Style Selector="spp|AppItem:navigates /template/ ui|SymbolIcon#Chevron">
-        <Setter Property="IsVisible" Value="True" />
-        <Setter Property="Symbol" Value="ChevronRight" />
-    </Style>
-
     <Style Selector="spp|AppItem:desc /template/ TextBlock#HeaderText">
         <Setter Property="VerticalAlignment" Value="Bottom" />
         <Setter Property="Grid.RowSpan" Value="1" />
-    </Style>
-
-    <Style Selector="spp|AppItem:expands /template/ ui|SymbolIcon#Chevron">
-        <Setter Property="IsVisible" Value="True" />
-        <Setter Property="Symbol" Value="ChevronDown" />
-    </Style>
-
-    <Style Selector="spp|AppItem:expanded /template/ ui|SymbolIcon#Chevron">
-        <Setter Property="Symbol" Value="ChevronUp" />
     </Style>
 
     <Style Selector="spp|AppItem:expanded /template/ ContentPresenter#ExpandedContentPresenter">
@@ -170,8 +177,8 @@
                     CornerRadius="{StaticResource OverlayCornerRadius}">
                     <Grid RowDefinitions="*,Auto">
                         <Border Background="Transparent">
-                            <Viewbox Name="IconHost">
-                                <ContentPresenter Content="{TemplateBinding Icon}" />
+                            <Viewbox Name="IconHost" MaxWidth="{TemplateBinding MaxWidth}">
+                                <ContentPresenter Content="{TemplateBinding Image}" />
                             </Viewbox>
                         </Border>
 
@@ -182,7 +189,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom"
                                     Classes="BaseTextBlockStyle"
-                                    FontWeight="Bold"
+                                    FontWeight="SemiBold"
                                     MaxLines="2"
                                     Text="{TemplateBinding Title}"
                                     TextTrimming="CharacterEllipsis"
@@ -191,6 +198,7 @@
                                 <ContentPresenter
                                     Margin="0,5"
                                     Content="{TemplateBinding Tags}"
+                                    FontSize="12"
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     IsVisible="{TemplateBinding Tags,
                                                                 Converter={StaticResource IsNullConverter},

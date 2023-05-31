@@ -21,7 +21,15 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="spp:IAccount">
-                    <TextBlock Text="{Binding DisplayName}" />
+                    <spp:AppItem
+                        Title="{Binding DisplayName}"
+                        Classes="Vertical"
+                        Description="{Binding LastLoginTime}"
+                        Status="最近登录">
+                        <spp:AppItem.Image>
+                            <spp:Image2 Source="{Binding ImagePath}" />
+                        </spp:AppItem.Image>
+                    </spp:AppItem>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

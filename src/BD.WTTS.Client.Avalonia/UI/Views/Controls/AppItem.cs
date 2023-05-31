@@ -11,8 +11,8 @@ public class AppItem : TemplatedControl
     public static readonly StyledProperty<string> StatusProperty =
         AvaloniaProperty.Register<AppItem, string>(nameof(Status));
 
-    public static readonly StyledProperty<FAIconElement> IconProperty =
-        AvaloniaProperty.Register<AppItem, FAIconElement>(nameof(Icon));
+    public static readonly StyledProperty<Control> ImageProperty =
+        AvaloniaProperty.Register<AppItem, Control>(nameof(Image));
 
     public static readonly StyledProperty<bool> ExpandsProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, bool>(nameof(Expands));
@@ -44,10 +44,10 @@ public class AppItem : TemplatedControl
         set => SetValue(StatusProperty, value);
     }
 
-    public FAIconElement Icon
+    public Control Image
     {
-        get => GetValue(IconProperty);
-        set => SetValue(IconProperty, value);
+        get => GetValue(ImageProperty);
+        set => SetValue(ImageProperty, value);
     }
 
     public bool Expands
@@ -97,7 +97,7 @@ public class AppItem : TemplatedControl
         }
         else if (change.Property == IsExpandedProperty)
             PseudoClasses.Set(":expanded", change.GetNewValue<bool>());
-        else if (change.Property == IconProperty)
+        else if (change.Property == ImageProperty)
             PseudoClasses.Set(":icon", change.NewValue != null);
     }
 
