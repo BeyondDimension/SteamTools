@@ -6,7 +6,7 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 反向代理服务
 /// </summary>
-[IpcPublic(Timeout = 7500, IgnoresIpcException = false)]
+[IpcPublic(Timeout = AssemblyInfo.IpcTimeout, IgnoresIpcException = false)]
 public partial interface IReverseProxyService : IDisposable, IReverseProxySettings
 {
     /// <summary>

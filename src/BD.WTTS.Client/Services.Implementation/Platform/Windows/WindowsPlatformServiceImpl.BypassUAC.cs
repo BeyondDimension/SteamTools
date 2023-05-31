@@ -141,8 +141,10 @@ partial class WindowsPlatformServiceImpl
     /// <returns></returns>
     internal static async ValueTask<Process?> StartAsAdministrator(string fileName, string? arguments = null)
     {
+#if !DEBUG
         if (IPlatformService._IsAdministrator.Value)
             return Process2.Start(fileName, arguments);
+#endif
 
         var process = await StartAsAdministratorByBypassUAC(fileName, arguments);
         if (process != null)

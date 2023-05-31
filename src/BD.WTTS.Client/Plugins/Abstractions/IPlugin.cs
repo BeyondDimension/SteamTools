@@ -81,4 +81,11 @@ public interface IPlugin : IExplicitHasValue
     /// <param name="encodedArgs"></param>
     /// <returns></returns>
     Task<int> RunSubProcessMainAsync(string moduleName, string pipeName, string processId, string encodedArgs);
+
+    /// <summary>
+    /// 当子进程 IPC 管道连接中
+    /// </summary>
+    /// <param name="isReconnected">是否为重连</param>
+    /// <returns></returns>
+    ValueTask OnPeerConnected(bool isReconnected);
 }

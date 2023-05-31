@@ -111,4 +111,9 @@ public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<T
     {
         return default;
     }
+
+    public virtual ValueTask OnPeerConnected(bool isReconnected)
+    {
+        return ValueTask.CompletedTask;
+    }
 }

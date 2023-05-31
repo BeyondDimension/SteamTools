@@ -56,8 +56,8 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
     }
 
     readonly ConcurrentDictionary<string, Process> subProcesses = new();
-    readonly ConcurrentDictionary<string, Func<IPCMainProcessService, ValueTask<Process?>>>
-        startSubProcesses = new();
+    readonly ConcurrentDictionary<string, Func<IPCMainProcessService, ValueTask<Process?>>> startSubProcesses = new();
+    readonly ConcurrentBag<string> isReconnected = new();
 
     void AddSubProcess(string moduleName, Process? process)
     {
@@ -173,9 +173,7 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             });
         ConfigureServices();
         ipcProvider.StartServer();
-#if DEBUG
         ipcProvider.PeerConnected += IpcProvider_PeerConnected;
-#endif
 
 #if WINDOWS
         // 启动管理员权限服务进程
@@ -197,19 +195,48 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
                     return process;
                 });
             });
-            await IPlatformService.IPCRoot.SetIPC(this);
         });
 #endif
     }
 
-#if DEBUG
-    void IpcProvider_PeerConnected(object? sender, PeerConnectedArgs e)
+    async void IpcProvider_PeerConnected(object? sender, PeerConnectedArgs e)
     {
 #if DEBUG
         logger.LogError("收到 {peerName} 连接", e.Peer.PeerName);
 #endif
+        var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
+        var moduleName = e.Peer.PeerName.TrimStart($"{pipeName}_");
+
+        var isReconnected = this.isReconnected.Contains(moduleName);
+        if (!isReconnected) this.isReconnected.Add(moduleName);
+
+        switch (moduleName)
+        {
+            case IPlatformService.IPCRoot.moduleName:
+                if (!isReconnected)
+                {
+                    await IPlatformService.IPCRoot.SetIPC(this);
+                }
+                return;
+        }
+
+        if (Startup.Instance.TryGetPlugins(out var plugins))
+        {
+            foreach (var plugin in plugins)
+            {
+                if (plugin.Name != moduleName)
+                    continue;
+                try
+                {
+                    await plugin.OnPeerConnected(isReconnected);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "IpcProvider_PeerConnected fail.");
+                }
+            }
+        }
     }
-#endif
 
     public async ValueTask<T?> GetServiceAsync<T>(string moduleName) where T : class
     {
@@ -222,6 +249,10 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
                 moduleName, ipcProvider.IpcContext.PipeName);
             var peer = await ipcProvider.GetAndConnectToPeerAsync(peerName);
 #if DEBUG
+            peer.MessageReceived += (_, e) =>
+            {
+
+            };
             peer.PeerReconnected += (_, _) =>
             {
 #if DEBUG

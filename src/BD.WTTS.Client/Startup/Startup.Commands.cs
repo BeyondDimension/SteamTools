@@ -307,10 +307,9 @@ partial class Startup // 自定义控制台命令参数
         // -clt sudo
         var sudo = new Command(IPlatformService.IPCRoot.CommandName, "使用管理员权限启动 IPC 服务进程")
         {
-            Handler = CommandHandler.Create(async (string n, string p) =>
+            Handler = CommandHandler.Create(async (string n, ushort p) =>
             {
-                if (string.IsNullOrWhiteSpace(n) ||
-                    string.IsNullOrWhiteSpace(p))
+                if (string.IsNullOrWhiteSpace(n) || p == default)
                     return 400;
 
                 if (!IPlatformService._IsAdministrator.Value)
@@ -324,8 +323,12 @@ partial class Startup // 自定义控制台命令参数
                     var exitCode = await IPCSubProcessService.MainAsync(IPlatformService.IPCRoot.moduleName, ConfigureServices, static ipcProvider =>
                     {
                         // 添加平台服务（供主进程的 IPC 远程访问）
-                        ipcProvider.CreateIpcJoint<IPCPlatformService>(IPlatformService.Instance);
-                    }, new[] { n, p });
+                        var platformService = IPlatformService.Instance;
+#if DEBUG
+                        Console.WriteLine(platformService.GetDebugString());
+#endif
+                        ipcProvider.CreateIpcJoint<IPCPlatformService>(platformService);
+                    }, new[] { n, p.ToString() });
 
                     return exitCode;
                 }
@@ -338,7 +341,7 @@ partial class Startup // 自定义控制台命令参数
             }),
         };
         sudo.AddOption(new Option<string>(IPlatformService.IPCRoot.args_PipeName, "IPC 管道名"));
-        sudo.AddOption(new Option<string>(IPlatformService.IPCRoot.args_ProcessId, "主进程 Id"));
+        sudo.AddOption(new Option<ushort>(IPlatformService.IPCRoot.args_ProcessId, "主进程 Id"));
         rootCommand.AddCommand(sudo);
 #endif
 
