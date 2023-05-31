@@ -64,4 +64,7 @@ false
         ;
 
     public const string APPLICATION_ID = "net.steampp.app";
+
+    /// <inheritdoc cref="dotnetCampus.Ipc.CompilerServices.Attributes.IpcPublicAttribute.Timeout"/>
+    public const int IpcTimeout = 8000;
 }

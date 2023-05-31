@@ -32,7 +32,26 @@ public partial interface IPlatformService : IPCPlatformService
             try
             {
                 var iPCPlatformService = await ipc.GetServiceAsync<IPCPlatformService>(moduleName);
-            T: iPCPlatformService.ThrowIsNull();
+                /*T: */
+                iPCPlatformService.ThrowIsNull();
+                //#if DEBUG
+                //                Task2.InBackground(async () =>
+                //                {
+                //                    while (true)
+                //                    {
+                //                        try
+                //                        {
+                //                            var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(typeof(IPlatformService))?.FullName}{Environment.NewLine}{iPCPlatformService.GetDebugString()}";
+                //                            Console.WriteLine($"DebugString/IPCPlatformService: {debugStringIPC}");
+                //                        }
+                //                        catch (Exception ex)
+                //                        {
+                //                            Console.WriteLine(ex);
+                //                        }
+                //                        await Task.Delay(500);
+                //                    }
+                //                });
+                //#endif
 #if DEBUG
                 try
                 {
@@ -47,26 +66,8 @@ public partial interface IPlatformService : IPCPlatformService
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
-                    goto T;
+                    //goto T;
                 }
-#endif
-#if DEBUG
-                Task2.InBackground(async () =>
-                {
-                    while (true)
-                    {
-                        try
-                        {
-                            var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(typeof(IPlatformService))?.FullName}{Environment.NewLine}{iPCPlatformService.GetDebugString()}";
-                            Console.WriteLine($"DebugString/IPCPlatformService: {debugStringIPC}");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex);
-                        }
-                        await Task.Delay(500);
-                    }
-                });
 #endif
                 tcs.TrySetResult(iPCPlatformService);
             }

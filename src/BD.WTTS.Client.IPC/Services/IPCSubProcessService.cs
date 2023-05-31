@@ -60,34 +60,55 @@ public interface IPCSubProcessService : IDisposable
             tcs.TrySetResult(); // 监听主进程退出时关闭当前子进程
         };
 
-        Task2.InBackground(async () =>
-        {
-            try
-            {
-#if LIB_CLIENT_IPC
-                Ioc.ConfigureServices(services =>
-                {
-                    services.AddSingleton(_ => Instance);
-                    configureServices?.Invoke(services);
-                });
+#if DEBUG
+        Console.WriteLine("mainProcess");
 #endif
-                iPCSubProcessServiceImpl = new(Ioc.Get<ILoggerFactory>());
-                await iPCSubProcessServiceImpl
-                    .RunAsync(moduleName, tcs,
-                    pipeName, configureIpcProvider);
-            }
-            catch (Exception ex)
-            {
-                tcs.TrySetException(ex);
-            }
-        });
 
         try
         {
+#if LIB_CLIENT_IPC
+            Ioc.ConfigureServices(services =>
+            {
+                services.AddSingleton(_ => Instance);
+                configureServices?.Invoke(services);
+            });
+#endif
+            iPCSubProcessServiceImpl = new(Ioc.Get<ILoggerFactory>());
+#if DEBUG
+            Console.WriteLine("iPCSubProcessServiceImpl");
+#endif
+            await iPCSubProcessServiceImpl
+                .RunAsync(moduleName, tcs,
+                pipeName, configureIpcProvider);
+#if DEBUG
+            Console.WriteLine("RunAsync");
+#endif
+        }
+        catch (Exception ex)
+        {
+            tcs.TrySetException(ex);
+        }
+
+        try
+        {
+#if DEBUG
+            Console.WriteLine("tcs");
+#endif
             await tcs.Task;
+#if DEBUG
+            Console.WriteLine("tcs2");
+#endif
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            return (int)CommandExitCode.HttpStatusCodeInternalServerError;
         }
         finally
         {
+#if DEBUG
+            Console.WriteLine("finally");
+#endif
             await Ioc.DisposeAsync();
             iPCSubProcessServiceImpl?.Dispose();
         }

@@ -30,7 +30,7 @@ sealed class Plugin : PluginBase<Plugin>
         };
     }
 
-    IReverseProxyService? reverseProxyService;
+    readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new();
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {
@@ -40,7 +40,7 @@ sealed class Plugin : PluginBase<Plugin>
         {
 #if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             // 添加反向代理服务（主进程插件）
-            services.AddSingleton(_ => reverseProxyService!);
+            services.AddSingleton(_ => reverseProxyService.Task.GetAwaiter().GetResult());
 #endif
         }
 
@@ -58,7 +58,7 @@ sealed class Plugin : PluginBase<Plugin>
 #endif
     }
 
-    public override async ValueTask OnInitializeAsync()
+    public override ValueTask OnInitializeAsync()
     {
         var ipc = IPCMainProcessService.Instance;
 
@@ -68,23 +68,41 @@ sealed class Plugin : PluginBase<Plugin>
             return ipc.StartSubProcess(SubProcessPath.ThrowIsNull());
         });
 
-        // 从子进程中获取 IPC 远程服务
-        reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);
+        return ValueTask.CompletedTask;
+    }
+
+    public override async ValueTask OnPeerConnected(bool isReconnected)
+    {
+        if (!isReconnected)
+        {
+            var ipc = IPCMainProcessService.Instance;
+
+            // 从子进程中获取 IPC 远程服务
+            try
+            {
+                var reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);
+                this.reverseProxyService.TrySetResult(reverseProxyService.ThrowIsNull());
+            }
+            catch (Exception ex)
+            {
+                reverseProxyService.TrySetException(ex);
+            }
 #if DEBUG
-        try
-        {
-            var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(GetType())?.FullName}{Environment.NewLine}{reverseProxyService?.GetDebugString()}";
-            Console.WriteLine($"DebugString/IReverseProxyService: {debugStringIPC}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-        }
+            try
+            {
+                var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(GetType())?.FullName}{Environment.NewLine}{reverseProxyService.Task.GetAwaiter().GetResult().GetDebugString()}";
+                Console.WriteLine($"DebugString/IReverseProxyService: {debugStringIPC}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 #endif
 
-        if (ResourceService.IsChineseSimplified)
-        {
-            await ProxyService.Current.InitializeAsync();
+            if (ResourceService.IsChineseSimplified)
+            {
+                await ProxyService.Current.InitializeAsync();
+            }
         }
     }
 
