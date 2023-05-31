@@ -21,7 +21,6 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
     public AuthenticatorPageViewModel()
     {
         ImportTabControlIsVisible = true;
-        AuthenticatorService.GetAllAuthenticators();
     }
     //[Reactive]
     //public ObservableCollection<string> AuthenticatorTab { get; set; }
@@ -140,6 +139,8 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
         enrollState = new() { RequiresLogin = true };
         RequiresLogin = true;
         RequiresAdd = false;
+        UserName = null;
+        Password = null;
     }
 
     private bool _IsLogining;
@@ -238,6 +239,7 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
                 var iADTO = new AuthenticatorDTO() { Name = $"Steam({UserName})", Value = steamAuthenticator };
 
                 AuthenticatorService.AddOrUpdateSaveAuthenticators(iADTO, false, null);
+                Toast.Show(Strings.LocalAuth_SteamUserImportSuccess);
             }
 
         }
