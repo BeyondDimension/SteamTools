@@ -173,6 +173,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Generators", "src\B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Avalonia.Designer.HostApp", "src\BD.WTTS.Client.Avalonia.Designer.HostApp\BD.WTTS.Client.Avalonia.Designer.HostApp.csproj", "{97606D06-F662-463C-A797-0DA83D1A0A58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avalonia.Base.Internals", "src\Avalonia.Base.Internals\Avalonia.Base.Internals.csproj", "{C16C1A52-9394-4FAD-9601-3D7D0D7DDB1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -315,6 +317,10 @@ Global
 		{97606D06-F662-463C-A797-0DA83D1A0A58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97606D06-F662-463C-A797-0DA83D1A0A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97606D06-F662-463C-A797-0DA83D1A0A58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C16C1A52-9394-4FAD-9601-3D7D0D7DDB1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C16C1A52-9394-4FAD-9601-3D7D0D7DDB1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C16C1A52-9394-4FAD-9601-3D7D0D7DDB1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C16C1A52-9394-4FAD-9601-3D7D0D7DDB1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -363,6 +369,7 @@ Global
 		{C87A1043-C3E2-450A-B2EE-65B54ABFDEFC} = {CE475939-6363-4144-B18F-2F91CC297E91}
 		{87282597-7AF9-4904-8DEF-2122335CB87C} = {D6C8A54D-878F-44A9-857F-6ED01491C7BD}
 		{97606D06-F662-463C-A797-0DA83D1A0A58} = {D6C8A54D-878F-44A9-857F-6ED01491C7BD}
+		{C16C1A52-9394-4FAD-9601-3D7D0D7DDB1C} = {1BD19276-7DEF-4659-9DBF-28E8E5078698}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {567F588F-E95C-4286-8B30-DB3B2200221C}

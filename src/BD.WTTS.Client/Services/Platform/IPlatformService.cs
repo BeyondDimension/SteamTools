@@ -32,17 +32,41 @@ public partial interface IPlatformService : IPCPlatformService
             try
             {
                 var iPCPlatformService = await ipc.GetServiceAsync<IPCPlatformService>(moduleName);
-                iPCPlatformService.ThrowIsNull();
+            T: iPCPlatformService.ThrowIsNull();
 #if DEBUG
                 try
                 {
-                    var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(typeof(IPlatformService))?.FullName}{Environment.NewLine}{iPCPlatformService.GetDebugString()}";
+                    string debugStringIPC = null!;
+                    //using (var stream = new MemoryStream("MemoryStream"u8.ToArray()))
+                    //{
+                    debugStringIPC = iPCPlatformService.GetDebugString(/*stream*/);
+                    //}
+                    debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(typeof(IPlatformService))?.FullName}{Environment.NewLine}{debugStringIPC}";
                     Console.WriteLine($"DebugString/IPCPlatformService: {debugStringIPC}");
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
+                    goto T;
                 }
+#endif
+#if DEBUG
+                Task2.InBackground(async () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(typeof(IPlatformService))?.FullName}{Environment.NewLine}{iPCPlatformService.GetDebugString()}";
+                            Console.WriteLine($"DebugString/IPCPlatformService: {debugStringIPC}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex);
+                        }
+                        await Task.Delay(500);
+                    }
+                });
 #endif
                 tcs.TrySetResult(iPCPlatformService);
             }

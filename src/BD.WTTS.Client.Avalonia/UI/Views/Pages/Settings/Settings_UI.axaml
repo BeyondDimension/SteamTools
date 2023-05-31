@@ -14,30 +14,29 @@
     x:CompileBindings="True"
     x:DataType="spp:SettingsPageViewModel"
     mc:Ignorable="d">
-	<StackPanel Margin="15" Spacing="5">
-		<TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.Settings_UI, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-		<spp:OptionsDisplayItem
+    <StackPanel Margin="15" Spacing="5">
+        <TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.Settings_UI, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <spp:OptionsDisplayItem
             Description="设置程序的主题风格"
             Header="{ReflectionBinding Path=Res.Settings_Theme,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
             Icon="DarkTheme">
-			<spp:OptionsDisplayItem.ActionButton>
-				<ComboBox SelectedItem="{ReflectionBinding Source={x:Static ms:UISettings.Theme}, Path=Value, Mode=TwoWay,Converter={StaticResource
-						  EnumConverter},ConverterParameter={x:Type spp:AppTheme}}">
-					<ComboBox.Items>
-						<spp:AppTheme>FollowingSystem</spp:AppTheme>
-						<spp:AppTheme>Light</spp:AppTheme>
-						<spp:AppTheme>Dark</spp:AppTheme>
-					</ComboBox.Items>
-					<!--<ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            <spp:OptionsDisplayItem.ActionButton>
+                <ComboBox SelectedItem="{ReflectionBinding Source={x:Static ms:UISettings.Theme}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp:AppTheme}}">
+                    <ComboBox.Items>
+                        <spp:AppTheme>FollowingSystem</spp:AppTheme>
+                        <spp:AppTheme>Light</spp:AppTheme>
+                        <spp:AppTheme>Dark</spp:AppTheme>
+                    </ComboBox.Items>
+                    <!--<ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 					<ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Light, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 					<ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Dark, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-					<!--<ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_HighContrast,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>-->
-				</ComboBox>
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
-		<spp:OptionsDisplayItem
+                    <!--<ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_HighContrast,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>-->
+                </ComboBox>
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
+        <spp:OptionsDisplayItem
             Description="设置程序中显示的强调色"
             Expands="True"
             Header="{ReflectionBinding Path=Res.Settings_ThemeAccent,
@@ -45,10 +44,10 @@
                                        Source={x:Static s:ResourceService.Current}}"
             Icon="ColorLine"
             IsExpanded="{Binding Path=IsChecked, ElementName=AccentCustom, Mode=OneWay}">
-			<spp:OptionsDisplayItem.ActionButton>
-				<StackPanel Orientation="Horizontal" Spacing="10">
-					<RadioButton Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.UseSystemThemeAccent}, Path=Value, Mode=TwoWay}" />
-					<RadioButton
+            <spp:OptionsDisplayItem.ActionButton>
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <RadioButton Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.UseSystemThemeAccent}, Path=Value, Mode=TwoWay}" />
+                    <RadioButton
                         x:Name="AccentCustom"
                         Content="{ReflectionBinding Path=Res.Settings_UI_Custom,
                                                     Mode=OneWay,
@@ -56,117 +55,117 @@
                         IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.UseSystemThemeAccent},
                                                       Path=!Value,
                                                       Mode=OneWay}" />
-				</StackPanel>
-			</spp:OptionsDisplayItem.ActionButton>
-			<spp:OptionsDisplayItem.Content>
-				<StackPanel Spacing="4">
-					<DockPanel Margin="24,0,0,6" LastChildFill="False">
-						<TextBlock
+                </StackPanel>
+            </spp:OptionsDisplayItem.ActionButton>
+            <spp:OptionsDisplayItem.Content>
+                <StackPanel Spacing="4">
+                    <DockPanel Margin="24,0,0,6" LastChildFill="False">
+                        <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
                             Text="预览颜色" />
 
-						<Grid
+                        <Grid
                             HorizontalAlignment="Left"
                             ColumnDefinitions="*,*"
                             DockPanel.Dock="Right"
                             RowDefinitions="*,*,*,*">
-							<Border
+                            <Border
                                 Grid.ColumnSpan="2"
                                 Height="40"
                                 Background="{DynamicResource SystemAccentColor}">
-								<TextBlock
+                                <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                                     Text="SystemAccentColor" />
-							</Border>
+                            </Border>
 
-							<Border
+                            <Border
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 Width="90"
                                 Height="40"
                                 Background="{DynamicResource SystemAccentColorLight1}">
-								<TextBlock
+                                <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                                     Text="Light1" />
-							</Border>
-							<Border
+                            </Border>
+                            <Border
                                 Grid.Row="2"
                                 Grid.Column="0"
                                 Width="90"
                                 Height="40"
                                 Background="{DynamicResource SystemAccentColorLight2}">
-								<TextBlock
+                                <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                                     Text="Light2" />
-							</Border>
-							<Border
+                            </Border>
+                            <Border
                                 Grid.Row="3"
                                 Grid.Column="0"
                                 Width="90"
                                 Height="40"
                                 Background="{DynamicResource SystemAccentColorLight3}">
-								<TextBlock
+                                <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                                     Text="Light3" />
-							</Border>
+                            </Border>
 
-							<Border
+                            <Border
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Width="90"
                                 Height="40"
                                 Background="{DynamicResource SystemAccentColorDark1}">
-								<TextBlock
+                                <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                                     Text="Dark1" />
-							</Border>
-							<Border
+                            </Border>
+                            <Border
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 Width="90"
                                 Height="40"
                                 Background="{DynamicResource SystemAccentColorDark2}">
-								<TextBlock
+                                <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                                     Text="Dark2" />
-							</Border>
-							<Border
+                            </Border>
+                            <Border
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 Width="90"
                                 Height="40"
                                 Background="{DynamicResource SystemAccentColorDark3}">
-								<TextBlock
+                                <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                                     Text="Dark3" />
-							</Border>
-						</Grid>
-					</DockPanel>
+                            </Border>
+                        </Grid>
+                    </DockPanel>
 
-					<Border
+                    <Border
                         Height="1"
                         Margin="-20"
                         Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
 
 
-					<TextBlock Margin="24,24,0,0" Text="Windows 颜色" />
+                    <TextBlock Margin="24,24,0,0" Text="Windows 颜色" />
 
-					<ListBox
+                    <ListBox
                         Name="ColorListBox"
                         MaxWidth="441"
                         Margin="24,0,24,12"
@@ -176,31 +175,31 @@
                                                          Converter={StaticResource ColorStringToBrushConverter},
                                                          Path=Value,
                                                          Mode=TwoWay}">
-						<ListBox.ItemsPanel>
-							<ItemsPanelTemplate>
-								<WrapPanel />
-							</ItemsPanelTemplate>
-						</ListBox.ItemsPanel>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
 
-						<ListBox.Styles>
-							<Style Selector="ListBoxItem">
-								<Setter Property="Width" Value="48" />
-								<Setter Property="Height" Value="48" />
-								<Setter Property="MinWidth" Value="0" />
-								<Setter Property="Margin" Value="1 1 0 0" />
-								<Setter Property="Template">
-									<ControlTemplate>
-										<Panel>
-											<Border
+                        <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="Width" Value="48" />
+                                <Setter Property="Height" Value="48" />
+                                <Setter Property="MinWidth" Value="0" />
+                                <Setter Property="Margin" Value="1 1 0 0" />
+                                <Setter Property="Template">
+                                    <ControlTemplate>
+                                        <Panel>
+                                            <Border
                                                 Name="Root"
                                                 BorderThickness="2"
                                                 CornerRadius="{StaticResource ControlCornerRadius}">
-												<Border.Background>
-													<SolidColorBrush Color="{Binding}" />
-												</Border.Background>
-											</Border>
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="{Binding}" />
+                                                </Border.Background>
+                                            </Border>
 
-											<Border
+                                            <Border
                                                 Name="Check"
                                                 Width="20"
                                                 Height="20"
@@ -208,44 +207,44 @@
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Top"
                                                 Background="{DynamicResource FocusStrokeColorOuter}">
-												<ui:SymbolIcon
+                                                <ui:SymbolIcon
                                                     FontSize="18"
                                                     Foreground="{DynamicResource SystemAccentColor}"
                                                     Symbol="Checkmark" />
-											</Border>
-										</Panel>
-									</ControlTemplate>
-								</Setter>
-							</Style>
-							<Style Selector="ListBoxItem /template/ Border#Check">
-								<Setter Property="IsVisible" Value="False" />
-							</Style>
-							<Style Selector="ListBoxItem:pointerover /template/ Border#Root">
-								<Setter Property="BorderBrush" Value="{DynamicResource FocusStrokeColorOuter}" />
-							</Style>
+                                            </Border>
+                                        </Panel>
+                                    </ControlTemplate>
+                                </Setter>
+                            </Style>
+                            <Style Selector="ListBoxItem /template/ Border#Check">
+                                <Setter Property="IsVisible" Value="False" />
+                            </Style>
+                            <Style Selector="ListBoxItem:pointerover /template/ Border#Root">
+                                <Setter Property="BorderBrush" Value="{DynamicResource FocusStrokeColorOuter}" />
+                            </Style>
 
-							<Style Selector="ListBoxItem:selected /template/ Border#Root">
-								<Setter Property="BorderBrush" Value="{DynamicResource FocusStrokeColorOuter}" />
-							</Style>
-							<Style Selector="ListBoxItem:selected /template/ Border#Check">
-								<Setter Property="IsVisible" Value="True" />
-							</Style>
-						</ListBox.Styles>
+                            <Style Selector="ListBoxItem:selected /template/ Border#Root">
+                                <Setter Property="BorderBrush" Value="{DynamicResource FocusStrokeColorOuter}" />
+                            </Style>
+                            <Style Selector="ListBoxItem:selected /template/ Border#Check">
+                                <Setter Property="IsVisible" Value="True" />
+                            </Style>
+                        </ListBox.Styles>
 
-					</ListBox>
+                    </ListBox>
 
-					<Border
+                    <Border
                         Height="1"
                         Margin="-20"
                         Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
 
-					<DockPanel Margin="24,6,0,0" LastChildFill="False">
-						<TextBlock
+                    <DockPanel Margin="24,6,0,0" LastChildFill="False">
+                        <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
                             Text="自定义颜色" />
 
-						<ui:ColorPickerButton
+                        <ui:ColorPickerButton
                             DockPanel.Dock="Right"
                             IsCompact="True"
                             IsMoreButtonVisible="True"
@@ -258,95 +257,95 @@
                                                       Converter={StaticResource ColorStringToBrushConverter},
                                                       Path=Value,
                                                       Mode=TwoWay}" />
-					</DockPanel>
-				</StackPanel>
-			</spp:OptionsDisplayItem.Content>
-		</spp:OptionsDisplayItem>
+                    </DockPanel>
+                </StackPanel>
+            </spp:OptionsDisplayItem.Content>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem
+        <spp:OptionsDisplayItem
             Description="设置程序首选的显示语言"
             Header="{ReflectionBinding Path=Res.Settings_Language,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
             Navigates="False">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<ComboBox ItemsSource="{x:Static s:ResourceService.Languages}" SelectedItem="{Binding SelectLanguage, Mode=TwoWay}">
-					<ComboBox.ItemTemplate>
-						<DataTemplate>
-							<TextBlock Text="{ReflectionBinding Value, Mode=OneWay}" />
-						</DataTemplate>
-					</ComboBox.ItemTemplate>
-				</ComboBox>
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ComboBox ItemsSource="{x:Static s:ResourceService.Languages}" SelectedItem="{Binding SelectLanguage, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{ReflectionBinding Value, Mode=OneWay}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem
+        <spp:OptionsDisplayItem
             Description="设置程序首选的字体"
             Header="{ReflectionBinding Path=Res.Settings_Fonts,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
             Icon="Font"
             Navigates="False">
-			<spp:OptionsDisplayItem.ActionButton>
-				<ComboBox
+            <spp:OptionsDisplayItem.ActionButton>
+                <ComboBox
                     AutoScrollToSelectedItem="True"
                     ItemsSource="{ReflectionBinding Mode=OneWay,
                                                     Source={x:Static s:ResourceService.Fonts}}"
                     MaxDropDownHeight="300"
                     SelectedItem="{Binding SelectFont}">
-					<ComboBox.ItemTemplate>
-						<DataTemplate>
-							<TextBlock FontFamily="{ReflectionBinding Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" Text="{ReflectionBinding Key, Mode=OneWay}" />
-						</DataTemplate>
-					</ComboBox.ItemTemplate>
-				</ComboBox>
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock FontFamily="{ReflectionBinding Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" Text="{ReflectionBinding Key, Mode=OneWay}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem
+        <spp:OptionsDisplayItem
             Description="设置窗口背景透明效果和透明材质"
             Header="{ReflectionBinding Path=Res.Settings_UI_WindowTransparencyMaterial,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
             Navigates="False">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF4A5;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<ComboBox SelectedItem="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundMaterial}, Path=Value, Mode=TwoWay}">
-					<ComboBox.Items>
-						<spp:WindowBackgroundMaterial>None</spp:WindowBackgroundMaterial>
-						<spp:WindowBackgroundMaterial>Blur</spp:WindowBackgroundMaterial>
-						<spp:WindowBackgroundMaterial>AcrylicBlur</spp:WindowBackgroundMaterial>
-						<spp:WindowBackgroundMaterial>Mica</spp:WindowBackgroundMaterial>
-					</ComboBox.Items>
-					<!--<ComboBoxItem Content="{x:Static spp:WindowBackgroundMaterial.None}" />
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF4A5;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ComboBox SelectedItem="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundMaterial}, Path=Value, Mode=TwoWay}">
+                    <ComboBox.Items>
+                        <spp:WindowBackgroundMaterial>None</spp:WindowBackgroundMaterial>
+                        <spp:WindowBackgroundMaterial>Blur</spp:WindowBackgroundMaterial>
+                        <spp:WindowBackgroundMaterial>AcrylicBlur</spp:WindowBackgroundMaterial>
+                        <spp:WindowBackgroundMaterial>Mica</spp:WindowBackgroundMaterial>
+                    </ComboBox.Items>
+                    <!--<ComboBoxItem Content="{x:Static spp:WindowBackgroundMaterial.None}" />
 					<ComboBoxItem Content="{x:Static spp:WindowBackgroundMaterial.Blur}" />
 					<ComboBoxItem Content="{x:Static spp:WindowBackgroundMaterial.AcrylicBlur}" />
 					<ComboBoxItem Content="{x:Static spp:WindowBackgroundMaterial.Mica}" IsVisible="{spp:OnPlatform Windows11AtLeast}" />-->
-				</ComboBox>
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+                </ComboBox>
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_UI_BackgroundOpacity, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Navigates="False">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE706;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<Slider
+        <spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_UI_BackgroundOpacity, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Navigates="False">
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE706;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <Slider
                     MinWidth="250"
                     Maximum="1.0"
                     Minimum="0"
                     Value="{ReflectionBinding Value,
                                               Source={x:Static ms:UISettings.WindowBackgroundOpacity},
                                               Mode=TwoWay}" />
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem
+        <spp:OptionsDisplayItem
             Expands="True"
             Header="{ReflectionBinding Path=Res.Settings_UI_CustomBackgroundImage,
                                        Mode=OneWay,
@@ -355,26 +354,27 @@
                                            Path=Value,
                                            Mode=OneWay}"
             Navigates="False">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE91B;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=TwoWay}" />
-			</spp:OptionsDisplayItem.ActionButton>
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE91B;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=TwoWay}" />
+            </spp:OptionsDisplayItem.ActionButton>
 
-			<spp:OptionsDisplayItem.Content>
-				<StackPanel Spacing="4">
-					<DockPanel Margin="24,0,0,6" LastChildFill="False">
-						<TextBlock
+            <spp:OptionsDisplayItem.Content>
+                <StackPanel Spacing="4">
+                    <DockPanel Margin="24,0,0,6" LastChildFill="False">
+                        <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
                             Text="预览图片" />
 
-						<Image
+                        <Image
                             Width="250"
                             Height="150"
                             HorizontalAlignment="Left"
                             DockPanel.Dock="Right"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
                             Source="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImagePath},
                                                        Path=Value,
                                                        Mode=OneWay,
@@ -382,24 +382,24 @@
                             Stretch="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImageStretch},
                                                         Path=Value,
                                                         Mode=OneWay,
-														Converter={StaticResource EnumConverter},
-														ConverterParameter={x:Type Stretch}}" />
-					</DockPanel>
+                                                        Converter={StaticResource EnumConverter},
+                                                        ConverterParameter={x:Type Stretch}}" />
+                    </DockPanel>
 
-					<Border
+                    <Border
                         Height="1"
                         Margin="-20"
                         Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
 
 
-					<DockPanel Margin="24,6,0,6" LastChildFill="False">
-						<TextBlock
+                    <DockPanel Margin="24,6,0,6" LastChildFill="False">
+                        <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
                             Text="{ReflectionBinding Path=Res.Settings_UI_BackgroundImageOpacity,
                                                      Mode=OneWay,
                                                      Source={x:Static s:ResourceService.Current}}" />
-						<Slider
+                        <Slider
                             MinWidth="250"
                             DockPanel.Dock="Right"
                             Maximum="1.0"
@@ -407,52 +407,52 @@
                             Value="{ReflectionBinding Value,
                                                       Source={x:Static ms:UISettings.WindowBackgroundOpacity},
                                                       Mode=TwoWay}" />
-					</DockPanel>
+                    </DockPanel>
 
-					<Border
+                    <Border
                         Height="1"
                         Margin="-20"
                         Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
 
 
-					<DockPanel Margin="24,6,0,6" LastChildFill="False">
-						<TextBlock
+                    <DockPanel Margin="24,6,0,6" LastChildFill="False">
+                        <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
                             Text="选择一张照片" />
-						<Button
+                        <Button
                             MinWidth="150"
                             Command="{Binding SelectImage_Click}"
                             Content="{ReflectionBinding Path=Res.Settings_UI_SelectImage,
                                                         Mode=OneWay,
                                                         Source={x:Static s:ResourceService.Current}}"
                             DockPanel.Dock="Right" />
-					</DockPanel>
+                    </DockPanel>
 
-					<Border
+                    <Border
                         Height="1"
                         Margin="-20"
                         Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
 
-					<DockPanel Margin="24,6,0,0" LastChildFill="False">
-						<TextBlock
+                    <DockPanel Margin="24,6,0,0" LastChildFill="False">
+                        <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
                             Text="选择图片缩放方式" />
-						<ComboBox
+                        <ComboBox
                             MinWidth="150"
                             DockPanel.Dock="Right"
                             SelectedItem="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImageStretch}, Path=Value, Mode=TwoWay}">
-							<ComboBox.Items>
-								<spp:XamlMediaStretch>Fill</spp:XamlMediaStretch>
-								<spp:XamlMediaStretch>None</spp:XamlMediaStretch>
-								<spp:XamlMediaStretch>Uniform</spp:XamlMediaStretch>
-								<spp:XamlMediaStretch>UniformToFill</spp:XamlMediaStretch>
-							</ComboBox.Items>
-						</ComboBox>
-					</DockPanel>
-				</StackPanel>
-			</spp:OptionsDisplayItem.Content>
-		</spp:OptionsDisplayItem>
-	</StackPanel>
+                            <ComboBox.Items>
+                                <spp:XamlMediaStretch>Fill</spp:XamlMediaStretch>
+                                <spp:XamlMediaStretch>None</spp:XamlMediaStretch>
+                                <spp:XamlMediaStretch>Uniform</spp:XamlMediaStretch>
+                                <spp:XamlMediaStretch>UniformToFill</spp:XamlMediaStretch>
+                            </ComboBox.Items>
+                        </ComboBox>
+                    </DockPanel>
+                </StackPanel>
+            </spp:OptionsDisplayItem.Content>
+        </spp:OptionsDisplayItem>
+    </StackPanel>
 </UserControl>
