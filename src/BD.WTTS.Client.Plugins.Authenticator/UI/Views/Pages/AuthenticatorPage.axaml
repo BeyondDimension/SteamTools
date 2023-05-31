@@ -3,7 +3,6 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:gif="using:AvaloniaGif"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
@@ -84,12 +83,8 @@
                     IsVisible="{Binding !CaptchaImage, Converter={StaticResource IsNullConverter}}"
                     Orientation="Vertical"
                     Spacing="10">
-                    <TextBox
-                        BorderThickness="0"
-                        IsReadOnly="True"
-                        Text="{Binding CaptchaImage}"
-                        TextWrapping="Wrap" />
                     <StackPanel Orientation="Horizontal" Spacing="5">
+                        <!--  图片ing  -->
                         <TextBox
                             MaxWidth="200"
                             Text="{Binding CaptchaText}"
@@ -209,17 +204,15 @@
                         Spacing="10">
                         <StackPanel
                             HorizontalAlignment="Center"
-                            Orientation="Horizontal"
+                            Orientation="Vertical"
                             Spacing="10">
-                            <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                             <TextBox
                                 MinWidth="200"
                                 IsReadOnly="True"
                                 Text="{Binding RevocationCode, Mode=OneWay}" />
                             <Button
                                 MinWidth="280"
-                                HorizontalAlignment="Center"
-                                HorizontalContentAlignment="Center"
                                 Command="{ReflectionBinding Reset}"
                                 Content="{ReflectionBinding Path=Res.Continue,
                                                             Mode=OneWay,

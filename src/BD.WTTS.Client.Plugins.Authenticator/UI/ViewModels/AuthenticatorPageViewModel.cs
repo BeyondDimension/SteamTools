@@ -184,13 +184,15 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
             {
                 if (string.IsNullOrEmpty(enrollState.Error) == false)
                 {
-                    await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = enrollState.Error, IsCancelcBtn = true });
-                    //Toast.Show(enrollState.Error, ToastLength.Long);
+                    if (enrollState.Error.Length > 50)
+                        await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = enrollState.Error, IsCancelcBtn = true });
+                    else
+                        Toast.Show(enrollState.Error, ToastLength.Long);
                 }
                 //已有令牌，无法导入
                 if (enrollState.Requires2FA == true)
                 {
-                    await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUser_Requires2FA, IsCancelcBtn = true });
+                    Toast.Show(Strings.LocalAuth_SteamUser_Requires2FA, ToastLength.Long);
                     return;
                 }
                 //频繁登录需要图片验证码
@@ -207,7 +209,7 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
                     RequiresLogin = false;
                     CaptchaText = null;
                     CaptchaImage = null;
-                    EmailDomain = string.IsNullOrEmpty(enrollState.EmailDomain) == false ? "******@" + enrollState.EmailDomain : string.Empty;
+                    EmailDomain = string.IsNullOrEmpty(enrollState.EmailDomain) == false ? $"******@{enrollState.EmailDomain}" : string.Empty;
                     return;
                 }
                 //导入最后一步，需要账号绑定的手机验证码确认
@@ -216,7 +218,6 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
                     EmailDomain = null;
                     enrollState.Error = null;
                     RequiresLogin = false;
-
                     RequiresActivation = true;
                     RevocationCode = enrollState.RevocationCode;
                     return;
@@ -227,7 +228,8 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
                     return;
                 }
                 string error = string.IsNullOrEmpty(enrollState.Error) ? Strings.LocalAuth_SteamUser_Error : enrollState.Error;
-                await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = error, IsCancelcBtn = true });
+                //await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = error, IsCancelcBtn = true });
+                Toast.Show(error, ToastLength.Long);
                 return;
             }
             //通过所有验证，开始导入令牌
