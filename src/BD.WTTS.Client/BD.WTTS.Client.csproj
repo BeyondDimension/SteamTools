@@ -91,7 +91,7 @@
 		<PackageReference Include="BD.Common.Essentials.Utils" />
 		<PackageReference Include="BD.Common.Essentials.Preferences.SQLite" />
 		<PackageReference Include="BD.Common.Pinyin" />
-		<PackageReference Include="BD.SteamClient" />
+		<!--<PackageReference Include="BD.SteamClient" />-->
 		<PackageReference Include="BD.WTTS.MicroServices.ClientSDK" />
 		<PackageReference Include="BD.WTTS.Primitives.ViewModels" />
 		<PackageReference Include="WinAuth.Library" />
@@ -202,6 +202,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\ref\SteamClient\src\BD.SteamClient\BD.SteamClient.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Generators\BD.WTTS.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 	
