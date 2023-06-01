@@ -19,3 +19,6 @@
 [submodule "ref/SteamAchievementManager"]
 	path = ref/SteamAchievementManager
 	url = https://github.com/BeyondDimension/SteamAchievementManager.git
+[submodule "ref/SteamClient"]
+	path = ref/SteamClient
+	url = https://github.com/BeyondDimension/SteamClient
