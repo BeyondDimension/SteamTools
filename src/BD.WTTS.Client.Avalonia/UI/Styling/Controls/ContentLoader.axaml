@@ -14,8 +14,8 @@
             <ControlTemplate>
                 <Panel>
                     <ProgressBar
-                        Width="200"
-                        Height="200"
+                        Width="50"
+                        Height="50"
                         Classes="Circle"
                         IsIndeterminate="True"
                         IsVisible="{TemplateBinding IsLoading}" />

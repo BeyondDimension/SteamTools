@@ -6,8 +6,8 @@
         <Border Padding="20">
             <StackPanel Spacing="20">
                 <ProgressBar
-                    Width="50"
-                    Height="50"
+                    Width="100"
+                    Height="100"
                     Classes="Circle"
                     IsIndeterminate="True" />
                 <ProgressBar
@@ -75,8 +75,8 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Width" Value="24" />
-        <Setter Property="Height" Value="24" />
+        <!--<Setter Property="MinWidth" Value="24" />
+        <Setter Property="MinHeight" Value="24" />-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
