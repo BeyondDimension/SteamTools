@@ -1,6 +1,4 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Platform;
+using BD.WTTS.Extensions;
 
 namespace BD.WTTS.UI.Views.Windows;
 
@@ -11,10 +9,9 @@ namespace BD.WTTS.UI.Views.Windows;
 /// and vice versa.
 /// </summary>
 /// <typeparam name="TViewModel">ViewModel type.</typeparam>
-public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> where TViewModel : class
+public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IViewFor, IActivatableView where TViewModel : class
 {
-    public static readonly StyledProperty<TViewModel?> ViewModelProperty = AvaloniaProperty
-        .Register<ReactiveAppWindow<TViewModel>, TViewModel?>(nameof(ViewModel));
+    public static readonly StyledProperty<TViewModel?> ViewModelProperty = ReactiveWindow<TViewModel>.ViewModelProperty.AddOwner<ReactiveAppWindow<TViewModel>>();
 
     public static readonly StyledProperty<bool> IsSaveWindowSizeProperty = AvaloniaProperty
         .Register<ReactiveAppWindow<TViewModel>, bool>(nameof(IsSaveWindowSize), true);
@@ -40,7 +37,7 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> whe
         //SystemDecorations = SystemDecorations.BorderOnly;
         Background = null;
         TransparencyBackgroundFallback = Brushes.Transparent;
-        TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMaterial.Value;
+        TransparencyLevelHint = new WindowTransparencyLevel[] { UISettings.WindowBackgroundMaterial.Value.ToWindowTransparencyLevel() };
 
         if (IsSaveWindowSize)
         {

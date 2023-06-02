@@ -95,9 +95,7 @@
                                 <ScaleTransform />
                             </Panel.RenderTransform>
 
-                            <spp:Rotator Name="PART_Rotator">
-                                <Arc Name="PART_Animation" Stroke="{TemplateBinding Foreground}" />
-                            </spp:Rotator>
+                            <Arc Name="PART_Animation" Stroke="{TemplateBinding Foreground}" />
 
                             <Arc Name="PART_Arc" Stroke="{TemplateBinding Foreground}" />
 
@@ -161,7 +159,7 @@
         </Setter>
     </Style>
 
-    <Style Selector="ProgressBar.Circle:not(:indeterminate) /template/ spp|Rotator#PART_Rotator,                      ProgressBar.Circle[IsVisible=false] /template/ spp|Rotator#PART_Rotator">
+    <!--<Style Selector="ProgressBar.Circle:not(:indeterminate) /template/ spp|Rotator#PART_Rotator,ProgressBar.Circle[IsVisible=false] /template/ spp|Rotator#PART_Rotator">
         <Style.Animations>
             <Animation IterationCount="INFINITE" Duration="0:0:0.1">
                 <KeyFrame Cue="0%">
@@ -172,28 +170,56 @@
                 </KeyFrame>
             </Animation>
         </Style.Animations>
-    </Style>
+    </Style>-->
 
     <Style Selector="ProgressBar.Circle:indeterminate /template/ Arc#PART_Animation">
         <Setter Property="IsVisible" Value="True" />
         <Style.Animations>
-            <Animation IterationCount="INFINITE" Duration="0:0:1.2">
+            <Animation
+                Easing="LinearEasing"
+                FillMode="Both"
+                IterationCount="INFINITE"
+                Duration="0:0:5">
                 <KeyFrame Cue="0%">
-                    <Setter Property="SweepAngle" Value="45" />
+                    <Setter Property="StartAngle" Value="-720" />
+                    <Setter Property="SweepAngle" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="12.5%">
+                    <Setter Property="StartAngle" Value="-540" />
+                    <Setter Property="SweepAngle" Value="50" />
+                </KeyFrame>
+                <KeyFrame Cue="25%">
+                    <Setter Property="StartAngle" Value="-360" />
+                    <Setter Property="SweepAngle" Value="100" />
+                </KeyFrame>
+                <KeyFrame Cue="32.5%">
+                    <Setter Property="StartAngle" Value="-180" />
+                    <Setter Property="SweepAngle" Value="50" />
                 </KeyFrame>
                 <KeyFrame Cue="50%">
-                    <Setter Property="SweepAngle" Value="235" />
+                    <Setter Property="StartAngle" Value="0" />
+                    <Setter Property="SweepAngle" Value="5" />
                 </KeyFrame>
-                <KeyFrame Cue="60%">
-                    <Setter Property="SweepAngle" Value="235" />
+                <KeyFrame Cue="62.5%">
+                    <Setter Property="StartAngle" Value="180" />
+                    <Setter Property="SweepAngle" Value="50" />
+                </KeyFrame>
+                <KeyFrame Cue="75%">
+                    <Setter Property="StartAngle" Value="360" />
+                    <Setter Property="SweepAngle" Value="100" />
+                </KeyFrame>
+                <KeyFrame Cue="87.5%">
+                    <Setter Property="StartAngle" Value="540" />
+                    <Setter Property="SweepAngle" Value="50" />
                 </KeyFrame>
                 <KeyFrame Cue="100%">
-                    <Setter Property="SweepAngle" Value="45" />
+                    <Setter Property="StartAngle" Value="720" />
+                    <Setter Property="SweepAngle" Value="0" />
                 </KeyFrame>
             </Animation>
         </Style.Animations>
     </Style>
-    <Style Selector="ProgressBar.Circle:indeterminate /template/ spp|Rotator#PART_Rotator">
+    <!--<Style Selector="ProgressBar.Circle:indeterminate /template/ spp|Rotator#PART_Rotator">
         <Style.Animations>
             <Animation IterationCount="INFINITE" Duration="0:0:1.2">
                 <KeyFrame Cue="0%">
@@ -210,7 +236,7 @@
                 </KeyFrame>
             </Animation>
         </Style.Animations>
-    </Style>
+    </Style>-->
 
     <Style Selector="ProgressBar.Material">
         <Setter Property="Foreground" Value="{DynamicResource ProgressBarForeground}" />

@@ -7,9 +7,9 @@
     xmlns:wnd="using:FluentAvalonia.UI.Windowing">
 
     <Design.PreviewWith>
-        <spp:MinMaxCloseControl>
+        <wnd:MinMaxCloseControl>
             <!--  Add Controls for Previewer Here  -->
-        </spp:MinMaxCloseControl>
+        </wnd:MinMaxCloseControl>
     </Design.PreviewWith>
 
     <!--  Add Resources Here  -->
@@ -184,6 +184,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             IsVisible="{Binding TemplateSettings.IsTitleBarContentVisible, RelativeSource={RelativeSource TemplatedParent}}"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
                             Source="{TemplateBinding Icon}" />
 
                         <TextBlock
@@ -233,6 +234,7 @@
                     Opacity="{ReflectionBinding Value,
                                                 Source={x:Static ms:UISettings.WindowBackgroundCustomImageOpacity},
                                                 Mode=OneWay}"
+                    RenderOptions.BitmapInterpolationMode="HighQuality"
                     Source="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImagePath},
                                                Path=Value,
                                                Mode=OneWay,

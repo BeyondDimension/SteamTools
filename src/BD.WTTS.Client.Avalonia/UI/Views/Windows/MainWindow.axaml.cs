@@ -79,7 +79,12 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 
     public object? SplashScreenContent { get; }
 
-    int IApplicationSplashScreen.MinimumShowTime => 0;
+    int IApplicationSplashScreen.MinimumShowTime =>
+#if DEBUG
+        3000;
+#else
+        0;
+#endif
 
     Task IApplicationSplashScreen.RunTasks(CancellationToken token)
     {

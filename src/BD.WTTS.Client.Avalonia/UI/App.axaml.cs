@@ -1,3 +1,5 @@
+using BD.WTTS.Extensions;
+
 namespace BD.WTTS.UI;
 
 public sealed partial class App : Application
@@ -91,7 +93,7 @@ public sealed partial class App : Application
         {
             foreach (var window in desktop.Windows)
             {
-                window.TransparencyLevelHint = (WindowTransparencyLevel)level;
+                window.TransparencyLevelHint = new WindowTransparencyLevel[] { level.ToWindowTransparencyLevel() };
 
                 //if (window.TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
                 //    window.TransparencyLevelHint == WindowTransparencyLevel.Blur)

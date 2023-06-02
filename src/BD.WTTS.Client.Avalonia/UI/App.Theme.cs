@@ -65,7 +65,7 @@ partial class App
         {
             return;
         }
-        var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>()!;
+        var thm = Ioc.Get<FluentAvaloniaTheme>()!;
 
         if (Color.TryParse(colorHex, out var color))
         {

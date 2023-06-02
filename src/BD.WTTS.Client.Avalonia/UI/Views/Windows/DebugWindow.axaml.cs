@@ -1,6 +1,6 @@
 namespace BD.WTTS.UI.Views.Windows;
 
-public partial class DebugWindow : CoreWindow
+public partial class DebugWindow : AppWindow
 {
     public DebugWindow()
     {

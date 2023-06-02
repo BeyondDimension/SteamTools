@@ -84,6 +84,7 @@ sealed partial class Program : Startup
 #if MAUI || ANDROID || IOS
             services.TryAddFontManager();
 #elif AVALONIA
+            services.TryAddAvaloniaTheme();
             services.TryAddAvaloniaFontManager(useGdiPlusFirst: true);
 #else
 #endif

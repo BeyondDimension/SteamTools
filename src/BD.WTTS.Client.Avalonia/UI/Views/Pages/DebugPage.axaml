@@ -1,19 +1,26 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:spp="https://steampp.net/ui"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BD.WTTS.UI.Views.Pages.DebugPage"
-			 x:DataType="spp:DebugPageViewModel"
-             x:CompileBindings="True">
-	<Design.DataContext>
-		<spp:DebugPageViewModel/>
-	</Design.DataContext>
-	<Grid RowDefinitions="*,Auto">
-		<TextBox Classes="readonlybox"
-				 Text="{Binding DebugString}"></TextBox>
-		<TextBox Name="CommandTextBox" Grid.Row="1">
-		</TextBox>
-	</Grid>
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.DebugPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:DebugPageViewModel"
+    mc:Ignorable="d">
+    <Design.DataContext>
+        <spp:DebugPageViewModel />
+    </Design.DataContext>
+    <Grid RowDefinitions="*,Auto">
+        <TextBox
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Classes="readonlybox"
+            Text="{Binding DebugString}"
+            TextAlignment="Start"
+            TextWrapping="Wrap" />
+        <TextBox Name="CommandTextBox" Grid.Row="1" />
+    </Grid>
 </UserControl>

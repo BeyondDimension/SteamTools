@@ -182,13 +182,18 @@ public abstract class ImageValueConverter : IValueConverter
         {
             return null;
         }
+        var stream = IOPath.OpenRead(s);
+        if (stream == null)
+        {
+            return null;
+        }
         if (width < 1)
         {
-            var image = SKImage.FromEncodedData(s);
-            return SkiaSharpHelpers.GetBitmap(image);
+            //var image = SKImage.FromEncodedData(s);
+            return new Bitmap(stream);
         }
-        var bitmap = SKBitmap.Decode(s);
-        return SkiaSharpHelpers.DecodeToWidth(bitmap, width, BitmapInterpolationMode.MediumQuality);
+        //var bitmap = SKBitmap.Decode(s);
+        return Bitmap.DecodeToWidth(stream, width, BitmapInterpolationMode.MediumQuality);
 
         #endregion
     }

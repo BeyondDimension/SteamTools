@@ -42,9 +42,6 @@ public class CustomTheme : Styles, IResourceProvider
     void Init()
     {
         AvaloniaXamlLoader.Load(this);
-
-        AvaloniaLocator.CurrentMutable.Bind<CustomTheme>().ToConstant(this);
-
         // First load our base and theme resources
 
         // When initializing, UseSystemTheme overrides any setting of RequestedTheme, this must be

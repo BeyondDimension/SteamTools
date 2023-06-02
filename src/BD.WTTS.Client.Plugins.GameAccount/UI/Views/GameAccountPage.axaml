@@ -31,7 +31,7 @@
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedLeft">
                         <ui:MenuFlyoutSubItem
                             IsVisible="{Binding !!AddGamePlatforms.Count}"
-                            Items="{Binding AddGamePlatforms}"
+                            ItemsSource="{Binding AddGamePlatforms}"
                             Text="添加平台">
                             <ui:MenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate DataType="spp:PlatformAccount">
