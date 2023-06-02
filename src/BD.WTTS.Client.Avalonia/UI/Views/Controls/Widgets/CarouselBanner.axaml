@@ -1,0 +1,69 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.CarouselBanner"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="200"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="5,10" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Styles>
+    <Panel>
+        <Carousel Name="Carousel" Grid.Column="1">
+            <Carousel.PageTransition>
+                <PageSlide Orientation="Horizontal" Duration="0.25" />
+            </Carousel.PageTransition>
+        </Carousel>
+        <Button
+            Name="Left"
+            HorizontalAlignment="Left"
+            IsVisible="False"
+            Theme="{StaticResource TransparentButton}">
+            <ui:SymbolIcon FontSize="20" Symbol="ChevronLeft" />
+        </Button>
+        <Button
+            Name="Right"
+            HorizontalAlignment="Right"
+            IsVisible="False"
+            Theme="{StaticResource TransparentButton}">
+            <ui:SymbolIcon FontSize="20" Symbol="ChevronRight" />
+        </Button>
+
+        <Panel
+            Height="10"
+            Margin="0,0,0,5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom">
+            <ItemsRepeater Name="Swiper" IsVisible="False">
+                <ItemsRepeater.Layout>
+                    <StackLayout
+                        DisableVirtualization="True"
+                        Orientation="Horizontal"
+                        Spacing="8" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <Panel>
+                            <Ellipse
+                                Width="10"
+                                Height="10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="{Binding}"
+                                Opacity="0.6"
+                                StrokeThickness="0" />
+                        </Panel>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </Panel>
+    </Panel>
+</UserControl>

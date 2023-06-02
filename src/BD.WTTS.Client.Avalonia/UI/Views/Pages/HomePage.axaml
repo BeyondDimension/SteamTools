@@ -8,10 +8,34 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:HomePageViewModel"
     mc:Ignorable="d">
-    <Panel>
-        <spp:ContentLoader IsLoading="True">
-            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-        </spp:ContentLoader>
-    </Panel>
+    <spp:ContentLoader IsLoading="True">
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+            <spp:CarouselBanner
+                Width="616"
+                Height="353"
+                VerticalAlignment="Top"
+                ItemsSource="{Binding Navigations}">
+                <spp:CarouselBanner.ItemTemplate>
+                    <DataTemplate DataType="x:String">
+                        <spp:RippleEffect>
+                            <Border ToolTip.Tip="{Binding}">
+                                <spp:Image2 Source="{Binding}" Stretch="UniformToFill" />
+                            </Border>
+                        </spp:RippleEffect>
+                    </DataTemplate>
+                </spp:CarouselBanner.ItemTemplate>
+            </spp:CarouselBanner>
+
+            <StackPanel
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Margin="10"
+                Spacing="10">
+                <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
+            </StackPanel>
+        </Grid>
+    </spp:ContentLoader>
 </UserControl>
