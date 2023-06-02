@@ -9,16 +9,21 @@
         </Border>
     </Design.PreviewWith>
     <!--  Add Resources Here  -->
-    <ControlTheme x:Key="{x:Type spp:ContentLoader}" TargetType="{x:Type spp:ContentLoader}">
+    <ControlTheme x:Key="{x:Type spp:ContentLoader}" TargetType="spp:ContentLoader">
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
-                    <ProgressBar
-                        Width="50"
-                        Height="50"
-                        Classes="Circle"
-                        IsIndeterminate="True"
-                        IsVisible="{TemplateBinding IsLoading}" />
+                    <Border Width="50" Height="50">
+                        <ProgressBar
+                            Classes="Circle ParentSize"
+                            IsIndeterminate="True"
+                            IsVisible="{TemplateBinding IsLoading}" />
+                    </Border>
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="{TemplateBinding NoResultMessage}" />
 
                     <ContentPresenter
                         Name="ContentPresenter"

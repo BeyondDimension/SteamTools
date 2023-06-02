@@ -53,6 +53,7 @@
                             Height="{TemplateBinding Height}"
                             MaxHeight="{TemplateBinding MaxHeight}"
                             Margin="0,0,12,0"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center">
                             <ContentPresenter Content="{TemplateBinding Image}" />
                         </Viewbox>
@@ -123,16 +124,16 @@
     <Style Selector="spp|AppItem /template/ Border#LayoutRoot:pointerover">
         <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
         <Setter Property="BoxShadow" Value="{StaticResource InfoBoxShadow}" />
-        <Style.Animations>
+        <!--<Style.Animations>
             <Animation FillMode="Forward" Duration="0:0:0.1">
                 <KeyFrame Cue="0%">
                     <Setter Property="Margin" Value="0" />
                 </KeyFrame>
                 <KeyFrame Cue="100%">
-                    <Setter Property="Margin" Value="0 -3 0 3" />
+                    <Setter Property="Margin" Value="0 -5 0 5" />
                 </KeyFrame>
             </Animation>
-        </Style.Animations>
+        </Style.Animations>-->
     </Style>
     <Style Selector="spp|AppItem:pressed /template/ Border#LayoutRoot:pointerover">
         <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
@@ -175,8 +176,8 @@
                     BorderThickness="{TemplateBinding BorderThickness}"
                     ClipToBounds="True"
                     CornerRadius="{StaticResource OverlayCornerRadius}">
-                    <Grid RowDefinitions="*,Auto">
-                        <Border Background="Transparent">
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <Border VerticalAlignment="Top" Background="Transparent">
                             <Viewbox Name="IconHost" MaxWidth="{TemplateBinding MaxWidth}">
                                 <ContentPresenter Content="{TemplateBinding Image}" />
                             </Viewbox>
@@ -187,7 +188,7 @@
                                 <TextBlock
                                     Margin="0,5"
                                     HorizontalAlignment="Left"
-                                    VerticalAlignment="Bottom"
+                                    VerticalAlignment="Top"
                                     Classes="BaseTextBlockStyle"
                                     FontWeight="SemiBold"
                                     MaxLines="2"
@@ -209,26 +210,29 @@
                                     Margin="0,5"
                                     VerticalAlignment="Top"
                                     Classes="CaptionTextBlockStyle"
+                                    FontSize="12"
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Text="{TemplateBinding Description}"
                                     TextWrapping="Wrap" />
-
-                                <WrapPanel Orientation="Horizontal">
-                                    <Border
-                                        Margin="0,5"
-                                        Padding="8,5"
-                                        Background="{DynamicResource ControlFillColorDefaultBrush}"
-                                        BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
-                                        ClipToBounds="True"
-                                        CornerRadius="{StaticResource ControlCornerRadius}">
-                                        <TextBlock
-                                            VerticalAlignment="Top"
-                                            FontSize="12"
-                                            Text="{TemplateBinding Status}"
-                                            TextWrapping="Wrap" />
-                                    </Border>
-                                </WrapPanel>
                             </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="2" Padding="10,5">
+                            <WrapPanel Orientation="Horizontal">
+                                <Border
+                                    Margin="0,5"
+                                    Padding="8,5"
+                                    Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                    BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
+                                    ClipToBounds="True"
+                                    CornerRadius="{StaticResource ControlCornerRadius}">
+                                    <TextBlock
+                                        VerticalAlignment="Top"
+                                        FontSize="12"
+                                        Text="{TemplateBinding Status}"
+                                        TextWrapping="Wrap" />
+                                </Border>
+                            </WrapPanel>
                         </Border>
                     </Grid>
                 </Border>

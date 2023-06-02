@@ -12,7 +12,7 @@
     x:DataType="spp:PlatformAccount"
     mc:Ignorable="d">
     <Panel>
-        <spp:ContentLoader>
+        <spp:ContentLoader IsLoading="{Binding !!!Accounts.Count}">
             <ItemsControl Grid.Row="1" ItemsSource="{Binding Accounts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -21,16 +21,22 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="spp:IAccount">
-                        <spp:AppItem
-                            Title="{Binding DisplayName}"
-                            MaxWidth="200"
-                            Classes="Circle"
-                            Description="{Binding LastLoginTime}"
-                            Status="最近登录">
-                            <spp:AppItem.Image>
-                                <spp:Image2 Source="{Binding ImagePath}" />
-                            </spp:AppItem.Image>
-                        </spp:AppItem>
+                        <Border Margin="10" spp:Animations.EnableAnimations="True">
+                            <spp:AppItem
+                                Title="{Binding DisplayName}"
+                                MaxWidth="128"
+                                Classes="Vertical"
+                                Description="{Binding LastLoginTime}"
+                                Status="最近登录">
+                                <spp:AppItem.Image>
+                                    <spp:Image2
+                                        Width="128"
+                                        Height="128"
+                                        DecodeWidth="128"
+                                        Source="{Binding ImagePath}" />
+                                </spp:AppItem.Image>
+                            </spp:AppItem>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

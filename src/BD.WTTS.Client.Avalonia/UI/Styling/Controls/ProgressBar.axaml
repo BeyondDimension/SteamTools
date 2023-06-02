@@ -70,13 +70,18 @@
 
     <!--  Circular Progress indicator  -->
 
+    <Style Selector="ProgressBar.ParentSize">
+        <Setter Property="Width" Value="{ReflectionBinding $parent.Width}" />
+        <Setter Property="Height" Value="{ReflectionBinding $parent.Height}" />
+    </Style>
+
     <Style Selector="ProgressBar.Circle">
         <Setter Property="Foreground" Value="{DynamicResource ProgressBarForeground}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="BorderBrush" Value="Transparent" />
-        <!--<Setter Property="MinWidth" Value="24" />
-        <Setter Property="MinHeight" Value="24" />-->
+        <!--<Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>

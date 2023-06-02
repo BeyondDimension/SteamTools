@@ -37,7 +37,7 @@ public sealed class SteamAccount : ReactiveObject, IAccount
 
     public string? ImagePath
     {
-        get => this.SteamUser.AvatarMedium;
+        get => this.SteamUser.MiniProfile?.AnimatedAvatar ?? this.SteamUser.AvatarMedium;
         set => this.SteamUser.AvatarMedium = value;
     }
 

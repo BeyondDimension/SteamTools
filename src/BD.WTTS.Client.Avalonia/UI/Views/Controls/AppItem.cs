@@ -1,3 +1,7 @@
+using Avalonia.Rendering.Composition;
+using Avalonia.Rendering.Composition.Animations;
+using System.Numerics;
+
 namespace BD.WTTS.UI.Views.Controls;
 
 public class AppItem : TemplatedControl
@@ -99,7 +103,36 @@ public class AppItem : TemplatedControl
             PseudoClasses.Set(":expanded", change.GetNewValue<bool>());
         else if (change.Property == ImageProperty)
             PseudoClasses.Set(":icon", change.NewValue != null);
+
     }
+
+    protected override void OnPointerEntered(PointerEventArgs e)
+    {
+        base.OnPointerEntered(e);
+        var ec = ElementComposition.GetElementVisual(this);
+        if (ec == null) return;
+        //_initOffset = ec.Offset;
+
+        var comp = ec.Compositor;
+
+        var ani = comp.CreateVector3KeyFrameAnimation();
+        ani.Duration = TimeSpan.FromMilliseconds(200);
+        //ani.IterationBehavior = AnimationIterationBehavior.Forever;
+        ani.StopBehavior = AnimationStopBehavior.SetToInitialValue;
+        ani.InsertKeyFrame(0f, ec.Offset);
+        ani.InsertKeyFrame(1f, ec.Offset + new Vector3(0, -5, 0));
+        ani.Target = "Offset";
+
+        ec.StartAnimation("Offset", ani);
+    }
+
+    //protected override void OnPointerExited(PointerEventArgs e)
+    //{
+    //    base.OnPointerExited(e);
+    //    var ec = ElementComposition.GetElementVisual(this);
+    //    if (ec == null) return;
+    //    ec.Offset = _initOffset;
+    //}
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -149,6 +182,7 @@ public class AppItem : TemplatedControl
         PseudoClasses.Set(":pressed", false);
     }
 
+    private Vector3 _initOffset;
     private bool _isPressed;
     private bool _isExpanded;
     private Border? _layoutRoot;
