@@ -18,7 +18,7 @@ public class RippleEffect : ContentControl
         AddHandler(PointerCaptureLostEvent, PointerCaptureLostHandler);
     }
 
-    private void PointerPressedHandler(object sender, PointerPressedEventArgs e)
+    private void PointerPressedHandler(object? sender, PointerPressedEventArgs e)
     {
         if (!IsAllowedRaiseRipple)
             return;
@@ -32,21 +32,21 @@ public class RippleEffect : ContentControl
         _last = r;
 
         // Attach ripple instance to canvas
-        PART_RippleCanvasRoot.Children.Add(r);
+        PART_RippleCanvasRoot?.Children.Add(r);
         r.RunFirstStep();
     }
 
-    private void LostFocusHandler(object sender, RoutedEventArgs e)
+    private void LostFocusHandler(object? sender, RoutedEventArgs e)
     {
         RemoveLastRipple();
     }
 
-    private void PointerReleasedHandler(object sender, PointerReleasedEventArgs e)
+    private void PointerReleasedHandler(object? sender, PointerReleasedEventArgs e)
     {
         RemoveLastRipple();
     }
 
-    private void PointerCaptureLostHandler(object sender, PointerCaptureLostEventArgs e)
+    private void PointerCaptureLostHandler(object? sender, PointerCaptureLostEventArgs e)
     {
         RemoveLastRipple();
     }
@@ -69,9 +69,9 @@ public class RippleEffect : ContentControl
         // Fade out ripple
         r.RunSecondStep();
 
-        void RemoveRippleTask(Task arg1, object arg2)
+        void RemoveRippleTask(Task arg1, object? arg2)
         {
-            Dispatcher.UIThread.InvokeAsync(delegate { PART_RippleCanvasRoot.Children.Remove(r); });
+            Dispatcher.UIThread.InvokeAsync(() => { PART_RippleCanvasRoot?.Children.Remove(r); });
         }
 
         // Remove ripple from canvas to finalize ripple instance

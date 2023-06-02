@@ -117,8 +117,7 @@ public class AppItem : TemplatedControl
 
         var ani = comp.CreateVector3KeyFrameAnimation();
         ani.Duration = TimeSpan.FromMilliseconds(200);
-        //ani.IterationBehavior = AnimationIterationBehavior.Forever;
-        ani.StopBehavior = AnimationStopBehavior.SetToInitialValue;
+        ani.StopBehavior = AnimationStopBehavior.SetToFinalValue;
         ani.InsertKeyFrame(0f, ec.Offset);
         ani.InsertKeyFrame(1f, ec.Offset + new Vector3(0, -5, 0));
         ani.Target = "Offset";
@@ -126,13 +125,22 @@ public class AppItem : TemplatedControl
         ec.StartAnimation("Offset", ani);
     }
 
-    //protected override void OnPointerExited(PointerEventArgs e)
-    //{
-    //    base.OnPointerExited(e);
-    //    var ec = ElementComposition.GetElementVisual(this);
-    //    if (ec == null) return;
-    //    ec.Offset = _initOffset;
-    //}
+    protected override void OnPointerExited(PointerEventArgs e)
+    {
+        base.OnPointerExited(e);
+        var ec = ElementComposition.GetElementVisual(this);
+        if (ec == null) return;
+        var comp = ec.Compositor;
+
+        var ani = comp.CreateVector3KeyFrameAnimation();
+        ani.Duration = TimeSpan.FromMilliseconds(100);
+        ani.StopBehavior = AnimationStopBehavior.SetToFinalValue;
+        ani.InsertKeyFrame(0f, ec.Offset);
+        ani.InsertKeyFrame(1f, ec.Offset + new Vector3(0, 5, 0));
+        ani.Target = "Offset";
+
+        ec.StartAnimation("Offset", ani);
+    }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {

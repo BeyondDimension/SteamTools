@@ -7,9 +7,8 @@ namespace Avalonia;
 
 public static class DrawingContextExtensions
 {
-    public static void DrawBitmap2(this DrawingContext context, object source, double opacity, Rect sourceRect, Rect destRect)
+    public static void DrawBitmap2(this DrawingContext context, Bitmap source, double opacity, Rect sourceRect, Rect destRect)
     {
-        if (source is IBitmap bitmap)
-            context.DrawBitmap(bitmap.PlatformImpl, opacity, sourceRect, destRect);
+        context.DrawBitmap(source.PlatformImpl, opacity, sourceRect, destRect);
     }
 }

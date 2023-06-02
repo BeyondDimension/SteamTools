@@ -1,53 +1,88 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-	   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	   xmlns:spp="https://steampp.net/ui">
-	<Design.PreviewWith>
-		<Border Padding="10">
-			<spp:RippleEffect RippleFill="#F1F2F2" RippleOpacity="0.2">
-				<Border Background="#212121"
-						CornerRadius="3"
-						Padding="10">
-					<TextBlock HorizontalAlignment="Center"
-							   VerticalAlignment="Center"
-							   FontSize="20"
-							   Foreground="#E6E7E8"
-							   Text="RIPPLE" />
-				</Border>
-			</spp:RippleEffect>
-		</Border>
-	</Design.PreviewWith>
-	
-	<Style Selector="spp|RippleEffect">
-		<Setter Property="RippleOpacity" Value="0.6"/>
-		<Setter Property="RippleFill" Value="White"/>
-		<Setter Property="IsAllowedRaiseRipple" Value="True"/>
-		<Setter Property="Template">
-			<ControlTemplate>
-				<Panel ClipToBounds="True">
-					<Rectangle Fill="Transparent" Opacity="0" ClipToBounds="True"/>
-					<ContentPresenter Name="Content"
-                                      Content="{TemplateBinding Content}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}" />
-					<Canvas Name="PART_RippleCanvasRoot"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            IsHitTestVisible="False"
-                            Opacity="{TemplateBinding RippleOpacity}"/>
-				</Panel>
-			</ControlTemplate>
-		</Setter>
-	</Style>
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui">
+    <Design.PreviewWith>
+        <Border Padding="10">
+            <StackPanel Spacing="10">
+                <spp:RippleEffect RippleFill="White" RippleOpacity="0.6">
+                    <Border
+                        Padding="30"
+                        Background="#212121"
+                        CornerRadius="3">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Foreground="#E6E7E8"
+                            Text="RIPPLE" />
+                    </Border>
+                </spp:RippleEffect>
+                <spp:RippleEffect>
+                    <Border
+                        Padding="30"
+                        Background="#212121"
+                        CornerRadius="3">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Foreground="#E6E7E8"
+                            Text="RIPPLE" />
+                    </Border>
+                </spp:RippleEffect>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
 
-	<!-- Transitions -->
+    <Style Selector="spp|RippleEffect">
+        <Setter Property="RippleOpacity" Value="0.2" />
+        <Setter Property="RippleFill" Value="#F1F2F2" />
+        <Setter Property="IsAllowedRaiseRipple" Value="True" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel ClipToBounds="True">
+                    <Rectangle
+                        ClipToBounds="True"
+                        Fill="Transparent"
+                        Opacity="0" />
+                    <ContentPresenter
+                        Name="Content"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    <Canvas
+                        Name="PART_RippleCanvasRoot"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        IsHitTestVisible="False"
+                        Opacity="{TemplateBinding RippleOpacity}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
 
-	<Style Selector="spp|RippleEffect:not(.no-transitions) /template/ Canvas#PART_RippleCanvasRoot > spp|Ripple">
-		<Setter Property="Transitions">
-			<Transitions>
-				<ThicknessTransition Property="Margin" Duration="{x:Static spp:Ripple.Duration}" Easing="{x:Static spp:Ripple.Easing}"/>
-				<DoubleTransition Property="Width" Duration="{x:Static spp:Ripple.Duration}" Easing="{x:Static spp:Ripple.Easing}"/>
-				<DoubleTransition Property="Height" Duration="{x:Static spp:Ripple.Duration}" Easing="{x:Static spp:Ripple.Easing}"/>
-				<DoubleTransition Property="Opacity" Duration="{x:Static spp:Ripple.Duration}" Easing="{x:Static spp:Ripple.Easing}"/>
-			</Transitions>
-		</Setter>
-	</Style>
+    <!--  Transitions  -->
+
+    <Style Selector="spp|RippleEffect:not(.no-transitions) /template/ Canvas#PART_RippleCanvasRoot > spp|Ripple">
+        <Setter Property="Transitions">
+            <Transitions>
+                <ThicknessTransition
+                    Easing="{x:Static spp:Ripple.Easing}"
+                    Property="Margin"
+                    Duration="{x:Static spp:Ripple.Duration}" />
+                <DoubleTransition
+                    Easing="{x:Static spp:Ripple.Easing}"
+                    Property="Width"
+                    Duration="{x:Static spp:Ripple.Duration}" />
+                <DoubleTransition
+                    Easing="{x:Static spp:Ripple.Easing}"
+                    Property="Height"
+                    Duration="{x:Static spp:Ripple.Duration}" />
+                <DoubleTransition
+                    Easing="{x:Static spp:Ripple.Easing}"
+                    Property="Opacity"
+                    Duration="{x:Static spp:Ripple.Duration}" />
+            </Transitions>
+        </Setter>
+    </Style>
 </Styles>

@@ -8,5 +8,6 @@ public partial class AcceleratorPage : ReactiveUserControl<AcceleratorPageViewMo
     public AcceleratorPage()
     {
         InitializeComponent();
+        DataContext = new AcceleratorPageViewModel();
     }
 }

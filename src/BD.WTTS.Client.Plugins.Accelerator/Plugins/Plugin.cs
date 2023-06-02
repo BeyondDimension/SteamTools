@@ -16,7 +16,7 @@ sealed class Plugin : PluginBase<Plugin>
         yield return new MenuTabItemViewModel()
         {
             ResourceKeyOrName = "CommunityFix",
-            PageType = typeof(DemoPage),
+            PageType = typeof(AcceleratorPage),
             IsResourceGet = true,
             IconKey = "SpeedHigh",
         };

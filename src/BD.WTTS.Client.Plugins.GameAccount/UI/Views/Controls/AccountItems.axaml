@@ -32,8 +32,9 @@
                                     <spp:Image2
                                         Width="128"
                                         Height="128"
-                                        DecodeWidth="128"
-                                        Source="{Binding ImagePath}" />
+                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                        Source="{Binding ImagePath}"
+                                        Stretch="UniformToFill" />
                                 </spp:AppItem.Image>
                             </spp:AppItem>
                         </Border>
