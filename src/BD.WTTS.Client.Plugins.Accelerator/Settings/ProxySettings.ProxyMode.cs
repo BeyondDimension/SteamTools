@@ -39,7 +39,7 @@ public static partial class ProxySettings
     {
         get
         {
-            var value = ProxyMode.Value;
+            var value = ProxyMode?.Value ?? ProxyModes[0];
             if (ProxyModes.Contains(value)) return value;
             return ProxyModes[0];
         }

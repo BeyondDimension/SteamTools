@@ -29,6 +29,75 @@
                 </spp:CarouselBanner.ItemTemplate>
             </spp:CarouselBanner>
 
+            <TabControl Grid.Column="1">
+                <TabItem Header="1111">
+                    <StackPanel Spacing="5">
+                        <spp:AppItem
+                            Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
+                            MaxHeight="100"
+                            Description="1111111111121312312123">
+                            <spp:AppItem.Image>
+                                <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
+                        <spp:AppItem
+                            Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
+                            MaxHeight="100"
+                            Description="1111111111121312312123">
+                            <spp:AppItem.Image>
+                                <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
+                        <spp:AppItem
+                            Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
+                            MaxHeight="100"
+                            Description="1111111111121312312123">
+                            <spp:AppItem.Image>
+                                <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="2222">
+                    <StackPanel Spacing="5">
+                        <DockPanel>
+                            <Image
+                                Width="100"
+                                DockPanel.Dock="Left"
+                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+                                Stretch="UniformToFill" />
+                            <Border DockPanel.Dock="Right">
+                                <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
+                            </Border>
+                        </DockPanel>
+                        <DockPanel>
+                            <Image
+                                Width="100"
+                                DockPanel.Dock="Left"
+                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+                                Stretch="UniformToFill" />
+                            <Border DockPanel.Dock="Right">
+                                <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
+                            </Border>
+                        </DockPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="3333">
+                    <StackPanel Spacing="5">
+                        <DockPanel>
+                            <Image
+                                Width="100"
+                                DockPanel.Dock="Left"
+                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+                                Stretch="UniformToFill" />
+                            <Border DockPanel.Dock="Right">
+                                <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
+                            </Border>
+                        </DockPanel>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+
             <StackPanel
                 Grid.Row="1"
                 Grid.ColumnSpan="2"

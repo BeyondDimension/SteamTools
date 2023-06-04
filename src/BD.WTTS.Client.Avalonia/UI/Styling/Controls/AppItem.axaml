@@ -8,7 +8,7 @@
             <StackPanel Spacing="10">
                 <spp:AppItem
                     Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
-                    MaxHeight="90"
+                    MaxHeight="120"
                     Description="This is a description of whatver this does"
                     Status="免费下载"
                     Tags="111">
@@ -47,7 +47,7 @@
                     ClipToBounds="True"
                     CornerRadius="{StaticResource OverlayCornerRadius}">
                     <spp:RippleEffect>
-                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto,Auto">
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto,*">
                             <Viewbox
                                 Name="IconHost"
                                 Grid.RowSpan="3"
@@ -62,10 +62,12 @@
                             <TextBlock
                                 Name="HeaderText"
                                 Grid.Column="1"
+                                Margin="0,5"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Classes="BaseTextBlockStyle"
                                 FontWeight="SemiBold"
+                                MaxLines="2"
                                 Text="{TemplateBinding Title}"
                                 TextTrimming="CharacterEllipsis"
                                 TextWrapping="Wrap" />
@@ -84,6 +86,7 @@
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="1"
+                                Margin="0,5"
                                 VerticalAlignment="Top"
                                 Classes="CaptionTextBlockStyle"
                                 FontSize="12"
@@ -92,9 +95,12 @@
                                 TextWrapping="Wrap" />
 
                             <WrapPanel
-                                Grid.RowSpan="2"
+                                Grid.RowSpan="3"
                                 Grid.Column="3"
                                 Margin="12,8"
+                                IsVisible="{TemplateBinding Status,
+                                                            Converter={StaticResource IsNullConverter},
+                                                            ConverterParameter=invert}"
                                 Orientation="Horizontal">
                                 <Border
                                     Padding="8,5"

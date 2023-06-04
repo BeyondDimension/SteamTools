@@ -13,64 +13,63 @@
     x:CompileBindings="True"
     x:DataType="spp:SettingsPageViewModel"
     mc:Ignorable="d">
-	<StackPanel Margin="15" Spacing="5">
-		<TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.Settings_General, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-		<spp:OptionsDisplayItem Description="系统启动时程序自动运行" Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.AutoRunOnStartup}, Path=Value, Mode=TwoWay}" />
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+    <StackPanel Margin="15" Spacing="5">
+        <TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.Settings_General, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <spp:OptionsDisplayItem Description="系统启动时程序自动运行" Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.AutoRunOnStartup}, Path=Value, Mode=TwoWay}" />
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem Description="设置后程序启动时不再主动显示主窗口" Header="{ReflectionBinding Path=Res.Settings_General_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEA6C;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.MinimizeOnStartup}, Path=Value, Mode=TwoWay}" />
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+        <spp:OptionsDisplayItem Description="设置后程序启动时不再主动显示主窗口" Header="{ReflectionBinding Path=Res.Settings_General_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEA6C;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.MinimizeOnStartup}, Path=Value, Mode=TwoWay}" />
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.TrayIcon}, Path=Value, Mode=TwoWay}" />
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.TrayIcon}, Path=Value, Mode=TwoWay}" />
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_AutoCheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.AutoCheckAppUpdate}, Path=Value, Mode=TwoWay}" />
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+        <spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_AutoCheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.AutoCheckAppUpdate}, Path=Value, Mode=TwoWay}" />
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_UpdateChannel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=!., Source={spp:OnPlatform DesktopBridge}}">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE71D;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<ComboBox ItemsSource="{Binding UpdateChannels}" 
-						  SelectedItem="{ReflectionBinding Source={x:Static ms:GeneralSettings.UpdateChannel}, Path=Value, Mode=TwoWay}" />
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+        <spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_UpdateChannel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=!., Source={spp:OnPlatform DesktopBridge}}">
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE71D;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ComboBox ItemsSource="{Binding UpdateChannels}" SelectedItem="{ReflectionBinding Source={x:Static ms:GeneralSettings.UpdateChannel}, Path=Value, Mode=TwoWay}" />
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_RestartEffective, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_UseGPURendering, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE950;" />
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.GPU}, Path=Value, Mode=TwoWay}" />
-			</spp:OptionsDisplayItem.ActionButton>
-		</spp:OptionsDisplayItem>
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_RestartEffective, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_UseGPURendering, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE950;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.GPU}, Path=Value, Mode=TwoWay}" />
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
 
-		<ui:SettingsExpander
+        <ui:SettingsExpander
             Header="{ReflectionBinding Path=Res.Settings_General_StorageSpace,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
@@ -78,11 +77,11 @@
             IsClickEnabled="False"
             IsExpanded="True"
             IsVisible="{spp:OnPlatform Windows}">
-			<ui:SettingsExpander.IconSource>
-				<ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE7F1;" />
-			</ui:SettingsExpander.IconSource>
-			<ui:SettingsExpander.Footer>
-				<Button
+            <ui:SettingsExpander.IconSource>
+                <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE7F1;" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpander.Footer>
+                <Button
                     Command="{Binding OpenFolder_Click}"
                     CommandParameter="{x:Null}"
                     Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
@@ -90,9 +89,9 @@
                                                 Source={x:Static s:ResourceService.Current},
                                                 Converter={StaticResource StringFormatConverter},
                                                 ConverterParameter=App}" />
-			</ui:SettingsExpander.Footer>
+            </ui:SettingsExpander.Footer>
 
-			<ui:SettingsExpanderItem
+            <ui:SettingsExpanderItem
                 ActionIconSource="ChevronRight"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="AppData"
@@ -103,7 +102,7 @@
                                                 Source={x:Static s:ResourceService.Current},
                                                 Converter={StaticResource StringFormatConverter},
                                                 ConverterParameter=AppData}" />
-			<ui:SettingsExpanderItem
+            <ui:SettingsExpanderItem
                 ActionIconSource="ChevronRight"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Cache"
@@ -114,14 +113,14 @@
                                                 Source={x:Static s:ResourceService.Current},
                                                 Converter={StaticResource StringFormatConverter},
                                                 ConverterParameter=Cache}">
-				<ui:SettingsExpanderItem.Footer>
-					<TextBlock
+                <ui:SettingsExpanderItem.Footer>
+                    <TextBlock
                         Name="CacheSize"
                         FontSize="{DynamicResource DefaultFontSize}"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-				</ui:SettingsExpanderItem.Footer>
-			</ui:SettingsExpanderItem>
-			<ui:SettingsExpanderItem
+                </ui:SettingsExpanderItem.Footer>
+            </ui:SettingsExpanderItem>
+            <ui:SettingsExpanderItem
                 ActionIconSource="ChevronRight"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Logs"
@@ -132,13 +131,13 @@
                                                 Source={x:Static s:ResourceService.Current},
                                                 Converter={StaticResource StringFormatConverter},
                                                 ConverterParameter=Logs}">
-				<ui:SettingsExpanderItem.Footer>
-					<TextBlock
+                <ui:SettingsExpanderItem.Footer>
+                    <TextBlock
                         Name="LogSize"
                         FontSize="{DynamicResource DefaultFontSize}"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-				</ui:SettingsExpanderItem.Footer>
-			</ui:SettingsExpanderItem>
-		</ui:SettingsExpander>
-	</StackPanel>
+                </ui:SettingsExpanderItem.Footer>
+            </ui:SettingsExpanderItem>
+        </ui:SettingsExpander>
+    </StackPanel>
 </UserControl>

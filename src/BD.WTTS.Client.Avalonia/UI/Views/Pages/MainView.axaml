@@ -156,8 +156,8 @@
             <Image
                 Name="WindowIcon"
                 Grid.Column="1"
-                Width="40"
-                Height="40"
+                Width="30"
+                Height="30"
                 Margin="22,4,10,4"
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
@@ -188,8 +188,8 @@
             <DockPanel Grid.Column="4">
                 <Button DockPanel.Dock="Left" Theme="{DynamicResource TransparentButton}">
                     <Border
-                        Width="30"
-                        Height="30"
+                        Width="32"
+                        Height="32"
                         ClipToBounds="True"
                         CornerRadius="30">
                         <Image Source="/UI/Assets/avatar.jpg" />
@@ -251,7 +251,7 @@
             SelectedItem="{Binding SelectedItem}">
             <ui:NavigationView.Resources>
                 <!--  Override this  -->
-                <Thickness x:Key="NavigationViewContentMargin">0,75,0,0</Thickness>
+                <Thickness x:Key="NavigationViewContentMargin">0,60,0,0</Thickness>
             </ui:NavigationView.Resources>
             <ui:NavigationView.MenuItemTemplate>
                 <DataTemplate DataType="spp:TabItemViewModel">

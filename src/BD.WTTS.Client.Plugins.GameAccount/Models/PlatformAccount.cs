@@ -28,7 +28,6 @@ public sealed partial class PlatformAccount
 
     public bool CurrnetUserAdd(string name)
     {
-
         return platformSwitcher.CurrnetUserAdd(name);
     }
 }

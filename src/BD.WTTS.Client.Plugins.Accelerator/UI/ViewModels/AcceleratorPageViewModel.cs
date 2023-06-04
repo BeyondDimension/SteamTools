@@ -8,4 +8,5 @@ public sealed partial class AcceleratorPageViewModel
     {
 
     }
+
 }

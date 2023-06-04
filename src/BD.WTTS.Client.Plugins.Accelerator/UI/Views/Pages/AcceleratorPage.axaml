@@ -1,14 +1,46 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:spp="https://steampp.net/ui"
-			 xmlns:ui="using:FluentAvalonia.UI.Controls"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 x:CompileBindings="True"
-			 x:DataType="spp:AcceleratorPageViewModel"
-             x:Class="BD.WTTS.UI.Views.Pages.AcceleratorPage">
-	<Grid>
-		
-	</Grid>
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.AcceleratorPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:AcceleratorPageViewModel"
+    mc:Ignorable="d">
+    <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=IsLoading, Mode=OneWay}">
+        <Grid RowDefinitions="Auto,*">
+            <ItemsControl ItemsSource="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Spacing="10" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="spp:AccelerateProjectGroupDTO">
+                        <Border Margin="10" spp:Animations.EnableAnimations="True">
+                            <ui:SettingsExpander Header="{Binding Name}" ItemsSource="{Binding Items}">
+                                <ui:SettingsExpander.IconSource>
+                                    <ui:SymbolIconSource Symbol="Accept" />
+                                </ui:SettingsExpander.IconSource>
+                                <ui:SettingsExpander.ItemTemplate>
+                                    <DataTemplate DataType="spp:AccelerateProjectDTO">
+                                        <ui:SettingsExpanderItem
+                                            ActionIconSource="ChevronRight"
+                                            Content="{Binding Name}"
+                                            IsClickEnabled="True" />
+                                    </DataTemplate>
+                                </ui:SettingsExpander.ItemTemplate>
+                            </ui:SettingsExpander>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </Grid>
+    </spp:ContentLoader>
 </UserControl>

@@ -1,63 +1,65 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:spp="https://steampp.net/ui"
-		xmlns:vm="using:BD.WTTS.UI.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="BD.WTTS.UI.Views.Windows.ContentWindow"
-		xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
-		xmlns:wnd="using:FluentAvalonia.UI.Windowing"
-		xmlns:ui="using:FluentAvalonia.UI.Controls"
-        Title="ContentWindow"
-		WindowStartupLocation="CenterScreen"
-		x:DataType="spp:ContentWindowViewModel"
-		x:CompileBindings="True">
-	<Grid RowDefinitions="Auto, *">
-		<Grid
+<Window
+    x:Class="BD.WTTS.UI.Views.Windows.ContentWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+    xmlns:vm="using:BD.WTTS.UI.ViewModels"
+    xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+    Title="ContentWindow"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:ContentWindowViewModel"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto, *">
+        <Grid
             Name="TitleBarHost"
             Height="{StaticResource TitleBarHeight}"
             Background="Transparent"
             ColumnDefinitions="Auto,Auto,*,Auto,150">
-
-			<Image
+            <Image
                 Name="WindowIcon"
                 Grid.Column="0"
-                Width="36"
-                Height="36"
+                Width="32"
+                Height="32"
                 Margin="22,4,12,4"
+                VerticalAlignment="Center"
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
-				VerticalAlignment="Center"
                 Source="/UI/Assets/ApplicationIcon.ico" />
 
-			<TextBlock
-				Grid.Column="1"
-				VerticalAlignment="Center"
-				FontSize="14"
-				IsHitTestVisible="False"
-				Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+            <TextBlock
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                FontSize="14"
+                IsHitTestVisible="False"
+                Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
 
-			<Separator
+            <Separator
                 Grid.Column="3"
                 Height="18"
                 Margin="10,0"
                 VerticalAlignment="Center"
                 Background="{DynamicResource ButtonBorderBrush}"
                 Classes="Vertical" />
-		</Grid>
-		<ContentControl Grid.Row="1" Content="{Binding PageViewModel}">
-			<ContentControl.DataTemplates>
-				<DataTemplate DataType="spp:AboutPageViewModel">
-					<spp:AboutPage/>
-				</DataTemplate>
-				<DataTemplate DataType="spp:SettingsPageViewModel">
-					<spp:SettingsPage/>
-				</DataTemplate>
-				<DataTemplate DataType="spp:DebugPageViewModel">
-					<spp:DebugPage/>
-				</DataTemplate>
-			</ContentControl.DataTemplates>
-		</ContentControl>
-	</Grid>
+        </Grid>
+        <ContentControl Grid.Row="1" Content="{Binding PageViewModel}">
+            <ContentControl.DataTemplates>
+                <DataTemplate DataType="spp:AboutPageViewModel">
+                    <spp:AboutPage />
+                </DataTemplate>
+                <DataTemplate DataType="spp:SettingsPageViewModel">
+                    <spp:SettingsPage />
+                </DataTemplate>
+                <DataTemplate DataType="spp:DebugPageViewModel">
+                    <spp:DebugPage />
+                </DataTemplate>
+            </ContentControl.DataTemplates>
+        </ContentControl>
+    </Grid>
 </Window>

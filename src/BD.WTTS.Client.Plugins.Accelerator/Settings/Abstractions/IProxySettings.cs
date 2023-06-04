@@ -213,7 +213,7 @@ public interface IProxySettings
     /// <summary>
     /// 当前代理模式的默认值
     /// </summary>
-    static readonly ProxyMode DefaultProxyMode = ProxySettings.ProxyModeValue;
+    static readonly ProxyMode DefaultProxyMode = Enums.ProxyMode.Hosts;
 
     #endregion
 

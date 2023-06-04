@@ -173,6 +173,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.SteamClient", "ref\Steam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValveKeyValue", "ref\SteamClient\ref\ValveKeyValue\ValveKeyValue\ValveKeyValue\ValveKeyValue.csproj", "{2BDF04A4-ADFA-49B4-BC09-EF98CBA04A23}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.SteamClient.Models.Protobuf", "ref\SteamClient\src\BD.SteamClient.Models.Protobuf\BD.SteamClient.Models.Protobuf.csproj", "{4D34BE4D-2233-46ED-939C-EAAEF608F5B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -315,6 +317,10 @@ Global
 		{2BDF04A4-ADFA-49B4-BC09-EF98CBA04A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BDF04A4-ADFA-49B4-BC09-EF98CBA04A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BDF04A4-ADFA-49B4-BC09-EF98CBA04A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D34BE4D-2233-46ED-939C-EAAEF608F5B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D34BE4D-2233-46ED-939C-EAAEF608F5B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D34BE4D-2233-46ED-939C-EAAEF608F5B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D34BE4D-2233-46ED-939C-EAAEF608F5B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -363,6 +369,7 @@ Global
 		{C16C1A52-9394-4FAD-9601-3D7D0D7DDB1C} = {1BD19276-7DEF-4659-9DBF-28E8E5078698}
 		{DBF1B637-1424-40F3-8DDF-C9BB99650B33} = {99D97BD4-3F51-48BC-8BD2-647F6D268BB0}
 		{2BDF04A4-ADFA-49B4-BC09-EF98CBA04A23} = {99D97BD4-3F51-48BC-8BD2-647F6D268BB0}
+		{4D34BE4D-2233-46ED-939C-EAAEF608F5B7} = {99D97BD4-3F51-48BC-8BD2-647F6D268BB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {567F588F-E95C-4286-8B30-DB3B2200221C}
