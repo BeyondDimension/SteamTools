@@ -452,6 +452,23 @@ public abstract partial class Startup
                 {
 
                 }
+
+                switch (ModuleName)
+                {
+                    case IPlatformService.IPCRoot.moduleName:
+#if WINDOWS
+                        try
+                        {
+                            // 退出时执行覆盖更新
+                            IAppUpdateService.OverwriteUpgrade();
+                        }
+                        catch
+                        {
+                            // 此处写不了日志
+                        }
+#endif
+                        break;
+                }
             }
         }
     }

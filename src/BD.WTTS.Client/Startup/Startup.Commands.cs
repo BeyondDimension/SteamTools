@@ -315,6 +315,8 @@ partial class Startup // 自定义控制台命令参数
                 if (!IPlatformService._IsAdministrator.Value)
                     return 401;
 
+                ModuleName = IPlatformService.IPCRoot.moduleName;
+
                 RunUIApplication(AppServicesLevel.IPCRoot | AppServicesLevel.Hosts);
                 await WaitConfiguredServices;
 

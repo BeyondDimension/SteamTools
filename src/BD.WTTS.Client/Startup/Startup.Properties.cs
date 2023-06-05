@@ -12,6 +12,11 @@ partial class Startup // Properties
     public static Startup Instance => instance ?? throw new NullReferenceException("Startup init fail.");
 
     /// <summary>
+    /// 当前的模块名称
+    /// </summary>
+    public string? ModuleName { get; private set; }
+
+    /// <summary>
     /// 当前是否为主进程
     /// </summary>
     public bool IsMainProcess { get; private set; }

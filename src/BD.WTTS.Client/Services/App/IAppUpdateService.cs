@@ -9,6 +9,11 @@ public interface IAppUpdateService
     static IAppUpdateService Instance => Ioc.Get<IAppUpdateService>();
 
     /// <summary>
+    /// 更新包的路径与 SHA384
+    /// </summary>
+    static (string Path, byte[] SHA384) UpdatePackageInfo { get; internal set; }
+
+    /// <summary>
     /// 升级包存放文件夹名称
     /// </summary>
     const string PackDirName = "UpgradePackages";
@@ -130,4 +135,122 @@ public interface IAppUpdateService
     /// 在主窗口显示时调用此函数检查是否需要显示新版本通知窗口
     /// </summary>
     void OnMainOpenTryShowNewVersionWindow();
+
+#if WINDOWS
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static void GenerateOverwriteUpgradeScript(Stream stream, string dirPath)
+    {
+        var processPath = Environment.ProcessPath;
+        processPath.ThrowIsNull();
+        var programName = Encoding.UTF8.GetBytes(IApplication.ProgramName);
+        var dirPath_ = Encoding.UTF8.GetBytes(dirPath);
+        var baseDir = Encoding.UTF8.GetBytes(IOPath.BaseDirectory);
+        var processPath_ = Encoding.UTF8.GetBytes(processPath);
+
+
+        //const string ProgramUpdateCmd_ = """
+        //    @echo off
+        //    :loop
+        //    ping -n 1 127.0.0.1 
+        //    tasklist|find /i "{0}"
+        //    if %errorlevel%==0 (
+        //    taskkill /im "{0}" /f
+        //    )
+        //    else(
+        //    taskkill /im "{0}" /f
+        //    xcopy /y /c /h /r /s "{1}\*.*" "{2}"
+        //    rmdir /s /q "{1}"
+        //    "{3}"
+        //    del %0
+        //    )
+        //    goto :loop
+        //    """;
+
+        stream.Write("""
+                chcp 65001
+                @echo off
+                :loop
+                ping -n 1 127.0.0.1 
+                tasklist|find /i "
+                """u8);
+        stream.Write(programName);
+        stream.Write("""
+                "
+
+                """u8);
+        stream.Write("""
+                if %errorlevel%==0 (
+                taskkill /im "
+                """u8);
+        stream.Write(programName);
+        stream.Write("""
+                " /f
+                )
+                else(
+                taskkill /im "
+                """u8);
+        stream.Write(programName);
+        stream.Write("""
+                " /f
+                xcopy /y /c /h /r /s "
+                """u8);
+        stream.Write(dirPath_);
+        stream.Write("""
+                \*.*" "
+                """u8);
+        stream.Write(baseDir);
+        stream.Write("""
+                "
+                rmdir /s /q "
+                """u8);
+        stream.Write(dirPath_);
+        stream.Write("""
+                "
+                "
+                """u8);
+        stream.Write(processPath_);
+        stream.Write("""
+                "
+                del %0
+                )
+                goto :loop
+                """u8);
+        stream.Flush();
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static void OverwriteUpgrade()
+    {
+        if (UpdatePackageInfo == default ||
+            string.IsNullOrWhiteSpace(UpdatePackageInfo.Path) ||
+            UpdatePackageInfo.SHA384 == null ||
+            UpdatePackageInfo.SHA384.Length != Hashs.String.Lengths.SHA384)
+            return;
+
+        byte[]? sha384Data = null;
+        using (var stream = new FileStream(UpdatePackageInfo.Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+        {
+            sha384Data = SHA384.HashData(stream);
+        }
+        if (!sha384Data.SequenceEqual(UpdatePackageInfo.SHA384))
+            return;
+
+        var dirPath = UpdatePackageInfo.Path.TrimEnd(Path.DirectorySeparatorChar);
+        const string updateCommandFileName = $"{AssemblyInfo.Trademark} Upgrade.cmd";
+        var updateCommandPath = Path.Combine(IOPath.CacheDirectory, updateCommandFileName);
+        IOPath.FileIfExistsItDelete(updateCommandPath);
+        using (var stream = new FileStream(updateCommandPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+        {
+            GenerateOverwriteUpgradeScript(stream, dirPath);
+        }
+
+        ProcessStartInfo psi = new()
+        {
+            FileName = updateCommandFileName,
+            UseShellExecute = false,
+            CreateNoWindow = !AssemblyInfo.Debuggable, // 不显示程序窗口
+        };
+        Process.Start(psi);
+    }
+#endif
 }

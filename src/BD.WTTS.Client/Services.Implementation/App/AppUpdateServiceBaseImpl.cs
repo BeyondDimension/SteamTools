@@ -45,13 +45,6 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
 
     protected virtual Version OSVersion => Environment.OSVersion.Version;
 
-    /// <summary>
-    /// 当更新下载完毕并校验完成时，即将退出程序之前
-    /// </summary>
-    protected virtual void OnExit()
-    {
-    }
-
     public virtual bool IsSupportedServerDistribution
     {
         get
@@ -96,9 +89,7 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
         }
     }
 
-    public string NewVersionInfoTitle =>
-        //AppResources.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version, AssemblyInfo.Trademark);
-        "";
+    public string NewVersionInfoTitle => AppResources.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version, AssemblyInfo.Trademark);
 
     /// <summary>
     /// 当存在新的版本时，重写此方法实现弹窗提示用户 
@@ -530,49 +521,18 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
             }
         }
 
-        const string ProgramUpdateCmd_ = """
-            @echo off
-            :loop
-            ping -n 1 127.0.0.1 
-            tasklist|find /i "{0}"
-            if %errorlevel%==0 (
-            taskkill /im "{0}" /f
-            )
-            else(
-            taskkill /im "{0}" /f
-            xcopy /y /c /h /r /s "{1}\*.*" "{2}"
-            rmdir /s /q "{1}"
-            "{3}"
-            del %0
-            )
-            goto :loop
-            """;
-
-        void OverwriteUpgradePrivate(string dirPath)
+        static async void OverwriteUpgradePrivate(string dirPath)
         {
-            OnExit();
+            var path = dirPath.TrimEnd(Path.DirectorySeparatorChar);
 
-            var updateCommandPath = Path.Combine(IOPath.CacheDirectory, "update.cmd");
-            IOPath.FileIfExistsItDelete(updateCommandPath);
+            byte[]? sha384Data = null;
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+            {
+                sha384Data = SHA384.HashData(stream);
+            }
 
-            var processPath = Environment.ProcessPath;
-            var updateCommand = string.Format(
-               ProgramUpdateCmd_,
-               IApplication.ProgramName,
-               dirPath.TrimEnd(Path.DirectorySeparatorChar),
-               IOPath.BaseDirectory,
-               processPath.ThrowIsNull());
-
-            updateCommand = "chcp 65001" + Environment.NewLine + updateCommand;
-
-            File.WriteAllText(updateCommandPath, updateCommand, Encoding.Default);
-
-            using var p = new Process();
-            p.StartInfo.FileName = updateCommandPath;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = !AssemblyInfo.Debuggable; // 不显示程序窗口
-            p.StartInfo.Verb = "runas"; // 管理员权限运行
-            p.Start(); // 启动程序
+            var platformService = await IPlatformService.IPCRoot.Instance;
+            platformService.SetUpdatePackageInfo(path, sha384Data);
         }
     }
 
