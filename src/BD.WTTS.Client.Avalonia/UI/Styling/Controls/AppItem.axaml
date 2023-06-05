@@ -226,7 +226,12 @@
                                 </StackPanel>
                             </Border>
 
-                            <Border Grid.Row="2" Padding="10,5">
+                            <Border
+                                Grid.Row="2"
+                                Padding="10,5"
+                                IsVisible="{TemplateBinding Status,
+                                                            Converter={StaticResource IsNullConverter},
+                                                            ConverterParameter=invert}">
                                 <WrapPanel Orientation="Horizontal">
                                     <Border
                                         Margin="0,5"
