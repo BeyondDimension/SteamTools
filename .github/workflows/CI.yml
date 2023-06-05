@@ -15,12 +15,6 @@ jobs:
     strategy:
       matrix:
         os: [ windows-latest ]
-        ProjectName: [
-            BD.WTTS.Client.AppHost,
-            BD.WTTS.Client.Plugins.Accelerator.ReverseProxy,
-            BD.WTTS.Client.Avalonia.Designer.HostApp,
-            BD.WTTS.Client.Avalonia.App,
-          ]
 
     steps:
       - name: Checkout repository
@@ -58,9 +52,21 @@ jobs:
       - name: Verify dotnet info
         run: dotnet --info
 
-      - name: Build
+      - name: Build BD.WTTS.Client.AppHost
         shell: pwsh
-        run: dotnet build -c Release src\${{ matrix.ProjectName }}\${{ matrix.ProjectName }}.csproj
+        run: dotnet build -c Release src\BD.WTTS.Client.AppHost\BD.WTTS.Client.AppHost.csproj
+
+      - name: Build BD.WTTS.Client.Plugins.Accelerator.ReverseProxy
+        shell: pwsh
+        run: dotnet build -c Release src\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj
+
+      - name: Build BD.WTTS.Client.Avalonia.App
+        shell: pwsh
+        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.App\BD.WTTS.Client.Avalonia.App.csproj
+
+      - name: Build BD.WTTS.Client.Avalonia.Designer.HostApp
+        shell: pwsh
+        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.Designer.HostApp\BD.WTTS.Client.Avalonia.Designer.HostApp.csproj
 
       - name: Test
         shell: pwsh
