@@ -36,3 +36,7 @@ global using Toast = BD.Common.Toast;
 
 #endif
 #endif
+#if ANDROID
+global using ToastLength = BD.Common.Enums.ToastLength;
+global using AToastLength = Android.Widget.ToastLength;
+#endif

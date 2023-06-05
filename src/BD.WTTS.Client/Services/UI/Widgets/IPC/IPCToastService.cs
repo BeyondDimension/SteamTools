@@ -1,8 +1,3 @@
-#pragma warning disable IDE0079 // 请删除不必要的忽略
-#pragma warning disable SA1209 // Using alias directives should be placed after other using directives
-global using ToastLength = BD.Common.Enums.ToastLength;
-#pragma warning restore SA1209 // Using alias directives should be placed after other using directives
-#pragma warning restore IDE0079 // 请删除不必要的忽略
 using dotnetCampus.Ipc.CompilerServices.Attributes;
 
 // ReSharper disable once CheckNamespace
