@@ -43,8 +43,8 @@ jobs:
       - name: Install Maui
         run: dotnet workload install maui
 
-      - name: Install wasm-tools
-        run: dotnet workload install wasm-tools
+#      - name: Install wasm-tools
+#        run: dotnet workload install wasm-tools
 
       - name: Restore Workload
         run: dotnet workload restore

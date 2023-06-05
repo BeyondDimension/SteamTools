@@ -14,6 +14,8 @@ public static partial class ProjectUtils
     static ProjectUtils()
     {
         ProjPath = GetProjectPath();
+        // https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
+        isCI = bool.TryParse(Environment.GetEnvironmentVariable("CI"), out var result) && result;
     }
 
     /// <summary>
@@ -71,4 +73,8 @@ public static partial class ProjectUtils
     "macos";
 #endif
 #endif
+
+    static readonly bool isCI;
+
+    public static bool IsCI() => isCI;
 }
