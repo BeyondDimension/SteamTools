@@ -17,7 +17,8 @@ public sealed class AuthenticatorService
 
     public static async Task<List<IAuthenticatorDTO>> GetAllAuthenticators()
     {
-        return await repository.GetAllAsync();
+        var allSourceList = await repository.GetAllSourceAsync();
+        return await repository.ConvertToListAsync(allSourceList);
     }
 
     public static async void DeleteAllAuthenticators()

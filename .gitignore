@@ -638,3 +638,4 @@ iOSInjectionProject/
 .idea
 /pkg
 !**/BD.WTTS.Client.Avalonia.App
+/ref/DirectoryPackages

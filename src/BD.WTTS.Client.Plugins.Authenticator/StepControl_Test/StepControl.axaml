@@ -1,0 +1,73 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:BD.WTTS.StepControls_Test">
+    <Design.PreviewWith>
+        <controls:StepControl
+            NextButtonContent="Next"
+            PreviousButtonContent="Previous"
+            ShowNavigationButtons="True"
+            ShowTitle="True" />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|StepControl">
+        <!--  Set Defaults  -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <!--<Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        HorizontalAlignment="Center"
+                        IsVisible="{Binding ShowTitle, RelativeSource={RelativeSource TemplatedParent}}">
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            FontSize="20"
+                            Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <ItemsControl Grid.Row="0" Items="{TemplateBinding StepItems}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Margin="5"
+                                        FontSize="12"
+                                        FontWeight="{Binding IsCurrent, Converter={StaticResource BooleanToFontWeightConverter}}"
+                                        Text="{Binding Title}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <ContentPresenter x:Name="PART_ContentPresenter" Grid.Row="1" />
+                    </Grid>
+                    <StackPanel
+                        Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        IsVisible="{Binding ShowNavigationButtons, RelativeSource={RelativeSource TemplatedParent}}"
+                        Orientation="Horizontal">
+                        <Button
+                            x:Name="PART_PreviousButton"
+                            Margin="10"
+                            Content="{Binding PreviousButtonContent, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <Button
+                            x:Name="PART_NextButton"
+                            Margin="10"
+                            Content="{Binding NextButtonContent, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </StackPanel>
+                </Grid>-->
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>
