@@ -54,23 +54,23 @@ jobs:
 
       - name: Build BD.WTTS.Client.AppHost
         shell: pwsh
-        run: dotnet build -c Release src\BD.WTTS.Client.AppHost\BD.WTTS.Client.AppHost.csproj
+        run: dotnet build -c Release src\BD.WTTS.Client.AppHost\BD.WTTS.Client.AppHost.csproj --nologo -v q /property:WarningLevel=1 
 
       - name: Build BD.WTTS.Client.Plugins.Accelerator.ReverseProxy
         shell: pwsh
-        run: dotnet build -c Release src\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj
+        run: dotnet build -c Release src\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj --nologo -v q /property:WarningLevel=1 
 
       - name: Build BD.WTTS.Client.Avalonia.App
         shell: pwsh
-        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.App\BD.WTTS.Client.Avalonia.App.csproj
+        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.App\BD.WTTS.Client.Avalonia.App.csproj --nologo -v q /property:WarningLevel=1 
 
       - name: Build BD.WTTS.Client.Avalonia.Designer.HostApp
         shell: pwsh
-        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.Designer.HostApp\BD.WTTS.Client.Avalonia.Designer.HostApp.csproj
+        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.Designer.HostApp\BD.WTTS.Client.Avalonia.Designer.HostApp.csproj --nologo -v q /property:WarningLevel=1 
 
       - name: Test
         shell: pwsh
-        run: dotnet test src/BD.WTTS.UnitTest/BD.WTTS.UnitTest.csproj -c Release -p:GeneratePackageOnBuild=false
+        run: dotnet test src/BD.WTTS.UnitTest/BD.WTTS.UnitTest.csproj -c Release -p:GeneratePackageOnBuild=false --nologo -v q /property:WarningLevel=1 
 
 #  release:
 #    name: Release
