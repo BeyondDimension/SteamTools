@@ -4,7 +4,6 @@ using Ae.Dns.Protocol;
 using Ae.Dns.Protocol.Records;
 using static BD.WTTS.Services.IDnsAnalysisService;
 using DnsQueryType = Ae.Dns.Protocol.Enums.DnsQueryType;
-using IHttpClientFactory = System.Net.Http.Client.IHttpClientFactory;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
