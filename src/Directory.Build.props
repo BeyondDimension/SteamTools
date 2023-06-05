@@ -1,5 +1,6 @@
 <Project>
 	<PropertyGroup>
+		<DotNet_Version>7.0</DotNet_Version>
 		<NoWarn>$(NoWarn);NU1507;1591;SA1612;IL2026;IL2091</NoWarn>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
@@ -8,6 +9,7 @@
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IsTrimmable>true</IsTrimmable>
+		<PackageIconUrl>https://avatars.githubusercontent.com/u/79355691?s=200&amp;v=4</PackageIconUrl>
 		<RepositoryType>git</RepositoryType>
 		<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>

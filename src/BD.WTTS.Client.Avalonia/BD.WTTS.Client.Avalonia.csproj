@@ -115,7 +115,7 @@
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
-	<Import Project="..\TFM_NET7_WITH_DESKTOP.props" />
+	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>
 

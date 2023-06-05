@@ -1,6 +1,6 @@
-// ReSharper disable once CheckNamespace
 using Polly;
 
+// ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
 
 public interface ISettings

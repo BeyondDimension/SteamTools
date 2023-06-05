@@ -84,6 +84,6 @@
 		<ProjectReference Include="..\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj" />
 	</ItemGroup>
 
-	<Import Project="..\TFM_NET7_WITH_WINDOWS.props" />
+	<Import Project="..\TFM_NETX_WITH_WINDOWS.props" />
 
 </Project>

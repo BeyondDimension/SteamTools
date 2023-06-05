@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<TargetFrameworks>net7.0</TargetFrameworks>
+		<TargetFrameworks>net$(DotNet_Version)</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>

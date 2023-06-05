@@ -1,5 +1,3 @@
-using dotnetCampus.Ipc.Pipes;
-
 namespace BD.WTTS.Plugins.Abstractions;
 
 /// <summary>

@@ -206,6 +206,6 @@
 		<ProjectReference Include="..\BD.WTTS.Generators\BD.WTTS.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 	
-	<Import Project="..\TFM_NET7_WITH_ALL.props" />
+	<Import Project="..\TFM_NETX_WITH_ALL.props" />
 
 </Project>

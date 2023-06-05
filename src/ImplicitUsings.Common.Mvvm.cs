@@ -5,6 +5,5 @@
 #pragma warning disable SA1209 // Using alias directives should be placed after other using directives
 #pragma warning disable SA1211 // Using alias directives should be ordered alphabetically by alias name
 
-global using AutoMapper;
-global using AutoMapper.QueryableExtensions;
-//global using AutoMapper.EquivalencyExpression;
+global using BD.Common.UI.ViewModels;
+global using BD.Common.UI.ViewModels.Abstractions;

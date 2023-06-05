@@ -7,6 +7,3 @@
 
 global using BD.Common.Data;
 global using BD.Common.Data.Abstractions;
-
-global using BD.WTTS.Data;
-global using BD.WTTS.Data.Abstractions;

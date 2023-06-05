@@ -8,9 +8,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Root", "0.Root", "{46259E
 		src\.editorconfig = src\.editorconfig
 		.gitignore = .gitignore
 		.gitmodules = .gitmodules
+		.github\workflows\CI.yml = .github\workflows\CI.yml
 		src\Directory.Build.props = src\Directory.Build.props
 		ref\DirectoryPackages\Directory.Packages.props = ref\DirectoryPackages\Directory.Packages.props
-		NuGet.Config = NuGet.Config
+		nuget.config = nuget.config
 		README.en.md = README.en.md
 		README.md = README.md
 	EndProjectSection
@@ -79,12 +80,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplicitUsings", "ImplicitU
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TFM", "TFM", "{3B0CFC2A-F61B-4000-AC12-6E0AFB5C475C}"
 	ProjectSection(SolutionItems) = preProject
-		src\TFM_NET7.props = src\TFM_NET7.props
-		src\TFM_NET7_SINGLE.props = src\TFM_NET7_SINGLE.props
-		src\TFM_NET7_WINDOWS.props = src\TFM_NET7_WINDOWS.props
-		src\TFM_NET7_WITH_ALL.props = src\TFM_NET7_WITH_ALL.props
-		src\TFM_NET7_WITH_DESKTOP.props = src\TFM_NET7_WITH_DESKTOP.props
-		src\TFM_NET7_WITH_WINDOWS.props = src\TFM_NET7_WITH_WINDOWS.props
+		src\TFM_NETX.props = src\TFM_NETX.props
+		src\TFM_NETX_SINGLE.props = src\TFM_NETX_SINGLE.props
+		src\TFM_NETX_WINDOWS.props = src\TFM_NETX_WINDOWS.props
+		src\TFM_NETX_WITH_ALL.props = src\TFM_NETX_WITH_ALL.props
+		src\TFM_NETX_WITH_DESKTOP.props = src\TFM_NETX_WITH_DESKTOP.props
+		src\TFM_NETX_WITH_WINDOWS.props = src\TFM_NETX_WITH_WINDOWS.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiSteamFarm.Library", "ref\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj", "{6981D5CA-837C-47F8-9568-E3BD451A6C68}"
