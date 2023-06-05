@@ -147,7 +147,6 @@ public interface IAppUpdateService
         var baseDir = Encoding.UTF8.GetBytes(IOPath.BaseDirectory);
         var processPath_ = Encoding.UTF8.GetBytes(processPath);
 
-
         //const string ProgramUpdateCmd_ = """
         //    @echo off
         //    :loop
@@ -238,10 +237,10 @@ public interface IAppUpdateService
         var dirPath = UpdatePackageInfo.Path.TrimEnd(Path.DirectorySeparatorChar);
         const string updateCommandFileName = $"{AssemblyInfo.Trademark} Upgrade.cmd";
         var updateCommandPath = Path.Combine(IOPath.CacheDirectory, updateCommandFileName);
-        IOPath.FileIfExistsItDelete(updateCommandPath);
         using (var stream = new FileStream(updateCommandPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
         {
             GenerateOverwriteUpgradeScript(stream, dirPath);
+            stream.SetLength(stream.Position);
         }
 
         ProcessStartInfo psi = new()
