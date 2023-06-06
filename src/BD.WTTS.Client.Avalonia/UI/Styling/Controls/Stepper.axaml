@@ -1,0 +1,153 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Spacing="10">
+                <spp:StepperItem Title="Title">
+                    <TextBlock Text="Test" />
+                </spp:StepperItem>
+
+                <spp:Stepper>
+                    <spp:StepperItem Title="Title1" Index="1">
+                        <TextBlock Text="Test1" />
+                    </spp:StepperItem>
+                    <spp:StepperItem
+                        Title="Title2"
+                        Index="2"
+                        IsSkip="True">
+                        <TextBlock Text="Test2" />
+                    </spp:StepperItem>
+                    <spp:StepperItem Title="Title3" Index="3">
+                        <TextBlock Text="Test3" />
+                    </spp:StepperItem>
+                </spp:Stepper>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="spp|Stepper">
+        <!--  Set Defaults  -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <ScrollViewer DockPanel.Dock="Top">
+                        <ItemsPresenter Name="PART_ItemsPresenter">
+                            <ItemsPresenter.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="5" />
+                                </ItemsPanelTemplate>
+                            </ItemsPresenter.ItemsPanel>
+                        </ItemsPresenter>
+                    </ScrollViewer>
+                    <Border DockPanel.Dock="Bottom">
+                        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="*,Auto">
+                            <Panel>
+                                <Border
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    IsVisible="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsFinish, Mode=OneWay}">
+                                    <WrapPanel>
+                                        <Border
+                                            Width="50"
+                                            Height="50"
+                                            Margin="6"
+                                            Background="{DynamicResource InfoBadgeBackground}"
+                                            ClipToBounds="True"
+                                            CornerRadius="25">
+                                            <ui:SymbolIcon Symbol="Checkmark" />
+                                        </Border>
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="16"
+                                            Text="你已经完成了所有步骤~" />
+                                    </WrapPanel>
+                                </Border>
+                                <ScrollViewer
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="3"
+                                    Margin="0,0,0,5"
+                                    IsVisible="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=!IsFinish, Mode=OneWay}">
+                                    <ContentPresenter
+                                        Name="PART_SelectedContentHost"
+                                        Margin="{TemplateBinding Padding}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Content="{TemplateBinding SelectedContent}"
+                                        ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                                </ScrollViewer>
+                            </Panel>
+
+                            <Button
+                                Name="PreviousButton"
+                                Grid.Row="1"
+                                Content="Back" />
+                            <Button
+                                Name="SkipButton"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Content="Skip"
+                                IsVisible="False" />
+                            <Button
+                                Name="NextButton"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Content="Next" />
+                        </Grid>
+                    </Border>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+
+    <Style Selector="spp|StepperItem">
+        <Setter Property="Cursor" Value="Hand" />
+        <!--  Set Defaults  -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <Border
+                        Name="PART_Index"
+                        Width="30"
+                        Height="30"
+                        Margin="6"
+                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                        ClipToBounds="True"
+                        CornerRadius="15"
+                        DockPanel.Dock="Left">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
+                            Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Index, Mode=OneWay}" />
+                    </Border>
+                    <Border DockPanel.Dock="Right">
+                        <TextBlock
+                            Name="PART_Title"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource AccentTextFillColorDisabled}"
+                            Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, Mode=OneWay}"
+                            TextWrapping="Wrap" />
+                    </Border>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="spp|StepperItem:selected">
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+    </Style>
+
+    <Style Selector="spp|StepperItem:selected /template/ Border#PART_Index">
+        <Setter Property="Background" Value="{DynamicResource InfoBadgeBackground}" />
+    </Style>
+
+    <Style Selector="spp|StepperItem:selected /template/ TextBlock#PART_Title">
+        <Setter Property="Foreground" Value="{DynamicResource InfoBadgeBackground}" />
+    </Style>
+</Styles>

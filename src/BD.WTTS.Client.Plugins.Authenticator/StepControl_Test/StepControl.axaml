@@ -14,7 +14,7 @@
         <!--  Set Defaults  -->
         <Setter Property="Template">
             <ControlTemplate>
-                <!--<Grid>
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -66,7 +66,7 @@
                             Margin="10"
                             Content="{Binding NextButtonContent, RelativeSource={RelativeSource TemplatedParent}}" />
                     </StackPanel>
-                </Grid>-->
+                </Grid>
             </ControlTemplate>
         </Setter>
     </Style>

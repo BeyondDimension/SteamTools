@@ -72,6 +72,7 @@ namespace BD.WTTS.UI.Views.Controls
             Left.Click += (s, e) => SwiperPrevious();
             Right.Click += (s, e) => SwiperNext();
 
+            //Carousel[!Carousel.Items] = this[!Items];
             Carousel[!Carousel.ItemsSourceProperty] = this[!ItemsSourceProperty];
             Carousel[!Carousel.ItemTemplateProperty] = this[!ItemTemplateProperty];
 
@@ -124,6 +125,7 @@ namespace BD.WTTS.UI.Views.Controls
                 }
                 var index = Carousel.SelectedIndex < 0 ? 0 : Carousel.SelectedIndex;
                 arr[index] = "#FFFFFF";
+
                 Swiper.ItemsSource = arr;
             }
         }

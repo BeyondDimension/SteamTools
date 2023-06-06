@@ -132,6 +132,18 @@
                             </spp:AppItem.Image>
                         </spp:AppItem>
                     </StackPanel>
+
+                    <spp:Stepper>
+                        <spp:StepperItem Title="Title1">
+                            <TextBlock Text="Test1" />
+                        </spp:StepperItem>
+                        <spp:StepperItem Title="Title2" IsSkip="True">
+                            <TextBlock Text="Test2" />
+                        </spp:StepperItem>
+                        <spp:StepperItem Title="Title3">
+                            <TextBlock Text="Test3" />
+                        </spp:StepperItem>
+                    </spp:Stepper>
                 </StackPanel>
             </Grid>
         </spp:ContentLoader>

@@ -119,7 +119,7 @@ public class AppItem : TemplatedControl
         ani.Duration = TimeSpan.FromMilliseconds(200);
         ani.StopBehavior = AnimationStopBehavior.SetToFinalValue;
         ani.InsertKeyFrame(0f, ec.Offset);
-        ani.InsertKeyFrame(1f, ec.Offset + new Vector3(0, -5, 0));
+        ani.InsertKeyFrame(1f, ec.Offset + new Vector3(0, -3, 0));
         ani.Target = "Offset";
 
         ec.StartAnimation("Offset", ani);
@@ -136,7 +136,7 @@ public class AppItem : TemplatedControl
         ani.Duration = TimeSpan.FromMilliseconds(100);
         ani.StopBehavior = AnimationStopBehavior.SetToFinalValue;
         ani.InsertKeyFrame(0f, ec.Offset);
-        ani.InsertKeyFrame(1f, ec.Offset + new Vector3(0, 5, 0));
+        ani.InsertKeyFrame(1f, ec.Offset + new Vector3(0, 3, 0));
         ani.Target = "Offset";
 
         ec.StartAnimation("Offset", ani);

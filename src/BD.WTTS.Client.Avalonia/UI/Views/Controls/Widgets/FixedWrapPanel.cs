@@ -60,8 +60,8 @@ public class FixedWrapPanel : Panel, INavigableContainer
     protected override Size MeasureOverride(Size constraint)
     {
         double itemWidth = constraint.Width / ItemsPerLine;
-        MutableSize currentLineSize = new();
-        MutableSize panelSize = new();
+        MutableSize currentLineSize = default;
+        MutableSize panelSize = default;
         Size lineConstraint = new(constraint.Width, constraint.Height);
         Size childConstraint = new(itemWidth, constraint.Height);
 
@@ -103,7 +103,7 @@ public class FixedWrapPanel : Panel, INavigableContainer
         double itemWidth = finalSize.Width / ItemsPerLine;
         int firstInLine = 0;
         double accumulatedHeight = 0;
-        var currentLineSize = new MutableSize();
+        var currentLineSize = default(MutableSize);
 
         for (int i = 0; i < Children.Count; i++)
         {

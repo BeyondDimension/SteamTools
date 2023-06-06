@@ -27,6 +27,7 @@
     </Style>
 
     <StyleInclude Source="/UI/Styling/Controls/OptionsDisplayItem.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/Stepper.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/RippleEffect.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/AppItem.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/ToggleSwitch.axaml" />
