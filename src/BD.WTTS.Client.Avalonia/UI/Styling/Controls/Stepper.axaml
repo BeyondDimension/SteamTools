@@ -83,19 +83,19 @@
                             <Button
                                 Name="PreviousButton"
                                 Grid.Row="1"
-                                Content="Back" />
+                                Content="{TemplateBinding BackButtonName}" />
                             <Button
                                 Name="SkipButton"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
-                                Content="Skip"
+                                Content="{TemplateBinding SkipButtonName}"
                                 IsVisible="False" />
                             <Button
                                 Name="NextButton"
                                 Grid.Row="1"
                                 Grid.Column="2"
-                                Content="Next" />
+                                Content="{TemplateBinding NextButtonName}" />
                         </Grid>
                     </Border>
                 </DockPanel>

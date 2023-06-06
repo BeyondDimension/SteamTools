@@ -18,7 +18,13 @@ public class StepperItem : ContentControl, ISelectable
         SelectingItemsControl.IsSelectedProperty.AddOwner<StepperItem>();
 
     public static readonly StyledProperty<bool> IsSkipProperty =
-        AvaloniaProperty.Register<StepperItem, bool>(nameof(IsSkip));
+        AvaloniaProperty.Register<StepperItem, bool>(nameof(IsSkip), false);
+
+    public static readonly StyledProperty<bool> IsBackProperty =
+        AvaloniaProperty.Register<StepperItem, bool>(nameof(IsBack), true);
+
+    public static readonly StyledProperty<bool> IsNextProperty =
+        AvaloniaProperty.Register<StepperItem, bool>(nameof(IsNext), true);
 
     static StepperItem()
     {
@@ -31,14 +37,26 @@ public class StepperItem : ContentControl, ISelectable
 
     public bool IsSelected
     {
-        get { return GetValue(IsSelectedProperty); }
-        set { SetValue(IsSelectedProperty, value); }
+        get => GetValue(IsSelectedProperty);
+        set => SetValue(IsSelectedProperty, value);
     }
 
     public bool IsSkip
     {
-        get { return GetValue(IsSkipProperty); }
-        set { SetValue(IsSkipProperty, value); }
+        get => GetValue(IsSkipProperty);
+        set => SetValue(IsSkipProperty, value);
+    }
+
+    public bool IsBack
+    {
+        get => GetValue(IsBackProperty);
+        set => SetValue(IsBackProperty, value);
+    }
+
+    public bool IsNext
+    {
+        get => GetValue(IsNextProperty);
+        set => SetValue(IsNextProperty, value);
     }
 
     public string Title

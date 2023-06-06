@@ -40,20 +40,29 @@ public class Stepper : SelectingItemsControl
     public static readonly StyledProperty<bool> IsFinishProperty =
         AvaloniaProperty.Register<Stepper, bool>(nameof(IsFinish), false);
 
+    public static readonly StyledProperty<string> SkipButtonNameProperty =
+        AvaloniaProperty.Register<StepperItem, string>(nameof(SkipButtonName), "跳过");
+
+    public static readonly StyledProperty<string> NextButtonNameProperty =
+        AvaloniaProperty.Register<StepperItem, string>(nameof(NextButtonName), "继续");
+
+    public static readonly StyledProperty<string> BackButtonNameProperty =
+        AvaloniaProperty.Register<StepperItem, string>(nameof(BackButtonName), "返回");
+
     /// <summary>
     /// Occurs after the primary button has been tapped.
     /// </summary>
-    public event TypedEventHandler<Stepper, CancelEventArgs>? Nexting;
+    public static event TypedEventHandler<Stepper, CancelEventArgs>? Nexting;
 
     /// <summary>
     /// Occurs after the secondary button has been tapped.
     /// </summary>
-    public event TypedEventHandler<Stepper, CancelEventArgs>? Skiping;
+    public static event TypedEventHandler<Stepper, CancelEventArgs>? Skiping;
 
     /// <summary>
     /// Occurs after the close button has been tapped.
     /// </summary>
-    public event TypedEventHandler<Stepper, CancelEventArgs>? Backing;
+    public static event TypedEventHandler<Stepper, CancelEventArgs>? Backing;
 
     static Stepper()
     {
@@ -62,6 +71,24 @@ public class Stepper : SelectingItemsControl
         //AffectsMeasure<Stepper>(TabStripPlacementProperty);
         SelectedItemProperty.Changed.AddClassHandler<Stepper>((x, e) => x.UpdateSelectedContent());
         AutomationProperties.ControlTypeOverrideProperty.OverrideDefaultValue<Stepper>(AutomationControlType.Tab);
+    }
+
+    public string SkipButtonName
+    {
+        get => GetValue(SkipButtonNameProperty);
+        set => SetValue(SkipButtonNameProperty, value);
+    }
+
+    public string BackButtonName
+    {
+        get => GetValue(BackButtonNameProperty);
+        set => SetValue(BackButtonNameProperty, value);
+    }
+
+    public string NextButtonName
+    {
+        get => GetValue(NextButtonNameProperty);
+        set => SetValue(NextButtonNameProperty, value);
     }
 
     public string Title
@@ -270,9 +297,14 @@ public class Stepper : SelectingItemsControl
 
         if (change.Property == SelectedItemProperty)
         {
-            if (change.NewValue is StepperItem stepperItem && _skipButton != null)
+            if (change.NewValue is StepperItem stepperItem)
             {
-                _skipButton.IsVisible = stepperItem.IsSkip;
+                if (_skipButton != null)
+                    _skipButton.IsVisible = stepperItem.IsSkip;
+                if (_previousButton != null)
+                    _previousButton.IsEnabled = stepperItem.IsBack;
+                if (_nextButton != null)
+                    _nextButton.IsEnabled = stepperItem.IsNext;
             }
         }
         else if (change.Property == ContentTemplateProperty)

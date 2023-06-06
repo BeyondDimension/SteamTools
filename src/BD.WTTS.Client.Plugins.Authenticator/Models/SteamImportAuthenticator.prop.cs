@@ -5,16 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BD.WTTS.Models;
-public sealed partial class SteamImportAuthenticator : TabItemViewModel
+public sealed partial class SteamImportAuthenticator : StepperViewModel
 {
-    public SteamImportAuthenticator()
-    {
-        LoginTabIsVisible = true;
-        PhoneCodeTabIsVisible = false;
-        EmailCodeTabIsVisible = false;
-        CaptchaImageTabIsVisible = false;
-    }
-
     public override string Name => nameof(SteamImportAuthenticator);
 
     private string? username;
@@ -59,34 +51,6 @@ public sealed partial class SteamImportAuthenticator : TabItemViewModel
         }
     }
 
-    private bool logintabisvisible;
-
-    /// <summary>
-    /// 登录页面是否显示
-    /// </summary>
-    public bool LoginTabIsVisible
-    {
-        get => logintabisvisible;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref logintabisvisible, value);
-        }
-    }
-
-    private bool phonecodetabvisible;
-
-    /// <summary>
-    /// 手机验证码页面是否显示
-    /// </summary>
-    public bool PhoneCodeTabIsVisible
-    {
-        get => phonecodetabvisible;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref phonecodetabvisible, value);
-        }
-    }
-
     private string? phonecode;
 
     /// <summary>
@@ -115,19 +79,21 @@ public sealed partial class SteamImportAuthenticator : TabItemViewModel
         }
     }
 
-    private bool emailcodetabisvisible;
+    private bool emailcodetabcanskip;
 
     /// <summary>
-    /// 邮箱验证码页面是否显示
+    /// 邮箱验证码步骤是否可跳过
     /// </summary>
-    public bool EmailCodeTabIsVisible
+    public bool EmailCodeTabCanSkip
     {
-        get => emailcodetabisvisible;
+        get => emailcodetabcanskip;
         set
         {
-            this.RaiseAndSetIfChanged(ref emailcodetabisvisible, value);
+            this.RaiseAndSetIfChanged(ref emailcodetabcanskip, value);
         }
     }
+
+    bool emailcodetabcannext;
 
     private string? emailauth;
 
@@ -143,17 +109,17 @@ public sealed partial class SteamImportAuthenticator : TabItemViewModel
         }
     }
 
-    private bool captchaimagetabisvisible;
+    private bool captchaimagetabcanskip;
 
     /// <summary>
-    /// 文字验证码页面是否显示
+    /// 文字验证码页面是否可跳过
     /// </summary>
-    public bool CaptchaImageTabIsVisible
+    public bool CaptchaImageTabCanSkip
     {
-        get => captchaimagetabisvisible;
+        get => captchaimagetabcanskip;
         set
         {
-            this.RaiseAndSetIfChanged(ref captchaimagetabisvisible, value);
+            this.RaiseAndSetIfChanged(ref captchaimagetabcanskip, value);
         }
     }
 

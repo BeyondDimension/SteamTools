@@ -1,4 +1,6 @@
 using BD.WTTS.Client.Resources;
+using BD.WTTS.Exceptions;
+using BD.WTTS.UI.Views.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,21 +14,42 @@ using ToastLength = BD.Common.Enums.ToastLength;
 namespace BD.WTTS.Models;
 public sealed partial class SteamImportAuthenticator
 {
+    public SteamImportAuthenticator()
+    {
+    }
+
+    protected override void StepperOnSkiping(Stepper sender, CancelEventArgs args)
+    {
+        Toast.Show("SkipTest");
+    }
+
+    protected override void StepperOnBacking(Stepper sender, CancelEventArgs args)
+    {
+        Toast.Show("BackTest");
+        args.Cancel = true;
+    }
+
+    protected override async void StepperOnNexting(Stepper sender, CancelEventArgs args)
+    {
+        var result = await LoginSteamImport();
+        args.Cancel = !result;
+    }
+
     SteamAuthenticator steamAuthenticator = new();
 
     SteamAuthenticator.EnrollState enrollState = new();
 
     /// <summary>
-    /// 重置界面状态
+    /// 重置状态
     /// </summary>
     public void Reset()
     {
         enrollState = new();
-        LoginTabIsVisible = true;
-        FinalTabIsVisible = false;
-        EmailCodeTabIsVisible = false;
-        PhoneCodeTabIsVisible = false;
-        CaptchaImageTabIsVisible = false;
+        // LoginTabIsVisible = true;
+        // FinalTabIsVisible = false;
+        // EmailCodeTabIsVisible = false;
+        // PhoneCodeTabIsVisible = false;
+        // CaptchaImageTabIsVisible = false;
         UserNameText = null;
         PasswordText = null;
         CaptchaImageText = null;
@@ -43,8 +66,7 @@ public sealed partial class SteamImportAuthenticator
     {
         if (string.IsNullOrWhiteSpace(UserNameText) || string.IsNullOrWhiteSpace(PasswordText))
         {
-            Toast.Show("请输入用户名及密码。");
-            return false;
+            throw new SteamLoginNullCatpchaCodeException("请输入用户名及密码。");
         }
         enrollState.Username = UserNameText;
         enrollState.Password = PasswordText;
@@ -53,6 +75,9 @@ public sealed partial class SteamImportAuthenticator
 
         var result = await steamAuthenticator.EnrollAsync(enrollState);
 
+        if (enrollState.RequiresCaptcha || enrollState.RequiresEmailAuth || enrollState.RequiresActivation) result = true;
+        if (enrollState.RequiresEmailAuth) CaptchaImageTabCanSkip = true;
+        if (enrollState.RequiresActivation) EmailCodeTabCanSkip = true;
         return result;
     }
 
@@ -60,13 +85,15 @@ public sealed partial class SteamImportAuthenticator
     {
         if (string.IsNullOrEmpty(CaptchaCodeText))
         {
-            Toast.Show("请输入验证码。");
-            return false;
+            throw new SteamLoginNullCatpchaCodeException("请输入验证码。");
         }
         else
             enrollState.CaptchaText = CaptchaCodeText;
 
         var result = await steamAuthenticator.EnrollAsync(enrollState);
+
+        if (enrollState.RequiresEmailAuth || enrollState.RequiresActivation) result = true;
+        if (enrollState.RequiresActivation) EmailCodeTabCanSkip = true;
 
         CaptchaCodeText = null;
         return result;
@@ -76,13 +103,15 @@ public sealed partial class SteamImportAuthenticator
     {
         if (string.IsNullOrEmpty(EmailAuthText))
         {
-            Toast.Show("请输入邮箱验证码。");
-            return false;
+            throw new SteamLoginNullCatpchaCodeException("请输入邮箱验证码。");
         }
         else
             enrollState.EmailAuthText = EmailAuthText;
 
         var result = await steamAuthenticator.EnrollAsync(enrollState);
+
+        if (enrollState.RequiresActivation) result = true;
+
         EmailAuthText = null;
         EmailDomainText = null;
         return result;
@@ -92,84 +121,72 @@ public sealed partial class SteamImportAuthenticator
     {
         if (string.IsNullOrEmpty(PhoneCodeText))
         {
-            Toast.Show("请输入手机验证码");
-            return false;
+            throw new SteamLoginNullCatpchaCodeException("请输入手机验证码。");
         }
         else
             enrollState.ActivationCode = PhoneCodeText;
 
         var result = await steamAuthenticator.EnrollAsync(enrollState);
         PhoneCodeText = null;
-        return result;
-    }
-
-    public async void CheckResult(bool issuccess)
-    {
-        if (!issuccess)
-        {
-            if (string.IsNullOrEmpty(enrollState.Error) == false)
-            {
-                if (enrollState.Error.Length > 50)
-                    await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = enrollState.Error, IsCancelcBtn = true });
-                else
-                    Toast.Show(enrollState.Error, ToastLength.Long);
-            }
-
-            //已有令牌，无法导入
-            if (enrollState.Requires2FA == true)
-            {
-                Toast.Show(Strings.LocalAuth_SteamUser_Requires2FA, ToastLength.Long);
-                Reset();
-                return;
-            }
-            //需要文字验证码
-            else if (enrollState.RequiresCaptcha == true)
-            {
-                CaptchaImageTabIsVisible = true;
-                CaptchaImageText = enrollState.CaptchaUrl;
-                LoginTabIsVisible = false;
-                return;
-            }
-            //需要邮箱验证码
-            else if (enrollState.RequiresEmailAuth == true)
-            {
-                LoginTabIsVisible = false;
-                CaptchaImageTabIsVisible = false;
-                EmailCodeTabIsVisible = true;
-                EmailDomainText = string.IsNullOrEmpty(enrollState.EmailDomain) == false ? $"******@{enrollState.EmailDomain}" : string.Empty;
-                return;
-            }
-            //导入最后一步，需要账号绑定的手机验证码确认
-            else if (enrollState.RequiresActivation == true)
-            {
-                enrollState.Error = null;
-                LoginTabIsVisible = false;
-                EmailCodeTabIsVisible = false;
-                PhoneCodeTabIsVisible = true;
-                RevocationCodeText = enrollState.RevocationCode;
-                return;
-            }
-            else
-            {
-                string error = string.IsNullOrEmpty(enrollState.Error) ? Strings.LocalAuth_SteamUser_Error : enrollState.Error;
-                Toast.Show(error, ToastLength.Long);
-                Reset();
-            }
-        }
-        else
+        if (result)
         {
             var iADTO = new AuthenticatorDTO() { Name = $"Steam({UserNameText})", Value = steamAuthenticator };
             AuthenticatorService.AddOrUpdateSaveAuthenticators(iADTO, false, null);
             await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUserImportSuccess, IsCancelcBtn = true });
             Reset();
         }
+        return result;
     }
 
-    public async void LoginSteamImport()
+    public async void CheckResult()
+    {
+        if (string.IsNullOrEmpty(enrollState.Error) == false)
+        {
+            if (enrollState.Error.Length > 50)
+                await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = enrollState.Error, IsCancelcBtn = true });
+            else
+                Toast.Show(enrollState.Error, ToastLength.Long);
+        }
+
+        //已有令牌，无法导入
+        if (enrollState.Requires2FA == true)
+        {
+            Reset();
+            throw new SteamLoginRequires2FAException(Strings.LocalAuth_SteamUser_Requires2FA);
+        }
+        //需要文字验证码
+        else if (enrollState.RequiresCaptcha == true)
+        {
+            CaptchaImageText = enrollState.CaptchaUrl;
+            return;
+        }
+        //需要邮箱验证码
+        else if (enrollState.RequiresEmailAuth == true)
+        {
+            EmailDomainText = string.IsNullOrEmpty(enrollState.EmailDomain) == false ? $"******@{enrollState.EmailDomain}" : string.Empty;
+            return;
+        }
+        //导入最后一步，需要账号绑定的手机验证码确认
+        else if (enrollState.RequiresActivation == true)
+        {
+            enrollState.Error = null;
+            RevocationCodeText = enrollState.RevocationCode;
+            return;
+        }
+        else
+        {
+            string error = string.IsNullOrEmpty(enrollState.Error) ? Strings.LocalAuth_SteamUser_Error : enrollState.Error;
+            Toast.Show(error, ToastLength.Long);
+            Reset();
+            return;
+        }
+    }
+
+    public async Task<bool> LoginSteamImport()
     {
         if (_IsLogining)
         {
-            return;
+            return false;
         }
         _IsLogining = true;
 
@@ -180,7 +197,7 @@ public sealed partial class SteamImportAuthenticator
             {
                 ToastService.Current.Set(Strings.Logining);
             }
-            bool result = false;
+            var result = true;
             if (enrollState.RequiresCaptcha)
             {
                 result = await LoginSteamWithCaptchaCodeAsync();
@@ -201,20 +218,33 @@ public sealed partial class SteamImportAuthenticator
             {
                 ToastService.Current.Set();
             }
-            CheckResult(result);
-
+            CheckResult();
+            return result;
         }
         catch (Exception ex)
         {
-            if (ex is WinAuthSteamToManyRequestException)
+            if (ex is WinAuthSteamToManyRequestException or WinAuthInvalidEnrollResponseException)
             {
-                Toast.Show(ex.Message);
+                Toast.Show(ex.Message, ToastLength.Long);
+                return false;
+            }
+            else if (ex is SteamLoginRequires2FAException slr2ex)
+            {
+                Toast.Show(slr2ex.Message, ToastLength.Long);
+                return false;
+            }
+            else if (ex is SteamLoginNullCatpchaCodeException slnex)
+            {
+                Toast.Show(slnex.Message, ToastLength.Long);
+                return false;
             }
             else
             {
                 Log.Error(nameof(AuthenticatorPageViewModel), ex, nameof(LoginSteamImport));
                 await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = ex + "\rError " + nameof(LoginSteamImport), IsCancelcBtn = true });
             }
+
+            return false;
         }
         finally
         {

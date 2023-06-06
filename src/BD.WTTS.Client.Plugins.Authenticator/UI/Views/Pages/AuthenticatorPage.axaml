@@ -14,12 +14,6 @@
     x:DataType="spp:AuthenticatorPageViewModel"
     mc:Ignorable="d">
     <DockPanel>
-        <spp:ImportControl IsVisible="False" />
-        <!--<local:StepControl
-            x:Name="stepControl"
-            NextButtonContent="下一页"
-            PreviousButtonContent="上一页"
-            ShowNavigationButtons="True"
-            ShowTitle="True" />-->
+        <spp:ImportControl IsVisible="True" />
     </DockPanel>
 </UserControl>
