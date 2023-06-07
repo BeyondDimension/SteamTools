@@ -1,0 +1,94 @@
+[
+  {
+    "FullName": "Epic Games",
+    "Icon": "EpicGames",
+    "Platform": 128,
+    "IsExitBeforeInteract": false,
+    "DefaultExePath": "C:\\Program Files (x86)\\Epic Games\\Launcher\\Portal\\Binaries\\Win32\\EpicGamesLauncher.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "e", "epg", "epic", "epicgames" ],
+    "ExesToEnd": [ "EpicGamesLauncher.exe" ],
+    "LoginFiles": [
+      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\Windows\\GameUserSettings.ini",
+      "HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId"
+    ],
+    "CachePaths": [
+      "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\Cache",
+      "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\GPUCache",
+      "%LocalAppData%\\Epic Games\\EOSOverlay\\BrowserCache\\Cache"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\"
+    ],
+    "BackupFileTypesIgnore": null,
+    "BackupFileTypesInclude": null,
+    "ClosingMethod": null,
+    "StartingMethod": null,
+    "UniqueIdPath": "HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId",
+    "UniqueIdType": 2
+  },
+  {
+    "FullName": "Ubisoft",
+    "Icon": "Ubisoft",
+    "Platform": 16,
+    "IsExitBeforeInteract": true,
+    "DefaultExePath": "%ProgramFiles(x86)%\\Ubisoft\\Ubisoft Game launcher\\upc.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "u", "ubi", "uplay", "ubisoft" ],
+    "ExesToEnd": [ "upc.exe", "UplayService.exe", "UplayWebCore.exe" ],
+    "LoginFiles": [
+      "%Platform_Folder%\\logs\\launcher_log.txt",
+      "%LocalAppData%\\Ubisoft Game Launcher\\settings.yaml",
+      "%LocalAppData%\\Ubisoft Game Launcher\\user.dat"
+    ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "CachePaths": [
+      "%Platform_Folder%\\cache\\achievements",
+      "%Platform_Folder%\\cache\\assets",
+      "%Platform_Folder%\\cache\\download",
+      "%Platform_Folder%\\cache\\http2"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\Ubisoft Game Launcher\\settings.yaml",
+      "%Platform_Folder%\\savegames\\"
+    ],
+    "BackupFileTypesIgnore": null,
+    "BackupFileTypesInclude": null,
+    "ClosingMethod": null,
+    "StartingMethod": null,
+    "UniqueIdPath": "%Platform_Folder%\\logs\\launcher_log.txt",
+    "UniqueIdRegex": "(?<=User: ).*",
+    "UniqueIdType": 3
+  },
+  {
+    "FullName": "EA Desktop",
+    "Icon": "EADesktop",
+    "Platform": 8,
+    "IsExitBeforeInteract": true,
+    "DefaultExePath": "%ProgramFiles%\\Electronic Arts\\EA Desktop\\EA Desktop\\EADesktop.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "ea", "eadesktop" ],
+    "ExesToEnd": [ "EADesktop.exe", "EABackgroundService.exe" ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": [
+      "%LocalAppData%\\Electronic Arts\\EA Desktop\\"
+    ],
+    "CachePaths": [
+      "%LocalAppData%\\EADesktop\\QtWebEngine\\Default\\GPUCache",
+      "%LocalAppData%\\EADesktop\\cache\\QtWebEngine\\Default\\Cache",
+      "%LocalAppData%\\EADesktop\\cache\\qmlcache"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\Electronic Arts\\EA Desktop\\"
+    ],
+    "BackupFileTypesIgnore": [
+      ".log"
+    ],
+    "BackupFileTypesInclude": null,
+    "ClosingMethod": null,
+    "StartingMethod": null,
+    "UniqueIdPath": "%LocalAppData%\\Electronic Arts\\EA Desktop\\telemetry.ini",
+    "UniqueIdRegex": "(?<=\\=).*",
+    "UniqueIdType": 3
+  }
+]

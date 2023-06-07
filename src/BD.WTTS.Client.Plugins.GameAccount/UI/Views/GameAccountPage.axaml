@@ -33,8 +33,8 @@
                             IsVisible="{Binding !!AddGamePlatforms.Count}"
                             ItemsSource="{Binding AddGamePlatforms}"
                             Text="添加平台">
-                            <ui:MenuFlyoutSubItem.ItemTemplate>
-                                <DataTemplate DataType="spp:PlatformAccount">
+                            <ui:MenuFlyoutSubItem.DataTemplates>
+                                <DataTemplate DataType="{x:Type spp:PlatformAccount}">
                                     <ui:MenuFlyoutItem
                                         Command="{ReflectionBinding #u.DataContext.AddPlatformCommand}"
                                         CommandParameter="{ReflectionBinding}"
@@ -44,7 +44,7 @@
                                         </ui:MenuFlyoutItem.IconSource>
                                     </ui:MenuFlyoutItem>
                                 </DataTemplate>
-                            </ui:MenuFlyoutSubItem.ItemTemplate>
+                            </ui:MenuFlyoutSubItem.DataTemplates>
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IconSource="Add" Text="添加新账号" />

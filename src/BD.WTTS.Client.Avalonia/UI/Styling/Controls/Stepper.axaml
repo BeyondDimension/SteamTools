@@ -32,7 +32,7 @@
         <!--  Set Defaults  -->
         <Setter Property="Template">
             <ControlTemplate>
-                <DockPanel>
+                <DockPanel HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
                     <ScrollViewer DockPanel.Dock="Top">
                         <ItemsPresenter Name="PART_ItemsPresenter">
                             <ItemsPresenter.ItemsPanel>
@@ -42,7 +42,10 @@
                             </ItemsPresenter.ItemsPanel>
                         </ItemsPresenter>
                     </ScrollViewer>
-                    <Border DockPanel.Dock="Bottom">
+                    <Border
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        DockPanel.Dock="Bottom">
                         <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="*,Auto">
                             <Panel>
                                 <Border
@@ -122,7 +125,7 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="10"
+                            FontSize="12"
                             Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                             Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Index, Mode=OneWay}" />
                     </Border>

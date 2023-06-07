@@ -16,17 +16,25 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     public bool IsExitBeforeInteract { get; set; }
 
-    public string? DefaultExePath { get; set; }
-
     public string? ExeExtraArgs { get; set; }
 
-    public string? DefaultFolderPath { get; set; }
+    public string? DefaultExePath { get; set; }
+
+    //public string? DefaultFolderPath { get; set; }
+
+    public string? UniqueIdPath { get; set; }
+
+    public string? UniqueIdRegex { get; set; }
+
+    public UniqueIdType UniqueIdType { get; set; }
 
     public List<string>? PlatformIds { get; set; }
 
     public List<string>? ExesToEnd { get; set; }
 
     public List<string>? LoginFiles { get; set; }
+
+    public static List<string>? ClearPaths { get; set; }
 
     public static List<string>? CachePaths { get; set; }
 

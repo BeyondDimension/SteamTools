@@ -7,6 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="UI\Assets\Platforms.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="UI\Assets\Platforms.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Xaml.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
