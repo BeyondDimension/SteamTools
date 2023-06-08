@@ -10,6 +10,8 @@ partial interface IPCPlatformService
     /// <param name="sha384"></param>
     void SetUpdatePackageInfo(string path, byte[] sha384)
     {
+#if !LIB_CLIENT_IPC
         IAppUpdateService.UpdatePackageInfo = (path, sha384);
+#endif
     }
 }
