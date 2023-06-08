@@ -81,7 +81,7 @@
 	<ItemGroup>
 		<Folder Include="Settings\Abstractions\" />
 		<Folder Include="UI\ViewModels\" />
-		<Folder Include="UI\Views\" />
+		<Folder Include="UI\ViewModels\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />

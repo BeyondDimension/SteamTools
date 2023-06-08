@@ -142,7 +142,7 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
 #if DEBUG
         s.ApiBaseUrl = UseLocalhostApiBaseUrl ?
             Constants.Urls.BaseUrl_API_Debug :
-            Constants.Urls.BaseUrl_API_Development;
+            "https://steampp.mossimo.net:8800";
 #else
         s.ApiBaseUrl = Constants.Urls.BaseUrl_API_Production;
 #endif
