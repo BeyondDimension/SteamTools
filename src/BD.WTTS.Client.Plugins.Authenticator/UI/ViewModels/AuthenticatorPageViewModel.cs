@@ -1,27 +1,28 @@
-using BD.WTTS.Client.Resources;
-using BD.WTTS.UI.Views.Pages;
-using FluentAvalonia.UI.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinAuth;
+using Avalonia.Controls;
+using Avalonia.Media.Imaging;
+using Splat;
 
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
 {
     public override string Name => "AuthenticatorPage";
+    
+    [Reactive]
+    public ObservableCollection<AuthenticatorItemModel> Auths { get; set; }
 
     public AuthenticatorPageViewModel()
     {
-        ImportTabControlIsVisible = true;
-        //AuthenticatorService.DeleteAllAuthenticators();
+        var temp = new AuthenticatorItemModel();
+        Auths = new(new[] { temp, temp, temp, temp, temp, temp, temp, temp });
+        // using HttpClient client = new HttpClient();
+        // var imagebytes = client.GetByteArrayAsync(
+        //         new Uri("https://www.toopic.cn/public/uploads/small/163420343597163420343525.jpg"))
+        //     .GetAwaiter()
+        //     .GetResult();
+        // using (MemoryStream stream = new MemoryStream(imagebytes))
+        // {
+        //     BottomImage = new Bitmap(stream);
+        // }
     }
-    //[Reactive]
-    //public ObservableCollection<string> AuthenticatorTab { get; set; }
-
-    public bool ImportTabControlIsVisible { get; set; }
-
 }

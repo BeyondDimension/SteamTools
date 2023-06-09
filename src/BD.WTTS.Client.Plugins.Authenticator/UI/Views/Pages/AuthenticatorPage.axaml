@@ -1,18 +1,73 @@
 <UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorPage"
+    x:CompileBindings="True"
+    x:DataType="viewModels:AuthenticatorPageViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:BD.WTTS.UI.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:CompileBindings="True"
-    x:DataType="spp:AuthenticatorPageViewModel"
-    mc:Ignorable="d">
-    <DockPanel>
-        <spp:ImportControl IsVisible="True" />
+    xmlns:viewModels="clr-namespace:BD.WTTS.UI.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel Margin="10">
+        <!-- <views:ImportControl IsVisible="True" /> -->
+        <!--  <Image  -->
+        <!--  DockPanel.Dock="Bottom"  -->
+        <!--  Height="150"  -->
+        <!--  Source="{Binding BottomImage}"  -->
+        <!--  Stretch="UniformToFill" />  -->
+        <Border
+            Background="#2b2c31"
+            CornerRadius="20"
+            DockPanel.Dock="Bottom"
+            Height="75"
+            IsVisible="False" />
+        <Border
+            Background="#2b2c31"
+            CornerRadius="20"
+            DockPanel.Dock="Top"
+            Height="75" />
+        <ScrollViewer
+            DockPanel.Dock="Left"
+            HorizontalScrollBarVisibility="Disabled"
+            Margin="0,10,0,10"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsRepeater ItemsSource="{Binding Auths}">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout
+                        ItemsJustification="Start"
+                        MinColumnSpacing="30"
+                        MinRowSpacing="30" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate DataType="{x:Type spp:AuthenticatorItemModel}">
+                        <controls:AuthenticatorItem
+                            Height="200"
+                            StrokeColor="{Binding Color}"
+                            Value="{Binding Value}"
+                            Width="200">
+                            <StackPanel Spacing="3">
+                                <TextBlock
+                                    FontSize="30"
+                                    Foreground="#d7d7de"
+                                    HorizontalAlignment="Center"
+                                    Text="{Binding Text}"
+                                    VerticalAlignment="Center" />
+                                <TextBlock
+                                    Foreground="#62626a"
+                                    HorizontalAlignment="Center"
+                                    Text="右击以复制"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+                        </controls:AuthenticatorItem>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
     </DockPanel>
 </UserControl>

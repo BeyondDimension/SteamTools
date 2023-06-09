@@ -52,17 +52,17 @@ public class Stepper : SelectingItemsControl
     /// <summary>
     /// Occurs after the primary button has been tapped.
     /// </summary>
-    public static event TypedEventHandler<Stepper, CancelEventArgs>? Nexting;
+    public event TypedEventHandler<Stepper, CancelEventArgs>? Nexting;
 
     /// <summary>
     /// Occurs after the secondary button has been tapped.
     /// </summary>
-    public static event TypedEventHandler<Stepper, CancelEventArgs>? Skiping;
+    public event TypedEventHandler<Stepper, CancelEventArgs>? Skiping;
 
     /// <summary>
     /// Occurs after the close button has been tapped.
     /// </summary>
-    public static event TypedEventHandler<Stepper, CancelEventArgs>? Backing;
+    public event TypedEventHandler<Stepper, CancelEventArgs>? Backing;
 
     static Stepper()
     {
@@ -302,9 +302,9 @@ public class Stepper : SelectingItemsControl
                 if (_skipButton != null)
                     _skipButton.IsVisible = stepperItem.IsSkip;
                 if (_previousButton != null)
-                    _previousButton.IsEnabled = stepperItem.IsBack;
+                    _previousButton.IsVisible = stepperItem.IsBack;
                 if (_nextButton != null)
-                    _nextButton.IsEnabled = stepperItem.IsNext;
+                    _nextButton.IsVisible = stepperItem.IsNext;
             }
         }
         else if (change.Property == ContentTemplateProperty)

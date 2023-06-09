@@ -5,9 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BD.WTTS.Models;
-public sealed partial class SteamImportAuthenticator : StepperViewModel
+public sealed partial class SteamImportAuthenticator : TabItemViewModel
 {
     public override string Name => nameof(SteamImportAuthenticator);
+    
+    private int index;
+
+    public int SelectIndex
+    {
+        get => index;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref index, value);
+        }
+    }
 
     private string? username;
 

@@ -21,10 +21,10 @@ public class StepperItem : ContentControl, ISelectable
         AvaloniaProperty.Register<StepperItem, bool>(nameof(IsSkip), false);
 
     public static readonly StyledProperty<bool> IsBackProperty =
-        AvaloniaProperty.Register<StepperItem, bool>(nameof(IsBack), true);
+        AvaloniaProperty.Register<StepperItem, bool>(nameof(IsBack), false);
 
     public static readonly StyledProperty<bool> IsNextProperty =
-        AvaloniaProperty.Register<StepperItem, bool>(nameof(IsNext), true);
+        AvaloniaProperty.Register<StepperItem, bool>(nameof(IsNext), false);
 
     static StepperItem()
     {
