@@ -11,141 +11,139 @@
     x:CompileBindings="True"
     x:DataType="spp:HomePageViewModel"
     mc:Ignorable="d">
-    <ScrollViewer>
-        <spp:ContentLoader IsLoading="True">
-            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
-                <spp:CarouselBanner
-                    Width="616"
-                    Height="353"
-                    VerticalAlignment="Top"
-                    ItemsSource="{Binding Navigations}">
-                    <spp:CarouselBanner.ItemTemplate>
-                        <DataTemplate DataType="x:String">
-                            <spp:RippleEffect>
-                                <Border ToolTip.Tip="{Binding}">
-                                    <spp:Image2 Source="{Binding}" Stretch="UniformToFill" />
-                                </Border>
-                            </spp:RippleEffect>
-                        </DataTemplate>
-                    </spp:CarouselBanner.ItemTemplate>
-                </spp:CarouselBanner>
+    <spp:ContentLoader IsLoading="True">
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+            <spp:CarouselBanner
+                Width="616"
+                Height="353"
+                VerticalAlignment="Top"
+                ItemsSource="{Binding Navigations}">
+                <spp:CarouselBanner.ItemTemplate>
+                    <DataTemplate DataType="x:String">
+                        <spp:RippleEffect>
+                            <Border ToolTip.Tip="{Binding}">
+                                <spp:Image2 Source="{Binding}" Stretch="UniformToFill" />
+                            </Border>
+                        </spp:RippleEffect>
+                    </DataTemplate>
+                </spp:CarouselBanner.ItemTemplate>
+            </spp:CarouselBanner>
 
-                <TabControl Grid.Column="1">
-                    <TabItem Header="1111">
-                        <StackPanel Spacing="5">
-                            <spp:AppItem
-                                Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
-                                MaxHeight="100"
-                                Description="1111111111121312312123">
-                                <spp:AppItem.Image>
-                                    <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
-                                </spp:AppItem.Image>
-                            </spp:AppItem>
-                            <spp:AppItem
-                                Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
-                                MaxHeight="100"
-                                Description="1111111111121312312123">
-                                <spp:AppItem.Image>
-                                    <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
-                                </spp:AppItem.Image>
-                            </spp:AppItem>
-                            <spp:AppItem
-                                Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
-                                MaxHeight="100"
-                                Description="1111111111121312312123">
-                                <spp:AppItem.Image>
-                                    <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
-                                </spp:AppItem.Image>
-                            </spp:AppItem>
-                        </StackPanel>
-                    </TabItem>
-                    <TabItem Header="2222">
-                        <StackPanel Spacing="5">
-                            <DockPanel>
-                                <Image
-                                    Width="100"
-                                    DockPanel.Dock="Left"
-                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
-                                    Stretch="UniformToFill" />
-                                <Border DockPanel.Dock="Right">
-                                    <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
-                                </Border>
-                            </DockPanel>
-                            <DockPanel>
-                                <Image
-                                    Width="100"
-                                    DockPanel.Dock="Left"
-                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
-                                    Stretch="UniformToFill" />
-                                <Border DockPanel.Dock="Right">
-                                    <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
-                                </Border>
-                            </DockPanel>
-                        </StackPanel>
-                    </TabItem>
-                    <TabItem Header="3333">
-                        <StackPanel Spacing="5">
-                            <DockPanel>
-                                <Image
-                                    Width="100"
-                                    DockPanel.Dock="Left"
-                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
-                                    Stretch="UniformToFill" />
-                                <Border DockPanel.Dock="Right">
-                                    <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
-                                </Border>
-                            </DockPanel>
-                        </StackPanel>
-                    </TabItem>
-                </TabControl>
-
-                <StackPanel
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    Margin="10"
-                    Spacing="5">
-                    <TextBlock Margin="0,0,0,5" Text="常用功能" />
-
-                    <StackPanel Orientation="Horizontal" Spacing="5">
+            <TabControl Grid.Column="1">
+                <TabItem Header="1111">
+                    <StackPanel Spacing="5">
                         <spp:AppItem
-                            Title="测试功能1"
-                            Classes="Vertical"
-                            Description="11111111111111111111111">
+                            Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
+                            MaxHeight="100"
+                            Description="1111111111121312312123">
                             <spp:AppItem.Image>
-                                <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
+                                <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
                             </spp:AppItem.Image>
                         </spp:AppItem>
                         <spp:AppItem
-                            Title="测试功能1"
-                            Classes="Vertical"
-                            Description="11111111111111111111111">
+                            Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
+                            MaxHeight="100"
+                            Description="1111111111121312312123">
                             <spp:AppItem.Image>
-                                <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
+                                <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
                             </spp:AppItem.Image>
                         </spp:AppItem>
                         <spp:AppItem
-                            Title="测试功能1"
-                            Classes="Vertical"
-                            Description="11111111111111111111111">
+                            Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
+                            MaxHeight="100"
+                            Description="1111111111121312312123">
                             <spp:AppItem.Image>
-                                <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
+                                <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
                             </spp:AppItem.Image>
                         </spp:AppItem>
                     </StackPanel>
+                </TabItem>
+                <TabItem Header="2222">
+                    <StackPanel Spacing="5">
+                        <DockPanel>
+                            <Image
+                                Width="100"
+                                DockPanel.Dock="Left"
+                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+                                Stretch="UniformToFill" />
+                            <Border DockPanel.Dock="Right">
+                                <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
+                            </Border>
+                        </DockPanel>
+                        <DockPanel>
+                            <Image
+                                Width="100"
+                                DockPanel.Dock="Left"
+                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+                                Stretch="UniformToFill" />
+                            <Border DockPanel.Dock="Right">
+                                <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
+                            </Border>
+                        </DockPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="3333">
+                    <StackPanel Spacing="5">
+                        <DockPanel>
+                            <Image
+                                Width="100"
+                                DockPanel.Dock="Left"
+                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+                                Stretch="UniformToFill" />
+                            <Border DockPanel.Dock="Right">
+                                <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
+                            </Border>
+                        </DockPanel>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
 
-                    <spp:Stepper>
-                        <spp:StepperItem Title="Title1">
-                            <TextBlock Text="Test1" />
-                        </spp:StepperItem>
-                        <spp:StepperItem Title="Title2" IsSkip="True">
-                            <TextBlock Text="Test2" />
-                        </spp:StepperItem>
-                        <spp:StepperItem Title="Title3">
-                            <TextBlock Text="Test3" />
-                        </spp:StepperItem>
-                    </spp:Stepper>
+            <StackPanel
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Margin="10"
+                Spacing="5">
+                <TextBlock Margin="0,0,0,5" Text="常用功能" />
+
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <spp:AppItem
+                        Title="测试功能1"
+                        Classes="Vertical"
+                        Description="11111111111111111111111">
+                        <spp:AppItem.Image>
+                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
+                        </spp:AppItem.Image>
+                    </spp:AppItem>
+                    <spp:AppItem
+                        Title="测试功能1"
+                        Classes="Vertical"
+                        Description="11111111111111111111111">
+                        <spp:AppItem.Image>
+                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
+                        </spp:AppItem.Image>
+                    </spp:AppItem>
+                    <spp:AppItem
+                        Title="测试功能1"
+                        Classes="Vertical"
+                        Description="11111111111111111111111">
+                        <spp:AppItem.Image>
+                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
+                        </spp:AppItem.Image>
+                    </spp:AppItem>
                 </StackPanel>
-            </Grid>
-        </spp:ContentLoader>
-    </ScrollViewer>
+
+                <spp:Stepper>
+                    <spp:StepperItem Title="Title1">
+                        <TextBlock Text="Test1" />
+                    </spp:StepperItem>
+                    <spp:StepperItem Title="Title2" IsSkip="True">
+                        <TextBlock Text="Test2" />
+                    </spp:StepperItem>
+                    <spp:StepperItem Title="Title3">
+                        <TextBlock Text="Test3" />
+                    </spp:StepperItem>
+                </spp:Stepper>
+            </StackPanel>
+        </Grid>
+    </spp:ContentLoader>
 </UserControl>

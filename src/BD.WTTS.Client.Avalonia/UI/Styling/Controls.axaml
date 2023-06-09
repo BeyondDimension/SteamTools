@@ -26,6 +26,7 @@
         <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName}, Path=Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" />
     </Style>
 
+    <StyleInclude Source="/UI/Styling/Controls/PageBase.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/OptionsDisplayItem.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/Stepper.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/RippleEffect.axaml" />

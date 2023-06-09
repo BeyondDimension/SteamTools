@@ -57,6 +57,10 @@ public sealed partial class App : Application
         {
             desktop.MainWindow = MainWindow ??= new MainWindow();
         }
+        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
+        {
+            singleView.MainView = new MainView();
+        }
         SetThemeNotChangeValue(UISettings.Theme.Value);
         SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
         base.OnFrameworkInitializationCompleted();

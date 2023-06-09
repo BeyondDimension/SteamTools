@@ -66,18 +66,13 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 {
     public static bool IsInitialized = false;
 
-    public AppSplashScreen()
-    {
-        SplashScreenContent = new SplashScreen();
-    }
-
     public WindowViewModel? ViewModel { get; }
 
     public string? AppName { get; }
 
     public IImage? AppIcon { get; }
 
-    public object? SplashScreenContent { get; }
+    public object? SplashScreenContent => new SplashScreen();
 
     int IApplicationSplashScreen.MinimumShowTime =>
 #if DEBUG

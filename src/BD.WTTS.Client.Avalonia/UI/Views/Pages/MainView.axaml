@@ -16,15 +16,20 @@
     <UserControl.Styles>
         <Style Selector="ui|NavigationView.AppNav">
             <Setter Property="IsPaneToggleButtonVisible" Value="False" />
-            <Setter Property="OpenPaneLength" Value="80" />
+            <Setter Property="OpenPaneLength" Value="72" />
+            <Setter Property="IsPaneOpen" Value="True" />
+        </Style>
+
+        <Style Selector="ui|NavigationView.AppNav /template/ Button#NavigationViewBackButton">
+            <Setter Property="Width" Value="{DynamicResource NavigationBackButtonWidth}" />
         </Style>
         <Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
             <Setter Property="Margin" Value="{StaticResource TitleBarAfterMargin}" />
         </Style>
 
         <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter">
-            <Setter Property="Width" Value="80" />
-            <Setter Property="MinHeight" Value="80" />
+            <Setter Property="Width" Value="72" />
+            <Setter Property="MinHeight" Value="75" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
@@ -32,7 +37,7 @@
                 <ControlTemplate>
                     <Border
                         Name="LayoutRoot"
-                        Margin="4,8"
+                        Margin="4,6"
                         Background="{TemplateBinding Background}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         TemplatedControl.IsTemplateFocusTarget="True">
@@ -61,7 +66,7 @@
                                     Content="{TemplateBinding Content}"
                                     ContentTemplate="{TemplateBinding ContentTemplate}"
                                     DockPanel.Dock="Bottom"
-                                    FontSize="12">
+                                    FontSize="10">
                                     <ContentPresenter.Styles>
                                         <Style Selector="TextBlock">
                                             <Setter Property="TextWrapping" Value="Wrap" />
@@ -71,7 +76,7 @@
 
                                 <Viewbox
                                     Name="IconBox"
-                                    Height="30"
+                                    Height="28"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center">
                                     <ContentPresenter Name="Icon" Content="{Binding TemplateSettings.Icon, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -156,8 +161,8 @@
             <Image
                 Name="WindowIcon"
                 Grid.Column="1"
-                Width="30"
-                Height="30"
+                Width="18"
+                Height="18"
                 Margin="22,4,10,4"
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
@@ -167,7 +172,7 @@
             <TextBlock
                 Grid.Column="2"
                 VerticalAlignment="Center"
-                FontSize="14"
+                FontSize="12"
                 IsHitTestVisible="False"
                 Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
 

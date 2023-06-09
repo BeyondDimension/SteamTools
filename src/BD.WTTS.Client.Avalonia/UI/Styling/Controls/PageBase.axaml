@@ -1,0 +1,394 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
+
+    <Design.PreviewWith>
+        <Border
+            Width="500"
+            Height="500"
+            Padding="20"
+            Background="{DynamicResource LayerFillColorDefaultBrush}">
+            <spp:PageBase
+                ControlName="PageName"
+                ControlNamespace="111111111111111111111"
+                Description="测试说明内容"
+                PreviewImage="{StaticResource AppIcon}"
+                WinUINamespace="2222222222222222222">
+                <TextBlock Text="3333333333333333333333" />
+            </spp:PageBase>
+        </Border>
+    </Design.PreviewWith>
+
+    <Styles.Resources>
+        <Thickness x:Key="SampleAppPageMargin">20 20 20 0</Thickness>
+    </Styles.Resources>
+
+    <Style Selector="spp|PageBase">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel Name="Root">
+                    <Panel
+                        Name="HeaderRegion"
+                        ClipToBounds="False"
+                        DockPanel.Dock="Top">
+                        <Border
+                            Height="80"
+                            VerticalAlignment="Top"
+                            Background="{DynamicResource PageHeaderBackgroundBrush}"
+                            OpacityMask="{DynamicResource HeaderOpacityMaskBrush}" />
+                        <Grid
+                            Margin="0,30,0,0"
+                            ClipToBounds="False"
+                            ColumnDefinitions="*,Auto"
+                            RowDefinitions="*,Auto">
+                            <Panel
+                                Name="PageDetails"
+                                Margin="20,0,0,0"
+                                ClipToBounds="False">
+                                <Border
+                                    Name="ImageHost"
+                                    Width="120"
+                                    Height="120"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                                    ClipToBounds="False"
+                                    CornerRadius="{DynamicResource OverlayCornerRadius}">
+                                    <Border.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition
+                                                Easing="0,0 0,1"
+                                                Property="Width"
+                                                Duration="00:00:00.25" />
+                                            <DoubleTransition
+                                                Easing="0,0 0,1"
+                                                Property="Height"
+                                                Duration="00:00:00.25" />
+                                        </Transitions>
+                                    </Border.Transitions>
+                                    <Viewbox Margin="12" ClipToBounds="False">
+                                        <ui:IconSourceElement Name="PreviewImageElement" IconSource="{TemplateBinding PreviewImage}" />
+                                    </Viewbox>
+                                </Border>
+                                <StackPanel
+                                    Name="DetailsTextHost"
+                                    Margin="130,0,0,0"
+                                    VerticalAlignment="Bottom">
+                                    <TextBlock
+                                        Name="ControlNameTextBlock"
+                                        FontSize="40"
+                                        Text="{TemplateBinding ControlName}"
+                                        Theme="{StaticResource TitleTextBlockStyle}">
+                                        <TextBlock.Transitions>
+                                            <Transitions>
+                                                <DoubleTransition Property="FontSize" Duration="00:00:00.167" />
+                                            </Transitions>
+                                        </TextBlock.Transitions>
+                                    </TextBlock>
+                                    <TextBlock
+                                        Name="NamespaceText"
+                                        FontStyle="Italic"
+                                        Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                                        IsVisible="False"
+                                        Text="{TemplateBinding ControlNamespace}"
+                                        Theme="{StaticResource CaptionTextBlockStyle}" />
+                                    <TextBlock
+                                        Name="WinUINamespaceText"
+                                        FontStyle="Italic"
+                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                        IsVisible="False"
+                                        Text="{Binding Path=WinUINamespace, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Theme="{StaticResource CaptionTextBlockStyle}" />
+                                </StackPanel>
+                            </Panel>
+
+                            <StackPanel
+                                Name="OptionsRegion"
+                                Grid.Column="1"
+                                Margin="0,0,20,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Orientation="Horizontal"
+                                Spacing="2">
+                                <StackPanel.RenderTransform>
+                                    <TranslateTransform X="0" Y="0" />
+                                </StackPanel.RenderTransform>
+                                <Button
+                                    Name="ToggleThemeButton"
+                                    Padding="8,4"
+                                    DockPanel.Dock="Right"
+                                    IsVisible="{TemplateBinding ShowToggleThemeButton}"
+                                    Theme="{StaticResource TransparentButton}">
+                                    <Panel>
+                                        <Viewbox
+                                            Width="16"
+                                            Height="16"
+                                            HorizontalAlignment="Left">
+                                            <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                                        </Viewbox>
+                                        <TextBlock
+                                            Margin="28,4,0,4"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Text="Toggle Theme" />
+                                    </Panel>
+                                </Button>
+                                <DropDownButton
+                                    Name="OptionsButton"
+                                    Padding="8"
+                                    Content="&#xE712;"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="20"
+                                    Theme="{StaticResource TransparentButton}">
+                                    <DropDownButton.Flyout>
+                                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                                            <ui:MenuFlyoutItem Name="WinUIDocsItem" Text="WinUI Documentation" />
+                                            <ui:MenuFlyoutItem Name="WinUIGuidelinesItem" Text="WinUI Guidelines" />
+                                            <ui:MenuFlyoutSeparator Name="Sep1" />
+                                            <ui:MenuFlyoutItem Name="XamlSourceItem" Text="Page Source (xaml)" />
+                                            <ui:MenuFlyoutItem Name="CSharpSourceItem" Text="Page Source (csharp)" />
+                                            <ui:MenuFlyoutSeparator Name="Sep2" />
+                                            <ui:MenuFlyoutItem Name="ShowDefItem" Text="Show Control Definition" />
+                                        </ui:FAMenuFlyout>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
+                            </StackPanel>
+
+                        </Grid>
+                    </Panel>
+
+                    <ScrollViewer
+                        Name="PageScroller"
+                        Padding="{DynamicResource SampleAppPageMargin}"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                        <DockPanel Margin="0,0,0,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                DockPanel.Dock="Top"
+                                Text="{TemplateBinding Description}"
+                                TextWrapping="Wrap" />
+
+                            <ContentPresenter
+                                Name="PART_ContentPresenter"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        </DockPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <!--  Special style for design pages w/ ThemeVariantScope  -->
+    <Style Selector="spp|PageBase.design">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ThemeVariantScope Name="ThemeScopeProvider" TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+                    <DockPanel Name="Root" Background="{DynamicResource SolidBackgroundFillColorTertiaryBrush}">
+                        <Panel Name="HeaderRegion" DockPanel.Dock="Top">
+                            <Border
+                                Height="80"
+                                VerticalAlignment="Top"
+                                Background="{DynamicResource PageHeaderBackgroundBrush}"
+                                OpacityMask="{DynamicResource HeaderOpacityMaskBrush}" />
+                            <Grid
+                                Margin="0,30,0,0"
+                                ColumnDefinitions="*,Auto"
+                                RowDefinitions="*,Auto">
+                                <Panel Name="PageDetails" Margin="20,0,0,0">
+                                    <Border
+                                        Name="ImageHost"
+                                        Width="120"
+                                        Height="120"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                                        CornerRadius="{DynamicResource OverlayCornerRadius}">
+                                        <Border.Transitions>
+                                            <Transitions>
+                                                <DoubleTransition
+                                                    Easing="0,0 0,1"
+                                                    Property="Width"
+                                                    Duration="00:00:00.25" />
+                                                <DoubleTransition
+                                                    Easing="0,0 0,1"
+                                                    Property="Height"
+                                                    Duration="00:00:00.25" />
+                                            </Transitions>
+                                        </Border.Transitions>
+                                        <Viewbox Margin="12">
+                                            <ui:IconSourceElement IconSource="{TemplateBinding PreviewImage}" />
+                                        </Viewbox>
+                                    </Border>
+                                    <StackPanel
+                                        Name="DetailsTextHost"
+                                        Margin="130,0,0,0"
+                                        VerticalAlignment="Bottom">
+                                        <TextBlock
+                                            Name="ControlNameTextBlock"
+                                            FontSize="40"
+                                            Text="{TemplateBinding ControlName}"
+                                            Theme="{StaticResource TitleTextBlockStyle}">
+                                            <TextBlock.Transitions>
+                                                <Transitions>
+                                                    <DoubleTransition Property="FontSize" Duration="00:00:00.167" />
+                                                </Transitions>
+                                            </TextBlock.Transitions>
+                                        </TextBlock>
+                                        <TextBlock
+                                            Name="NamespaceText"
+                                            FontStyle="Italic"
+                                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                                            IsVisible="False"
+                                            Text="{TemplateBinding ControlNamespace}"
+                                            Theme="{StaticResource CaptionTextBlockStyle}" />
+                                        <TextBlock
+                                            Name="WinUINamespaceText"
+                                            FontStyle="Italic"
+                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                            IsVisible="False"
+                                            Text="{Binding Path=WinUINamespace, RelativeSource={RelativeSource TemplatedParent}, StringFormat='{}(WinUI) {0}'}"
+                                            Theme="{StaticResource CaptionTextBlockStyle}" />
+                                    </StackPanel>
+                                </Panel>
+
+                                <StackPanel
+                                    Name="OptionsRegion"
+                                    Grid.Column="1"
+                                    Margin="0,0,20,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Orientation="Horizontal"
+                                    Spacing="2">
+                                    <StackPanel.RenderTransform>
+                                        <TranslateTransform X="0" Y="0" />
+                                    </StackPanel.RenderTransform>
+                                    <Button
+                                        Name="ToggleThemeButton"
+                                        Padding="8,4"
+                                        DockPanel.Dock="Right"
+                                        Theme="{StaticResource TransparentButton}">
+                                        <Panel>
+                                            <Viewbox
+                                                Width="16"
+                                                Height="16"
+                                                HorizontalAlignment="Left">
+                                                <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                                            </Viewbox>
+                                            <TextBlock
+                                                Margin="28,4,0,4"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Text="Toggle Theme" />
+                                        </Panel>
+                                    </Button>
+                                    <DropDownButton
+                                        Name="OptionsButton"
+                                        Padding="8"
+                                        Content="&#xE712;"
+                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                        FontSize="20"
+                                        Theme="{StaticResource TransparentButton}">
+                                        <DropDownButton.Flyout>
+                                            <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                                                <ui:MenuFlyoutItem
+                                                    Name="WinUIDocsItem"
+                                                    IconSource="{StaticResource PageIconDocs}"
+                                                    Text="WinUI Documentation" />
+                                                <ui:MenuFlyoutItem
+                                                    Name="WinUIGuidelinesItem"
+                                                    IconSource="{StaticResource ListIcon}"
+                                                    Text="WinUI Guidelines" />
+                                                <ui:MenuFlyoutSeparator Name="Sep1" />
+                                                <ui:MenuFlyoutItem
+                                                    Name="XamlSourceItem"
+                                                    IconSource="{StaticResource CodeIcon}"
+                                                    Text="Page Source (xaml)" />
+                                                <ui:MenuFlyoutItem
+                                                    Name="CSharpSourceItem"
+                                                    IconSource="{StaticResource CSharpIcon}"
+                                                    Text="Page Source (csharp)" />
+                                                <ui:MenuFlyoutSeparator Name="Sep2" />
+                                                <ui:MenuFlyoutItem
+                                                    Name="ShowDefItem"
+                                                    IconSource="{StaticResource CodeIconBraces}"
+                                                    Text="Show Control Definition" />
+                                            </ui:FAMenuFlyout>
+                                        </DropDownButton.Flyout>
+                                    </DropDownButton>
+                                </StackPanel>
+
+                            </Grid>
+                        </Panel>
+
+                        <ScrollViewer
+                            Name="PageScroller"
+                            Padding="{DynamicResource SampleAppPageMargin}"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="0,0,0,20" Spacing="8">
+                                <TextBlock Text="{TemplateBinding Description}" TextWrapping="Wrap" />
+
+                                <ContentPresenter
+                                    Name="PART_ContentPresenter"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            </StackPanel>
+                        </ScrollViewer>
+                    </DockPanel>
+                </ThemeVariantScope>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="spp|PageBase:namespace /template/ TextBlock#NamespaceText">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <Style Selector="spp|PageBase:winuiNamespace /template/ TextBlock#WinUINamespaceText">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <Style Selector="spp|PageBase:smallWidth">
+        <Style Selector="^ /template/ TextBlock#ControlNameTextBlock">
+            <Setter Property="FontSize" Value="28" />
+        </Style>
+        <Style Selector="^ /template/ StackPanel#DetailsTextHost">
+            <Setter Property="Margin" Value="110 0 0 0" />
+        </Style>
+        <Style Selector="^ /template/ Border#ImageHost">
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="100" />
+        </Style>
+    </Style>
+
+    <Style Selector="spp|PageBase:smallWidth2">
+
+        <Style Selector="^ /template/ StackPanel#OptionsRegion">
+            <Setter Property="Grid.Column" Value="0" />
+            <Setter Property="Grid.Row" Value="1" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0 12" />
+        </Style>
+
+        <Style Selector="^ /template/ Panel#PageDetails">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+    </Style>
+
+</Styles>
