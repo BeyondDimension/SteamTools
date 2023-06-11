@@ -9,13 +9,9 @@ public partial class HomePage : PageBase
         InitializeComponent();
         DataContext = IViewModelManager.Instance.Get<HomePageViewModel>();
 
-        ControlName = Strings.Welcome;
-        ControlNamespace = "11111111111111111111111111111";
-        Description = "This is a description";
-
-        App.Instance.Resources.TryGetResource("AppIcon", null, out var icon);
-        PreviewImage = icon as IconSource;
-
-        WinUINamespace = "2222222222222222222222222222222";
+        Title = Strings.Welcome;
+        Subtitle = "11111111111111111111111111111";
+        Description = "2222222222222222222222222222222";
+        ContentDescription = "This is a description";
     }
 }

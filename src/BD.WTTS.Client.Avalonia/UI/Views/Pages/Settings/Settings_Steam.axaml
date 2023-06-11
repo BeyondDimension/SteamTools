@@ -13,10 +13,9 @@
     x:CompileBindings="True"
     x:DataType="spp:SettingsPageViewModel"
     mc:Ignorable="d">
-    <StackPanel Margin="15" Spacing="5">
+    <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
         <TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.Settings_Steam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-        <spp:OptionsDisplayItem Description="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamProgramPath}, Path=Value, Mode=OneWay}" 
-								Header="{ReflectionBinding Path=Res.Settings_Steam_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamProgramPath}, Path=Value, Mode=OneWay}" Header="{ReflectionBinding Path=Res.Settings_Steam_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
             </spp:OptionsDisplayItem.Icon>

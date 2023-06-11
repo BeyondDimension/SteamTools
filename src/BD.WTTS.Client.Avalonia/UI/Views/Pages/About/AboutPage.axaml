@@ -1,46 +1,53 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 xmlns:spp="https://steampp.net/ui"
-			 xmlns:s="https://steampp.net/services"
-			 xmlns:ui="using:FluentAvalonia.UI.Controls"
-			 x:DataType="spp:AboutPageViewModel"
-             x:CompileBindings="True"
-             x:Class="BD.WTTS.UI.Views.Pages.AboutPage">
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.AboutPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:AboutPageViewModel"
+    mc:Ignorable="d">
 
-	<StackPanel Margin="15" Spacing="5">
-		<TextBlock Text="{ReflectionBinding Path=Res.About,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Margin="0 0 0 5"/>
+    <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
+        <TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.About, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
-		<spp:OptionsDisplayItem Header="{Binding AppName}"
-								Description="{Binding Copyright}"
-								Expands="True">
-			<spp:OptionsDisplayItem.Icon>
-				<ui:BitmapIcon UriSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico"/>
-			</spp:OptionsDisplayItem.Icon>
-			<spp:OptionsDisplayItem.ActionButton>
-				<TextBlock Text="{Binding VersionDisplay}"
-						   FontSize="12"
-						   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-						   VerticalAlignment="Center"/>
-			</spp:OptionsDisplayItem.ActionButton>
-			<spp:OptionsDisplayItem.Content>
-				<StackPanel Spacing="4" >
-					<DockPanel LastChildFill="False" Margin="24 0 0 6">
-						<TextBox Text="感谢支持"
-							 Classes="readonlybox"
-							 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-							 FontSize="12"
-							 DockPanel.Dock="Left" />
+        <spp:OptionsDisplayItem
+            Description="{Binding Copyright}"
+            Expands="True"
+            Header="{Binding AppName}">
+            <spp:OptionsDisplayItem.Icon>
+                <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{Binding VersionDisplay}" />
+            </spp:OptionsDisplayItem.ActionButton>
+            <spp:OptionsDisplayItem.Content>
+                <StackPanel Spacing="4">
+                    <DockPanel Margin="24,0,0,6" LastChildFill="False">
+                        <TextBox
+                            Classes="readonlybox"
+                            DockPanel.Dock="Left"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="感谢支持" />
 
-					</DockPanel>
+                    </DockPanel>
 
-					<Border Background="{DynamicResource ApplicationPageBackgroundThemeBrush}"
-							Height="1"
-							Margin="-20"/>
-				</StackPanel>
-			</spp:OptionsDisplayItem.Content>
-		</spp:OptionsDisplayItem>
-	</StackPanel>
+                    <Border
+                        Height="1"
+                        Margin="-20"
+                        Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+                </StackPanel>
+            </spp:OptionsDisplayItem.Content>
+        </spp:OptionsDisplayItem>
+    </StackPanel>
 </UserControl>

@@ -9,6 +9,9 @@
             <Thickness x:Key="TitleBarAfterMargin">0,60,0,0</Thickness>
             <sys:Double x:Key="SplashScreenImageWidth">100</sys:Double>
 
+            <Thickness x:Key="PageMargin">10</Thickness>
+            <sys:Double x:Key="SettingsSpacing">5</sys:Double>
+
             <sys:Char x:Key="PasswordChar">•</sys:Char>
             <FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>
             <BoxShadows x:Key="InfoBoxShadow">2 2 16 0 #3F000000</BoxShadows>
@@ -38,6 +41,7 @@
     <StyleInclude Source="/UI/Styling/Controls/Snackbar.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/Button.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/TabView.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/TabStrip.axaml" />
 
     <!--<Style Selector=":is(Window):transparent">
 		<Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}">

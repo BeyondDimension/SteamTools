@@ -1,0 +1,98 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <Design.PreviewWith>
+        <Border Padding="10">
+            <TabStrip ItemContainerTheme="{StaticResource TabItemStyle}">
+                <TabStripItem Classes="left" Content="Text" />
+                <TabStripItem Content="Fill" />
+                <TabStripItem Content="Stroke" />
+                <TabStripItem Content="Background" />
+                <TabStripItem Classes="right" Content="Signal" />
+            </TabStrip>
+        </Border>
+    </Design.PreviewWith>
+    <Styles.Resources>
+        <!--  Add Resources Here  -->
+        <ControlTheme x:Key="TabItemStyle" TargetType="TabStripItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="{StaticResource TabItemHeaderMargin}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border
+                        Name="PART_LayoutRoot"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        ToolTip.Tip="{TemplateBinding Content}">
+                        <Panel>
+                            <Viewbox
+                                Width="28"
+                                Height="28"
+                                Margin="12,6"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <ui:IconSourceElement IconSource="{TemplateBinding Tag}" />
+                            </Viewbox>
+                            <!--<ContentPresenter Name="PART_ContentPresenter"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              FontFamily="{TemplateBinding FontFamily}"
+                                              FontSize="{TemplateBinding FontSize}"
+                                              FontWeight="{TemplateBinding FontWeight}"
+                                              Margin="48 0 0 0"/>-->
+                            <Rectangle
+                                Name="PART_SelectedPipe"
+                                Height="{DynamicResource TabItemPipeThickness}"
+                                Margin="0,0,0,2"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Bottom"
+                                Fill="{DynamicResource AccentFillColorDefaultBrush}"
+                                Opacity="0"
+                                RadiusX="2"
+                                RadiusY="2" />
+                        </Panel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+
+            <Style Selector="^:pointerover /template/ Rectangle#PART_SelectedPipe">
+                <Setter Property="Opacity" Value="0.2" />
+                <Setter Property="Fill" Value="{DynamicResource ControlStrongFillColorDefaultBrush}" />
+            </Style>
+
+            <Style Selector="^:selected">
+                <Style Selector="^ /template/ Rectangle#PART_SelectedPipe">
+                    <Setter Property="Opacity" Value="1" />
+                </Style>
+
+                <Style Selector="^:pointerover /template/ Rectangle#PART_SelectedPipe">
+                    <Setter Property="Opacity" Value="0.75" />
+                    <Setter Property="Fill" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                </Style>
+            </Style>
+        </ControlTheme>
+
+        <ItemsPanelTemplate x:Key="DefaultPanel">
+            <StackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+    </Styles.Resources>
+
+    <Style Selector="TabStrip">
+        <Setter Property="ItemsPanel">
+            <OnFormFactor Default="{StaticResource DefaultPanel}">
+                <On Options="Mobile">
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </On>
+            </OnFormFactor>
+        </Setter>
+    </Style>
+</Styles>

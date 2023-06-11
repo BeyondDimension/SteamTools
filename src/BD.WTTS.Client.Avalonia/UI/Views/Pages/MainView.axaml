@@ -191,7 +191,12 @@
             </Border>
 
             <DockPanel Grid.Column="4">
-                <Button DockPanel.Dock="Left" Theme="{DynamicResource TransparentButton}">
+                <Button
+                    Padding="0"
+                    CornerRadius="30"
+                    Cursor="Hand"
+                    DockPanel.Dock="Left"
+                    Theme="{DynamicResource TransparentButton}">
                     <Border
                         Width="32"
                         Height="32"
