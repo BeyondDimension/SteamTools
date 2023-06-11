@@ -12,6 +12,19 @@
     x:DataType="spp:HomePageViewModel"
     PreviewImage="{StaticResource AppIcon}"
     mc:Ignorable="d">
+    <spp:PageBase.TabContent>
+        <TabStrip
+            Margin="4"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            ItemContainerTheme="{StaticResource TabItemStyle}">
+            <TabStripItem Content="Test1" />
+            <TabStripItem Content="Test2" />
+            <TabStripItem Content="Test3" />
+        </TabStrip>
+    </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button

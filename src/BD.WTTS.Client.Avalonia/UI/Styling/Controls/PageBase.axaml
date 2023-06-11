@@ -19,26 +19,15 @@
                     Subtitle="111111111111111111111">
                     <spp:PageBase.TabContent>
                         <TabStrip
-                            Name="TabStrip1"
                             Margin="4"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
                             CornerRadius="{StaticResource ControlCornerRadius}"
-                            ItemContainerTheme="{StaticResource TabItemStyle}"
-                            ZIndex="100">
-                            <TabStrip.ItemsPanel>
-                                <OnFormFactor Default="{StaticResource DefaultPanel}">
-                                    <On Options="Mobile">
-                                        <ItemsPanelTemplate>
-                                            <StackPanel />
-                                        </ItemsPanelTemplate>
-                                    </On>
-                                </OnFormFactor>
-                            </TabStrip.ItemsPanel>
-                            <TabStripItem Content="Test1" Tag="{StaticResource AppIcon}" />
-                            <TabStripItem Content="Test2" Tag="{StaticResource AppIcon}" />
-                            <TabStripItem Content="Test3" Tag="{StaticResource AppIcon}" />
+                            ItemContainerTheme="{StaticResource TabItemStyle}">
+                            <TabStripItem Content="Test1" />
+                            <TabStripItem Content="Test2" />
+                            <TabStripItem Content="Test3" />
                         </TabStrip>
                     </spp:PageBase.TabContent>
                     <spp:PageBase.ActionContent>

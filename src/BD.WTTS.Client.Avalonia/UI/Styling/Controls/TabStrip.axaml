@@ -6,11 +6,11 @@
     <Design.PreviewWith>
         <Border Padding="10">
             <TabStrip ItemContainerTheme="{StaticResource TabItemStyle}">
-                <TabStripItem Classes="left" Content="Text" />
+                <TabStripItem Content="Text" />
                 <TabStripItem Content="Fill" />
                 <TabStripItem Content="Stroke" />
                 <TabStripItem Content="Background" />
-                <TabStripItem Classes="right" Content="Signal" />
+                <TabStripItem Content="Signal" />
             </TabStrip>
         </Border>
     </Design.PreviewWith>
@@ -30,23 +30,16 @@
                         CornerRadius="{TemplateBinding CornerRadius}"
                         ToolTip.Tip="{TemplateBinding Content}">
                         <Panel>
-                            <Viewbox
-                                Width="28"
-                                Height="28"
+                            <ContentPresenter
+                                Name="PART_ContentPresenter"
                                 Margin="12,6"
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
-                                <ui:IconSourceElement IconSource="{TemplateBinding Tag}" />
-                            </Viewbox>
-                            <!--<ContentPresenter Name="PART_ContentPresenter"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              Content="{TemplateBinding Content}"
-                                              HorizontalAlignment="Left"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              FontFamily="{TemplateBinding FontFamily}"
-                                              FontSize="{TemplateBinding FontSize}"
-                                              FontWeight="{TemplateBinding FontWeight}"
-                                              Margin="48 0 0 0"/>-->
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontWeight="{TemplateBinding FontWeight}" />
                             <Rectangle
                                 Name="PART_SelectedPipe"
                                 Height="{DynamicResource TabItemPipeThickness}"
