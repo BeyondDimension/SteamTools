@@ -76,7 +76,10 @@
                 Text="{Binding DebugString}"
                 TextAlignment="Start"
                 TextWrapping="Wrap" />
-            <TextBox Name="CommandTextBox" Grid.Row="1" />
+            <TextBox
+                Name="CommandTextBox"
+                Grid.Row="1"
+                Watermark="在此输入控制台指令" />
         </Grid>
     </Border>
 </spp:PageBase>

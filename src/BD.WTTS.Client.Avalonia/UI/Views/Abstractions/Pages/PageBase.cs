@@ -32,6 +32,9 @@ public class PageBase : UserControl
     public static readonly StyledProperty<object?> ActionContentProperty =
         AvaloniaProperty.Register<PageBase, object?>(nameof(ActionContent));
 
+    public static readonly StyledProperty<bool> IsShowBackgroundImageProperty =
+        AvaloniaProperty.Register<PageBase, bool>(nameof(IsShowBackgroundImage), defaultValue: true);
+
     public string Title
     {
         get => GetValue(TitleProperty);
@@ -72,6 +75,12 @@ public class PageBase : UserControl
     {
         get => GetValue(ActionContentProperty);
         set => SetValue(ActionContentProperty, value);
+    }
+
+    public bool IsShowBackgroundImage
+    {
+        get => GetValue(IsShowBackgroundImageProperty);
+        set => SetValue(IsShowBackgroundImageProperty, value);
     }
 
     protected override Type StyleKeyOverride => typeof(PageBase);
