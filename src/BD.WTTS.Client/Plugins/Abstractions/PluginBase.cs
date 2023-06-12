@@ -7,6 +7,13 @@ public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<T
 {
     string DebuggerDisplay => Name;
 
+    public PluginBase()
+    {
+        Instance = (TPlugin)this;
+    }
+
+    public static TPlugin Instance { get; private set; } = null!;
+
     public abstract string Name { get; }
 
     readonly Lazy<string> mVersion = new(() =>

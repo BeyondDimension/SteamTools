@@ -9,13 +9,6 @@ sealed class Plugin : PluginBase<Plugin>
 {
     const string moduleName = "Accelerator";
 
-    public Plugin()
-    {
-        Instance = this;
-    }
-
-    public static Plugin Instance { get; private set; } = null!;
-
     public sealed override string Name => moduleName;
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
