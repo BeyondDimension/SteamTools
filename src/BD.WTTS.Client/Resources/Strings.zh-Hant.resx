@@ -1434,7 +1434,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>修改帳號備註</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>登錄新 Steam 帳號</value>
+    <value>登录新账号</value>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
     <value>顯示/隱藏使用者名</value>
