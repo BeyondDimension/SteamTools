@@ -8,20 +8,21 @@ namespace BD.WTTS.Services;
 
 public sealed class AuthenticatorService
 {
+
     static IAccountPlatformAuthenticatorRepository repository = Ioc.Get<IAccountPlatformAuthenticatorRepository>();
 
-    public static async void AddOrUpdateSaveAuthenticators(IAuthenticatorDTO authenticatorDTO, bool isLocal, string? password)
+    public static async void AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDTO, bool isLocal, string? password)
     {
         await repository.InsertOrUpdateAsync(authenticatorDTO, isLocal, password);
     }
 
-    public static async Task<List<IAuthenticatorDTO>> GetAllAuthenticators()
+    public static async Task<List<IAuthenticatorDTO>> GetAllAuthenticatorsAsync()
     {
         var allSourceList = await repository.GetAllSourceAsync();
         return await repository.ConvertToListAsync(allSourceList);
     }
 
-    public static async void DeleteAllAuthenticators()
+    public static async void DeleteAllAuthenticatorsAsync()
     {
         var list = await repository.GetAllSourceAsync();
         foreach (var item in list)

@@ -79,7 +79,7 @@
                             </StackPanel>
                             <ContentControl
                                 Content="{TemplateBinding Content}"
-                                HorizontalContentAlignment="Center"
+                                HorizontalContentAlignment="Stretch"
                                 Margin="{TemplateBinding StrokeWidth}"
                                 VerticalContentAlignment="Center" />
                         </Grid>

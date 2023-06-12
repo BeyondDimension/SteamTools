@@ -191,7 +191,7 @@ public sealed partial class SteamImportAuthenticator
         else
         {
             var iADTO = new AuthenticatorDTO() { Name = $"Steam({UserNameText})", Value = steamAuthenticator };
-            AuthenticatorService.AddOrUpdateSaveAuthenticators(iADTO, false, null);
+            AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iADTO, false, null);
             await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUserImportSuccess, IsCancelcBtn = true });
             SelectIndex = 4;
         }

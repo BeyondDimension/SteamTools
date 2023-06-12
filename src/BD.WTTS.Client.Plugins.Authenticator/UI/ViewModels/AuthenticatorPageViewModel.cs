@@ -13,16 +13,16 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
 
     public AuthenticatorPageViewModel()
     {
-        var temp = new AuthenticatorItemModel();
-        Auths = new(new[] { temp, temp, temp, temp, temp, temp, temp, temp });
-        // using HttpClient client = new HttpClient();
-        // var imagebytes = client.GetByteArrayAsync(
-        //         new Uri("https://www.toopic.cn/public/uploads/small/163420343597163420343525.jpg"))
-        //     .GetAwaiter()
-        //     .GetResult();
-        // using (MemoryStream stream = new MemoryStream(imagebytes))
-        // {
-        //     BottomImage = new Bitmap(stream);
-        // }
+        Auths = new();
+        Start();
+    }
+
+    public async void Start()
+    {
+        var list = await AuthenticatorService.GetAllAuthenticatorsAsync();
+        foreach (var item in list)
+        {
+            Auths.Add(new AuthenticatorItemModel(item));
+        }
     }
 }

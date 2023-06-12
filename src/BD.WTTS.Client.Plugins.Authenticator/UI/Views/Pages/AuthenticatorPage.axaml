@@ -9,6 +9,7 @@
     xmlns:controls="clr-namespace:BD.WTTS.UI.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:BD.WTTS.Models"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -25,13 +26,54 @@
             Background="#2b2c31"
             CornerRadius="20"
             DockPanel.Dock="Bottom"
-            Height="75"
-            IsVisible="False" />
+            IsVisible="True">
+            <DockPanel>
+                <ui:CommandBar
+                    DefaultLabelPosition="Right"
+                    DockPanel.Dock="Left"
+                    HorizontalAlignment="Center">
+                    <ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBarButton IconSource="Add" Label="查看Code" />
+                    </ui:CommandBar.PrimaryCommands>
+                    <ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBarButton IconSource="Add" Label="固定展示" />
+                    </ui:CommandBar.PrimaryCommands>
+                    <ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBarButton IconSource="Add" Label="确认交易" />
+                    </ui:CommandBar.PrimaryCommands>
+                    <ui:CommandBarSeparator />
+                    <ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBarButton IconSource="Add" Label="查看详细数据" />
+                    </ui:CommandBar.PrimaryCommands>
+                    <ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBarButton IconSource="Add" Label="展示二维码" />
+                    </ui:CommandBar.PrimaryCommands>
+                    <ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBarButton IconSource="Add" Label="复制令牌" />
+                    </ui:CommandBar.PrimaryCommands>
+                </ui:CommandBar>
+            </DockPanel>
+        </Border>
         <Border
             Background="#2b2c31"
             CornerRadius="20"
             DockPanel.Dock="Top"
-            Height="75" />
+            Padding="10">
+            <DockPanel>
+                <ui:CommandBar DefaultLabelPosition="Right" DockPanel.Dock="Left">
+                    <ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBarButton
+                            Foreground="White"
+                            IconSource="Add"
+                            Label="新增" />
+                    </ui:CommandBar.PrimaryCommands>
+                    <ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBarButton IconSource="Add" Label="加密" />
+                    </ui:CommandBar.PrimaryCommands>
+                    <ui:CommandBarSeparator Background="LightBlue" />
+                </ui:CommandBar>
+            </DockPanel>
+        </Border>
         <ScrollViewer
             DockPanel.Dock="Left"
             HorizontalScrollBarVisibility="Disabled"
@@ -45,7 +87,7 @@
                         MinRowSpacing="30" />
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
-                    <DataTemplate DataType="{x:Type spp:AuthenticatorItemModel}">
+                    <DataTemplate DataType="{x:Type model:AuthenticatorItemModel}">
                         <controls:AuthenticatorItem
                             Height="200"
                             StrokeColor="{Binding Color}"
@@ -61,7 +103,7 @@
                                 <TextBlock
                                     Foreground="#62626a"
                                     HorizontalAlignment="Center"
-                                    Text="右击以复制"
+                                    Text="{Binding SecText}"
                                     VerticalAlignment="Center" />
                             </StackPanel>
                         </controls:AuthenticatorItem>
