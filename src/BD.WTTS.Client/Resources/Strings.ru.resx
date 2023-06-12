@@ -1434,7 +1434,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Изменить заметки к учётной записи</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>Войдите в новую учётную запись Steam</value>
+    <value>登录新账号</value>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
     <value>Показать/скрыть имя пользователя</value>
