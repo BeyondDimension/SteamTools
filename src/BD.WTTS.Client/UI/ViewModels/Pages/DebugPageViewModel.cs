@@ -1,5 +1,3 @@
-#if DEBUG
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels;
 
@@ -79,4 +77,3 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
         }
     }
 }
-#endif

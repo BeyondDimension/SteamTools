@@ -68,7 +68,7 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
 #if DEBUG
         set
 #else
-            protected set
+        protected set
 #endif
         {
             _NewVersionInfo = value;
