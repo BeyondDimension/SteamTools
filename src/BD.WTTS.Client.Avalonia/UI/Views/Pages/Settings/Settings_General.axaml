@@ -92,7 +92,7 @@
             </ui:SettingsExpander.Footer>
 
             <ui:SettingsExpanderItem
-                ActionIconSource="ChevronRight"
+                ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="AppData"
                 Content="AppData 数据"
@@ -103,7 +103,7 @@
                                                 Converter={StaticResource StringFormatConverter},
                                                 ConverterParameter=AppData}" />
             <ui:SettingsExpanderItem
-                ActionIconSource="ChevronRight"
+                ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Cache"
                 Content="Cache 数据"
@@ -121,7 +121,7 @@
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
             <ui:SettingsExpanderItem
-                ActionIconSource="ChevronRight"
+                ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Logs"
                 Content="Logs 数据"

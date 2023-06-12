@@ -24,9 +24,30 @@
             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
             CornerRadius="{StaticResource ControlCornerRadius}"
             ItemContainerTheme="{StaticResource TabItemStyle}">
-            <TabStripItem Content="Test1" />
-            <TabStripItem Content="Test2" />
-            <TabStripItem Content="Test3" />
+            <TabStripItem>
+                <Viewbox
+                    Width="26"
+                    Height="26"
+                    HorizontalAlignment="Left">
+                    <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                </Viewbox>
+            </TabStripItem>
+            <TabStripItem>
+                <Viewbox
+                    Width="26"
+                    Height="26"
+                    HorizontalAlignment="Left">
+                    <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                </Viewbox>
+            </TabStripItem>
+            <TabStripItem>
+                <Viewbox
+                    Width="26"
+                    Height="26"
+                    HorizontalAlignment="Left">
+                    <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                </Viewbox>
+            </TabStripItem>
         </TabStrip>
     </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>

@@ -32,7 +32,7 @@
                         <Panel>
                             <ContentPresenter
                                 Name="PART_ContentPresenter"
-                                Margin="12,6"
+                                Margin="12,8"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 Content="{TemplateBinding Content}"
