@@ -1431,7 +1431,7 @@ This feature can set the wallpaper of Wallpaper Engine and other wallpaper softw
     <value>Click here to edit remarks</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>Log in to a new Steam account</value>
+    <value>登录新账号</value>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
     <value>Show/hide user names</value>
