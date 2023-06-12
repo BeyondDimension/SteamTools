@@ -1434,7 +1434,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>アカウント メモを変更します</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>新しい Steam アカウントにログインします</value>
+    <value>登录新账号</value>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
     <value>ユーザー名の表示/非表示を切り替える</value>
