@@ -172,7 +172,9 @@
                 <Setter Property="Content" Value="{Binding}" />
                 <Setter Property="ContentTemplate">
                     <DataTemplate DataType="spp:PlatformAccount">
-                        <spp:AccountItems />
+                        <ScrollViewer>
+                            <spp:AccountItems />
+                        </ScrollViewer>
                     </DataTemplate>
                 </Setter>
             </Style>

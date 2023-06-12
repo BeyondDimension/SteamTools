@@ -89,7 +89,7 @@ public class PageBase : UserControl
 
         _previewImageHost = e.NameScope.Find<IconSourceElement>("PreviewImageElement");
         _detailsHost = e.NameScope.Find<StackPanel>("DetailsTextHost");
-        _optionsHost = e.NameScope.Find<StackPanel>("OptionsRegion");
+        _optionsHost = e.NameScope.Find<Panel>("OptionsRegion");
         _detailsPanel = e.NameScope.Find<Panel>("PageDetails");
         _scroller = e.NameScope.Find<ScrollViewer>("PageScroller");
     }
@@ -235,7 +235,7 @@ public class PageBase : UserControl
     private bool _hasLoaded;
 
     private Panel? _detailsPanel;
-    private StackPanel? _optionsHost;
+    private Panel? _optionsHost;
     private IconSourceElement? _previewImageHost;
     private StackPanel? _detailsHost;
     private ScrollViewer? _scroller;
