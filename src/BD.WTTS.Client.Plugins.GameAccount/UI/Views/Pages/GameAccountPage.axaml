@@ -1,9 +1,10 @@
-<UserControl
-    x:Class="BD.WTTS.UI.Views.GameAccountPage"
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.GameAccountPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     x:Name="u"
@@ -12,6 +13,94 @@
     x:CompileBindings="True"
     x:DataType="spp:GameAccountPageViewModel"
     mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SwitchUser}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.TabContent>
+        <TabStrip
+            Margin="4"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            ItemContainerTheme="{StaticResource TabItemStyle}">
+            <TabStripItem Content="多平台账号切换" />
+            <TabStripItem Content="Steam 家庭共享库管理" />
+        </TabStrip>
+    </spp:PageBase.TabContent>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Add" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Refresh" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{ReflectionBinding Path=Res.Refresh,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <DropDownButton
+                Padding="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+                <DropDownButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <ui:MenuFlyoutItem IsEnabled="False" Text="版本号: 0.1">
+                            <!--<ui:MenuFlyoutItem.Text>
+                                <MultiBinding StringFormat="{}版本号: {0}">
+                                    <Binding
+                                        Mode="OneWay"
+                                        Path="User.NickName"
+                                        Source="{x:Static service:UserService.Current}" />
+                                </MultiBinding>
+                            </ui:MenuFlyoutItem.Text>-->
+                        </ui:MenuFlyoutItem>
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AccountChange_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="插件设置" />
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem Text="在 Steam++ 插件商店中查看" />
+                        <ui:MenuFlyoutItem Text="使用帮助" />
+                        <ui:MenuFlyoutItem Text="关于此插件" />
+                    </ui:FAMenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
     <ui:TabView
         Padding="0"
         VerticalAlignment="Stretch"
@@ -102,4 +191,4 @@
             </DataTemplate>
         </ui:TabView.TabItemTemplate>
     </ui:TabView>
-</UserControl>
+</spp:PageBase>

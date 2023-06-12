@@ -8,11 +8,14 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     public ThirdpartyPlatform Platform { get; init; }
 
-    [Reactive]
+    [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public ObservableCollection<IAccount>? Accounts { get; set; }
 
-    [Reactive]
+    [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public bool IsEnable { get; set; }
+
+    [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public bool IsLoading { get; set; }
 
     public bool IsExitBeforeInteract { get; set; }
 

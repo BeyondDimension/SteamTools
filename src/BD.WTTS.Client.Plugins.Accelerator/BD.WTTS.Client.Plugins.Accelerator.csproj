@@ -92,4 +92,8 @@
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="UI\Views\Pages\ScriptPage.axaml" />
+	</ItemGroup>
+
 </Project>

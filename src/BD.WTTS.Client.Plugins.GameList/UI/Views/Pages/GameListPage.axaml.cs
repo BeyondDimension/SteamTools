@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace BD.WTTS.UI.Views;
+namespace BD.WTTS.UI.Views.Pages;
 
 public partial class GameListPage : UserControl
 {

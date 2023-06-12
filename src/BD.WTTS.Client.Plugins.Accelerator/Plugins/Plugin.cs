@@ -24,7 +24,7 @@ sealed class Plugin : PluginBase<Plugin>
         yield return new MenuTabItemViewModel()
         {
             ResourceKeyOrName = "ScriptConfig",
-            PageType = typeof(DemoPage),
+            PageType = typeof(ScriptPage),
             IsResourceGet = true,
             IconKey = "DuplexPortraitOneSided",
         };

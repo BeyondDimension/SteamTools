@@ -87,4 +87,6 @@
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
+	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 </Project>

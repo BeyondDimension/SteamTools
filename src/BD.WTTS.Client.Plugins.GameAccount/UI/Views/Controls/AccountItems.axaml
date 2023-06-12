@@ -1,9 +1,10 @@
 <UserControl
-    x:Class="BD.WTTS.UI.Views.AccountItems"
+    x:Class="BD.WTTS.UI.Views.Controls.AccountItems"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="450"

@@ -1,5 +1,4 @@
-using BD.WTTS.UI.Views;
-using Microsoft.Extensions.DependencyInjection;
+using BD.WTTS.UI.Views.Pages;
 
 namespace BD.WTTS.Plugins;
 

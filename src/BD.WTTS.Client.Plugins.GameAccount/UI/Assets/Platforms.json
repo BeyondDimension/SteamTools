@@ -90,5 +90,43 @@
     "UniqueIdPath": "%LocalAppData%\\Electronic Arts\\EA Desktop\\telemetry.ini",
     "UniqueIdRegex": "(?<=\\=).*",
     "UniqueIdType": 3
+  },
+  {
+    "FullName": "Origin",
+    "Icon": "Origin",
+    "Platform": 8,
+    "IsExitBeforeInteract": true,
+    "DefaultExePath": "%ProgramFiles(x86)%\\Origin\\Origin.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "o", "origin" ],
+    "ExesToEnd": [ "Origin.exe", "OriginWebHelperService.exe" ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": [
+      "%AppData%\\Origin\\ConsolidatedCache\\",
+      "%AppData%\\Origin\\Logs\\",
+      "%AppData%\\Origin\\NucleusCache\\",
+      "%AppData%\\Origin\\*.xml",
+      "%AppData%\\Origin\\Logs\\dserrors.data",
+      "%ProgramData%\\Origin\\AchievementCache\\",
+      "%ProgramData%\\Origin\\Subscription\\",
+      "%ProgramData%\\Origin\\local.xml",
+      "%ProgramData%\\Origin\\*.olc",
+      "%ProgramData%\\Origin\\TcNoAccSwitcher-ID.instance"
+    ],
+    "CachePaths": [
+      "%ProgramData%\\Origin\\DownloadCache",
+      "%LocalAppData%\\Origin\\Origin\\cache\\QtWebEngine\\Default\\Cache",
+      "%LocalAppData%\\Origin\\Origin\\QtWebEngine\\Default\\Application Cache\\Cache"
+    ],
+    "BackupPaths": [
+      "%ProgramData%\\Origin\\LocalContent\\",
+      "%ProgramData%\\Origin\\local.xml"
+    ],
+    "BackupFileTypesIgnore": null,
+    "BackupFileTypesInclude": null,
+    "ClosingMethod": null,
+    "StartingMethod": null,
+    "UniqueIdPath": "%ProgramData%\\Origin\\TcNoAccSwitcher-ID.instance",
+    "UniqueIdType": 1
   }
 ]
