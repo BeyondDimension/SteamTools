@@ -53,13 +53,8 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem Text="WinUI Documentation" />
-                        <ui:MenuFlyoutItem Text="WinUI Guidelines" />
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem Text="Page Source (xaml)" />
-                        <ui:MenuFlyoutItem Text="Page Source (csharp)" />
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem Text="Show Control Definition" />
+                        <ui:MenuFlyoutItem Text="Test111" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>

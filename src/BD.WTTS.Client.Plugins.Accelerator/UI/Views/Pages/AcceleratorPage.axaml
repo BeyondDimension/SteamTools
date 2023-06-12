@@ -1,9 +1,10 @@
-<UserControl
+<spp:PageBase
     x:Class="BD.WTTS.UI.Views.Pages.AcceleratorPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -12,6 +13,108 @@
     x:CompileBindings="True"
     x:DataType="spp:AcceleratorPageViewModel"
     mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.TabContent>
+        <TabStrip
+            Margin="4"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            ItemContainerTheme="{StaticResource TabItemStyle}">
+            <TabStripItem Content="网络加速" />
+            <TabStripItem Content="脚本配置" />
+        </TabStrip>
+    </spp:PageBase.TabContent>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{ReflectionBinding Path=Res.CommunityFix_StartProxy,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Refresh" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{ReflectionBinding Path=Res.Refresh,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <DropDownButton
+                Padding="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+                <DropDownButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <ui:MenuFlyoutSubItem ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+                            <ui:MenuFlyoutSubItem.ItemTemplate>
+                                <DataTemplate>
+                                    <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{ReflectionBinding}" />
+                                </DataTemplate>
+                            </ui:MenuFlyoutSubItem.ItemTemplate>
+                        </ui:MenuFlyoutSubItem>
+                        <ui:MenuFlyoutItem Text="插件设置" />
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem Text="安装证书" />
+                        <ui:MenuFlyoutItem Text="移除证书" />
+                        <ui:MenuFlyoutItem Text="打开证书文件夹" />
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem Text="编辑 hosts 文件" />
+                        <ui:MenuFlyoutItem Text="重置 hosts 文件" />
+                        <ui:MenuFlyoutItem Text="打开 hosts 文件夹" />
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem IsEnabled="False" Text="版本号: 0.1">
+                            <!--<ui:MenuFlyoutItem.Text>
+                                <MultiBinding StringFormat="{}版本号: {0}">
+                                    <Binding
+                                        Mode="OneWay"
+                                        Path="User.NickName"
+                                        Source="{x:Static service:UserService.Current}" />
+                                </MultiBinding>
+                            </ui:MenuFlyoutItem.Text>-->
+                        </ui:MenuFlyoutItem>
+                        <ui:MenuFlyoutItem Text="在 Steam++ 插件商店中查看" />
+                        <ui:MenuFlyoutItem Text="使用帮助" />
+                        <ui:MenuFlyoutItem Text="关于此插件" />
+                    </ui:FAMenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
     <ScrollViewer Padding="10">
         <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=IsLoading, Mode=OneWay}">
             <Grid RowDefinitions="Auto,*">
@@ -51,4 +154,4 @@
             </Grid>
         </spp:ContentLoader>
     </ScrollViewer>
-</UserControl>
+</spp:PageBase>

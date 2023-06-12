@@ -135,7 +135,7 @@
                                     VerticalAlignment="Bottom">
                                     <TextBlock
                                         Name="ControlNameTextBlock"
-                                        FontSize="40"
+                                        FontSize="36"
                                         Text="{TemplateBinding Title}"
                                         Theme="{StaticResource TitleTextBlockStyle}">
                                         <TextBlock.Transitions>

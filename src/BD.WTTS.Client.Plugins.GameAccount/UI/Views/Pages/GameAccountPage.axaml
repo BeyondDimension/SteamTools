@@ -80,6 +80,9 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AccountChange_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="插件设置" />
+                        <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False" Text="版本号: 0.1">
                             <!--<ui:MenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}版本号: {0}">
@@ -90,9 +93,6 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>-->
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AccountChange_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="插件设置" />
-                        <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem Text="在 Steam++ 插件商店中查看" />
                         <ui:MenuFlyoutItem Text="使用帮助" />
                         <ui:MenuFlyoutItem Text="关于此插件" />
