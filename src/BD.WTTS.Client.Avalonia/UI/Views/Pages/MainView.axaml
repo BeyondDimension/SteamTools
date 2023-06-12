@@ -161,8 +161,8 @@
             <Image
                 Name="WindowIcon"
                 Grid.Column="1"
-                Width="18"
-                Height="18"
+                Width="26"
+                Height="26"
                 Margin="22,4,10,4"
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"

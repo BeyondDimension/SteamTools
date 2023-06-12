@@ -145,13 +145,18 @@
                                             </Transitions>
                                         </TextBlock.Transitions>
                                     </TextBlock>
-                                    <TextBlock
+                                    <Button
                                         Name="NamespaceText"
-                                        FontStyle="Italic"
-                                        Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                                        Padding="0"
+                                        Cursor="Hand"
                                         IsVisible="False"
-                                        Text="{TemplateBinding Subtitle}"
-                                        Theme="{StaticResource CaptionTextBlockStyle}" />
+                                        Theme="{StaticResource TransparentButton}">
+                                        <TextBlock
+                                            FontStyle="Italic"
+                                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                                            Text="{TemplateBinding Subtitle}"
+                                            Theme="{StaticResource CaptionTextBlockStyle}" />
+                                    </Button>
                                     <TextBlock
                                         Name="WinUINamespaceText"
                                         FontStyle="Italic"
@@ -220,7 +225,7 @@
         </Setter>
     </Style>
 
-    <Style Selector="spp|PageBase:namespace /template/ TextBlock#NamespaceText">
+    <Style Selector="spp|PageBase:namespace /template/ Button#NamespaceText">
         <Setter Property="IsVisible" Value="True" />
     </Style>
 

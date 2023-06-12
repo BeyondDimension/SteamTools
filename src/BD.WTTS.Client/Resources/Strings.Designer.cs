@@ -6736,7 +6736,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登录新 Steam 账号 的本地化字符串。
+        ///   查找类似 登录新账号 的本地化字符串。
         /// </summary>
         public static string UserChange_LoginNewAccount {
             get {

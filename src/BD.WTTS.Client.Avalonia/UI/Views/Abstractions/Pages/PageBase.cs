@@ -85,7 +85,7 @@ public class PageBase : UserControl
 
     protected override Type StyleKeyOverride => typeof(PageBase);
 
-    protected ThemeVariantScope? ThemeScopeProvider { get; private set; }
+    //protected ThemeVariantScope? ThemeScopeProvider { get; private set; }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -94,11 +94,12 @@ public class PageBase : UserControl
         PseudoClasses.Set(":namespace", Subtitle != null);
         PseudoClasses.Set(":winuiNamespace", Description != null);
 
-        ThemeScopeProvider = e.NameScope.Find<ThemeVariantScope>("ThemeScopeProvider");
+        //ThemeScopeProvider = e.NameScope.Find<ThemeVariantScope>("ThemeScopeProvider");
 
         _previewImageHost = e.NameScope.Find<IconSourceElement>("PreviewImageElement");
         _detailsHost = e.NameScope.Find<StackPanel>("DetailsTextHost");
         _optionsHost = e.NameScope.Find<Panel>("OptionsRegion");
+        _tabsHost = e.NameScope.Find<Border>("TabRegion");
         _detailsPanel = e.NameScope.Find<Panel>("PageDetails");
         _scroller = e.NameScope.Find<ScrollViewer>("PageScroller");
     }
@@ -108,6 +109,7 @@ public class PageBase : UserControl
         base.OnLoaded();
         _hasLoaded = true;
         SetDetailsAnimation();
+        SetTabsAnimation();
     }
 
     protected override void OnUnloaded()
@@ -181,12 +183,35 @@ public class PageBase : UserControl
         _cts = null;
     }
 
+    private void SetTabsAnimation()
+    {
+        if (_tabsHost == null)
+            return;
+
+        var ec = ElementComposition.GetElementVisual(_tabsHost);
+        if (ec == null)
+            return;
+        var compositor = ec.Compositor;
+
+        var offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
+        offsetAnimation.Target = "Offset";
+        offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
+        offsetAnimation.Duration = TimeSpan.FromMilliseconds(250);
+
+        var ani = compositor.CreateImplicitAnimationCollection();
+        ani["Offset"] = offsetAnimation;
+
+        ec.ImplicitAnimations = ani;
+    }
+
     private void SetDetailsAnimation()
     {
         if (_detailsPanel == null)
             return;
 
         var ec = ElementComposition.GetElementVisual(_detailsPanel);
+        if (ec == null)
+            return;
         var compositor = ec.Compositor;
 
         var offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
@@ -245,6 +270,7 @@ public class PageBase : UserControl
 
     private Panel? _detailsPanel;
     private Panel? _optionsHost;
+    private Border? _tabsHost;
     private IconSourceElement? _previewImageHost;
     private StackPanel? _detailsHost;
     private ScrollViewer? _scroller;
