@@ -1434,7 +1434,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>계정 메모 수정</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>새 Steam 계정에 로그인</value>
+    <value>登录新账号</value>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
     <value>사용자 이름 표시/숨기기</value>
