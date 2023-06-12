@@ -92,6 +92,14 @@
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<!-- Windows Only -->
+		<!-- 修复：存在 Microsoft.WindowsDesktop.App 依赖时不会将 System.Drawing.Common.dll 复制到输出目录-->
+		<None Condition="Exists('$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\runtimes\win\lib\net7.0\System.Drawing.Common.dll')" Include="$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\runtimes\win\lib\net7.0\System.Drawing.Common.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(NugetPackageRoot)\splat.drawing\$(Version_Splat_Drawing)\lib\net7.0\Splat.Drawing.dll')">
+		<!-- Windows Only -->
 		<!-- 修复：Splat.Drawing 包存在 WPF 的依赖项 -->
 		<PackageReference Include="Splat.Drawing">
 			<ExcludeAssets>all</ExcludeAssets>
@@ -99,10 +107,6 @@
 		<Reference Include="Splat.Drawing">
 			<HintPath>$(NugetPackageRoot)\splat.drawing\$(Version_Splat_Drawing)\lib\net7.0\Splat.Drawing.dll</HintPath>
 		</Reference>
-		<!-- 修复：存在 Microsoft.WindowsDesktop.App 依赖时不会将 System.Drawing.Common.dll 复制到输出目录-->
-		<None Include="$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\runtimes\win\lib\net7.0\System.Drawing.Common.dll">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
