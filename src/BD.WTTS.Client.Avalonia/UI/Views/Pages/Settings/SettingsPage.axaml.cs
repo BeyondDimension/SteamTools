@@ -8,7 +8,5 @@ public partial class SettingsPage : PageBase<SettingsPageViewModel>
     {
         InitializeComponent();
         DataContext = IViewModelManager.Instance.Get<SettingsPageViewModel>();
-
-        Title = Strings.Settings;
     }
 }

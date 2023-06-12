@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="{Binding Name}"
     d:DesignHeight="900"
     d:DesignWidth="1080"
     x:CompileBindings="True"

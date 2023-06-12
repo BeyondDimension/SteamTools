@@ -1,26 +1,82 @@
-<UserControl
+<spp:PageBase
     x:Class="BD.WTTS.UI.Views.Pages.DebugPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="{Binding Name}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:DebugPageViewModel"
+    PreviewImage="{StaticResource AppIcon}"
     mc:Ignorable="d">
     <Design.DataContext>
         <spp:DebugPageViewModel />
     </Design.DataContext>
-    <Grid RowDefinitions="*,Auto">
-        <TextBox
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Classes="readonlybox"
-            Text="{Binding DebugString}"
-            TextAlignment="Start"
-            TextWrapping="Wrap" />
-        <TextBox Name="CommandTextBox" Grid.Row="1" />
-    </Grid>
-</UserControl>
+    <spp:PageBase.TabContent>
+        <TabStrip
+            Margin="4"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            ItemContainerTheme="{StaticResource TabItemStyle}">
+            <TabStripItem Content="Test1" />
+            <TabStripItem Content="Test2" />
+            <TabStripItem Content="Test3" />
+        </TabStrip>
+    </spp:PageBase.TabContent>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Action Button" />
+                </Panel>
+            </Button>
+            <DropDownButton
+                Padding="8"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+                <DropDownButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <ui:MenuFlyoutItem Text="Test111" />
+                        <ui:MenuFlyoutItem Text="Test111" />
+                        <ui:MenuFlyoutItem Text="Test111" />
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem Text="Test111" />
+                    </ui:FAMenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
+        <Grid RowDefinitions="*,Auto">
+            <TextBox
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Classes="readonlybox"
+                Text="{Binding DebugString}"
+                TextAlignment="Start"
+                TextWrapping="Wrap" />
+            <TextBox Name="CommandTextBox" Grid.Row="1" />
+        </Grid>
+    </Border>
+</spp:PageBase>
