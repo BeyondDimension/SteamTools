@@ -22,6 +22,8 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         }
     }
 
+    void IPlatformSwitcher.ClearCurrentLoginUser() => steamService.SetCurrentUser("");
+
     public bool KillPlatformProcess()
     {
         return steamService.TryKillSteamProcess();
@@ -41,14 +43,14 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         RunPlatformProcess();
     }
 
-    public bool CurrnetUserAdd(string name) => false;
+    public bool CurrnetUserAdd(string name, PlatformAccount platform) => false;
 
     public void ChangeUserRemark()
     {
 
     }
 
-    public async Task<IEnumerable<IAccount>?> GetUsers()
+    public async Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform)
     {
         var users = steamService.GetRememberUserList();
         if (!users.Any_Nullable())

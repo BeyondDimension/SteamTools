@@ -2,7 +2,13 @@ namespace BD.WTTS.Models;
 
 public sealed partial class PlatformAccount : ReactiveObject
 {
-    public string? FullName { get; set; }
+    public string PlatformLoginCache => $"{IOPath.AppDataDirectory}\\LoginCache\\{FullName}\\";
+
+    public string IdsJsonPath => Path.Combine(PlatformLoginCache, "ids.json");
+
+    public string RegJsonPath(string accName) => Path.Combine(PlatformLoginCache, accName, "reg.json");
+
+    public string FullName { get; set; }
 
     public string? Icon { get; set; }
 
@@ -35,7 +41,7 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     public List<string>? ExesToEnd { get; set; }
 
-    public List<string>? LoginFiles { get; set; }
+    public Dictionary<string, string>? LoginFiles { get; set; }
 
     public static List<string>? ClearPaths { get; set; }
 

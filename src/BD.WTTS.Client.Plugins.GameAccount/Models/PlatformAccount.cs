@@ -1,4 +1,5 @@
 using System.Linq;
+using static SteamKit2.GC.Dota.Internal.CMsgPracticeLobbyCreate;
 
 namespace BD.WTTS.Models;
 
@@ -9,8 +10,10 @@ public sealed partial class PlatformAccount
     public PlatformAccount(ThirdpartyPlatform platform)
     {
         var platformSwitchers = Ioc.Get<IEnumerable<IPlatformSwitcher>>();
-        this.Platform = platform;
-        this.platformSwitcher = Platform switch
+
+        FullName = platform.ToString();
+        Platform = platform;
+        platformSwitcher = Platform switch
         {
             ThirdpartyPlatform.Steam => platformSwitchers.OfType<SteamPlatformSwitcher>().First(),
             _ => platformSwitchers.OfType<BasicPlatformSwitcher>().First(),
@@ -21,13 +24,13 @@ public sealed partial class PlatformAccount
 
     public async void LoadUsers()
     {
-        var users = await platformSwitcher.GetUsers();
+        var users = await platformSwitcher.GetUsers(this);
         if (users.Any_Nullable())
-            this.Accounts = new ObservableCollection<IAccount>(users);
+            Accounts = new ObservableCollection<IAccount>(users);
     }
 
     public bool CurrnetUserAdd(string name)
     {
-        return platformSwitcher.CurrnetUserAdd(name);
+        return platformSwitcher.CurrnetUserAdd(name, this);
     }
 }

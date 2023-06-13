@@ -10,7 +10,7 @@
     "ExesToEnd": [ "EpicGamesLauncher.exe" ],
     "LoginFiles": [
       "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\Windows\\GameUserSettings.ini",
-      "HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId"
+      "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId"
     ],
     "CachePaths": [
       "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\Cache",

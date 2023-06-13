@@ -31,6 +31,7 @@
                 VerticalAlignment="Center"
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
+                RenderOptions.BitmapInterpolationMode="HighQuality"
                 Source="/UI/Assets/ApplicationIcon.ico" />
 
             <TextBlock

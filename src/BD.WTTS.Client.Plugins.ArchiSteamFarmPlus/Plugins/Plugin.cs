@@ -23,7 +23,7 @@ sealed class Plugin : PluginBase<Plugin>
             ResourceKeyOrName = "ArchiSteamFarmPlus",
             PageType = null,
             IsResourceGet = true,
-            IconKey = "ASF",
+            IconKey = "GameConsole",
         };
     }
 

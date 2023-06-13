@@ -19,13 +19,7 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
     {
         if (args.Item is PlatformAccount platform)
         {
-            if (platform.FullName == "Steam")
-            {
-                Toast.Show(string.Format("不允许删除 {0} 平台", platform.FullName));
-                return;
-            }
-            ViewModel?.AddGamePlatforms?.Add(platform);
-            ViewModel?.GamePlatforms?.Remove(platform);
+            ViewModel?.RemovePlatform(platform);
         }
     }
 }

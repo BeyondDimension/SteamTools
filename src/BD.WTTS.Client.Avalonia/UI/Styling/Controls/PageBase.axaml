@@ -93,7 +93,7 @@
                         <Border
                             Height="80"
                             VerticalAlignment="Top"
-                            Background="{DynamicResource PageHeaderBackgroundBrush}"
+                            Background="{TemplateBinding HeaderBackground}"
                             IsVisible="{TemplateBinding IsShowBackgroundImage}"
                             OpacityMask="{DynamicResource HeaderOpacityMaskBrush}" />
                         <Grid

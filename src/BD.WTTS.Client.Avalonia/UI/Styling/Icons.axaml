@@ -10,7 +10,7 @@
     <x:String x:Key="SwitchUser">&#xE748;</x:String>
     <x:String x:Key="Game">&#xE7FC;</x:String>
     <x:String x:Key="DefenderApp">&#xE83D;</x:String>
-    <x:String x:Key="ASF">ASF</x:String>
+    <x:String x:Key="GameConsole">&#xE967;</x:String>
     <x:String x:Key="Settings">&#xE713;</x:String>
     <x:String x:Key="DateTime">&#xEC92;</x:String>
     <x:String x:Key="More">&#xE712;</x:String>

@@ -1,3 +1,4 @@
+using Avalonia.Controls;
 using Avalonia.Rendering.Composition;
 
 namespace BD.WTTS.UI.Views.Pages;
@@ -7,6 +8,14 @@ public class PageBase : UserControl
     public PageBase() : base()
     {
         SizeChanged += PageBaseSizeChanged;
+
+        if (HeaderBackground == null &&
+            App.Instance.TryGetResource("PageHeaderBackgroundBrush", App.Instance.ActualThemeVariant, out var image) && 
+            image is IBrush brush)
+        {
+            HeaderBackground = brush;
+        }
+
         //AddHandler(Frame.NavigatingFromEvent, FrameNavigatingFrom, RoutingStrategies.Direct);
         //AddHandler(Frame.NavigatedToEvent, FrameNavigatedTo, RoutingStrategies.Direct);
     }
@@ -34,6 +43,9 @@ public class PageBase : UserControl
 
     public static readonly StyledProperty<bool> IsShowBackgroundImageProperty =
         AvaloniaProperty.Register<PageBase, bool>(nameof(IsShowBackgroundImage), defaultValue: true);
+
+    public static readonly StyledProperty<IBrush?> HeaderBackgroundProperty =
+       AvaloniaProperty.Register<PageBase, IBrush?>(nameof(HeaderBackground));
 
     public string Title
     {
@@ -83,9 +95,13 @@ public class PageBase : UserControl
         set => SetValue(IsShowBackgroundImageProperty, value);
     }
 
-    protected override Type StyleKeyOverride => typeof(PageBase);
+    public IBrush? HeaderBackground
+    {
+        get => GetValue(HeaderBackgroundProperty);
+        set => SetValue(HeaderBackgroundProperty, value);
+    }
 
-    //protected ThemeVariantScope? ThemeScopeProvider { get; private set; }
+    protected override Type StyleKeyOverride => typeof(PageBase);
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -93,8 +109,6 @@ public class PageBase : UserControl
 
         PseudoClasses.Set(":namespace", Subtitle != null);
         PseudoClasses.Set(":winuiNamespace", Description != null);
-
-        //ThemeScopeProvider = e.NameScope.Find<ThemeVariantScope>("ThemeScopeProvider");
 
         _previewImageHost = e.NameScope.Find<IconSourceElement>("PreviewImageElement");
         _detailsHost = e.NameScope.Find<StackPanel>("DetailsTextHost");
