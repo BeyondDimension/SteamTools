@@ -14,12 +14,9 @@ public partial interface IPlugin : IExplicitHasValue
     /// <summary>
     /// 获取插件的配置项
     /// </summary>
-    /// <param name="builder"></param>
     /// <param name="directoryExists"></param>
     /// <returns></returns>
-    IEnumerable<Action<IConfiguration, IServiceCollection>>? GetConfiguration(
-        ConfigurationBuilder builder,
-        bool directoryExists);
+    IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists);
 
     /// <summary>
     /// MainWindowViewModel.Initialize

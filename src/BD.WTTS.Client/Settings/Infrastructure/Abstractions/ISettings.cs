@@ -1,4 +1,5 @@
 using Polly;
+using Microsoft.Extensions.FileProviders;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
@@ -53,13 +54,6 @@ public interface ISettings
 
     protected static readonly HashSet<Type> types = new();
 
-    private static readonly Lazy<ConcurrentDictionary<Type, bool>> lazy_save_status = new(() =>
-     {
-         return new(types.Select(x => new KeyValuePair<Type, bool>(x, false)));
-     });
-
-    static ConcurrentDictionary<Type, bool> SaveStatus => lazy_save_status.Value;
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void SaveSettings([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type)
     {
@@ -106,32 +100,6 @@ public interface ISettings
         return o;
     }
 
-    /// <summary>
-    /// 使用默认配置 Build Configuration
-    /// </summary>
-    /// <returns></returns>
-    static IConfigurationRoot DefaultBuild()
-    {
-        ConfigurationBuilder builder = new();
-
-        var saveMethod = typeof(SettingsExtensions).GetMethod(nameof(SettingsExtensions.Save_____));
-        saveMethod.ThrowIsNull();
-
-        foreach (var type in types)
-        {
-#pragma warning disable IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
-            var settings = Activator.CreateInstance(type);
-#pragma warning restore IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
-            var memoryStream = new MemoryStream();
-            saveMethod.MakeGenericMethod(type)
-                .Invoke(null, new object?[] { settings, memoryStream });
-            memoryStream.Position = 0;
-            builder.AddJsonStream(memoryStream);
-        }
-
-        return builder.Build();
-    }
-
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     sealed class JsonTypeInfoResolver : IJsonTypeInfoResolver
     {
@@ -149,6 +117,7 @@ public interface ISettings
             {
                 try
                 {
+#pragma warning disable IL2070 // 'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The parameter of method does not have matching annotations.
                     if (typeof(JsonTypeInfoResolver)
                         .GetMethod(nameof(GetJsonTypeInfo), BindingFlags.NonPublic | BindingFlags.Static)
                         ?.MakeGenericMethod(type).Invoke(null, null) is JsonTypeInfo jsonTypeInfo)
@@ -158,6 +127,7 @@ public interface ISettings
                         if (Activator.CreateInstance(jsonTypeInfo.GetType(), options) is JsonTypeInfo jsonTypeInfo1)
                             return jsonTypeInfo1;
                     }
+#pragma warning restore IL2070 // 'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The parameter of method does not have matching annotations.
                 }
                 catch
                 {
@@ -170,6 +140,31 @@ public interface ISettings
         [MethodImpl(MethodImplOptions.NoInlining)]
         static JsonTypeInfo<TSettings> GetJsonTypeInfo<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TSettings>() where TSettings : class, ISettings<TSettings>, new()
             => TSettings.JsonTypeInfo;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static TSettings? Deserialize<TSettings>(string settingsFilePath) where TSettings : ISettings
+    {
+        JsonObject? jobj;
+        var options = ISettings.GetDefaultOptions();
+        using var readStream = new FileStream(
+            settingsFilePath,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.ReadWrite | FileShare.Delete);
+        jobj = JsonSerializer.Deserialize<JsonObject>(readStream, options);
+        if (jobj != null)
+        {
+            var jnode = jobj[TSettings.Name];
+            if (jnode != null)
+            {
+                options = ISettings.GetDefaultOptions();
+                options.TypeInfoResolver = ISettings.JsonTypeInfoResolver.Instance;
+                var settingsByRead = JsonSerializer.Deserialize<TSettings>(jnode, options);
+                return settingsByRead;
+            }
+        }
+        return default;
     }
 }
 
@@ -186,13 +181,64 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
     static TSettings Deserialize(Stream utf8Json)
         => JsonSerializer.Deserialize(utf8Json, TSettings.JsonTypeInfo) ?? new();
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static Action<IConfiguration, IServiceCollection>? Load(
-        ConfigurationBuilder builder,
-        bool directoryExists)
+    sealed class OptionsMonitor : IOptionsMonitor<TSettings>, IOptions<TSettings>
     {
+        TSettings settings;
+        readonly string settingsFileName;
+        readonly string settingsFilePath;
+        readonly PhysicalFileProvider fileProvider;
+
+        public OptionsMonitor(string settingsFilePath, TSettings? settings = default)
+        {
+            this.settingsFilePath = settingsFilePath;
+            var settingsDirPath = Path.GetDirectoryName(settingsFilePath);
+            settingsDirPath.ThrowIsNull();
+            this.settings = settings ?? ISettings.Deserialize<TSettings>(settingsFilePath) ?? new();
+            fileProvider = new(settingsDirPath);
+            settingsFileName = Path.GetFileName(settingsFilePath);
+        }
+
+        TSettings IOptionsMonitor<TSettings>.CurrentValue => settings;
+
+        TSettings IOptions<TSettings>.Value => settings;
+
+        TSettings IOptionsMonitor<TSettings>.Get(string? name) => settings;
+
+        sealed class B
+        {
+            public ConcurrentDictionary<string, SizePosition>? WindowSizePositions { get; set; }
+        }
+
+        TSettings Deserialize()
+        {
+            try
+            {
+                return ISettings.Deserialize<TSettings>(settingsFilePath) ?? new();
+            }
+            catch
+            {
+                return new();
+            }
+        }
+
+        IDisposable? IOptionsMonitor<TSettings>.OnChange(Action<TSettings, string?> listener)
+            => ChangeToken.OnChange(() => fileProvider.Watch(settingsFileName), () =>
+        {
+            settings = Deserialize();
+            listener.Invoke(settings, TSettings.Name);
+        });
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static bool Load(bool directoryExists, out Action<IServiceCollection>? @delegate)
+    {
+        @delegate = default;
+
         var type = typeof(TSettings);
-        if (!types.Add(type)) return null;
+        if (!types.Add(type))
+            return default;
+
+        TSettings? settings = default;
 
         var settingsFilePath = GetFilePath(TSettings.Name);
 
@@ -209,19 +255,33 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
             writeFile = true;
         }
 
+        bool isInvalid = false;
         if (writeFile)
         {
             using var fs = File.Create(settingsFilePath);
-            var settings = new TSettings();
+            settings = new();
             settings.Save_____(fs);
         }
-
-        builder.AddJsonFile(settingsFilePath, true, true);
-
-        return (configuration, services) =>
+        else
         {
-            services.Configure<TSettings>(configuration.GetRequiredSection(TSettings.Name));
+            try
+            {
+                settings = ISettings.Deserialize<TSettings>(settingsFilePath) ?? new();
+            }
+            catch
+            {
+                settings = new();
+                isInvalid = true;
+            }
+        }
+
+        var monitor = new OptionsMonitor(settingsFilePath, settings);
+        @delegate = s =>
+        {
+            s.AddSingleton<IOptions<TSettings>>(_ => monitor);
+            s.AddSingleton<IOptionsMonitor<TSettings>>(_ => monitor);
         };
+        return isInvalid;
     }
 }
 
@@ -268,7 +328,8 @@ internal static class SettingsExtensions
 
         lock (TSettings.Name)
         {
-            ISettings.SaveStatus[typeof(TSettings)] = true;
+            var settingsType = typeof(TSettings);
+            SettingsPropertyBase.SetSaveStatus(settingsType);
 
             try
             {
@@ -278,29 +339,14 @@ internal static class SettingsExtensions
                     {
                         if (File.Exists(settingsFilePath))
                         {
-                            JsonObject? jobj;
-                            var options = ISettings.GetDefaultOptions();
-                            using var readStream = new FileStream(
-                                settingsFilePath,
-                                FileMode.Open,
-                                FileAccess.Read,
-                                FileShare.ReadWrite | FileShare.Delete);
-                            jobj = JsonSerializer.Deserialize<JsonObject>(readStream, options);
-                            if (jobj != null)
+                            var settingsByRead = ISettings.Deserialize<TSettings>(settingsFilePath);
+                            if (settingsByRead != default)
                             {
-                                var jnode = jobj[TSettings.Name];
-                                if (jnode != null)
-                                {
-                                    options = ISettings.GetDefaultOptions();
-                                    options.TypeInfoResolver = ISettings.JsonTypeInfoResolver.Instance;
-                                    var settingsByRead = JsonSerializer.Deserialize<TSettings>(jnode, options);
-
-                                    // 使用 MemoryPack 序列化两者比较相等
-                                    var right = MemoryPackSerializer.Serialize(settingsByRead);
-                                    var left = MemoryPackSerializer.Serialize(settings);
-                                    if (left.SequenceEqual(right))
-                                        return;
-                                }
+                                // 使用 MemoryPack 序列化两者比较相等
+                                var right = MemoryPackSerializer.Serialize(settingsByRead);
+                                var left = MemoryPackSerializer.Serialize(settings);
+                                if (left.SequenceEqual(right))
+                                    return;
                             }
                         }
                     }
@@ -361,7 +407,6 @@ internal static class SettingsExtensions
             }
             finally
             {
-                ISettings.SaveStatus[typeof(TSettings)] = false;
             }
         }
     }

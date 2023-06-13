@@ -170,17 +170,12 @@ partial class Startup // 配置 Host
 #endif
     }
 
-    List<Action<IConfiguration, IServiceCollection>?>? configs;
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void ConfigureServices(IServiceCollection services)
     {
         #region Configuration
 
-        services.AddSingleton<IConfiguration>(_ => Configuration);
-        services.AddSingleton<IConfigurationRoot>(_ => Configuration);
-        if (configs.Any_Nullable()) configs.ForEach(x => x?.Invoke(Configuration, services));
-        configs = null;
+        Configuration?.Invoke(services);
 
         #endregion
 

@@ -23,9 +23,7 @@ public abstract partial class PluginBase<TPlugin> : IPlugin where TPlugin : Plug
 
     public virtual IEnumerable<TabItemViewModel>? GetMenuTabItems() => null;
 
-    public virtual IEnumerable<Action<IConfiguration, IServiceCollection>>? GetConfiguration(
-        ConfigurationBuilder builder,
-        bool directoryExists) => null;
+    public virtual IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists) => null;
 
     public virtual ValueTask OnInitializeAsync() => ValueTask.CompletedTask;
 

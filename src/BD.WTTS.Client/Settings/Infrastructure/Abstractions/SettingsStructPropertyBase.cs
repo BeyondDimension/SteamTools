@@ -14,11 +14,12 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
 
     public SettingsStructPropertyBase(TValue? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null)
     {
+        var settingsType = typeof(TSettings);
         PropertyName = propertyName.ThrowIsNull();
 
         AutoSave = autoSave;
         Default = @default;
-        ParameterExpression parameter = Expression.Parameter(typeof(TSettings), "obj");
+        ParameterExpression parameter = Expression.Parameter(settingsType, "obj");
         MemberExpression property = Expression.Property(parameter, PropertyName);
         ParameterExpression value = Expression.Parameter(typeof(TValue?), "value");
         BinaryExpression assign = Expression.Assign(property, value);
@@ -26,12 +27,14 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
         getter = Expression.Lambda<Func<TSettings, TValue?>>(property, parameter).Compile();
         monitor = Ioc.Get<IOptionsMonitor<TSettings>>();
         this.value = getter(monitor.CurrentValue);
+        SetProperties(settingsType, propertyName);
         disposable = monitor.OnChange(OnChange);
     }
 
     void OnChange(TSettings settings)
     {
-        if (ISettings.SaveStatus[typeof(TSettings)])
+        var settingsType = typeof(TSettings);
+        if (!CanOnChange(settingsType, PropertyName))
             return;
 
         SetValue(getter(settings), false);

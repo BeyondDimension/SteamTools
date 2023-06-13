@@ -107,10 +107,9 @@
 		<!--<PackageReference Include="Portable.BouncyCastle" />-->
 		<PackageReference Include="ReactiveUI.Fody" />
 		<PackageReference Include="dotnetCampus.Ipc" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
-		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
 		<PackageReference Include="fusillade" />
 		<PackageReference Include="Splat.Drawing" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">

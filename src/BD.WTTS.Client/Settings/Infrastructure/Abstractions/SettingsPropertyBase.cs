@@ -13,6 +13,44 @@ public abstract class SettingsPropertyBase
     public abstract void RaiseValueChanged(bool notSave = false);
 
     public abstract void Reset();
+
+    static readonly Dictionary<Type, List<string>> SettingsProperties = new();
+    static readonly Dictionary<(Type SettingsType, string PropertyName), bool?> SaveNameStatus = new();
+
+    protected internal static void SetProperties(Type settingsType, string propertyName)
+    {
+        if (SettingsProperties.TryGetValue(settingsType, out var propertyNames))
+            propertyNames.Add(propertyName);
+        else
+            SettingsProperties[settingsType] = new() { propertyName };
+        SaveNameStatus.TryAdd((settingsType, propertyName), null);
+    }
+
+    protected internal static bool CanOnChange(Type settingsType, string propertyName)
+    {
+#if DEBUG
+        switch (propertyName)
+        {
+            case "WindowSizePositions":
+                break;
+        }
+#endif
+        var key = (settingsType, propertyName);
+        if (SaveNameStatus.TryGetValue(key, out var saveStatus) && saveStatus.HasValue)
+        {
+            // 调用 Save 保存文件后，会触发两次监听的 OnChange
+            // 保存时候设为 true，第一次设为 fasle，第二次设为 null，为 null 时候 return true
+            SaveNameStatus[key] = saveStatus.Value ? false : null;
+            return false;
+        }
+        return true;
+    }
+
+    internal static void SetSaveStatus(Type settingsType)
+    {
+        foreach (string item in SettingsProperties[settingsType])
+            SaveNameStatus[(settingsType, item)] = true;
+    }
 }
 
 [DebuggerDisplay("Value={value}, ModelValue={ModelValue}, ModelValueIsNull={ModelValueIsNull}, Default={Default}, PropertyName={PropertyName}, AutoSave={AutoSave}")]
