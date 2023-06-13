@@ -3,18 +3,8 @@ namespace BD.WTTS.Plugins.Abstractions;
 /// <summary>
 /// 插件接口
 /// </summary>
-public interface IPlugin : IExplicitHasValue
+public partial interface IPlugin : IExplicitHasValue
 {
-    /// <summary>
-    /// 插件的名称
-    /// </summary>
-    string Name { get; }
-
-    /// <summary>
-    /// 插件的版本号
-    /// </summary>
-    string Version { get; }
-
     /// <summary>
     /// 获取当前插件需要加载的菜单项视图模型
     /// </summary>

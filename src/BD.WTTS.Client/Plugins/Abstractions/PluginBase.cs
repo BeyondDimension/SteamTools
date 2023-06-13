@@ -2,39 +2,24 @@ using dotnetCampus.Ipc.Pipes;
 
 namespace BD.WTTS.Plugins.Abstractions;
 
-[DebuggerDisplay("{DebuggerDisplay,nq}")]
-public abstract class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<TPlugin>
+public abstract partial class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<TPlugin>
 {
-    string DebuggerDisplay => Name;
+    readonly Lazy<string> mAppDataDirectory;
+    readonly Lazy<string> mCacheDirectory;
 
     public PluginBase()
     {
         Instance = (TPlugin)this;
+        mAppDataDirectory = new(() => GetDirectory(IOPath.AppDataDirectory));
+        mCacheDirectory = new(() => GetDirectory(IOPath.CacheDirectory));
     }
 
-    public static TPlugin Instance { get; private set; } = null!;
-
-    public abstract string Name { get; }
-
-    readonly Lazy<string> mVersion = new(() =>
+    string GetDirectory(string directory)
     {
-        var assembly = typeof(TPlugin).Assembly;
-        string? version = null;
-        for (int i = 0; string.IsNullOrWhiteSpace(version); i++)
-        {
-            version = i switch
-            {
-                0 => assembly.GetCustomAttribute<AssemblyVersionAttribute>()?.Version ?? string.Empty,
-                1 => assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? string.Empty,
-                2 => assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? string.Empty,
-                _ => null,
-            };
-            if (version == null) return string.Empty;
-        }
-        return version;
-    });
-
-    public virtual string Version => mVersion.Value;
+        directory = Path.Combine(directory, Name);
+        IOPath.DirCreateByNotExists(directory);
+        return directory;
+    }
 
     public virtual IEnumerable<TabItemViewModel>? GetMenuTabItems() => null;
 
