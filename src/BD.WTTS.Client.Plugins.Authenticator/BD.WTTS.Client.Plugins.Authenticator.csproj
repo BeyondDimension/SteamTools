@@ -59,6 +59,8 @@
 	  <Compile Remove="StepControls_Test\**" />
 	  <EmbeddedResource Remove="StepControls_Test\**" />
 	  <None Remove="StepControls_Test\**" />
+	  <AvaloniaXaml Remove="UI\Views\Controls\AuthenticatorItem2.axaml" />
+	  <Compile Remove="UI\Views\Controls\AuthenticatorItem2.axaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

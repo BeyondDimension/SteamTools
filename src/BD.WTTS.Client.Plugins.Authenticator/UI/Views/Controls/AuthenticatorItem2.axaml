@@ -1,0 +1,85 @@
+<UserControl
+    d:DesignHeight="200"
+    d:DesignWidth="200"
+    mc:Ignorable="d"
+    x:Class="BD.WTTS.UI.Views.Controls.AuthenticatorItem"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:BD.WTTS.UI.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Styles>
+        <Style Selector="Border">
+            <Style.Animations>
+                <Animation Duration="0:0:3">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0.7" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="controls|AuthenticatorItem">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border
+                        Background="#2b2c31"
+                        CornerRadius="10"
+                        Height="{TemplateBinding BorderHeight}"
+                        Width="{TemplateBinding BorderWidth}">
+                        <Grid>
+                            <Arc
+                                Height="{TemplateBinding Height}"
+                                StartAngle="0"
+                                Stretch="None"
+                                Stroke="#212226"
+                                StrokeThickness="{TemplateBinding StrokeWidth}"
+                                SweepAngle="360"
+                                Width="{TemplateBinding Width}" />
+                            <Arc
+                                FlowDirection="RightToLeft"
+                                Height="{TemplateBinding Height}"
+                                StartAngle="270"
+                                Stretch="None"
+                                Stroke="{TemplateBinding StrokeColor}"
+                                StrokeJoin="Round"
+                                StrokeLineCap="Square"
+                                StrokeThickness="{TemplateBinding StrokeWidth}"
+                                SweepAngle="{TemplateBinding Value}"
+                                Width="{TemplateBinding Width}">
+                                <Arc.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition
+                                            Duration="0:0:0.8"
+                                            Easing="CircularEaseOut"
+                                            Property="SweepAngle" />
+                                    </Transitions>
+                                </Arc.Transitions>
+                            </Arc>
+                            <StackPanel
+                                HorizontalAlignment="Stretch"
+                                Margin="{TemplateBinding StrokeWidth}"
+                                Spacing="3"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    FontSize="{TemplateBinding FirstTextSize}"
+                                    Foreground="#d7d7de"
+                                    HorizontalAlignment="Center"
+                                    Text="{TemplateBinding FirstText}"
+                                    VerticalAlignment="Center" />
+                                <TextBlock
+                                    FontSize="{TemplateBinding SecondTextSize}"
+                                    Foreground="#62626a"
+                                    HorizontalAlignment="Center"
+                                    Text="{TemplateBinding SecondText}"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+</UserControl>

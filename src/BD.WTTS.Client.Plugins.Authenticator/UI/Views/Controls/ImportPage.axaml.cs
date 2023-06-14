@@ -3,9 +3,9 @@ using BD.WTTS.UI.Views.Controls;
 
 namespace BD.WTTS.UI.Views;
 
-public partial class ImportControl : UserControl
+public partial class ImportPage : UserControl
 {
-    public ImportControl()
+    public ImportPage()
     {
         InitializeComponent();
         DataContext = new SteamImportAuthenticator();

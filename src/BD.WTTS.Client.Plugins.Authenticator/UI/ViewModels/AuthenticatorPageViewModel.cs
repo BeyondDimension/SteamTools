@@ -14,6 +14,7 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
     public AuthenticatorPageViewModel()
     {
         Auths = new();
+        BorderBottomIsActive = true;
         Start();
     }
 

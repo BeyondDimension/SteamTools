@@ -1,13 +1,28 @@
+using System;
+using System.Numerics;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Data;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Rendering.Composition;
+using Avalonia.Rendering.Composition.Animations;
 
 namespace BD.WTTS.UI.Views.Controls;
 
-public class AuthenticatorItem : TemplatedControl
+public partial class AuthenticatorItem : UserControl
 {
+    public AuthenticatorItem()
+    {
+        InitializeComponent();
+    }
+
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
+    }
+    
     public static readonly DirectProperty<AuthenticatorItem, double> ValueProperty =
         AvaloniaProperty.RegisterDirect<AuthenticatorItem, double>(
             nameof(Value),
@@ -25,7 +40,7 @@ public class AuthenticatorItem : TemplatedControl
 
     public static readonly StyledProperty<string> SecondTextProperty =
         AvaloniaProperty.Register<AuthenticatorItem, string>(
-            nameof(SecondText), "右击以复制");
+            nameof(SecondText));
 
     public static readonly StyledProperty<int> WidthProperty =
         AvaloniaProperty.Register<AuthenticatorItem, int>(nameof(Width), defaultValue: 200);

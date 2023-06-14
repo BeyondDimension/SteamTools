@@ -1,5 +1,6 @@
 using Avalonia.Media;
 using Avalonia.Threading;
+using BD.WTTS.Client.Resources;
 
 namespace BD.WTTS.Models;
 
@@ -7,7 +8,18 @@ public class AuthenticatorItemModel : ItemViewModel
 {
     public override string Name => nameof(AuthenticatorItemModel);
 
-    IAuthenticatorDTO AuthenticatorDto { get; set; }
+    IAuthenticatorDTO AuthData { get; set; }
+
+    string? authname;
+    
+    public string? AuthName
+    {
+        get => authname;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref authname, value);
+        }
+    }
 
     string? text;
 
@@ -20,14 +32,14 @@ public class AuthenticatorItemModel : ItemViewModel
         }
     }
 
-    string? sectext;
+    string? secondtext;
 
-    public string? SecText
+    public string? SecondText
     {
-        get => sectext;
+        get => secondtext;
         set
         {
-            this.RaiseAndSetIfChanged(ref sectext, value);
+            this.RaiseAndSetIfChanged(ref secondtext, value);
         }
     }
 
@@ -49,32 +61,31 @@ public class AuthenticatorItemModel : ItemViewModel
 
     public AuthenticatorItemModel(IAuthenticatorDTO authenticatorDto)
     {
-        SecText = "右击以复制";
-        Color = Brush.Parse("#61a4f0");
-        AuthenticatorDto = authenticatorDto;
+        AuthData = authenticatorDto;
+        AuthName = AuthData.Name;
         Test();
     }
     
     public void Test()
     {
         var progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
-        if (AuthenticatorDto.Value == null) return;
-        var servertime = AuthenticatorDto.Value.ServerTime;
-        var currentTimeChunk = AuthenticatorDto.Value.CodeInterval;
+        if (AuthData.Value == null) return;
+        var servertime = AuthData.Value.ServerTime;
+        var currentTimeChunk = AuthData.Value.CodeInterval;
         int seconds = (int)((servertime - (currentTimeChunk * 30000L)) / 1000L);
-        var progress = AuthenticatorDto.Value.Period - seconds;
+        var progress = AuthData.Value.Period - seconds;
         Value = progress;
-        Text = AuthenticatorDto.Value.CurrentCode;
+        Text = AuthData.Value.CurrentCode;
         progressTimer.Tick += (_, _) =>
         {
             progress -= 1;
             if (progress < 1)
             { 
-                servertime = AuthenticatorDto.Value.ServerTime;
-                currentTimeChunk = AuthenticatorDto.Value.CodeInterval;
+                servertime = AuthData.Value.ServerTime;
+                currentTimeChunk = AuthData.Value.CodeInterval;
                 seconds = (int)((servertime - (currentTimeChunk * 30000L)) / 1000L); 
-                progress = AuthenticatorDto.Value.Period - seconds;
-                Text = AuthenticatorDto.Value.CurrentCode;
+                progress = AuthData.Value.Period - seconds;
+                Text = AuthData.Value.CurrentCode;
             }
             if(progress%2==0) Color=Brush.Parse("#61a4f0");
             else Color=Brush.Parse("#6198ff");
@@ -82,5 +93,38 @@ public class AuthenticatorItemModel : ItemViewModel
             //SecText = AuthenticatorDto.Value.CurrentCode;
         };
         progressTimer.Start();
+    }
+
+    public async Task CopyCode()
+    {
+        
+    }
+
+    //未写完，临时存储用的
+    public async Task DeleteAuthAsync()
+    {
+        var messageviewmodel =
+            new MessageBoxWindowViewModel { Content = Strings.LocalAuth_DeleteAuthTip, IsCancelcBtn = true };
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(messageviewmodel))
+        {
+            AuthenticatorService.DeleteAuth(AuthData);
+        }
+    }
+        
+    public async Task EditAuthNameAsync()
+    {
+        string? newname = null;
+
+        var textviewmodel = new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox };
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textviewmodel, "请输入新令牌名或取消", isDialog: false,
+                isCancelButton: true))
+        {
+            newname = textviewmodel.Value;
+        }
+
+        if (string.IsNullOrEmpty(newname)) return;
+
+        AuthName = newname;
+        await AuthenticatorService.SaveEditAuthNameAsync(AuthData, newname);
     }
 }

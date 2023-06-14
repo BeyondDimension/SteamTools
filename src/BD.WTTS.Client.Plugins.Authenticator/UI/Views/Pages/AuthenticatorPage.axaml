@@ -15,6 +15,36 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:viewModels="clr-namespace:BD.WTTS.UI.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Styles>
+        <StyleInclude Source="/UI/Views/Controls/AuthenticatorItem.axaml" />
+        <Style Selector="Border#BorderBottom">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition
+                        Delay="0:0:0.25"
+                        Duration="0:0:0.7"
+                        Easing="ExponentialEaseOut"
+                        Property="RenderTransform" />
+                </Transitions>
+            </Setter>
+            <Style.Animations>
+                <Animation Duration="0:0:1">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Border#BorderBottom.IsActive">
+            <Setter Property="RenderTransform" Value="translateY(0px)" />
+        </Style>
+        <Style Selector="Border#BorderBottom:not(.IsActive)">
+            <Setter Property="RenderTransform" Value="translateY(60px)" />
+        </Style>
+    </UserControl.Styles>
     <DockPanel Margin="10">
         <!-- <views:ImportControl IsVisible="True" /> -->
         <!--  <Image  -->
@@ -23,10 +53,12 @@
         <!--  Source="{Binding BottomImage}"  -->
         <!--  Stretch="UniformToFill" />  -->
         <Border
-            Background="#2b2c31"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            Classes.IsActive="{Binding BorderBottomIsActive}"
             CornerRadius="20"
             DockPanel.Dock="Bottom"
-            IsVisible="True">
+            IsVisible="True"
+            Name="BorderBottom">
             <DockPanel>
                 <ui:CommandBar
                     DefaultLabelPosition="Right"
@@ -55,7 +87,7 @@
             </DockPanel>
         </Border>
         <Border
-            Background="#2b2c31"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
             CornerRadius="20"
             DockPanel.Dock="Top"
             Padding="10">
@@ -77,36 +109,23 @@
         <ScrollViewer
             DockPanel.Dock="Left"
             HorizontalScrollBarVisibility="Disabled"
-            Margin="0,10,0,10"
+            Margin="0,10,0,0"
             VerticalScrollBarVisibility="Auto">
             <ItemsRepeater ItemsSource="{Binding Auths}">
                 <ItemsRepeater.Layout>
                     <UniformGridLayout
                         ItemsJustification="Start"
-                        MinColumnSpacing="30"
-                        MinRowSpacing="30" />
+                        ItemsStretch="Uniform"
+                        MinColumnSpacing="10"
+                        MinRowSpacing="10" />
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="{x:Type model:AuthenticatorItemModel}">
                         <controls:AuthenticatorItem
-                            Height="200"
+                            FirstText="{Binding Text}"
+                            SecondText="{Binding SecondText}"
                             StrokeColor="{Binding Color}"
-                            Value="{Binding Value}"
-                            Width="200">
-                            <StackPanel Spacing="3">
-                                <TextBlock
-                                    FontSize="30"
-                                    Foreground="#d7d7de"
-                                    HorizontalAlignment="Center"
-                                    Text="{Binding Text}"
-                                    VerticalAlignment="Center" />
-                                <TextBlock
-                                    Foreground="#62626a"
-                                    HorizontalAlignment="Center"
-                                    Text="{Binding SecText}"
-                                    VerticalAlignment="Center" />
-                            </StackPanel>
-                        </controls:AuthenticatorItem>
+                            Value="{Binding Value}" />
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>

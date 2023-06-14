@@ -30,4 +30,20 @@ public sealed class AuthenticatorService
             await repository.DeleteAsync(item.Id);
         }
     }
+
+    public static async void DeleteAuth(IAuthenticatorDTO authenticatorDto)
+    {
+        if (authenticatorDto.ServerId.HasValue)
+        {
+            await repository.DeleteAsync(authenticatorDto.ServerId.Value);
+        }
+        await repository.DeleteAsync(authenticatorDto.Id);
+        //Auths.Remove(authenticatorDto);
+    }
+
+    public static async Task SaveEditAuthNameAsync(IAuthenticatorDTO authenticatorDto, string newname)
+    {
+        var isLocal = await repository.HasLocalAsync();
+        await repository.RenameAsync(authenticatorDto.Id, newname, isLocal);
+    }
 }

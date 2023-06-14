@@ -2,7 +2,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
-    x:Class="BD.WTTS.UI.Views.ImportControl"
+    x:Class="BD.WTTS.UI.Views.ImportPage"
     x:CompileBindings="True"
     x:DataType="models:SteamImportAuthenticator"
     xmlns="https://github.com/avaloniaui"
