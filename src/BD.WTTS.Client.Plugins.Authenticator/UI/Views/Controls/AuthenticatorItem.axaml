@@ -1,92 +1,112 @@
-<Styles
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.AuthenticatorItem"
     xmlns="https://github.com/avaloniaui"
-    xmlns:controls="using:BD.WTTS.UI.Views.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Design.PreviewWith>
-        <controls:AuthenticatorItem />
-    </Design.PreviewWith>
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorItemModel"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="spp|AuthenticatorItem:pointerover">
+            <Setter Property="RenderTransform" Value="scale(0.9)" />
+        </Style>
 
-    <Style Selector="controls|AuthenticatorItem:pointerover">
-        <Setter Property="RenderTransform" Value="scale(0.9)" />
-    </Style>
-
-    <Style Selector="controls|AuthenticatorItem">
-        <Setter Property="RenderTransform" Value="scale(1)" />
-        <Setter Property="Transitions">
-            <Transitions>
-                <TransformOperationsTransition Duration="0:0:0.2" Property="RenderTransform" />
-            </Transitions>
-        </Setter>
-        <Style.Animations>
-            <Animation Duration="0:0:3">
-                <KeyFrame Cue="0%">
-                    <Setter Property="Opacity" Value="0.7" />
-                </KeyFrame>
-                <KeyFrame Cue="100%">
-                    <Setter Property="Opacity" Value="1" />
-                </KeyFrame>
-            </Animation>
-        </Style.Animations>
-    </Style>
-    <Style Selector="controls|AuthenticatorItem">
-        <!--  Set Defaults  -->
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Border
-                    Background="#2b2c31"
-                    CornerRadius="10"
-                    Height="{TemplateBinding BorderHeight}"
-                    Width="{TemplateBinding BorderWidth}">
-                    <Grid>
-                        <Arc
-                            Height="{TemplateBinding Height}"
-                            StartAngle="0"
-                            Stretch="None"
-                            Stroke="#212226"
-                            StrokeThickness="{TemplateBinding StrokeWidth}"
-                            SweepAngle="360"
-                            Width="{TemplateBinding Width}" />
-                        <Arc
-                            FlowDirection="RightToLeft"
-                            Height="{TemplateBinding Height}"
-                            StartAngle="270"
-                            Stretch="None"
-                            Stroke="{TemplateBinding StrokeColor}"
-                            StrokeJoin="Round"
-                            StrokeLineCap="Square"
-                            StrokeThickness="{TemplateBinding StrokeWidth}"
-                            SweepAngle="{TemplateBinding Value}"
-                            Width="{TemplateBinding Width}">
-                            <Arc.Transitions>
-                                <Transitions>
-                                    <DoubleTransition
-                                        Duration="0:0:0.8"
-                                        Easing="CircularEaseOut"
-                                        Property="SweepAngle" />
-                                </Transitions>
-                            </Arc.Transitions>
-                        </Arc>
-                        <StackPanel
-                            HorizontalAlignment="Stretch"
-                            Margin="{TemplateBinding StrokeWidth}"
-                            Spacing="3"
-                            VerticalAlignment="Center">
-                            <TextBlock
-                                FontSize="{TemplateBinding FirstTextSize}"
-                                Foreground="#d7d7de"
-                                HorizontalAlignment="Center"
-                                Text="{TemplateBinding FirstText}"
-                                VerticalAlignment="Center" />
-                            <TextBlock
-                                FontSize="{TemplateBinding SecondTextSize}"
-                                Foreground="#62626a"
-                                HorizontalAlignment="Center"
-                                Text="{TemplateBinding SecondText}"
-                                VerticalAlignment="Center" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
-            </ControlTemplate>
-        </Setter>
-    </Style>
-</Styles>
+        <Style Selector="spp|AuthenticatorItem">
+            <Setter Property="RenderTransform" Value="scale(1)" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+                </Transitions>
+            </Setter>
+            <Style.Animations>
+                <Animation Duration="0:0:3">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0.7" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
+    <StackPanel Spacing="3">
+        <Border
+            Width="210"
+            Background="{DynamicResource ControlStrokeColorOnAccentSecondaryBrush}"
+            CornerRadius="10">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="20"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="{Binding AuthName}"
+                TextAlignment="Center" />
+        </Border>
+        <Border
+            Width="210"
+            Height="230"
+            Background="{DynamicResource ControlStrokeColorOnAccentSecondaryBrush}"
+            CornerRadius="10">
+            <Grid>
+                <Viewbox
+                    Width="32"
+                    Height="32"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+                    <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE753;" />
+                </Viewbox>
+                <Arc
+                    Width="200"
+                    Height="200"
+                    StartAngle="0"
+                    Stretch="None"
+                    Stroke="{DynamicResource ControlStrokeColorSecondaryBrush}"
+                    StrokeThickness="10"
+                    SweepAngle="360" />
+                <Arc
+                    Width="200"
+                    Height="200"
+                    FlowDirection="RightToLeft"
+                    StartAngle="270"
+                    Stretch="None"
+                    Stroke="{Binding StrokeColor}"
+                    StrokeJoin="Round"
+                    StrokeLineCap="Square"
+                    StrokeThickness="10"
+                    SweepAngle="{Binding Value}">
+                    <Arc.Transitions>
+                        <Transitions>
+                            <DoubleTransition
+                                Easing="CircularEaseOut"
+                                Property="SweepAngle"
+                                Duration="0:0:0.8" />
+                        </Transitions>
+                    </Arc.Transitions>
+                </Arc>
+                <StackPanel
+                    Margin="10"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Spacing="3">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding Text}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                        Text="右击以复制" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl>

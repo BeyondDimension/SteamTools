@@ -38,7 +38,6 @@ public sealed class AuthenticatorService
             await repository.DeleteAsync(authenticatorDto.ServerId.Value);
         }
         await repository.DeleteAsync(authenticatorDto.Id);
-        //Auths.Remove(authenticatorDto);
     }
 
     public static async Task SaveEditAuthNameAsync(IAuthenticatorDTO authenticatorDto, string newname)

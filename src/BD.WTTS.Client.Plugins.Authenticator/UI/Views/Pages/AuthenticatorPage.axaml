@@ -1,11 +1,7 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorPage"
-    x:CompileBindings="True"
-    x:DataType="viewModels:AuthenticatorPageViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:BD.WTTS.UI.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -14,17 +10,20 @@
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:viewModels="clr-namespace:BD.WTTS.UI.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="viewModels:AuthenticatorPageViewModel"
+    mc:Ignorable="d">
     <UserControl.Styles>
-        <StyleInclude Source="/UI/Views/Controls/AuthenticatorItem.axaml" />
         <Style Selector="Border#BorderBottom">
             <Setter Property="Transitions">
                 <Transitions>
                     <TransformOperationsTransition
                         Delay="0:0:0.25"
-                        Duration="0:0:0.7"
                         Easing="ExponentialEaseOut"
-                        Property="RenderTransform" />
+                        Property="RenderTransform"
+                        Duration="0:0:0.7" />
                 </Transitions>
             </Setter>
             <Style.Animations>
@@ -53,19 +52,22 @@
         <!--  Source="{Binding BottomImage}"  -->
         <!--  Stretch="UniformToFill" />  -->
         <Border
+            Name="BorderBottom"
             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
             Classes.IsActive="{Binding BorderBottomIsActive}"
             CornerRadius="20"
             DockPanel.Dock="Bottom"
-            IsVisible="True"
-            Name="BorderBottom">
+            IsVisible="True">
             <DockPanel>
                 <ui:CommandBar
+                    HorizontalAlignment="Center"
                     DefaultLabelPosition="Right"
-                    DockPanel.Dock="Left"
-                    HorizontalAlignment="Center">
+                    DockPanel.Dock="Left">
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton IconSource="Add" Label="查看Code" />
+                        <ui:CommandBarButton
+                            Command="{Binding EditAuthNameAsync}"
+                            IconSource="Add"
+                            Label="编辑令牌名字" />
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBar.PrimaryCommands>
                         <ui:CommandBarButton IconSource="Add" Label="固定展示" />
@@ -87,10 +89,10 @@
             </DockPanel>
         </Border>
         <Border
+            Padding="10"
             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
             CornerRadius="20"
-            DockPanel.Dock="Top"
-            Padding="10">
+            DockPanel.Dock="Top">
             <DockPanel>
                 <ui:CommandBar DefaultLabelPosition="Right" DockPanel.Dock="Left">
                     <ui:CommandBar.PrimaryCommands>
@@ -107,9 +109,9 @@
             </DockPanel>
         </Border>
         <ScrollViewer
+            Margin="0,10,0,0"
             DockPanel.Dock="Left"
             HorizontalScrollBarVisibility="Disabled"
-            Margin="0,10,0,0"
             VerticalScrollBarVisibility="Auto">
             <ItemsRepeater ItemsSource="{Binding Auths}">
                 <ItemsRepeater.Layout>
@@ -121,11 +123,7 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="{x:Type model:AuthenticatorItemModel}">
-                        <controls:AuthenticatorItem
-                            FirstText="{Binding Text}"
-                            SecondText="{Binding SecondText}"
-                            StrokeColor="{Binding Color}"
-                            Value="{Binding Value}" />
+                        <controls:AuthenticatorItem />
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
