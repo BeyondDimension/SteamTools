@@ -6,6 +6,29 @@ namespace BD.WTTS;
 
 public static class JTokenHelper
 {
+    public static bool ReplaceVarInJsonFile<T>(string path, string selector, T replaceWith)
+    {
+        try
+        {
+            JToken? jToken = null;
+            if (!TryReadJsonFile(path, ref jToken)) return false;
+
+            // It is a good idea to check what kind of variable it is to replace it with it's default... Though most of the time a "" will suffice here.
+            //var originalValue = js.SelectToken(selector);
+            var newJs = jToken?.ReplacePath(selector, replaceWith);
+            if (newJs == null)
+                return false;
+            SaveJsonFile(path, newJs);
+        }
+        catch (Exception e)
+        {
+            Log.Error(nameof(JTokenHelper), e, "Failed to ReplaceVarInJsonFile");
+            return false;
+        }
+
+        return true;
+    }
+
     public static bool TryReadJsonFile(string path, ref JToken? jToken)
     {
         if (!File.Exists(path)) return false;

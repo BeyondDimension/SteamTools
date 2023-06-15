@@ -23,7 +23,11 @@ public sealed partial class PlatformAccount : ReactiveObject
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public bool IsLoading { get; set; }
 
+    public string? ExeName => Path.GetFileName(DefaultExePath);
+
     public bool IsExitBeforeInteract { get; set; }
+
+    public bool IsRegDeleteOnClear { get; set; }
 
     public string? ExeExtraArgs { get; set; }
 
@@ -43,17 +47,13 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     public Dictionary<string, string>? LoginFiles { get; set; }
 
-    public static List<string>? ClearPaths { get; set; }
+    public List<string>? ClearPaths { get; set; }
 
-    public static List<string>? CachePaths { get; set; }
+    public List<string>? CachePaths { get; set; }
 
-    public static List<string>? BackupPaths { get; set; }
+    public List<string>? BackupPaths { get; set; }
 
-    public static List<string>? BackupFileTypesIgnore { get; set; }
+    public List<string>? BackupFileTypesIgnore { get; set; }
 
-    public static List<string>? BackupFileTypesInclude { get; set; }
-
-    public static ClosingMethod ClosingMethod { get; set; }
-
-    public static StartingMethod StartingMethod { get; set; }
+    public List<string>? BackupFileTypesInclude { get; set; }
 }

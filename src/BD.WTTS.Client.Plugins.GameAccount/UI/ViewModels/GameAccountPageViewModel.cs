@@ -68,7 +68,6 @@ public sealed partial class GameAccountPageViewModel
         GamePlatforms?.Add(platform);
         AddGamePlatforms?.Remove(platform);
         GameAccountSettings.EnablePlatforms.Value!.Add(platform.FullName);
-        GameAccountSettings.EnablePlatforms.RaiseValueChanged();
     }
 
     public void RemovePlatform(PlatformAccount platform)
@@ -81,7 +80,6 @@ public sealed partial class GameAccountPageViewModel
         AddGamePlatforms?.Add(platform);
         GamePlatforms?.Remove(platform);
         GameAccountSettings.EnablePlatforms.Value!.Remove(platform.FullName);
-        GameAccountSettings.EnablePlatforms.RaiseValueChanged();
     }
 
     readonly Uri PlatformsPath = new("avares://BD.WTTS.Client.Plugins.GameAccount/UI/Assets/Platforms.json");
@@ -94,6 +92,15 @@ public sealed partial class GameAccountPageViewModel
             if (stream == null) return null;
 
             var platforms = JsonSerializer.Deserialize<PlatformAccount[]>(stream);
+            if (platforms == null) return null;
+
+            foreach (var platform in platforms)
+            {
+                if (platform.ClearPaths?.Contains("SAME_AS_LOGIN_FILES") == true && platform.LoginFiles != null)
+                {
+                    platform.ClearPaths = platform.LoginFiles.Keys.ToList();
+                }
+            }
             return platforms;
         }
         return null;

@@ -82,7 +82,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Folder Include="Extensions\" />
 	  <Folder Include="Settings\Abstractions\" />
 	</ItemGroup>
 

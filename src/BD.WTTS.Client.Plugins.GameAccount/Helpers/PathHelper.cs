@@ -107,6 +107,59 @@ public static class PathHelper
         return false;
     }
 
+    public static bool RecursiveDelete(string baseDir, bool keepFolders, bool throwOnError = false) =>
+    RecursiveDelete(new DirectoryInfo(baseDir), keepFolders, throwOnError);
+
+    public static bool RecursiveDelete(DirectoryInfo baseDir, bool keepFolders, bool throwOnError = false)
+    {
+        if (!baseDir.Exists)
+            return true;
+
+        try
+        {
+            foreach (var dir in baseDir.EnumerateDirectories())
+            {
+                RecursiveDelete(dir, keepFolders);
+            }
+            var files = baseDir.GetFiles();
+            foreach (var file in files)
+            {
+                if (!file.Exists) continue;
+                file.IsReadOnly = false;
+                try
+                {
+                    file.Delete();
+                }
+                catch (Exception e)
+                {
+                    if (throwOnError)
+                    {
+                        Log.Error(nameof(PathHelper), e, "Recursive Delete could not delete file.");
+                    }
+                }
+            }
+
+            if (keepFolders) return true;
+            try
+            {
+                baseDir.Delete();
+            }
+            catch (Exception e)
+            {
+                if (throwOnError)
+                {
+                    Log.Error(nameof(PathHelper), e, "Recursive Delete could not delete folder.");
+                }
+            }
+            return true;
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            Log.Error(nameof(PathHelper), e, "RecursiveDelete failed");
+            return false;
+        }
+    }
+
     /// <summary>
     /// Recursively copy files and directories
     /// </summary>

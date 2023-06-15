@@ -8,10 +8,10 @@
     "ExeExtraArgs": null,
     "PlatformIds": [ "e", "epg", "epic", "epicgames" ],
     "ExesToEnd": [ "EpicGamesLauncher.exe" ],
-    "LoginFiles": [
-      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\Windows\\GameUserSettings.ini",
-      "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId"
-    ],
+    "LoginFiles": {
+      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\Windows\\GameUserSettings.ini": "GameUserSettings.ini",
+      "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId": "UNIQUE_ID"
+    },
     "CachePaths": [
       "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\Cache",
       "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\GPUCache",
@@ -22,8 +22,6 @@
     ],
     "BackupFileTypesIgnore": null,
     "BackupFileTypesInclude": null,
-    "ClosingMethod": null,
-    "StartingMethod": null,
     "UniqueIdPath": "HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId",
     "UniqueIdType": 2
   },
@@ -36,11 +34,11 @@
     "ExeExtraArgs": null,
     "PlatformIds": [ "u", "ubi", "uplay", "ubisoft" ],
     "ExesToEnd": [ "upc.exe", "UplayService.exe", "UplayWebCore.exe" ],
-    "LoginFiles": [
-      "%Platform_Folder%\\logs\\launcher_log.txt",
-      "%LocalAppData%\\Ubisoft Game Launcher\\settings.yaml",
-      "%LocalAppData%\\Ubisoft Game Launcher\\user.dat"
-    ],
+    "LoginFiles": {
+      "%Platform_Folder%\\logs\\launcher_log.txt": "logs\\launcher_log.txt",
+      "%LocalAppData%\\Ubisoft Game Launcher\\settings.yaml": "settings.yaml",
+      "%LocalAppData%\\Ubisoft Game Launcher\\user.dat": "user.dat"
+    },
     "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
     "CachePaths": [
       "%Platform_Folder%\\cache\\achievements",
@@ -54,8 +52,6 @@
     ],
     "BackupFileTypesIgnore": null,
     "BackupFileTypesInclude": null,
-    "ClosingMethod": null,
-    "StartingMethod": null,
     "UniqueIdPath": "%Platform_Folder%\\logs\\launcher_log.txt",
     "UniqueIdRegex": "(?<=User: ).*",
     "UniqueIdType": 3
@@ -70,9 +66,9 @@
     "PlatformIds": [ "ea", "eadesktop" ],
     "ExesToEnd": [ "EADesktop.exe", "EABackgroundService.exe" ],
     "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
-    "LoginFiles": [
-      "%LocalAppData%\\Electronic Arts\\EA Desktop\\"
-    ],
+    "LoginFiles": {
+      "%LocalAppData%\\Electronic Arts\\EA Desktop\\": "LocalAppData\\"
+    },
     "CachePaths": [
       "%LocalAppData%\\EADesktop\\QtWebEngine\\Default\\GPUCache",
       "%LocalAppData%\\EADesktop\\cache\\QtWebEngine\\Default\\Cache",
@@ -85,8 +81,6 @@
       ".log"
     ],
     "BackupFileTypesInclude": null,
-    "ClosingMethod": null,
-    "StartingMethod": null,
     "UniqueIdPath": "%LocalAppData%\\Electronic Arts\\EA Desktop\\telemetry.ini",
     "UniqueIdRegex": "(?<=\\=).*",
     "UniqueIdType": 3
@@ -101,18 +95,18 @@
     "PlatformIds": [ "o", "origin" ],
     "ExesToEnd": [ "Origin.exe", "OriginWebHelperService.exe" ],
     "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
-    "LoginFiles": [
-      "%AppData%\\Origin\\ConsolidatedCache\\",
-      "%AppData%\\Origin\\Logs\\",
-      "%AppData%\\Origin\\NucleusCache\\",
-      "%AppData%\\Origin\\*.xml",
-      "%AppData%\\Origin\\Logs\\dserrors.data",
-      "%ProgramData%\\Origin\\AchievementCache\\",
-      "%ProgramData%\\Origin\\Subscription\\",
-      "%ProgramData%\\Origin\\local.xml",
-      "%ProgramData%\\Origin\\*.olc",
-      "%ProgramData%\\Origin\\TcNoAccSwitcher-ID.instance"
-    ],
+    "LoginFiles": {
+      "%AppData%\\Origin\\ConsolidatedCache\\": "AppData\\ConsolidatedCache",
+      "%AppData%\\Origin\\Logs\\": "AppData\\Logs",
+      "%AppData%\\Origin\\NucleusCache\\": "AppData\\NucleusCache",
+      "%AppData%\\Origin\\*.xml": "AppData\\",
+      "%AppData%\\Origin\\Logs\\dserrors.data": "AppData\\Logs\\dserrors.data",
+      "%ProgramData%\\Origin\\AchievementCache\\": "ProgramData\\AchievementCache",
+      "%ProgramData%\\Origin\\Subscription\\": "ProgramData\\Subscription",
+      "%ProgramData%\\Origin\\local.xml": "ProgramData\\local.xml",
+      "%ProgramData%\\Origin\\*.olc": "ProgramData\\",
+      "%ProgramData%\\Origin\\TcNoAccSwitcher-ID.instance": "TcNoAccSwitcher-ID.instance"
+    },
     "CachePaths": [
       "%ProgramData%\\Origin\\DownloadCache",
       "%LocalAppData%\\Origin\\Origin\\cache\\QtWebEngine\\Default\\Cache",
@@ -124,8 +118,6 @@
     ],
     "BackupFileTypesIgnore": null,
     "BackupFileTypesInclude": null,
-    "ClosingMethod": null,
-    "StartingMethod": null,
     "UniqueIdPath": "%ProgramData%\\Origin\\TcNoAccSwitcher-ID.instance",
     "UniqueIdType": 1
   }

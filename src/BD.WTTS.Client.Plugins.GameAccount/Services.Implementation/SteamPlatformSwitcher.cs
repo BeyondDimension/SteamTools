@@ -11,39 +11,53 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         this.swWebService = swWebService;
     }
 
-    public void SwapToUser(IAccount account)
+    public void SwapToAccount(IAccount account, PlatformAccount platform)
     {
         if (!string.IsNullOrEmpty(account.AccountName))
         {
             KillPlatformProcess();
             steamService.SetCurrentUser(account.AccountName);
             //steamService.UpdateLocalUserData(SteamUsers!);
-            RunPlatformProcess();
+            RunPlatformProcess(platform, false);
         }
     }
 
-    void IPlatformSwitcher.ClearCurrentLoginUser() => steamService.SetCurrentUser("");
+    bool IPlatformSwitcher.ClearCurrentLoginUser(PlatformAccount platform)
+    {
+        steamService.SetCurrentUser("");
+        return true;
+    }
 
     public bool KillPlatformProcess()
     {
         return steamService.TryKillSteamProcess();
     }
 
-    public void RunPlatformProcess()
+    public bool RunPlatformProcess(PlatformAccount platform, bool isAdmin)
     {
         steamService.StartSteamWithParameter();
+        return true;
     }
 
-    public void NewUserLogin()
+    public void NewUserLogin(PlatformAccount platform)
     {
-
         KillPlatformProcess();
         steamService.SetCurrentUser("");
         //steamService.UpdateLocalUserData(SteamUsers!);
-        RunPlatformProcess();
+        RunPlatformProcess(platform, false);
     }
 
     public bool CurrnetUserAdd(string name, PlatformAccount platform) => false;
+
+    public string GetCurrentAccountId(PlatformAccount platform)
+    {
+        var user = steamService.GetRememberUserList().FirstOrDefault(s => s.MostRecent);
+        if (user != null)
+        {
+            return user.SteamId64.ToString();
+        }
+        return "";
+    }
 
     public void ChangeUserRemark()
     {
