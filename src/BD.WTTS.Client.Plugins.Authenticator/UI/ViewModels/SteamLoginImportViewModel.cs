@@ -13,9 +13,9 @@ using ToastLength = BD.Common.Enums.ToastLength;
 
 namespace BD.WTTS.Models;
 
-public sealed partial class SteamImportAuthenticator
+public sealed partial class SteamLoginImportViewModel
 {
-    public SteamImportAuthenticator()
+    public SteamLoginImportViewModel()
     {
         
     }

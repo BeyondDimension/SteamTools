@@ -3,12 +3,12 @@ using BD.WTTS.UI.Views.Controls;
 
 namespace BD.WTTS.UI.Views;
 
-public partial class ImportPage : UserControl
+public partial class SteamLoginImportPage : UserControl
 {
-    public ImportPage()
+    public SteamLoginImportPage()
     {
         InitializeComponent();
-        DataContext = new SteamImportAuthenticator();
+        DataContext = new SteamLoginImportViewModel();
     }
 
     // void Stepper_OnBacking(Stepper sender, CancelEventArgs args)

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BD.WTTS.Models;
-public sealed partial class SteamImportAuthenticator : TabItemViewModel
+public sealed partial class SteamLoginImportViewModel : TabItemViewModel
 {
-    public override string Name => nameof(SteamImportAuthenticator);
+    public override string Name => nameof(SteamLoginImportViewModel);
     
     private int index;
 

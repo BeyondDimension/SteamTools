@@ -157,7 +157,7 @@
                     DockPanel.Dock="Left"
                     HorizontalAlignment="Center">
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton Label="固定展示">
+                        <ui:CommandBarButton Command="{Binding KeepDisplay}" Label="固定展示">
                             <ui:CommandBarButton.IconSource>
                                 <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource FavoriteStar}" />
                             </ui:CommandBarButton.IconSource>

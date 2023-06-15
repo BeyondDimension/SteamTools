@@ -59,6 +59,10 @@
 	  <Compile Remove="StepControls_Test\**" />
 	  <EmbeddedResource Remove="StepControls_Test\**" />
 	  <None Remove="StepControls_Test\**" />
+	  <Compile Update="UI\Views\Pages\SteamLoginImportPage.axaml.cs">
+	    <DependentUpon>ImportPage.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

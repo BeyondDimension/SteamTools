@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using BD.WTTS.Client.Resources;
+using BD.WTTS.UI.Views.Pages;
 using Splat;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -58,6 +59,11 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
         {
             Auths.Add(new AuthenticatorItemModel(item));
         }
+    }
+
+    public void KeepDisplay()
+    {
+        
     }
     
     public async Task DeleteAuthAsync()
