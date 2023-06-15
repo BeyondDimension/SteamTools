@@ -31,6 +31,28 @@ public class AuthenticatorItemModel : ItemViewModel
 
     public static event AuthenticatorItemIsSelectedChangeEventHandler? OnAuthenticatorItemIsSelectedChanged;
 
+    bool iscloudauth;
+
+    public bool IsCloudAuth
+    {
+        get => iscloudauth;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref iscloudauth, value);
+        }
+    }
+
+    // string iconglyphtext = "&#xE753;";
+    //
+    // public string IconGlyphText
+    // {
+    //     get => iconglyphtext;
+    //     set
+    //     {
+    //         this.RaiseAndSetIfChanged(ref iconglyphtext, value);
+    //     }
+    // }
+
     string? authname;
 
     public string? AuthName

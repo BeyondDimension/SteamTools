@@ -1,17 +1,25 @@
 <UserControl
+    Classes.IsActive="{Binding IsSelected}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="BD.WTTS.UI.Views.Controls.AuthenticatorItem"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorItemModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:CompileBindings="True"
-    x:DataType="spp:AuthenticatorItemModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Styles>
+        <Style Selector="spp|AuthenticatorItem.IsActive">
+            <Setter Property="RenderTransform" Value="scale(0.9)" />
+        </Style>
+        <Style Selector="spp|AuthenticatorItem:not(.IsActive)">
+            <Setter Property="RenderTransform" Value="scale(1)" />
+        </Style>
+
         <Style Selector="spp|AuthenticatorItem:pointerover">
             <Setter Property="RenderTransform" Value="scale(0.9)" />
         </Style>
@@ -20,7 +28,7 @@
             <Setter Property="RenderTransform" Value="scale(1)" />
             <Setter Property="Transitions">
                 <Transitions>
-                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+                    <TransformOperationsTransition Duration="0:0:0.2" Property="RenderTransform" />
                 </Transitions>
             </Setter>
             <Style.Animations>
@@ -37,74 +45,83 @@
     </UserControl.Styles>
     <StackPanel Spacing="3">
         <Border
-            Width="210"
             Background="{DynamicResource ControlStrokeColorOnAccentSecondaryBrush}"
-            CornerRadius="10">
+            CornerRadius="10"
+            Width="210">
             <TextBlock
-                VerticalAlignment="Center"
                 FontSize="20"
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                 Text="{Binding AuthName}"
-                TextAlignment="Center" />
+                TextAlignment="Center"
+                VerticalAlignment="Center" />
         </Border>
         <Border
-            Width="210"
-            Height="230"
             Background="{DynamicResource ControlStrokeColorOnAccentSecondaryBrush}"
-            CornerRadius="10">
+            CornerRadius="10"
+            Height="230"
+            Width="210">
             <Grid>
                 <Viewbox
-                    Width="32"
                     Height="32"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
-                    <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE753;" />
+                    IsVisible="{Binding IsCloudAuth}"
+                    VerticalAlignment="Top"
+                    Width="32">
+                    <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Cloud}" />
+                </Viewbox>
+                <Viewbox
+                    Height="32"
+                    HorizontalAlignment="Left"
+                    IsVisible="{Binding !IsCloudAuth}"
+                    VerticalAlignment="Top"
+                    Width="32">
+                    <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Dictionary}" />
                 </Viewbox>
                 <Arc
-                    Width="200"
                     Height="200"
                     StartAngle="0"
                     Stretch="None"
                     Stroke="{DynamicResource ControlStrokeColorSecondaryBrush}"
                     StrokeThickness="10"
-                    SweepAngle="360" />
+                    SweepAngle="360"
+                    Width="200" />
                 <Arc
-                    Width="200"
-                    Height="200"
                     FlowDirection="RightToLeft"
+                    Height="200"
                     StartAngle="270"
                     Stretch="None"
                     Stroke="{Binding StrokeColor}"
                     StrokeJoin="Round"
                     StrokeLineCap="Square"
                     StrokeThickness="10"
-                    SweepAngle="{Binding Value}">
+                    SweepAngle="{Binding Value}"
+                    Width="200">
                     <Arc.Transitions>
                         <Transitions>
                             <DoubleTransition
+                                Duration="0:0:0.8"
                                 Easing="CircularEaseOut"
-                                Property="SweepAngle"
-                                Duration="0:0:0.8" />
+                                Property="SweepAngle" />
                         </Transitions>
                     </Arc.Transitions>
                 </Arc>
                 <StackPanel
-                    Margin="10"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
-                    Spacing="3">
+                    Margin="10"
+                    Spacing="3"
+                    VerticalAlignment="Center">
                     <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
                         FontSize="30"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Text="{Binding Text}" />
-                    <TextBlock
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
+                        Text="{Binding Text}"
+                        VerticalAlignment="Center" />
+                    <TextBlock
                         FontSize="14"
                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                        Text="右击以复制" />
+                        HorizontalAlignment="Center"
+                        Text="右击以复制"
+                        VerticalAlignment="Center" />
                 </StackPanel>
             </Grid>
         </Border>
