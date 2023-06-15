@@ -38,7 +38,7 @@
             </Style.Animations>
         </Style>
         <Style Selector="Border#BorderBottom.IsActive">
-            <Setter Property="RenderTransform" Value="translateY(0px)" />
+            <Setter Property="RenderTransform" Value="translateY(10px)" />
         </Style>
         <Style Selector="Border#BorderBottom:not(.IsActive)">
             <Setter Property="RenderTransform" Value="translateY(80px)" />
@@ -145,9 +145,10 @@
     <DockPanel>
         <!-- <views:ImportControl IsVisible="True" /> -->
         <Border
-            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            Background="{DynamicResource ControlFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
             Classes.IsActive="{Binding BorderBottomIsActive}"
-            CornerRadius="10"
+            CornerRadius="{StaticResource ControlCornerRadius}"
             DockPanel.Dock="Bottom"
             Name="BorderBottom">
             <DockPanel>
@@ -156,26 +157,41 @@
                     DockPanel.Dock="Left"
                     HorizontalAlignment="Center">
                     <ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBarButton Label="固定展示">
+                            <ui:CommandBarButton.IconSource>
+                                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource FavoriteStar}" />
+                            </ui:CommandBarButton.IconSource>
+                        </ui:CommandBarButton>
+                    </ui:CommandBar.PrimaryCommands>
+                    <ui:CommandBar.PrimaryCommands>
                         <ui:CommandBarButton
                             Command="{Binding EditAuthNameAsync}"
-                            IconSource="Add"
+                            IconSource="Edit"
                             Label="编辑令牌名字" />
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton IconSource="Add" Label="固定展示" />
-                    </ui:CommandBar.PrimaryCommands>
-                    <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton IconSource="Add" Label="确认交易" />
+                        <ui:CommandBarButton Label="确认交易">
+                            <ui:CommandBarButton.IconSource>
+                                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Reply}" />
+                            </ui:CommandBarButton.IconSource>
+                        </ui:CommandBarButton>
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBarSeparator />
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton IconSource="Add" Label="查看详细数据" />
+                        <ui:CommandBarButton IconSource="ZoomIn" Label="查看详细数据" />
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton IconSource="Add" Label="展示二维码" />
+                        <ui:CommandBarButton Label="展示二维码">
+                            <ui:CommandBarButton.IconSource>
+                                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
+                            </ui:CommandBarButton.IconSource>
+                        </ui:CommandBarButton>
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton IconSource="Add" Label="复制令牌" />
+                        <ui:CommandBarButton
+                            Command="{Binding DeleteAuthAsync}"
+                            IconSource="Delete"
+                            Label="删除令牌" />
                     </ui:CommandBar.PrimaryCommands>
                 </ui:CommandBar>
             </DockPanel>

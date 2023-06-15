@@ -22,9 +22,20 @@ public class AuthenticatorItemModel : ItemViewModel
         }
     }
 
-    public void OnPointerPressed()
+    public void OnPointerLeftPressed()
     {
         IsSelected = !IsSelected;
+    }
+
+    public void OnPointerRightPressed()
+    {
+        CopyCode();
+    }
+    
+    async void CopyCode()
+    {
+        await Clipboard2.SetTextAsync(AuthData.Value?.CurrentCode);
+        Toast.Show(Strings.LocalAuth_CopyAuthTip + AuthName);
     }
 
     public delegate void AuthenticatorItemIsSelectedChangeEventHandler(AuthenticatorItemModel sender);

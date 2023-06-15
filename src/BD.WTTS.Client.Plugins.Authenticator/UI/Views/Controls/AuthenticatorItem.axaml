@@ -45,21 +45,9 @@
     </UserControl.Styles>
     <StackPanel Spacing="3">
         <Border
-            Background="{DynamicResource ControlStrokeColorOnAccentSecondaryBrush}"
-            CornerRadius="10"
-            Width="210">
-            <TextBlock
-                FontSize="20"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Text="{Binding AuthName}"
-                TextAlignment="Center"
-                VerticalAlignment="Center" />
-        </Border>
-        <Border
-            Background="{DynamicResource ControlStrokeColorOnAccentSecondaryBrush}"
-            CornerRadius="10"
-            Height="230"
-            Width="210">
+            Background="Transparent"
+            Height="200"
+            Width="200">
             <Grid>
                 <Viewbox
                     Height="32"
@@ -124,6 +112,18 @@
                         VerticalAlignment="Center" />
                 </StackPanel>
             </Grid>
+        </Border>
+        <Border
+            Background="{DynamicResource ControlFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            CornerRadius="20"
+            Width="200">
+            <TextBlock
+                FontSize="20"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="{Binding AuthName}"
+                TextAlignment="Center"
+                VerticalAlignment="Center" />
         </Border>
     </StackPanel>
 </UserControl>

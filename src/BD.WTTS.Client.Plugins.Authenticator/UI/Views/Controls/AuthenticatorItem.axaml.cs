@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 
@@ -13,9 +14,19 @@ public partial class AuthenticatorItem : UserControl
     {
         base.OnPointerPressed(e);
 
-        if (DataContext is AuthenticatorItemModel authenticatorItemModel)
+        if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed)
         {
-            authenticatorItemModel.OnPointerPressed();
+            if (DataContext is AuthenticatorItemModel authenticatorItemModel)
+            {
+                authenticatorItemModel.OnPointerLeftPressed();
+            }
+        }
+        else if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.RightButtonPressed)
+        {
+            if (DataContext is AuthenticatorItemModel authenticatorItemModel)
+            {
+                authenticatorItemModel.OnPointerRightPressed();
+            }
         }
     }
 }

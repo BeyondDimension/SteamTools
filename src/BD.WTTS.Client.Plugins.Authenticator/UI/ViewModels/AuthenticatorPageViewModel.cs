@@ -59,18 +59,14 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
             Auths.Add(new AuthenticatorItemModel(item));
         }
     }
-
-    public async Task CopyCode()
-    {
-
-    }
-
+    
     public async Task DeleteAuthAsync()
     {
         if (CurrentSelectedAuth == null) return;
         var messageviewmodel =
-            new MessageBoxWindowViewModel { Content = Strings.LocalAuth_DeleteAuthTip, IsCancelcBtn = true };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(messageviewmodel))
+            new MessageBoxWindowViewModel { Content = Strings.LocalAuth_DeleteAuthTip };
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(messageviewmodel, "删除令牌", isDialog: false,
+                isCancelButton: true))
         {
             AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
             Auths.Remove(CurrentSelectedAuth);

@@ -20,6 +20,9 @@
     <x:String x:Key="Lock">&#xE72E;</x:String>
     <x:String x:Key="Shield">&#xEA18;</x:String>
     <x:String x:Key="Dictionary">&#xE82D;</x:String>
+    <x:String x:Key="FavoriteStar">&#xE734;</x:String>
+    <x:String x:Key="QrCode">&#xED14;</x:String>
+    <x:String x:Key="Reply">&#xE97A;</x:String>
 
 
     <ui:ImageIconSource Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" x:Key="AppIcon" />
