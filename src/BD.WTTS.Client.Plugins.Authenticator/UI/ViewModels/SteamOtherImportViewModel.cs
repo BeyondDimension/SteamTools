@@ -18,6 +18,10 @@ public class SteamOtherImportViewModel : ViewModelBase
         set
         {
             if (value == _importAuthNewName) return;
+            if (value != null && value.Length > IAuthenticatorDTO.MaxLength_Name)
+            {
+                value = value.Substring(0, IAuthenticatorDTO.MaxLength_Name);
+            }
             _importAuthNewName = value;
             this.RaisePropertyChanged();
         }
@@ -51,6 +55,10 @@ public class SteamOtherImportViewModel : ViewModelBase
         set
         {
             if (value == _phoneImportUuid) return;
+            if (value != null && !value.StartsWith("android:", StringComparison.Ordinal))
+            {
+                value = $"android:{value}";
+            }
             _phoneImportUuid = value;
             this.RaisePropertyChanged();
         }

@@ -128,7 +128,10 @@
                 VerticalContentAlignment="Center">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem Text="导出令牌" />
+                        <ui:MenuFlyoutSubItem Text="导出令牌">
+                            <ui:MenuFlyoutItem Text="默认导出" />
+                            <ui:MenuFlyoutItem Text="导出为maFile" />
+                        </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutItem Text="重新锁定" />
                         <ui:MenuFlyoutItem Text="解绑令牌" />
                         <ui:MenuFlyoutItem Text="插件设置" />

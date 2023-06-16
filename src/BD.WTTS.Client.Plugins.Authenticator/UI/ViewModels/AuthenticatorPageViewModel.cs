@@ -91,7 +91,7 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
 
     public void KeepDisplay()
     {
-
+        
     }
 
     public async Task DeleteAuthAsync()
