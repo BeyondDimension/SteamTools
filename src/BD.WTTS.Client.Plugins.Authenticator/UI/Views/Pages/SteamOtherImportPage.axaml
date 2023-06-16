@@ -23,7 +23,7 @@
             Text="{Binding ImportAuthNewName}"
             Watermark="自定义令牌名称"
             Width="200" />
-        <TextBox IsVisible="{Binding !ImportFromFile}" Text="{Binding PhoneImportUUID}" />
+        <TextBox IsVisible="{Binding !ImportFromFile}" Text="{Binding PhoneImportUuid}" />
         <TextBox IsVisible="{Binding !ImportFromFile}" Text="{Binding PhoneImportSteamGuard}" />
         <TextBox
             IsReadOnly="True"

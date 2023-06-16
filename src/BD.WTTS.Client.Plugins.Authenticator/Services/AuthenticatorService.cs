@@ -46,9 +46,9 @@ public sealed class AuthenticatorService
         await repository.RenameAsync(authenticatorDto.Id, newname, isLocal);
     }
 
-    public static async Task<byte[]> ExportAuthAsync(IAuthenticatorDTO[] authenticatorDTOs)
+    public static async Task<(IAccountPlatformAuthenticatorRepository.ImportResultCode resultCode, IReadOnlyList<IAuthenticatorDTO> result, int sourcesCount)> 
+        ImportAsync(string? exportPassword, byte[] data)
     {
-        var isLocal = await repository.HasLocalAsync();
-        return await repository.ExportAsync(isLocal, null, authenticatorDTOs);
+        return await repository.ImportAsync(exportPassword, data);
     }
 }

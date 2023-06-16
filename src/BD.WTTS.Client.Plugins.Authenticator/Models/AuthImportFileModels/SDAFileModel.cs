@@ -1,11 +1,5 @@
 namespace BD.WTTS.Models;
 
-[JsonSerializable(typeof(SdaFileModel))]
-public partial class SdaFileModelJsonContext : JsonSerializerContext
-{
-    
-}
-
 public class SdaFileModel
 {
     [JsonPropertyName("shared_secret")] 
