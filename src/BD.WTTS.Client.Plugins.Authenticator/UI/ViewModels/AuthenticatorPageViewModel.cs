@@ -59,13 +59,41 @@ public sealed partial class AuthenticatorPageViewModel : TabItemViewModel
         {
             Auths.Add(new AuthenticatorItemModel(item));
         }
+
+        //var test5 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
+
+        //string rspquestion = "";
+        //var rsp1 = await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
+        //if (rsp1.Content != null) rspquestion = rsp1.Content;
+        //var setpassword = await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new() { PwdQuestion = "测试", Answer = "123" });
+
+        //var test1 = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+        //{
+        //    Difference = new UserAuthenticatorPushItem[]
+        //    {
+        //        new()
+        //        {
+        //            GamePlatform = (int)GamePlatform.Windows,
+        //            TokenType = UserAuthenticatorTokenType.TOTP,
+        //            Name = list[0].Name,
+        //            Token = MemoryPackSerializer.Serialize(AuthenticatorDTOExtensions.ToExport(list[0])),  //await AuthenticatorService.ExportAuthAsync(new IAuthenticatorDTO(){  }),
+        //            Order = 1,
+        //            Remarks = ""
+        //        },
+        //    },
+        //    Answer = "123"
+        //});
+
+        //var test = await IMicroServiceClient.Instance.Advertisement.All(AdvertisementType.Banner);
+        //var test2 = await IMicroServiceClient.Instance.Script.Query();
+        //var test3 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
     }
 
     public void KeepDisplay()
     {
-        
+
     }
-    
+
     public async Task DeleteAuthAsync()
     {
         if (CurrentSelectedAuth == null) return;

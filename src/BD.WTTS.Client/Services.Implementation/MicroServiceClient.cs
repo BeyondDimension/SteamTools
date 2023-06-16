@@ -30,6 +30,7 @@ sealed class MicroServiceClient : MicroServiceClientBase
 
     protected sealed override HttpClient CreateClient(HttpHandlerCategory category)
     {
+        category = HttpHandlerCategory.Default;
         var client = base.CreateClient(category);
 
         try

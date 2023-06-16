@@ -45,4 +45,10 @@ public sealed class AuthenticatorService
         var isLocal = await repository.HasLocalAsync();
         await repository.RenameAsync(authenticatorDto.Id, newname, isLocal);
     }
+
+    public static async Task<byte[]> ExportAuthAsync(IAuthenticatorDTO[] authenticatorDTOs)
+    {
+        var isLocal = await repository.HasLocalAsync();
+        return await repository.ExportAsync(isLocal, null, authenticatorDTOs);
+    }
 }
