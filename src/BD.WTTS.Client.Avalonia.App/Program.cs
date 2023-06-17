@@ -38,103 +38,136 @@ partial class Program
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static AppBuilder BuildAvaloniaApp()
     {
-        Common.UI.Helpers.UIFrameworkHelper.Init(isAvaloniaUI: true);
-
-        if (instance == null)
-        {
-            instance = new()
-            {
-                IsDesignMode = true,
-            };
-            instance.StartAsync().GetAwaiter().GetResult();
-            instance.RunUIApplication(AppServicesLevel.UI);
-        }
-
-#if DEBUG && WINDOWS
-        if (!instance.IsDesignMode)
-        {
-            var apartmentState = Thread.CurrentThread.GetApartmentState();
-            if (apartmentState != ApartmentState.STA)
-            {
-                throw new ArgumentOutOfRangeException("CurrentThread != ApartmentState.STA");
-            }
-        }
-#endif
-
         try
         {
-            var builder = AppBuilder.Configure(() => UI.App.Instance)
-#if WINDOWS
-                .UseWin32()
-#elif MACCATALYST || MACOS
-                .UseAvaloniaNative()
-#elif LINUX
-                .UseX11()
-#else
-#endif
-                .UseSkia()
-                .LogToTrace()
-                .UseReactiveUI()
-                .With(new FontManagerOptions
+            Common.UI.Helpers.UIFrameworkHelper.Init(isAvaloniaUI: true);
+
+            if (instance == null)
+            {
+                instance = new()
                 {
-                    DefaultFamilyName = UI.App.DefaultFontFamily.Name,
-                    FontFallbacks = new[]
-                    {
-                        new FontFallback
-                        {
-                            FontFamily = UI.App.DefaultFontFamily.Name,
-                        },
-                    },
-                });
+                    IsDesignMode = true,
+                };
+                instance.StartAsync().GetAwaiter().GetResult();
+                instance.RunUIApplication(AppServicesLevel.UI);
+            }
 
-            var useGpu = !IApplication.DisableGPU && GeneralSettings.GPU.Value;
-#if MACOS
-            builder.With(new AvaloniaNativePlatformOptions
+#if DEBUG && WINDOWS
+            if (!instance.IsDesignMode)
             {
-                UseGpu = useGpu,
-            });
+                var apartmentState = Thread.CurrentThread.GetApartmentState();
+                if (apartmentState != ApartmentState.STA)
+                {
+                    throw new ArgumentOutOfRangeException("CurrentThread != ApartmentState.STA");
+                }
+            }
+#endif
+
+            try
+            {
+                var builder = AppBuilder.Configure(() => UI.App.Instance)
+#if WINDOWS
+                    .UseWin32()
+#elif MACCATALYST || MACOS
+                    .UseAvaloniaNative()
 #elif LINUX
-            builder.With(new X11PlatformOptions
-            {
-                UseGpu = useGpu,
-                EnableMultiTouch = true,
-                UseDBusMenu = true,
-                EnableIme = true,
-            });
+                    .UseX11()
+#else
+#endif
+                    .UseSkia()
+                    .LogToTrace()
+                    .UseReactiveUI()
+                    .With(new FontManagerOptions
+                    {
+                        DefaultFamilyName = UI.App.DefaultFontFamily.Name,
+                        FontFallbacks = new[]
+                        {
+                            new FontFallback
+                            {
+                                FontFamily = UI.App.DefaultFontFamily.Name,
+                            },
+                        },
+                    });
+
+                var useGpu = !IApplication.DisableGPU && GeneralSettings.GPU.Value;
+#if MACOS
+                builder.With(new AvaloniaNativePlatformOptions
+                {
+                    UseGpu = useGpu,
+                });
+#elif LINUX
+                builder.With(new X11PlatformOptions
+                {
+                    UseGpu = useGpu,
+                    EnableMultiTouch = true,
+                    UseDBusMenu = true,
+                    EnableIme = true,
+                });
 #elif WINDOWS
-            var useWgl = IApplication.UseWgl || GeneralSettings.NativeOpenGL.Value;
-            var options = new Win32PlatformOptions
-            {
-                UseWgl = useWgl,
-                AllowEglInitialization = useGpu,
-                UseWindowsUIComposition = true,
-                CompositionBackdropCornerRadius = 8f,
-            };
+                var useWgl = IApplication.UseWgl || GeneralSettings.NativeOpenGL.Value;
+                var options = new Win32PlatformOptions
+                {
+                    UseWgl = useWgl,
+                    AllowEglInitialization = useGpu,
+                    UseWindowsUIComposition = true,
+                    CompositionBackdropCornerRadius = 8f,
+                };
 
-            builder.With(options);
+                builder.With(options);
 
-            var skiaOptions = new SkiaOptions
-            {
-                MaxGpuResourceSizeBytes = 1024000000,
-            };
+                var skiaOptions = new SkiaOptions
+                {
+                    MaxGpuResourceSizeBytes = 1024000000,
+                };
 
-            builder.With(skiaOptions);
+                builder.With(skiaOptions);
 #else
-            throw new PlatformNotSupportedException("Avalonia.Desktop package was referenced on non-desktop platform or it isn't supported");
+                throw new PlatformNotSupportedException("Avalonia.Desktop package was referenced on non-desktop platform or it isn't supported");
 #endif
-            return builder;
-        }
-        catch (Exception ex)
-        {
+                return builder;
+            }
+            catch (Exception ex)
+            {
 #if DEBUG
-            throw new Exception(
-                $"Design.IsDesignMode: {Design.IsDesignMode}, " +
-                $"CallingAssemblyName: {Assembly.GetCallingAssembly().GetName().Name}, " +
-                $"ExecutingAssemblyName: {Assembly.GetExecutingAssembly()}",
-                ex);
+                throw new Exception(
+                    $"Design.IsDesignMode: {Design.IsDesignMode}, " +
+                    $"CallingAssemblyName: {Assembly.GetCallingAssembly().GetName().Name}, " +
+                    $"ExecutingAssemblyName: {Assembly.GetExecutingAssembly()}",
+                    ex);
 #else
-            throw;
+                throw;
 #endif
+            }
+        }
+        catch (Exception? ex)
+        {
+#if DESIGNER
+            byte counter = 0;
+            StringBuilder builder = new();
+            do
+            {
+                if (counter++ == sbyte.MaxValue) break;
+                builder.AppendLine(ex.ToString());
+                builder.AppendLine();
+                ex = ex.InnerException;
+            } while (ex != null);
+            var errorString = builder.ToString();
+            Debug.WriteLine(errorString);
+            Console.Error.WriteLine(errorString);
+            Console.Error.Flush();
+            var bytes = Encoding.UTF8.GetBytes(errorString);
+            using (var fileStream = new FileStream(
+                Path.Combine(ProjectUtils.GetProjectPath(typeof(Program).Assembly.Location), "designer.log"),
+                FileMode.OpenOrCreate,
+                FileAccess.Write,
+                FileShare.ReadWrite | FileShare.Delete))
+            {
+                fileStream.Write(bytes);
+                fileStream.Flush();
+                fileStream.SetLength(fileStream.Position);
+            }
+#endif
+            throw;
         }
     }
 

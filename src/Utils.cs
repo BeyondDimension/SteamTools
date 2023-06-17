@@ -23,7 +23,7 @@ public static partial class ProjectUtils
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    static string GetProjectPath(string? path = null)
+    public static string GetProjectPath(string? path = null)
     {
         path ??=
 #if NET46_OR_GREATER || NETCOREAPP
@@ -71,6 +71,8 @@ public static partial class ProjectUtils
     "maccatalyst";
 #elif MACOS
     "macos";
+#else
+    "";
 #endif
 #endif
 

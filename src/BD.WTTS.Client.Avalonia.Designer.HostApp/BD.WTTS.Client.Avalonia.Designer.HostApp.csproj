@@ -62,6 +62,7 @@
 		<Compile Include="..\BD.WTTS.Client.Avalonia.App\**\*.cs" />
 		<Compile Remove="..\BD.WTTS.Client.Avalonia.App\bin\**" />
 		<Compile Remove="..\BD.WTTS.Client.Avalonia.App\obj\**" />
+		<Compile Include="..\Utils.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
