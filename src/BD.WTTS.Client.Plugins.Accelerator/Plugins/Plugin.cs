@@ -182,4 +182,9 @@ sealed class Plugin : PluginBase<Plugin>
         // 网络加速模块仅在简体中文中加载
         return ResourceService.IsChineseSimplified && SubProcessExists();
     }
+
+    public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
+    {
+        yield return GetConfiguration<ProxySettings_>(directoryExists);
+    }
 }

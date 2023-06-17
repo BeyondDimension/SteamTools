@@ -23,6 +23,12 @@ public abstract partial class PluginBase<TPlugin> : IPlugin where TPlugin : Plug
 
     public virtual IEnumerable<TabItemViewModel>? GetMenuTabItems() => null;
 
+    protected static (Action<IServiceCollection>? @delegate, bool isInvalid, string name) GetConfiguration<TSettings>(bool directoryExists) where TSettings : class, ISettings<TSettings>, new()
+    {
+        var isInvalid = ISettings<TSettings>.Load(directoryExists, out var @delegate);
+        return (@delegate, isInvalid, TSettings.Name);
+    }
+
     public virtual IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists) => null;
 
     public virtual ValueTask OnInitializeAsync() => ValueTask.CompletedTask;

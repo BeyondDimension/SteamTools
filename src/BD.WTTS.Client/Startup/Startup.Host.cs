@@ -63,9 +63,62 @@ partial class Startup // 配置 Host
 #endif
         }
 
+        #region 初始化配置 Settings/Configuration
+
+        var directoryExists = ISettings.DirectoryExists();
+
+        if (ISettings<GeneralSettings_>.Load(directoryExists, out var @delegate))
+            InvalidConfigurationFileNames.Add(GeneralSettings_.Name);
+        if (ISettings<UISettings_>.Load(directoryExists, out var @delegate1))
+            InvalidConfigurationFileNames.Add(UISettings_.Name);
+        else
+            @delegate += @delegate1;
+        if (ISettings<SteamSettings_>.Load(directoryExists, out var @delegate2))
+            InvalidConfigurationFileNames.Add(SteamSettings_.Name);
+        else
+            @delegate += @delegate2;
+
+        if (TryGetPlugins(out var plugins_cfg))
+        {
+            foreach (var plugin in plugins_cfg)
+            {
+                try
+                {
+                    var plugin_cfg = plugin.GetConfiguration(directoryExists);
+                    if (plugin_cfg != default)
+                    {
+                        foreach (var item in plugin_cfg)
+                        {
+                            if (item.isInvalid)
+                            {
+                                InvalidConfigurationFileNames.Add(item.name);
+                            }
+                            if (item.@delegate != null)
+                            {
+                                @delegate += item.@delegate;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    GlobalExceptionHandler.Handler(ex,
+                        $"{plugin.Name}{nameof(IPlugin.GetConfiguration)}");
+                }
+            }
+        }
+
+        Configuration = @delegate;
+
+#if STARTUP_WATCH_TRACE || DEBUG
+        WatchTrace.Record("LoadSettings");
+#endif
+        #endregion
+
 #if STARTUP_WATCH_TRACE || DEBUG
         WatchTrace.Stop();
 #endif
+
         LoadLogicApplication();
 
         if (!IsDesignMode && IsMainProcess)
