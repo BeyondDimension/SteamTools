@@ -1,4 +1,5 @@
 using BD.WTTS.Client.Resources;
+using System.Collections.Immutable;
 
 namespace BD.WTTS.Services.Implementation;
 
@@ -87,7 +88,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
     /// <param name="isDialog"></param>
     /// <param name="isFooterExpanded"></param>
     /// <returns></returns>
-    public Task<bool> ShowTaskDialogAsync<TPageViewModel>(
+    public async Task<bool> ShowTaskDialogAsync<TPageViewModel>(
         TPageViewModel? viewModel,
         string title = "",
         string header = "",
@@ -98,52 +99,72 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         bool isCancelButton = false,
         bool isRetryButton = false)
         where TPageViewModel : ViewModelBase, new()
-        => MainThread2.InvokeOnMainThreadAsync<bool>(async () =>
+    {
+        var td = new TaskDialog
         {
-            var td = new TaskDialog
+            Title = title,
+            Header = string.IsNullOrEmpty(header) ? title : header,
+            SubHeader = subHeader,
+            //DataContext = viewModel,
+            //Content = GetPageContent(viewModel),
+            //IconSource = new SymbolIconSource { Symbol = Symbol.Accept },
+            ShowProgressBar = showProgressBar,
+            FooterVisibility = TaskDialogFooterVisibility.Never,
+            //IsFooterExpanded = isFooterExpanded,
+            //Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, },
+            XamlRoot = GetWindowTopLevel(),
+            Buttons =
             {
-                Title = title,
-                Header = string.IsNullOrEmpty(header) ? title : header,
-                SubHeader = subHeader,
-                //DataContext = viewModel,
-                //Content = GetPageContent(viewModel),
-                //IconSource = new SymbolIconSource { Symbol = Symbol.Accept },
-                ShowProgressBar = showProgressBar,
-                FooterVisibility = TaskDialogFooterVisibility.Never,
-                //IsFooterExpanded = isFooterExpanded,
-                //Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, },
-                XamlRoot = GetWindowTopLevel(),
-                Buttons =
-                {
-                    new TaskDialogButton(Strings.Confirm, TaskDialogStandardResult.OK),
-                }
-            };
+                new TaskDialogButton(Strings.Confirm, TaskDialogStandardResult.OK),
+            },
+        };
 
-            if (viewModel != null)
-            {
-                td.DataContext = viewModel;
-                td.Content = GetPageContent(viewModel);
-            }
+        if (viewModel != null)
+        {
+            td.DataContext = viewModel;
+            td.Content = GetPageContent(viewModel);
+        }
 
-            if (isRememberChooseFooter)
-            {
-                td.FooterVisibility = TaskDialogFooterVisibility.Always;
-                td.Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, };
-            }
+        if (isRememberChooseFooter)
+        {
+            td.FooterVisibility = TaskDialogFooterVisibility.Always;
+            td.Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, };
+        }
 
-            if (isCancelButton)
-            {
-                td.Buttons.Add(new TaskDialogButton(Strings.Cancel, TaskDialogStandardResult.Cancel));
-            }
-            if (isRetryButton)
-            {
-                td.Buttons.Add(new TaskDialogButton(Strings.Retry, TaskDialogStandardResult.Retry));
-            }
+        if (isCancelButton)
+        {
+            td.Buttons.Add(new TaskDialogButton(Strings.Cancel, TaskDialogStandardResult.Cancel));
+        }
+        if (isRetryButton)
+        {
+            td.Buttons.Add(new TaskDialogButton(Strings.Retry, TaskDialogStandardResult.Retry));
+        }
+        //td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
 
-            //td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
-            var result = await td.ShowAsync(!isDialog);
-            return result is TaskDialogStandardResult.OK;
-        });
+        object? result = null;
+        void OnClosing(TaskDialog s, TaskDialogClosingEventArgs args)
+        {
+            result = args.Result;
+        }
+        try
+        {
+            td.Closing += OnClosing;
+            result = await MainThread2.InvokeOnMainThreadAsync(async () =>
+            {
+                var result = await td.ShowAsync(!isDialog);
+                return result;
+            });
+        }
+        catch (NullReferenceException)
+        {
+            // 在插件中调用 TaskDialog.ShowAsync(bool showHosted = false) 会抛出此异常
+            // 在 FluentAvalonia.UI.Controls.TaskDialog.<ShowAsync>d__6.MoveNext()
+            // 在 AvaloniaWindowManagerImpl.<>c__DisplayClass8_0`1.<<ShowTaskDialogAsync>b__1>d.MoveNext()
+        }
+        td.Closing -= OnClosing;
+        td = null;
+        return result is TaskDialogStandardResult.OK;
+    }
 
     Task ShowAsync(Type typeWindowViewModel,
         bool isDialog,
