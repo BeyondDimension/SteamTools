@@ -32,6 +32,7 @@
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
                 Padding="8,4"
+                Command="{Binding StartProxyCommand}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>

@@ -7,6 +7,8 @@ public sealed partial class PlatformAccount
 {
     readonly IPlatformSwitcher platformSwitcher;
 
+    public ICommand SwapToAccountCommand { get; set; }
+
     public PlatformAccount(ThirdpartyPlatform platform)
     {
         var platformSwitchers = Ioc.Get<IEnumerable<IPlatformSwitcher>>();
@@ -19,18 +21,41 @@ public sealed partial class PlatformAccount
             _ => platformSwitchers.OfType<BasicPlatformSwitcher>().First(),
         };
 
+        SwapToAccountCommand = ReactiveCommand.Create<IAccount>(acc =>
+        {
+            platformSwitcher.SwapToAccount(acc, this);
+        });
+
         LoadUsers();
     }
 
     public async void LoadUsers()
     {
-        var users = await platformSwitcher.GetUsers(this);
-        if (users.Any_Nullable())
-            Accounts = new ObservableCollection<IAccount>(users);
+        if (IsLoading) return;
+        IsLoading = true;
+        try
+        {
+            var users = await platformSwitcher.GetUsers(this);
+            if (users.Any_Nullable())
+                Accounts = new ObservableCollection<IAccount>(users);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(PlatformAccount), ex, "LoadUsers Faild");
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
-    public bool CurrnetUserAdd(string name)
+    public bool CurrnetUserAdd(string? name)
     {
+        if (string.IsNullOrEmpty(name))
+        {
+            platformSwitcher.NewUserLogin(this);
+            return true;
+        }
         return platformSwitcher.CurrnetUserAdd(name, this);
     }
 }

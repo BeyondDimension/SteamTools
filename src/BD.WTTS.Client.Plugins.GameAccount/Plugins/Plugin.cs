@@ -32,4 +32,9 @@ sealed class Plugin : PluginBase<Plugin>
     {
 
     }
+
+    public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
+    {
+        yield return GetConfiguration<GameAccountSettings_>(directoryExists);
+    }
 }

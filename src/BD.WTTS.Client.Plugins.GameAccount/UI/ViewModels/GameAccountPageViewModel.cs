@@ -1,5 +1,6 @@
 using Avalonia.Platform;
 using BD.WTTS.Client.Resources;
+using ReactiveUI;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -16,58 +17,24 @@ public sealed partial class GameAccountPageViewModel
             },
         };
 
-        //AddGamePlatforms = new ObservableCollection<PlatformAccount>
-        //{
-        //    new PlatformAccount(ThirdpartyPlatform.Epic)
-        //    {
-        //        FullName = "Epic Games",
-        //        Icon = "EpicGames",
-        //    },
-        //    new PlatformAccount(ThirdpartyPlatform.Uplay)
-        //    {
-        //        FullName = "Ubisoft",
-        //        Icon = "Ubisoft",
-        //    },
-        //    new PlatformAccount(ThirdpartyPlatform.EADesktop)
-        //    {
-        //        FullName = "EA Desktop",
-        //        Icon = "Ubisoft",
-        //    },
-        //};
-
-        var temp = GetSupportPlatforms();
-        if (temp != null)
-        {
-            if (GameAccountSettings.EnablePlatforms.Value.Any_Nullable())
-            {
-                AddGamePlatforms = new ObservableCollection<PlatformAccount>();
-
-                foreach (var p in temp)
-                {
-                    if (GameAccountSettings.EnablePlatforms.Value.Contains(p.FullName))
-                    {
-                        GamePlatforms.Add(p);
-                    }
-                    else
-                    {
-                        AddGamePlatforms.Add(p);
-                    }
-                }
-            }
-            else
-            {
-                AddGamePlatforms = new ObservableCollection<PlatformAccount>(temp);
-            }
-        }
-
         AddPlatformCommand = ReactiveCommand.Create<PlatformAccount>(AddPlatform);
+        LoginNewCommand = ReactiveCommand.Create(LoginNewUser);
+        SaveCurrentUserCommand = ReactiveCommand.Create(SaveCurrentUser);
+
+        LoadPlatforms();
+
+        this.WhenAnyValue(x => x.SelectedPlatform)
+            .Subscribe(_ =>
+            {
+                this.RaisePropertyChanged(nameof(IsSelectedSteam));
+            });
     }
 
     public void AddPlatform(PlatformAccount platform)
     {
         GamePlatforms?.Add(platform);
         AddGamePlatforms?.Remove(platform);
-        GameAccountSettings.EnablePlatforms.Value!.Add(platform.FullName);
+        GameAccountSettings.EnablePlatforms.Add(platform.FullName);
     }
 
     public void RemovePlatform(PlatformAccount platform)
@@ -79,10 +46,8 @@ public sealed partial class GameAccountPageViewModel
         }
         AddGamePlatforms?.Add(platform);
         GamePlatforms?.Remove(platform);
-        GameAccountSettings.EnablePlatforms.Value!.Remove(platform.FullName);
+        GameAccountSettings.EnablePlatforms.Remove(platform.FullName);
     }
-
-    readonly Uri PlatformsPath = new("avares://BD.WTTS.Client.Plugins.GameAccount/UI/Assets/Platforms.json");
 
     IEnumerable<PlatformAccount>? GetSupportPlatforms()
     {
@@ -104,5 +69,60 @@ public sealed partial class GameAccountPageViewModel
             return platforms;
         }
         return null;
+    }
+
+    void LoadPlatforms()
+    {
+        var temp = GetSupportPlatforms();
+        if (temp != null)
+        {
+            if (GameAccountSettings.EnablePlatforms.Any_Nullable())
+            {
+                AddGamePlatforms = new ObservableCollection<PlatformAccount>();
+
+                foreach (var p in temp)
+                {
+                    if (GameAccountSettings.EnablePlatforms.Contains(p.FullName))
+                    {
+                        GamePlatforms!.Add(p);
+                    }
+                    else
+                    {
+                        AddGamePlatforms.Add(p);
+                    }
+                }
+            }
+            else
+            {
+                AddGamePlatforms = new ObservableCollection<PlatformAccount>(temp);
+            }
+        }
+    }
+
+    async void SaveCurrentUser()
+    {
+        if (SelectedPlatform == null) return;
+        var textModel = new TextBoxWindowViewModel();
+        var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, $"添加新的 {SelectedPlatform.FullName} 账号", subHeader: $"请输入您当前登录的 {SelectedPlatform.FullName} 账号的名称", isCancelButton: true);
+        if (result)
+        {
+            if (string.IsNullOrEmpty(textModel.Value))
+            {
+                Toast.Show("请输入账号名称");
+                return;
+            }
+            SelectedPlatform.CurrnetUserAdd(textModel.Value);
+        }
+    }
+
+    async void LoginNewUser()
+    {
+        if (SelectedPlatform == null) return;
+        var textModel = new MessageBoxWindowViewModel
+        {
+            Content = "此操作会结束当前平台进程并移除当前账号登录状态跳转至新账号登录，确定要继续吗？"
+        };
+        var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, $"登录 {SelectedPlatform.FullName} 账号", isCancelButton: true);
+        SelectedPlatform?.CurrnetUserAdd(null);
     }
 }

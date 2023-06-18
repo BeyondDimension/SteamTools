@@ -32,6 +32,7 @@
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
                 Padding="8,4"
+                Command="{Binding LoginNewCommand}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
@@ -48,6 +49,26 @@
                         Text="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,
                                                  Mode=OneWay,
                                                  Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                Command="{Binding SaveCurrentUserCommand}"
+                DockPanel.Dock="Right"
+                IsVisible="{Binding !IsSelectedSteam}"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Save" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="保存当前登录账号" />
                 </Panel>
             </Button>
             <Button
@@ -71,7 +92,7 @@
                 </Panel>
             </Button>
             <DropDownButton
-                Padding="8"
+                Padding="8,4"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Content="{StaticResource More}"
@@ -107,6 +128,7 @@
         Background="Transparent"
         CloseButtonOverlayMode="OnPointerOver"
         IsAddTabButtonVisible="False"
+        SelectedItem="{Binding SelectedPlatform}"
         TabCloseRequested="TabView_TabCloseRequested"
         TabItems="{Binding GamePlatforms}">
         <ui:TabView.TabStripFooter>

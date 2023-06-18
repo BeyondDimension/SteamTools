@@ -88,7 +88,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
     /// <param name="isFooterExpanded"></param>
     /// <returns></returns>
     public Task<bool> ShowTaskDialogAsync<TPageViewModel>(
-        TPageViewModel viewModel,
+        TPageViewModel? viewModel,
         string title = "",
         string header = "",
         string subHeader = "",
@@ -105,8 +105,8 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
                 Title = title,
                 Header = string.IsNullOrEmpty(header) ? title : header,
                 SubHeader = subHeader,
-                DataContext = viewModel,
-                Content = GetPageContent(viewModel),
+                //DataContext = viewModel,
+                //Content = GetPageContent(viewModel),
                 //IconSource = new SymbolIconSource { Symbol = Symbol.Accept },
                 ShowProgressBar = showProgressBar,
                 FooterVisibility = TaskDialogFooterVisibility.Never,
@@ -118,6 +118,12 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
                     new TaskDialogButton(Strings.Confirm, TaskDialogStandardResult.OK),
                 }
             };
+
+            if (viewModel != null)
+            {
+                td.DataContext = viewModel;
+                td.Content = GetPageContent(viewModel);
+            }
 
             if (isRememberChooseFooter)
             {
@@ -135,7 +141,6 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             }
 
             //td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
-
             var result = await td.ShowAsync(!isDialog);
             return result is TaskDialogStandardResult.OK;
         });

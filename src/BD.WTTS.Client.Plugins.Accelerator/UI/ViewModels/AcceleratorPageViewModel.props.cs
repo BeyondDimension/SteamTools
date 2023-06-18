@@ -6,4 +6,5 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
 {
     public override string Name => Strings.Welcome;
 
+    public ICommand StartProxyCommand { get; set; }
 }

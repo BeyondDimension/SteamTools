@@ -71,5 +71,5 @@ public static partial class GameAccountSettings
     /// <summary>
     /// 启用的账号平台数组
     /// </summary>
-    public static SettingsProperty<HashSet<string>, GameAccountSettings_> EnablePlatforms { get; } = new(new());
+    public static SettingsProperty<string, HashSet<string>, GameAccountSettings_> EnablePlatforms { get; } = new(new());
 }

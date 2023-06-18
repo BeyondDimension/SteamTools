@@ -186,9 +186,9 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TEnumerable, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsProperty<TEnumerable, TSettings>, ICollection<TValue>
     where TEnumerable : class, ICollection<TValue>, new()
 {
-    int ICollection<TValue>.Count => throw new NotImplementedException();
+    int ICollection<TValue>.Count => value?.Count ?? 0;
 
-    bool ICollection<TValue>.IsReadOnly => throw new NotImplementedException();
+    bool ICollection<TValue>.IsReadOnly => value?.IsReadOnly ?? false;
 
     public SettingsProperty(TEnumerable? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null) : base(@default, autoSave, propertyName)
     {
