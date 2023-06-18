@@ -160,6 +160,10 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             // 在插件中调用 TaskDialog.ShowAsync(bool showHosted = false) 会抛出此异常
             // 在 FluentAvalonia.UI.Controls.TaskDialog.<ShowAsync>d__6.MoveNext()
             // 在 AvaloniaWindowManagerImpl.<>c__DisplayClass8_0`1.<<ShowTaskDialogAsync>b__1>d.MoveNext()
+
+            // Visual visual = XamlRoot ?? (base.VisualRoot as Visual);
+            // _previousFocus = TopLevel.GetTopLevel(visual)!.FocusManager!.GetFocusedElement(); is null!
+            // _previousFocus.Focus(); !!!!!!!!!! NullReferenceException !!!!!!!!!!
         }
         td.Closing -= OnClosing;
         td = null;
