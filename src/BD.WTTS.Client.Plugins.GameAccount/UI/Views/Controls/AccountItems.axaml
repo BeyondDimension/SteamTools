@@ -35,7 +35,10 @@
                                 Status="最近登录">
                                 <spp:AppItem.ContextFlyout>
                                     <ui:FAMenuFlyout>
-                                        <ui:MenuFlyoutItem Text="切换到此账号" />
+                                        <ui:MenuFlyoutItem
+                                            Command="{ReflectionBinding #u.DataContext.SwapToAccountCommand}"
+                                            CommandParameter="{Binding}"
+                                            Text="切换到此账号" />
                                         <ui:MenuFlyoutSubItem Text="登录为">
                                             <ui:MenuFlyoutItem Text="隐身" />
                                             <ui:MenuFlyoutItem Text="离线" />
@@ -68,8 +71,9 @@
                                             <ui:MenuFlyoutItem Text="Achievement Stats" />
                                             <ui:MenuFlyoutItem Text="Backpack.tf" />
                                         </ui:MenuFlyoutSubItem>
-                                        <ui:MenuFlyoutItem Text="创建桌面快捷方式" />
+                                        <ui:MenuFlyoutItem Text="修改头像图片" />
                                         <ui:MenuFlyoutSeparator />
+                                        <ui:MenuFlyoutItem Text="创建桌面快捷方式" />
                                         <ui:MenuFlyoutItem Text="打开 userdata 文件夹" />
                                         <ui:MenuFlyoutItem Text="删除" />
                                     </ui:FAMenuFlyout>
@@ -83,6 +87,7 @@
                                     <spp:Image2
                                         Width="128"
                                         Height="128"
+                                        FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
                                         RenderOptions.BitmapInterpolationMode="HighQuality"
                                         Source="{Binding ImagePath}"
                                         Stretch="UniformToFill" />

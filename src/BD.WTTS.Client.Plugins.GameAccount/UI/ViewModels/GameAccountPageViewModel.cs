@@ -20,8 +20,9 @@ public sealed partial class GameAccountPageViewModel
         AddPlatformCommand = ReactiveCommand.Create<PlatformAccount>(AddPlatform);
         LoginNewCommand = ReactiveCommand.Create(LoginNewUser);
         SaveCurrentUserCommand = ReactiveCommand.Create(SaveCurrentUser);
+        RefreshCommand = ReactiveCommand.Create(() => SelectedPlatform?.LoadUsers());
 
-        LoadPlatforms();
+        //LoadPlatforms();
 
         this.WhenAnyValue(x => x.SelectedPlatform)
             .Subscribe(_ =>
@@ -71,32 +72,35 @@ public sealed partial class GameAccountPageViewModel
         return null;
     }
 
-    void LoadPlatforms()
+    public void LoadPlatforms()
     {
-        var temp = GetSupportPlatforms();
-        if (temp != null)
+        Task2.InBackground(() =>
         {
-            if (GameAccountSettings.EnablePlatforms.Any_Nullable())
+            var temp = GetSupportPlatforms();
+            if (temp != null)
             {
-                AddGamePlatforms = new ObservableCollection<PlatformAccount>();
-
-                foreach (var p in temp)
+                if (GameAccountSettings.EnablePlatforms.Any_Nullable())
                 {
-                    if (GameAccountSettings.EnablePlatforms.Contains(p.FullName))
+                    AddGamePlatforms = new ObservableCollection<PlatformAccount>();
+
+                    foreach (var p in temp)
                     {
-                        GamePlatforms!.Add(p);
-                    }
-                    else
-                    {
-                        AddGamePlatforms.Add(p);
+                        if (GameAccountSettings.EnablePlatforms.Contains(p.FullName))
+                        {
+                            GamePlatforms!.Add(p);
+                        }
+                        else
+                        {
+                            AddGamePlatforms.Add(p);
+                        }
                     }
                 }
+                else
+                {
+                    AddGamePlatforms = new ObservableCollection<PlatformAccount>(temp);
+                }
             }
-            else
-            {
-                AddGamePlatforms = new ObservableCollection<PlatformAccount>(temp);
-            }
-        }
+        });
     }
 
     async void SaveCurrentUser()
@@ -123,6 +127,7 @@ public sealed partial class GameAccountPageViewModel
             Content = "此操作会结束当前平台进程并移除当前账号登录状态跳转至新账号登录，确定要继续吗？"
         };
         var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, $"登录 {SelectedPlatform.FullName} 账号", isCancelButton: true);
-        SelectedPlatform?.CurrnetUserAdd(null);
+        if (result)
+            SelectedPlatform?.CurrnetUserAdd(null);
     }
 }

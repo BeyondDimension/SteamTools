@@ -167,7 +167,7 @@
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
                 RenderOptions.BitmapInterpolationMode="HighQuality"
-                Source="/UI/Assets/ApplicationIcon.ico" />
+                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
 
             <TextBlock
                 Grid.Column="2"

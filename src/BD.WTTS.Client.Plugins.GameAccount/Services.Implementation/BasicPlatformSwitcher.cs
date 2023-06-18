@@ -1,3 +1,4 @@
+using AvaloniaEdit;
 using BD.WTTS.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -21,7 +22,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         var allIds = JTokenHelper.ReadDict(platform.IdsJsonPath);
         var accName = allIds[accId];
 
-        var localCachePath = Path.Combine($"LoginCache\\{platform.FullName}\\", $"{accName}\\");
+        var localCachePath = Path.Combine(platform.PlatformLoginCache, accName);
         _ = Directory.CreateDirectory(localCachePath);
 
         if (platform.LoginFiles == null)
@@ -294,7 +295,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             if (!KillPlatformProcess())
                 return false;
 
-        var localCachePath = Path.Combine($"LoginCache\\{platform.FullName}\\", $"{name}\\");
+        var localCachePath = Path.Combine(platform.PlatformLoginCache, name);
 
         //Directory.Delete(localCachePath, true);
 
@@ -509,6 +510,52 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
     public Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform)
     {
-        return Task.FromResult<IEnumerable<IAccount>?>(null);
+        List<BasicAccount>? accounts = null;
+        var localCachePath = platform.PlatformLoginCache;
+
+        if (!Directory.Exists(localCachePath))
+            return Task.FromResult<IEnumerable<IAccount>?>(accounts);
+
+        var idsFile = Path.Combine(localCachePath, "ids.json");
+
+        var accList = File.Exists(idsFile) ? JTokenHelper.ReadDict(idsFile).ToList() : null;
+
+        if (accList.Any_Nullable())
+        {
+            accounts = new();
+
+            // Order
+            //accList = OrderAccounts(accList, $"{localCachePath}\\order.json");
+
+            foreach (var item in accList)
+            {
+                var account = new BasicAccount
+                {
+                    PlatformName = platform.FullName,
+                    Platform = platform.Platform,
+                    AccountId = item.Key,
+                    DisplayName = item.Value
+                };
+
+                // Handle account image
+                //account.ImagePath = GetImgPath(platform, str).Replace("%", "%25");
+                //var actualImagePath = Path.Join("wwwroot\\", GetImgPath(platform, str));
+                //if (!File.Exists(actualImagePath))
+                //{
+                //    // Make sure the directory exists
+                //    Directory.CreateDirectory(Path.GetDirectoryName(actualImagePath)!);
+                //    var defaultPng = $"wwwroot\\img\\platform\\{platform}Default.png";
+                //    const string defaultFallback = "wwwroot\\img\\BasicDefault.png";
+                //    if (File.Exists(defaultPng))
+                //        File.Copy(defaultPng, actualImagePath, true);
+                //    else if (File.Exists(defaultFallback))
+                //        File.Copy(defaultFallback, actualImagePath, true);
+                //}
+
+                accounts.Add(account);
+            }
+        }
+
+        return Task.FromResult<IEnumerable<IAccount>?>(accounts);
     }
 }

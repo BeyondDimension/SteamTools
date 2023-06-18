@@ -9,6 +9,8 @@ public sealed partial class PlatformAccount
 
     public ICommand SwapToAccountCommand { get; set; }
 
+    public ICommand OpenUrlToBrowserCommand { get; set; }
+
     public PlatformAccount(ThirdpartyPlatform platform)
     {
         var platformSwitchers = Ioc.Get<IEnumerable<IPlatformSwitcher>>();
@@ -26,27 +28,39 @@ public sealed partial class PlatformAccount
             platformSwitcher.SwapToAccount(acc, this);
         });
 
+        OpenUrlToBrowserCommand = ReactiveCommand.Create<IAccount>(acc =>
+        {
+            //Browser2.Open(acc);
+        });
+
+        if (!Directory.Exists(PlatformLoginCache))
+            Directory.CreateDirectory(PlatformLoginCache);
+
         LoadUsers();
     }
 
-    public async void LoadUsers()
+    public void LoadUsers()
     {
-        if (IsLoading) return;
-        IsLoading = true;
-        try
+        Task2.InBackground(async () =>
         {
-            var users = await platformSwitcher.GetUsers(this);
-            if (users.Any_Nullable())
-                Accounts = new ObservableCollection<IAccount>(users);
-        }
-        catch (Exception ex)
-        {
-            Log.Error(nameof(PlatformAccount), ex, "LoadUsers Faild");
-        }
-        finally
-        {
-            IsLoading = false;
-        }
+            if (IsLoading) return;
+            IsLoading = true;
+            try
+            {
+                Accounts = null;
+                var users = await platformSwitcher.GetUsers(this);
+                if (users.Any_Nullable())
+                    Accounts = new ObservableCollection<IAccount>(users);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(PlatformAccount), ex, "LoadUsers Faild");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        });
     }
 
     public bool CurrnetUserAdd(string? name)

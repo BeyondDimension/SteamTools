@@ -24,4 +24,6 @@ public sealed partial class GameAccountPageViewModel : TabItemViewModel
     public ICommand LoginNewCommand { get; set; }
 
     public ICommand SaveCurrentUserCommand { get; set; }
+
+    public ICommand RefreshCommand { get; set; }
 }
