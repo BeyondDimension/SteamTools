@@ -22,7 +22,7 @@ public sealed partial class GameAccountPageViewModel
         SaveCurrentUserCommand = ReactiveCommand.Create(SaveCurrentUser);
         RefreshCommand = ReactiveCommand.Create(() => SelectedPlatform?.LoadUsers());
 
-        //LoadPlatforms();
+        LoadPlatforms();
 
         this.WhenAnyValue(x => x.SelectedPlatform)
             .Subscribe(_ =>

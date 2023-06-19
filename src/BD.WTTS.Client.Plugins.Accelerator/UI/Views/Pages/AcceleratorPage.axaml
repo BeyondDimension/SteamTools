@@ -18,15 +18,13 @@
     </spp:PageBase.PreviewImage>
     <spp:PageBase.TabContent>
         <TabStrip
+            Name="Tabs"
             Margin="4"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
             CornerRadius="{StaticResource ControlCornerRadius}"
-            ItemContainerTheme="{StaticResource TabItemStyle}">
-            <TabStripItem Content="网络加速" />
-            <TabStripItem Content="脚本配置" />
-        </TabStrip>
+            ItemContainerTheme="{StaticResource TabItemStyle}" />
     </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">

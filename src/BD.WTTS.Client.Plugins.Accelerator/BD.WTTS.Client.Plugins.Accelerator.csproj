@@ -96,4 +96,8 @@
 	  <UpToDateCheckInput Remove="UI\Views\Pages\ScriptPage.axaml" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="UI\Views\Pages\ProxyPage.axaml" />
+	</ItemGroup>
+
 </Project>

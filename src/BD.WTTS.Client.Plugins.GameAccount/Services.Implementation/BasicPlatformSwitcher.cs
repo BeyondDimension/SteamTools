@@ -342,7 +342,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                     // Write registry value to provided file
                     if (response is string s) regJson[accFile] = s;
                     else if (response is byte[] ba) regJson[accFile] = "(hex) " + RegistryKeyHelper.ByteArrayToString(ba);
-                    else Log.Error(nameof(BasicPlatformSwitcher), $"Unexpected registry type encountered (2)! Report to TechNobo. {response.GetType()}");
+                    else Log.Error(nameof(BasicPlatformSwitcher), $"Unexpected registry type encountered (2)! {response.GetType()}");
                 }
                 continue;
             }
@@ -423,7 +423,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 case byte[] b:
                     return HashStringHelper.GetSha256HashString(b);
                 default:
-                    Log.Warn(nameof(BasicPlatformSwitcher), $"{platform.FullName} Unexpected registry type encountered (1)! Report to TechNobo. {r.GetType()}");
+                    Log.Warn(nameof(BasicPlatformSwitcher), $"{platform.FullName} Unexpected registry type encountered (1)! {r.GetType()}");
                     return null;
             }
         }

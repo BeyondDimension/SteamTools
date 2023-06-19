@@ -25,7 +25,17 @@ public class NavigationService
         _frame?.Navigate(t);
     }
 
-    public void NavigateFromContext(object dataContext, NavigationTransitionInfo transitionInfo = null)
+    public void Navigate(Type t, NavigationTransitionInfo? transitionInfo = null)
+    {
+        _frame?.Navigate(t, transitionInfo ?? new SuppressNavigationTransitionInfo());
+    }
+
+    public void GoBack()
+    {
+        _frame?.GoBack();
+    }
+
+    public void NavigateFromContext(object dataContext, NavigationTransitionInfo? transitionInfo = null)
     {
         _frame?.NavigateFromObject(dataContext,
             new FluentAvalonia.UI.Navigation.FrameNavigationOptions
