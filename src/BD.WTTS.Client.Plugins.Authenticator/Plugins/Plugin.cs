@@ -23,6 +23,11 @@ sealed class Plugin : PluginBase<Plugin>
         };
     }
 
+    public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
+    {
+        return base.GetConfiguration(directoryExists);
+    }
+
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {
         if (startup.HasServerApiClient)

@@ -196,7 +196,7 @@ public class SteamOtherImportViewModel : ViewModelBase
                     Toast.Show("WinAuth令牌导入失败");
                 break;
             case AuthImportType.SteamDesktopAuth:
-                if (ImportFromDAFile())
+                if (ImportFromSDAFile())
                     Toast.Show("SteamDesktopAuth令牌导入成功");
                 else
                     Toast.Show("SteamDesktopAuth令牌导入失败");
@@ -238,7 +238,7 @@ public class SteamOtherImportViewModel : ViewModelBase
         }
     }
 
-    public bool ImportFromDAFile()
+    public bool ImportFromSDAFile()
     {
         try
         {
@@ -258,7 +258,7 @@ public class SteamOtherImportViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            Log.Error(nameof(SteamOtherImportViewModel), e, nameof(ImportFromDAFile));
+            Log.Error(nameof(SteamOtherImportViewModel), e, nameof(ImportFromSDAFile));
             return false;
         }
 

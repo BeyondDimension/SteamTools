@@ -78,27 +78,28 @@
                         VerticalAlignment="Center" />
                 </Panel>
             </Button>
+            <!--  <Button  -->
+            <!--  DockPanel.Dock="Right"  -->
+            <!--  Padding="8,4"  -->
+            <!--  Theme="{StaticResource TransparentButton}">  -->
+            <!--     <Panel> -->
+            <!--  <Viewbox  -->
+            <!--  Height="16"  -->
+            <!--  HorizontalAlignment="Left"  -->
+            <!--  Width="16">  -->
+            <!--             <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Lock}" /> -->
+            <!--         </Viewbox> -->
+            <!--  <TextBlock  -->
+            <!--  HorizontalAlignment="Left"  -->
+            <!--  Margin="28,4,0,4"  -->
+            <!--  Text="{ReflectionBinding Path=Res.Encrypt,  -->
+            <!--  Mode=OneWay,  -->
+            <!--  Source={x:Static s:ResourceService.Current}}"  -->
+            <!--  VerticalAlignment="Center" />  -->
+            <!--     </Panel> -->
+            <!-- </Button> -->
             <Button
-                DockPanel.Dock="Right"
-                Padding="8,4"
-                Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
-                        Height="16"
-                        HorizontalAlignment="Left"
-                        Width="16">
-                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Lock}" />
-                    </Viewbox>
-                    <TextBlock
-                        HorizontalAlignment="Left"
-                        Margin="28,4,0,4"
-                        Text="{ReflectionBinding Path=Res.Encrypt,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}"
-                        VerticalAlignment="Center" />
-                </Panel>
-            </Button>
-            <Button
+                Command="{Binding Initialize}"
                 DockPanel.Dock="Right"
                 Padding="8,4"
                 Theme="{StaticResource TransparentButton}">
@@ -128,6 +129,25 @@
                 VerticalContentAlignment="Center">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <ui:MenuFlyoutSubItem Text="令牌加密">
+                            <ui:MenuFlyoutItem
+                                Command="{Binding SetPasswordProtection}"
+                                IsVisible="{Binding !HasPasswordEncrypt}"
+                                Text="添加密码保护" />
+                            <ui:MenuFlyoutItem
+                                Command="{Binding RemovePasswordProtection}"
+                                IsVisible="{Binding HasPasswordEncrypt}"
+                                Text="移除密码保护" />
+                            <ui:MenuFlyoutItem
+                                Command="{Binding ToggleLocalProtection}"
+                                IsVisible="{Binding !HasLocalPcEncrypt}"
+                                Text="添加机器验证" />
+                            <ui:MenuFlyoutItem
+                                Command="{Binding ToggleLocalProtection}"
+                                IsVisible="{Binding HasLocalPcEncrypt}"
+                                Text="移除机器验证" />
+                            <ui:MenuFlyoutItem Text="加密帮助" />
+                        </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSubItem Text="导出令牌">
                             <ui:MenuFlyoutItem Text="默认导出" />
                             <ui:MenuFlyoutItem Text="导出为maFile" />

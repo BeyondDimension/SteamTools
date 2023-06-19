@@ -16,13 +16,18 @@ public sealed class AuthenticatorService
         await repository.InsertOrUpdateAsync(authenticatorDTO, isLocal, password);
     }
 
-    public static async Task<List<IAuthenticatorDTO>> GetAllAuthenticatorsAsync()
+    public static async Task<AccountPlatformAuthenticator[]> GetAllSourceAuthenticatorAsync()
     {
-        var allSourceList = await repository.GetAllSourceAsync();
-        return await repository.ConvertToListAsync(allSourceList);
+        return await repository.GetAllSourceAsync();
     }
 
-    public static async void DeleteAllAuthenticatorsAsync()
+    public static async Task<List<IAuthenticatorDTO>> GetAllAuthenticatorsAsync(AccountPlatformAuthenticator[] source,
+        string? password = null)
+    {
+        return await repository.ConvertToListAsync(source, password);
+    }
+
+    public static async Task DeleteAllAuthenticatorsAsync()
     {
         var list = await repository.GetAllSourceAsync();
         foreach (var item in list)
@@ -50,5 +55,45 @@ public sealed class AuthenticatorService
         ImportAsync(string? exportPassword, byte[] data)
     {
         return await repository.ImportAsync(exportPassword, data);
+    }
+
+    public static (bool haslocal, bool haspassword) HasEncrypt(AccountPlatformAuthenticator[] sourceData)
+    {
+        var haslocal = repository.HasLocal(sourceData);
+
+        var haspassword = repository.HasSecondaryPassword(sourceData);
+
+        return (haslocal, haspassword);
+    }
+
+    // public static async Task<bool> HasPassword()
+    // {
+    //     return await repository.HasSecondaryPasswordAsync();
+    // }
+    //
+    // public static async Task<bool> HasLocal()
+    // {
+    //     return await repository.HasLocalAsync();
+    // }
+
+    public static async Task<bool> ValidatePassword(AccountPlatformAuthenticator sourceData, string password)
+    {
+        return (await repository.ConvertToListAsync(new[] { sourceData }, password)).Any_Nullable();
+    }
+
+    public static async Task<bool> SwitchEncryptionAuthenticators(bool hasLocal, IEnumerable<IAuthenticatorDTO>? auths,
+        string? password = null
+    )
+    {
+        try
+        {
+            await repository.SwitchEncryptionModeAsync(hasLocal, password, auths);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(AuthenticatorService), ex, nameof(SwitchEncryptionAuthenticators));
+            return false;
+        }
     }
 }
