@@ -13,6 +13,20 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     string? _currentPassword;
 
     DateTime _initializeTime;
+    
+    int AuthenticatorId { get; set; } = -1;
+    
+    AuthenticatorItemModel? CurrentSelectedAuth
+    {
+        get
+        {
+            if (Auths.Count > 0 && AuthenticatorId > 0)
+            {
+                return Auths.First(i => i.AuthData.Id == AuthenticatorId);
+            }
+            return null;
+        }
+    }
 
     public AuthenticatorPageViewModel()
     {
@@ -53,23 +67,29 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         _initializeTime = DateTime.Now;
         
         Auths.Clear();
+        BorderBottomIsActive = false;
+        AuthenticatorId = -1;
         
-        var sourcelist = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
-        if (sourcelist.Length < 1) return;
+        var sourceList = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
+        if (sourceList.Length < 1) return;
 
         AuthenticatorIsEmpty = false;
         
-        (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorService.HasEncrypt(sourcelist);
+        (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorService.HasEncrypt(sourceList);
 
         if (HasPasswordEncrypt)
         {
-            if (!await EnterPassword(sourcelist[0])) return;
+            if (!await EnterPassword(sourceList[0])) return;
+        }
+        else
+        {
+            IsVerificationPass = true;
         }
 
         // var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
         //     _currentPassword.Base64Encode_Nullable());
         
-        var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
+        var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourceList,
             _currentPassword);
         
         foreach (var item in list)
@@ -182,6 +202,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         else Toast.Show("令牌密码保护移除失败。");
 
         HasPasswordEncrypt = false;
+        IsVerificationPass = true;
     }
 
     public async Task ToggleLocalProtection()
@@ -211,7 +232,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, "令牌加密帮助");
     }
 
-    public async Task ReLockAuthenticator()
+    public void ReLockAuthenticator()
     {
         if (!HasPasswordEncrypt)
         {
@@ -224,14 +245,15 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async Task KeepDisplay()
     {
+        await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(), "令牌导入");
     }
 
     public async Task DeleteAuthAsync()
     {
         if (CurrentSelectedAuth == null) return;
-        var messageviewmodel =
+        var messageViewmodel =
             new MessageBoxWindowViewModel { Content = Strings.LocalAuth_DeleteAuthTip };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(messageviewmodel, "删除令牌", isDialog: false,
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, "删除令牌", isDialog: false,
                 isCancelButton: true))
         {
             AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
@@ -242,18 +264,61 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task EditAuthNameAsync()
     {
         if (CurrentSelectedAuth == null) return;
-        string? newname = null;
+        string? newName = null;
 
-        var textviewmodel = new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox, Value = CurrentSelectedAuth.AuthName };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textviewmodel, "请输入新令牌名或取消", isDialog: false,
+        var textViewmodel = new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox, Value = CurrentSelectedAuth.AuthName };
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入新令牌名或取消", isDialog: false,
                 isCancelButton: true))
         {
-            newname = textviewmodel.Value;
+            newName = textViewmodel.Value;
         }
 
-        if (string.IsNullOrEmpty(newname)) return;
+        if (string.IsNullOrEmpty(newName)) return;
 
-        CurrentSelectedAuth.AuthName = newname;
-        await AuthenticatorService.SaveEditAuthNameAsync(CurrentSelectedAuth.AuthData, newname);
+        CurrentSelectedAuth.AuthName = newName;
+        await AuthenticatorService.SaveEditAuthNameAsync(CurrentSelectedAuth.AuthData, newName);
+    }
+    
+    public async Task OpenImportWindow()
+    {
+        
+    }
+    
+    public async Task OpenExportWindow()
+    {
+        
+    }
+
+    public void ShowQrCode()
+    {
+        if (CurrentSelectedAuth == null) return;
+        var dto = CurrentSelectedAuth.AuthData.ToExport();
+        var bytes = Serializable.SMP(dto);
+        
+        var bytes_compress_br = bytes.CompressByteArrayByBrotli();
+        
+        var (result, stream, e) = QRCodeHelper.Create(bytes_compress_br);
+        switch (result)
+        {
+            case QRCodeHelper.QRCodeCreateResult.DataTooLong:
+                Toast.Show(Strings.AuthLocal_ExportToQRCodeTooLongErrorTip);
+                break;
+            case QRCodeHelper.QRCodeCreateResult.Exception:
+                Toast.Show(e.Message);
+                Log.Error(nameof(AuthenticatorPageViewModel), e, nameof(ShowQrCode));
+                break;
+        }
+
+        QrCodeStream = stream;
+    }
+
+    public async Task ShowReplyWindow()
+    {
+        
+    }
+
+    public async Task ShowAuthJsonData()
+    {
+        
     }
 }

@@ -3,7 +3,7 @@ using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public class SteamOtherImportViewModel : ViewModelBase
+public class SteamOtherImportViewModel : DialogWindowViewModel
 {
     string? _importAuthNewName;
     string _importAuthFilePath = string.Empty;

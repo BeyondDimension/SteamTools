@@ -7,9 +7,8 @@ public partial class AuthenticatorPageViewModel
     bool _hasLocalPcEncrypt = false;
     bool _isVerificationPass;
     bool _authenticatorIsEmpty = true;
+    Stream? _qrCodeStream;
 
-    int AuthenticatorId { get; set; } = -1;
-    
     [Reactive]
     public ObservableCollection<AuthenticatorItemModel> Auths { get; set; }
 
@@ -19,18 +18,6 @@ public partial class AuthenticatorPageViewModel
         set
         {
             this.RaiseAndSetIfChanged(ref borderbottomisactive, value);
-        }
-    }
-    
-    AuthenticatorItemModel? CurrentSelectedAuth
-    {
-        get
-        {
-            if (Auths.Count > 0 && AuthenticatorId > 0)
-            {
-                return Auths.First(i => i.AuthData.Id == AuthenticatorId);
-            }
-            return null;
         }
     }
 
@@ -74,6 +61,17 @@ public partial class AuthenticatorPageViewModel
         {
             if (value == _authenticatorIsEmpty) return;
             _authenticatorIsEmpty = value;
+            this.RaisePropertyChanged();
+        }
+    }
+
+    public Stream? QrCodeStream
+    {
+        get => _qrCodeStream;
+        set
+        {
+            if (value == _qrCodeStream) return;
+            _qrCodeStream = value;
             this.RaisePropertyChanged();
         }
     }

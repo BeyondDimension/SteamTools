@@ -77,26 +77,49 @@
                         VerticalAlignment="Center" />
                 </Panel>
             </Button>
-            <!--  <Button  -->
-            <!--  DockPanel.Dock="Right"  -->
-            <!--  Padding="8,4"  -->
-            <!--  Theme="{StaticResource TransparentButton}">  -->
-            <!--     <Panel> -->
-            <!--  <Viewbox  -->
-            <!--  Height="16"  -->
-            <!--  HorizontalAlignment="Left"  -->
-            <!--  Width="16">  -->
-            <!--             <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Lock}" /> -->
-            <!--         </Viewbox> -->
-            <!--  <TextBlock  -->
-            <!--  HorizontalAlignment="Left"  -->
-            <!--  Margin="28,4,0,4"  -->
-            <!--  Text="{ReflectionBinding Path=Res.Encrypt,  -->
-            <!--  Mode=OneWay,  -->
-            <!--  Source={x:Static s:ResourceService.Current}}"  -->
-            <!--  VerticalAlignment="Center" />  -->
-            <!--     </Panel> -->
-            <!-- </Button> -->
+            <Button
+                DockPanel.Dock="Right"
+                Padding="8,4"
+                Theme="{StaticResource TransparentButton}">
+                <Button.Flyout>
+                    <Flyout Placement="BottomEdgeAlignedLeft">
+                        <StackPanel Spacing="5">
+                            <Button
+                                Command="{Binding SetPasswordProtection}"
+                                Content="添加密码保护"
+                                IsEnabled="{Binding !HasPasswordEncrypt}" />
+                            <Button
+                                Command="{Binding RemovePasswordProtection}"
+                                Content="移除密码保护"
+                                IsEnabled="{Binding HasPasswordEncrypt}" />
+                            <Button
+                                Command="{Binding ToggleLocalProtection}"
+                                Content="添加机器验证"
+                                IsEnabled="{Binding !HasLocalPcEncrypt}" />
+                            <Button
+                                Command="{Binding ToggleLocalProtection}"
+                                Content="移除机器验证"
+                                IsEnabled="{Binding HasLocalPcEncrypt}" />
+                            <Button Command="{Binding EncryptHelp}" Content="加密帮助" />
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+                <Panel>
+                    <Viewbox
+                        Height="16"
+                        HorizontalAlignment="Left"
+                        Width="16">
+                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Lock}" />
+                    </Viewbox>
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Margin="28,4,0,4"
+                        Text="{ReflectionBinding Path=Res.Encrypt,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Center" />
+                </Panel>
+            </Button>
             <Button
                 Command="{Binding Initialize}"
                 DockPanel.Dock="Right"
@@ -128,25 +151,25 @@
                 VerticalContentAlignment="Center">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutSubItem Text="令牌加密">
-                            <ui:MenuFlyoutItem
-                                Command="{Binding SetPasswordProtection}"
-                                IsEnabled="{Binding !HasPasswordEncrypt}"
-                                Text="添加密码保护" />
-                            <ui:MenuFlyoutItem
-                                Command="{Binding RemovePasswordProtection}"
-                                IsEnabled="{Binding HasPasswordEncrypt}"
-                                Text="移除密码保护" />
-                            <ui:MenuFlyoutItem
-                                Command="{Binding ToggleLocalProtection}"
-                                IsEnabled="{Binding !HasLocalPcEncrypt}"
-                                Text="添加机器验证" />
-                            <ui:MenuFlyoutItem
-                                Command="{Binding ToggleLocalProtection}"
-                                IsEnabled="{Binding HasLocalPcEncrypt}"
-                                Text="移除机器验证" />
-                            <ui:MenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" />
-                        </ui:MenuFlyoutSubItem>
+                        <!-- <ui:MenuFlyoutSubItem Text="令牌加密"> -->
+                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  Command="{Binding SetPasswordProtection}"  -->
+                        <!--  IsEnabled="{Binding !HasPasswordEncrypt}"  -->
+                        <!--  Text="添加密码保护" />  -->
+                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  Command="{Binding RemovePasswordProtection}"  -->
+                        <!--  IsEnabled="{Binding HasPasswordEncrypt}"  -->
+                        <!--  Text="移除密码保护" />  -->
+                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  Command="{Binding ToggleLocalProtection}"  -->
+                        <!--  IsEnabled="{Binding !HasLocalPcEncrypt}"  -->
+                        <!--  Text="添加机器验证" />  -->
+                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  Command="{Binding ToggleLocalProtection}"  -->
+                        <!--  IsEnabled="{Binding HasLocalPcEncrypt}"  -->
+                        <!--  Text="移除机器验证" />  -->
+                        <!--     <ui:MenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
+                        <!-- </ui:MenuFlyoutSubItem> -->
                         <ui:MenuFlyoutSubItem Text="导出令牌">
                             <ui:MenuFlyoutItem Text="默认导出" />
                             <ui:MenuFlyoutItem Text="导出为maFile" />
@@ -206,10 +229,18 @@
                         <ui:CommandBarButton IconSource="ZoomIn" Label="查看详细数据" />
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton Label="展示二维码">
+                        <ui:CommandBarButton Command="{Binding ShowQrCode}" Label="展示二维码">
                             <ui:CommandBarButton.IconSource>
                                 <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
                             </ui:CommandBarButton.IconSource>
+                            <ui:CommandBarButton.Flyout>
+                                <Flyout Placement="Top">
+                                    <Image
+                                        Height="200"
+                                        Source="{Binding QrCodeStream, Converter={StaticResource BitmapAssetValueConverter}, Mode=OneWay}"
+                                        Width="200" />
+                                </Flyout>
+                            </ui:CommandBarButton.Flyout>
                         </ui:CommandBarButton>
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBar.PrimaryCommands>
