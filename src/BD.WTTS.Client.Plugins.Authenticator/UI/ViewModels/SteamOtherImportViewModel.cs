@@ -287,7 +287,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
                 Toast.Show(Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
                 var textviewmodel =
                     new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.Password };
-                if (await IWindowManager.Instance.ShowTaskDialogAsync(textviewmodel, "请输入密码", isDialog: false,
+                if (await IWindowManager.Instance.ShowTaskDialogAsync(textviewmodel, "请输入此令牌导出时设置的密码", isDialog: false,
                         isCancelButton: true))
                 {
                     exportPassword = textviewmodel.Value;

@@ -96,4 +96,10 @@ public sealed class AuthenticatorService
             return false;
         }
     }
+
+    public static async Task ExportAsync(Stream stream, bool islocal,
+        IEnumerable<IAuthenticatorDTO> items, string? password = null)
+    {
+        await repository.ExportAsync(stream, islocal, password, items);
+    }
 }
