@@ -3,11 +3,10 @@ namespace BD.WTTS.UI.ViewModels;
 public partial class AuthenticatorPageViewModel
 {
     bool borderbottomisactive;
-    bool _hasPasswordEncrypt;
-    bool _hasLocalPcEncrypt;
-    string? _password;
-    string? _verifypassword;
+    bool _hasPasswordEncrypt = false;
+    bool _hasLocalPcEncrypt = false;
     bool _isVerificationPass;
+    bool _authenticatorIsEmpty = true;
 
     int AuthenticatorId { get; set; } = -1;
     
@@ -56,28 +55,6 @@ public partial class AuthenticatorPageViewModel
             this.RaisePropertyChanged();
         }
     }
-    
-    public string? Password
-    {
-        get => _password;
-        set
-        {
-            if (value == _password) return;
-            _password = value;
-            this.RaisePropertyChanged();
-        }
-    }
-
-    public string? VerifyPassword
-    {
-        get => _verifypassword;
-        set
-        {
-            if (value == _verifypassword) return;
-            _verifypassword = value;
-            this.RaisePropertyChanged();
-        }
-    }
 
     public bool IsVerificationPass
     {
@@ -86,6 +63,17 @@ public partial class AuthenticatorPageViewModel
         {
             if (value == _isVerificationPass) return;
             _isVerificationPass = value;
+            this.RaisePropertyChanged();
+        }
+    }
+
+    public bool AuthenticatorIsEmpty
+    {
+        get => _authenticatorIsEmpty;
+        set
+        {
+            if (value == _authenticatorIsEmpty) return;
+            _authenticatorIsEmpty = value;
             this.RaisePropertyChanged();
         }
     }

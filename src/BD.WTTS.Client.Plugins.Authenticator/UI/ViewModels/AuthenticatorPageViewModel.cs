@@ -16,13 +16,16 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public AuthenticatorPageViewModel()
     {
-        HasPasswordEncrypt = false;
-        HasLocalPcEncrypt = false;
         Auths = new();
         BorderBottomIsActive = false;
         AuthenticatorItemModel.OnAuthenticatorItemIsSelectedChanged += AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged;
         Initialize();
     }
+    
+    // public override void Activation()
+    // {
+    //     base.Activation();
+    // }
 
     //该功能待完善，目前仅测试业务功能用
     private void AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged(AuthenticatorItemModel sender)
@@ -41,7 +44,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async void Initialize()
     {
-        Auths = new();
         //await AuthenticatorService.DeleteAllAuthenticatorsAsync();
         if (_initializeTime > DateTime.Now.AddSeconds(-5))
         {
@@ -50,9 +52,13 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         }
         _initializeTime = DateTime.Now;
         
+        Auths.Clear();
+        
         var sourcelist = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
         if (sourcelist.Length < 1) return;
 
+        AuthenticatorIsEmpty = false;
+        
         (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorService.HasEncrypt(sourcelist);
 
         if (HasPasswordEncrypt)
@@ -70,6 +76,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             Auths.Add(new AuthenticatorItemModel(item));
         }
+
+        Toast.Show("令牌加载成功");
 
         //var test5 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
 
@@ -106,7 +114,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入令牌保护密码", isDialog: false) &&
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入令牌保护密码", isDialog: false,
+                isCancelButton: true) &&
             textViewmodel.Value != null)
         {
             if (await AuthenticatorService.ValidatePassword(sourceData, textViewmodel.Value))
@@ -125,6 +134,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async Task SetPasswordProtection()
     {
+        if (Auths.Count < 1 || IsVerificationPass == false)
+        {
+            Toast.Show("拒绝操作");
+            return;
+        }
         string? newPassword = null;
         var textViewmodel = new TextBoxWindowViewModel()
         {
@@ -140,7 +154,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         }
         else return;
 
-        if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, null,
+        if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
                 newPassword))
         {
             Toast.Show("令牌密码保护设置成功。");
@@ -154,7 +168,12 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async Task RemovePasswordProtection()
     {
-        if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, null,
+        if (Auths.Count < 1 || IsVerificationPass == false)
+        {
+            Toast.Show("拒绝操作");
+            return;
+        }
+        if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
                 null))
         {
             Toast.Show("令牌密码保护移除成功。");
@@ -167,13 +186,40 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async Task ToggleLocalProtection()
     {
+        if (Auths.Count < 1 || IsVerificationPass == false)
+        {
+            Toast.Show("拒绝操作");
+            return;
+        }
         bool newStatus = HasLocalPcEncrypt == false;
 
-        if (await AuthenticatorService.SwitchEncryptionAuthenticators(newStatus, null,
+        if (await AuthenticatorService.SwitchEncryptionAuthenticators(newStatus, Auths.Select(i => i.AuthData),
                 _currentPassword)) Toast.Show($"令牌本机电脑保护{(newStatus ? "开启" : "关闭")}成功");
         else Toast.Show($"令牌本机电脑保护{(newStatus ? "开启" : "关闭")}失败");
 
         HasLocalPcEncrypt = newStatus;
+    }
+
+    public async Task EncryptHelp()
+    {
+        var messageViewmodel = new MessageBoxWindowViewModel();
+        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_Info + "\r\n\r\n";
+        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_EnablePassword + ":\r\n\r\n";
+        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_EnablePasswordTip + "\r\n\r\n";
+        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt + ":\r\n\r\n";
+        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip + "\r\n\r\n";
+        await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, "令牌加密帮助");
+    }
+
+    public async Task ReLockAuthenticator()
+    {
+        if (!HasPasswordEncrypt)
+        {
+            Toast.Show("没有加密令牌可供操作");
+            return;
+        }
+        Auths.Clear();
+        IsVerificationPass = false;
     }
 
     public async Task KeepDisplay()
