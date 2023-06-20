@@ -66,6 +66,10 @@ public sealed partial class GameAccountPageViewModel
                 {
                     platform.ClearPaths = platform.LoginFiles.Keys.ToList();
                 }
+                if (GameAccountSettings.PlatformSettings.ContainsKey(platform.FullName))
+                {
+                    platform.PlatformSetting = GameAccountSettings.PlatformSettings.Value?[platform.FullName];
+                }
             }
             return platforms;
         }
@@ -87,7 +91,8 @@ public sealed partial class GameAccountPageViewModel
                     {
                         if (GameAccountSettings.EnablePlatforms.Contains(p.FullName))
                         {
-                            GamePlatforms!.Add(p);
+                            if (GamePlatforms?.Contains(p) == false)
+                                GamePlatforms.Add(p);
                         }
                         else
                         {

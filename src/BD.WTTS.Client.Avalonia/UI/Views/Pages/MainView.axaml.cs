@@ -30,7 +30,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
                 return;
             info = new SlideNavigationTransitionInfo()
             {
-                Effect = SlideNavigationTransitionEffect.FromBottom
+                Effect = SlideNavigationTransitionEffect.FromBottom,
             };
             NavigationService.Instance.Navigate(menu.PageType, info);
             return;

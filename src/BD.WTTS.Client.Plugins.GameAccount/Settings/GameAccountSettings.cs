@@ -47,11 +47,16 @@ public sealed partial class GameAccountSettings_ : IGameAccountSettings, ISettin
     public IReadOnlyCollection<DisableAuthorizedDevice>? DisableAuthorizedDevice { get; set; }
 
     /// <summary>
-    /// 启用的账号平台数组
+    /// 启用的账号平台集合
     /// </summary>
     [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
-    public HashSet<string> EnablePlatforms { get; set; } = new HashSet<string>();
+    public HashSet<string> EnablePlatforms { get; set; } = new();
 
+    /// <summary>
+    /// 账号平台设置集合
+    /// </summary>
+    [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
+    public ConcurrentDictionary<string, PlatformSettings> PlatformSettings { get; set; } = new();
 }
 
 public static partial class GameAccountSettings
@@ -69,7 +74,12 @@ public static partial class GameAccountSettings
         = new(DefaultDisableAuthorizedDevice);
 
     /// <summary>
-    /// 启用的账号平台数组
+    /// 启用的账号平台集合
     /// </summary>
     public static SettingsProperty<string, HashSet<string>, GameAccountSettings_> EnablePlatforms { get; } = new(new());
+
+    /// <summary>
+    /// 账号平台设置集合
+    /// </summary>
+    public static SettingsProperty<string, PlatformSettings, ConcurrentDictionary<string, PlatformSettings>, GameAccountSettings_> PlatformSettings { get; } = new(new());
 }

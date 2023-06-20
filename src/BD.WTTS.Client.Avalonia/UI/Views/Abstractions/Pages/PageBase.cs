@@ -10,7 +10,7 @@ public class PageBase : UserControl
         SizeChanged += PageBaseSizeChanged;
 
         if (HeaderBackground == null &&
-            App.Instance.TryGetResource("PageHeaderBackgroundBrush", App.Instance.ActualThemeVariant, out var image) && 
+            App.Instance.TryGetResource("PageHeaderBackgroundBrush", App.Instance.ActualThemeVariant, out var image) &&
             image is IBrush brush)
         {
             HeaderBackground = brush;

@@ -150,8 +150,10 @@
         CloseButtonOverlayMode="OnPointerOver"
         IsAddTabButtonVisible="False"
         SelectedItem="{Binding SelectedPlatform}"
+        SelectionChanged="TabView_SelectedItemChanged"
         TabCloseRequested="TabView_TabCloseRequested"
-        TabItems="{Binding GamePlatforms}">
+        TabItems="{Binding GamePlatforms}"
+        TabWidthMode="Equal">
         <ui:TabView.TabStripFooter>
             <Button
                 HorizontalAlignment="Left"

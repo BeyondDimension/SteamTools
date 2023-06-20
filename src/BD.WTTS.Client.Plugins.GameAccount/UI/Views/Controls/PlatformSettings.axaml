@@ -1,0 +1,27 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.PlatformSettings"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
+        <TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.Settings_Steam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <ui:SettingsExpander
+            Description="C://1111"
+            Header="Sound"
+            IsClickEnabled="True">
+            <ui:SettingsExpander.IconSource>
+                <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE7F1;" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpander.Footer>
+                <Button Content="选择路径" />
+            </ui:SettingsExpander.Footer>
+        </ui:SettingsExpander>
+    </StackPanel>
+</UserControl>

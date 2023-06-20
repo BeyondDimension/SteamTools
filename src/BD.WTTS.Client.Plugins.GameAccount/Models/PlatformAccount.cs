@@ -26,6 +26,7 @@ public sealed partial class PlatformAccount
         SwapToAccountCommand = ReactiveCommand.Create<IAccount>(acc =>
         {
             platformSwitcher.SwapToAccount(acc, this);
+            Toast.Show($"{FullName} 已经切换到账号 {acc.DisplayName}");
         });
 
         OpenUrlToBrowserCommand = ReactiveCommand.Create<IAccount>(acc =>

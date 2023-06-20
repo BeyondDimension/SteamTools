@@ -8,12 +8,6 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     public string RegJsonPath(string accName) => Path.Combine(PlatformLoginCache, accName, "reg.json");
 
-    public string FullName { get; set; }
-
-    public string? Icon { get; set; }
-
-    public ThirdpartyPlatform Platform { get; init; }
-
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public ObservableCollection<IAccount>? Accounts { get; set; }
 
@@ -22,6 +16,15 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public bool IsLoading { get; set; }
+
+    [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public PlatformSettings? PlatformSetting { get; set; }
+
+    public string FullName { get; set; }
+
+    public string? Icon { get; set; }
+
+    public ThirdpartyPlatform Platform { get; init; }
 
     public string? ExeName => Path.GetFileName(DefaultExePath);
 

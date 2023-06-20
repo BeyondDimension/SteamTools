@@ -6,7 +6,7 @@ public interface IPlatformSwitcher
 
     bool ClearCurrentLoginUser(PlatformAccount platform);
 
-    bool KillPlatformProcess();
+    bool KillPlatformProcess(PlatformAccount platform);
 
     bool RunPlatformProcess(PlatformAccount platform, bool isAdmin);
 
@@ -17,6 +17,8 @@ public interface IPlatformSwitcher
     string GetCurrentAccountId(PlatformAccount platform);
 
     void ChangeUserRemark();
+
+    bool SetPlatformPath(PlatformAccount platform);
 
     Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform);
 }

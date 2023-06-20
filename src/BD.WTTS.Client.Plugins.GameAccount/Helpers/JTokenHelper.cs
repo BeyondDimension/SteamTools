@@ -91,4 +91,12 @@ public static class JTokenHelper
         else
             File.WriteAllText(path, outText);
     }
+
+    public static Dictionary<string, string> ReadRegJson(string path) => JTokenHelper.ReadDict(path, true);
+
+    public static void SaveRegJson(Dictionary<string, string> regJson, string path)
+    {
+        if (regJson.Count > 0)
+            JTokenHelper.SaveDict(regJson, path, true);
+    }
 }

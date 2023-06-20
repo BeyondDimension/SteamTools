@@ -15,7 +15,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
     {
         if (!string.IsNullOrEmpty(account.AccountName))
         {
-            KillPlatformProcess();
+            KillPlatformProcess(platform);
             steamService.SetCurrentUser(account.AccountName);
             //steamService.UpdateLocalUserData(SteamUsers!);
             RunPlatformProcess(platform, false);
@@ -28,7 +28,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    public bool KillPlatformProcess()
+    public bool KillPlatformProcess(PlatformAccount platform)
     {
         return steamService.TryKillSteamProcess();
     }
@@ -41,7 +41,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
     public void NewUserLogin(PlatformAccount platform)
     {
-        KillPlatformProcess();
+        KillPlatformProcess(platform);
         steamService.SetCurrentUser("");
         //steamService.UpdateLocalUserData(SteamUsers!);
         RunPlatformProcess(platform, false);
@@ -123,5 +123,11 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         #endregion
 
         return users.Select(s => new SteamAccount(s));
+    }
+
+    public bool SetPlatformPath(PlatformAccount platform)
+    {
+
+        return false;
     }
 }

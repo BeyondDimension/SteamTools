@@ -27,7 +27,8 @@ public interface IWindowManager
         bool showProgressBar = false,
         bool isRememberChooseFooter = false,
         bool isCancelButton = false,
-        bool isRetryButton = false)
+        bool isRetryButton = false,
+        object? pageContent = null)
         where TPageViewModel : ViewModelBase, new();
 
     /// <summary>

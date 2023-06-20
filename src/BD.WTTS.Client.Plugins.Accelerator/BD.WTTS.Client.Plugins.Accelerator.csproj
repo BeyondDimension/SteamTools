@@ -97,7 +97,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <UpToDateCheckInput Remove="UI\Views\Pages\ProxyPage.axaml" />
+	  <Compile Update="UI\Views\Pages\MainFramePage.axaml.cs">
+	    <DependentUpon>MainFramePage.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

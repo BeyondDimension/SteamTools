@@ -16,18 +16,18 @@ sealed class Plugin : PluginBase<Plugin>
         yield return new MenuTabItemViewModel()
         {
             ResourceKeyOrName = "CommunityFix",
-            PageType = typeof(AcceleratorPage),
+            PageType = typeof(MainFramePage),
             IsResourceGet = true,
             IconKey = "SpeedHigh",
         };
 
-        yield return new MenuTabItemViewModel()
-        {
-            ResourceKeyOrName = "ScriptConfig",
-            PageType = typeof(ScriptPage),
-            IsResourceGet = true,
-            IconKey = "DuplexPortraitOneSided",
-        };
+        //yield return new MenuTabItemViewModel()
+        //{
+        //    ResourceKeyOrName = "ScriptConfig",
+        //    PageType = typeof(ScriptPage),
+        //    IsResourceGet = true,
+        //    IconKey = "DuplexPortraitOneSided",
+        //};
     }
 
     readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new();

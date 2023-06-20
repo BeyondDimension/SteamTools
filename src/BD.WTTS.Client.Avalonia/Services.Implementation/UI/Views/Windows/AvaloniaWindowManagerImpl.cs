@@ -97,7 +97,8 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         bool showProgressBar = false,
         bool isRememberChooseFooter = false,
         bool isCancelButton = false,
-        bool isRetryButton = false)
+        bool isRetryButton = false,
+        object? pageContent = null)
         where TPageViewModel : ViewModelBase, new()
     {
         var td = new TaskDialog
@@ -122,7 +123,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         if (viewModel != null)
         {
             td.DataContext = viewModel;
-            td.Content = GetPageContent(viewModel);
+            td.Content = pageContent ?? GetPageContent(viewModel);
         }
 
         if (isRememberChooseFooter)

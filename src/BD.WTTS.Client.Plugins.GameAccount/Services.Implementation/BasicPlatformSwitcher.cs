@@ -10,11 +10,11 @@ namespace BD.WTTS.Services.Implementation;
 
 public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 {
-    readonly IPlatformService platform;
+    readonly IPlatformService platformService;
 
-    public BasicPlatformSwitcher(IPlatformService platform)
+    public BasicPlatformSwitcher(IPlatformService platformService)
     {
-        this.platform = platform;
+        this.platformService = platformService;
     }
 
     private bool BasicCopyInAccount(string accId, PlatformAccount platform)
@@ -43,7 +43,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             }
         }
 
-        var regJson = platform.UniqueIdPath.StartsWith("REG:") ? ReadRegJson(accName) : new Dictionary<string, string>();
+        var regJson = platform.UniqueIdPath.StartsWith("REG:") ? JTokenHelper.ReadRegJson(accName) : new Dictionary<string, string>();
 
         foreach (var (accFile, savedFile) in platform.LoginFiles)
         {
@@ -94,7 +94,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         //LoadAccountIds();
         var accName = account.AccountName;
 
-        if (!KillPlatformProcess())
+        if (!KillPlatformProcess(platform))
             return;
 
         // Add currently logged in account if there is a way of checking unique ID.
@@ -255,15 +255,48 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    public bool KillPlatformProcess()
+    public bool KillPlatformProcess(PlatformAccount platform)
     {
-        return false;
+        try
+        {
+            if (platform.ExesToEnd.Any_Nullable())
+            {
+                foreach (var procName in platform.ExesToEnd)
+                {
+                    var process = Process.GetProcessesByName(procName.Split(".exe")[0]);
+                    foreach (var item in process)
+                    {
+                        if (!item.HasExited)
+                        {
+                            item.Kill();
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(BasicPlatformSwitcher), ex, nameof(KillPlatformProcess));
+            Toast.Show($"结束 {platform.FullName} 进程失败");
+            return false;
+        }
+
+        return true;
     }
 
     public bool RunPlatformProcess(PlatformAccount platform, bool isAdmin)
     {
         if (string.IsNullOrEmpty(platform.DefaultExePath)) return false;
-        Process2.Start(platform.DefaultExePath, platform.ExeExtraArgs, useShellExecute: true);
+        try
+        {
+            Process2.Start(platform.DefaultExePath, platform.ExeExtraArgs, useShellExecute: true);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(BasicPlatformSwitcher), ex, nameof(RunPlatformProcess));
+            Toast.Show($"启动 {platform.FullName} 进程失败");
+            return false;
+        }
         return true;
     }
 
@@ -292,7 +325,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             return false;
 
         if (platform.IsExitBeforeInteract)
-            if (!KillPlatformProcess())
+            if (!KillPlatformProcess(platform))
                 return false;
 
         var localCachePath = Path.Combine(platform.PlatformLoginCache, name);
@@ -330,7 +363,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         // Handle special args in username
         //var hadSpecialProperties = ProcessSpecialAccName(specialString, accName, uniqueId);
 
-        var regJson = platform.UniqueIdPath.StartsWith("REG:") ? ReadRegJson(platform.RegJsonPath(name)) : new Dictionary<string, string>();
+        var regJson = platform.UniqueIdPath.StartsWith("REG:") ? JTokenHelper.ReadRegJson(platform.RegJsonPath(name)) : new Dictionary<string, string>();
 
         foreach (var (accFile, savedFile) in platform.LoginFiles)
         {
@@ -398,7 +431,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             // Use reflection?
         }
 
-        SaveRegJson(regJson, platform.RegJsonPath(name));
+        JTokenHelper.SaveRegJson(regJson, platform.RegJsonPath(name));
 
         var allIds = JTokenHelper.ReadDict(platform.IdsJsonPath);
         allIds[uniqueId] = name;
@@ -495,14 +528,6 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return uniqueId;
     }
 
-    static Dictionary<string, string> ReadRegJson(string path) => JTokenHelper.ReadDict(path, true);
-
-    static void SaveRegJson(Dictionary<string, string> regJson, string path)
-    {
-        if (regJson.Count > 0)
-            JTokenHelper.SaveDict(regJson, path, true);
-    }
-
     public void ChangeUserRemark()
     {
 
@@ -557,5 +582,10 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         }
 
         return Task.FromResult<IEnumerable<IAccount>?>(accounts);
+    }
+
+    public bool SetPlatformPath(PlatformAccount platform)
+    {
+        return false;
     }
 }

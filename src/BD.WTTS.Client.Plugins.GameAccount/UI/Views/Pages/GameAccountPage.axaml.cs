@@ -21,6 +21,17 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
         //});
     }
 
+    private void TabView_SelectedItemChanged(object sender, SelectionChangedEventArgs args)
+    {
+        foreach (var item in args.AddedItems)
+        {
+            if (item is PlatformAccount platform)
+            {
+                IWindowManager.Instance.ShowTaskDialogAsync(new PlatformSettingsViewModel(), $"设置 {platform.FullName} 平台程序路径", pageContent: new Controls.PlatformSettings());
+            }
+        }
+    }
+
     private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
     {
         if (args.Item is PlatformAccount platform)

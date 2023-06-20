@@ -22,12 +22,18 @@ public class NavigationService
 
     public void Navigate(Type t)
     {
-        _frame?.Navigate(t);
+        if (_frame?.Content?.GetType() != t)
+        {
+            _frame?.Navigate(t);
+        }
     }
 
     public void Navigate(Type t, NavigationTransitionInfo? transitionInfo = null)
     {
-        _frame?.Navigate(t, transitionInfo ?? new SuppressNavigationTransitionInfo());
+        if (_frame?.Content?.GetType() != t)
+        {
+            _frame?.Navigate(t, null, transitionInfo ?? new SuppressNavigationTransitionInfo());
+        }
     }
 
     public void GoBack()
@@ -37,12 +43,15 @@ public class NavigationService
 
     public void NavigateFromContext(object dataContext, NavigationTransitionInfo? transitionInfo = null)
     {
-        _frame?.NavigateFromObject(dataContext,
+        if ((_frame?.Content as Control)?.DataContext != dataContext)
+        {
+            _frame?.NavigateFromObject(dataContext,
             new FluentAvalonia.UI.Navigation.FrameNavigationOptions
             {
                 IsNavigationStackEnabled = true,
                 TransitionInfoOverride = transitionInfo ?? new SuppressNavigationTransitionInfo()
             });
+        }
     }
 
     public void ShowControlDefinitionOverlay(Type targetType)
