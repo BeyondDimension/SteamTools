@@ -22,3 +22,6 @@
 [submodule "ref/SteamClient"]
 	path = ref/SteamClient
 	url = https://github.com/BeyondDimension/SteamClient
+[submodule "ref/dotnet-packaging"]
+	path = ref/dotnet-packaging
+	url = https://github.com/quamotion/dotnet-packaging.git
