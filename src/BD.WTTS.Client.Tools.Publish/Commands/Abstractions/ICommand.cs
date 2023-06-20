@@ -1,5 +1,3 @@
-using System.CommandLine;
-
 namespace BD.WTTS.Client.Tools.Publish.Commands.Abstractions;
 
 public interface ICommand

@@ -4,6 +4,7 @@
 		<AssemblyName>pub</AssemblyName>
 		<OutputType>Exe</OutputType>
 		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -23,12 +24,66 @@
 		</Compile>
 		<Compile Remove="..\ImplicitUsings.Common.cs" />
 		<Compile Include="..\Utils.cs" />
+		<Compile Include="..\ImplicitUsings.MessagePack.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.JsonProperty.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\Deb\*.cs">
+			<LinkBase>Packaging.Targets\Deb</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\IO\*.cs">
+			<LinkBase>Packaging.Targets\IO</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\Native\*.cs">
+			<LinkBase>Packaging.Targets\Native</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\Rpm\*.cs">
+			<LinkBase>Packaging.Targets\Rpm</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\StreamExtensions.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\ArchiveBuilder.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\TaskItemExtensions.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\CopyToDirectoryValue.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\RpmTask.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\DebTask.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\RuntimeIdentifiers.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<None Include="..\..\ref\dotnet-packaging\Packaging.Targets\runtimes\win7-x64\native\lzma.dll" Link="lzma.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Steam++.desktop">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\ref\libzstd.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<!--<None Remove="$(NugetPackageRoot)\zstdnet\1.4.5\build\x64\libzstd.dll" />-->
 	</ItemGroup>
 
 	<ItemGroup>
 		<!-- PackageReference -->
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="System.CommandLine" />
+		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
+		<PackageReference Include="SharpZipLib" />
+		<PackageReference Include="ZstdNet" />
+		<PackageReference Include="7-Zip.NativeAssets.Win32" />
+		<PackageReference Include="Portable.BouncyCastle" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX.props" />

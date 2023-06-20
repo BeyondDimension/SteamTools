@@ -1,6 +1,4 @@
 using BD.WTTS;
-using BD.WTTS.Client.Tools.Publish.Commands.Abstractions;
-using System.CommandLine;
 
 var rootCommand = new RootCommand($"{AssemblyInfo.Product} Publish Tools");
 var interfaceType = typeof(ICommand);
