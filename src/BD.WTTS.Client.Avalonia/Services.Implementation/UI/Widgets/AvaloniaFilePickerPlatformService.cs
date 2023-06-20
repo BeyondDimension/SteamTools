@@ -187,7 +187,7 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
         }
 
         var fileResult = await storageProvider.SaveFilePickerAsync(options_);
-        var filePath = fileResult?.Path?.ToString();
+        var filePath = fileResult?.Path?.ToString()?.TrimStart("file:///");
         return string.IsNullOrEmpty(filePath) ? null : new(filePath);
     }
 }

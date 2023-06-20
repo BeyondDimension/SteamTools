@@ -152,7 +152,8 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
             Toast.Show("不支持该文件类型的导入方式。");
             return;
         }
-        ImportAuthFilePath = tempfilepath.FullPath;
+
+        ImportAuthFilePath = tempfilepath.FullPath.TrimStart("file:///");
     }
 
     public async void Import()

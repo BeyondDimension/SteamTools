@@ -93,7 +93,7 @@ sealed partial class Program : Startup
 
             services.AddSingleton<IApplication>(s => s.GetRequiredService<App>());
 
-            //services.TryAddAvaloniaFilePickerPlatformService();
+            services.TryAddAvaloniaFilePickerPlatformService();
 
             #region MessageBox
 

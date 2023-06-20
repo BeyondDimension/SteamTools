@@ -58,7 +58,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
     /// 默认导出文件名
     /// </summary>
     public string DefaultExportAuthFileName =>
-        string.Format($"Watt Toolkit  Authenticator{{0}}{FileEx.MPO}",
+        string.Format($"Watt Toolkit Authenticators {{0}}{FileEx.MPO}",
             DateTime.Now.ToString(DateTimeFormat.File));
 
     public SaveFileResult? ExportFile
@@ -109,7 +109,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
                 return;
             }
         }
-
+        
         var filestream = ExportFile?.OpenWrite();
         if (filestream == null)
         {
@@ -121,14 +121,13 @@ public class AuthenticatorExportViewModel : ViewModelBase
 
         var sourceData = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
         var protection = AuthenticatorService.HasEncrypt(sourceData);
-        string? password = string.Empty;
+        string? password = null;
         if (protection.haspassword)
         {
             password = await GetAuthenticators(sourceData);
+            if (string.IsNullOrEmpty(password)) return;
         }
 
-        if (string.IsNullOrEmpty(password)) return;
-        
         var auths = await AuthenticatorService.GetAllAuthenticatorsAsync(sourceData, password);
 
         await AuthenticatorService.ExportAsync(filestream, HasLocalProtection, auths, VerifyPassword);
