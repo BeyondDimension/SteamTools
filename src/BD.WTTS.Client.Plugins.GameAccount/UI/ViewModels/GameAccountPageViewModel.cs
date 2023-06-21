@@ -14,6 +14,7 @@ public sealed partial class GameAccountPageViewModel
             {
                 FullName = "Steam",
                 Icon = "Steam",
+                DefaultExePath = SteamSettings.SteamProgramPath.Value,
             },
         };
 
@@ -92,7 +93,10 @@ public sealed partial class GameAccountPageViewModel
                         if (GameAccountSettings.EnablePlatforms.Contains(p.FullName))
                         {
                             if (GamePlatforms?.Contains(p) == false)
+                            {
                                 GamePlatforms.Add(p);
+                                p.LoadUsers();
+                            }
                         }
                         else
                         {

@@ -55,16 +55,19 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
     }
 
-#if WINDOWS
-    public void SelectSteamProgramLocation()
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+    public async void SelectSteamProgramLocation()
     {
-        var openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Steam|steam.exe";
-        openFileDialog.ShowDialog();
-        if (openFileDialog.FileName == string.Empty) return;
-        SteamSettings.SteamProgramPath.Value = openFileDialog.FileName;
+        FilePickerFileType fileTypes = new ValueTuple<string, string[]>[]
+        {
+              ("Steam", new[] { "steam.exe" }),
+        };
+        await FilePicker2.PickAsync((path) =>
+        {
+            if (!string.IsNullOrEmpty(path))
+                SteamSettings.SteamProgramPath.Value = path;
+        }, fileTypes);
     }
-
 #endif
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)

@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace BD.WTTS.UI.Views.Controls;
 
-public partial class PlatformSettings : UserControl
+public partial class PlatformSettingsPage : UserControl
 {
-    public PlatformSettings()
+    public PlatformSettingsPage()
     {
         InitializeComponent();
     }

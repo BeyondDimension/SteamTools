@@ -286,10 +286,10 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
     public bool RunPlatformProcess(PlatformAccount platform, bool isAdmin)
     {
-        if (string.IsNullOrEmpty(platform.DefaultExePath)) return false;
+        if (string.IsNullOrEmpty(platform.ExePath)) return false;
         try
         {
-            Process2.Start(platform.DefaultExePath, platform.ExeExtraArgs, useShellExecute: true);
+            Process2.Start(platform.ExePath, platform.ExeExtraArgs, useShellExecute: true);
         }
         catch (Exception ex)
         {
@@ -302,6 +302,14 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
     public void NewUserLogin(PlatformAccount platform)
     {
+        if (!KillPlatformProcess(platform))
+            return;
+
+        // Clear current login
+        ClearCurrentLoginUser(platform);
+
+        //if (BasicSettings.AutoStart)
+        RunPlatformProcess(platform, true);
 
     }
 

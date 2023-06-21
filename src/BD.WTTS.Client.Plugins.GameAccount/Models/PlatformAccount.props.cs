@@ -28,6 +28,8 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     public string? ExeName => Path.GetFileName(DefaultExePath);
 
+    public string? ExePath => PlatformSetting?.PlatformPath ?? DefaultExePath;
+
     public bool IsExitBeforeInteract { get; set; }
 
     public bool IsRegDeleteOnClear { get; set; }

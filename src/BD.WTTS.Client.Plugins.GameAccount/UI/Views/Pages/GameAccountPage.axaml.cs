@@ -1,6 +1,7 @@
 using FluentAvalonia.UI.Controls;
 using BD.WTTS.Client.Resources;
 using Avalonia.Controls;
+using BD.WTTS.UI.Views.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -21,13 +22,26 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
         //});
     }
 
-    private void TabView_SelectedItemChanged(object sender, SelectionChangedEventArgs args)
+    private async void TabView_SelectedItemChanged(object sender, SelectionChangedEventArgs args)
     {
         foreach (var item in args.AddedItems)
         {
-            if (item is PlatformAccount platform)
+            if (item is PlatformAccount platform && !File.Exists(platform.ExePath))
             {
-                IWindowManager.Instance.ShowTaskDialogAsync(new PlatformSettingsViewModel(), $"设置 {platform.FullName} 平台程序路径", pageContent: new Controls.PlatformSettings());
+                var model = new PlatformSettingsPageViewModel(platform);
+                await IWindowManager.Instance.ShowTaskDialogAsync(model,
+                    $"设置 {platform.FullName} 平台路径",
+                    pageContent: new PlatformSettingsPage(),
+                    isCancelButton: true,
+                    cancelCloseAction: () =>
+                    {
+                        var cancel = !File.Exists(model.PlatformSettings.PlatformPath);
+                        if (cancel)
+                        {
+                            Toast.Show("路径没有正确选择");
+                        }
+                        return cancel;
+                    });
             }
         }
     }

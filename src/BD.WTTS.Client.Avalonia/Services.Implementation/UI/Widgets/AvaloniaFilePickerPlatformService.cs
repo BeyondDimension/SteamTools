@@ -117,7 +117,7 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     {
         foreach (var fileResult in fileResults)
         {
-            var filePath = fileResult?.Path?.ToString();
+            var filePath = fileResult?.Path?.ToString()?.TrimStart("file:///");
             if (filePath != null)
                 yield return new FileResult(filePath);
         }

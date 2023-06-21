@@ -28,7 +28,8 @@ public interface IWindowManager
         bool isRememberChooseFooter = false,
         bool isCancelButton = false,
         bool isRetryButton = false,
-        object? pageContent = null)
+        object? pageContent = null,
+        Func<bool>? cancelCloseAction = null)
         where TPageViewModel : ViewModelBase, new();
 
     /// <summary>

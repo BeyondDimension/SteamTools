@@ -98,7 +98,8 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         bool isRememberChooseFooter = false,
         bool isCancelButton = false,
         bool isRetryButton = false,
-        object? pageContent = null)
+        object? pageContent = null,
+        Func<bool>? cancelCloseAction = null)
         where TPageViewModel : ViewModelBase, new()
     {
         var td = new TaskDialog
@@ -146,6 +147,10 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         void OnClosing(TaskDialog s, TaskDialogClosingEventArgs args)
         {
             result = args.Result;
+            if (result is not TaskDialogStandardResult.Cancel or TaskDialogStandardResult.No)
+            {
+                args.Cancel = cancelCloseAction?.Invoke() ?? false;
+            }
         }
         try
         {

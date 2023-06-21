@@ -1,5 +1,5 @@
 <UserControl
-    x:Class="BD.WTTS.UI.Views.Controls.PlatformSettings"
+    x:Class="BD.WTTS.UI.Views.Controls.PlatformSettingsPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,18 +9,20 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:PlatformSettingsPageViewModel"
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
-        <TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.Settings_Steam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <TextBlock Margin="0,0,0,5" Text="Epic Games 平台设置" />
         <ui:SettingsExpander
-            Description="C://1111"
-            Header="Sound"
+            Description="{Binding PlatformSettings.PlatformPath}"
+            Header="Epic Games 路径"
             IsClickEnabled="True">
             <ui:SettingsExpander.IconSource>
-                <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE7F1;" />
+                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
             </ui:SettingsExpander.IconSource>
             <ui:SettingsExpander.Footer>
-                <Button Content="选择路径" />
+                <Button Command="{ReflectionBinding SelectProgramPath}" Content="选择路径" />
             </ui:SettingsExpander.Footer>
         </ui:SettingsExpander>
     </StackPanel>

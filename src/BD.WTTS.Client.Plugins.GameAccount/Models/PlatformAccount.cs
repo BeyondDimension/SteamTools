@@ -37,7 +37,7 @@ public sealed partial class PlatformAccount
         if (!Directory.Exists(PlatformLoginCache))
             Directory.CreateDirectory(PlatformLoginCache);
 
-        LoadUsers();
+        //LoadUsers();
     }
 
     public void LoadUsers()
