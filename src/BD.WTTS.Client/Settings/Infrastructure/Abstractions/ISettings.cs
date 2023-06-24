@@ -30,9 +30,9 @@ public interface ISettings
     protected const string DirName = "Settings";
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static bool DirectoryExists()
+    internal static bool DirectoryExists(string? appDataDirectory = null)
     {
-        var settingsDirPath = Path.Combine(IOPath.AppDataDirectory, DirName);
+        var settingsDirPath = Path.Combine(appDataDirectory ?? IOPath.AppDataDirectory, DirName);
         if (!Directory.Exists(settingsDirPath))
         {
             Directory.CreateDirectory(settingsDirPath);
@@ -42,10 +42,10 @@ public interface ISettings
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static string GetFilePath(string name)
+    internal static string GetFilePath(string name, string? appDataDirectory = null)
     {
         var settingsFilePath = Path.Combine(
-            IOPath.AppDataDirectory,
+            appDataDirectory ?? IOPath.AppDataDirectory,
             DirName,
             name + FileEx.JSON);
 
@@ -230,7 +230,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static bool Load(bool directoryExists, out Action<IServiceCollection>? @delegate)
+    static bool Load(bool directoryExists, out Action<IServiceCollection>? @delegate, string? appDataDirectory = null)
     {
         @delegate = default;
 
@@ -240,7 +240,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
 
         TSettings? settings = default;
 
-        var settingsFilePath = GetFilePath(TSettings.Name);
+        var settingsFilePath = GetFilePath(TSettings.Name, appDataDirectory);
 
         bool writeFile = false;
         if (directoryExists)

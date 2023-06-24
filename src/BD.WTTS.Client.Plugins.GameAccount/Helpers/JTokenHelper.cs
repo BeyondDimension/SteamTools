@@ -65,7 +65,7 @@ public static class JTokenHelper
         var s = JsonConvert.SerializeObject(new Dictionary<string, string>());
         if (!File.Exists(dictPath))
         {
-            if (isBasic && !PathHelper.IsDirectoryEmpty(Path.GetDirectoryName(dictPath)))
+            if (isBasic && !PathHelper.PathIsDirectoryEmpty(Path.GetDirectoryName(dictPath)!))
             {
                 Toast.Show("查找或读取已保存的注册表文件失败！");
             }

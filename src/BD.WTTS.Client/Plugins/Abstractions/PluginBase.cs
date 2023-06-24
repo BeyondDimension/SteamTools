@@ -23,9 +23,10 @@ public abstract partial class PluginBase<TPlugin> : IPlugin where TPlugin : Plug
 
     public virtual IEnumerable<TabItemViewModel>? GetMenuTabItems() => null;
 
-    protected static (Action<IServiceCollection>? @delegate, bool isInvalid, string name) GetConfiguration<TSettings>(bool directoryExists) where TSettings : class, ISettings<TSettings>, new()
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    protected (Action<IServiceCollection>? @delegate, bool isInvalid, string name) GetConfiguration<TSettings>(bool directoryExists) where TSettings : class, ISettings<TSettings>, new()
     {
-        var isInvalid = ISettings<TSettings>.Load(directoryExists, out var @delegate);
+        var isInvalid = ISettings<TSettings>.Load(directoryExists, out var @delegate, mAppDataDirectory.Value);
         return (@delegate, isInvalid, TSettings.Name);
     }
 

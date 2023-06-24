@@ -53,7 +53,8 @@ public sealed partial class PlatformAccount : ReactiveObject
     public List<string>? BackupFileTypesInclude { get; set; }
 
     [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
-    public string PlatformLoginCache => $"{IOPath.AppDataDirectory}\\LoginCache\\{FullName}\\";
+    public string PlatformLoginCache
+        => Path.Combine(Plugin.Instance.AppDataDirectory, "LoginData", FullName);
 
     [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public string IdsJsonPath => Path.Combine(PlatformLoginCache, "ids.json");

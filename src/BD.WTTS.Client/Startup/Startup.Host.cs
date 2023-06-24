@@ -84,6 +84,7 @@ partial class Startup // 配置 Host
             {
                 try
                 {
+                    directoryExists = ISettings.DirectoryExists(plugin.AppDataDirectory);
                     var plugin_cfg = plugin.GetConfiguration(directoryExists);
                     if (plugin_cfg != default)
                     {

@@ -64,7 +64,17 @@ static unsafe partial class Program
 #else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-    static bool PathIsDirectoryEmpty(string pszPath) => !Directory.EnumerateFiles(pszPath).Any();
+    static bool PathIsDirectoryEmpty(string pszPath)
+    {
+        try
+        {
+            return !Directory.EnumerateFiles(pszPath).Any();
+        }
+        catch (DirectoryNotFoundException)
+        {
+            return true;
+        }
+    }
 #endif
 
     /// <summary>

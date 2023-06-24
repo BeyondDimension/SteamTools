@@ -1,6 +1,6 @@
 namespace BD.WTTS;
 
-public static class PathHelper
+public static partial class PathHelper
 {
     /// <summary>
     /// 删除路径中的非法字符
@@ -280,11 +280,32 @@ public static class PathHelper
 
     }
 
-    public static bool IsDirectoryEmpty(string? path)
+#if NETFRAMEWORK
+    [DllImport("shlwapi.dll", EntryPoint = "PathIsDirectoryEmptyW", SetLastError = true, CharSet = CharSet.Unicode)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool PathIsDirectoryEmpty([MarshalAs(UnmanagedType.LPTStr)] string pszPath);
+#elif NET7_0_OR_GREATER && WINDOWS
+    [LibraryImport("shlwapi.dll", EntryPoint = "PathIsDirectoryEmptyW", SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static partial bool PathIsDirectoryEmpty([MarshalAs(UnmanagedType.LPTStr)] string pszPath);
+#else
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+    public static bool PathIsDirectoryEmpty(string pszPath)
     {
-        if (string.IsNullOrEmpty(path)) return true;
-        return !Directory.EnumerateFileSystemEntries(path).Any();
+        try
+        {
+            return !Directory.EnumerateFiles(pszPath).Any();
+        }
+        catch (DirectoryNotFoundException)
+        {
+            return true;
+        }
     }
+#endif
 
     /// <summary>
     /// A replacement for File.ReadAllText() that doesn't crash if a file is in use.
