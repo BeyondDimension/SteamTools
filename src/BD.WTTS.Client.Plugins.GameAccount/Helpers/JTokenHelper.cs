@@ -92,7 +92,7 @@ public static class JTokenHelper
             File.WriteAllText(path, outText);
     }
 
-    public static Dictionary<string, string> ReadRegJson(string path) => JTokenHelper.ReadDict(path, true);
+    public static Dictionary<string, string> ReadRegJson(string path) => ReadDict(path, true);
 
     public static void SaveRegJson(Dictionary<string, string> regJson, string path)
     {

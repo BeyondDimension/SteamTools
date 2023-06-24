@@ -30,7 +30,10 @@ public class PlatformSettingsPageViewModel : ViewModelBase
         await FilePicker2.PickAsync((path) =>
         {
             if (!string.IsNullOrEmpty(path))
-                PlatformSettings.PlatformPath = path;
+            {
+                Platform.PlatformSetting!.PlatformPath = path;
+                GameAccountSettings.PlatformSettings.Add(Platform.FullName, Platform.PlatformSetting);
+            }
         }, fileTypes);
     }
 }

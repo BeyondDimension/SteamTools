@@ -12,6 +12,7 @@
       "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\Windows\\GameUserSettings.ini": "GameUserSettings.ini",
       "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId": "UNIQUE_ID"
     },
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
     "CachePaths": [
       "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\Cache",
       "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\GPUCache",
@@ -22,7 +23,7 @@
     ],
     "BackupFileTypesIgnore": null,
     "BackupFileTypesInclude": null,
-    "UniqueIdPath": "HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId",
+    "UniqueIdPath": "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId",
     "UniqueIdType": 2
   },
   {

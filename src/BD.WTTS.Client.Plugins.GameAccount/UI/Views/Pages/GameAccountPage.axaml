@@ -123,7 +123,7 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem Text="插件设置" />
+                        <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="插件设置" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False" Text="版本号: 0.1">
                             <!--<ui:MenuFlyoutItem.Text>

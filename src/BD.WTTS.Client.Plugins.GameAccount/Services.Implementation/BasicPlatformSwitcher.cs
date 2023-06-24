@@ -26,10 +26,16 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         _ = Directory.CreateDirectory(localCachePath);
 
         if (platform.LoginFiles == null)
-            throw new Exception("No data in basic platform: " + platform.FullName);
+        {
+            Toast.Show("No data in platform: " + platform.FullName);
+            return false;
+        }
 
         if (string.IsNullOrEmpty(platform.UniqueIdPath))
-            throw new Exception("No data in basic platform: " + platform.FullName);
+        {
+            Toast.Show("No data in platform: " + platform.FullName);
+            return false;
+        }
 
         // Get unique ID from IDs file if unique ID is a registry key. Set if exists.
         if (OperatingSystem.IsWindows() && platform.UniqueIdType is UniqueIdType.REGKEY && !string.IsNullOrEmpty(platform.UniqueIdPath))
@@ -43,7 +49,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             }
         }
 
-        var regJson = platform.UniqueIdPath.StartsWith("REG:") ? JTokenHelper.ReadRegJson(accName) : new Dictionary<string, string>();
+        var regJson = platform.UniqueIdPath.StartsWith("REG:") ? JTokenHelper.ReadRegJson(platform.RegJsonPath(accName)) : new Dictionary<string, string>();
 
         foreach (var (accFile, savedFile) in platform.LoginFiles)
         {
@@ -92,7 +98,6 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
     public void SwapToAccount(IAccount account, PlatformAccount platform)
     {
         //LoadAccountIds();
-        var accName = account.AccountName;
 
         if (!KillPlatformProcess(platform))
             return;
@@ -129,9 +134,9 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         ClearCurrentLoginUser(platform);
 
         // Copy saved files in
-        if (accName != "")
+        if (!string.IsNullOrEmpty(account.AccountId))
         {
-            if (!BasicCopyInAccount(account.AccountId!, platform)) return;
+            if (!BasicCopyInAccount(account.AccountId, platform)) return;
             //Globals.AddTrayUser(platform.SafeName, $"+{platform.PrimaryId}:" + accId, accName, BasicSettings.TrayAccNumber); // Add to Tray list, using first Identifier
         }
 
@@ -352,12 +357,18 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         //_ = Directory.CreateDirectory(localCachePath);
 
         if (!platform.LoginFiles.Any_Nullable())
-            throw new Exception("No data in basic platform: " + platform.FullName);
+        {
+            Toast.Show("No data in platform: " + platform.FullName);
+            return false;
+        }
 
         var uniqueId = GetUniqueId(platform);
 
         if (string.IsNullOrEmpty(uniqueId))
-            throw new Exception("No data in basic platform: " + platform.FullName);
+        {
+            Toast.Show("No data in platform: " + platform.FullName);
+            return false;
+        }
 
         if (uniqueId == "" && platform.UniqueIdType is UniqueIdType.CREATE_ID_FILE)
         {
@@ -375,7 +386,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
         foreach (var (accFile, savedFile) in platform.LoginFiles)
         {
-            if (accFile.StartsWith("REG:"))
+            if (accFile.StartsWith("REG:") && OperatingSystem.IsWindows())
             {
                 // Remove "REG:    " and read data
                 if (RegistryKeyHelper.TryReadRegistryKey(accFile[4..], out var response))
@@ -453,7 +464,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             platform.UniqueIdType is UniqueIdType.REGKEY &&
             !string.IsNullOrEmpty(platform.UniqueIdPath))
         {
-            var r = RegistryKeyHelper.ReadRegistryKey(platform.UniqueIdPath);
+            var r = RegistryKeyHelper.ReadRegistryKey(platform.UniqueIdPath[4..]);
             if (r == null)
                 return null;
 

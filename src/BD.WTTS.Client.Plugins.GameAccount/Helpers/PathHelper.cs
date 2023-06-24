@@ -259,6 +259,8 @@ public static class PathHelper
             (fromPath, toFullPath) = (toFullPath, fromPath);
 
         var fullPath = ExpandEnvironmentVariables(fromPath);
+        toFullPath = ExpandEnvironmentVariables(toFullPath);
+
         // Is folder? Recursive copy folder
         if (Directory.Exists(fullPath))
         {

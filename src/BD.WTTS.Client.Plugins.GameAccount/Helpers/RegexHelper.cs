@@ -29,7 +29,7 @@ public static class RegexHelper
         // The "file" is a registry key
         if (OperatingSystem.IsWindows() && accFile.StartsWith("REG:"))
         {
-            var res = RegistryKeyHelper.ReadRegistryKey(accFile);
+            var res = RegistryKeyHelper.ReadRegistryKey(accFile[4..]);
             if (res == null)
                 return null;
             switch (res)

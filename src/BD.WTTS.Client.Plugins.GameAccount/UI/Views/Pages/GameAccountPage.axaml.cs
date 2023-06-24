@@ -20,6 +20,27 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
         //{
         //    ViewModel?.LoadPlatforms();
         //});
+
+        PluginSettingButton.Click += async (_, e) =>
+        {
+            if (ViewModel?.SelectedPlatform != null)
+            {
+                var model = new PlatformSettingsPageViewModel(ViewModel.SelectedPlatform);
+                await IWindowManager.Instance.ShowTaskDialogAsync(model,
+                    $"{ViewModel.SelectedPlatform.FullName} 设置",
+                    pageContent: new PlatformSettingsPage(),
+                    isCancelButton: true,
+                    cancelCloseAction: () =>
+                    {
+                        var cancel = !File.Exists(ViewModel.SelectedPlatform.PlatformSetting?.PlatformPath);
+                        if (cancel)
+                        {
+                            Toast.Show("路径没有正确选择");
+                        }
+                        return cancel;
+                    });
+            }
+        };
     }
 
     private async void TabView_SelectedItemChanged(object sender, SelectionChangedEventArgs args)
@@ -30,12 +51,13 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
             {
                 var model = new PlatformSettingsPageViewModel(platform);
                 await IWindowManager.Instance.ShowTaskDialogAsync(model,
-                    $"设置 {platform.FullName} 平台路径",
+                    $"{platform.FullName} 设置",
+                    subHeader: $"第一次使用需要先设置 {platform.FullName} 平台路径",
                     pageContent: new PlatformSettingsPage(),
                     isCancelButton: true,
                     cancelCloseAction: () =>
                     {
-                        var cancel = !File.Exists(model.PlatformSettings.PlatformPath);
+                        var cancel = !File.Exists(platform.PlatformSetting?.PlatformPath);
                         if (cancel)
                         {
                             Toast.Show("路径没有正确选择");
