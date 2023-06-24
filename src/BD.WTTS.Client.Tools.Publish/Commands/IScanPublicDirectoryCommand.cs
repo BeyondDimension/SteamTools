@@ -5,14 +5,14 @@ namespace BD.WTTS.Client.Tools.Publish.Commands;
 /// </summary>
 interface IScanPublicDirectoryCommand : ICommand
 {
-    const string commandName = "scanpub";
+    const string commandName = "scan";
 
     static Command ICommand.GetCommand()
     {
         var sha256 = new Option<bool>("--sha256", () => true, "Calculate hash sha256");
         var sha384 = new Option<bool>("--sha384", () => true, "Calculate hash sha384");
         var signature = new Option<bool>("--signature", () => true, "Digital signature");
-        var rids = new Option<string>("--rids", "dotnet rid, such as win-x64");
+        var rids = new Option<string[]>("--rids", "RID is short for runtime identifier");
         var command = new Command(commandName, "Scan publish directory")
         {
             sha256, sha384, signature, rids,
@@ -26,22 +26,13 @@ interface IScanPublicDirectoryCommand : ICommand
     /// </summary>
     /// <param name="rids"></param>
     /// <returns></returns>
-    static string[] GetRuntimeIdentifiers(string rids)
+    static string[] GetRuntimeIdentifiers(string[] rids)
     {
-        string[] rids_;
-        if (string.IsNullOrWhiteSpace(rids))
+        if (rids == null || !rids.Any())
         {
-            rids_ = all_rids;
+            rids = all_rids;
         }
-        else
-        {
-            rids_ = rids.Split('|', StringSplitOptions.RemoveEmptyEntries);
-            if (!rids_.Any())
-            {
-                rids_ = all_rids;
-            }
-        }
-        return rids_;
+        return rids;
     }
 
     /// <summary>
@@ -57,44 +48,7 @@ interface IScanPublicDirectoryCommand : ICommand
             DeploymentMode = deploymentMode,
             RuntimeIdentifier = rid,
         };
-        var array = rid.Split('-', StringSplitOptions.RemoveEmptyEntries);
-        if (array.Length == 2)
-        {
-            switch (array[0]?.ToLower())
-            {
-                case "win":
-                    info.Platform = Platform.Windows;
-                    info.DeviceIdiom = DeviceIdiom.Desktop;
-                    break;
-                case "linux":
-                    info.Platform = Platform.Linux;
-                    info.DeviceIdiom = DeviceIdiom.Desktop;
-                    break;
-                case "osx":
-                    info.Platform = Platform.Apple;
-                    info.DeviceIdiom = DeviceIdiom.Desktop;
-                    break;
-                default:
-                    return default;
-            }
-            switch (array[1]?.ToLower())
-            {
-                case "x86":
-                    info.Architecture = Architecture.X86;
-                    break;
-                case "x64":
-                    info.Architecture = Architecture.X64;
-                    break;
-                case "arm":
-                    info.Architecture = Architecture.Arm;
-                    break;
-                case "arm64":
-                    info.Architecture = Architecture.Arm64;
-                    break;
-                default:
-                    return default;
-            }
-        }
+        (info.Platform, info.DeviceIdiom, info.Architecture) = DeconstructRuntimeIdentifier(rid);
         return info;
     }
 
@@ -112,11 +66,11 @@ interface IScanPublicDirectoryCommand : ICommand
         return default;
     }
 
-    internal static void Handler(bool sha256, bool sha384, bool signature, string rids)
+    internal static void Handler(bool sha256, bool sha384, bool signature, string[] rids)
     {
         ConcurrentBag<AppPublishInfo> infos = new();
-        var rids_ = GetRuntimeIdentifiers(rids);
-        var tasks = rids_.Select(rid => InBackground(() =>
+        rids = GetRuntimeIdentifiers(rids);
+        var tasks = rids.Select(rid => InBackground(() =>
         {
             DeploymentMode deploymentMode = DeploymentMode.SCD;
             if (TryAddInfo(rid, deploymentMode, out var info))

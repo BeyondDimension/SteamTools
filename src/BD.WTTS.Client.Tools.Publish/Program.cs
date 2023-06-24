@@ -1,5 +1,3 @@
-using BD.WTTS;
-
 var rootCommand = new RootCommand($"{AssemblyInfo.Product} Publish Tools");
 var interfaceType = typeof(ICommand);
 var addMethod = interfaceType.GetMethod(nameof(ICommand.AddCommand), BindingFlags.Static | BindingFlags.Public);

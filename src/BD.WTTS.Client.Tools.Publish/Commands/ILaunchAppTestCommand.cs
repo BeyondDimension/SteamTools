@@ -5,7 +5,7 @@ namespace BD.WTTS.Client.Tools.Publish.Commands;
 /// </summary>
 interface ILaunchAppTestCommand : ICommand
 {
-    const string commandName = "launchapp";
+    const string commandName = "launch";
 
     static Command ICommand.GetCommand()
     {

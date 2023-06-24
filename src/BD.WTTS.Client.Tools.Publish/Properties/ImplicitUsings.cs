@@ -13,5 +13,6 @@ global using ThreadTask = System.Threading.Tasks.Task;
 global using BD.WTTS;
 global using BD.WTTS.Client.Tools.Publish.Enums;
 global using BD.WTTS.Client.Tools.Publish.Models;
+global using BD.WTTS.Client.Tools.Publish.Commands;
 global using BD.WTTS.Client.Tools.Publish.Commands.Abstractions;
 global using static BD.WTTS.Client.Tools.Publish.Constants;

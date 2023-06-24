@@ -371,7 +371,14 @@ public class SettingsProperty<TKey, TValue,
                 }
                 return default!;
             }
-            return value[key];
+            try
+            {
+                return value[key];
+            }
+            catch
+            {
+                return default!;
+            }
         }
 
         set
@@ -541,4 +548,10 @@ public class SettingsProperty<TKey, TValue,
     void IDictionary<TKey, TValue>.Add(TKey key, TValue value) => Add(key, value);
 
     bool IDictionary<TKey, TValue>.Remove(TKey key) => Remove(key);
+
+    public virtual TValue GetOrAdd(TKey key, TValue value)
+    {
+        Add(key, value);
+        return value;
+    }
 }
