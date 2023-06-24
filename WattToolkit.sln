@@ -28,9 +28,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Plugins", "5.Plugins", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{1E1DFB1C-55FC-4D74-9791-6A692E647034}"
 	ProjectSection(SolutionItems) = preProject
-		doc\download-guide.en.md = doc\download-guide.en.md
-		doc\download-guide.md = doc\download-guide.md
+		doc\file-system.md = doc\file-system.md
 		doc\openwrt.md = doc\openwrt.md
+		doc\publish.md = doc\publish.md
 		doc\release-keylol.md = doc\release-keylol.md
 	EndProjectSection
 EndProject
@@ -176,7 +176,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValveKeyValue", "ref\SteamC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.SteamClient.Models.Protobuf", "ref\SteamClient\src\BD.SteamClient.Models.Protobuf\BD.SteamClient.Models.Protobuf.csproj", "{4D34BE4D-2233-46ED-939C-EAAEF608F5B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Client.Tools.Publish", "src\BD.WTTS.Client.Tools.Publish\BD.WTTS.Client.Tools.Publish.csproj", "{BC309EC9-D7A2-4A28-BE60-2E5532DE073D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Tools.Publish", "src\BD.WTTS.Client.Tools.Publish\BD.WTTS.Client.Tools.Publish.csproj", "{BC309EC9-D7A2-4A28-BE60-2E5532DE073D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
