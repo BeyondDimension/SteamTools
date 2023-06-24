@@ -124,7 +124,11 @@ public sealed partial class GameAccountPageViewModel
                 Toast.Show("请输入账号名称");
                 return;
             }
-            SelectedPlatform.CurrnetUserAdd(textModel.Value);
+            if (SelectedPlatform.CurrnetUserAdd(textModel.Value))
+            {
+                Toast.Show($"保存成功 {textModel.Value}");
+                SelectedPlatform.LoadUsers();
+            }
         }
     }
 

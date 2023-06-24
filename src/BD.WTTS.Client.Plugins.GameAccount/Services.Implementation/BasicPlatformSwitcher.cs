@@ -89,13 +89,13 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             }
 
             // FILE OR FOLDER
-            PathHelper.HandleFileOrFolder(accFile, savedFile, localCachePath, true);
+            PathHelper.HandleFileOrFolder(accFile, savedFile, localCachePath, true, platform.FolderPath);
         }
 
         return true;
     }
 
-    public void SwapToAccount(IAccount account, PlatformAccount platform)
+    public void SwapToAccount(IAccount? account, PlatformAccount platform)
     {
         //LoadAccountIds();
 
@@ -113,19 +113,13 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             {
                 if (!string.IsNullOrEmpty(uniqueId) && platform.Accounts.Any_Nullable(acc => acc.AccountId == uniqueId))
                 {
-                    if (account.AccountId == uniqueId)
+                    if (account?.AccountId == uniqueId)
                     {
-                        //if (platform.AutoStart)
-                        //{
                         RunPlatformProcess(platform, true);
-                        //? Toast.Show("12123123");
-                        //:Toast.Show("12123123");
-                        //}
-                        //Toast.Show("12123123");
-
+                        Toast.Show("已经是当前登录的账号（没有执行操作）");
                         return;
                     }
-                    CurrnetUserAdd(platform.Accounts.First(acc => acc.AccountId == uniqueId).AccountName ?? "Unknown", platform);
+                    CurrnetUserAdd(platform.Accounts.First(acc => acc.AccountId == uniqueId).DisplayName ?? "Unknown", platform);
                 }
             }
         }
@@ -134,7 +128,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         ClearCurrentLoginUser(platform);
 
         // Copy saved files in
-        if (!string.IsNullOrEmpty(account.AccountId))
+        if (!string.IsNullOrEmpty(account?.AccountId))
         {
             if (!BasicCopyInAccount(account.AccountId, platform)) return;
             //Globals.AddTrayUser(platform.SafeName, $"+{platform.PrimaryId}:" + accId, accName, BasicSettings.TrayAccNumber); // Add to Tray list, using first Identifier
@@ -167,7 +161,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         if (platform.ClearPaths.Any_Nullable(accFile => !DeleteFileOrFolder(accFile, platform)))
             return false;
 
-        var uniqueIdFile = PathHelper.ExpandEnvironmentVariables(platform.UniqueIdPath);
+        var uniqueIdFile = PathHelper.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
 
         if (platform.UniqueIdType is UniqueIdType.JSON_SELECT or UniqueIdType.JSON_SELECT_FIRST or UniqueIdType.JSON_SELECT_LAST)
         {
@@ -216,7 +210,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         // Handle wildcards
         if (accFile.Contains('*'))
         {
-            var folder = PathHelper.ExpandEnvironmentVariables(Path.GetDirectoryName(accFile) ?? "");
+            var folder = PathHelper.ExpandEnvironmentVariables(Path.GetDirectoryName(accFile) ?? "", platform.FolderPath);
             var file = Path.GetFileName(accFile);
 
             // Handle "...\\*" folder.
@@ -238,7 +232,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             return true;
         }
 
-        var fullPath = PathHelper.ExpandEnvironmentVariables(accFile);
+        var fullPath = PathHelper.ExpandEnvironmentVariables(accFile, platform.FolderPath);
         // Is folder? Recursive copy folder
         if (Directory.Exists(fullPath))
         {
@@ -307,15 +301,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
     public void NewUserLogin(PlatformAccount platform)
     {
-        if (!KillPlatformProcess(platform))
-            return;
-
-        // Clear current login
-        ClearCurrentLoginUser(platform);
-
-        //if (BasicSettings.AutoStart)
-        RunPlatformProcess(platform, true);
-
+        SwapToAccount(null, platform);
     }
 
     public string GetCurrentAccountId(PlatformAccount platform)
@@ -373,7 +359,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         if (uniqueId == "" && platform.UniqueIdType is UniqueIdType.CREATE_ID_FILE)
         {
             // Unique ID file, and does not already exist: Therefore create!
-            var uniqueIdFile = PathHelper.ExpandEnvironmentVariables(platform.UniqueIdPath);
+            var uniqueIdFile = PathHelper.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
             uniqueId = Random2.GenerateRandomString(16);
             if (!string.IsNullOrEmpty(uniqueIdFile))
                 File.WriteAllText(uniqueIdFile, uniqueId);
@@ -438,7 +424,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             }
 
             // FILE OR FOLDER
-            if (PathHelper.HandleFileOrFolder(accFile, savedFile, localCachePath, false)) continue;
+            if (PathHelper.HandleFileOrFolder(accFile, savedFile, localCachePath, false, platform.FolderPath)) continue;
 
             // Could not find file/folder
             Toast.Show($"无法找到 {accFile} 的账号文件，添加失败");
@@ -483,7 +469,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         if (string.IsNullOrEmpty(platform.UniqueIdPath))
             return null;
 
-        var uniqueIdPath = PathHelper.ExpandEnvironmentVariables(platform.UniqueIdPath);
+        var uniqueIdPath = PathHelper.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
 
         if (string.IsNullOrEmpty(uniqueIdPath))
             return null;

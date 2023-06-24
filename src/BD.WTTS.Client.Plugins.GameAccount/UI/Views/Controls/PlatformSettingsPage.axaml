@@ -13,11 +13,19 @@
     x:DataType="spp:PlatformSettingsPageViewModel"
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
-        <TextBlock Margin="0,0,0,5" Text="Epic Games 平台设置" />
-        <ui:SettingsExpander
-            Description="{Binding PlatformSettings.PlatformPath}"
-            Header="Epic Games 路径"
-            IsClickEnabled="True">
+        <TextBlock Margin="0,0,0,5">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} 平台设置">
+                    <Binding Mode="OneWay" Path="Platform.FullName" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <ui:SettingsExpander Description="{Binding PlatformSettings.PlatformPath}" IsClickEnabled="True">
+            <ui:SettingsExpander.Header>
+                <MultiBinding StringFormat="{}{0} 路径">
+                    <Binding Mode="OneWay" Path="Platform.FullName" />
+                </MultiBinding>
+            </ui:SettingsExpander.Header>
             <ui:SettingsExpander.IconSource>
                 <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
             </ui:SettingsExpander.IconSource>

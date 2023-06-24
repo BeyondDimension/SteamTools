@@ -11,9 +11,9 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         this.swWebService = swWebService;
     }
 
-    public void SwapToAccount(IAccount account, PlatformAccount platform)
+    public void SwapToAccount(IAccount? account, PlatformAccount platform)
     {
-        if (!string.IsNullOrEmpty(account.AccountName))
+        if (!string.IsNullOrEmpty(account?.AccountName))
         {
             KillPlatformProcess(platform);
             steamService.SetCurrentUser(account.AccountName);

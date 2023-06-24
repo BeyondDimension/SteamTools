@@ -2,12 +2,6 @@ namespace BD.WTTS.Models;
 
 public sealed partial class PlatformAccount : ReactiveObject
 {
-    public string PlatformLoginCache => $"{IOPath.AppDataDirectory}\\LoginCache\\{FullName}\\";
-
-    public string IdsJsonPath => Path.Combine(PlatformLoginCache, "ids.json");
-
-    public string RegJsonPath(string accName) => Path.Combine(PlatformLoginCache, accName, "reg.json");
-
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public ObservableCollection<IAccount>? Accounts { get; set; }
 
@@ -25,10 +19,6 @@ public sealed partial class PlatformAccount : ReactiveObject
     public string? Icon { get; set; }
 
     public ThirdpartyPlatform Platform { get; init; }
-
-    public string? ExeName => Path.GetFileName(DefaultExePath);
-
-    public string? ExePath => PlatformSetting?.PlatformPath ?? DefaultExePath;
 
     public bool IsExitBeforeInteract { get; set; }
 
@@ -61,4 +51,21 @@ public sealed partial class PlatformAccount : ReactiveObject
     public List<string>? BackupFileTypesIgnore { get; set; }
 
     public List<string>? BackupFileTypesInclude { get; set; }
+
+    [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public string PlatformLoginCache => $"{IOPath.AppDataDirectory}\\LoginCache\\{FullName}\\";
+
+    [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public string IdsJsonPath => Path.Combine(PlatformLoginCache, "ids.json");
+
+    [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public string? ExeName => Path.GetFileName(DefaultExePath);
+
+    [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public string? ExePath => PlatformSetting?.PlatformPath ?? DefaultExePath;
+
+    [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public string? FolderPath => Path.GetDirectoryName(ExePath);
+
+    public string RegJsonPath(string accName) => Path.Combine(PlatformLoginCache, accName, "reg.json");
 }

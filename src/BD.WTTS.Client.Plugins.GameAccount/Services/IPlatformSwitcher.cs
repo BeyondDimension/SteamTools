@@ -2,7 +2,7 @@ namespace BD.WTTS.Services;
 
 public interface IPlatformSwitcher
 {
-    void SwapToAccount(IAccount account, PlatformAccount platform);
+    void SwapToAccount(IAccount? account, PlatformAccount platform);
 
     bool ClearCurrentLoginUser(PlatformAccount platform);
 

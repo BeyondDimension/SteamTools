@@ -14,7 +14,7 @@ public static class PathHelper
         return r.Replace(f, "");
     }
 
-    public static string ExpandEnvironmentVariables(string? path, bool noIncludeBasicCheck = false)
+    public static string ExpandEnvironmentVariables(string? path, string? platform_Folder = null)
     {
         if (string.IsNullOrEmpty(path))
             return string.Empty;
@@ -35,8 +35,8 @@ public static class PathHelper
         foreach (var (k, v) in variables)
             path = path.Replace(k, v);
 
-        if (!noIncludeBasicCheck)
-            path = path.Replace("%Platform_Folder%", "");
+        if (!string.IsNullOrEmpty(platform_Folder))
+            path = path.Replace("%Platform_Folder%", platform_Folder);
 
         return Environment.ExpandEnvironmentVariables(path);
     }
@@ -205,11 +205,11 @@ public static class PathHelper
     /// <param name="toPath"></param>
     /// <param name="localCachePath"></param>
     /// <param name="reverse">FALSE: Platform -> LoginCache. TRUE: LoginCache -> J••Platform</param>
-    public static bool HandleFileOrFolder(string fromPath, string toPath, string localCachePath, bool reverse)
+    public static bool HandleFileOrFolder(string fromPath, string toPath, string localCachePath, bool reverse, string? folderPath = null)
     {
         // Expand, or join localCachePath
         var toFullPath = toPath.Contains('%')
-            ? ExpandEnvironmentVariables(toPath)
+            ? ExpandEnvironmentVariables(toPath, folderPath)
             : Path.Combine(localCachePath, toPath);
 
         // Reverse if necessary. Explained in summary above.
@@ -219,7 +219,7 @@ public static class PathHelper
             var wildcard = Path.GetFileName(toPath);
             // Expand, or join localCachePath
             fromPath = fromPath.Contains('%')
-                ? ExpandEnvironmentVariables(Path.Combine(fromPath, wildcard))
+                ? ExpandEnvironmentVariables(Path.Combine(fromPath, wildcard), folderPath)
                 : Path.Combine(localCachePath, fromPath, wildcard);
             toPath = toPath.Replace(wildcard, "");
             toFullPath = toPath;
@@ -228,7 +228,7 @@ public static class PathHelper
         // Handle wildcards
         if (fromPath.Contains('*'))
         {
-            var folder = ExpandEnvironmentVariables(Path.GetDirectoryName(fromPath) ?? "");
+            var folder = ExpandEnvironmentVariables(Path.GetDirectoryName(fromPath) ?? "", folderPath);
             var file = Path.GetFileName(fromPath);
 
             // Handle "...\\*" folder.
@@ -258,8 +258,8 @@ public static class PathHelper
         if (reverse)
             (fromPath, toFullPath) = (toFullPath, fromPath);
 
-        var fullPath = ExpandEnvironmentVariables(fromPath);
-        toFullPath = ExpandEnvironmentVariables(toFullPath);
+        var fullPath = ExpandEnvironmentVariables(fromPath, folderPath);
+        toFullPath = ExpandEnvironmentVariables(toFullPath, folderPath);
 
         // Is folder? Recursive copy folder
         if (Directory.Exists(fullPath))
