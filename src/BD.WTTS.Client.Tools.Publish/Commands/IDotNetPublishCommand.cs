@@ -37,6 +37,13 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
+    static string GetPublishCommandByMacOSArm64()
+    {
+        var list = new List<string>();
+        IDotNetPublishCommand.SetPublishCommandArgumentList(list, false, Platform.Apple, DeviceIdiom.Desktop, Architecture.Arm64);
+        return $"dotnet {string.Join(' ', list)}";
+    }
+
     static void SetPublishCommandArgumentList(
         IList<string> argumentList,
         bool isDebug,
@@ -82,6 +89,12 @@ interface IDotNetPublishCommand : ICommand
                     case DeviceIdiom.Desktop:
                         arg.Framework = $"net{Environment.Version.Major}.{Environment.Version.Minor}-macos";
                         arg.RuntimeIdentifier = $"osx-{ArchToString(architecture)}";
+                        arg.UseAppHost = null;
+                        arg.SingleFile = null;
+                        arg.ReadyToRun = null;
+                        arg.Trimmed = null;
+                        arg.SelfContained = null;
+                        arg.CreatePackage = false;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(deviceIdiom), deviceIdiom, null);
@@ -97,14 +110,15 @@ interface IDotNetPublishCommand : ICommand
         bool IsDebug,
         string Framework,
         string RuntimeIdentifier,
-        bool UseAppHost = false,
-        bool SingleFile = false,
-        bool ReadyToRun = false,
-        bool Trimmed = false,
-        bool SelfContained = false,
+        bool? UseAppHost = false,
+        bool? SingleFile = false,
+        bool? ReadyToRun = false,
+        bool? Trimmed = false,
+        bool? SelfContained = false,
         bool? EnableMsixTooling = null,
         bool? GenerateAppxPackageOnBuild = null,
-        bool? StripSymbols = null);
+        bool? StripSymbols = null,
+        bool? CreatePackage = null);
 
     static void SetPublishCommandArgumentList(
         IList<string> argumentList,
@@ -124,19 +138,23 @@ interface IDotNetPublishCommand : ICommand
         argumentList.Add($"-c {configuration}");
 
         // UseAppHost 属性控制是否为部署创建本机可执行文件。 自包含部署需要本机可执行文件。
-        argumentList.Add($"-p:UseAppHost={arg.UseAppHost.ToLowerString()}");
+        if (arg.UseAppHost.HasValue)
+            argumentList.Add($"-p:UseAppHost={arg.UseAppHost.Value.ToLowerString()}");
 
         // PublishDir is used by the CLI to denote the Publish target.
         argumentList.Add($@"-p:PublishDir=bin\{configuration}\Publish\{arg.RuntimeIdentifier}");
 
         // 将应用打包到特定于平台的单个文件可执行文件中。
-        argumentList.Add($"-p:PublishSingleFile={arg.SingleFile.ToLowerString()}");
+        if (arg.SingleFile.HasValue)
+            argumentList.Add($"-p:PublishSingleFile={arg.SingleFile.Value.ToLowerString()}");
 
         // 以 ReadyToRun (R2R) 格式编译应用程序集。 R2R 是一种预先 (AOT) 编译形式。 
-        argumentList.Add($"-p:PublishReadyToRun={arg.ReadyToRun.ToLowerString()}");
+        if (arg.ReadyToRun.HasValue)
+            argumentList.Add($"-p:PublishReadyToRun={arg.ReadyToRun.Value.ToLowerString()}");
 
         // 在发布自包含的可执行文件时，剪裁未使用的库以减小应用的部署大小。
-        argumentList.Add($"-p:PublishTrimmed={arg.Trimmed.ToLowerString()}");
+        if (arg.Trimmed.HasValue)
+            argumentList.Add($"-p:PublishTrimmed={arg.Trimmed.Value.ToLowerString()}");
 
         // 当此属性为 true 时，项目的 XML 文档文件（如果已生成）包含在项目的发布输出中。 此属性的默认值为 true。
         argumentList.Add("-p:PublishDocumentationFile=false");
@@ -160,6 +178,10 @@ interface IDotNetPublishCommand : ICommand
         if (arg.StripSymbols.HasValue)
             argumentList.Add($"-p:StripSymbols={arg.StripSymbols.Value.ToLowerString()}");
 
+        // (macos/maccatalyst)一个可选参数，用于控制是创建 .app 还是 .pkg。 将 false 用于 .app。
+        if (arg.CreatePackage.HasValue)
+            argumentList.Add($"-p:CreatePackage={arg.CreatePackage.Value.ToLowerString()}");
+
         // 为指定的目标框架发布应用程序。 必须在项目文件中指定目标框架。
         argumentList.Add($"-f {arg.Framework}");
 
@@ -167,7 +189,8 @@ interface IDotNetPublishCommand : ICommand
         argumentList.Add($"-r {arg.RuntimeIdentifier}");
 
         // .NET 运行时随应用程序一同发布，因此无需在目标计算机上安装运行时。 如果指定了运行时标识符，并且项目是可执行项目（而不是库项目），则默认值为 true。
-        argumentList.Add($"--sc {arg.SelfContained.ToLowerString()}");
+        if (arg.SelfContained.HasValue)
+            argumentList.Add($"--sc {arg.SelfContained.Value.ToLowerString()}");
 
         // 强制解析所有依赖项，即使上次还原已成功，也不例外。
         // 指定此标记等同于删除 project.assets.json 文件。

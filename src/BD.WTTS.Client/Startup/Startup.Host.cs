@@ -1,6 +1,4 @@
 // ReSharper disable once CheckNamespace
-using dotnetCampus.Ipc.Pipes;
-
 namespace BD.WTTS;
 
 partial class Startup // 配置 Host

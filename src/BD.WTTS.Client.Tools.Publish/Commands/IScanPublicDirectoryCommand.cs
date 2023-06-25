@@ -120,15 +120,18 @@ interface IScanPublicDirectoryCommand : ICommand
         Console.WriteLine($"{commandName} OK");
     }
 
-    static bool ScanPath(string rid, AppPublishInfo info)
+    internal static bool ScanPath(string? rid, AppPublishInfo info)
     {
-        var pubPath = info.DeploymentMode switch
+        if (string.IsNullOrWhiteSpace(info.DirectoryPath))
         {
-            DeploymentMode.SCD => DirPublish_SCD,
-            DeploymentMode.FDE => DirPublish_FDE,
-            _ => throw new ArgumentOutOfRangeException(nameof(info.DeploymentMode), info.DeploymentMode, null),
-        };
-        info.DirectoryPath = Path.Combine(pubPath, rid);
+            var pubPath = info.DeploymentMode switch
+            {
+                DeploymentMode.SCD => DirPublish_SCD,
+                DeploymentMode.FDE => DirPublish_FDE,
+                _ => throw new ArgumentOutOfRangeException(nameof(info.DeploymentMode), info.DeploymentMode, null),
+            };
+            info.DirectoryPath = Path.Combine(pubPath, rid.ThrowIsNull());
+        }
         if (!Directory.Exists(info.DirectoryPath))
             return false;
 
