@@ -1,0 +1,32 @@
+# Steam++ v3.X Program File Structure for Linux
+
+- dotnet 共享运行时，删除后将使用已安装的运行时，此目录参考 [aspnetcore-runtime-7.0.7-linux-x64.tar.gz](https://download.visualstudio.microsoft.com/download/pr/c1e2729e-b96-4929-911d-bf0f24f06f47/1b2f39cbc4eb530e39cfe6f54ce78e45/aspnetcore-runtime-7.0.7-linux-x64.tar.gz)，可自行升级运行库小版本号，二进制兼容
+	- host
+		- fxr
+			- x.y.z
+				- hostfxr.dll
+	- shared
+		- Microsoft.AspNetCore.App
+			- x.y.z
+		- Microsoft.NETCore.App
+			- x.y.z
+- native
+    - linux-x64
+        - libe_sqlite3.so  
+        - libHarfBuzzSharp.so  
+        - libSkiaSharp.so  
+- Steam++ (主启动程序) AppHost
+- assemblies 主模块程序集
+- modules 可选模块
+    - Accelerator 网络加速
+        - Steam++.Accelerator 控制台子服务进程，使用匿名管道与主进程通信，无参数或指定某个参数(待定)启动时可读取配置文件启动加速，可完全独立运行，ASP.NET Core Web API 项目，可支持 Docker
+        - Steam++.Plugins.Accelerator 插件程序集
+    - AccountSwitch 账号切换
+        - Steam++.Plugins.AccountSwitch.dll
+    - ~~ArchiSteamFarm~~
+        - Steam++.ArchiSteamFarm.exe
+        - Steam++.Plugins.ArchiSteamFarm.dll
+    - GameList 库存游戏
+        - Steam++.Plugins.GameList.dll
+    - LocalAuth 本地令牌
+        - Steam++.Plugins.LocalAuth.dll

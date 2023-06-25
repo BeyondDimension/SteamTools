@@ -14,6 +14,7 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
 		<RootNamespace>BD.WTTS</RootNamespace>
+		<EnableMsixTooling>true</EnableMsixTooling>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">

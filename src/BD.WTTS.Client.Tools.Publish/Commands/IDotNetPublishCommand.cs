@@ -25,19 +25,20 @@ interface IDotNetPublishCommand : ICommand
         {
             var info = DeconstructRuntimeIdentifier(rid);
             if (info == default) continue;
-            var command = GetPublishCommand(debug, info.Platform, info.DeviceIdiom, info.Architecture);
-            var process = Process.Start(new ProcessStartInfo
+            var psi = new ProcessStartInfo
             {
                 FileName = "dotnet",
-                Arguments = command,
                 WorkingDirectory = ProjectPath_AvaloniaApp,
-            });
+            };
+            SetPublishCommandArgumentList(psi.ArgumentList, debug, info.Platform, info.DeviceIdiom, info.Architecture);
+            var process = Process.Start(psi);
             process.ThrowIsNull();
             process.WaitForExit();
         }
     }
 
-    static string GetPublishCommand(
+    static void SetPublishCommandArgumentList(
+        IList<string> argumentList,
         bool isDebug,
         Platform platform,
         DeviceIdiom deviceIdiom,
@@ -89,7 +90,7 @@ interface IDotNetPublishCommand : ICommand
             default:
                 throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
         }
-        return GetPublishCommand(arg);
+        SetPublishCommandArgumentList(argumentList, arg);
     }
 
     record struct PublishCommandArg(
@@ -100,56 +101,79 @@ interface IDotNetPublishCommand : ICommand
         bool SingleFile = false,
         bool ReadyToRun = false,
         bool Trimmed = false,
-        bool SelfContained = false);
+        bool SelfContained = false,
+        bool? EnableMsixTooling = null,
+        bool? GenerateAppxPackageOnBuild = null,
+        bool? StripSymbols = null);
 
-    /// <summary>
-    /// 获取发布命令
-    /// </summary>
-    /// <param name="isDebug"></param>
-    /// <param name="framework"></param>
-    /// <param name="rid"></param>
-    /// <param name="useAppHost"></param>
-    /// <param name="singleFile"></param>
-    /// <param name="readyToRun"></param>
-    /// <param name="trimmed"></param>
-    /// <param name="selfContained"></param>
-    /// <returns></returns>
-    static string GetPublishCommand(PublishCommandArg arg)
+    static void SetPublishCommandArgumentList(
+        IList<string> argumentList,
+        PublishCommandArg arg)
     {
         // https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet-publish
         // https://learn.microsoft.com/zh-cn/dotnet/core/project-sdk/msbuild-props
         // https://learn.microsoft.com/zh-cn/dotnet/maui/mac-catalyst/deployment/publish-unsigned
-        var c = arg.IsDebug ? "Debug" : "Release";
-        var args = new object?[]
-        {
-            c,
-            arg.UseAppHost.ToLowerString(),
-            arg.RuntimeIdentifier,
-            arg.SingleFile.ToLowerString(),
-            arg.ReadyToRun.ToLowerString(),
-            arg.Trimmed.ToLowerString(),
-            arg.Framework,
-            arg.SelfContained.ToLowerString(),
-        };
-        const string command =
-"publish " +
-"-c {0} " + // 定义生成配置。 大多数项目的默认配置为 Debug，但你可以覆盖项目中的生成配置设置。
-"-p:UseAppHost={1} " + // UseAppHost 属性控制是否为部署创建本机可执行文件。 自包含部署需要本机可执行文件。
-@"-p:PublishDir=bin\{0}\Publish\{2} " + // PublishDir is used by the CLI to denote the Publish target.
-"-p:PublishSingleFile={3} " + // 将应用打包到特定于平台的单个文件可执行文件中。
-"-p:PublishReadyToRun={4} " + // 以 ReadyToRun (R2R) 格式编译应用程序集。 R2R 是一种预先 (AOT) 编译形式。 
-"-p:PublishTrimmed={5} " + // 在发布自包含的可执行文件时，剪裁未使用的库以减小应用的部署大小。
-"-p:PublishDocumentationFile=false " + // 当此属性为 true 时，项目的 XML 文档文件（如果已生成）包含在项目的发布输出中。 此属性的默认值为 true。
-"-p:PublishDocumentationFiles=false " + // 此属性是其他几个属性的启用标志，用于控制默认是否将各种 XML 文档文件复制到发布目录，即 PublishDocumentationFile 和 PublishReferencesDocumentationFiles。 如果未设置那些属性，而是设置了此属性，则这些属性将默认为 true。 此属性的默认值为 true。
-"-p:PublishReferencesDocumentationFiles=false " + // 当此属性为 true 时，将项目的引用的 XML 文档文件复制到发布目录，而不只是运行时资产（如 DLL 文件）。 此属性的默认值为 true。
-"-f {6} " + // 为指定的目标框架发布应用程序。 必须在项目文件中指定目标框架。
-"-r {2} " + // (RuntimeIdentifier)发布针对给定运行时的应用程序。 有关运行时标识符 (RID) 的列表，请参阅 RID 目录。
-"--sc {7} " + // (SelfContained).NET 运行时随应用程序一同发布，因此无需在目标计算机上安装运行时。 如果指定了运行时标识符，并且项目是可执行项目（而不是库项目），则默认值为 true。
-"--force " + // 强制解析所有依赖项，即使上次还原已成功，也不例外。 指定此标记等同于删除 project.assets.json 文件。
-"--nologo " + // 不显示启动版权标志或版权消息。
-"";
-        // StripSymbols
+        // https://learn.microsoft.com/zh-cn/windows/apps/windows-app-sdk/single-project-msix?tabs=csharp
+        // https://learn.microsoft.com/zh-cn/windows/apps/package-and-deploy/project-properties
         // https://learn.microsoft.com/zh-cn/dotnet/core/compatibility/deployment/8.0/stripsymbols-default
-        return string.Format(command, args);
+
+        argumentList.Add("publish");
+        var configuration = arg.IsDebug ? "Debug" : "Release";
+
+        // 定义生成配置。 大多数项目的默认配置为 Debug，但你可以覆盖项目中的生成配置设置。
+        argumentList.Add($"-c {configuration}");
+
+        // UseAppHost 属性控制是否为部署创建本机可执行文件。 自包含部署需要本机可执行文件。
+        argumentList.Add($"-p:UseAppHost={arg.UseAppHost.ToLowerString()}");
+
+        // PublishDir is used by the CLI to denote the Publish target.
+        argumentList.Add($@"-p:PublishDir=bin\{configuration}\Publish\{arg.RuntimeIdentifier}");
+
+        // 将应用打包到特定于平台的单个文件可执行文件中。
+        argumentList.Add($"-p:PublishSingleFile={arg.SingleFile.ToLowerString()}");
+
+        // 以 ReadyToRun (R2R) 格式编译应用程序集。 R2R 是一种预先 (AOT) 编译形式。 
+        argumentList.Add($"-p:PublishReadyToRun={arg.ReadyToRun.ToLowerString()}");
+
+        // 在发布自包含的可执行文件时，剪裁未使用的库以减小应用的部署大小。
+        argumentList.Add($"-p:PublishTrimmed={arg.Trimmed.ToLowerString()}");
+
+        // 当此属性为 true 时，项目的 XML 文档文件（如果已生成）包含在项目的发布输出中。 此属性的默认值为 true。
+        argumentList.Add("-p:PublishDocumentationFile=false");
+
+        // 此属性是其他几个属性的启用标志，用于控制默认是否将各种 XML 文档文件复制到发布目录，
+        // 即 PublishDocumentationFile 和 PublishReferencesDocumentationFiles。
+        // 如果未设置那些属性，而是设置了此属性，则这些属性将默认为 true。 此属性的默认值为 true。
+        argumentList.Add("-p:PublishDocumentationFiles=false");
+
+        // 当此属性为 true 时，将项目的引用的 XML 文档文件复制到发布目录，
+        // 而不只是运行时资产（如 DLL 文件）。 此属性的默认值为 true。
+        argumentList.Add("-p:PublishReferencesDocumentationFiles=false");
+
+        //  为项目启用单项目 MSIX 功能。
+        if (arg.EnableMsixTooling.HasValue)
+            argumentList.Add($"-p:EnableMsixTooling={arg.EnableMsixTooling.Value.ToLowerString()}");
+
+        if (arg.GenerateAppxPackageOnBuild.HasValue)
+            argumentList.Add($"-p:GenerateAppxPackageOnBuild={arg.GenerateAppxPackageOnBuild.Value.ToLowerString()}");
+
+        if (arg.StripSymbols.HasValue)
+            argumentList.Add($"-p:StripSymbols={arg.StripSymbols.Value.ToLowerString()}");
+
+        // 为指定的目标框架发布应用程序。 必须在项目文件中指定目标框架。
+        argumentList.Add($"-f {arg.Framework}");
+
+        // 发布针对给定运行时的应用程序。 有关运行时标识符 (RID) 的列表，请参阅 RID 目录。
+        argumentList.Add($"-r {arg.RuntimeIdentifier}");
+
+        // .NET 运行时随应用程序一同发布，因此无需在目标计算机上安装运行时。 如果指定了运行时标识符，并且项目是可执行项目（而不是库项目），则默认值为 true。
+        argumentList.Add($"--sc {arg.SelfContained.ToLowerString()}");
+
+        // 强制解析所有依赖项，即使上次还原已成功，也不例外。
+        // 指定此标记等同于删除 project.assets.json 文件。
+        argumentList.Add("--force");
+
+        // 不显示启动版权标志或版权消息。
+        argumentList.Add("--nologo");
     }
 }

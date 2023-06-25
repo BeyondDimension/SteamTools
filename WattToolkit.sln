@@ -178,6 +178,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.SteamClient.Models.Proto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Tools.Publish", "src\BD.WTTS.Client.Tools.Publish\BD.WTTS.Client.Tools.Publish.csproj", "{BC309EC9-D7A2-4A28-BE60-2E5532DE073D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Program File Structure", "Program File Structure", "{5C51CD36-79CF-4BFE-83B0-5515DC35D22D}"
+	ProjectSection(SolutionItems) = preProject
+		doc\program-file-structure\Linux.md = doc\program-file-structure\Linux.md
+		doc\program-file-structure\macOS.md = doc\program-file-structure\macOS.md
+		doc\program-file-structure\Windows.md = doc\program-file-structure\Windows.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -378,6 +385,7 @@ Global
 		{2BDF04A4-ADFA-49B4-BC09-EF98CBA04A23} = {99D97BD4-3F51-48BC-8BD2-647F6D268BB0}
 		{4D34BE4D-2233-46ED-939C-EAAEF608F5B7} = {99D97BD4-3F51-48BC-8BD2-647F6D268BB0}
 		{BC309EC9-D7A2-4A28-BE60-2E5532DE073D} = {D6C8A54D-878F-44A9-857F-6ED01491C7BD}
+		{5C51CD36-79CF-4BFE-83B0-5515DC35D22D} = {1E1DFB1C-55FC-4D74-9791-6A692E647034}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {567F588F-E95C-4286-8B30-DB3B2200221C}
