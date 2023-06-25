@@ -4,8 +4,5 @@ namespace BD.WTTS.UI.ViewModels;
 
 public partial class ScriptPageViewModel : TabItemViewModel
 {
-    public ScriptPageViewModel()
-    {
-
-    }
+    public override string Name => Strings.Welcome;
 }

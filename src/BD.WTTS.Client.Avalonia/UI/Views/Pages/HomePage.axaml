@@ -89,7 +89,7 @@
                             MaxHeight="100"
                             Description="1111111111121312312123">
                             <spp:AppItem.Image>
-                                <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
+                                <spp:Image2 Source="https://api.steampp.net/api/image/f4e4423e-f36b-1410-886e-00e23e1d515d" Stretch="UniformToFill" />
                             </spp:AppItem.Image>
                         </spp:AppItem>
                         <spp:AppItem

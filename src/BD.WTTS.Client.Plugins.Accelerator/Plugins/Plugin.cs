@@ -99,10 +99,10 @@ sealed class Plugin : PluginBase<Plugin>
             }
 #endif
 
-            if (ResourceService.IsChineseSimplified)
-            {
-                await ProxyService.Current.InitializeAsync();
-            }
+            //if (ResourceService.IsChineseSimplified)
+            //{
+            await ProxyService.Current.InitializeAsync();
+            //}
         }
     }
 
