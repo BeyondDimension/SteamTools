@@ -110,6 +110,7 @@ public class AuthenticatorItemModel : ItemViewModel
         Test();
     }
 
+    //在获取CurrentCode时，如果连接不上steamApi时http请求会抛socket超时异常,此异常不捕获会导致程序闪退，待处理
     public void Test()
     {
         var progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };

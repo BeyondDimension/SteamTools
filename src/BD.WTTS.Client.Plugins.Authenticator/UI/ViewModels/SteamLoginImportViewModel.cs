@@ -15,9 +15,16 @@ namespace BD.WTTS.Models;
 
 public sealed partial class SteamLoginImportViewModel
 {
+    readonly string? _currentPassword;
+    
     public SteamLoginImportViewModel()
     {
         
+    }
+    
+    public SteamLoginImportViewModel(string? password)
+    {
+        _currentPassword = this.password;
     }
 
     // public void StepperOnSkiping(Stepper sender, CancelEventArgs args)
@@ -191,7 +198,7 @@ public sealed partial class SteamLoginImportViewModel
         else
         {
             var iADTO = new AuthenticatorDTO() { Name = $"Steam({UserNameText})", Value = steamAuthenticator };
-            AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iADTO, false, null);
+            AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iADTO, _currentPassword);
             await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUserImportSuccess, IsCancelcBtn = true });
             SelectIndex = 4;
         }
@@ -271,19 +278,5 @@ public sealed partial class SteamLoginImportViewModel
         }
     }
 
-    public async void ShowCaptchaUrl()
-    {
-        if (string.IsNullOrEmpty(enrollState.CaptchaUrl))
-        {
-            Toast.Show("验证码URL为空，请重新登录");
-        }
-        else
-        {
-            if (!await Browser2.OpenAsync(enrollState.CaptchaUrl))
-            {
-                await Clipboard2.SetTextAsync(enrollState.CaptchaUrl);
-                Toast.Show(Strings.CopyToClipboard);
-            }
-        }
-    }
+    public async Task ShowCaptchaUrl() => await AuthenticatorService.ShowCaptchaUrl(enrollState.CaptchaUrl);
 }

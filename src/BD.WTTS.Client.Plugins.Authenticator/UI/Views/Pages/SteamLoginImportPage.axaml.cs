@@ -10,6 +10,12 @@ public partial class SteamLoginImportPage : UserControl
         InitializeComponent();
         DataContext = new SteamLoginImportViewModel();
     }
+    
+    public SteamLoginImportPage(string? password)
+    {
+        InitializeComponent();
+        DataContext = new SteamLoginImportViewModel(password);
+    }
 
     // void Stepper_OnBacking(Stepper sender, CancelEventArgs args)
     // {

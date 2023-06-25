@@ -1,0 +1,88 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="BD.WTTS.UI.Views.Pages.SteamTradePage"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamTradePageViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <spp:Stepper
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Center"
+        SelectedIndex="{Binding SelectIndex}"
+        VerticalAlignment="Stretch"
+        VerticalContentAlignment="Stretch">
+        <spp:StepperItem
+            Index="0"
+            IsBack="False"
+            IsNext="False"
+            Title="账号登陆">
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Vertical"
+                Spacing="25"
+                VerticalAlignment="Center">
+                <TextBox
+                    MaxWidth="300"
+                    Text="{Binding UserNameText}"
+                    Watermark="{ReflectionBinding Path=Res.Steam_User,
+                                                  Mode=OneWay,
+                                                  Source={x:Static s:ResourceService.Current}}" />
+                <TextBox
+                    Classes="revealPasswordButton"
+                    MaxWidth="300"
+                    PasswordChar="{StaticResource PasswordChar}"
+                    Text="{Binding PasswordText}"
+                    Watermark="{ReflectionBinding Path=Res.Steam_Password,
+                                                  Mode=OneWay,
+                                                  Source={x:Static s:ResourceService.Current}}" />
+                <Button
+                    Command="{ReflectionBinding Login}"
+                    Content="{ReflectionBinding Path=Res.Login,
+                                                Mode=OneWay,
+                                                Source={x:Static s:ResourceService.Current}}"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    MinWidth="280" />
+            </StackPanel>
+        </spp:StepperItem>
+        <spp:StepperItem Index="1" Title="二次验证">
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Vertical"
+                Spacing="10"
+                VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBox
+                        MaxWidth="200"
+                        Text="{Binding CaptchaCodeText}"
+                        Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,
+                                                      Mode=OneWay,
+                                                      Source={x:Static s:ResourceService.Current}}" />
+                    <Button
+                        Command="{ReflectionBinding ShowCaptchaUrl}"
+                        Content="{ReflectionBinding Path=Res.Steam_ImageCodeShowError,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}"
+                        Margin="5,0,0,0" />
+                </StackPanel>
+                <Button
+                    Command="{ReflectionBinding Login}"
+                    Content="{ReflectionBinding Path=Res.Continue,
+                                                Mode=OneWay,
+                                                Source={x:Static s:ResourceService.Current}}"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    MinWidth="280" />
+            </StackPanel>
+        </spp:StepperItem>
+        <spp:StepperItem Index="2" Title="交易详情">
+            <TextBlock />
+        </spp:StepperItem>
+    </spp:Stepper>
+</UserControl>

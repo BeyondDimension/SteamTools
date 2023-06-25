@@ -5,6 +5,8 @@ namespace BD.WTTS.UI.ViewModels;
 
 public class SteamOtherImportViewModel : DialogWindowViewModel
 {
+    readonly string? _currentPassword;
+    
     string? _importAuthNewName;
     string _importAuthFilePath = string.Empty;
     bool _importFromFile;
@@ -104,6 +106,12 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
     {
         ImportFromFile = true;
     }
+    
+    public SteamOtherImportViewModel(string? password)
+    {
+        ImportFromFile = true;
+        _currentPassword = password;
+    }
 
     public async void OpenFolder()
     {
@@ -202,40 +210,6 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
                 else
                     Toast.Show("SteamDesktopAuth令牌导入失败");
                 break;
-        }
-    }
-
-    //Temp
-    public void ExportAuthWithSDAFile(IAuthenticatorDTO authenticatorDto, string exportpath)
-    {
-        if (authenticatorDto.Value is SteamAuthenticator steamAuthenticator)
-        {
-            if (string.IsNullOrEmpty(steamAuthenticator.SteamData)) return;
-
-            var steamdata = JsonSerializer.Deserialize(steamAuthenticator.SteamData,
-                ImportFileModelJsonContext.Default.SdaFileModel);
-
-            if (steamAuthenticator.SecretKey == null) return;
-            var sdafilemodel = new SdaFileModel
-            {
-                DeviceId = steamAuthenticator.DeviceId,
-                FullyEnrolled = steamdata.FullyEnrolled,
-                Session = steamdata.Session,
-                SerialNumber = steamAuthenticator.Serial,
-                RevocationCode = steamdata.RevocationCode,
-                Uri = steamdata.Uri,
-                ServerTime = steamdata.ServerTime,
-                AccountName = steamdata.AccountName,
-                TokenGid = steamdata.TokenGid,
-                IdentitySecret = steamdata.IdentitySecret,
-                Secret1 = steamdata.Secret1,
-                Status = steamdata.Status,
-                SharedSecret = Convert.ToBase64String(steamAuthenticator.SecretKey),
-            };
-
-            var jsonstring = JsonSerializer.Serialize(sdafilemodel, ImportFileModelJsonContext.Default.SdaFileModel);
-
-            //...导出至文件目录
         }
     }
 
@@ -657,7 +631,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
     
     private void SaveImport(IAuthenticatorDTO authenticatorDto)
     {
-        AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, false, null);
+        AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, _currentPassword);
     }
 
     public bool ReadXml(ref AuthenticatorDTO authenticatorDto, XmlReader reader, string? password)

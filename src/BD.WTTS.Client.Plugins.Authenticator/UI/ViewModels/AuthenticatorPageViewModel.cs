@@ -5,6 +5,7 @@ using BD.WTTS.UI.Views.Pages;
 using Splat;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -245,7 +246,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async Task KeepDisplay()
     {
-        await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(), "令牌导入");
+        // await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel(), "令牌导入",
+        //     pageContent: new SteamOtherImportPage(_currentPassword));
     }
 
     public async Task DeleteAuthAsync()
@@ -314,11 +316,14 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async Task ShowReplyWindow()
     {
-        
+        if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam) return;
     }
 
+    //未完善
     public async Task ShowAuthJsonData()
     {
-        
+        if (CurrentSelectedAuth == null) return;
+        await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel(), "查看令牌详细数据",
+            pageContent: new ShowSteamDataPage(CurrentSelectedAuth.AuthData));
     }
 }

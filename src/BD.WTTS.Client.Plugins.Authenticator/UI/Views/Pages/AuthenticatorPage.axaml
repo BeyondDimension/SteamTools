@@ -226,7 +226,10 @@
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBarSeparator />
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton IconSource="ZoomIn" Label="查看详细数据" />
+                        <ui:CommandBarButton
+                            Command="{Binding ShowAuthJsonData}"
+                            IconSource="ZoomIn"
+                            Label="查看详细数据" />
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBar.PrimaryCommands>
                         <ui:CommandBarButton Command="{Binding ShowQrCode}" Label="展示二维码">

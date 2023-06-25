@@ -4,20 +4,20 @@ using Avalonia.Markup.Xaml;
 
 namespace BD.WTTS.UI.Views.Pages;
 
-public partial class SteamOtherImportPage : UserControl
+public partial class ShowSteamDataPage : UserControl
 {
-    public SteamOtherImportPage()
+    public ShowSteamDataPage()
     {
         InitializeComponent();
-        DataContext = new SteamOtherImportViewModel();
+        DataContext = new ShowSteamDataViewModel();
     }
 
-    public SteamOtherImportPage(string? password)
+    public ShowSteamDataPage(IAuthenticatorDTO authenticatorDto)
     {
         InitializeComponent();
-        DataContext = new SteamOtherImportViewModel(password);
+        DataContext = new ShowSteamDataViewModel(authenticatorDto);
     }
-
+    
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);

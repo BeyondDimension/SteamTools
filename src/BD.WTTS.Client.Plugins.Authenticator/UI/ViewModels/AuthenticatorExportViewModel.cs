@@ -1,4 +1,6 @@
 using BD.WTTS.Client.Resources;
+using WinAuth;
+using System;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -71,6 +73,82 @@ public class AuthenticatorExportViewModel : ViewModelBase
                 _exportFile.Dispose();
             }
             _exportFile = value;
+        }
+    }
+    
+    public async void ExportAuthWithSDAFile(IAuthenticatorDTO authenticatorDto, string exportpath)
+    {
+        if (authenticatorDto.Value is SteamAuthenticator steamAuthenticator)
+        {
+            if (string.IsNullOrEmpty(steamAuthenticator.SteamData)) return;
+
+            var steamdata = JsonSerializer.Deserialize(steamAuthenticator.SteamData,
+                ImportFileModelJsonContext.Default.SdaFileModel);
+
+            if (steamAuthenticator.SecretKey == null) return;
+            var sdafilemodel = new SdaFileModel
+            {
+                DeviceId = steamAuthenticator.DeviceId,
+                FullyEnrolled = steamdata.FullyEnrolled,
+                Session = steamdata.Session,
+                SerialNumber = steamAuthenticator.Serial,
+                RevocationCode = steamdata.RevocationCode,
+                Uri = steamdata.Uri,
+                ServerTime = steamdata.ServerTime,
+                AccountName = steamdata.AccountName,
+                TokenGid = steamdata.TokenGid,
+                IdentitySecret = steamdata.IdentitySecret,
+                Secret1 = steamdata.Secret1,
+                Status = steamdata.Status,
+                SharedSecret = Convert.ToBase64String(steamAuthenticator.SecretKey),
+            };
+
+            var jsonString = JsonSerializer.Serialize(sdafilemodel, ImportFileModelJsonContext.Default.SdaFileModel);
+
+            //...导出至文件目录
+            
+            if (Essentials.IsSupportedSaveFileDialog)
+            {
+                FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktop())
+                {
+                    fileTypes = new ValueTuple<string, string[]>[]
+                    {
+                        ("maFile Files", new[] { FileEx.maFile, }),
+                    };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
+                ExportFile = await FilePicker2.SaveAsync(new PickOptions
+                {
+                    FileTypes = fileTypes,
+                    InitialFileName = steamAuthenticator.SteamId64,
+                    PickerTitle = "Watt Toolkit",
+                });
+                if (ExportFile == null) return;
+            }
+
+            var filestream = ExportFile?.OpenWrite();
+            if (filestream == null)
+            {
+                Toast.Show(Strings.LocalAuth_ProtectionAuth_PathError);
+                return;
+            }
+
+            if (filestream.CanSeek && filestream.Position != 0) filestream.Position = 0;
+
+            var data = Convert.FromBase64String(jsonString);
+
+            await filestream.WriteAsync(data);
+            
+            await filestream.FlushAsync();
+            await filestream.DisposeAsync();
+
+            Toast.Show(Strings.ExportedToPath_.Format(ExportFile?.ToString()));
+        
+            ExportFile = null;
         }
     }
 
