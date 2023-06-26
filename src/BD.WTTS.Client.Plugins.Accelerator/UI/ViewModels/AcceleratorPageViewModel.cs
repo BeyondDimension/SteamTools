@@ -6,10 +6,10 @@ public sealed partial class AcceleratorPageViewModel
 {
     public AcceleratorPageViewModel()
     {
-        StartProxyCommand = ReactiveCommand.Create(async () =>
+        StartProxyCommand = ReactiveCommand.Create(() =>
         {
-            var result = await IWindowManager.Instance.ShowTaskDialogAsync<MessageBoxWindowViewModel>(new MessageBoxWindowViewModel(), $"Test", isCancelButton: true);
-            Toast.Show(result.ToString());
+            ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
+            Toast.Show(ProxyService.Current.ProxyStatus ? "加速已启动" : "加速已停止");
         });
     }
 }

@@ -22,6 +22,9 @@
                 Padding="8,4"
                 Command="{Binding StartProxyCommand}"
                 DockPanel.Dock="Right"
+                IsVisible="{ReflectionBinding Source={x:Static s:ProxyService.Current},
+                                              Path=!ProxyStatus,
+                                              Mode=OneWay}"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
@@ -35,6 +38,31 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Text="{ReflectionBinding Path=Res.CommunityFix_StartProxy,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                Command="{Binding StartProxyCommand}"
+                CommandParameter="False"
+                DockPanel.Dock="Right"
+                IsVisible="{ReflectionBinding Source={x:Static s:ProxyService.Current},
+                                              Path=ProxyStatus,
+                                              Mode=OneWay}"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{ReflectionBinding Path=Res.CommunityFix_StopProxy,
                                                  Mode=OneWay,
                                                  Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
@@ -120,7 +148,7 @@
                                 <!--<ui:SettingsExpander ItemsSource="{Binding Items}">-->
                                 <ui:SettingsExpander>
                                     <ui:SettingsExpander.Header>
-                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <StackPanel Orientation="Horizontal" Spacing="10">
                                             <CheckBox IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}" />
                                             <spp:Image2
                                                 Width="30"
@@ -131,12 +159,7 @@
                                             <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
                                         </StackPanel>
                                     </ui:SettingsExpander.Header>
-                                    <ui:SettingsExpanderItem>
-                                        <ui:SettingsExpanderItem.Styles>
-                                            <Style Selector="StackPanel#HeaderRegion">
-                                                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                                            </Style>
-                                        </ui:SettingsExpanderItem.Styles>
+                                    <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
                                         <TreeView ItemsSource="{Binding ObservableItems}">
                                             <TreeView.ItemTemplate>
                                                 <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding Items}">

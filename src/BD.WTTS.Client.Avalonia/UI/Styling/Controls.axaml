@@ -21,6 +21,7 @@
                 <!--<MergeResourceInclude Source="/UI/Styling/CoreWindow.axaml" />-->
                 <MergeResourceInclude Source="/UI/Styling/Controls/SnackbarManager.axaml" />
                 <MergeResourceInclude Source="/UI/Styling/Controls/ContentLoader.axaml" />
+                <MergeResourceInclude Source="/UI/Styling/Controls/SettingsExpander.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>
