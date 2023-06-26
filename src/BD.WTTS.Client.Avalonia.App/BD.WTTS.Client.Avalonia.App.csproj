@@ -107,6 +107,10 @@
 		<Reference Include="Splat.Drawing">
 			<HintPath>$(NugetPackageRoot)\splat.drawing\$(Version_Splat_Drawing)\lib\net7.0\Splat.Drawing.dll</HintPath>
 		</Reference>
+		<!-- 修复：System.Reactive 包存在 System.Windows.Forms 的依赖项 -->
+		<Reference Include="System.Reactive">
+			<HintPath>$(NugetPackageRoot)\system.reactive\$(Version_System_Reactive)\lib\net6.0\System.Reactive.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
