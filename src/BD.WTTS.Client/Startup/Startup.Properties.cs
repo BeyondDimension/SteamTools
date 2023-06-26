@@ -128,6 +128,11 @@ partial class Startup // Properties
     /// 当前加载的插件集合
     /// </summary>
     HashSet<IPlugin>? plugins;
+
+    /// <summary>
+    /// 当前所有的插件集合，包含禁用的插件
+    /// </summary>
+    HashSet<PluginResult<IPlugin>>? pluginResults;
 #endif
 
     /// <summary>
@@ -143,6 +148,23 @@ partial class Startup // Properties
         return HasPlugins;
 #else
         plugins = default;
+        return default;
+#endif
+    }
+
+    /// <summary>
+    /// 尝试获取所有的插件集合
+    /// </summary>
+    /// <param name="plugins"></param>
+    /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public bool TryGetPluginResults([NotNullWhen(true)] out HashSet<PluginResult<IPlugin>>? pluginResults)
+    {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+        pluginResults = this.pluginResults;
+        return HasPlugins;
+#else
+        pluginResults = default;
         return default;
 #endif
     }

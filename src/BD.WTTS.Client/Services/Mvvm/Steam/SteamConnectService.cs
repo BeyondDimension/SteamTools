@@ -223,7 +223,7 @@ public sealed class SteamConnectService
 
     public void RunAFKApps()
     {
-        var aFKAppList = Ioc.Get<IGameLibrarySettings>()?.AFKAppList;
+        var aFKAppList = Ioc.Get<IPartialGameLibrarySettings>()?.AFKAppList;
         if (aFKAppList?.Count > 0)
         {
             foreach (var item in aFKAppList)
@@ -292,7 +292,7 @@ public sealed class SteamConnectService
                                     INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}{Environment.NewLine}{AppResources.Steam_ServerTime}{steamServerTime:yyyy-MM-dd HH:mm:ss}", NotificationType.Message);
                                 }
 
-                                var isAutoAFKApps = Ioc.Get<IGameLibrarySettings>()?.IsAutoAFKApps ?? default;
+                                var isAutoAFKApps = Ioc.Get<IPartialGameLibrarySettings>()?.IsAutoAFKApps ?? default;
                                 if (isAutoAFKApps)
                                 {
                                     RunAFKApps();
@@ -507,7 +507,7 @@ public sealed class SteamConnectService
 
         #region 加载备注信息和 JumpList
 
-        IReadOnlyDictionary<long, string?>? accountRemarks = Ioc.Get<IGameAccountSettings>()?.AccountRemarks;
+        IReadOnlyDictionary<long, string?>? accountRemarks = Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
 
 #if WINDOWS
         List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = new();

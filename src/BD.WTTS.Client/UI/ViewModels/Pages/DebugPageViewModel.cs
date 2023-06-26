@@ -56,7 +56,7 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             case "plu":
                 var plugins_assemblies = PluginsCore.LoadAssemblies() ?? new();
-                DebugString = string.Join(Environment.NewLine, plugins_assemblies.Select(x => x.FullName).OrderBy(x => x));
+                DebugString = string.Join(Environment.NewLine, plugins_assemblies.Select(x => x.Data.FullName).OrderBy(x => x));
                 break;
 #endif
             case "acc":

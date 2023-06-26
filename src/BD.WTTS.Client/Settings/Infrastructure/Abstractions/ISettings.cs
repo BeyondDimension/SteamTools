@@ -230,8 +230,21 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static bool Load(bool directoryExists, out Action<IServiceCollection>? @delegate, string? appDataDirectory = null)
+    static bool Load(bool directoryExists,
+       out Action<IServiceCollection>? @delegate,
+       string? appDataDirectory = null)
+        => Load(directoryExists,
+            out @delegate,
+            out var _,
+            appDataDirectory);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static bool Load(bool directoryExists,
+        out Action<IServiceCollection>? @delegate,
+        out IOptionsMonitor<TSettings>? options,
+        string? appDataDirectory = null)
     {
+        options = default;
         @delegate = default;
 
         var type = typeof(TSettings);
@@ -281,6 +294,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
             s.AddSingleton<IOptions<TSettings>>(_ => monitor);
             s.AddSingleton<IOptionsMonitor<TSettings>>(_ => monitor);
         };
+        options = monitor;
         return isInvalid;
     }
 }

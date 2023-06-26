@@ -1,7 +1,7 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 #endif
 
 // ReSharper disable once CheckNamespace
@@ -261,7 +261,7 @@ partial class Startup // 自定义控制台命令参数
             var users = steamService.GetRememberUserList();
 
             IReadOnlyDictionary<long, string?>? accountRemarks =
-                Ioc.Get<IGameAccountSettings>()?.AccountRemarks;
+                Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
 
             var sUsers = users.Select(s =>
             {

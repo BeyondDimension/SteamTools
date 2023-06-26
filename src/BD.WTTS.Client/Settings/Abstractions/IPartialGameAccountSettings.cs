@@ -6,10 +6,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
 
-public interface IGameAccountSettings
+public partial interface IPartialGameAccountSettings
 {
-    static IGameAccountSettings? Instance
-        => Ioc.Get_Nullable<IOptionsMonitor<IGameAccountSettings>>()?.CurrentValue;
+    static IPartialGameAccountSettings? Instance
+        => Ioc.Get_Nullable<IPartialGameAccountSettings>();
 
     /// <summary>
     /// Steam 账号备注字典
@@ -17,18 +17,13 @@ public interface IGameAccountSettings
     ConcurrentDictionary<long, string?>? AccountRemarks { get; set; }
 
     /// <summary>
-    /// Steam 账号备注字典的默认值
-    /// </summary>
-    const ConcurrentDictionary<long, string?>? DefaultAccountRemarks = null;
-
-    /// <summary>
     /// Steam 家庭共享临时禁用
     /// </summary>
     IReadOnlyCollection<DisableAuthorizedDevice>? DisableAuthorizedDevice { get; set; }
 
     /// <summary>
-    /// Steam 家庭共享临时禁用的默认值
+    /// 启用的账号平台集合
     /// </summary>
-    const IReadOnlyCollection<DisableAuthorizedDevice>? DefaultDisableAuthorizedDevice = null;
+    HashSet<string>? EnablePlatforms { get; set; }
 
 }

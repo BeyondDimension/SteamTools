@@ -26,10 +26,21 @@ partial class Startup // 配置 Host
 #if STARTUP_WATCH_TRACE || DEBUG
         WatchTrace.Record("AppServicesLevel.HasFlag");
 #endif
+
+        var directoryExists = ISettings.DirectoryExists();
+
+        #region 初始化通用【配置/设置】 GeneralSettings
+
+        if (ISettings<GeneralSettings_>.Load(directoryExists, out var @delegate, out var generalSettings))
+            InvalidConfigurationFileNames.Add(GeneralSettings_.Name);
+
+        #endregion
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (IsMainProcess)
         {
-            plugins = PluginsCore.InitPlugins(loadModules);
+            pluginResults = PluginsCore.InitPlugins(generalSettings?.CurrentValue.DisablePlugins, loadModules);
+            plugins = pluginResults?.Where(x => !x.IsDisable).Select(x => x.Data).ToHashSet();
             HasPlugins = plugins.Any_Nullable();
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("InitPlugins");
@@ -61,12 +72,8 @@ partial class Startup // 配置 Host
 #endif
         }
 
-        #region 初始化配置 Settings/Configuration
+        #region 初始化【配置/设置】 Settings/Configuration
 
-        var directoryExists = ISettings.DirectoryExists();
-
-        if (ISettings<GeneralSettings_>.Load(directoryExists, out var @delegate))
-            InvalidConfigurationFileNames.Add(GeneralSettings_.Name);
         if (ISettings<UISettings_>.Load(directoryExists, out var @delegate1))
             InvalidConfigurationFileNames.Add(UISettings_.Name);
         else

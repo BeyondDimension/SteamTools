@@ -26,11 +26,17 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
-        //services.AddSingleton<IGameLibrarySettings>(_ => this);
+        services.AddSingleton<IPartialGameLibrarySettings>(s =>
+            s.GetRequiredService<IOptionsMonitor<IGameLibrarySettings>>().CurrentValue);
     }
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
     {
 
+    }
+
+    public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
+    {
+        yield return GetConfiguration<GameLibrarySettings_>(directoryExists);
     }
 }

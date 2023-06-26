@@ -82,10 +82,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Folder Include="Settings\Abstractions\" />
-	</ItemGroup>
-	
-	<ItemGroup>
 	  <Compile Update="UI\Views\Controls\PlatformSettingsPage.axaml.cs">
 	    <DependentUpon>PlatformSettingsPage.axaml</DependentUpon>
 	  </Compile>

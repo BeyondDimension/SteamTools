@@ -40,7 +40,7 @@ sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
 
     protected override bool IsRunSteamAdministrator => SteamSettings.IsRunSteamAdministrator.Value;
 
-    protected override Dictionary<uint, string?>? HideGameList => serviceProvider.GetService<IGameLibrarySettings>()?.HideGameList;
+    protected override Dictionary<uint, string?>? HideGameList => serviceProvider.GetService<IPartialGameLibrarySettings>()?.HideGameList;
 
     protected override string? GetString(string name) => AppResources.ResourceManager.GetString(name);
 

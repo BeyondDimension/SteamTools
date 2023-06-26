@@ -102,4 +102,6 @@ partial class PluginBase<TPlugin>
             return false;
         }
     }
+
+    public virtual byte[]? IconBytes => null;
 }
