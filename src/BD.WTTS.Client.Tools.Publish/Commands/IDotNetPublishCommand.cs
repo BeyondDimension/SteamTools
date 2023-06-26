@@ -40,7 +40,7 @@ interface IDotNetPublishCommand : ICommand
     static string GetPublishCommandByMacOSArm64()
     {
         var list = new List<string>();
-        IDotNetPublishCommand.SetPublishCommandArgumentList(list, false, Platform.Apple, DeviceIdiom.Desktop, Architecture.Arm64);
+        SetPublishCommandArgumentList(list, false, Platform.Apple, DeviceIdiom.Desktop, Architecture.Arm64);
         return $"dotnet {string.Join(' ', list)}";
     }
 

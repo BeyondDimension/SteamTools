@@ -161,4 +161,21 @@ interface Constants
         }
         return info;
     }
+
+    const string feed = "https://dotnetcli.azureedge.net/dotnet";
+    const string feed_no_cdn = "https://dotnetcli.blob.core.windows.net/dotnet";
+
+    static string GetRuntimeDownloadLink(
+        string osname,
+        string normalized_architecture,
+        bool? no_cdn = null)
+    {
+        // https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet-install-script
+        // https://dot.net/v1/dotnet-install.sh
+        // https://dot.net/v1/dotnet-install.ps1
+        if (!no_cdn.HasValue) no_cdn = !ProjectUtils.IsCI();
+        var specific_version = $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}";
+        var download_link = $"{(no_cdn.Value ? feed_no_cdn : feed)}/aspnetcore/Runtime/{specific_version}/aspnetcore-runtime-{specific_version}-{osname}-{normalized_architecture}.{(osname == "win" ? "zip" : "tar.gz")}";
+        return download_link;
+    }
 }
