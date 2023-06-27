@@ -9,19 +9,9 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     DateTime _initializeTime;
 
-    int AuthenticatorId { get; set; } = -1;
+    AuthenticatorItemModel? PrevSelectedAuth { get; set; }
 
-    AuthenticatorItemModel? CurrentSelectedAuth
-    {
-        get
-        {
-            if (Auths.Count > 0 && AuthenticatorId > 0)
-            {
-                return Auths.First(i => i.AuthData.Id == AuthenticatorId);
-            }
-            return null;
-        }
-    }
+    AuthenticatorItemModel? CurrentSelectedAuth { get; set; }
 
     public AuthenticatorPageViewModel()
     {
@@ -31,45 +21,44 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         Initialize();
     }
 
-    // public override void Activation()
-    // {
-    //     base.Activation();
-    // }
-
-    //该功能待完善，目前仅测试业务功能用
     private void AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged(AuthenticatorItemModel sender)
     {
         if (sender.IsSelected)
         {
-            AuthenticatorId = sender.AuthData.Id;
+            CurrentSelectedAuth = sender;
+
+            if (PrevSelectedAuth != null) PrevSelectedAuth.IsSelected = false;
+
+            PrevSelectedAuth = sender;
+
             BorderBottomIsActive = true;
         }
         else
         {
+            if (PrevSelectedAuth == CurrentSelectedAuth) PrevSelectedAuth = null;
+            if (PrevSelectedAuth != null) return;
             BorderBottomIsActive = false;
-            AuthenticatorId = -1;
+            CurrentSelectedAuth = null;
         }
     }
 
     public async void Initialize()
     {
-        //await AuthenticatorService.DeleteAllAuthenticatorsAsync();
         if (_initializeTime > DateTime.Now.AddSeconds(-5))
         {
             Toast.Show("请勿频繁操作");
             return;
         }
         _initializeTime = DateTime.Now;
-
+        
         Auths.Clear();
         BorderBottomIsActive = false;
-        AuthenticatorId = -1;
-
+        
         var sourceList = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
         if (sourceList.Length < 1) return;
 
         AuthenticatorIsEmpty = false;
-
+        
         (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorService.HasEncrypt(sourceList);
 
         if (HasPasswordEncrypt)
@@ -83,10 +72,10 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         // var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
         //     _currentPassword.Base64Encode_Nullable());
-
+        
         var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourceList,
             _currentPassword);
-
+        
         foreach (var item in list)
         {
             Auths.Add(new AuthenticatorItemModel(item));
@@ -159,12 +148,12 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入令牌保护密码", isDialog: false, isCancelButton: true) &&
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入令牌保护密码",  isDialog: false, isCancelButton: true) &&
             textViewmodel.Value != null)
         {
             newPassword = textViewmodel.Value;
             textViewmodel.Value = null;
-            if (!(await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请再次输入密码以确认", isDialog: false) &&
+            if (!(await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请再次输入密码以确认",  isDialog: false) &&
                   textViewmodel.Value == newPassword)) return;
         }
         else return;
@@ -235,13 +224,13 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             return;
         }
         Auths.Clear();
+        BorderBottomIsActive = false;
         IsVerificationPass = false;
     }
 
     public async Task KeepDisplay()
     {
-        // await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel(), "令牌导入",
-        //     pageContent: new SteamOtherImportPage(_currentPassword));
+        
     }
 
     public async Task DeleteAuthAsync()
@@ -274,15 +263,16 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         CurrentSelectedAuth.AuthName = newName;
         await AuthenticatorService.SaveEditAuthNameAsync(CurrentSelectedAuth.AuthData, newName);
     }
-
+    
     public async Task OpenImportWindow()
     {
-
+        await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel(), "令牌导入",
+            pageContent: new SteamOtherImportPage(_currentPassword));
     }
-
+    
     public async Task OpenExportWindow()
     {
-
+        
     }
 
     public void ShowQrCode()
@@ -290,9 +280,9 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (CurrentSelectedAuth == null) return;
         var dto = CurrentSelectedAuth.AuthData.ToExport();
         var bytes = Serializable.SMP(dto);
-
+        
         var bytes_compress_br = bytes.CompressByteArrayByBrotli();
-
+        
         var (result, stream, e) = QRCodeHelper.Create(bytes_compress_br);
         switch (result)
         {
@@ -311,6 +301,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task ShowReplyWindow()
     {
         if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam) return;
+        await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel(), "确认交易",
+            pageContent: new SteamTradePage(CurrentSelectedAuth.AuthData));
     }
 
     //未完善
@@ -319,5 +311,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (CurrentSelectedAuth == null) return;
         await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel(), "查看令牌详细数据",
             pageContent: new ShowSteamDataPage(CurrentSelectedAuth.AuthData));
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        AuthenticatorItemModel.OnAuthenticatorItemIsSelectedChanged -= AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged;
+        base.Dispose(disposing);
     }
 }

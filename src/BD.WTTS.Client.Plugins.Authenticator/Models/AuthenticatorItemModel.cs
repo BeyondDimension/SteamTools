@@ -1,6 +1,7 @@
 using Avalonia.Media;
 using Avalonia.Threading;
 using BD.WTTS.Client.Resources;
+using KeyValuePair = BD.Common.Entities.KeyValuePair;
 
 namespace BD.WTTS.Models;
 
@@ -10,14 +11,57 @@ public class AuthenticatorItemModel : ItemViewModel
 
     public IAuthenticatorDTO AuthData { get; set; }
 
-    bool isselected;
-
+    // public override bool IsSelected
+    // {
+    //     get => AuthenticatorPageViewModel.AuthsSelected[AuthData.Id];
+    //     set
+    //     {
+    //         AuthenticatorPageViewModel.AuthsSelected[AuthData.Id] = value;
+    //         this.RaisePropertyChanged();
+    //         OnAuthenticatorItemIsSelectedChanged?.Invoke(this);
+    //         if (value == true)
+    //         {
+    //             RefreshSelected();
+    //         }
+    //     }
+    // }
+    
+    // void RefreshSelected()
+    // {
+    //     foreach (var item in AuthenticatorPageViewModel.AuthsSelected)
+    //     {
+    //         if (item.Key == AuthData.Id) continue;
+    //         AuthenticatorPageViewModel.AuthsSelected[item.Key] = false;
+    //         this.RaiseAndSetIfChanged(ref IsSelected, nameof(IsSelected));
+    //     }
+    // }
+    
+    // public override bool IsSelected
+    // {
+    //     get => AuthenticatorPageViewModel.AuthsSelected.First(i => i.Key == AuthData.Id).Value;
+    //     set
+    //     {
+    //         var temp = AuthenticatorPageViewModel.AuthsSelected.First(i => i.Key == AuthData.Id);
+    //         KeyValuePair<ushort, bool> newValue = new KeyValuePair<ushort, bool>(temp.Key, value);
+    //         AuthenticatorPageViewModel.AuthsSelected.Remove(temp);
+    //         AuthenticatorPageViewModel.AuthsSelected.Add(newValue);
+    //         this.RaisePropertyChanged();
+    //         OnAuthenticatorItemIsSelectedChanged?.Invoke(this);
+    //         if (value == true)
+    //         {
+    //             RefreshSelected();
+    //         }
+    //     }
+    // }
+    
+    bool _isSelected;
+    
     public override bool IsSelected
     {
-        get => isselected;
+        get => _isSelected;
         set
         {
-            this.RaiseAndSetIfChanged(ref isselected, value);
+            this.RaiseAndSetIfChanged(ref _isSelected, value);
             OnAuthenticatorItemIsSelectedChanged?.Invoke(this);
         }
     }

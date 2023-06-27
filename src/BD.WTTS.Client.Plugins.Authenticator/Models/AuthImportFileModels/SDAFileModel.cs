@@ -32,17 +32,61 @@ public class SdaFileModel
     [JsonPropertyName("status")]
     public int Status { get; set; }
     
-    [JsonIgnore]
     [JsonPropertyName("device_id")]
     public string DeviceId { get; set; } = string.Empty;
     
-    [JsonIgnore]
     [JsonPropertyName("fully_enrolled")]
     public bool FullyEnrolled { get; set; }
     
-    [JsonIgnore]
     [JsonPropertyName("Session")]
     public Session? Session { get; set; }
+}
+
+public class SdaFileConvertToSteamDataModel
+{
+    [JsonPropertyName("shared_secret")] 
+    public string SharedSecret { get; set; } = string.Empty;
+
+    [JsonPropertyName("serial_number")] 
+    public string SerialNumber { get; set; } = string.Empty;
+    
+    [JsonPropertyName("revocation_code")]
+    public string RevocationCode { get; set; } = string.Empty;
+    
+    [JsonPropertyName("uri")]
+    public string Uri { get; set; } = string.Empty;
+    
+    [JsonPropertyName("server_time")]
+    public int ServerTime { get; set; }
+    
+    [JsonPropertyName("account_name")]
+    public string AccountName { get; set; } = string.Empty;
+    
+    [JsonPropertyName("token_gid")]
+    public string TokenGid { get; set; } = string.Empty;
+    
+    [JsonPropertyName("identity_secret")]
+    public string IdentitySecret { get; set; } = string.Empty;
+    
+    [JsonPropertyName("secret_1")]
+    public string Secret1 { get; set; } = string.Empty;
+    
+    [JsonPropertyName("status")]
+    public int Status { get; set; }
+
+    public SdaFileConvertToSteamDataModel(SdaFileModel sdaFileModel)
+    {
+        SharedSecret = sdaFileModel.SharedSecret;
+        SerialNumber = sdaFileModel.SerialNumber;
+        RevocationCode = sdaFileModel.RevocationCode;
+        Uri = sdaFileModel.Uri;
+        ServerTime = sdaFileModel.ServerTime;
+        AccountName = sdaFileModel.AccountName;
+        TokenGid = sdaFileModel.TokenGid;
+        IdentitySecret = sdaFileModel.IdentitySecret;
+        Secret1 = sdaFileModel.Secret1;
+        Status = sdaFileModel.Status;
+    }
 }
 
 public class Session

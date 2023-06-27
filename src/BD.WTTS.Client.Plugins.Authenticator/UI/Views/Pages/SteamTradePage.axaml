@@ -57,6 +57,12 @@
                 Orientation="Vertical"
                 Spacing="10"
                 VerticalAlignment="Center">
+                <spp:Image2
+                    Height="37"
+                    HorizontalAlignment="Center"
+                    Source="{Binding CaptchaImageUrlText}"
+                    Stretch="UniformToFill"
+                    Width="206" />
                 <StackPanel Orientation="Horizontal" Spacing="5">
                     <TextBox
                         MaxWidth="200"

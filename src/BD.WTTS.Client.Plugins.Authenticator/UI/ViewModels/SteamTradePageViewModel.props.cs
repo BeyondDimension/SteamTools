@@ -1,8 +1,9 @@
 using Avalonia.Media.Imaging;
+using BD.WTTS.Client.Resources;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public partial class SteamTradePageViewModel : INotifyPropertyChanged
+public sealed partial class SteamTradePageViewModel : ViewModelBase
 {
     string? _userNameText;
     string? _passwordText;
@@ -13,6 +14,9 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
     int _selectIndex;
     bool _remenberLogin;
     bool _isLoading;
+    ReadOnlyObservableCollection<WinAuth.SteamClient.Confirmation>? _confirmations;
+    bool _unSelectAll;
+    string? _selectAllText;
 
     public string? UserNameText
     {
@@ -21,7 +25,7 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
         {
             if (value == _userNameText) return;
             _userNameText = value;
-            OnPropertyChanged();
+            this.RaisePropertyChanged();
         }
     }
 
@@ -32,7 +36,7 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
         {
             if (value == _passwordText) return;
             _passwordText = value;
-            OnPropertyChanged();
+            this.RaisePropertyChanged();
         }
     }
 
@@ -43,7 +47,7 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
         {
             if (value == _captchaImageUrlText) return;
             _captchaImageUrlText = value;
-            OnPropertyChanged();
+            this.RaisePropertyChanged();
         }
     }
 
@@ -54,7 +58,7 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
         {
             if (value == _captchaCodeText) return;
             _captchaCodeText = value;
-            OnPropertyChanged();
+            this.RaisePropertyChanged();
         }
     }
 
@@ -65,7 +69,7 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
         {
             if (value == _isLogging) return;
             _isLogging = value;
-            OnPropertyChanged();
+            this.RaisePropertyChanged();
         }
     }
 
@@ -76,7 +80,7 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
         {
             if (value == _isLogged) return;
             _isLogged = value;
-            OnPropertyChanged();
+            this.RaisePropertyChanged();
         }
     }
 
@@ -87,7 +91,7 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
         {
             if (value == _selectIndex) return;
             _selectIndex = value;
-            OnPropertyChanged();
+            this.RaisePropertyChanged();
         }
     }
 
@@ -98,7 +102,7 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
         {
             if (value == _remenberLogin) return;
             _remenberLogin = value;
-            OnPropertyChanged();
+            this.RaisePropertyChanged();
         }
     }
 
@@ -109,14 +113,38 @@ public partial class SteamTradePageViewModel : INotifyPropertyChanged
         {
             if (value == _isLoading) return;
             _isLoading = value;
-            OnPropertyChanged();
+            this.RaisePropertyChanged();
         }
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    public bool UnSelectAll
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        get => _unSelectAll;
+        set
+        {
+            if (this.RaiseAndSetIfChangedReturnIsNotChange(ref _unSelectAll, value)) return;
+            _isUnselectAllChangeing = true;
+            foreach (var item in Confirmations)
+            {
+                if (item.IsOperate != 0) continue;
+                item.NotChecked = value;
+            }
+            _isUnselectAllChangeing = false;
+            SelectAllText = Strings.SelectAllText_.Format(value ? 0 : Confirmations.Count, Confirmations.Count);
+        }
     }
+
+    public string? SelectAllText
+    {
+        get => _selectAllText;
+        set
+        {
+            if (value == _selectAllText) return;
+            _selectAllText = value;
+            this.RaisePropertyChanged();
+        }
+    }
+
+    public ReadOnlyObservableCollection<WinAuth.SteamClient.Confirmation> Confirmations =>
+        _confirmations ?? throw new ArgumentNullException(nameof(_confirmations));
 }

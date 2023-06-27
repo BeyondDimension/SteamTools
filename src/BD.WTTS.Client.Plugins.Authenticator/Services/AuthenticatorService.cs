@@ -1,10 +1,6 @@
 using Avalonia.Media.Imaging;
 using BD.WTTS.Client.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WinAuth;
 
 namespace BD.WTTS.Services;
 
@@ -128,5 +124,32 @@ public sealed class AuthenticatorService
         IEnumerable<IAuthenticatorDTO> items, string? password = null)
     {
         await repository.ExportAsync(stream, isLocal, password, items);
+    }
+
+    public static async Task<IAuthenticatorValueDTO?> GeneralAuthenticatorImport(string privateKey)
+    {
+        if (string.IsNullOrEmpty(privateKey)) return null;
+        
+        try
+        {
+            GoogleAuthenticator auth = new GoogleAuthenticator();
+            auth.Enroll(privateKey);
+
+            //string key = WinAuth.Base32.GetInstance().Encode(auth.SecretKey!);
+            //var text1 = Regex.Replace(key, ".{3}", "$0 ").Trim();
+            //var code = auth.CurrentCode;
+
+            if (auth.ServerTimeDiff == 0L)
+            {
+                Toast.Show("无法连接到Google服务器");
+            }
+
+            return auth;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(AuthenticatorService), ex, nameof(GeneralAuthenticatorImport));
+            return null;
+        }
     }
 }

@@ -1,8 +1,10 @@
+using KeyValuePair = BD.Common.Entities.KeyValuePair;
+
 namespace BD.WTTS.UI.ViewModels;
 
 public partial class AuthenticatorPageViewModel
 {
-    bool borderbottomisactive;
+    bool _borderBottomIsActive;
     bool _hasPasswordEncrypt = false;
     bool _hasLocalPcEncrypt = false;
     bool _isVerificationPass;
@@ -14,10 +16,11 @@ public partial class AuthenticatorPageViewModel
 
     public bool BorderBottomIsActive
     {
-        get => borderbottomisactive;
+        get => _borderBottomIsActive;
         set
         {
-            this.RaiseAndSetIfChanged(ref borderbottomisactive, value);
+            if (value == _borderBottomIsActive) return;
+            this.RaiseAndSetIfChanged(ref _borderBottomIsActive, value);
         }
     }
 

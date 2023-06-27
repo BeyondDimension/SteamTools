@@ -12,6 +12,12 @@ public partial class SteamTradePage : UserControl
         DataContext = new SteamTradePageViewModel();
     }
 
+    public SteamTradePage(IAuthenticatorDTO authenticatorDto)
+    {
+        InitializeComponent();
+        DataContext = new SteamTradePageViewModel(authenticatorDto);
+    }
+
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);

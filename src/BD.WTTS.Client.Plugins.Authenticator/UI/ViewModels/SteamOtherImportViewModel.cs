@@ -218,14 +218,15 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
         try
         {
             string text = File.ReadAllText(ImportAuthFilePath);
-            var sdafilemodel = JsonSerializer.Deserialize(text, ImportFileModelJsonContext.Default.SdaFileModel);
-            if (sdafilemodel == null) return false;
+            var sdaFileModel = JsonSerializer.Deserialize(text, ImportFileModelJsonContext.Default.SdaFileModel);
+            if (sdaFileModel == null) return false;
+            var steamDataModel = new SdaFileConvertToSteamDataModel(sdaFileModel);
             SteamAuthenticator steamAuthenticator = new()
             {
-                DeviceId = sdafilemodel.DeviceId,
-                Serial = sdafilemodel.SerialNumber,
-                SecretKey = Convert.FromBase64String(sdafilemodel.SharedSecret),
-                SteamData = JsonSerializer.Serialize(sdafilemodel, ImportFileModelJsonContext.Default.SdaFileModel),
+                DeviceId = sdaFileModel.DeviceId,
+                Serial = sdaFileModel.SerialNumber,
+                SecretKey = Convert.FromBase64String(sdaFileModel.SharedSecret),
+                SteamData = JsonSerializer.Serialize(steamDataModel, ImportFileModelJsonContext.Default.SdaFileConvertToSteamDataModel),
             };
             var authDto =
                 new AuthenticatorDTO() { Name = $"(Steam){ImportAuthNewName}", Value = steamAuthenticator };
