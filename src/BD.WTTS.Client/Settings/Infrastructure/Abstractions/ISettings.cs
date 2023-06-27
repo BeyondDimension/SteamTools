@@ -41,15 +41,25 @@ public interface ISettings
         return true;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static string GetFilePath(string name, string? appDataDirectory = null)
-    {
-        var settingsFilePath = Path.Combine(
-            appDataDirectory ?? IOPath.AppDataDirectory,
-            DirName,
-            name + FileEx.JSON);
+    private static readonly ConcurrentDictionary<Type, (string Name, string FilePath)> cacheFilePaths = new();
 
-        return settingsFilePath;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static string GetFilePath(Type type, string name, string? appDataDirectory = null)
+    {
+        if (cacheFilePaths.TryGetValue(type, out var result))
+        {
+            return result.FilePath;
+        }
+        else
+        {
+            var settingsFilePath = Path.Combine(
+                appDataDirectory ?? IOPath.AppDataDirectory,
+                DirName,
+                name + FileEx.JSON);
+
+            cacheFilePaths.TryAdd(type, (name, settingsFilePath));
+            return settingsFilePath;
+        }
     }
 
     protected static readonly HashSet<Type> types = new();
@@ -253,7 +263,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
 
         TSettings? settings = default;
 
-        var settingsFilePath = GetFilePath(TSettings.Name, appDataDirectory);
+        var settingsFilePath = GetFilePath(type, TSettings.Name, appDataDirectory);
 
         bool writeFile = false;
         if (directoryExists)
@@ -338,7 +348,7 @@ internal static class SettingsExtensions
     public static void TrySave_____<TSettings>(IOptionsMonitor<TSettings> optionsMonitor, string? notRead = null) where TSettings : class, ISettings
     {
         var settings = optionsMonitor.CurrentValue;
-        var settingsFilePath = ISettings.GetFilePath(TSettings.Name);
+        var settingsFilePath = ISettings.GetFilePath(typeof(TSettings), TSettings.Name);
 
         lock (TSettings.Name)
         {

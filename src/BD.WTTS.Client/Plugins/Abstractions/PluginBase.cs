@@ -14,9 +14,32 @@ public abstract partial class PluginBase<TPlugin> : IPlugin where TPlugin : Plug
         mCacheDirectory = new(() => GetDirectory(IOPath.CacheDirectory));
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static string GetDirectoryName(string name)
+    {
+        var chars = GetDirectoryNameCore(name).ToArray();
+        if (chars.Length > 0) return new string(chars);
+        return $"{name.Length}_{Hashs.String.SHA256(name)}";
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        static IEnumerable<char> GetDirectoryNameCore(string name)
+        {
+            var chars = Path.GetInvalidFileNameChars();
+            foreach (var item in name)
+            {
+                if (!chars.Contains(item))
+                {
+                    yield return item;
+                }
+            }
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     string GetDirectory(string directory)
     {
-        directory = Path.Combine(directory, Name);
+        var dirName = GetDirectoryName(Name);
+        directory = Path.Combine(directory, "Plugins", dirName);
         IOPath.DirCreateByNotExists(directory);
         return directory;
     }
