@@ -82,37 +82,34 @@ public sealed partial class GameAccountPageViewModel
     {
         GamePlatforms?[0].LoadUsers();
 
-        Task2.InBackground(() =>
+        var temp = GetSupportPlatforms();
+        if (temp != null)
         {
-            var temp = GetSupportPlatforms();
-            if (temp != null)
+            if (GameAccountSettings.EnablePlatforms.Any_Nullable())
             {
-                if (GameAccountSettings.EnablePlatforms.Any_Nullable())
-                {
-                    AddGamePlatforms = new ObservableCollection<PlatformAccount>();
+                AddGamePlatforms = new ObservableCollection<PlatformAccount>();
 
-                    foreach (var p in temp)
+                foreach (var p in temp)
+                {
+                    if (GameAccountSettings.EnablePlatforms.Contains(p.FullName))
                     {
-                        if (GameAccountSettings.EnablePlatforms.Contains(p.FullName))
+                        if (GamePlatforms?.Contains(p) == false)
                         {
-                            if (GamePlatforms?.Contains(p) == false)
-                            {
-                                GamePlatforms.Add(p);
-                                p.LoadUsers();
-                            }
-                        }
-                        else
-                        {
-                            AddGamePlatforms.Add(p);
+                            GamePlatforms.Add(p);
+                            p.LoadUsers();
                         }
                     }
-                }
-                else
-                {
-                    AddGamePlatforms = new ObservableCollection<PlatformAccount>(temp);
+                    else
+                    {
+                        AddGamePlatforms.Add(p);
+                    }
                 }
             }
-        });
+            else
+            {
+                AddGamePlatforms = new ObservableCollection<PlatformAccount>(temp);
+            }
+        }
     }
 
     async void SaveCurrentUser()

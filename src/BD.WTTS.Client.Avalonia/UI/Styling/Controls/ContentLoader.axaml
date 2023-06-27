@@ -13,11 +13,14 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
-                    <Border Width="50" Height="50">
+                    <Border Width="60" Height="60">
                         <ProgressBar
                             Classes="Circle ParentSize"
-                            IsIndeterminate="True"
-                            IsVisible="{TemplateBinding IsLoading}" />
+                            IsIndeterminate="{TemplateBinding IsIndeterminate}"
+                            IsVisible="{TemplateBinding IsLoading}"
+                            Maximum="{TemplateBinding Maximum}"
+                            Minimum="{TemplateBinding Minimum}"
+                            Value="{TemplateBinding ProgressValue}" />
                     </Border>
 
                     <TextBlock

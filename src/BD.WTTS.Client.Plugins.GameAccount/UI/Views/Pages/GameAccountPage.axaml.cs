@@ -50,7 +50,7 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
             if (item is PlatformAccount platform && !File.Exists(platform.ExePath))
             {
                 var model = new PlatformSettingsPageViewModel(platform);
-                await IWindowManager.Instance.ShowTaskDialogAsync(model,
+                if (!await IWindowManager.Instance.ShowTaskDialogAsync(model,
                     $"{platform.FullName} 设置",
                     subHeader: $"第一次使用需要先设置 {platform.FullName} 平台路径",
                     pageContent: new PlatformSettingsPage(),
@@ -63,7 +63,13 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
                             Toast.Show("路径没有正确选择");
                         }
                         return cancel;
-                    });
+                    }))
+                {
+                    if (!File.Exists(platform.PlatformSetting?.PlatformPath))
+                    {
+                        Toast.Show("路径没有正确选择，当前平台账号切换功能无法使用");
+                    }
+                }
             }
         }
     }

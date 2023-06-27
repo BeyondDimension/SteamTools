@@ -253,14 +253,6 @@ public sealed class ProxyService
 
     public ReadOnlyObservableCollection<AccelerateProjectGroupDTO> ProxyDomainsList => _ProxyDomainsList;
 
-    bool _IsLoading;
-
-    public bool IsLoading
-    {
-        get => _IsLoading;
-        set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
-    }
-
     private AccelerateProjectGroupDTO? _SelectGroup;
 
     public AccelerateProjectGroupDTO? SelectGroup
@@ -663,7 +655,6 @@ public sealed class ProxyService
 
     public async Task AddNewScriptAsync(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null)
     {
-        IsLoading = true;
         bool isCompile = true;
         long order = 10;
         if (oldInfo != null)
@@ -686,7 +677,6 @@ public sealed class ProxyService
                 }
             }
         }
-        IsLoading = false;
         Toast.Show(item.Message);
         RefreshScript();
     }

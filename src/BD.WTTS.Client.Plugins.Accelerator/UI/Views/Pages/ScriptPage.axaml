@@ -104,7 +104,7 @@
         </StackPanel>
     </spp:PageBase.ActionContent>
     <ScrollViewer>
-        <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=IsLoading, Mode=OneWay}">
+        <spp:ContentLoader IsLoading="{Binding !!!ProxyScripts.Count, Mode=OneWay}">
             <ItemsControl Grid.Row="1" ItemsSource="{Binding ProxyScripts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -120,7 +120,7 @@
                                 MaxWidth="128"
                                 Classes="Vertical"
                                 Description="{Binding AuthorName}"
-                                Status="查看">
+                                Status="已启用">
                                 <spp:AppItem.MoreFlyout>
                                     <ui:FAMenuFlyout>
                                         <ui:MenuFlyoutItem Text="test" />

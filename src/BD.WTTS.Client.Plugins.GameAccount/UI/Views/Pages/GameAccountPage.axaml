@@ -125,15 +125,19 @@
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
                         <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="插件设置" />
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IsEnabled="False" Text="版本号: 0.1">
-                            <!--<ui:MenuFlyoutItem.Text>
-                                <MultiBinding StringFormat="{}版本号: {0}">
+                        <ui:MenuFlyoutItem IsEnabled="False">
+                            <ui:MenuFlyoutItem.Text>
+                                <MultiBinding StringFormat="{}{0}{1}">
                                     <Binding
                                         Mode="OneWay"
-                                        Path="User.NickName"
-                                        Source="{x:Static service:UserService.Current}" />
+                                        Path="Res.Plugin_Version"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <Binding
+                                        Mode="OneWay"
+                                        Path="Version"
+                                        Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
-                            </ui:MenuFlyoutItem.Text>-->
+                            </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
                         <ui:MenuFlyoutItem Text="在 Steam++ 插件商店中查看" />
                         <ui:MenuFlyoutItem Text="使用帮助" />

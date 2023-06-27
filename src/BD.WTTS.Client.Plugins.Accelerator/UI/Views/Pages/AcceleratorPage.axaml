@@ -133,7 +133,7 @@
         </StackPanel>
     </spp:PageBase.ActionContent>
     <ScrollViewer Padding="10">
-        <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=IsLoading, Mode=OneWay}">
+        <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}">
             <Grid RowDefinitions="Auto,*">
                 <ItemsControl ItemsSource="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
                     <ItemsControl.ItemsPanel>

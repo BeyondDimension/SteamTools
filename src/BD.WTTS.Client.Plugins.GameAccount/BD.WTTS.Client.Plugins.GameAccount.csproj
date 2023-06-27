@@ -15,10 +15,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- ImplicitUsings -->
 		<Compile Include="..\AssemblyInfo.Xaml.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
-		<!-- ImplicitUsings -->
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
