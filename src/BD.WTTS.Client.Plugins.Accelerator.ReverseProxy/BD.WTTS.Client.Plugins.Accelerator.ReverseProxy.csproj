@@ -58,7 +58,7 @@
 	<ItemGroup>
 		<!-- PackageReference -->
 		<PackageReference Include="BD.Common" />
-		<PackageReference Include="BD.WTTS.MicroServices.Primitives.ViewModels" />
+		<!--<PackageReference Include="BD.WTTS.MicroServices.Primitives.ViewModels" />-->
 		<PackageReference Include="NLog" />
 		<PackageReference Include="System.Linq.Async" />
 		<PackageReference Include="Ae.DNS.Client" />
@@ -81,6 +81,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.Primitives.ViewModels\BD.WTTS.MicroServices.Primitives.ViewModels.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj" />
 	</ItemGroup>
 

@@ -92,8 +92,7 @@
 		<PackageReference Include="BD.Common.Essentials.Preferences.SQLite" />
 		<PackageReference Include="BD.Common.Pinyin" />
 		<!--<PackageReference Include="BD.SteamClient" />-->
-		<PackageReference Include="BD.WTTS.MicroServices.ClientSDK" />
-		<PackageReference Include="BD.WTTS.Primitives.ViewModels" />
+		<!--<PackageReference Include="BD.WTTS.MicroServices.ClientSDK" />-->
 		<PackageReference Include="WinAuth.Library" />
 		<PackageReference Include="AutoMapper" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
@@ -161,7 +160,6 @@
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<PackageReference Include="FluentAvaloniaUI" />-->
-		<ProjectReference Include="..\Avalonia.Base\Avalonia.Base.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -202,7 +200,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\ref\SteamClient\src\BD.SteamClient\BD.SteamClient.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Generators\BD.WTTS.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.ClientSDK\BD.WTTS.MicroServices.ClientSDK.csproj" />
 	</ItemGroup>
 	
 	<Import Project="..\TFM_NETX_WITH_ALL.props" />
