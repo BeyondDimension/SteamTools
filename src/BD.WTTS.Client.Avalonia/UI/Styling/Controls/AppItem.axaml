@@ -12,6 +12,11 @@
                     Description="This is a description of whatver this does"
                     Status="免费下载"
                     Tags="111">
+                    <spp:AppItem.MoreFlyout>
+                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                            <ui:MenuFlyoutItem Text="112323" />
+                        </ui:FAMenuFlyout>
+                    </spp:AppItem.MoreFlyout>
                     <spp:AppItem.Image>
                         <spp:Image2 Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" />
                     </spp:AppItem.Image>
@@ -23,6 +28,11 @@
                     Classes="Vertical"
                     Description="This is a description of whatver this does"
                     Status="免费下载">
+                    <spp:AppItem.MoreFlyout>
+                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                            <ui:MenuFlyoutItem Text="112323" />
+                        </ui:FAMenuFlyout>
+                    </spp:AppItem.MoreFlyout>
                     <spp:AppItem.Image>
                         <spp:Image2 Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" />
                     </spp:AppItem.Image>
@@ -94,27 +104,44 @@
                                 Text="{TemplateBinding Description}"
                                 TextWrapping="Wrap" />
 
-                            <WrapPanel
-                                Grid.RowSpan="3"
-                                Grid.Column="3"
-                                Margin="12,8"
-                                IsVisible="{TemplateBinding Status,
-                                                            Converter={StaticResource IsNullConverter},
-                                                            ConverterParameter=invert}"
-                                Orientation="Horizontal">
-                                <Border
-                                    Padding="8,5"
-                                    Background="{DynamicResource ControlFillColorDefaultBrush}"
-                                    BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
-                                    ClipToBounds="True"
-                                    CornerRadius="{StaticResource ControlCornerRadius}">
-                                    <TextBlock
-                                        VerticalAlignment="Top"
-                                        FontSize="12"
-                                        Text="{TemplateBinding Status}"
-                                        TextWrapping="Wrap" />
-                                </Border>
-                            </WrapPanel>
+                            <DockPanel Grid.RowSpan="3" Grid.Column="3">
+                                <WrapPanel
+                                    Margin="12,8"
+                                    DockPanel.Dock="Top"
+                                    IsVisible="{TemplateBinding Status,
+                                                                Converter={StaticResource IsNullConverter},
+                                                                ConverterParameter=invert}"
+                                    Orientation="Horizontal">
+                                    <Border
+                                        Padding="8,5"
+                                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                        BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
+                                        ClipToBounds="True"
+                                        CornerRadius="{StaticResource ControlCornerRadius}">
+                                        <TextBlock
+                                            VerticalAlignment="Top"
+                                            FontSize="12"
+                                            Text="{TemplateBinding Status}"
+                                            TextWrapping="Wrap" />
+                                    </Border>
+                                </WrapPanel>
+
+                                <DropDownButton
+                                    Padding="6"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Content="{StaticResource More}"
+                                    DockPanel.Dock="Bottom"
+                                    Flyout="{TemplateBinding MoreFlyout}"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="20"
+                                    IsVisible="{TemplateBinding MoreFlyout,
+                                                                Converter={StaticResource IsNullConverter},
+                                                                ConverterParameter=invert}"
+                                    Theme="{StaticResource TransparentButton}" />
+                            </DockPanel>
                         </Grid>
                     </spp:RippleEffect>
                 </Border>
@@ -232,21 +259,37 @@
                                 IsVisible="{TemplateBinding Status,
                                                             Converter={StaticResource IsNullConverter},
                                                             ConverterParameter=invert}">
-                                <WrapPanel Orientation="Horizontal">
-                                    <Border
-                                        Margin="0,5"
-                                        Padding="8,5"
-                                        Background="{DynamicResource ControlFillColorDefaultBrush}"
-                                        BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
-                                        ClipToBounds="True"
-                                        CornerRadius="{StaticResource ControlCornerRadius}">
-                                        <TextBlock
-                                            VerticalAlignment="Top"
-                                            FontSize="12"
-                                            Text="{TemplateBinding Status}"
-                                            TextWrapping="Wrap" />
-                                    </Border>
-                                </WrapPanel>
+                                <DockPanel>
+                                    <WrapPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                                        <Border
+                                            Margin="0,5"
+                                            Padding="8,5"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
+                                            ClipToBounds="True"
+                                            CornerRadius="{StaticResource ControlCornerRadius}">
+                                            <TextBlock
+                                                VerticalAlignment="Top"
+                                                FontSize="12"
+                                                Text="{TemplateBinding Status}"
+                                                TextWrapping="Wrap" />
+                                        </Border>
+                                    </WrapPanel>
+                                    <DropDownButton
+                                        Padding="6"
+                                        HorizontalAlignment="Right"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Content="{StaticResource More}"
+                                        DockPanel.Dock="Right"
+                                        Flyout="{TemplateBinding MoreFlyout}"
+                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                        FontSize="20"
+                                        IsVisible="{TemplateBinding MoreFlyout,
+                                                                    Converter={StaticResource IsNullConverter},
+                                                                    ConverterParameter=invert}"
+                                        Theme="{StaticResource TransparentButton}" />
+                                </DockPanel>
                             </Border>
                         </Grid>
                     </spp:RippleEffect>

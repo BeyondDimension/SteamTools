@@ -27,6 +27,9 @@ public class AppItem : TemplatedControl
     public static readonly StyledProperty<bool> IsExpandedProperty =
         Expander.IsExpandedProperty.AddOwner<AppItem>();
 
+    public static readonly StyledProperty<FlyoutBase?> MoreFlyoutProperty =
+        AvaloniaProperty.Register<AppItem, FlyoutBase?>(nameof(MoreFlyout));
+
     public static readonly StyledProperty<ICommand> ClickCommandProperty =
         AvaloniaProperty.Register<AppItem, ICommand>(nameof(ClickCommand));
 
@@ -70,6 +73,12 @@ public class AppItem : TemplatedControl
     {
         get => GetValue(IsExpandedProperty);
         set => SetValue(IsExpandedProperty, value);
+    }
+
+    public FlyoutBase? MoreFlyout
+    {
+        get => GetValue(MoreFlyoutProperty);
+        set => SetValue(MoreFlyoutProperty, value);
     }
 
     public ICommand ClickCommand

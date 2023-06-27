@@ -1,5 +1,6 @@
 using Avalonia.Platform;
 using BD.WTTS.Client.Resources;
+using BD.WTTS.Enums;
 using ReactiveUI;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -79,6 +80,8 @@ public sealed partial class GameAccountPageViewModel
 
     public void LoadPlatforms()
     {
+        GamePlatforms?[0].LoadUsers();
+
         Task2.InBackground(() =>
         {
             var temp = GetSupportPlatforms();

@@ -88,6 +88,7 @@
 
 	<ItemGroup>
 		<Folder Include="Models\" />
+		<Folder Include="UI\Views\Controls\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />

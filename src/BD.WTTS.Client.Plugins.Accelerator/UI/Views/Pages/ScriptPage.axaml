@@ -103,7 +103,7 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>
-    <ScrollViewer Padding="10">
+    <ScrollViewer>
         <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=IsLoading, Mode=OneWay}">
             <ItemsControl Grid.Row="1" ItemsSource="{Binding ProxyScripts}">
                 <ItemsControl.ItemsPanel>
@@ -119,8 +119,13 @@
                                 Title="{Binding Name}"
                                 MaxWidth="128"
                                 Classes="Vertical"
-                                Description="{Binding Author}"
+                                Description="{Binding AuthorName}"
                                 Status="查看">
+                                <spp:AppItem.MoreFlyout>
+                                    <ui:FAMenuFlyout>
+                                        <ui:MenuFlyoutItem Text="test" />
+                                    </ui:FAMenuFlyout>
+                                </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>
                                     <spp:Image2
                                         Width="128"
