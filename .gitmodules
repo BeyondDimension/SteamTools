@@ -25,3 +25,6 @@
 [submodule "ref/dotnet-packaging"]
 	path = ref/dotnet-packaging
 	url = https://github.com/quamotion/dotnet-packaging.git
+[submodule "ref/WTTS.MicroServices.ClientSDK"]
+	path = ref/WTTS.MicroServices.ClientSDK
+	url = https://github.com/BeyondDimension/WTTS.MicroServices.ClientSDK.git
