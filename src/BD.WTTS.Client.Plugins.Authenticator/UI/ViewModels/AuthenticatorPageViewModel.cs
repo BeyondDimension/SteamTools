@@ -1,11 +1,5 @@
-using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
-using Splat;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -14,9 +8,9 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     string? _currentPassword;
 
     DateTime _initializeTime;
-    
+
     int AuthenticatorId { get; set; } = -1;
-    
+
     AuthenticatorItemModel? CurrentSelectedAuth
     {
         get
@@ -36,7 +30,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         AuthenticatorItemModel.OnAuthenticatorItemIsSelectedChanged += AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged;
         Initialize();
     }
-    
+
     // public override void Activation()
     // {
     //     base.Activation();
@@ -66,16 +60,16 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             return;
         }
         _initializeTime = DateTime.Now;
-        
+
         Auths.Clear();
         BorderBottomIsActive = false;
         AuthenticatorId = -1;
-        
+
         var sourceList = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
         if (sourceList.Length < 1) return;
 
         AuthenticatorIsEmpty = false;
-        
+
         (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorService.HasEncrypt(sourceList);
 
         if (HasPasswordEncrypt)
@@ -89,10 +83,10 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         // var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
         //     _currentPassword.Base64Encode_Nullable());
-        
+
         var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourceList,
             _currentPassword);
-        
+
         foreach (var item in list)
         {
             Auths.Add(new AuthenticatorItemModel(item));
@@ -165,12 +159,12 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入令牌保护密码",  isDialog: false, isCancelButton: true) &&
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入令牌保护密码", isDialog: false, isCancelButton: true) &&
             textViewmodel.Value != null)
         {
             newPassword = textViewmodel.Value;
             textViewmodel.Value = null;
-            if (!(await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请再次输入密码以确认",  isDialog: false) &&
+            if (!(await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请再次输入密码以确认", isDialog: false) &&
                   textViewmodel.Value == newPassword)) return;
         }
         else return;
@@ -280,15 +274,15 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         CurrentSelectedAuth.AuthName = newName;
         await AuthenticatorService.SaveEditAuthNameAsync(CurrentSelectedAuth.AuthData, newName);
     }
-    
+
     public async Task OpenImportWindow()
     {
-        
+
     }
-    
+
     public async Task OpenExportWindow()
     {
-        
+
     }
 
     public void ShowQrCode()
@@ -296,9 +290,9 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (CurrentSelectedAuth == null) return;
         var dto = CurrentSelectedAuth.AuthData.ToExport();
         var bytes = Serializable.SMP(dto);
-        
+
         var bytes_compress_br = bytes.CompressByteArrayByBrotli();
-        
+
         var (result, stream, e) = QRCodeHelper.Create(bytes_compress_br);
         switch (result)
         {

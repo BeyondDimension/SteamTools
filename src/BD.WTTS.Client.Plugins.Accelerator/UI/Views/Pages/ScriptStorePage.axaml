@@ -11,47 +11,49 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
-    x:DataType="spp:AcceleratorPageViewModel"
+    x:DataType="spp:ScriptStorePageViewModel"
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
         <TextBlock Margin="0,0,0,5" Text="脚本工坊" />
-        <ItemsRepeater>
-            <ItemsRepeater.Layout>
-                <WrapLayout
-                    HorizontalSpacing="10"
-                    Orientation="Horizontal"
-                    VerticalSpacing="10" />
-            </ItemsRepeater.Layout>
-            <ItemsRepeater.ItemTemplate>
-                <DataTemplate DataType="spp:ScriptDTO">
-                    <Border Margin="10" spp:Animations.EnableAnimations="True">
-                        <spp:AppItem
-                            Name="Item"
-                            Title="{Binding Name}"
-                            MaxWidth="128"
-                            Classes="Vertical"
-                            Description="{Binding AuthorName}">
-                            <spp:AppItem.MoreFlyout>
-                                <ui:FAMenuFlyout>
-                                    <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                    <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                    <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                    <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                </ui:FAMenuFlyout>
-                            </spp:AppItem.MoreFlyout>
-                            <spp:AppItem.Image>
-                                <spp:Image2
-                                    Width="128"
-                                    Height="128"
-                                    FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
-                                    RenderOptions.BitmapInterpolationMode="HighQuality"
-                                    Source="{Binding IconUrl}"
-                                    Stretch="UniformToFill" />
-                            </spp:AppItem.Image>
-                        </spp:AppItem>
-                    </Border>
-                </DataTemplate>
-            </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
+        <spp:ContentLoader IsLoading="{Binding !!!Scripts.Count, Mode=OneWay}">
+            <ItemsRepeater ItemsSource="{Binding Scripts}">
+                <ItemsRepeater.Layout>
+                    <WrapLayout
+                        HorizontalSpacing="10"
+                        Orientation="Horizontal"
+                        VerticalSpacing="10" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate DataType="spp:ScriptDTO">
+                        <Border Margin="10" spp:Animations.EnableAnimations="True">
+                            <spp:AppItem
+                                Name="Item"
+                                Title="{Binding Name}"
+                                MaxWidth="128"
+                                Classes="Vertical"
+                                Description="{Binding AuthorName}">
+                                <spp:AppItem.MoreFlyout>
+                                    <ui:FAMenuFlyout>
+                                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    </ui:FAMenuFlyout>
+                                </spp:AppItem.MoreFlyout>
+                                <spp:AppItem.Image>
+                                    <spp:Image2
+                                        Width="128"
+                                        Height="128"
+                                        FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                        Source="{Binding IconUrl}"
+                                        Stretch="UniformToFill" />
+                                </spp:AppItem.Image>
+                            </spp:AppItem>
+                        </Border>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </spp:ContentLoader>
     </StackPanel>
 </UserControl>
