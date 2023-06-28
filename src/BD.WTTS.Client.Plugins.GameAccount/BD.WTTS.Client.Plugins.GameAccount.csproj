@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="UI\Assets\Platforms.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <AvaloniaResource Include="UI\Assets\Platforms.json" />
 	</ItemGroup>
 

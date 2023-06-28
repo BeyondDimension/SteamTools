@@ -67,6 +67,14 @@
                                                  Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
+            <Separator
+                Height="18"
+                Margin="0"
+                VerticalAlignment="Center"
+                Background="{DynamicResource ButtonBorderBrush}"
+                Classes="Vertical"
+                DockPanel.Dock="Right"
+                IsHitTestVisible="False" />
             <Button
                 Padding="8,4"
                 DockPanel.Dock="Right"
@@ -104,7 +112,7 @@
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
                         </ui:MenuFlyoutSubItem>
-                        <ui:MenuFlyoutItem Text="插件设置" />
+                        <ui:MenuFlyoutItem Text="加速设置" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem Text="安装证书" />
                         <ui:MenuFlyoutItem Text="移除证书" />
@@ -114,15 +122,19 @@
                         <ui:MenuFlyoutItem Text="重置 hosts 文件" />
                         <ui:MenuFlyoutItem Text="打开 hosts 文件夹" />
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IsEnabled="False" Text="版本号: 0.1">
-                            <!--<ui:MenuFlyoutItem.Text>
-                                <MultiBinding StringFormat="{}版本号: {0}">
+                        <ui:MenuFlyoutItem IsEnabled="False">
+                            <ui:MenuFlyoutItem.Text>
+                                <MultiBinding StringFormat="{}{0}{1}">
                                     <Binding
                                         Mode="OneWay"
-                                        Path="User.NickName"
-                                        Source="{x:Static service:UserService.Current}" />
+                                        Path="Res.Plugin_Version"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <Binding
+                                        Mode="OneWay"
+                                        Path="Version"
+                                        Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
-                            </ui:MenuFlyoutItem.Text>-->
+                            </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
                         <ui:MenuFlyoutItem Text="在 Steam++ 插件商店中查看" />
                         <ui:MenuFlyoutItem Text="使用帮助" />
@@ -164,8 +176,11 @@
                                         <TreeView ItemsSource="{Binding ObservableItems}">
                                             <TreeView.ItemTemplate>
                                                 <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding Items}">
-                                                    <DockPanel>
-                                                        <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Checked}">
+                                                    <DockPanel Margin="8,0">
+                                                        <CheckBox
+                                                            HorizontalAlignment="Left"
+                                                            DockPanel.Dock="Left"
+                                                            IsChecked="{Binding Checked}">
                                                             <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
                                                         </CheckBox>
                                                         <TextBlock

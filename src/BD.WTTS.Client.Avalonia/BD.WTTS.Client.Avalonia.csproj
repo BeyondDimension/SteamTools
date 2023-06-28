@@ -10,6 +10,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Include="..\AssemblyInfo.Xaml.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>

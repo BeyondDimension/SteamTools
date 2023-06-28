@@ -35,7 +35,7 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
                         var cancel = !File.Exists(ViewModel.SelectedPlatform.PlatformSetting?.PlatformPath);
                         if (cancel)
                         {
-                            Toast.Show("路径没有正确选择");
+                            Toast.Show($"{ViewModel.SelectedPlatform.FullName} 平台路径没有正确选择");
                         }
                         return cancel;
                     });
@@ -60,14 +60,14 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
                         var cancel = !File.Exists(platform.PlatformSetting?.PlatformPath);
                         if (cancel)
                         {
-                            Toast.Show("路径没有正确选择");
+                            Toast.Show($"{platform.FullName} 平台路径没有正确选择");
                         }
                         return cancel;
                     }))
                 {
                     if (!File.Exists(platform.PlatformSetting?.PlatformPath))
                     {
-                        Toast.Show("路径没有正确选择，当前平台账号切换功能无法使用");
+                        Toast.Show($"路径没有正确选择，{platform.FullName} 平台账号切换功能无法使用");
                     }
                 }
             }
