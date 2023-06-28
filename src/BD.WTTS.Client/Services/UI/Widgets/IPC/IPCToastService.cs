@@ -20,11 +20,11 @@ public interface IPCToastService
 
     void Show(ToastText text, ToastLength duration);
 
-    void Show(ToastText text, int? duration = null, params object?[] args);
+    void Show(ToastText text, int? duration = null, params string?[] args);
 
-    void Show(ToastText text, ToastLength duration, params object?[] args);
+    void Show(ToastText text, ToastLength duration, params string?[] args);
 
-    void Show(ToastText text, params object?[] args);
+    void Show(ToastText text, params string?[] args);
 
     void ShowAppend(ToastText text, int? duration = null, string? appendText = null);
 

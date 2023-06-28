@@ -24,17 +24,17 @@ partial class IPCMainProcessServiceImpl : IPCToastService
         Toast.Show(GetText(text), duration);
     }
 
-    public void Show(ToastText text, int? duration = null, params object?[] args)
+    public void Show(ToastText text, int? duration = null, params string?[] args)
     {
         Toast.Show(GetText(text).Format(args), duration);
     }
 
-    public void Show(ToastText text, ToastLength duration, params object?[] args)
+    public void Show(ToastText text, ToastLength duration, params string?[] args)
     {
         Toast.Show(GetText(text).Format(args), duration);
     }
 
-    public void Show(ToastText text, params object?[] args)
+    public void Show(ToastText text, params string?[] args)
     {
         Toast.Show(GetText(text).Format(args));
     }
