@@ -86,7 +86,7 @@ public abstract partial class PluginBase<TPlugin> : IPlugin where TPlugin : Plug
         if (subProcessBootConfiguration == default)
             return (int)CommandExitCode.GetSubProcessBootConfigurationFail;
 
-        var exitCode = await IPCSubProcessService.MainAsync(moduleName,
+        var exitCode = await IPCSubProcessService.MainAsync(moduleName, Name,
             subProcessBootConfiguration.configureServices,
             subProcessBootConfiguration.configureIpcProvider,
             new[] { pipeName, processId });

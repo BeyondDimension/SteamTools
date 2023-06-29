@@ -26,6 +26,15 @@ catch (Exception ex)
 
 static void ConfigureServices(IServiceCollection services)
 {
+    services.AddLogging(l =>
+    {
+        l.ClearProviders();
+        l.AddNLog(LogManager.Configuration); // 添加 NLog 日志
+#if ((WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)) && DEBUG
+        l.AddConsole();
+#endif
+    });
+
     services.AddHttpClient();
     services.AddSingleton<IHttpClientFactory_Common>(
              s => new HttpClientFactoryWrapper(s));

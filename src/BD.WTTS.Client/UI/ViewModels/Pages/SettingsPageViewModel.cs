@@ -45,7 +45,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         {
             IOPath.DirName_AppData => IOPath.AppDataDirectory,
             IOPath.DirName_Cache => IOPath.CacheDirectory,
-            IApplication.LogDirName => IApplication.LogDirPath,
+            IPCSubProcessFileSystem.LogDirName => IApplication.LogDirPath,
             _ => IOPath.BaseDirectory,
         };
         var hasKey = clickTimeRecord.TryGetValue(path, out var dt);

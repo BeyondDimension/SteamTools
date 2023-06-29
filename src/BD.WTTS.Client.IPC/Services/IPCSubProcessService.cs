@@ -57,12 +57,12 @@ public interface IPCSubProcessService : IDisposable
     /// <returns></returns>
     static async Task<int> MainAsync(
         string moduleName,
-        string pluginName,
+        string? pluginName,
         Action<IServiceCollection>? configureServices,
         Action<IpcProvider>? configureIpcProvider,
         params string[] args)
     {
-        if (args.Length < 3)
+        if (args.Length < 2)
             return (int)CommandExitCode.EmptyArrayArgs;
         var pipeName = args[0];
         if (string.IsNullOrWhiteSpace(pipeName))
@@ -72,11 +72,17 @@ public interface IPCSubProcessService : IDisposable
         var mainProcess = Process.GetProcessById(pid);
         if (mainProcess == null)
             return (int)CommandExitCode.NotFoundMainProcessId;
-        var m = GetSubProcessArgumentIndex2Model(args[2]);
-        if (m == null)
-            return (int)CommandExitCode.SubProcessArgumentIndex2ModelIsNull;
 
-        IPCSubProcessFileSystem.InitFileSystem(m, pluginName);
+        if (pluginName != null)
+        {
+            if (args.Length < 3)
+                return (int)CommandExitCode.EmptyArrayArgs;
+            var m = GetSubProcessArgumentIndex2Model(args[2]);
+            if (m == null)
+                return (int)CommandExitCode.SubProcessArgumentIndex2ModelIsNull;
+
+            IPCSubProcessFileSystem.InitFileSystem(m, pluginName);
+        }
 
         string? logDirPath = null;
         IPCSubProcessFileSystem.InitLog(ref logDirPath);
@@ -98,15 +104,6 @@ public interface IPCSubProcessService : IDisposable
 #if LIB_CLIENT_IPC
             Ioc.ConfigureServices(services =>
             {
-                services.AddLogging(l =>
-                {
-                    l.ClearProviders();
-                    l.AddNLog(LogManager.Configuration); // 添加 NLog 日志
-#if ((WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)) && DEBUG
-                    l.AddConsole();
-#endif
-                });
-
                 services.AddSingleton(_ => Instance);
                 configureServices?.Invoke(services);
             });
@@ -201,6 +198,8 @@ sealed class IPCSubProcessFileSystem : IOPath.FileSystemBase
         _ => NLogLevel.Debug,
     };
 
+    public const string LogDirName = "Logs";
+
     static void InitializeTarget(LoggingConfiguration config, Target target, NLogLevel minLevel)
     {
         config.AddTarget(target);
@@ -234,7 +233,6 @@ sealed class IPCSubProcessFileSystem : IOPath.FileSystemBase
         if (!string.IsNullOrEmpty(logDirPath))
             return; // 已初始化过日志文件夹路径
 
-        const string LogDirName = "Logs";
         if (mainProcessModuleName == null)
         {
             logDirPath = Path.Combine(IOPath.CacheDirectory, LogDirName);
