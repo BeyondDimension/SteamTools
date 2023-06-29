@@ -198,7 +198,7 @@ public sealed class ProxyService
                     else
                     {
                         ProxyStatus = false;
-                        MessageBox.Show(AppResources.CommunityFix_StartProxyFaild);
+                        Toast.Show(AppResources.CommunityFix_StartProxyFaild);
                     }
                 }
                 else

@@ -244,7 +244,11 @@ public abstract partial class Startup
             #region RuntimeConfiguration 运行时配置
 
             // 注册 MemoryPack 某些自定义类型的格式化，如 Cookie, IPAddress, RSAParameters
+            HashSet<Type> types = new();
+            MemoryPackFormatters.OnRegister = type => types.Add(type);
             MemoryPackFormatterProvider.Register<MemoryPackFormatters>();
+            MemoryPackFormatters.OnRegister = null;
+            InitNJsonSerializer(types);
 
             // 添加 .NET Framework 中可用的代码页提供对编码提供程序
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
