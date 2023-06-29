@@ -39,6 +39,9 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
             case "toast":
                 Toast.Show(title);
                 break;
+            case "messagebox":
+                MessageBox.Show(title);
+                break;
             case "notify":
                 INotificationService.Instance.Notify(title, NotificationType.Announcement);
                 break;

@@ -78,11 +78,6 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="UI\ViewModels\" />
-		<Folder Include="UI\ViewModels\" />
-	</ItemGroup>
-
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>

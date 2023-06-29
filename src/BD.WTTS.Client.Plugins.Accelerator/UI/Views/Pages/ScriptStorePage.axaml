@@ -25,7 +25,7 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="spp:ScriptDTO">
-                        <Border Margin="10" spp:Animations.EnableAnimations="True">
+                        <Border spp:Animations.EnableAnimations="True">
                             <spp:AppItem
                                 Name="Item"
                                 Title="{Binding Name}"

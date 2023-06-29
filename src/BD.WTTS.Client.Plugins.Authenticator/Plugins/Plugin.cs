@@ -1,3 +1,4 @@
+using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
 
@@ -16,7 +17,7 @@ sealed class Plugin : PluginBase<Plugin>
     {
         yield return new MenuTabItemViewModel()
         {
-            ResourceKeyOrName = "LocalAuth",
+            ResourceKeyOrName = nameof(Strings.LocalAuth),
             PageType = typeof(AuthenticatorPage),
             IsResourceGet = true,
             IconKey = "DefenderApp",

@@ -1,5 +1,5 @@
 using BD.WTTS.UI.Views.Pages;
-using Microsoft.Extensions.DependencyInjection;
+using BD.WTTS.Client.Resources;
 
 namespace BD.WTTS.Plugins;
 
@@ -16,7 +16,7 @@ sealed class Plugin : PluginBase<Plugin>
     {
         yield return new MenuTabItemViewModel()
         {
-            ResourceKeyOrName = "UserFastChange",
+            ResourceKeyOrName = nameof(Strings.UserFastChange),
             PageType = typeof(GameAccountPage),
             IsResourceGet = true,
             IconKey = "SwitchUser",

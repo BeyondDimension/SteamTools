@@ -1,3 +1,6 @@
+using BD.WTTS.Client.Resources;
+using BD.WTTS.UI.Views.Pages;
+
 namespace BD.WTTS.Plugins;
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
@@ -13,8 +16,8 @@ sealed class Plugin : PluginBase<Plugin>
     {
         yield return new MenuTabItemViewModel()
         {
-            ResourceKeyOrName = "GameList",
-            PageType = null,
+            ResourceKeyOrName = nameof(Strings.GameList),
+            PageType = typeof(GameListPage),
             IsResourceGet = true,
             IconKey = "Game",
         };

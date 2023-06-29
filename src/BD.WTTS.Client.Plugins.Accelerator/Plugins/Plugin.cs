@@ -1,3 +1,4 @@
+using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
 
 namespace BD.WTTS.Plugins;
@@ -15,7 +16,7 @@ sealed class Plugin : PluginBase<Plugin>
     {
         yield return new MenuTabItemViewModel()
         {
-            ResourceKeyOrName = "CommunityFix",
+            ResourceKeyOrName = nameof(Strings.CommunityFix),
             PageType = typeof(MainFramePage),
             IsResourceGet = true,
             IconKey = "SpeedHigh",
@@ -23,7 +24,7 @@ sealed class Plugin : PluginBase<Plugin>
 
         //yield return new MenuTabItemViewModel()
         //{
-        //    ResourceKeyOrName = "ScriptConfig",
+        //    ResourceKeyOrName = nameof(Strings.ScriptConfig),
         //    PageType = typeof(ScriptPage),
         //    IsResourceGet = true,
         //    IconKey = "DuplexPortraitOneSided",
