@@ -1,4 +1,5 @@
 using dotnetCampus.Ipc.Pipes;
+using static BD.WTTS.Services.IPCSubProcessModuleService.Constants;
 
 namespace BD.WTTS.Services;
 
@@ -28,21 +29,40 @@ public interface IPCSubProcessService : IDisposable
 
     static IPCSubProcessService Instance => iPCSubProcessServiceImpl.ThrowIsNull();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static SubProcessArgumentIndex2Model? GetSubProcessArgumentIndex2Model(string s)
+    {
+        try
+        {
+            var b = s.Base64UrlDecodeToByteArray();
+            var m = Serializable.DMP2<SubProcessArgumentIndex2Model>(b);
+            return m;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    static string LogDirPath { get; private set; } = null!;
+
     /// <summary>
     /// 子进程 IPC 程序启动通用函数
     /// </summary>
     /// <param name="moduleName"></param>
+    /// <param name="pluginName"></param>
     /// <param name="configureServices">配置子进程的依赖注入服务</param>
     /// <param name="configureIpcProvider">配置 IPC 服务</param>
     /// <param name="args"></param>
     /// <returns></returns>
     static async Task<int> MainAsync(
         string moduleName,
+        string pluginName,
         Action<IServiceCollection>? configureServices,
         Action<IpcProvider>? configureIpcProvider,
         params string[] args)
     {
-        if (args.Length < 2)
+        if (args.Length < 3)
             return (int)CommandExitCode.EmptyArrayArgs;
         var pipeName = args[0];
         if (string.IsNullOrWhiteSpace(pipeName))
@@ -52,6 +72,15 @@ public interface IPCSubProcessService : IDisposable
         var mainProcess = Process.GetProcessById(pid);
         if (mainProcess == null)
             return (int)CommandExitCode.NotFoundMainProcessId;
+        var m = GetSubProcessArgumentIndex2Model(args[2]);
+        if (m == null)
+            return (int)CommandExitCode.SubProcessArgumentIndex2ModelIsNull;
+
+        IPCSubProcessFileSystem.InitFileSystem(m, pluginName);
+
+        string? logDirPath = null;
+        IPCSubProcessFileSystem.InitLog(ref logDirPath);
+        LogDirPath = logDirPath!;
 
         TaskCompletionSource tcs = new();
         mainProcess.EnableRaisingEvents = true;
@@ -69,11 +98,21 @@ public interface IPCSubProcessService : IDisposable
 #if LIB_CLIENT_IPC
             Ioc.ConfigureServices(services =>
             {
+                services.AddLogging(l =>
+                {
+                    l.ClearProviders();
+                    l.AddNLog(LogManager.Configuration); // 添加 NLog 日志
+#if ((WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)) && DEBUG
+                    l.AddConsole();
+#endif
+                });
+
                 services.AddSingleton(_ => Instance);
                 configureServices?.Invoke(services);
             });
 #endif
-            iPCSubProcessServiceImpl = new(Ioc.Get<ILoggerFactory>());
+            var loggerFactory = Ioc.Get<ILoggerFactory>();
+            iPCSubProcessServiceImpl = new(loggerFactory);
 #if DEBUG
             Console.WriteLine("iPCSubProcessServiceImpl");
 #endif
@@ -114,5 +153,124 @@ public interface IPCSubProcessService : IDisposable
         }
 
         return 0;
+    }
+}
+
+[MP2Obj(SerializeLayout.Explicit)]
+sealed partial record class SubProcessArgumentIndex2Model
+{
+    [MP2Key(0)]
+    public string AppDataDirectory { get; init; } = null!;
+
+    [MP2Key(1)]
+    public string CacheDirectory { get; init; } = null!;
+}
+
+sealed class IPCSubProcessFileSystem : IOPath.FileSystemBase
+{
+    private IPCSubProcessFileSystem() { }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void InitFileSystem(SubProcessArgumentIndex2Model model, string pluginName)
+    {
+        var appDataDirectory = GetPluginsDirectory(pluginName, model.AppDataDirectory);
+        var cacheDirectory = GetPluginsDirectory(pluginName, model.CacheDirectory);
+        InitFileSystem(() => appDataDirectory, () => cacheDirectory);
+    }
+
+    public const LogLevel DefaultLoggerMinLevel = AssemblyInfo.Debuggable ? LogLevel.Debug : LogLevel.Error;
+
+    public static readonly NLogLevel DefaultNLoggerMinLevel = ConvertLogLevel(DefaultLoggerMinLevel);
+
+    /// <summary>
+    /// Convert log level to NLog variant.
+    /// </summary>
+    /// <param name="logLevel">level to be converted.</param>
+    /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static NLogLevel ConvertLogLevel(LogLevel logLevel) => logLevel switch
+    {
+        // https://github.com/NLog/NLog.Extensions.Logging/blob/v1.7.0/src/NLog.Extensions.Logging/Logging/NLogLogger.cs#L416
+        LogLevel.Trace => NLogLevel.Trace,
+        LogLevel.Debug => NLogLevel.Debug,
+        LogLevel.Information => NLogLevel.Info,
+        LogLevel.Warning => NLogLevel.Warn,
+        LogLevel.Error => NLogLevel.Error,
+        LogLevel.Critical => NLogLevel.Fatal,
+        LogLevel.None => NLogLevel.Off,
+        _ => NLogLevel.Debug,
+    };
+
+    static void InitializeTarget(LoggingConfiguration config, Target target, NLogLevel minLevel)
+    {
+        config.AddTarget(target);
+        if (minLevel < NLogLevel.Warn)
+        {
+            config.LoggingRules.Add(new LoggingRule("Microsoft*", target) { FinalMinLevel = NLogLevel.Warn });
+            config.LoggingRules.Add(new LoggingRule("Microsoft.Hosting.Lifetime*", target) { FinalMinLevel = NLogLevel.Info });
+            config.LoggingRules.Add(new LoggingRule("System*", target) { FinalMinLevel = NLogLevel.Warn });
+        }
+        config.LoggingRules.Add(new LoggingRule("*", minLevel, target));
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void InitLog(
+        ref string? logDirPath,
+        string? mainProcessModuleName = null,
+        string? alias = null
+#if STARTUP_WATCH_TRACE || DEBUG
+#pragma warning disable IDE0079 // 请删除不必要的忽略
+#pragma warning disable SA1001 // Commas should be spaced correctly
+#pragma warning disable SA1115 // Parameter should follow comma
+#pragma warning disable SA1113 // Comma should be on the same line as previous parameter
+         , bool watchTrace = false
+#pragma warning restore SA1113 // Comma should be on the same line as previous parameter
+#pragma warning restore SA1115 // Parameter should follow comma
+#pragma warning restore SA1001 // Commas should be spaced correctly
+#pragma warning restore IDE0079 // 请删除不必要的忽略
+#endif
+         )
+    {
+        if (!string.IsNullOrEmpty(logDirPath))
+            return; // 已初始化过日志文件夹路径
+
+        const string LogDirName = "Logs";
+        if (mainProcessModuleName == null)
+        {
+            logDirPath = Path.Combine(IOPath.CacheDirectory, LogDirName);
+        }
+        else
+        {
+            var dirName = GetDirectoryName(mainProcessModuleName);
+            logDirPath = Path.Combine(IOPath.CacheDirectory, dirName, LogDirName);
+        }
+        logDirPath = Path.Combine(IOPath.CacheDirectory, LogDirName);
+        IOPath.DirCreateByNotExists(logDirPath);
+#if (STARTUP_WATCH_TRACE || DEBUG) && !LIB_CLIENT_IPC
+        if (watchTrace) Startup.WatchTrace.Record("InitLog.IOPath");
+#endif
+        var logDirPath_ = logDirPath + Path.DirectorySeparatorChar;
+        NInternalLogger.LogFile = logDirPath_ + "internal-nlog" + alias + ".txt";
+        NInternalLogger.LogLevel = NLogLevel.Error;
+        var objConfig = new LoggingConfiguration();
+        var defMinLevel = DefaultNLoggerMinLevel;
+        var logfile = new FileTarget("logfile")
+        {
+            FileName = logDirPath_ + "nlog-all-${shortdate}" + alias + ".log",
+            Layout = "${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
+            ArchiveAboveSize = 10485760,
+            MaxArchiveFiles = 14,
+            MaxArchiveDays = 7,
+        };
+        objConfig.AddTarget(logfile);
+        InitializeTarget(objConfig, logfile, defMinLevel);
+#if (STARTUP_WATCH_TRACE || DEBUG) && !LIB_CLIENT_IPC
+        if (watchTrace) Startup.WatchTrace.Record("InitLog.CreateConfig");
+#endif
+        NLogManager.Configuration = objConfig;
+        Log.LoggerFactory = () => new LoggerFactory(new[] { new NLogLoggerProvider() });
+#if (STARTUP_WATCH_TRACE || DEBUG) && !LIB_CLIENT_IPC
+        if (watchTrace) Startup.WatchTrace.Record("InitLog.End");
+#endif
     }
 }

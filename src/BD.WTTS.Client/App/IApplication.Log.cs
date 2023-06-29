@@ -5,36 +5,29 @@ partial interface IApplication
 {
     #region Logger
 
-    const LogLevel DefaultLoggerMinLevel = AssemblyInfo.Debuggable ? LogLevel.Debug : LogLevel.Error;
+    const LogLevel DefaultLoggerMinLevel = IPCSubProcessFileSystem.DefaultLoggerMinLevel;
 
-    public static readonly NLogLevel DefaultNLoggerMinLevel = ConvertLogLevel(DefaultLoggerMinLevel);
+    public static NLogLevel DefaultNLoggerMinLevel => IPCSubProcessFileSystem.DefaultNLoggerMinLevel;
 
     /// <summary>
     /// Convert log level to NLog variant.
     /// </summary>
     /// <param name="logLevel">level to be converted.</param>
     /// <returns></returns>
-    static NLogLevel ConvertLogLevel(LogLevel logLevel) => logLevel switch
-    {
-        // https://github.com/NLog/NLog.Extensions.Logging/blob/v1.7.0/src/NLog.Extensions.Logging/Logging/NLogLogger.cs#L416
-        LogLevel.Trace => NLogLevel.Trace,
-        LogLevel.Debug => NLogLevel.Debug,
-        LogLevel.Information => NLogLevel.Info,
-        LogLevel.Warning => NLogLevel.Warn,
-        LogLevel.Error => NLogLevel.Error,
-        LogLevel.Critical => NLogLevel.Fatal,
-        LogLevel.None => NLogLevel.Off,
-        _ => NLogLevel.Debug,
-    };
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static NLogLevel ConvertLogLevel(LogLevel logLevel) => IPCSubProcessFileSystem.ConvertLogLevel(logLevel);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void SetNLoggerMinLevel(LogLevel logLevel) => SetNLoggerMinLevel(ConvertLogLevel(logLevel));
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void SetNLoggerMinLevel(NLogLevel logLevel)
     {
         NLogManager.GlobalThreshold = logLevel;
         NInternalLogger.LogLevel = logLevel;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void TrySetLoggerMinLevel(LogLevel logLevel)
     {
         try
@@ -76,7 +69,7 @@ partial interface IApplication
             //SetNLoggerMinLevel(minLevel);
 
             builder.AddNLog(NLogManager.Configuration); // 添加 NLog 日志
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+#if ((WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)) && DEBUG
             builder.AddConsole(); // 添加控制台日志
 #endif
             //#if WINDOWS
@@ -161,21 +154,7 @@ partial interface IApplication
     static bool LogUnderCache => true;
 #endif
 
-    const string LogDirName = "Logs";
-
     static Action? ASFInitCoreLoggers { get; private set; }
-
-    static void InitializeTarget(LoggingConfiguration config, Target target, NLogLevel minLevel)
-    {
-        config.AddTarget(target);
-        if (minLevel < NLogLevel.Warn)
-        {
-            config.LoggingRules.Add(new LoggingRule("Microsoft*", target) { FinalMinLevel = NLogLevel.Warn });
-            config.LoggingRules.Add(new LoggingRule("Microsoft.Hosting.Lifetime*", target) { FinalMinLevel = NLogLevel.Info });
-            config.LoggingRules.Add(new LoggingRule("System*", target) { FinalMinLevel = NLogLevel.Warn });
-        }
-        config.LoggingRules.Add(new LoggingRule("*", minLevel, target));
-    }
 
     #endregion
 }

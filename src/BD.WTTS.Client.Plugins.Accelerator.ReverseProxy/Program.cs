@@ -3,12 +3,13 @@ using IHttpClientFactory_Common = System.Net.Http.Client.IHttpClientFactory;
 using IHttpClientFactory_Extensions_Http = System.Net.Http.IHttpClientFactory;
 
 const string moduleName = "Accelerator";
+const string pluginName = "Accelerator";
 #if DEBUG
 Console.WriteLine($"This: {moduleName} / Program.Start");
 #endif
 try
 {
-    var exitCode = await IPCSubProcessService.MainAsync(moduleName, ConfigureServices, static ipcProvider =>
+    var exitCode = await IPCSubProcessService.MainAsync(moduleName, pluginName, ConfigureServices, static ipcProvider =>
     {
         // 添加反向代理服务（供主进程的 IPC 远程访问）
         ipcProvider.CreateIpcJoint(LazyReverseProxyServiceImpl.Instance);
@@ -25,11 +26,6 @@ catch (Exception ex)
 
 static void ConfigureServices(IServiceCollection services)
 {
-    services.AddLogging(l =>
-    {
-        l.AddConsole();
-    });
-
     services.AddHttpClient();
     services.AddSingleton<IHttpClientFactory_Common>(
              s => new HttpClientFactoryWrapper(s));

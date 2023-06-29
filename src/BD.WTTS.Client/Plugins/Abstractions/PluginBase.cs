@@ -1,4 +1,5 @@
 using dotnetCampus.Ipc.Pipes;
+using static BD.WTTS.Services.IPCSubProcessModuleService.Constants;
 
 namespace BD.WTTS.Plugins.Abstractions;
 
@@ -10,38 +11,8 @@ public abstract partial class PluginBase<TPlugin> : IPlugin where TPlugin : Plug
     public PluginBase()
     {
         Instance = (TPlugin)this;
-        mAppDataDirectory = new(() => GetDirectory(IOPath.AppDataDirectory));
-        mCacheDirectory = new(() => GetDirectory(IOPath.CacheDirectory));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static string GetDirectoryName(string name)
-    {
-        var chars = GetDirectoryNameCore(name).ToArray();
-        if (chars.Length > 0) return new string(chars);
-        return $"{name.Length}_{Hashs.String.SHA256(name)}";
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static IEnumerable<char> GetDirectoryNameCore(string name)
-        {
-            var chars = Path.GetInvalidFileNameChars();
-            foreach (var item in name)
-            {
-                if (!chars.Contains(item))
-                {
-                    yield return item;
-                }
-            }
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    string GetDirectory(string directory)
-    {
-        var dirName = GetDirectoryName(Name);
-        directory = Path.Combine(directory, "Plugins", dirName);
-        IOPath.DirCreateByNotExists(directory);
-        return directory;
+        mAppDataDirectory = new(() => GetPluginsDirectory(Name, IOPath.AppDataDirectory));
+        mCacheDirectory = new(() => GetPluginsDirectory(Name, IOPath.CacheDirectory));
     }
 
     public virtual IEnumerable<TabItemViewModel>? GetMenuTabItems() => null;

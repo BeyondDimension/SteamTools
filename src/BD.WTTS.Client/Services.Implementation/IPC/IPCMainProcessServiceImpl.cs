@@ -138,16 +138,31 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         var psi = new ProcessStartInfo
         {
             FileName = fileName,
-            Arguments = $"{pipeName} {pid}",
             UseShellExecute = false,
 #if !DEBUG
             CreateNoWindow = true,
 #endif
         };
+        psi.ArgumentList.Add(pipeName);
+        psi.ArgumentList.Add(pid.ToString());
+        psi.ArgumentList.Add(mSubProcessArgumentIndex2Model.Value);
         configure?.Invoke(psi);
+        DotNetRuntimeHelper.AddEnvironment(psi);
         var process = Process.Start(psi);
         return process;
     }
+
+    readonly Lazy<string> mSubProcessArgumentIndex2Model = new(() =>
+    {
+        var m = new SubProcessArgumentIndex2Model
+        {
+            AppDataDirectory = IOPath.AppDataDirectory,
+            CacheDirectory = IOPath.CacheDirectory,
+        };
+        var b = Serializable.SMP2(m);
+        var s = b.Base64UrlEncode();
+        return s;
+    });
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static string _()

@@ -286,7 +286,9 @@ public abstract partial class Startup
 
             #region InitLog 初始化日志
 
-            InitLog(
+            string? logDirPath = null;
+            IPCSubProcessFileSystem.InitLog(
+                ref logDirPath,
 #if STARTUP_WATCH_TRACE || DEBUG
 #pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable SA1001 // Commas should be spaced correctly
@@ -299,6 +301,7 @@ public abstract partial class Startup
 #pragma warning restore IDE0079 // 请删除不必要的忽略
 #endif
                 );
+            IApplication.LogDirPath = logDirPath!;
 
             #endregion
 
@@ -408,58 +411,6 @@ public abstract partial class Startup
                 }
             }
         }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void InitLog(string? alias = null
-#if STARTUP_WATCH_TRACE || DEBUG
-#pragma warning disable IDE0079 // 请删除不必要的忽略
-#pragma warning disable SA1001 // Commas should be spaced correctly
-#pragma warning disable SA1115 // Parameter should follow comma
-#pragma warning disable SA1113 // Comma should be on the same line as previous parameter
-         , bool watchTrace = false
-#pragma warning restore SA1113 // Comma should be on the same line as previous parameter
-#pragma warning restore SA1115 // Parameter should follow comma
-#pragma warning restore SA1001 // Commas should be spaced correctly
-#pragma warning restore IDE0079 // 请删除不必要的忽略
-#endif
-         )
-    {
-        if (!string.IsNullOrEmpty(IApplication.LogDirPath))
-            return; // 已初始化过日志文件夹路径
-
-        var logDirPath = Path.Combine(IOPath.CacheDirectory, IApplication.LogDirName);
-        IOPath.DirCreateByNotExists(logDirPath);
-#if STARTUP_WATCH_TRACE || DEBUG
-        if (watchTrace) WatchTrace.Record("InitLog.IOPath");
-#endif
-        var logDirPath_ = logDirPath + Path.DirectorySeparatorChar;
-        NInternalLogger.LogFile = logDirPath_ + "internal-nlog" + alias + ".txt";
-        NInternalLogger.LogLevel = NLogLevel.Error;
-        var objConfig = new LoggingConfiguration();
-        var defMinLevel = IApplication.DefaultNLoggerMinLevel;
-        var logfile = new FileTarget("logfile")
-        {
-            FileName = logDirPath_ + "nlog-all-${shortdate}" + alias + ".log",
-            Layout = "${longdate}|${level}|${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
-            ArchiveAboveSize = 10485760,
-            MaxArchiveFiles = 14,
-            MaxArchiveDays = 7,
-        };
-        objConfig.AddTarget(logfile);
-        IApplication.InitializeTarget(objConfig, logfile, defMinLevel);
-#if STARTUP_WATCH_TRACE || DEBUG
-        if (watchTrace) WatchTrace.Record("InitLog.CreateConfig");
-#endif
-        NLogManager.Configuration = objConfig;
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-        IApplication.LogDirPathASF = logDirPath_;
-#endif
-        IApplication.LogDirPath = logDirPath;
-        Log.LoggerFactory = () => new LoggerFactory(new[] { new NLogLoggerProvider() });
-#if STARTUP_WATCH_TRACE || DEBUG
-        if (watchTrace) WatchTrace.Record("InitLog.End");
-#endif
     }
 #endif
 }

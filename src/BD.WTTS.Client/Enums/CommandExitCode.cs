@@ -38,6 +38,11 @@ public enum CommandExitCode
     NotFoundMainProcessId = 4004,
 
     /// <summary>
+    /// 子进程参数，下标为 2 的模型不能为 null
+    /// </summary>
+    SubProcessArgumentIndex2ModelIsNull,
+
+    /// <summary>
     /// 获取一组插件失败
     /// </summary>
     GetPluginsFail = 4040,

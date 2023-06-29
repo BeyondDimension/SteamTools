@@ -29,6 +29,9 @@
 		<Compile Include="..\ImplicitUsings.Enums.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\ImplicitUsings.NLog.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 		<Compile Include="..\BD.WTTS.Client\Services\IPC\IPCSubProcessModuleService.cs">
 			<LinkBase>Services</LinkBase>
 		</Compile>
@@ -47,6 +50,9 @@
 		<!-- PackageReference -->
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="dotnetCampus.Ipc" />
+		<PackageReference Include="NLog" />
+		<PackageReference Include="NLog.Extensions.Logging" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 	</ItemGroup>
 
 	<ItemGroup>

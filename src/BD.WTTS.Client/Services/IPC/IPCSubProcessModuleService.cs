@@ -9,9 +9,40 @@ namespace BD.WTTS.Services;
 [IpcPublic(Timeout = AssemblyInfo.IpcTimeout, IgnoresIpcException = false)]
 public interface IPCSubProcessModuleService : IDisposable
 {
-    static class Constants
+    internal static class Constants
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GetClientPipeName(string moduleName, string pipeName)
             => $"{pipeName}_{moduleName}";
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetDirectoryName(string name)
+        {
+            var chars = GetDirectoryNameCore(name).ToArray();
+            if (chars.Length > 0) return new string(chars);
+            return $"{name.Length}_{Hashs.String.SHA256(name)}";
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static IEnumerable<char> GetDirectoryNameCore(string name)
+            {
+                var chars = Path.GetInvalidFileNameChars();
+                foreach (var item in name)
+                {
+                    if (!chars.Contains(item))
+                    {
+                        yield return item;
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetPluginsDirectory(string pluginName, string directory)
+        {
+            var dirName = GetDirectoryName(pluginName);
+            directory = Path.Combine(directory, "Plugins", dirName);
+            IOPath.DirCreateByNotExists(directory);
+            return directory;
+        }
     }
 }
