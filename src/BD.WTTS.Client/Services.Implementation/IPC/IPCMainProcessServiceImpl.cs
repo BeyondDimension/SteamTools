@@ -2,7 +2,6 @@ using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 using dotnetCampus.Ipc.Context;
 using dotnetCampus.Ipc.Pipes;
 using dotnetCampus.Ipc.Utils.Logging;
-using Polly;
 using IPCLogLevel = dotnetCampus.Ipc.Utils.Logging.LogLevel;
 using MSEXLogLevel = Microsoft.Extensions.Logging.LogLevel;
 

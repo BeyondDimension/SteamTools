@@ -23,6 +23,8 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     /// <inheritdoc cref="ICertificateManager.RootCertificate"/>
     public X509Certificate2? RootCertificate { get; set; }
 
+    public X509CertificatePackable RootCertificatePackable { get; set; }
+
     /// <inheritdoc cref="ICertificateManager.PfxPassword"/>
     public string? PfxPassword { get; set; }
 
@@ -36,7 +38,9 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             X509Certificate2 rootCert;
             try
             {
-                rootCert = new(thiz.PfxFilePath, thiz.PfxPassword, X509KeyStorageFlags.Exportable);
+                RootCertificatePackable = X509CertificatePackable.CreateX509Certificate2(thiz.PfxFilePath, thiz.PfxPassword, X509KeyStorageFlags.Exportable);
+                rootCert = RootCertificatePackable!;
+                rootCert.ThrowIsNull();
             }
             catch (PlatformNotSupportedException)
             {
@@ -376,7 +380,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         {
             if (RootCertificate == null)
                 if (GetCerFilePathGeneratedWhenNoFileExists() == null) return false;
-            return IsCertificateInstalled(RootCertificate);
+            return IsCertificateInstalled(RootCertificatePackable);
         }
     }
 
@@ -385,8 +389,9 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     /// </summary>
     /// <param name="certificate2"></param>
     /// <returns></returns>
-    bool IsCertificateInstalled(X509Certificate2? certificate2)
+    bool IsCertificateInstalled(X509CertificatePackable packable)
     {
+        X509Certificate2? certificate2 = packable;
         if (certificate2 == null)
             return false;
         if (certificate2.NotAfter <= DateTime.Now)
@@ -399,7 +404,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         }
         else if (OperatingSystem.IsAndroid() || OperatingSystem.IsMacOS())
         {
-            return platformService.IsCertificateInstalled(certificate2);
+            return platformService.IsCertificateInstalled(packable);
         }
         else
         {

@@ -9,6 +9,7 @@
 #if !NETFRAMEWORK
 
 #if !__NOT_IMPORT_COMMON_PRIMITIVES__
+global using Polly;
 global using BD.Common;
 global using BD.Common.Columns;
 global using BD.Common.Enums;

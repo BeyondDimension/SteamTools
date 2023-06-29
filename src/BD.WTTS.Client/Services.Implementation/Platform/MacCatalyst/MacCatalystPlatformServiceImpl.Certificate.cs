@@ -6,7 +6,7 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
-    internal static bool IsCertificateInstalledCore(X509Certificate2 certificate2)
+    internal static bool IsCertificateInstalledCore(X509CertificatePackable certificate2)
     {
         return default;
         //using var p = new Process();
@@ -38,7 +38,13 @@ partial class MacCatalystPlatformServiceImpl
         //return result;
     }
 
-    public bool IsCertificateInstalled(X509Certificate2 certificate2)
+    public bool IsCertificateInstalled(byte[] certificate2)
+    {
+        var certificate2_ = Serializable.DMP2<X509CertificatePackable>(certificate2);
+        return IsCertificateInstalledCore(certificate2_);
+    }
+
+    public bool IsCertificateInstalled(X509CertificatePackable certificate2)
           => IsCertificateInstalledCore(certificate2);
 
     public async ValueTask<bool?> TrustRootCertificateAsync(string filePath)
@@ -62,8 +68,15 @@ partial class MacCatalystPlatformServiceImpl
         return true;
     }
 
-    public async void RemoveCertificate(X509Certificate2 certificate2)
+    public void RemoveCertificate(byte[] certificate2)
     {
+        var certificate2_ = Serializable.DMP2<X509Certificate2>(certificate2);
+        RemoveCertificate(certificate2_);
+    }
+
+    public async void RemoveCertificate(X509Certificate2? certificate2)
+    {
+        if (certificate2 == null) return;
         using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
         try
         {

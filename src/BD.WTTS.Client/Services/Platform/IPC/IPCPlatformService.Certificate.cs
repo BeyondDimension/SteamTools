@@ -8,8 +8,7 @@ partial interface IPCPlatformService
     /// </summary>
     /// <param name="certificate2"></param>
     /// <returns></returns>
-    /// <exception cref="PlatformNotSupportedException"></exception>
-    bool IsCertificateInstalled(X509Certificate2 certificate2)
+    bool IsCertificateInstalled(byte[] certificate2)
         => throw new PlatformNotSupportedException();
 
     /// <summary>
@@ -23,6 +22,27 @@ partial interface IPCPlatformService
     /// <summary>
     /// 删除证书
     /// </summary>
-    void RemoveCertificate(X509Certificate2 certificate2)
+    void RemoveCertificate(byte[] certificate2)
         => throw new PlatformNotSupportedException();
+}
+
+public static partial class IPCPlatformServiceExtensions
+{
+    /// <inheritdoc cref="IPCPlatformService.IsCertificateInstalled(byte[])"/>
+    public static bool IsCertificateInstalled(
+        this IPCPlatformService platformService,
+        X509CertificatePackable certificate2)
+    {
+        var certificate2_ = Serializable.SMP2(certificate2);
+        return platformService.IsCertificateInstalled(certificate2_);
+    }
+
+    /// <inheritdoc cref="IPCPlatformService.RemoveCertificate(byte[])"/>
+    public static void RemoveCertificate(
+        this IPCPlatformService platformService,
+        X509CertificatePackable certificate2)
+    {
+        var certificate2_ = Serializable.SMP2(certificate2);
+        platformService.RemoveCertificate(certificate2_);
+    }
 }
