@@ -63,6 +63,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="ReactiveUI.Fody" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
 	</ItemGroup>
@@ -84,12 +88,6 @@
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Models\" />
-		<Folder Include="UI\Views\Controls\" />
-		<Folder Include="UI\Views\Controls\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />

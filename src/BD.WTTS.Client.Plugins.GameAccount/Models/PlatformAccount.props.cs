@@ -68,5 +68,8 @@ public sealed partial class PlatformAccount : ReactiveObject
     [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public string? FolderPath => Path.GetDirectoryName(ExePath);
 
+    [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public bool IsSteamPlatform => Platform == ThirdpartyPlatform.Steam;
+
     public string RegJsonPath(string accName) => Path.Combine(PlatformLoginCache, accName, "reg.json");
 }

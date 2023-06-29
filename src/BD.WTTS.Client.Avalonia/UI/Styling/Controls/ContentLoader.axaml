@@ -1,6 +1,7 @@
 <ResourceDictionary
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     x:CompileBindings="True">
     <Design.PreviewWith>
@@ -28,7 +29,9 @@
                             Stretch="UniformToFill" />
                         <TextBlock
                             HorizontalAlignment="Center"
-                            Text="正在加载 ..."
+                            Text="{ReflectionBinding Path=Res.GameList_IsLoading,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}"
                             Theme="{StaticResource SubtitleTextBlockStyle}" />
                         <Border
                             Width="35"

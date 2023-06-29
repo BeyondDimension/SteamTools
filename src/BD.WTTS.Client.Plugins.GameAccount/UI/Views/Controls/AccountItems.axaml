@@ -39,7 +39,7 @@
                                             Command="{ReflectionBinding #u.DataContext.SwapToAccountCommand}"
                                             CommandParameter="{Binding}"
                                             Text="切换到此账号" />
-                                        <ui:MenuFlyoutSubItem Text="登录为">
+                                        <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="登录为">
                                             <ui:MenuFlyoutItem Text="隐身" />
                                             <ui:MenuFlyoutItem Text="离线" />
                                             <ui:MenuFlyoutItem Text="在线" />
@@ -49,20 +49,20 @@
                                             <ui:MenuFlyoutItem Text="想交易" />
                                             <ui:MenuFlyoutItem Text="想玩游戏" />
                                         </ui:MenuFlyoutSubItem>
-                                        <ui:MenuFlyoutSubItem Text="复制">
+                                        <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="复制">
                                             <ui:MenuFlyoutSubItem Text="复制个人资料">
                                                 <ui:MenuFlyoutItem Text="社区 URL" />
                                                 <ui:MenuFlyoutItem Text="Steam 昵称" />
                                                 <ui:MenuFlyoutItem Text="Steamn 用户名" />
                                             </ui:MenuFlyoutSubItem>
-                                            <ui:MenuFlyoutSubItem Text="复制 SteamID">
+                                            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="复制 SteamID">
                                                 <ui:MenuFlyoutItem Text="SteamID [STEAM0:~]" />
                                                 <ui:MenuFlyoutItem Text="SteamID3 [U:1:~]" />
                                                 <ui:MenuFlyoutItem Text="SteamID32" />
                                                 <ui:MenuFlyoutItem Text="SteamID64 7656~" />
                                             </ui:MenuFlyoutSubItem>
                                         </ui:MenuFlyoutSubItem>
-                                        <ui:MenuFlyoutSubItem Text="打开链接">
+                                        <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="打开链接">
                                             <ui:MenuFlyoutItem Text="SteamRep" />
                                             <ui:MenuFlyoutItem Text="SteamRepCN" />
                                             <ui:MenuFlyoutItem Text="SteamDB" />
@@ -74,7 +74,7 @@
                                         <ui:MenuFlyoutItem Text="修改头像图片" />
                                         <ui:MenuFlyoutSeparator />
                                         <ui:MenuFlyoutItem Text="创建桌面快捷方式" />
-                                        <ui:MenuFlyoutItem Text="打开 userdata 文件夹" />
+                                        <ui:MenuFlyoutItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="打开 userdata 文件夹" />
                                         <ui:MenuFlyoutItem Text="删除" />
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.ContextFlyout>

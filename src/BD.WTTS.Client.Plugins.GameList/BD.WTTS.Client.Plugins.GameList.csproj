@@ -64,10 +64,11 @@
 		</Compile>
 	</ItemGroup>
 
-	<!--<ItemGroup>
-		--><!-- PackageReference --><!--
-		<PackageReference Include="BD.SteamClient" />
-	</ItemGroup>-->
+	<ItemGroup>
+		 <!--PackageReference--> 
+		<!--<PackageReference Include="BD.SteamClient" />-->
+		<PackageReference Include="ReactiveUI.Fody" />
+	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
