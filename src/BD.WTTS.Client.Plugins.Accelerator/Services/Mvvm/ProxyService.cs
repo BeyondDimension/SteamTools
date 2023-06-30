@@ -38,7 +38,8 @@ public sealed class ProxyService
             {
                 if (x)
                 {
-                    reverseProxyService.ProxyDomains = EnableProxyDomains;
+                    var enableProxyDomains = EnableProxyDomains;
+                    reverseProxyService.ProxyDomains = enableProxyDomains;
                     reverseProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                     reverseProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
 

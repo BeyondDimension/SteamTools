@@ -29,7 +29,24 @@ partial class Startup
             this.types = types;
         }
 
-        public override bool CanConvert(Type objectType) => types.Contains(objectType);
+        public override bool CanConvert(Type objectType)
+        {
+            if (types.Contains(objectType))
+            {
+                return true;
+            }
+            if (objectType.IsClass)
+            {
+                if (typeof(IMemoryPackable<>)
+                    .MakeGenericType(objectType)
+                    .IsAssignableFrom(objectType))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         public override object? ReadJson(NJsonReader reader, Type objectType, object? existingValue, NJsonSerializer serializer)
         {
