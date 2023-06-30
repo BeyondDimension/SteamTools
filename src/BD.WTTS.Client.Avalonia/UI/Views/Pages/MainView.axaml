@@ -235,6 +235,7 @@
                             <MenuItem Header="-" />
                             <MenuItem Header="切换账号" />
                             <MenuItem Header="登出" />
+                            <MenuItem Header="登录" />
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>

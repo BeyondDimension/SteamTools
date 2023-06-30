@@ -1,6 +1,6 @@
 namespace BD.WTTS.UI.Views.Pages;
 
-public partial class LoginOrRegisterPage : UserControl
+public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWindowViewModel>
 {
     public LoginOrRegisterPage()
     {

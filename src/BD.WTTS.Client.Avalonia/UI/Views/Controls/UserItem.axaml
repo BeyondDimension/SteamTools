@@ -1,0 +1,39 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <!--  Add Resources Here  -->
+    <MenuFlyout
+        x:Key="UserItem"
+        FlyoutPresenterClasses="NoPadding"
+        Placement="BottomEdgeAlignedRight">
+        <MenuItem IsHitTestVisible="False">
+            <MenuItem.Header>
+                <DockPanel>
+                    <Border
+                        Width="64"
+                        Height="64"
+                        Margin="0,0,8,0"
+                        ClipToBounds="True"
+                        CornerRadius="64"
+                        DockPanel.Dock="Left">
+                        <Image Source="/UI/Assets/avatar.jpg" />
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Name" />
+                        <TextBlock Text="rrrr@rwerwer.net" />
+                    </StackPanel>
+                </DockPanel>
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem Header="-" />
+        <MenuItem Header="个人中心" />
+        <MenuItem Header="用户钱包" />
+        <MenuItem Header="绑定第三方账号" />
+        <MenuItem Header="-" />
+        <MenuItem Header="切换账号" />
+        <MenuItem Header="登出" />
+        <MenuItem Header="登录" />
+    </MenuFlyout>
+</ResourceDictionary>
