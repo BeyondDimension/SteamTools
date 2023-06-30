@@ -1,21 +1,21 @@
 using Avalonia.Controls;
 using BD.WTTS.UI.Views.Controls;
 
-namespace BD.WTTS.UI.Views;
+namespace BD.WTTS.UI.Views.Pages;
 
 public partial class SteamLoginImportPage : UserControl
 {
     public SteamLoginImportPage()
     {
         InitializeComponent();
-        DataContext = new SteamLoginImportViewModel();
+        //DataContext = new SteamLoginImportViewModel();
     }
     
-    public SteamLoginImportPage(string? password)
-    {
-        InitializeComponent();
-        DataContext = new SteamLoginImportViewModel(password);
-    }
+    // public SteamLoginImportPage(string? password)
+    // {
+    //     InitializeComponent();
+    //     DataContext = new SteamLoginImportViewModel(password);
+    // }
 
     // void Stepper_OnBacking(Stepper sender, CancelEventArgs args)
     // {

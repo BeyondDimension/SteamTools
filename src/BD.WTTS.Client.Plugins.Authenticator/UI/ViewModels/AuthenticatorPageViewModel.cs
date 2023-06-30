@@ -263,16 +263,23 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         CurrentSelectedAuth.AuthName = newName;
         await AuthenticatorService.SaveEditAuthNameAsync(CurrentSelectedAuth.AuthData, newName);
     }
-    
-    public async Task OpenImportWindow()
+
+    public async Task OpenSteamLoginImportWindow()
     {
-        await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel(), "令牌导入",
-            pageContent: new SteamOtherImportPage(_currentPassword));
+        await IWindowManager.Instance.ShowTaskDialogAsync(new SteamLoginImportViewModel(_currentPassword), "Steam登入导入",
+            pageContent: new SteamLoginImportPage(), isCancelButton: true);
+    }
+    
+    public async Task OpenSteamOtherImportWindow()
+    {
+        await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(_currentPassword), "令牌导入",
+            pageContent: new SteamOtherImportPage(), isCancelButton: true);
     }
     
     public async Task OpenExportWindow()
     {
-        
+        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorExportViewModel(), "导出令牌",
+            pageContent: new AuthenticatorExportPage(), isCancelButton: true);
     }
 
     public void ShowQrCode()
@@ -301,16 +308,18 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task ShowReplyWindow()
     {
         if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam) return;
-        await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel(), "确认交易",
-            pageContent: new SteamTradePage(CurrentSelectedAuth.AuthData));
+        await IWindowManager.Instance.ShowTaskDialogAsync(new SteamTradePageViewModel(CurrentSelectedAuth.AuthData),
+            "确认交易",
+            pageContent: new SteamTradePage(), isCancelButton: true);
     }
 
     //未完善
     public async Task ShowAuthJsonData()
     {
         if (CurrentSelectedAuth == null) return;
-        await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel(), "查看令牌详细数据",
-            pageContent: new ShowSteamDataPage(CurrentSelectedAuth.AuthData));
+        await IWindowManager.Instance.ShowTaskDialogAsync(new ShowSteamDataViewModel(CurrentSelectedAuth.AuthData),
+            "查看令牌详细数据",
+            pageContent: new ShowSteamDataPage(), isCancelButton: true);
     }
 
     protected override void Dispose(bool disposing)

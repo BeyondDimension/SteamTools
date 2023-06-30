@@ -590,7 +590,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
 
                 // sync
                 Toast.Show(Strings.LocalAuth_AddAuthSyncTip, ToastLength.Short);
-                authenticatorDto.Value.SyncAsync();
+                authenticatorDto.Value.Sync();
 
                 SaveImport(authenticatorDto);
             }

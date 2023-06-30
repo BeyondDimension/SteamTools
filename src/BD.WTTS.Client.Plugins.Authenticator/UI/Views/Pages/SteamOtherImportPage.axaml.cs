@@ -9,14 +9,13 @@ public partial class SteamOtherImportPage : UserControl
     public SteamOtherImportPage()
     {
         InitializeComponent();
-        DataContext = new SteamOtherImportViewModel();
     }
 
-    public SteamOtherImportPage(string? password)
-    {
-        InitializeComponent();
-        DataContext = new SteamOtherImportViewModel(password);
-    }
+    // public SteamOtherImportPage(string? password)
+    // {
+    //     InitializeComponent();
+    //     DataContext = new SteamOtherImportViewModel(password);
+    // }
 
     private void InitializeComponent()
     {

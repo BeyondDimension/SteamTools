@@ -9,7 +9,7 @@ public partial class AuthenticatorExportPage : UserControl
     public AuthenticatorExportPage()
     {
         InitializeComponent();
-        DataContext = new AuthenticatorExportViewModel();
+        //DataContext = new AuthenticatorExportViewModel();
     }
 
     private void InitializeComponent()

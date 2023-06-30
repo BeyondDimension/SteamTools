@@ -14,9 +14,6 @@ public sealed partial class SteamTradePageViewModel : ViewModelBase
     int _selectIndex;
     bool _remenberLogin;
     bool _isLoading;
-    ReadOnlyObservableCollection<WinAuth.SteamClient.Confirmation>? _confirmations;
-    bool _unSelectAll;
-    string? _selectAllText;
 
     public string? UserNameText
     {
@@ -116,35 +113,7 @@ public sealed partial class SteamTradePageViewModel : ViewModelBase
             this.RaisePropertyChanged();
         }
     }
-
-    public bool UnSelectAll
-    {
-        get => _unSelectAll;
-        set
-        {
-            if (this.RaiseAndSetIfChangedReturnIsNotChange(ref _unSelectAll, value)) return;
-            _isUnselectAllChangeing = true;
-            foreach (var item in Confirmations)
-            {
-                if (item.IsOperate != 0) continue;
-                item.NotChecked = value;
-            }
-            _isUnselectAllChangeing = false;
-            SelectAllText = Strings.SelectAllText_.Format(value ? 0 : Confirmations.Count, Confirmations.Count);
-        }
-    }
-
-    public string? SelectAllText
-    {
-        get => _selectAllText;
-        set
-        {
-            if (value == _selectAllText) return;
-            _selectAllText = value;
-            this.RaisePropertyChanged();
-        }
-    }
-
-    public ReadOnlyObservableCollection<WinAuth.SteamClient.Confirmation> Confirmations =>
-        _confirmations ?? throw new ArgumentNullException(nameof(_confirmations));
+    
+    public bool IsConfirmationsAny => Confirmations.Any_Nullable();
+    
 }

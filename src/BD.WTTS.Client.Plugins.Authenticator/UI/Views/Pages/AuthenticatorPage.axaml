@@ -58,6 +58,8 @@
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
+                Command="{Binding OpenSteamOtherImportWindow}"
+                DockPanel.Dock="Right"
                 Padding="8,4"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
@@ -171,7 +173,7 @@
                         <!--     <ui:MenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
                         <!-- </ui:MenuFlyoutSubItem> -->
                         <ui:MenuFlyoutSubItem Text="导出令牌">
-                            <ui:MenuFlyoutItem Text="默认导出" />
+                            <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="默认导出" />
                             <ui:MenuFlyoutItem Text="导出为maFile" />
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutItem

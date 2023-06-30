@@ -9,14 +9,14 @@ public partial class SteamTradePage : UserControl
     public SteamTradePage()
     {
         InitializeComponent();
-        DataContext = new SteamTradePageViewModel();
+        //DataContext = new SteamTradePageViewModel();
     }
 
-    public SteamTradePage(IAuthenticatorDTO authenticatorDto)
-    {
-        InitializeComponent();
-        DataContext = new SteamTradePageViewModel(authenticatorDto);
-    }
+    // public SteamTradePage(IAuthenticatorDTO authenticatorDto)
+    // {
+    //     InitializeComponent();
+    //     DataContext = new SteamTradePageViewModel(authenticatorDto);
+    // }
 
     private void InitializeComponent()
     {

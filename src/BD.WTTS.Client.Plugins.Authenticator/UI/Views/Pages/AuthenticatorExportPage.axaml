@@ -11,8 +11,7 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <Grid>
+    <Grid MinHeight="450" MinWidth="600">
         <StackPanel Margin="0,10,0,0" Spacing="20">
             <TextBlock
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"

@@ -9,14 +9,14 @@ public partial class ShowSteamDataPage : UserControl
     public ShowSteamDataPage()
     {
         InitializeComponent();
-        DataContext = new ShowSteamDataViewModel();
+        //DataContext = new ShowSteamDataViewModel();
     }
 
-    public ShowSteamDataPage(IAuthenticatorDTO authenticatorDto)
-    {
-        InitializeComponent();
-        DataContext = new ShowSteamDataViewModel(authenticatorDto);
-    }
+    // public ShowSteamDataPage(IAuthenticatorDTO authenticatorDto)
+    // {
+    //     InitializeComponent();
+    //     DataContext = new ShowSteamDataViewModel(authenticatorDto);
+    // }
     
     private void InitializeComponent()
     {
