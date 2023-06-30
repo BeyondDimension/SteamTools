@@ -592,7 +592,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Не удалось получить данные игры</value>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
-    <value>Загрузка списка игр...</value>
+    <value>正在加载 ...</value>
   </data>
   <data name="GameList_ListCount" xml:space="preserve">
     <value>Добавлено ({0}/{1})</value>
