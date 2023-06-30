@@ -7,21 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<AvaloniaXaml Remove="StepControls_Test\**" />
-		<Compile Remove="StepControls_Test\**" />
-		<EmbeddedResource Remove="StepControls_Test\**" />
-		<None Remove="StepControls_Test\**" />
-		<Compile Update="UI\Views\Pages\SteamLoginImportPage.axaml.cs">
-			<DependentUpon>ImportPage.axaml</DependentUpon>
-			<SubType>Code</SubType>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
+		<!-- ImplicitUsings -->
 		<Compile Include="..\AssemblyInfo.Xaml.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
-		<!-- ImplicitUsings -->
 		<Compile Include="..\ImplicitUsings.MessagePack.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -71,12 +60,17 @@
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 	</ItemGroup>
-
+	
+	<ItemGroup>
+		<PackageReference Include="ReactiveUI.Fody" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
 	</ItemGroup>
 
-	<Import Project="..\TFM_NETX_WITH_ALL.props" />
+	<!--<Import Project="..\TFM_NETX_WITH_ALL.props" />-->
+	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>

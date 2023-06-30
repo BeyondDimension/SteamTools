@@ -57,13 +57,13 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             MaxArchiveFiles = 10,
             MaxArchiveDays = 7,
         };
-        IApplication.InitializeTarget(config, fileTarget, NLogLevel.Debug);
+        //IApplication.InitializeTarget(config, fileTarget, NLogLevel.Debug);
         var historyTarget = new HistoryTarget("History")
         {
             Layout = ASFPathHelper.NLogGeneralLayout,
             MaxCount = 20,
         };
-        IApplication.InitializeTarget(config, historyTarget, NLogLevel.Debug);
+        //IApplication.InitializeTarget(config, historyTarget, NLogLevel.Debug);
         ASFNLogManager.Configuration = config;
     }
 

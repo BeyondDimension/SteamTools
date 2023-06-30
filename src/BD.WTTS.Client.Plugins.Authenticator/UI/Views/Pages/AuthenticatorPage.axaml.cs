@@ -4,7 +4,7 @@ public partial class AuthenticatorPage : PageBase<AuthenticatorPageViewModel>
 {
     public AuthenticatorPage()
     {
-        InitializeComponent();
+        //InitializeComponent();
         DataContext = new AuthenticatorPageViewModel();
 
         Title = "云令牌";
