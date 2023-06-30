@@ -19,11 +19,11 @@ public sealed partial class GameAccountPageViewModel : TabItemViewModel
 
     public bool IsSelectedSteam => SelectedPlatform?.FullName == nameof(ThirdpartyPlatform.Steam) == true;
 
-    public ICommand AddPlatformCommand { get; set; }
+    public ICommand AddPlatformCommand { get; }
 
-    public ICommand LoginNewCommand { get; set; }
+    public ICommand LoginNewCommand { get; }
 
-    public ICommand SaveCurrentUserCommand { get; set; }
+    public ICommand SaveCurrentUserCommand { get; }
 
-    public ICommand RefreshCommand { get; set; }
+    public ICommand RefreshCommand { get; }
 }

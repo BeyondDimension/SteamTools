@@ -14,7 +14,7 @@
     x:DataType="spp:ScriptStorePageViewModel"
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
-        <TextBlock Margin="0,0,0,5" Text="脚本工坊" />
+        <!--<TextBlock Margin="0,0,0,5" Text="脚本工坊" />-->
         <spp:ContentLoader IsLoading="{Binding !!!Scripts.Count, Mode=OneWay}">
             <ItemsRepeater ItemsSource="{Binding Scripts}">
                 <ItemsRepeater.Layout>

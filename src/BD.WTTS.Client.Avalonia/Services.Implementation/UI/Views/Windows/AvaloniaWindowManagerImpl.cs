@@ -91,8 +91,8 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
     public async Task<bool> ShowTaskDialogAsync<TPageViewModel>(
         TPageViewModel? viewModel,
         string title = "",
-        string header = "",
-        string subHeader = "",
+        string? header = null,
+        string? subHeader = null,
         bool isDialog = false,
         bool showProgressBar = false,
         bool isRememberChooseFooter = false,

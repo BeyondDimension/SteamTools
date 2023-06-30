@@ -592,7 +592,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>没有获取到任何游戏数据</value>
   </data>
 	<data name="GameList_IsLoading" xml:space="preserve">
-    <value>正在加载...</value>
+    <value>正在加载 ...</value>
   </data>
 	<data name="GameList_ListCount" xml:space="preserve">
     <value>已添加 ({0}/{1})</value>

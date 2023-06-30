@@ -1,0 +1,73 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.LoginOrRegisterPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:LoginOrRegisterWindowViewModel"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Spacing="10">
+            <TextBlock Text="{ReflectionBinding Path=Res.User_FastLoginTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            <ItemsControl Background="Transparent" ItemsSource="{Binding ExternalLoginChannels}">
+                <ItemsControl.Styles>
+                    <!--<Style Selector="ListBoxItem">
+                  <Setter Property="MinHeight" Value="50"></Setter>
+                  <Setter Property="Margin" Value="0 5"></Setter>
+                  <Setter Property="Background" Value="{StaticResource ThemeBrushKey}"></Setter>
+                </Style>-->
+                    <Style Selector="PathIcon">
+                        <Setter Property="Height" Value="20" />
+                        <Setter Property="Width" Value="20" />
+                    </Style>
+                </ItemsControl.Styles>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:CompileBindings="False">
+                        <Button
+                            MinHeight="50"
+                            Margin="0,5"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="{StaticResource ThemeBrushKey}"
+                            Command="{Binding #u.DataContext.ChooseChannel}"
+                            CommandParameter="{Binding Id, Mode=OneWay}">
+                            <DockPanel x:Name="FastLoginChannelItem">
+                                <!--<i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="Tapped"
+                                                 SourceObject="{ReflectionBinding #FastLoginChannelItem}">
+                          <ia:InvokeCommandAction
+                            Command="{ReflectionBinding #u.DataContext.FastLogin}"/>
+                        </ia:EventTriggerBehavior>
+                      </i:Interaction.Behaviors>-->
+                                <Panel Margin="5,0,0,0" DockPanel.Dock="Left">
+                                    <PathIcon Data="{StaticResource SteamDrawing}" IsVisible="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Steam}" />
+                                    <PathIcon Data="{StaticResource QQ}" IsVisible="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=QQ}" />
+                                    <PathIcon Data="{StaticResource Xbox}" IsVisible="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Xbox}" />
+                                    <PathIcon Data="{StaticResource Apple}" IsVisible="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Apple}" />
+                                </Panel>
+                                <Panel Margin="10,0,0,0" DockPanel.Dock="Right">
+                                    <!--<TextBlock VerticalAlignment="Center" Tag="{Binding Id,Mode=OneWay}">
+                          <TextBlock.Text>
+                            <MultiBinding x:CompileBindings="False" Converter="{StaticResource StringFormatConverter}" Mode="OneWay">
+                              <Binding Path="Res.User_UseFastLoginChannel_" Source="{x:Static resx:R.Current}"/>
+                              <Binding Path="$self.Tag" />
+                            </MultiBinding>
+                          </TextBlock.Text>
+                        </TextBlock>-->
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Title, Mode=OneWay}" />
+                                </Panel>
+                            </DockPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

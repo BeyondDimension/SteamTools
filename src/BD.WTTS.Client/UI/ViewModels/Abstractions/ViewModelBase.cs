@@ -34,7 +34,7 @@ public abstract partial class ViewModelBase : BaseNotifyPropertyChanged, IViewMo
     public bool IsDeactivation = false;
 
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
-    bool disposedValue;
+    public bool Disposed { get; private set; }
 
     public virtual void Activation()
     {
@@ -52,7 +52,7 @@ public abstract partial class ViewModelBase : BaseNotifyPropertyChanged, IViewMo
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposedValue)
+        if (!Disposed)
         {
             if (disposing)
             {
@@ -77,7 +77,7 @@ public abstract partial class ViewModelBase : BaseNotifyPropertyChanged, IViewMo
             // 将大型字段设置为 null
             Activator = null!;
             CompositeDisposable = null!;
-            disposedValue = true;
+            Disposed = true;
         }
     }
 
