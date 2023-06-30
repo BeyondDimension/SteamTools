@@ -13,6 +13,8 @@ public interface IPCToastService
     {
         CreateCertificateFaild = 1,
         CommunityFix_DNSErrorNotify,
+
+        [Obsolete]
         CommunityFix_OnRunCatch,
     }
 

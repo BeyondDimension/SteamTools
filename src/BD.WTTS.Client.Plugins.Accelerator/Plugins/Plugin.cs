@@ -59,17 +59,18 @@ sealed class Plugin : PluginBase<Plugin>
 #endif
     }
 
-    public override ValueTask OnInitializeAsync()
+    public override async ValueTask OnInitializeAsync()
     {
         var ipc = IPCMainProcessService.Instance;
 
         // 启动加速模块子进程
-        ipc.AddDaemonWithStartSubProcess(moduleName, ipc =>
+        await ipc.AddDaemonWithStartSubProcessAsync(moduleName, async ipc =>
         {
-            return ipc.StartSubProcess(SubProcessPath.ThrowIsNull());
+            var subProcessPath = SubProcessPath;
+            var p = await ipc.StartSubProcessAsync(subProcessPath.ThrowIsNull(),
+                isAdministrator: true);
+            return p;
         });
-
-        return ValueTask.CompletedTask;
     }
 
     public override async ValueTask OnPeerConnected(bool isReconnected)
@@ -89,15 +90,17 @@ sealed class Plugin : PluginBase<Plugin>
                 reverseProxyService.TrySetException(ex);
             }
 #if DEBUG
-            try
-            {
-                var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(GetType())?.FullName}{Environment.NewLine}{reverseProxyService.Task.GetAwaiter().GetResult().GetDebugString()}";
-                Console.WriteLine($"DebugString/IReverseProxyService: {debugStringIPC}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+            //try
+            //{
+            //    var debugStringIPC = $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(GetType())?.FullName}{Environment.NewLine}{reverseProxyService.Task.GetAwaiter().GetResult().GetDebugString()}";
+            //    Console.WriteLine($"DebugString/IReverseProxyService: {debugStringIPC}");
+            //    var debugStringIPC2 = reverseProxyService.Task.GetAwaiter().GetResult().GetDebugString2().GetAwaiter().GetResult();
+            //    Console.WriteLine($"DebugString/IReverseProxyService: {debugStringIPC2}");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex);
+            //}
 #endif
 
             //if (ResourceService.IsChineseSimplified)

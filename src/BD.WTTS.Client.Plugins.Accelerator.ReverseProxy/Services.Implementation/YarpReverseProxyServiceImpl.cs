@@ -26,9 +26,9 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public override bool ProxyRunning => app != null;
 
-    protected override Task<bool> StartProxyImpl() => Task.FromResult(StartProxyCore());
+    protected override Task<StartProxyResult> StartProxyImpl() => Task.FromResult(StartProxyCore());
 
-    bool StartProxyCore()
+    StartProxyResult StartProxyCore()
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub/Program.cs#L29
         try
@@ -77,7 +77,13 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             app = builder.Build();
             StartupConfigure(app);
 
-            Task.Factory.StartNew(() =>
+            Exception? exception = null;
+            const int timeout_ms = 650;
+            var waitTask = Task.Factory.StartNew(() =>
+            {
+                Thread.Sleep(timeout_ms);
+            });
+            var appTask = Task.Factory.StartNew(() =>
             {
                 try
                 {
@@ -86,20 +92,22 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 catch (Exception ex)
                 {
                     app = null;
-                    toast.ShowAppend(IPCToastService.ToastText.CommunityFix_OnRunCatch, Environment.NewLine + "ExceptionMessage: " + ex.Message);
+                    exception = ex;
+                    OnException(ex);
+                    //toast.ShowAppend(IPCToastService.ToastText.CommunityFix_OnRunCatch, Environment.NewLine + "ExceptionMessage: " + ex.Message);
                 }
             }, TaskCreationOptions.LongRunning);
-
-            return true;
+            Task.WaitAny(waitTask, appTask);
+            return exception;
         }
         catch (Exception ex)
         {
             OnException(ex);
-            return false;
+            return ex;
         }
     }
 
-    public async ValueTask StopProxyAsync()
+    public async Task StopProxyAsync()
     {
         if (app == null) return;
         await app.StopAsync();

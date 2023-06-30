@@ -13,7 +13,14 @@ sealed class LazyReverseProxyServiceImpl : IReverseProxyService
 
     public bool ProxyRunning => instance().ProxyRunning;
 
-    public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get => instance().ProxyDomains; set => instance().ProxyDomains = value; }
+    public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains
+    {
+        get => instance().ProxyDomains;
+        set
+        {
+            instance().ProxyDomains = value;
+        }
+    }
 
     public IReadOnlyCollection<ScriptDTO>? Scripts { get => instance().Scripts; set => instance().Scripts = value; }
 
@@ -55,9 +62,16 @@ sealed class LazyReverseProxyServiceImpl : IReverseProxyService
 
     public FlowStatistics? GetFlowStatistics() => instance().GetFlowStatistics();
 
-    public ValueTask<bool> StartProxyAsync() => instance().StartProxyAsync();
+    public async Task<StartProxyResult> StartProxyAsync()
+    {
+        var result = await instance().StartProxyAsync();
+        return result;
+    }
 
-    public ValueTask StopProxyAsync() => instance().StopProxyAsync();
+    public async Task StopProxyAsync()
+    {
+        await instance().StopProxyAsync();
+    }
 
     public bool WirtePemCertificateToGoGSteamPlugins() => instance().WirtePemCertificateToGoGSteamPlugins();
 }

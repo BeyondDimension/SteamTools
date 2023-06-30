@@ -29,11 +29,9 @@ public interface IPCMainProcessService : IAsyncDisposable
     /// <summary>
     /// 启动子进程
     /// </summary>
-    /// <param name="fileName"></param>
-    /// <param name="configure"></param>
-    /// <returns></returns>
-    Process? StartSubProcess(
+    ValueTask<Process?> StartSubProcessAsync(
         string fileName,
+        bool isAdministrator = false,
         Action<ProcessStartInfo>? configure = null);
 
     /// <summary>

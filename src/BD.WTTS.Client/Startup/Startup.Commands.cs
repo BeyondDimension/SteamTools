@@ -312,7 +312,7 @@ partial class Startup // 自定义控制台命令参数
                 if (string.IsNullOrWhiteSpace(n) || p == default)
                     return 400;
 
-                if (!IPlatformService._IsAdministrator.Value)
+                if (!WindowsPlatformServiceImpl.IsPrivilegedProcess)
                     return 401;
 
                 ModuleName = IPlatformService.IPCRoot.moduleName;

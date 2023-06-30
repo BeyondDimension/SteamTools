@@ -21,5 +21,28 @@ partial class WindowsPlatformServiceImpl
             return string.Empty;
         }
     }
+
+    public async Task<int> StartProcessAsAdministratorAsync(byte[]? processStartInfo_)
+    {
+        if (processStartInfo_ == default)
+            return default;
+
+        if (IsPrivilegedProcess)
+        {
+            var processStartInfo = Serializable.DMP2<ProcessStartInfo>(processStartInfo_);
+            if (processStartInfo == default)
+                return default;
+            var process = Process.Start(processStartInfo);
+            if (process == null)
+                return default;
+            return process.Id;
+        }
+        else
+        {
+            var platformService = await IPlatformService.IPCRoot.Instance;
+            var result = await platformService.StartProcessAsAdministratorAsync(processStartInfo_);
+            return result;
+        }
+    }
 }
 #endif

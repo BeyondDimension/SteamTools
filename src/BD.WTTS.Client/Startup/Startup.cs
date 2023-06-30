@@ -14,6 +14,19 @@ namespace BD.WTTS;
 /// </summary>
 public abstract partial class Startup
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal void SetConsoleTitle(string title)
+    {
+        try
+        {
+            Console.Title = title;
+        }
+        catch
+        {
+
+        }
+    }
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     readonly string[]? args;
 

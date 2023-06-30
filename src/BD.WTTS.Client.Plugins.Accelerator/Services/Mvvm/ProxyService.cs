@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 using KeyValuePair = System.Collections.Generic.KeyValuePair;
 
@@ -128,7 +129,7 @@ public sealed class ProxyService
                         }
                         if (!platformService.SetAsSystemProxy(true, proxyip, reverseProxyService.ProxyPort))
                         {
-                            Toast.Show("系统代理开启失败");
+                            Toast.Show(AppResources.CommunityFix_SetAsSystemProxyFail);
                             return;
                         }
                     }
@@ -139,22 +140,25 @@ public sealed class ProxyService
                         {
                             proxyip = IPAddress.Loopback;
                         }
-                        if (!platformService.SetAsSystemPACProxy(true, $"http://{proxyip}:{reverseProxyService.ProxyPort}/pac"))
+                        if (!platformService.SetAsSystemPACProxy(true,
+                            $"http://{proxyip}:{reverseProxyService.ProxyPort}/pac"))
                         {
-                            Toast.Show("PAC代理开启失败");
+                            Toast.Show(AppResources.CommunityFix_SetAsSystemPACProxyFail);
                             return;
                         }
                     }
 
-                    var isRun = await reverseProxyService.StartProxyAsync();
-
-                    if (isRun)
+                    var startProxyResult = await reverseProxyService.StartProxyAsync();
+                    if (startProxyResult)
                     {
                         if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
                         {
                             if (reverseProxyService.ProxyDomains.Any_Nullable())
                             {
-                                var localhost = IPAddress.Any.Equals(reverseProxyService.ProxyIp) ? IPAddress.Loopback.ToString() : reverseProxyService.ProxyIp.ToString();
+                                var proxyIp = reverseProxyService.ProxyIp;
+                                proxyIp.ThrowIsNull();
+                                var localhost = IPAddress.Any.Equals(proxyIp) ?
+                                    IPAddress.Loopback.ToString() : proxyIp.ToString();
 
                                 var hosts = reverseProxyService.ProxyDomains!.SelectMany(s =>
                                 {
@@ -198,7 +202,13 @@ public sealed class ProxyService
                     else
                     {
                         ProxyStatus = false;
-                        Toast.Show(AppResources.CommunityFix_StartProxyFaild);
+                        //Toast.Show(AppResources.CommunityFix_StartProxyFaild);
+                        var errorString = startProxyResult.Code switch
+                        {
+                            StartProxyResultCode.Exception => startProxyResult.Exception?.ToString(),
+                            _ => $"StartProxyFail, ErrCode: {startProxyResult.Code}",
+                        };
+                        Toast.Show(errorString!);
                     }
                 }
                 else
@@ -411,7 +421,7 @@ public sealed class ProxyService
         get
         {
             // 此页面当前使用 Square.Picasso 库加载图片
-            if (OperatingSystem2.IsAndroid()) return false;
+            if (OperatingSystem.IsAndroid()) return false;
             return true;
         }
     }

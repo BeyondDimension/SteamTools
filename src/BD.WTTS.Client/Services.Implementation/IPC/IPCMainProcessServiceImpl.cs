@@ -129,8 +129,9 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         return process;
     }
 
-    public Process? StartSubProcess(
+    public async ValueTask<Process?> StartSubProcessAsync(
         string fileName,
+        bool isAdministrator = false,
         Action<ProcessStartInfo>? configure = null)
     {
         var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
@@ -148,8 +149,20 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         psi.ArgumentList.Add(mSubProcessArgumentIndex2Model.Value);
         configure?.Invoke(psi);
         DotNetRuntimeHelper.AddEnvironment(psi);
-        var process = Process.Start(psi);
-        return process;
+        if (isAdministrator)
+        {
+            var psi_ = Serializable.SMP2(psi);
+            var startPid = await IPlatformService.Instance.StartProcessAsAdministratorAsync(psi_);
+            if (startPid == default)
+                return default;
+            var process = Process.GetProcessById(startPid);
+            return process;
+        }
+        else
+        {
+            var process = Process.Start(psi);
+            return process;
+        }
     }
 
     readonly Lazy<string> mSubProcessArgumentIndex2Model = new(() =>

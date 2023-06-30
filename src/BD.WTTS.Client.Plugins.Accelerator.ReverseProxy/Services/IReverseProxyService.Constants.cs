@@ -45,18 +45,24 @@ public partial interface IReverseProxyService : IDisposable, IReverseProxySettin
     /// 启动代理服务
     /// </summary>
     /// <returns></returns>
-    ValueTask<bool> StartProxyAsync();
+    Task<StartProxyResult> StartProxyAsync();
 
     /// <summary>
     /// 停止代理服务
     /// </summary>
     /// <returns></returns>
-    ValueTask StopProxyAsync();
+    Task StopProxyAsync();
 
 #if DEBUG
     string GetDebugString()
     {
         return $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(GetType())?.FullName}";
+    }
+
+    Task<StartProxyResult> GetDebugString2()
+    {
+        StartProxyResult r = new(StartProxyResultCode.Exception, new Exception("aaaa"));
+        return Task.FromResult(r);
     }
 #endif
 }
@@ -147,4 +153,44 @@ public partial interface IReverseProxySettings
     #endregion
 
     IPAddress? ProxyDNS { get; set; }
+}
+
+/// <summary>
+/// 启动代理结果状态码
+/// </summary>
+public enum StartProxyResultCode : byte
+{
+    /// <summary>
+    /// Ipc 调用失败时候将返回默认值，或显示设置的默认值
+    /// </summary>
+    IpcCallFailOrDefault = default,
+
+    /// <summary>
+    /// 成功
+    /// </summary>
+    Ok = 121,
+
+    /// <summary>
+    /// 证书安装失败，或未信任
+    /// </summary>
+    SetupRootCertificateFail,
+
+    /// <summary>
+    /// 出现未处理的异常
+    /// </summary>
+    Exception,
+}
+
+/// <summary>
+/// 启动代理结果
+/// </summary>
+/// <param name="Code">状态码</param>
+/// <param name="Exception">未处理的异常</param>
+public readonly record struct StartProxyResult(StartProxyResultCode Code, Exception? Exception)
+{
+    public static implicit operator bool(StartProxyResult result) => result.Code == StartProxyResultCode.Ok;
+
+    public static implicit operator StartProxyResult(StartProxyResultCode code) => new(code, default);
+
+    public static implicit operator StartProxyResult(Exception? exception) => exception == null ? new(StartProxyResultCode.Ok, default) : new(StartProxyResultCode.Exception, exception);
 }

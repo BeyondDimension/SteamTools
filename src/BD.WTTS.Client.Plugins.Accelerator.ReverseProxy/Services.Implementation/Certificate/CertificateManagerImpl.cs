@@ -216,7 +216,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
 #if DEBUG
         catch (Exception e)
         {
-            e.LogAndShowT(TAG, msg: "TrustRootCertificate Error");
+            Log.Error(TAG, e, "SharedTrustRootCertificate Error");
         }
 #else
         catch { }

@@ -136,26 +136,24 @@ abstract class ReverseProxyServiceImpl
     /// <param name="exception"></param>
     protected virtual void OnException(Exception exception)
     {
-        Log.Error(TAG, exception, "ProxyServer ExceptionFunc");
+        Log.Error(TAG, exception, "OnException");
     }
 
-    public async ValueTask<bool> StartProxyAsync()
+    public async Task<StartProxyResult> StartProxyAsync()
     {
         if (!CertificateManager.IsRootCertificateInstalled)
         {
-            //CertificateManager.DeleteRootCertificate();
             var isOk = await CertificateManager.SetupRootCertificateAsync();
             if (!isOk)
             {
-                Log.Error("StartProxy", "证书安装失败，或未信任。");
-                return false;
+                return StartProxyResultCode.SetupRootCertificateFail;
             }
         }
 
         return await StartProxyImpl();
     }
 
-    protected abstract Task<bool> StartProxyImpl();
+    protected abstract Task<StartProxyResult> StartProxyImpl();
 
     // IDisposable
 

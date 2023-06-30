@@ -9,6 +9,14 @@ partial class Startup // 配置 Host
         Func<string>? sendMessage = null,
         params string[] loadModules)
     {
+#if DEBUG
+        var consoleTitle = AssemblyInfo.Trademark;
+        if (!string.IsNullOrWhiteSpace(ModuleName))
+            consoleTitle = $"{consoleTitle}({ModuleName})";
+        consoleTitle = $"{consoleTitle} {string.Join(' ', Environment.GetCommandLineArgs().Skip(1))}";
+        SetConsoleTitle(consoleTitle);
+#endif
+
 #if STARTUP_WATCH_TRACE || DEBUG
         WatchTrace.Start();
 #endif
