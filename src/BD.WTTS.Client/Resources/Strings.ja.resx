@@ -592,7 +592,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>ゲーム データは取得されません</value>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
-    <value>ゲームの一覧を読み込んでいます...</value>
+    <value>正在加载 ...</value>
   </data>
   <data name="GameList_ListCount" xml:space="preserve">
     <value>追加済み ({0}/{1})</value>
