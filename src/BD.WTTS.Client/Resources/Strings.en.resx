@@ -2423,4 +2423,10 @@ The system will {1} after {0} seconds.</value>
   <data name="Plugin_Version" xml:space="preserve">
     <value>版本号：</value>
   </data>
+  <data name="CommunityFix_SetAsSystemPACProxyFail" xml:space="preserve">
+    <value>开启 PAC 代理失败</value>
+  </data>
+  <data name="CommunityFix_SetAsSystemProxyFail" xml:space="preserve">
+    <value>开启系统代理失败</value>
+  </data>
 </root>
