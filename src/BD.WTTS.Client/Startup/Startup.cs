@@ -288,13 +288,13 @@ public abstract partial class Startup
 
             string? logDirPath = null;
             IPCSubProcessFileSystem.InitLog(
-                ref logDirPath,
+                ref logDirPath
 #if STARTUP_WATCH_TRACE || DEBUG
 #pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable SA1001 // Commas should be spaced correctly
 #pragma warning disable SA1115 // Parameter should follow comma
 #pragma warning disable SA1113 // Comma should be on the same line as previous parameter
-                watchTrace: true
+                , watchTrace: true
 #pragma warning restore SA1113 // Comma should be on the same line as previous parameter
 #pragma warning restore SA1115 // Parameter should follow comma
 #pragma warning restore SA1001 // Commas should be spaced correctly
