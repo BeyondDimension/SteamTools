@@ -1,4 +1,7 @@
 #if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+using IHttpClientFactory_Common = System.Net.Http.Client.IHttpClientFactory;
+using IHttpClientFactory_Extensions_Http = System.Net.Http.IHttpClientFactory;
+
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -59,6 +62,41 @@ public static partial class ServiceCollectionExtensions
         return services;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void AddCommonHttpClientFactory(this IServiceCollection services)
+    {
+        services.AddSingleton<IHttpClientFactory_Common>(
+            s => new HttpClientFactoryWrapper(s));
+    }
+
+    sealed class HttpClientFactoryWrapper : IHttpClientFactory_Common
+    {
+        readonly IServiceProvider s;
+
+        public HttpClientFactoryWrapper(IServiceProvider s)
+        {
+            this.s = s;
+        }
+
+        HttpClient IHttpClientFactory_Common.CreateClient(string name, HttpHandlerCategory category)
+            => s.GetRequiredService<IHttpClientFactory_Extensions_Http>().CreateClient(name);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void AddCookieHttpClient(this IServiceCollection services)
+    {
+        services.AddCommonHttpClientFactory();
+        services.AddSingleton<CookieHttpClient>();
+        services.AddHttpClient(CookieHttpClient.HttpClientName, (s, c) =>
+        {
+            c.Timeout = GeneralHttpClientFactory.DefaultTimeout;
+        }).ConfigurePrimaryHttpMessageHandler(() => new HttpHandlerType()
+        {
+            UseCookies = true,
+            CookieContainer = CookieHttpClient.CookieContainer,
+        });
+    }
+
     /// <summary>
     /// 添加 Http 反向代理
     /// </summary>
@@ -69,7 +107,7 @@ public static partial class ServiceCollectionExtensions
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/ServiceCollectionExtensions.cs#L15
 
-        CookieHttpClient.AddHttpClient(services);
+        services.AddCookieHttpClient();
 
         return services
             .AddMemoryCache()

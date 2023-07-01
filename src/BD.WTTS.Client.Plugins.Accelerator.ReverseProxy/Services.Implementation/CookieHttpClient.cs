@@ -17,18 +17,5 @@ sealed class CookieHttpClient
     }
 
     public HttpClient HttpClient => httpClientFactory.CreateClient(HttpClientName);
-
-    public static void AddHttpClient(IServiceCollection services)
-    {
-        services.AddSingleton<CookieHttpClient>();
-        services.AddHttpClient(HttpClientName, (s, c) =>
-        {
-            c.Timeout = GeneralHttpClientFactory.DefaultTimeout;
-        }).ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler()
-        {
-            UseCookies = true,
-            CookieContainer = CookieContainer,
-        });
-    }
 }
 #endif

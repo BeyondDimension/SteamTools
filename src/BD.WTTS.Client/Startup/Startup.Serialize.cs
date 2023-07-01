@@ -37,11 +37,15 @@ partial class Startup
             }
             if (objectType.IsClass)
             {
-                if (typeof(IMemoryPackable<>)
-                    .MakeGenericType(objectType)
-                    .IsAssignableFrom(objectType))
+                if (objectType.Namespace?.Contains("Models",
+                    StringComparison.OrdinalIgnoreCase) ?? false)
                 {
-                    return true;
+                    if (typeof(IMemoryPackable<>)
+                        .MakeGenericType(objectType)
+                        .IsAssignableFrom(objectType))
+                    {
+                        return true;
+                    }
                 }
             }
 

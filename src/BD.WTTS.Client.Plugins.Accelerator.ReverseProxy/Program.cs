@@ -1,6 +1,4 @@
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
-using IHttpClientFactory_Common = System.Net.Http.Client.IHttpClientFactory;
-using IHttpClientFactory_Extensions_Http = System.Net.Http.IHttpClientFactory;
 
 const string moduleName = "Accelerator";
 const string pluginName = "Accelerator";
@@ -36,24 +34,10 @@ static void ConfigureServices(IServiceCollection services)
     });
 
     services.AddHttpClient();
-    services.AddSingleton<IHttpClientFactory_Common>(
-             s => new HttpClientFactoryWrapper(s));
+    services.AddCommonHttpClientFactory();
 
     services.AddDnsAnalysisService();
     // 添加反向代理服务（子进程实现）
     services.AddReverseProxyService();
     services.AddSingleton<ICertificateManager, CertificateManagerImpl>();
-}
-
-sealed class HttpClientFactoryWrapper : IHttpClientFactory_Common
-{
-    readonly IServiceProvider s;
-
-    public HttpClientFactoryWrapper(IServiceProvider s)
-    {
-        this.s = s;
-    }
-
-    HttpClient IHttpClientFactory_Common.CreateClient(string name, HttpHandlerCategory category)
-        => s.GetRequiredService<IHttpClientFactory_Extensions_Http>().CreateClient(name);
 }
