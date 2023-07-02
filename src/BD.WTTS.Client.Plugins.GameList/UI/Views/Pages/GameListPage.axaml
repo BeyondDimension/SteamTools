@@ -145,10 +145,10 @@
                             <spp:AppItem.Image>
                                 <spp:Image2
                                     Width="128"
-                                    Height="128"
+                                    DecodeWidth="128"
                                     FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
                                     RenderOptions.BitmapInterpolationMode="HighQuality"
-                                    Source="{Binding LibraryGridStream^}"
+                                    Source="{Binding LibraryGridUrl}"
                                     Stretch="UniformToFill" />
                             </spp:AppItem.Image>
                         </spp:AppItem>
