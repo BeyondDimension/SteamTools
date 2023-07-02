@@ -30,7 +30,7 @@ sealed class Plugin : PluginBase<Plugin>
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
         services.AddSingleton<IPartialGameLibrarySettings>(s =>
-            s.GetRequiredService<IOptionsMonitor<IGameLibrarySettings>>().CurrentValue);
+            s.GetRequiredService<IOptionsMonitor<GameLibrarySettings_>>().CurrentValue);
     }
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)

@@ -26,7 +26,7 @@ sealed class Plugin : PluginBase<Plugin>
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
         services.AddSingleton<IPartialGameAccountSettings>(s =>
-            s.GetRequiredService<IOptionsMonitor<IGameAccountSettings>>().CurrentValue);
+            s.GetRequiredService<IOptionsMonitor<GameAccountSettings_>>().CurrentValue);
 
         services.AddSingleton<IPlatformSwitcher, BasicPlatformSwitcher>()
                 .AddSingleton<IPlatformSwitcher, SteamPlatformSwitcher>();
