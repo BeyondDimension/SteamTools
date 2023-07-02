@@ -8,5 +8,6 @@
 global using BD.Common.Models;
 global using BD.Common.Models.Abstractions;
 
+global using BD.WTTS;
 global using BD.WTTS.Models;
 global using BD.WTTS.Models.Abstractions;

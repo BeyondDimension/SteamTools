@@ -46,6 +46,22 @@ public interface IPCSubProcessService : IDisposable
 
     static string LogDirPath { get; private set; } = null!;
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static bool TryGetProcessById(int pid, [NotNullWhen(true)] out Process? process)
+    {
+        try
+        {
+            process = Process.GetProcessById(pid);
+            return true;
+        }
+        catch
+        {
+            // 异常不记录日志
+            process = null;
+            return false;
+        }
+    }
+
     /// <summary>
     /// 子进程 IPC 程序启动通用函数
     /// </summary>
@@ -55,6 +71,7 @@ public interface IPCSubProcessService : IDisposable
     /// <param name="configureIpcProvider">配置 IPC 服务</param>
     /// <param name="args"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static async Task<int> MainAsync(
         string moduleName,
         string? pluginName,
@@ -69,8 +86,7 @@ public interface IPCSubProcessService : IDisposable
             return (int)CommandExitCode.EmptyPipeName;
         if (!int.TryParse(args[1], out var pid))
             return (int)CommandExitCode.EmptyMainProcessId;
-        var mainProcess = Process.GetProcessById(pid);
-        if (mainProcess == null)
+        if (!TryGetProcessById(pid, out var mainProcess))
             return (int)CommandExitCode.NotFoundMainProcessId;
 
         if (pluginName != null)

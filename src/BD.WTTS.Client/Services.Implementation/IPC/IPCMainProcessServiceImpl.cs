@@ -136,13 +136,23 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
     {
         var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
         var pid = Environment.ProcessId;
+        const bool useShellExecute =
+#if DEBUG
+            true; // 调试模式下此子进程与主进程不使用同一个控制台窗口
+#else
+            false;
+#endif
+        const bool createNoWindow =
+#if DEBUG
+            false; // 调试模式下显示窗口
+#else
+            true;
+#endif
         var psi = new ProcessStartInfo
         {
             FileName = fileName,
-            UseShellExecute = false,
-#if !DEBUG
-            CreateNoWindow = true,
-#endif
+            UseShellExecute = useShellExecute,
+            CreateNoWindow = createNoWindow,
         };
         psi.ArgumentList.Add(pipeName);
         psi.ArgumentList.Add(pid.ToString());
@@ -155,8 +165,15 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             var startPid = await IPlatformService.Instance.StartProcessAsAdministratorAsync(psi_);
             if (startPid == default)
                 return default;
-            var process = Process.GetProcessById(startPid);
-            return process;
+            try
+            {
+                var process = Process.GetProcessById(startPid);
+                return process;
+            }
+            catch
+            {
+                return default;
+            }
         }
         else
         {

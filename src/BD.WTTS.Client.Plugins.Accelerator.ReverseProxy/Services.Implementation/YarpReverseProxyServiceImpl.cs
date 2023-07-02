@@ -11,6 +11,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
     WebApplication? app;
     readonly IPCSubProcessService ipc;
     readonly IPCToastService toast;
+    readonly IPCPlatformService platformService;
 
     public YarpReverseProxyServiceImpl(
         IPCSubProcessService ipc,
@@ -18,8 +19,20 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         ICertificateManager certificateManager) : base(dnsAnalysis)
     {
         this.ipc = ipc;
+        platformService = GetIPCService<IPCPlatformService>(nameof(platformService));
+        toast = GetIPCService<IPCToastService>(nameof(toast));
         CertificateManager = certificateManager;
-        toast = ipc.GetService<IPCToastService>().ThrowIsNull(nameof(toast));
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    TIPCService GetIPCService<TIPCService>(string paramName) where TIPCService : class
+    {
+        var ipcService = ipc.GetService<TIPCService>() ?? throw new ArgumentNullException(paramName);
+        ipcAddSingletonServices += s =>
+        {
+            s.AddSingleton(ipcService);
+        };
+        return ipcService;
     }
 
     public override ICertificateManager CertificateManager { get; }

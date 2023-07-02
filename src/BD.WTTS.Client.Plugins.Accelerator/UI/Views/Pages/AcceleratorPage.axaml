@@ -45,7 +45,6 @@
             <Button
                 Padding="8,4"
                 Command="{Binding StartProxyCommand}"
-                CommandParameter="False"
                 DockPanel.Dock="Right"
                 IsVisible="{ReflectionBinding Source={x:Static s:ProxyService.Current},
                                               Path=ProxyStatus,

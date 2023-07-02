@@ -214,11 +214,6 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
 
         TSettings IOptionsMonitor<TSettings>.Get(string? name) => settings;
 
-        sealed class B
-        {
-            public ConcurrentDictionary<string, SizePosition>? WindowSizePositions { get; set; }
-        }
-
         TSettings Deserialize()
         {
             try

@@ -9,6 +9,7 @@
 global using BD.Common.Services;
 #endif
 
+global using BD.WTTS;
 global using BD.WTTS.Services;
 #if !MVVM_VM
 global using BD.WTTS.Services.Implementation;

@@ -10,11 +10,20 @@ partial class Startup // 配置 Host
         params string[] loadModules)
     {
 #if DEBUG
-        var consoleTitle = AssemblyInfo.Trademark;
+        var consoleTitle = Constants.CUSTOM_URL_SCHEME_NAME;
         if (!string.IsNullOrWhiteSpace(ModuleName))
             consoleTitle = $"{consoleTitle}({ModuleName})";
-        consoleTitle = $"{consoleTitle} {string.Join(' ', Environment.GetCommandLineArgs().Skip(1))}";
+        consoleTitle = $"[{Environment.ProcessId}, {IsProcessElevated_DEBUG_Only().ToLowerString()}] {consoleTitle} {string.Join(' ', Environment.GetCommandLineArgs().Skip(1))}";
         SetConsoleTitle(consoleTitle);
+
+        static bool IsProcessElevated_DEBUG_Only()
+        {
+#if WINDOWS
+            return WindowsPlatformServiceImpl.IsPrivilegedProcess;
+#else
+            return default;
+#endif
+        }
 #endif
 
 #if STARTUP_WATCH_TRACE || DEBUG

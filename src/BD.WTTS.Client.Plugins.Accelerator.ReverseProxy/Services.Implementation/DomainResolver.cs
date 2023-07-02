@@ -13,10 +13,10 @@ sealed class DomainResolver : IDomainResolver
 
     bool isIpv6 = false;
 
-    public DomainResolver(IPCSubProcessService ipc, IReverseProxyConfig reverseProxyConfig)
+    public DomainResolver(IPCToastService toast, IReverseProxyConfig reverseProxyConfig)
     {
         this.reverseProxyConfig = reverseProxyConfig;
-        toast = ipc.GetService<IPCToastService>().ThrowIsNull(nameof(toast));
+        this.toast = toast;
     }
 
     public IAsyncEnumerable<IPAddress> ResolveAsync(DnsEndPoint endPoint, CancellationToken cancellationToken = default)

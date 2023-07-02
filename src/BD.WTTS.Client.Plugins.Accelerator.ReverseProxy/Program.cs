@@ -3,7 +3,31 @@ using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 const string moduleName = "Accelerator";
 const string pluginName = "Accelerator";
 #if DEBUG
-Console.WriteLine($"This: {moduleName} / Program.Start");
+//Console.WriteLine($"This: {moduleName} / Program.Start");
+var consoleTitle = $"[{Environment.ProcessId}, {IsProcessElevated_DEBUG_Only().ToLowerString()}] {Constants.CUSTOM_URL_SCHEME_NAME}({moduleName}) {string.Join(' ', Environment.GetCommandLineArgs().Skip(1))}";
+SetConsoleTitle(consoleTitle);
+
+[MethodImpl(MethodImplOptions.AggressiveInlining)]
+static void SetConsoleTitle(string title)
+{
+    try
+    {
+        Console.Title = title;
+    }
+    catch
+    {
+
+    }
+}
+
+[MethodImpl(MethodImplOptions.AggressiveInlining)]
+static bool IsProcessElevated_DEBUG_Only()
+{
+    // use WindowsPlatformServiceImpl.IsProcessElevated on not Debug
+    using WindowsIdentity identity = WindowsIdentity.GetCurrent();
+    WindowsPrincipal principal = new(identity);
+    return principal.IsInRole(WindowsBuiltInRole.Administrator);
+}
 #endif
 try
 {
