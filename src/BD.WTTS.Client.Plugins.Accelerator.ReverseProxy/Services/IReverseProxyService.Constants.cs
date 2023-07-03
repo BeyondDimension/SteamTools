@@ -132,7 +132,7 @@ public partial interface IReverseProxySettings
     /// <summary>
     /// Socks5 监听端口
     /// </summary>
-    int Socks5ProxyPortId { get; set; }
+    ushort Socks5ProxyPortId { get; set; }
 
     #endregion
 
@@ -144,7 +144,7 @@ public partial interface IReverseProxySettings
 
     string? TwoLevelAgentIp { get; set; }
 
-    int TwoLevelAgentPortId { get; set; }
+    ushort TwoLevelAgentPortId { get; set; }
 
     string? TwoLevelAgentUserName { get; set; }
 
@@ -180,7 +180,7 @@ public readonly partial record struct ReverseProxySettings(
     [property:MP2Key(10)]
     bool Socks5ProxyEnable,
     [property:MP2Key(11)]
-    int Socks5ProxyPortId,
+    ushort Socks5ProxyPortId,
     [property:MP2Key(12)]
     bool TwoLevelAgentEnable,
     [property:MP2Key(13)]
@@ -188,7 +188,7 @@ public readonly partial record struct ReverseProxySettings(
     [property:MP2Key(14)]
     string? TwoLevelAgentIp,
     [property:MP2Key(15)]
-    int TwoLevelAgentPortId,
+    ushort TwoLevelAgentPortId,
     [property:MP2Key(16)]
     string? TwoLevelAgentUserName,
     [property:MP2Key(17)]

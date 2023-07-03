@@ -67,7 +67,7 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
     public bool Socks5ProxyEnable { get; set; }
 
     /// <inheritdoc cref="IReverseProxyService.Socks5ProxyPortId"/>
-    public int Socks5ProxyPortId { get; set; }
+    public ushort Socks5ProxyPortId { get; set; }
 
     // TwoLevelAgent(二级代理)
 
@@ -77,7 +77,7 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
 
     public string? TwoLevelAgentIp { get; set; }
 
-    public int TwoLevelAgentPortId { get; set; }
+    public ushort TwoLevelAgentPortId { get; set; }
 
     public string? TwoLevelAgentUserName { get; set; }
 
