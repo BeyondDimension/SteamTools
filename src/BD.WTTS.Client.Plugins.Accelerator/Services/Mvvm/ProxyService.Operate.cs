@@ -83,8 +83,8 @@ partial class ProxyService
         switch (proxyMode)
         {
             case ProxyMode.Hosts:
-                var inUse = SocketHelper.IsUsePort(proxyIp_.Value, httpsPort);
-                if (inUse)
+                var inUsePort = SocketHelper.IsUsePort(proxyIp_.Value, httpsPort);
+                if (inUsePort)
                 {
                     string? error_CommunityFix_StartProxyFaild443 = default;
                     if (OperatingSystem.IsWindows())
@@ -114,7 +114,6 @@ partial class ProxyService
                 }
                 break;
             case ProxyMode.System:
-                //var proxyip = reverseProxyService.ProxyIp;
                 if (OperatingSystem.IsWindows() &&
                     proxyIp_.Value.Equals(IPAddress.Any))
                 {
