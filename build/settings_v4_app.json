@@ -660,7 +660,7 @@
           "IsValueType": null
         },
         {
-          "TypeName": "int",
+          "TypeName": "ushort",
           "PropertyName": "Socks5ProxyPortId",
           "DefaultValue": "8868",
           "DefaultValueIsConst": true,
@@ -696,13 +696,13 @@
           "IsValueType": null
         },
         {
-          "TypeName": "short",
+          "TypeName": "ExternalProxyType",
           "PropertyName": "TwoLevelAgentProxyType",
-          "DefaultValue": "(short)IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType",
+          "DefaultValue": "IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType",
           "DefaultValueIsConst": true,
           "Summary": "TwoLevelAgent ProxyType",
           "IsRegionOrEndregion": null,
-          "IsValueType": null
+          "IsValueType": true
         },
         {
           "TypeName": "string",
@@ -714,7 +714,7 @@
           "IsValueType": null
         },
         {
-          "TypeName": "int",
+          "TypeName": "ushort",
           "PropertyName": "TwoLevelAgentPortId",
           "DefaultValue": "7890",
           "DefaultValueIsConst": true,

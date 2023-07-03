@@ -139,12 +139,12 @@ public partial interface IProxySettings
     /// <summary>
     /// Socks5 监听端口
     /// </summary>
-    int? Socks5ProxyPortId { get; set; }
+    ushort? Socks5ProxyPortId { get; set; }
 
     /// <summary>
     /// Socks5 监听端口的默认值
     /// </summary>
-    const int DefaultSocks5ProxyPortId = 8868;
+    const ushort DefaultSocks5ProxyPortId = 8868;
 
     #endregion
 
@@ -163,12 +163,12 @@ public partial interface IProxySettings
     /// <summary>
     /// TwoLevelAgent ProxyType
     /// </summary>
-    short? TwoLevelAgentProxyType { get; set; }
+    ExternalProxyType? TwoLevelAgentProxyType { get; set; }
 
     /// <summary>
     /// TwoLevelAgent ProxyType的默认值
     /// </summary>
-    const short DefaultTwoLevelAgentProxyType = (short)IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType;
+    const ExternalProxyType DefaultTwoLevelAgentProxyType = IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType;
 
     /// <summary>
     /// 二级代理 IP
@@ -183,12 +183,12 @@ public partial interface IProxySettings
     /// <summary>
     /// 二级代理 监听端口
     /// </summary>
-    int? TwoLevelAgentPortId { get; set; }
+    ushort? TwoLevelAgentPortId { get; set; }
 
     /// <summary>
     /// 二级代理 监听端口的默认值
     /// </summary>
-    const int DefaultTwoLevelAgentPortId = 7890;
+    const ushort DefaultTwoLevelAgentPortId = 7890;
 
     /// <summary>
     /// TwoLevelAgent UserName

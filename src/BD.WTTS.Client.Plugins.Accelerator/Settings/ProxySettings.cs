@@ -119,7 +119,7 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// Socks5 监听端口
     /// </summary>
     [MPKey(11), MP2Key(11), JsonPropertyOrder(11)]
-    public int? Socks5ProxyPortId { get; set; }
+    public ushort? Socks5ProxyPortId { get; set; }
 
     #endregion
 
@@ -135,7 +135,7 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// TwoLevelAgent ProxyType
     /// </summary>
     [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
-    public short? TwoLevelAgentProxyType { get; set; }
+    public ExternalProxyType? TwoLevelAgentProxyType { get; set; }
 
     /// <summary>
     /// 二级代理 IP
@@ -147,7 +147,7 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// 二级代理 监听端口
     /// </summary>
     [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
-    public int? TwoLevelAgentPortId { get; set; }
+    public ushort? TwoLevelAgentPortId { get; set; }
 
     /// <summary>
     /// TwoLevelAgent UserName
@@ -264,7 +264,7 @@ public static partial class ProxySettings
     /// <summary>
     /// Socks5 监听端口
     /// </summary>
-    public static SettingsStructProperty<int, ProxySettings_> Socks5ProxyPortId { get; }
+    public static SettingsStructProperty<ushort, ProxySettings_> Socks5ProxyPortId { get; }
         = new(DefaultSocks5ProxyPortId);
 
     #endregion
@@ -280,7 +280,7 @@ public static partial class ProxySettings
     /// <summary>
     /// TwoLevelAgent ProxyType
     /// </summary>
-    public static SettingsStructProperty<short, ProxySettings_> TwoLevelAgentProxyType { get; }
+    public static SettingsStructProperty<ExternalProxyType, ProxySettings_> TwoLevelAgentProxyType { get; }
         = new(DefaultTwoLevelAgentProxyType);
 
     /// <summary>
@@ -292,7 +292,7 @@ public static partial class ProxySettings
     /// <summary>
     /// 二级代理 监听端口
     /// </summary>
-    public static SettingsStructProperty<int, ProxySettings_> TwoLevelAgentPortId { get; }
+    public static SettingsStructProperty<ushort, ProxySettings_> TwoLevelAgentPortId { get; }
         = new(DefaultTwoLevelAgentPortId);
 
     /// <summary>

@@ -1,4 +1,9 @@
 using dotnetCampus.Ipc.CompilerServices.Attributes;
+#if APP_REVERSE_PROXY
+using InstanceReverseProxyService = BD.WTTS.Services.Implementation.YarpReverseProxyServiceImpl;
+#else
+using InstanceReverseProxyService = BD.WTTS.Services.IReverseProxyService;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
@@ -7,14 +12,14 @@ namespace BD.WTTS.Services;
 /// 反向代理服务
 /// </summary>
 [IpcPublic(Timeout = AssemblyInfo.IpcTimeout, IgnoresIpcException = false)]
-public partial interface IReverseProxyService : IDisposable, IReverseProxySettings
+public partial interface IReverseProxyService : IDisposable
 {
     /// <summary>
     /// 反向代理的常量与配置项，在插件中由 IPC 远程调用给子进程
     /// </summary>
     static class Constants
     {
-        public static IReverseProxyService Instance => Ioc.Get<IReverseProxyService>();
+        internal static InstanceReverseProxyService Instance => Ioc.Get<InstanceReverseProxyService>();
 
         /// <inheritdoc cref="CertificateConstants.CertificateName"/>
         public const string CertificateName = CertificateConstants.CertificateName;
@@ -34,18 +39,13 @@ public partial interface IReverseProxyService : IDisposable, IReverseProxySettin
     /// </summary>
     bool ProxyRunning { get; }
 
-    /// <summary>
-    /// 检查端口号是否被使用
-    /// </summary>
-    /// <param name="port"></param>
-    /// <returns></returns>
-    bool PortInUse(int port) => SocketHelper.IsUsePort(ProxyIp, port);
+    /// <inheritdoc cref="IReverseProxySettings.Scripts"/>
+    IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
 
     /// <summary>
     /// 启动代理服务
     /// </summary>
-    /// <returns></returns>
-    Task<StartProxyResult> StartProxyAsync();
+    Task<StartProxyResult> StartProxyAsync(byte[] reverseProxySettings);
 
     /// <summary>
     /// 停止代理服务
@@ -155,6 +155,97 @@ public partial interface IReverseProxySettings
     IPAddress? ProxyDNS { get; set; }
 }
 
+[MP2Obj(SerializeLayout.Explicit)]
+public readonly partial record struct ReverseProxySettings(
+    [property: MP2Key(0)]
+    IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains,
+    [property:MP2Key(1)]
+    IReadOnlyCollection<ScriptDTO>? Scripts,
+    [property:MP2Key(2)]
+    bool IsEnableScript,
+    [property:MP2Key(3)]
+    bool IsOnlyWorkSteamBrowser,
+    [property:MP2Key(4)]
+    int ProxyPort,
+    [property:MP2Key(5)]
+    string? ProxyIp,
+    [property:MP2Key(6)]
+    ProxyMode ProxyMode,
+    [property:MP2Key(7)]
+    bool IsProxyGOG,
+    [property:MP2Key(8)]
+    bool OnlyEnableProxyScript,
+    [property:MP2Key(9)]
+    bool EnableHttpProxyToHttps,
+    [property:MP2Key(10)]
+    bool Socks5ProxyEnable,
+    [property:MP2Key(11)]
+    int Socks5ProxyPortId,
+    [property:MP2Key(12)]
+    bool TwoLevelAgentEnable,
+    [property:MP2Key(13)]
+    ExternalProxyType TwoLevelAgentProxyType,
+    [property:MP2Key(14)]
+    string? TwoLevelAgentIp,
+    [property:MP2Key(15)]
+    int TwoLevelAgentPortId,
+    [property:MP2Key(16)]
+    string? TwoLevelAgentUserName,
+    [property:MP2Key(17)]
+    string? TwoLevelAgentPassword,
+    [property:MP2Key(18)]
+    string? ProxyDNS)
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal IPAddress GetProxyIp() => GetProxyIp(ProxyIp);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal IPAddress? GetProxyDNS()
+    {
+        var result = IPAddress2.TryParse(ProxyDNS, out var proxyDNS) ? proxyDNS : null;
+        return result;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static string GetTwoLevelAgentIp(string? twoLevelAgentIp)
+    {
+        var result = IPAddress2.TryParse(twoLevelAgentIp, out var twoLevelAgentIp_) ?
+            twoLevelAgentIp_.ToString() : IPAddress.Loopback.ToString();
+        return result;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static IPAddress GetProxyIp(string? proxyIp)
+    {
+        var result = IPAddress2.TryParse(proxyIp, out var ip) ? ip : IPAddress.Any;
+        return result;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal void SetValue(IReverseProxySettings settings)
+    {
+        settings.ProxyDomains = ProxyDomains;
+        settings.Scripts = Scripts;
+        settings.IsEnableScript = IsEnableScript;
+        settings.IsOnlyWorkSteamBrowser = IsOnlyWorkSteamBrowser;
+        settings.ProxyPort = ProxyPort;
+        settings.ProxyIp = GetProxyIp();
+        settings.ProxyMode = ProxyMode;
+        settings.IsProxyGOG = IsProxyGOG;
+        settings.OnlyEnableProxyScript = OnlyEnableProxyScript;
+        settings.EnableHttpProxyToHttps = EnableHttpProxyToHttps;
+        settings.Socks5ProxyEnable = Socks5ProxyEnable;
+        settings.Socks5ProxyPortId = Socks5ProxyPortId;
+        settings.TwoLevelAgentEnable = TwoLevelAgentEnable;
+        settings.TwoLevelAgentProxyType = TwoLevelAgentProxyType;
+        settings.TwoLevelAgentIp = TwoLevelAgentIp;
+        settings.TwoLevelAgentPortId = TwoLevelAgentPortId;
+        settings.TwoLevelAgentUserName = TwoLevelAgentUserName;
+        settings.TwoLevelAgentPassword = TwoLevelAgentPassword;
+        settings.ProxyDNS = GetProxyDNS();
+    }
+}
+
 /// <summary>
 /// 启动代理结果状态码
 /// </summary>
@@ -174,6 +265,11 @@ public enum StartProxyResultCode : byte
     /// 证书安装失败，或未信任
     /// </summary>
     SetupRootCertificateFail,
+
+    /// <summary>
+    /// 反序列化 <see cref="ReverseProxySettings"/> 失败
+    /// </summary>
+    DeserializeReverseProxySettingsFail,
 
     /// <summary>
     /// 出现未处理的异常

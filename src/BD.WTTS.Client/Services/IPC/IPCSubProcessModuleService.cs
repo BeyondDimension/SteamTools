@@ -40,7 +40,7 @@ public interface IPCSubProcessModuleService : IDisposable
         public static string GetPluginsDirectory(string pluginName, string directory)
         {
             var dirName = GetDirectoryName(pluginName);
-            directory = Path.Combine(directory, "Plugins", dirName);
+            directory = Path.Combine(directory, AssemblyInfo.Plugins, dirName);
             IOPath.DirCreateByNotExists(directory);
             return directory;
         }

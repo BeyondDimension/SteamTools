@@ -1,7 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Enums;
 
-public enum ExternalProxyType
+public enum ExternalProxyType : byte
 {
     Http,
 

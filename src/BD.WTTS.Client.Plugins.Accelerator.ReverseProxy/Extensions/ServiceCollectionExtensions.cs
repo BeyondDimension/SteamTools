@@ -15,7 +15,9 @@ public static partial class ServiceCollectionExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddReverseProxyService(this IServiceCollection services)
     {
-        services.AddSingleton<IReverseProxyService, YarpReverseProxyServiceImpl>();
+        services.AddSingleton<YarpReverseProxyServiceImpl>();
+        services.AddSingleton<IReverseProxySettings>(s => s.GetRequiredService<YarpReverseProxyServiceImpl>());
+        services.AddSingleton<IReverseProxyService>(s => s.GetRequiredService<YarpReverseProxyServiceImpl>());
         return services;
     }
 

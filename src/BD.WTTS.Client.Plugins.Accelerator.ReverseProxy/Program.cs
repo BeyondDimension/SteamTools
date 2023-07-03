@@ -1,7 +1,7 @@
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 
-const string moduleName = "Accelerator";
-const string pluginName = "Accelerator";
+const string moduleName = AssemblyInfo.Accelerator;
+const string pluginName = AssemblyInfo.Accelerator;
 #if DEBUG
 //Console.WriteLine($"This: {moduleName} / Program.Start");
 var consoleTitle = $"[{Environment.ProcessId}, {IsProcessElevated_DEBUG_Only().ToLowerString()}] {Constants.CUSTOM_URL_SCHEME_NAME}({moduleName}) {string.Join(' ', Environment.GetCommandLineArgs().Skip(1))}";

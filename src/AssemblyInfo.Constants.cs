@@ -73,6 +73,7 @@ false
         8000;
 #endif
 
+    public const string Plugins = "Plugins";
     public const string Accelerator = "Accelerator";
     public const string GameAccount = "GameAccount";
     public const string GameList = "GameList";

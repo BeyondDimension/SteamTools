@@ -8,3 +8,4 @@
 global using BD.WTTS;
 global using BD.WTTS.Diagnostics;
 global using MessageBox = BD.WTTS.UI.MessageBox;
+global using Strings = BD.WTTS.Client.Resources.Strings;

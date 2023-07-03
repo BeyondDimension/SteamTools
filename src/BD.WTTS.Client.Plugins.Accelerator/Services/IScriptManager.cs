@@ -4,6 +4,7 @@ namespace BD.WTTS.Services;
 public interface IScriptManager
 {
     const string DirName = Migrations.DirName_Scripts;
+    const string DirName_Build = Migrations.DirName_BuildScripts;
 
     static IScriptManager Instance => Ioc.Get<IScriptManager>();
 

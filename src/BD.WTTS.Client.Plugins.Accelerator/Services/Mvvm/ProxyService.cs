@@ -1,11 +1,9 @@
-using Newtonsoft.Json;
-using AppResources = BD.WTTS.Client.Resources.Strings;
 using KeyValuePair = System.Collections.Generic.KeyValuePair;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-public sealed class ProxyService
+public sealed partial class ProxyService
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     : ReactiveObject, IDisposable, IAsyncDisposable, IProxyService
 #endif
@@ -34,227 +32,21 @@ public sealed class ProxyService
             .Subscribe(_ => SelectGroup = ProxyDomains.Items.FirstOrDefault());
 
         this.WhenValueChanged(x => x.ProxyStatus, false)
-            .Subscribe(async x =>
+            .Subscribe(async proxyStatusLeft =>
             {
-                if (x)
+                bool proxyStatusRight;
+                if (proxyStatusLeft)
                 {
-                    var enableProxyDomains = EnableProxyDomains;
-                    reverseProxyService.ProxyDomains = enableProxyDomains;
-                    reverseProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
-                    reverseProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
-
-                    if (reverseProxyService.IsEnableScript)
-                    {
-                        await EnableProxyScripts.ContinueWith(e =>
-                        {
-                            reverseProxyService.Scripts = e.Result?.ToImmutableArray();
-                        });
-                    }
-
-                    var proxyMode = ProxyMode.System;
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-#if MACCATALYST
-                    if (OperatingSystem.IsMacOS())
-#endif
-                    {
-                        reverseProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
-                        proxyMode = ProxySettings.ProxyMode.Value;
-                        reverseProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
-                    }
-#endif
-                    reverseProxyService.ProxyMode = proxyMode;
-
-                    reverseProxyService.ProxyIp = IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip) ? ip : IPAddress.Any;
-
-                    // macOS\Linux 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
-                    if ((OperatingSystem.IsMacOS() || OperatingSystem.IsLinux()) && IPAddress.IsLoopback(IReverseProxyService.Constants.Instance.ProxyIp))
-                    {
-                        reverseProxyService.ProxyIp = IPAddress.Any;
-                    }
-
-                    // Android VPN 模式使用 tun2socks
-                    reverseProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem.IsAndroid() && ProxySettings.ProxyModeValue == ProxyMode.VPN);
-                    reverseProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
-                    if (!ModelValidatorProvider.IsPortId(reverseProxyService.Socks5ProxyPortId)) reverseProxyService.Socks5ProxyPortId = IProxySettings.DefaultSocks5ProxyPortId;
-
-                    //reverseProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
-                    reverseProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
-
-                    reverseProxyService.TwoLevelAgentProxyType = (ExternalProxyType)ProxySettings.TwoLevelAgentProxyType.Value;
-                    if (!reverseProxyService.TwoLevelAgentProxyType.IsDefined()) reverseProxyService.TwoLevelAgentProxyType = IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType;
-
-                    reverseProxyService.TwoLevelAgentIp = IPAddress2.TryParse(ProxySettings.TwoLevelAgentIp.Value, out var ip_t) ? ip_t.ToString() : IPAddress.Loopback.ToString();
-                    reverseProxyService.TwoLevelAgentPortId = ProxySettings.TwoLevelAgentPortId.Value;
-                    if (!ModelValidatorProvider.IsPortId(reverseProxyService.TwoLevelAgentPortId)) reverseProxyService.TwoLevelAgentPortId = IProxySettings.DefaultTwoLevelAgentPortId;
-                    reverseProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
-                    reverseProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
-
-                    reverseProxyService.ProxyDNS = IPAddress2.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
-                    reverseProxyService.EnableHttpProxyToHttps = ProxySettings.EnableHttpProxyToHttps.Value;
-
-                    this.RaisePropertyChanged(nameof(EnableProxyDomains));
-                    this.RaisePropertyChanged(nameof(EnableProxyScripts));
-
-                    if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
-                    {
-                        const ushort httpsPort = 443;
-                        var inUse = reverseProxyService.PortInUse(httpsPort);
-                        if (inUse)
-                        {
-                            string? error_CommunityFix_StartProxyFaild443 = null;
-                            if (OperatingSystem.IsWindows())
-                            {
-                                var p = SocketHelper.GetProcessByTcpPort(httpsPort);
-                                if (p != null)
-                                {
-                                    error_CommunityFix_StartProxyFaild443 = AppResources.CommunityFix_StartProxyFaild443___.Format(httpsPort, p.ProcessName, p.Id);
-                                }
-                            }
-                            error_CommunityFix_StartProxyFaild443 ??= AppResources.CommunityFix_StartProxyFaild443_.Format(httpsPort);
-                            if (OperatingSystem.IsLinux())
-                            {
-                                var processPath = Environment.ProcessPath;
-                                processPath.ThrowIsNull();
-                                Browser2.Open(string.Format(Constants.Urls.OfficialWebsite_UnixHostAccess_, WebUtility.UrlEncode(processPath)));
-                            }
-                            Toast.Show(error_CommunityFix_StartProxyFaild443);
-                            return;
-                        }
-                    }
-                    else if (reverseProxyService.ProxyMode == ProxyMode.System)
-                    {
-                        var proxyip = reverseProxyService.ProxyIp;
-                        if (OperatingSystem.IsWindows() && IReverseProxyService.Constants.Instance.ProxyIp.Equals(IPAddress.Any))
-                        {
-                            proxyip = IPAddress.Loopback;
-                        }
-                        if (!platformService.SetAsSystemProxy(true, proxyip, reverseProxyService.ProxyPort))
-                        {
-                            Toast.Show(AppResources.CommunityFix_SetAsSystemProxyFail);
-                            return;
-                        }
-                    }
-                    else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
-                    {
-                        var proxyip = reverseProxyService.ProxyIp;
-                        if (OperatingSystem.IsWindows() && IReverseProxyService.Constants.Instance.ProxyIp.Equals(IPAddress.Any))
-                        {
-                            proxyip = IPAddress.Loopback;
-                        }
-                        if (!platformService.SetAsSystemPACProxy(true,
-                            $"http://{proxyip}:{reverseProxyService.ProxyPort}/pac"))
-                        {
-                            Toast.Show(AppResources.CommunityFix_SetAsSystemPACProxyFail);
-                            return;
-                        }
-                    }
-
-                    var startProxyResult = await reverseProxyService.StartProxyAsync();
-                    if (startProxyResult)
-                    {
-                        if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
-                        {
-                            if (reverseProxyService.ProxyDomains.Any_Nullable())
-                            {
-                                var proxyIp = reverseProxyService.ProxyIp;
-                                proxyIp.ThrowIsNull();
-                                var localhost = IPAddress.Any.Equals(proxyIp) ?
-                                    IPAddress.Loopback.ToString() : proxyIp.ToString();
-
-                                var hosts = reverseProxyService.ProxyDomains!.SelectMany(s =>
-                                {
-                                    if (s == null) return default!;
-
-                                    return s.ListeningDomainNamesArray.Select(host =>
-                                    {
-                                        if (host.Contains(' '))
-                                        {
-                                            var h = host.Split(' ');
-                                            return KeyValuePair.Create(h[1], h[0]);
-                                        }
-                                        return KeyValuePair.Create(host, localhost);
-                                    });
-                                }).ToDictionaryIgnoreRepeat(x => x.Key, y => y.Value);
-
-                                if (reverseProxyService.IsEnableScript)
-                                {
-                                    hosts.TryAdd(IReverseProxyService.Constants.LocalDomain, localhost);
-                                }
-
-                                var r = hostsFileService.UpdateHosts(hosts);
-
-                                if (r.ResultType != OperationResultType.Success)
-                                {
-                                    if (OperatingSystem2.IsMacOS())
-                                    {
-                                        Browser2.Open(Constants.Urls.OfficialWebsite_UnixHostAccess);
-                                        //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"");
-                                    }
-                                    Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
-                                    await reverseProxyService.StopProxyAsync();
-                                    return;
-                                }
-                            }
-                        }
-                        _StartAccelerateTime = DateTimeOffset.Now;
-                        StartTimer();
-                        Toast.Show(AppResources.CommunityFix_StartProxySuccess);
-                    }
-                    else
-                    {
-                        ProxyStatus = false;
-                        //Toast.Show(AppResources.CommunityFix_StartProxyFaild);
-                        var errorString = startProxyResult.Code switch
-                        {
-                            StartProxyResultCode.Exception => startProxyResult.Exception?.ToString(),
-                            _ => $"StartProxyFail, ErrCode: {startProxyResult.Code}",
-                        };
-                        Toast.Show(errorString!);
-                    }
+                    var reuslt = await StartProxyServiceAsync();
+                    proxyStatusRight = reuslt.OnStartedShowToastReturnProxyStatus();
                 }
                 else
                 {
-                    await reverseProxyService.StopProxyAsync();
-                    StopTimer();
-                    reverseProxyService.Scripts = null;
-                    void OnStopRemoveHostsByTag()
-                    {
-                        if (!IApplication.IsDesktop()) return;
-                        var needClear = hostsFileService.ContainsHostsByTag();
-                        if (needClear)
-                        {
-                            var r = hostsFileService.RemoveHostsByTag();
-
-                            if (r.ResultType != OperationResultType.Success)
-                            {
-                                Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
-
-                                if (OperatingSystem.IsMacOS() || (OperatingSystem.IsLinux() && !platformService.IsAdministrator))
-                                {
-                                    Browser2.Open(Constants.Urls.OfficialWebsite_UnixHostAccess);
-                                }
-                                //return;
-                                //if (OperatingSystem.IsMacOS() && !ProxySettings.EnableWindowsProxy.Value)
-                                //{
-                                //    //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"", true);
-                                //}
-                            }
-                        }
-                    }
-
-                    if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
-                    {
-                        OnStopRemoveHostsByTag();
-                    }
-                    else if (reverseProxyService.ProxyMode == ProxyMode.System)
-                    {
-                        platformService.SetAsSystemProxy(false);
-                    }
-                    else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
-                    {
-                        platformService.SetAsSystemPACProxy(false);
-                    }
+                    var reuslt = await StopProxyServiceAsync();
+                    proxyStatusRight = reuslt.OnStopedShowToastReturnProxyStatus();
                 }
+                if (proxyStatusLeft != proxyStatusRight)
+                    ProxyStatus = proxyStatusRight;
             });
     }
 
@@ -285,7 +77,7 @@ public sealed class ProxyService
         return data;
     }
 
-    public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains => GetEnableProxyDomains()?.ToArray();
+    public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains => GetEnableProxyDomains()?.ToImmutableArray();
 
     //static IEnumerable<AccelerateProjectDTO>? GetProxyDomainsItems(AccelerateProjectDTO accelerates)
     //{
@@ -331,7 +123,6 @@ public sealed class ProxyService
         set
         {
             ProxySettings.IsEnableScript.Value = value;
-            reverseProxyService.IsEnableScript = value;
             this.RaisePropertyChanged();
             this.RaisePropertyChanged(nameof(EnableProxyScripts));
         }
@@ -351,7 +142,6 @@ public sealed class ProxyService
             if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
             {
                 ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
-                reverseProxyService.IsOnlyWorkSteamBrowser = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -563,7 +353,6 @@ public sealed class ProxyService
 
         //拉取 GM.js
         await BasicsInfoAsync();
-        reverseProxyService.IsEnableScript = IsEnableScript;
 
         this.WhenAnyValue(v => v.ProxyScripts)
               .Subscribe(script => script?
@@ -605,7 +394,7 @@ public sealed class ProxyService
                 ProxyScripts.Remove(item);
             }
         }
-        var basicsInfo = await IMicroServiceClient.Instance.Script.GM(AppResources.Script_UpdateError);
+        var basicsInfo = await IMicroServiceClient.Instance.Script.GM(Strings.Script_UpdateError);
         if (basicsInfo.Code == ApiRspCode.OK && basicsInfo.Content != null)
         {
             var jspath = await scriptManager.DownloadScriptAsync(basicsInfo.Content.UpdateLink);
@@ -624,7 +413,7 @@ public sealed class ProxyService
                     Toast.Show(build.Message);
             }
             else
-                Toast.Show(jspath.GetMessageByFormat(AppResources.Download_ScriptError_));
+                Toast.Show(jspath.GetMessageByFormat(Strings.Download_ScriptError_));
         }
     }
 
@@ -639,7 +428,7 @@ public sealed class ProxyService
                 var scriptItem = ProxyScripts.Items.FirstOrDefault(x => x.Name == info.Name);
                 if (scriptItem != null)
                 {
-                    var result = MessageBox.ShowAsync(AppResources.Script_ReplaceTips, button: MessageBox.Button.OKCancel).ContinueWith(async (s) =>
+                    var result = MessageBox.ShowAsync(Strings.Script_ReplaceTips, button: MessageBox.Button.OKCancel).ContinueWith(async (s) =>
                     {
                         if (s.Result == MessageBox.Result.OK)
                         {
@@ -659,7 +448,7 @@ public sealed class ProxyService
         }
         else
         {
-            var msg = AppResources.Script_FileError.Format(filename); // $"文件不存在:{filePath}";
+            var msg = Strings.Script_FileError.Format(filename); // $"文件不存在:{filePath}";
             Toast.Show(msg);
         }
     }
@@ -732,7 +521,7 @@ public sealed class ProxyService
                     {
                         ProxyScripts.Add(build.Content);
                     }
-                    Toast.Show(AppResources.Download_ScriptOk);
+                    Toast.Show(Strings.Download_ScriptOk);
                 }
             }
             else
@@ -742,7 +531,7 @@ public sealed class ProxyService
         }
         else
         {
-            Toast.Show(jspath.GetMessageByFormat(AppResources.Download_ScriptError_));
+            Toast.Show(jspath.GetMessageByFormat(Strings.Download_ScriptError_));
         }
         model.IsLoading = false;
     }
@@ -754,7 +543,7 @@ public sealed class ProxyService
     {
         var items = ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id!.Value).ToList();
         var client = IMicroServiceClient.Instance.Script;
-        var response = await client.GetInfoByIds(AppResources.Script_UpdateError, items);
+        var response = await client.GetInfoByIds(Strings.Script_UpdateError, items);
         if (response.Code == ApiRspCode.OK && response.Content != null)
         {
             foreach (var item in ProxyScripts.Items)
@@ -782,14 +571,26 @@ public sealed class ProxyService
 
 #if WINDOWS
         {
-            await reverseProxyService.StopProxyAsync();
             platformService.SetAsSystemProxy(false);
             platformService.SetAsSystemPACProxy(false);
-            Process.Start("cmd.exe", "netsh winsock reset");
+            await reverseProxyService.StopProxyAsync();
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    UseShellExecute = false,
+                    Arguments = "netsh winsock reset",
+                });
+            }
+            catch
+            {
+
+            }
         }
 #endif
 
-        Toast.Show(AppResources.FixNetworkComplete);
+        Toast.Show(Strings.FixNetworkComplete);
     }
 
     public void Dispose()
@@ -823,26 +624,8 @@ public sealed class ProxyService
     {
         if (ProxyStatus)
         {
-            await reverseProxyService.StopProxyAsync();
-            if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
-            {
-                OnExitRestoreHosts();
-            }
-            else if (reverseProxyService.ProxyMode == ProxyMode.System)
-            {
-                platformService.SetAsSystemProxy(false);
-            }
-            else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
-            {
-                platformService.SetAsSystemPACProxy(false);
-            }
+            await StopProxyServiceAsync(isExit: true);
         }
         reverseProxyService.Dispose();
     }
-
-    public IPAddress ProxyIp => reverseProxyService.ProxyIp;
-
-    public int ProxyPort => reverseProxyService.ProxyPort;
-
-    public int Socks5ProxyPortId => reverseProxyService.Socks5ProxyPortId;
 }

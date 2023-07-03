@@ -35,7 +35,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     Task<T?> GetAsync<T>(string requestUri, string accept = MediaTypeNames.JSON, CancellationToken cancellationToken = default) where T : notnull
     {
-        var client = CreateClient();
+        var client = CreateClient(null, HttpHandlerCategory.Default);
         return client.GetAsync<T>(logger, requestUri, accept,
             cancellationToken: cancellationToken, userAgent: http_helper.UserAgent);
     }
@@ -73,23 +73,24 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                             return ApiRspHelper.Fail<ScriptDTO?>(AppResources.Script_FileRepeat);
                         }
                     }
-                    var fileName = md5 + FileEx.JS;
-                    var path = Path.Combine(IScriptManager.DirName, fileName);
-                    var savePath = Path.Combine(IOPath.AppDataDirectory, IScriptManager.DirName, fileName);
-                    var saveInfo = new FileInfo(savePath);
-                    var isNoRepeat = saveInfo.FullName != fileInfo.FullName;
-                    if (saveInfo.Directory != null && !saveInfo.Directory.Exists)
+                    var jsFileName = md5 + FileEx.JS;
+                    var jsRelativePath = Path.Combine(IScriptManager.DirName, jsFileName);
+                    var jsBuildRelativePath = Path.Combine(IScriptManager.DirName_Build, jsFileName);
+                    var jsSavePath = Path.Combine(Plugin.Instance.AppDataDirectory, IScriptManager.DirName, jsFileName);
+                    var jsSaveInfo = new FileInfo(jsSavePath);
+                    var isNoRepeat = jsSaveInfo.FullName != fileInfo.FullName;
+                    if (jsSaveInfo.Directory != null && !jsSaveInfo.Directory.Exists)
                     {
-                        saveInfo.Directory.Create();
+                        jsSaveInfo.Directory.Create();
                     }
-                    if (saveInfo.Exists)
+                    if (jsSaveInfo.Exists)
                     {
                         if (isNoRepeat)
-                            saveInfo.Delete();
+                            jsSaveInfo.Delete();
                     }
                     else
                     {
-                        fileInfo.CopyTo(savePath);
+                        fileInfo.CopyTo(jsSavePath);
                     }
                     if (oldInfo != null && oldInfo.LocalId > 0)
                     {
@@ -107,12 +108,12 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                     }
                     if (pid.HasValue)
                         info.Id = pid.Value;
-                    var cachePath = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName, fileName);
-                    info.FilePath = path;
+                    info.FilePath = jsRelativePath;
                     info.IsCompile = isCompile;
-                    info.CachePath = path;
-                    saveInfo = new FileInfo(cachePath);
-                    if (await BuildScriptAsync(info, saveInfo, isCompile))
+                    info.CachePath = jsBuildRelativePath;
+                    var jsBuildFullPath = Path.Combine(Plugin.Instance.CacheDirectory, IScriptManager.DirName_Build, jsFileName);
+                    jsSaveInfo = new FileInfo(jsBuildFullPath);
+                    if (await BuildScriptAsync(info, jsSaveInfo, isCompile))
                     {
                         var entity = mapper.Map<Script>(info);
                         entity.MD5 = md5;
@@ -247,7 +248,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             if (info != null)
             {
                 var fileName = info.MD5 + FileEx.JS;
-                var cachePath = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName, fileName);
+                var cachePath = Path.Combine(Plugin.Instance.CacheDirectory, IScriptManager.DirName_Build, fileName);
                 try
                 {
                     var cacheInfo = new FileInfo(cachePath);
@@ -261,7 +262,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                     return ApiRspHelper.Fail(msg);
                 }
 
-                var savePath = Path.Combine(IOPath.AppDataDirectory, IScriptManager.DirName, fileName);
+                var savePath = Path.Combine(Plugin.Instance.AppDataDirectory, IScriptManager.DirName, fileName);
                 try
                 {
                     var fileInfo = new FileInfo(savePath);
@@ -301,7 +302,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
 
     public async Task<ScriptDTO> TryReadFileAsync(ScriptDTO item)
     {
-        var cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
+        var cachePath = Path.Combine(Plugin.Instance.CacheDirectory, item.CachePath);
         if (File.Exists(cachePath))
         {
             item.Content = File.ReadAllText(cachePath);
@@ -309,7 +310,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         else
         {
             var fileInfo = new FileInfo(cachePath);
-            var infoPath = Path.Combine(IOPath.AppDataDirectory, item.FilePath);
+            var infoPath = Path.Combine(Plugin.Instance.AppDataDirectory, item.FilePath);
             if (File.Exists(infoPath))
             {
                 item.Content = File.ReadAllText(infoPath);
@@ -384,8 +385,8 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             try
             {
                 var md5 = Hashs.String.MD5(scriptStr);
-                cachePath = Path.Combine(IOPath.CacheDirectory,
-                    IScriptManager.DirName, md5 + FileEx.DownloadCache);
+                cachePath = Path.Combine(Plugin.Instance.CacheDirectory,
+                    IScriptManager.DirName_Build, md5 + FileEx.DownloadCache);
                 var fileInfo = new FileInfo(cachePath);
                 if (fileInfo.Directory != null && !fileInfo.Directory.Exists)
                     fileInfo.Directory.Create();

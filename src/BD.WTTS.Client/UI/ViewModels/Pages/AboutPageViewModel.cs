@@ -1,5 +1,3 @@
-using Strings = BD.WTTS.Client.Resources.Strings;
-
 namespace BD.WTTS.UI.ViewModels;
 
 [MP2Obj]

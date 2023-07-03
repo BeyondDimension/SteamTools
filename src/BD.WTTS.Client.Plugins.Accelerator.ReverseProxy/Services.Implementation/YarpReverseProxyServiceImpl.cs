@@ -4,7 +4,7 @@ using NLog.Web;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
-sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService, IAsyncDisposable
+sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService, IReverseProxySettings, IAsyncDisposable
 {
     static readonly string RootPath = Path.Combine(IOPath.AppDataDirectory, "Yarp");
 
@@ -122,6 +122,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public async Task StopProxyAsync()
     {
+        Scripts = null;
         if (app == null) return;
         await app.StopAsync();
         if (app == null) return;

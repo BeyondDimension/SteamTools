@@ -7,6 +7,7 @@ namespace BD.WTTS;
 public static class Migrations
 {
     public const string DirName_Scripts = "Scripts";
+    public const string DirName_BuildScripts = "BuildScripts";
 
     static Version? PreviousVersion { get; } = Version.TryParse(VersionTracking2.PreviousVersion, out var value) ? value : null;
 
@@ -39,7 +40,6 @@ public static class Migrations
                     !DesktopBridge.IsRunningAsUwp &&
                     PreviousVersion < new Version(2, 7, 3)) // 上一次运行的版本小于 2.7.3 时将执行以下迁移
                 {
-
                     try
                     {
                         var binPath = Path.Combine(AppContext.BaseDirectory, "Bin");
@@ -51,7 +51,32 @@ public static class Migrations
                         Log.Error(nameof(Migrations), e, "RemovebinPath");
                     }
                 }
+
+                // 上一次运行的版本小于 3.0.0 时将执行以下迁移
+                Version v_3_0_0 = new(3, 0, 0);
+                if (IApplication.IsDesktop() && PreviousVersion < v_3_0_0)
+                {
+                    MoveDirByScripts(IOPath.CacheDirectory);
+                    MoveDirByScripts(IOPath.AppDataDirectory, DirName_BuildScripts);
+                }
             }
+        }
+    }
+
+    static void MoveDirByScripts(string rootPath, string? newDirName = null)
+    {
+        try
+        {
+            var oldPath = Path.Combine(rootPath, DirName_Scripts);
+            if (Directory.Exists(oldPath))
+            {
+                var newPath = Path.Combine(rootPath, AssemblyInfo.Plugins, AssemblyInfo.Accelerator, newDirName ?? DirName_Scripts);
+                Directory.Move(oldPath, newPath);
+            }
+        }
+        catch (Exception e)
+        {
+            Log.Error(nameof(Migrations), e, "MoveDirByScriptsFail, rootPath: {rootPath}", rootPath);
         }
     }
 }

@@ -3,7 +3,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
-abstract class ReverseProxyServiceImpl
+abstract class ReverseProxyServiceImpl : IReverseProxySettings
 {
     protected const string TAG = "ReverseProxyS";
 
@@ -139,8 +139,19 @@ abstract class ReverseProxyServiceImpl
         Log.Error(TAG, exception, "OnException");
     }
 
-    public async Task<StartProxyResult> StartProxyAsync()
+    public async Task<StartProxyResult> StartProxyAsync(byte[] reverseProxySettings_)
     {
+        ReverseProxySettings reverseProxySettings;
+        try
+        {
+            reverseProxySettings = Serializable.DMP2<ReverseProxySettings>(reverseProxySettings_);
+        }
+        catch
+        {
+            return StartProxyResultCode.DeserializeReverseProxySettingsFail;
+        }
+        reverseProxySettings.SetValue(this);
+
         if (!CertificateManager.IsRootCertificateInstalled)
         {
             var isOk = await CertificateManager.SetupRootCertificateAsync();
