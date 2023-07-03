@@ -9,13 +9,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
-    xmlns:services="clr-namespace:BD.WTTS.Services;assembly=BD.WTTS.Client"
     xmlns:spp="https://steampp.net/ui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Padding="10">
         <spp:Stepper
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Center"
+            SelectedIndex="{Binding SelectIndex}"
             VerticalAlignment="Stretch"
             VerticalContentAlignment="Stretch">
             <spp:StepperItem Index="0" Title="Steam登录">
@@ -30,7 +30,7 @@
                             Text="{Binding UserNameText}"
                             Watermark="{ReflectionBinding Path=Res.Steam_User,
                                                           Mode=OneWay,
-                                                          Source={x:Static services:ResourceService.Current}}" />
+                                                          Source={x:Static s:ResourceService.Current}}" />
                         <TextBox
                             Classes="revealPasswordButton"
                             MaxWidth="300"
@@ -38,12 +38,12 @@
                             Text="{Binding PasswordText}"
                             Watermark="{ReflectionBinding Path=Res.Steam_Password,
                                                           Mode=OneWay,
-                                                          Source={x:Static services:ResourceService.Current}}" />
+                                                          Source={x:Static s:ResourceService.Current}}" />
                         <Button
                             Command="{ReflectionBinding LoginSteamImport}"
                             Content="{ReflectionBinding Path=Res.Login,
                                                         Mode=OneWay,
-                                                        Source={x:Static services:ResourceService.Current}}"
+                                                        Source={x:Static s:ResourceService.Current}}"
                             HorizontalAlignment="Center"
                             HorizontalContentAlignment="Center"
                             MinWidth="280" />
@@ -53,7 +53,7 @@
                         MaxWidth="200"
                         Text="{ReflectionBinding Path=Res.Steam_UserLoginTip,
                                                  Mode=OneWay,
-                                                 Source={x:Static services:ResourceService.Current}}"
+                                                 Source={x:Static s:ResourceService.Current}}"
                         TextAlignment="Center"
                         TextWrapping="Wrap"
                         VerticalAlignment="Center" />
@@ -69,25 +69,30 @@
                     Orientation="Vertical"
                     Spacing="10"
                     VerticalAlignment="Center">
+                    <spp:Image2
+                        Height="37"
+                        Source="{Binding CaptchaImageText}"
+                        Stretch="Uniform"
+                        Width="206" />
                     <StackPanel Orientation="Horizontal" Spacing="5">
                         <TextBox
                             MaxWidth="200"
                             Text="{Binding CaptchaCodeText}"
                             Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,
                                                           Mode=OneWay,
-                                                          Source={x:Static services:ResourceService.Current}}" />
+                                                          Source={x:Static s:ResourceService.Current}}" />
                         <Button
                             Command="{ReflectionBinding ShowCaptchaUrl}"
                             Content="{ReflectionBinding Path=Res.Steam_ImageCodeShowError,
                                                         Mode=OneWay,
-                                                        Source={x:Static services:ResourceService.Current}}"
+                                                        Source={x:Static s:ResourceService.Current}}"
                             Margin="5,0,0,0" />
                     </StackPanel>
                     <Button
                         Command="{ReflectionBinding LoginSteamImport}"
                         Content="{ReflectionBinding Path=Res.Continue,
                                                     Mode=OneWay,
-                                                    Source={x:Static services:ResourceService.Current}}"
+                                                    Source={x:Static s:ResourceService.Current}}"
                         HorizontalAlignment="Center"
                         HorizontalContentAlignment="Center"
                         MinWidth="280" />
@@ -108,13 +113,13 @@
                             Text="{Binding EmailAuthText}"
                             Watermark="{ReflectionBinding Path=Res.EmailCode,
                                                           Mode=OneWay,
-                                                          Source={x:Static services:ResourceService.Current}}" />
+                                                          Source={x:Static s:ResourceService.Current}}" />
 
                         <Button
                             Command="{ReflectionBinding LoginSteamImport}"
                             Content="{ReflectionBinding Path=Res.Continue,
                                                         Mode=OneWay,
-                                                        Source={x:Static services:ResourceService.Current}}"
+                                                        Source={x:Static s:ResourceService.Current}}"
                             HorizontalAlignment="Center"
                             HorizontalContentAlignment="Center"
                             MinWidth="280" />
@@ -129,7 +134,7 @@
                             Margin="10,0"
                             Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,
                                                      Mode=OneWay,
-                                                     Source={x:Static services:ResourceService.Current}}"
+                                                     Source={x:Static s:ResourceService.Current}}"
                             TextAlignment="Center"
                             TextWrapping="WrapWithOverflow" />
                     </StackPanel>
@@ -145,7 +150,7 @@
                             HorizontalAlignment="Center"
                             Orientation="Horizontal"
                             Spacing="10">
-                            <TextBlock Text="{ReflectionBinding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static services:ResourceService.Current}}" VerticalAlignment="Center" />
+                            <TextBlock Text="{ReflectionBinding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" VerticalAlignment="Center" />
                             <!--  恢复代码  -->
                             <TextBox
                                 IsReadOnly="True"
@@ -157,11 +162,11 @@
                             Text="{Binding PhoneCodeText}"
                             Watermark="{ReflectionBinding Path=Res.SMSCode,
                                                           Mode=OneWay,
-                                                          Source={x:Static services:ResourceService.Current}}" />
+                                                          Source={x:Static s:ResourceService.Current}}" />
                         <CheckBox
                             Content="{ReflectionBinding Path=Res.RecoveryCode_Remember,
                                                         Mode=OneWay,
-                                                        Source={x:Static services:ResourceService.Current}}"
+                                                        Source={x:Static s:ResourceService.Current}}"
                             HorizontalAlignment="Center"
                             MinWidth="280" />
 
@@ -169,7 +174,7 @@
                             Command="{ReflectionBinding LoginSteamImport}"
                             Content="{ReflectionBinding Path=Res.Continue,
                                                         Mode=OneWay,
-                                                        Source={x:Static services:ResourceService.Current}}"
+                                                        Source={x:Static s:ResourceService.Current}}"
                             HorizontalAlignment="Center"
                             HorizontalContentAlignment="Center"
                             MinWidth="280" />
@@ -181,7 +186,7 @@
                         Margin="10,0"
                         Text="{ReflectionBinding Path=Res.LocalAuth_SMSCodeTip,
                                                  Mode=OneWay,
-                                                 Source={x:Static services:ResourceService.Current}}"
+                                                 Source={x:Static s:ResourceService.Current}}"
                         TextAlignment="Center"
                         TextWrapping="WrapWithOverflow" />
                 </Grid>
@@ -192,7 +197,7 @@
                         HorizontalAlignment="Center"
                         Orientation="Vertical"
                         Spacing="10">
-                        <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static services:ResourceService.Current}}" />
+                        <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBox
                             IsReadOnly="True"
                             MinWidth="200"
@@ -201,7 +206,7 @@
                             Command="{ReflectionBinding Reset}"
                             Content="{ReflectionBinding Path=Res.Continue,
                                                         Mode=OneWay,
-                                                        Source={x:Static services:ResourceService.Current}}"
+                                                        Source={x:Static s:ResourceService.Current}}"
                             MinWidth="280" />
                     </StackPanel>
                     <TextBlock
@@ -210,7 +215,7 @@
                         MaxWidth="250"
                         Text="{ReflectionBinding Path=Res.RecoveryCode_RememberTip,
                                                  Mode=OneWay,
-                                                 Source={x:Static services:ResourceService.Current}}"
+                                                 Source={x:Static s:ResourceService.Current}}"
                         TextAlignment="Center"
                         TextWrapping="Wrap"
                         VerticalAlignment="Center" />

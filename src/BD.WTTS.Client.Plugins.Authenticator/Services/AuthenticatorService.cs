@@ -4,14 +4,12 @@ using WinAuth;
 
 namespace BD.WTTS.Services;
 
-public sealed class AuthenticatorService
+public sealed partial class AuthenticatorService
 {
     public static async Task ShowCaptchaUrl(string? url)
     {
         if (string.IsNullOrEmpty(url))
-        {
             Toast.Show("验证码URL为空，请重新登录");
-        }
         else
         {
             if (await Browser2.OpenAsync(url)) return;
@@ -22,11 +20,11 @@ public sealed class AuthenticatorService
     
     public async Task<Bitmap> GetUrlImage(string url)
     {
-        using HttpClient client = new HttpClient();
+        using var client = new HttpClient();
         
         var imageBytes = await client.GetByteArrayAsync(
             new Uri(url));
-        using MemoryStream stream = new MemoryStream(imageBytes);
+        using var stream = new MemoryStream(imageBytes);
 
         return new Bitmap(stream);
     }
@@ -54,17 +52,13 @@ public sealed class AuthenticatorService
     {
         var list = await repository.GetAllSourceAsync();
         foreach (var item in list)
-        {
             await repository.DeleteAsync(item.Id);
-        }
     }
 
     public static async void DeleteAuth(IAuthenticatorDTO authenticatorDto)
     {
         if (authenticatorDto.ServerId.HasValue)
-        {
             await repository.DeleteAsync(authenticatorDto.ServerId.Value);
-        }
         await repository.DeleteAsync(authenticatorDto.Id);
     }
 
@@ -126,13 +120,16 @@ public sealed class AuthenticatorService
         await repository.ExportAsync(stream, isLocal, password, items);
     }
 
-    public static async Task<IAuthenticatorValueDTO?> GeneralAuthenticatorImport(string privateKey)
+    //待完善
+    public static async Task<IAuthenticatorValueDTO?> GeneralAuthenticatorImport(string secretCode)
     {
+        var privateKey = await DecodePrivateKey(secretCode);
+        
         if (string.IsNullOrEmpty(privateKey)) return null;
         
         try
         {
-            GoogleAuthenticator auth = new GoogleAuthenticator();
+            var auth = new GoogleAuthenticator();
             auth.Enroll(privateKey);
 
             //string key = WinAuth.Base32.GetInstance().Encode(auth.SecretKey!);
@@ -140,9 +137,7 @@ public sealed class AuthenticatorService
             //var code = auth.CurrentCode;
 
             if (auth.ServerTimeDiff == 0L)
-            {
                 Toast.Show("无法连接到Google服务器");
-            }
 
             return auth;
         }
@@ -152,4 +147,58 @@ public sealed class AuthenticatorService
             return null;
         }
     }
+
+    //待完善
+    public static async Task<string?> DecodePrivateKey(string secretCode)
+    {
+        if (SecretCodeHttpRegex().Match(secretCode) is { Success: true } httpMatch)
+        {
+            //url图片二维码解码
+        }
+        else if (SecretCodeDataImageRegex().Match(secretCode) is { Success: true } dataImageMatch)
+        {
+            var imageData = Convert.FromBase64String(dataImageMatch.Groups[2].Value);
+            using (var ms = new MemoryStream(imageData))
+            {
+#if WINDOWS
+                using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(ms))
+                {
+                    //二维码解码
+                }
+#endif
+            }
+        }
+        else if (SecretCodeOptAuthRegex().Match(secretCode) is { Success: true } optMatch)
+        {
+            var authType = optMatch.Groups[1].Value;
+            switch (authType)
+            {
+                case "totp":
+                    break;
+                case "hotp":
+                    break;
+                default:
+                    return null;
+            }
+        }
+        else
+        {
+            var privateKey = SecretHexCodeAuthRegex().Replace(secretCode, "");
+            return privateKey.Length < 1 ? null : privateKey;
+        }
+
+        return null;
+    }
+    
+    [GeneratedRegex("https?://.*")]
+    private static partial Regex SecretCodeHttpRegex();
+
+    [GeneratedRegex(@"data:image/([^;]+);base64,(.*)", RegexOptions.IgnoreCase)]
+    private static partial Regex SecretCodeDataImageRegex();
+
+    [GeneratedRegex(@"otpauth://([^/]+)/([^?]+)\?(.*)", RegexOptions.IgnoreCase)]
+    private static partial Regex SecretCodeOptAuthRegex();
+    
+    [GeneratedRegex(@"[^0-9a-z]", RegexOptions.IgnoreCase)]
+    private static partial Regex SecretHexCodeAuthRegex();
 }

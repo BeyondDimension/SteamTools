@@ -1,5 +1,6 @@
 using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
+using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -308,18 +309,95 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task ShowReplyWindow()
     {
         if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam) return;
-        await IWindowManager.Instance.ShowTaskDialogAsync(new SteamTradePageViewModel(CurrentSelectedAuth.AuthData),
+        var authData = CurrentSelectedAuth.AuthData;
+        await IWindowManager.Instance.ShowTaskDialogAsync(new SteamTradePageViewModel(ref authData),
             "确认交易",
             pageContent: new SteamTradePage(), isCancelButton: true);
+        CurrentSelectedAuth.AuthData = authData;
     }
-
-    //未完善
+    
     public async Task ShowAuthJsonData()
     {
         if (CurrentSelectedAuth == null) return;
         await IWindowManager.Instance.ShowTaskDialogAsync(new ShowSteamDataViewModel(CurrentSelectedAuth.AuthData),
             "查看令牌详细数据",
             pageContent: new ShowSteamDataPage(), isCancelButton: true);
+    }
+
+    public async void ExportAuthWithSdaFile()
+    {
+        if (CurrentSelectedAuth?.AuthData.Value is SteamAuthenticator steamAuthenticator)
+        {
+            if (string.IsNullOrEmpty(steamAuthenticator.SteamData)) return;
+
+            var steamdata = JsonSerializer.Deserialize(steamAuthenticator.SteamData,
+                ImportFileModelJsonContext.Default.SdaFileModel);
+
+            if (steamAuthenticator.SecretKey == null) return;
+            var sdafilemodel = new SdaFileModel
+            {
+                DeviceId = steamAuthenticator.DeviceId,
+                FullyEnrolled = steamdata.FullyEnrolled,
+                Session = steamdata.Session,
+                SerialNumber = steamAuthenticator.Serial,
+                RevocationCode = steamdata.RevocationCode,
+                Uri = steamdata.Uri,
+                ServerTime = steamdata.ServerTime,
+                AccountName = steamdata.AccountName,
+                TokenGid = steamdata.TokenGid,
+                IdentitySecret = steamdata.IdentitySecret,
+                Secret1 = steamdata.Secret1,
+                Status = steamdata.Status,
+                SharedSecret = Convert.ToBase64String(steamAuthenticator.SecretKey),
+            };
+
+            var jsonString = JsonSerializer.Serialize(sdafilemodel, ImportFileModelJsonContext.Default.SdaFileModel);
+
+            //...导出至文件目录
+
+            if (Essentials.IsSupportedSaveFileDialog)
+            {
+                FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktop())
+                {
+                    fileTypes = new ValueTuple<string, string[]>[] { ("maFile Files", new[] { FileEx.maFile, }), };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
+
+                var exportFile = await FilePicker2.SaveAsync(new PickOptions
+                {
+                    FileTypes = fileTypes,
+                    InitialFileName = $"{steamAuthenticator.AccountName}{FileEx.maFile}",
+                    PickerTitle = "Watt Toolkit",
+                });
+                if (exportFile == null) return;
+
+                var filestream = exportFile?.OpenWrite();
+                if (filestream == null)
+                {
+                    Toast.Show(Strings.LocalAuth_ProtectionAuth_PathError);
+                    return;
+                }
+
+                if (filestream.CanSeek && filestream.Position != 0) filestream.Position = 0;
+
+                var data = Encoding.UTF8.GetBytes(jsonString);
+                
+                await filestream.WriteAsync(data);
+
+                await filestream.FlushAsync();
+                await filestream.DisposeAsync();
+
+                Toast.Show(Strings.ExportedToPath_.Format(exportFile?.ToString()));
+            }
+        }
+        else
+        {
+            Toast.Show("请先选中一个Steam令牌");
+        }
     }
 
     protected override void Dispose(bool disposing)

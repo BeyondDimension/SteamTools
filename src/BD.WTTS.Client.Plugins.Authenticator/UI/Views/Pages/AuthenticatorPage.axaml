@@ -1,11 +1,8 @@
 <spp:PageBase
     x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorPage"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:BD.WTTS.UI.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:model="using:BD.WTTS.Models"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -58,11 +55,25 @@
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
-                Command="{Binding OpenSteamOtherImportWindow}"
                 DockPanel.Dock="Right"
                 Padding="8,4"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
+                <Button.Flyout>
+                    <Flyout Placement="BottomEdgeAlignedLeft">
+                        <StackPanel Spacing="5">
+                            <Button
+                                Command="{Binding OpenSteamLoginImportWindow}"
+                                Content="Steam登陆导入"
+                                IsEnabled="{Binding !HasPasswordEncrypt}" />
+                            <Button Content="2FA密钥导入" IsEnabled="{Binding HasPasswordEncrypt}" />
+                            <Button
+                                Command="{Binding OpenSteamOtherImportWindow}"
+                                Content="导入自文件"
+                                IsEnabled="{Binding !HasLocalPcEncrypt}" />
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
                 <Panel>
                     <Viewbox
                         Width="16"
@@ -174,7 +185,7 @@
                         <!-- </ui:MenuFlyoutSubItem> -->
                         <ui:MenuFlyoutSubItem Text="导出令牌">
                             <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="默认导出" />
-                            <ui:MenuFlyoutItem Text="导出为maFile" />
+                            <ui:MenuFlyoutItem Command="{Binding ExportAuthWithSdaFile}" Text="导出为maFile" />
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutItem
                             Command="{Binding ReLockAuthenticator}"
@@ -320,8 +331,8 @@
                             MinRowSpacing="10" />
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
-                        <DataTemplate DataType="{x:Type model:AuthenticatorItemModel}">
-                            <controls:AuthenticatorItem />
+                        <DataTemplate DataType="{x:Type spp:AuthenticatorItemModel}">
+                            <spp:AuthenticatorItem />
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>

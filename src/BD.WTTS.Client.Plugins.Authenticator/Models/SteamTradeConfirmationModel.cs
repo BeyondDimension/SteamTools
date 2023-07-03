@@ -1,3 +1,4 @@
+using BD.WTTS.Client.Resources;
 using WinAuth;
 
 namespace BD.WTTS.Models;
@@ -76,12 +77,20 @@ public class SteamTradeConfirmationModel : ReactiveObject
         SendItemImageUrls = new();
         ReceiveItemImageUrls = new();
         _steamClient = steamAuthenticator.GetClient();
-        GetItemImages();
+        Initialize();
     }
 
-    private void GetItemImages()
+    async void Initialize()
     {
-        var imageUrls = _steamClient.GetConfirmationItemImageUrls(Id);
+        await GetItemImages();
+    }
+
+    private async Task GetItemImages()
+    {
+        var imageUrls =
+            await RunTaskAndExceptionHandlingAsync(
+                new Task<(string[] receiveItems, string[] sendItems)>(() =>
+                    _steamClient.GetConfirmationItemImageUrls(Id)));
         SelfIcon = _steamClient.SteamUserImageUrl;
         ReceiveItemImageUrls.Clear();
         foreach (var item in imageUrls.receiveItems)
@@ -94,5 +103,32 @@ public class SteamTradeConfirmationModel : ReactiveObject
         {
             SendItemImageUrls.Add(item);
         }
+    }
+    
+    async Task<T?> RunTaskAndExceptionHandlingAsync<T>(Task<T> task)
+    {
+        try
+        {
+            task.Start();
+            var result = await task;
+            return result;
+        }
+        catch (Exception e)
+        {
+            ExceptionHandling(e);
+            return default;
+        }
+    }
+
+    void ExceptionHandling(Exception exception, bool allowRetry = true)
+    {
+        //可能是启用了家庭监护功能
+        if (exception is WinAuthUnauthorisedSteamRequestException unauthorisedSteamRequestException)
+        {
+            Toast.Show(Strings.LocalAuth_AuthTrade_GetError);
+            return;
+        }
+        Log.Error(nameof(SteamTradePageViewModel), exception, nameof(ExceptionHandling));
+        Toast.Show("异常：" + exception.Message);
     }
 }

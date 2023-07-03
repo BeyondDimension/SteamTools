@@ -9,10 +9,7 @@ public sealed partial class SteamTradePageViewModel : ViewModelBase
     string? _passwordText;
     string? _captchaCodeText;
     string? _captchaImageUrlText;
-    bool _isLogging;
     bool _isLogged;
-    int _selectIndex;
-    bool _remenberLogin;
     bool _isLoading;
 
     public string? UserNameText
@@ -59,17 +56,6 @@ public sealed partial class SteamTradePageViewModel : ViewModelBase
         }
     }
 
-    public bool IsLogging
-    {
-        get => _isLogging;
-        set
-        {
-            if (value == _isLogging) return;
-            _isLogging = value;
-            this.RaisePropertyChanged();
-        }
-    }
-
     public bool IsLogged
     {
         get => _isLogged;
@@ -77,28 +63,6 @@ public sealed partial class SteamTradePageViewModel : ViewModelBase
         {
             if (value == _isLogged) return;
             _isLogged = value;
-            this.RaisePropertyChanged();
-        }
-    }
-
-    public int SelectIndex
-    {
-        get => _selectIndex;
-        set
-        {
-            if (value == _selectIndex) return;
-            _selectIndex = value;
-            this.RaisePropertyChanged();
-        }
-    }
-
-    public bool RemenberLogin
-    {
-        get => _remenberLogin;
-        set
-        {
-            if (value == _remenberLogin) return;
-            _remenberLogin = value;
             this.RaisePropertyChanged();
         }
     }

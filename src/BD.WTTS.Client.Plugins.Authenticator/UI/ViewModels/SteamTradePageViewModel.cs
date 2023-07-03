@@ -19,28 +19,36 @@ public sealed partial class SteamTradePageViewModel
     {
     }
 
-    public SteamTradePageViewModel(IAuthenticatorDTO authenticatorDto)
+    public SteamTradePageViewModel(ref IAuthenticatorDTO authenticatorDto)
     {
         if (authenticatorDto.Value is SteamAuthenticator steamAuthenticator)
         {
             _steamAuthenticator = steamAuthenticator;
 
             _steamClient = _steamAuthenticator.GetClient();
+            
+            Initialize();
 
             UserNameText = _steamAuthenticator.AccountName ?? "";
+
+            authenticatorDto.Value = _steamAuthenticator;
         }
     }
 
-    public override void Deactivation()
-    { 
-        // _steamClient = _steamAuthenticator!.GetClient();
-        // if (!_steamClient.IsLoggedIn())
-        // {
-        //     _steamClient.Clear();
-        // }
-        base.Deactivation();
+    async void Initialize()
+    {
+        if (_steamClient!.IsLoggedIn() == false)
+        {
+            IsLoading = false;
+            IsLogged = false;
+        }
+        else
+        {
+            IsLogged = true;
+            await GetConfirmations(_steamClient);
+        }
     }
-
+    
     public async Task Refresh()
     {
         if (_steamClient == null) return;
@@ -54,13 +62,13 @@ public sealed partial class SteamTradePageViewModel
             Toast.Show(Strings.User_LoginError_Null);
             return;
         }
-        if (IsLogging || IsLoading || IsLogged || _steamAuthenticator == null) return;
+        if (IsLoading || IsLogged || _steamAuthenticator == null) return;
         
         _steamClient ??= _steamAuthenticator.GetClient();
 
         SetToastServiceStatus(Strings.Logining);
 
-        IsLogging = true;
+        IsLoading = true;
 
         var result = await RunTaskAndExceptionHandlingAsync(new Task<bool>(() =>
         {
@@ -98,12 +106,10 @@ public sealed partial class SteamTradePageViewModel
             
         IsLogged = true;
         
-        IsLogging = false;
-
-        SelectIndex = 1;
-        
         //_steamAuthenticator.SessionData = RemenberLogin ? result.steamClient.Session.ToString() : null;
         _ = await GetConfirmations(_steamClient);
+        
+        IsLoading = false;
     }
 
     async Task<IEnumerable<SteamTradeConfirmationModel>?> GetConfirmations(WinAuth.SteamClient steamClient)
@@ -246,33 +252,48 @@ public sealed partial class SteamTradePageViewModel
                 isCancelButton: true, isDialog: false))
         {
             await OperationTrade(true, trade);
-            Confirmations.Remove(trade);
         }
     }
 
     public async Task ConfirmAllTrade()
     {
-        await OperationTrade(true);
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(
+                new MessageBoxWindowViewModel() { Content = "您确认要通过所有交易报价吗\r\n" +
+                                                            "您将同意列表内全部的报价请求。\r\n" +
+                                                            "交易一经确认无法撤销，请谨慎选择。" },
+                isCancelButton: true, isDialog: false))
+        {
+            await OperationTrade(true);
+        }
     }
 
     public async Task CancelTrade(object sender)
     {
         if (sender is not SteamTradeConfirmationModel trade) return;
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
-                new MessageBoxWindowViewModel() { Content = "您确认需要取消交易报价吗，这将从列表内移除此条确认信息\r\n您可以在Steam库存查看交易报价记录。" },
+                new MessageBoxWindowViewModel() { Content = "您确认需要取消交易报价吗\r\n" +
+                                                            "这将从以下列表中移除此条确认信息\r\n" +
+                                                            "您可以在Steam库存查看交易报价记录。" },
                 isCancelButton: true, isDialog: false))
         {
             await OperationTrade(false, trade);
-            Confirmations.Remove(trade);
         }
     }
 
     public async Task CancelAllTrade()
     {
-        await OperationTrade(false);
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(
+                new MessageBoxWindowViewModel() { Content = "您确认要取消所有交易报价吗\r\n" +
+                                                            "您将拒绝列表内全部的报价请求。\r\n" +
+                                                            "这将从以下列表中移除所有交易信息\r\n" +
+                                                            "您可以在Steam库存查看交易报价记录。" },
+                isCancelButton: true, isDialog: false))
+        {
+            await OperationTrade(false);
+        }
     }
     
-    async Task OperationTrade(bool status, SteamTradeConfirmationModel trade)
+    async Task<bool> OperationTrade(bool status, SteamTradeConfirmationModel trade)
     {
         var result = await ChangeTradeStatus(status, trade);
         if (result)
@@ -281,6 +302,8 @@ public sealed partial class SteamTradePageViewModel
             //trade.IsOperate = status ? 1 : 2;
             //RefreshConfirmationsList();
         }
+
+        return result;
     }
 
     async Task OperationTrade(bool status)
@@ -357,7 +380,10 @@ public sealed partial class SteamTradePageViewModel
 
     async Task<bool> ChangeTradeStatus(bool status, SteamTradeConfirmationModel trade)
     {
-        return await ChangeTradeStatus(status, new[] { trade });
+        if (!await ChangeTradeStatus(status, new[] { trade })) return false;
+        Confirmations.Remove(trade);
+        return true;
+
     }
     
     //单请求多参数有问题
