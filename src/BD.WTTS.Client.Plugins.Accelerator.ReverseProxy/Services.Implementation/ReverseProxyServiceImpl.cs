@@ -41,8 +41,10 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
     /// <inheritdoc cref="IReverseProxyService.IsOnlyWorkSteamBrowser"/>
     public bool IsOnlyWorkSteamBrowser { get; set; }
 
+    public const ushort DefaultProxyPort = 26501;
+
     /// <inheritdoc cref="IReverseProxyService.ProxyPort"/>
-    public int ProxyPort { get; set; } = 26501;
+    public ushort ProxyPort { get; set; } = DefaultProxyPort;
 
     /// <inheritdoc cref="IReverseProxyService.ProxyIp"/>
     public IPAddress ProxyIp { get; set; } = IReverseProxyService.Constants.DefaultProxyIp;

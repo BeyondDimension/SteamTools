@@ -95,7 +95,7 @@ public partial interface IReverseProxySettings
     /// <summary>
     /// 代理服务器端口号
     /// </summary>
-    int ProxyPort { get; set; }
+    ushort ProxyPort { get; set; }
 
     /// <summary>
     /// 代理服务器 IP 地址
@@ -166,7 +166,7 @@ public readonly partial record struct ReverseProxySettings(
     [property:MP2Key(3)]
     bool IsOnlyWorkSteamBrowser,
     [property:MP2Key(4)]
-    int ProxyPort,
+    ushort ProxyPort,
     [property:MP2Key(5)]
     string? ProxyIp,
     [property:MP2Key(6)]
@@ -221,6 +221,7 @@ public readonly partial record struct ReverseProxySettings(
         return result;
     }
 
+#if APP_REVERSE_PROXY
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal void SetValue(IReverseProxySettings settings)
     {
@@ -228,7 +229,7 @@ public readonly partial record struct ReverseProxySettings(
         settings.Scripts = Scripts;
         settings.IsEnableScript = IsEnableScript;
         settings.IsOnlyWorkSteamBrowser = IsOnlyWorkSteamBrowser;
-        settings.ProxyPort = ProxyPort;
+        settings.ProxyPort = ProxyPort == default ? ReverseProxyServiceImpl.DefaultProxyPort : ProxyPort;
         settings.ProxyIp = GetProxyIp();
         settings.ProxyMode = ProxyMode;
         settings.IsProxyGOG = IsProxyGOG;
@@ -244,6 +245,7 @@ public readonly partial record struct ReverseProxySettings(
         settings.TwoLevelAgentPassword = TwoLevelAgentPassword;
         settings.ProxyDNS = GetProxyDNS();
     }
+#endif
 }
 
 /// <summary>

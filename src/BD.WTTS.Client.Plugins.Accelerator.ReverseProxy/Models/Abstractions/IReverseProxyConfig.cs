@@ -12,7 +12,7 @@ public partial interface IReverseProxyConfig
     IDnsAnalysisService DnsAnalysis => Service.DnsAnalysis;
 #endif
 
-    int HttpProxyPort { get; set; }
+    ushort HttpProxyPort { get; set; }
 
     IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 

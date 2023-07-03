@@ -23,7 +23,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
 
     YarpReverseProxyServiceImpl IReverseProxyConfig.Service => reverseProxyService;
 
-    public int HttpProxyPort
+    public ushort HttpProxyPort
     {
         get => reverseProxyService.ProxyPort;
         set => reverseProxyService.ProxyPort = value;

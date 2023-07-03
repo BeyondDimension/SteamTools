@@ -17,7 +17,7 @@ partial class ProxyService
         IReadOnlyCollection<ScriptDTO>? scripts = default;
         bool isEnableScript = ProxySettings.IsEnableScript.Value;
         bool isOnlyWorkSteamBrowser = default;
-        int proxyPort = default;
+        ushort proxyPort = default;
         string? proxyIp = ProxySettings.SystemProxyIp.Value;
         proxyMode = defaultProxyMode;
         bool isProxyGOG = default;
