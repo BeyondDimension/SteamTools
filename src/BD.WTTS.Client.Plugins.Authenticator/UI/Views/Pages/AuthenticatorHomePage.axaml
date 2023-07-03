@@ -1,25 +1,26 @@
 <spp:PageBase
-    x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorHomePage"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorPageViewModel"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:CompileBindings="True"
-    x:DataType="spp:AuthenticatorPageViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <spp:PageBase.Styles>
         <Style Selector="Border#BorderBottom">
             <Setter Property="Transitions">
                 <Transitions>
                     <TransformOperationsTransition
                         Delay="0:0:0.25"
+                        Duration="0:0:0.7"
                         Easing="ExponentialEaseOut"
-                        Property="RenderTransform"
-                        Duration="0:0:0.7" />
+                        Property="RenderTransform" />
                 </Transitions>
             </Setter>
             <Style.Animations>
@@ -45,19 +46,18 @@
     </spp:PageBase.PreviewImage>
     <spp:PageBase.TabContent>
         <TabStrip
-            Margin="4"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
             CornerRadius="{StaticResource ControlCornerRadius}"
-            ItemContainerTheme="{StaticResource TabItemStyle}" />
+            HorizontalAlignment="Right"
+            ItemContainerTheme="{StaticResource TabItemStyle}"
+            Margin="4"
+            VerticalAlignment="Top" />
     </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
                 DockPanel.Dock="Right"
                 Padding="8,4"
-                DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
                 <Button.Flyout>
                     <Flyout Placement="BottomEdgeAlignedLeft">
@@ -76,23 +76,23 @@
                 </Button.Flyout>
                 <Panel>
                     <Viewbox
-                        Width="16"
                         Height="16"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Width="16">
                         <ui:SymbolIcon Symbol="Add" />
                     </Viewbox>
                     <TextBlock
-                        Margin="28,4,0,4"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
+                        Margin="28,4,0,4"
                         Text="{ReflectionBinding Path=Res.Add,
                                                  Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Center" />
                 </Panel>
             </Button>
             <Button
-                Padding="8,4"
                 DockPanel.Dock="Right"
+                Padding="8,4"
                 Theme="{StaticResource TransparentButton}">
                 <Button.Flyout>
                     <Flyout Placement="BottomEdgeAlignedLeft">
@@ -119,49 +119,49 @@
                 </Button.Flyout>
                 <Panel>
                     <Viewbox
-                        Width="16"
                         Height="16"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Width="16">
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Lock}" />
                     </Viewbox>
                     <TextBlock
-                        Margin="28,4,0,4"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
+                        Margin="28,4,0,4"
                         Text="{ReflectionBinding Path=Res.Encrypt,
                                                  Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Center" />
                 </Panel>
             </Button>
             <Button
-                Padding="8,4"
                 Command="{Binding Initialize}"
                 DockPanel.Dock="Right"
+                Padding="8,4"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
-                        Width="16"
                         Height="16"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Width="16">
                         <ui:SymbolIcon Symbol="Refresh" />
                     </Viewbox>
                     <TextBlock
-                        Margin="28,4,0,4"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
+                        Margin="28,4,0,4"
                         Text="{ReflectionBinding Path=Res.Refresh,
                                                  Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Center" />
                 </Panel>
             </Button>
             <DropDownButton
-                Padding="8"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
                 Content="{StaticResource More}"
                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                 FontSize="20"
-                Theme="{StaticResource TransparentButton}">
+                HorizontalContentAlignment="Center"
+                Padding="8"
+                Theme="{StaticResource TransparentButton}"
+                VerticalContentAlignment="Center">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
                         <!-- <ui:MenuFlyoutSubItem Text="令牌加密"> -->
@@ -206,17 +206,17 @@
     <DockPanel>
         <!-- <views:ImportControl IsVisible="True" /> -->
         <Border
-            Name="BorderBottom"
             Background="{DynamicResource ControlFillColorDefaultBrush}"
             BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
             Classes.IsActive="{Binding BorderBottomIsActive}"
             CornerRadius="{StaticResource ControlCornerRadius}"
-            DockPanel.Dock="Bottom">
+            DockPanel.Dock="Bottom"
+            Name="BorderBottom">
             <DockPanel>
                 <ui:CommandBar
-                    HorizontalAlignment="Center"
                     DefaultLabelPosition="Right"
-                    DockPanel.Dock="Left">
+                    DockPanel.Dock="Left"
+                    HorizontalAlignment="Center">
                     <ui:CommandBar.PrimaryCommands>
                         <ui:CommandBarButton Command="{Binding KeepDisplay}" Label="固定展示">
                             <ui:CommandBarButton.IconSource>
@@ -252,9 +252,9 @@
                             <ui:CommandBarButton.Flyout>
                                 <Flyout Placement="Top">
                                     <Image
-                                        Width="200"
                                         Height="200"
-                                        Source="{Binding QrCodeStream, Converter={StaticResource BitmapAssetValueConverter}, Mode=OneWay}" />
+                                        Source="{Binding QrCodeStream, Converter={StaticResource BitmapAssetValueConverter}, Mode=OneWay}"
+                                        Width="200" />
                                 </Flyout>
                             </ui:CommandBarButton.Flyout>
                         </ui:CommandBarButton>
@@ -271,29 +271,29 @@
         <Panel DockPanel.Dock="Left">
             <StackPanel
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
                 IsVisible="{CompiledBinding AuthenticatorIsEmpty}"
                 Orientation="Horizontal"
-                Spacing="5">
+                Spacing="5"
+                VerticalAlignment="Center">
                 <TextBlock
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
                     Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
                                              Path=Res.LocalAuth_NoAuthTip,
                                              Mode=OneWay}"
-                    TextWrapping="WrapWithOverflow" />
+                    TextWrapping="WrapWithOverflow"
+                    VerticalAlignment="Center" />
                 <Button
-                    HorizontalAlignment="Center"
-                    HorizontalContentAlignment="Center"
                     Content="{ReflectionBinding Source={x:Static s:ResourceService.Current},
                                                 Path=Res.Add,
-                                                Mode=OneWay}" />
+                                                Mode=OneWay}"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center" />
             </StackPanel>
             <StackPanel
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
                 Orientation="Horizontal"
-                Spacing="5">
+                Spacing="5"
+                VerticalAlignment="Center">
                 <StackPanel.IsVisible>
                     <MultiBinding Converter="{x:Static BoolConverters.And}">
                         <Binding Path="!IsVerificationPass" />
@@ -302,19 +302,19 @@
                 </StackPanel.IsVisible>
                 <TextBlock
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
                     Text="您的令牌具有密码保护，请先进行密码验证"
-                    TextWrapping="WrapWithOverflow" />
+                    TextWrapping="WrapWithOverflow"
+                    VerticalAlignment="Center" />
                 <Button
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
                     Command="{Binding Initialize}"
                     Content="验证"
-                    IsEnabled="True" />
+                    HorizontalAlignment="Center"
+                    IsEnabled="True"
+                    VerticalAlignment="Center" />
             </StackPanel>
             <ScrollViewer
-                Margin="0,0,0,0"
                 HorizontalScrollBarVisibility="Disabled"
+                Margin="0,0,0,0"
                 VerticalScrollBarVisibility="Auto">
                 <ScrollViewer.IsVisible>
                     <MultiBinding Converter="{x:Static BoolConverters.And}">

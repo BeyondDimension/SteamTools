@@ -31,3 +31,6 @@
 [submodule "ref/Common"]
 	path = ref/Common
 	url = https://github.com/BeyondDimension/Common.git
+[submodule "ref/WinAuth"]
+	path = ref/WinAuth
+	url = https://github.com/BeyondDimension/WinAuth.git

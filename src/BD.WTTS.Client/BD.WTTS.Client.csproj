@@ -202,7 +202,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\ref\SteamClient\src\BD.SteamClient\BD.SteamClient.csproj" />
 		<!--<ProjectReference Include="..\BD.WTTS.Generators\BD.WTTS.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />-->
-		<ProjectReference Include="..\..\..\WinAuth\src\WinAuth\WinAuth.csproj" />
+		<ProjectReference Include="..\..\ref\WinAuth\src\WinAuth\WinAuth.csproj" />
 	</ItemGroup>
 	
 	<Import Project="..\TFM_NETX_WITH_ALL.props" />

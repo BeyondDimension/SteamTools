@@ -66,8 +66,13 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<ProjectReference Include="..\..\ref\WinAuth\src\WinAuth\WinAuth.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <AvaloniaXaml Remove="UI\Views\Pages\AuthenticatorPage.axaml" />
 	</ItemGroup>
 
 	<!--<Import Project="..\TFM_NETX_WITH_ALL.props" />-->
