@@ -14,8 +14,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ windows-latest ]
-
+#        os: [ windows-latest ]
+        os: [ self-hosted-win10-x64 ]
+        
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -24,26 +25,33 @@ jobs:
           submodules: recursive
 
       - name: Setup .NET
+        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 7.0.x
 
       - name: Install Android SDK
+        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
         run: dotnet workload install android
 
       - name: Install iOS SDK
+        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
         run: dotnet workload install ios
 
       - name: Install macOS SDK
+        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
         run: dotnet workload install macos
 
       - name: Install Mac Catalyst SDK
+        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
         run: dotnet workload install maccatalyst
 
       - name: Install Maui
+        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
         run: dotnet workload install maui
 
 #      - name: Install wasm-tools
+#        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
 #        run: dotnet workload install wasm-tools
 
       - name: Restore Workload
