@@ -29,6 +29,7 @@ public interface IWindowManager
         bool isCancelButton = false,
         bool isRetryButton = false,
         object? pageContent = null,
+        string? okButtonText = null,
         Func<bool>? cancelCloseAction = null)
         where TPageViewModel : ViewModelBase, new();
 

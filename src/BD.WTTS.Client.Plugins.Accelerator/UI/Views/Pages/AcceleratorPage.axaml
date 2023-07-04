@@ -144,6 +144,9 @@
         </StackPanel>
     </spp:PageBase.ActionContent>
     <ScrollViewer Padding="10">
+        <ScrollViewer.GestureRecognizers>
+            <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
+        </ScrollViewer.GestureRecognizers>
         <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}">
             <Grid RowDefinitions="Auto,*">
                 <ItemsControl ItemsSource="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">

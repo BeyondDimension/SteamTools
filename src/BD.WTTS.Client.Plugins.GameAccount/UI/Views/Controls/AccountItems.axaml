@@ -16,6 +16,9 @@
     x:DataType="spp:PlatformAccount"
     mc:Ignorable="d">
     <ScrollViewer>
+        <ScrollViewer.GestureRecognizers>
+            <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
+        </ScrollViewer.GestureRecognizers>
         <spp:ContentLoader IsLoading="{Binding IsLoading}">
             <ItemsControl Grid.Row="1" ItemsSource="{Binding Accounts}">
                 <ItemsControl.ItemsPanel>

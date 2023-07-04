@@ -93,24 +93,37 @@ partial class Program
 #if MACOS
                 builder.With(new AvaloniaNativePlatformOptions
                 {
-                    UseGpu = useGpu,
+                    RenderingMode = new[]
+                    {
+                        useGpu ? AvaloniaNativeRenderingMode.OpenGl : AvaloniaNativeRenderingMode.Software,
+                        AvaloniaNativeRenderingMode.Software
+                    },
                 });
 #elif LINUX
                 builder.With(new X11PlatformOptions
                 {
-                    UseGpu = useGpu,
+                    RenderingMode = new[]
+                    {
+                        useGpu ? X11RenderingMode.Glx : X11RenderingMode.Software,
+                        useGpu ? X11RenderingMode.Egl : X11RenderingMode.Software,
+                        X11RenderingMode.Software
+                    },
                     EnableMultiTouch = true,
                     UseDBusMenu = true,
                     EnableIme = true,
                 });
 #elif WINDOWS
                 var useWgl = IApplication.UseWgl || GeneralSettings.NativeOpenGL.Value;
+
                 var options = new Win32PlatformOptions
                 {
-                    UseWgl = useWgl,
-                    AllowEglInitialization = useGpu,
-                    UseWindowsUIComposition = true,
-                    CompositionBackdropCornerRadius = 8f,
+                    RenderingMode = new[]
+                    {
+                        useGpu ? Win32RenderingMode.AngleEgl : Win32RenderingMode.Software,
+                        useWgl ? Win32RenderingMode.Wgl : Win32RenderingMode.Software,
+                        Win32RenderingMode.Software
+                    },
+                    WinUICompositionBackdropCornerRadius = 8f,
                 };
 
                 builder.With(options);

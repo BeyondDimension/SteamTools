@@ -1157,7 +1157,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 最大支持云存档数.
+        ///   查找类似 关闭 的本地化字符串。
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 最大支持云存档数 的本地化字符串。
         /// </summary>
         public static string CloudMaxnumFiles {
             get {

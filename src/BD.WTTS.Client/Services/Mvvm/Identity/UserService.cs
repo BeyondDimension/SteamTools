@@ -15,34 +15,12 @@ public sealed class UserService : ReactiveObject
     readonly ISteamworksWebApiService steamworksWebApiService = ISteamworksWebApiService.Instance;
     readonly IWindowManager windowManager = IWindowManager.Instance;
 
-    public async void ShowWindow(AppEndPoint windowName)
+    public async void ShowWindow()
     {
-        var isDialog = true;
-        switch (windowName)
-        {
-            case AppEndPoint.LoginOrRegister:
-                {
-                    var cUser = await userManager.GetCurrentUserAsync();
-                    if (cUser.HasValue()) return;
-                    isDialog = false;
-                    break;
-                }
-
-            case AppEndPoint.UserProfile:
-                isDialog = false;
-                break;
-            case AppEndPoint.Notice:
-                isDialog = false;
-                break;
-            case AppEndPoint.ChangeBindPhoneNumber:
-                {
-                    var cUser = await userManager.GetCurrentUserAsync();
-                    if (!cUser.HasValue()) return;
-                    if (string.IsNullOrWhiteSpace(cUser!.PhoneNumber)) return;
-                    break;
-                }
-        }
-        await windowManager.ShowDialogAsync(windowName, isDialog: isDialog, resizeMode: default);
+        var cUser = await userManager.GetCurrentUserAsync();
+        if (cUser.HasValue()) return;
+        var vm = new LoginOrRegisterWindowViewModel();
+        await windowManager.ShowTaskDialogAsync(vm, vm.Title);
     }
 
     public void NavigateUserCenterPage()

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
@@ -197,7 +198,6 @@
                 <Button
                     Padding="0"
                     CornerRadius="30"
-                    Cursor="Hand"
                     DockPanel.Dock="Left"
                     Theme="{DynamicResource TransparentButton}">
                     <Border
@@ -233,9 +233,30 @@
                             <MenuItem Header="用户钱包" />
                             <MenuItem Header="绑定第三方账号" />
                             <MenuItem Header="-" />
-                            <MenuItem Header="切换账号" />
-                            <MenuItem Header="登出" />
-                            <MenuItem Header="登录" />
+                            <MenuItem
+                                Command="{ReflectionBinding Path=SignOut,
+                                                            Source={x:Static s:UserService.Current}}"
+                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                Header="{ReflectionBinding Path=Res.SignOut,
+                                                           Mode=OneWay,
+                                                           Source={x:Static s:ResourceService.Current}}"
+                                IsVisible="{ReflectionBinding Path=User,
+                                                              Mode=OneWay,
+                                                              Source={x:Static s:UserService.Current},
+                                                              Converter={StaticResource IsNullConverter},
+                                                              ConverterParameter=invert}" />
+                            <MenuItem
+                                Command="{ReflectionBinding Path=ShowWindow,
+                                                            Source={x:Static s:UserService.Current}}"
+                                CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
+                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                Header="{ReflectionBinding Path=Res.LoginAndRegister,
+                                                           Mode=OneWay,
+                                                           Source={x:Static s:ResourceService.Current}}"
+                                IsVisible="{ReflectionBinding Path=User,
+                                                              Mode=OneWay,
+                                                              Source={x:Static s:UserService.Current},
+                                                              Converter={StaticResource IsNullConverter}}" />
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>

@@ -1,3 +1,4 @@
+using BD.WTTS.Client.Resources;
 using BD.WTTS.Extensions;
 
 namespace BD.WTTS.UI;

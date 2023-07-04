@@ -127,8 +127,10 @@ public class AppItem : TemplatedControl
         var ani = comp.CreateVector3KeyFrameAnimation();
         ani.Duration = TimeSpan.FromMilliseconds(200);
         ani.StopBehavior = AnimationStopBehavior.SetToFinalValue;
-        ani.InsertKeyFrame(0f, ec.Offset);
-        ani.InsertKeyFrame(1f, ec.Offset + new Vector3(0, -3, 0));
+
+        var offset = new Vector3((float)ec.Offset.X, (float)ec.Offset.Y, (float)ec.Offset.Z);
+        ani.InsertKeyFrame(0f, offset);
+        ani.InsertKeyFrame(1f, offset + new Vector3(0, -3, 0));
         ani.Target = "Offset";
 
         ec.StartAnimation("Offset", ani);
@@ -144,8 +146,10 @@ public class AppItem : TemplatedControl
         var ani = comp.CreateVector3KeyFrameAnimation();
         ani.Duration = TimeSpan.FromMilliseconds(100);
         ani.StopBehavior = AnimationStopBehavior.SetToFinalValue;
-        ani.InsertKeyFrame(0f, ec.Offset);
-        ani.InsertKeyFrame(1f, ec.Offset + new Vector3(0, 3, 0));
+
+        var offset = new Vector3((float)ec.Offset.X, (float)ec.Offset.Y, (float)ec.Offset.Z);
+        ani.InsertKeyFrame(0f, offset);
+        ani.InsertKeyFrame(1f, offset + new Vector3(0, 3, 0));
         ani.Target = "Offset";
 
         ec.StartAnimation("Offset", ani);

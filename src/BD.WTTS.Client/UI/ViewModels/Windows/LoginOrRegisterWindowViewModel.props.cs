@@ -127,23 +127,8 @@ public partial class LoginOrRegisterWindowViewModel
     [Reactive]
     public bool IsFastLogin { get; set; }
 
-    const short _LoginStateDefault = 2;
-    short _LoginState = _LoginStateDefault;
-
-    public short LoginState
-    {
-        get => _LoginState;
-        set
-        {
-            if (_LoginState == value) return;
-            _LoginState = value;
-            this.RaisePropertyChanged();
-            //if (!IApplication.IsDesktop())
-            //{
-            //    Title = _LoginState == 1 ? Strings.User_PhoneLogin : Strings.LoginAndRegister;
-            //}
-        }
-    }
+    [Reactive]
+    public short LoginState { get; set; }
 
     //public SteamUser? SteamUser { get; } = SteamConnectService.Current.CurrentSteamUser;
 
@@ -162,6 +147,8 @@ public partial class LoginOrRegisterWindowViewModel
     public ICommand OpenHyperlink { get; }
 
     public ICommand ManualLogin { get; }
+
+    public ICommand ChangeState { get; }
 
     /// <summary>
     /// 选择快速登录渠道点击命令，参数类型为 <see cref="FastLoginChannelViewModel"/>.Id

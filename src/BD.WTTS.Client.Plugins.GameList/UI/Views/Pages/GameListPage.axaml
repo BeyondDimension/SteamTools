@@ -118,6 +118,9 @@
         </StackPanel>
     </spp:PageBase.ActionContent>
     <spp:ContentLoader IsLoading="{Binding !!!SteamApps.Count, Mode=OneWay}">
+        <spp:ContentLoader.GestureRecognizers>
+            <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
+        </spp:ContentLoader.GestureRecognizers>
         <ItemsRepeater ItemsSource="{Binding SteamApps}">
             <ItemsRepeater.Layout>
                 <WrapLayout
@@ -156,5 +159,6 @@
                 </DataTemplate>
             </ItemsRepeater.ItemTemplate>
         </ItemsRepeater>
+
     </spp:ContentLoader>
 </spp:PageBase>

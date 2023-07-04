@@ -4,14 +4,18 @@ namespace BD.WTTS.UI.ViewModels;
 
 public partial class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUIHelper.IViewModel
 {
+    public static string DisplayName => Strings.LoginAndRegister;
+
     public LoginOrRegisterWindowViewModel()
     {
+        Title = DisplayName;
+
         ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel_ =>
         {
             if (Enum.TryParse<ExternalLoginChannel>(channel_, out var channel))
             {
                 CurrentSelectChannel = channel_;
-                ChangeLoginState(3);
+                ChangeLoginState(2);
                 await ThirdPartyLoginHelper.StartAsync(this, channel, isBind: false);
             }
             else
@@ -28,6 +32,7 @@ public partial class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUI
         SendSms = ReactiveCommand.CreateFromTask(SendSmsAsync);
         Submit = ReactiveCommand.CreateFromTask(SubmitAsync);
         OpenHyperlink = ReactiveCommand.Create<string>(OpenHyperlink_);
+        ChangeState = ReactiveCommand.Create<short>(ChangeLoginState);
 
         ExternalLoginChannels = new(GetFastLoginChannels());
     }

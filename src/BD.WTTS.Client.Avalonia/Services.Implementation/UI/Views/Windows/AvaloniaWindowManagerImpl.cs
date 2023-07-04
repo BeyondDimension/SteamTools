@@ -15,6 +15,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             DebugPageViewModel => new DebugPage(),
             TextBoxWindowViewModel => new TextInputDialogPage(),
             MessageBoxWindowViewModel => new MessageBoxPage(),
+            LoginOrRegisterWindowViewModel => new LoginOrRegisterPage(),
             _ => null,
         };
     }
@@ -99,6 +100,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         bool isCancelButton = false,
         bool isRetryButton = false,
         object? pageContent = null,
+        string? okButtonText = null,
         Func<bool>? cancelCloseAction = null)
         where TPageViewModel : ViewModelBase, new()
     {
@@ -117,7 +119,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             XamlRoot = GetWindowTopLevel(),
             Buttons =
             {
-                new TaskDialogButton(Strings.Confirm, TaskDialogStandardResult.OK),
+                new TaskDialogButton(string.IsNullOrEmpty(okButtonText) ? Strings.Confirm : okButtonText, TaskDialogStandardResult.OK),
             },
         };
 
