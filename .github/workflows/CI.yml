@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
 #        os: [ windows-latest ]
-        os: [ self-hosted-win10-x64 ]
+        os: [ AIGIO-WIN10LTSC ]
         
     steps:
       - name: Checkout repository
