@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
 #        os: [ windows-latest ]
-        os: [ AIGIO-WIN10LTSC ]
+        os: [ aigio-win10ltsc-vm ]
         
     steps:
       - name: Checkout repository
