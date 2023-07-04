@@ -19,45 +19,45 @@ jobs:
         
     steps:
       - name: Checkout repository
-        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
+        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           submodules: recursive
           
       - name: Checkout repository(BD.Git.Checkout.Tools)
-        if: ${{ matrix.os == 'self-hosted-win10-x64' }}
+        if: ${{ matrix.os == 'aigio-win10ltsc-vm' }}
         shell: cmd
         run: C:\checkout.exe ${{ github.workspace }} ${{ github.sha }} ${{ github.repositoryUrl }}
 
       - name: Setup .NET
-        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
+        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 7.0.x
 
       - name: Install Android SDK
-        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
+        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
         run: dotnet workload install android
 
       - name: Install iOS SDK
-        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
+        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
         run: dotnet workload install ios
 
       - name: Install macOS SDK
-        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
+        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
         run: dotnet workload install macos
 
       - name: Install Mac Catalyst SDK
-        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
+        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
         run: dotnet workload install maccatalyst
 
       - name: Install Maui
-        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
+        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
         run: dotnet workload install maui
 
 #      - name: Install wasm-tools
-#        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
+#        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
 #        run: dotnet workload install wasm-tools
 
       - name: Restore Workload
