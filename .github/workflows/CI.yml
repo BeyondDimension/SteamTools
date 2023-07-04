@@ -27,7 +27,6 @@ jobs:
           
       - name: Checkout repository(BD.Git.Checkout.Tools)
         if: ${{ matrix.os == 'aigio-win10ltsc-vm' }}
-        shell: cmd
         run: C:\actions-runner\checkout.exe ${{ github.workspace }} ${{ github.sha }} ${{ github.repositoryUrl }}
 
       - name: Setup .NET
