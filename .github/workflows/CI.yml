@@ -19,10 +19,16 @@ jobs:
         
     steps:
       - name: Checkout repository
+        if: ${{ matrix.os != 'self-hosted-win10-x64' }}
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           submodules: recursive
+          
+      - name: Checkout repository(BD.Git.Checkout.Tools)
+        if: ${{ matrix.os == 'self-hosted-win10-x64' }}
+        shell: pwsh
+        run: C:\checkout.exe {{ github.workspace }} {{ github.sha }} {{ github.repositoryUrl }}
 
       - name: Setup .NET
         if: ${{ matrix.os != 'self-hosted-win10-x64' }}
