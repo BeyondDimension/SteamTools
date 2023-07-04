@@ -27,7 +27,7 @@ jobs:
           
       - name: Checkout repository(BD.Git.Checkout.Tools)
         if: ${{ matrix.os == 'self-hosted-win10-x64' }}
-        shell: pwsh
+        shell: cmd
         run: C:\checkout.exe {{ github.workspace }} {{ github.sha }} {{ github.repositoryUrl }}
 
       - name: Setup .NET
