@@ -19,15 +19,15 @@ jobs:
         
     steps:
       - name: Checkout repository
-        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
+#        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           submodules: recursive
           
-      - name: Checkout repository(BD.Git.Checkout.Tools)
-        if: ${{ matrix.os == 'aigio-win10ltsc-vm' }}
-        run: C:\actions-runner\checkout.exe ${{ github.workspace }} ${{ github.sha }} ${{ github.repositoryUrl }}
+#      - name: Checkout repository(BD.Git.Checkout.Tools)
+#        if: ${{ matrix.os == 'aigio-win10ltsc-vm' }}
+#        run: C:\actions-runner\checkout.exe ${{ github.workspace }} ${{ github.sha }} ${{ github.repositoryUrl }}
 
       - name: Setup .NET
         if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
