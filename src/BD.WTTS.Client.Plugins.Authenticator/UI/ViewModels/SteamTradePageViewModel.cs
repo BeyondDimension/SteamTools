@@ -69,7 +69,7 @@ public sealed partial class SteamTradePageViewModel
         SetToastServiceStatus(Strings.Logining);
 
         IsLoading = true;
-
+        IsLogged = true;
         var result = await RunTaskAndExceptionHandlingAsync(new Task<bool>(() =>
         {
             var loginResult = _steamClient.Login(UserNameText, PasswordText, _captchaId, CaptchaCodeText,
@@ -81,6 +81,7 @@ public sealed partial class SteamTradePageViewModel
         
         if (!result)
         {
+            IsLogged = result;
             if (_steamClient.Error == "Incorrect Login")
             {
                 Toast.Show(Strings.User_LoginError);
@@ -103,9 +104,7 @@ public sealed partial class SteamTradePageViewModel
         Toast.Show(string.Format(Strings.Success_, Strings.User_Login));
             
         SetToastServiceStatus();
-            
-        IsLogged = true;
-        
+
         //_steamAuthenticator.SessionData = RemenberLogin ? result.steamClient.Session.ToString() : null;
         _ = await GetConfirmations(_steamClient);
         

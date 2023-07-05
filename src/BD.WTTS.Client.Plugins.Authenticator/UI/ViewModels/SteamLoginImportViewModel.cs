@@ -1,63 +1,46 @@
-using BD.WTTS.Client.Resources;
+using BD.SteamClient.Models;
+using BD.SteamClient.Services;
 using BD.WTTS.Exceptions;
-using BD.WTTS.UI.Views.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WinAuth;
 #if !ANDROID
 using ToastLength = BD.Common.Enums.ToastLength;
 #endif
 
-namespace BD.WTTS.Models;
+namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class SteamLoginImportViewModel
 {
+    bool _isFirstLogin = true;
+
+    bool _isConfirmMailUrl;
+    
     readonly string? _currentPassword;
+
+    readonly ISteamAccountService _steamAccountService;
     
     public SteamLoginImportViewModel()
     {
-        
+        _steamAccountService = Ioc.Get<ISteamAccountService>();
     }
     
     public SteamLoginImportViewModel(string? password)
     {
+        _steamAccountService = Ioc.Get<ISteamAccountService>();
         _currentPassword = this.password;
     }
 
-    // public void StepperOnSkiping(Stepper sender, CancelEventArgs args)
-    // {
-    //     Toast.Show("SkipTest");
-    // }
-    //
-    // public void StepperOnBacking(Stepper sender, CancelEventArgs args)
-    // {
-    //     Toast.Show("BackTest");
-    // }
-    //
-    // public void StepperOnNexting(Stepper sender, CancelEventArgs args)
-    // {
-    //     args.Cancel = LoginSteamImport().ConfigureAwait(false).GetAwaiter().GetResult();
-    //
-    // }
-
     SteamAuthenticator steamAuthenticator = new();
+    
+    SteamLoginState _steamLoginState = new();
 
-    SteamAuthenticator.EnrollState enrollState = new();
+    SteamAuthenticator.EnrollState _enrollState = new SteamAuthenticator.EnrollState();
 
     /// <summary>
     /// 重置状态
     /// </summary>
     public void Reset()
     {
-        enrollState = new();
-        // LoginTabIsVisible = true;
-        // FinalTabIsVisible = false;
-        // EmailCodeTabIsVisible = false;
-        // PhoneCodeTabIsVisible = false;
-        // CaptchaImageTabIsVisible = false;
+        _steamLoginState = new();
         UserNameText = null;
         PasswordText = null;
         CaptchaImageText = null;
@@ -66,152 +49,158 @@ public sealed partial class SteamLoginImportViewModel
         EmailDomainText = null;
         PhoneCodeText = null;
         RevocationCodeText = null;
+        _isFirstLogin = true;
         SelectIndex = 0;
     }
 
     private bool _IsLogining;
 
-    public async Task<bool> LoginSteamFirstAsync()
+    public async Task LoginSteamFirstAsync()
     {
         if (string.IsNullOrWhiteSpace(UserNameText) || string.IsNullOrWhiteSpace(PasswordText))
         {
             throw new SteamLoginNullCatpchaCodeException("请输入用户名及密码。");
         }
-        enrollState.Username = UserNameText;
-        enrollState.Password = PasswordText;
-        enrollState.Language = ResourceService.GetCurrentCultureSteamLanguageName();
+        _steamLoginState.Username = UserNameText;
+        _steamLoginState.Password = PasswordText;
+        _steamLoginState.Language = ResourceService.GetCurrentCultureSteamLanguageName();
         _IsLogining = true;
-
-        var result = await steamAuthenticator.EnrollAsync(enrollState);
-
-        // if (enrollState.RequiresCaptcha || enrollState.RequiresEmailAuth || enrollState.RequiresActivation) result = true;
-        // if (enrollState.RequiresEmailAuth) CaptchaImageTabCanSkip = true;
-        // if (enrollState.RequiresActivation) EmailCodeTabCanSkip = true;
-        return result;
+        
+        await _steamAccountService.DoLoginV2Async(_steamLoginState);
+        _isFirstLogin = false;
     }
 
-    public async Task<bool> LoginSteamWithCaptchaCodeAsync()
+    public async Task LoginSteamWithCaptchaCodeAsync()
     {
         if (string.IsNullOrEmpty(CaptchaCodeText))
         {
             throw new SteamLoginNullCatpchaCodeException("请输入验证码。");
         }
         else
-            enrollState.CaptchaText = CaptchaCodeText;
-
-        var result = await steamAuthenticator.EnrollAsync(enrollState);
-
-        // if (enrollState.RequiresEmailAuth || enrollState.RequiresActivation) result = true;
-        // if (enrollState.RequiresActivation) EmailCodeTabCanSkip = true;
+            _steamLoginState.CaptchaText = CaptchaCodeText;
+        
+        await _steamAccountService.DoLoginV2Async(_steamLoginState);
 
         CaptchaCodeText = null;
-        return result;
     }
 
-    public async Task<bool> LoginSteamWithEmailCodeAsync()
+    public async Task LoginSteamWithEmailCodeAsync()
     {
         if (string.IsNullOrEmpty(EmailAuthText))
         {
             throw new SteamLoginNullCatpchaCodeException("请输入邮箱验证码。");
         }
         else
-            enrollState.EmailAuthText = EmailAuthText;
+            _steamLoginState.EmailCode = EmailAuthText;
 
-        var result = await steamAuthenticator.EnrollAsync(enrollState);
-
-        //if (enrollState.RequiresActivation) result = true;
-
+        await _steamAccountService.DoLoginV2Async(_steamLoginState);
+        
         EmailAuthText = null;
         EmailDomainText = null;
-        return result;
     }
 
-    public async Task<bool> LoginSteamWithPhoneCodeAsync()
+    public async Task<bool> AddAuthenticatorAsync()
+    {
+        return await steamAuthenticator.AddAuthenticatorAsync(_enrollState);
+    }
+    
+    public async Task<bool> FinalizeAddAuthenticatorAsync()
     {
         if (string.IsNullOrEmpty(PhoneCodeText))
         {
             throw new SteamLoginNullCatpchaCodeException("请输入手机验证码。");
         }
         else
-            enrollState.ActivationCode = PhoneCodeText;
-
-        var result = await steamAuthenticator.EnrollAsync(enrollState);
+            _enrollState.ActivationCode = PhoneCodeText;
+        
+        await steamAuthenticator.FinalizeAddAuthenticatorAsync(_enrollState);
         PhoneCodeText = null;
         
-        return result;
+        return _steamLoginState.Success;
     }
 
-    public async void CheckResult(bool result)
+    /// <summary>
+    /// 检查添加令牌是否成功
+    /// </summary>
+    /// <returns></returns>
+    async Task CheckAddAuthenticatorResult()
     {
-        if (!result)
+        if (string.IsNullOrEmpty(_enrollState.Error) == false)
         {
-            if (string.IsNullOrEmpty(enrollState.Error) == false)
-            {
-                if (enrollState.Error.Length > 50)
-                    await IWindowManager.Instance.ShowTaskDialogAsync(
-                        new MessageBoxWindowViewModel { Content = enrollState.Error, IsCancelcBtn = true });
-                else
-                    Toast.Show(enrollState.Error, ToastLength.Long);
-            }
-
-            //已有令牌，无法导入
-            if (enrollState.Requires2FA == true)
-            {
-                Toast.Show(Strings.LocalAuth_SteamUser_Requires2FA, ToastLength.Long);
-                Reset();
-                //throw new SteamLoginRequires2FAException(Strings.LocalAuth_SteamUser_Requires2FA);
-            }
-            //需要文字验证码
-            else if (enrollState.RequiresCaptcha == true)
-            {
-                CaptchaImageText = enrollState.CaptchaUrl;
-                SelectIndex = 1;
-                return;
-            }
-            //需要邮箱验证码
-            else if (enrollState.RequiresEmailAuth == true)
-            {
-                EmailDomainText = string.IsNullOrEmpty(enrollState.EmailDomain) == false
-                    ? $"******@{enrollState.EmailDomain}"
-                    : string.Empty;
-                SelectIndex = 2;
-                return;
-            }
-            //导入最后一步，需要账号绑定的手机验证码确认
-            else if (enrollState.RequiresActivation == true)
-            {
-                enrollState.Error = null;
-                RevocationCodeText = enrollState.RevocationCode;
-                SelectIndex = 3;
-                return;
-            }
+            if (_enrollState.Error.Length > 50)
+                await IWindowManager.Instance.ShowTaskDialogAsync(
+                    new MessageBoxWindowViewModel { Content = _enrollState.Error, IsCancelcBtn = true });
             else
-            {
-                string error = string.IsNullOrEmpty(enrollState.Error)
-                    ? Strings.LocalAuth_SteamUser_Error
-                    : enrollState.Error;
-                Toast.Show(error, ToastLength.Long);
-                Reset();
-                return;
-            }
+                Toast.Show(_enrollState.Error, ToastLength.Long);
         }
-        else
+
+        if (_enrollState.NoPhoneNumber == true)
         {
-            var iADTO = new AuthenticatorDTO() { Name = $"Steam({UserNameText})", Value = steamAuthenticator };
-            AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iADTO, _currentPassword);
-            await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUserImportSuccess, IsCancelcBtn = true });
-            SelectIndex = 4;
+            _enrollState.Error = null;
+            SelectIndex = 2;
+        }
+
+        //导入最后一步，需要账号绑定的手机验证码确认
+        if (_enrollState.RequiresActivation == true)
+        {
+            _enrollState.Error = null;
+            RevocationCodeText = _enrollState.RevocationCode;
+            SelectIndex = 3;
         }
     }
+    
+    /// <summary>
+    /// 检查登陆是否成功
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns>accessToken不为空返回true,否则返回false</returns>
+    async Task<bool> CheckLoginResult()
+    {
+        if (string.IsNullOrEmpty(_steamLoginState.Message) == false)
+        {
+            if (_steamLoginState.Message.Length > 50)
+                await IWindowManager.Instance.ShowTaskDialogAsync(
+                    new MessageBoxWindowViewModel { Content = _steamLoginState.Message, IsCancelcBtn = true });
+            else
+                Toast.Show(_steamLoginState.Message, ToastLength.Long);
+        }
 
-    public async Task<bool> LoginSteamImport()
+        //已有令牌，无法导入
+        if (_steamLoginState.Requires2FA == true)
+        {
+            Toast.Show(Strings.LocalAuth_SteamUser_Requires2FA, ToastLength.Long);
+            Reset();
+            //throw new SteamLoginRequires2FAException(Strings.LocalAuth_SteamUser_Requires2FA);
+        }
+        // //需要文字验证码
+        // else if (_steamLoginState.RequiresCaptcha == true)
+        // {
+        //     CaptchaImageText = _steamLoginState.CaptchaUrl;
+        //     SelectIndex = 1;
+        //     return false;
+        // }
+        //需要邮箱验证码
+        else if (_steamLoginState.RequiresEmailAuth == true)
+        {
+            EmailDomainText = string.IsNullOrEmpty(_steamLoginState.EmailDomain) == false
+                ? $"******@{_steamLoginState.EmailDomain}"
+                : string.Empty;
+            SelectIndex = 1;
+            return false;
+        }
+
+        return !string.IsNullOrEmpty(_steamLoginState.AccessToken);
+    }
+
+    public async Task LoginSteamImport()
     {
         if (_IsLogining)
         {
-            return false;
+            Toast.Show("请勿频繁操作");
+            return;
         }
         _IsLogining = true;
-
+        
         try
         {
             var isSupportedToastService = ToastService.IsSupported;
@@ -219,54 +208,102 @@ public sealed partial class SteamLoginImportViewModel
             {
                 ToastService.Current.Set(Strings.Logining);
             }
-            var result = true;
-            if (enrollState.RequiresCaptcha)
+
+            if (_isFirstLogin)
             {
-                result = await LoginSteamWithCaptchaCodeAsync();
+                await LoginSteamFirstAsync();
             }
-            else if (enrollState.RequiresEmailAuth)
+            else if (_steamLoginState.RequiresCaptcha)
             {
-                result = await LoginSteamWithEmailCodeAsync();
+                await LoginSteamWithCaptchaCodeAsync();
             }
-            else if (enrollState.RequiresActivation)
+            else if (_steamLoginState.RequiresEmailAuth)
             {
-                result = await LoginSteamWithPhoneCodeAsync();
+               await LoginSteamWithEmailCodeAsync();
             }
-            else
+
+            if (await CheckLoginResult())
             {
-                result = await LoginSteamFirstAsync();
+                _enrollState.AccessToken ??= _steamLoginState.AccessToken;
+                _enrollState.RefreshToken ??= _steamLoginState.RefreshToken;
+                _enrollState.SteamId ??= _steamLoginState.SteamId.ToString();
+                
+                if (_enrollState.RequiresActivation)
+                {
+                    if (await FinalizeAddAuthenticatorAsync())
+                    {
+                        var iADTO = new AuthenticatorDTO() { Name = $"Steam({UserNameText})", Value = steamAuthenticator };
+                        AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iADTO, _currentPassword);
+                        await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUserImportSuccess, IsCancelcBtn = true });
+                        SelectIndex = 4;
+                        return;
+                    }
+                    else
+                    {
+                        var error = string.IsNullOrEmpty(_enrollState.Error)
+                            ? Strings.LocalAuth_SteamUser_Error
+                            : _enrollState.Error;
+                        Toast.Show(error, ToastLength.Long);
+                        Reset();
+                    }
+                }
+                else
+                {
+                    if (_enrollState.NoPhoneNumber)
+                    {
+                        if (string.IsNullOrEmpty(PhoneNumberText))
+                        {
+                            Toast.Show("请正确输入手机号。");
+                            return;
+                        }
+                        
+                        var reslut = await steamAuthenticator.AddPhoneNumberAsync(_enrollState.AccessToken!,
+                            _enrollState.SteamId,
+                            PhoneNumberText, _isConfirmMailUrl);
+                        
+                        if (!string.IsNullOrEmpty(reslut))
+                        {
+                            Toast.Show(reslut);
+                            _isConfirmMailUrl = true;
+                            return;
+                        }
+
+                        _isConfirmMailUrl = false;
+                        //添加手机号时确认邮箱链接需要时间
+                        await Task.Delay(2000);
+                    }
+                    await AddAuthenticatorAsync();
+                    await CheckAddAuthenticatorResult();
+                }
             }
+            
             if (isSupportedToastService)
             {
                 ToastService.Current.Set();
-            } 
-            CheckResult(result);
-            return result;
+            }
         }
         catch (Exception ex)
         {
             if (ex is WinAuthSteamToManyRequestException or WinAuthInvalidEnrollResponseException)
             {
                 Toast.Show(ex.Message, ToastLength.Long);
-                return false;
+                return;
             }
             else if (ex is SteamLoginRequires2FAException slr2ex)
             {
                 Toast.Show(slr2ex.Message, ToastLength.Long);
-                return false;
+                return;
             }
             else if (ex is SteamLoginNullCatpchaCodeException slnex)
             {
                 Toast.Show(slnex.Message, ToastLength.Long);
-                return false;
+                return;
             }
             else
             {
                 Log.Error(nameof(AuthenticatorPageViewModel), ex, nameof(LoginSteamImport));
                 await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = ex + "\rError " + nameof(LoginSteamImport), IsCancelcBtn = true });
             }
-
-            return false;
         }
         finally
         {
@@ -278,5 +315,5 @@ public sealed partial class SteamLoginImportViewModel
         }
     }
 
-    public async Task ShowCaptchaUrl() => await AuthenticatorService.ShowCaptchaUrl(enrollState.CaptchaUrl);
+    public async Task ShowCaptchaUrl() => await AuthenticatorService.ShowCaptchaUrl(_steamLoginState.CaptchaUrl);
 }

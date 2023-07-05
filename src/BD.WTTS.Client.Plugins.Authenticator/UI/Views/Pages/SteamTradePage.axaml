@@ -45,7 +45,13 @@
                     HorizontalContentAlignment="Center"
                     MinWidth="280" />
             </StackPanel>
-            <StackPanel IsVisible="{Binding IsLogged}">
+            <StackPanel>
+                <StackPanel.IsVisible>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <Binding Path="!IsLoading" />
+                        <Binding Path="IsLogged" />
+                    </MultiBinding>
+                </StackPanel.IsVisible>
                 <ui:CommandBar DefaultLabelPosition="Right" HorizontalAlignment="Right">
                     <ui:CommandBar.PrimaryCommands>
                         <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="全部通过">

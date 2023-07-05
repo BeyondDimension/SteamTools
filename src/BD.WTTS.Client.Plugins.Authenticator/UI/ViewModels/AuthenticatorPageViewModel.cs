@@ -1,3 +1,5 @@
+using BD.SteamClient.Models;
+using BD.SteamClient.Services;
 using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
@@ -9,7 +11,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     string? _currentPassword;
 
     DateTime _initializeTime;
-
+    
     AuthenticatorItemModel? PrevSelectedAuth { get; set; }
 
     AuthenticatorItemModel? CurrentSelectedAuth { get; set; }
@@ -45,6 +47,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async void Initialize()
     {
+        //await AuthenticatorService.DeleteAllAuthenticatorsAsync();
         if (_initializeTime > DateTime.Now.AddSeconds(-5))
         {
             Toast.Show("请勿频繁操作");
@@ -238,12 +241,57 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (CurrentSelectedAuth == null) return;
         var messageViewmodel =
-            new MessageBoxWindowViewModel { Content = Strings.LocalAuth_DeleteAuthTip };
+            new MessageBoxWindowViewModel { Content = "确定要永久删除此令牌吗，这将使您的Steam账号失去令牌防护。" };
         if (await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, "删除令牌", isDialog: false,
                 isCancelButton: true))
         {
-            AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
-            Auths.Remove(CurrentSelectedAuth);
+            if (CurrentSelectedAuth.AuthData.Value is SteamAuthenticator steamAuthenticator)
+            {
+                string? password;
+                var textViewmodel = new TextBoxWindowViewModel()
+                {
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+                };
+                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入该Steam账号登陆密码",
+                        isDialog: false, isCancelButton: true))
+                {
+                    password = textViewmodel.Value;
+                }
+                else return;
+
+                if (string.IsNullOrEmpty(password)) return;
+
+                var steamAccountService = Ioc.Get<ISteamAccountService>();
+                SteamLoginState loginState = new()
+                {
+                    Username = steamAuthenticator.AccountName,
+                    Password = password,
+                };
+                await steamAccountService.DoLoginV2Async(loginState);
+                if (!loginState.Success)
+                {
+                    loginState.TwofactorCode = steamAuthenticator.CurrentCode;
+                    await steamAccountService.DoLoginV2Async(loginState);
+                }
+                if (string.IsNullOrEmpty(loginState.AccessToken))
+                {
+                    Toast.Show("解绑令牌失败：登陆未成功");
+                    return;
+                }
+                if (await steamAuthenticator.RemoveAuthenticatorAsync(loginState.AccessToken))
+                {
+                    AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
+                    Auths.Remove(CurrentSelectedAuth);
+                    Toast.Show("令牌解绑成功");
+                    return;
+                }
+                Toast.Show("解绑令牌失败");
+            }
+            else
+            {
+                AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
+                Auths.Remove(CurrentSelectedAuth);
+            }
         }
     }
 

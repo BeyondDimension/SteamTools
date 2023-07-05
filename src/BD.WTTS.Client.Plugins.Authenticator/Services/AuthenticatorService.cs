@@ -6,6 +6,8 @@ namespace BD.WTTS.Services;
 
 public sealed partial class AuthenticatorService
 {
+    static IAccountPlatformAuthenticatorRepository repository = Ioc.Get<IAccountPlatformAuthenticatorRepository>();
+    
     public static async Task ShowCaptchaUrl(string? url)
     {
         if (string.IsNullOrEmpty(url))
@@ -28,8 +30,6 @@ public sealed partial class AuthenticatorService
 
         return new Bitmap(stream);
     }
-
-    static IAccountPlatformAuthenticatorRepository repository = Ioc.Get<IAccountPlatformAuthenticatorRepository>();
 
     public static async void AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password)
     {

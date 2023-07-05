@@ -267,7 +267,7 @@
                 </ui:CommandBar>
             </DockPanel>
         </Border>
-        <Panel DockPanel.Dock="Left">
+        <Panel DockPanel.Dock="Top">
             <StackPanel
                 HorizontalAlignment="Center"
                 IsVisible="{CompiledBinding AuthenticatorIsEmpty}"

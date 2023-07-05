@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BD.WTTS.Models;
+namespace BD.WTTS.UI.ViewModels;
 public sealed partial class SteamLoginImportViewModel : TabItemViewModel
 {
     public override string Name => nameof(SteamLoginImportViewModel);
@@ -89,21 +89,7 @@ public sealed partial class SteamLoginImportViewModel : TabItemViewModel
             this.RaiseAndSetIfChanged(ref revocationcode, value);
         }
     }
-
-    private bool emailcodetabcanskip;
-
-    /// <summary>
-    /// 邮箱验证码步骤是否可跳过
-    /// </summary>
-    public bool EmailCodeTabCanSkip
-    {
-        get => emailcodetabcanskip;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref emailcodetabcanskip, value);
-        }
-    }
-
+    
     bool emailcodetabcannext;
 
     private string? emailauth;
@@ -117,20 +103,6 @@ public sealed partial class SteamLoginImportViewModel : TabItemViewModel
         set
         {
             this.RaiseAndSetIfChanged(ref emailauth, value);
-        }
-    }
-
-    private bool captchaimagetabcanskip;
-
-    /// <summary>
-    /// 文字验证码页面是否可跳过
-    /// </summary>
-    public bool CaptchaImageTabCanSkip
-    {
-        get => captchaimagetabcanskip;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref captchaimagetabcanskip, value);
         }
     }
 
@@ -163,6 +135,7 @@ public sealed partial class SteamLoginImportViewModel : TabItemViewModel
     }
 
     private bool finatabisvisible;
+    string? _phoneNumberText;
 
     /// <summary>
     /// 令牌添加结束页面是否显示
@@ -174,5 +147,11 @@ public sealed partial class SteamLoginImportViewModel : TabItemViewModel
         {
             this.RaiseAndSetIfChanged(ref finatabisvisible, value);
         }
+    }
+
+    public string? PhoneNumberText
+    {
+        get => _phoneNumberText;
+        set => this.RaiseAndSetIfChanged(ref _phoneNumberText, value);
     }
 }

@@ -1,3 +1,4 @@
+using BD.SteamClient.Services;
 using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
@@ -24,7 +25,8 @@ sealed class Plugin : PluginBase<Plugin>
         };
     }
 
-    public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
+    public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(
+        bool directoryExists)
     {
         return base.GetConfiguration(directoryExists);
     }
@@ -34,6 +36,7 @@ sealed class Plugin : PluginBase<Plugin>
         if (startup.HasServerApiClient)
         {
             services.AddSingleton<IAccountPlatformAuthenticatorRepository, AccountPlatformAuthenticatorRepository>();
+            services.AddSteamAccountService(c => new SocketsHttpHandler() { CookieContainer = c });
         }
     }
 
@@ -43,6 +46,5 @@ sealed class Plugin : PluginBase<Plugin>
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
     {
-
     }
 }
