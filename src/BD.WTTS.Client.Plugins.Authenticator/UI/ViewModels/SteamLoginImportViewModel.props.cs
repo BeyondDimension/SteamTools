@@ -5,10 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BD.WTTS.UI.ViewModels;
-public sealed partial class SteamLoginImportViewModel : TabItemViewModel
+public sealed partial class SteamLoginImportViewModel : ViewModelBase
 {
-    public override string Name => nameof(SteamLoginImportViewModel);
-    
     private int index;
 
     public int SelectIndex
@@ -133,21 +131,8 @@ public sealed partial class SteamLoginImportViewModel : TabItemViewModel
             this.RaiseAndSetIfChanged(ref emaildomain, value);
         }
     }
-
-    private bool finatabisvisible;
+    
     string? _phoneNumberText;
-
-    /// <summary>
-    /// 令牌添加结束页面是否显示
-    /// </summary>
-    public bool FinalTabIsVisible
-    {
-        get => finatabisvisible;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref finatabisvisible, value);
-        }
-    }
 
     public string? PhoneNumberText
     {

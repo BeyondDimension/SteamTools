@@ -98,6 +98,7 @@ public sealed partial class SteamTradePageViewModel
             // }
 
             Toast.Show($"未知登陆错误：{_steamClient.Error}");
+            IsLoading = false;
             return;
         }
 

@@ -237,13 +237,16 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         
     }
 
-    public async Task DeleteAuthAsync()
+    public async Task UnbindingSteamAuthAsync()
     {
-        if (CurrentSelectedAuth == null) return;
-        var messageViewmodel =
-            new MessageBoxWindowViewModel { Content = "确定要永久删除此令牌吗，这将使您的Steam账号失去令牌防护。" };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, "删除令牌", isDialog: false,
-                isCancelButton: true))
+        if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam)
+        {
+            Toast.Show("解绑功能目前仅支持 Steam 令牌");
+            return;
+        }
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(
+                new MessageBoxWindowViewModel() { Content = "您确定要从您的 Steam 账号中解绑此令牌吗，解绑后此令牌将失效，您可以在解绑后删除此令牌。" },
+                isDialog: false, isCancelButton: true))
         {
             if (CurrentSelectedAuth.AuthData.Value is SteamAuthenticator steamAuthenticator)
             {
@@ -287,11 +290,19 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 }
                 Toast.Show("解绑令牌失败");
             }
-            else
-            {
-                AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
-                Auths.Remove(CurrentSelectedAuth);
-            }
+        }
+    }
+
+    public async Task DeleteAuthAsync()
+    {
+        if (CurrentSelectedAuth == null) return;
+        var messageViewmodel =
+            new MessageBoxWindowViewModel { Content = Strings.LocalAuth_DeleteAuthTip2 };
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, "删除令牌", isDialog: false,
+                isCancelButton: true))
+        {
+            AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
+            Auths.Remove(CurrentSelectedAuth);
         }
     }
 
@@ -323,6 +334,12 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(_currentPassword), "令牌导入",
             pageContent: new SteamOtherImportPage(), isCancelButton: true);
+    }
+
+    public async Task OpenGeneralAuthenticatorImportWindow()
+    {
+        await IWindowManager.Instance.ShowTaskDialogAsync(new GeneralAuthenticatorImportViewModel(_currentPassword),
+            "通用2FA令牌导入", pageContent: new GeneralAuthenticatorImportPage(), isCancelButton: true);
     }
     
     public async Task OpenExportWindow()
@@ -356,7 +373,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async Task ShowReplyWindow()
     {
-        if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam) return;
+        if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam)
+        {
+            Toast.Show("确认交易功能仅限Steam令牌使用");
+            return;
+        }
         var authData = CurrentSelectedAuth.AuthData;
         await IWindowManager.Instance.ShowTaskDialogAsync(new SteamTradePageViewModel(ref authData),
             "确认交易",
@@ -367,9 +388,21 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task ShowAuthJsonData()
     {
         if (CurrentSelectedAuth == null) return;
-        await IWindowManager.Instance.ShowTaskDialogAsync(new ShowSteamDataViewModel(CurrentSelectedAuth.AuthData),
-            "查看令牌详细数据",
-            pageContent: new ShowSteamDataPage(), isCancelButton: true);
+        if (CurrentSelectedAuth.AuthData.Platform == AuthenticatorPlatform.Steam)
+            await IWindowManager.Instance.ShowTaskDialogAsync(new ShowSteamDataViewModel(CurrentSelectedAuth.AuthData),
+                "查看令牌详细数据",
+                pageContent: new ShowSteamDataPage(), isCancelButton: true);
+        else
+        {
+            var temp = CurrentSelectedAuth.AuthData.Value.SecretKey
+                .ThrowIsNull().ToHexString();
+            await IWindowManager.Instance.ShowTaskDialogAsync(new TextBoxWindowViewModel()
+            {
+                InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
+                Value = temp,
+            }, $"{CurrentSelectedAuth.AuthName}\r\n令牌 SecretKey", isDialog: false, isCancelButton: true);
+            
+        }
     }
 
     public async void ExportAuthWithSdaFile()

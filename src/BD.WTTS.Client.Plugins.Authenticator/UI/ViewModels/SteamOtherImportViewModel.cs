@@ -630,9 +630,9 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
         }
     }
     
-    private void SaveImport(IAuthenticatorDTO authenticatorDto)
+    private async void SaveImport(IAuthenticatorDTO authenticatorDto)
     {
-        AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, _currentPassword);
+        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, _currentPassword);
     }
 
     public bool ReadXml(ref AuthenticatorDTO authenticatorDto, XmlReader reader, string? password)

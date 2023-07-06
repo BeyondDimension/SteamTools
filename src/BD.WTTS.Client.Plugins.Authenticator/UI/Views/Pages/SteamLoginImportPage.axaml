@@ -160,7 +160,7 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         Margin="0,0,0,10"
-                        Text="请在收到邮件后，点击邮件内的“添加手机号码”进行确认后，再点击继续按钮。"
+                        Text="请在收到邮件后，点击邮件内的「添加手机号码」进行确认后，再点击继续按钮。"
                         VerticalAlignment="Bottom" />
                 </StackPanel>
             </spp:StepperItem>

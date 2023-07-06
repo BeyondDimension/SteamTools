@@ -1,0 +1,85 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="BD.WTTS.UI.Views.Pages.GeneralAuthenticatorImportPage"
+    x:CompileBindings="True"
+    x:DataType="spp:GeneralAuthenticatorImportViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel
+        HorizontalAlignment="Center"
+        Margin="10"
+        Spacing="30"
+        VerticalAlignment="Center">
+        <StackPanel.Styles>
+            <Style Selector="Border">
+                <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+        </StackPanel.Styles>
+        <StackPanel Orientation="Horizontal">
+            <Label VerticalAlignment="Center">1.</Label>
+            <Border HorizontalAlignment="Center">
+                <StackPanel
+                    Margin="5"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <TextBlock Text="令牌名称：" VerticalAlignment="Center" />
+                    <TextBox
+                        HorizontalContentAlignment="Center"
+                        Text="{Binding AuthenticatorName}"
+                        Watermark="输入您的令牌名称" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label VerticalAlignment="Center">2.</Label>
+            <ComboBox
+                HorizontalContentAlignment="Center"
+                ItemsSource="{Binding ImportAuthenticatorTypes}"
+                SelectedItem="{Binding ImportAuthenticatorType}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label VerticalAlignment="Center">3.</Label>
+            <Border HorizontalAlignment="Center">
+                <StackPanel
+                    Margin="5"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <TextBlock Text="导入文本：" VerticalAlignment="Center" />
+                    <TextBox
+                        HorizontalContentAlignment="Center"
+                        Text="{Binding SecretCode}"
+                        Watermark="输入您的令牌Key或二维码图片url链接" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label VerticalAlignment="Center">4.</Label>
+            <Button
+                Command="{Binding GenerateCode}"
+                Content="生成 Code "
+                HorizontalAlignment="Center"
+                MinWidth="300" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label VerticalAlignment="Center">5.</Label>
+            <Border HorizontalAlignment="Center">
+                <StackPanel Margin="10" Spacing="5">
+                    <TextBlock HorizontalAlignment="Center" Text="请验证下列Code是否正确，在其正确的情况下再进行导入" />
+                    <TextBox IsReadOnly="True" Text="{Binding CurrentCode}" />
+                    <Button
+                        Command="{Binding Import}"
+                        Content="确认导入"
+                        HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

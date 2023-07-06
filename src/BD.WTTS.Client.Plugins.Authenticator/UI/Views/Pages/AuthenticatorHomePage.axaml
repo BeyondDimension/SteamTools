@@ -62,15 +62,9 @@
                 <Button.Flyout>
                     <Flyout Placement="BottomEdgeAlignedLeft">
                         <StackPanel Spacing="5">
-                            <Button
-                                Command="{Binding OpenSteamLoginImportWindow}"
-                                Content="Steam登陆导入"
-                                IsEnabled="{Binding !HasPasswordEncrypt}" />
-                            <Button Content="2FA密钥导入" IsEnabled="{Binding HasPasswordEncrypt}" />
-                            <Button
-                                Command="{Binding OpenSteamOtherImportWindow}"
-                                Content="导入自文件"
-                                IsEnabled="{Binding !HasLocalPcEncrypt}" />
+                            <Button Command="{Binding OpenSteamLoginImportWindow}" Content="Steam登陆导入" />
+                            <Button Command="{Binding OpenGeneralAuthenticatorImportWindow}" Content="2FA通用导入" />
+                            <Button Command="{Binding OpenSteamOtherImportWindow}" Content="导入自文件" />
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
@@ -191,7 +185,7 @@
                             Command="{Binding ReLockAuthenticator}"
                             IsEnabled="{Binding IsVerificationPass}"
                             Text="锁定令牌" />
-                        <ui:MenuFlyoutItem Text="解绑令牌" />
+                        <ui:MenuFlyoutItem Command="{Binding UnbindingSteamAuthAsync}" Text="解绑令牌" />
                         <ui:MenuFlyoutItem Text="插件设置" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False" Text="版本号: 0.1" />

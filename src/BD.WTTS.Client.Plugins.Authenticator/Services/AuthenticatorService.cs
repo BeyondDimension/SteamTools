@@ -31,7 +31,7 @@ public sealed partial class AuthenticatorService
         return new Bitmap(stream);
     }
 
-    public static async void AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password)
+    public static async Task AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password)
     {
         var isLocal = await repository.HasLocalAsync();
         await repository.InsertOrUpdateAsync(authenticatorDto, isLocal, password);
@@ -119,68 +119,162 @@ public sealed partial class AuthenticatorService
     {
         await repository.ExportAsync(stream, isLocal, password, items);
     }
-
-    //待完善
-    public static async Task<IAuthenticatorValueDTO?> GeneralAuthenticatorImport(string secretCode)
+    
+    public static async Task<IAuthenticatorValueDTO?> GeneralAuthenticatorImport(AuthenticatorPlatform platform,
+        string secretCode)
     {
+
         var privateKey = await DecodePrivateKey(secretCode);
-        
+
         if (string.IsNullOrEmpty(privateKey)) return null;
-        
-        try
+
+        switch (platform)
         {
-            var auth = new GoogleAuthenticator();
-            auth.Enroll(privateKey);
+            case AuthenticatorPlatform.Microsoft:
+                try
+                {
+                    var auth = new MicrosoftAuthenticator();
+                    auth.Enroll(privateKey);
 
-            //string key = WinAuth.Base32.GetInstance().Encode(auth.SecretKey!);
-            //var text1 = Regex.Replace(key, ".{3}", "$0 ").Trim();
-            //var code = auth.CurrentCode;
+                    if (auth.ServerTimeDiff == 0L)
+                        Toast.Show("无法连接到令牌验证服务器");
 
-            if (auth.ServerTimeDiff == 0L)
-                Toast.Show("无法连接到Google服务器");
+                    return auth;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(AuthenticatorService), ex, nameof(GeneralAuthenticatorImport));
+                    return null;
+                }
 
-            return auth;
+                break;
+            case AuthenticatorPlatform.Google:
+                try
+                {
+                    var auth = new GoogleAuthenticator();
+                    auth.Enroll(privateKey);
+
+                    //string key = WinAuth.Base32.GetInstance().Encode(auth.SecretKey!);
+                    //var text1 = Regex.Replace(key, ".{3}", "$0 ").Trim();
+                    //var code = auth.CurrentCode;
+
+                    if (auth.ServerTimeDiff == 0L)
+                        Toast.Show("无法连接到Google服务器");
+
+                    return auth;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(AuthenticatorService), ex, nameof(GeneralAuthenticatorImport));
+                    return null;
+                }
+            case AuthenticatorPlatform.HOTP:
+                try
+                {
+                    var auth = new HOTPAuthenticator();
+                    auth.Enroll(privateKey);
+
+                    if (auth.ServerTimeDiff == 0L)
+                        Toast.Show("无法连接到令牌验证服务器");
+
+                    return auth;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(AuthenticatorService), ex, nameof(GeneralAuthenticatorImport));
+                    return null;
+                }
+                break;
         }
-        catch (Exception ex)
-        {
-            Log.Error(nameof(AuthenticatorService), ex, nameof(GeneralAuthenticatorImport));
-            return null;
-        }
+        return null;
     }
 
     //待完善
     public static async Task<string?> DecodePrivateKey(string secretCode)
     {
-        if (SecretCodeHttpRegex().Match(secretCode) is { Success: true } httpMatch)
+        if (SecretCodeHttpRegex().Match(secretCode) is { Success: true })
         {
             //url图片二维码解码
+            HttpClientHandler handler = new HttpClientHandler
+            {
+                AllowAutoRedirect = true,
+                MaxAutomaticRedirections = 1000,
+            };
+            using HttpClient httpClient = new HttpClient(handler);
+            httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Default);
+            httpClient.Timeout = new TimeSpan(0, 0, 20);
+            try
+            {
+                var response = await httpClient.GetAsync(secretCode);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    //response.Content.Headers.ContentType.;
+                    #if WINDOWS
+                    using (System.Drawing.Bitmap bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
+                    {
+                        //二维码解析
+                        // IBarcodeReader reader = new BarcodeReader();
+                        // var result = reader.Decode(bitmap);
+                        // if (result != null)
+                        // {
+                        //     privatekey = HttpUtility.UrlDecode(result.Text);
+                        // }
+                    }
+                    #endif
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Toast.Show("扫描网页二维码失败：" + e.Message);
+                Log.Error(nameof(AuthenticatorService), e, nameof(DecodePrivateKey));
+            }
+            
         }
         else if (SecretCodeDataImageRegex().Match(secretCode) is { Success: true } dataImageMatch)
         {
             var imageData = Convert.FromBase64String(dataImageMatch.Groups[2].Value);
             using (var ms = new MemoryStream(imageData))
             {
-#if WINDOWS
+                #if WINDOWS
                 using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(ms))
                 {
-                    //二维码解码
+                    //二维码解析
+                    
                 }
-#endif
+                #endif
             }
         }
-        else if (SecretCodeOptAuthRegex().Match(secretCode) is { Success: true } optMatch)
-        {
-            var authType = optMatch.Groups[1].Value;
-            switch (authType)
-            {
-                case "totp":
-                    break;
-                case "hotp":
-                    break;
-                default:
-                    return null;
-            }
-        }
+        // else if (SecretCodeOptAuthRegex().Match(secretCode) is { Success: true } optMatch)
+        // {
+        //     var authType = optMatch.Groups[1].Value;
+        //     var label = optMatch.Groups[2].Value;
+        //     var p = label.IndexOf(":", StringComparison.Ordinal);
+        //     string? issuer;
+        //     string? serial;
+        //     if (p != -1)
+        //     {
+        //         issuer = label[..p];
+        //         label = label[(p + 1)..];
+        //     }
+        //
+        //     var qs = HttpUtility.ParseQueryString(optMatch.Groups[3].Value);
+        //     secretCode = qs["secret"] ?? secretCode;
+        //     int queryDigits;
+        //     if (int.TryParse(qs["digits"], out queryDigits) && queryDigits != 0)
+        //     {
+        //         
+        //     }
+        //     switch (authType)
+        //     {
+        //         case "totp":
+        //             break;
+        //         case "hotp":
+        //             break;
+        //         default:
+        //             return null;
+        //     }
+        // }
         else
         {
             var privateKey = SecretHexCodeAuthRegex().Replace(secretCode, "");
