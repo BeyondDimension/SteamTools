@@ -1,14 +1,13 @@
 using BD.SteamClient.Services;
 using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
-using WinAuth;
 
 namespace BD.WTTS.Plugins;
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 [CompositionExport(typeof(IPlugin))]
 #endif
-sealed class Plugin : PluginBase<Plugin>
+public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
     const string moduleName = "Authenticator";
 

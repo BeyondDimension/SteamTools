@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/CertGenerator.cs
 
 //using Org.BouncyCastle.Asn1.Pkcs;
@@ -485,4 +484,3 @@ public static class CertGenerator
     //    return subject;
     //}
 }
-#endif

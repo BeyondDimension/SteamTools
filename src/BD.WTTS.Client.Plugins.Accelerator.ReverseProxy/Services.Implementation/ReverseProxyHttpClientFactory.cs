@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Http/HttpClientFactory.cs
 
 // ReSharper disable once CheckNamespace
@@ -56,4 +55,3 @@ sealed class ReverseProxyHttpClientFactory : IReverseProxyHttpClientFactory
             => new(() => CreateLifetimeHttpHandler(lifeTimeKey, nextLifeTime), true);
     }
 }
-#endif

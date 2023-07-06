@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<AssemblyName>pub</AssemblyName>
 		<OutputType>Exe</OutputType>
 		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstants>TOOL_PUBLISH;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -73,6 +74,9 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<!--<None Remove="$(NugetPackageRoot)\zstdnet\1.4.5\build\x64\libzstd.dll" />-->
+		<Compile Include="..\BD.WTTS.Client\Helpers\GlobalDllImportResolver.LibraryName.cs">
+			<LinkBase>Helpers</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/RequestLoggingMilldeware.cs
 
 // ReSharper disable once CheckNamespace
@@ -124,4 +123,3 @@ sealed class RequestLoggingMiddleware
         public bool Enable { get; set; } = true;
     }
 }
-#endif

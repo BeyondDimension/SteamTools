@@ -1,4 +1,4 @@
-#if WINDOWS
+#if !NOT_WINDOWS
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/GithubGitReverseProxyHandler.cs
 
 // ReSharper disable once CheckNamespace

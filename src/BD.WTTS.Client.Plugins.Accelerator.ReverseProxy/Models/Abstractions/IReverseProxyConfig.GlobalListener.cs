@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/GlobalListener.cs
 
 using System.Net.NetworkInformation;
@@ -115,4 +114,3 @@ partial interface IReverseProxyConfig
         throw new ApplicationException("Failed to get available ports. There are no available ports.");
     }
 }
-#endif

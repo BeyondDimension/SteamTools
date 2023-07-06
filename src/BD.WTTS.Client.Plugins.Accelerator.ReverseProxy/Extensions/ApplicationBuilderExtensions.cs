@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/ApplicationBuilderExtensions.cs
 
 // ReSharper disable once CheckNamespace
@@ -73,4 +72,3 @@ static class ApplicationBuilderExtensions
         return app.Use(next => context => middleware.InvokeAsync(context, next));
     }
 }
-#endif

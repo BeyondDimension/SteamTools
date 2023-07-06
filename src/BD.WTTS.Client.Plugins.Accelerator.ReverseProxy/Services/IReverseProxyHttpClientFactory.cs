@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Http/IHttpClientFactory.cs
 
 // ReSharper disable once CheckNamespace
@@ -17,4 +16,3 @@ public interface IReverseProxyHttpClientFactory
     /// <returns></returns>
     ReverseProxyHttpClient CreateHttpClient(string domain, IDomainConfig domainConfig);
 }
-#endif

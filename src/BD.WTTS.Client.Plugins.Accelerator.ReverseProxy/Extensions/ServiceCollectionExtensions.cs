@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using IHttpClientFactory_Common = System.Net.Http.Client.IHttpClientFactory;
 using IHttpClientFactory_Extensions_Http = System.Net.Http.IHttpClientFactory;
 
@@ -147,7 +146,7 @@ public static partial class ServiceCollectionExtensions
         return services.AddSingleton<IFlowAnalyzer, FlowAnalyzer>();
     }
 
-#if WINDOWS
+#if !NOT_WINDOWS
 
     /// <summary>
     /// 注册数据包拦截器
@@ -174,4 +173,3 @@ public static partial class ServiceCollectionExtensions
 
 #endif
 }
-#endif

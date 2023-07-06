@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using DnsClient;
 using DnsClient.Protocol;
 using static BD.WTTS.Services.IDnsAnalysisService;
@@ -140,4 +139,3 @@ sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
         return Task.FromResult<IPAddress?>(null);
     }
 }
-#endif

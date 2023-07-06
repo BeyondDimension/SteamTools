@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.FlowAnalyze/FlowAnalyzeStream.cs
 
 // ReSharper disable once CheckNamespace
@@ -66,4 +65,3 @@ sealed class FlowAnalyzeStream : DelegatingStream
         return base.WriteAsync(source, cancellationToken);
     }
 }
-#endif

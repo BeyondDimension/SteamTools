@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using NLog.Web;
 
 // ReSharper disable once CheckNamespace
@@ -60,7 +59,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             builder.WebHost.UseKestrel(options =>
             {
                 options.NoLimit();
-#if WINDOWS
+#if !NOT_WINDOWS
 #if !NET7_0_OR_GREATER
                 if (OperatingSystem2.IsWindows7())
                 {
@@ -157,4 +156,3 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         GC.SuppressFinalize(this);
     }
 }
-#endif

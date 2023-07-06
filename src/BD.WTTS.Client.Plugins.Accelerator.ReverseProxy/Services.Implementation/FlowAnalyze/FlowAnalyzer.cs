@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.FlowAnalyze/FlowAnalyzer.cs
 
 // ReSharper disable once CheckNamespace
@@ -89,4 +88,3 @@ sealed class FlowAnalyzer : IFlowAnalyzer
         }
     }
 }
-#endif

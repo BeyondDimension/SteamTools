@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/IRequestLoggingFeature.cs
 
 // ReSharper disable once CheckNamespace
@@ -14,4 +13,3 @@ internal interface IRequestLoggingFeature
     /// </summary>
     bool Enable { get; set; }
 }
-#endif

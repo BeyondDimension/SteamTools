@@ -1,4 +1,4 @@
-#if WINDOWS
+#if WINDOWS || TOOL_PUBLISH
 //#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
@@ -8,43 +8,48 @@ static partial class GlobalDllImportResolver
     /// <summary>
     /// e_sqlite3 SQLitePCLRaw.provider.e_sqlite3
     /// </summary>
-    const string e_sqlite3 = "e_sqlite3";
+    internal const string e_sqlite3 = "e_sqlite3";
 
     /// <summary>
     /// libSkiaSharp SkiaSharp
     /// </summary>
-    const string libSkiaSharp = "libSkiaSharp";
+    internal const string libSkiaSharp = "libSkiaSharp";
 
     /// <summary>
     /// libHarfBuzzSharp
     /// </summary>
-    const string libHarfBuzzSharp = "libHarfBuzzSharp";
+    internal const string libHarfBuzzSharp = "libHarfBuzzSharp";
 
     /// <summary>
     /// av_libGLESv2.dll Avalonia.OpenGL
     /// </summary>
-    const string av_libGLESv2 = "av_libGLESv2";
+    internal const string av_libGLESv2 = "av_libGLESv2";
 
-#if WINDOWS
+#if WINDOWS || TOOL_PUBLISH
     /// <summary>
     /// WebView2Loader
     /// </summary>
-    const string WebView2Loader = "WebView2Loader";
+    internal const string WebView2Loader = "WebView2Loader";
 
     /// <summary>
     /// WinDivert
     /// </summary>
-    const string WinDivert = "WinDivert";
+    internal const string WinDivert = "WinDivert";
 
     /// <summary>
     /// WinDivert
     /// </summary>
-    const string WinDivert32 = "WinDivert32";
+    internal const string WinDivert32 = "WinDivert32";
 
     /// <summary>
     /// WinDivert
     /// </summary>
-    const string WinDivert64 = "WinDivert64";
+    internal const string WinDivert64 = "WinDivert64";
+
+    /// <summary>
+    /// 7z
+    /// </summary>
+    internal const string _7z = "7z";
 #endif
 
     static IEnumerable<string> GetLibraryNames()
@@ -53,12 +58,17 @@ static partial class GlobalDllImportResolver
         yield return libSkiaSharp;
         yield return libHarfBuzzSharp;
         yield return av_libGLESv2;
-#if WINDOWS
+#if WINDOWS || TOOL_PUBLISH
         yield return WebView2Loader;
         yield return WinDivert;
+        yield return _7z;
 #endif
     }
 
-    static readonly HashSet<string> libraryNames = new(GetLibraryNames());
+#pragma warning disable SA1304 // Non-private readonly fields should begin with upper-case letter
+#pragma warning disable SA1307 // Accessible fields should begin with upper-case letter
+    internal static readonly HashSet<string> libraryNames = new(GetLibraryNames());
+#pragma warning restore SA1307 // Accessible fields should begin with upper-case letter
+#pragma warning restore SA1304 // Non-private readonly fields should begin with upper-case letter
 }
 #endif

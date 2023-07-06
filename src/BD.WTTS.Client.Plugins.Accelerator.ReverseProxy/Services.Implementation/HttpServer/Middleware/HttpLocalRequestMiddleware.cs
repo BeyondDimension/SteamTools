@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using MediaTypeHeaderValue = System.Net.Http.Headers.MediaTypeHeaderValue;
 
 // ReSharper disable once CheckNamespace
@@ -65,14 +64,15 @@ sealed class HttpLocalRequestMiddleware
                         await Handle404NotFoundAsync(context);
                         return;
                     }
-                    var content = reverseProxyConfig.Service.Scripts?.FirstOrDefault(x => x.LocalId == lid)?.Content;
-                    if (string.IsNullOrEmpty(content))
-                    {
-                        await Handle404NotFoundAsync(context);
-                        return;
-                    }
-                    context.Response.Headers.ContentType = "text/javascript;charset=UTF-8";
-                    await context.Response.WriteAsync(content);
+                    // TODO: Scripts
+                    //var content = reverseProxyConfig.Service.Scripts?.FirstOrDefault(x => x.LocalId == lid)?.Content;
+                    //if (string.IsNullOrEmpty(content))
+                    //{
+                    //    await Handle404NotFoundAsync(context);
+                    //    return;
+                    //}
+                    //context.Response.Headers.ContentType = "text/javascript;charset=UTF-8";
+                    //await context.Response.WriteAsync(content);
                     return;
             }
         }
@@ -187,4 +187,3 @@ sealed class HttpLocalRequestMiddleware
     static Task Handle404NotFoundAsync(HttpContext context)
         => HandleStatusCodeAsync(context, StatusCodes.Status404NotFound);
 }
-#endif

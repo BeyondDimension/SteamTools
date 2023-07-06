@@ -1,5 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
@@ -197,4 +195,3 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
         GC.SuppressFinalize(this);
     }
 }
-#endif

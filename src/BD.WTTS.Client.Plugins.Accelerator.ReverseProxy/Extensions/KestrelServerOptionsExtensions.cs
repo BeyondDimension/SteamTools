@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/KestrelServerOptionsExtensions.cs
 
 // ReSharper disable once CheckNamespace
@@ -50,7 +49,7 @@ public static class KestrelServerOptionsExtensions
             IReverseProxyService.Constants.Instance.ProxyIp, httpProxyPort);
     }
 
-#if WINDOWS
+#if !NOT_WINDOWS
     /// <summary>
     /// 监听 SSH 反向代理
     /// </summary>
@@ -71,7 +70,7 @@ public static class KestrelServerOptionsExtensions
     }
 #endif
 
-#if WINDOWS
+#if !NOT_WINDOWS
     /// <summary>
     /// 监听 Git 反向代理
     /// </summary>
@@ -144,4 +143,3 @@ public static class KestrelServerOptionsExtensions
     const string TAG = "KestrelServerOptEx";
 
 }
-#endif

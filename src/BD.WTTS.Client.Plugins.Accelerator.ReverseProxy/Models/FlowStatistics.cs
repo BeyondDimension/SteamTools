@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.FlowAnalyze/FlowStatistics.cs
 
 // ReSharper disable once CheckNamespace
@@ -34,4 +33,3 @@ public partial record FlowStatistics
     [MP2Key(3)]
     public double WriteRate { get; init; }
 }
-#endif

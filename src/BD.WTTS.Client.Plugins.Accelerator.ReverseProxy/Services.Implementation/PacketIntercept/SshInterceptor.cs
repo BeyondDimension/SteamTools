@@ -1,6 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/Tcp/SshInterceptor.cs
 
-#if WINDOWS
+#if !NOT_WINDOWS
 
 using static BD.WTTS.Models.Abstractions.IReverseProxyConfig;
 
@@ -17,5 +17,4 @@ sealed class SshInterceptor : TcpInterceptor
 
     }
 }
-
 #endif

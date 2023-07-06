@@ -1,5 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
@@ -18,4 +16,3 @@ sealed class CookieHttpClient
 
     public HttpClient HttpClient => httpClientFactory.CreateClient(HttpClientName);
 }
-#endif

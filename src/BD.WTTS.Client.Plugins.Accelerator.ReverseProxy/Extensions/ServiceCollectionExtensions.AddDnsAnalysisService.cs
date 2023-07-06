@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -12,4 +11,3 @@ public static partial class ServiceCollectionExtensions
         return services;
     }
 }
-#endif

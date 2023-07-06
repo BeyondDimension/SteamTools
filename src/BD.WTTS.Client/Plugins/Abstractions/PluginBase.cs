@@ -3,14 +3,13 @@ using static BD.WTTS.Services.IPCSubProcessModuleService.Constants;
 
 namespace BD.WTTS.Plugins.Abstractions;
 
-public abstract partial class PluginBase<TPlugin> : IPlugin where TPlugin : PluginBase<TPlugin>
+public abstract partial class PluginBase : IPlugin
 {
     readonly Lazy<string> mAppDataDirectory;
     readonly Lazy<string> mCacheDirectory;
 
     public PluginBase()
     {
-        Instance = (TPlugin)this;
         mAppDataDirectory = new(() => GetPluginsDirectory(Name, IOPath.AppDataDirectory));
         mCacheDirectory = new(() => GetPluginsDirectory(Name, IOPath.CacheDirectory));
     }
@@ -106,5 +105,13 @@ public abstract partial class PluginBase<TPlugin> : IPlugin where TPlugin : Plug
     public virtual ValueTask OnPeerConnected(bool isReconnected)
     {
         return ValueTask.CompletedTask;
+    }
+}
+
+public abstract partial class PluginBase<TPlugin> : PluginBase, IPlugin where TPlugin : PluginBase<TPlugin>, new()
+{
+    public PluginBase()
+    {
+        Instance = (TPlugin)this;
     }
 }

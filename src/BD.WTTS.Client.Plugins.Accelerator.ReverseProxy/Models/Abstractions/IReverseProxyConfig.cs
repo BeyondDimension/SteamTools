@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/FastGithubConfig.cs
 
 // ReSharper disable once CheckNamespace
@@ -6,11 +5,9 @@ namespace BD.WTTS.Models.Abstractions;
 
 public partial interface IReverseProxyConfig
 {
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     internal YarpReverseProxyServiceImpl Service { get; }
 
     IDnsAnalysisService DnsAnalysis => Service.DnsAnalysis;
-#endif
 
     ushort HttpProxyPort { get; set; }
 
@@ -47,4 +44,3 @@ public partial interface IReverseProxyConfig
     /// <returns></returns>
     DomainPattern[] GetDomainPatterns();
 }
-#endif

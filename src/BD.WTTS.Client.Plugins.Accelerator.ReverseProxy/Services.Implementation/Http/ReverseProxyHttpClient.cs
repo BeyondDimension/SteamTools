@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Http/HttpClient.cs
 
 // ReSharper disable once CheckNamespace
@@ -47,4 +46,3 @@ public class ReverseProxyHttpClient : HttpMessageInvoker
         return response;
     }
 }
-#endif

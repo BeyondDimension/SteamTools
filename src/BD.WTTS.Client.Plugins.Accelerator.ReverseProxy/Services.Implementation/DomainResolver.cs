@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.DomainResolve/DomainResolver.cs
 
 //using AppResources = BD.WTTS.Client.Resources.Strings;
@@ -52,4 +51,3 @@ sealed class DomainResolver : IDomainResolver
         throw new NotImplementedException();
     }
 }
-#endif

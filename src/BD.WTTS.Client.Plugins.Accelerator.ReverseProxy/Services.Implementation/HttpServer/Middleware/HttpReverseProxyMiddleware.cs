@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/HttpReverseProxyMiddleware.cs
 
 using Yarp.ReverseProxy.Forwarder;
@@ -403,4 +402,3 @@ sealed partial class HttpReverseProxyMiddleware
     //const int BigEndianUnicodePreambleLength = 2;
     const int BigEndianUnicodePreambleFirst2Bytes = 0xFEFF;
 }
-#endif

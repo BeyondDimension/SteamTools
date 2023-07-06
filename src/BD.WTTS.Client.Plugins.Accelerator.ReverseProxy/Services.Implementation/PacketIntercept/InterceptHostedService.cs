@@ -1,4 +1,4 @@
-#if WINDOWS
+#if !NOT_WINDOWS
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;

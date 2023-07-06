@@ -125,9 +125,18 @@ public static class PluginsCore
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static Assembly LoadFrom(bool disable, string assemblyPath)
     {
-        var assembly = (disable && disablePluginsAssemblyLoadContext != null) ?
-                        disablePluginsAssemblyLoadContext.LoadFromAssemblyPath(assemblyPath) :
-                        Assembly.LoadFrom(assemblyPath);
+        AssemblyLoadContext? assemblyLoadContext;
+        if (disable && disablePluginsAssemblyLoadContext != null)
+        {
+            assemblyLoadContext = disablePluginsAssemblyLoadContext;
+        }
+        else
+        {
+            // 在 Windows 上通过自定义 AppHost 程序集加载上下文为 IsolatedComponentLoadContext 而不是 Default
+            assemblyLoadContext = AssemblyLoadContext.GetLoadContext(typeof(PluginsCore).Assembly);
+            assemblyLoadContext ??= AssemblyLoadContext.Default;
+        }
+        var assembly = assemblyLoadContext.LoadFromAssemblyPath(assemblyPath);
         return assembly;
     }
 
@@ -198,12 +207,17 @@ public static class PluginsCore
         {
             bool EachDirectories(string directory, string? dirName = null)
             {
-                dirName ??= Path.GetDirectoryName(directory);
-                if (dirName == null)
+                if (string.IsNullOrEmpty(dirName))
+                {
+                    dirName = new DirectoryInfo(directory).Name;
+                }
+                if (string.IsNullOrEmpty(dirName))
+                {
                     return true;
+                }
                 var disable = disablePluginNames != null && disablePluginNames.Contains(dirName);
                 var dllPath = Path.Combine(directory,
-                    $"Steam++.Plugins.{dirName}.dll");
+                    $"BD.WTTS.Client.Plugins.{dirName}.dll");
                 if (File.Exists(dllPath))
                 {
                     foreach (string assemblyPath in Directory.EnumerateFiles(directory, "*.dll", SearchOption.AllDirectories))
@@ -215,7 +229,8 @@ public static class PluginsCore
                         }
                         catch (Exception e)
                         {
-                            Log.Error(TAG, e, $"AssemblyLoadFrom fail, assemblyPath: {assemblyPath}");
+                            Log.Error(TAG, e,
+                                $"AssemblyLoadFrom fail, assemblyPath: {assemblyPath}");
                             return true;
                         }
 
@@ -279,13 +294,23 @@ public static class PluginsCore
 
         var configuration = new ContainerConfiguration().WithAssemblies(assemblies, conventions);
 
-        HashSet<IPlugin> plugins;
+        HashSet<IPlugin> plugins = new();
         try
         {
             using CompositionHost container = configuration.CreateContainer();
-            plugins = container.GetExports<IPlugin>()
-                .Where(x => x.HasValue())
-                .ToHashSet();
+            foreach (var plugin in container.GetExports<IPlugin>())
+            {
+                if (plugin.HasValue() && plugin is PluginBase)
+                {
+                    plugins.Add(plugin);
+                }
+                else
+                {
+                    Log.Error(TAG,
+                        "CompositionHost.GetExports plugin validation failed, name: {name}.",
+                        plugin.Name);
+                }
+            }
         }
         catch (Exception e)
         {
@@ -294,6 +319,61 @@ public static class PluginsCore
         }
         return plugins;
     }
+
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //static HashSet<IPlugin>? GetExports(IEnumerable<Assembly> assemblies)
+    //{
+    //    var plugins = assemblies.Select(x =>
+    //    {
+    //        try
+    //        {
+    //            var pluginObj = x.CreateInstance("BD.WTTS.Plugins.Plugin", false);
+    //            //Dictionary<string, object?> dict = new()
+    //            //{
+    //            //    { "pluginObj",
+    //            //        pluginObj?.ToString()
+    //            //    },
+    //            //    { "pluginObjType",
+    //            //        pluginObj?.GetType()?.ToString()
+    //            //    },
+    //            //    { "pluginObjTypeFullName",
+    //            //        pluginObj?.GetType()?.FullName
+    //            //    },
+    //            //    { "pluginObjTypeBaseType",
+    //            //        pluginObj?.GetType()?.BaseType?.ToString()
+    //            //    },
+    //            //    { "pluginObjTypeBaseTypeBaseType == PluginBase",
+    //            //        typeof(PluginBase) == pluginObj?.GetType()?.BaseType?.BaseType
+    //            //    },
+    //            //    { "PluginBase(AssemblyLoadContext)",
+    //            //        AssemblyLoadContext.GetLoadContext(typeof(PluginBase).Assembly)?.Name
+    //            //    },
+    //            //    { "pluginObj(AssemblyLoadContext)",
+    //            //        AssemblyLoadContext.GetLoadContext(pluginObj?.GetType()?.BaseType?.BaseType.Assembly!)?.Name
+    //            //    },
+    //            //    { "pluginObjTypeBaseTypeBaseType",
+    //            //        pluginObj?.GetType()?.BaseType?.BaseType?.ToString()
+    //            //    },
+    //            //    { "pluginObjTypeBaseTypeBaseTypeBaseType",
+    //            //        pluginObj?.GetType()?.BaseType?.BaseType?.BaseType?.ToString()
+    //            //    },
+    //            //};
+    //            //Log.Error("Plugin", string.Join(Environment.NewLine, dict.Select(x => $"{x.Key}={x.Value}")));
+    //            if (pluginObj is PluginBase plugin)
+    //            {
+    //                IPlugin plugin1 = plugin;
+    //                return plugin1;
+    //            }
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            Log.Error(TAG, e, "CompositionHost.GetExports fail.");
+    //        }
+    //        return null;
+    //    }).ToHashSet();
+    //    plugins.Remove(null);
+    //    return plugins!;
+    //}
 
     internal static HashSet<PluginResult<IPlugin>>? InitPlugins(
         HashSet<string>? disablePluginNames = null,

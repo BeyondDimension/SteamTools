@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Http/LifetimeHttpHandler.cs
 
 // ReSharper disable once CheckNamespace
@@ -35,4 +34,3 @@ sealed class LifetimeHttpHandler : DelegatingHandler
         // 这里不释放资源
     }
 }
-#endif

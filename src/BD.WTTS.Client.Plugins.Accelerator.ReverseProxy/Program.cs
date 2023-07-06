@@ -52,7 +52,7 @@ static void ConfigureServices(IServiceCollection services)
     {
         l.ClearProviders();
         l.AddNLog(LogManager.Configuration); // 添加 NLog 日志
-#if ((WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)) && DEBUG
+#if DEBUG
         l.AddConsole();
 #endif
     });

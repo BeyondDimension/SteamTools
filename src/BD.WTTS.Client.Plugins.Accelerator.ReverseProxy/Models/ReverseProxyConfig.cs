@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/FastGithubConfig.cs
 
 // ReSharper disable once CheckNamespace
@@ -157,4 +156,3 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
 
     public DomainPattern[] GetDomainPatterns() => domainConfigs.Keys.ToArray();
 }
-#endif

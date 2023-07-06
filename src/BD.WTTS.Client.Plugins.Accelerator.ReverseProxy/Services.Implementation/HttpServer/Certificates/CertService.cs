@@ -1,4 +1,3 @@
-#if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/CertService.cs
 
 // ReSharper disable once CheckNamespace
@@ -100,4 +99,3 @@ sealed class CertService
         yield return IPAddress.IPv6Loopback.ToString();
     }
 }
-#endif

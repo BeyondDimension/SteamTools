@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using Ae.Dns.Client;
 using Ae.Dns.Protocol;
 using Ae.Dns.Protocol.Records;
@@ -97,4 +96,3 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
         }
     }
 }
-#endif

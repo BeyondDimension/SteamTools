@@ -1,5 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
@@ -414,4 +412,3 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         }
     }
 }
-#endif

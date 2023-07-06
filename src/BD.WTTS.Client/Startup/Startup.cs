@@ -193,6 +193,65 @@ public abstract partial class Startup
 #endif
 
             // 自定义当前应用程序域程序集解析
+            static string GetAssemblyLocation()
+            {
+                try
+                {
+                    var value = typeof(Startup).Assembly.Location;
+                    if (!string.IsNullOrWhiteSpace(value))
+                    {
+                        value = Path.GetDirectoryName(value);
+                        if (!string.IsNullOrWhiteSpace(value))
+                        {
+                            return value;
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+                return AppContext.BaseDirectory;
+            }
+            var assemblyLocation = GetAssemblyLocation();
+            var runtimeVersion = Environment.Version.ToString();
+            var runtimeAspNetCorePath = Path.Combine(assemblyLocation, "..",
+                            "dotnet", "shared", "Microsoft.AspNetCore.App",
+                            runtimeVersion);
+            static bool DirTryExists(string path)
+            {
+                try
+                {
+                    return Directory.Exists(path);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            bool runtimeAspNetCorePathExists = DirTryExists(runtimeAspNetCorePath);
+            if (!runtimeAspNetCorePathExists)
+            {
+                runtimeAspNetCorePath = Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.ProgramFiles), "dotnet",
+                    "shared", "Microsoft.AspNetCore.App",
+                    runtimeVersion);
+                runtimeAspNetCorePathExists = DirTryExists(runtimeAspNetCorePath);
+            }
+            var runtimeNETCorePath = Path.Combine(assemblyLocation, "..",
+                            "dotnet", "shared", "Microsoft.NETCore.App",
+                            runtimeVersion);
+            bool runtimeNETCorePathExists = DirTryExists(runtimeNETCorePath);
+            if (!runtimeNETCorePathExists)
+            {
+                runtimeNETCorePath = Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.ProgramFiles), "dotnet",
+                    "shared", "Microsoft.NETCore.App",
+                    runtimeVersion);
+                runtimeNETCorePathExists = DirTryExists(runtimeAspNetCorePath);
+            }
+            var dotnetRoot = Environment.GetEnvironmentVariable("DOTNET_ROOT");
+            var dotnetRootExists = !string.IsNullOrWhiteSpace(dotnetRoot) && DirTryExists(dotnetRoot);
             AppDomain.CurrentDomain.AssemblyResolve += (_, args) =>
             {
                 try
@@ -207,30 +266,38 @@ public abstract partial class Startup
                             // System.Composition.Convention.resources
                             // 已包含默认资源，通过反射调用已验证成功
                             // typeof(ConventionBuilder).Assembly.GetType("System.SR").GetProperty("ArgumentOutOfRange_InvalidEnumInSet", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null)
-                            return null;
+                            goto RENULL;
                         }
                         // 当前根目录下搜索程序集
-                        var filePath = Path.Combine(AppContext.BaseDirectory,
-                            $"{fileNameWithoutEx}.dll");
-                        if (File.Exists(filePath)) return Assembly.LoadFile(filePath);
-                        // 当前根目录下独立框架运行时中搜索程序集
-                        filePath = Path.Combine(AppContext.BaseDirectory, "..",
-                            "dotnet", "shared", "Microsoft.AspNetCore.App",
-                            Environment.Version.ToString(), $"{fileNameWithoutEx}.dll");
-                        if (File.Exists(filePath)) return Assembly.LoadFile(filePath);
-                        // 当前已安装的运行时
-                        filePath = Path.Combine(Environment.GetFolderPath(
-                            Environment.SpecialFolder.ProgramFiles), "dotnet",
-                            "shared", "Microsoft.AspNetCore.App",
-                            Environment.Version.ToString(), $"{fileNameWithoutEx}.dll");
-                        if (File.Exists(filePath)) return Assembly.LoadFile(filePath);
-                        var dotnet_root = Environment.GetEnvironmentVariable("DOTNET_ROOT");
-                        if (!string.IsNullOrWhiteSpace(dotnet_root) && Directory.Exists(dotnet_root))
+                        var fileName = $"{fileNameWithoutEx}.dll";
+                        var filePath = Path.Combine(assemblyLocation, fileName);
+                        if (File.Exists(filePath))
+                            return Assembly.LoadFrom(filePath);
+                        // 当前根目录下独立框架运行时中搜索程序集 或 当前已安装的运行时
+                        if (runtimeAspNetCorePathExists)
                         {
-                            filePath = Path.Combine(dotnet_root, "shared",
-                                "Microsoft.AspNetCore.App", Environment.Version.ToString(),
-                                $"{fileNameWithoutEx}.dll");
-                            if (File.Exists(filePath)) return Assembly.LoadFile(filePath);
+                            filePath = Path.Combine(runtimeAspNetCorePath, fileName);
+                            if (File.Exists(filePath))
+                                return Assembly.LoadFrom(filePath);
+                        }
+                        if (runtimeNETCorePathExists)
+                        {
+                            filePath = Path.Combine(runtimeNETCorePath, fileName);
+                            if (File.Exists(filePath))
+                                return Assembly.LoadFrom(filePath);
+                        }
+                        if (dotnetRootExists)
+                        {
+                            filePath = Path.Combine(dotnetRoot!, "shared",
+                                "Microsoft.AspNetCore.App", runtimeVersion,
+                                fileName);
+                            if (File.Exists(filePath))
+                                return Assembly.LoadFrom(filePath);
+                            filePath = Path.Combine(dotnetRoot!, "shared",
+                                "Microsoft.NETCore.App", runtimeVersion,
+                                fileName);
+                            if (File.Exists(filePath))
+                                return Assembly.LoadFrom(filePath);
                         }
 
                     }
@@ -245,7 +312,7 @@ public abstract partial class Startup
                     DebugConsole.WriteLine($"asm-resolve fail, name: {args.Name}");
                 }
 #endif
-                return null;
+            RENULL: return null;
             };
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("CustomAppDomain.AssemblyResolve");

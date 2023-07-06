@@ -5,6 +5,7 @@ namespace BD.WTTS.Client.Tools.Publish;
 interface Constants
 {
     const string ProjectDir_AvaloniaApp = "BD.WTTS.Client.Avalonia.App";
+    const string ProjectDir_AppHost = "BD.WTTS.Client.AppHost";
     const string windowssdkver = "10.0.19041.0";
 
     static string DebugRuntimeConfigPath => Path.Combine(ProjectUtils.ProjPath, "src", ProjectDir_AvaloniaApp, "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}-windows{windowssdkver}", runtimeconfigjsonfilename);
@@ -14,6 +15,8 @@ interface Constants
     static string DirPublish_FDE => Path.Combine(ProjectUtils.ProjPath, "src", ProjectDir_AvaloniaApp, "bin", "Release", "Publish", "FrameworkDependent");
 
     static string ProjectPath_AvaloniaApp => Path.Combine(ProjectUtils.ProjPath, "src", ProjectDir_AvaloniaApp);
+
+    static string ProjectPath_AppHost => Path.Combine(ProjectUtils.ProjPath, "src", ProjectDir_AppHost);
 
     const string runtimeconfigjsonfilename = "Steam++.runtimeconfig.json";
     const string depsjsonfilename = "Steam++.deps.json";

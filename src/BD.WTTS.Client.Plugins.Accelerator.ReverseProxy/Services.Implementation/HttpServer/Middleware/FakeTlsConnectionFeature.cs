@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/58f79ddc19410c92b18e8d4de1c4b61376e97be7/FastGithub.HttpServer/TlsMiddlewares/FakeTlsConnectionFeature.cs
 
 // ReSharper disable once CheckNamespace
@@ -19,4 +18,3 @@ sealed class FakeTlsConnectionFeature : ITlsConnectionFeature
         throw new NotImplementedException();
     }
 }
-#endif

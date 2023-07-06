@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using MediaTypeHeaderValue = Microsoft.Net.Http.Headers.MediaTypeHeaderValue;
 
 // ReSharper disable once CheckNamespace
@@ -108,4 +107,3 @@ public static class SystemWebExtensions
         }
     }
 }
-#endif

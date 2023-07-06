@@ -1,4 +1,3 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.DomainResolve/IDomainResolver.cs
 
 // ReSharper disable once CheckNamespace
@@ -30,4 +29,3 @@ public interface IDomainResolver
     /// <returns></returns>
     Task TestSpeedAsync(CancellationToken cancellationToken = default);
 }
-#endif

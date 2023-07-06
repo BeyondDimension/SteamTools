@@ -1,6 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/DnsInterceptHostedService.cs
 
-#if WINDOWS
+#if !NOT_WINDOWS
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
