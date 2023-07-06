@@ -173,6 +173,7 @@ public abstract partial class Startup
                 // 使用 native 文件夹导入解析本机库
                 try
                 {
+                    NativeLibraryPath = GlobalDllImportResolver.GetLibraryPath(null);
                     NativeLibrary.SetDllImportResolver(loadedAssembly, GlobalDllImportResolver.Delegate);
                 }
                 catch

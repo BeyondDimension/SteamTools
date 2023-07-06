@@ -159,6 +159,8 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         psi.ArgumentList.Add(mSubProcessArgumentIndex2Model.Value);
         configure?.Invoke(psi);
         DotNetRuntimeHelper.AddEnvironment(psi);
+        if (!string.IsNullOrWhiteSpace(Startup.NativeLibraryPath))
+            psi.Environment.TryAdd(IPCSubProcessService.EnvKey_NativeLibraryPath, Startup.NativeLibraryPath);
         if (isAdministrator)
         {
             var psi_ = Serializable.SMP2(psi);

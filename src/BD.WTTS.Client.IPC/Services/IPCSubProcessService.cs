@@ -89,6 +89,62 @@ public interface IPCSubProcessService : IDisposable
         if (!TryGetProcessById(pid, out var mainProcess))
             return (int)CommandExitCode.NotFoundMainProcessId;
 
+#if LIB_CLIENT_IPC
+        var nativeLibraryPath = Environment.GetEnvironmentVariable(EnvKey_NativeLibraryPath);
+        if (!string.IsNullOrWhiteSpace(nativeLibraryPath))
+        {
+            // 监听当前应用程序域的程序集加载
+            AppDomain.CurrentDomain.AssemblyLoad += (_, args)
+                => CurrentDomain_AssemblyLoad(args.LoadedAssembly);
+            void CurrentDomain_AssemblyLoad(Assembly loadedAssembly)
+            {
+                try
+                {
+                    nint Delegate(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
+                    {
+                        static string GetLibraryFileName(string libraryName, string? fileExtension = null)
+                        {
+                            string fileExtension_ = ".so";
+                            if (OperatingSystem.IsWindows())
+                            {
+                                fileExtension_ = ".dll";
+                            }
+                            else if (OperatingSystem.IsMacCatalyst() || OperatingSystem.IsMacOS())
+                            {
+                                fileExtension_ = ".dylib";
+                            }
+                            fileExtension ??= fileExtension_;
+                            if (!libraryName.EndsWith(fileExtension, StringComparison.OrdinalIgnoreCase))
+                                libraryName += fileExtension;
+                            return libraryName;
+                        }
+                        var libraryFileName = GetLibraryFileName(libraryName);
+                        var libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
+                        if (File.Exists(libraryPath) &&
+                            NativeLibrary.TryLoad(libraryPath, out var handle))
+                        {
+                            return handle;
+                        }
+                        return NativeLibrary.Load(libraryName, assembly, searchPath);
+                    }
+                    NativeLibrary.SetDllImportResolver(loadedAssembly, Delegate);
+                }
+                catch
+                {
+                    // ArgumentNullException assembly 或 resolver 为 null。
+                    // ArgumentException 已为此程序集设置解析程序。
+                    // 此每程序集解析程序是第一次尝试解析此程序集启动的本机库加载。
+                    // 此方法的调用方应仅为自己的程序集注册解析程序。
+                    // 每个程序集只能注册一个解析程序。 尝试注册第二个解析程序失败并出现 InvalidOperationException。
+                    // https://learn.microsoft.com/zh-cn/dotnet/api/system.runtime.interopservices.nativelibrary.setdllimportresolver
+                }
+            }
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
+                CurrentDomain_AssemblyLoad(assembly);
+        }
+#endif
+
         if (pluginName != null)
         {
             if (args.Length < 3)
@@ -167,6 +223,8 @@ public interface IPCSubProcessService : IDisposable
 
         return 0;
     }
+
+    const string EnvKey_NativeLibraryPath = "WTTS_NATIVE_LIBRARY_PATH";
 }
 
 [MP2Obj(SerializeLayout.Explicit)]

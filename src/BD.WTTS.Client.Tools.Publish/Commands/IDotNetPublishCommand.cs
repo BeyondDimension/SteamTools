@@ -529,6 +529,10 @@ interface IDotNetPublishCommand : ICommand
                 {
                     psi.ArgumentList.Add("-p:DefineConstants=NOT_WINDOWS;$(DefineConstants)");
                 }
+
+                var argument = string.Join(' ', psi.ArgumentList);
+                Console.WriteLine(argument);
+
                 StartProcessAndWaitForExit(psi);
 
                 var publishDir = Path.Combine(projRootPath, arg.PublishDir);

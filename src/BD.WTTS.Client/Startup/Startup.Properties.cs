@@ -172,4 +172,9 @@ partial class Startup // Properties
     readonly TaskCompletionSource waitConfiguredServices = new();
 
     public Task WaitConfiguredServices => waitConfiguredServices.Task;
+
+    /// <summary>
+    /// 自定义本机库加载路径
+    /// </summary>
+    internal static string? NativeLibraryPath { get; set; }
 }
