@@ -51,4 +51,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         AppResources.Settings_UI_Light,
         AppResources.Settings_UI_Dark,
     };
+
+    [Reactive]
+    public ObservableCollection<PluginResult<IPlugin>>? Plugins { get; set; }
 }

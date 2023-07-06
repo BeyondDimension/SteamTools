@@ -1200,6 +1200,9 @@ AAAAA-BBBBB-CCCC3</value>
 	<data name="Settings" xml:space="preserve">
     <value>设置</value>
   </data>
+	<data name="Settings_Plugin" xml:space="preserve">
+    <value>插件设置</value>
+  </data>
 	<data name="Settings_Auth" xml:space="preserve">
     <value>令牌设置</value>
   </data>
@@ -1207,7 +1210,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>字体</value>
   </data>
 	<data name="Settings_General" xml:space="preserve">
-    <value>常规</value>
+    <value>通用设置</value>
   </data>
 	<data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
     <value>自动检查更新</value>

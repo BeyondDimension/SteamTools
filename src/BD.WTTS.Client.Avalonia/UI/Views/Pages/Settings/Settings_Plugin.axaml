@@ -1,0 +1,117 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.Settings_Plugin"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="680"
+    d:DesignWidth="1080"
+    x:CompileBindings="True"
+    x:DataType="spp:SettingsPageViewModel"
+    mc:Ignorable="d">
+    <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
+        <TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+
+        <ui:SettingsExpander Description="系统启动时程序自动运行" Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <ui:SettingsExpander.IconSource>
+                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpander.Footer>
+                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.AutoRunOnStartup}, Path=Value, Mode=TwoWay}" />
+            </ui:SettingsExpander.Footer>
+        </ui:SettingsExpander>
+
+        <!--<TextBlock Margin="0,10,0,5" Text="已安装插件" />
+
+        <ItemsControl ItemsSource="{Binding Plugins}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Spacing="{StaticResource SettingsSpacing}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <DataTemplate.DataType>
+                        <x:Type x:TypeArguments="s:IPlugin" TypeName="s:PluginResult" />
+                    </DataTemplate.DataType>
+                    <ui:SettingsExpander Description="{Binding Data.Description}" Header="{Binding Data.Name}">
+                        <ui:SettingsExpander.IconSource>
+                            <ui:ImageIconSource Source="{Binding Data.IconStream, Converter={StaticResource BitmapAssetValueConverter}}" />
+                        </ui:SettingsExpander.IconSource>
+                        <ui:SettingsExpander.Footer>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <ToggleSwitch Classes="LeftContent" />
+                                <DropDownButton
+                                    Padding="8"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Content="{StaticResource More}"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="20"
+                                    Theme="{StaticResource TransparentButton}">
+                                    <DropDownButton.Flyout>
+                                        <MenuFlyout>
+                                            <MenuItem Header="Tets" />
+                                        </MenuFlyout>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
+                            </StackPanel>
+                        </ui:SettingsExpander.Footer>
+                    </ui:SettingsExpander>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>-->
+
+        <ui:SettingsExpander
+            Description="管理所有已安装的插件"
+            Header="已安装插件"
+            IsExpanded="True"
+            ItemsSource="{Binding Plugins}">
+            <ui:SettingsExpander.IconSource>
+                <ui:SymbolIconSource Symbol="Calculator" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpander.Footer>
+                <Button Content="打开插件文件夹" />
+            </ui:SettingsExpander.Footer>
+            <ui:SettingsExpander.ItemTemplate>
+                <DataTemplate>
+                    <DataTemplate.DataType>
+                        <x:Type x:TypeArguments="s:IPlugin" TypeName="s:PluginResult" />
+                    </DataTemplate.DataType>
+                    <ui:SettingsExpanderItem
+                        Content="{Binding Data.Name}"
+                        Description="{Binding Data.Description}"
+                        IsClickEnabled="True">
+                        <ui:SettingsExpanderItem.IconSource>
+                            <ui:ImageIconSource Source="{Binding Data.IconStream, Converter={StaticResource BitmapAssetValueConverter}}" />
+                        </ui:SettingsExpanderItem.IconSource>
+                        <ui:SettingsExpanderItem.Footer>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <ToggleSwitch Classes="LeftContent" />
+                                <DropDownButton
+                                    Padding="8"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Content="{StaticResource More}"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="20"
+                                    Theme="{StaticResource TransparentButton}">
+                                    <DropDownButton.Flyout>
+                                        <MenuFlyout>
+                                            <MenuItem Header="Tets" />
+                                        </MenuFlyout>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
+                            </StackPanel>
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+                </DataTemplate>
+            </ui:SettingsExpander.ItemTemplate>
+        </ui:SettingsExpander>
+
+    </StackPanel>
+</UserControl>

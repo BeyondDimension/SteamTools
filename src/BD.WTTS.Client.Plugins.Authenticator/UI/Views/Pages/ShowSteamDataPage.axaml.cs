@@ -17,9 +17,4 @@ public partial class ShowSteamDataPage : UserControl
     //     InitializeComponent();
     //     DataContext = new ShowSteamDataViewModel(authenticatorDto);
     // }
-    
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

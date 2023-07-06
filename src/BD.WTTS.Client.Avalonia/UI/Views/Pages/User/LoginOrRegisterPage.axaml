@@ -2,6 +2,8 @@
     x:Class="BD.WTTS.UI.Views.Pages.LoginOrRegisterPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:columns="using:BD.Common.Columns"
+    xmlns:com="using:BD.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
@@ -105,34 +107,62 @@
                                 <EllipseGeometry Rect="0,0,128,128"/>
                             </Image.Clip>-->
                 </Image>
-                <TextBox
-                    x:Name="TbPhoneNumber"
-                    Height="38"
-                    MaxLength="11"
-                    Text="{Binding PhoneNumber}"
-                    Watermark="{ReflectionBinding Path=Res.User_Phone,
-                                                  Mode=OneWay,
-                                                  Source={x:Static s:ResourceService.Current}}" />
-                <Panel>
+
+                <Panel Height="38">
                     <TextBox
-                        x:Name="TbSmsCode"
+                        Padding="80,0,0,0"
+                        VerticalAlignment="Stretch"
+                        MaxLength="{x:Static com:PhoneNumberHelper.ChineseMainlandPhoneNumberLength}"
+                        Text="{Binding PhoneNumber}"
+                        TextAlignment="Left"
+                        Watermark="{ReflectionBinding Path=Res.User_Phone,
+                                                      Mode=OneWay,
+                                                      Source={x:Static s:ResourceService.Current}}" />
+                    <Border HorizontalAlignment="Left" Cursor="Hand">
+                        <DropDownButton
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="+86"
+                            Cursor="Hand">
+                            <DropDownButton.Flyout>
+                                <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                    <MenuItem Header="+86" />
+                                    <!--<MenuItem Header="+852" />
+                                    <MenuItem Header="+853" />
+                                    <MenuItem Header="+886" />
+                                    <MenuItem Header="+81" />-->
+                                </MenuFlyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
+                    </Border>
+                </Panel>
+
+                <Panel Height="38">
+                    <TextBox
                         Height="38"
+                        VerticalAlignment="Stretch"
                         VerticalContentAlignment="Center"
-                        MaxLength="6"
+                        MaxLength="{x:Static columns:MaxLengths.SMS_CAPTCHA}"
                         Text="{Binding SmsCode}"
                         Watermark="{ReflectionBinding Path=Res.User_SMSCode,
                                                       Mode=OneWay,
                                                       Source={x:Static s:ResourceService.Current}}" />
-                    <Border HorizontalAlignment="Right" Cursor="Hand">
+                    <Border
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch"
+                        Cursor="Hand">
                         <Button
-                            Height="38"
                             Margin="0"
                             HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
                             Background="Transparent"
                             BorderThickness="0"
                             Command="{ReflectionBinding SendSms}"
                             Content="{Binding BtnSendSmsCodeText}"
-                            Cursor="Hand"
                             IsEnabled="{Binding !IsUnTimeLimit}" />
                     </Border>
                 </Panel>
@@ -165,8 +195,8 @@
                 </WrapPanel>
 
                 <ProgressBar
-                    Width="60"
-                    Height="60"
+                    Width="80"
+                    Height="80"
                     Margin="0,40"
                     VerticalAlignment="Center"
                     Classes="Circle"
@@ -234,6 +264,7 @@
             Grid.Row="2"
             Margin="0,10"
             HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
             Orientation="Horizontal">
             <ui:HyperlinkButton
                 HorizontalContentAlignment="Center"

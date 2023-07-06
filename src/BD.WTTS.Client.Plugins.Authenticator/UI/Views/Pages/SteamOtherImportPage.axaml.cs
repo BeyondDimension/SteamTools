@@ -16,9 +16,4 @@ public partial class SteamOtherImportPage : UserControl
     //     InitializeComponent();
     //     DataContext = new SteamOtherImportViewModel(password);
     // }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

@@ -5095,7 +5095,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 常规.
+        ///   查找类似 通用设置 的本地化字符串。
         /// </summary>
         public static string Settings_General {
             get {
@@ -5284,7 +5284,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 自定义代理 DNS.
+        ///   查找类似 自定义代理 DNS 的本地化字符串。
         /// </summary>
         public static string Settings_Proxy_CustomDNS {
             get {

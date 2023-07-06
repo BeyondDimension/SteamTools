@@ -11,9 +11,4 @@ public partial class AuthenticatorExportPage : UserControl
         InitializeComponent();
         //DataContext = new AuthenticatorExportViewModel();
     }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

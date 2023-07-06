@@ -28,6 +28,17 @@ sealed class AvaloniaToastServiceImpl : IToastService
     /// <param name="duration"></param>
     public void Show(ToastIcon icon, string text, int? duration = null)
     {
+        Show(text, NotificationType.Information);
+    }
+
+    /// <inheritdoc cref="Show(string, int?)"/>
+    public void Show(string text, ToastLength duration)
+    {
+        Show(text, NotificationType.Information);
+    }
+
+    public void Show(string text, NotificationType type)
+    {
         var host = AvaloniaWindowManagerImpl.GetWindowTopLevel();
 
         NotificationManager ??= new SnackbarManager(host)
@@ -36,13 +47,12 @@ sealed class AvaloniaToastServiceImpl : IToastService
             MaxItems = 5,
         };
 
-        var notificationType = GetNotificationType(icon);
-        NotificationManager.Show(text, notificationType: notificationType);
+        NotificationManager.Show(text);
     }
 
     /// <inheritdoc cref="Show(string, int?)"/>
-    public void Show(ToastIcon icon, string text, ToastLength duration)
+    public void Show(string text, ToastLength duration)
     {
-        Show(icon, text, null);
+        Show(text, null);
     }
 }

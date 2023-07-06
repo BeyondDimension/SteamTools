@@ -15,9 +15,4 @@ public partial class AuthenticatorHomePage : PageBase<AuthenticatorPageViewModel
         Subtitle = "插件作者：Steam++ 官方";
         Description = "提供令牌管理、加密、云同步等功能";
     }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

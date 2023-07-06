@@ -1,107 +1,130 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:spp="https://steampp.net/ui"
-        xmlns:ui="using:FluentAvalonia.UI.Controls">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
     <Design.PreviewWith>
-        <Border Padding="20" MinHeight="300">
+        <Border MinHeight="300" Padding="20">
             <StackPanel>
-				<spp:OptionsDisplayItem Header="Header"
-                                          Icon="Save"
-                                          Navigates="True"/>
-				
-				<spp:OptionsDisplayItem Header="Header"
-                                          Description="This is a description of whatver this does"
-                                          Icon="Save" 
-                                          Navigates="True"/>
+                <spp:OptionsDisplayItem
+                    Header="Header"
+                    Icon="Save"
+                    Navigates="True" />
 
-                <spp:OptionsDisplayItem Header="Header"
-                                          Description="This is a description of whatver this does"
-                                          Icon="Save"
-                                          Expands="True"
-                                          Content="Hello World"/>
+                <spp:OptionsDisplayItem
+                    Description="This is a description of whatver this does"
+                    Header="Header"
+                    Icon="Save"
+                    Navigates="True" />
 
-				<spp:OptionsDisplayItem Header="Header" Classes="Vertical"
-                                          Description="This is a description of whatver this does"
-                                          Icon="Save"
-                                          Expands="True"
-                                          Content="Hello World" />
+                <spp:OptionsDisplayItem
+                    Content="Hello World"
+                    Description="This is a description of whatver this does"
+                    Expands="True"
+                    Header="Header"
+                    Icon="Save" />
+
+                <spp:OptionsDisplayItem
+                    Classes="Vertical"
+                    Content="Hello World"
+                    Description="This is a description of whatver this does"
+                    Expands="True"
+                    Header="Header"
+                    Icon="Save" />
             </StackPanel>
         </Border>
-    </Design.PreviewWith>  
+    </Design.PreviewWith>
 
     <Style Selector="spp|OptionsDisplayItem">
         <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="{StaticResource ButtonPadding}" />
+        <Setter Property="Padding" Value="{DynamicResource SettingsExpanderItemPadding}" />
+        <Setter Property="MinHeight" Value="{DynamicResource SettingsExpanderItemMinHeight}" />
         <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <StackPanel>
-                    <Border Name="LayoutRoot"
+                    <ui:FABorder
+                        Name="LayoutRoot"
+                        Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="12"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" 
-							  RowDefinitions="Auto,Auto,Auto"
-							  MinHeight="40">
-                            <Viewbox Name="IconHost"
-                                     Width="24" Height="24"
-                                     Grid.RowSpan="2"
-                                     Margin="8 4 12 4"
-									 VerticalAlignment="Center">
+                        <ui:FABorder.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="Background" Duration="00:00:00.083" />
+                                <BrushTransition Property="BorderBrush" Duration="00:00:00.083" />
+                            </Transitions>
+                        </ui:FABorder.Transitions>
+                        <Grid
+                            MinHeight="{TemplateBinding MinHeight}"
+                            ColumnDefinitions="Auto,*,Auto,Auto"
+                            RowDefinitions="*,Auto">
+                            <Viewbox
+                                Name="IconHost"
+                                Width="{DynamicResource SettingsExpanderItemIconSize}"
+                                Height="{DynamicResource SettingsExpanderItemIconSize}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
                                 <ContentPresenter Content="{TemplateBinding Icon}" />
                             </Viewbox>
 
-                            <TextBlock Text="{TemplateBinding Header}"
-									   Name="HeaderText"
-                                       Classes="BaseTextBlockStyle"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       TextTrimming="CharacterEllipsis"
-                                       Grid.Column="1"
-									   Grid.RowSpan="2"/>
+                            <StackPanel
+                                Margin="{DynamicResource SettingsExpanderItemContentMargin}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Name="HeaderText"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Classes="BaseTextBlockStyle"
+                                    Text="{TemplateBinding Header}"
+                                    TextTrimming="CharacterEllipsis" />
 
-                            <TextBlock Text="{TemplateBinding Description}"
-                                       Classes="CaptionTextBlockStyle"
-									   FontSize="12"
-                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                       VerticalAlignment="Top"
-                                       TextWrapping="Wrap"
-                                       Grid.Column="1"
-                                       Grid.Row="1"/>
+                                <TextBlock
+                                    VerticalAlignment="Top"
+                                    Classes="CaptionTextBlockStyle"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    IsVisible="{TemplateBinding Description,
+                                                                Converter={StaticResource IsNullConverter},
+                                                                ConverterParameter=invert}"
+                                    Text="{TemplateBinding Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
 
-                            <ContentPresenter Name="ActionButton"
-											  Content="{TemplateBinding ActionButton}"
-                                              Grid.Column="2"
-                                              Grid.RowSpan="2"
-                                              VerticalAlignment="Stretch"
-                                              HorizontalAlignment="Right"
-                                              Margin="8 4" />
+                            <ContentPresenter
+                                Name="ActionButton"
+                                Grid.Column="2"
+                                Margin="{DynamicResource SettingsExpanderItemFooterMargin}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding ActionButton}" />
 
-                            <ui:SymbolIcon Name="Chevron"
-                                           Margin="8 4"
-                                           Grid.Column="3"
-                                           Grid.RowSpan="2"
-										   VerticalAlignment="Center"
-                                           FontSize="20"/> 
+                            <ui:SymbolIcon
+                                Name="Chevron"
+                                Grid.Column="3"
+                                Margin="8,4"
+                                VerticalAlignment="Center"
+                                FontSize="20" />
                         </Grid>
-                    </Border>
-                   
-                    <ContentPresenter Name="ExpandedContentPresenter"
-                                      Content="{TemplateBinding Content}"
-                                      VerticalContentAlignment="Stretch"
-                                      HorizontalContentAlignment="Stretch"
-                                      VerticalAlignment="Stretch"
-                                      HorizontalAlignment="Stretch"
-                                      Grid.Row="2"
-                                      Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                                      BorderBrush="{TemplateBinding BorderBrush}"
-                                      BorderThickness="1 0 1 1"
-                                      Grid.ColumnSpan="4"
-                                      Padding="12"/>
+                    </ui:FABorder>
+
+                    <ContentPresenter
+                        Name="ExpandedContentPresenter"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="4"
+                        Padding="12"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1,0,1,1"
+                        Content="{TemplateBinding Content}" />
                 </StackPanel>
 
             </ControlTemplate>
@@ -118,93 +141,104 @@
         <Setter Property="IsVisible" Value="False" />
     </Style>
 
-    <Style Selector="spp|OptionsDisplayItem /template/ Border#LayoutRoot:pointerover">
+    <Style Selector="spp|OptionsDisplayItem /template/ ui|FABorder#LayoutRoot:pointerover">
         <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
     </Style>
-    <Style Selector="spp|OptionsDisplayItem:pressed /template/ Border#LayoutRoot:pointerover">
+    <Style Selector="spp|OptionsDisplayItem:pressed /template/ ui|FABorder#LayoutRoot:pointerover">
         <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
     </Style>
 
     <Style Selector="spp|OptionsDisplayItem:icon /template/ Viewbox#IconHost">
         <Setter Property="IsVisible" Value="True" />
     </Style>
-    
+
     <Style Selector="spp|OptionsDisplayItem:navigates /template/ ui|SymbolIcon#Chevron">
         <Setter Property="IsVisible" Value="True" />
         <Setter Property="Symbol" Value="ChevronRight" />
     </Style>
-	
-	<Style Selector="spp|OptionsDisplayItem:desc /template/ TextBlock#HeaderText">
-		<Setter Property="VerticalAlignment" Value="Bottom" />
-		<Setter Property="Grid.RowSpan" Value="1" />
-	</Style>
-	
+
+    <Style Selector="spp|OptionsDisplayItem:desc /template/ TextBlock#HeaderText">
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="Grid.RowSpan" Value="1" />
+    </Style>
+
     <Style Selector="spp|OptionsDisplayItem:expands /template/ ui|SymbolIcon#Chevron">
         <Setter Property="IsVisible" Value="True" />
         <Setter Property="Symbol" Value="ChevronDown" />
     </Style>
-	
+
     <Style Selector="spp|OptionsDisplayItem:expanded /template/ ui|SymbolIcon#Chevron">
         <Setter Property="Symbol" Value="ChevronUp" />
     </Style>
-	
+
     <Style Selector="spp|OptionsDisplayItem:expanded /template/ ContentPresenter#ExpandedContentPresenter">
         <Setter Property="IsVisible" Value="True" />
         <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BottomCornerRadiusFilterConverter}}" />
     </Style>
-	
-    <Style Selector="spp|OptionsDisplayItem:expanded /template/ Border#LayoutRoot">
+
+    <Style Selector="spp|OptionsDisplayItem:expanded /template/ ui|FABorder#LayoutRoot">
         <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TopCornerRadiusFilterConverter}}" />
     </Style>
-	
+
     <Style Selector="spp|OptionsDisplayItem:not(:expands):expanded /template/ ContentPresenter#ExpandedContentPresenter">
         <Setter Property="IsVisible" Value="False" />
     </Style>
 
-	<Style Selector="spp|OptionsDisplayItem /template/ ContentPresenter#ActionButton ComboBox">
-		<Setter Property="MinWidth" Value="150" />
-	</Style>
+    <Style Selector="spp|OptionsDisplayItem /template/ ContentPresenter#ActionButton ComboBox">
+        <Setter Property="MinWidth" Value="150" />
+    </Style>
 
-    <!-- Vertical Style -->
+    <!--  Vertical Style  -->
     <Style Selector="spp|OptionsDisplayItem.Vertical">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Name="LayoutRoot"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="12"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                <ui:FABorder
+                    Name="LayoutRoot"
+                    Padding="12"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <ui:FABorder.Transitions>
+                        <Transitions>
+                            <BrushTransition Property="Background" Duration="00:00:00.083" />
+                            <BrushTransition Property="BorderBrush" Duration="00:00:00.083" />
+                        </Transitions>
+                    </ui:FABorder.Transitions>
                     <Grid RowDefinitions="*,*">
-                        <Border Width="72" Height="72"
-                                Margin="18"
-                                CornerRadius="{StaticResource OverlayCornerRadius}"
-                                ClipToBounds="True"
-                                Background="Transparent">
+                        <Border
+                            Width="72"
+                            Height="72"
+                            Margin="18"
+                            Background="Transparent"
+                            ClipToBounds="True"
+                            CornerRadius="{StaticResource OverlayCornerRadius}">
                             <Viewbox Name="IconHost">
                                 <ContentPresenter Content="{TemplateBinding Icon}" />
                             </Viewbox>
                         </Border>
 
                         <StackPanel Grid.Row="1">
-                            <TextBlock Text="{TemplateBinding Header}"
-                                  Classes="BaseTextBlockStyle"
-                                  VerticalAlignment="Bottom"
-                                  HorizontalAlignment="Left"
-                                  TextTrimming="CharacterEllipsis"
-                                  Grid.Row="1"
-                                  Margin="0 5"/>
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="0,5"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Classes="BaseTextBlockStyle"
+                                Text="{TemplateBinding Header}"
+                                TextTrimming="CharacterEllipsis" />
 
-                            <TextBlock Text="{TemplateBinding Description}"
-                                       Classes="CaptionTextBlockStyle"
-                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                       VerticalAlignment="Top"
-                                       TextWrapping="Wrap"
-                                       Grid.Row="2"
-                                       Margin="0 5"/>
+                            <TextBlock
+                                Grid.Row="2"
+                                Margin="0,5"
+                                VerticalAlignment="Top"
+                                Classes="CaptionTextBlockStyle"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{TemplateBinding Description}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
                     </Grid>
-                </Border>
+                </ui:FABorder>
             </ControlTemplate>
         </Setter>
     </Style>
