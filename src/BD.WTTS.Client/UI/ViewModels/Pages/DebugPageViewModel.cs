@@ -1,4 +1,7 @@
 // ReSharper disable once CheckNamespace
+using BD.Common.Columns;
+using Google.Protobuf.WellKnownTypes;
+
 namespace BD.WTTS.UI.ViewModels;
 
 [MP2Obj]
@@ -17,6 +20,13 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
     {
         get => _DebugString;
         set => this.RaiseAndSetIfChanged(ref _DebugString, value);
+    }
+
+    string? phonenumber;
+
+    sealed class D : Repository<Common.Entities.KeyValuePair, string>
+    {
+
     }
 
     public async void Debug(string? cmd)
@@ -72,6 +82,43 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                 catch (Exception ex)
                 {
                     DebugString = ex.ToString();
+                }
+                break;
+            case "login":
+                if (cmds.Length > 1)
+                {
+                    var ss = Ioc.Get_Nullable<ISecurityService>();
+                    var a = await ss.EB(Encoding.UTF8.GetBytes("aaaa"));
+                    var b = await ss.DB(a);
+                    var c = Encoding.UTF8.GetString(b!);
+                    var d = new D();
+                    var key = Hashs.String.SHA256("KEY_CURRENT_LOGIN_USER");
+                    var item = await d.FirstOrDefaultAsync(x => x.Id == key);
+                    var f = await ss.DB(item?.Value);
+                    try
+                    {
+                        var user = Serializable.DMP<CurrentUser?>(f!);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+
+                    if (phonenumber == null) phonenumber = "180" + Random2.GenerateRandomNum(8);
+                    if (cmds[1] == "sms")
+                    {
+                        SendSmsRequest sendSmsRequest = new SendSmsRequest() { PhoneNumber = phonenumber, Type = SmsCodeType.LoginOrRegister };
+                        var response = await IMicroServiceClient.Instance.AuthMessage.SendSms(sendSmsRequest);
+                    }
+                    else
+                    {
+                        var request = new LoginOrRegisterRequest
+                        {
+                            PhoneNumber = phonenumber,
+                            SmsCode = cmds[1],
+                        };
+                        //request.Channel = LoginChannel.Client;
+                        var response = await IMicroServiceClient.Instance.Account.LoginOrRegister(request);
+                    }
                 }
                 break;
             default:

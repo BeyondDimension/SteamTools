@@ -13,9 +13,9 @@ public class SdaFileModel
     
     [JsonPropertyName("uri")]
     public string Uri { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("server_time")]
-    public int ServerTime { get; set; }
+    public string ServerTime { get; set; } = string.Empty;
     
     [JsonPropertyName("account_name")]
     public string AccountName { get; set; } = string.Empty;
@@ -55,9 +55,9 @@ public class SdaFileConvertToSteamDataModel
     
     [JsonPropertyName("uri")]
     public string Uri { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("server_time")]
-    public int ServerTime { get; set; }
+    public string ServerTime { get; set; } = string.Empty;
     
     [JsonPropertyName("account_name")]
     public string AccountName { get; set; } = string.Empty;

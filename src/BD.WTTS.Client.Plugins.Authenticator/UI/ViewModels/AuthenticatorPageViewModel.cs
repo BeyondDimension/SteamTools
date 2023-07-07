@@ -2,6 +2,7 @@ using BD.SteamClient.Models;
 using BD.SteamClient.Services;
 using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
+using DynamicData;
 using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -86,34 +87,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         }
 
         Toast.Show("令牌加载成功");
-
-        //var test5 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
-
-        //string rspquestion = "";
-        //var rsp1 = await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
-        //if (rsp1.Content != null) rspquestion = rsp1.Content;
-        //var setpassword = await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new() { PwdQuestion = "测试", Answer = "123" });
-
-        //var test1 = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
-        //{
-        //    Difference = new UserAuthenticatorPushItem[]
-        //    {
-        //        new()
-        //        {
-        //            GamePlatform = (int)GamePlatform.Windows,
-        //            TokenType = UserAuthenticatorTokenType.TOTP,
-        //            Name = list[0].Name,
-        //            Token = MemoryPackSerializer.Serialize(AuthenticatorDTOExtensions.ToExport(list[0])),  //await AuthenticatorService.ExportAuthAsync(new IAuthenticatorDTO(){  }),
-        //            Order = 1,
-        //            Remarks = ""
-        //        },
-        //    },
-        //    Answer = "123"
-        //});
-
-        //var test = await IMicroServiceClient.Instance.Advertisement.All(AdvertisementType.Banner);
-        //var test2 = await IMicroServiceClient.Instance.Script.Query();
-        //var test3 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
     }
 
     public async Task<bool> EnterPassword(AccountPlatformAuthenticator sourceData)
@@ -234,7 +207,35 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async Task KeepDisplay()
     {
-        
+        //var temp1 = await IMicroServiceClient.Instance.Manage.EditUserProfile(new EditUserProfileRequest { NickName = "TestUser123", });
+
+        //var test5 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
+
+        //string rspquestion = "";
+        //var rsp1 = await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
+        //if (rsp1.Content != null) rspquestion = rsp1.Content;
+        //var setpassword = await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new() { PwdQuestion = "测试", Answer = "123" });
+
+        //var test1 = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+        //{
+        //    Difference = new UserAuthenticatorPushItem[]
+        //    {
+        //        new()
+        //        {
+        //            GamePlatform = (int)GamePlatform.Windows,
+        //            TokenType = UserAuthenticatorTokenType.TOTP,
+        //            Name = CurrentSelectedAuth.Name,
+        //            Token = MemoryPackSerializer.Serialize(AuthenticatorDTOExtensions.ToExport(CurrentSelectedAuth.AuthData)),  //await AuthenticatorService.ExportAuthAsync(new IAuthenticatorDTO(){  }),
+        //            Order = 1,
+        //            Remarks = ""
+        //        },
+        //    },
+        //    Answer = "123"
+        //});
+
+        //var test = await IMicroServiceClient.Instance.Advertisement.All(AdvertisementType.Banner);
+        //var test2 = await IMicroServiceClient.Instance.Script.Query();
+        //var test3 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
     }
 
     public async Task UnbindingSteamAuthAsync()
