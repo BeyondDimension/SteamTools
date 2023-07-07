@@ -65,8 +65,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		 <!--PackageReference--> 
-		<!--<PackageReference Include="BD.SteamClient" />-->
 		<PackageReference Include="ReactiveUI.Fody" />
 	</ItemGroup>
 

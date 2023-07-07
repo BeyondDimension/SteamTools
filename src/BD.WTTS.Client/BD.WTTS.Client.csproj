@@ -151,8 +151,11 @@
 		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
 		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
-		<!--<PackageReference Include="Avalonia" />
-		<PackageReference Include="Avalonia.Desktop" />
+		<PackageReference Include="Avalonia" />
+		<PackageReference Include="BD.Common.XmlnsDefinition.Avalonia">
+			<Aliases>BD_Common_XmlnsDefinition_Avalonia</Aliases>
+		</PackageReference>
+		<!--<PackageReference Include="Avalonia.Desktop" />
 		<PackageReference Include="Avalonia.ReactiveUI" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />

@@ -21,7 +21,7 @@ public sealed class StartupToastIntercept : IToastIntercept
         logger.LogCritical(msg);
     }
 
-    public bool OnShowExecuting(string text)
+    public bool OnShowExecuting(ToastIcon icon, string text, int? duration = null)
     {
         if (IsStartuped)
         {

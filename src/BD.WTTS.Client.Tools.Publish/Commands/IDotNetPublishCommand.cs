@@ -61,6 +61,16 @@ interface IDotNetPublishCommand : ICommand
             // 发布主体
             StartProcessAndWaitForExit(psi);
 
+            // 验证 Avalonia.Base.dll 版本号必须为 11+
+            var avaloniaBaseDllPath = Path.Combine(publishDir, "Avalonia.Base.dll");
+            var avaloniaBaseDllVersion = Version.Parse(FileVersionInfo.GetVersionInfo(avaloniaBaseDllPath).FileVersion!);
+            if (avaloniaBaseDllVersion < new Version(11, 0))
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(avaloniaBaseDllVersion),
+                    avaloniaBaseDllVersion, null);
+            }
+
             // 删除 CreateDump
             RemoveCreateDump(publishDir);
 

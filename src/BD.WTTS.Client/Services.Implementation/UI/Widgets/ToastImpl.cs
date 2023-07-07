@@ -14,10 +14,10 @@ internal sealed class ToastImpl : ToastBaseImpl
 
     protected override void BeginInvokeOnMainThread(Action action) => MainThread2.BeginInvokeOnMainThread(action);
 
-    protected override void PlatformShow(string text, int duration)
+    protected override void PlatformShow(ToastIcon icon, string text, int duration)
     {
         //ToastService.Current.Notify(text);
-        IToastService.Instance.Show(text, duration);
+        IToastService.Instance.Show(icon, text, duration);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

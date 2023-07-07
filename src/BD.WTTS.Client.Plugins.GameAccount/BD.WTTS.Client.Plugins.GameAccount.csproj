@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <AvaloniaResource Include="UI\Assets\Platforms.json" />
+		<AvaloniaResource Include="UI\Assets\Platforms.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -67,24 +67,28 @@
 			<LinkBase>Properties</LinkBase>
 		</Compile>
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<PackageReference Include="ReactiveUI.Fody" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
-	  <Compile Update="UI\Views\Controls\PlatformSettingsPage.axaml.cs">
-	    <DependentUpon>PlatformSettingsPage.axaml</DependentUpon>
-	  </Compile>
+		<Compile Update="UI\Views\Controls\PlatformSettingsPage.axaml.cs">
+			<DependentUpon>PlatformSettingsPage.axaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
-	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties />
+		</VisualStudio>
+	</ProjectExtensions>
 
 </Project>
