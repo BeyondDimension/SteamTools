@@ -219,6 +219,7 @@ public sealed partial class ProxyService
 
     public async Task InitializeAccelerateAsync()
     {
+        ProxyDomains.Clear();
         // 加载代理服务数据
         var client = IMicroServiceClient.Instance.Accelerate;
 #if DEBUG
@@ -243,7 +244,6 @@ public sealed partial class ProxyService
                 }
             }
 
-            ProxyDomains.Clear();
             ProxyDomains.AddRange(result.Content!);
         }
 

@@ -181,7 +181,7 @@
                 Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
 
 
-            <Border
+            <!--<Border
                 Grid.Column="3"
                 Padding="6"
                 VerticalAlignment="Center">
@@ -192,12 +192,11 @@
                     wnd:AppWindow.AllowInteractionInTitleBar="True"
                     Classes="SampleApp"
                     Watermark="Search" />
-            </Border>
+            </Border>-->
 
             <DockPanel Grid.Column="4">
-                <Button
-                    Padding="0"
-                    CornerRadius="30"
+                <DropDownButton
+                    Padding="4"
                     DockPanel.Dock="Left"
                     Theme="{DynamicResource TransparentButton}">
                     <Border
@@ -207,7 +206,7 @@
                         CornerRadius="30">
                         <Image Source="/UI/Assets/avatar.jpg" />
                     </Border>
-                    <Button.Flyout>
+                    <DropDownButton.Flyout>
                         <MenuFlyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
                             <MenuItem IsHitTestVisible="False">
                                 <MenuItem.Header>
@@ -258,8 +257,8 @@
                                                               Source={x:Static s:UserService.Current},
                                                               Converter={StaticResource IsNullConverter}}" />
                         </MenuFlyout>
-                    </Button.Flyout>
-                </Button>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
 
                 <Separator
                     Height="18"

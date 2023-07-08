@@ -20,7 +20,8 @@
             VerticalAlignment="Top"
             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
             CornerRadius="{StaticResource ControlCornerRadius}"
-            ItemContainerTheme="{StaticResource TabItemStyle}">
+            ItemContainerTheme="{StaticResource TabItemStyle}"
+            Theme="{StaticResource TabStripStyle}">
             <TabStripItem Content="Test1" />
             <TabStripItem Content="Test2" />
             <TabStripItem Content="Test3" />

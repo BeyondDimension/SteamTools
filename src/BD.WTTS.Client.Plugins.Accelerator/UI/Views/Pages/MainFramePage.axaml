@@ -12,13 +12,13 @@
     <Panel>
         <TabStrip
             Name="Tabs"
-            Margin="4"
+            Margin="9"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
             CornerRadius="{StaticResource ControlCornerRadius}"
             ItemContainerTheme="{StaticResource TabItemStyle}"
-            SelectedIndex="{ReflectionBinding $parent.SelectedIndex}"
+            Theme="{StaticResource TabStripStyle}"
             ZIndex="100">
             <TabStrip.ItemsPanel>
                 <OnFormFactor Default="{StaticResource DefaultPanel}">

@@ -101,6 +101,8 @@ public class PageBase : UserControl
         set => SetValue(HeaderBackgroundProperty, value);
     }
 
+    public ScrollViewer? PageScroller { get => _scroller; set => _scroller = value; }
+
     protected override Type StyleKeyOverride => typeof(PageBase);
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -110,8 +112,8 @@ public class PageBase : UserControl
         PseudoClasses.Set(":namespace", Subtitle != null);
         PseudoClasses.Set(":winuiNamespace", Description != null);
 
-        _previewImageHost = e.NameScope.Find<IconSourceElement>("PreviewImageElement");
-        _detailsHost = e.NameScope.Find<StackPanel>("DetailsTextHost");
+        //_previewImageHost = e.NameScope.Find<IconSourceElement>("PreviewImageElement");
+        //_detailsHost = e.NameScope.Find<StackPanel>("DetailsTextHost");
         _optionsHost = e.NameScope.Find<Panel>("OptionsRegion");
         _tabsHost = e.NameScope.Find<Border>("TabRegion");
         _detailsPanel = e.NameScope.Find<Panel>("PageDetails");
@@ -285,8 +287,8 @@ public class PageBase : UserControl
     private Panel? _detailsPanel;
     private Panel? _optionsHost;
     private Border? _tabsHost;
-    private IconSourceElement? _previewImageHost;
-    private StackPanel? _detailsHost;
+    //private IconSourceElement? _previewImageHost;
+    //private StackPanel? _detailsHost;
     private ScrollViewer? _scroller;
 }
 

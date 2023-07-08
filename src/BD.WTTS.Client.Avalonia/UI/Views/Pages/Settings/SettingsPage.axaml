@@ -22,7 +22,8 @@
             VerticalAlignment="Top"
             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
             CornerRadius="{StaticResource ControlCornerRadius}"
-            ItemContainerTheme="{StaticResource TabItemStyle}">
+            ItemContainerTheme="{StaticResource TabItemStyle}"
+            Theme="{StaticResource TabStripStyle}">
             <TabStripItem Content="{ReflectionBinding Path=Res.Settings_General, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Tag="Settings_General" />
             <TabStripItem Content="{ReflectionBinding Path=Res.Settings_UI, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Tag="Settings_UI" />
             <TabStripItem Content="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Tag="Settings_Plugin" />
@@ -30,7 +31,7 @@
             <TabStripItem Content="{ReflectionBinding Path=Res.About, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Tag="AboutPage" />
         </TabStrip>
     </spp:PageBase.TabContent>
-    <spp:PageBase.ActionContent>
+    <!--<spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
                 Padding="8,4"
@@ -64,14 +65,12 @@
                 </DropDownButton.Flyout>
             </DropDownButton>
         </StackPanel>
-    </spp:PageBase.ActionContent>
-    <ScrollViewer Name="SettingsScrollViewer">
-        <StackPanel>
-            <spp:Settings_General Name="Settings_General" />
-            <spp:Settings_UI Name="Settings_UI" />
-            <spp:Settings_Plugin Name="Settings_Plugin" />
-            <spp:Settings_Steam Name="Settings_Steam" />
-            <spp:AboutPage Name="AboutPage" />
-        </StackPanel>
-    </ScrollViewer>
+    </spp:PageBase.ActionContent>-->
+    <StackPanel Name="SettingPanel">
+        <spp:Settings_General Name="Settings_General" />
+        <spp:Settings_UI Name="Settings_UI" />
+        <spp:Settings_Plugin Name="Settings_Plugin" />
+        <spp:Settings_Steam Name="Settings_Steam" />
+        <spp:AboutPage Name="AboutPage" />
+    </StackPanel>
 </spp:PageBase>

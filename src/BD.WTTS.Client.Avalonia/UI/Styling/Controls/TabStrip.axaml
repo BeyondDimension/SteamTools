@@ -5,69 +5,190 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls">
     <Design.PreviewWith>
         <Border Padding="10">
-            <TabStrip ItemContainerTheme="{StaticResource TabItemStyle}">
-                <TabStripItem Content="Text" />
-                <TabStripItem Content="Fill" />
-                <TabStripItem Content="Stroke" />
-                <TabStripItem Content="Background" />
-                <TabStripItem Content="Signal" />
-            </TabStrip>
+            <StackPanel Spacing="10">
+                <TabStrip ItemContainerTheme="{StaticResource TabItemStyle}">
+                    <TabStripItem Content="Text" />
+                    <TabStripItem Content="Fill" />
+                    <TabStripItem Content="Stroke" />
+                    <TabStripItem Content="Background" />
+                    <TabStripItem Content="Signal" />
+                </TabStrip>
+                <TabStrip ItemContainerTheme="{StaticResource TabItemStyle}" Theme="{StaticResource TabStripStyle}">
+                    <TabStripItem Content="Text" />
+                    <TabStripItem Content="Fill" />
+                    <TabStripItem Content="Stroke" />
+                    <TabStripItem Content="Background" />
+                    <TabStripItem Content="Signal" />
+                </TabStrip>
+            </StackPanel>
         </Border>
     </Design.PreviewWith>
     <Styles.Resources>
         <!--  Add Resources Here  -->
-        <ControlTheme x:Key="TabItemStyle" TargetType="TabStripItem">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Padding" Value="{StaticResource TabItemHeaderMargin}" />
+
+        <ControlTheme x:Key="TabStripStyle" TargetType="TabStrip">
+            <Setter Property="MinHeight" Value="32" />
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+            <Setter Property="Background" Value="{DynamicResource ControlAltFillColorSecondaryBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="Once" />
+            <Setter Property="Padding" Value="-1" />
+            <Setter Property="ItemsPanel">
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </Setter>
             <Setter Property="Template">
                 <ControlTemplate>
                     <Border
-                        Name="PART_LayoutRoot"
-                        Padding="{TemplateBinding Padding}"
+                        Height="{TemplateBinding Height}"
+                        VerticalAlignment="Stretch"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        ToolTip.Tip="{TemplateBinding Content}">
-                        <Panel>
-                            <ContentPresenter
-                                Name="PART_ContentPresenter"
-                                Margin="12,8"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                FontFamily="{TemplateBinding FontFamily}"
-                                FontSize="{TemplateBinding FontSize}"
-                                FontWeight="{TemplateBinding FontWeight}" />
-                            <Rectangle
-                                Name="PART_SelectedPipe"
-                                Height="{DynamicResource TabItemPipeThickness}"
-                                Margin="0,0,0,2"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Bottom"
-                                Fill="{DynamicResource AccentFillColorDefaultBrush}"
-                                Opacity="0"
-                                RadiusX="2"
-                                RadiusY="2" />
-                        </Panel>
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                        <ItemsPresenter
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="Stretch"
+                            ItemsPanel="{TemplateBinding ItemsPanel}" />
                     </Border>
                 </ControlTemplate>
             </Setter>
+        </ControlTheme>
 
-            <Style Selector="^:pointerover /template/ Rectangle#PART_SelectedPipe">
-                <Setter Property="Opacity" Value="0.2" />
-                <Setter Property="Fill" Value="{DynamicResource ControlStrongFillColorDefaultBrush}" />
+        <ControlTheme x:Key="TabItemStyle" TargetType="TabStripItem">
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorTransparentBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlFillColorTransparentBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="MinWidth" Value="60" />
+            <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ui:FABorder
+                        Name="Root"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        TemplatedControl.IsTemplateFocusTarget="True">
+                        <ui:FABorder.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="Background" Duration="00:00:00.083" />
+                            </Transitions>
+                        </ui:FABorder.Transitions>
+
+                        <Panel>
+                            <ui:FABorder
+                                Name="Hover"
+                                Margin="3"
+                                Background="Transparent"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                                <ui:FABorder.Transitions>
+                                    <Transitions>
+                                        <BrushTransition Property="Background" Duration="00:00:00.083" />
+                                        <TransformOperationsTransition
+                                            Easing="0,0 0,1"
+                                            Property="RenderTransform"
+                                            Duration="00:00:00.167" />
+                                    </Transitions>
+                                </ui:FABorder.Transitions>
+                            </ui:FABorder>
+
+                            <ContentPresenter
+                                Name="PART_ContentPresenter"
+                                Margin="11,5,11,6"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="{TemplateBinding Content}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}" />
+
+                            <Rectangle
+                                Name="Pill"
+                                Width="4"
+                                Height="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Fill="{DynamicResource AccentFillColorDefaultBrush}"
+                                Opacity="0"
+                                RadiusX="0.5"
+                                RadiusY="1"
+                                RenderTransform="scaleX(4)">
+                                <Rectangle.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition
+                                            Easing="0,0 0,1"
+                                            Property="RenderTransform"
+                                            Duration="00:00:00.167" />
+                                    </Transitions>
+                                </Rectangle.Transitions>
+                            </Rectangle>
+
+                        </Panel>
+                    </ui:FABorder>
+                </ControlTemplate>
+            </Setter>
+
+
+            <Style Selector="^:pointerover">
+                <Style Selector="^ /template/ ui|FABorder#Hover">
+                    <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                </Style>
+            </Style>
+
+            <Style Selector="^:pressed">
+                <Style Selector="^ /template/ ui|FABorder#Hover">
+                    <Setter Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
+                    <Setter Property="RenderTransform" Value="scale(0.96)" />
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                </Style>
             </Style>
 
             <Style Selector="^:selected">
-                <Style Selector="^ /template/ Rectangle#PART_SelectedPipe">
+                <Style Selector="^ /template/ ui|FABorder#Hover">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
+                <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                </Style>
+                <Style Selector="^ /template/ Rectangle#Pill">
                     <Setter Property="Opacity" Value="1" />
                 </Style>
 
-                <Style Selector="^:pointerover /template/ Rectangle#PART_SelectedPipe">
-                    <Setter Property="Opacity" Value="0.75" />
-                    <Setter Property="Fill" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                <Style Selector="^:pressed /template/ Rectangle#Pill">
+                    <Setter Property="RenderTransform" Value="scaleX(1)" />
+                </Style>
+            </Style>
+
+            <Style Selector="^:disabled">
+                <Style Selector="^ /template/ ui|FABorder#Hover">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
+                <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Setter Property="Background" Value="{DynamicResource ControlFillColorDisabledBrush}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource ControlAltFillColorSecondaryBrush}" />
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
                 </Style>
             </Style>
         </ControlTheme>
@@ -75,6 +196,7 @@
         <ItemsPanelTemplate x:Key="DefaultPanel">
             <StackPanel Orientation="Horizontal" />
         </ItemsPanelTemplate>
+
     </Styles.Resources>
 
     <Style Selector="TabStrip">

@@ -90,7 +90,8 @@
                             <ui:ImageIconSource Source="{Binding Data.IconStream, Converter={StaticResource BitmapAssetValueConverter}}" />
                         </ui:SettingsExpanderItem.IconSource>
                         <ui:SettingsExpanderItem.Footer>
-                            <StackPanel Orientation="Horizontal" Spacing="8">
+                            <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />
+                            <!--<StackPanel Orientation="Horizontal" Spacing="8">
                                 <ToggleSwitch Classes="LeftContent" />
                                 <DropDownButton
                                     Padding="8"
@@ -106,7 +107,7 @@
                                         </MenuFlyout>
                                     </DropDownButton.Flyout>
                                 </DropDownButton>
-                            </StackPanel>
+                            </StackPanel>-->
                         </ui:SettingsExpanderItem.Footer>
                     </ui:SettingsExpanderItem>
                 </DataTemplate>

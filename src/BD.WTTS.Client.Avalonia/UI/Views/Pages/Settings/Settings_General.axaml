@@ -116,6 +116,7 @@
                 <ui:SettingsExpanderItem.Footer>
                     <TextBlock
                         Name="CacheSize"
+                        Margin="0,0,8,0"
                         FontSize="{DynamicResource DefaultFontSize}"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                 </ui:SettingsExpanderItem.Footer>
@@ -134,6 +135,7 @@
                 <ui:SettingsExpanderItem.Footer>
                     <TextBlock
                         Name="LogSize"
+                        Margin="0,0,8,0"
                         FontSize="{DynamicResource DefaultFontSize}"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                 </ui:SettingsExpanderItem.Footer>

@@ -76,6 +76,7 @@
                 IsHitTestVisible="False" />
             <Button
                 Padding="8,4"
+                Command="{Binding RefreshCommand}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
@@ -160,7 +161,7 @@
                         <DataTemplate x:DataType="spp:AccelerateProjectGroupDTO">
                             <Border>
                                 <!--<ui:SettingsExpander ItemsSource="{Binding Items}">-->
-                                <ui:SettingsExpander>
+                                <ui:SettingsExpander IsClickEnabled="False">
                                     <ui:SettingsExpander.Header>
                                         <StackPanel Orientation="Horizontal" Spacing="10">
                                             <CheckBox IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}" />
@@ -175,14 +176,14 @@
                                         </StackPanel>
                                     </ui:SettingsExpander.Header>
                                     <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
-                                        <TreeView ItemsSource="{Binding ObservableItems}">
+                                        <TreeView ItemsSource="{Binding ObservableItems}" SelectionMode="Single">
                                             <TreeView.ItemTemplate>
-                                                <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding Items}">
+                                                <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding ObservableItems}">
                                                     <DockPanel Margin="8,0">
                                                         <CheckBox
                                                             HorizontalAlignment="Left"
                                                             DockPanel.Dock="Left"
-                                                            IsChecked="{Binding Checked}">
+                                                            IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}">
                                                             <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
                                                         </CheckBox>
                                                         <TextBlock
