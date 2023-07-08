@@ -471,6 +471,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_Services" xml:space="preserve">
     <value>サービスを高速化します</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -1197,6 +1200,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings" xml:space="preserve">
     <value>設定します</value>
   </data>
+  <data name="Settings_Plugin" xml:space="preserve">
+    <value>插件设置</value>
+  </data>
   <data name="Settings_Auth" xml:space="preserve">
     <value>トークンの設定</value>
   </data>
@@ -1204,7 +1210,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>フォント</value>
   </data>
   <data name="Settings_General" xml:space="preserve">
-    <value>一般的な設定</value>
+    <value>通用设置</value>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
     <value>更新を自動的にチェックします</value>
