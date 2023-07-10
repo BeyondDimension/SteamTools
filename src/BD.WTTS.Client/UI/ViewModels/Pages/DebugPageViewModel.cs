@@ -11,6 +11,8 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
 
     public override string Name => "Debug";
 
+    public override string IconKey => "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/bug.ico";
+
     public DebugPageViewModel() { }
 
     string _DebugString = string.Empty;

@@ -195,70 +195,85 @@
             </Border>-->
 
             <DockPanel Grid.Column="4">
-                <DropDownButton
-                    Padding="4"
+                <StackPanel
                     DockPanel.Dock="Left"
-                    Theme="{DynamicResource TransparentButton}">
-                    <Border
-                        Width="32"
-                        Height="32"
-                        ClipToBounds="True"
-                        CornerRadius="30">
-                        <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="/UI/Assets/Icons/avatar.ico" />
-                    </Border>
-                    <DropDownButton.Flyout>
-                        <MenuFlyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
-                            <MenuItem IsHitTestVisible="False">
-                                <MenuItem.Header>
-                                    <DockPanel>
-                                        <Border
-                                            Width="64"
-                                            Height="64"
-                                            Margin="0,0,8,0"
-                                            ClipToBounds="True"
-                                            CornerRadius="64"
-                                            DockPanel.Dock="Left">
-                                            <Image Source="/UI/Assets/avatar.jpg" />
-                                        </Border>
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Text="Name" />
-                                            <TextBlock Text="rrrr@rwerwer.net" />
-                                        </StackPanel>
-                                    </DockPanel>
-                                </MenuItem.Header>
-                            </MenuItem>
-                            <MenuItem Header="-" />
-                            <MenuItem Header="个人中心" />
-                            <MenuItem Header="用户钱包" />
-                            <MenuItem Header="绑定第三方账号" />
-                            <MenuItem Header="-" />
-                            <MenuItem
-                                Command="{ReflectionBinding Path=SignOut,
-                                                            Source={x:Static s:UserService.Current}}"
-                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                Header="{ReflectionBinding Path=Res.SignOut,
-                                                           Mode=OneWay,
-                                                           Source={x:Static s:ResourceService.Current}}"
-                                IsVisible="{ReflectionBinding Path=User,
-                                                              Mode=OneWay,
-                                                              Source={x:Static s:UserService.Current},
-                                                              Converter={StaticResource IsNullConverter},
-                                                              ConverterParameter=invert}" />
-                            <MenuItem
-                                Command="{ReflectionBinding Path=ShowWindow,
-                                                            Source={x:Static s:UserService.Current}}"
-                                CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
-                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                Header="{ReflectionBinding Path=Res.LoginAndRegister,
-                                                           Mode=OneWay,
-                                                           Source={x:Static s:ResourceService.Current}}"
-                                IsVisible="{ReflectionBinding Path=User,
-                                                              Mode=OneWay,
-                                                              Source={x:Static s:UserService.Current},
-                                                              Converter={StaticResource IsNullConverter}}" />
-                        </MenuFlyout>
-                    </DropDownButton.Flyout>
-                </DropDownButton>
+                    Orientation="Horizontal"
+                    Spacing="8">
+
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Theme="{DynamicResource TransparentButton}">
+                        <Viewbox Width="20" Height="20">
+                            <ui:SymbolIcon Symbol="Alert" />
+                        </Viewbox>
+                    </Button>
+
+                    <DropDownButton Padding="4" Theme="{DynamicResource TransparentButton}">
+                        <Border
+                            Width="32"
+                            Height="32"
+                            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                            ClipToBounds="True"
+                            CornerRadius="30">
+                            <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="/UI/Assets/Icons/avatar.ico" />
+                        </Border>
+                        <DropDownButton.Flyout>
+                            <MenuFlyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
+                                <MenuItem IsHitTestVisible="False">
+                                    <MenuItem.Header>
+                                        <DockPanel>
+                                            <Border
+                                                Width="64"
+                                                Height="64"
+                                                Margin="0,0,8,0"
+                                                ClipToBounds="True"
+                                                CornerRadius="64"
+                                                DockPanel.Dock="Left">
+                                                <Image Source="/UI/Assets/avatar.jpg" />
+                                            </Border>
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Text="Name" />
+                                                <TextBlock Text="rrrr@rwerwer.net" />
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Header="-" />
+                                <MenuItem Header="个人中心" />
+                                <MenuItem Header="用户钱包" />
+                                <MenuItem Header="绑定第三方账号" />
+                                <MenuItem Header="-" />
+                                <MenuItem
+                                    Command="{ReflectionBinding Path=SignOut,
+                                                                Source={x:Static s:UserService.Current}}"
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    Header="{ReflectionBinding Path=Res.SignOut,
+                                                               Mode=OneWay,
+                                                               Source={x:Static s:ResourceService.Current}}"
+                                    IsVisible="{ReflectionBinding Path=User,
+                                                                  Mode=OneWay,
+                                                                  Source={x:Static s:UserService.Current},
+                                                                  Converter={StaticResource IsNullConverter},
+                                                                  ConverterParameter=invert}" />
+                                <MenuItem
+                                    Command="{ReflectionBinding Path=ShowWindow,
+                                                                Source={x:Static s:UserService.Current}}"
+                                    CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    Header="{ReflectionBinding Path=Res.LoginAndRegister,
+                                                               Mode=OneWay,
+                                                               Source={x:Static s:ResourceService.Current}}"
+                                    IsVisible="{ReflectionBinding Path=User,
+                                                                  Mode=OneWay,
+                                                                  Source={x:Static s:UserService.Current},
+                                                                  Converter={StaticResource IsNullConverter}}" />
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
+                </StackPanel>
 
                 <Separator
                     Height="18"

@@ -14,18 +14,26 @@
     x:DataType="spp:SettingsPageViewModel"
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
-        <TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <TextBlock
+            Margin="0,0,0,10"
+            Text="{ReflectionBinding Path=Res.Settings_Plugin,
+                                     Mode=OneWay,
+                                     Source={x:Static s:ResourceService.Current}}"
+            Theme="{StaticResource SubtitleTextBlockStyle}" />
 
-        <ui:SettingsExpander Description="系统启动时程序自动运行" Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <ui:SettingsExpander Description="仅加载官方插件" Header="安全模式">
             <ui:SettingsExpander.IconSource>
-                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
+                <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="{StaticResource DefenderApp}" />
             </ui:SettingsExpander.IconSource>
             <ui:SettingsExpander.Footer>
-                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.AutoRunOnStartup}, Path=Value, Mode=TwoWay}" />
+                <ToggleSwitch Classes="LeftContent" />
             </ui:SettingsExpander.Footer>
         </ui:SettingsExpander>
 
-        <TextBlock Margin="0,10,0,5" Text="已安装插件" />
+        <TextBlock
+            Margin="0,10,0,5"
+            Text="已安装插件"
+            Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
         <ItemsControl ItemsSource="{Binding Plugins}">
             <ItemsControl.ItemsPanel>
@@ -43,24 +51,34 @@
                             <ui:ImageIconSource Source="{Binding Data.Icon, Converter={StaticResource BitmapAssetValueConverter}}" />
                         </ui:SettingsExpander.IconSource>
                         <ui:SettingsExpander.Footer>
-                            <StackPanel Orientation="Horizontal" Spacing="8">
-                                <ToggleSwitch Classes="LeftContent" />
-                                <DropDownButton
-                                    Padding="8"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    Content="{StaticResource More}"
-                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                    FontSize="20"
-                                    Theme="{StaticResource TransparentButton}">
-                                    <DropDownButton.Flyout>
-                                        <MenuFlyout>
-                                            <MenuItem Header="Tets" />
-                                        </MenuFlyout>
-                                    </DropDownButton.Flyout>
-                                </DropDownButton>
-                            </StackPanel>
+                            <ToggleSwitch Classes="LeftContent" />
                         </ui:SettingsExpander.Footer>
+                        <ui:SettingsExpanderItem
+                            ActionIconSource="Refresh"
+                            Content="检查更新"
+                            IsClickEnabled="True">
+                            <ui:SettingsExpanderItem.Description>
+                                <MultiBinding StringFormat="{}{0}{1}">
+                                    <Binding
+                                        Mode="OneWay"
+                                        Path="Res.Plugin_Version"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <Binding Mode="OneWay" Path="Data.Version" />
+                                </MultiBinding>
+                            </ui:SettingsExpanderItem.Description>
+                        </ui:SettingsExpanderItem>
+                        <ui:SettingsExpanderItem
+                            ActionIconSource="Open"
+                            Content="打开插件文件夹"
+                            IsClickEnabled="True" />
+                        <ui:SettingsExpanderItem
+                            ActionIconSource="Open"
+                            Content="打开插件缓存文件夹"
+                            IsClickEnabled="True" />
+                        <ui:SettingsExpanderItem
+                            ActionIconSource="Delete"
+                            Content="删除"
+                            IsClickEnabled="True" />
                     </ui:SettingsExpander>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -90,8 +108,8 @@
                             <ui:ImageIconSource Source="{Binding Data.Icon, Converter={StaticResource BitmapAssetValueConverter}}" />
                         </ui:SettingsExpanderItem.IconSource>
                         <ui:SettingsExpanderItem.Footer>
-                            <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />
-                            <!--<StackPanel Orientation="Horizontal" Spacing="8">
+                            <!--<ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />-->
+                            <StackPanel Orientation="Horizontal" Spacing="8">
                                 <ToggleSwitch Classes="LeftContent" />
                                 <DropDownButton
                                     Padding="8"
@@ -103,11 +121,15 @@
                                     Theme="{StaticResource TransparentButton}">
                                     <DropDownButton.Flyout>
                                         <MenuFlyout>
-                                            <MenuItem Header="Tets" />
+                                            <MenuItem Header="检查更新" />
+                                            <MenuItem Header="打开插件文件夹" />
+                                            <MenuItem Header="打开插件缓存文件夹" />
+                                            <MenuItem Header="-" />
+                                            <MenuItem Header="删除" />
                                         </MenuFlyout>
                                     </DropDownButton.Flyout>
                                 </DropDownButton>
-                            </StackPanel>-->
+                            </StackPanel>
                         </ui:SettingsExpanderItem.Footer>
                     </ui:SettingsExpanderItem>
                 </DataTemplate>

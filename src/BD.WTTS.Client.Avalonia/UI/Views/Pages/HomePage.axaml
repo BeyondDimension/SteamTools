@@ -11,8 +11,10 @@
     d:DesignWidth="1080"
     x:CompileBindings="True"
     x:DataType="spp:HomePageViewModel"
-    PreviewImage="{StaticResource AppIcon}"
     mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="{Binding IconKey, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+    </spp:PageBase.PreviewImage>
     <spp:PageBase.TabContent>
         <TabStrip
             Margin="4"

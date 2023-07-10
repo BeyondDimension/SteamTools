@@ -13,7 +13,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string Author => "Steam++ 官方";
 
-    public sealed override string? Icon => "avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/game.ico";
+    public sealed override string? Icon => "avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/toolbox.ico";
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {

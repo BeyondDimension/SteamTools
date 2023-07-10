@@ -32,7 +32,7 @@ public abstract partial class ItemViewModel : ViewModelBase
 
     #region Resource Key 图标
 
-    public virtual string? IconSource => IApplication.Instance.GetIconSourceByIconKey(IconKey);
+    //public virtual string? IconSource => IApplication.Instance.GetIconSourceByIconKey(IconKey);
 
     protected string? _IconKey;
 
@@ -42,7 +42,7 @@ public abstract partial class ItemViewModel : ViewModelBase
         set
         {
             this.RaiseAndSetIfChanged(ref _IconKey, value);
-            this.RaisePropertyChanged(nameof(IconSource));
+            //this.RaisePropertyChanged(nameof(IconSource));
         }
     }
 

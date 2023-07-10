@@ -9,6 +9,8 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 
     public override string Name => AppResources.Settings;
 
+    public override string IconKey => "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/settings.ico";
+
     public static string? SelectLanguageKey { get; private set; }
 
     KeyValuePair<string, string> _SelectLanguage;
