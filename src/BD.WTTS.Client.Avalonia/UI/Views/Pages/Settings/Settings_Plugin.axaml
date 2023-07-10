@@ -25,7 +25,7 @@
             </ui:SettingsExpander.Footer>
         </ui:SettingsExpander>
 
-        <!--<TextBlock Margin="0,10,0,5" Text="已安装插件" />
+        <TextBlock Margin="0,10,0,5" Text="已安装插件" />
 
         <ItemsControl ItemsSource="{Binding Plugins}">
             <ItemsControl.ItemsPanel>
@@ -40,7 +40,7 @@
                     </DataTemplate.DataType>
                     <ui:SettingsExpander Description="{Binding Data.Description}" Header="{Binding Data.Name}">
                         <ui:SettingsExpander.IconSource>
-                            <ui:ImageIconSource Source="{Binding Data.IconStream, Converter={StaticResource BitmapAssetValueConverter}}" />
+                            <ui:ImageIconSource Source="{Binding Data.Icon, Converter={StaticResource BitmapAssetValueConverter}}" />
                         </ui:SettingsExpander.IconSource>
                         <ui:SettingsExpander.Footer>
                             <StackPanel Orientation="Horizontal" Spacing="8">
@@ -64,7 +64,7 @@
                     </ui:SettingsExpander>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>-->
+        </ItemsControl>
 
         <ui:SettingsExpander
             Description="管理所有已安装的插件"
@@ -87,7 +87,7 @@
                         Description="{Binding Data.Description}"
                         IsClickEnabled="True">
                         <ui:SettingsExpanderItem.IconSource>
-                            <ui:ImageIconSource Source="{Binding Data.IconStream, Converter={StaticResource BitmapAssetValueConverter}}" />
+                            <ui:ImageIconSource Source="{Binding Data.Icon, Converter={StaticResource BitmapAssetValueConverter}}" />
                         </ui:SettingsExpanderItem.IconSource>
                         <ui:SettingsExpanderItem.Footer>
                             <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />

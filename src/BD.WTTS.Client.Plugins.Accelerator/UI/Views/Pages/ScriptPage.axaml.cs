@@ -9,10 +9,6 @@ public partial class ScriptPage : PageBase<ScriptPageViewModel>
         InitializeComponent();
         DataContext = new ScriptPageViewModel();
 
-        Title = Strings.ScriptConfig;
-        Subtitle = "插件作者: Steam++ 官方";
-        Description = "提供一些游戏相关网站服务的加速功能。";
-
         StoreButton.Click += StoreButton_Click;
     }
 

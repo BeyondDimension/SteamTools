@@ -89,9 +89,7 @@ public class TextBoxWindowViewModel : DialogWindowViewModel, ITextBoxWindowViewM
     public static async Task<string?> ShowDialogAsync(TextBoxWindowViewModel? vm = null)
     {
         vm ??= new TextBoxWindowViewModel();
-        var r = await IWindowManager.Instance.ShowDialogAsync(
-            AppEndPoint.TextBox,
-            vm, string.Empty, ResizeMode.NoResize);
+        var r = await IWindowManager.Instance.ShowTaskDialogAsync(vm, vm.Title, subHeader: vm.Description, isCancelButton: true);
         if (r)
             return vm.Value ?? string.Empty;
         return null;

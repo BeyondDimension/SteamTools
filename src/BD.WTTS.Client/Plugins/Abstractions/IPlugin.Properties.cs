@@ -63,12 +63,7 @@ partial interface IPlugin
     bool IsOfficial { get; }
 
     /// <summary>
-    /// 插件显示图标图片字节，值为 <see langword="null"/> 时使用默认图片
+    /// 插件显示图标图片资源路径，值为 <see langword="null"/> 时使用默认图片
     /// </summary>
-    byte[]? IconBytes { get; }
-
-    /// <summary>
-    /// 插件显示图标图片流，值为 <see langword="null"/> 时使用默认图片
-    /// </summary>
-    Stream? IconStream => IconBytes == null ? null : new MemoryStream(IconBytes);
+    string? Icon { get; }
 }

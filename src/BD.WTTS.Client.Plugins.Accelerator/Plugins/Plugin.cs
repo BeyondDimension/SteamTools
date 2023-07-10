@@ -1,3 +1,4 @@
+using Avalonia.Controls;
 using BD.WTTS.UI.Views.Pages;
 
 namespace BD.WTTS.Plugins;
@@ -9,7 +10,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
     const string moduleName = "Accelerator";
 
-    public sealed override string Name => moduleName;
+    public sealed override string Name => Strings.CommunityFix;
+
+    public sealed override string Description => "提供一些游戏相关网站服务的加速及脚本注入功能。";
+
+    public sealed override string Author => "Steam++ 官方";
+
+    public sealed override string? Icon => "avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico";
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {
@@ -18,7 +25,8 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             ResourceKeyOrName = nameof(Strings.CommunityFix),
             PageType = typeof(MainFramePage),
             IsResourceGet = true,
-            IconKey = "SpeedHigh",
+            //IconKey = "SpeedHigh",
+            IconKey = Icon,
         };
 
         //yield return new MenuTabItemViewModel()

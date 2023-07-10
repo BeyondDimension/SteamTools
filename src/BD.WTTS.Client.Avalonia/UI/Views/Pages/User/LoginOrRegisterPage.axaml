@@ -189,7 +189,7 @@
                         Margin="5,0"
                         Padding="0"
                         HorizontalContentAlignment="Center"
-                        Command="{ReflectionBinding ManualLogin}">
+                        Command="{Binding ManualLogin}">
                         <TextBlock Text="{ReflectionBinding Path=Res.Login_ManualLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
                     </ui:HyperlinkButton>
                 </WrapPanel>

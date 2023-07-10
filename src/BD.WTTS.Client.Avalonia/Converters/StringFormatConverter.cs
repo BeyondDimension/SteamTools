@@ -38,6 +38,9 @@ public sealed class StringFormatConverter : IValueConverter, IMultiValueConverte
             }
             else
             {
+                var res = Strings.ResourceManager.GetString(para, Strings.Culture);
+                if (!string.IsNullOrEmpty(res))
+                    return res.Format(str);
                 return str.Format(para);
             }
         }

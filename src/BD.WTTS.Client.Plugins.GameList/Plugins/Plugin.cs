@@ -9,7 +9,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
     const string moduleName = "GameList";
 
-    public override string Name => moduleName;
+    public override string Name => Strings.GameList;
+
+    public sealed override string Description => "管理库存游戏";
+
+    public sealed override string Author => "Steam++ 官方";
+
+    public sealed override string? Icon => "avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/game.ico";
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {
@@ -18,7 +24,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             ResourceKeyOrName = nameof(Strings.GameList),
             PageType = typeof(GameListPage),
             IsResourceGet = true,
-            IconKey = "Game",
+            IconKey = Icon,
         };
     }
 

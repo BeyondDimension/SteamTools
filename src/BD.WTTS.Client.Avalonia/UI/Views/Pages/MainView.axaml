@@ -204,7 +204,7 @@
                         Height="32"
                         ClipToBounds="True"
                         CornerRadius="30">
-                        <Image Source="/UI/Assets/avatar.jpg" />
+                        <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="/UI/Assets/Icons/avatar.ico" />
                     </Border>
                     <DropDownButton.Flyout>
                         <MenuFlyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
@@ -300,7 +300,8 @@
                 <DataTemplate DataType="spp:TabItemViewModel">
                     <ui:NavigationViewItem Classes="AppNav" Content="{Binding Name}">
                         <ui:NavigationViewItem.IconSource>
-                            <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{Binding IconKey, Converter={StaticResource ResourceKeyValueConverter}, ConverterParameter=fonticon}" />
+                            <!--<ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{Binding IconKey, Converter={StaticResource ResourceKeyValueConverter}, ConverterParameter=fonticon}" />-->
+                            <ui:ImageIconSource Source="{Binding IconKey, Converter={StaticResource BitmapAssetValueConverter}}" />
                         </ui:NavigationViewItem.IconSource>
                     </ui:NavigationViewItem>
                 </DataTemplate>

@@ -1,10 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstants>WTTS_PLUGIN;WTTS_PLUGIN_GAMELIST;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="UI\Assets\game.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="UI\Assets\game.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Xaml.cs">

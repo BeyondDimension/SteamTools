@@ -38,7 +38,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                     ResourceKeyOrName = "Welcome",
                     PageType = typeof(HomePage),
                     IsResourceGet = true,
-                    IconKey = "Home",
+                    IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico",
                  },
         }, ImmutableArray.Create<TabItemViewModel>(
 #if DEBUG
@@ -47,7 +47,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                 ResourceKeyOrName = "Debug",
                 PageType = typeof(DebugPage),
                 IsResourceGet = false,
-                IconKey = "Bug",
+                IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/bug.ico",
             },
 #endif
             new MenuTabItemViewModel()
@@ -55,7 +55,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                 ResourceKeyOrName = "Settings",
                 PageType = typeof(SettingsPage),
                 IsResourceGet = true,
-                IconKey = "Settings",
+                IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/settings.ico",
             }
         ));
 #pragma warning restore SA1114 // Parameter list should follow declaration

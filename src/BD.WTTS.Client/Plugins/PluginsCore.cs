@@ -47,7 +47,7 @@ public static class PluginsCore
 
         public bool IsOfficial { get; private set; }
 
-        public byte[]? IconBytes { get; private set; }
+        public string? Icon { get; private set; }
 
         public void SetValue(IPlugin plugin)
         {
@@ -62,7 +62,7 @@ public static class PluginsCore
             AppDataDirectory = plugin.AppDataDirectory;
             CacheDirectory = plugin.CacheDirectory;
             IsOfficial = plugin.IsOfficial;
-            IconBytes = plugin.IconBytes;
+            Icon = plugin.Icon;
         }
 
         public void ConfigureDemandServices(IServiceCollection services, Startup startup)

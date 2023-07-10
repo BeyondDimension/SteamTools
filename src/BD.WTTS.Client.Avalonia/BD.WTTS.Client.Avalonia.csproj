@@ -121,6 +121,10 @@
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="UI\Assets\Icons\" />
+	</ItemGroup>
+
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>

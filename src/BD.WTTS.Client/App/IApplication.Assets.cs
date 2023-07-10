@@ -12,7 +12,7 @@ partial interface IApplication
     /// <returns></returns>
     string? GetIconSourceByIconKey(string? iconKey) => string.IsNullOrWhiteSpace(iconKey) ? null :
 #if WINDOWS || MACCATALYST || MACOS || LINUX
-        $"avares://BD.WTTS.Client.Avalonia.App/UI/Assets/Images/Icons/{iconKey}.png";
+        $"avares://BD.WTTS.Client.Avalonia.App/UI/Assets/Icons/{iconKey}.ico";
 #elif IOS || ANDROID
         iconKey;
 #endif

@@ -32,7 +32,7 @@ partial class PluginBase
 
     public string CacheDirectory => mCacheDirectory.Value;
 
-    public virtual byte[]? IconBytes => null;
+    public virtual string? Icon => null;
 
     //static byte[][] OfficialPluginHashDatas => Array.Empty<byte[]>();
 

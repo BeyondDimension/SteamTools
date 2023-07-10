@@ -7,7 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="UI\Assets\userswitcher.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<AvaloniaResource Include="UI\Assets\Platforms.json" />
+		<AvaloniaResource Include="UI\Assets\userswitcher.ico" />
 	</ItemGroup>
 
 	<ItemGroup>

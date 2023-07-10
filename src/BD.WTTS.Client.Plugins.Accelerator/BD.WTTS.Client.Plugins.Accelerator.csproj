@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
@@ -6,6 +6,16 @@
 		<DefineConstants>WTTS_PLUGIN;WTTS_PLUGIN_ACCELERATOR;$(DefineConstants)</DefineConstants>
 		<!--<EnableDynamicLoading>true</EnableDynamicLoading>-->
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="UI\Assets\accelerator.ico" />
+	  <None Remove="UI\Assets\script.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="UI\Assets\accelerator.ico" />
+	  <AvaloniaResource Include="UI\Assets\script.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Xaml.cs">

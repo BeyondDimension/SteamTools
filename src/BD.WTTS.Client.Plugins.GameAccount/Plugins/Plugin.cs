@@ -1,4 +1,5 @@
 using BD.WTTS.UI.Views.Pages;
+using System;
 
 namespace BD.WTTS.Plugins;
 
@@ -9,7 +10,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
     const string moduleName = "GameAccount";
 
-    public override string Name => moduleName;
+    public sealed override string Name => Strings.UserFastChange;
+
+    public sealed override string Description => "可支持自行添加多平台账号快速切换功能，Steam 可自动读取账号信息，其它平台请手动添加账号信息。";
+
+    public sealed override string Author => "Steam++ 官方";
+
+    public sealed override string? Icon => "avares://BD.WTTS.Client.Plugins.GameAccount/UI/Assets/userswitcher.ico";
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {
@@ -18,7 +25,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             ResourceKeyOrName = nameof(Strings.UserFastChange),
             PageType = typeof(GameAccountPage),
             IsResourceGet = true,
-            IconKey = "SwitchUser",
+            IconKey = Icon,
         };
     }
 

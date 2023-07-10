@@ -8,13 +8,24 @@
     xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="{ReflectionBinding Name,
+                              Source={x:Static s:Plugin.Instance},
+                              Mode=OneWay}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:GameListPageViewModel"
+    Description="{ReflectionBinding Description,
+                                    Source={x:Static s:Plugin.Instance},
+                                    Mode=OneWay}"
+    Subtitle="{ReflectionBinding Author,
+                                 Source={x:Static s:Plugin.Instance},
+                                 Mode=OneWay,
+                                 Converter={StaticResource StringFormatConverter},
+                                 ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Game}" />
+        <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.TabContent>
         <!--<TabStrip
