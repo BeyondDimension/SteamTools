@@ -2443,4 +2443,7 @@ AAAAA-BBBBB-CCCC3</value>
 	<data name="LocalAuth_DeleteAuthTip2" xml:space="preserve">
 	  <value>确定要永久删除此令牌吗，您将会彻底遗失此令牌数据。非常建议您「解绑令牌」后再进行此操作。</value>
   </data>
+	<data name="Plugin_Author" xml:space="preserve">
+	  <value>作者：</value>
+  </data>
 </root>
