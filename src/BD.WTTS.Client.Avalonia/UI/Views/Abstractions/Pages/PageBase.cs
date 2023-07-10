@@ -1,4 +1,3 @@
-using Avalonia.Controls;
 using Avalonia.Rendering.Composition;
 
 namespace BD.WTTS.UI.Views.Pages;
@@ -47,6 +46,12 @@ public class PageBase : UserControl
     public static readonly StyledProperty<IBrush?> HeaderBackgroundProperty =
        AvaloniaProperty.Register<PageBase, IBrush?>(nameof(HeaderBackground));
 
+    public static readonly StyledProperty<object?> PaneContentProperty =
+        AvaloniaProperty.Register<PageBase, object?>(nameof(PaneContent));
+
+    public static readonly StyledProperty<bool> IsPaneOpenProperty =
+        SplitView.IsPaneOpenProperty.AddOwner<PageBase>();
+
     public string Title
     {
         get => GetValue(TitleProperty);
@@ -89,10 +94,22 @@ public class PageBase : UserControl
         set => SetValue(ActionContentProperty, value);
     }
 
+    public object? PaneContent
+    {
+        get => GetValue(PaneContentProperty);
+        set => SetValue(PaneContentProperty, value);
+    }
+
     public bool IsShowBackgroundImage
     {
         get => GetValue(IsShowBackgroundImageProperty);
         set => SetValue(IsShowBackgroundImageProperty, value);
+    }
+
+    public bool IsPaneOpen
+    {
+        get => GetValue(IsPaneOpenProperty);
+        set => SetValue(IsPaneOpenProperty, value);
     }
 
     public IBrush? HeaderBackground

@@ -130,7 +130,14 @@
     </spp:PageBase.ActionContent>
     <DockPanel>
 
-        <spp:ContentLoader IsLoading="{Binding !!!SteamApps.Count, Mode=OneWay}">
+        <spp:ContentLoader
+            IsLoading="{ReflectionBinding Source={x:Static s:SteamConnectService.Current},
+                                          Path=IsLoadingGameList,
+                                          Mode=OneWay}"
+            IsShowNoResultText="{Binding IsSteamAppsEmpty}"
+            NoResultMessage="{ReflectionBinding Path=Res.GameList_IsEmpty,
+                                                Mode=OneWay,
+                                                Source={x:Static s:ResourceService.Current}}">
             <spp:ContentLoader.GestureRecognizers>
                 <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
             </spp:ContentLoader.GestureRecognizers>

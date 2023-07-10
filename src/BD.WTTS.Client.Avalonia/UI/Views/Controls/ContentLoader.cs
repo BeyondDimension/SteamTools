@@ -1,4 +1,6 @@
 using Avalonia.Controls;
+using DynamicData;
+using FluentAvalonia.Core;
 
 namespace BD.WTTS.UI.Views.Controls;
 
@@ -41,6 +43,18 @@ public class ContentLoader : ContentControl
         AvaloniaProperty.Register<ContentLoader, bool>(nameof(IsIndeterminate), true);
 
     /// <summary>
+    /// Defines the <see cref="IsShowNoResultText"/> property
+    /// </summary>
+    public static readonly StyledProperty<bool> IsShowNoResultTextProperty =
+        AvaloniaProperty.Register<ContentLoader, bool>(nameof(IsShowNoResultText), false);
+
+    /// <summary>
+    /// Defines the <see cref="ItemsSource"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IEnumerable?> ItemsSourceProperty =
+        ItemsControl.ItemsSourceProperty.AddOwner<ContentLoader>();
+
+    /// <summary>
     /// 是否正在加载中
     /// </summary>
     public bool IsLoading
@@ -53,6 +67,12 @@ public class ContentLoader : ContentControl
     {
         get => GetValue(IsIndeterminateProperty);
         set => SetValue(IsIndeterminateProperty, value);
+    }
+
+    public bool IsShowNoResultText
+    {
+        get => GetValue(IsShowNoResultTextProperty);
+        set => SetValue(IsShowNoResultTextProperty, value);
     }
 
     /// <summary>
@@ -85,6 +105,12 @@ public class ContentLoader : ContentControl
         set => SetValue(MaximumProperty, value);
     }
 
+    public IEnumerable? ItemsSource
+    {
+        get => GetValue(ItemsSourceProperty);
+        set => SetValue(ItemsSourceProperty, value);
+    }
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
@@ -102,6 +128,30 @@ public class ContentLoader : ContentControl
                 {
                     IsLoading = false;
                 }
+            }
+        }
+        else if (e.Property == ItemsSourceProperty)
+        {
+            var items = e.GetNewValue<IEnumerable?>();
+            if (items == null)
+            {
+                IsLoading = true;
+                IsShowNoResultText = false;
+            }
+            else if (items.Count() == 0)
+            {
+                IsLoading = false;
+                IsShowNoResultText = true;
+            }
+            else if (items.Count() != 0)
+            {
+                IsLoading = false;
+                IsShowNoResultText = false;
+            }
+            else
+            {
+                IsLoading = true;
+                IsShowNoResultText = false;
             }
         }
     }

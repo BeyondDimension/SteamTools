@@ -72,6 +72,25 @@
                         Text="Action Button" />
                 </Panel>
             </Button>
+            <ToggleButton
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen}"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Open Pane" />
+                </Panel>
+            </ToggleButton>
             <DropDownButton
                 Padding="8"
                 Content="{StaticResource More}"

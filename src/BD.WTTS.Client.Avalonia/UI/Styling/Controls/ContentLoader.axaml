@@ -6,7 +6,7 @@
     x:CompileBindings="True">
     <Design.PreviewWith>
         <Border Padding="50">
-            <spp:ContentLoader />
+            <spp:ContentLoader NoResultMessage="Test" />
         </Border>
     </Design.PreviewWith>
     <!--  Add Resources Here  -->
@@ -50,7 +50,9 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Text="{TemplateBinding NoResultMessage}" />
+                        IsVisible="{TemplateBinding IsShowNoResultText}"
+                        Text="{TemplateBinding NoResultMessage}"
+                        Theme="{StaticResource SubtitleTextBlockStyle}" />
 
                     <ContentPresenter
                         Name="ContentPresenter"

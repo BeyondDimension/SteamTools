@@ -50,6 +50,25 @@
                                         Text="Toggle Theme" />
                                 </Panel>
                             </Button>
+                            <ToggleButton
+                                Padding="8,4"
+                                DockPanel.Dock="Right"
+                                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen}"
+                                Theme="{StaticResource TransparentButton}">
+                                <Panel>
+                                    <Viewbox
+                                        Width="16"
+                                        Height="16"
+                                        HorizontalAlignment="Left">
+                                        <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                                    </Viewbox>
+                                    <TextBlock
+                                        Margin="28,4,0,4"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="Open Pane" />
+                                </Panel>
+                            </ToggleButton>
                             <DropDownButton
                                 Padding="8"
                                 Content="{StaticResource More}"
@@ -195,31 +214,42 @@
                         </Grid>
                     </Panel>
 
-                    <ScrollViewer
-                        Name="PageScroller"
-                        Padding="{DynamicResource AppPageMargin}"
-                        HorizontalScrollBarVisibility="Disabled"
-                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                        <DockPanel Margin="0,0,0,20">
-                            <TextBlock
-                                Margin="0,0,0,8"
-                                DockPanel.Dock="Top"
-                                IsVisible="{TemplateBinding ContentDescription,
-                                                            Converter={StaticResource IsNullConverter},
-                                                            ConverterParameter=invert}"
-                                Text="{TemplateBinding ContentDescription}"
-                                TextWrapping="Wrap" />
+                    <SplitView
+                        DisplayMode="Overlay"
+                        IsPaneOpen="{TemplateBinding IsPaneOpen}"
+                        PaneBackground="Transparent"
+                        PanePlacement="Right">
+                        <SplitView.Pane>
+                            <Border Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}" CornerRadius="4 0 0 4">
+                                <ContentPresenter HorizontalAlignment="Stretch" Content="{TemplateBinding PaneContent}" />
+                            </Border>
+                        </SplitView.Pane>
+                        <ScrollViewer
+                            Name="PageScroller"
+                            Padding="{DynamicResource AppPageMargin}"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                            <DockPanel Margin="0,0,0,20">
+                                <TextBlock
+                                    Margin="0,0,0,8"
+                                    DockPanel.Dock="Top"
+                                    IsVisible="{TemplateBinding ContentDescription,
+                                                                Converter={StaticResource IsNullConverter},
+                                                                ConverterParameter=invert}"
+                                    Text="{TemplateBinding ContentDescription}"
+                                    TextWrapping="Wrap" />
 
-                            <ContentPresenter
-                                Name="PART_ContentPresenter"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch"
-                                VerticalContentAlignment="Stretch"
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}" />
-                        </DockPanel>
-                    </ScrollViewer>
+                                <ContentPresenter
+                                    Name="PART_ContentPresenter"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            </DockPanel>
+                        </ScrollViewer>
+                    </SplitView>
                 </DockPanel>
             </ControlTemplate>
         </Setter>
