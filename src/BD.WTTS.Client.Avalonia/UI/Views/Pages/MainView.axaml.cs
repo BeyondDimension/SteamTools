@@ -1,3 +1,4 @@
+using BD.WTTS.Enums;
 using FluentAvalonia.Core;
 using FluentAvalonia.UI.Media.Animation;
 using FluentAvalonia.UI.Navigation;
@@ -14,8 +15,8 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
         if (Design.IsDesignMode)
             Design.SetDataContext(this, MainWindow.GetMainWinodwViewModel());
 #endif
-        NavView.SelectionChanged += NavView_SelectionChanged; ;
-
+        NavView.SelectionChanged += NavView_SelectionChanged;
+        
         FrameView.Navigated += OnFrameViewNavigated;
         NavView.BackRequested += OnNavigationViewBackRequested;
     }

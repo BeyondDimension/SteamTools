@@ -51,7 +51,7 @@
                             <ui:ImageIconSource Source="{Binding Data.Icon, Converter={StaticResource BitmapAssetValueConverter}}" />
                         </ui:SettingsExpander.IconSource>
                         <ui:SettingsExpander.Footer>
-                            <ToggleSwitch Classes="LeftContent" />
+                            <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />
                         </ui:SettingsExpander.Footer>
                         <ui:SettingsExpanderItem
                             ActionIconSource="Refresh"
@@ -110,7 +110,7 @@
                         <ui:SettingsExpanderItem.Footer>
                             <!--<ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />-->
                             <StackPanel Orientation="Horizontal" Spacing="8">
-                                <ToggleSwitch Classes="LeftContent" />
+                                <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />
                                 <DropDownButton
                                     Padding="8"
                                     HorizontalContentAlignment="Center"

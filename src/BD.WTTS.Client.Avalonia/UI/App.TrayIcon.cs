@@ -32,9 +32,15 @@ partial class App
                     //[!TrayIcon.IsVisibleProperty] = new Binding { Path = "Value", Source = GeneralSettings.IsEnableTrayIcon, Mode = BindingMode.OneWay },
                     Menu = new NativeMenu
                     {
+                        //new NativeMenuItem
+                        //{
+                        //    Header = "Test",
+                        //},
+                        //new NativeMenuItemSeparator(),
                         new NativeMenuItem
                         {
-                            Header = "Test",
+                            Header = "打开主面板",
+                            Command = ReactiveCommand.Create(RestoreMainWindow)
                         },
                         new NativeMenuItemSeparator(),
                         new NativeMenuItem

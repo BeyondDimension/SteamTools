@@ -69,7 +69,7 @@
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
             <Setter Property="FontWeight" Value="Normal" />
             <Setter Property="Height" Value="32" />
-            <Setter Property="MinWidth" Value="60" />
+            <Setter Property="MinWidth" Value="32" />
             <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="Template">

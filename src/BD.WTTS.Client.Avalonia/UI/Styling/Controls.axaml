@@ -43,6 +43,7 @@
     <StyleInclude Source="/UI/Styling/Controls/Button.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/TabView.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/TabStrip.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/AutoCompleteBox.axaml" />
 
     <!--<Style Selector=":is(Window):transparent">
 		<Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}">

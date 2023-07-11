@@ -179,7 +179,7 @@
                 Easing="LinearEasing"
                 FillMode="Both"
                 IterationCount="INFINITE"
-                Duration="0:0:5">
+                Duration="0:0:3">
                 <KeyFrame Cue="0%">
                     <Setter Property="StartAngle" Value="-720" />
                     <Setter Property="SweepAngle" Value="0" />

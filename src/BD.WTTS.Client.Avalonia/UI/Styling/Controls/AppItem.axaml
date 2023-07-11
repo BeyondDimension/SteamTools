@@ -42,6 +42,11 @@
     </Design.PreviewWith>
 
     <Style Selector="spp|AppItem">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
         <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -127,6 +132,7 @@
                                 </WrapPanel>
 
                                 <DropDownButton
+                                    Margin="8"
                                     Padding="6"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
@@ -198,6 +204,10 @@
 
     <Style Selector="spp|AppItem /template/ ContentPresenter#ActionButton ComboBox">
         <Setter Property="MinWidth" Value="150" />
+    </Style>
+
+    <Style Selector="spp|AppItem:pointerover">
+        <Setter Property="RenderTransform" Value="translateY(-3px)" />
     </Style>
 
     <!--  Vertical Style  -->

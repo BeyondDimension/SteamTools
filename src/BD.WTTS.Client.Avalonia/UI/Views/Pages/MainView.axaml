@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enum="using:BD.WTTS.Enums"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
@@ -115,28 +116,6 @@
         <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
             <Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
         </Style>
-
-        <!--  AutoCompleteBox  -->
-        <Style Selector="AutoCompleteBox.SampleApp /template/ TextBox#PART_TextBox">
-            <Setter Property="InnerRightContent">
-                <Template>
-                    <StackPanel Orientation="Horizontal">
-                        <Button
-                            Command="{Binding $parent[TextBox].Clear}"
-                            Content="&#xE8BB;"
-                            FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            IsVisible="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-                            Theme="{StaticResource TransparentButton}" />
-                        <Button
-                            Command="{Binding $parent[TextBox].Clear}"
-                            Content="&#xE721;"
-                            FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            IsHitTestVisible="False"
-                            Theme="{StaticResource TransparentButton}" />
-                    </StackPanel>
-                </Template>
-            </Setter>
-        </Style>
     </UserControl.Styles>
 
     <Grid RowDefinitions="Auto, *">
@@ -190,8 +169,7 @@
                     MaxWidth="500"
                     VerticalAlignment="Center"
                     wnd:AppWindow.AllowInteractionInTitleBar="True"
-                    Classes="SampleApp"
-                    Watermark="Search" />
+                    Classes="Search" />
             </Border>-->
 
             <DockPanel Grid.Column="4">
@@ -232,19 +210,33 @@
                                                 ClipToBounds="True"
                                                 CornerRadius="64"
                                                 DockPanel.Dock="Left">
-                                                <Image Source="/UI/Assets/avatar.jpg" />
+                                                <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="/UI/Assets/Icons/avatar.ico" />
                                             </Border>
-                                            <StackPanel VerticalAlignment="Center">
-                                                <TextBlock Text="Name" />
-                                                <TextBlock Text="rrrr@rwerwer.net" />
-                                            </StackPanel>
+                                            <Panel>
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    IsVisible="{ReflectionBinding Path=User,
+                                                                                  Mode=OneWay,
+                                                                                  Source={x:Static s:UserService.Current},
+                                                                                  Converter={StaticResource IsNullConverter}}"
+                                                    Text="{ReflectionBinding Path=Res.User_UnLogin,
+                                                                             Mode=OneWay,
+                                                                             Source={x:Static s:ResourceService.Current}}" />
+                                                <StackPanel VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                                                    <TextBlock Text="{ReflectionBinding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
+                                                    <Border VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
+                                                        <TextBlock FontSize="10" Text="{ReflectionBinding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}}" />
+                                                    </Border>
+                                                </StackPanel>
+                                            </Panel>
                                         </DockPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Header="-" />
-                                <MenuItem Header="个人中心" />
-                                <MenuItem Header="用户钱包" />
-                                <MenuItem Header="绑定第三方账号" />
+                                <MenuItem Header="-" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="个人中心" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="我的订单" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="绑定第三方账号" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="修改密码" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem Header="-" />
                                 <MenuItem
                                     Command="{ReflectionBinding Path=SignOut,
@@ -262,7 +254,7 @@
                                     Command="{ReflectionBinding Path=ShowWindow,
                                                                 Source={x:Static s:UserService.Current}}"
                                     CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
-                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    Foreground="{DynamicResource SystemFillColorAttentionBrush}"
                                     Header="{ReflectionBinding Path=Res.LoginAndRegister,
                                                                Mode=OneWay,
                                                                Source={x:Static s:ResourceService.Current}}"

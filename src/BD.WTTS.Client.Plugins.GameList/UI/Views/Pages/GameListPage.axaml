@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
+    xmlns:scenums="using:BD.SteamClient.Enums"
     xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -28,16 +29,11 @@
         <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.TabContent>
-        <!--<TabStrip
+        <AutoCompleteBox
+            MinWidth="300"
             Margin="4"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
-            CornerRadius="{StaticResource ControlCornerRadius}"
-            ItemContainerTheme="{StaticResource TabItemStyle}">
-            <TabStripItem Content="多平台账号切换" />
-            <TabStripItem Content="Steam 家庭共享库管理" />
-        </TabStrip>-->
+            VerticalAlignment="Center"
+            Classes="Search" />
     </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -129,7 +125,98 @@
         </StackPanel>
     </spp:PageBase.ActionContent>
     <DockPanel>
-
+        <Grid
+            Margin="0,0,0,10"
+            ColumnDefinitions="Auto,*,Auto"
+            DockPanel.Dock="Top"
+            RowDefinitions="Auto,10,Auto">
+            <AutoCompleteBox
+                MinWidth="300"
+                VerticalAlignment="Center"
+                Classes="Search" />
+            <TabStrip
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                CornerRadius="{StaticResource ControlCornerRadius}"
+                ItemContainerTheme="{StaticResource TabItemStyle}"
+                Theme="{StaticResource TabStripStyle}">
+                <TabStripItem Content="&#xE8E4;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                <TabStripItem Content="&#xF0E2;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                <TabStripItem Content="&#xE80A;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
+            </TabStrip>
+            <TextBlock
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                Text="{Binding SteamApps.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='找到 {0} 个应用'}" />
+            <StackPanel Grid.Row="2" Grid.Column="2">
+                <DropDownButton
+                    Width="200"
+                    Height="35"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Center">
+                    <DropDownButton.Content>
+                        <!--<DockPanel>-->
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Classes="h8"
+                            DockPanel.Dock="Left"
+                            Text="{Binding TypeFilterString}"
+                            TextTrimming="CharacterEllipsis" />
+                        <!--<PathIcon VerticalAlignment="Center"
+                              HorizontalAlignment="Right"
+                              DockPanel.Dock="Right"
+                              Data="{StaticResource ChevronDownDrawing}"
+                              Width="12"></PathIcon>
+                  </DockPanel>-->
+                    </DropDownButton.Content>
+                    <DropDownButton.Styles>
+                        <Style Selector="FlyoutPresenter">
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </DropDownButton.Styles>
+                    <DropDownButton.Flyout>
+                        <Flyout FlyoutPresenterClasses="NoPadding" Placement="Bottom">
+                            <Border Width="{Binding $parent.Width}" Height="200">
+                                <ScrollViewer Padding="10,5">
+                                    <ItemsControl ItemsSource="{Binding AppTypeFiltres}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <DataTemplate.DataType>
+                                                    <x:Type x:TypeArguments="scenums:SteamAppType" TypeName="spp:EnumModel" />
+                                                </DataTemplate.DataType>
+                                                <DockPanel>
+                                                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding Enable, Mode=TwoWay}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <StackPanel.Styles>
+                                                                <Style Selector="TextBlock.count">
+                                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                                    <Setter Property="FontSize" Value="12" />
+                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                                                </Style>
+                                                            </StackPanel.Styles>
+                                                            <TextBlock VerticalAlignment="Center" Text="{Binding LocalizationName}" />
+                                                            <TextBlock
+                                                                Margin="5,0,0,0"
+                                                                Classes="count"
+                                                                Text="(" />
+                                                            <TextBlock Classes="count" Text="{Binding Count}" />
+                                                            <TextBlock Classes="count" Text=")" />
+                                                        </StackPanel>
+                                                    </CheckBox>
+                                                </DockPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Border>
+                        </Flyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </StackPanel>
+        </Grid>
         <spp:ContentLoader
             IsLoading="{ReflectionBinding Source={x:Static s:SteamConnectService.Current},
                                           Path=IsLoadingGameList,
@@ -143,15 +230,19 @@
             </spp:ContentLoader.GestureRecognizers>
             <ItemsRepeater ItemsSource="{Binding SteamApps}">
                 <ItemsRepeater.Layout>
-                    <UniformGridLayout
+                    <!--<UniformGridLayout
                         ItemsJustification="Start"
                         ItemsStretch="Uniform"
                         MinColumnSpacing="10"
-                        MinRowSpacing="10" />
+                        MinRowSpacing="10" />-->
+                    <WrapLayout
+                        HorizontalSpacing="10"
+                        Orientation="Horizontal"
+                        VerticalSpacing="10" />
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="scmd:SteamApp">
-                        <Border spp:Animations.EnableAnimations="True">
+                        <Border spp:Animations.EnableAnimations="False">
                             <spp:AppItem
                                 Name="Item"
                                 Title="{Binding DisplayName}"

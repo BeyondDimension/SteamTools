@@ -28,7 +28,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
             {
                 FilePickerFileType fileTypes = new ValueTuple<string, string[]>[]
                 {
-                        ("Image Files", FileEx.Images.ToArray()),
+                        ("Image Files", FileEx.Images.Select(s => $"*{s}").ToArray()),
                     //("All Files", new[] { "*", }),
                 };
                 await FilePicker2.PickAsync(SetBackgroundImagePath, fileTypes);
@@ -90,7 +90,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
                 }
             }
         }
-        Toast.Show(AppResources.Settings_UI_CustomBackgroundImage_Error);
+        Toast.Show(ToastIcon.Error, AppResources.Settings_UI_CustomBackgroundImage_Error);
     }
 
     public async void EditSteamParameter()

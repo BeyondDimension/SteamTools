@@ -4384,7 +4384,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 作者： 的本地化字符串。
+        ///   查找类似 作者：{0} 的本地化字符串。
         /// </summary>
         public static string Plugin_Author {
             get {

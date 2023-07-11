@@ -36,19 +36,16 @@ public sealed class StringFormatConverter : IValueConverter, IMultiValueConverte
                     return d.ToString("C", culture);
                 }
             }
-            else
-            {
-                var res = Strings.ResourceManager.GetString(para, Strings.Culture);
-                if (!string.IsNullOrEmpty(res))
-                    return res.Format(str);
-                return str.Format(para);
-            }
+
+            var res = Strings.ResourceManager.GetString(para, Strings.Culture);
+            if (!string.IsNullOrEmpty(res))
+                return res.Format(str);
+            return para.Format(str);
         }
         else
         {
             return str.Format(string.Empty);
         }
-        return str;
     }
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
