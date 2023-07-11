@@ -1,4 +1,3 @@
-using BD.WTTS.Client.Tools.Publish.Helpers;
 using static BD.WTTS.Client.Tools.Publish.Helpers.DotNetCLIHelper;
 using static BD.WTTS.GlobalDllImportResolver;
 
@@ -87,6 +86,8 @@ interface IDotNetPublishCommand : ICommand
             // 发布插件
             PublishPlugins(debug, info.Platform, info.Architecture, publishDir, arg.Configuration, arg.Framework);
         }
+
+        Console.WriteLine("OK");
     }
 
     /// <summary>
