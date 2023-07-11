@@ -5,6 +5,7 @@
 		<OutputType>WinExe</OutputType>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<DefineConstants>AVALONIA;DESIGNER;$(DefineConstants)</DefineConstants>
+		<ServerGarbageCollection>false</ServerGarbageCollection>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -184,6 +184,11 @@ static unsafe partial class Program
         // TODO 合并 32 位与 64 位本机库？检查进程是否是 x64，加载不同的运行库与程序集
         // 允许在 64 位系统上使用 32 位运行
 
+        // 配置垃圾回收器来节省内存，但代价是垃圾回收更频繁，并且暂停时间可能更长。
+        // 除了默认值 0 以外，介于 1 至 9（含）的值都有效。 值越高，垃圾回收器越会试图节省内存，进而使堆保持较小。
+        // https://learn.microsoft.com/zh-cn/dotnet/core/runtime-config/garbage-collector#conserve-memory
+        Environment.SetEnvironmentVariable("DOTNET_GCConserveMemory", "9", EnvironmentVariableTarget.Process);
+
 #if DEBUG
         Console.WriteLine($"Environment.Version: {Environment.Version}");
 #endif

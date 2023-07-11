@@ -21,7 +21,7 @@ interface ILaunchAppTestCommand : ICommand
     {
         var path = DebugRuntimeConfigPath;
 
-        HandlerJsonFiles(path);
+        HandlerJsonFiles(path, Platform.Windows);
 
         // 测试主程序启动是否正常
         path = path[..^runtimeconfigjsonfilename.Length] + exefileName;
@@ -84,7 +84,7 @@ interface ILaunchAppTestCommand : ICommand
     /// 根据 runtimeconfig.json 文件路径删除 Microsoft.WindowsDesktop.App 节点
     /// </summary>
     /// <param name="path"></param>
-    static void HandlerJsonFiles(string path, Platform platform = default)
+    static void HandlerJsonFiles(string path, Platform platform)
     {
         using var stream = GetFileStream(path);
         var node = TryParseJsonNode(stream);

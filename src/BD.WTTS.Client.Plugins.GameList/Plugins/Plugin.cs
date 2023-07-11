@@ -7,7 +7,9 @@ namespace BD.WTTS.Plugins;
 #endif
 public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
-    const string moduleName = "GameList";
+    const string moduleName = AssemblyInfo.GameList;
+
+    public override Guid Id => Guid.Parse(AssemblyInfo.GameListId);
 
     public override string Name => Strings.GameList;
 

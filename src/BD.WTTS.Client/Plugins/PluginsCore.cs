@@ -23,6 +23,8 @@ public static class PluginsCore
 
     sealed class DisablePlugin : IPlugin
     {
+        public Guid Id { get; private set; }
+
         public string Name { get; private set; } = null!;
 
         public string Version { get; private set; } = null!;
@@ -53,6 +55,7 @@ public static class PluginsCore
 
         public void SetValue(IPlugin plugin)
         {
+            Id = plugin.Id;
             Name = plugin.Name;
             Version = plugin.Version;
             Description = plugin.Description;

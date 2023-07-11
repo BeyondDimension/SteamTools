@@ -8,7 +8,9 @@ namespace BD.WTTS.Plugins;
 #endif
 public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
-    const string moduleName = "GameAccount";
+    const string moduleName = AssemblyInfo.GameAccount;
+
+    public override Guid Id => Guid.Parse(AssemblyInfo.GameAccountId);
 
     public sealed override string Name => Strings.UserFastChange;
 

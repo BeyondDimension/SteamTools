@@ -15,6 +15,7 @@
 		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<EnableMsixTooling>true</EnableMsixTooling>
+		<ServerGarbageCollection>false</ServerGarbageCollection>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">

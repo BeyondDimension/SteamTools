@@ -5,7 +5,10 @@ namespace BD.WTTS.Plugins;
 #endif
 public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
-    const string moduleName = "GameTools";
+    const string moduleName = AssemblyInfo.GameTools;
+
+    public override Guid Id => Guid.Parse(AssemblyInfo.GameToolsId);
+
 
     public override string Name => Strings.GameRelated;
 

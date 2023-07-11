@@ -3,6 +3,11 @@ namespace BD.WTTS.Plugins.Abstractions;
 partial interface IPlugin
 {
     /// <summary>
+    /// 插件 Id
+    /// </summary>
+    Guid Id => default;
+
+    /// <summary>
     /// 插件名，忽略大小写
     /// </summary>
     string Name { get; }

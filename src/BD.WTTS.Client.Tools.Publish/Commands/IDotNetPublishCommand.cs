@@ -45,6 +45,17 @@ interface IDotNetPublishCommand : ICommand
         {
             var info = DeconstructRuntimeIdentifier(rid);
             if (info == default) continue;
+
+            bool isWindows = false;
+            switch (info.Platform)
+            {
+                case Platform.Windows:
+                case Platform.UWP:
+                case Platform.WinUI:
+                    isWindows = true;
+                    break;
+            }
+
             var projRootPath = ProjectPath_AvaloniaApp;
             var psi = GetProcessStartInfo(projRootPath);
             var arg = SetPublishCommandArgumentList(psi.ArgumentList, debug, info.Platform, info.DeviceIdiom, info.Architecture);
@@ -78,16 +89,84 @@ interface IDotNetPublishCommand : ICommand
 
             // 处理 json 文件
             var runtimeconfigjsonpath = Path.Combine(publishDir, runtimeconfigjsonfilename);
-            ILaunchAppTestCommand.HandlerJsonFiles(runtimeconfigjsonpath);
+            ILaunchAppTestCommand.HandlerJsonFiles(runtimeconfigjsonpath, info.Platform);
 
             // 发布 apphost
             PublishAppHost(publishDir, info.Platform);
 
             // 发布插件
             PublishPlugins(debug, info.Platform, info.Architecture, publishDir, arg.Configuration, arg.Framework);
+
+            // 复制运行时
+            CopyRuntime(rootPublishDir, isWindows, info.Architecture);
+
+            Console.WriteLine(rootPublishDir);
         }
 
         Console.WriteLine("OK");
+    }
+
+    /// <summary>
+    /// 将运行时复制到发布根目录下
+    /// </summary>
+    /// <param name="rootPublishDir"></param>
+    /// <param name="isWindows"></param>
+    /// <param name="architecture"></param>
+    static void CopyRuntime(string rootPublishDir, bool isWindows, Architecture architecture)
+    {
+        if (OperatingSystem.IsWindows() && isWindows)
+        {
+            if (architecture == Architecture.Arm64 &&
+                RuntimeInformation.OSArchitecture != Architecture.Arm64)
+            {
+                // TODO
+            }
+
+            var programFiles = Environment.GetFolderPath(
+                architecture == Architecture.X86 ?
+                Environment.SpecialFolder.ProgramFilesX86 :
+                Environment.SpecialFolder.ProgramFiles);
+
+            static string get_hostfxr_path(string rootPath) => Path.Combine(rootPath,
+                "dotnet",
+                "host",
+                "fxr",
+                $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}",
+                "hostfxr.dll");
+
+            var hostfxr_path = get_hostfxr_path(programFiles);
+
+            static string get_aspnetcore_path(string rootPath) => Path.Combine(rootPath,
+                "dotnet",
+                "shared",
+                "Microsoft.AspNetCore.App",
+                $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}");
+
+            var aspnetcore_path = get_aspnetcore_path(programFiles);
+
+            static string get_netcore_path(string rootPath) => Path.Combine(rootPath,
+                "dotnet",
+                "shared",
+                "Microsoft.NETCore.App",
+                $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}");
+
+            var netcore_path = get_netcore_path(programFiles);
+
+            if (Directory.Exists(netcore_path) &&
+                Directory.Exists(aspnetcore_path) &&
+                File.Exists(hostfxr_path))
+            {
+                var dest_hostfxr_path = get_hostfxr_path(rootPublishDir);
+                IOPath.DirCreateByNotExists(Path.GetDirectoryName(dest_hostfxr_path)!);
+                File.Copy(hostfxr_path, dest_hostfxr_path);
+                CopyDirectory(netcore_path, get_netcore_path(rootPublishDir), true);
+                CopyDirectory(aspnetcore_path, get_aspnetcore_path(rootPublishDir), true);
+            }
+        }
+        else
+        {
+            // TODO
+        }
     }
 
     /// <summary>
@@ -571,7 +650,7 @@ interface IDotNetPublishCommand : ICommand
         foreach (FileInfo file in dir.GetFiles())
         {
             string targetFilePath = Path.Combine(destinationDir, file.Name);
-            file.CopyTo(targetFilePath);
+            file.CopyTo(targetFilePath, true);
         }
 
         // If recursive and copying subdirectories, recursively call this method

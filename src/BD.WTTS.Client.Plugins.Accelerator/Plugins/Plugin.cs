@@ -8,7 +8,9 @@ namespace BD.WTTS.Plugins;
 #endif
 public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
-    const string moduleName = "Accelerator";
+    const string moduleName = AssemblyInfo.Accelerator;
+
+    public override Guid Id => Guid.Parse(AssemblyInfo.AcceleratorId);
 
     public sealed override string Name => Strings.CommunityFix;
 

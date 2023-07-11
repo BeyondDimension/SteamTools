@@ -7,6 +7,8 @@ partial class PluginBase
 
     public override string ToString() => DebuggerDisplay;
 
+    public virtual Guid Id => default;
+
     public abstract string Name { get; }
 
     public abstract string Version { get; }

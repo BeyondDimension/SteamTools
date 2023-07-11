@@ -10,7 +10,9 @@ namespace BD.WTTS.Plugins;
 #endif
 public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
-    const string moduleName = "Authenticator";
+    const string moduleName = AssemblyInfo.Authenticator;
+
+    public override Guid Id => Guid.Parse(AssemblyInfo.AuthenticatorId);
 
     public sealed override string Name => Strings.LocalAuth;
 
