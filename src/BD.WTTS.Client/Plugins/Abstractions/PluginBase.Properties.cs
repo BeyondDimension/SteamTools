@@ -32,8 +32,6 @@ partial class PluginBase
 
     public string CacheDirectory => mCacheDirectory.Value;
 
-    public virtual string? Icon => null;
-
     //static byte[][] OfficialPluginHashDatas => Array.Empty<byte[]>();
 
     bool? mIsOfficial;
@@ -93,6 +91,25 @@ partial class PluginBase
             //return false;
         }
     }
+
+    public virtual string? Icon => null;
+
+    DateTimeOffset GetInstallTime()
+    {
+        try
+        {
+            var location = AssemblyLocation;
+            var time = new FileInfo(location).CreationTime;
+            return time;
+        }
+        catch
+        {
+
+        }
+        return default;
+    }
+
+    public DateTimeOffset InstallTime => mInstallTime.Value;
 }
 
 partial class PluginBase<TPlugin>

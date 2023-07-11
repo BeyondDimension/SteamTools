@@ -49,6 +49,8 @@ public static class PluginsCore
 
         public string? Icon { get; private set; }
 
+        public DateTimeOffset InstallTime { get; private set; }
+
         public void SetValue(IPlugin plugin)
         {
             Name = plugin.Name;
@@ -63,6 +65,7 @@ public static class PluginsCore
             CacheDirectory = plugin.CacheDirectory;
             IsOfficial = plugin.IsOfficial;
             Icon = plugin.Icon;
+            InstallTime = plugin.InstallTime;
         }
 
         public void ConfigureDemandServices(IServiceCollection services, Startup startup)

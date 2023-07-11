@@ -7,11 +7,13 @@ public abstract partial class PluginBase : IPlugin
 {
     readonly Lazy<string> mAppDataDirectory;
     readonly Lazy<string> mCacheDirectory;
+    readonly Lazy<DateTimeOffset> mInstallTime;
 
     public PluginBase()
     {
         mAppDataDirectory = new(() => GetPluginsDirectory(Name, IOPath.AppDataDirectory));
         mCacheDirectory = new(() => GetPluginsDirectory(Name, IOPath.CacheDirectory));
+        mInstallTime = new(GetInstallTime);
     }
 
     public virtual IEnumerable<TabItemViewModel>? GetMenuTabItems() => null;
