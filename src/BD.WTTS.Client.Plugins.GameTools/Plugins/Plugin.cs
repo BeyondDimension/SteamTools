@@ -9,7 +9,6 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override Guid Id => Guid.Parse(AssemblyInfo.GameToolsId);
 
-
     public override string Name => Strings.GameRelated;
 
     public sealed override string Description => "游戏工具";

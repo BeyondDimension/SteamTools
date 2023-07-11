@@ -1,7 +1,4 @@
-using BD.SteamClient.Services;
-using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
-using System;
 
 namespace BD.WTTS.Plugins;
 
