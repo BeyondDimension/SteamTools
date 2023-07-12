@@ -386,7 +386,6 @@ public sealed partial class SteamTradePageViewModel
 
     }
     
-    //单请求多参数有问题
     async Task<bool> ChangeTradeStatus(bool status, IEnumerable<SteamTradeConfirmationModel> trades)
     {
         var ids = trades.ToDictionary(item => item.Id, item => item.Nonce);

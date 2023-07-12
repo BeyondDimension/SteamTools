@@ -218,6 +218,18 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
         try
         {
             string text = File.ReadAllText(ImportAuthFilePath);
+            
+            var index = text.IndexOf("\"server_time\":", StringComparison.Ordinal) + 14;
+            if (index != -1)
+            {
+                var temp = text.Substring(index, text.Substring(index).IndexOf(",", StringComparison.Ordinal));
+                if (!temp.Contains("\""))
+                {
+                    var temp2 = "\"" + temp + "\"";
+                    text = text.Replace(temp, temp2);
+                }
+            }
+
             var sdaFileModel = JsonSerializer.Deserialize(text, ImportFileModelJsonContext.Default.SdaFileModel);
             if (sdaFileModel == null) return false;
             var steamDataModel = new SdaFileConvertToSteamDataModel(sdaFileModel);
