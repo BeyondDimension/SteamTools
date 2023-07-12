@@ -153,7 +153,7 @@ sealed partial class Program : Startup
                         catch (Exception ex)
                         {
                             GlobalExceptionHandler.Handler(ex,
-                                $"{plugin.Name}{nameof(plugin.OnAddAutoMapper)}");
+                                $"{plugin.UniqueEnglishName}{nameof(plugin.OnAddAutoMapper)}");
                         }
                     }
                 }

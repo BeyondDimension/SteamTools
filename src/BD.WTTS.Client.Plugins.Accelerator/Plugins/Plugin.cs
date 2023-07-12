@@ -14,6 +14,8 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string Name => Strings.CommunityFix;
 
+    public sealed override string UniqueEnglishName => moduleName;
+
     public sealed override string Description => "提供一些游戏相关网站服务的加速及脚本注入功能。";
 
     public sealed override string Author => "Steam++ 官方";

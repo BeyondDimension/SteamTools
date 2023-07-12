@@ -11,8 +11,8 @@ public abstract partial class PluginBase : IPlugin
 
     public PluginBase()
     {
-        mAppDataDirectory = new(() => GetPluginsDirectory(Name, IOPath.AppDataDirectory));
-        mCacheDirectory = new(() => GetPluginsDirectory(Name, IOPath.CacheDirectory));
+        mAppDataDirectory = new(() => GetPluginsDirectory(UniqueEnglishName, IOPath.AppDataDirectory));
+        mCacheDirectory = new(() => GetPluginsDirectory(UniqueEnglishName, IOPath.CacheDirectory));
         mInstallTime = new(GetInstallTime);
     }
 
@@ -87,7 +87,8 @@ public abstract partial class PluginBase : IPlugin
         if (subProcessBootConfiguration == default)
             return (int)CommandExitCode.GetSubProcessBootConfigurationFail;
 
-        var exitCode = await IPCSubProcessService.MainAsync(moduleName, Name,
+        var pluginName = UniqueEnglishName;
+        var exitCode = await IPCSubProcessService.MainAsync(moduleName, pluginName,
             subProcessBootConfiguration.configureServices,
             subProcessBootConfiguration.configureIpcProvider,
             new[] { pipeName, processId });

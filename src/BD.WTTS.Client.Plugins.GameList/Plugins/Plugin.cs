@@ -13,6 +13,8 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override string Name => Strings.GameList;
 
+    public sealed override string UniqueEnglishName => moduleName;
+
     public sealed override string Description => "管理库存游戏";
 
     public sealed override string Author => "Steam++ 官方";

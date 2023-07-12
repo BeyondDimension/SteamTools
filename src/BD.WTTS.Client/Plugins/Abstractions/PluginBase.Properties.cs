@@ -3,7 +3,7 @@ namespace BD.WTTS.Plugins.Abstractions;
 [DebuggerDisplay("{DebuggerDisplay,nq}")]
 partial class PluginBase
 {
-    string DebuggerDisplay => $"{Name} v{Version}";
+    string DebuggerDisplay => $"{UniqueEnglishName} v{Version}";
 
     public override string ToString() => DebuggerDisplay;
 
@@ -11,13 +11,15 @@ partial class PluginBase
 
     public abstract string Name { get; }
 
+    public abstract string UniqueEnglishName { get; }
+
     public abstract string Version { get; }
 
     public virtual string StoreUrl =>
-        $"https://steampp.net/store/plugins/names/{WebUtility.UrlEncode(Name.ToLowerInvariant())}";
+        $"https://steampp.net/store/plugins/names/{WebUtility.UrlEncode(UniqueEnglishName.ToLowerInvariant())}";
 
     public virtual string HelpUrl =>
-        $"https://steampp.net/store/plugins/helps/names/{WebUtility.UrlEncode(Name.ToLowerInvariant())}";
+        $"https://steampp.net/store/plugins/helps/names/{WebUtility.UrlEncode(UniqueEnglishName.ToLowerInvariant())}";
 
     public virtual Type? SettingsPageViewType { get; }
 

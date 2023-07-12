@@ -13,6 +13,11 @@ partial interface IPlugin
     string Name { get; }
 
     /// <summary>
+    /// 插件唯一英文名，与 Id 一样不能有重复的
+    /// </summary>
+    string UniqueEnglishName { get; }
+
+    /// <summary>
     /// 插件版本号，<see cref="Version.TryParse(string?, out Version?)"/> 可能返回 <see langword="false"/>，当字符串中存在符号或字母时
     /// </summary>
     string Version { get; }

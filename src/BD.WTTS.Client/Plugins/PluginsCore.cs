@@ -27,6 +27,8 @@ public static class PluginsCore
 
         public string Name { get; private set; } = null!;
 
+        public string UniqueEnglishName { get; private set; } = null!;
+
         public string Version { get; private set; } = null!;
 
         public string? Description { get; private set; }
@@ -57,6 +59,7 @@ public static class PluginsCore
         {
             Id = plugin.Id;
             Name = plugin.Name;
+            UniqueEnglishName = plugin.UniqueEnglishName;
             Version = plugin.Version;
             Description = plugin.Description;
             StoreUrl = plugin.StoreUrl;
@@ -314,7 +317,7 @@ public static class PluginsCore
                 {
                     Log.Error(TAG,
                         "CompositionHost.GetExports plugin validation failed, name: {name}.",
-                        plugin.Name);
+                        plugin.UniqueEnglishName);
                 }
             }
         }

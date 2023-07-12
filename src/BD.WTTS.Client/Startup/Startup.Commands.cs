@@ -363,7 +363,7 @@ partial class Startup // 自定义控制台命令参数
                 if (!TryGetPlugins(out var plugins))
                     return (int)CommandExitCode.GetPluginsFail;
 
-                var plugin = plugins.FirstOrDefault(x => x.Name == m);
+                var plugin = plugins.FirstOrDefault(x => x.UniqueEnglishName == m);
                 if (plugin == null)
                     return (int)CommandExitCode.GetPluginFail;
 

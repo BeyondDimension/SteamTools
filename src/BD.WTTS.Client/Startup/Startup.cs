@@ -430,7 +430,7 @@ public abstract partial class Startup
                     catch (Exception ex)
                     {
                         GlobalExceptionHandler.Handler(ex,
-                            $"{plugin.Name}{nameof(IPlugin.OnExit)}");
+                            $"{plugin.UniqueEnglishName}{nameof(IPlugin.OnExit)}");
                     }
                 }
             }

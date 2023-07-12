@@ -13,6 +13,8 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string Name => Strings.LocalAuth;
 
+    public sealed override string UniqueEnglishName => moduleName;
+
     public sealed override string Description => "提供多平台多账号令牌管理、加密、确认交易、云同步等功能";
 
     public sealed override string Author => "Steam++ 官方";

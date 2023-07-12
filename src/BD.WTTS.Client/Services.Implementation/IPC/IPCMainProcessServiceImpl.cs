@@ -270,7 +270,7 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         {
             foreach (var plugin in plugins)
             {
-                if (plugin.Name != moduleName)
+                if (plugin.UniqueEnglishName != moduleName)
                     continue;
                 try
                 {

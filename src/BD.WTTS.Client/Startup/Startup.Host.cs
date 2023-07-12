@@ -126,7 +126,7 @@ partial class Startup // 配置 Host
                 catch (Exception ex)
                 {
                     GlobalExceptionHandler.Handler(ex,
-                        $"{plugin.Name}{nameof(IPlugin.GetConfiguration)}");
+                        $"{plugin.UniqueEnglishName}{nameof(IPlugin.GetConfiguration)}");
                 }
             }
         }
@@ -275,7 +275,7 @@ partial class Startup // 配置 Host
                 }
                 catch (Exception ex)
                 {
-                    GlobalExceptionHandler.Handler(ex, $"{plugin.Name}.ConfigureDemandServices");
+                    GlobalExceptionHandler.Handler(ex, $"{plugin.UniqueEnglishName}.ConfigureDemandServices");
                 }
                 try
                 {
@@ -283,7 +283,7 @@ partial class Startup // 配置 Host
                 }
                 catch (Exception ex)
                 {
-                    GlobalExceptionHandler.Handler(ex, $"{plugin.Name}.ConfigureRequiredServices");
+                    GlobalExceptionHandler.Handler(ex, $"{plugin.UniqueEnglishName}.ConfigureRequiredServices");
                 }
             }
 #if STARTUP_WATCH_TRACE || DEBUG

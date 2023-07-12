@@ -54,7 +54,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                      catch (Exception ex)
                      {
                          Log.Error(nameof(MainWindowViewModel), ex,
-                             $"({x.Name}) Plugin.GetMenuTabItems fail.");
+                             $"({x.UniqueEnglishName}) Plugin.GetMenuTabItems fail.");
                          return null;
                      }
                  })
@@ -91,7 +91,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                              catch (Exception ex)
                              {
                                  Log.Error(nameof(MainWindowViewModel), ex,
-                                     $"({plugin.Name}) Plugin.OnInitializeAsync fail.");
+                                     $"({plugin.UniqueEnglishName}) Plugin.OnInitializeAsync fail.");
                              }
                          }
                      }
