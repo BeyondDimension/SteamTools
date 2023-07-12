@@ -8,6 +8,7 @@ namespace BD.WTTS.Settings;
 /// <typeparam name="TSettings"></typeparam>
 public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsPropertyBase<TValue>, IDisposable, INotifyPropertyChanged
     where TValue : class
+    where TSettings : new()
 {
     readonly Action<TSettings, TValue?> setter;
     readonly Func<TSettings, TValue?> getter;
@@ -44,8 +45,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 
     void OnChange(TSettings settings)
     {
-        var settingsType = typeof(TSettings);
-        if (!CanOnChange(settingsType, PropertyName))
+        if (!CanOnChange(settings, PropertyName))
             return;
 
         SetValue(getter(settings), false);
@@ -185,6 +185,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 /// <typeparam name="TSettings"></typeparam>
 public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TEnumerable, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsProperty<TEnumerable, TSettings>, ICollection<TValue>
     where TEnumerable : class, ICollection<TValue>, new()
+    where TSettings : new()
 {
     int ICollection<TValue>.Count => value?.Count ?? 0;
 
@@ -349,7 +350,8 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 public class SettingsProperty<TKey, TValue,
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TDictionary,
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsProperty<KeyValuePair<TKey, TValue>, TDictionary, TSettings>, IDictionary<TKey, TValue>
-     where TDictionary : class, IDictionary<TKey, TValue>, new()
+    where TDictionary : class, IDictionary<TKey, TValue>, new()
+    where TSettings : new()
 {
     public SettingsProperty(TDictionary? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null) : base(@default, autoSave, propertyName)
     {

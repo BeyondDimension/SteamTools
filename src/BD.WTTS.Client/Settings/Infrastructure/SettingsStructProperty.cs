@@ -8,6 +8,7 @@ namespace BD.WTTS.Settings;
 /// <typeparam name="TSettings"></typeparam>
 public class SettingsStructProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsStructPropertyBase<TValue, TSettings>
     where TValue : struct
+    where TSettings : new()
 {
     public SettingsStructProperty(TValue? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null) : base(@default, autoSave, propertyName)
     {

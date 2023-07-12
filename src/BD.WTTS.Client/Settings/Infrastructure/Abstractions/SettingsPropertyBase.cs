@@ -26,8 +26,9 @@ public abstract class SettingsPropertyBase
         SaveNameStatus.TryAdd((settingsType, propertyName), null);
     }
 
-    protected internal static bool CanOnChange(Type settingsType, string propertyName)
+    protected internal static bool CanOnChange<TSettings>(TSettings settings, string propertyName) where TSettings : new()
     {
+        var settingsType = typeof(TSettings);
 #if DEBUG
         switch (propertyName)
         {
@@ -43,6 +44,13 @@ public abstract class SettingsPropertyBase
             SaveNameStatus[key] = saveStatus.Value ? false : null;
             return false;
         }
+
+        // 监听到的设置模型实例，如果和 new 一个空的数据一样的，就是默认值则忽略
+        var newSettingsData = Serializable.SMP2(settings);
+        var emptySettingsData = Serializable.SMP2(new TSettings());
+        if (newSettingsData.SequenceEqual(emptySettingsData))
+            return false;
+
         return true;
     }
 

@@ -3,6 +3,7 @@ namespace BD.WTTS.Settings.Abstractions;
 
 public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsPropertyBase<TValue?>, IDisposable, INotifyPropertyChanged
     where TValue : struct
+    where TSettings : new()
 {
     readonly Action<TSettings, TValue?> setter;
     readonly Func<TSettings, TValue?> getter;
@@ -33,8 +34,7 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
 
     void OnChange(TSettings settings)
     {
-        var settingsType = typeof(TSettings);
-        if (!CanOnChange(settingsType, PropertyName))
+        if (!CanOnChange(settings, PropertyName))
             return;
 
         SetValue(getter(settings), false);
