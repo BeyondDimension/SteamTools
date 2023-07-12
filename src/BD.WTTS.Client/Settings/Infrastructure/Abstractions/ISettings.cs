@@ -214,23 +214,35 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
 
         TSettings IOptionsMonitor<TSettings>.Get(string? name) => settings;
 
-        TSettings Deserialize()
+        TSettings? AllowNullDeserialize()
         {
             try
             {
-                return ISettings.Deserialize<TSettings>(settingsFilePath) ?? new();
+                var settings = ISettings.Deserialize<TSettings>(settingsFilePath);
+                return settings;
             }
             catch
             {
-                return new();
+                return default;
             }
         }
 
         IDisposable? IOptionsMonitor<TSettings>.OnChange(Action<TSettings, string?> listener)
             => ChangeToken.OnChange(() => fileProvider.Watch(settingsFileName), () =>
         {
-            settings = Deserialize();
-            listener.Invoke(settings, TSettings.Name);
+            var settings_ = AllowNullDeserialize();
+            if (settings_ != null)
+            {
+                settings = settings_;
+
+                // 监听到的设置模型实例，如果和 new 一个空的数据一样的，就是默认值则忽略
+                var newSettingsData = Serializable.SMP2(settings);
+                var emptySettingsData = Serializable.SMP2(new TSettings());
+                if (newSettingsData.SequenceEqual(emptySettingsData))
+                    return;
+
+                listener.Invoke(settings, TSettings.Name);
+            }
         });
     }
 

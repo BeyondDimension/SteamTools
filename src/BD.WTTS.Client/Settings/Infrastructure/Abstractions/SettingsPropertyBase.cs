@@ -45,12 +45,6 @@ public abstract class SettingsPropertyBase
             return false;
         }
 
-        // 监听到的设置模型实例，如果和 new 一个空的数据一样的，就是默认值则忽略
-        var newSettingsData = Serializable.SMP2(settings);
-        var emptySettingsData = Serializable.SMP2(new TSettings());
-        if (newSettingsData.SequenceEqual(emptySettingsData))
-            return false;
-
         return true;
     }
 
