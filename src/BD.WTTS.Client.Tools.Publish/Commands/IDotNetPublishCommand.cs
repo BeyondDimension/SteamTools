@@ -368,7 +368,7 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    const string publish_apphost_winany_arg = "publish -p:OutputType=WinExe -p:PublishProfile=win-any -f net35 -p:DebugType=none -p:DebugSymbols=false --nologo -v q /property:WarningLevel=1";
+    const string publish_apphost_winany_arg = @"publish -p:OutputType=WinExe -p:PublishDir=bin\Release\Publish\win-any -p:PublishReferencesDocumentationFiles=false  -p:PublishDocumentationFile=false -p:PublishDocumentationFiles=false -f net35 -p:DebugType=none -p:DebugSymbols=false --nologo -v q /property:WarningLevel=1";
 
     static void PublishAppHost(string publishDir, Platform platform)
     {
