@@ -125,10 +125,10 @@ public class SteamTradeConfirmationModel : ReactiveObject
         //可能是启用了家庭监护功能
         if (exception is WinAuthUnauthorisedSteamRequestException unauthorisedSteamRequestException)
         {
-            Toast.Show(Strings.LocalAuth_AuthTrade_GetError);
+            Toast.Show(ToastIcon.Error, Strings.LocalAuth_AuthTrade_GetError);
             return;
         }
         Log.Error(nameof(SteamTradePageViewModel), exception, nameof(ExceptionHandling));
-        Toast.Show("异常：" + exception.Message);
+        Toast.Show(ToastIcon.Error, "异常：" + exception.Message);
     }
 }

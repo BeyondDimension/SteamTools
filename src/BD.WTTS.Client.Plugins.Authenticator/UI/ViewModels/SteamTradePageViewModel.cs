@@ -59,7 +59,7 @@ public sealed partial class SteamTradePageViewModel
     {
         if (string.IsNullOrEmpty(UserNameText) || string.IsNullOrEmpty(PasswordText))
         {
-            Toast.Show(Strings.User_LoginError_Null);
+            Toast.Show(ToastIcon.Warning, Strings.User_LoginError_Null);
             return;
         }
         if (IsLoading || IsLogged || _steamAuthenticator == null) return;
@@ -84,7 +84,7 @@ public sealed partial class SteamTradePageViewModel
             IsLogged = result;
             if (_steamClient.Error == "Incorrect Login")
             {
-                Toast.Show(Strings.User_LoginError);
+                Toast.Show(ToastIcon.Warning, Strings.User_LoginError);
                 return;
             }
 
@@ -92,17 +92,17 @@ public sealed partial class SteamTradePageViewModel
             // {
             //     _captchaId = _steamClient.CaptchaId;
             //     CaptchaImageUrlText = _steamClient.CaptchaUrl;
-            //     Toast.Show(Strings.User_LoginError_CodeImage);
+            //     Toast.Show(ToastIcon.None, Strings.User_LoginError_CodeImage);
             //     SelectIndex = 1;
             //     return;
             // }
 
-            Toast.Show($"未知登陆错误：{_steamClient.Error}");
+            Toast.Show(ToastIcon.Error, $"未知登陆错误：{_steamClient.Error}");
             IsLoading = false;
             return;
         }
 
-        Toast.Show(string.Format(Strings.Success_, Strings.User_Login));
+        Toast.Show(ToastIcon.Success, string.Format(Strings.Success_, Strings.User_Login));
             
         SetToastServiceStatus();
 
@@ -173,7 +173,7 @@ public sealed partial class SteamTradePageViewModel
         //可能是启用了家庭监护功能
         if (exception is WinAuthUnauthorisedSteamRequestException unauthorisedSteamRequestException)
         {
-            Toast.Show(Strings.LocalAuth_AuthTrade_GetError);
+            Toast.Show(ToastIcon.Error, Strings.LocalAuth_AuthTrade_GetError);
             return;
         }
 
@@ -204,7 +204,7 @@ public sealed partial class SteamTradePageViewModel
                 Log.Error(nameof(SteamTradePageViewModel), e, "可能是没有开加速器导致无法连接 Steam 社区登录地址");
                 if (e.InnerException != null && e.Message.Contains("302"))
                 {
-                    Toast.Show(Strings.LocalAuth_AuthTrade_GetError3);
+                    Toast.Show(ToastIcon.Error, Strings.LocalAuth_AuthTrade_GetError3);
                     IsLogged = false;
                     _steamClient!.Clear();
                 }
@@ -214,7 +214,7 @@ public sealed partial class SteamTradePageViewModel
         }
 
         Log.Error(nameof(SteamTradePageViewModel), exception, nameof(ExceptionHandling));
-        Toast.Show("异常：" + exception.Message);
+        Toast.Show(ToastIcon.Error, "异常：" + exception.Message);
     }
 
     // public async Task Logout()
@@ -298,7 +298,7 @@ public sealed partial class SteamTradePageViewModel
         var result = await ChangeTradeStatus(status, trade);
         if (result)
         {
-            Toast.Show($"{(status ? Strings.Agree : Strings.Cancel)}{trade.TypeName}");
+            Toast.Show(ToastIcon.Success, $"{(status ? Strings.Agree : Strings.Cancel)}{trade.TypeName}");
             //trade.IsOperate = status ? 1 : 2;
             //RefreshConfirmationsList();
         }
@@ -310,13 +310,13 @@ public sealed partial class SteamTradePageViewModel
     {
         if (!Confirmations.Any_Nullable())
         {
-            Toast.Show(Strings.LocalAuth_AuthTrade_Null);
+            Toast.Show(ToastIcon.Warning, Strings.LocalAuth_AuthTrade_Null);
             return;
         }
 
         if (_operationTradeAllCancelToken != null)
         {
-            Toast.Show("已有一项操作正在进行中，请等待执行结束");
+            Toast.Show(ToastIcon.Warning, "已有一项操作正在进行中，请等待执行结束");
             return;
         }
 
@@ -339,9 +339,9 @@ public sealed partial class SteamTradePageViewModel
             {
                 if (_operationTradeAllCancelToken.IsCancellationRequested)
                 {
-                    Toast.Show(
+                    Toast.Show(ToastIcon.Warning, 
                         $"已终止{statusText}全部令牌,已操作成功令牌数量{success},操作失败令牌数量{failed}");
-                    // Toast.Show(
+                    // Toast.Show(ToastIcon.None, 
                     //     $"已终止{statusText}全部令牌,已操作成功令牌数量{success},操作失败令牌数量{failed},剩余{executableNum - success - failed}令牌未操作");
                 }
 
@@ -370,9 +370,9 @@ public sealed partial class SteamTradePageViewModel
 
             _operationTradeAllCancelToken = null;
             //RefreshConfirmationsList();
-            Toast.Show(
+            Toast.Show(ToastIcon.Success, 
                 $"{statusText}全部令牌执行结束,成功数量{success},失败数量{failed}");
-            // Toast.Show(
+            // Toast.Show(ToastIcon.None, 
             //     $"{statusText}全部令牌执行结束,成功数量{success},失败数量{failed},剩余{executableNum - success - failed}令牌未操作");
             SetToastServiceStatus();
         }
@@ -393,10 +393,10 @@ public sealed partial class SteamTradePageViewModel
         var task = Task.Run(() =>
             _steamClient!.ConfirmTrade(ids, status));
         var result = await task;
-        if (!result) Toast.Show(Strings.LocalAuth_AuthTrade_ConfirmError);
+        if (!result) Toast.Show(ToastIcon.Error, Strings.LocalAuth_AuthTrade_ConfirmError);
         if (task.Exception == null) return result;
         Log.Error(nameof(SteamTradePageViewModel), task.Exception, nameof(ChangeTradeStatus));
-        Toast.Show(task.Exception.Message);
+        Toast.Show(ToastIcon.Error, task.Exception.Message);
         return result;
     }
 

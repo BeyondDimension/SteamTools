@@ -51,7 +51,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         //await AuthenticatorService.DeleteAllAuthenticatorsAsync();
         if (_initializeTime > DateTime.Now.AddSeconds(-5))
         {
-            Toast.Show("请勿频繁操作");
+            Toast.Show(ToastIcon.Warning, "请勿频繁操作");
             return;
         }
         _initializeTime = DateTime.Now;
@@ -86,7 +86,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             Auths.Add(new AuthenticatorItemModel(item));
         }
 
-        Toast.Show("令牌加载成功");
+        Toast.Show(ToastIcon.Success, "令牌加载成功");
     }
 
     public async Task<bool> EnterPassword(AccountPlatformAuthenticator sourceData)
@@ -106,7 +106,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 IsVerificationPass = true;
                 return true;
             }
-            else Toast.Show("密码错误，请刷新重试");
+            else Toast.Show(ToastIcon.Warning, "密码错误，请刷新重试");
         }
 
         IsVerificationPass = false;
@@ -117,7 +117,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (Auths.Count < 1 || IsVerificationPass == false)
         {
-            Toast.Show("拒绝操作");
+            Toast.Show(ToastIcon.Warning, "拒绝操作");
             return;
         }
         string? newPassword = null;
@@ -138,11 +138,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
                 newPassword))
         {
-            Toast.Show("令牌密码保护设置成功。");
+            Toast.Show(ToastIcon.Success, "令牌密码保护设置成功。");
             //_currentPassword = newPassword.Base64DecodeToByteArray_Nullable();
             _currentPassword = newPassword;
         }
-        else Toast.Show("令牌密码保护设置失败。");
+        else Toast.Show(ToastIcon.Error, "令牌密码保护设置失败。");
 
         HasPasswordEncrypt = true;
     }
@@ -151,16 +151,16 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (Auths.Count < 1 || IsVerificationPass == false)
         {
-            Toast.Show("拒绝操作");
+            Toast.Show(ToastIcon.Error, "拒绝操作");
             return;
         }
         if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
                 null))
         {
-            Toast.Show("令牌密码保护移除成功。");
+            Toast.Show(ToastIcon.Success, "令牌密码保护移除成功。");
             _currentPassword = null;
         }
-        else Toast.Show("令牌密码保护移除失败。");
+        else Toast.Show(ToastIcon.Error, "令牌密码保护移除失败。");
 
         HasPasswordEncrypt = false;
         IsVerificationPass = true;
@@ -170,14 +170,14 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (Auths.Count < 1 || IsVerificationPass == false)
         {
-            Toast.Show("拒绝操作");
+            Toast.Show(ToastIcon.Error, "拒绝操作");
             return;
         }
         bool newStatus = HasLocalPcEncrypt == false;
 
         if (await AuthenticatorService.SwitchEncryptionAuthenticators(newStatus, Auths.Select(i => i.AuthData),
-                _currentPassword)) Toast.Show($"令牌本机电脑保护{(newStatus ? "开启" : "关闭")}成功");
-        else Toast.Show($"令牌本机电脑保护{(newStatus ? "开启" : "关闭")}失败");
+                _currentPassword)) Toast.Show(ToastIcon.Success, $"令牌本机电脑保护{(newStatus ? "开启" : "关闭")}成功");
+        else Toast.Show(ToastIcon.Error, $"令牌本机电脑保护{(newStatus ? "开启" : "关闭")}失败");
 
         HasLocalPcEncrypt = newStatus;
     }
@@ -197,7 +197,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (!HasPasswordEncrypt)
         {
-            Toast.Show("没有加密令牌可供操作");
+            Toast.Show(ToastIcon.Warning, "没有加密令牌可供操作");
             return;
         }
         Auths.Clear();
@@ -207,42 +207,42 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     public async Task KeepDisplay()
     {
-        //var temp1 = await IMicroServiceClient.Instance.Manage.EditUserProfile(new EditUserProfileRequest { NickName = "TestUser123", });
+        var temp1 = await IMicroServiceClient.Instance.Manage.EditUserProfile(new EditUserProfileRequest { NickName = "TestUser123", });
 
-        //var test5 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
+        var test5 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
 
-        //string rspquestion = "";
-        //var rsp1 = await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
-        //if (rsp1.Content != null) rspquestion = rsp1.Content;
-        //var setpassword = await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new() { PwdQuestion = "测试", Answer = "123" });
+        string rspquestion = "";
+        var rsp1 = await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
+        if (rsp1.Content != null) rspquestion = rsp1.Content;
+        var setpassword = await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new() { PwdQuestion = "测试", Answer = "123" });
 
-        //var test1 = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
-        //{
-        //    Difference = new UserAuthenticatorPushItem[]
-        //    {
-        //        new()
-        //        {
-        //            GamePlatform = (int)GamePlatform.Windows,
-        //            TokenType = UserAuthenticatorTokenType.TOTP,
-        //            Name = CurrentSelectedAuth.Name,
-        //            Token = MemoryPackSerializer.Serialize(AuthenticatorDTOExtensions.ToExport(CurrentSelectedAuth.AuthData)),  //await AuthenticatorService.ExportAuthAsync(new IAuthenticatorDTO(){  }),
-        //            Order = 1,
-        //            Remarks = ""
-        //        },
-        //    },
-        //    Answer = "123"
-        //});
+        var test1 = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+        {
+            Difference = new UserAuthenticatorPushItem[]
+            {
+                new()
+                {
+                    GamePlatform = (int)GamePlatform.Windows,
+                    TokenType = UserAuthenticatorTokenType.TOTP,
+                    Name = CurrentSelectedAuth.Name,
+                    Token = MemoryPackSerializer.Serialize(AuthenticatorDTOExtensions.ToExport(CurrentSelectedAuth.AuthData)),  //await AuthenticatorService.ExportAuthAsync(new IAuthenticatorDTO(){  }),
+                    Order = 1,
+                    Remarks = ""
+                },
+            },
+            Answer = "123"
+        });
 
-        //var test = await IMicroServiceClient.Instance.Advertisement.All(AdvertisementType.Banner);
-        //var test2 = await IMicroServiceClient.Instance.Script.Query();
-        //var test3 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
+        var test = await IMicroServiceClient.Instance.Advertisement.All(AdvertisementType.Banner);
+        var test2 = await IMicroServiceClient.Instance.Script.Query();
+        var test3 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
     }
 
     public async Task UnbindingSteamAuthAsync()
     {
         if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam)
         {
-            Toast.Show("解绑功能目前仅支持 Steam 令牌");
+            Toast.Show(ToastIcon.Warning, "解绑功能目前仅支持 Steam 令牌");
             return;
         }
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
@@ -279,17 +279,17 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 }
                 if (string.IsNullOrEmpty(loginState.AccessToken))
                 {
-                    Toast.Show("解绑令牌失败：登陆未成功");
+                    Toast.Show(ToastIcon.Warning, "解绑令牌失败：登陆未成功");
                     return;
                 }
                 if (await steamAuthenticator.RemoveAuthenticatorAsync(loginState.AccessToken))
                 {
                     AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
                     Auths.Remove(CurrentSelectedAuth);
-                    Toast.Show("令牌解绑成功");
+                    Toast.Show(ToastIcon.Success, "令牌解绑成功");
                     return;
                 }
-                Toast.Show("解绑令牌失败");
+                Toast.Show(ToastIcon.Error, "解绑令牌失败");
             }
         }
     }
@@ -361,10 +361,10 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         switch (result)
         {
             case QRCodeHelper.QRCodeCreateResult.DataTooLong:
-                Toast.Show(Strings.AuthLocal_ExportToQRCodeTooLongErrorTip);
+                Toast.Show(ToastIcon.Error, Strings.AuthLocal_ExportToQRCodeTooLongErrorTip);
                 break;
             case QRCodeHelper.QRCodeCreateResult.Exception:
-                Toast.Show(e.Message);
+                Toast.Show(ToastIcon.Error, e.Message);
                 Log.Error(nameof(AuthenticatorPageViewModel), e, nameof(ShowQrCode));
                 break;
         }
@@ -376,7 +376,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam)
         {
-            Toast.Show("确认交易功能仅限Steam令牌使用");
+            Toast.Show(ToastIcon.Warning, "确认交易功能仅限Steam令牌使用");
             return;
         }
         var authData = CurrentSelectedAuth.AuthData;
@@ -460,7 +460,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 var filestream = exportFile?.OpenWrite();
                 if (filestream == null)
                 {
-                    Toast.Show(Strings.LocalAuth_ProtectionAuth_PathError);
+                    Toast.Show(ToastIcon.Error, Strings.LocalAuth_ProtectionAuth_PathError);
                     return;
                 }
 
@@ -473,12 +473,12 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 await filestream.FlushAsync();
                 await filestream.DisposeAsync();
 
-                Toast.Show(Strings.ExportedToPath_.Format(exportFile?.ToString()));
+                Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile?.ToString()));
             }
         }
         else
         {
-            Toast.Show("请先选中一个Steam令牌");
+            Toast.Show(ToastIcon.Warning, "请先选中一个Steam令牌");
         }
     }
 

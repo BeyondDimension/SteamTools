@@ -20,7 +20,7 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
     {
         if (string.IsNullOrEmpty(SecretCode))
         {
-            Toast.Show("请输入「导入文本」。");
+            Toast.Show(ToastIcon.Info, "请输入「导入文本」。");
             return;
         }
         switch (ImportAuthenticatorType)
@@ -35,7 +35,7 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
                 break;
             case CanImportAuthenticatorType.其他令牌:
                 _importAuthenticatorValueDto =
-                    await AuthenticatorService.GeneralAuthenticatorImport(AuthenticatorPlatform.HOTP, SecretCode);
+                    await AuthenticatorService.GeneralAuthenticatorImport(AuthenticatorPlatform.Google, SecretCode);
                 break;
         }
 
@@ -47,13 +47,13 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
     {
         if (_importAuthenticatorValueDto == null)
         {
-            Toast.Show("请先验证令牌 Code 正确后，再点击导入");
+            Toast.Show(ToastIcon.Info, "请先验证令牌 Code 正确后，再点击导入");
             return;
         }
 
         if (string.IsNullOrEmpty(AuthenticatorName))
         {
-            Toast.Show("请输入令牌名称");
+            Toast.Show(ToastIcon.Warning, "请输入令牌名称");
             return;
         }
 

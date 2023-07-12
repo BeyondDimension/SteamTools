@@ -107,7 +107,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
         {
             if (string.IsNullOrWhiteSpace(VerifyPassword) && VerifyPassword != Password)
             {
-                Toast.Show(Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
+                Toast.Show(ToastIcon.Warning, Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
                 return;
             }
         }
@@ -115,7 +115,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
         var filestream = ExportFile?.OpenWrite();
         if (filestream == null)
         {
-            Toast.Show(Strings.LocalAuth_ProtectionAuth_PathError);
+            Toast.Show(ToastIcon.Error, Strings.LocalAuth_ProtectionAuth_PathError);
             return;
         }
 
@@ -137,7 +137,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
         await filestream.FlushAsync();
         await filestream.DisposeAsync();
 
-        Toast.Show(Strings.ExportedToPath_.Format(ExportFile?.ToString()));
+        Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(ExportFile?.ToString()));
         
         ExportFile = null;
     }
@@ -154,7 +154,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
         {
             if (!(await AuthenticatorService.ValidatePassword(sourceData[0], textViewmodel.Value)))
             {
-                Toast.Show("密码错误，请重试");
+                Toast.Show(ToastIcon.Warning, "密码错误，请重试");
                 await GetAuthenticators(sourceData);
             }
             return textViewmodel.Value;

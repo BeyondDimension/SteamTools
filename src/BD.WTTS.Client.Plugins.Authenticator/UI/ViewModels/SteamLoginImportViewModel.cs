@@ -131,7 +131,7 @@ public sealed partial class SteamLoginImportViewModel
                 await IWindowManager.Instance.ShowTaskDialogAsync(
                     new MessageBoxWindowViewModel { Content = _enrollState.Error, IsCancelcBtn = true });
             else
-                Toast.Show(_enrollState.Error, ToastLength.Long);
+                Toast.Show(ToastIcon.Info, _enrollState.Error, ToastLength.Long);
         }
 
         if (_enrollState.NoPhoneNumber == true)
@@ -162,13 +162,13 @@ public sealed partial class SteamLoginImportViewModel
                 await IWindowManager.Instance.ShowTaskDialogAsync(
                     new MessageBoxWindowViewModel { Content = _steamLoginState.Message, IsCancelcBtn = true });
             else
-                Toast.Show(_steamLoginState.Message, ToastLength.Long);
+                Toast.Show(ToastIcon.Info, _steamLoginState.Message, ToastLength.Long);
         }
 
         //已有令牌，无法导入
         if (_steamLoginState.Requires2FA == true)
         {
-            Toast.Show(Strings.LocalAuth_SteamUser_Requires2FA, ToastLength.Long);
+            Toast.Show(ToastIcon.Error, Strings.LocalAuth_SteamUser_Requires2FA, ToastLength.Long);
             Reset();
             //throw new SteamLoginRequires2FAException(Strings.LocalAuth_SteamUser_Requires2FA);
         }
@@ -196,7 +196,7 @@ public sealed partial class SteamLoginImportViewModel
     {
         if (_IsLogining)
         {
-            Toast.Show("请勿频繁操作");
+            Toast.Show(ToastIcon.Warning, "请勿频繁操作");
             return;
         }
         _IsLogining = true;
@@ -243,7 +243,7 @@ public sealed partial class SteamLoginImportViewModel
                         var error = string.IsNullOrEmpty(_enrollState.Error)
                             ? Strings.LocalAuth_SteamUser_Error
                             : _enrollState.Error;
-                        Toast.Show(error, ToastLength.Long);
+                        Toast.Show(ToastIcon.Error, error, ToastLength.Long);
                         Reset();
                     }
                 }
@@ -253,7 +253,7 @@ public sealed partial class SteamLoginImportViewModel
                     {
                         if (string.IsNullOrEmpty(PhoneNumberText))
                         {
-                            Toast.Show("请正确输入手机号。");
+                            Toast.Show(ToastIcon.Warning, "请正确输入手机号。");
                             return;
                         }
                         
@@ -263,7 +263,7 @@ public sealed partial class SteamLoginImportViewModel
                         
                         if (!string.IsNullOrEmpty(reslut))
                         {
-                            Toast.Show(reslut);
+                            Toast.Show(ToastIcon.Info, reslut);
                             _isConfirmMailUrl = true;
                             return;
                         }
@@ -286,17 +286,17 @@ public sealed partial class SteamLoginImportViewModel
         {
             if (ex is WinAuthSteamToManyRequestException or WinAuthInvalidEnrollResponseException)
             {
-                Toast.Show(ex.Message, ToastLength.Long);
+                Toast.Show(ToastIcon.Error, ex.Message, ToastLength.Long);
                 return;
             }
             else if (ex is SteamLoginRequires2FAException slr2ex)
             {
-                Toast.Show(slr2ex.Message, ToastLength.Long);
+                Toast.Show(ToastIcon.Error, slr2ex.Message, ToastLength.Long);
                 return;
             }
             else if (ex is SteamLoginNullCatpchaCodeException slnex)
             {
-                Toast.Show(slnex.Message, ToastLength.Long);
+                Toast.Show(ToastIcon.Error, slnex.Message, ToastLength.Long);
                 return;
             }
             else

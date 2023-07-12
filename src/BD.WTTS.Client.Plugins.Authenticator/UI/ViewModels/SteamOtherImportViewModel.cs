@@ -157,7 +157,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
         }
         else
         {
-            Toast.Show("不支持该文件类型的导入方式。");
+            Toast.Show(ToastIcon.Error, "不支持该文件类型的导入方式。");
             return;
         }
 
@@ -170,7 +170,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
         {
             if (string.IsNullOrEmpty(PhoneImportUuid) || string.IsNullOrEmpty(PhoneImportSteamGuard))
             {
-                Toast.Show("UUID及SteamGuard不可为空");
+                Toast.Show(ToastIcon.Warning, "UUID及SteamGuard不可为空");
                 return;
             }
             ImportFromPhoneSteamGuard();
@@ -178,37 +178,37 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
         }
         if (string.IsNullOrEmpty(ImportAuthFilePath) || !File.Exists(ImportAuthFilePath))
         {
-            Toast.Show("文件路径不存在");
+            Toast.Show(ToastIcon.Warning, "文件路径不存在");
             return;
         }
         switch (CurrentAuthImportType)
         {
             case AuthImportType.None:
-                Toast.Show("请选择导入方式");
+                Toast.Show(ToastIcon.Warning, "请选择导入方式");
                 break;
             case AuthImportType.WattToolkitV1:
                 if (ImportFromWattToolKitV1())
-                    Toast.Show("WattToolKitV1令牌导入成功");
+                    Toast.Show(ToastIcon.Success, "WattToolKitV1令牌导入成功");
                 else 
-                    Toast.Show("WattToolKitV1令牌导入失败");
+                    Toast.Show(ToastIcon.Error, "WattToolKitV1令牌导入失败");
                 break;
             case AuthImportType.WattToolkitV2:
                 if (await ImportFromWattToolKitV2())
-                    Toast.Show("WattToolKitV2令牌导入成功");
+                    Toast.Show(ToastIcon.Success, "WattToolKitV2令牌导入成功");
                 else 
-                    Toast.Show("WattToolKitV2令牌导入失败");
+                    Toast.Show(ToastIcon.Error, "WattToolKitV2令牌导入失败");
                 break;
             case AuthImportType.WinAuth:
                 if (ImportFromWinAuthFile())
-                    Toast.Show("WinAuth令牌导入成功");
+                    Toast.Show(ToastIcon.Success, "WinAuth令牌导入成功");
                 else
-                    Toast.Show("WinAuth令牌导入失败");
+                    Toast.Show(ToastIcon.Error, "WinAuth令牌导入失败");
                 break;
             case AuthImportType.SteamDesktopAuth:
                 if (ImportFromSDAFile())
-                    Toast.Show("SteamDesktopAuth令牌导入成功");
+                    Toast.Show(ToastIcon.Success, "SteamDesktopAuth令牌导入成功");
                 else
-                    Toast.Show("SteamDesktopAuth令牌导入失败");
+                    Toast.Show(ToastIcon.Error, "SteamDesktopAuth令牌导入失败");
                 break;
         }
     }
@@ -267,12 +267,12 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
                     SaveImport(item);
                 }
 
-                Toast.Show(result.resultCode == IAccountPlatformAuthenticatorRepository.ImportResultCode.Success
+                Toast.Show(ToastIcon.Success, result.resultCode == IAccountPlatformAuthenticatorRepository.ImportResultCode.Success
                     ? Strings.LocalAuth_AddAuthSuccess
                     : Strings.LocalAuth_AddAuth_PartSuccess);
                 break;
             case IAccountPlatformAuthenticatorRepository.ImportResultCode.SecondaryPasswordFail:
-                Toast.Show(Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
+                Toast.Show(ToastIcon.Warning, Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
                 var textviewmodel =
                     new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.Password };
                 if (await IWindowManager.Instance.ShowTaskDialogAsync(textviewmodel, "请输入此令牌导出时设置的密码", isDialog: false,
@@ -284,7 +284,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
                 ImportFromWattToolKitV2(exportPassword);
                 break;
             default:
-                Toast.Show(Strings.LocalAuth_ExportAuth_Error.Format(result.resultCode));
+                Toast.Show(ToastIcon.Error, Strings.LocalAuth_ExportAuth_Error.Format(result.resultCode));
                 break;
         }
 
@@ -601,22 +601,22 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
                 authenticatorDto.Value = auth;
 
                 // sync
-                Toast.Show(Strings.LocalAuth_AddAuthSyncTip, ToastLength.Short);
+                Toast.Show(ToastIcon.Info, Strings.LocalAuth_AddAuthSyncTip, ToastLength.Short);
                 authenticatorDto.Value.Sync();
 
                 SaveImport(authenticatorDto);
             }
 
-            Toast.Show(Strings.LocalAuth_AddAuthSuccess);
+            Toast.Show(ToastIcon.Success, Strings.LocalAuth_AddAuthSuccess);
             isOK = true;
         }
         catch (UriFormatException)
         {
-            Toast.Show(string.Format("UriFormatException Invalid authenticator at line {0}", linenumber));
+            Toast.Show(ToastIcon.Error, string.Format("UriFormatException Invalid authenticator at line {0}", linenumber));
         }
         catch (Exception ex)
         {
-            Toast.Show(string.Format("Error importing at line {0}", ex.Message));
+            Toast.Show(ToastIcon.Error, string.Format("Error importing at line {0}", ex.Message));
         }
 
         return isOK;

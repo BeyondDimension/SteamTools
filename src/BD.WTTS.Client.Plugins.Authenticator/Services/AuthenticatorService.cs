@@ -11,12 +11,12 @@ public sealed partial class AuthenticatorService
     public static async Task ShowCaptchaUrl(string? url)
     {
         if (string.IsNullOrEmpty(url))
-            Toast.Show("验证码URL为空，请重新登录");
+            Toast.Show(ToastIcon.Warning, "验证码URL为空，请重新登录");
         else
         {
             if (await Browser2.OpenAsync(url)) return;
             await Clipboard2.SetTextAsync(url);
-            Toast.Show(Strings.CopyToClipboard);
+            Toast.Show(ToastIcon.Success, Strings.CopyToClipboard);
         }
     }
     
@@ -137,7 +137,7 @@ public sealed partial class AuthenticatorService
                     auth.Enroll(privateKey);
 
                     if (auth.ServerTimeDiff == 0L)
-                        Toast.Show("无法连接到令牌验证服务器");
+                        Toast.Show(ToastIcon.Error, "无法连接到令牌验证服务器");
 
                     return auth;
                 }
@@ -159,7 +159,7 @@ public sealed partial class AuthenticatorService
                     //var code = auth.CurrentCode;
 
                     if (auth.ServerTimeDiff == 0L)
-                        Toast.Show("无法连接到Google服务器");
+                        Toast.Show(ToastIcon.Error, "无法连接到Google服务器");
 
                     return auth;
                 }
@@ -175,7 +175,7 @@ public sealed partial class AuthenticatorService
                     auth.Enroll(privateKey);
 
                     if (auth.ServerTimeDiff == 0L)
-                        Toast.Show("无法连接到令牌验证服务器");
+                        Toast.Show(ToastIcon.Error, "无法连接到令牌验证服务器");
 
                     return auth;
                 }
@@ -226,7 +226,7 @@ public sealed partial class AuthenticatorService
             }
             catch (Exception e)
             {
-                Toast.Show("扫描网页二维码失败：" + e.Message);
+                Toast.Show(ToastIcon.Error, "扫描网页二维码失败：" + e.Message);
                 Log.Error(nameof(AuthenticatorService), e, nameof(DecodePrivateKey));
             }
             
