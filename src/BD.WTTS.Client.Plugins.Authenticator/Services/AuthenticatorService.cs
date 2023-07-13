@@ -34,6 +34,16 @@ public sealed partial class AuthenticatorService
     public static async Task AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password)
     {
         var isLocal = await repository.HasLocalAsync();
+        // TODO 可以加入缓存优化
+        var sourceList = await GetAllSourceAuthenticatorAsync();
+        if (sourceList.Length >= IAccountPlatformAuthenticatorRepository.MaxValue)
+        {
+            if (sourceList.FirstOrDefault(i => i.Id == authenticatorDto.Id) == null)
+            {
+                Toast.Show(ToastIcon.Error, "操作失败：超出令牌最大数量限制");
+                return;
+            }
+        }
         await repository.InsertOrUpdateAsync(authenticatorDto, isLocal, password);
     }
 
@@ -119,7 +129,61 @@ public sealed partial class AuthenticatorService
     {
         await repository.ExportAsync(stream, isLocal, password, items);
     }
+
+    public static IAuthenticatorDTO ConvertToAuthenticatorDto(
+        UserAuthenticatorResponse authenticatorResponse)
+    {
+        var exportDto = MemoryPackSerializer.Deserialize<AuthenticatorExportDTO>(authenticatorResponse.Token);
+        exportDto.ThrowIsNull();
+        var valueDto = ConvertToAuthenticatorValueDto(exportDto);
+        AuthenticatorDTO dto = new AuthenticatorDTO()
+        {
+            ServerId = authenticatorResponse.Id, Value = valueDto,
+            Name = exportDto.Name,
+            Index = (int)authenticatorResponse.Order,
+            //LastUpdate = DateTimeOffset.Now,
+        };
+        return dto;
+    }
     
+    static IAuthenticatorValueDTO? ConvertToAuthenticatorValueDto(AuthenticatorExportDTO authenticatorExportDto)
+    {
+        IAuthenticatorValueDTO? valueDto = null;
+
+        switch (authenticatorExportDto.Platform)
+        {
+            case AuthenticatorPlatform.Steam:
+                valueDto = new SteamAuthenticator()
+                {
+                    DeviceId = authenticatorExportDto.DeviceId, 
+                    SteamData = authenticatorExportDto.SteamData,
+                };
+                break;
+            case AuthenticatorPlatform.Microsoft:
+                valueDto = new MicrosoftAuthenticator();
+                break;
+            case AuthenticatorPlatform.BattleNet:
+                valueDto = new BattleNetAuthenticator() { Serial = authenticatorExportDto.Serial };
+                break;
+            case AuthenticatorPlatform.Google:
+                valueDto = new GoogleAuthenticator();
+                break;
+            case AuthenticatorPlatform.HOTP:
+                valueDto = new HOTPAuthenticator() { Counter = authenticatorExportDto.Counter };
+                break;
+        }
+        if (valueDto == null) return null;
+        
+        valueDto.Issuer = authenticatorExportDto.Issuer;
+        valueDto.HMACType = authenticatorExportDto.HMACType;
+        valueDto.SecretKey = authenticatorExportDto.SecretKey;
+        valueDto.Period = authenticatorExportDto.Period;
+        if (valueDto.Period == 0) valueDto.Period = 30;
+        valueDto.CodeDigits = authenticatorExportDto.CodeDigits;
+
+        return valueDto;
+    }
+
     public static async Task<IAuthenticatorValueDTO?> GeneralAuthenticatorImport(AuthenticatorPlatform platform,
         string secretCode)
     {

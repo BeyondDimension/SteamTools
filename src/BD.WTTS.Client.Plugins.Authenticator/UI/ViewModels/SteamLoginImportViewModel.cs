@@ -232,7 +232,12 @@ public sealed partial class SteamLoginImportViewModel
                 {
                     if (await FinalizeAddAuthenticatorAsync())
                     {
-                        var iADTO = new AuthenticatorDTO() { Name = $"Steam({UserNameText})", Value = steamAuthenticator };
+                        var iADTO = new AuthenticatorDTO()
+                        {
+                            Name = $"Steam({UserNameText})",
+                            Value = steamAuthenticator,
+                            Created = DateTimeOffset.Now,
+                        };
                         await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iADTO, _currentPassword);
                         await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUserImportSuccess, IsCancelcBtn = true });
                         SelectIndex = 4;

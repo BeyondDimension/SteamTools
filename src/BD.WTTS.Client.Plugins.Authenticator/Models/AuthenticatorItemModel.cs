@@ -108,9 +108,9 @@ public class AuthenticatorItemModel : ItemViewModel
     //     }
     // }
 
-    string? authname;
+    string authname;
 
-    public string? AuthName
+    public string AuthName
     {
         get => authname;
         set
@@ -149,7 +149,7 @@ public class AuthenticatorItemModel : ItemViewModel
     public AuthenticatorItemModel(IAuthenticatorDTO authenticatorDto)
     {
         AuthData = authenticatorDto;
-        AuthName = AuthData.Name;
+        authname = AuthData.Name;
         StrokeColor = Brush.Parse("#61a4f0");
         Test();
     }

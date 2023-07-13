@@ -60,7 +60,8 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
         var iAuthenticatorDtoDto = new AuthenticatorDTO()
         {
             Name = $"{ImportAuthenticatorType.ToString().Replace("令牌", "")}({AuthenticatorName})",
-            Value = _importAuthenticatorValueDto
+            Value = _importAuthenticatorValueDto,
+            Created = DateTimeOffset.Now,
         };
         await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iAuthenticatorDtoDto, _password);
         await IWindowManager.Instance.ShowTaskDialogAsync(

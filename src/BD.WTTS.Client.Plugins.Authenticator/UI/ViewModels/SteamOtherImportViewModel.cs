@@ -241,7 +241,10 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
                 SteamData = JsonSerializer.Serialize(steamDataModel, ImportFileModelJsonContext.Default.SdaFileConvertToSteamDataModel),
             };
             var authDto =
-                new AuthenticatorDTO() { Name = $"(Steam){ImportAuthNewName}", Value = steamAuthenticator };
+                new AuthenticatorDTO()
+                {
+                    Name = $"(Steam){ImportAuthNewName}", Value = steamAuthenticator, Created = DateTimeOffset.Now,
+                };
             SaveImport(authDto);
         }
         catch (Exception e)
@@ -426,7 +429,10 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
                 DeviceId = deviceId
             };
 
-            SaveImport(new AuthenticatorDTO() { Name = $"(Steam){ImportAuthNewName}", Value = auth });
+            SaveImport(new AuthenticatorDTO()
+            {
+                Name = $"(Steam){ImportAuthNewName}", Value = auth, Created = DateTimeOffset.Now,
+            });
             
             return true;
     }
