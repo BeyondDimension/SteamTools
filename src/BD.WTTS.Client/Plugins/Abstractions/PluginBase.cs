@@ -81,7 +81,11 @@ public abstract partial class PluginBase : IPlugin
     protected static string[] DecodeToArrayArgs(string args)
         => HttpUtility.UrlDecode(args).Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-    public virtual async Task<int> RunSubProcessMainAsync(string moduleName, string pipeName, string processId, string encodedArgs)
+    public virtual async Task<int> RunSubProcessMainAsync(
+        string moduleName,
+        string pipeName,
+        string processId,
+        string encodedArgs)
     {
         var subProcessBootConfiguration = GetSubProcessBootConfiguration(encodedArgs ?? string.Empty);
         if (subProcessBootConfiguration == default)

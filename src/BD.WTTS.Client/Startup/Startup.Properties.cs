@@ -74,6 +74,12 @@ partial class Startup // Properties
     /// </summary>
     public HashSet<string> InvalidConfigurationFileNames { get; private set; } = new();
 
+    /// <summary>
+    /// 存在重复的插件列表，无重复则为 <see langword="null"/>
+    /// <para>string = 重复的 Id 或者 UniqueEnglishName</para>
+    /// </summary>
+    public Dictionary<PluginRepetitionType, Dictionary<string, IPlugin>>? RepetitivePlugins { get; private set; }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     async ValueTask DisposeAppAsync()
     {

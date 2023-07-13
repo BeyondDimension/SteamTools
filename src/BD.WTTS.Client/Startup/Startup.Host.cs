@@ -59,6 +59,52 @@ partial class Startup // 配置 Host
             pluginResults = PluginsCore.InitPlugins(generalSettings?.CurrentValue.DisablePlugins, loadModules);
             plugins = pluginResults?.Where(x => !x.IsDisable).Select(x => x.Data).ToHashSet();
             HasPlugins = plugins.Any_Nullable();
+            if (HasPlugins)
+            {
+                var pluginIds = new HashSet<Guid>();
+                var pluginUniqueEnglishNames = new HashSet<string>();
+                Dictionary<string, IPlugin>? pluginRepetitionIds = null;
+                Dictionary<string, IPlugin>? pluginRepetitionUniqueEnglishNames = null;
+                Dictionary<PluginRepetitionType, Dictionary<string, IPlugin>>? repetitivePlugins = null;
+                void AddRepetition(PluginRepetitionType key, Dictionary<string, IPlugin> value)
+                {
+                    repetitivePlugins ??= new();
+                    if (!repetitivePlugins.ContainsKey(key))
+                        repetitivePlugins.Add(key, value);
+                }
+                void AddRepetitionId(IPlugin plugin)
+                {
+                    pluginRepetitionIds ??= new();
+                    AddRepetition(PluginRepetitionType.Id, pluginRepetitionIds);
+                    pluginRepetitionIds.Add(plugin.Id.ToString(), plugin);
+                }
+                void AddRepetitionUniqueEnglishName(IPlugin plugin)
+                {
+                    pluginRepetitionUniqueEnglishNames ??= new();
+                    AddRepetition(PluginRepetitionType.UniqueEnglishName, pluginRepetitionUniqueEnglishNames);
+                    pluginRepetitionUniqueEnglishNames.Add(plugin.UniqueEnglishName, plugin);
+                }
+                foreach (var item in plugins!)
+                {
+                    var isRepetition = false;
+                    if (!pluginIds.Add(item.Id))
+                    {
+                        isRepetition = true;
+                        AddRepetitionId(item);
+                    }
+                    if (!pluginUniqueEnglishNames.Add(item.UniqueEnglishName))
+                    {
+                        isRepetition = true;
+                        AddRepetitionUniqueEnglishName(item);
+                    }
+                    if (isRepetition)
+                    {
+                        pluginResults!.RemoveWhere(x => x.Data == item && !x.IsDisable);
+                        plugins.Remove(item);
+                    }
+                }
+                RepetitivePlugins = repetitivePlugins;
+            }
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("InitPlugins");
 #endif
@@ -191,7 +237,8 @@ partial class Startup // 配置 Host
                                     }
                                     catch (Exception ex)
                                     {
-                                        GlobalExceptionHandler.Handler(ex, nameof(ProxyMessageReceived));
+                                        GlobalExceptionHandler.Handler(ex,
+                                            nameof(ProxyMessageReceived));
                                     }
                                 }
                                 break;
