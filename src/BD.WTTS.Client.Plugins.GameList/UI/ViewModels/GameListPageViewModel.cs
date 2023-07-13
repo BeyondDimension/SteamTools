@@ -6,6 +6,8 @@ public partial class GameListPageViewModel : TabItemViewModel
 {
     readonly Dictionary<string, string[]> dictPinYinArray = new();
 
+    public ICommand? RefreshAppCommand { get; }
+
     public ReactiveCommand<Unit, Unit>? HideAppCommand { get; }
 
     public ReactiveCommand<Unit, Unit>? IdleAppCommand { get; }
@@ -91,6 +93,7 @@ public partial class GameListPageViewModel : TabItemViewModel
         {
             //IWindowManager.Instance.Show(CustomWindow.SaveEditedAppInfo, resizeMode: ResizeMode.CanResize);
         });
+        RefreshAppCommand = ReactiveCommand.CreateFromTask(SteamConnectService.Current.RefreshGamesListAsync);
     }
 
     public override void Activation()

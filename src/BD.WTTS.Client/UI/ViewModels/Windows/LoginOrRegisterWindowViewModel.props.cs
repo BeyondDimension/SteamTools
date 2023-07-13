@@ -134,8 +134,6 @@ public partial class LoginOrRegisterWindowViewModel
 
     public ICommand Submit { get; }
 
-    public Action? Close { get; set; }
-
     public Action? TbPhoneNumberFocus { get; set; }
 
     public Action? TbSmsCodeFocus { get; set; }

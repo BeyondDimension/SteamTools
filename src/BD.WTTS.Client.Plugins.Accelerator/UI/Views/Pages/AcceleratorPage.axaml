@@ -8,16 +8,17 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="{ReflectionBinding Name,
+                              Source={x:Static s:Plugin.Instance},
+                              Mode=OneWay}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:AcceleratorPageViewModel"
-    Title="{ReflectionBinding Name,
-                              Source={x:Static s:Plugin.Instance},
-                              Mode=OneWay}"
     Description="{ReflectionBinding Description,
                                     Source={x:Static s:Plugin.Instance},
                                     Mode=OneWay}"
+    OpenPaneLength="335"
     Subtitle="{ReflectionBinding Author,
                                  Source={x:Static s:Plugin.Instance},
                                  Mode=OneWay,
@@ -31,12 +32,26 @@
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
                 Padding="8,4"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
                 Command="{Binding StartProxyCommand}"
                 DockPanel.Dock="Right"
                 IsVisible="{ReflectionBinding Source={x:Static s:ProxyService.Current},
                                               Path=!ProxyStatus,
                                               Mode=OneWay}"
                 Theme="{StaticResource TransparentButton}">
+                <!--<SplitButton.Flyout>
+                    <ui:FAMenuFlyout>
+                        <ui:MenuFlyoutSubItem ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+                            <ui:MenuFlyoutSubItem.ItemTemplate>
+                                <DataTemplate>
+                                    <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{ReflectionBinding}" />
+                                </DataTemplate>
+                            </ui:MenuFlyoutSubItem.ItemTemplate>
+                        </ui:MenuFlyoutSubItem>
+                        <ui:ToggleMenuFlyoutItem Text="启用脚本" />
+                    </ui:FAMenuFlyout>
+                </SplitButton.Flyout>-->
                 <Panel>
                     <Viewbox
                         Width="16"
@@ -53,6 +68,7 @@
                                                  Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
+
             <Button
                 Padding="8,4"
                 Command="{Binding StartProxyCommand}"
@@ -66,7 +82,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
+                        <ui:SymbolIcon Symbol="StopFilled" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -77,14 +93,17 @@
                                                  Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
+
             <Separator
                 Height="18"
-                Margin="0"
+                Margin="5,0"
                 VerticalAlignment="Center"
                 Background="{DynamicResource ButtonBorderBrush}"
                 Classes="Vertical"
                 DockPanel.Dock="Right"
                 IsHitTestVisible="False" />
+
+
             <Button
                 Padding="8,4"
                 Command="{Binding RefreshCommand}"
@@ -106,6 +125,27 @@
                                                  Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
+
+            <ToggleButton
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
+                Theme="{StaticResource TransparentToggleButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Settings" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="加速设置" />
+                </Panel>
+            </ToggleButton>
+
             <DropDownButton
                 Padding="8"
                 HorizontalContentAlignment="Center"
@@ -116,14 +156,14 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutSubItem ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+                        <!--<ui:MenuFlyoutSubItem ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
                             <ui:MenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate>
                                     <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{ReflectionBinding}" />
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
-                        </ui:MenuFlyoutSubItem>
-                        <ui:MenuFlyoutItem Text="加速设置" />
+                        </ui:MenuFlyoutSubItem>-->
+                        <ui:MenuFlyoutItem Text="插件设置" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem Text="安装证书" />
                         <ui:MenuFlyoutItem Text="移除证书" />
@@ -155,6 +195,83 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>
+    <spp:PageBase.PaneContent>
+        <StackPanel Margin="15,20" Spacing="10">
+            <TextBlock Text="加速模式" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+            <TabStrip
+                Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                CornerRadius="{StaticResource ControlCornerRadius}"
+                ItemContainerTheme="{StaticResource TabItemStyle}"
+                ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes},
+                                                Path=.,
+                                                Mode=OneWay}"
+                SelectedItem="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode},
+                                                 Path=Value,
+                                                 Mode=TwoWay}"
+                Theme="{StaticResource TabStripStyle}">
+                <TabStrip.ItemTemplate>
+                    <DataTemplate DataType="spp:ProxyMode">
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </TabStrip.ItemTemplate>
+            </TabStrip>
+
+            <TextBlock Text="加速设置" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+            <ToggleSwitch
+                VerticalAlignment="Center"
+                Classes="NoContent"
+                IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}"
+                OffContent="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,
+                                               Mode=OneWay,
+                                               Source={x:Static s:ResourceService.Current}}"
+                OnContent="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,
+                                              Mode=OneWay,
+                                              Source={x:Static s:ResourceService.Current}}" />
+
+            <!--<StackPanel Orientation="Horizontal" Spacing="4">
+                <ToggleButton
+                    Padding="8"
+                    Theme="{StaticResource TransparentToggleButton}"
+                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}">
+                    <Viewbox Width="20" Height="20">
+                        <ui:SymbolIcon Symbol="Play" />
+                    </Viewbox>
+                </ToggleButton>
+
+                <ToggleButton
+                    Padding="8"
+                    Theme="{StaticResource TransparentToggleButton}"
+                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyCloudArchive,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}">
+                    <Viewbox Width="20" Height="20">
+                        <ui:SymbolIcon Symbol="CloudSyncComplete" />
+                    </Viewbox>
+                </ToggleButton>
+            </StackPanel>-->
+
+            <Button HorizontalAlignment="Stretch" Content="安装证书" />
+            <Button HorizontalAlignment="Stretch" Content="移除证书" />
+            <Button HorizontalAlignment="Stretch" Content="打开证书文件夹" />
+
+            <Button HorizontalAlignment="Stretch" Content="编辑 hosts 文件" />
+            <Button HorizontalAlignment="Stretch" Content="重置 hosts 文件" />
+            <Button HorizontalAlignment="Stretch" Content="打开 hosts 文件夹" />
+
+            <!--<ui:FAComboBox ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" SelectedItem="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}">
+                <ui:FAComboBox.ItemTemplate>
+                    <DataTemplate DataType="spp:ProxyMode">
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ui:FAComboBox.ItemTemplate>
+            </ui:FAComboBox>-->
+
+        </StackPanel>
+    </spp:PageBase.PaneContent>
     <ScrollViewer Padding="10">
         <ScrollViewer.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />

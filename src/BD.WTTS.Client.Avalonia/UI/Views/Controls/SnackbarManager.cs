@@ -95,6 +95,7 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
 
         var infoBarControl = new Snackbar
         {
+            MaxWidth = 450,
             IsOpen = true,
             IsClosable = true,
             Severity = InfoBarSeverity.Informational,
@@ -174,14 +175,14 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
             adornerLayer.ZIndex = int.MaxValue;
             adornerLayer.Children.Add(this);
             AdornerLayer.SetAdornedElement(this, adornerLayer);
-        }
 
-        var overlayLayer = OverlayLayer.GetOverlayLayer(host);
-        //if (overlayLayer is not null && !overlayLayer.Children.Contains(this))
-        if (overlayLayer is not null)
-        {
-            overlayLayer.ZIndex = int.MaxValue - 1;
-            //overlayLayer.Children.Add(this);
+            var overlayLayer = OverlayLayer.GetOverlayLayer(host);
+            //if (overlayLayer is not null && !overlayLayer.Children.Contains(this))
+            if (overlayLayer is not null)
+            {
+                overlayLayer.ZIndex = adornerLayer.ZIndex - 1;
+                //overlayLayer.Children.Add(this);
+            }
         }
     }
 

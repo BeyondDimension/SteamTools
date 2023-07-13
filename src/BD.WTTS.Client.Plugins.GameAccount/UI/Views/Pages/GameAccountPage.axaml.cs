@@ -10,7 +10,7 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
     public GameAccountPage()
     {
         InitializeComponent();
-        DataContext = new GameAccountPageViewModel();
+        DataContext ??= new GameAccountPageViewModel();
 
         //this.WhenActivated(disposable =>
         //{

@@ -1,3 +1,4 @@
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Rendering.Composition;
 
 namespace BD.WTTS.UI.Views.Pages;
@@ -8,11 +9,9 @@ public class PageBase : UserControl
     {
         SizeChanged += PageBaseSizeChanged;
 
-        if (HeaderBackground == null &&
-            App.Instance.TryGetResource("PageHeaderBackgroundBrush", App.Instance.ActualThemeVariant, out var image) &&
-            image is IBrush brush)
+        if (HeaderBackground == null)
         {
-            HeaderBackground = brush;
+            this[!HeaderBackgroundProperty] = new DynamicResourceExtension("PageHeaderBackgroundBrush");
         }
 
         //AddHandler(Frame.NavigatingFromEvent, FrameNavigatingFrom, RoutingStrategies.Direct);
@@ -51,6 +50,9 @@ public class PageBase : UserControl
 
     public static readonly StyledProperty<bool> IsPaneOpenProperty =
         SplitView.IsPaneOpenProperty.AddOwner<PageBase>();
+
+    public static readonly StyledProperty<double> OpenPaneLengthProperty =
+        SplitView.OpenPaneLengthProperty.AddOwner<PageBase>();
 
     public string Title
     {
@@ -110,6 +112,12 @@ public class PageBase : UserControl
     {
         get => GetValue(IsPaneOpenProperty);
         set => SetValue(IsPaneOpenProperty, value);
+    }
+
+    public double OpenPaneLength
+    {
+        get => GetValue(OpenPaneLengthProperty);
+        set => SetValue(OpenPaneLengthProperty, value);
     }
 
     public IBrush? HeaderBackground

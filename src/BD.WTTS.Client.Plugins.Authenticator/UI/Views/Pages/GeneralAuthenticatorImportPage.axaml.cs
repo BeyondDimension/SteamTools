@@ -10,9 +10,4 @@ public partial class GeneralAuthenticatorImportPage : UserControl
     {
         InitializeComponent();
     }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

@@ -9,6 +9,6 @@ public partial class AuthenticatorHomePage : PageBase<AuthenticatorPageViewModel
     public AuthenticatorHomePage()
     {
         InitializeComponent();
-        DataContext = new AuthenticatorPageViewModel();
+        DataContext ??= new AuthenticatorPageViewModel();
     }
 }

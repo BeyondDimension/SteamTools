@@ -125,6 +125,10 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
 
         if (viewModel != null)
         {
+            if (viewModel is IWindowViewModel window)
+            {
+                window.Close = () => td.Hide(TaskDialogStandardResult.Close);
+            }
             td.DataContext = viewModel;
             td.Content = pageContent ?? GetPageContent(viewModel);
         }

@@ -25,13 +25,13 @@
                                  ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
-                Name="StoreButton"
                 Padding="8,4"
+                Command="{Binding ScriptStoreCommand}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
@@ -147,7 +147,6 @@
                     <DataTemplate DataType="spp:ScriptDTO">
                         <Border Margin="10" spp:Animations.EnableAnimations="True">
                             <spp:AppItem
-                                Name="Item"
                                 Title="{Binding Name}"
                                 MaxWidth="128"
                                 Classes="Vertical"

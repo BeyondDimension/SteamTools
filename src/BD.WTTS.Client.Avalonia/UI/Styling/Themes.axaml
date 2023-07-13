@@ -5,12 +5,12 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="/UI/Styling/Theme/Dark.axaml" />
+                <ResourceInclude Source="/UI/Styling/Theme/Light.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        <ResourceDictionary x:Key="Light">
+        <ResourceDictionary x:Key="Dark">
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="/UI/Styling/Theme/Light.axaml" />
+                <ResourceInclude Source="/UI/Styling/Theme/Dark.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         <ResourceDictionary x:Key="{x:Static spp:CustomTheme.HighContrastTheme}">

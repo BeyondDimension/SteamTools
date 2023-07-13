@@ -2446,4 +2446,7 @@ AAAAA-BBBBB-CCCC3</value>
 	<data name="Plugin_Author" xml:space="preserve">
 	  <value>作者：{0}</value>
   </data>
+	<data name="Plugin_Store" xml:space="preserve">
+	  <value>插件商店</value>
+  </data>
 </root>

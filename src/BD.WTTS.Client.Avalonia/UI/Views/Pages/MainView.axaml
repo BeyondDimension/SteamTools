@@ -184,7 +184,10 @@
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
                         Theme="{DynamicResource TransparentButton}">
-                        <Viewbox Width="20" Height="20">
+                        <Viewbox
+                            Width="20"
+                            Height="20"
+                            VerticalAlignment="Center">
                             <ui:SymbolIcon Symbol="Alert" />
                         </Viewbox>
                     </Button>

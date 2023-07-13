@@ -29,49 +29,77 @@
         <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.TabContent>
-        <AutoCompleteBox
-            MinWidth="300"
+        <TabStrip
             Margin="4"
-            VerticalAlignment="Center"
-            Classes="Search" />
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            ItemContainerTheme="{StaticResource TabItemStyle}"
+            Theme="{StaticResource TabStripStyle}">
+            <TabStripItem Content="库" />
+            <TabStripItem Content="下载" />
+            <TabStripItem Content="挂机" />
+            <TabStripItem Content="编辑" />
+        </TabStrip>
     </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
-            <ToggleButton Padding="8,4" DockPanel.Dock="Right">
+            <!--<ToggleButton
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Theme="{StaticResource TransparentButton}"
+                ToolTip.Tip="仅显示已安装的游戏">
+				<Panel>
+					<Viewbox
+                        Width="20"
+                        Height="20"
+                        HorizontalAlignment="Left">
+						<ui:SymbolIcon Symbol="Save" />
+					</Viewbox>
+				</Panel>
+			</ToggleButton>-->
+            <ToggleButton
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
+                Theme="{StaticResource TransparentToggleButton}">
                 <Panel>
                     <Viewbox
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Save" />
+                        <ui:SymbolIcon Symbol="Filter" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="仅显示已安装的游戏" />
+                        Text="筛选" />
                 </Panel>
             </ToggleButton>
-            <Button
+            <!--<Button
                 Padding="8,4"
-                DockPanel.Dock="Right"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Save" />
+                        <ui:SymbolIcon Symbol="AllApps" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="仅显示支持 Steam 云存档游戏" />
+                        Text="更多功能" />
                 </Panel>
-            </Button>
+            </Button>-->
             <Button
                 Padding="8,4"
+                Command="{Binding RefreshAppCommand}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
@@ -91,7 +119,7 @@
                 </Panel>
             </Button>
             <DropDownButton
-                Padding="8,4"
+                Padding="8"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Content="{StaticResource More}"
@@ -100,6 +128,7 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <ui:MenuFlyoutItem Text="隐藏的游戏" />
                         <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="插件设置" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False">
@@ -124,8 +153,129 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>
+    <spp:PageBase.PaneContent>
+        <StackPanel Margin="15,20" Spacing="10">
+            <TextBlock
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                Text="{Binding SteamApps.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='已找到 {0} 个应用'}"
+                Theme="{StaticResource CaptionTextBlockStyle}" />
+
+            <AutoCompleteBox
+                MinWidth="300"
+                VerticalAlignment="Center"
+                Classes="Search" />
+
+            <TextBlock Text="布局方式" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+            <TabStrip
+                Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                CornerRadius="{StaticResource ControlCornerRadius}"
+                ItemContainerTheme="{StaticResource TabItemStyle}"
+                Theme="{StaticResource TabStripStyle}">
+                <TabStripItem Content="&#xE8E4;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                <TabStripItem Content="&#xF0E2;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                <TabStripItem Content="&#xE80A;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
+            </TabStrip>
+
+            <TextBlock Text="筛选条件" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+            <DockPanel>
+
+                <DropDownButton
+                    Width="200"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Center">
+                    <DropDownButton.Content>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left"
+                            Text="{Binding TypeFilterString}"
+                            TextTrimming="CharacterEllipsis"
+                            Theme="{StaticResource CaptionTextBlockStyle}" />
+                    </DropDownButton.Content>
+                    <DropDownButton.Styles>
+                        <Style Selector="FlyoutPresenter">
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </DropDownButton.Styles>
+                    <DropDownButton.Flyout>
+                        <Flyout FlyoutPresenterClasses="NoPadding" Placement="Bottom">
+                            <Border Width="{Binding $parent.Width}" Height="200">
+                                <ScrollViewer Padding="10,5">
+                                    <ItemsControl ItemsSource="{Binding AppTypeFiltres}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <DataTemplate.DataType>
+                                                    <x:Type x:TypeArguments="scenums:SteamAppType" TypeName="spp:EnumModel" />
+                                                </DataTemplate.DataType>
+                                                <DockPanel>
+                                                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding Enable, Mode=TwoWay}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <StackPanel.Styles>
+                                                                <Style Selector="TextBlock.count">
+                                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                                    <Setter Property="FontSize" Value="10" />
+                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                                                </Style>
+                                                            </StackPanel.Styles>
+                                                            <TextBlock
+                                                                VerticalAlignment="Center"
+                                                                Text="{Binding LocalizationName}"
+                                                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                                                            <TextBlock
+                                                                Margin="5,0,0,0"
+                                                                Classes="count"
+                                                                Text="(" />
+                                                            <TextBlock Classes="count" Text="{Binding Count}" />
+                                                            <TextBlock Classes="count" Text=")" />
+                                                        </StackPanel>
+                                                    </CheckBox>
+                                                </DockPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Border>
+                        </Flyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    DockPanel.Dock="Right"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <ToggleButton
+                        Padding="8"
+                        IsChecked="{Binding IsInstalledFilter, Mode=TwoWay}"
+                        Theme="{StaticResource TransparentToggleButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox Width="20" Height="20">
+                            <ui:SymbolIcon Symbol="Play" />
+                        </Viewbox>
+                    </ToggleButton>
+
+                    <ToggleButton
+                        Padding="8"
+                        IsChecked="{Binding IsCloudArchiveFilter, Mode=TwoWay}"
+                        Theme="{StaticResource TransparentToggleButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyCloudArchive,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox Width="20" Height="20">
+                            <ui:SymbolIcon Symbol="CloudSyncComplete" />
+                        </Viewbox>
+                    </ToggleButton>
+                </StackPanel>
+            </DockPanel>
+        </StackPanel>
+    </spp:PageBase.PaneContent>
     <DockPanel>
-        <Grid
+        <!--<Grid
             Margin="0,0,0,10"
             ColumnDefinitions="Auto,*,Auto"
             DockPanel.Dock="Top"
@@ -150,27 +300,41 @@
                 Grid.Row="2"
                 VerticalAlignment="Center"
                 Text="{Binding SteamApps.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='找到 {0} 个应用'}" />
-            <StackPanel Grid.Row="2" Grid.Column="2">
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="2"
+                Orientation="Horizontal"
+                Spacing="4">
+                <ToggleButton
+                    Padding="8"
+                    Theme="{StaticResource TransparentToggleButton}"
+                    ToolTip.Tip="仅显示已安装的游戏">
+                    <Viewbox Width="20" Height="20">
+                        <ui:SymbolIcon Symbol="Play" />
+                    </Viewbox>
+                </ToggleButton>
+
+                <ToggleButton
+                    Padding="8"
+                    Theme="{StaticResource TransparentToggleButton}"
+                    ToolTip.Tip="仅显示支持 Steam 云存档游戏">
+                    <Viewbox Width="20" Height="20">
+                        <ui:SymbolIcon Symbol="CloudSyncComplete" />
+                    </Viewbox>
+                </ToggleButton>
+
                 <DropDownButton
                     Width="200"
-                    Height="35"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Center">
                     <DropDownButton.Content>
-                        <!--<DockPanel>-->
                         <TextBlock
                             VerticalAlignment="Center"
                             Classes="h8"
                             DockPanel.Dock="Left"
                             Text="{Binding TypeFilterString}"
                             TextTrimming="CharacterEllipsis" />
-                        <!--<PathIcon VerticalAlignment="Center"
-                              HorizontalAlignment="Right"
-                              DockPanel.Dock="Right"
-                              Data="{StaticResource ChevronDownDrawing}"
-                              Width="12"></PathIcon>
-                  </DockPanel>-->
                     </DropDownButton.Content>
                     <DropDownButton.Styles>
                         <Style Selector="FlyoutPresenter">
@@ -216,7 +380,7 @@
                     </DropDownButton.Flyout>
                 </DropDownButton>
             </StackPanel>
-        </Grid>
+        </Grid>-->
         <spp:ContentLoader
             IsLoading="{ReflectionBinding Source={x:Static s:SteamConnectService.Current},
                                           Path=IsLoadingGameList,
@@ -230,38 +394,34 @@
             </spp:ContentLoader.GestureRecognizers>
             <ItemsRepeater ItemsSource="{Binding SteamApps}">
                 <ItemsRepeater.Layout>
-                    <!--<UniformGridLayout
+                    <UniformGridLayout
                         ItemsJustification="Start"
                         ItemsStretch="Uniform"
                         MinColumnSpacing="10"
-                        MinRowSpacing="10" />-->
-                    <WrapLayout
+                        MinRowSpacing="10" />
+                    <!--<WrapLayout
                         HorizontalSpacing="10"
                         Orientation="Horizontal"
-                        VerticalSpacing="10" />
+                        VerticalSpacing="10" />-->
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="scmd:SteamApp">
                         <Border spp:Animations.EnableAnimations="False">
                             <spp:AppItem
-                                Name="Item"
                                 Title="{Binding DisplayName}"
-                                MaxWidth="128"
+                                Width="169"
                                 Classes="Vertical"
                                 Description="{Binding AppId}">
                                 <spp:AppItem.MoreFlyout>
                                     <ui:FAMenuFlyout>
-                                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <ui:MenuFlyoutItem Text="test" />
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>
                                     <spp:Image2
-                                        Width="128"
-                                        DecodeWidth="128"
-                                        FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
+                                        Width="169"
+                                        DecodeWidth="169"
+                                        FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
                                         RenderOptions.BitmapInterpolationMode="HighQuality"
                                         Source="{Binding LibraryGridUrl}"
                                         Stretch="UniformToFill" />

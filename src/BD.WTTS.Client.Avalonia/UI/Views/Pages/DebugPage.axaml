@@ -75,7 +75,7 @@
             <ToggleButton
                 Padding="8,4"
                 DockPanel.Dock="Right"
-                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen}"
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox

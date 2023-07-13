@@ -7,7 +7,7 @@ public partial class SettingsPage : PageBase<SettingsPageViewModel>
     public SettingsPage()
     {
         InitializeComponent();
-        DataContext = IViewModelManager.Instance.Get<SettingsPageViewModel>();
+        DataContext ??= IViewModelManager.Instance.Get<SettingsPageViewModel>();
 
         //SettingsScrollTab.SelectionChanged += SettingsScrollTab_SelectionChanged;
 

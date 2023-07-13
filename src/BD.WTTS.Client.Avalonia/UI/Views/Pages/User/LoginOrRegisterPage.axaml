@@ -110,6 +110,7 @@
 
                 <Panel Height="38">
                     <TextBox
+                        Name="TbPhoneNumber"
                         Padding="80,0,0,0"
                         VerticalAlignment="Stretch"
                         MaxLength="{x:Static com:PhoneNumberHelper.ChineseMainlandPhoneNumberLength}"
@@ -143,6 +144,7 @@
 
                 <Panel Height="38">
                     <TextBox
+                        Name="TbSmsCode"
                         Height="38"
                         VerticalAlignment="Stretch"
                         VerticalContentAlignment="Center"

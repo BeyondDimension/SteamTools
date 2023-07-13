@@ -10,7 +10,7 @@
             <sys:Double x:Key="SplashScreenImageWidth">100</sys:Double>
 
             <Thickness x:Key="PageMargin">10</Thickness>
-            <sys:Double x:Key="SettingsSpacing">5</sys:Double>
+            <sys:Double x:Key="SettingsSpacing">3</sys:Double>
 
             <sys:Char x:Key="PasswordChar">•</sys:Char>
             <FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>

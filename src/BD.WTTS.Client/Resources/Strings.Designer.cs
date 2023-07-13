@@ -4393,6 +4393,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 插件商店 的本地化字符串。
+        /// </summary>
+        public static string Plugin_Store {
+            get {
+                return ResourceManager.GetString("Plugin_Store", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 版本号： 的本地化字符串。
         /// </summary>
         public static string Plugin_Version {

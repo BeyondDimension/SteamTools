@@ -410,7 +410,7 @@
                             Maximum="1.0"
                             Minimum="0"
                             Value="{ReflectionBinding Value,
-                                                      Source={x:Static ms:UISettings.WindowBackgroundOpacity},
+                                                      Source={x:Static ms:UISettings.WindowBackgroundCustomImageOpacity},
                                                       Mode=TwoWay}" />
                     </DockPanel>
 

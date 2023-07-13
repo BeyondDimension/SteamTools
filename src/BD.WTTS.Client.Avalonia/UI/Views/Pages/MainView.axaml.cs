@@ -16,7 +16,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
             Design.SetDataContext(this, MainWindow.GetMainWinodwViewModel());
 #endif
         NavView.SelectionChanged += NavView_SelectionChanged;
-        
+
         FrameView.Navigated += OnFrameViewNavigated;
         NavView.BackRequested += OnNavigationViewBackRequested;
     }

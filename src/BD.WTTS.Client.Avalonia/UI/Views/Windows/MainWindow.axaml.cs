@@ -10,7 +10,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         if (!AppSplashScreen.IsInitialized)
             SplashScreen = new AppSplashScreen();
         else
-            DataContext = GetMainWinodwViewModel();
+            DataContext ??= GetMainWinodwViewModel();
 
 #if DEBUG
         if (Design.IsDesignMode)
@@ -48,6 +48,13 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                 PageType = typeof(DebugPage),
                 IsResourceGet = false,
                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/bug.ico",
+            },
+            new MenuTabItemViewModel()
+            {
+                ResourceKeyOrName = "Plugin_Store",
+                PageType = null,
+                IsResourceGet = true,
+                IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/store.ico",
             },
 #endif
             new MenuTabItemViewModel()

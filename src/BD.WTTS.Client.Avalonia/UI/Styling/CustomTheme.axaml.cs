@@ -46,7 +46,7 @@ public class CustomTheme : Styles, IResourceProvider
 
         // When initializing, UseSystemTheme overrides any setting of RequestedTheme, this must be
         // explicitly disabled to enable setting the theme manually
-        ResolveThemeAndInitializeSystemResources();
+        //ResolveThemeAndInitializeSystemResources();
 
         _hasLoaded = true;
     }

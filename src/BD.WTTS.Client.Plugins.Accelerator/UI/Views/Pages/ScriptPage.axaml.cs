@@ -9,15 +9,15 @@ public partial class ScriptPage : PageBase<ScriptPageViewModel>
         InitializeComponent();
         DataContext = new ScriptPageViewModel();
 
-        StoreButton.Click += StoreButton_Click;
+        //StoreButton.Click += StoreButton_Click;
     }
 
-    private async void StoreButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-    {
-        var model = new ScriptStorePageViewModel();
-        await IWindowManager.Instance.ShowTaskDialogAsync(model,
-                       "脚本商店",
-                       pageContent: new ScriptStorePage(),
-                       isCancelButton: true);
-    }
+    //private async void StoreButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    //{
+    //    var model = new ScriptStorePageViewModel();
+    //    await IWindowManager.Instance.ShowTaskDialogAsync(model,
+    //                   Strings.ScriptStore,
+    //                   pageContent: new ScriptStorePage(),
+    //                   isCancelButton: true);
+    //}
 }

@@ -13,7 +13,7 @@
     <ImageBrush
         x:Key="PageHeaderBackgroundBrush"
         AlignmentY="Center"
-        Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+        Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/page_bg.jpg"
         Stretch="UniformToFill">
         <!--<RenderOptions.BitmapInterpolationMode>
             <OnPlatform Default="HighQuality">

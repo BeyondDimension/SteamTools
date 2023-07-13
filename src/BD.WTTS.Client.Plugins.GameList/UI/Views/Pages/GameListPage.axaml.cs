@@ -8,7 +8,6 @@ public partial class GameListPage : PageBase<GameListPageViewModel>
     public GameListPage()
     {
         InitializeComponent();
-
-        DataContext = new GameListPageViewModel();
+        DataContext ??= new GameListPageViewModel();
     }
 }
