@@ -87,6 +87,7 @@ false
     public const string GameListId = "00000000-0000-0000-0000-000000000003";
 
     public const string ArchiSteamFarmPlus = "ArchiSteamFarmPlus";
+    public const string ArchiSteamFarmPlusId = "00000000-0000-0000-0000-000000000004";
 
     public const string Authenticator = "Authenticator";
     public const string AuthenticatorId = "00000000-0000-0000-0000-000000000005";

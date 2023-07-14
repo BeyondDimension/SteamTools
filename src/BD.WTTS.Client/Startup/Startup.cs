@@ -115,6 +115,7 @@ public abstract partial class Startup
                 throw new ArgumentOutOfRangeException("CurrentThread != ApartmentState.STA");
             }
         }
+
 #endif
 
         try

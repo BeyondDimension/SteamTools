@@ -17,7 +17,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string Description => "管理库存游戏";
 
-    public sealed override string Author => "Steam++ 官方";
+    protected sealed override string? AuthorOriginalString => null;
 
     public sealed override string? Icon => "avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/game.ico";
 

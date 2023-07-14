@@ -21,42 +21,16 @@ public static class PluginsCore
 
     static DisablePluginsAssemblyLoadContext disablePluginsAssemblyLoadContext = new();
 
-    sealed class DisablePlugin : IPlugin
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
+    sealed record class DisablePlugin : IPlugin
     {
-        public Guid Id { get; private set; }
-
-        public string Name { get; private set; } = null!;
-
-        public string UniqueEnglishName { get; private set; } = null!;
-
-        public string Version { get; private set; } = null!;
-
-        public string? Description { get; private set; }
-
-        public string StoreUrl { get; private set; } = null!;
-
-        public string HelpUrl { get; private set; } = null!;
-
-        public Type? SettingsPageViewType => null;
-
-        public string? Author { get; private set; }
-
-        public string AuthorStoreUrl { get; private set; } = null!;
-
-        public string AssemblyLocation { get; private set; } = null!;
-
-        public string AppDataDirectory { get; private set; } = null!;
-
-        public string CacheDirectory { get; private set; } = null!;
-
-        public bool IsOfficial { get; private set; }
-
-        public string? Icon { get; private set; }
-
-        public DateTimeOffset InstallTime { get; private set; }
-
-        public void SetValue(IPlugin plugin)
+        public DisablePlugin(IPlugin plugin)
         {
+            StackTrace stackTrace = new();
+            var isInternalCall = ReflectionHelper.IsInternalCall<DisablePlugin>(stackTrace);
+            if (!isInternalCall)
+                throw new ApplicationException("Disable reflection calls to this constructor.");
+
             Id = plugin.Id;
             Name = plugin.Name;
             UniqueEnglishName = plugin.UniqueEnglishName;
@@ -72,7 +46,46 @@ public static class PluginsCore
             IsOfficial = plugin.IsOfficial;
             Icon = plugin.Icon;
             InstallTime = plugin.InstallTime;
+            ReleaseTime = plugin.ReleaseTime;
         }
+
+        string DebuggerDisplay => $"{UniqueEnglishName} v{Version}";
+
+        public override string ToString() => DebuggerDisplay;
+
+        public Guid Id { get; init; }
+
+        public string Name { get; init; }
+
+        public string UniqueEnglishName { get; init; }
+
+        public string Version { get; init; }
+
+        public string? Description { get; init; }
+
+        public string StoreUrl { get; init; }
+
+        public string HelpUrl { get; init; }
+
+        public Type? SettingsPageViewType => null;
+
+        public string? Author { get; init; }
+
+        public string AuthorStoreUrl { get; init; }
+
+        public string AssemblyLocation { get; init; }
+
+        public string AppDataDirectory { get; init; }
+
+        public string CacheDirectory { get; init; }
+
+        public bool IsOfficial { get; init; }
+
+        public string? Icon { get; init; }
+
+        public DateTimeOffset InstallTime { get; init; }
+
+        public DateTimeOffset ReleaseTime { get; init; }
 
         public void ConfigureDemandServices(IServiceCollection services, Startup startup)
         {
@@ -309,9 +322,12 @@ public static class PluginsCore
             using CompositionHost container = configuration.CreateContainer();
             foreach (var plugin in container.GetExports<IPlugin>())
             {
-                if (plugin.HasValue() && plugin is PluginBase)
+                if (plugin.HasValue() && plugin is PluginBase pluginBase)
                 {
-                    plugins.Add(plugin);
+#if DEBUG
+                    var isOfficial = pluginBase.IsOfficial;
+#endif
+                    plugins.Add(pluginBase);
                 }
                 else
                 {
@@ -408,9 +424,15 @@ public static class PluginsCore
         {
             foreach (var plugin in disablePlugins)
             {
-                var plugin_ = new DisablePlugin();
-                plugin_.SetValue(plugin);
-                pluginResults.Add(new(true, plugin_));
+                try
+                {
+                    var plugin_ = new DisablePlugin(plugin);
+                    pluginResults.Add(new(true, plugin_));
+                }
+                catch (Exception e)
+                {
+                    Log.Error(TAG, e, "Failed to initialize disabled plugin.");
+                }
             }
             disablePluginsAssemblyLoadContext.Unload();
             disablePluginsAssemblyLoadContext = null!;

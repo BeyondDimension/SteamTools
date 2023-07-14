@@ -81,4 +81,9 @@ partial interface IPlugin
     /// 插件安装时间
     /// </summary>
     DateTimeOffset InstallTime { get; }
+
+    /// <summary>
+    /// 插件发布时间
+    /// </summary>
+    DateTimeOffset ReleaseTime { get; }
 }

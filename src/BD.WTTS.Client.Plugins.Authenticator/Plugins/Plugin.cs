@@ -17,7 +17,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string Description => "提供多平台多账号令牌管理、加密、确认交易、云同步等功能";
 
-    public sealed override string Author => "Steam++ 官方";
+    protected sealed override string? AuthorOriginalString => null;
 
     public sealed override string? Icon => "avares://BD.WTTS.Client.Plugins.Authenticator/UI/Assets/authenticator.ico";
 

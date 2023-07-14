@@ -1,3 +1,4 @@
+using BD.WTTS.Client.Tools.Publish.Helpers;
 using static BD.WTTS.Client.Tools.Publish.Helpers.DotNetCLIHelper;
 using static BD.WTTS.GlobalDllImportResolver;
 
@@ -65,7 +66,7 @@ interface IDotNetPublishCommand : ICommand
             Console.WriteLine(string.Join(' ', psi.ArgumentList));
 
             var publishDir = Path.Combine(projRootPath, arg.PublishDir);
-            var rootPublishDir = Path.Combine(publishDir, "..");
+            var rootPublishDir = Path.GetFullPath(Path.Combine(publishDir, ".."));
             DirTryDelete(rootPublishDir);
 
             // 发布主体
@@ -100,10 +101,27 @@ interface IDotNetPublishCommand : ICommand
             // 复制运行时
             CopyRuntime(rootPublishDir, isWindows, info.Architecture);
 
+            if (OperatingSystem.IsWindows() && isWindows)
+            {
+                // 打包资源 images
+                MSIXHelper.MakePri.Start(rootPublishDir);
+                // 生成 msix 包
+                MSIXHelper.MakeAppx.Start(rootPublishDir, GetVersion(), info.Architecture);
+                // 签名 msix 包
+                MSIXHelper.SignTool.Start(rootPublishDir);
+            }
+
             Console.WriteLine(rootPublishDir);
         }
 
         Console.WriteLine("OK");
+    }
+
+    static string GetVersion()
+    {
+        var v = new Version(AssemblyInfo.Version);
+        static int GetInt32(int value) => value < 0 ? 0 : value;
+        return $"{GetInt32(v.Major)}.{GetInt32(v.Minor)}.{GetInt32(v.Build)}.{GetInt32(v.Revision)}";
     }
 
     /// <summary>
@@ -627,39 +645,6 @@ interface IDotNetPublishCommand : ICommand
 
                 var publishDir = Path.Combine(projRootPath, arg.PublishDir);
                 CopyDirectory(publishDir, destinationDir, true);
-            }
-        }
-    }
-
-    static void CopyDirectory(string sourceDir, string destinationDir, bool recursive) // https://learn.microsoft.com/zh-cn/dotnet/standard/io/how-to-copy-directories
-    {
-        // Get information about the source directory
-        var dir = new DirectoryInfo(sourceDir);
-
-        // Check if the source directory exists
-        if (!dir.Exists)
-            throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
-
-        // Cache directories before we start copying
-        DirectoryInfo[] dirs = dir.GetDirectories();
-
-        // Create the destination directory
-        Directory.CreateDirectory(destinationDir);
-
-        // Get the files in the source directory and copy to the destination directory
-        foreach (FileInfo file in dir.GetFiles())
-        {
-            string targetFilePath = Path.Combine(destinationDir, file.Name);
-            file.CopyTo(targetFilePath, true);
-        }
-
-        // If recursive and copying subdirectories, recursively call this method
-        if (recursive)
-        {
-            foreach (DirectoryInfo subDir in dirs)
-            {
-                string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
-                CopyDirectory(subDir.FullName, newDestinationDir, true);
             }
         }
     }
