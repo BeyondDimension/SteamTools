@@ -34,18 +34,44 @@ public sealed partial class AuthenticatorService
     public static async Task AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password)
     {
         var isLocal = await repository.HasLocalAsync();
-        // TODO 可以加入缓存优化
-        var sourceList = await GetAllSourceAuthenticatorAsync();
-        if (sourceList.Length >= IAccountPlatformAuthenticatorRepository.MaxValue)
-        {
-            if (sourceList.FirstOrDefault(i => i.Id == authenticatorDto.Id) == null)
-            {
-                Toast.Show(ToastIcon.Error, "操作失败：超出令牌最大数量限制");
-                return;
-            }
-        }
+        // var sourceList = await GetAllSourceAuthenticatorAsync();
+        // if (sourceList.Length >= IAccountPlatformAuthenticatorRepository.MaxValue)
+        // {
+        //     if (sourceList.FirstOrDefault(i => i.Id == authenticatorDto.Id) == null)
+        //     {
+        //         Toast.Show(ToastIcon.Error, "操作失败：超出令牌最大数量限制");
+        //         return false;
+        //     }
+        // }
+        // if (await repository.Exists(sourceList, authenticatorDto, isLocal, password))
+        // {
+        //     Toast.Show(ToastIcon.Error, "操作失败：令牌已存在重复数据");
+        //     return false;
+        // }
         await repository.InsertOrUpdateAsync(authenticatorDto, isLocal, password);
     }
+
+    // public static async Task<bool> AddOrUpdateSaveAndSyncAuthenticatorAsync(string? password,
+    //     params IAuthenticatorDTO[] authenticatorDto)
+    // {
+    //     foreach (var auth in authenticatorDto)
+    //     {
+    //         await AddOrUpdateSaveAuthenticatorsAsync(auth, password);
+    //     }
+    //     
+    //     var pushItems = authenticatorDto.Select(item => new UserAuthenticatorPushItem()
+    //     {
+    //         Id = item.ServerId,
+    //         TokenType = item.Platform == AuthenticatorPlatform.HOTP
+    //             ? UserAuthenticatorTokenType.HOTP
+    //             : UserAuthenticatorTokenType.TOTP,
+    //         Name = item.Name,
+    //         Order = item.Index,
+    //         Token = MemoryPackSerializer.Serialize(item.ToExport()),
+    //     }).ToArray();
+    //     
+    //     return true;
+    // }
 
     public static async Task<AccountPlatformAuthenticator[]> GetAllSourceAuthenticatorAsync()
     {

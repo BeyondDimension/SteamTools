@@ -93,6 +93,17 @@ public interface IAccountPlatformAuthenticatorRepository
     }
 
     /// <summary>
+    /// 验证源数据内令牌是否已存在
+    /// </summary>
+    /// <param name="sourceList"></param>
+    /// <param name="item"></param>
+    /// <param name="isLocal"></param>
+    /// <param name="secondaryPassword"></param>
+    /// <returns></returns>
+    Task<bool> Exists(IEnumerable<AccountPlatformAuthenticator> sourceList, IAuthenticatorDTO item,
+        bool isLocal, string? secondaryPassword = null);
+
+    /// <summary>
     /// 根据本地 Id 删除一条
     /// </summary>
     /// <param name="id"></param>

@@ -83,6 +83,21 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         var resultCode__ = (ImportResultCode)resultCode_;
         return resultCode__;
     }
+    
+    public async Task<bool> Exists(IEnumerable<AccountPlatformAuthenticator> sourceList, IAuthenticatorDTO item,
+        bool isLocal, string? secondaryPassword = null)
+    {
+        // var value = Serializable.SMP(item.Value);
+        // (var notSecondaryPassword, var encryptionMode) = GetEncryptionMode2(isLocal, secondaryPassword);
+        // var value_bytes = await ss.EB(value, encryptionMode, secondaryPassword);
+
+        //return sourceList.Any(i => i.Value == value_bytes);
+        if (item.Value?.SecretKey == null) return false;
+
+        var auths = ConvertAsync(sourceList, secondaryPassword);
+        return await auths.AnyAsync(i =>
+            i?.Value?.SecretKey != null && i.Value.SecretKey.SequenceEqual(item.Value.SecretKey));
+    }
 
     async Task<(IAuthenticatorDTO? value, ImportResultCode resultCode)> Convert2Async(AccountPlatformAuthenticator item, string? secondaryPassword)
     {
