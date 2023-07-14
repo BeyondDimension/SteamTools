@@ -384,18 +384,25 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         //     Difference = new UserAuthenticatorPushItem[] { new() { Id = auths[0].ServerId, IsDeleted = true }, },
         //     Answer = "123"
         // });
-        var test5 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
-        var test6 = await IMicroServiceClient.Instance.AuthenticatorClient.ResetIndependentPassword(new ()
-        {
-            Answer = "123",
-            NewPwdQuestion = "Test",
-            NewAnswer = "123",
-        });
-        Guid test = test5.Content[0].Id;
-        var test7 = await IMicroServiceClient.Instance.AuthenticatorClient.RecoverAuthenticatorsFromDeleteBackups(new()
-        {
-            Answer = "123", Id = new[] { test, },
-        });
+        // var test1 = await IMicroServiceClient.Instance.Accelerate.Query();
+        // var test2 = await IMicroServiceClient.Instance.Accelerate.GetInfoByIds();
+        // var test3 = await IMicroServiceClient.Instance.Accelerate.GM();
+        //
+        // var test4 = await IMicroServiceClient.Instance.Script.GM();
+        // var test5 = await IMicroServiceClient.Instance.Script.GetInfoByIds();
+        // var test6 = await IMicroServiceClient.Instance.Script.Query();
+        // var test5 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
+        // var test6 = await IMicroServiceClient.Instance.AuthenticatorClient.ResetIndependentPassword(new ()
+        // {
+        //     Answer = "123",
+        //     NewPwdQuestion = "Test",
+        //     NewAnswer = "123",
+        // });
+        // Guid test = test5.Content[0].Id;
+        // var test7 = await IMicroServiceClient.Instance.AuthenticatorClient.RecoverAuthenticatorsFromDeleteBackups(new()
+        // {
+        //     Answer = "123", Id = new[] { test, },
+        // });
     }
 
     public async Task UnbindingSteamAuthAsync()
