@@ -18,15 +18,15 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
 #endif
     }
 
-    //protected override void OnClosing(WindowClosingEventArgs e)
-    //{
-    //    if (GeneralSettings.IsEnableTrayIcon.Value)
-    //    {
-    //        e.Cancel = true;
-    //        Hide();
-    //    }
-    //    base.OnClosing(e);
-    //}
+    protected override void OnClosing(WindowClosingEventArgs e)
+    {
+        if (GeneralSettings.TrayIcon.Value)
+        {
+            e.Cancel = true;
+            Hide();
+        }
+        base.OnClosing(e);
+    }
 
     public static MainWindowViewModel GetMainWinodwViewModel()
     {
@@ -83,7 +83,7 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 
     int IApplicationSplashScreen.MinimumShowTime =>
 #if DEBUG
-        3000;
+        1000;
 #else
         0;
 #endif

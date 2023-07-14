@@ -17,7 +17,7 @@
         <spp:EnumEqualValueConverter x:Key="EnumEqualValueConverter" />
     </Application.Resources>
     <Application.Styles>
-        <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
+        <sty:FluentAvaloniaTheme  PreferSystemTheme="True" PreferUserAccentColor="True" />
         <spp:CustomTheme Mode="Default" />
     </Application.Styles>
 </Application>

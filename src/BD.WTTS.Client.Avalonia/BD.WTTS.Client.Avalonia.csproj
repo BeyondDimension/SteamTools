@@ -10,10 +10,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="UI\Assets\img_welcometolibrary_bg.jpg" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Xaml.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
