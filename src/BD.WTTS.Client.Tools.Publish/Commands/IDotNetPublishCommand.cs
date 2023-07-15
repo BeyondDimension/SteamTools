@@ -93,7 +93,7 @@ interface IDotNetPublishCommand : ICommand
             ILaunchAppTestCommand.HandlerJsonFiles(runtimeconfigjsonpath, info.Platform);
 
             // 发布 apphost
-            PublishAppHost(publishDir, info.Platform);
+            PublishAppHost(publishDir, info.Platform, debug);
 
             // 发布插件
             PublishPlugins(debug, info.Platform, info.Architecture, publishDir, arg.Configuration, arg.Framework);
@@ -358,11 +358,13 @@ interface IDotNetPublishCommand : ICommand
     {
         string? _Configuration;
 
+        public static string GetConfiguration(bool debug) => debug ? "Debug" : "Release";
+
         public string Configuration
         {
             get
             {
-                _Configuration ??= IsDebug ? "Debug" : "Release";
+                _Configuration ??= GetConfiguration(IsDebug);
                 return _Configuration;
             }
         }
@@ -386,10 +388,15 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    const string publish_apphost_winany_arg = @"publish -p:OutputType=WinExe -p:PublishDir=bin\Release\Publish\win-any -p:PublishReferencesDocumentationFiles=false  -p:PublishDocumentationFile=false -p:PublishDocumentationFiles=false -f net35 -p:DebugType=none -p:DebugSymbols=false --nologo -v q /property:WarningLevel=1";
+    const string publish_apphost_winany_arg =
+"""
+publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:PublishReferencesDocumentationFiles=false  -p:PublishDocumentationFile=false -p:PublishDocumentationFiles=false -f {2} -p:DebugType=none -p:DebugSymbols=false --nologo -v q /property:WarningLevel=1
+""";
 
-    static void PublishAppHost(string publishDir, Platform platform)
+    static void PublishAppHost(string publishDir, Platform platform, bool debug)
     {
+        const string app_host_tfm = "net40"/*"net35"*/; // net35 在 Windows 10 LTSC 上即使 app.config 中配置了 4.x 兼容但依旧会打开设置窗口并且定位在可选功能
+        var configuration = PublishCommandArg.GetConfiguration(debug);
         string? arguments = null;
         bool isWindows = false;
         switch (platform)
@@ -398,7 +405,10 @@ interface IDotNetPublishCommand : ICommand
             case Platform.UWP:
             case Platform.WinUI:
                 isWindows = true;
-                arguments = publish_apphost_winany_arg;
+                arguments = publish_apphost_winany_arg.Format(
+                    configuration,
+                    debug ? "Exe" : "WinExe",
+                    app_host_tfm);
                 break;
         }
         var projRootPath = ProjectPath_AppHost;
@@ -410,17 +420,45 @@ interface IDotNetPublishCommand : ICommand
         var rootPublishDir = Path.Combine(publishDir, "..");
         if (isWindows)
         {
-            var appHostPublishDir = Path.Combine(projRootPath, "bin", "Release", "Publish", "win-any");
+            const string appconfigFileName = "Steam++.exe.config";
+            var appHostPublishDir = Path.Combine(projRootPath, "bin", configuration, "Publish", "win-any");
             var apphostfilenames = new[]
             {
                "Steam++.exe",
-               "Steam++.exe.config",
+               appconfigFileName,
             };
             foreach (var item in apphostfilenames)
             {
                 var sourceFileName = Path.Combine(appHostPublishDir, item);
                 var destFileName = Path.Combine(rootPublishDir, item);
-                File.Copy(sourceFileName, destFileName, true);
+                if (item == appconfigFileName)
+                {
+                    var appconfigContent = File.ReadAllText(sourceFileName);
+                    if (app_host_tfm.StartsWith("net4"))
+                    {
+                        // net4x 不能兼容 2.x~3.x
+                        appconfigContent = appconfigContent.Replace(
+"""
+<supportedRuntime version="v2.0.50727" />
+""", null);
+
+                        if (app_host_tfm == "net40")
+                        {
+                            appconfigContent = appconfigContent.Replace(
+"""
+<supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0" />
+""", null);
+                        }
+                    }
+                    var xmlDoc = new XmlDocument();
+                    xmlDoc.LoadXml(appconfigContent);
+                    appconfigContent = xmlDoc.InnerXml;
+                    File.WriteAllText(destFileName, appconfigContent);
+                }
+                else
+                {
+                    File.Copy(sourceFileName, destFileName, true);
+                }
             }
         }
     }

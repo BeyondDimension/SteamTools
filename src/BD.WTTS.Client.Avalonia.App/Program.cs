@@ -25,7 +25,11 @@ partial class Program
 #pragma warning restore IDE0060 // 删除未使用的参数
 #pragma warning restore IDE0079 // 请删除不必要的忽略
     {
-        AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", Environment.CurrentDirectory);
+        var appCtxBaseDir = Path.GetDirectoryName(Environment.ProcessPath);
+        if (string.IsNullOrWhiteSpace(appCtxBaseDir))
+            throw new ArgumentOutOfRangeException(nameof(appCtxBaseDir),
+                appCtxBaseDir ?? "null", null);
+        AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", appCtxBaseDir);
         instance = new()
         {
             IsCustomEntryPoint = true,

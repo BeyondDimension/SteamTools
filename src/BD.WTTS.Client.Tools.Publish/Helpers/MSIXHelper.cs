@@ -259,14 +259,14 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
         public static void Start(
             string rootPublicPath)
         {
-            var pwd = File.ReadAllText(@"C:\MSStore_CodeSigning.txt");
+            var pwd = File.ReadAllText(@"C:\MSStore_CodeSigning.txt")?.Trim();
             var psi = new ProcessStartInfo
             {
                 FileName = GetSignToolPath(),
                 UseShellExecute = false,
                 Arguments =
 $"""
-sign /a /fd SHA384 /f "C:\MSStore_CodeSigning.pfx" /p {pwd} "{rootPublicPath}.msix"
+sign /a /fd SHA256 /f "C:\MSStore_CodeSigning.pfx" /p "{pwd}" "{rootPublicPath}.msix"
 """,
             };
             DotNetCLIHelper.StartProcessAndWaitForExit(psi);

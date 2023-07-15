@@ -9,7 +9,7 @@ namespace BD.WTTS;
 /// <item>Logs: ~/Library/Caches/Steam++/Logs</item>
 /// </list>
 /// </summary>
-public sealed class MacCatalystFileSystem : IOPath.FileSystemBase
+sealed class MacCatalystFileSystem : IOPath.FileSystemBase
 {
     private MacCatalystFileSystem() => throw new NotSupportedException();
 

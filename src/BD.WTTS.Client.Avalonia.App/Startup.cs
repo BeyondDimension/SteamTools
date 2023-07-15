@@ -12,7 +12,7 @@ sealed partial class Program : Startup
         services.AddSingleton(_ => UI.App.Instance);
         services.AddSingleton<Startup>(this);
 
-#if WINDOWS && !WINDOWS_DESKTOP_BRIDGE
+#if WINDOWS
         services.AddScheduledTaskService();
 #endif
         // 平台服务 此项放在其他通用业务实现服务之前

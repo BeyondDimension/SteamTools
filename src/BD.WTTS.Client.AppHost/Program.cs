@@ -178,11 +178,36 @@ static unsafe partial class Program
         EnvironmentVariable,
     }
 
+#if NET40_OR_GREATER
+    [System.Runtime.ExceptionServices.HandleProcessCorruptedStateExceptions]
+#endif
     [STAThread]
     static int Main()
+#if DEBUG
+    {
+        try
+        {
+            var exitCode = MainCore();
+            Console.ReadLine();
+            return exitCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            Console.ReadLine();
+            return 500;
+        }
+    }
+#endif
+
+#if DEBUG
+    static int MainCore()
+#endif
     {
         // TODO 合并 32 位与 64 位本机库？检查进程是否是 x64，加载不同的运行库与程序集
         // 允许在 64 位系统上使用 32 位运行
+        // 这会使程序包体积变得相当庞大，体积增加 1.x ~ 2 倍？
+        // 像 macOS 上的库就是合在一起，但 Mac 上的存储可比 Au 还贵，Windows 上也许还好？
 
         // 配置垃圾回收器来节省内存，但代价是垃圾回收更频繁，并且暂停时间可能更长。
         // 除了默认值 0 以外，介于 1 至 9（含）的值都有效。 值越高，垃圾回收器越会试图节省内存，进而使堆保持较小。

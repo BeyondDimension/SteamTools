@@ -1,7 +1,7 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using System.CommandLine;
 #endif
-#if WINDOWS_DESKTOP_BRIDGE
+#if WINDOWS
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 #endif
@@ -46,13 +46,16 @@ public abstract partial class Startup
         if (IsDesignMode)
             return Array.Empty<string>();
 
-#if WINDOWS_DESKTOP_BRIDGE
-        var activatedArgs = AppInstance.GetActivatedEventArgs();
-        if (activatedArgs != null)
+#if WINDOWS
+        if (DesktopBridge.IsRunningAsUwp)
         {
-            if (activatedArgs.Kind == ActivationKind.StartupTask)
+            var activatedArgs = AppInstance.GetActivatedEventArgs();
+            if (activatedArgs != null)
             {
-                return IPlatformService.SystemBootRunArguments.Split(' ');
+                if (activatedArgs.Kind == ActivationKind.StartupTask)
+                {
+                    return IPlatformService.SystemBootRunArguments.Split(' ');
+                }
             }
         }
 #endif
@@ -118,6 +121,10 @@ public abstract partial class Startup
 
 #endif
 
+#if WINDOWS
+        var isRunningAsUwp = DesktopBridgeHelper.Init();
+#endif
+
         try
         {
 #if STARTUP_WATCH_TRACE || DEBUG
@@ -137,10 +144,6 @@ public abstract partial class Startup
                     return 0;
 #elif MACOS // macOS 需要初始化 NSApplication
                 NSApplication.Init();
-#endif
-#if WINDOWS_DESKTOP_BRIDGE
-                if (!DesktopBridgeHelper.Init())
-                    return 0;
 #endif
 #if STARTUP_WATCH_TRACE || DEBUG
                 WatchTrace.Record("PlatformPrerequisite");
@@ -175,6 +178,10 @@ public abstract partial class Startup
                 try
                 {
                     NativeLibraryPath = GlobalDllImportResolver.GetLibraryPath(null);
+#if DEBUG
+                    DebugConsole.WriteLine($"BaseDirectory: {GlobalDllImportResolver.BaseDirectory}");
+                    DebugConsole.WriteLine($"NativeLibraryPath: {NativeLibraryPath}");
+#endif
                     NativeLibrary.SetDllImportResolver(loadedAssembly, GlobalDllImportResolver.Delegate);
                 }
                 catch
@@ -351,8 +358,15 @@ public abstract partial class Startup
             MacCatalystFileSystem.InitFileSystem();
 #elif LINUX
             LinuxFileSystem.InitFileSystem();
-#elif WINDOWS && !WINDOWS_DESKTOP_BRIDGE
-            WindowsFileSystem.InitFileSystem();
+#elif WINDOWS
+            if (isRunningAsUwp)
+            {
+                WindowsRuntimeFileSystem.InitFileSystem();
+            }
+            else
+            {
+                WindowsFileSystem.InitFileSystem();
+            }
 #elif ANDROID
             FileSystemEssentials.InitFileSystem();
 #else

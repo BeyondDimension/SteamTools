@@ -12,10 +12,11 @@ namespace BD.WTTS;
 /// <item>Logs: %USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache\Logs</item>
 /// </list>
 /// </summary>
-public sealed class WindowsRuntimeFileSystem : IOPath.FileSystemBase
+sealed class WindowsRuntimeFileSystem : IOPath.FileSystemBase
 {
     private WindowsRuntimeFileSystem() => throw new NotSupportedException();
 
+    /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
     public static void InitFileSystem()
     {
         // https://github.com/xamarin/Essentials/blob/1.6.1/Xamarin.Essentials/FileSystem/FileSystem.uwp.cs#L12
