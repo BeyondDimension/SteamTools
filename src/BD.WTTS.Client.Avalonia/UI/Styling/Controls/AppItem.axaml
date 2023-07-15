@@ -123,10 +123,10 @@
                                         BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
                                         ClipToBounds="True"
                                         CornerRadius="{StaticResource ControlCornerRadius}">
-                                        <TextBlock
-                                            VerticalAlignment="Top"
+
+                                        <ContentPresenter
+                                            Content="{TemplateBinding Status}"
                                             FontSize="12"
-                                            Text="{TemplateBinding Status}"
                                             TextWrapping="Wrap" />
                                     </Border>
                                 </WrapPanel>
@@ -270,7 +270,12 @@
                                                             Converter={StaticResource IsNullConverter},
                                                             ConverterParameter=invert}">
                                 <DockPanel>
-                                    <WrapPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                                    <WrapPanel
+                                        DockPanel.Dock="Left"
+                                        IsVisible="{TemplateBinding Status,
+                                                                    Converter={StaticResource IsNullConverter},
+                                                                    ConverterParameter=invert}"
+                                        Orientation="Horizontal">
                                         <Border
                                             Margin="0,5"
                                             Padding="8,5"
@@ -278,10 +283,10 @@
                                             BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
                                             ClipToBounds="True"
                                             CornerRadius="{StaticResource ControlCornerRadius}">
-                                            <TextBlock
+                                            <ContentPresenter
                                                 VerticalAlignment="Top"
+                                                Content="{TemplateBinding Status}"
                                                 FontSize="12"
-                                                Text="{TemplateBinding Status}"
                                                 TextWrapping="Wrap" />
                                         </Border>
                                     </WrapPanel>

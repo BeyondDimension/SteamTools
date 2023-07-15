@@ -239,7 +239,7 @@ public sealed partial class ProxyService
                 {
                     if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
                     {
-                        item.Checked = true;
+                        item.ThreeStateEnable = true;
                     }
                 }
             }
@@ -249,13 +249,13 @@ public sealed partial class ProxyService
 
         LoadOrSaveLocalAccelerate();
 
-        if (IsLoadImage && ProxyDomains.Items.Any_Nullable())
-        {
-            foreach (var item in ProxyDomains.Items)
-            {
-                //item.ImageStream = ImageChannelType.AccelerateGroup.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId));
-            }
-        }
+        //if (IsLoadImage && ProxyDomains.Items.Any_Nullable())
+        //{
+        //    foreach (var item in ProxyDomains.Items)
+        //    {
+        //        item.ImageStream = ImageChannelType.AccelerateGroup.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId));
+        //    }
+        //}
 
         this.WhenAnyValue(v => v.ProxyDomainsList)
               .Subscribe(domain => domain?

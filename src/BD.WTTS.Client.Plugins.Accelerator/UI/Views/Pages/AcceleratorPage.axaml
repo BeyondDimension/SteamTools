@@ -281,7 +281,7 @@
                 <ItemsControl ItemsSource="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" Spacing="10" />
+                            <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 

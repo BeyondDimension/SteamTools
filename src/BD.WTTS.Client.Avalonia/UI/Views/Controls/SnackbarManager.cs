@@ -95,7 +95,7 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
 
         var infoBarControl = new Snackbar
         {
-            MaxWidth = 450,
+            MaxWidth = 500,
             IsOpen = true,
             IsClosable = true,
             Severity = InfoBarSeverity.Informational,

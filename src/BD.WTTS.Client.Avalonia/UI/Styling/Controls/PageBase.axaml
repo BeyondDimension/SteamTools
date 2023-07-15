@@ -216,7 +216,8 @@
 
                     <SplitView
                         DisplayMode="Overlay"
-                        IsPaneOpen="{TemplateBinding IsPaneOpen}"
+                        IsPaneOpen="{TemplateBinding IsPaneOpen,
+                                                     Mode=TwoWay}"
                         OpenPaneLength="{TemplateBinding OpenPaneLength}"
                         PaneBackground="Transparent"
                         PanePlacement="Right">

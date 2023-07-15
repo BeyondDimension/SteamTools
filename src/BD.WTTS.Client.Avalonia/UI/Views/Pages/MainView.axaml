@@ -184,12 +184,19 @@
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
                         Theme="{DynamicResource TransparentButton}">
-                        <Viewbox
-                            Width="20"
-                            Height="20"
-                            VerticalAlignment="Center">
-                            <ui:SymbolIcon Symbol="Alert" />
-                        </Viewbox>
+                        <Panel>
+                            <ui:InfoBadge
+                                Margin="0,-3,-3,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Classes="Attention Dot" />
+                            <Viewbox
+                                Width="22"
+                                Height="22"
+                                VerticalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Alert" />
+                            </Viewbox>
+                        </Panel>
                     </Button>
 
                     <DropDownButton Padding="4" Theme="{DynamicResource TransparentButton}">
@@ -206,32 +213,91 @@
                                 <MenuItem IsHitTestVisible="False">
                                     <MenuItem.Header>
                                         <DockPanel>
-                                            <Border
-                                                Width="64"
-                                                Height="64"
-                                                Margin="0,0,8,0"
-                                                ClipToBounds="True"
-                                                CornerRadius="64"
-                                                DockPanel.Dock="Left">
-                                                <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="/UI/Assets/Icons/avatar.ico" />
-                                            </Border>
-                                            <Panel>
-                                                <TextBlock
-                                                    VerticalAlignment="Center"
-                                                    IsVisible="{ReflectionBinding Path=User,
+                                            <DockPanel DockPanel.Dock="Top">
+                                                <Border
+                                                    Width="64"
+                                                    Height="64"
+                                                    Margin="0,0,8,0"
+                                                    ClipToBounds="True"
+                                                    CornerRadius="64"
+                                                    DockPanel.Dock="Left">
+                                                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="/UI/Assets/Icons/avatar.ico" />
+                                                </Border>
+                                                <Panel>
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        IsVisible="{ReflectionBinding Path=User,
+                                                                                      Mode=OneWay,
+                                                                                      Source={x:Static s:UserService.Current},
+                                                                                      Converter={StaticResource IsNullConverter}}"
+                                                        Text="{ReflectionBinding Path=Res.User_UnLogin,
+                                                                                 Mode=OneWay,
+                                                                                 Source={x:Static s:ResourceService.Current}}" />
+
+                                                    <StackPanel VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                                                        <TextBlock Text="{ReflectionBinding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
+
+                                                        <Border VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
+                                                            <TextBlock FontSize="10" Text="{ReflectionBinding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}❤️{0}}" />
+                                                        </Border>
+
+                                                    </StackPanel>
+                                                </Panel>
+                                            </DockPanel>
+                                            <!--<WrapPanel HorizontalAlignment="Center" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                                            -->
+                                            <!--<TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Classes="h8"
+                                                            Text="{ReflectionBinding Path=User.LevelStr,
+                                                                                     Mode=OneWay,
+                                                                                     Source={x:Static service:UserService.Current}}" />-->
+                                            <!--
+                                                <Button Margin="5,0" FontSize="10">
+                                                    <ToolTip.Tip>
+                                                        <MultiBinding StringFormat="{}{0} : {1} / {2}">
+                                                            <Binding Path="Res.User_Experience" Source="{x:Static s:ResourceService.Current}" />
+                                                            <Binding Path="User.Experience" Source="{x:Static s:UserService.Current}" />
+                                                            <Binding Path="User.NextExperience" Source="{x:Static s:UserService.Current}" />
+                                                        </MultiBinding>
+                                                    </ToolTip.Tip>
+                                                    <Button.Content>
+                                                        <MultiBinding StringFormat="{}{0} : Lv.{1}">
+                                                            <Binding Path="Res.User_Level" Source="{x:Static s:ResourceService.Current}" />
+                                                            <Binding Path="User.Level" Source="{x:Static s:UserService.Current}" />
+                                                        </MultiBinding>
+                                                    </Button.Content>
+                                                </Button>
+                                                <Button
+                                                    Margin="5,0"
+                                                    Command="{ReflectionBinding Path=SignIn,
+                                                                                Mode=OneWay,
+                                                                                Source={x:Static s:UserService.Current}}"
+                                                    Content="{ReflectionBinding Path=Res.Sign,
+                                                                                Mode=OneWay,
+                                                                                Source={x:Static s:ResourceService.Current}}"
+                                                    FontSize="10"
+                                                    IsVisible="{ReflectionBinding Path=!User.IsSignIn,
                                                                                   Mode=OneWay,
-                                                                                  Source={x:Static s:UserService.Current},
-                                                                                  Converter={StaticResource IsNullConverter}}"
-                                                    Text="{ReflectionBinding Path=Res.User_UnLogin,
-                                                                             Mode=OneWay,
-                                                                             Source={x:Static s:ResourceService.Current}}" />
-                                                <StackPanel VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-                                                    <TextBlock Text="{ReflectionBinding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
-                                                    <Border VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
-                                                        <TextBlock FontSize="10" Text="{ReflectionBinding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}}" />
-                                                    </Border>
-                                                </StackPanel>
-                                            </Panel>
+                                                                                  Source={x:Static s:UserService.Current}}" />
+                                                <Button
+                                                    Margin="5,0"
+                                                    FontSize="10"
+                                                    IsVisible="{ReflectionBinding Path=User.IsSignIn,
+                                                                                  Mode=OneWay,
+                                                                                  Source={x:Static s:UserService.Current}}"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.Signed,
+                                                                                    Mode=OneWay,
+                                                                                    Source={x:Static s:ResourceService.Current}}">
+                                                    <Button.Content>
+                                                        <MultiBinding StringFormat="{}{0} : {1}">
+                                                            <Binding Path="Res.User_EngineOil" Source="{x:Static s:ResourceService.Current}" />
+                                                            <Binding Path="User.Balance" Source="{x:Static s:UserService.Current}" />
+                                                        </MultiBinding>
+                                                    </Button.Content>
+                                                </Button>
+                                            </WrapPanel>-->
                                         </DockPanel>
                                     </MenuItem.Header>
                                 </MenuItem>

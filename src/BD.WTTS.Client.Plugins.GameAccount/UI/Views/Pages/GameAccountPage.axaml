@@ -92,7 +92,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Save" />
+                        <ui:SymbolIcon Symbol="ShareAndroid" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -125,7 +125,7 @@
                 </Panel>
             </Button>
             <DropDownButton
-                Padding="8,4"
+                Padding="8"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Content="{StaticResource More}"

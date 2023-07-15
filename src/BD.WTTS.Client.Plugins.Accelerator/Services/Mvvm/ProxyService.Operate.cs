@@ -260,19 +260,17 @@ partial class ProxyService
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool OnStartedShowToastReturnProxyStatus()
         {
-            string? text;
             bool proxyStatus;
             if (string.IsNullOrWhiteSpace(Error))
             {
-                text = Strings.CommunityFix_StartProxySuccess;
+                Toast.Show(ToastIcon.Success, Strings.CommunityFix_StartProxySuccess);
                 proxyStatus = true;
             }
             else
             {
-                text = Error;
+                Toast.Show(ToastIcon.Error, Error);
                 proxyStatus = false;
             }
-            Toast.Show(text);
             return proxyStatus;
         }
 
@@ -282,7 +280,7 @@ partial class ProxyService
             bool proxyStatus = default;
             if (!string.IsNullOrWhiteSpace(Error))
             {
-                Toast.Show(Error);
+                Toast.Show(ToastIcon.Error, Error);
                 proxyStatus = true;
             }
             return proxyStatus;

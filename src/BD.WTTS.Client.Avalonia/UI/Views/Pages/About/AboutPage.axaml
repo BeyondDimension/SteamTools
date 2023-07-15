@@ -14,7 +14,12 @@
     mc:Ignorable="d">
 
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
-        <TextBlock Margin="0,0,0,5" Text="{ReflectionBinding Path=Res.About, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <TextBlock
+            Margin="0,0,0,5"
+            Text="{ReflectionBinding Path=Res.About,
+                                     Mode=OneWay,
+                                     Source={x:Static s:ResourceService.Current}}"
+            Theme="{StaticResource SubtitleTextBlockStyle}" />
 
         <spp:OptionsDisplayItem
             Description="{Binding Copyright}"

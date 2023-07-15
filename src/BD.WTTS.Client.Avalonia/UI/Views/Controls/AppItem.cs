@@ -12,8 +12,8 @@ public class AppItem : TemplatedControl
     public static readonly StyledProperty<string> DescriptionProperty =
         AvaloniaProperty.Register<AppItem, string>(nameof(Description));
 
-    public static readonly StyledProperty<string> StatusProperty =
-        AvaloniaProperty.Register<AppItem, string>(nameof(Status));
+    public static readonly StyledProperty<object?> StatusProperty =
+        ContentControl.ContentProperty.AddOwner<AppItem>();
 
     public static readonly StyledProperty<Control> ImageProperty =
         AvaloniaProperty.Register<AppItem, Control>(nameof(Image));
@@ -45,7 +45,7 @@ public class AppItem : TemplatedControl
         set => SetValue(DescriptionProperty, value);
     }
 
-    public string Status
+    public object? Status
     {
         get => GetValue(StatusProperty);
         set => SetValue(StatusProperty, value);

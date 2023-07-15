@@ -15,6 +15,32 @@ public sealed class UserService : ReactiveObject
     readonly ISteamworksWebApiService steamworksWebApiService = ISteamworksWebApiService.Instance;
     readonly IWindowManager windowManager = IWindowManager.Instance;
 
+    [Reactive]
+    public IdentityUserInfoDTO? User { get; set; }
+
+    /// <summary>
+    /// 指示当前用户是否已通过身份验证（已登录）
+    /// </summary>
+    public bool IsAuthenticated => User != null;
+
+    [Reactive]
+    public SteamUser? CurrentSteamUser { get; set; }
+
+    [Reactive]
+    public object? AvatarPath { get; set; }
+
+    /// <summary>
+    /// 当前登录用户是否有手机号码
+    /// </summary>
+    [Reactive]
+    public bool HasPhoneNumber { get; set; }
+
+    /// <summary>
+    /// 用于 UI 显示的当前登录用户的手机号码(隐藏中间四位)
+    /// </summary>
+    [Reactive]
+    public string PhoneNumber { get; set; } = string.Empty;
+
     public async void ShowWindow()
     {
         var cUser = await userManager.GetCurrentUserAsync();
@@ -102,25 +128,6 @@ public sealed class UserService : ReactiveObject
         await userManager.SignOutAsync();
     }
 
-    [Reactive]
-    public IdentityUserInfoDTO? User { get; set; }
-
-    /// <summary>
-    /// 指示当前用户是否已通过身份验证（已登录）
-    /// </summary>
-    public bool IsAuthenticated => User != null;
-
-    [Reactive]
-    public SteamUser? CurrentSteamUser { get; set; }
-
-    object? _AvatarPath;
-
-    public object? AvatarPath
-    {
-        get => _AvatarPath;
-        set => this.RaiseAndSetIfChanged(ref _AvatarPath, value);
-    }
-
     private UserService()
     {
         mCurrent = this;
@@ -141,23 +148,6 @@ public sealed class UserService : ReactiveObject
     async void Initialize()
     {
         await RefreshUserAsync();
-    }
-
-    [Reactive]
-    /// <summary>
-    /// 当前登录用户是否有手机号码
-    /// </summary>
-    public bool HasPhoneNumber { get; set; }
-
-    string _PhoneNumber = string.Empty;
-
-    /// <summary>
-    /// 用于 UI 显示的当前登录用户的手机号码(隐藏中间四位)
-    /// </summary>
-    public string PhoneNumber
-    {
-        get => _PhoneNumber;
-        set => this.RaiseAndSetIfChanged(ref _PhoneNumber, value);
     }
 
     static string GetCurrentUserPhoneNumber(CurrentUser? user, bool notHideMiddleFour = false)

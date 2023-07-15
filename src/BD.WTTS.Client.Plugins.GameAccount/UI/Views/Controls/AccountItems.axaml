@@ -35,7 +35,9 @@
                                 MaxWidth="128"
                                 Classes="Vertical"
                                 Description="{Binding LastLoginTime}"
-                                Status="最近登录">
+                                Status="{ReflectionBinding Path=Res.UserChange_RecentLogin,
+                                                           Mode=OneWay,
+                                                           Source={x:Static s:ResourceService.Current}}">
                                 <spp:AppItem.ContextFlyout>
                                     <ui:FAMenuFlyout>
                                         <ui:MenuFlyoutItem
@@ -74,7 +76,7 @@
                                             <ui:MenuFlyoutItem Text="Achievement Stats" />
                                             <ui:MenuFlyoutItem Text="Backpack.tf" />
                                         </ui:MenuFlyoutSubItem>
-                                        <ui:MenuFlyoutItem Text="修改头像图片" />
+                                        <ui:MenuFlyoutItem IsVisible="{ReflectionBinding !#u.DataContext.IsSteamPlatform}" Text="修改头像图片" />
                                         <ui:MenuFlyoutSeparator />
                                         <ui:MenuFlyoutItem Text="创建桌面快捷方式" />
                                         <ui:MenuFlyoutItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="打开 userdata 文件夹" />

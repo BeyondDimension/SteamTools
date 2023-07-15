@@ -40,7 +40,7 @@ public sealed class StringFormatConverter : IValueConverter, IMultiValueConverte
             var res = Strings.ResourceManager.GetString(para, Strings.Culture);
             if (!string.IsNullOrEmpty(res))
                 return res.Format(str);
-            return para.Format(str);
+            return str.Format(para);
         }
         else
         {

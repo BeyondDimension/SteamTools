@@ -158,7 +158,7 @@
             <TextBlock
                 Grid.Row="2"
                 VerticalAlignment="Center"
-                Text="{Binding SteamApps.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='已找到 {0} 个应用'}"
+                Text="{Binding SteamApps.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter=GameList_FindAppsText}"
                 Theme="{StaticResource CaptionTextBlockStyle}" />
 
             <AutoCompleteBox

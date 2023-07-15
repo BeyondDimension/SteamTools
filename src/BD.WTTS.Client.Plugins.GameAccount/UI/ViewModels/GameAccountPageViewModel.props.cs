@@ -4,7 +4,7 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class GameAccountPageViewModel : TabItemViewModel
 {
-    readonly Uri PlatformsPath = new("avares://BD.WTTS.Client.Plugins.GameAccount/UI/Assets/Platforms.json");
+    readonly static Uri PlatformsPath = new("avares://BD.WTTS.Client.Plugins.GameAccount/UI/Assets/Platforms.json");
 
     public override string Name => Strings.Welcome;
 

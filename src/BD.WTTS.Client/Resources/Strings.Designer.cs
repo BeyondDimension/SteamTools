@@ -2319,6 +2319,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 已找到 {0} 个应用 的本地化字符串。
+        /// </summary>
+        public static string GameList_FindAppsText {
+            get {
+                return ResourceManager.GetString("GameList_FindAppsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 全部选中 的本地化字符串。
         /// </summary>
         public static string GameList_HideApp_AllCheck {
