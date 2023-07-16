@@ -2444,4 +2444,7 @@ The system will {1} after {0} seconds.</value>
   <data name="Plugin_Store" xml:space="preserve">
 	  <value>插件商店</value>
   </data>
+  <data name="GameList_FindAppsText" xml:space="preserve">
+	  <value>已找到 {0} 个应用</value>
+  </data>
 </root>
