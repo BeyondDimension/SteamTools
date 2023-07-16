@@ -84,7 +84,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ui:SettingsExpander
+        <!--<ui:SettingsExpander
             Description="管理所有已安装的插件"
             Header="已安装插件"
             IsExpanded="True"
@@ -108,7 +108,9 @@
                             <ui:ImageIconSource Source="{Binding Data.Icon, Converter={StaticResource BitmapAssetValueConverter}}" />
                         </ui:SettingsExpanderItem.IconSource>
                         <ui:SettingsExpanderItem.Footer>
-                            <!--<ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />-->
+        -->
+        <!--<ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />-->
+        <!--
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />
                                 <DropDownButton
@@ -134,7 +136,7 @@
                     </ui:SettingsExpanderItem>
                 </DataTemplate>
             </ui:SettingsExpander.ItemTemplate>
-        </ui:SettingsExpander>
+        </ui:SettingsExpander>-->
 
     </StackPanel>
 </UserControl>

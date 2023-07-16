@@ -263,7 +263,7 @@
                                             Mode=OneWay,
                                             Source={x:Static s:ResourceService.Current}}" />
 
-            <Separator Classes="Horizontal" />
+            <Separator Margin="0,8" Classes="Horizontal" />
 
             <Button
                 HorizontalAlignment="Stretch"
@@ -274,7 +274,7 @@
             <Button HorizontalAlignment="Stretch" Content="移除证书" />
             <Button HorizontalAlignment="Stretch" Content="打开证书文件夹" />
 
-            <Separator Classes="Horizontal" />
+            <Separator Margin="0,8" Classes="Horizontal" />
 
             <Button HorizontalAlignment="Stretch" Content="编辑 hosts 文件" />
             <Button HorizontalAlignment="Stretch" Content="重置 hosts 文件" />
