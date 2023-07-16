@@ -75,12 +75,12 @@ public partial interface IProxySettings
     /// <summary>
     /// 系统代理模式端口
     /// </summary>
-    int? SystemProxyPortId { get; set; }
+    ushort? SystemProxyPortId { get; set; }
 
     /// <summary>
     /// 系统代理模式端口的默认值
     /// </summary>
-    const int DefaultSystemProxyPortId = 26561;
+    const ushort DefaultSystemProxyPortId = 26561;
 
     /// <summary>
     /// 系统代理模式IP

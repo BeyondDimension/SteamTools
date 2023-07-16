@@ -16,11 +16,11 @@ partial class ProxyService
         IReadOnlyCollection<AccelerateProjectDTO>? proxyDomains = EnableProxyDomains;
         IReadOnlyCollection<ScriptDTO>? scripts = default;
         bool isEnableScript = ProxySettings.IsEnableScript.Value;
-        bool isOnlyWorkSteamBrowser = default;
-        ushort proxyPort = default;
+        bool isOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
+        ushort proxyPort = ProxySettings.SystemProxyPortId.Value;
         string? proxyIp = ProxySettings.SystemProxyIp.Value;
         proxyMode = defaultProxyMode;
-        bool isProxyGOG = default;
+        bool isProxyGOG = ProxySettings.IsProxyGOG.Value;
         bool onlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
         bool enableHttpProxyToHttps = ProxySettings.EnableHttpProxyToHttps.Value;
         bool socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value ||

@@ -145,7 +145,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="spp:ScriptDTO">
-                        <Border Margin="10" spp:Animations.EnableAnimations="True">
+                        <Border Margin="3" spp:Animations.EnableAnimations="True">
                             <spp:AppItem
                                 Title="{Binding Name}"
                                 MaxWidth="128"

@@ -231,6 +231,9 @@
                             Padding="{DynamicResource AppPageMargin}"
                             HorizontalScrollBarVisibility="Disabled"
                             VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                            <ScrollViewer.GestureRecognizers>
+                                <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
+                            </ScrollViewer.GestureRecognizers>
                             <DockPanel Margin="0,0,0,20">
                                 <TextBlock
                                     Margin="0,0,0,8"

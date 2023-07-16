@@ -588,7 +588,7 @@
           "IsValueType": null
         },
         {
-          "TypeName": "int",
+          "TypeName": "ushort",
           "PropertyName": "SystemProxyPortId",
           "DefaultValue": "26561",
           "DefaultValueIsConst": true,

@@ -79,7 +79,7 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// 系统代理模式端口
     /// </summary>
     [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
-    public int? SystemProxyPortId { get; set; }
+    public ushort? SystemProxyPortId { get; set; }
 
     /// <summary>
     /// 系统代理模式IP
@@ -224,7 +224,7 @@ public static partial class ProxySettings
     /// <summary>
     /// 系统代理模式端口
     /// </summary>
-    public static SettingsStructProperty<int, ProxySettings_> SystemProxyPortId { get; }
+    public static SettingsStructProperty<ushort, ProxySettings_> SystemProxyPortId { get; }
         = new(DefaultSystemProxyPortId);
 
     /// <summary>

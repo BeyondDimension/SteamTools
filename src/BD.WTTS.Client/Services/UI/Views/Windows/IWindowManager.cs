@@ -26,6 +26,7 @@ public interface IWindowManager
         bool isDialog = false,
         bool showProgressBar = false,
         bool isRememberChooseFooter = false,
+        bool isOkButton = true,
         bool isCancelButton = false,
         bool isRetryButton = false,
         object? pageContent = null,

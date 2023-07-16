@@ -1,10 +1,5 @@
-using AvaloniaEdit;
-using BD.WTTS.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.CommandLine;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace BD.WTTS.Services.Implementation;
 
@@ -27,13 +22,13 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
         if (platform.LoginFiles == null)
         {
-            Toast.Show("No data in platform: " + platform.FullName);
+            Toast.Show(ToastIcon.Error, "No data in platform: " + platform.FullName);
             return false;
         }
 
         if (string.IsNullOrEmpty(platform.UniqueIdPath))
         {
-            Toast.Show("No data in platform: " + platform.FullName);
+            Toast.Show(ToastIcon.Error, "No data in platform: " + platform.FullName);
             return false;
         }
 
@@ -44,7 +39,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
             if (!string.IsNullOrEmpty(uniqueId) && !RegistryKeyHelper.SetRegistryKey(platform.UniqueIdPath, uniqueId)) // Remove "REG:" and read data
             {
-                Toast.Show("已经使用此账号登录");
+                Toast.Show(ToastIcon.Info, "已经使用此账号登录");
                 return false;
             }
         }
@@ -58,7 +53,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             {
                 if (!regJson.ContainsKey(accFile))
                 {
-                    Toast.Show("读取已保存的注册表项失败。如果不成功，请尝试删除并重新添加帐户。");
+                    Toast.Show(ToastIcon.Error, "读取已保存的注册表项失败。如果不成功，请尝试删除并重新添加帐户。");
                     continue;
                 }
 
@@ -66,7 +61,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
                 if (!RegistryKeyHelper.SetRegistryKey(accFile[4..], regValue)) // Remove "REG:" and read data
                 {
-                    Toast.Show("写入 Windows 注册表失败");
+                    Toast.Show(ToastIcon.Error, "写入 Windows 注册表失败");
                     return false;
                 }
                 continue;
@@ -82,7 +77,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 var selector = accFile.Split("::")[2];
                 if (!JTokenHelper.ReplaceVarInJsonFile(path, selector, jToken))
                 {
-                    Toast.Show("修改JSON文件失败");
+                    Toast.Show(ToastIcon.Error, "修改JSON文件失败");
                     return false;
                 }
                 continue;

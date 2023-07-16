@@ -418,13 +418,25 @@
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>
-                                    <spp:Image2
-                                        Width="169"
-                                        DecodeWidth="169"
-                                        FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
-                                        RenderOptions.BitmapInterpolationMode="HighQuality"
-                                        Source="{Binding LibraryGridUrl}"
-                                        Stretch="UniformToFill" />
+                                    <Panel>
+                                        <spp:Image2
+                                            Width="169"
+                                            DecodeWidth="169"
+                                            FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
+                                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                                            Source="{Binding LibraryGridUrl}"
+                                            Stretch="UniformToFill" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Classes="h6"
+                                            Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                            IsVisible="{Binding LibraryGridStream^, Converter={StaticResource IsNullConverter}}"
+                                            Text="{Binding DisplayName}"
+                                            TextAlignment="Center"
+                                            TextWrapping="WrapWithOverflow" />
+                                    </Panel>
                                 </spp:AppItem.Image>
                             </spp:AppItem>
                         </Border>

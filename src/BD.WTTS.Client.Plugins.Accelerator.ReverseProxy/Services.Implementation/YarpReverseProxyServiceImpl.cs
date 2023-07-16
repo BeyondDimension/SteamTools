@@ -70,8 +70,8 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                     });
                 }
 #endif
-                options.ListenSshReverseProxy();
-                options.ListenGitReverseProxy();
+                //options.ListenSshReverseProxy();
+                //options.ListenGitReverseProxy();
 #endif
 
                 if (ProxyMode is ProxyMode.System or ProxyMode.PAC or ProxyMode.VPN)

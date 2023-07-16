@@ -167,7 +167,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 #if DEBUG // DEBUG 模式遍历项目查找模块
                     if (!File.Exists(subProcessPath))
                     {
-                        subProcessPath = Path.Combine(ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "bin", "Debug", ProjectUtils.tfm, subProcessFileName);
+                        subProcessPath = Path.Combine(ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}", subProcessFileName);
                     }
 #endif
                     return subProcessPath;

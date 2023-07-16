@@ -97,6 +97,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         bool isDialog = false,
         bool showProgressBar = false,
         bool isRememberChooseFooter = false,
+        bool isOkButton = true,
         bool isCancelButton = false,
         bool isRetryButton = false,
         object? pageContent = null,
@@ -104,7 +105,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         Func<bool>? cancelCloseAction = null)
         where TPageViewModel : ViewModelBase, new()
     {
-        var td = new TaskDialog
+        var td = new TaskDialogEx
         {
             Title = title,
             Header = string.IsNullOrEmpty(header) ? title : header,
@@ -117,10 +118,6 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             //IsFooterExpanded = isFooterExpanded,
             //Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, },
             XamlRoot = GetWindowTopLevel(),
-            Buttons =
-            {
-                new TaskDialogButton(string.IsNullOrEmpty(okButtonText) ? Strings.Confirm : okButtonText, TaskDialogStandardResult.OK),
-            },
         };
 
         if (viewModel != null)
@@ -139,6 +136,10 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             td.Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, };
         }
 
+        if (isOkButton)
+        {
+            td.Buttons.Add(new TaskDialogButton(string.IsNullOrEmpty(okButtonText) ? Strings.Confirm : okButtonText, TaskDialogStandardResult.OK));
+        }
         if (isCancelButton)
         {
             td.Buttons.Add(new TaskDialogButton(Strings.Cancel, TaskDialogStandardResult.Cancel));
