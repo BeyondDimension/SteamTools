@@ -14,6 +14,8 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
     const string moduleName = "ArchiSteamFarmPlus";
 
+    public sealed override string UniqueEnglishName => moduleName;
+
     public override string Name => moduleName;
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()

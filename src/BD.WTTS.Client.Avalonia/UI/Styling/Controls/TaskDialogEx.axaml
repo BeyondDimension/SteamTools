@@ -21,7 +21,7 @@
                     IsVisible="True"
                     ShowProgressBar="True"
                     SubHeader="Dialog SubHeader">
-                    <spp:TaskDialogEx.Buttons>
+                    <!--<spp:TaskDialogEx.Buttons>
                         <ui:TaskDialogButton
                             IconSource="Checkmark"
                             IsDefault="True"
@@ -30,7 +30,7 @@
                             IconSource="Dismiss"
                             IsEnabled="False"
                             Text="Cancel" />
-                    </spp:TaskDialogEx.Buttons>
+                    </spp:TaskDialogEx.Buttons>-->
 
                     <spp:TaskDialogEx.Commands>
                         <ui:TaskDialogCommand
@@ -54,7 +54,8 @@
         </Border>
     </Design.PreviewWith>
 
-    <Thickness x:Key="TaskDialogHeaderPaddingNoIcon">18 12 12 9</Thickness>
+    <Thickness x:Key="TaskDialogHeaderPadding">60 18 12 9</Thickness>
+    <Thickness x:Key="TaskDialogHeaderPaddingNoIcon">18 18 12 9</Thickness>
 
     <ControlTheme x:Key="TaskDialogMoreDetailsButton" TargetType="Button">
         <Setter Property="Foreground" Value="{DynamicResource TaskDialogFooterButtonForeground}" />
@@ -117,11 +118,13 @@
 
                                 <Button
                                     Name="CloseButton"
-                                    Margin="0,0,12,0"
+                                    Margin="0,0,18,0"
                                     HorizontalAlignment="Right"
                                     Classes="Close"
                                     Content="&#xE8BB;"
+                                    Focusable="True"
                                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    IsTabStop="True"
                                     Theme="{StaticResource FA_SystemCaptionButton}" />
                             </Panel>
 

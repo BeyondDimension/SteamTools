@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<RootNamespace>BD.WTTS</RootNamespace>
@@ -82,6 +82,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Net\IDnsAnalysisService.cs">
+			<LinkBase>Services\Net</LinkBase>
+		</Compile>
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\IReverseProxyService.Constants.cs">
 			<LinkBase>Services</LinkBase>
 		</Compile>

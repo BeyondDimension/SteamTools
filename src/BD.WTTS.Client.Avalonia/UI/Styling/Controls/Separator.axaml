@@ -24,12 +24,14 @@
 
     <Style Selector="Separator.Horizontal">
         <Setter Property="Height" Value="0.88" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Background" Value="{DynamicResource ButtonBorderBrush}" />
         <Setter Property="Opacity" Value="0.8" />
     </Style>
 
     <Style Selector="Separator.Vertical">
         <Setter Property="Width" Value="0.88" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="Background" Value="{DynamicResource ButtonBorderBrush}" />
         <Setter Property="Opacity" Value="0.8" />
     </Style>

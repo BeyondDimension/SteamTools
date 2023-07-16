@@ -222,8 +222,17 @@
                         PaneBackground="Transparent"
                         PanePlacement="Right">
                         <SplitView.Pane>
-                            <Border Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}" CornerRadius="4 0 0 4">
-                                <ContentPresenter HorizontalAlignment="Stretch" Content="{TemplateBinding PaneContent}" />
+                            <Border
+                                Margin="2,0,0,0"
+                                Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                                BoxShadow="0 4 16 0 #66000000"
+                                CornerRadius="4 0 0 4">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                    <ScrollViewer.GestureRecognizers>
+                                        <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
+                                    </ScrollViewer.GestureRecognizers>
+                                    <ContentPresenter HorizontalAlignment="Stretch" Content="{TemplateBinding PaneContent}" />
+                                </ScrollViewer>
                             </Border>
                         </SplitView.Pane>
                         <ScrollViewer

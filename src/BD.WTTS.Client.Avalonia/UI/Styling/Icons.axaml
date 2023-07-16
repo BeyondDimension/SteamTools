@@ -25,6 +25,7 @@
     <x:String x:Key="Reply">&#xE97A;</x:String>
     <x:String x:Key="Globe">&#xE12B;</x:String>
     <x:String x:Key="CheckMark">&#xE73E;</x:String>
+    <x:String x:Key="HeartBroken">&#xEA92;</x:String>
 
 
     <ui:ImageIconSource x:Key="AppIcon" Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />

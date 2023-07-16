@@ -3,7 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:generic="using:System.Collections.Generic"
+    xmlns:enum="using:BD.WTTS.Enums"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
@@ -21,6 +21,29 @@
                                      Mode=OneWay,
                                      Source={x:Static s:ResourceService.Current}}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
+
+        <Border IsEnabled="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+            <ui:SettingsExpander
+                Description="{ReflectionBinding Path=Res.Advertisement_NoShow_Tip,
+                                                Mode=OneWay,
+                                                Source={x:Static s:ResourceService.Current}}"
+                Header="{ReflectionBinding Path=Res.Advertisement_NoShow,
+                                           Mode=OneWay,
+                                           Source={x:Static s:ResourceService.Current}}"
+                IsEnabled="{ReflectionBinding Path=User.UserType,
+                                              Mode=OneWay,
+                                              Source={x:Static s:UserService.Current},
+                                              Converter={StaticResource EnumEqualValueConverter},
+                                              ConverterParameter={x:Static enum:UserType.Sponsor}}">
+                <ui:SettingsExpander.IconSource>
+                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource HeartBroken}" />
+                </ui:SettingsExpander.IconSource>
+                <ui:SettingsExpander.Footer>
+                    <ToggleSwitch Classes="LeftContent" />
+                </ui:SettingsExpander.Footer>
+            </ui:SettingsExpander>
+        </Border>
+
         <spp:OptionsDisplayItem
             Description="设置程序的主题风格"
             Header="{ReflectionBinding Path=Res.Settings_Theme,
