@@ -188,13 +188,6 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override bool HasValue([NotNullWhen(false)] out string? error)
     {
-        //if (!ResourceService.IsChineseSimplified)
-        //{
-        //    // 网络加速模块仅在简体中文中加载
-        //    error = "网络加速模块仅在简体中文中加载";
-        //    return false;
-        //}
-
         if (!SubProcessExists())
         {
             error = Strings.CommunityFix_SubProcessFileNotExist;

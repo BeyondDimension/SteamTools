@@ -323,20 +323,22 @@ public static class PluginsCore
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static HashSet<IPlugin>? GetExports(IEnumerable<Assembly> assemblies)
+    static HashSet<IPlugin>? GetExports(
+        HashSet<IPlugin> plugins,
+        HashSet<IPlugin> disablePlugins,
+        IEnumerable<Assembly> assemblies)
     {
         ConventionBuilder conventions = new();
         conventions.ForTypesDerivedFrom<IPlugin>().Export<IPlugin>();
 
         var configuration = new ContainerConfiguration().WithAssemblies(assemblies, conventions);
 
-        HashSet<IPlugin> plugins = new();
         try
         {
             using CompositionHost container = configuration.CreateContainer();
             foreach (var plugin in container.GetExports<IPlugin>())
             {
-                if (plugin.HasValue() && plugin is PluginBase pluginBase)
+                if (plugin.HasValue(out var error) && plugin is PluginBase pluginBase)
                 {
 #if DEBUG
                     var isOfficial = pluginBase.IsOfficial;
@@ -346,8 +348,10 @@ public static class PluginsCore
                 else
                 {
                     Log.Error(TAG,
-                        "CompositionHost.GetExports plugin validation failed, name: {name}.",
-                        plugin.UniqueEnglishName);
+                        "CompositionHost.GetExports plugin validation failed, name: {name}, error: {error}.",
+                        plugin.UniqueEnglishName,
+                        error);
+                    disablePlugins.Add(plugin);
                 }
             }
         }
@@ -425,32 +429,28 @@ public static class PluginsCore
         if (!assemblies_.Any()) return null;
 
         HashSet<PluginResult<IPlugin>> pluginResults = new();
-        var activePlugins = GetExports(assemblies_.Where(x => !x.IsDisable).Select(x => x.Data));
-        if (activePlugins != null)
+        HashSet<IPlugin> disablePlugins = new();
+        HashSet<IPlugin> activePlugins = new();
+        GetExports(activePlugins, disablePlugins, assemblies_.Where(x => !x.IsDisable).Select(x => x.Data));
+        foreach (var plugin in activePlugins)
         {
-            foreach (var plugin in activePlugins)
+            pluginResults.Add(new(false, plugin));
+        }
+        GetExports(disablePlugins, disablePlugins, assemblies_.Where(x => x.IsDisable).Select(x => x.Data));
+        foreach (var plugin in disablePlugins)
+        {
+            try
             {
-                pluginResults.Add(new(false, plugin));
+                var plugin_ = new DisablePlugin(plugin);
+                pluginResults.Add(new(true, plugin_));
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "Failed to initialize disabled plugin.");
             }
         }
-        var disablePlugins = GetExports(assemblies_.Where(x => x.IsDisable).Select(x => x.Data));
-        if (disablePlugins != null)
-        {
-            foreach (var plugin in disablePlugins)
-            {
-                try
-                {
-                    var plugin_ = new DisablePlugin(plugin);
-                    pluginResults.Add(new(true, plugin_));
-                }
-                catch (Exception e)
-                {
-                    Log.Error(TAG, e, "Failed to initialize disabled plugin.");
-                }
-            }
-            disablePluginsAssemblyLoadContext.Unload();
-            disablePluginsAssemblyLoadContext = null!;
-        }
+        disablePluginsAssemblyLoadContext.Unload();
+        disablePluginsAssemblyLoadContext = null!;
         return pluginResults;
     }
 }
