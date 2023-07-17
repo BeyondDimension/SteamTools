@@ -394,22 +394,24 @@
             </spp:ContentLoader.GestureRecognizers>
             <ItemsRepeater ItemsSource="{Binding SteamApps}">
                 <ItemsRepeater.Layout>
-                    <!--<UniformGridLayout
+                    <UniformGridLayout
                         ItemsJustification="Start"
                         ItemsStretch="Uniform"
                         MinColumnSpacing="10"
-                        MinRowSpacing="10" />-->
-                    <WrapLayout
+                        MinRowSpacing="10" />
+                    <!--<WrapLayout
                         HorizontalSpacing="10"
                         Orientation="Horizontal"
-                        VerticalSpacing="10" />
+                        VerticalSpacing="10" />-->
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="scmd:SteamApp">
                         <Border spp:Animations.EnableAnimations="False">
                             <spp:AppItem
                                 Title="{Binding DisplayName}"
-                                Width="169"
+                                MinWidth="128"
+                                MaxWidth="169"
+                                MaxHeight="335"
                                 Classes="Vertical"
                                 Description="{Binding AppId}">
                                 <spp:AppItem.MoreFlyout>
@@ -418,24 +420,24 @@
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>
-                                    <Panel>
+                                    <Panel MinWidth="{ReflectionBinding $parent[spp:AppItem].MinWidth}" MaxWidth="{ReflectionBinding $parent[spp:AppItem].MaxWidth}">
                                         <spp:Image2
-                                            Width="169"
+                                            Name="AppImage"
                                             DecodeWidth="169"
                                             FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
                                             RenderOptions.BitmapInterpolationMode="HighQuality"
                                             Source="{Binding LibraryGridUrl}"
                                             Stretch="UniformToFill" />
                                         <TextBlock
-                                            Margin="5,0"
+                                            Margin="8,0"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Classes="h6"
-                                            Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                            IsVisible="{Binding LibraryGridStream^, Converter={StaticResource IsNullConverter}}"
+                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                            IsVisible="{ReflectionBinding #AppImage.IsFailed}"
                                             Text="{Binding DisplayName}"
                                             TextAlignment="Center"
-                                            TextWrapping="WrapWithOverflow" />
+                                            TextWrapping="WrapWithOverflow"
+                                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
                                     </Panel>
                                 </spp:AppItem.Image>
                             </spp:AppItem>
