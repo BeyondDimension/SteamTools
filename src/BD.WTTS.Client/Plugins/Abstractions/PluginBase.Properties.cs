@@ -198,7 +198,6 @@ partial class PluginBase
         }
         catch
         {
-
         }
         return default;
     }

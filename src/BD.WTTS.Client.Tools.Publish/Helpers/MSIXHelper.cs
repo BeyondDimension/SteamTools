@@ -1,3 +1,5 @@
+using System.Management.Automation;
+
 namespace BD.WTTS.Client.Tools.Publish.Helpers;
 
 static class MSIXHelper
@@ -256,8 +258,14 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
             return path;
         }
 
+        const string timestamp_url = "http://timestamp.digicert.com";
+
+        public const string pfxFilePath_MSStore_CodeSigning = @"C:\MSStore_CodeSigning.pfx";
+        public const string pfxFilePath_BeyondDimension_CodeSigning = @"C:\BeyondDimension_CodeSigning.pfx";
+
         public static void Start(
-            string rootPublicPath)
+            string fileName,
+            string? pfxFilePath = null)
         {
             var pwd = File.ReadAllText(@"C:\MSStore_CodeSigning.txt")?.Trim();
             var psi = new ProcessStartInfo
@@ -266,10 +274,33 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
                 UseShellExecute = false,
                 Arguments =
 $"""
-sign /a /fd SHA256 /f "C:\MSStore_CodeSigning.pfx" /p "{pwd}" "{rootPublicPath}.msix"
+sign /a /fd SHA256 /f "{pfxFilePath ?? pfxFilePath_BeyondDimension_CodeSigning}" /p "{pwd}" /tr {timestamp_url} "{fileName}"
 """,
             };
             DotNetCLIHelper.StartProcessAndWaitForExit(psi);
         }
+    }
+
+    /// <summary>
+    /// 文件是否经过了数字签名
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    public static bool IsDigitalSigned(string filePath)
+    {
+        //var runspaceConfiguration = RunspaceConfiguration.Create();
+        //using var runspace = RunspaceFactory.CreateRunspace(runspaceConfiguration);
+        //runspace.Open();
+        //using var pipeline = runspace.CreatePipeline();
+        //pipeline.Commands.AddScript("Get-AuthenticodeSignature \"" + filePath + "\"");
+        //var results = pipeline.Invoke();
+        //runspace.Close();
+        //var signature = results[0].BaseObject as Signature;
+        // https://github.com/PowerShell/PowerShell/blob/v7.2.4/src/Microsoft.PowerShell.Security/security/SignatureCommands.cs#L269-L282
+        var signature = SignatureHelper.GetSignature(filePath, null);
+        var r = signature != null &&
+            signature.SignerCertificate != null &&
+            (signature.Status != SignatureStatus.NotSigned);
+        return r;
     }
 }

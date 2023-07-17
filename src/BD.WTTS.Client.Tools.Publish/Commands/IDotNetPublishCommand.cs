@@ -103,12 +103,18 @@ interface IDotNetPublishCommand : ICommand
 
             if (OperatingSystem.IsWindows() && isWindows)
             {
+                // 数字签名
+                //foreach (var item in collection)
+                //{
+
+                //}
+
                 // 打包资源 images
                 MSIXHelper.MakePri.Start(rootPublishDir);
                 // 生成 msix 包
                 MSIXHelper.MakeAppx.Start(rootPublishDir, GetVersion(), info.Architecture);
                 // 签名 msix 包
-                MSIXHelper.SignTool.Start(rootPublishDir);
+                MSIXHelper.SignTool.Start($"{rootPublishDir}.msix");
             }
 
             Console.WriteLine(rootPublishDir);
