@@ -4420,6 +4420,33 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 插件删除异常，请稍后再试 的本地化字符串。
+        /// </summary>
+        public static string Plugins_DeleteError {
+            get {
+                return ResourceManager.GetString("Plugins_DeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 插件删除成功 的本地化字符串。
+        /// </summary>
+        public static string Plugins_DeleteSuccess {
+            get {
+                return ResourceManager.GetString("Plugins_DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 需要先禁用该插件 的本地化字符串。
+        /// </summary>
+        public static string Plugins_NeedDisable {
+            get {
+                return ResourceManager.GetString("Plugins_NeedDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 产品官网 的本地化字符串。
         /// </summary>
         public static string ProductOfficialWebsite {

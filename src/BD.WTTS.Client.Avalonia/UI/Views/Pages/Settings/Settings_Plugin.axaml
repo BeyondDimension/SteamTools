@@ -30,6 +30,7 @@
             </ui:SettingsExpander.Footer>
         </ui:SettingsExpander>
 
+
         <TextBlock
             Margin="0,10,0,5"
             Text="已安装插件"
@@ -55,7 +56,9 @@
                         </ui:SettingsExpander.Footer>
                         <ui:SettingsExpanderItem
                             ActionIconSource="Refresh"
-                            Content="检查更新"
+                            Command="{ReflectionBinding Path=DataContext.CheckUpdate_Click,
+                                                        RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                            Content="检测更新"
                             IsClickEnabled="True">
                             <ui:SettingsExpanderItem.Description>
                                 <MultiBinding StringFormat="{}{0}{1}">
@@ -69,14 +72,23 @@
                         </ui:SettingsExpanderItem>
                         <ui:SettingsExpanderItem
                             ActionIconSource="Open"
+                            Command="{ReflectionBinding Path=DataContext.OpenPluginDirectory_Click,
+                                                        RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                            CommandParameter="{Binding Data.AssemblyLocation}"
                             Content="打开插件文件夹"
                             IsClickEnabled="True" />
                         <ui:SettingsExpanderItem
                             ActionIconSource="Open"
+                            Command="{ReflectionBinding Path=DataContext.OpenPluginCacheDirectory_Click,
+                                                        RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                            CommandParameter="{Binding Data.CacheDirectory}"
                             Content="打开插件缓存文件夹"
                             IsClickEnabled="True" />
                         <ui:SettingsExpanderItem
                             ActionIconSource="Delete"
+                            Command="{ReflectionBinding Path=DataContext.DeletePlugin_Click,
+                                                        RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                            CommandParameter="{Binding Data}"
                             Content="删除"
                             IsClickEnabled="True" />
                     </ui:SettingsExpander>
@@ -84,7 +96,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <!--<ui:SettingsExpander
+        <ui:SettingsExpander
             Description="管理所有已安装的插件"
             Header="已安装插件"
             IsExpanded="True"
@@ -108,9 +120,6 @@
                             <ui:ImageIconSource Source="{Binding Data.Icon, Converter={StaticResource BitmapAssetValueConverter}}" />
                         </ui:SettingsExpanderItem.IconSource>
                         <ui:SettingsExpanderItem.Footer>
-        -->
-        <!--<ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />-->
-        <!--
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !IsDisable}" />
                                 <DropDownButton
@@ -123,11 +132,23 @@
                                     Theme="{StaticResource TransparentButton}">
                                     <DropDownButton.Flyout>
                                         <MenuFlyout>
-                                            <MenuItem Header="检查更新" />
-                                            <MenuItem Header="打开插件文件夹" />
-                                            <MenuItem Header="打开插件缓存文件夹" />
+                                            <MenuItem Command="{ReflectionBinding Path=DataContext.CheckUpdate_Click, RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}" Header="检查更新" />
+                                            <MenuItem
+                                                Command="{ReflectionBinding Path=DataContext.OpenPluginDirectory_Click,
+                                                                            RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                                                CommandParameter="{Binding Data.AssemblyLocation}"
+                                                Header="打开插件文件夹" />
+                                            <MenuItem
+                                                Command="{ReflectionBinding Path=DataContext.OpenPluginCacheDirectory_Click,
+                                                                            RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                                                CommandParameter="{Binding Data.CacheDirectory}"
+                                                Header="打开插件缓存文件夹" />
                                             <MenuItem Header="-" />
-                                            <MenuItem Header="删除" />
+                                            <MenuItem
+                                                Command="{ReflectionBinding Path=DataContext.DeletePlugin_Click,
+                                                                            RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                                                CommandParameter="{Binding Data}"
+                                                Header="删除" />
                                         </MenuFlyout>
                                     </DropDownButton.Flyout>
                                 </DropDownButton>
@@ -136,7 +157,7 @@
                     </ui:SettingsExpanderItem>
                 </DataTemplate>
             </ui:SettingsExpander.ItemTemplate>
-        </ui:SettingsExpander>-->
+        </ui:SettingsExpander>
 
     </StackPanel>
 </UserControl>

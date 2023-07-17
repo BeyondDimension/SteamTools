@@ -17,6 +17,14 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 
         OpenFolder_Click = ReactiveCommand.Create<string>(OpenFolder);
 
+        CheckUpdate_Click = ReactiveCommand.Create(CheckUpdate);
+
+        OpenPluginDirectory_Click = ReactiveCommand.Create<string>(OpenPluginDirectory);
+
+        OpenPluginCacheDirectory_Click = ReactiveCommand.Create<string>(OpenPluginCacheDirectory);
+
+        DeletePlugin_Click = ReactiveCommand.Create<IPlugin>(DeletePlugin);
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (IApplication.IsDesktop())
         {
