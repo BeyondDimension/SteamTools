@@ -113,6 +113,24 @@ public abstract partial class PluginBase : IPlugin
     {
         return ValueTask.CompletedTask;
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    protected static async ValueTask GetIpcRemoteServiceAsync<T>(
+        string moduleName,
+        IPCMainProcessService ipc,
+        TaskCompletionSource<T> tsc)
+        where T : class
+    {
+        try
+        {
+            var ipcRemoteService = await ipc.GetServiceAsync<T>(moduleName);
+            tsc.TrySetResult(ipcRemoteService.ThrowIsNull());
+        }
+        catch (Exception ex)
+        {
+            tsc.TrySetException(ex);
+        }
+    }
 }
 
 public abstract partial class PluginBase<TPlugin> : PluginBase, IPlugin where TPlugin : PluginBase<TPlugin>, new()

@@ -43,6 +43,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     }
 
     readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new();
+    readonly TaskCompletionSource<ICertificateManager> certificateManager = new();
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {
@@ -53,6 +54,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 #if !DISABLE_ASPNET_CORE && (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             // 添加反向代理服务（主进程插件）
             services.AddSingleton(_ => reverseProxyService.Task.GetAwaiter().GetResult());
+            services.AddSingleton(_ => certificateManager.Task.GetAwaiter().GetResult());
 #endif
         }
 
@@ -91,15 +93,8 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             var ipc = IPCMainProcessService.Instance;
 
             // 从子进程中获取 IPC 远程服务
-            try
-            {
-                var reverseProxyService = await ipc.GetServiceAsync<IReverseProxyService>(moduleName);
-                this.reverseProxyService.TrySetResult(reverseProxyService.ThrowIsNull());
-            }
-            catch (Exception ex)
-            {
-                reverseProxyService.TrySetException(ex);
-            }
+            await GetIpcRemoteServiceAsync(moduleName, ipc, reverseProxyService);
+            await GetIpcRemoteServiceAsync(moduleName, ipc, certificateManager);
 #if DEBUG
             //try
             //{

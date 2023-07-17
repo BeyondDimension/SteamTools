@@ -35,6 +35,7 @@ try
     {
         // 添加反向代理服务（供主进程的 IPC 远程访问）
         ipcProvider.CreateIpcJoint(LazyReverseProxyServiceImpl.Instance);
+        ipcProvider.CreateIpcJoint(LazyCertificateManager.Instance);
     }, args);
 
     return exitCode;
