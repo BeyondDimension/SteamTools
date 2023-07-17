@@ -24,8 +24,8 @@ public static class PluginsCore
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     sealed record class DisablePlugin : IPlugin
     {
-        readonly bool hasValue;
-        readonly string? hasNotValueError;
+        bool hasValue;
+        string? hasNotValueError;
 
         public DisablePlugin(IPlugin plugin)
         {
@@ -99,6 +99,16 @@ public static class PluginsCore
         public DateTimeOffset InstallTime { get; init; }
 
         public DateTimeOffset ReleaseTime { get; init; }
+
+        string? IPlugin.LoadError
+        {
+            get => hasNotValueError;
+            set
+            {
+                hasNotValueError = value;
+                hasValue = string.IsNullOrWhiteSpace(value);
+            }
+        }
 
         public bool HasValue([NotNullWhen(false)] out string? error)
         {
@@ -338,21 +348,25 @@ public static class PluginsCore
             using CompositionHost container = configuration.CreateContainer();
             foreach (var plugin in container.GetExports<IPlugin>())
             {
-                if (plugin.HasValue(out var error) && plugin is PluginBase pluginBase)
+                var isPluginBase = false;
+                if (plugin.HasValue(out var error))
                 {
+                    if (plugin is PluginBase pluginBase)
+                    {
+                        isPluginBase = true;
 #if DEBUG
-                    var isOfficial = pluginBase.IsOfficial;
+                        var isOfficial = pluginBase.IsOfficial;
 #endif
-                    plugins.Add(pluginBase);
+                        plugins.Add(pluginBase);
+                        continue;
+                    }
                 }
-                else
-                {
-                    Log.Error(TAG,
-                        "CompositionHost.GetExports plugin validation failed, name: {name}, error: {error}.",
+                Log.Error(TAG,
+                        "CompositionHost.GetExports plugin validation failed, name: {name}, isPluginBase: {isPluginBase}, error: {error}.",
                         plugin.UniqueEnglishName,
+                        isPluginBase,
                         error);
-                    disablePlugins.Add(plugin);
-                }
+                disablePlugins.Add(plugin);
             }
         }
         catch (Exception e)

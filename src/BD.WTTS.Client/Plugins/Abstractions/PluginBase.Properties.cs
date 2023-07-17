@@ -205,6 +205,14 @@ partial class PluginBase
     public DateTimeOffset InstallTime => mInstallTime.Value;
 
     public DateTimeOffset ReleaseTime { get; internal set; }
+
+    string? loadError;
+
+    string? IPlugin.LoadError
+    {
+        get => loadError;
+        set => loadError = value;
+    }
 }
 
 partial class PluginBase<TPlugin>
