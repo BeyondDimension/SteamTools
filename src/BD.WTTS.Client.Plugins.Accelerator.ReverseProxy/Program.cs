@@ -38,6 +38,12 @@ try
         ipcProvider.CreateIpcJoint(LazyCertificateManager.Instance);
     }, args);
 
+#if DEBUG
+    if (exitCode != default)
+    {
+        Console.ReadLine();
+    }
+#endif
     return exitCode;
 }
 catch (Exception ex)

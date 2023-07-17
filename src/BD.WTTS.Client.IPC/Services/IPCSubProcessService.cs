@@ -145,11 +145,12 @@ public interface IPCSubProcessService : IDisposable
         }
 #endif
 
+        SubProcessArgumentIndex2Model? m = default;
         if (pluginName != null)
         {
             if (args.Length < 3)
                 return (int)CommandExitCode.EmptyArrayArgs;
-            var m = GetSubProcessArgumentIndex2Model(args[2]);
+            m = GetSubProcessArgumentIndex2Model(args[2]);
             if (m == null)
                 return (int)CommandExitCode.SubProcessArgumentIndex2ModelIsNull;
 
@@ -157,7 +158,7 @@ public interface IPCSubProcessService : IDisposable
         }
 
         string? logDirPath = null;
-        IPCSubProcessFileSystem.InitLog(ref logDirPath);
+        IPCSubProcessFileSystem.InitLog(ref logDirPath, moduleName, cacheDirectory: m?.CacheDirectory);
         LogDirPath = logDirPath!;
 
         TaskCompletionSource tcs = new();
@@ -290,7 +291,8 @@ sealed class IPCSubProcessFileSystem : IOPath.FileSystemBase
     public static void InitLog(
         ref string? logDirPath,
         string? mainProcessModuleName = null,
-        string? alias = null
+        string? alias = null,
+        string? cacheDirectory = null
 #if STARTUP_WATCH_TRACE || DEBUG
 #pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable SA1001 // Commas should be spaced correctly
@@ -307,16 +309,17 @@ sealed class IPCSubProcessFileSystem : IOPath.FileSystemBase
         if (!string.IsNullOrEmpty(logDirPath))
             return; // 已初始化过日志文件夹路径
 
+        cacheDirectory ??= IOPath.CacheDirectory;
+
         if (mainProcessModuleName == null)
         {
-            logDirPath = Path.Combine(IOPath.CacheDirectory, LogDirName);
+            logDirPath = Path.Combine(cacheDirectory, LogDirName);
         }
         else
         {
             var dirName = GetDirectoryName(mainProcessModuleName);
-            logDirPath = Path.Combine(IOPath.CacheDirectory, dirName, LogDirName);
+            logDirPath = Path.Combine(cacheDirectory, LogDirName, dirName);
         }
-        logDirPath = Path.Combine(IOPath.CacheDirectory, LogDirName);
         IOPath.DirCreateByNotExists(logDirPath);
 #if (STARTUP_WATCH_TRACE || DEBUG) && !LIB_CLIENT_IPC
         if (watchTrace) Startup.WatchTrace.Record("InitLog.IOPath");

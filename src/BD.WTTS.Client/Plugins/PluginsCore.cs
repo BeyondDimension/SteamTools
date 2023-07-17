@@ -348,6 +348,13 @@ public static class PluginsCore
             using CompositionHost container = configuration.CreateContainer();
             foreach (var plugin in container.GetExports<IPlugin>())
             {
+                if (string.Equals(plugin.UniqueEnglishName,
+                    IPlatformService.IPCRoot.moduleName,
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    continue; // 屏蔽此名词
+                }
+
                 var isPluginBase = false;
                 if (plugin.HasValue(out var error))
                 {
