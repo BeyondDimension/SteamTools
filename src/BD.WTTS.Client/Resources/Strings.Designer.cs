@@ -1635,6 +1635,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 网络加速子进程文件不存在 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_SubProcessFileNotExist {
+            get {
+                return ResourceManager.GetString("CommunityFix_SubProcessFileNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定 的本地化字符串。
         /// </summary>
         public static string Confirm {

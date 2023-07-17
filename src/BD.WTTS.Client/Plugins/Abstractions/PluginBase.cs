@@ -53,8 +53,9 @@ public abstract partial class PluginBase : IPlugin
 
     }
 
-    public virtual bool ExplicitHasValue()
+    public virtual bool HasValue([NotNullWhen(false)] out string? error)
     {
+        error = default;
         return true;
     }
 

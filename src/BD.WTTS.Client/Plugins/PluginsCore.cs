@@ -24,6 +24,9 @@ public static class PluginsCore
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     sealed record class DisablePlugin : IPlugin
     {
+        readonly bool hasValue;
+        readonly string? hasNotValueError;
+
         public DisablePlugin(IPlugin plugin)
         {
             StackTrace stackTrace = new();
@@ -47,6 +50,16 @@ public static class PluginsCore
             Icon = plugin.Icon;
             InstallTime = plugin.InstallTime;
             ReleaseTime = plugin.ReleaseTime;
+
+            try
+            {
+                hasValue = plugin.HasValue(out hasNotValueError);
+            }
+            catch (Exception ex)
+            {
+                hasValue = false;
+                hasNotValueError = ex.ToString();
+            }
         }
 
         string DebuggerDisplay => $"{UniqueEnglishName} v{Version}";
@@ -87,17 +100,18 @@ public static class PluginsCore
 
         public DateTimeOffset ReleaseTime { get; init; }
 
+        public bool HasValue([NotNullWhen(false)] out string? error)
+        {
+            error = hasNotValueError!;
+            return hasValue;
+        }
+
         public void ConfigureDemandServices(IServiceCollection services, Startup startup)
         {
         }
 
         public void ConfigureRequiredServices(IServiceCollection services, Startup startup)
         {
-        }
-
-        public bool ExplicitHasValue()
-        {
-            return true;
         }
 
         public IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
