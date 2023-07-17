@@ -45,7 +45,7 @@
         </Border>
 
         <spp:OptionsDisplayItem
-            Description="设置程序的主题风格"
+            Description="{ReflectionBinding Path=Res.Settings_UI_ThemeStyle, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Header="{ReflectionBinding Path=Res.Settings_Theme,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
@@ -65,7 +65,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
         <spp:OptionsDisplayItem
-            Description="设置程序中显示的强调色"
+            Description="{ReflectionBinding Path=Res.Settings_UI_AccentColor, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Expands="True"
             Header="{ReflectionBinding Path=Res.Settings_ThemeAccent,
                                        Mode=OneWay,
@@ -91,7 +91,7 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
-                            Text="预览颜色" />
+                            Text="{ReflectionBinding Path=Res.Settings_UI_PreviewColorr, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
                         <Grid
                             HorizontalAlignment="Left"
@@ -270,7 +270,7 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
-                            Text="自定义颜色" />
+                            Text="{ReflectionBinding Path=Res.Settings_UI_CustomColor, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
                         <ui:ColorPickerButton
                             DockPanel.Dock="Right"
@@ -291,7 +291,7 @@
         </spp:OptionsDisplayItem>
 
         <spp:OptionsDisplayItem
-            Description="设置程序首选的显示语言"
+            Description="{ReflectionBinding Path=Res.Settings_UI_DefaultLanguage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Header="{ReflectionBinding Path=Res.Settings_Language,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
@@ -311,7 +311,7 @@
         </spp:OptionsDisplayItem>
 
         <spp:OptionsDisplayItem
-            Description="设置程序首选的字体"
+            Description="{ReflectionBinding Path=Res.Settings_UI_DefaultFonts, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Header="{ReflectionBinding Path=Res.Settings_Fonts,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
@@ -334,7 +334,7 @@
         </spp:OptionsDisplayItem>
 
         <spp:OptionsDisplayItem
-            Description="设置窗口背景透明效果和透明材质"
+            Description="{ReflectionBinding Path=Res.Settings_UI_WindowBackgroundStyle, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Header="{ReflectionBinding Path=Res.Settings_UI_WindowTransparencyMaterial,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
@@ -395,7 +395,7 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
-                            Text="预览图片" />
+                            Text="{ReflectionBinding Path=Res.PreviewPictures, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
                         <Image
                             Width="250"
@@ -447,7 +447,7 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
-                            Text="选择一张照片" />
+                            Text="{ReflectionBinding Path=Res.SelectPicture, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <Button
                             MinWidth="150"
                             Command="{Binding SelectImage_Click}"
@@ -466,7 +466,7 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
-                            Text="选择图片缩放方式" />
+                            Text="{ReflectionBinding Path=Res.PictureZoom, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ComboBox
                             MinWidth="150"
                             DockPanel.Dock="Right"

@@ -1,3 +1,5 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
 using BD.WTTS.Client.Resources;
@@ -54,7 +56,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         //await AuthenticatorService.DeleteAllAuthenticatorsAsync();
         if (_initializeTime > DateTime.Now.AddSeconds(-1))
         {
-            Toast.Show(ToastIcon.Warning, "请勿频繁操作");
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_DoNotOperateFrequently);
             return;
         }
 
@@ -90,7 +92,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             Auths.Add(new AuthenticatorItemModel(item));
         }
 
-        Toast.Show(ToastIcon.Success, "令牌加载成功");
+        Toast.Show(ToastIcon.Success, AppResources.Success_TokenloadedSuccessfully);
     }
 
     public async Task<bool> EnterPassword(AccountPlatformAuthenticator sourceData)
@@ -99,7 +101,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入令牌保护密码", isDialog: false,
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_InputTokenPassword, isDialog: false,
                 isCancelButton: true) &&
             textViewmodel.Value != null)
         {
@@ -110,7 +112,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 IsVerificationPass = true;
                 return true;
             }
-            else Toast.Show(ToastIcon.Warning, "密码错误，请刷新重试");
+            else Toast.Show(ToastIcon.Warning, AppResources.Warning_PasswordError);
         }
 
         IsVerificationPass = false;
@@ -121,7 +123,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (Auths.Count < 1 || IsVerificationPass == false)
         {
-            Toast.Show(ToastIcon.Warning, "拒绝操作");
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_RefuseOperate);
             return;
         }
 
@@ -130,13 +132,13 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入令牌保护密码", isDialog: false,
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_InputTokenPassword, isDialog: false,
                 isCancelButton: true) &&
             textViewmodel.Value != null)
         {
             newPassword = textViewmodel.Value;
             textViewmodel.Value = null;
-            if (!(await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请再次输入密码以确认", isDialog: false) &&
+            if (!(await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_PasswordConfirm, isDialog: false) &&
                   textViewmodel.Value == newPassword)) return;
         }
         else return;
@@ -144,11 +146,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
                 newPassword))
         {
-            Toast.Show(ToastIcon.Success, "令牌密码保护设置成功。");
+            Toast.Show(ToastIcon.Success, AppResources.Success_TokenPasswordSetSuccessfully);
             //_currentPassword = newPassword.Base64DecodeToByteArray_Nullable();
             _currentPassword = newPassword;
         }
-        else Toast.Show(ToastIcon.Error, "令牌密码保护设置失败。");
+        else Toast.Show(ToastIcon.Error, AppResources.Error_TokenPasswordSetFailed);
 
         HasPasswordEncrypt = true;
     }
@@ -157,17 +159,17 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (Auths.Count < 1 || IsVerificationPass == false)
         {
-            Toast.Show(ToastIcon.Error, "拒绝操作");
+            Toast.Show(ToastIcon.Error, AppResources.Warning_RefuseOperate);
             return;
         }
 
         if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
                 null))
         {
-            Toast.Show(ToastIcon.Success, "令牌密码保护移除成功。");
+            Toast.Show(ToastIcon.Success, AppResources.Success_TokenPasswordRemovedSuccessfully);
             _currentPassword = null;
         }
-        else Toast.Show(ToastIcon.Error, "令牌密码保护移除失败。");
+        else Toast.Show(ToastIcon.Error, AppResources.Error_TokenPasswordRemovedFailed);
 
         HasPasswordEncrypt = false;
         IsVerificationPass = true;
@@ -177,7 +179,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (Auths.Count < 1 || IsVerificationPass == false)
         {
-            Toast.Show(ToastIcon.Error, "拒绝操作");
+            Toast.Show(ToastIcon.Error, AppResources.Warning_RefuseOperate);
             return;
         }
 

@@ -21,7 +21,8 @@
                                      Source={x:Static s:ResourceService.Current}}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
 
-        <ui:SettingsExpander Description="仅加载官方插件" Header="安全模式">
+        <ui:SettingsExpander Description="{ReflectionBinding Path=Res.Settings_Plugin_OnlyLoadOfficial, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							 Header="{ReflectionBinding Path=Res.Settings_Plugin_SafeMode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <ui:SettingsExpander.IconSource>
                 <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="{StaticResource DefenderApp}" />
             </ui:SettingsExpander.IconSource>
@@ -32,7 +33,7 @@
 
         <TextBlock
             Margin="0,10,0,5"
-            Text="已安装插件"
+            Text="{ReflectionBinding Path=Res.Settings_Plugin_WasInstalled, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
         <ItemsControl ItemsSource="{Binding Plugins}">
@@ -55,7 +56,7 @@
                         </ui:SettingsExpander.Footer>
                         <ui:SettingsExpanderItem
                             ActionIconSource="Refresh"
-                            Content="检查更新"
+                            Content="{ReflectionBinding Path=Res.CheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             IsClickEnabled="True">
                             <ui:SettingsExpanderItem.Description>
                                 <MultiBinding StringFormat="{}{0}{1}">
@@ -69,15 +70,15 @@
                         </ui:SettingsExpanderItem>
                         <ui:SettingsExpanderItem
                             ActionIconSource="Open"
-                            Content="打开插件文件夹"
+                            Content="{ReflectionBinding Path=Res.Settings_Plugin_OpenFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             IsClickEnabled="True" />
                         <ui:SettingsExpanderItem
                             ActionIconSource="Open"
-                            Content="打开插件缓存文件夹"
+                            Content="{ReflectionBinding Path=Res.Settings_Plugin_OpenCacheFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             IsClickEnabled="True" />
                         <ui:SettingsExpanderItem
                             ActionIconSource="Delete"
-                            Content="删除"
+                            Content="{ReflectionBinding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             IsClickEnabled="True" />
                     </ui:SettingsExpander>
                 </DataTemplate>

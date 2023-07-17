@@ -2,12 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:s="https://steampp.net/services"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BD.WTTS.UI.Views.Pages.ErrorPage">
 	<Panel>
 		<Image Source="/UI/Assets/back.png"
 			   Stretch="UniformToFill"/>
-		<TextBlock Text="发生了一些错误，无法打开此页面" 
+		<TextBlock Text="{ReflectionBinding Path=Res.Error_PageFault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" 
 				   FontSize="16"
 				   HorizontalAlignment="Center"
 				   VerticalAlignment="Center"/>

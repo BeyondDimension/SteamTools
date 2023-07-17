@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
+	xmlns:s="https://steampp.net/services"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     Title="{Binding Name}"
     d:DesignHeight="450"
@@ -121,7 +122,7 @@
             <TextBox
                 Name="CommandTextBox"
                 Grid.Row="1"
-                Watermark="在此输入控制台指令" />
+                Watermark="{ReflectionBinding Path=Res.Debug_InstructionPlaceholder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
         </Grid>
     </Border>
 </spp:PageBase>

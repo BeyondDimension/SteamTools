@@ -208,6 +208,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string About_ThankSupport {
+            get {
+                return ResourceManager.GetString("About_ThankSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 此软件 的本地化字符串。
         /// </summary>
         public static string About_ThisSoft {
@@ -1725,6 +1734,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 在此输入控制台指令 的本地化字符串。
+        /// </summary>
+        public static string Debug_InstructionPlaceholder {
+            get {
+                return ResourceManager.GetString("Debug_InstructionPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 正在解压：{0}% 的本地化字符串。
         /// </summary>
         public static string Decompressing_ {
@@ -2031,6 +2049,33 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 无法连接到Google服务器 的本地化字符串。
+        /// </summary>
+        public static string Error_CannotConnectGoogleServer {
+            get {
+                return ResourceManager.GetString("Error_CannotConnectGoogleServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法连接到令牌验证服务器 的本地化字符串。
+        /// </summary>
+        public static string Error_CannotConnectTokenVerificationServer {
+            get {
+                return ResourceManager.GetString("Error_CannotConnectTokenVerificationServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 异常：{0} 的本地化字符串。
+        /// </summary>
+        public static string Error_Exception_ {
+            get {
+                return ResourceManager.GetString("Error_Exception_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本 的本地化字符串。
         /// </summary>
         public static string Error_IncompatibleOS {
@@ -2045,6 +2090,51 @@ namespace BD.WTTS.Client.Resources {
         public static string Error_Lower_Than_Windows10_1607 {
             get {
                 return ResourceManager.GetString("Error_Lower_Than_Windows10_1607", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 发生了一些错误，无法打开此页面 的本地化字符串。
+        /// </summary>
+        public static string Error_PageFault {
+            get {
+                return ResourceManager.GetString("Error_PageFault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 扫描网页二维码失败：{0} 的本地化字符串。
+        /// </summary>
+        public static string Error_ScanQRCodeFailed_ {
+            get {
+                return ResourceManager.GetString("Error_ScanQRCodeFailed_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌密码保护移除失败。 的本地化字符串。
+        /// </summary>
+        public static string Error_TokenPasswordRemovedFailed {
+            get {
+                return ResourceManager.GetString("Error_TokenPasswordRemovedFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌密码保护设置失败。 的本地化字符串。
+        /// </summary>
+        public static string Error_TokenPasswordSetFailed {
+            get {
+                return ResourceManager.GetString("Error_TokenPasswordSetFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未知登陆错误：{0} 的本地化字符串。
+        /// </summary>
+        public static string Error_UnknownLogin_ {
+            get {
+                return ResourceManager.GetString("Error_UnknownLogin_", resourceCulture);
             }
         }
         
@@ -4087,6 +4177,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 此操作会结束当前平台进程并移除当前账号登录状态跳转至新账号登录，确定要继续吗？ 的本地化字符串。
+        /// </summary>
+        public static string ModelContent_LoginNewUser {
+            get {
+                return ResourceManager.GetString("ModelContent_LoginNewUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 修改 的本地化字符串。
         /// </summary>
         public static string Modify {
@@ -4375,6 +4474,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 选择图片缩放方式 的本地化字符串。
+        /// </summary>
+        public static string PictureZoom {
+            get {
+                return ResourceManager.GetString("PictureZoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请输入昵称 的本地化字符串。
         /// </summary>
         public static string PleaseEnterNickName {
@@ -4416,6 +4524,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Plugin_Version {
             get {
                 return ResourceManager.GetString("Plugin_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 预览图片 的本地化字符串。
+        /// </summary>
+        public static string PreviewPictures {
+            get {
+                return ResourceManager.GetString("PreviewPictures", resourceCulture);
             }
         }
         
@@ -5087,6 +5204,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 选择一张照片 的本地化字符串。
+        /// </summary>
+        public static string SelectPicture {
+            get {
+                return ResourceManager.GetString("SelectPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启用开机自启动失败，原因：{0} 的本地化字符串。
         /// </summary>
         public static string SetBootAutoStartTrueFail_ {
@@ -5132,6 +5258,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 AppData 数据 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_AppData {
+            get {
+                return ResourceManager.GetString("Settings_General_AppData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 应用详情 的本地化字符串。
         /// </summary>
         public static string Settings_General_AppDetailsSettings {
@@ -5164,6 +5299,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Settings_General_BrowseCustomFolder {
             get {
                 return ResourceManager.GetString("Settings_General_BrowseCustomFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Cache 数据 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_CacheData {
+            get {
+                return ResourceManager.GetString("Settings_General_CacheData", resourceCulture);
             }
         }
         
@@ -5227,6 +5371,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Settings_General_EnableTrayIcon_Tip {
             get {
                 return ResourceManager.GetString("Settings_General_EnableTrayIcon_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Logs 数据 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_LogsData {
+            get {
+                return ResourceManager.GetString("Settings_General_LogsData", resourceCulture);
             }
         }
         
@@ -5317,6 +5470,51 @@ namespace BD.WTTS.Client.Resources {
         public static string Settings_Plugin {
             get {
                 return ResourceManager.GetString("Settings_Plugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅加载官方插件 的本地化字符串。
+        /// </summary>
+        public static string Settings_Plugin_OnlyLoadOfficial {
+            get {
+                return ResourceManager.GetString("Settings_Plugin_OnlyLoadOfficial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开插件缓存文件夹 的本地化字符串。
+        /// </summary>
+        public static string Settings_Plugin_OpenCacheFolder {
+            get {
+                return ResourceManager.GetString("Settings_Plugin_OpenCacheFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开插件文件夹 的本地化字符串。
+        /// </summary>
+        public static string Settings_Plugin_OpenFolder {
+            get {
+                return ResourceManager.GetString("Settings_Plugin_OpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安全模式 的本地化字符串。
+        /// </summary>
+        public static string Settings_Plugin_SafeMode {
+            get {
+                return ResourceManager.GetString("Settings_Plugin_SafeMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已安装插件 的本地化字符串。
+        /// </summary>
+        public static string Settings_Plugin_WasInstalled {
+            get {
+                return ResourceManager.GetString("Settings_Plugin_WasInstalled", resourceCulture);
             }
         }
         
@@ -5420,11 +5618,47 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 系统启动时程序自动运行 的本地化字符串。
+        /// </summary>
+        public static string Settings_StartupAutoRun {
+            get {
+                return ResourceManager.GetString("Settings_StartupAutoRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置后程序启动时不再主动显示主窗口 的本地化字符串。
+        /// </summary>
+        public static string Settings_StartupNoShowMainWindow {
+            get {
+                return ResourceManager.GetString("Settings_StartupNoShowMainWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam 设置 的本地化字符串。
         /// </summary>
         public static string Settings_Steam {
             get {
                 return ResourceManager.GetString("Settings_Steam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam 默认不应该以管理员运行，但如果有特殊需求可以勾选此项 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_AdminRunPrompt {
+            get {
+                return ResourceManager.GetString("Settings_Steam_AdminRunPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 程序检测到 Steam 启动后自动弹出相关信息通知 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_AutoPopupMessage {
+            get {
+                return ResourceManager.GetString("Settings_Steam_AutoPopupMessage", resourceCulture);
             }
         }
         
@@ -5443,6 +5677,24 @@ namespace BD.WTTS.Client.Resources {
         public static string Settings_Steam_CheckSteamRuningNotification {
             get {
                 return ResourceManager.GetString("Settings_Steam_CheckSteamRuningNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置后程序启动 Steam 时默认不弹出主窗口 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_DefaultNoShowMainWindow {
+            get {
+                return ResourceManager.GetString("Settings_Steam_DefaultNoShowMainWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置此参数后程序启动 Steam 将不会在自动检查更新 的本地化字符串。
+        /// </summary>
+        public static string Settings_Steam_NoAutoUpdate {
+            get {
+                return ResourceManager.GetString("Settings_Steam_NoAutoUpdate", resourceCulture);
             }
         }
         
@@ -5537,6 +5789,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 设置程序中显示的强调色 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_AccentColor {
+            get {
+                return ResourceManager.GetString("Settings_UI_AccentColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 背景图片不透明度 的本地化字符串。
         /// </summary>
         public static string Settings_UI_BackgroundImageOpacity {
@@ -5582,11 +5843,38 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 自定义颜色 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_CustomColor {
+            get {
+                return ResourceManager.GetString("Settings_UI_CustomColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 深色 的本地化字符串。
         /// </summary>
         public static string Settings_UI_Dark {
             get {
                 return ResourceManager.GetString("Settings_UI_Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置程序首选的字体 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_DefaultFonts {
+            get {
+                return ResourceManager.GetString("Settings_UI_DefaultFonts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置程序首选的显示语言 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_DefaultLanguage {
+            get {
+                return ResourceManager.GetString("Settings_UI_DefaultLanguage", resourceCulture);
             }
         }
         
@@ -5646,6 +5934,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 预览颜色 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_PreviewColor {
+            get {
+                return ResourceManager.GetString("Settings_UI_PreviewColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 选择图片 的本地化字符串。
         /// </summary>
         public static string Settings_UI_SelectImage {
@@ -5660,6 +5957,24 @@ namespace BD.WTTS.Client.Resources {
         public static string Settings_UI_SystemDefault {
             get {
                 return ResourceManager.GetString("Settings_UI_SystemDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置程序的主题风格 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_ThemeStyle {
+            get {
+                return ResourceManager.GetString("Settings_UI_ThemeStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置窗口背景透明效果和透明材质 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_WindowBackgroundStyle {
+            get {
+                return ResourceManager.GetString("Settings_UI_WindowBackgroundStyle", resourceCulture);
             }
         }
         
@@ -6133,11 +6448,101 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 保存成功 {0} 的本地化字符串。
+        /// </summary>
+        public static string Success_SavedSuccessfully_ {
+            get {
+                return ResourceManager.GetString("Success_SavedSuccessfully_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} 已经切换到账号 {1} 的本地化字符串。
+        /// </summary>
+        public static string Success_SwitchAccount__ {
+            get {
+                return ResourceManager.GetString("Success_SwitchAccount__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌加载成功 的本地化字符串。
+        /// </summary>
+        public static string Success_TokenloadedSuccessfully {
+            get {
+                return ResourceManager.GetString("Success_TokenloadedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌密码保护移除成功。 的本地化字符串。
+        /// </summary>
+        public static string Success_TokenPasswordRemovedSuccessfully {
+            get {
+                return ResourceManager.GetString("Success_TokenPasswordRemovedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌密码保护设置成功。 的本地化字符串。
+        /// </summary>
+        public static string Success_TokenPasswordSetSuccessfully {
+            get {
+                return ResourceManager.GetString("Success_TokenPasswordSetSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 支持的系统 的本地化字符串。
         /// </summary>
         public static string SupportSystem {
             get {
                 return ResourceManager.GetString("SupportSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加新的 {0} 账号 的本地化字符串。
+        /// </summary>
+        public static string Title_AddAccount_ {
+            get {
+                return ResourceManager.GetString("Title_AddAccount_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入令牌保护密码 的本地化字符串。
+        /// </summary>
+        public static string Title_InputTokenPassword {
+            get {
+                return ResourceManager.GetString("Title_InputTokenPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登录 {0} 账号 的本地化字符串。
+        /// </summary>
+        public static string Title_LoginAccount_ {
+            get {
+                return ResourceManager.GetString("Title_LoginAccount_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请再次输入密码以确认 的本地化字符串。
+        /// </summary>
+        public static string Title_PasswordConfirm {
+            get {
+                return ResourceManager.GetString("Title_PasswordConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入您当前登录的 {0} 账号的名称 的本地化字符串。
+        /// </summary>
+        public static string Title_PleaseInputCurrentAccountName_ {
+            get {
+                return ResourceManager.GetString("Title_PleaseInputCurrentAccountName_", resourceCulture);
             }
         }
         
@@ -6507,6 +6912,15 @@ namespace BD.WTTS.Client.Resources {
         public static string User_LoginTroubleshoot {
             get {
                 return ResourceManager.GetString("User_LoginTroubleshoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 如果登录过程出现意外，按照网页提示进行 的本地化字符串。
+        /// </summary>
+        public static string User_LoginUnexpectedPrompt {
+            get {
+                return ResourceManager.GetString("User_LoginUnexpectedPrompt", resourceCulture);
             }
         }
         
@@ -6958,6 +7372,78 @@ namespace BD.WTTS.Client.Resources {
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 验证码URL为空，请重新登录 的本地化字符串。
+        /// </summary>
+        public static string Warning_CodeNullPleaseLogin {
+            get {
+                return ResourceManager.GetString("Warning_CodeNullPleaseLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请勿频繁操作 的本地化字符串。
+        /// </summary>
+        public static string Warning_DoNotOperateFrequently {
+            get {
+                return ResourceManager.GetString("Warning_DoNotOperateFrequently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 密码错误，请重试 的本地化字符串。
+        /// </summary>
+        public static string Warning_PasswordError {
+            get {
+                return ResourceManager.GetString("Warning_PasswordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 不允许删除 {0} 平台 的本地化字符串。
+        /// </summary>
+        public static string Warning_PlatformDeletionNotAllowed_ {
+            get {
+                return ResourceManager.GetString("Warning_PlatformDeletionNotAllowed_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入账号名称 的本地化字符串。
+        /// </summary>
+        public static string Warning_PleaseInputAccountName {
+            get {
+                return ResourceManager.GetString("Warning_PleaseInputAccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先停止加速 的本地化字符串。
+        /// </summary>
+        public static string Warning_PleaseStopAccelerate {
+            get {
+                return ResourceManager.GetString("Warning_PleaseStopAccelerate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已有一项操作正在进行中，请等待执行结束 的本地化字符串。
+        /// </summary>
+        public static string Warning_PleaseWaitExecuteFinish {
+            get {
+                return ResourceManager.GetString("Warning_PleaseWaitExecuteFinish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 拒绝操作 的本地化字符串。
+        /// </summary>
+        public static string Warning_RefuseOperate {
+            get {
+                return ResourceManager.GetString("Warning_RefuseOperate", resourceCulture);
             }
         }
         

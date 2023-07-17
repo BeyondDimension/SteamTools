@@ -1,5 +1,4 @@
-using System.Linq;
-using static SteamKit2.GC.Dota.Internal.CMsgPracticeLobbyCreate;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.Models;
 
@@ -26,7 +25,7 @@ public sealed partial class PlatformAccount
         SwapToAccountCommand = ReactiveCommand.Create<IAccount>(acc =>
         {
             platformSwitcher.SwapToAccount(acc, this);
-            Toast.Show($"{FullName} 已经切换到账号 {acc.DisplayName}");
+            Toast.Show(ToastIcon.Success, AppResources.Success_SwitchAccount__.Format(FullName, acc.DisplayName));
         });
 
         OpenUrlToBrowserCommand = ReactiveCommand.Create<IAccount>(acc =>

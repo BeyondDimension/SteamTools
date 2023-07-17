@@ -186,7 +186,7 @@
                 <TextBlock Text="{ReflectionBinding Path=Res.User_WaitFastLoginTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" TextWrapping="Wrap" />
 
                 <WrapPanel Margin="0,20" HorizontalAlignment="Center">
-                    <TextBlock Text="如果登录过程出现意外，按照网页提示进行" Theme="{StaticResource CaptionTextBlockStyle}" />
+                    <TextBlock Text="{ReflectionBinding Path=Res.User_LoginUnexpectedPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
                     <ui:HyperlinkButton
                         Margin="5,0"
                         Padding="0"

@@ -1,6 +1,4 @@
-using BD.WTTS.Client.Resources;
-using WinAuth;
-using System;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -154,7 +152,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
         {
             if (!(await AuthenticatorService.ValidatePassword(sourceData[0], textViewmodel.Value)))
             {
-                Toast.Show(ToastIcon.Warning, "密码错误，请重试");
+                Toast.Show(ToastIcon.Warning, AppResources.Warning_PasswordError);
                 await GetAuthenticators(sourceData);
             }
             return textViewmodel.Value;

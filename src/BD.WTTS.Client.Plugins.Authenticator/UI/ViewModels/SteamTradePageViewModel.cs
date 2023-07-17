@@ -1,4 +1,4 @@
-using BD.WTTS.Client.Resources;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -97,7 +97,7 @@ public sealed partial class SteamTradePageViewModel
             //     return;
             // }
 
-            Toast.Show(ToastIcon.Error, $"未知登陆错误：{_steamClient.Error}");
+            Toast.Show(ToastIcon.Error, AppResources.Error_UnknownLogin_.Format(_steamClient.Error));
             IsLoading = false;
             return;
         }
@@ -214,7 +214,7 @@ public sealed partial class SteamTradePageViewModel
         }
 
         Log.Error(nameof(SteamTradePageViewModel), exception, nameof(ExceptionHandling));
-        Toast.Show(ToastIcon.Error, "异常：" + exception.Message);
+        Toast.Show(ToastIcon.Error, AppResources.Error_Exception_.Format(exception.Message));
     }
 
     // public async Task Logout()
@@ -316,7 +316,7 @@ public sealed partial class SteamTradePageViewModel
 
         if (_operationTradeAllCancelToken != null)
         {
-            Toast.Show(ToastIcon.Warning, "已有一项操作正在进行中，请等待执行结束");
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseWaitExecuteFinish);
             return;
         }
 
