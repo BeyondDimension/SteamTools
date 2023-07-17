@@ -240,12 +240,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             var textViewModel = new TextBoxWindowViewModel();
             if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, "设置安全问题",
                     subHeader: "首次同步，请为您的云令牌设置一个安全问题及密码。" +
-                               "\r\n请先输入「安全问题」", isCancelButton: true,
-                    isRetryButton: true)) return;
+                               "\r\n请先输入「安全问题」", isCancelButton: true)) return;
             question = textViewModel.Value;
+            textViewModel = new TextBoxWindowViewModel();
             if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, "设置安全问题", subHeader: "请再输入「问题答案」",
-                    isCancelButton: true,
-                    isRetryButton: true)) return;
+                    isCancelButton: true)) return;
             answer = textViewModel.Value;
             if (string.IsNullOrEmpty(question) || string.IsNullOrEmpty(answer)) return;
             var setPassword =
@@ -256,10 +255,10 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             if (!setPassword.IsSuccess) throw new Exception("设置安全问题失败");
         }
 
-        question = passwordQuestionResponse.Content;
+        question ??= passwordQuestionResponse.Content;
         var answerTextViewModel = new TextBoxWindowViewModel();
         if (string.IsNullOrEmpty(answer) && await IWindowManager.Instance.ShowTaskDialogAsync(answerTextViewModel,
-                "请输入问题答案", subHeader: $"安全问题：「{question}」", isCancelButton: true, isRetryButton: true))
+                "请输入问题答案", subHeader: $"安全问题：「{question}」", isCancelButton: true))
             answer = answerTextViewModel.Value;
 
         if (string.IsNullOrEmpty(answer))
