@@ -27,7 +27,6 @@
                     <DataTemplate DataType="spp:ScriptDTO">
                         <Border spp:Animations.EnableAnimations="True">
                             <spp:AppItem
-                                Name="Item"
                                 Title="{Binding Name}"
                                 MaxWidth="128"
                                 Classes="Vertical"

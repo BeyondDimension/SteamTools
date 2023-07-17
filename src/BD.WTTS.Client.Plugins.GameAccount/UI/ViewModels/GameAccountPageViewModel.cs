@@ -1,7 +1,5 @@
 using Avalonia.Platform;
-using BD.WTTS.Client.Resources;
-using BD.WTTS.Enums;
-using ReactiveUI;
+using BD.WTTS.UI.Views.Pages;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -23,6 +21,11 @@ public sealed partial class GameAccountPageViewModel
         LoginNewCommand = ReactiveCommand.Create(LoginNewUser);
         SaveCurrentUserCommand = ReactiveCommand.Create(SaveCurrentUser);
         RefreshCommand = ReactiveCommand.Create(() => SelectedPlatform?.LoadUsers());
+        ShareManageCommand = ReactiveCommand.Create(async () =>
+        {
+            var vm = new SteamFamilyShareManagePageViewModel();
+            await IWindowManager.Instance.ShowTaskDialogAsync(vm, vm.Title, pageContent: new SteamFamilyShareManagePage(), isOkButton: false);
+        });
 
         LoadPlatforms();
 

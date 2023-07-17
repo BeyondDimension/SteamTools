@@ -28,7 +28,7 @@
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
-    <spp:PageBase.TabContent>
+    <!--<spp:PageBase.TabContent>
         <TabStrip
             Margin="4"
             HorizontalAlignment="Right"
@@ -42,7 +42,7 @@
             <TabStripItem Content="挂机" />
             <TabStripItem Content="编辑" />
         </TabStrip>
-    </spp:PageBase.TabContent>
+    </spp:PageBase.TabContent>-->
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <!--<ToggleButton
@@ -409,9 +409,9 @@
                         <Border spp:Animations.EnableAnimations="False">
                             <spp:AppItem
                                 Title="{Binding DisplayName}"
+                                Height="335"
                                 MinWidth="128"
                                 MaxWidth="169"
-                                MaxHeight="335"
                                 Classes="Vertical"
                                 Description="{Binding AppId}">
                                 <spp:AppItem.MoreFlyout>

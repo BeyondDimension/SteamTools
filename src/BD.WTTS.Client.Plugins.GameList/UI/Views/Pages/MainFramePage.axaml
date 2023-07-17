@@ -30,14 +30,24 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="{ReflectionBinding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <TabStripItem Content="{ReflectionBinding Path=Res.Library, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <TabStripItem.Tag>
-                    <x:Type TypeName="spp:AcceleratorPage" />
+                    <x:Type TypeName="spp:GameListPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="{ReflectionBinding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <TabStripItem Content="下载">
                 <TabStripItem.Tag>
-                    <x:Type TypeName="spp:ScriptPage" />
+                    <x:Type TypeName="spp:DownloadPage" />
+                </TabStripItem.Tag>
+            </TabStripItem>
+            <TabStripItem Content="挂机">
+                <TabStripItem.Tag>
+                    <x:Type TypeName="spp:IdleAppsPage" />
+                </TabStripItem.Tag>
+            </TabStripItem>
+            <TabStripItem Content="编辑">
+                <TabStripItem.Tag>
+                    <x:Type TypeName="spp:EditAppsPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
         </TabStrip>

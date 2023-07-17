@@ -3085,6 +3085,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 库 的本地化字符串。
+        /// </summary>
+        public static string Library {
+            get {
+                return ResourceManager.GetString("Library", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Linux 需要提供系统 root 密码才能正常使用该功能 的本地化字符串。
         /// </summary>
         public static string LinuxSudoTips {
@@ -5835,7 +5844,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 （已禁用） 的本地化字符串。
+        ///   查找类似 已禁用 的本地化字符串。
         /// </summary>
         public static string Steam_ShareDisable {
             get {

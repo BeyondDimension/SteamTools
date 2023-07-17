@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
@@ -6,7 +5,6 @@ using BD.WTTS.UI.Styling;
 using FluentAvalonia.UI.Media.Animation;
 
 namespace BD.WTTS.UI.Views.Pages;
-
 public partial class MainFramePage : UserControl
 {
     int lastIndex = -1;
@@ -14,9 +12,6 @@ public partial class MainFramePage : UserControl
     public MainFramePage()
     {
         InitializeComponent();
-
-        //Tabs.Items.Add(new TabStripItem { Content = Strings.CommunityFix, Tag = typeof(AcceleratorPage) });
-        //Tabs.Items.Add(new TabStripItem { Content = Strings.ScriptConfig, Tag = typeof(ScriptPage) });
 
         Tabs.SelectionChanged += Tabs_SelectionChanged;
     }
