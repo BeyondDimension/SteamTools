@@ -36,6 +36,18 @@
                                 Status="{ReflectionBinding Path=Res.Steam_ShareDisable,
                                                            Mode=OneWay,
                                                            Source={x:Static s:ResourceService.Current}}">
+                                <spp:AppItem.MoreFlyout>
+                                    <ui:FAMenuFlyout>
+                                        <ui:MenuFlyoutItem Text="启用" />
+                                        <ui:MenuFlyoutItem Text="禁用" />
+                                        <ui:MenuFlyoutSeparator />
+                                        <ui:MenuFlyoutItem Text="置顶" />
+                                        <ui:MenuFlyoutItem Text="上移" />
+                                        <ui:MenuFlyoutItem Text="下移" />
+                                        <ui:MenuFlyoutSeparator />
+                                        <ui:MenuFlyoutItem Text="删除" />
+                                    </ui:FAMenuFlyout>
+                                </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>
                                     <spp:Image2
                                         Width="92"
