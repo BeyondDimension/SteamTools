@@ -2436,16 +2436,19 @@ The system will {1} after {0} seconds.</value>
     <value>开启系统代理失败</value>
   </data>
   <data name="LocalAuth_DeleteAuthTip2" xml:space="preserve">
-	  <value>确定要永久删除此令牌吗，您将会彻底遗失此令牌数据。非常建议您「解绑令牌」后再进行此操作。</value>
+    <value>确定要永久删除此令牌吗，您将会彻底遗失此令牌数据。非常建议您「解绑令牌」后再进行此操作。</value>
   </data>
   <data name="Plugin_Author" xml:space="preserve">
-	  <value>作者：{0}</value>
+    <value>作者：{0}</value>
   </data>
   <data name="Plugin_Store" xml:space="preserve">
-	  <value>插件商店</value>
+    <value>插件商店</value>
   </data>
   <data name="GameList_FindAppsText" xml:space="preserve">
-	  <value>已找到 {0} 个应用</value>
+    <value>已找到 {0} 个应用</value>
+  </data>
+  <data name="CommunityFix_SubProcessFileNotExist" xml:space="preserve">
+    <value>网络加速子进程文件不存在</value>
   </data>
   <data name="Library" xml:space="preserve">
     <value>库</value>
