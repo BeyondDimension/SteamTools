@@ -35,11 +35,15 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     {
         if (Plugins!.Any(x => x.IsDisable && x.Data.Id == plugin.Id))
         {
-            var path = Path.GetDirectoryName(plugin.AssemblyLocation);
+            var path = Path.GetDirectoryName(plugin.AssemblyLocation)!;
             var msg = string.Empty;
             try
             {
-                Directory.Delete(path!, true);
+                var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
+                var now = DateTime.Now;
+                if (hasKey && (now - dt).TotalSeconds <= clickInterval) return;
+                Directory.Delete(path, true);
+                if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
                 Toast.Show(ToastIcon.Success, Strings.Plugins_DeleteSuccess.Format(plugin.Name));
                 return;
             }
