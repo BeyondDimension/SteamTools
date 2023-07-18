@@ -21,12 +21,20 @@ public partial class AuthenticatorItem : UserControl
                 authenticatorItemModel.OnPointerLeftPressed();
             }
         }
-        else if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.RightButtonPressed)
+        // else if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.RightButtonPressed)
+        // {
+        //     if (DataContext is AuthenticatorItemModel authenticatorItemModel)
+        //     {
+        //         authenticatorItemModel.OnPointerRightPressed();
+        //     }
+        // }
+    }
+
+    async void InputElement_OnTapped(object? sender, TappedEventArgs e)
+    {
+        if (DataContext is AuthenticatorItemModel authenticatorItemModel)
         {
-            if (DataContext is AuthenticatorItemModel authenticatorItemModel)
-            {
-                authenticatorItemModel.OnPointerRightPressed();
-            }
+            await authenticatorItemModel.OnTextPanelOnTapped();
         }
     }
 }

@@ -209,15 +209,11 @@
                         <!--  Text="移除机器验证" />  -->
                         <!--     <ui:MenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
                         <!-- </ui:MenuFlyoutSubItem> -->
-                        <ui:MenuFlyoutSubItem Text="导出令牌">
-                            <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="默认导出" />
-                            <ui:MenuFlyoutItem Command="{Binding ExportAuthWithSdaFile}" Text="导出为maFile" />
-                        </ui:MenuFlyoutSubItem>
+                        <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="全部导出" />
                         <ui:MenuFlyoutItem
                             Command="{Binding ReLockAuthenticator}"
                             IsEnabled="{Binding IsVerificationPass}"
                             Text="锁定令牌" />
-                        <ui:MenuFlyoutItem Command="{Binding UnbindingSteamAuthAsync}" Text="解绑令牌" />
                         <ui:MenuFlyoutItem Text="插件设置" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False" Text="版本号: 0.1" />
@@ -357,7 +353,49 @@
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate DataType="{x:Type spp:AuthenticatorItemModel}">
-                            <spp:AuthenticatorItem />
+                            <spp:AuthenticatorItem>
+                                <spp:AuthenticatorItem.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuItem Header="上移">
+                                            <MenuItem.Icon>
+                                                <ui:SymbolIcon Symbol="ChevronUp" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="下移">
+                                            <MenuItem.Icon>
+                                                <ui:SymbolIcon Symbol="ChevronDown" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="固定首位">
+                                            <MenuItem.Icon>
+                                                <ui:SymbolIcon Symbol="Pin" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem
+                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.UnbindingSteamAuthAsync}"
+                                            CommandParameter="{Binding}"
+                                            Header="解绑令牌">
+                                            <MenuItem.Icon>
+                                                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC9;" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="默认导出">
+                                            <MenuItem.Icon>
+                                                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem
+                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.ExportAuthWithSdaFile}"
+                                            CommandParameter="{Binding}"
+                                            Header="导出为Mafile"
+                                            IsEnabled="True">
+                                            <MenuItem.Icon>
+                                                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </MenuFlyout>
+                                </spp:AuthenticatorItem.ContextFlyout>
+                            </spp:AuthenticatorItem>
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
