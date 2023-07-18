@@ -22,7 +22,7 @@
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
             <CheckBox
-                Content="仅本机可解密"
+                Content="{ReflectionBinding Path=Res.Auth_OnlylocalCanDecrypt, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                 HorizontalAlignment="Center"
                 IsChecked="{Binding HasLocalProtection}" />
         </StackPanel>
@@ -52,7 +52,7 @@
                                                   Source={x:Static s:ResourceService.Current},
                                                   Mode=OneWay}" />
                 <CheckBox
-                    Content="导出时携带密码"
+                    Content="{ReflectionBinding Path=Res.Auth_ExportUsingPassword, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                     HorizontalAlignment="Center"
                     IsChecked="{Binding HasPasswordProtection}" />
             </StackPanel>
@@ -60,7 +60,7 @@
 
         <Button
             Command="{Binding Export}"
-            Content="导出全部令牌"
+            Content="{ReflectionBinding Path=Res.Auth_ExportAll, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
             HorizontalAlignment="Center"
             Margin="0,0,0,10"
             VerticalAlignment="Bottom"

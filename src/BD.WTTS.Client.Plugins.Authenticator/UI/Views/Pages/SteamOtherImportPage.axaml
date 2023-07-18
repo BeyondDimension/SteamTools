@@ -21,7 +21,7 @@
             Width="200" />
         <TextBox
             Text="{Binding ImportAuthNewName}"
-            Watermark="自定义令牌名称"
+            Watermark="{ReflectionBinding Path=Res.Steam_CustomAuthName, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
             Width="200" />
         <TextBox IsVisible="{Binding !ImportFromFile}" Text="{Binding PhoneImportUuid}" />
         <TextBox IsVisible="{Binding !ImportFromFile}" Text="{Binding PhoneImportSteamGuard}" />
@@ -29,16 +29,16 @@
             IsReadOnly="True"
             IsVisible="{Binding ImportFromFile}"
             Text="{Binding ImportAuthFilePath}"
-            Watermark="令牌文件导入路径"
+            Watermark="{ReflectionBinding Path=Res.Steam_AuthFileImportPath, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
             Width="200" />
         <Button
             Command="{Binding OpenFolder}"
-            Content="选择文件路径"
+            Content="{ReflectionBinding Path=Res.SelectFilepath, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
             HorizontalAlignment="Center"
             IsVisible="{Binding ImportFromFile}" />
         <Button
             Command="{Binding Import}"
-            Content="确认导入"
+            Content="{ReflectionBinding Path=Res.ConfirmImport, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
             HorizontalAlignment="Center" />
     </StackPanel>
 </UserControl>

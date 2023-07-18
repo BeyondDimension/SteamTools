@@ -54,7 +54,7 @@
                 </StackPanel.IsVisible>
                 <ui:CommandBar DefaultLabelPosition="Right" HorizontalAlignment="Right">
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="全部通过">
+                        <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="{ReflectionBinding Path=Res.AllPassed, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
                             <ui:CommandBarButton.IconSource>
                                 <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource CheckMark}" />
                             </ui:CommandBarButton.IconSource>
@@ -64,14 +64,14 @@
                         <ui:CommandBarButton
                             Command="{Binding CancelAllTrade}"
                             IconSource="Cancel"
-                            Label="全部取消" />
+                            Label="{ReflectionBinding Path=Res.CancelAll, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBarSeparator />
                     <ui:CommandBar.PrimaryCommands>
                         <ui:CommandBarButton
                             Command="{Binding Refresh}"
                             IconSource="Refresh"
-                            Label="刷新" />
+                            Label="{ReflectionBinding Path=Res.Refresh, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                     </ui:CommandBar.PrimaryCommands>
                 </ui:CommandBar>
                 <ScrollViewer
@@ -163,7 +163,7 @@
                                             <TextBlock
                                                 HorizontalAlignment="Right"
                                                 MaxLines="3"
-                                                Text="您的报价"
+                                                Text="{ReflectionBinding Path=Res.SteamTrade_YourOffer, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                                                 TextWrapping="Wrap"
                                                 VerticalAlignment="Top" />
                                             <ui:FontIcon

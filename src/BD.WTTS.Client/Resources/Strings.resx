@@ -199,14 +199,8 @@
     <value>该操作不是还原当前修改，而是使所有成就和统计数据归零。
 真的确定吗?</value>
   </data>
-  <data name="Achievement_RiskWarning" xml:space="preserve">
-    <value>【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。</value>
-  </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
     <value>统计修改</value>
-  </data>
-  <data name="Achievement_StoreTip" xml:space="preserve">
-    <value>保存并应用成就和统计</value>
   </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
     <value>解锁于 {0:yyyy-MM-dd HH:mm:ss}</value>
@@ -570,9 +564,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GameList_DeleteSuccess" xml:space="preserve">
     <value>移除成功</value>
   </data>
-  <data name="GameList_EditAppInfo" xml:space="preserve">
-    <value>编辑游戏信息</value>
-  </data>
   <data name="GameList_HideAppsSuccess" xml:space="preserve">
     <value>隐藏游戏成功</value>
   </data>
@@ -587,9 +578,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="GameList_IdleGamesManger" xml:space="preserve">
     <value>游戏时长挂机列表</value>
-  </data>
-  <data name="GameList_Install" xml:space="preserve">
-    <value>安装</value>
   </data>
   <data name="GameList_IsEmpty" xml:space="preserve">
     <value>没有获取到任何游戏数据</value>
@@ -611,15 +599,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="GameList_OpenFolder" xml:space="preserve">
     <value>浏览安装文件夹</value>
-  </data>
-  <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
-    <value>Steam Card Exchange</value>
-  </data>
-  <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
-    <value>SteamDB Info</value>
-  </data>
-  <data name="GameList_OpenSteamGridUrl" xml:space="preserve">
-    <value>SteamGrid</value>
   </data>
   <data name="GameList_OpenStoreUrl" xml:space="preserve">
     <value>打开商店页</value>
@@ -666,9 +645,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GameList_SetCustomImage" xml:space="preserve">
     <value>设置自定义封面</value>
   </data>
-  <data name="GameList_SteamNotRuning" xml:space="preserve">
-    <value>Steam 未启动</value>
-  </data>
   <data name="GameList_StopBtn" xml:space="preserve">
     <value>全部暂停</value>
   </data>
@@ -677,9 +653,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="GameList_StopState" xml:space="preserve">
     <value>暂停中</value>
-  </data>
-  <data name="GameList_Unsupport" xml:space="preserve">
-    <value>不支持的操作</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>游戏工具</value>
@@ -719,9 +692,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="GameRelated_Borderless_Show" xml:space="preserve">
     <value>显示</value>
-  </data>
-  <data name="GameRelated_Borderless_Title" xml:space="preserve">
-    <value>标题</value>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaper" xml:space="preserve">
     <value>置于壁纸层</value>
@@ -838,9 +808,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
     <value>正在获取最新的交易报价信息…</value>
   </data>
-  <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
-    <value>{0} 条交易待处理</value>
-  </data>
   <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
     <value>当前没有任何需要处理的交易报价</value>
   </data>
@@ -867,9 +834,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
     <value>确定要永久删除此令牌吗，这只是删除令牌文件数据，并不会解绑你的账号和令牌，
     如果需要解绑令牌请到 https://store.steampowered.com/twofactor/manage 解绑后在删除</value>
-  </data>
-  <data name="LocalAuth_EditAuth" xml:space="preserve">
-    <value>编辑令牌</value>
   </data>
   <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
     <value>请输入发送到您电子邮件地址的代码，以批准从新设备进行访问</value>
@@ -901,9 +865,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_LockError" xml:space="preserve">
     <value>没有设置密码无法锁定令牌</value>
   </data>
-  <data name="LocalAuth_MenuName" xml:space="preserve">
-    <value>编辑令牌</value>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>你还没有导入任何令牌，请先新增令牌</value>
   </data>
@@ -924,9 +885,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
     <value>*注意：你的令牌将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌</value>
-  </data>
-  <data name="LocalAuth_ProtectionAuth_Error" xml:space="preserve">
-    <value>保存加密选项出现错误</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
     <value>非常建议您使用密码保护您的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但您的令牌数据会有被盗取的风险！！！</value>
@@ -955,9 +913,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
     <value>保存并应用</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_Success" xml:space="preserve">
-    <value>保存加密设置成功</value>
-  </data>
   <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
     <value>再次输入密码</value>
   </data>
@@ -966,15 +921,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
     <value>令牌数据加载完成</value>
-  </data>
-  <data name="LocalAuth_SDAImport" xml:space="preserve">
-    <value>Steam Desktop Auth导入</value>
-  </data>
-  <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入（不支持导入加密文件，请先移除密码再导入）</value>
-  </data>
-  <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
-    <value>查看令牌</value>
   </data>
   <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
     <value>查看令牌详细数据</value>
@@ -1000,9 +946,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
     <value>在 files 文件夹中，打开 'SteamGuard-NNNNNNNN' 文件，粘贴文件的全部内容</value>
   </data>
-  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Watt Toolkit 导入</value>
-  </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
     <value>导入 Watt Toolkit v1 版本的导出的令牌数据</value>
   </data>
@@ -1012,9 +955,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
     <value>确认交易需要登录 Steam，程序不会记录你的密码，只会在本地保存登录的状态
     （如果没有开 Steam 网络加速会导致无法登录成功）</value>
-  </data>
-  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
-    <value>Steam 账号导入</value>
   </data>
   <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
     <value>你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可</value>
@@ -1033,12 +973,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
     <value>同步时钟</value>
-  </data>
-  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
-    <value>WinAuth 导入</value>
-  </data>
-  <data name="LocalAuth_WinAuthTip" xml:space="preserve">
-    <value>WinAuth 是 Windows 的便携式开放源代码身份验证器，它提供基于计数器或基于时间的 RFC 6238 身份验证器和常见的实现。导入方法：从 WinAuth 导出 txt 文件之后在此选择从 WinAuth 导出的 txt 文件进行导入</value>
   </data>
   <data name="Lock" xml:space="preserve">
     <value>锁定</value>
@@ -1100,9 +1034,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="PleaseSelect" xml:space="preserve">
     <value>请选择</value>
   </data>
-  <data name="ProductOfficialWebsite" xml:space="preserve">
-    <value>产品官网</value>
-  </data>
   <data name="RecoveryCode" xml:space="preserve">
     <value>恢复代码</value>
   </data>
@@ -1142,9 +1073,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ScriptShop_GetTableError" xml:space="preserve">
     <value>获取脚本工坊列表失败</value>
   </data>
-  <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
-    <value>GM 是基础框架不允许删除</value>
-  </data>
   <data name="ScriptShop_NoLogin" xml:space="preserve">
     <value>使用脚本工坊需要先登录</value>
   </data>
@@ -1171,9 +1099,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Script_ImportLoading" xml:space="preserve">
     <value>处理导入脚本中</value>
-  </data>
-  <data name="Script_Install" xml:space="preserve">
-    <value>安装脚本</value>
   </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>该文本文件已丢失，是否删除脚本记录</value>
@@ -1278,10 +1203,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_UI_EnableDesktopBackground_Error" xml:space="preserve">
     <value>不支持在背景透明材质为 {0} 时启用此功能</value>
   </data>
-  <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
-    <value>*实验性功能（开启此功能时建议将透明材质设置为 Transparent 或 AcrylicBlur）
-这个功能可以将 Wallpaper Engine 以及其它壁纸软件的动态壁纸设置为程序背景，如果你没有启动 Wallpaper Engine ，则默认使用桌面背景。背景仅在主窗口生效，其它窗口建议调整透明度不要完全透明或者使用图片背景。使用时注意自行根据壁纸亮暗色情况切换对应主题以获得更好的效果</value>
-  </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
     <value>深色</value>
   </data>
@@ -1317,15 +1238,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="SteamAppType_Config" xml:space="preserve">
     <value>配置</value>
-  </data>
-  <data name="SteamAppType_Demo" xml:space="preserve">
-    <value>Demo</value>
-  </data>
-  <data name="SteamAppType_DepotOnly" xml:space="preserve">
-    <value>仓库</value>
-  </data>
-  <data name="SteamAppType_DLC" xml:space="preserve">
-    <value>DLC</value>
   </data>
   <data name="SteamAppType_Driver" xml:space="preserve">
     <value>驱动</value>
@@ -1494,24 +1406,15 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="User_BasicInfo" xml:space="preserve">
     <value>基本资料</value>
   </data>
-  <data name="User_BindPhoneNum" xml:space="preserve">
-    <value>绑定手机</value>
-  </data>
   <data name="User_ChangePhoneNum" xml:space="preserve">
     <value>换绑手机</value>
     <comment>Comment=修改手机号;</comment>
-  </data>
-  <data name="User_EditProfile" xml:space="preserve">
-    <value>编辑资料</value>
   </data>
   <data name="User_FastLogin" xml:space="preserve">
     <value>快速登录</value>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
     <value>选择如何登录您的 Watt Toolkit 帐户</value>
-  </data>
-  <data name="User_FastLogin_" xml:space="preserve">
-    <value>{0} 快速登录</value>
   </data>
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>获取验证码</value>
@@ -1585,9 +1488,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="User_SteamAvatarTip" xml:space="preserve">
     <value>点击头像快速登录</value>
-  </data>
-  <data name="User_SteamFastLogin" xml:space="preserve">
-    <value>Steam 快速登录</value>
   </data>
   <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
     <value>连接到 Steam 社区超时，请检查是否开启 Steam 社区网络加速</value>
@@ -1663,9 +1563,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="RememberChooseNotToAskAgain" xml:space="preserve">
     <value>不再提醒</value>
-  </data>
-  <data name="GameList_SteamShutdown" xml:space="preserve">
-    <value>Steam 下载完成定时关机</value>
   </data>
   <data name="GameList_SteamShutdown_EnableWatchDownloading" xml:space="preserve">
     <value>启用下载监控</value>
@@ -1804,9 +1701,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
     <value>自定义代理 DNS</value>
   </data>
-  <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
-    <value>Socks5 本地代理</value>
-  </data>
   <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
     <value>监听端口</value>
   </data>
@@ -1842,9 +1736,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
     <value>启用 Http 协议转发到 Https (需监听 80 端口)</value>
-  </data>
-  <data name="About_AppReview" xml:space="preserve">
-    <value>打分 &amp; 评价</value>
   </data>
   <data name="Settings_General_UseOpenGL" xml:space="preserve">
     <value>使用 OpenGL 渲染</value>
@@ -1909,9 +1800,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
     <value>操作 Hosts 错误 {0}</value>
-  </data>
-  <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Watt Toolkit 替换升级中…</value>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
     <value>脚本依赖下载出错：{0}
@@ -2022,12 +1910,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ASF_ConsoleMaxLine" xml:space="preserve">
     <value>控制台显示最大行数</value>
   </data>
-  <data name="ASF_IPCPortId" xml:space="preserve">
-    <value>IPC 端口号</value>
-  </data>
-  <data name="ASF_IPCPortOccupiedRandom" xml:space="preserve">
-    <value>IPC 端口被占用时使用随机端口号</value>
-  </data>
   <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
     <value>请等待 IPC 启动中...</value>
   </data>
@@ -2066,9 +1948,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ExportedToPath_" xml:space="preserve">
     <value>已导出到路径：{0}</value>
-  </data>
-  <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
-    <value>必须在【系统设置 - 安全 - 加密与凭据 - 凭据存储 - 用户凭据】中找到 {0} 点击该项后在弹窗中点击卸载。</value>
   </data>
   <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
     <value>在“安全设置”中移除证书</value>
@@ -2114,9 +1993,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
     <value>ASF 服务正在运行</value>
-  </data>
-  <data name="Steam_ShareDisable" xml:space="preserve">
-    <value>（已禁用）</value>
   </data>
   <data name="Steam_ShareDisableBtn" xml:space="preserve">
     <value>禁用</value>
@@ -2166,9 +2042,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ProxyMode_VPN" xml:space="preserve">
     <value>VPN 代理模式</value>
   </data>
-  <data name="ProxyMode_PAC" xml:space="preserve">
-    <value>PAC 代理模式</value>
-  </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
     <value>请在弹出的控制台窗口中输入密码或者手动执行</value>
   </data>
@@ -2199,14 +2072,8 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="DiskUsage" xml:space="preserve">
     <value>磁盘占用</value>
   </data>
-  <data name="InstalledPath" xml:space="preserve">
-    <value>安装路径</value>
-  </data>
   <data name="Media" xml:space="preserve">
     <value>媒体</value>
-  </data>
-  <data name="SteamGridDBTitle" xml:space="preserve">
-    <value>SteamGridDB Image</value>
   </data>
   <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
     <value>未能从 SteamGridDB 获取到图片</value>
@@ -2219,9 +2086,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
     <value>打开 SteamGridDB 网页浏览</value>
-  </data>
-  <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
-    <value>查看该作者更多作品</value>
   </data>
   <data name="GetImageFromSteamGridDB" xml:space="preserve">
     <value>从 SteamGridDB 获取</value>
@@ -2253,9 +2117,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="WorkingDir" xml:space="preserve">
     <value>工作目录</value>
   </data>
-  <data name="GameList_EditedAppsSaveManger" xml:space="preserve">
-    <value>保存 Steam 游戏自定义信息</value>
-  </data>
   <data name="SaveFile" xml:space="preserve">
     <value>存档</value>
   </data>
@@ -2271,15 +2132,8 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="DirPath" xml:space="preserve">
     <value>文件夹路径</value>
   </data>
-  <data name="SaveImageFileFailed" xml:space="preserve">
-    <value>保存 {0} 图片失败</value>
-    <comment> {0} 图片类型;</comment>
-  </data>
   <data name="ResetAll" xml:space="preserve">
     <value>重置全部</value>
-  </data>
-  <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
-    <value>保存全部更改到 Steam</value>
   </data>
   <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
     <value>没有获取到已编辑的游戏数据</value>
@@ -2289,12 +2143,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
     <value>修改的数据已保存到 Steam 本地文件中，是否立即重启 Steam 生效？</value>
-  </data>
-  <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
-    <value>保存数据到 Steam 成功</value>
-  </data>
-  <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
-    <value>保存数据失败，查看程序日志获取详细错误信息</value>
   </data>
   <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
     <value>获取最后登录的 Steam 账号信息失败，无法修改自定义封面</value>
@@ -2319,9 +2167,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="CreateTime" xml:space="preserve">
     <value>创建时间</value>
-  </data>
-  <data name="GameList_CloudArchiveManager" xml:space="preserve">
-    <value>Steam 云存档管理</value>
   </data>
   <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
     <value>确定要删除当前选中的存档数据吗？</value>
@@ -2459,7 +2304,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>发生了一些错误，无法打开此页面</value>
   </data>
   <data name="About_ThankSupport" xml:space="preserve">
-    <value />
+    <value>感谢支持</value>
   </data>
   <data name="Debug_InstructionPlaceholder" xml:space="preserve">
     <value>在此输入控制台指令</value>
@@ -2536,17 +2381,191 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_UI_WindowBackgroundStyle" xml:space="preserve">
     <value>设置窗口背景透明效果和透明材质</value>
   </data>
+  <data name="AboutThisPlugin" xml:space="preserve">
+    <value>关于此插件</value>
+  </data>
+  <data name="About_AppReview" xml:space="preserve">
+    <value>打分 &amp; 评价</value>
+  </data>
+  <data name="Accelerator_OpenHostsDir" xml:space="preserve">
+    <value>打开 hosts 文件夹</value>
+  </data>
+  <data name="AddPlatform" xml:space="preserve">
+    <value>添加平台</value>
+  </data>
+  <data name="AdministratorStartup" xml:space="preserve">
+    <value>以管理员权限启动</value>
+  </data>
+  <data name="AllPassed" xml:space="preserve">
+    <value>全部通过</value>
+  </data>
+  <data name="AuthImport" xml:space="preserve">
+    <value>令牌导入</value>
+  </data>
+  <data name="Auth_AddMachineValidation" xml:space="preserve">
+    <value>添加机器验证</value>
+  </data>
+  <data name="Auth_AddPasswordProtect" xml:space="preserve">
+    <value>添加密码保护</value>
+  </data>
+  <data name="Auth_EditName" xml:space="preserve">
+    <value>编辑令牌名字</value>
+  </data>
+  <data name="Auth_EncryptionHelp" xml:space="preserve">
+    <value>加密帮助</value>
+  </data>
+  <data name="Auth_ExportAll" xml:space="preserve">
+    <value>导出全部令牌</value>
+  </data>
+  <data name="Auth_ExportmaFile" xml:space="preserve">
+    <value>导出为 maFile</value>
+  </data>
+  <data name="Auth_ExportUsingPassword" xml:space="preserve">
+    <value>导出时携带密码</value>
+  </data>
+  <data name="Auth_FixedDisplay" xml:space="preserve">
+    <value>固定展示</value>
+  </data>
+  <data name="Auth_ImportCustomFile" xml:space="preserve">
+    <value>导入自文件</value>
+  </data>
+  <data name="Auth_lock" xml:space="preserve">
+    <value>锁定令牌</value>
+  </data>
+  <data name="Auth_OnlylocalCanDecrypt" xml:space="preserve">
+    <value>仅本机可解密</value>
+  </data>
+  <data name="Auth_PasswordProtectedVerifyFirst" xml:space="preserve">
+    <value>您的令牌具有密码保护，请先进行密码验证</value>
+  </data>
+  <data name="Auth_RemoveMachineValidation" xml:space="preserve">
+    <value>移除机器验证</value>
+  </data>
+  <data name="Auth_RemovePasswordProtect" xml:space="preserve">
+    <value>移除密码保护</value>
+  </data>
+  <data name="Auth_SteamLoginImport" xml:space="preserve">
+    <value>Steam登陆导入</value>
+  </data>
+  <data name="Auth_UniversalImport" xml:space="preserve">
+    <value>2FA 通用导入</value>
+  </data>
+  <data name="Auth_Version" xml:space="preserve">
+    <value>版本号: 0.1</value>
+  </data>
+  <data name="BindThirdPartyAccount" xml:space="preserve">
+    <value>绑定第三方帐户</value>
+  </data>
+  <data name="CancelAll" xml:space="preserve">
+    <value>全部取消</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="ConfirmTransaction" xml:space="preserve">
+    <value>确认交易</value>
+  </data>
+  <data name="DefaultExport" xml:space="preserve">
+    <value>默认导出</value>
+  </data>
+  <data name="Depot" xml:space="preserve">
+    <value>库</value>
+  </data>
+  <data name="DisplayQRCode" xml:space="preserve">
+    <value>展示二维码</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="Error_AnswerIncorrect" xml:space="preserve">
+    <value>答案错误，请重试</value>
+  </data>
+  <data name="Error_AuthProtectFailed_" xml:space="preserve">
+    <value>令牌本机电脑保护{0}失败</value>
+  </data>
+  <data name="Error_AuthUnbindFailed" xml:space="preserve">
+    <value>解绑令牌失败</value>
+  </data>
   <data name="Error_CannotConnectGoogleServer" xml:space="preserve">
-    <value>无法连接到Google服务器</value>
+    <value>无法连接到 Google 服务器</value>
   </data>
   <data name="Error_CannotConnectTokenVerificationServer" xml:space="preserve">
     <value>无法连接到令牌验证服务器</value>
   </data>
+  <data name="Error_CannotFindAccountFile_" xml:space="preserve">
+    <value>无法找到 {0} 的账号文件，添加失败</value>
+  </data>
+  <data name="Error_CloudAuthMaximumQuantity___" xml:space="preserve">
+    <value>云令牌已达数量上限 {0}，云端令牌数量 {0}，正在上传数量 {0}</value>
+  </data>
+  <data name="Error_CopyFileFailed" xml:space="preserve">
+    <value>复制文件失败！</value>
+  </data>
+  <data name="Error_DataNotUnified" xml:space="preserve">
+    <value>同步失败，数据未统一</value>
+  </data>
+  <data name="Error_DelCloudData" xml:space="preserve">
+    <value>同步删除云端数据失败</value>
+  </data>
+  <data name="Error_DelFileFailedRunning" xml:space="preserve">
+    <value>无法删除某些文件（程序可能正在运行？）</value>
+  </data>
+  <data name="Error_EndProcessFailed_" xml:space="preserve">
+    <value>结束 {0} 进程失败</value>
+  </data>
   <data name="Error_Exception_" xml:space="preserve">
     <value>异常：{0}</value>
   </data>
+  <data name="Error_FailedToSynchronizeAuth" xml:space="preserve">
+    <value>同步至云令牌失败</value>
+  </data>
+  <data name="Error_IncorrectPlatformPathSelection_" xml:space="preserve">
+    <value>{0} 平台路径没有正确选择</value>
+  </data>
+  <data name="Error_localAuthNotEmpty" xml:space="preserve">
+    <value>localAuth 不应为空</value>
+  </data>
+  <data name="Error_ModifyJsonFileFailed" xml:space="preserve">
+    <value>修改 JSON 文件失败</value>
+  </data>
+  <data name="Error_NotSupportedFileImport" xml:space="preserve">
+    <value>不支持该文件类型的导入方式。</value>
+  </data>
+  <data name="Error_OperateRegistryFilesFailed" xml:space="preserve">
+    <value>查找或读取已保存的注册表文件失败！</value>
+  </data>
+  <data name="Error_PathFailedUnableSwitchAccount_" xml:space="preserve">
+    <value>路径没有正确选择，{0} 平台账号切换功能无法使用</value>
+  </data>
+  <data name="Error_PleaseEnterAnswer" xml:space="preserve">
+    <value>请输入安全问题答案</value>
+  </data>
+  <data name="Error_PleaseEnterCode" xml:space="preserve">
+    <value>请输入验证码。</value>
+  </data>
+  <data name="Error_PleaseEnterEmailCode" xml:space="preserve">
+    <value>请输入邮箱验证码。</value>
+  </data>
+  <data name="Error_PleaseEnterTelCode" xml:space="preserve">
+    <value>请输入手机验证码。</value>
+  </data>
+  <data name="Error_PleaseEnterUsernamePassword" xml:space="preserve">
+    <value>请输入用户名及密码。</value>
+  </data>
+  <data name="Error_PleaseLoginWattToolKit" xml:space="preserve">
+    <value>请先登录 WattToolKit</value>
+  </data>
+  <data name="Error_ReadRegistryFailed" xml:space="preserve">
+    <value>读取已保存的注册表项失败。如果不成功，请尝试删除并重新添加帐户。</value>
+  </data>
   <data name="Error_ScanQRCodeFailed_" xml:space="preserve">
     <value>扫描网页二维码失败：{0}</value>
+  </data>
+  <data name="Error_SetSecurityIssuesFailed" xml:space="preserve">
+    <value>设置安全问题失败</value>
+  </data>
+  <data name="Error_StartProcessFailed_" xml:space="preserve">
+    <value>启动 {0} 进程失败</value>
   </data>
   <data name="Error_TokenPasswordRemovedFailed" xml:space="preserve">
     <value>令牌密码保护移除失败。</value>
@@ -2557,8 +2576,188 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Error_UnknownLogin_" xml:space="preserve">
     <value>未知登陆错误：{0}</value>
   </data>
+  <data name="Error_UpdateCloudData" xml:space="preserve">
+    <value>同步更新云端数据失败</value>
+  </data>
+  <data name="Error_WriteRegistryFailed" xml:space="preserve">
+    <value>写入 Windows 注册表失败</value>
+  </data>
+  <data name="ExportAuth" xml:space="preserve">
+    <value>导出令牌</value>
+  </data>
+  <data name="FilePathNotExist" xml:space="preserve">
+    <value>文件路径不存在</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="FilterRequirement" xml:space="preserve">
+    <value>筛选条件</value>
+  </data>
+  <data name="GameAccount_AddNewAccount" xml:space="preserve">
+    <value>添加新账号</value>
+  </data>
+  <data name="GameAccount_EndProcessWay" xml:space="preserve">
+    <value>结束进程方式</value>
+  </data>
+  <data name="GameAccount_SaveCurrentAccount" xml:space="preserve">
+    <value>保存当前登录账号</value>
+  </data>
+  <data name="GameAccount_StartProcessWay" xml:space="preserve">
+    <value>启动进程方式</value>
+  </data>
+  <data name="Game_Hidden" xml:space="preserve">
+    <value>隐藏的游戏</value>
+  </data>
+  <data name="Game_LayoutWay" xml:space="preserve">
+    <value>布局方式</value>
+  </data>
+  <data name="GeneralAuth_Code" xml:space="preserve">
+    <value>生成 Code</value>
+  </data>
+  <data name="GeneralAuth_EnterkeyOrLink" xml:space="preserve">
+    <value>输入您的令牌 Key 或二维码图片 url 链接</value>
+  </data>
+  <data name="GeneralAuth_ImportText" xml:space="preserve">
+    <value>导入文本：</value>
+  </data>
+  <data name="GeneralAuth_Name" xml:space="preserve">
+    <value>令牌名称：</value>
+  </data>
+  <data name="GeneralAuth_VerifySuccessfulImport" xml:space="preserve">
+    <value>请验证下列 Code 是否正确，在其正确的情况下再进行导入</value>
+  </data>
+  <data name="Info_AccountAlreadyLogin" xml:space="preserve">
+    <value>已经使用此账号登录</value>
+  </data>
+  <data name="Info_AlreadyTheCurrentAccount" xml:space="preserve">
+    <value>已经是当前登录的账号（没有执行操作）</value>
+  </data>
+  <data name="Info_AuthMaximumQuantity" xml:space="preserve">
+    <value>已达到本地令牌数量上限</value>
+  </data>
+  <data name="Info_PleaseEnterImportText" xml:space="preserve">
+    <value>请输入「导入文本」。</value>
+  </data>
+  <data name="Info_PleaseVerifyFirstAuthCode" xml:space="preserve">
+    <value>请先验证令牌 Code 正确后，再点击导入</value>
+  </data>
+  <data name="Info_SteamDesktopAuthImportMessage_" xml:space="preserve">
+    <value>SteamDesktopAuth 令牌导入{0}</value>
+  </data>
+  <data name="Info_V1ImportMessage_" xml:space="preserve">
+    <value>WattToolKitV1 令牌导入{0}</value>
+  </data>
+  <data name="Info_V2ImportMessage_" xml:space="preserve">
+    <value>WattToolKitV2 令牌导入{0}</value>
+  </data>
+  <data name="Info_WinAuthImportMessage_" xml:space="preserve">
+    <value>WinAuth 令牌导入{0}</value>
+  </data>
+  <data name="ModelContent_CancelAllTrade" xml:space="preserve">
+    <value>您确认要取消所有交易报价吗\r\n您将拒绝列表内全部的报价请求。\r\n这将从以下列表中移除所有交易信息\r\n您可以在 Steam 库存查看交易报价记录。</value>
+  </data>
+  <data name="ModelContent_CancelTrade" xml:space="preserve">
+    <value>您确认需要取消交易报价吗\r\n这将从以下列表中移除此条确认信息\r\n您可以在 Steam 库存查看交易报价记录。</value>
+  </data>
+  <data name="ModelContent_ConfirmAllTrade" xml:space="preserve">
+    <value>您确认要通过所有交易报价吗\r\n您将同意列表内全部的报价请求。\r\n交易一经确认无法撤销，请谨慎选择。</value>
+  </data>
+  <data name="ModelContent_ConfirmTrade___" xml:space="preserve">
+    <value>{0}\r\n{1}\r\n{2}\r\n如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。</value>
+  </data>
+  <data name="ModelContent_ConfirmUnbinding" xml:space="preserve">
+    <value>您确定要从您的 Steam 账号中解绑此令牌吗，解绑后此令牌将失效，您可以在解绑后删除此令牌。</value>
+  </data>
+  <data name="ModelContent_ExportPassword" xml:space="preserve">
+    <value>请输入此令牌导出时设置的密码</value>
+  </data>
+  <data name="ModelContent_ImportSuccessful" xml:space="preserve">
+    <value>{0}导入成功</value>
+  </data>
   <data name="ModelContent_LoginNewUser" xml:space="preserve">
     <value>此操作会结束当前平台进程并移除当前账号登录状态跳转至新账号登录，确定要继续吗？</value>
+  </data>
+  <data name="ModelContent_SecretKey_" xml:space="preserve">
+    <value>{0}\r\n令牌 SecretKey</value>
+  </data>
+  <data name="MyOrder" xml:space="preserve">
+    <value>我的订单</value>
+  </data>
+  <data name="OnHook" xml:space="preserve">
+    <value>挂机</value>
+  </data>
+  <data name="PersonalCenter" xml:space="preserve">
+    <value>个人中心</value>
+  </data>
+  <data name="Script_Settings" xml:space="preserve">
+    <value>脚本设置</value>
+  </data>
+  <data name="SelectFilepath" xml:space="preserve">
+    <value>选择文件路径</value>
+  </data>
+  <data name="SteamLoginImport" xml:space="preserve">
+    <value>Steam 登入导入</value>
+  </data>
+  <data name="SteamTrade_YourOffer" xml:space="preserve">
+    <value>您的报价</value>
+  </data>
+  <data name="Steam_AuthFileImportPath" xml:space="preserve">
+    <value>令牌文件导入路径</value>
+  </data>
+  <data name="Steam_BindTel" xml:space="preserve">
+    <value>绑定手机号</value>
+  </data>
+  <data name="Steam_CustomAuthName" xml:space="preserve">
+    <value>自定义令牌名称</value>
+  </data>
+  <data name="Steam_EmailCode" xml:space="preserve">
+    <value>邮箱验证码</value>
+  </data>
+  <data name="Steam_EmailConfirmation" xml:space="preserve">
+    <value>请在收到邮件后，点击邮件内的「添加手机号码」进行确认后，再点击继续按钮。</value>
+  </data>
+  <data name="Steam_Login" xml:space="preserve">
+    <value>Steam 登录</value>
+  </data>
+  <data name="Steam_PleaseEnterBindTel" xml:space="preserve">
+    <value>请输入您需要绑定的手机号</value>
+  </data>
+  <data name="SubHeader_FirstNeedToSetPlatformPath_" xml:space="preserve">
+    <value>第一次使用需要先设置 {0} 平台路径</value>
+  </data>
+  <data name="SubHeader_FirstSyncSetAuth" xml:space="preserve">
+    <value>首次同步，请为您的云令牌设置一个安全问题及密码。\r\n请先输入「安全问题」</value>
+  </data>
+  <data name="SubHeader_PleaseEnterTheAnswerAgain" xml:space="preserve">
+    <value>请再输入「问题答案」</value>
+  </data>
+  <data name="SubHeader_SecurityIssues_" xml:space="preserve">
+    <value>安全问题：「{0}」</value>
+  </data>
+  <data name="Success_AuthProtectSuccessfully_" xml:space="preserve">
+    <value>令牌本机电脑保护{0}成功</value>
+  </data>
+  <data name="Success_AuthUnbindSuccessful" xml:space="preserve">
+    <value>令牌解绑成功</value>
+  </data>
+  <data name="Success_AuthUpload__" xml:space="preserve">
+    <value>{0} 已上传 {1} 个令牌至云端</value>
+  </data>
+  <data name="Success_CloudSynchronizationSuccessful" xml:space="preserve">
+    <value>云同步成功：{0}</value>
+  </data>
+  <data name="Success_DelCloudData" xml:space="preserve">
+    <value>同步删除云端数据成功</value>
+  </data>
+  <data name="Success_ExecuteAllAuthEnd___" xml:space="preserve">
+    <value>{0} 全部令牌执行结束，成功数量 {1} ，失败数量 {2}</value>
+  </data>
+  <data name="Success_LocalAuthDelSuccessful" xml:space="preserve">
+    <value>本地令牌数据删除成功</value>
+  </data>
+  <data name="Success_LocalAuthUpdateSuccessful" xml:space="preserve">
+    <value>本地令牌名称修改成功</value>
   </data>
   <data name="Success_SavedSuccessfully_" xml:space="preserve">
     <value>保存成功 {0}</value>
@@ -2575,8 +2774,20 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Success_TokenPasswordSetSuccessfully" xml:space="preserve">
     <value>令牌密码保护设置成功。</value>
   </data>
+  <data name="Success_UpdateCloudData" xml:space="preserve">
+    <value>同步更新云端数据成功</value>
+  </data>
+  <data name="TelCode" xml:space="preserve">
+    <value>手机验证码</value>
+  </data>
   <data name="Title_AddAccount_" xml:space="preserve">
     <value>添加新的 {0} 账号</value>
+  </data>
+  <data name="Title_AuthEncryption" xml:space="preserve">
+    <value>令牌加密帮助</value>
+  </data>
+  <data name="Title_DeleteAuth" xml:space="preserve">
+    <value>删除令牌</value>
   </data>
   <data name="Title_InputTokenPassword" xml:space="preserve">
     <value>请输入令牌保护密码</value>
@@ -2584,17 +2795,56 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Title_LoginAccount_" xml:space="preserve">
     <value>登录 {0} 账号</value>
   </data>
+  <data name="Title_OldPasswordToken" xml:space="preserve">
+    <value>请输入原令牌保护密码</value>
+  </data>
   <data name="Title_PasswordConfirm" xml:space="preserve">
     <value>请再次输入密码以确认</value>
+  </data>
+  <data name="Title_PleaseEnterLoginPassword" xml:space="preserve">
+    <value>请输入该 Steam 账号登陆密码</value>
+  </data>
+  <data name="Title_PleaseEnterNewAuthName" xml:space="preserve">
+    <value>请输入新令牌名或取消</value>
+  </data>
+  <data name="Title_PleaseEnterTheAnswer" xml:space="preserve">
+    <value>请输入问题答案</value>
   </data>
   <data name="Title_PleaseInputCurrentAccountName_" xml:space="preserve">
     <value>请输入您当前登录的 {0} 账号的名称</value>
   </data>
+  <data name="Title_SetSecurityIssues" xml:space="preserve">
+    <value>设置安全问题</value>
+  </data>
+  <data name="Title_SetUp_" xml:space="preserve">
+    <value>{0} 设置</value>
+  </data>
+  <data name="UniversalAuthImport" xml:space="preserve">
+    <value>通用 2FA 令牌导入</value>
+  </data>
+  <data name="UseHelp" xml:space="preserve">
+    <value>使用帮助</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>验证</value>
+  </data>
+  <data name="ViewDetailedData" xml:space="preserve">
+    <value>查看详细数据</value>
+  </data>
+  <data name="ViewInStore" xml:space="preserve">
+    <value>在 Steam++ 插件商店中查看</value>
+  </data>
   <data name="Warning_CodeNullPleaseLogin" xml:space="preserve">
-    <value>验证码URL为空，请重新登录</value>
+    <value>验证码 URL 为空，请重新登录</value>
   </data>
   <data name="Warning_DoNotOperateFrequently" xml:space="preserve">
     <value>请勿频繁操作</value>
+  </data>
+  <data name="Warning_NotAuthProvided" xml:space="preserve">
+    <value>没有加密令牌可供操作</value>
+  </data>
+  <data name="Warning_OnlySupportSteamAuth" xml:space="preserve">
+    <value>解绑功能目前仅支持 Steam 令牌</value>
   </data>
   <data name="Warning_PasswordError" xml:space="preserve">
     <value>密码错误，请重试</value>
@@ -2602,8 +2852,20 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Warning_PlatformDeletionNotAllowed_" xml:space="preserve">
     <value>不允许删除 {0} 平台</value>
   </data>
+  <data name="Warning_PleaseEnterAuthName" xml:space="preserve">
+    <value>请输入令牌名称</value>
+  </data>
+  <data name="Warning_PleaseEnterTel" xml:space="preserve">
+    <value>请正确输入手机号。</value>
+  </data>
   <data name="Warning_PleaseInputAccountName" xml:space="preserve">
     <value>请输入账号名称</value>
+  </data>
+  <data name="Warning_PleaseSelectAuth" xml:space="preserve">
+    <value>请先选中一个 Steam 令牌</value>
+  </data>
+  <data name="Warning_PleaseSelectImportWay" xml:space="preserve">
+    <value>请选择导入方式</value>
   </data>
   <data name="Warning_PleaseStopAccelerate" xml:space="preserve">
     <value>请先停止加速</value>
@@ -2613,5 +2875,17 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Warning_RefuseOperate" xml:space="preserve">
     <value>拒绝操作</value>
+  </data>
+  <data name="Warning_SteamGuardNotEmpty" xml:space="preserve">
+    <value>UUID 及 SteamGuard 不可为空</value>
+  </data>
+  <data name="Warning_TerminationAllAuth___" xml:space="preserve">
+    <value>已终止 {0} 全部令牌，已操作成功令牌数量 {1} ，操作失败令牌数量 {2}</value>
+  </data>
+  <data name="Warning_TransactionOnlySteamAuth" xml:space="preserve">
+    <value>确认交易功能仅限 Steam 令牌使用</value>
+  </data>
+  <data name="Warning_UnbindFailed" xml:space="preserve">
+    <value>解绑令牌失败：登陆未成功</value>
   </data>
 </root>

@@ -73,9 +73,9 @@
                 <Button.Flyout>
                     <Flyout Placement="BottomEdgeAlignedLeft">
                         <StackPanel Spacing="5">
-                            <Button Command="{Binding OpenSteamLoginImportWindow}" Content="Steam登陆导入" />
-                            <Button Command="{Binding OpenGeneralAuthenticatorImportWindow}" Content="2FA通用导入" />
-                            <Button Command="{Binding OpenSteamOtherImportWindow}" Content="导入自文件" />
+                            <Button Command="{Binding OpenSteamLoginImportWindow}" Content="{ReflectionBinding Path=Res.Auth_SteamLoginImport, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                            <Button Command="{Binding OpenGeneralAuthenticatorImportWindow}" Content="{ReflectionBinding Path=Res.Auth_UniversalImport, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                            <Button Command="{Binding OpenSteamOtherImportWindow}" Content="{ReflectionBinding Path=Res.Auth_ImportCustomFile, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
@@ -104,21 +104,21 @@
                         <StackPanel Spacing="5">
                             <Button
                                 Command="{Binding SetPasswordProtection}"
-                                Content="添加密码保护"
+                                Content="{ReflectionBinding Path=Res.Auth_AddPasswordProtect, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                                 IsEnabled="{Binding !HasPasswordEncrypt}" />
                             <Button
                                 Command="{Binding RemovePasswordProtection}"
-                                Content="移除密码保护"
+                                Content="{ReflectionBinding Path=Res.Auth_RemovePasswordProtect, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                                 IsEnabled="{Binding HasPasswordEncrypt}" />
                             <Button
                                 Command="{Binding ToggleLocalProtection}"
-                                Content="添加机器验证"
+                                Content="{ReflectionBinding Path=Res.Auth_AddMachineValidation, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                                 IsEnabled="{Binding !HasLocalPcEncrypt}" />
                             <Button
                                 Command="{Binding ToggleLocalProtection}"
-                                Content="移除机器验证"
+                                Content="{ReflectionBinding Path=Res.Auth_RemoveMachineValidation, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                                 IsEnabled="{Binding HasLocalPcEncrypt}" />
-                            <Button Command="{Binding EncryptHelp}" Content="加密帮助" />
+                            <Button Command="{Binding EncryptHelp}" Content="{ReflectionBinding Path=Res.Auth_EncryptionHelp, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
@@ -209,21 +209,21 @@
                         <!--  Text="移除机器验证" />  -->
                         <!--     <ui:MenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
                         <!-- </ui:MenuFlyoutSubItem> -->
-                        <ui:MenuFlyoutSubItem Text="导出令牌">
-                            <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="默认导出" />
-                            <ui:MenuFlyoutItem Command="{Binding ExportAuthWithSdaFile}" Text="导出为maFile" />
+                        <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+                            <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="{ReflectionBinding Path=Res.DefaultExport, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                            <ui:MenuFlyoutItem Command="{Binding ExportAuthWithSdaFile}" Text="{ReflectionBinding Path=Res.Auth_ExportmaFile, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutItem
                             Command="{Binding ReLockAuthenticator}"
                             IsEnabled="{Binding IsVerificationPass}"
-                            Text="锁定令牌" />
-                        <ui:MenuFlyoutItem Command="{Binding UnbindingSteamAuthAsync}" Text="解绑令牌" />
-                        <ui:MenuFlyoutItem Text="插件设置" />
+                            Text="{ReflectionBinding Path=Res.Auth_lock, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Command="{Binding UnbindingSteamAuthAsync}" Text="{ReflectionBinding Path=Res.LocalAuth_RemoveAuth, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IsEnabled="False" Text="版本号: 0.1" />
-                        <ui:MenuFlyoutItem Text="在 Steam++ 插件商店中查看" />
-                        <ui:MenuFlyoutItem Text="使用帮助" />
-                        <ui:MenuFlyoutItem Text="关于此插件" />
+                        <ui:MenuFlyoutItem IsEnabled="False" Text="{ReflectionBinding Path=Res.Auth_Version, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -243,7 +243,7 @@
                     DockPanel.Dock="Left"
                     HorizontalAlignment="Center">
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton Command="{Binding KeepDisplay}" Label="固定展示">
+                        <ui:CommandBarButton Command="{Binding KeepDisplay}" Label="{ReflectionBinding Path=Res.Auth_FixedDisplay, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
                             <ui:CommandBarButton.IconSource>
                                 <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource FavoriteStar}" />
                             </ui:CommandBarButton.IconSource>
@@ -253,10 +253,10 @@
                         <ui:CommandBarButton
                             Command="{Binding EditAuthNameAsync}"
                             IconSource="Edit"
-                            Label="编辑令牌名字" />
+                            Label="{ReflectionBinding Path=Res.Auth_EditName, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton Command="{Binding ShowReplyWindow}" Label="确认交易">
+                        <ui:CommandBarButton Command="{Binding ShowReplyWindow}" Label="{ReflectionBinding Path=Res.LocalAuth_AuthTrade, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
                             <ui:CommandBarButton.IconSource>
                                 <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Reply}" />
                             </ui:CommandBarButton.IconSource>
@@ -267,10 +267,10 @@
                         <ui:CommandBarButton
                             Command="{Binding ShowAuthJsonData}"
                             IconSource="ZoomIn"
-                            Label="查看详细数据" />
+                            Label="{ReflectionBinding Path=Res.ViewDetailedData, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton Command="{Binding ShowQrCode}" Label="展示二维码">
+                        <ui:CommandBarButton Command="{Binding ShowQrCode}" Label="{ReflectionBinding Path=Res.DisplayQRCode, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
                             <ui:CommandBarButton.IconSource>
                                 <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
                             </ui:CommandBarButton.IconSource>
@@ -288,7 +288,7 @@
                         <ui:CommandBarButton
                             Command="{Binding DeleteAuthAsync}"
                             IconSource="Delete"
-                            Label="删除令牌" />
+                            Label="{ReflectionBinding Path=Res.LocalAuth_Delete, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                     </ui:CommandBar.PrimaryCommands>
                 </ui:CommandBar>
             </DockPanel>
@@ -327,12 +327,12 @@
                 </StackPanel.IsVisible>
                 <TextBlock
                     HorizontalAlignment="Center"
-                    Text="您的令牌具有密码保护，请先进行密码验证"
+                    Text="{ReflectionBinding Path=Res.Auth_PasswordProtectedVerifyFirst, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                     TextWrapping="WrapWithOverflow"
                     VerticalAlignment="Center" />
                 <Button
                     Command="{Binding Initialize}"
-                    Content="验证"
+                    Content="{ReflectionBinding Path=Res.Verify, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                     HorizontalAlignment="Center"
                     IsEnabled="True"
                     VerticalAlignment="Center" />

@@ -37,10 +37,10 @@
             CornerRadius="{StaticResource ControlCornerRadius}"
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
-            <TabStripItem Content="库" />
-            <TabStripItem Content="下载" />
-            <TabStripItem Content="挂机" />
-            <TabStripItem Content="编辑" />
+            <TabStripItem Content="{ReflectionBinding Path=Res.Depot, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+            <TabStripItem Content="{ReflectionBinding Path=Res.Download, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+            <TabStripItem Content="{ReflectionBinding Path=Res.OnHook, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+            <TabStripItem Content="{ReflectionBinding Path=Res.Edit, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
         </TabStrip>
     </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
@@ -75,7 +75,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="筛选" />
+                        Text="{ReflectionBinding Path=Res.Filter, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </ToggleButton>
             <!--<Button
@@ -128,8 +128,8 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem Text="隐藏的游戏" />
-                        <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="插件设置" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Game_Hidden, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
@@ -145,9 +145,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="在 Steam++ 插件商店中查看" />
-                        <ui:MenuFlyoutItem Text="使用帮助" />
-                        <ui:MenuFlyoutItem Text="关于此插件" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -166,7 +166,7 @@
                 VerticalAlignment="Center"
                 Classes="Search" />
 
-            <TextBlock Text="布局方式" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{ReflectionBinding Path=Res.Game_LayoutWay, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <TabStrip
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
@@ -178,7 +178,7 @@
                 <TabStripItem Content="&#xE80A;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
             </TabStrip>
 
-            <TextBlock Text="筛选条件" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{ReflectionBinding Path=Res.FilterRequirement, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <DockPanel>
 

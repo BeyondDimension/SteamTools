@@ -30,11 +30,11 @@
                     Margin="5"
                     Orientation="Horizontal"
                     Spacing="5">
-                    <TextBlock Text="令牌名称：" VerticalAlignment="Center" />
+                    <TextBlock Text="{ReflectionBinding Path=Res.GeneralAuth_Name, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" VerticalAlignment="Center" />
                     <TextBox
                         HorizontalContentAlignment="Center"
                         Text="{Binding AuthenticatorName}"
-                        Watermark="输入您的令牌名称" />
+                        Watermark="{ReflectionBinding Path=Res.Warning_PleaseEnterAuthName, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                 </StackPanel>
             </Border>
         </StackPanel>
@@ -52,11 +52,11 @@
                     Margin="5"
                     Orientation="Horizontal"
                     Spacing="5">
-                    <TextBlock Text="导入文本：" VerticalAlignment="Center" />
+                    <TextBlock Text="{ReflectionBinding Path=Res.GeneralAuth_ImportText, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" VerticalAlignment="Center" />
                     <TextBox
                         HorizontalContentAlignment="Center"
                         Text="{Binding SecretCode}"
-                        Watermark="输入您的令牌Key或二维码图片url链接" />
+                        Watermark="{ReflectionBinding Path=Res.GeneralAuth_EnterkeyOrLink, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                 </StackPanel>
             </Border>
         </StackPanel>
@@ -64,7 +64,7 @@
             <Label VerticalAlignment="Center">4.</Label>
             <Button
                 Command="{Binding GenerateCode}"
-                Content="生成 Code "
+                Content="{ReflectionBinding Path=Res.GeneralAuth_Code, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                 HorizontalAlignment="Center"
                 MinWidth="300" />
         </StackPanel>
@@ -72,11 +72,11 @@
             <Label VerticalAlignment="Center">5.</Label>
             <Border HorizontalAlignment="Center">
                 <StackPanel Margin="10" Spacing="5">
-                    <TextBlock HorizontalAlignment="Center" Text="请验证下列Code是否正确，在其正确的情况下再进行导入" />
+                    <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.GeneralAuth_VerifySuccessfulImport, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
                     <TextBox IsReadOnly="True" Text="{Binding CurrentCode}" />
                     <Button
                         Command="{Binding Import}"
-                        Content="确认导入"
+                        Content="{ReflectionBinding Path=Res.ConfirmImport, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                         HorizontalAlignment="Center" />
                 </StackPanel>
             </Border>

@@ -1,3 +1,5 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 using BD.WTTS.Client.Resources;
 using WinAuth;
 
@@ -157,7 +159,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
         }
         else
         {
-            Toast.Show(ToastIcon.Error, "不支持该文件类型的导入方式。");
+            Toast.Show(ToastIcon.Error, AppResources.Error_NotSupportedFileImport);
             return;
         }
 
@@ -170,7 +172,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
         {
             if (string.IsNullOrEmpty(PhoneImportUuid) || string.IsNullOrEmpty(PhoneImportSteamGuard))
             {
-                Toast.Show(ToastIcon.Warning, "UUID及SteamGuard不可为空");
+                Toast.Show(ToastIcon.Warning, AppResources.Warning_SteamGuardNotEmpty);
                 return;
             }
             ImportFromPhoneSteamGuard();
@@ -178,37 +180,38 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
         }
         if (string.IsNullOrEmpty(ImportAuthFilePath) || !File.Exists(ImportAuthFilePath))
         {
-            Toast.Show(ToastIcon.Warning, "文件路径不存在");
+            Toast.Show(ToastIcon.Warning, AppResources.FilePathNotExist);
             return;
         }
         switch (CurrentAuthImportType)
         {
             case AuthImportType.None:
-                Toast.Show(ToastIcon.Warning, "请选择导入方式");
+                Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseSelectImportWay);
                 break;
             case AuthImportType.WattToolkitV1:
                 if (ImportFromWattToolKitV1())
-                    Toast.Show(ToastIcon.Success, "WattToolKitV1令牌导入成功");
+                    Toast.Show(ToastIcon.Success, AppResources.Info_V1ImportMessage_.Format("成功"));
                 else 
-                    Toast.Show(ToastIcon.Error, "WattToolKitV1令牌导入失败");
+                    Toast.Show(ToastIcon.Error, AppResources.Info_V1ImportMessage_.Format("失败"));
                 break;
             case AuthImportType.WattToolkitV2:
                 if (await ImportFromWattToolKitV2())
-                    Toast.Show(ToastIcon.Success, "WattToolKitV2令牌导入成功");
-                else 
-                    Toast.Show(ToastIcon.Error, "WattToolKitV2令牌导入失败");
+
+                    Toast.Show(ToastIcon.Success, AppResources.Info_V2ImportMessage_.Format("成功"));
+                else
+                    Toast.Show(ToastIcon.Error, AppResources.Info_V2ImportMessage_.Format("失败"));
                 break;
             case AuthImportType.WinAuth:
                 if (ImportFromWinAuthFile())
-                    Toast.Show(ToastIcon.Success, "WinAuth令牌导入成功");
+                    Toast.Show(ToastIcon.Success, AppResources.Info_WinAuthImportMessage_.Format("成功"));
                 else
-                    Toast.Show(ToastIcon.Error, "WinAuth令牌导入失败");
+                    Toast.Show(ToastIcon.Error, AppResources.Info_WinAuthImportMessage_.Format("失败"));
                 break;
             case AuthImportType.SteamDesktopAuth:
                 if (ImportFromSDAFile())
-                    Toast.Show(ToastIcon.Success, "SteamDesktopAuth令牌导入成功");
+                    Toast.Show(ToastIcon.Success, AppResources.Info_SteamDesktopAuthImportMessage_.Format("成功"));
                 else
-                    Toast.Show(ToastIcon.Error, "SteamDesktopAuth令牌导入失败");
+                    Toast.Show(ToastIcon.Error, AppResources.Info_SteamDesktopAuthImportMessage_.Format("失败"));
                 break;
         }
     }
@@ -278,7 +281,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
                 Toast.Show(ToastIcon.Warning, Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
                 var textviewmodel =
                     new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.Password };
-                if (await IWindowManager.Instance.ShowTaskDialogAsync(textviewmodel, "请输入此令牌导出时设置的密码", isDialog: false,
+                if (await IWindowManager.Instance.ShowTaskDialogAsync(textviewmodel, AppResources.ModelContent_ExportPassword, isDialog: false,
                         isCancelButton: true))
                 {
                     exportPassword = textviewmodel.Value;

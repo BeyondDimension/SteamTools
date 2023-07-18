@@ -53,7 +53,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
             this.RaisePropertyChanged();
         }
     }
-    
+
     /// <summary>
     /// 默认导出文件名
     /// </summary>
@@ -100,7 +100,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
             });
             if (ExportFile == null) return;
         }
-        
+
         if (HasPasswordProtection)
         {
             if (string.IsNullOrWhiteSpace(VerifyPassword) && VerifyPassword != Password)
@@ -109,7 +109,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
                 return;
             }
         }
-        
+
         var filestream = ExportFile?.OpenWrite();
         if (filestream == null)
         {
@@ -131,12 +131,12 @@ public class AuthenticatorExportViewModel : ViewModelBase
         var auths = await AuthenticatorService.GetAllAuthenticatorsAsync(sourceData, password);
 
         await AuthenticatorService.ExportAsync(filestream, HasLocalProtection, auths, VerifyPassword);
-        
+
         await filestream.FlushAsync();
         await filestream.DisposeAsync();
 
         Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(ExportFile?.ToString()));
-        
+
         ExportFile = null;
     }
 
@@ -146,7 +146,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入原令牌保护密码", isDialog: false,
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_OldPasswordToken, isDialog: false,
                 isCancelButton: true) &&
             textViewmodel.Value != null)
         {
