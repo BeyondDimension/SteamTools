@@ -132,7 +132,7 @@
                                     Theme="{StaticResource TransparentButton}">
                                     <DropDownButton.Flyout>
                                         <MenuFlyout>
-                                            <MenuItem Command="{ReflectionBinding Path=DataContext.CheckUpdate_Click, RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}" Header="检查更新" />
+                                            <MenuItem Command="{ReflectionBinding Path=DataContext.CheckUpdate_Click, RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}" Header="检测更新" />
                                             <MenuItem
                                                 Command="{ReflectionBinding Path=DataContext.OpenPluginDirectory_Click,
                                                                             RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"

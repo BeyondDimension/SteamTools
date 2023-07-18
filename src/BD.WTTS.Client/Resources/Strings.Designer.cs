@@ -4420,7 +4420,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 插件删除异常，请稍后再试 的本地化字符串。
+        ///   查找类似 {0} 插件删除异常，请稍后再试 的本地化字符串。
         /// </summary>
         public static string Plugins_DeleteError {
             get {
@@ -4429,7 +4429,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 插件删除成功 的本地化字符串。
+        ///   查找类似 {0} 插件删除成功 的本地化字符串。
         /// </summary>
         public static string Plugins_DeleteSuccess {
             get {
