@@ -109,8 +109,8 @@ public sealed partial class App : Application
         {
             singleView.MainView = new MainView();
         }
-        SetThemeNotChangeValue(UISettings.Theme.Value);
-        SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
+        //SetThemeNotChangeValue(UISettings.Theme.Value);
+        //SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
         base.OnFrameworkInitializationCompleted();
     }
 
