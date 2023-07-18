@@ -3,7 +3,7 @@ namespace BD.WTTS.Client.Tools.Publish.Commands;
 interface IGenerateCaCertCommand : ICommand
 {
     const string commandName = "gcert";
-    const string X500DistinguishedNameValue = $"C=CN, S=Hunan, L=Changsha, O=\u6C5F\u82CF\u84B8\u6C7D\u51E1\u661F\u79D1\u6280\u6709\u9650\u516C\u53F8, OU=\u6280\u672F\u90E8, CN=\u6C5F\u82CF\u84B8\u6C7D\u51E1\u661F\u79D1\u6280\u6709\u9650\u516C\u53F8\u4EE3\u7801\u7B7E\u540D\u8BC1\u4E66";
+    const string X500DistinguishedNameValue = $"C=CN, S=Hunan, L=Changsha, O=\u6C5F\u82CF\u84B8\u6C7D\u51E1\u661F\u79D1\u6280\u6709\u9650\u516C\u53F8, OU=\u6280\u672F\u90E8, CN=\u6C5F\u82CF\u84B8\u6C7D\u51E1\u661F\u79D1\u6280\u6709\u9650\u516C\u53F8";
 
     public const int CertificateValidDays = 3650;
 

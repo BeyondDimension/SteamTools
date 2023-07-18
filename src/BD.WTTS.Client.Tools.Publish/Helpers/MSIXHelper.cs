@@ -274,7 +274,7 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
                 UseShellExecute = false,
                 Arguments =
 $"""
-sign /a /fd SHA256 /f "{pfxFilePath ?? pfxFilePath_BeyondDimension_CodeSigning}" /p "{pwd}" /tr {timestamp_url} "{fileName}"
+sign /a /fd SHA256 /f "{pfxFilePath ?? pfxFilePath_BeyondDimension_CodeSigning}" /p "{pwd}" /tr {timestamp_url} /td SHA256 {fileName}
 """,
             };
             DotNetCLIHelper.StartProcessAndWaitForExit(psi);

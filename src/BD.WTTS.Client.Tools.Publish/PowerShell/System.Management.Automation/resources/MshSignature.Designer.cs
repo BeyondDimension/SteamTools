@@ -39,8 +39,8 @@ namespace System.Management.Automation {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("System.Application.PowerShell.System.Management.Automation.resources.MshSignature" +
-                            "", typeof(MshSignature).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BD.WTTS.Client.Tools.Publish.PowerShell.System.Management.Automation.resources.Ms" +
+                            "hSignature", typeof(MshSignature).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
