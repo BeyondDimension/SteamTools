@@ -1,20 +1,21 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="BD.WTTS.UI.Views.Pages.GeneralAuthenticatorImportPage"
-    x:CompileBindings="True"
-    x:DataType="spp:GeneralAuthenticatorImportViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:GeneralAuthenticatorImportViewModel"
+    mc:Ignorable="d">
     <StackPanel
-        HorizontalAlignment="Center"
         Margin="10"
-        Spacing="30"
-        VerticalAlignment="Center">
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Spacing="30">
         <StackPanel.Styles>
             <Style Selector="Border">
                 <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
@@ -30,11 +31,13 @@
                     Margin="5"
                     Orientation="Horizontal"
                     Spacing="5">
-                    <TextBlock Text="{ReflectionBinding Path=Res.GeneralAuth_Name, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" VerticalAlignment="Center" />
+                    <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.GeneralAuth_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <TextBox
                         HorizontalContentAlignment="Center"
                         Text="{Binding AuthenticatorName}"
-                        Watermark="{ReflectionBinding Path=Res.Warning_PleaseEnterAuthName, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        Watermark="{ReflectionBinding Path=Res.Warning_PleaseEnterAuthName,
+                                                      Mode=OneWay,
+                                                      Source={x:Static s:ResourceService.Current}}" />
                 </StackPanel>
             </Border>
         </StackPanel>
@@ -52,32 +55,38 @@
                     Margin="5"
                     Orientation="Horizontal"
                     Spacing="5">
-                    <TextBlock Text="{ReflectionBinding Path=Res.GeneralAuth_ImportText, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" VerticalAlignment="Center" />
+                    <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.GeneralAuth_ImportText, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <TextBox
                         HorizontalContentAlignment="Center"
                         Text="{Binding SecretCode}"
-                        Watermark="{ReflectionBinding Path=Res.GeneralAuth_EnterkeyOrLink, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        Watermark="{ReflectionBinding Path=Res.GeneralAuth_EnterkeyOrLink,
+                                                      Mode=OneWay,
+                                                      Source={x:Static s:ResourceService.Current}}" />
                 </StackPanel>
             </Border>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label VerticalAlignment="Center">4.</Label>
             <Button
-                Command="{Binding GenerateCode}"
-                Content="{ReflectionBinding Path=Res.GeneralAuth_Code, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+                MinWidth="300"
                 HorizontalAlignment="Center"
-                MinWidth="300" />
+                Command="{Binding GenerateCode}"
+                Content="{ReflectionBinding Path=Res.GeneralAuth_Code,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label VerticalAlignment="Center">5.</Label>
             <Border HorizontalAlignment="Center">
                 <StackPanel Margin="10" Spacing="5">
-                    <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.GeneralAuth_VerifySuccessfulImport, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                    <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.GeneralAuth_VerifySuccessfulImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <TextBox IsReadOnly="True" Text="{Binding CurrentCode}" />
                     <Button
+                        HorizontalAlignment="Center"
                         Command="{Binding Import}"
-                        Content="{ReflectionBinding Path=Res.ConfirmImport, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
-                        HorizontalAlignment="Center" />
+                        Content="{ReflectionBinding Path=Res.ConfirmImport,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}" />
                 </StackPanel>
             </Border>
         </StackPanel>

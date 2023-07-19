@@ -1,44 +1,53 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="BD.WTTS.UI.Views.Pages.SteamOtherImportPage"
-    x:CompileBindings="True"
-    x:DataType="spp:SteamOtherImportViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamOtherImportViewModel"
+    mc:Ignorable="d">
     <StackPanel
         HorizontalAlignment="Center"
-        Spacing="10"
-        VerticalAlignment="Center">
+        VerticalAlignment="Center"
+        Spacing="10">
         <ComboBox
+            Width="200"
             HorizontalContentAlignment="Center"
             ItemsSource="{Binding AuthImportTypes}"
-            SelectedItem="{Binding CurrentAuthImportType}"
-            Width="200" />
+            SelectedItem="{Binding CurrentAuthImportType}" />
         <TextBox
+            Width="200"
             Text="{Binding ImportAuthNewName}"
-            Watermark="{ReflectionBinding Path=Res.Steam_CustomAuthName, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
-            Width="200" />
+            Watermark="{ReflectionBinding Path=Res.Steam_CustomAuthName,
+                                          Mode=OneWay,
+                                          Source={x:Static s:ResourceService.Current}}" />
         <TextBox IsVisible="{Binding !ImportFromFile}" Text="{Binding PhoneImportUuid}" />
         <TextBox IsVisible="{Binding !ImportFromFile}" Text="{Binding PhoneImportSteamGuard}" />
         <TextBox
+            Width="200"
             IsReadOnly="True"
             IsVisible="{Binding ImportFromFile}"
             Text="{Binding ImportAuthFilePath}"
-            Watermark="{ReflectionBinding Path=Res.Steam_AuthFileImportPath, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
-            Width="200" />
+            Watermark="{ReflectionBinding Path=Res.Steam_AuthFileImportPath,
+                                          Mode=OneWay,
+                                          Source={x:Static s:ResourceService.Current}}" />
         <Button
-            Command="{Binding OpenFolder}"
-            Content="{ReflectionBinding Path=Res.SelectFilepath, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
             HorizontalAlignment="Center"
+            Command="{Binding OpenFolder}"
+            Content="{ReflectionBinding Path=Res.SelectFilepath,
+                                        Mode=OneWay,
+                                        Source={x:Static s:ResourceService.Current}}"
             IsVisible="{Binding ImportFromFile}" />
         <Button
+            HorizontalAlignment="Center"
             Command="{Binding Import}"
-            Content="{ReflectionBinding Path=Res.ConfirmImport, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
-            HorizontalAlignment="Center" />
+            Content="{ReflectionBinding Path=Res.ConfirmImport,
+                                        Mode=OneWay,
+                                        Source={x:Static s:ResourceService.Current}}" />
     </StackPanel>
 </UserControl>
