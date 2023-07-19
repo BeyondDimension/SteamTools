@@ -185,6 +185,7 @@
 
                 <DropDownButton
                     Width="200"
+                    Height="36"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Center">

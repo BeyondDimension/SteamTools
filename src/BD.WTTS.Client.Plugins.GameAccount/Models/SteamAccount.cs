@@ -47,6 +47,30 @@ public sealed class SteamAccount : ReactiveObject, IAccount
         set => this.SteamUser.MostRecent = value;
     }
 
+    public bool WantsOfflineMode
+    {
+        get => this.SteamUser.WantsOfflineMode;
+        set => this.SteamUser.WantsOfflineMode = value;
+    }
+
+    public bool SkipOfflineModeWarning
+    {
+        get => this.SteamUser.SkipOfflineModeWarning;
+        set => this.SteamUser.SkipOfflineModeWarning = value;
+    }
+
+    public bool RememberPassword
+    {
+        get => this.SteamUser.RememberPassword;
+        set => this.SteamUser.RememberPassword = value;
+    }
+
+    public PersonaState PersonaState
+    {
+        get => this.SteamUser.PersonaState;
+        set => this.SteamUser.PersonaState = value;
+    }
+
     public ThirdpartyPlatform Platform { get; init; }
 
     public string? PlatformName { get; init; }
