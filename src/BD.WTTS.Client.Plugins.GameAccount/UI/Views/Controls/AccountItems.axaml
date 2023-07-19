@@ -37,6 +37,11 @@
                                 Status="{ReflectionBinding Path=Res.UserChange_RecentLogin,
                                                            Mode=OneWay,
                                                            Source={x:Static s:ResourceService.Current}}">
+                                <spp:AppItem.Status>
+                                    <Border Classes="Status" IsVisible="{Binding MostRecent}">
+                                        <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    </Border>
+                                </spp:AppItem.Status>
                                 <spp:AppItem.ContextFlyout>
                                     <ui:FAMenuFlyout>
                                         <ui:MenuFlyoutItem

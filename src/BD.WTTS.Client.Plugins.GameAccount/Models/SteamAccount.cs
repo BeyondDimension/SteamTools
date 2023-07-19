@@ -41,6 +41,12 @@ public sealed class SteamAccount : ReactiveObject, IAccount
         set => this.SteamUser.AvatarMedium = value;
     }
 
+    public bool MostRecent
+    {
+        get => this.SteamUser.MostRecent;
+        set => this.SteamUser.MostRecent = value;
+    }
+
     public ThirdpartyPlatform Platform { get; init; }
 
     public string? PlatformName { get; init; }

@@ -10,6 +10,8 @@ public interface IAccount
 
     DateTime? LastLoginTime { get; set; }
 
+    bool MostRecent { get; set; }
+
     string? ImagePath { get; set; }
 
     ThirdpartyPlatform Platform { get; init; }

@@ -14,7 +14,7 @@
 
             <sys:Char x:Key="PasswordChar">•</sys:Char>
             <FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>
-            <BoxShadows x:Key="InfoBoxShadow">2 2 16 0 #3F000000</BoxShadows>
+            <BoxShadows x:Key="InfoBoxShadow">0 4 32 0 #66000000</BoxShadows>
 
             <ResourceDictionary.MergedDictionaries>
                 <MergeResourceInclude Source="/UI/Styling/Window.axaml" />
