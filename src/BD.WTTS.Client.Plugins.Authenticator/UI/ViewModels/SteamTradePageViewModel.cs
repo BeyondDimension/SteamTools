@@ -315,11 +315,11 @@ public sealed partial class SteamTradePageViewModel
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
                 new MessageBoxWindowViewModel()
                 {
-                    Content = Strings.LocalAuth_AuthTrade_MessageBoxTip.Format(statusText)
+                    Content = Strings.LocalAuth_AuthTrade_MessageBoxTip_.Format(statusText)
                 }, isCancelButton: true, isDialog: false))
         {
             SetToastServiceStatus(
-                Strings.LocalAuth_AuthTrade_ConfirmTip.Format(statusText));
+                Strings.LocalAuth_AuthTrade_ConfirmTip_.Format(statusText));
 
             _operationTradeAllCancelToken = new CancellationTokenSource();
             ushort success = 0;

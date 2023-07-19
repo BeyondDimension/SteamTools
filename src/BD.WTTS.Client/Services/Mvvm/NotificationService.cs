@@ -45,7 +45,7 @@ public sealed class NotificationService : ReactiveObject
     //                    INotificationService.Instance.Notify(new NotificationBuilder()
     //                    {
     //                        Title = AppResources.Notice_Tray_Title,
-    //                        Content = AppResources.Notice_Tray_Content.Format(result.Content.Length),
+    //                        Content = AppResources.Notice_Tray_Content_.Format(result.Content.Length),
     //                        AutoCancel = NotificationBuilder.DefaultAutoCancel,
     //                        Type = NotificationType.Announcement,
     //#pragma warning disable CS0618 // 类型或成员已过时

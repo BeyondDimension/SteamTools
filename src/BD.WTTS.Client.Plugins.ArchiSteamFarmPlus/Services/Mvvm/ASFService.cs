@@ -193,7 +193,7 @@ public sealed class ASFService : ReactiveObject
                 }
             }
         }
-        Toast.Show(string.Format(AppResources.LocalAuth_ImportSuccessTip, num));
+        Toast.Show(string.Format(AppResources.LocalAuth_ImportSuccessTip_, num));
     }
 }
 #endif

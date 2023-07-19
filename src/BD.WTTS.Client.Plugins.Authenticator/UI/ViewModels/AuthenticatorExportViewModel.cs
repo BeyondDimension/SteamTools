@@ -146,7 +146,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_OldPasswordToken, isDialog: false,
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_OldPasswordAuth, isDialog: false,
                 isCancelButton: true) &&
             textViewmodel.Value != null)
         {

@@ -67,6 +67,6 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
         };
         await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iAuthenticatorDtoDto, _password);
         await IWindowManager.Instance.ShowTaskDialogAsync(
-            new MessageBoxWindowViewModel { Content = AppResources.ModelContent_ImportSuccessful.Format(ImportAuthenticatorType) });
+            new MessageBoxWindowViewModel { Content = AppResources.ModelContent_ImportSuccessful_.Format(ImportAuthenticatorType) });
     }
 }

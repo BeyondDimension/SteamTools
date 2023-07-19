@@ -290,7 +290,7 @@ public class SteamOtherImportViewModel : DialogWindowViewModel
                 ImportFromWattToolKitV2(exportPassword);
                 break;
             default:
-                Toast.Show(ToastIcon.Error, Strings.LocalAuth_ExportAuth_Error.Format(result.resultCode));
+                Toast.Show(ToastIcon.Error, Strings.LocalAuth_ExportAuth_Error_.Format(result.resultCode));
                 break;
         }
 

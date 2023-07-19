@@ -93,7 +93,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             Auths.Add(new AuthenticatorItemModel(item));
         }
 
-        Toast.Show(ToastIcon.Success, AppResources.Success_TokenloadedSuccessfully);
+        Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
     }
 
     public async Task<bool> EnterPassword(AccountPlatformAuthenticator sourceData)
@@ -102,7 +102,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_InputTokenPassword, isDialog: false,
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_InputAuthPassword, isDialog: false,
                 isCancelButton: true) &&
             textViewmodel.Value != null)
         {
@@ -133,7 +133,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_InputTokenPassword, isDialog: false,
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_InputAuthPassword, isDialog: false,
                 isCancelButton: true) &&
             textViewmodel.Value != null)
         {
@@ -147,7 +147,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
                 newPassword))
         {
-            Toast.Show(ToastIcon.Success, AppResources.Success_TokenPasswordSetSuccessfully);
+            Toast.Show(ToastIcon.Success, AppResources.Success_AuthPasswordSetSuccessfully);
             //_currentPassword = newPassword.Base64DecodeToByteArray_Nullable();
             _currentPassword = newPassword;
         }
@@ -167,7 +167,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
                 null))
         {
-            Toast.Show(ToastIcon.Success, AppResources.Success_TokenPasswordRemovedSuccessfully);
+            Toast.Show(ToastIcon.Success, AppResources.Success_AuthPasswordRemovedSuccessfully);
             _currentPassword = null;
         }
         else Toast.Show(ToastIcon.Error, AppResources.Error_TokenPasswordRemovedFailed);

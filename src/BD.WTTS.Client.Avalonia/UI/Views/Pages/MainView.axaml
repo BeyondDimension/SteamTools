@@ -6,7 +6,7 @@
     xmlns:enum="using:BD.WTTS.Enums"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
-	xmlns:spp="https://steampp.net/ui"
+    xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
     xmlns:wnd="using:FluentAvalonia.UI.Windowing"
@@ -302,10 +302,10 @@
                                     </MenuItem.Header>
                                 </MenuItem>
                                 <MenuItem Header="-" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <MenuItem Header="{ReflectionBinding Path=Res.PersonalCenter, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <MenuItem Header="{ReflectionBinding Path=Res.MyOrder, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <MenuItem Header="{ReflectionBinding Path=Res.BindThirdPartyAccount, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <MenuItem Header="{ReflectionBinding Path=Res.ChangePassword, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="{ReflectionBinding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="{ReflectionBinding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="{ReflectionBinding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="{ReflectionBinding Path=Res.ChangePassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem Header="-" />
                                 <MenuItem
                                     Command="{ReflectionBinding Path=SignOut,
