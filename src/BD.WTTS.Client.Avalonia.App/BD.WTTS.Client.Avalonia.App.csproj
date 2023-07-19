@@ -94,12 +94,15 @@
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\runtimes\win\lib\net7.0\System.Drawing.Common.dll')">
 		<!-- Windows Only -->
 		<!-- 修复：存在 Microsoft.WindowsDesktop.App 依赖时不会将 System.Drawing.Common.dll 复制到输出目录-->
-		<None Condition="Exists('$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\runtimes\win\lib\net7.0\System.Drawing.Common.dll')" Include="$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\runtimes\win\lib\net7.0\System.Drawing.Common.dll">
+		<None Include="$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\runtimes\win\lib\net7.0\System.Drawing.Common.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<Reference Include="System.Drawing.Common">
+			<HintPath>$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\runtimes\win\lib\net7.0\System.Drawing.Common.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(NugetPackageRoot)\splat.drawing\$(Version_Splat_Drawing)\lib\net7.0\Splat.Drawing.dll')">

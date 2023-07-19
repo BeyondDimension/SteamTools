@@ -40,7 +40,7 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    internal static async void Handler(bool debug, string[] rids)
+    internal static void Handler(bool debug, string[] rids)
     {
         foreach (var rid in rids)
         {
@@ -111,14 +111,38 @@ interface IDotNetPublishCommand : ICommand
             IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_AppData));
             IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_Cache));
 
+            const bool sha256 = false;
+            const bool sha384 = true;
+
             IScanPublicDirectoryCommand.ScanPathCore(appPublish.DirectoryPath,
                 appPublish.Files,
                 ignoreRootDirNames: ignoreDirNames);
 
+#if !DEBUG // 调试时不计算哈希值
+            if (sha256)
+            {
+                foreach (var item in appPublish.Files)
+                {
+                    using var fileStream = File.OpenRead(item.FilePath);
+                    item.SHA256 = Hashs.String.SHA256(fileStream);
+                }
+            }
+            if (sha384)
+            {
+                foreach (var item in appPublish.Files)
+                {
+                    using var fileStream = File.OpenRead(item.FilePath);
+                    item.SHA384 = Hashs.String.SHA384(fileStream);
+                }
+            }
+#endif
+
             if (OperatingSystem.IsWindows() && isWindows)
             {
                 // 数字签名
-                HashSet<string> toBeSignedFiles = new();
+                List<AppPublishFileInfo> toBeSignedFiles = new();
+                HashSet<string> toBeSignedFilePaths = new();
+#if !DEBUG // 调试时不进行数字签名
                 foreach (var item in appPublish.Files!)
                 {
                     switch (item.FileEx.ToLowerInvariant())
@@ -126,20 +150,35 @@ interface IDotNetPublishCommand : ICommand
                         case ".dll" or ".exe" or ".sys":
                             if (!MSIXHelper.IsDigitalSigned(item.FilePath))
                             {
-                                toBeSignedFiles.Add(item.FilePath);
+                                toBeSignedFiles.Add(item);
+                                toBeSignedFilePaths.Add(item.FilePath);
                             }
                             break;
                     }
                 }
+#endif
 
-                if (toBeSignedFiles.Any())
+                if (toBeSignedFilePaths.Any())
                 {
-                    Console.WriteLine($"正在进行数字签名，文件数量：{toBeSignedFiles.Count}");
-                    var fileNames = string.Join(' ', toBeSignedFiles.Select(x =>
+                    Console.WriteLine($"正在进行数字签名，文件数量：{toBeSignedFilePaths.Count}");
+                    var fileNames = string.Join(' ', toBeSignedFilePaths.Select(x =>
 $"""
 "{x}"
 """));
                     MSIXHelper.SignTool.Start(fileNames);
+                    foreach (var item in toBeSignedFiles)
+                    {
+                        if (sha256)
+                        {
+                            using var fileStream = File.OpenRead(item.FilePath);
+                            item.SignatureSHA256 = Hashs.String.SHA256(fileStream);
+                        }
+                        if (sha384)
+                        {
+                            using var fileStream = File.OpenRead(item.FilePath);
+                            item.SignatureSHA384 = Hashs.String.SHA384(fileStream);
+                        }
+                    }
                 }
 
                 // 打包资源 images
@@ -148,11 +187,33 @@ $"""
                 MSIXHelper.MakeAppx.Start(rootPublishDir, GetVersion(), info.Architecture);
                 Thread.Sleep(TimeSpan.FromSeconds(1.2d));
                 // 签名 msix 包
-                var msixFilePath = $"\"{rootPublishDir}.msix\"";
-                MSIXHelper.SignTool.Start(msixFilePath);
+                var msixFilePath = $"{rootPublishDir}.msix";
+                // msix 签名证书名必须与包名一致
+                MSIXHelper.SignTool.Start($"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+
+                using var msixFileStream = File.OpenRead(msixFilePath);
+
+                var msixInfo = new AppPublishFileInfo
+                {
+                    FileEx = ".msix",
+                    FilePath = msixFilePath,
+                    Length = msixFileStream.Length,
+                    SignatureSHA384 = Hashs.String.SHA384(msixFileStream),
+                };
+                appPublish.SingleFile.Add(CloudFileType.Msix, msixInfo);
             }
 
-            Console.WriteLine(rootPublishDir);
+            var jsonFilePath = $"{rootPublishDir}.json";
+            using var jsonFileStream = File.Open(jsonFilePath, FileMode.OpenOrCreate);
+            JsonSerializer.Serialize(jsonFileStream, appPublish, new AppPublishInfoContext(new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            }).AppPublishInfo);
+            jsonFileStream.Flush();
+            jsonFileStream.SetLength(jsonFileStream.Position);
+
+            Console.WriteLine(jsonFilePath);
         }
 
         Console.WriteLine("OK");

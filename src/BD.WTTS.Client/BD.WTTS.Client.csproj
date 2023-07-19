@@ -106,6 +106,7 @@
 		<PackageReference Include="dotnetCampus.Ipc" />
 		<PackageReference Include="fusillade" />
 		<PackageReference Include="Splat.Drawing" />
+		<PackageReference Include="System.Drawing.Common" />
 		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" />
 	</ItemGroup>
 
