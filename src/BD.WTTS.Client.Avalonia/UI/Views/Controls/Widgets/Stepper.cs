@@ -161,7 +161,7 @@ public class Stepper : SelectingItemsControl
         _previousButton = e.NameScope.Find<Button>("PreviousButton");
         _skipButton = e.NameScope.Find<Button>("SkipButton");
         _nextButton = e.NameScope.Find<Button>("NextButton");
-
+        
         if (_previousButton != null)
         {
             _previousButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, _previousButton));
@@ -246,29 +246,29 @@ public class Stepper : SelectingItemsControl
         }
     }
 
-    protected override void OnPointerPressed(PointerPressedEventArgs e)
-    {
-        base.OnPointerPressed(e);
+    // protected override void OnPointerPressed(PointerPressedEventArgs e)
+    // {
+    //     base.OnPointerPressed(e);
+    //
+    //     if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed && e.Pointer.Type == PointerType.Mouse)
+    //     {
+    //         e.Handled = UpdateSelectionFromEventSource(e.Source);
+    //     }
+    // }
 
-        if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed && e.Pointer.Type == PointerType.Mouse)
-        {
-            e.Handled = UpdateSelectionFromEventSource(e.Source);
-        }
-    }
-
-    protected override void OnPointerReleased(PointerReleasedEventArgs e)
-    {
-        if (e.InitialPressMouseButton == MouseButton.Left && e.Pointer.Type != PointerType.Mouse)
-        {
-            var container = GetContainerFromEventSource(e.Source);
-            if (container != null
-                && container.GetVisualsAt(e.GetPosition(container))
-                    .Any(c => container == c || container.IsVisualAncestorOf(c)))
-            {
-                e.Handled = UpdateSelectionFromEventSource(e.Source);
-            }
-        }
-    }
+    // protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    // {
+    //     if (e.InitialPressMouseButton == MouseButton.Left && e.Pointer.Type != PointerType.Mouse)
+    //     {
+    //         var container = GetContainerFromEventSource(e.Source);
+    //         if (container != null
+    //             && container.GetVisualsAt(e.GetPosition(container))
+    //                 .Any(c => container == c || container.IsVisualAncestorOf(c)))
+    //         {
+    //             e.Handled = UpdateSelectionFromEventSource(e.Source);
+    //         }
+    //     }
+    // }
 
     protected virtual void OnNexting(CancelEventArgs args)
     {

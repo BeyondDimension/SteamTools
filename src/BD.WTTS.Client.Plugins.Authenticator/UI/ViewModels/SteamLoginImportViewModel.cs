@@ -239,7 +239,6 @@ public sealed partial class SteamLoginImportViewModel
                             Created = DateTimeOffset.Now,
                         };
                         await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iADTO, _currentPassword);
-                        await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = Strings.LocalAuth_SteamUserImportSuccess, IsCancelcBtn = true });
                         SelectIndex = 4;
                         return;
                     }

@@ -192,11 +192,17 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task EncryptHelp()
     {
         var messageViewmodel = new MessageBoxWindowViewModel();
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_Info + "\r\n\r\n";
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_EnablePassword + ":\r\n\r\n";
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_EnablePasswordTip + "\r\n\r\n";
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt + ":\r\n\r\n";
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip + "\r\n\r\n";
+        messageViewmodel.Content = $"""
+                {Strings.LocalAuth_ProtectionAuth_Info}
+
+                {Strings.LocalAuth_ProtectionAuth_EnablePassword}：
+
+                {Strings.LocalAuth_ProtectionAuth_EnablePasswordTip}
+
+                {Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt}：
+
+                {Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip}
+        """;
         await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, "令牌加密帮助");
     }
 
@@ -507,14 +513,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             await IWindowManager.Instance.ShowTaskDialogAsync(new SteamLoginImportViewModel(_currentPassword),
                 "Steam登入导入",
                 pageContent: new SteamLoginImportPage(), isOkButton: false);
-        Initialize();
-    }
-
-    public async Task OpenSteamOtherImportWindow()
-    {
-        if (VerifyMaxValue())
-            await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(_currentPassword), "令牌导入",
-                pageContent: new SteamOtherImportPage(), isOkButton: false);
         Initialize();
     }
 

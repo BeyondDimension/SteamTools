@@ -75,7 +75,7 @@
                         <StackPanel Spacing="5">
                             <Button Command="{Binding OpenSteamLoginImportWindow}" Content="Steam登陆导入" />
                             <Button Command="{Binding OpenGeneralAuthenticatorImportWindow}" Content="2FA通用导入" />
-                            <Button Command="{Binding OpenSteamOtherImportWindow}" Content="导入自文件" />
+                            <!-- <Button Command="{Binding OpenSteamOtherImportWindow}" Content="导入自文件" /> -->
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
