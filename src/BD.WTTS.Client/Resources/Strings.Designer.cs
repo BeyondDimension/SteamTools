@@ -349,7 +349,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 导出为 maFile 的本地化字符串。
+        ///   查找类似 导出为 Mafile 的本地化字符串。
         /// </summary>
         public static string Auth_ExportmaFile {
             get {
@@ -399,6 +399,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Auth_OnlylocalCanDecrypt {
             get {
                 return ResourceManager.GetString("Auth_OnlylocalCanDecrypt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Mafile 格式仅支持 Steam 令牌 的本地化字符串。
+        /// </summary>
+        public static string Auth_OnlyMafileFormat {
+            get {
+                return ResourceManager.GetString("Auth_OnlyMafileFormat", resourceCulture);
             }
         }
         
@@ -876,15 +885,6 @@ namespace BD.WTTS.Client.Resources {
         public static string CommunityFix_StopProxy {
             get {
                 return ResourceManager.GetString("CommunityFix_StopProxy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 网络加速子进程文件不存在 的本地化字符串。
-        /// </summary>
-        public static string CommunityFix_SubProcessFileNotExist {
-            get {
-                return ResourceManager.GetString("CommunityFix_SubProcessFileNotExist", resourceCulture);
             }
         }
         
@@ -1591,6 +1591,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 全部导出 的本地化字符串。
+        /// </summary>
+        public static string ExportAll {
+            get {
+                return ResourceManager.GetString("ExportAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 导出令牌 的本地化字符串。
         /// </summary>
         public static string ExportAuth {
@@ -1695,6 +1704,15 @@ namespace BD.WTTS.Client.Resources {
         public static string FilterRequirement {
             get {
                 return ResourceManager.GetString("FilterRequirement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 固定首位 的本地化字符串。
+        /// </summary>
+        public static string FixedTop {
+            get {
+                return ResourceManager.GetString("FixedTop", resourceCulture);
             }
         }
         
@@ -2092,15 +2110,6 @@ namespace BD.WTTS.Client.Resources {
         public static string LaunchItem {
             get {
                 return ResourceManager.GetString("LaunchItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 库 的本地化字符串。
-        /// </summary>
-        public static string Library {
-            get {
-                return ResourceManager.GetString("Library", resourceCulture);
             }
         }
         

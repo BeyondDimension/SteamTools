@@ -353,12 +353,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (passwordQuestionResponse.Content == null)
         {
             var textViewModel = new TextBoxWindowViewModel();
-            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, "设置安全问题",
-                    subHeader: "首次同步，请为您的云令牌设置一个安全问题及密码。" +
-                               "\r\n请先输入「安全问题」", isCancelButton: true)) return null;
+            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Error_SetSecurityIssuesFailed,
+                    subHeader: AppResources.SubHeader_FirstSyncSetAuth, isCancelButton: true)) return null;
             question = textViewModel.Value;
             textViewModel = new TextBoxWindowViewModel();
-            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, "设置安全问题", subHeader: "请再输入「问题答案」",
+            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Error_SetSecurityIssuesFailed, subHeader: AppResources.SubHeader_PleaseEnterTheAnswerAgain,
                     isCancelButton: true)) return null;
             answer = textViewModel.Value;
             if (string.IsNullOrEmpty(question) || string.IsNullOrEmpty(answer)) return null;
@@ -367,18 +366,18 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 {
                     PwdQuestion = question, Answer = answer,
                 });
-            if (!setPassword.IsSuccess) throw new Exception("设置安全问题失败");
+            if (!setPassword.IsSuccess) throw new Exception(AppResources.Error_SetSecurityIssuesFailed);
         }
 
         question ??= passwordQuestionResponse.Content;
         var answerTextViewModel = new TextBoxWindowViewModel();
         if (string.IsNullOrEmpty(answer) && await IWindowManager.Instance.ShowTaskDialogAsync(answerTextViewModel,
-                "请输入问题答案", subHeader: $"安全问题：「{question}」", isCancelButton: true))
+             AppResources.Title_PleaseEnterTheAnswer, subHeader: AppResources.SubHeader_SecurityIssues_.Format(question), isCancelButton: true))
             answer = answerTextViewModel.Value;
 
         if (string.IsNullOrEmpty(answer))
         {
-            Toast.Show(ToastIcon.Error, "请输入安全问题答案");
+            Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterAnswer);
             return null;
         }
 
@@ -387,7 +386,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 .VerifyIndependentPassword(new() { Answer = answer, });
         if (!verifyResponse.Content)
         {
-            Toast.Show(ToastIcon.Error, "答案错误，请重试");
+            Toast.Show(ToastIcon.Error, AppResources.Error_AnswerIncorrect);
             return null;
         }
 
@@ -514,7 +513,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task OpenSteamOtherImportWindow()
     {
         if (VerifyMaxValue())
-            await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(_currentPassword), "令牌导入",
+            await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(_currentPassword), AppResources.AuthImport,
                 pageContent: new SteamOtherImportPage(), isOkButton: false);
         Initialize();
     }
@@ -676,7 +675,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         }
         else
         {
-            Toast.Show(ToastIcon.Warning, "Mafile格式仅支持Steam令牌");
+            Toast.Show(ToastIcon.Warning, AppResources.Auth_OnlyMafileFormat);
         }
     }
     
@@ -686,12 +685,12 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         
         if (authenticatorItemModel.AuthData.Platform != AuthenticatorPlatform.Steam)
         {
-            Toast.Show(ToastIcon.Warning, "解绑功能目前仅支持 Steam 令牌");
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_OnlySupportSteamAuth);
             return;
         }
 
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
-                new MessageBoxWindowViewModel() { Content = "您确定要从您的 Steam 账号中解绑此令牌吗，解绑后此令牌将失效，您可以在解绑后删除此令牌。" },
+                new MessageBoxWindowViewModel() { Content = AppResources.ModelContent_ConfirmUnbinding },
                 isDialog: false, isCancelButton: true))
         {
             if (authenticatorItemModel.AuthData.Value is SteamAuthenticator steamAuthenticator)
@@ -701,7 +700,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 {
                     InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
                 };
-                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入该Steam账号登陆密码",
+                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.ModelContent_ConfirmUnbinding ,
                         isDialog: false, isCancelButton: true))
                 {
                     password = textViewmodel.Value;
@@ -721,7 +720,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
                 if (string.IsNullOrEmpty(loginState.AccessToken))
                 {
-                    Toast.Show(ToastIcon.Warning, "解绑令牌失败：登陆未成功");
+                    Toast.Show(ToastIcon.Warning, AppResources.Warning_UnbindFailed);
                     return;
                 }
 
@@ -740,11 +739,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                     // Toast.Show(ToastIcon.Warning, $"云令牌数据删除{(response.IsSuccess ? "成功" : "失败")}");
                     // AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
                     // Auths.Remove(CurrentSelectedAuth);
-                    Toast.Show(ToastIcon.Success, "令牌解绑成功");
+                    Toast.Show(ToastIcon.Success, AppResources.Success_AuthUnbindSuccessful);
                     return;
                 }
 
-                Toast.Show(ToastIcon.Error, "解绑令牌失败");
+                Toast.Show(ToastIcon.Error, AppResources.Error_AuthUnbindFailed);
             }
         }
     }
