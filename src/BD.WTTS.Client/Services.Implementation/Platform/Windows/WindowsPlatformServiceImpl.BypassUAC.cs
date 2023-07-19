@@ -227,10 +227,12 @@ partial class WindowsPlatformServiceImpl
         if (IsPrivilegedProcess)
             return Process2.Start(fileName, arguments);
 #endif
-
-        var process = await StartAsAdministratorByBypassUAC(fileName, arguments);
-        if (process != null)
-            return process;
+        if (!DesktopBridge.IsRunningAsUwp)
+        {
+            var process = await StartAsAdministratorByBypassUAC(fileName, arguments);
+            if (process != null)
+                return process;
+        }
 
         try
         {

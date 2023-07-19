@@ -23,4 +23,7 @@ public enum CloudFileType
     Xaml,
     AXaml,
     CSharp,
+
+    Msix = 901,
+    MsixUpload,
 }

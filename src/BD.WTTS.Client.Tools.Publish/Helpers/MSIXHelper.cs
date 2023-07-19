@@ -180,7 +180,7 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
   </Applications>
   <Extensions>
     <desktop2:Extension Category="windows.firewallRules">
-      <desktop2:FirewallRules Executable="Steam++.exe">
+      <desktop2:FirewallRules Executable="modules\Accelerator\Steam++.Accelerator.exe">
         <desktop2:Rule Direction="in" IPProtocol="TCP" Profile="all"/>
         <desktop2:Rule Direction="in" IPProtocol="UDP" Profile="all"/>
       </desktop2:FirewallRules>
