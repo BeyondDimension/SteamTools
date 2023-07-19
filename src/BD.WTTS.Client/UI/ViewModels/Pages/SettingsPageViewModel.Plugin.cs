@@ -20,6 +20,11 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         Toast.Show(ToastIcon.Info, Strings.IsExistUpdateFalse);
     }
 
+    public void SwitchEnablePlugin(PluginResult<IPlugin> plugin)
+    {
+        throw new NotImplementedException();
+    }
+
     public void OpenPluginDirectory(string assemblyLocation)
     {
         var path = Path.GetDirectoryName(assemblyLocation);
@@ -44,28 +49,16 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
                 if (hasKey && (now - dt).TotalSeconds <= clickInterval) return;
                 Directory.Delete(path, true);
                 if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
-                Toast.Show(ToastIcon.Success, Strings.Plugins_DeleteSuccess.Format(plugin.Name));
+                Toast.Show(ToastIcon.Success, Strings.Plugin_DeleteSuccess.Format(plugin.Name));
                 return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Error(nameof(SettingsPageViewModel), ex, "插件删除——无访问权限");
-                msg = Strings.FileUnauthorized;
-            }
-            catch (IOException ex)
-            {
-                Log.Error(nameof(SettingsPageViewModel), ex, "插件删除——文件被占用");
-                msg = "文件正在被另一进程占用";
             }
             catch (Exception ex)
             {
-                Log.Error(nameof(SettingsPageViewModel), ex, "插件删除异常");
-                msg = plugin.Name;
+                Toast.LogAndShowT(ex);
             }
-            Toast.Show(ToastIcon.Error, Strings.Plugins_DeleteError.Format(msg));
         }
         else
-            Toast.Show(ToastIcon.Info, Strings.Plugins_NeedDisable);
+            Toast.Show(ToastIcon.Info, Strings.Plugin_NeedDisable);
     }
 
     private void PluginOpenFolder(string path)
@@ -78,13 +71,9 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
             IPlatformService.Instance.OpenFolder(path);
             if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
         }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex)
         {
-            Toast.Show(ToastIcon.Error, Strings.FileUnauthorized);
-        }
-        catch (Exception)
-        {
-            Toast.Show(ToastIcon.Error, Strings.Error);
+            Toast.LogAndShowT(ex);
         }
 
     }

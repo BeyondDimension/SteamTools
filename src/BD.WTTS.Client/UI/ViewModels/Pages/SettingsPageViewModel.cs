@@ -25,6 +25,8 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 
         DeletePlugin_Click = ReactiveCommand.Create<IPlugin>(DeletePlugin);
 
+        SwitchEnablePlugin_Click = ReactiveCommand.Create<PluginResult<IPlugin>>(SwitchEnablePlugin);
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (IApplication.IsDesktop())
         {

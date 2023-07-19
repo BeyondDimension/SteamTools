@@ -2461,10 +2461,28 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Plugins_NeedDisable" xml:space="preserve">
     <value>需要先禁用该插件</value>
   </data>
-  <data name="Plugins_DeleteError" xml:space="preserve">
-    <value>{0} 插件删除异常，请稍后再试</value>
-  </data>
-  <data name="Plugins_DeleteSuccess" xml:space="preserve">
+  <data name="Plugin_DeleteSuccess" xml:space="preserve">
     <value>{0} 插件删除成功</value>
+  </data>
+  <data name="Plugin_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Plugin_InstalledPlugins" xml:space="preserve">
+    <value>已安装插件</value>
+  </data>
+  <data name="Plugin_ManageAllInstalledPlugins" xml:space="preserve">
+    <value>管理所有已安装插件</value>
+  </data>
+  <data name="Plugin_OnlyLoadOfficePlugins" xml:space="preserve">
+    <value>仅加载官方插件</value>
+  </data>
+  <data name="Plugin_OpenCacheFolder" xml:space="preserve">
+    <value>打开插件缓存文件夹</value>
+  </data>
+  <data name="Plugin_OpenFolder" xml:space="preserve">
+    <value>打开插件文件夹</value>
+  </data>
+  <data name="Plugin_SafeMode" xml:space="preserve">
+    <value>安全模式</value>
   </data>
 </root>
