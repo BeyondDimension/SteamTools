@@ -40,7 +40,7 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    internal static void Handler(bool debug, string[] rids)
+    internal static async void Handler(bool debug, string[] rids)
     {
         foreach (var rid in rids)
         {
@@ -101,14 +101,55 @@ interface IDotNetPublishCommand : ICommand
             // 复制运行时
             CopyRuntime(rootPublishDir, isWindows, info.Architecture);
 
+            var appPublish = new AppPublishInfo()
+            {
+                DeploymentMode = DeploymentMode.SCD,
+                RuntimeIdentifier = arg.RuntimeIdentifier,
+                DirectoryPath = rootPublishDir,
+            };
+
+            IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_AppData));
+            IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_Cache));
+
+            IScanPublicDirectoryCommand.ScanPathCore(appPublish.DirectoryPath,
+                appPublish.Files,
+                ignoreRootDirNames: ignoreDirNames);
+
             if (OperatingSystem.IsWindows() && isWindows)
             {
+                // 数字签名
+                HashSet<string> toBeSignedFiles = new();
+                foreach (var item in appPublish.Files!)
+                {
+                    switch (item.FileEx.ToLowerInvariant())
+                    {
+                        case ".dll" or ".exe" or ".sys":
+                            if (!MSIXHelper.IsDigitalSigned(item.FilePath))
+                            {
+                                toBeSignedFiles.Add(item.FilePath);
+                            }
+                            break;
+                    }
+                }
+
+                if (toBeSignedFiles.Any())
+                {
+                    Console.WriteLine($"正在进行数字签名，文件数量：{toBeSignedFiles.Count}");
+                    var fileNames = string.Join(' ', toBeSignedFiles.Select(x =>
+$"""
+"{x}"
+"""));
+                    MSIXHelper.SignTool.Start(fileNames);
+                }
+
                 // 打包资源 images
                 MSIXHelper.MakePri.Start(rootPublishDir);
                 // 生成 msix 包
                 MSIXHelper.MakeAppx.Start(rootPublishDir, GetVersion(), info.Architecture);
+                Thread.Sleep(TimeSpan.FromSeconds(1.2d));
                 // 签名 msix 包
-                MSIXHelper.SignTool.Start(rootPublishDir);
+                var msixFilePath = $"\"{rootPublishDir}.msix\"";
+                MSIXHelper.SignTool.Start(msixFilePath);
             }
 
             Console.WriteLine(rootPublishDir);

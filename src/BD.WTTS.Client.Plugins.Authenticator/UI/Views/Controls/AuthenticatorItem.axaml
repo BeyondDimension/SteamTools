@@ -76,6 +76,7 @@
                 <Arc
                     FlowDirection="RightToLeft"
                     Height="200"
+                    IsVisible="{Binding IsShowCode}"
                     StartAngle="270"
                     Stretch="None"
                     Stroke="{Binding StrokeColor}"
@@ -97,6 +98,7 @@
                     HorizontalAlignment="Stretch"
                     Margin="10"
                     Spacing="3"
+                    Tapped="InputElement_OnTapped"
                     VerticalAlignment="Center">
                     <TextBlock
                         FontSize="30"
@@ -108,7 +110,7 @@
                         FontSize="14"
                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
                         HorizontalAlignment="Center"
-                        Text="右击以复制"
+                        Text="点击以复制"
                         VerticalAlignment="Center" />
                 </StackPanel>
             </Grid>

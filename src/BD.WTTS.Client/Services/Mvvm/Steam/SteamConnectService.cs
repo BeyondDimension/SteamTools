@@ -468,7 +468,7 @@ public sealed class SteamConnectService
                                         var temps = swLocalService.OwnsApps(apps);
                                         LoadGames(temps);
                                         InitializeDownloadGameList();
-                                        Toast.Show(AppResources.GameList_RefreshGamesListSucess);
+                                        Toast.Show(ToastIcon.Success, AppResources.GameList_RefreshGamesListSucess);
                                         DisposeSteamClient();
                                         IsLoadingGameList = false;
                                         return;
@@ -490,7 +490,7 @@ public sealed class SteamConnectService
             else
             {
                 await Task.Run(InitializeGameList);
-                Toast.Show(AppResources.GameList_RefreshGamesListSucess);
+                Toast.Show(ToastIcon.Success, AppResources.GameList_RefreshGamesListSucess);
             }
         }
     }

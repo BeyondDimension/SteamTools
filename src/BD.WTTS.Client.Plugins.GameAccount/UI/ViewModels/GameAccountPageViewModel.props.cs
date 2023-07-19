@@ -1,4 +1,5 @@
 using BD.WTTS.Client.Resources;
+using System.Reactive;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -26,4 +27,6 @@ public sealed partial class GameAccountPageViewModel : TabItemViewModel
     public ICommand SaveCurrentUserCommand { get; }
 
     public ICommand RefreshCommand { get; }
+
+    public ICommand ShareManageCommand { get; }
 }

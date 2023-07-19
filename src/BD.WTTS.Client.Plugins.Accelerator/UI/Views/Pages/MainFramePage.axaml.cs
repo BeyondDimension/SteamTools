@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using BD.WTTS.UI.Styling;
 using FluentAvalonia.UI.Media.Animation;
 
 namespace BD.WTTS.UI.Views.Pages;
@@ -14,8 +15,8 @@ public partial class MainFramePage : UserControl
     {
         InitializeComponent();
 
-        Tabs.Items.Add(new TabStripItem { Content = Strings.CommunityFix, Tag = typeof(AcceleratorPage) });
-        Tabs.Items.Add(new TabStripItem { Content = Strings.ScriptConfig, Tag = typeof(ScriptPage) });
+        //Tabs.Items.Add(new TabStripItem { Content = Strings.CommunityFix, Tag = typeof(AcceleratorPage) });
+        //Tabs.Items.Add(new TabStripItem { Content = Strings.ScriptConfig, Tag = typeof(ScriptPage) });
 
         Tabs.SelectionChanged += Tabs_SelectionChanged;
     }
@@ -33,22 +34,11 @@ public partial class MainFramePage : UserControl
         {
             InnerNavFrame.Navigate(t, null, new SlideNavigationTransitionInfo
             {
-                Effect = GetEffect(lastIndex, Tabs.SelectedIndex),
+                Effect = FrameEffect.GetEffect(lastIndex, Tabs.SelectedIndex),
                 FromHorizontalOffset = 70,
             });
 
             lastIndex = Tabs.SelectedIndex;
         }
-    }
-
-    private SlideNavigationTransitionEffect GetEffect(int oldIndex, int index)
-    {
-        if (oldIndex < 0)
-            return SlideNavigationTransitionEffect.FromBottom;
-
-        if (oldIndex > index)
-            return SlideNavigationTransitionEffect.FromRight;
-        else
-            return SlideNavigationTransitionEffect.FromLeft;
     }
 }

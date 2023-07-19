@@ -1,0 +1,67 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.SteamFamilyShareManagePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:scmd="using:BD.SteamClient.Models"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamFamilyShareManagePageViewModel"
+    mc:Ignorable="d">
+    <spp:ContentLoader
+        IsLoading="False"
+        IsShowNoResultText="{Binding IsAuthorizedListEmpty}"
+        NoResultMessage="{ReflectionBinding Path=Res.SteamAccountPage_ShareEmpt,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}">
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding AuthorizedList}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="scmd:AuthorizedDevice">
+                        <Border spp:Animations.EnableAnimations="True">
+                            <spp:AppItem
+                                Title="{Binding SteamNickName}"
+                                MaxHeight="92"
+                                Description="{Binding TimeusedTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
+                                Status="{ReflectionBinding Path=Res.Steam_ShareDisable,
+                                                           Mode=OneWay,
+                                                           Source={x:Static s:ResourceService.Current}}">
+                                <spp:AppItem.MoreFlyout>
+                                    <ui:FAMenuFlyout>
+                                        <ui:MenuFlyoutItem Text="启用" />
+                                        <ui:MenuFlyoutItem Text="禁用" />
+                                        <ui:MenuFlyoutSeparator />
+                                        <ui:MenuFlyoutItem Text="置顶" />
+                                        <ui:MenuFlyoutItem Text="上移" />
+                                        <ui:MenuFlyoutItem Text="下移" />
+                                        <ui:MenuFlyoutSeparator />
+                                        <ui:MenuFlyoutItem Text="删除" />
+                                    </ui:FAMenuFlyout>
+                                </spp:AppItem.MoreFlyout>
+                                <spp:AppItem.Image>
+                                    <spp:Image2
+                                        Width="92"
+                                        Height="92"
+                                        FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                        Source="{Binding AvatarMedium}"
+                                        Stretch="UniformToFill" />
+                                </spp:AppItem.Image>
+                            </spp:AppItem>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </spp:ContentLoader>
+</UserControl>

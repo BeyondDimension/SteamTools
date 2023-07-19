@@ -1635,6 +1635,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 网络加速子进程文件不存在 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_SubProcessFileNotExist {
+            get {
+                return ResourceManager.GetString("CommunityFix_SubProcessFileNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定 的本地化字符串。
         /// </summary>
         public static string Confirm {
@@ -3081,6 +3090,15 @@ namespace BD.WTTS.Client.Resources {
         public static string LaunchItem {
             get {
                 return ResourceManager.GetString("LaunchItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 库 的本地化字符串。
+        /// </summary>
+        public static string Library {
+            get {
+                return ResourceManager.GetString("Library", resourceCulture);
             }
         }
         
@@ -5862,7 +5880,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 （已禁用） 的本地化字符串。
+        ///   查找类似 已禁用 的本地化字符串。
         /// </summary>
         public static string Steam_ShareDisable {
             get {

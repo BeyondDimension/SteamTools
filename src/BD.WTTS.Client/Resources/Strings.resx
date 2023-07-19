@@ -2115,8 +2115,8 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
     <value>ASF 服务正在运行</value>
   </data>
-  <data name="Steam_ShareDisable" xml:space="preserve">
-    <value>（已禁用）</value>
+	<data name="Steam_ShareDisable" xml:space="preserve">
+    <value>已禁用</value>
   </data>
   <data name="Steam_ShareDisableBtn" xml:space="preserve">
     <value>禁用</value>
@@ -2451,6 +2451,12 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="GameList_FindAppsText" xml:space="preserve">
     <value>已找到 {0} 个应用</value>
+  </data>
+  <data name="CommunityFix_SubProcessFileNotExist" xml:space="preserve">
+    <value>网络加速子进程文件不存在</value>
+  </data>
+	<data name="Library" xml:space="preserve">
+    <value>库</value>
   </data>
   <data name="Plugins_NeedDisable" xml:space="preserve">
     <value>需要先禁用该插件</value>

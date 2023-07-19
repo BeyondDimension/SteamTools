@@ -28,7 +28,7 @@
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
-    <spp:PageBase.TabContent>
+    <!--<spp:PageBase.TabContent>
         <TabStrip
             Margin="4"
             HorizontalAlignment="Right"
@@ -42,7 +42,7 @@
             <TabStripItem Content="挂机" />
             <TabStripItem Content="编辑" />
         </TabStrip>
-    </spp:PageBase.TabContent>
+    </spp:PageBase.TabContent>-->
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <!--<ToggleButton
@@ -394,48 +394,74 @@
             </spp:ContentLoader.GestureRecognizers>
             <ItemsRepeater ItemsSource="{Binding SteamApps}">
                 <ItemsRepeater.Layout>
-                    <!--<UniformGridLayout
+                    <UniformGridLayout
                         ItemsJustification="Start"
                         ItemsStretch="Uniform"
                         MinColumnSpacing="10"
-                        MinRowSpacing="10" />-->
-                    <WrapLayout
+                        MinRowSpacing="10" />
+                    <!--<WrapLayout
                         HorizontalSpacing="10"
                         Orientation="Horizontal"
-                        VerticalSpacing="10" />
+                        VerticalSpacing="10" />-->
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="scmd:SteamApp">
                         <Border spp:Animations.EnableAnimations="False">
                             <spp:AppItem
                                 Title="{Binding DisplayName}"
-                                Width="169"
+                                Height="335"
+                                MinWidth="128"
+                                MaxWidth="169"
                                 Classes="Vertical"
-                                Description="{Binding AppId}">
+                                Status="{Binding AppId}">
                                 <spp:AppItem.MoreFlyout>
-                                    <ui:FAMenuFlyout>
-                                        <ui:MenuFlyoutItem Text="test" />
+                                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                                        <ui:MenuFlyoutItem Text="112323" />
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>
-                                    <Panel>
+                                    <Panel MinWidth="{ReflectionBinding $parent[spp:AppItem].MinWidth}" MaxWidth="{ReflectionBinding $parent[spp:AppItem].MaxWidth}">
                                         <spp:Image2
-                                            Width="169"
+                                            Name="AppImage"
                                             DecodeWidth="169"
                                             FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
                                             RenderOptions.BitmapInterpolationMode="HighQuality"
                                             Source="{Binding LibraryGridUrl}"
                                             Stretch="UniformToFill" />
                                         <TextBlock
-                                            Margin="5,0"
+                                            Margin="8,0"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Classes="h6"
-                                            Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                            IsVisible="{Binding LibraryGridStream^, Converter={StaticResource IsNullConverter}}"
+                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                            IsVisible="{ReflectionBinding #AppImage.IsFailed}"
                                             Text="{Binding DisplayName}"
                                             TextAlignment="Center"
-                                            TextWrapping="WrapWithOverflow" />
+                                            TextWrapping="WrapWithOverflow"
+                                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+                                        <Border
+                                            Margin="10,0,10,-5"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Background="#3D4450"
+                                            CornerRadius="3"
+                                            IsVisible="{Binding IsInstalled}">
+                                            <DockPanel Margin="10,3" HorizontalAlignment="Center">
+                                                <TextBlock
+                                                    Margin="0,0,5,0"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="11"
+                                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                    IsVisible="{Binding InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                    Text="{Binding InstalledDrive}" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="11"
+                                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                    Text="{Binding SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
+                                                    TextWrapping="Wrap" />
+                                            </DockPanel>
+                                        </Border>
                                     </Panel>
                                 </spp:AppItem.Image>
                             </spp:AppItem>

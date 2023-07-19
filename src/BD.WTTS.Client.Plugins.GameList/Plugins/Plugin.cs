@@ -26,7 +26,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
         yield return new MenuTabItemViewModel()
         {
             ResourceKeyOrName = nameof(Strings.GameList),
-            PageType = typeof(GameListPage),
+            PageType = typeof(MainFramePage),
             IsResourceGet = true,
             IconKey = Icon,
         };

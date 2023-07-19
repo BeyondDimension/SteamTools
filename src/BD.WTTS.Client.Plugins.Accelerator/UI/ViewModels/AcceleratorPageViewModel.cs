@@ -8,6 +8,7 @@ public sealed partial class AcceleratorPageViewModel
     readonly IHostsFileService? hostsFileService;
     readonly IPlatformService platformService = IPlatformService.Instance;
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
+    readonly ICertificateManager certificateManager = ICertificateManager.Constants.Instance;
 
     public AcceleratorPageViewModel()
     {
@@ -42,25 +43,25 @@ public sealed partial class AcceleratorPageViewModel
             TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
             OpenCertificateDirCommand = ReactiveCommand.Create(() =>
             {
-                //reverseProxyService.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists();
-                //platformService.OpenFolder(reverseProxyService.CertificateManager.PfxFilePath);
+                certificateManager.GetCerFilePathGeneratedWhenNoFileExists();
+                platformService.OpenFolder(certificateManager.PfxFilePath);
             });
         }
     }
 
     public async void TrustCer_OnClick()
     {
-        //reverseProxyService.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists();
-        //await reverseProxyService.CertificateManager.PlatformTrustRootCertificateGuide();
+        certificateManager.GetCerFilePathGeneratedWhenNoFileExists();
+        await certificateManager.PlatformTrustRootCertificateGuideAsync();
     }
 
-    public void SetupCertificate_OnClick()
+    public async void SetupCertificate_OnClick()
     {
-        //reverseProxyService.CertificateManager.SetupRootCertificate();
+        await certificateManager.SetupRootCertificateAsync();
     }
 
-    public void DeleteCertificate_OnClick()
+    public bool DeleteCertificate_OnClick()
     {
-        //reverseProxyService.CertificateManager.DeleteRootCertificate();
+        return certificateManager.DeleteRootCertificate();
     }
 }

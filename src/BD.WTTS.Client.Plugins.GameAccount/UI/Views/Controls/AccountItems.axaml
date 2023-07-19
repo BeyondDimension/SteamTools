@@ -30,7 +30,6 @@
                     <DataTemplate DataType="spp:IAccount">
                         <Border Margin="5" spp:Animations.EnableAnimations="True">
                             <spp:AppItem
-                                Name="Item"
                                 Title="{Binding DisplayName}"
                                 MaxWidth="128"
                                 Classes="Vertical"

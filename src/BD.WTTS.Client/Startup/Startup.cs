@@ -135,6 +135,11 @@ public abstract partial class Startup
             if (args == null)
                 return 0;
 
+            if (args.FirstOrDefault() == IPlatformService.IPCRoot.CommandName)
+            {
+                ModuleName = IPlatformService.IPCRoot.moduleName;
+            }
+
             #region PlatformPrerequisite 平台先决条件
 
             if (!IsDesignMode) // 仅在非设计器中执行
@@ -178,10 +183,6 @@ public abstract partial class Startup
                 try
                 {
                     NativeLibraryPath = GlobalDllImportResolver.GetLibraryPath(null);
-#if DEBUG
-                    DebugConsole.WriteLine($"BaseDirectory: {GlobalDllImportResolver.BaseDirectory}");
-                    DebugConsole.WriteLine($"NativeLibraryPath: {NativeLibraryPath}");
-#endif
                     NativeLibrary.SetDllImportResolver(loadedAssembly, GlobalDllImportResolver.Delegate);
                 }
                 catch
@@ -202,119 +203,120 @@ public abstract partial class Startup
 #endif
 
             // 自定义当前应用程序域程序集解析
-            static string GetAssemblyLocation()
-            {
-                try
-                {
-                    var value = typeof(Startup).Assembly.Location;
-                    if (!string.IsNullOrWhiteSpace(value))
-                    {
-                        value = Path.GetDirectoryName(value);
-                        if (!string.IsNullOrWhiteSpace(value))
-                        {
-                            return value;
-                        }
-                    }
-                }
-                catch
-                {
+            //static string GetAssemblyLocation()
+            //{
+            //    try
+            //    {
+            //        var value = typeof(Startup).Assembly.Location;
+            //        if (!string.IsNullOrWhiteSpace(value))
+            //        {
+            //            value = Path.GetDirectoryName(value);
+            //            if (!string.IsNullOrWhiteSpace(value))
+            //            {
+            //                return value;
+            //            }
+            //        }
+            //    }
+            //    catch
+            //    {
 
-                }
-                return AppContext.BaseDirectory;
-            }
-            var assemblyLocation = GetAssemblyLocation();
-            var runtimeVersion = Environment.Version.ToString();
-            var runtimeAspNetCorePath = Path.Combine(assemblyLocation, "..",
-                            "dotnet", "shared", "Microsoft.AspNetCore.App",
-                            runtimeVersion);
-            static bool DirTryExists(string path)
-            {
-                try
-                {
-                    return Directory.Exists(path);
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-            bool runtimeAspNetCorePathExists = DirTryExists(runtimeAspNetCorePath);
-            if (!runtimeAspNetCorePathExists)
-            {
-                runtimeAspNetCorePath = Path.Combine(Environment.GetFolderPath(
-                    Environment.SpecialFolder.ProgramFiles), "dotnet",
-                    "shared", "Microsoft.AspNetCore.App",
-                    runtimeVersion);
-                runtimeAspNetCorePathExists = DirTryExists(runtimeAspNetCorePath);
-            }
-            var runtimeNETCorePath = Path.Combine(assemblyLocation, "..",
-                            "dotnet", "shared", "Microsoft.NETCore.App",
-                            runtimeVersion);
-            bool runtimeNETCorePathExists = DirTryExists(runtimeNETCorePath);
-            if (!runtimeNETCorePathExists)
-            {
-                runtimeNETCorePath = Path.Combine(Environment.GetFolderPath(
-                    Environment.SpecialFolder.ProgramFiles), "dotnet",
-                    "shared", "Microsoft.NETCore.App",
-                    runtimeVersion);
-                runtimeNETCorePathExists = DirTryExists(runtimeAspNetCorePath);
-            }
-            var dotnetRoot = Environment.GetEnvironmentVariable("DOTNET_ROOT");
-            var dotnetRootExists = !string.IsNullOrWhiteSpace(dotnetRoot) && DirTryExists(dotnetRoot);
+            //    }
+            //    return AppContext.BaseDirectory;
+            //}
+            //var assemblyLocation = GetAssemblyLocation();
+            //var runtimeVersion = Environment.Version.ToString();
+            //var runtimeAspNetCorePath = Path.Combine(assemblyLocation, "..",
+            //                "dotnet", "shared", "Microsoft.AspNetCore.App",
+            //                runtimeVersion);
+            //static bool DirTryExists(string path)
+            //{
+            //    try
+            //    {
+            //        return Directory.Exists(path);
+            //    }
+            //    catch
+            //    {
+            //        return false;
+            //    }
+            //}
+            //bool runtimeAspNetCorePathExists = DirTryExists(runtimeAspNetCorePath);
+            //if (!runtimeAspNetCorePathExists)
+            //{
+            //    runtimeAspNetCorePath = Path.Combine(Environment.GetFolderPath(
+            //        Environment.SpecialFolder.ProgramFiles), "dotnet",
+            //        "shared", "Microsoft.AspNetCore.App",
+            //        runtimeVersion);
+            //    runtimeAspNetCorePathExists = DirTryExists(runtimeAspNetCorePath);
+            //}
+            //var runtimeNETCorePath = Path.Combine(assemblyLocation, "..",
+            //                "dotnet", "shared", "Microsoft.NETCore.App",
+            //                runtimeVersion);
+            //bool runtimeNETCorePathExists = DirTryExists(runtimeNETCorePath);
+            //if (!runtimeNETCorePathExists)
+            //{
+            //    runtimeNETCorePath = Path.Combine(Environment.GetFolderPath(
+            //        Environment.SpecialFolder.ProgramFiles), "dotnet",
+            //        "shared", "Microsoft.NETCore.App",
+            //        runtimeVersion);
+            //    runtimeNETCorePathExists = DirTryExists(runtimeAspNetCorePath);
+            //}
+            //var dotnetRoot = Environment.GetEnvironmentVariable("DOTNET_ROOT");
+            //var dotnetRootExists = !string.IsNullOrWhiteSpace(dotnetRoot) && DirTryExists(dotnetRoot);
+#if DEBUG
             AppDomain.CurrentDomain.AssemblyResolve += (_, args) =>
             {
-                try
-                {
-                    var fileNameWithoutEx = args.Name.Split(',',
-                        StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-                    if (!string.IsNullOrEmpty(fileNameWithoutEx))
-                    {
-                        var isResources = fileNameWithoutEx.EndsWith(".resources");
-                        if (isResources)
-                        {
-                            // System.Composition.Convention.resources
-                            // 已包含默认资源，通过反射调用已验证成功
-                            // typeof(ConventionBuilder).Assembly.GetType("System.SR").GetProperty("ArgumentOutOfRange_InvalidEnumInSet", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null)
-                            goto RENULL;
-                        }
-                        // 当前根目录下搜索程序集
-                        var fileName = $"{fileNameWithoutEx}.dll";
-                        var filePath = Path.Combine(assemblyLocation, fileName);
-                        if (File.Exists(filePath))
-                            return Assembly.LoadFrom(filePath);
-                        // 当前根目录下独立框架运行时中搜索程序集 或 当前已安装的运行时
-                        if (runtimeAspNetCorePathExists)
-                        {
-                            filePath = Path.Combine(runtimeAspNetCorePath, fileName);
-                            if (File.Exists(filePath))
-                                return Assembly.LoadFrom(filePath);
-                        }
-                        if (runtimeNETCorePathExists)
-                        {
-                            filePath = Path.Combine(runtimeNETCorePath, fileName);
-                            if (File.Exists(filePath))
-                                return Assembly.LoadFrom(filePath);
-                        }
-                        if (dotnetRootExists)
-                        {
-                            filePath = Path.Combine(dotnetRoot!, "shared",
-                                "Microsoft.AspNetCore.App", runtimeVersion,
-                                fileName);
-                            if (File.Exists(filePath))
-                                return Assembly.LoadFrom(filePath);
-                            filePath = Path.Combine(dotnetRoot!, "shared",
-                                "Microsoft.NETCore.App", runtimeVersion,
-                                fileName);
-                            if (File.Exists(filePath))
-                                return Assembly.LoadFrom(filePath);
-                        }
+                //try
+                //{
+                //    var fileNameWithoutEx = args.Name.Split(',',
+                //        StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+                //    if (!string.IsNullOrEmpty(fileNameWithoutEx))
+                //    {
+                //        var isResources = fileNameWithoutEx.EndsWith(".resources");
+                //        if (isResources)
+                //        {
+                //            // System.Composition.Convention.resources
+                //            // 已包含默认资源，通过反射调用已验证成功
+                //            // typeof(ConventionBuilder).Assembly.GetType("System.SR").GetProperty("ArgumentOutOfRange_InvalidEnumInSet", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null)
+                //            goto RENULL;
+                //        }
+                //        // 当前根目录下搜索程序集
+                //        var fileName = $"{fileNameWithoutEx}.dll";
+                //        var filePath = Path.Combine(assemblyLocation, fileName);
+                //        if (File.Exists(filePath))
+                //            return Assembly.LoadFrom(filePath);
+                //        // 当前根目录下独立框架运行时中搜索程序集 或 当前已安装的运行时
+                //        if (runtimeAspNetCorePathExists)
+                //        {
+                //            filePath = Path.Combine(runtimeAspNetCorePath, fileName);
+                //            if (File.Exists(filePath))
+                //                return Assembly.LoadFrom(filePath);
+                //        }
+                //        if (runtimeNETCorePathExists)
+                //        {
+                //            filePath = Path.Combine(runtimeNETCorePath, fileName);
+                //            if (File.Exists(filePath))
+                //                return Assembly.LoadFrom(filePath);
+                //        }
+                //        if (dotnetRootExists)
+                //        {
+                //            filePath = Path.Combine(dotnetRoot!, "shared",
+                //                "Microsoft.AspNetCore.App", runtimeVersion,
+                //                fileName);
+                //            if (File.Exists(filePath))
+                //                return Assembly.LoadFrom(filePath);
+                //            filePath = Path.Combine(dotnetRoot!, "shared",
+                //                "Microsoft.NETCore.App", runtimeVersion,
+                //                fileName);
+                //            if (File.Exists(filePath))
+                //                return Assembly.LoadFrom(filePath);
+                //        }
 
-                    }
-                }
-                catch
-                {
+                //    }
+                //}
+                //catch
+                //{
 
-                }
+                //}
 #if DEBUG
                 if (DebugConsole.WriteAssemblyResolve)
                 {
@@ -323,6 +325,7 @@ public abstract partial class Startup
 #endif
             RENULL: return null;
             };
+#endif
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("CustomAppDomain.AssemblyResolve");
 #endif
@@ -382,9 +385,16 @@ public abstract partial class Startup
 
             #region InitLog 初始化日志
 
-            string? logDirPath = null;
+            string? logDirPath = null, mainProcessModuleName = null;
+            switch (ModuleName)
+            {
+                case IPlatformService.IPCRoot.moduleName:
+                    mainProcessModuleName = IPlatformService.IPCRoot.moduleName;
+                    break;
+            }
             IPCSubProcessFileSystem.InitLog(
-                ref logDirPath
+                ref logDirPath,
+                mainProcessModuleName
 #if STARTUP_WATCH_TRACE || DEBUG
 #pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable SA1001 // Commas should be spaced correctly

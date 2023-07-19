@@ -84,6 +84,7 @@
             </Button>
             <Button
                 Padding="8,4"
+                Command="{Binding ShareManageCommand}"
                 DockPanel.Dock="Right"
                 IsVisible="{Binding IsSelectedSteam}"
                 Theme="{StaticResource TransparentButton}">

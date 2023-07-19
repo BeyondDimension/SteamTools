@@ -86,4 +86,9 @@ partial interface IPlugin
     /// 插件发布时间
     /// </summary>
     DateTimeOffset ReleaseTime { get; }
+
+    /// <summary>
+    /// 加载当前插件时产生的错误
+    /// </summary>
+    string? LoadError { get; internal set; }
 }
