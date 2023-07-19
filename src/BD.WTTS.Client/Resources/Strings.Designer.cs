@@ -106,6 +106,24 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 修改的数据生效需要重启 Steam 是否需要重启 Steam。 的本地化字符串。
+        /// </summary>
+        public static string AccountChange_RestartSteam {
+            get {
+                return ResourceManager.GetString("AccountChange_RestartSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，也可以选择暂时禁用或启用指定账号的共享。调整后保存重启 Steam 生效！ 的本地化字符串。
+        /// </summary>
+        public static string AccountChange_ShareManageAboutTips {
+            get {
+                return ResourceManager.GetString("AccountChange_ShareManageAboutTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 家庭共享库管理 的本地化字符串。
         /// </summary>
         public static string AccountChange_Title {
@@ -885,6 +903,15 @@ namespace BD.WTTS.Client.Resources {
         public static string CommunityFix_StopProxy {
             get {
                 return ResourceManager.GetString("CommunityFix_StopProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 网络加速子进程文件不存在 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_SubProcessFileNotExist {
+            get {
+                return ResourceManager.GetString("CommunityFix_SubProcessFileNotExist", resourceCulture);
             }
         }
         
@@ -2246,6 +2273,15 @@ namespace BD.WTTS.Client.Resources {
         public static string LocalAuth_AuthTrade_MessageBoxTip_ {
             get {
                 return ResourceManager.GetString("LocalAuth_AuthTrade_MessageBoxTip_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当前没有任何交易 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_Null {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_Null", resourceCulture);
             }
         }
         
@@ -4345,6 +4381,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Steam_ServerTime {
             get {
                 return ResourceManager.GetString("Steam_ServerTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否删除此家庭库共享。 的本地化字符串。
+        /// </summary>
+        public static string Steam_Share_RemoveShare {
+            get {
+                return ResourceManager.GetString("Steam_Share_RemoveShare", resourceCulture);
             }
         }
         

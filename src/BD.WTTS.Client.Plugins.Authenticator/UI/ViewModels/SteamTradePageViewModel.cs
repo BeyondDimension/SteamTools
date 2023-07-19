@@ -329,7 +329,7 @@ public sealed partial class SteamTradePageViewModel
             {
                 if (_operationTradeAllCancelToken.IsCancellationRequested)
                 {
-                    Toast.Show(ToastIcon.Warning, AppResources.Warning_TerminationAllAuth___.Format(statusText, success, failed);
+                    Toast.Show(ToastIcon.Warning, AppResources.Warning_TerminationAllAuth___.Format(statusText, success, failed));
                     // Toast.Show(ToastIcon.None, 
                     //     $"已终止{statusText}全部令牌,已操作成功令牌数量{success},操作失败令牌数量{failed},剩余{executableNum - success - failed}令牌未操作");
                 }
