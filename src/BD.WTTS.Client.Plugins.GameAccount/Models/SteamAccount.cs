@@ -11,16 +11,18 @@ public sealed class SteamAccount : ReactiveObject, IAccount
 
     public SteamUser SteamUser { get; init; }
 
-    public string? DisplayName
-    {
-        get => this.SteamUser.SteamNickName;
-        set => this.SteamUser.SteamID = value;
-    }
+    public string? DisplayName => this.SteamUser.SteamNickName;
 
     public string? AccountId
     {
         get => this.SteamUser.SteamId64.ToString();
         set => this.SteamUser.SteamId64 = Convert.ToInt64(value);
+    }
+
+    public string? AliasName
+    {
+        get => this.SteamUser.SteamID;
+        set => this.SteamUser.SteamID = value;
     }
 
     public string? AccountName

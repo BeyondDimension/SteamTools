@@ -89,7 +89,7 @@
   {
     "FullName": "Origin",
     "Icon": "Origin",
-    "Platform": 8,
+    "Platform": 4,
     "IsExitBeforeInteract": true,
     "DefaultExePath": "%ProgramFiles(x86)%\\Origin\\Origin.exe",
     "ExeExtraArgs": null,
@@ -106,7 +106,7 @@
       "%ProgramData%\\Origin\\Subscription\\": "ProgramData\\Subscription",
       "%ProgramData%\\Origin\\local.xml": "ProgramData\\local.xml",
       "%ProgramData%\\Origin\\*.olc": "ProgramData\\",
-      "%ProgramData%\\Origin\\TcNoAccSwitcher-ID.instance": "TcNoAccSwitcher-ID.instance"
+      "%ProgramData%\\Origin\\WattToolkit.id": "WattToolkit.id"
     },
     "CachePaths": [
       "%ProgramData%\\Origin\\DownloadCache",
@@ -119,7 +119,31 @@
     ],
     "BackupFileTypesIgnore": null,
     "BackupFileTypesInclude": null,
-    "UniqueIdPath": "%ProgramData%\\Origin\\TcNoAccSwitcher-ID.instance",
+    "UniqueIdPath": "%ProgramData%\\Origin\\WattToolkit.id",
+    "UniqueIdType": 1
+  },
+  {
+    "FullName": "Riot Games",
+    "Icon": "RiotGames",
+    "Platform": 8192,
+    "PlatformIds": [ "r", "riot", "riotgames" ],
+    "DefaultExePath": "C:\\Riot Games\\Riot Client\\RiotClientServices.exe",
+    "ExesToEnd": [
+      "LeagueClient.exe",
+      "LoR.exe",
+      "VALORANT.exe",
+      "RiotClientServices.exe",
+      "RiotClientUx.exe",
+      "RiotClientUxRender.exe"
+    ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data\\Cookies\\": "Cookies",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data": "RiotClientPrivateSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Config": "RiotClientSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id": "WattToolkit.id"
+    },
+    "UniqueIdFile": "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id",
     "UniqueIdType": 1
   }
 ]

@@ -49,7 +49,6 @@
                                             Command="{ReflectionBinding #u.DataContext.SwapToAccountCommand}"
                                             CommandParameter="{Binding}"
                                             Text="切换到此账号" />
-                                        <ui:MenuFlyoutItem Text="修改备注名" />
                                         <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="登录为">
                                             <ui:MenuFlyoutItem
                                                 Click="SteamPersonaStateSwapMenuItem_Click"
@@ -84,6 +83,7 @@
                                                 Tag="{x:Static sceums:PersonaState.LookingToPlay}"
                                                 Text="想玩游戏" />
                                         </ui:MenuFlyoutSubItem>
+                                        <ui:MenuFlyoutSeparator />
                                         <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="复制">
                                             <ui:MenuFlyoutSubItem Text="复制个人资料">
                                                 <ui:MenuFlyoutItem Text="社区 URL" />
@@ -106,11 +106,27 @@
                                             <ui:MenuFlyoutItem Text="Achievement Stats" />
                                             <ui:MenuFlyoutItem Text="Backpack.tf" />
                                         </ui:MenuFlyoutSubItem>
-                                        <ui:MenuFlyoutItem IsVisible="{ReflectionBinding !#u.DataContext.IsSteamPlatform}" Text="修改头像图片" />
+                                        <ui:MenuFlyoutSeparator IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" />
+                                        <ui:MenuFlyoutItem Text="修改备注名" />
+                                        <ui:MenuFlyoutItem
+                                            Command="{ReflectionBinding #u.DataContext.SetAccountAvatarCommand}"
+                                            CommandParameter="{Binding}"
+                                            IsVisible="{ReflectionBinding !#u.DataContext.IsSteamPlatform}"
+                                            Text="修改头像图片" />
                                         <ui:MenuFlyoutSeparator />
                                         <ui:MenuFlyoutItem Text="创建桌面快捷方式" />
-                                        <ui:MenuFlyoutItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="打开 userdata 文件夹" />
-                                        <ui:MenuFlyoutItem Text="删除" />
+                                        <ui:MenuFlyoutItem
+                                            Click="OpenUserDataFolderMenuItem_Click"
+                                            IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}"
+                                            Text="{ReflectionBinding Path=Res.UserChange_ShowUserDataFolder,
+                                                                     Mode=OneWay,
+                                                                     Source={x:Static s:ResourceService.Current}}" />
+                                        <ui:MenuFlyoutItem
+                                            Command="{ReflectionBinding #u.DataContext.DeleteAccountCommand}"
+                                            CommandParameter="{Binding}"
+                                            Text="{ReflectionBinding Path=Res.Delete,
+                                                                     Mode=OneWay,
+                                                                     Source={x:Static s:ResourceService.Current}}" />
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.ContextFlyout>
                                 <i:Interaction.Behaviors>

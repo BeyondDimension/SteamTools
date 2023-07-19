@@ -11,6 +11,10 @@ public sealed partial class PlatformAccount
 
     public ICommand OpenUrlToBrowserCommand { get; }
 
+    public ICommand DeleteAccountCommand { get; }
+
+    public ICommand SetAccountAvatarCommand { get; }
+
     public PlatformAccount(ThirdpartyPlatform platform)
     {
         var platformSwitchers = Ioc.Get<IEnumerable<IPlatformSwitcher>>();
@@ -32,6 +36,30 @@ public sealed partial class PlatformAccount
         OpenUrlToBrowserCommand = ReactiveCommand.Create<IAccount>(acc =>
         {
             //Browser2.Open(acc);
+        });
+
+        DeleteAccountCommand = ReactiveCommand.Create<IAccount>(acc =>
+        {
+            platformSwitcher.DeleteAccountInfo(acc, this);
+            Toast.Show(ToastIcon.Success, $"已经删除 {FullName} 平台 {acc.DisplayName} 账号");
+        });
+
+        SetAccountAvatarCommand = ReactiveCommand.Create<IAccount>(async acc =>
+        {
+            FilePickerFileType fileTypes = new ValueTuple<string, string[]>[]
+            {
+                ("Image Files", FileEx.Images.Select(s => $"*{s}").ToArray()),
+            };
+
+            await FilePicker2.PickAsync((path) =>
+            {
+                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(acc.AccountName))
+                {
+                    var imagePath = Path.Combine(PlatformLoginCache, acc.AccountName, "avatar.png");
+                    File.Copy(path, imagePath, true);
+                    acc.ImagePath = imagePath;
+                }
+            }, fileTypes);
         });
 
         if (!Directory.Exists(PlatformLoginCache))

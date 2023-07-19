@@ -33,4 +33,15 @@ public partial class AccountItems : ReactiveUserControl<PlatformAccount>
             ViewModel?.SwapToAccountCommand.Execute(account);
         }
     }
+
+    private void OpenUserDataFolderMenuItem_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (sender is MenuFlyoutItem item && item.DataContext is SteamAccount account)
+        {
+            if (ISteamService.Instance.SteamDirPath != null)
+                IPlatformService.Instance.OpenFolder(Path.Combine(ISteamService.Instance.SteamDirPath, account.SteamUser.UserdataPath));
+            else
+                Toast.Show(ToastIcon.Error, "当前 Steam 路径不正确");
+        }
+    }
 }

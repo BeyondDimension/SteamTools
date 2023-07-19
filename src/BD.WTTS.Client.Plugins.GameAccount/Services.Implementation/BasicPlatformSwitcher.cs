@@ -116,7 +116,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                         Toast.Show(ToastIcon.Info, AppResources.Info_AlreadyTheCurrentAccount);
                         return;
                     }
-                    CurrnetUserAdd(platform.Accounts.First(acc => acc.AccountId == uniqueId).DisplayName ?? "Unknown", platform);
+                    CurrnetUserAdd(platform.Accounts.First(acc => acc.AccountId == uniqueId).AccountName ?? "Unknown", platform);
                 }
             }
         }
@@ -561,23 +561,17 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                     PlatformName = platform.FullName,
                     Platform = platform.Platform,
                     AccountId = item.Key,
-                    DisplayName = item.Value
+                    AccountName = item.Value
                 };
-
-                // Handle account image
-                //account.ImagePath = GetImgPath(platform, str).Replace("%", "%25");
-                //var actualImagePath = Path.Join("wwwroot\\", GetImgPath(platform, str));
-                //if (!File.Exists(actualImagePath))
-                //{
-                //    // Make sure the directory exists
-                //    Directory.CreateDirectory(Path.GetDirectoryName(actualImagePath)!);
-                //    var defaultPng = $"wwwroot\\img\\platform\\{platform}Default.png";
-                //    const string defaultFallback = "wwwroot\\img\\BasicDefault.png";
-                //    if (File.Exists(defaultPng))
-                //        File.Copy(defaultPng, actualImagePath, true);
-                //    else if (File.Exists(defaultFallback))
-                //        File.Copy(defaultFallback, actualImagePath, true);
-                //}
+                if (!string.IsNullOrEmpty(account.AccountName))
+                {
+                    // Handle account image
+                    var imagePath = Path.Combine(platform.PlatformLoginCache, account.AccountName, "avatar.png");
+                    if (File.Exists(imagePath))
+                    {
+                        account.ImagePath = imagePath;
+                    }
+                }
 
                 accounts.Add(account);
             }
@@ -589,5 +583,32 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
     public bool SetPlatformPath(PlatformAccount platform)
     {
         return false;
+    }
+
+    public void DeleteAccountInfo(IAccount account, PlatformAccount platform)
+    {
+        // Remove ID from list of ids
+        if (File.Exists(platform.IdsJsonPath))
+        {
+            var allIds = JTokenHelper.ReadDict(platform.IdsJsonPath);
+            //if (accNameIsId)
+            //{
+            //    var accId = accName;
+            //    accName = allIds[accName];
+            //    _ = allIds.Remove(accId);
+            //}
+            //else
+            _ = allIds.Remove(allIds.Single(x => x.Value == account.AccountId).Key);
+            File.WriteAllText(platform.IdsJsonPath, JsonConvert.SerializeObject(allIds));
+        }
+
+        // Remove cached files
+        if (!string.IsNullOrEmpty(account.AccountName))
+        {
+            PathHelper.RecursiveDelete(Path.Combine(platform.PlatformLoginCache, account.AccountName), false);
+
+            // Remove image
+            PathHelper.DeleteFile(Path.Combine(platform.PlatformLoginCache, account.AccountName, "avatar.png"));
+        }
     }
 }

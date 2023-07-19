@@ -2,7 +2,9 @@ namespace BD.WTTS.Models;
 
 public interface IAccount
 {
-    string? DisplayName { get; set; }
+    string? DisplayName { get; }
+
+    string? AliasName { get; set; }
 
     string? AccountId { get; set; }
 

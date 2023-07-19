@@ -118,7 +118,7 @@ public sealed partial class GameAccountPageViewModel
 
     async void SaveCurrentUser()
     {
-        if (SelectedPlatform == null) return;
+        if (!CheckPlatformStatus(SelectedPlatform)) return;
         var textModel = new TextBoxWindowViewModel();
         var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, AppResources.Title_AddAccount_.Format(SelectedPlatform.FullName), subHeader: AppResources.Title_PleaseInputCurrentAccountName_.Format(SelectedPlatform.FullName), isCancelButton: true);
         if (result)
@@ -138,7 +138,7 @@ public sealed partial class GameAccountPageViewModel
 
     async void LoginNewUser()
     {
-        if (SelectedPlatform == null) return;
+        if (!CheckPlatformStatus(SelectedPlatform)) return;
         var textModel = new MessageBoxWindowViewModel
         {
             Content = AppResources.ModelContent_LoginNewUser
@@ -146,5 +146,16 @@ public sealed partial class GameAccountPageViewModel
         var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, AppResources.Title_LoginAccount_.Format(SelectedPlatform.FullName), isCancelButton: true);
         if (result)
             SelectedPlatform?.CurrnetUserAdd(null);
+    }
+
+    static bool CheckPlatformStatus(PlatformAccount? platform)
+    {
+        if (platform == null) return false;
+        if (!File.Exists(platform.PlatformSetting?.PlatformPath))
+        {
+            Toast.Show(ToastIcon.Error, $"路径没有正确选择，{platform.FullName} 平台账号切换功能无法使用");
+            return false;
+        }
+        return true;
     }
 }

@@ -158,7 +158,27 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
     public bool SetPlatformPath(PlatformAccount platform)
     {
-
         return false;
+    }
+
+    public async void DeleteAccountInfo(IAccount account, PlatformAccount platform)
+    {
+        if (account is SteamAccount steamAccount)
+        {
+            var result = await MessageBox.ShowAsync(Strings.UserChange_DeleteUserTip, button: MessageBox.Button.OKCancel);
+            if (result == MessageBox.Result.OK)
+            {
+                result = await MessageBox.ShowAsync(Strings.UserChange_DeleteUserDataTip, button: MessageBox.Button.OKCancel);
+                if (result == MessageBox.Result.OK)
+                {
+                    steamService.DeleteLocalUserData(steamAccount.SteamUser, true);
+                }
+                else
+                {
+                    steamService.DeleteLocalUserData(steamAccount.SteamUser, false);
+                }
+                platform.Accounts?.Remove(account);
+            }
+        }
     }
 }

@@ -2,7 +2,9 @@ namespace BD.WTTS.Models;
 
 public sealed class BasicAccount : ReactiveObject, IAccount
 {
-    public string? DisplayName { get; set; }
+    public string? DisplayName => string.IsNullOrEmpty(AliasName) ? AccountName : AliasName;
+
+    public string? AliasName { get; set; }
 
     public string? AccountName { get; set; }
 
