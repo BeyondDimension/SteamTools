@@ -338,8 +338,8 @@
         {
           "TypeName": "IReadOnlyCollection<DisableAuthorizedDevice>",
           "PropertyName": "DisableAuthorizedDevice",
-          "DefaultValue": "null",
-          "DefaultValueIsConst": true,
+          "DefaultValue": "Array.Empty<DisableAuthorizedDevice>()",
+          "DefaultValueIsConst": false,
           "Summary": "Steam 家庭共享临时禁用",
           "IsRegionOrEndregion": null,
           "IsValueType": null

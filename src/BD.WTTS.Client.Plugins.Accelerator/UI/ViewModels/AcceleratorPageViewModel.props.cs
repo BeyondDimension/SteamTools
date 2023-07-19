@@ -11,21 +11,21 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
 
     public ICommand RefreshCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? SetupCertificateCommand { get; }
+    public ICommand? SetupCertificateCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? DeleteCertificateCommand { get; }
+    public ICommand? DeleteCertificateCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? OpenCertificateDirCommand { get; }
+    public ICommand? OpenCertificateDirCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? EditHostsFileCommand { get; }
+    public ICommand? EditHostsFileCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? OpenHostsDirCommand { get; }
+    public ICommand? OpenHostsDirCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? ResetHostsFileCommand { get; }
+    public ICommand? ResetHostsFileCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? NetworkFixCommand { get; }
+    public ICommand? NetworkFixCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? ProxySettingsCommand { get; }
+    public ICommand? ProxySettingsCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? TrustCerCommand { get; }
+    public ICommand? TrustCerCommand { get; }
 }

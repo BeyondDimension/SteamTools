@@ -307,15 +307,14 @@ partial class Startup // 自定义控制台命令参数
         // -clt sudo
         var sudo = new Command(IPlatformService.IPCRoot.CommandName, "使用管理员权限启动 IPC 服务进程")
         {
-            Handler = CommandHandler.Create(async (string n, ushort p) =>
+            Handler = CommandHandler.Create(async (string n, int p) =>
             {
                 if (string.IsNullOrWhiteSpace(n) || p == default)
                     return 400;
-
                 if (!WindowsPlatformServiceImpl.IsPrivilegedProcess)
                     return 401;
-
-                ModuleName = IPlatformService.IPCRoot.moduleName;
+                if (ModuleName != IPlatformService.IPCRoot.moduleName)
+                    return 402;
 
                 RunUIApplication(AppServicesLevel.IPCRoot | AppServicesLevel.Hosts);
                 await WaitConfiguredServices;
@@ -343,7 +342,7 @@ partial class Startup // 自定义控制台命令参数
             }),
         };
         sudo.AddOption(new Option<string>(IPlatformService.IPCRoot.args_PipeName, "IPC 管道名"));
-        sudo.AddOption(new Option<ushort>(IPlatformService.IPCRoot.args_ProcessId, "主进程 Id"));
+        sudo.AddOption(new Option<int>(IPlatformService.IPCRoot.args_ProcessId, "主进程 Id"));
         rootCommand.AddCommand(sudo);
 #endif
 

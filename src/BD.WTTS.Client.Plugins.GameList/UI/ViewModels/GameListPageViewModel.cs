@@ -8,13 +8,13 @@ public partial class GameListPageViewModel : TabItemViewModel
 
     public ICommand? RefreshAppCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? HideAppCommand { get; }
+    public ICommand? HideAppCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? IdleAppCommand { get; }
+    public ICommand? IdleAppCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? SteamShutdownCommand { get; }
+    public ICommand? SteamShutdownCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? SaveEditedAppInfoCommand { get; }
+    public ICommand? SaveEditedAppInfoCommand { get; }
 
     public GameListPageViewModel()
     {

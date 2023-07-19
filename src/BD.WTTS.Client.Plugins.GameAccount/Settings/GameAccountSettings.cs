@@ -96,3 +96,4 @@ public static partial class GameAccountSettings
         = new(DefaultPlatformSettings);
 
 }
+

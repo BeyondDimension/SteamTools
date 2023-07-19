@@ -110,6 +110,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         IAuthenticatorValueDTO? value;
         try
         {
+            //TODO 谷歌云令牌的解码有问题
             value = Serializable.DMP<IAuthenticatorValueDTO>(value_bytes!);
             if (value == null) return (null, ImportResultCode.Success);
         }

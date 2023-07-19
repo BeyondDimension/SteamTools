@@ -80,6 +80,8 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
                  Task.Run(async () =>
                  {
+                     // 等待 Ipc 管理员权限服务初始化完毕
+                     await IPlatformService.IPCRoot.Instance;
                      if (Startup.Instance.TryGetPlugins(out var plugins))
                      {
                          foreach (var plugin in plugins)

@@ -2,9 +2,7 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
-using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
-using DynamicData;
 using WinAuth;
 using AngleSharp.Text;
 
@@ -13,6 +11,8 @@ namespace BD.WTTS.UI.ViewModels;
 public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 {
     const int MAX_SYNC_VALUE = 100;
+
+    string? _currentAnswer;
     
     string? _currentPassword;
 
@@ -73,7 +73,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorService.HasEncrypt(sourceList);
 
-        if (HasPasswordEncrypt)
+        if (HasPasswordEncrypt && IsVerificationPass == false)
         {
             if (!await EnterPassword(sourceList[0])) return;
         }
@@ -128,7 +128,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             return;
         }
 
-        string? newPassword = null;
+        string? newPassword;
         var textViewmodel = new TextBoxWindowViewModel()
         {
             InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
@@ -164,8 +164,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             return;
         }
 
-        if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
-                null))
+        if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData)))
         {
             Toast.Show(ToastIcon.Success, AppResources.Success_AuthPasswordRemovedSuccessfully);
             _currentPassword = null;
@@ -234,51 +233,13 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         #region 安全问题
 
-        string? question = null;
-        string? answer = null;
-        var passwordQuestionResponse =
-            await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
-        if (passwordQuestionResponse.Content == null)
+        if (string.IsNullOrEmpty(_currentAnswer))
         {
-            var textViewModel = new TextBoxWindowViewModel();
-            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Title_SetSecurityIssues,
-                    subHeader: AppResources.SubHeader_FirstSyncSetAuth, isCancelButton: true,
-                    isRetryButton: true)) return;
-            question = textViewModel.Value;
-            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Title_SetSecurityIssues, subHeader: AppResources.SubHeader_PleaseEnterTheAnswerAgain,
-                    isCancelButton: true,
-                    isRetryButton: true)) return;
-            answer = textViewModel.Value;
-            if (string.IsNullOrEmpty(question) || string.IsNullOrEmpty(answer)) return;
-            var setPassword =
-                await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new()
-                {
-                    PwdQuestion = question, Answer = answer,
-                });
-            if (!setPassword.IsSuccess) throw new Exception(AppResources.Error_SetSecurityIssuesFailed);
+            var answer = await VerifyIndependentPassword();
+            if (!string.IsNullOrEmpty(answer)) _currentAnswer = answer;
+            else return;
         }
 
-        question = passwordQuestionResponse.Content;
-        var answerTextViewModel = new TextBoxWindowViewModel();
-        if (string.IsNullOrEmpty(answer) && await IWindowManager.Instance.ShowTaskDialogAsync(answerTextViewModel,
-                AppResources.Title_PleaseEnterTheAnswer, subHeader: AppResources.SubHeader_SecurityIssues_.Format(question), isCancelButton: true, isRetryButton: true))
-            answer = answerTextViewModel.Value;
-
-        if (string.IsNullOrEmpty(answer))
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterAnswer);
-            return;
-        }
-
-        var verifyResponse =
-            await IMicroServiceClient.Instance.AuthenticatorClient
-                .VerifyIndependentPassword(new() { Answer = answer, });
-        if (!verifyResponse.Content)
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Error_AnswerIncorrect);
-            return;
-        }
-        
         #endregion
 
         response.Content.ThrowIsNull();
@@ -333,17 +294,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             return;
         }
 
-        // var pushItems = Auths.Select(item => new UserAuthenticatorPushItem()
-        // {
-        //     Id = item.AuthData.ServerId,
-        //     TokenType = item.AuthData.Platform == AuthenticatorPlatform.HOTP
-        //         ? UserAuthenticatorTokenType.HOTP
-        //         : UserAuthenticatorTokenType.TOTP,
-        //     Name = item.AuthData.Name,
-        //     Order = item.AuthData.Index,
-        //     Token = MemoryPackSerializer.Serialize(item.AuthData.ToExport()),
-        // });
-
         var pushItems = (from item in Auths
             let cloudAuth = cloudAuths.FirstOrDefault(i => i.ServerId == item.AuthData.ServerId)
             where cloudAuth == null
@@ -366,7 +316,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         var syncResponse = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
         {
-            Difference = pushItems, Answer = answer,
+            Difference = pushItems, Answer = _currentAnswer,
         });
 
         if (!syncResponse.IsSuccess) throw new Exception(AppResources.Error_FailedToSynchronizeAuth);
@@ -387,6 +337,61 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         Initialize();
         Toast.Show(ToastIcon.Success, AppResources.Success_AuthUpload__.Format(syncResponse.Content?.Message, pushItems.Length));
+    }
+
+    /// <summary>
+    /// 验证安全问题
+    /// </summary>
+    /// <returns>成功返回正确答案，失败返回null</returns>
+    /// <exception cref="Exception">后端异常信息</exception>
+    async Task<string?> VerifyIndependentPassword()
+    {
+        string? question = null;
+        string? answer = null;
+        var passwordQuestionResponse =
+            await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
+        if (passwordQuestionResponse.Content == null)
+        {
+            var textViewModel = new TextBoxWindowViewModel();
+            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, "设置安全问题",
+                    subHeader: "首次同步，请为您的云令牌设置一个安全问题及密码。" +
+                               "\r\n请先输入「安全问题」", isCancelButton: true)) return null;
+            question = textViewModel.Value;
+            textViewModel = new TextBoxWindowViewModel();
+            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, "设置安全问题", subHeader: "请再输入「问题答案」",
+                    isCancelButton: true)) return null;
+            answer = textViewModel.Value;
+            if (string.IsNullOrEmpty(question) || string.IsNullOrEmpty(answer)) return null;
+            var setPassword =
+                await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new()
+                {
+                    PwdQuestion = question, Answer = answer,
+                });
+            if (!setPassword.IsSuccess) throw new Exception("设置安全问题失败");
+        }
+
+        question ??= passwordQuestionResponse.Content;
+        var answerTextViewModel = new TextBoxWindowViewModel();
+        if (string.IsNullOrEmpty(answer) && await IWindowManager.Instance.ShowTaskDialogAsync(answerTextViewModel,
+                "请输入问题答案", subHeader: $"安全问题：「{question}」", isCancelButton: true))
+            answer = answerTextViewModel.Value;
+
+        if (string.IsNullOrEmpty(answer))
+        {
+            Toast.Show(ToastIcon.Error, "请输入安全问题答案");
+            return null;
+        }
+
+        var verifyResponse =
+            await IMicroServiceClient.Instance.AuthenticatorClient
+                .VerifyIndependentPassword(new() { Answer = answer, });
+        if (!verifyResponse.Content)
+        {
+            Toast.Show(ToastIcon.Error, "答案错误，请重试");
+            return null;
+        }
+
+        return answer;
     }
 
     public async Task KeepDisplay()
@@ -412,73 +417,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         // });
     }
 
-    public async Task UnbindingSteamAuthAsync()
-    {
-        if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam)
-        {
-            Toast.Show(ToastIcon.Warning, AppResources.Warning_OnlySupportSteamAuth);
-            return;
-        }
-
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(
-                new MessageBoxWindowViewModel() { Content = AppResources.ModelContent_ConfirmUnbinding },
-                isDialog: false, isCancelButton: true))
-        {
-            if (CurrentSelectedAuth.AuthData.Value is SteamAuthenticator steamAuthenticator)
-            {
-                string? password;
-                var textViewmodel = new TextBoxWindowViewModel()
-                {
-                    InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-                };
-                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_PleaseEnterLoginPassword,
-                        isDialog: false, isCancelButton: true))
-                {
-                    password = textViewmodel.Value;
-                }
-                else return;
-
-                if (string.IsNullOrEmpty(password)) return;
-
-                var steamAccountService = Ioc.Get<ISteamAccountService>();
-                SteamLoginState loginState = new() { Username = steamAuthenticator.AccountName, Password = password, };
-                await steamAccountService.DoLoginV2Async(loginState);
-                if (!loginState.Success)
-                {
-                    loginState.TwofactorCode = steamAuthenticator.CurrentCode;
-                    await steamAccountService.DoLoginV2Async(loginState);
-                }
-
-                if (string.IsNullOrEmpty(loginState.AccessToken))
-                {
-                    Toast.Show(ToastIcon.Warning, AppResources.Warning_UnbindFailed);
-                    return;
-                }
-
-                if (await steamAuthenticator.RemoveAuthenticatorAsync(loginState.AccessToken))
-                {
-                    // var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
-                    // {
-                    //     Difference = new[]
-                    //     {
-                    //         new UserAuthenticatorPushItem()
-                    //         {
-                    //             Id = CurrentSelectedAuth.AuthData.ServerId, IsDeleted = true,
-                    //         },
-                    //     },
-                    // });
-                    // Toast.Show(ToastIcon.Warning, $"云令牌数据删除{(response.IsSuccess ? "成功" : "失败")}");
-                    // AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
-                    // Auths.Remove(CurrentSelectedAuth);
-                    Toast.Show(ToastIcon.Success, AppResources.Success_AuthUnbindSuccessful);
-                    return;
-                }
-
-                Toast.Show(ToastIcon.Error, AppResources.Error_AuthUnbindFailed);
-            }
-        }
-    }
-
     public async Task DeleteAuthAsync()
     {
         if (CurrentSelectedAuth == null) return;
@@ -489,22 +427,30 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             if (CurrentSelectedAuth.AuthData.ServerId != null)
             {
-                var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+                if (string.IsNullOrEmpty(_currentAnswer))
                 {
-                    Difference = new[]
+                    var answer = await VerifyIndependentPassword();
+                    if (!string.IsNullOrEmpty(answer)) _currentAnswer = answer;
+                }
+                if (_currentAnswer != null)
+                {
+                    var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
                     {
-                        new UserAuthenticatorPushItem()
+                        Difference = new[]
                         {
-                            Id = CurrentSelectedAuth.AuthData.ServerId, IsDeleted = true,
+                            new UserAuthenticatorPushItem()
+                            {
+                                Id = CurrentSelectedAuth.AuthData.ServerId, IsDeleted = true,
+                            },
                         },
-                    },
-                });
-                if (response.IsSuccess)
-                    Toast.Show(ToastIcon.Success, AppResources.Success_DelCloudData);
-                else
-                    Toast.Show(ToastIcon.Error, AppResources.Error_DelCloudData);
+                        Answer = _currentAnswer,
+                    });
+                    if (response.IsSuccess)
+                        Toast.Show(ToastIcon.Success, AppResources.Success_DelCloudData);
+                    else
+                        Toast.Show(ToastIcon.Warning, AppResources.Error_DelCloudData);
+                }
             }
-
             AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
             Auths.Remove(CurrentSelectedAuth);
             Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthDelSuccessful);
@@ -530,17 +476,26 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         if (CurrentSelectedAuth.AuthData.ServerId != null)
         {
-            var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+            if (string.IsNullOrEmpty(_currentAnswer))
             {
-                Difference = new[]
+                var answer = await VerifyIndependentPassword();
+                if (!string.IsNullOrEmpty(answer)) _currentAnswer = answer;
+            }
+            if (_currentAnswer != null)
+            {
+                var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
                 {
-                    new UserAuthenticatorPushItem() { Id = CurrentSelectedAuth.AuthData.ServerId, Name = newName, },
-                },
-            });
-            if (response.IsSuccess)
-                Toast.Show(ToastIcon.Success, AppResources.Success_UpdateCloudData);
-            else
-                Toast.Show(ToastIcon.Warning, AppResources.Error_UpdateCloudData);
+                    Difference = new[]
+                    {
+                        new UserAuthenticatorPushItem() { Id = CurrentSelectedAuth.AuthData.ServerId, Name = newName, },
+                    },
+                    Answer = _currentAnswer,
+                });
+                if (response.IsSuccess)
+                    Toast.Show(ToastIcon.Success, AppResources.Success_UpdateCloudData);
+                else
+                    Toast.Show(ToastIcon.Warning, AppResources.Error_UpdateCloudData);
+            }
         }
         CurrentSelectedAuth.AuthName = newName;
         await AuthenticatorService.SaveEditAuthNameAsync(CurrentSelectedAuth.AuthData, newName);
@@ -552,15 +507,15 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (VerifyMaxValue())
             await IWindowManager.Instance.ShowTaskDialogAsync(new SteamLoginImportViewModel(_currentPassword),
                 AppResources.SteamLoginImport,
-                pageContent: new SteamLoginImportPage(), isCancelButton: true);
+                pageContent: new SteamLoginImportPage(), isOkButton: false);
         Initialize();
     }
 
     public async Task OpenSteamOtherImportWindow()
     {
         if (VerifyMaxValue())
-            await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(_currentPassword), AppResources.AuthImport,
-                pageContent: new SteamOtherImportPage(), isCancelButton: true);
+            await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(_currentPassword), "令牌导入",
+                pageContent: new SteamOtherImportPage(), isOkButton: false);
         Initialize();
     }
 
@@ -568,7 +523,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     {
         if (VerifyMaxValue())
             await IWindowManager.Instance.ShowTaskDialogAsync(new GeneralAuthenticatorImportViewModel(_currentPassword),
-                AppResources.UniversalAuthImport, pageContent: new GeneralAuthenticatorImportPage(), isCancelButton: true);
+                AppResources.UniversalAuthImport, pageContent: new GeneralAuthenticatorImportPage(), isOkButton: false);
         Initialize();
     }
 
@@ -586,7 +541,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task OpenExportWindow()
     {
         await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorExportViewModel(), AppResources.ExportAuth,
-            pageContent: new AuthenticatorExportPage(), isCancelButton: true);
+            pageContent: new AuthenticatorExportPage(), isOkButton: false);
     }
 
     public void ShowQrCode()
@@ -604,7 +559,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 Toast.Show(ToastIcon.Error, Strings.AuthLocal_ExportToQRCodeTooLongErrorTip);
                 break;
             case QRCodeHelper.QRCodeCreateResult.Exception:
-                Toast.Show(ToastIcon.Error, e.Message);
+                Toast.Show(ToastIcon.Error, e!.Message);
                 Log.Error(nameof(AuthenticatorPageViewModel), e, nameof(ShowQrCode));
                 break;
         }
@@ -623,7 +578,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         var authData = CurrentSelectedAuth.AuthData;
         await IWindowManager.Instance.ShowTaskDialogAsync(new SteamTradePageViewModel(ref authData),
             AppResources.ConfirmTransaction,
-            pageContent: new SteamTradePage(), isCancelButton: true);
+            pageContent: new SteamTradePage(), isOkButton: false);
         CurrentSelectedAuth.AuthData = authData;
     }
 
@@ -636,33 +591,35 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 pageContent: new ShowSteamDataPage(), isCancelButton: true);
         else
         {
-            var temp = CurrentSelectedAuth.AuthData.Value.SecretKey
+            var temp = CurrentSelectedAuth.AuthData.Value?.SecretKey
                 .ThrowIsNull().ToHexString();
             await IWindowManager.Instance.ShowTaskDialogAsync(
                 new TextBoxWindowViewModel()
                 {
-                    InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
-                    Value = temp,
-                }, AppResources.ModelContent_SecretKey_.Format(CurrentSelectedAuth.AuthName), isDialog: false, isCancelButton: true);
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox, Value = temp,
+                }, AppResources.ModelContent_SecretKey_.Format(CurrentSelectedAuth.AuthName), isDialog: false, isOkButton: false);
         }
     }
-
-    public async void ExportAuthWithSdaFile()
+    
+    public async void ExportAuthWithSdaFile(object sender)
     {
-        if (CurrentSelectedAuth?.AuthData.Value is SteamAuthenticator steamAuthenticator)
+        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
+        
+        if (authenticatorItemModel.AuthData.Value is SteamAuthenticator steamAuthenticator)
         {
             if (string.IsNullOrEmpty(steamAuthenticator.SteamData)) return;
 
             var steamdata = JsonSerializer.Deserialize(steamAuthenticator.SteamData,
                 ImportFileModelJsonContext.Default.SdaFileModel);
 
+            steamdata.ThrowIsNull();
             if (steamAuthenticator.SecretKey == null) return;
             var sdafilemodel = new SdaFileModel
             {
-                DeviceId = steamAuthenticator.DeviceId,
+                DeviceId = steamAuthenticator.DeviceId ?? string.Empty,
                 FullyEnrolled = steamdata.FullyEnrolled,
                 Session = steamdata.Session,
-                SerialNumber = steamAuthenticator.Serial,
+                SerialNumber = steamAuthenticator.Serial ?? string.Empty,
                 RevocationCode = steamdata.RevocationCode,
                 Uri = steamdata.Uri,
                 ServerTime = steamdata.ServerTime,
@@ -683,7 +640,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 FilePickerFileType? fileTypes;
                 if (IApplication.IsDesktop())
                 {
-                    fileTypes = new ValueTuple<string, string[]>[] { ("maFile Files", new[] { FileEx.maFile, }), };
+                    fileTypes = new[] { ("maFile Files", new[] { FileEx.maFile, }), };
                 }
                 else
                 {
@@ -698,12 +655,12 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 });
                 if (exportFile == null) return;
 
-                var filestream = exportFile?.OpenWrite();
-                if (filestream == null)
-                {
-                    Toast.Show(ToastIcon.Error, Strings.LocalAuth_ProtectionAuth_PathError);
-                    return;
-                }
+                var filestream = exportFile.OpenWrite();
+                // if (filestream == null)
+                // {
+                //     Toast.Show(ToastIcon.Error, Strings.LocalAuth_ProtectionAuth_PathError);
+                //     return;
+                // }
 
                 if (filestream.CanSeek && filestream.Position != 0) filestream.Position = 0;
 
@@ -714,12 +671,81 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 await filestream.FlushAsync();
                 await filestream.DisposeAsync();
 
-                Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile?.ToString()));
+                Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile.ToString()));
             }
         }
         else
         {
-            Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseSelectAuth);
+            Toast.Show(ToastIcon.Warning, "Mafile格式仅支持Steam令牌");
+        }
+    }
+    
+    public async Task UnbindingSteamAuthAsync(object sender)
+    {
+        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
+        
+        if (authenticatorItemModel.AuthData.Platform != AuthenticatorPlatform.Steam)
+        {
+            Toast.Show(ToastIcon.Warning, "解绑功能目前仅支持 Steam 令牌");
+            return;
+        }
+
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(
+                new MessageBoxWindowViewModel() { Content = "您确定要从您的 Steam 账号中解绑此令牌吗，解绑后此令牌将失效，您可以在解绑后删除此令牌。" },
+                isDialog: false, isCancelButton: true))
+        {
+            if (authenticatorItemModel.AuthData.Value is SteamAuthenticator steamAuthenticator)
+            {
+                string? password;
+                var textViewmodel = new TextBoxWindowViewModel()
+                {
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+                };
+                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入该Steam账号登陆密码",
+                        isDialog: false, isCancelButton: true))
+                {
+                    password = textViewmodel.Value;
+                }
+                else return;
+
+                if (string.IsNullOrEmpty(password)) return;
+
+                var steamAccountService = Ioc.Get<ISteamAccountService>();
+                SteamLoginState loginState = new() { Username = steamAuthenticator.AccountName, Password = password, };
+                await steamAccountService.DoLoginV2Async(loginState);
+                if (!loginState.Success)
+                {
+                    loginState.TwofactorCode = steamAuthenticator.CurrentCode;
+                    await steamAccountService.DoLoginV2Async(loginState);
+                }
+
+                if (string.IsNullOrEmpty(loginState.AccessToken))
+                {
+                    Toast.Show(ToastIcon.Warning, "解绑令牌失败：登陆未成功");
+                    return;
+                }
+
+                if (await steamAuthenticator.RemoveAuthenticatorAsync(loginState.AccessToken))
+                {
+                    // var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+                    // {
+                    //     Difference = new[]
+                    //     {
+                    //         new UserAuthenticatorPushItem()
+                    //         {
+                    //             Id = CurrentSelectedAuth.AuthData.ServerId, IsDeleted = true,
+                    //         },
+                    //     },
+                    // });
+                    // Toast.Show(ToastIcon.Warning, $"云令牌数据删除{(response.IsSuccess ? "成功" : "失败")}");
+                    // AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
+                    // Auths.Remove(CurrentSelectedAuth);
+                    Toast.Show(ToastIcon.Success, "令牌解绑成功");
+                    return;
+                }
+
+                Toast.Show(ToastIcon.Error, "解绑令牌失败");
+            }
         }
     }
 

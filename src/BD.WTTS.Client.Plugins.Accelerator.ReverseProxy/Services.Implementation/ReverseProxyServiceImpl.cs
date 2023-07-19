@@ -20,8 +20,7 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
     /// </summary>
     public X509Certificate2? RootCertificate
     {
-        get => CertificateManager.RootCertificate;
-        set => CertificateManager.RootCertificate = value;
+        get => CertificateManager.RootCertificatePackable;
     }
 
     /// <inheritdoc cref="IReverseProxyService.ProxyRunning"/>

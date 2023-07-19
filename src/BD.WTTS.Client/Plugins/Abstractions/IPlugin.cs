@@ -3,8 +3,15 @@ namespace BD.WTTS.Plugins.Abstractions;
 /// <summary>
 /// 插件接口
 /// </summary>
-public partial interface IPlugin : IExplicitHasValue
+public partial interface IPlugin
 {
+    /// <summary>
+    /// 判断插件是否满足要求，如没有任何要求则返回 <see angword="true"/>
+    /// </summary>
+    /// <param name="error"></param>
+    /// <returns></returns>
+    bool HasValue([NotNullWhen(false)] out string? error);
+
     /// <summary>
     /// 获取当前插件需要加载的菜单项视图模型
     /// </summary>

@@ -65,7 +65,15 @@ partial class App
         {
             return;
         }
-        var thm = Ioc.Get<FluentAvaloniaTheme>()!;
+
+        //var thm = Ioc.Get<FluentAvaloniaTheme>()!;
+
+        var thm = App.Current?.Styles.OfType<FluentAvaloniaTheme>().FirstOrDefault();
+
+        if (thm == null)
+        {
+            return;
+        }
 
         if (Color.TryParse(colorHex, out var color))
         {
@@ -79,8 +87,6 @@ partial class App
             }
         }
 
-#if WINDOWS
-#endif
         if (OperatingSystem.IsWindows())
         {
             if (OperatingSystem.IsWindowsVersionAtLeast(6, 2))

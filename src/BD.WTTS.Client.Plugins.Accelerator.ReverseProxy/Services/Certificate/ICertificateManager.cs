@@ -1,69 +1,42 @@
 // ReSharper disable once CheckNamespace
+using dotnetCampus.Ipc.CompilerServices.Attributes;
+
 namespace BD.WTTS.Services;
 
 /// <summary>
 /// 证书管理(安装/卸载)
 /// </summary>
+[IpcPublic(Timeout = AssemblyInfo.IpcTimeout, IgnoresIpcException = false)]
 public interface ICertificateManager
 {
-    const int CertificateValidDays = CertificateConstants.CertificateValidDays;
-
-    string? PfxPassword { get; }
-
-    /// <summary>
-    /// 证书名称，硬编码不可改动，确保兼容性
-    /// </summary>
-    const string CertificateName = CertificateConstants.CertificateName;
-
-    const string RootCertificateName = CertificateConstants.RootCertificateName;
-
-    #region FileName
+    static class Constants
+    {
+        public static ICertificateManager Instance => Ioc.Get<ICertificateManager>(); // 因为 Ipc 服务接口的原因，不能将此属性放在非嵌套类上
+    }
 
     /// <summary>
-    /// PFX 证书文件名
+    /// 证书密码的 Utf8String
     /// </summary>
-    const string PfxFileName = CertificateConstants.PfxFileName;
-
-    /// <summary>
-    /// CER 证书文件名
-    /// </summary>
-    const string CerFileName = CertificateConstants.CerFileName;
-
-    /// <summary>
-    /// CER 证书导出文件名
-    /// </summary>
-    static string CerExportFileName => CertificateConstants.CerExportFileName;
-
-    #endregion
+    byte[]? PfxPassword { get; }
 
     #region Path
 
     /// <summary>
-    /// 默认 PFX 证书文件路径
-    /// </summary>
-    static string DefaultPfxFilePath => CertificateConstants.DefaultPfxFilePath;
-
-    /// <summary>
-    /// 默认 CER 证书文件路径
-    /// </summary>
-    static string DefaultCerFilePath => CertificateConstants.DefaultCerFilePath;
-
-    /// <summary>
     /// PFX 证书文件路径
     /// </summary>
-    string PfxFilePath => DefaultPfxFilePath;
+    string PfxFilePath => CertificateConstants.DefaultPfxFilePath;
 
     /// <summary>
     /// CER 证书文件路径
     /// </summary>
-    string CerFilePath => DefaultCerFilePath;
+    string CerFilePath => CertificateConstants.DefaultCerFilePath;
 
     #endregion
 
     /// <summary>
-    /// 获取当前 Root 证书
+    /// 获取当前 Root 证书，<see cref="X509CertificatePackable"/> 类型可隐式转换为 <see cref="X509Certificate2"/>
     /// </summary>
-    X509Certificate2? RootCertificate { get; set; }
+    X509CertificatePackable RootCertificatePackable { get; set; }
 
     /// <summary>
     /// 获取 Cer 证书路径，当不存在时生成文件后返回路径

@@ -53,8 +53,9 @@ public abstract partial class PluginBase : IPlugin
 
     }
 
-    public virtual bool ExplicitHasValue()
+    public virtual bool HasValue([NotNullWhen(false)] out string? error)
     {
+        error = default;
         return true;
     }
 
@@ -112,6 +113,24 @@ public abstract partial class PluginBase : IPlugin
     public virtual ValueTask OnPeerConnected(bool isReconnected)
     {
         return ValueTask.CompletedTask;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    protected static async ValueTask GetIpcRemoteServiceAsync<T>(
+        string moduleName,
+        IPCMainProcessService ipc,
+        TaskCompletionSource<T> tsc)
+        where T : class
+    {
+        try
+        {
+            var ipcRemoteService = await ipc.GetServiceAsync<T>(moduleName);
+            tsc.TrySetResult(ipcRemoteService.ThrowIsNull());
+        }
+        catch (Exception ex)
+        {
+            tsc.TrySetException(ex);
+        }
     }
 }
 

@@ -82,7 +82,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Net\IDnsAnalysisService.cs">
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Certificate\ICertificateManager.cs">
+			<LinkBase>Services\Certificate</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Net\IDnsAnalysisService.Constants.cs">
 			<LinkBase>Services\Net</LinkBase>
 		</Compile>
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\IReverseProxyService.Constants.cs">

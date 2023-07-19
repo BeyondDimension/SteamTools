@@ -24,6 +24,9 @@ public static class PluginsCore
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     sealed record class DisablePlugin : IPlugin
     {
+        bool hasValue;
+        string? hasNotValueError;
+
         public DisablePlugin(IPlugin plugin)
         {
             StackTrace stackTrace = new();
@@ -47,6 +50,16 @@ public static class PluginsCore
             Icon = plugin.Icon;
             InstallTime = plugin.InstallTime;
             ReleaseTime = plugin.ReleaseTime;
+
+            try
+            {
+                hasValue = plugin.HasValue(out hasNotValueError);
+            }
+            catch (Exception ex)
+            {
+                hasValue = false;
+                hasNotValueError = ex.ToString();
+            }
         }
 
         string DebuggerDisplay => $"{UniqueEnglishName} v{Version}";
@@ -87,17 +100,28 @@ public static class PluginsCore
 
         public DateTimeOffset ReleaseTime { get; init; }
 
+        string? IPlugin.LoadError
+        {
+            get => hasNotValueError;
+            set
+            {
+                hasNotValueError = value;
+                hasValue = string.IsNullOrWhiteSpace(value);
+            }
+        }
+
+        public bool HasValue([NotNullWhen(false)] out string? error)
+        {
+            error = hasNotValueError!;
+            return hasValue;
+        }
+
         public void ConfigureDemandServices(IServiceCollection services, Startup startup)
         {
         }
 
         public void ConfigureRequiredServices(IServiceCollection services, Startup startup)
         {
-        }
-
-        public bool ExplicitHasValue()
-        {
-            return true;
         }
 
         public IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
@@ -309,32 +333,47 @@ public static class PluginsCore
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static HashSet<IPlugin>? GetExports(IEnumerable<Assembly> assemblies)
+    static HashSet<IPlugin>? GetExports(
+        HashSet<IPlugin> plugins,
+        HashSet<IPlugin> disablePlugins,
+        IEnumerable<Assembly> assemblies)
     {
         ConventionBuilder conventions = new();
         conventions.ForTypesDerivedFrom<IPlugin>().Export<IPlugin>();
 
         var configuration = new ContainerConfiguration().WithAssemblies(assemblies, conventions);
 
-        HashSet<IPlugin> plugins = new();
         try
         {
             using CompositionHost container = configuration.CreateContainer();
             foreach (var plugin in container.GetExports<IPlugin>())
             {
-                if (plugin.HasValue() && plugin is PluginBase pluginBase)
+                if (string.Equals(plugin.UniqueEnglishName,
+                    IPlatformService.IPCRoot.moduleName,
+                    StringComparison.OrdinalIgnoreCase))
                 {
+                    continue; // 屏蔽此名词
+                }
+
+                var isPluginBase = false;
+                if (plugin.HasValue(out var error))
+                {
+                    if (plugin is PluginBase pluginBase)
+                    {
+                        isPluginBase = true;
 #if DEBUG
-                    var isOfficial = pluginBase.IsOfficial;
+                        var isOfficial = pluginBase.IsOfficial;
 #endif
-                    plugins.Add(pluginBase);
+                        plugins.Add(pluginBase);
+                        continue;
+                    }
                 }
-                else
-                {
-                    Log.Error(TAG,
-                        "CompositionHost.GetExports plugin validation failed, name: {name}.",
-                        plugin.UniqueEnglishName);
-                }
+                Log.Error(TAG,
+                        "CompositionHost.GetExports plugin validation failed, name: {name}, isPluginBase: {isPluginBase}, error: {error}.",
+                        plugin.UniqueEnglishName,
+                        isPluginBase,
+                        error);
+                disablePlugins.Add(plugin);
             }
         }
         catch (Exception e)
@@ -411,32 +450,28 @@ public static class PluginsCore
         if (!assemblies_.Any()) return null;
 
         HashSet<PluginResult<IPlugin>> pluginResults = new();
-        var activePlugins = GetExports(assemblies_.Where(x => !x.IsDisable).Select(x => x.Data));
-        if (activePlugins != null)
+        HashSet<IPlugin> disablePlugins = new();
+        HashSet<IPlugin> activePlugins = new();
+        GetExports(activePlugins, disablePlugins, assemblies_.Where(x => !x.IsDisable).Select(x => x.Data));
+        foreach (var plugin in activePlugins)
         {
-            foreach (var plugin in activePlugins)
+            pluginResults.Add(new(false, plugin));
+        }
+        GetExports(disablePlugins, disablePlugins, assemblies_.Where(x => x.IsDisable).Select(x => x.Data));
+        foreach (var plugin in disablePlugins)
+        {
+            try
             {
-                pluginResults.Add(new(false, plugin));
+                var plugin_ = new DisablePlugin(plugin);
+                pluginResults.Add(new(true, plugin_));
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "Failed to initialize disabled plugin.");
             }
         }
-        var disablePlugins = GetExports(assemblies_.Where(x => x.IsDisable).Select(x => x.Data));
-        if (disablePlugins != null)
-        {
-            foreach (var plugin in disablePlugins)
-            {
-                try
-                {
-                    var plugin_ = new DisablePlugin(plugin);
-                    pluginResults.Add(new(true, plugin_));
-                }
-                catch (Exception e)
-                {
-                    Log.Error(TAG, e, "Failed to initialize disabled plugin.");
-                }
-            }
-            disablePluginsAssemblyLoadContext.Unload();
-            disablePluginsAssemblyLoadContext = null!;
-        }
+        disablePluginsAssemblyLoadContext.Unload();
+        disablePluginsAssemblyLoadContext = null!;
         return pluginResults;
     }
 }

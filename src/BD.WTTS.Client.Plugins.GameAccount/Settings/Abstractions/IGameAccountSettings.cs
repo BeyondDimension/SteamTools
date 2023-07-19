@@ -38,7 +38,7 @@ public partial interface IGameAccountSettings
     /// <summary>
     /// Steam 家庭共享临时禁用的默认值
     /// </summary>
-    const IReadOnlyCollection<DisableAuthorizedDevice>? DefaultDisableAuthorizedDevice = null;
+    static readonly IReadOnlyCollection<DisableAuthorizedDevice> DefaultDisableAuthorizedDevice = Array.Empty<DisableAuthorizedDevice>();
 
     /// <summary>
     /// 启用的账号平台集合

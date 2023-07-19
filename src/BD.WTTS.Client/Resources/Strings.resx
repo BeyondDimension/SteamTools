@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,1839 +59,1839 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="Off" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Off" xml:space="preserve">
     <value>关</value>
   </data>
-  <data name="On" xml:space="preserve">
+	<data name="On" xml:space="preserve">
     <value>开</value>
   </data>
-  <data name="About" xml:space="preserve">
+	<data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
-  <data name="AccountChange_Title" xml:space="preserve">
+	<data name="AccountChange_Title" xml:space="preserve">
     <value>家庭共享库管理</value>
   </data>
-  <data name="Add" xml:space="preserve">
+	<data name="Add" xml:space="preserve">
     <value>新增</value>
   </data>
-  <data name="Agree" xml:space="preserve">
+	<data name="Agree" xml:space="preserve">
     <value>同意</value>
   </data>
-  <data name="And" xml:space="preserve">
+	<data name="And" xml:space="preserve">
     <value>和</value>
   </data>
-  <data name="ArchiSteamFarmPlus" xml:space="preserve">
+	<data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>自动挂卡</value>
   </data>
-  <data name="ASF_AddBot" xml:space="preserve">
+	<data name="ASF_AddBot" xml:space="preserve">
     <value>新增 Bot</value>
   </data>
-  <data name="ASF_BotManage" xml:space="preserve">
+	<data name="ASF_BotManage" xml:space="preserve">
     <value>Bot 配置</value>
   </data>
-  <data name="SelectFile" xml:space="preserve">
+	<data name="SelectFile" xml:space="preserve">
     <value>选择文件</value>
   </data>
-  <data name="Bind" xml:space="preserve">
+	<data name="Bind" xml:space="preserve">
     <value>绑定</value>
   </data>
-  <data name="Btn_Text_Complete" xml:space="preserve">
+	<data name="Btn_Text_Complete" xml:space="preserve">
     <value>完成</value>
   </data>
-  <data name="Btn_Text_Continue" xml:space="preserve">
+	<data name="Btn_Text_Continue" xml:space="preserve">
     <value>继续</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+	<data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="CheckUpdate" xml:space="preserve">
+	<data name="CheckUpdate" xml:space="preserve">
     <value>检查更新</value>
   </data>
-  <data name="CloudSync" xml:space="preserve">
+	<data name="CloudSync" xml:space="preserve">
     <value>云同步</value>
   </data>
-  <data name="CommunityFix" xml:space="preserve">
+	<data name="CommunityFix" xml:space="preserve">
     <value>网络加速</value>
   </data>
-  <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
+	<data name="CommunityFix_AutoRunProxy" xml:space="preserve">
     <value>启动时自动启动加速</value>
   </data>
-  <data name="CommunityFix_DeleteCertificate" xml:space="preserve">
+	<data name="CommunityFix_DeleteCertificate" xml:space="preserve">
     <value>移除证书</value>
   </data>
-  <data name="CommunityFix_EditHostsFile" xml:space="preserve">
+	<data name="CommunityFix_EditHostsFile" xml:space="preserve">
     <value>编辑 Hosts 文件</value>
   </data>
-  <data name="CommunityFix_EnableScriptService" xml:space="preserve">
+	<data name="CommunityFix_EnableScriptService" xml:space="preserve">
     <value>启用脚本</value>
   </data>
-  <data name="CommunityFix_MenuName" xml:space="preserve">
+	<data name="CommunityFix_MenuName" xml:space="preserve">
     <value>加速设置</value>
   </data>
-  <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
+	<data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
     <value>使脚本仅 Steam 内置浏览器生效</value>
   </data>
-  <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
+	<data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
     <value>打开证书文件夹</value>
   </data>
-  <data name="CommunityFix_ProxyMode" xml:space="preserve">
+	<data name="CommunityFix_ProxyMode" xml:space="preserve">
     <value>加速模式</value>
   </data>
-  <data name="CommunityFix_SetupCertificate" xml:space="preserve">
+	<data name="CommunityFix_SetupCertificate" xml:space="preserve">
     <value>安装证书</value>
   </data>
-  <data name="CommunityFix_StartProxy" xml:space="preserve">
+	<data name="CommunityFix_StartProxy" xml:space="preserve">
     <value>一键加速</value>
   </data>
-  <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
+	<data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
     <value>加速服务启动失败，{0} 端口被占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式</value>
   </data>
-  <data name="CommunityFix_StartProxyFaild443___" xml:space="preserve">
+	<data name="CommunityFix_StartProxyFaild443___" xml:space="preserve">
     <value>加速服务启动失败，{0} 端口被 {1}({2}) 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式</value>
   </data>
-  <data name="CommunityFix_ReadHosts_IOException" xml:space="preserve">
+	<data name="CommunityFix_ReadHosts_IOException" xml:space="preserve">
     <value>读取或还原文件时失败，因被其他进程占用，可能是其他不兼容的网络加速程序，请找到占用的进程将其关闭</value>
   </data>
-  <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
+	<data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>加速已启动成功</value>
   </data>
-  <data name="CommunityFix_DNSErrorNotify" xml:space="preserve">
+	<data name="CommunityFix_DNSErrorNotify" xml:space="preserve">
     <value>DNS 解析遇到异常，请尝试在代理设置中修改其它 DNS 再次尝试</value>
   </data>
-  <data name="CommunityFix_StopProxy" xml:space="preserve">
+	<data name="CommunityFix_StopProxy" xml:space="preserve">
     <value>停止加速</value>
   </data>
-  <data name="CommunityFix_Services" xml:space="preserve">
+	<data name="CommunityFix_Services" xml:space="preserve">
     <value>加速服务</value>
   </data>
-  <data name="Close" xml:space="preserve">
+	<data name="Close" xml:space="preserve">
     <value>关闭</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
+	<data name="Confirm" xml:space="preserve">
     <value>确定</value>
   </data>
-  <data name="ConfirmImport" xml:space="preserve">
+	<data name="ConfirmImport" xml:space="preserve">
     <value>确认导入</value>
   </data>
-  <data name="Continue" xml:space="preserve">
+	<data name="Continue" xml:space="preserve">
     <value>继续</value>
   </data>
-  <data name="Copy" xml:space="preserve">
+	<data name="Copy" xml:space="preserve">
     <value>复制</value>
   </data>
-  <data name="Cut" xml:space="preserve">
+	<data name="Cut" xml:space="preserve">
     <value>剪切</value>
   </data>
-  <data name="Default" xml:space="preserve">
+	<data name="Default" xml:space="preserve">
     <value>默认</value>
   </data>
-  <data name="DelAccount" xml:space="preserve">
+	<data name="DelAccount" xml:space="preserve">
     <value>账号注销</value>
   </data>
-  <data name="Delete" xml:space="preserve">
+	<data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="Download" xml:space="preserve">
+	<data name="Download" xml:space="preserve">
     <value>下载</value>
   </data>
-  <data name="Download_ScriptError" xml:space="preserve">
+	<data name="Download_ScriptError" xml:space="preserve">
     <value>脚本下载错误请重试。</value>
   </data>
-  <data name="Download_ScriptOk" xml:space="preserve">
+	<data name="Download_ScriptOk" xml:space="preserve">
     <value>脚本安装成功</value>
   </data>
-  <data name="Edit" xml:space="preserve">
+	<data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
-  <data name="Email" xml:space="preserve">
+	<data name="Email" xml:space="preserve">
     <value>邮箱</value>
   </data>
-  <data name="EmailCode" xml:space="preserve">
+	<data name="EmailCode" xml:space="preserve">
     <value>邮箱验证代码</value>
   </data>
-  <data name="Encrypt" xml:space="preserve">
+	<data name="Encrypt" xml:space="preserve">
     <value>加密</value>
   </data>
-  <data name="Exit" xml:space="preserve">
+	<data name="Exit" xml:space="preserve">
     <value>退出</value>
   </data>
-  <data name="Export" xml:space="preserve">
+	<data name="Export" xml:space="preserve">
     <value>导出</value>
   </data>
-  <data name="GameList" xml:space="preserve">
+	<data name="GameList" xml:space="preserve">
     <value>库存游戏</value>
   </data>
-  <data name="GameList_IsEmpty" xml:space="preserve">
+	<data name="GameList_IsEmpty" xml:space="preserve">
     <value>没有获取到任何游戏数据</value>
   </data>
-  <data name="GameList_IsLoading" xml:space="preserve">
+	<data name="GameList_IsLoading" xml:space="preserve">
     <value>正在加载 ...</value>
   </data>
-  <data name="GameList_OnlyInstalled" xml:space="preserve">
+	<data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>仅显示已安装的游戏</value>
   </data>
-  <data name="GameList_OnlyCloudArchive" xml:space="preserve">
+	<data name="GameList_OnlyCloudArchive" xml:space="preserve">
     <value>仅显示支持 Steam 云存档的游戏</value>
   </data>
-  <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
+	<data name="GameList_RefreshGamesListSucess" xml:space="preserve">
     <value>刷新游戏列表完成</value>
   </data>
-  <data name="GameRelated" xml:space="preserve">
+	<data name="GameRelated" xml:space="preserve">
     <value>游戏工具</value>
   </data>
-  <data name="Gender" xml:space="preserve">
+	<data name="Gender" xml:space="preserve">
     <value>性别</value>
   </data>
-  <data name="Hosts_Exists" xml:space="preserve">
+	<data name="Hosts_Exists" xml:space="preserve">
     <value>写入的 Hosts 已经存在</value>
   </data>
-  <data name="Hosts_ReadError" xml:space="preserve">
+	<data name="Hosts_ReadError" xml:space="preserve">
     <value>读取 Hosts 文件时发生错误</value>
   </data>
-  <data name="Hosts_ReadSuccess" xml:space="preserve">
+	<data name="Hosts_ReadSuccess" xml:space="preserve">
     <value>读取 Hosts 成功</value>
   </data>
-  <data name="Hosts_UpdateSuccess" xml:space="preserve">
+	<data name="Hosts_UpdateSuccess" xml:space="preserve">
     <value>写入 Hosts 成功</value>
   </data>
-  <data name="Hosts_WirteError" xml:space="preserve">
+	<data name="Hosts_WirteError" xml:space="preserve">
     <value>写入 Hosts 时发生错误</value>
   </data>
-  <data name="Import" xml:space="preserve">
+	<data name="Import" xml:space="preserve">
     <value>导入</value>
   </data>
-  <data name="Loading" xml:space="preserve">
+	<data name="Loading" xml:space="preserve">
     <value>加载中…</value>
   </data>
-  <data name="LocalAuth" xml:space="preserve">
+	<data name="LocalAuth" xml:space="preserve">
     <value>本地令牌</value>
   </data>
-  <data name="LocalAuth_RemoveAuth" xml:space="preserve">
+	<data name="LocalAuth_RemoveAuth" xml:space="preserve">
     <value>解绑令牌</value>
   </data>
-  <data name="LocalAuth_AddAuth" xml:space="preserve">
+	<data name="LocalAuth_AddAuth" xml:space="preserve">
     <value>导入令牌</value>
   </data>
-  <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
+	<data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
     <value>令牌导入完成</value>
   </data>
-  <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
+	<data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
     <value>正在同步令牌服务器时钟</value>
   </data>
-  <data name="LocalAuth_AddAuth_PartSuccess" xml:space="preserve">
+	<data name="LocalAuth_AddAuth_PartSuccess" xml:space="preserve">
     <value>部分数据导入成功</value>
   </data>
-  <data name="LocalAuth_AuthTrade" xml:space="preserve">
+	<data name="LocalAuth_AuthTrade" xml:space="preserve">
     <value>确认交易</value>
   </data>
-  <data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
+	<data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
     <value>确认交易</value>
   </data>
-  <data name="LocalAuth_AuthTrade_ConfirmError" xml:space="preserve">
+	<data name="LocalAuth_AuthTrade_ConfirmError" xml:space="preserve">
     <value>无法确认此交易</value>
   </data>
-  <data name="LocalAuth_AuthTrade_ConfirmTip_" xml:space="preserve">
+	<data name="LocalAuth_AuthTrade_ConfirmTip_" xml:space="preserve">
     <value>正在{0}所有交易中...</value>
     <comment>Comment=同意 or 取消;</comment>
   </data>
-  <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
+	<data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
     <value>您没有权限查看确认信息. 是否启用了家庭监护功能？暂时不支持管理启用家庭监护功能后的交易确认。</value>
   </data>
-  <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
+	<data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
     <value>登录状态已失效请尝试重新登录</value>
   </data>
-  <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
+	<data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
     <value>正在获取最新的交易报价信息…</value>
   </data>
-  <data name="LocalAuth_AuthTrade_MessageBoxTip_" xml:space="preserve">
+	<data name="LocalAuth_AuthTrade_MessageBoxTip_" xml:space="preserve">
     <value>这将{0}您当前所有的交易报价
 确定要继续吗?</value>
     <comment>Comment=同意 or 取消;</comment>
   </data>
-  <data name="LocalAuth_CloudSync" xml:space="preserve">
+	<data name="LocalAuth_CloudSync" xml:space="preserve">
     <value>令牌云同步</value>
   </data>
-  <data name="LocalAuth_Copy" xml:space="preserve">
+	<data name="LocalAuth_Copy" xml:space="preserve">
     <value>复制令牌</value>
   </data>
-  <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
+	<data name="LocalAuth_CopyAuthTip" xml:space="preserve">
     <value>已复制令牌 </value>
   </data>
-  <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
+	<data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
     <value>确定要永久删除此令牌吗，这只是删除令牌文件数据，并不会解绑你的账号和令牌，
     如果需要解绑令牌请到 https://store.steampowered.com/twofactor/manage 解绑后在删除</value>
   </data>
-  <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
+	<data name="LocalAuth_EmailCodeTip" xml:space="preserve">
     <value>请输入发送到您电子邮件地址的代码，以批准从新设备进行访问</value>
   </data>
-  <data name="LocalAuth_ExportAuth" xml:space="preserve">
+	<data name="LocalAuth_ExportAuth" xml:space="preserve">
     <value>导出令牌</value>
   </data>
-  <data name="LocalAuth_ExportAuth_Error_" xml:space="preserve">
+	<data name="LocalAuth_ExportAuth_Error_" xml:space="preserve">
     <value>导入数据出现错误，错误代码：{0}</value>
   </data>
-  <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
+	<data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>选择路径</value>
   </data>
-  <data name="LocalAuth_NoAuthTip" xml:space="preserve">
+	<data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>你还没有导入任何令牌，请先新增令牌</value>
   </data>
-  <data name="LocalAuth_PasswordRequired" xml:space="preserve">
+	<data name="LocalAuth_PasswordRequired" xml:space="preserve">
     <value>需要解密才能继续</value>
   </data>
-  <data name="LocalAuth_PasswordRequired1" xml:space="preserve">
+	<data name="LocalAuth_PasswordRequired1" xml:space="preserve">
     <value>请输入密码</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth" xml:space="preserve">
     <value>令牌加密</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
     <value>自定义密码保护</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
     <value>*注意：你的令牌将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
     <value>非常建议您使用密码保护您的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但您的令牌数据会有被盗取的风险！！！</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
     <value>令牌仅在这台电脑上可解密</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
     <value>你也可以使用系统内置的账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装系统或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
     <value>自定义密码</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_PasswordError" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_PasswordError" xml:space="preserve">
     <value>密码错误</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_PasswordErrorTip" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_PasswordErrorTip" xml:space="preserve">
     <value>请输入正确的密码</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_PathError" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_PathError" xml:space="preserve">
     <value>文件路径不正确</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
+	<data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
     <value>再次输入密码</value>
   </data>
-  <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
+	<data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
     <value>查看令牌详细数据</value>
   </data>
-  <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
+	<data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
     <value>Steam 身份验证器的完整数据，可在导入不同软件时使用</value>
   </data>
-  <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
+	<data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
     <value>在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方</value>
   </data>
-  <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
+	<data name="LocalAuth_SMSCodeTip" xml:space="preserve">
     <value>还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。</value>
   </data>
-  <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
+	<data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
     <value>你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可</value>
   </data>
-  <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
+	<data name="LocalAuth_SteamUser_Error" xml:space="preserve">
     <value>无法将添加身份验证器添加到您的帐户， 请稍后再试</value>
   </data>
-  <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
+	<data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
     <value>您的帐户似乎已添加了身份验证器，需要移除现有的身份验证器才可以通过账号导入</value>
   </data>
-  <data name="LocalAuth_SteamUUID" xml:space="preserve">
+	<data name="LocalAuth_SteamUUID" xml:space="preserve">
     <value>设备 ID(uuid)</value>
   </data>
-  <data name="Lock" xml:space="preserve">
+	<data name="Lock" xml:space="preserve">
     <value>锁定</value>
   </data>
-  <data name="Sleep" xml:space="preserve">
+	<data name="Sleep" xml:space="preserve">
     <value>睡眠</value>
   </data>
-  <data name="Hibernate" xml:space="preserve">
+	<data name="Hibernate" xml:space="preserve">
     <value>休眠</value>
   </data>
-  <data name="Shutdown" xml:space="preserve">
+	<data name="Shutdown" xml:space="preserve">
     <value>关机</value>
   </data>
-  <data name="Login" xml:space="preserve">
+	<data name="Login" xml:space="preserve">
     <value>登 录</value>
   </data>
-  <data name="LoginAndRegister" xml:space="preserve">
+	<data name="LoginAndRegister" xml:space="preserve">
     <value>登录 / 注册</value>
   </data>
-  <data name="Logining" xml:space="preserve">
+	<data name="Logining" xml:space="preserve">
     <value>正在登录中...</value>
   </data>
-  <data name="Logout" xml:space="preserve">
+	<data name="Logout" xml:space="preserve">
     <value>注销登录</value>
   </data>
-  <data name="UnixSudoPasswordTips" xml:space="preserve">
+	<data name="UnixSudoPasswordTips" xml:space="preserve">
     <value>请输入系统密码继续或者复制命令手动执行</value>
   </data>
-  <data name="Modify" xml:space="preserve">
+	<data name="Modify" xml:space="preserve">
     <value>修改</value>
   </data>
-  <data name="More" xml:space="preserve">
+	<data name="More" xml:space="preserve">
     <value>更多操作</value>
   </data>
-  <data name="MoveDown" xml:space="preserve">
+	<data name="MoveDown" xml:space="preserve">
     <value>下移</value>
   </data>
-  <data name="MoveUp" xml:space="preserve">
+	<data name="MoveUp" xml:space="preserve">
     <value>上移</value>
   </data>
-  <data name="My" xml:space="preserve">
+	<data name="My" xml:space="preserve">
     <value>我的</value>
   </data>
-  <data name="NickName" xml:space="preserve">
+	<data name="NickName" xml:space="preserve">
     <value>昵称</value>
   </data>
-  <data name="Paste" xml:space="preserve">
+	<data name="Paste" xml:space="preserve">
     <value>粘贴</value>
   </data>
-  <data name="PleaseEnterNickName" xml:space="preserve">
+	<data name="PleaseEnterNickName" xml:space="preserve">
     <value>请输入昵称</value>
   </data>
-  <data name="PleaseSelect" xml:space="preserve">
+	<data name="PleaseSelect" xml:space="preserve">
     <value>请选择</value>
   </data>
-  <data name="RecoveryCode" xml:space="preserve">
+	<data name="RecoveryCode" xml:space="preserve">
     <value>恢复代码</value>
   </data>
-  <data name="RecoveryCode_Remember" xml:space="preserve">
+	<data name="RecoveryCode_Remember" xml:space="preserve">
     <value>我已经写下了我的恢复代码</value>
   </data>
-  <data name="RecoveryCode_RememberTip" xml:space="preserve">
+	<data name="RecoveryCode_RememberTip" xml:space="preserve">
     <value>您的令牌已被添加到您的 Steam 账户上并已经成功导入 Watt Toolkit。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方</value>
   </data>
-  <data name="Refresh" xml:space="preserve">
+	<data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
-  <data name="RefreshList" xml:space="preserve">
+	<data name="RefreshList" xml:space="preserve">
     <value>刷新列表</value>
   </data>
-  <data name="RefreshOK" xml:space="preserve">
+	<data name="RefreshOK" xml:space="preserve">
     <value>刷新成功</value>
   </data>
-  <data name="RefreshAvatar" xml:space="preserve">
+	<data name="RefreshAvatar" xml:space="preserve">
     <value>刷新头像</value>
   </data>
-  <data name="SaveChanges" xml:space="preserve">
+	<data name="SaveChanges" xml:space="preserve">
     <value>保存修改</value>
   </data>
-  <data name="ScriptConfig" xml:space="preserve">
+	<data name="ScriptConfig" xml:space="preserve">
     <value>脚本配置</value>
   </data>
-  <data name="ScriptShop_GetTableError" xml:space="preserve">
+	<data name="ScriptShop_GetTableError" xml:space="preserve">
     <value>获取脚本工坊列表失败</value>
   </data>
-  <data name="ScriptStore" xml:space="preserve">
+	<data name="ScriptStore" xml:space="preserve">
     <value>脚本工坊</value>
   </data>
-  <data name="Script_AutoUpdate" xml:space="preserve">
+	<data name="Script_AutoUpdate" xml:space="preserve">
     <value>启用脚本自动检查更新</value>
   </data>
-  <data name="Script_Edit" xml:space="preserve">
+	<data name="Script_Edit" xml:space="preserve">
     <value>编辑脚本</value>
   </data>
-  <data name="Script_FileError_" xml:space="preserve">
+	<data name="Script_FileError_" xml:space="preserve">
     <value>找不到文件，请检查路径 {0}</value>
   </data>
-  <data name="Script_Home" xml:space="preserve">
+	<data name="Script_Home" xml:space="preserve">
     <value>脚本主页</value>
   </data>
-  <data name="Script_Refresh" xml:space="preserve">
+	<data name="Script_Refresh" xml:space="preserve">
     <value>刷新缓存</value>
   </data>
-  <data name="Script_ReplaceTips" xml:space="preserve">
+	<data name="Script_ReplaceTips" xml:space="preserve">
     <value>已安装此脚本确定替换已安装的版本？</value>
   </data>
-  <data name="Script_Update" xml:space="preserve">
+	<data name="Script_Update" xml:space="preserve">
     <value>更新脚本</value>
   </data>
-  <data name="Script_UpdateError" xml:space="preserve">
+	<data name="Script_UpdateError" xml:space="preserve">
     <value>获取脚本新版本信息失败</value>
   </data>
-  <data name="Search" xml:space="preserve">
+	<data name="Search" xml:space="preserve">
     <value>搜索…</value>
   </data>
-  <data name="Settings" xml:space="preserve">
+	<data name="Settings" xml:space="preserve">
     <value>设置</value>
   </data>
-  <data name="Settings_Plugin" xml:space="preserve">
+	<data name="Settings_Plugin" xml:space="preserve">
     <value>插件设置</value>
   </data>
-  <data name="Settings_Auth" xml:space="preserve">
+	<data name="Settings_Auth" xml:space="preserve">
     <value>令牌设置</value>
   </data>
-  <data name="Settings_Fonts" xml:space="preserve">
+	<data name="Settings_Fonts" xml:space="preserve">
     <value>字体</value>
   </data>
-  <data name="Settings_General" xml:space="preserve">
+	<data name="Settings_General" xml:space="preserve">
     <value>通用设置</value>
   </data>
-  <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
+	<data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
     <value>自动检查更新</value>
   </data>
-  <data name="Settings_General_EnableTrayIcon" xml:space="preserve">
+	<data name="Settings_General_EnableTrayIcon" xml:space="preserve">
     <value>启用托盘图标</value>
   </data>
-  <data name="Settings_General_EnableTrayIcon_Tip" xml:space="preserve">
+	<data name="Settings_General_EnableTrayIcon_Tip" xml:space="preserve">
     <value>禁用此选项时关闭主窗口将直接退出程序</value>
   </data>
-  <data name="Settings_General_RuningMinimize" xml:space="preserve">
+	<data name="Settings_General_RuningMinimize" xml:space="preserve">
     <value>启动时最小化到托盘</value>
   </data>
-  <data name="Settings_General_StartAutoRun" xml:space="preserve">
+	<data name="Settings_General_StartAutoRun" xml:space="preserve">
     <value>开机自启动</value>
   </data>
-  <data name="Settings_Language" xml:space="preserve">
+	<data name="Settings_Language" xml:space="preserve">
     <value>语言</value>
   </data>
-  <data name="Settings_Steam" xml:space="preserve">
+	<data name="Settings_Steam" xml:space="preserve">
     <value>Steam 设置</value>
   </data>
-  <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
+	<data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
     <value>启动时自动运行 Steam</value>
   </data>
-  <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
+	<data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
     <value>Steam 启动时不检查更新</value>
   </data>
-  <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
+	<data name="Settings_Steam_RuningMinimize" xml:space="preserve">
     <value>Steam 启动时最小化到托盘</value>
   </data>
-  <data name="Settings_Steam_RunSteamChina" xml:space="preserve">
+	<data name="Settings_Steam_RunSteamChina" xml:space="preserve">
     <value>Steam 启动时模拟为蒸汽平台（Steam 国服）启动</value>
   </data>
-  <data name="Settings_Steam_RuningAdmin" xml:space="preserve">
+	<data name="Settings_Steam_RuningAdmin" xml:space="preserve">
     <value>以管理员权限运行 Steam</value>
   </data>
-  <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
+	<data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
     <value>Steam 启动参数</value>
   </data>
-  <data name="Settings_Theme" xml:space="preserve">
+	<data name="Settings_Theme" xml:space="preserve">
     <value>主题</value>
   </data>
-  <data name="Settings_ThemeAccent" xml:space="preserve">
+	<data name="Settings_ThemeAccent" xml:space="preserve">
     <value>主题色</value>
   </data>
-  <data name="Settings_UI_Custom" xml:space="preserve">
+	<data name="Settings_UI_Custom" xml:space="preserve">
     <value>自定义</value>
   </data>
-  <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
+	<data name="Settings_UI_EnableFilletUI" xml:space="preserve">
     <value>启用圆角界面</value>
   </data>
-  <data name="Settings_UI" xml:space="preserve">
+	<data name="Settings_UI" xml:space="preserve">
     <value>界面设置</value>
   </data>
-  <data name="Settings_UI_BackgroundOpacity" xml:space="preserve">
+	<data name="Settings_UI_BackgroundOpacity" xml:space="preserve">
     <value>背景不透明度</value>
   </data>
-  <data name="Settings_UI_BackgroundImageOpacity" xml:space="preserve">
+	<data name="Settings_UI_BackgroundImageOpacity" xml:space="preserve">
     <value>背景图片不透明度</value>
   </data>
-  <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
+	<data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
     <value>使用动态桌面背景</value>
   </data>
-  <data name="Settings_UI_EnableDesktopBackground_Error_" xml:space="preserve">
+	<data name="Settings_UI_EnableDesktopBackground_Error_" xml:space="preserve">
     <value>不支持在背景透明材质为 {0} 时启用此功能</value>
   </data>
-  <data name="Settings_UI_Dark" xml:space="preserve">
+	<data name="Settings_UI_Dark" xml:space="preserve">
     <value>深色</value>
   </data>
-  <data name="Settings_UI_Light" xml:space="preserve">
+	<data name="Settings_UI_Light" xml:space="preserve">
     <value>浅色</value>
   </data>
-  <data name="Settings_UI_HighContrast" xml:space="preserve">
+	<data name="Settings_UI_HighContrast" xml:space="preserve">
     <value>高对比度</value>
   </data>
-  <data name="Settings_UI_SystemDefault" xml:space="preserve">
+	<data name="Settings_UI_SystemDefault" xml:space="preserve">
     <value>跟随系统</value>
   </data>
-  <data name="SignOut" xml:space="preserve">
+	<data name="SignOut" xml:space="preserve">
     <value>退出登录</value>
   </data>
-  <data name="SMSCode" xml:space="preserve">
+	<data name="SMSCode" xml:space="preserve">
     <value>短信验证代码</value>
   </data>
-  <data name="StartUpdate" xml:space="preserve">
+	<data name="StartUpdate" xml:space="preserve">
     <value>开始更新</value>
   </data>
-  <data name="SteamAccount" xml:space="preserve">
+	<data name="SteamAccount" xml:space="preserve">
     <value>Steam 账号</value>
   </data>
-  <data name="Steam_ImageCodeTip" xml:space="preserve">
+	<data name="Steam_ImageCodeTip" xml:space="preserve">
     <value>输入图中验证码</value>
   </data>
-  <data name="Steam_ImageCodeShowError" xml:space="preserve">
+	<data name="Steam_ImageCodeShowError" xml:space="preserve">
     <value>无法显示图片验证码？</value>
   </data>
-  <data name="Steam_Password" xml:space="preserve">
+	<data name="Steam_Password" xml:space="preserve">
     <value>Steam 密码</value>
   </data>
-  <data name="Steam_User" xml:space="preserve">
+	<data name="Steam_User" xml:space="preserve">
     <value>Steam 用户名</value>
   </data>
-  <data name="Steam_UserLoginTip" xml:space="preserve">
+	<data name="Steam_UserLoginTip" xml:space="preserve">
     <value>登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。
 (如果没有开 Steam 网络加速会导致无法登录成功)</value>
   </data>
-  <data name="Success_" xml:space="preserve">
+	<data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
   </data>
-  <data name="Toolbox" xml:space="preserve">
+	<data name="Toolbox" xml:space="preserve">
     <value>工具箱</value>
   </data>
-  <data name="Top" xml:space="preserve">
+	<data name="Top" xml:space="preserve">
     <value>置顶</value>
   </data>
-  <data name="Unbound" xml:space="preserve">
+	<data name="Unbound" xml:space="preserve">
     <value>未绑定</value>
   </data>
-  <data name="Unbundling" xml:space="preserve">
+	<data name="Unbundling" xml:space="preserve">
     <value>解绑</value>
   </data>
-  <data name="Up" xml:space="preserve">
+	<data name="Up" xml:space="preserve">
     <value>上移</value>
   </data>
-  <data name="UpdateContent" xml:space="preserve">
+	<data name="UpdateContent" xml:space="preserve">
     <value>更新内容</value>
   </data>
-  <data name="UserChange_BtnTootlip" xml:space="preserve">
+	<data name="UserChange_BtnTootlip" xml:space="preserve">
     <value>按下此按钮将重启 Steam 并以该账号登录</value>
   </data>
-  <data name="UserChange_LoginNewAccount" xml:space="preserve">
+	<data name="UserChange_LoginNewAccount" xml:space="preserve">
     <value>登录新账号</value>
   </data>
-  <data name="UserChange_RecentLogin" xml:space="preserve">
+	<data name="UserChange_RecentLogin" xml:space="preserve">
     <value>最近登录</value>
   </data>
-  <data name="UserFastChange" xml:space="preserve">
+	<data name="UserFastChange" xml:space="preserve">
     <value>账号切换</value>
   </data>
-  <data name="UserProfile" xml:space="preserve">
+	<data name="UserProfile" xml:space="preserve">
     <value>个人资料</value>
   </data>
-  <data name="User_AccountBind" xml:space="preserve">
+	<data name="User_AccountBind" xml:space="preserve">
     <value>账号绑定</value>
   </data>
-  <data name="User_Agreement" xml:space="preserve">
+	<data name="User_Agreement" xml:space="preserve">
     <value>用户协议</value>
   </data>
-  <data name="User_FastLogin" xml:space="preserve">
+	<data name="User_FastLogin" xml:space="preserve">
     <value>快速登录</value>
   </data>
-  <data name="User_FastLoginTip" xml:space="preserve">
+	<data name="User_FastLoginTip" xml:space="preserve">
     <value>选择如何登录您的 Watt Toolkit 帐户</value>
   </data>
-  <data name="User_GetSMSCode" xml:space="preserve">
+	<data name="User_GetSMSCode" xml:space="preserve">
     <value>获取验证码</value>
   </data>
-  <data name="User_Login" xml:space="preserve">
+	<data name="User_Login" xml:space="preserve">
     <value>登录</value>
   </data>
-  <data name="User_UnLogin" xml:space="preserve">
+	<data name="User_UnLogin" xml:space="preserve">
     <value>未登录</value>
   </data>
-  <data name="User_LoginCodeTimeLimitTip_" xml:space="preserve">
+	<data name="User_LoginCodeTimeLimitTip_" xml:space="preserve">
     <value>重新获取({0})</value>
     <comment>Comment=短信验证码倒计时;</comment>
   </data>
-  <data name="User_LoginError" xml:space="preserve">
+	<data name="User_LoginError" xml:space="preserve">
     <value>账号或密码错误</value>
   </data>
-  <data name="User_LoginError_CodeImage" xml:space="preserve">
+	<data name="User_LoginError_CodeImage" xml:space="preserve">
     <value>请输入图片验证码</value>
   </data>
-  <data name="User_LoginError_Null" xml:space="preserve">
+	<data name="User_LoginError_Null" xml:space="preserve">
     <value>请输入您的账号和密码</value>
   </data>
-  <data name="User_NewPhone" xml:space="preserve">
+	<data name="User_NewPhone" xml:space="preserve">
     <value>新手机号码</value>
   </data>
-  <data name="User_Phone" xml:space="preserve">
+	<data name="User_Phone" xml:space="preserve">
     <value>手机号码</value>
   </data>
-  <data name="User_PhoneLogin" xml:space="preserve">
+	<data name="User_PhoneLogin" xml:space="preserve">
     <value>手机号登录</value>
   </data>
-  <data name="User_Privacy" xml:space="preserve">
+	<data name="User_Privacy" xml:space="preserve">
     <value>隐私政策</value>
   </data>
-  <data name="User_QQLogin" xml:space="preserve">
+	<data name="User_QQLogin" xml:space="preserve">
     <value>使用 QQ 登录</value>
   </data>
-  <data name="User_Register" xml:space="preserve">
+	<data name="User_Register" xml:space="preserve">
     <value>注册</value>
   </data>
-  <data name="User_RegisterAgreed" xml:space="preserve">
+	<data name="User_RegisterAgreed" xml:space="preserve">
     <value>注册即代表您已阅读并同意</value>
   </data>
-  <data name="User_SignOutTip" xml:space="preserve">
+	<data name="User_SignOutTip" xml:space="preserve">
     <value>确定要登出 Watt Toolkit 账号吗?</value>
   </data>
-  <data name="User_SMSCode" xml:space="preserve">
+	<data name="User_SMSCode" xml:space="preserve">
     <value>短信验证码</value>
   </data>
-  <data name="User_SMSCode_Error" xml:space="preserve">
+	<data name="User_SMSCode_Error" xml:space="preserve">
     <value>请先获取验证码</value>
   </data>
-  <data name="User_UseExternalLoginChannel_" xml:space="preserve">
+	<data name="User_UseExternalLoginChannel_" xml:space="preserve">
     <value>使用 {0} 登录</value>
   </data>
-  <data name="User_UsePhoneNumLoginChannel" xml:space="preserve">
+	<data name="User_UsePhoneNumLoginChannel" xml:space="preserve">
     <value>使用手机号码登录</value>
   </data>
-  <data name="Warning" xml:space="preserve">
+	<data name="Warning" xml:space="preserve">
     <value>警告</value>
   </data>
-  <data name="Welcome" xml:space="preserve">
+	<data name="Welcome" xml:space="preserve">
     <value>起始页</value>
   </data>
-  <data name="EditName" xml:space="preserve">
+	<data name="EditName" xml:space="preserve">
     <value>修改名称</value>
   </data>
-  <data name="LocalAuth_Delete" xml:space="preserve">
+	<data name="LocalAuth_Delete" xml:space="preserve">
     <value>删除令牌</value>
   </data>
-  <data name="Cancelled" xml:space="preserve">
+	<data name="Cancelled" xml:space="preserve">
     <value>已取消</value>
   </data>
-  <data name="Confirmed" xml:space="preserve">
+	<data name="Confirmed" xml:space="preserve">
     <value>已确认</value>
   </data>
-  <data name="LocalAuth_LogoutTip" xml:space="preserve">
+	<data name="LocalAuth_LogoutTip" xml:space="preserve">
     <value>确定要注销当前令牌登录的账号信息吗？</value>
   </data>
-  <data name="AuthLocal_ExportToQRCodeTooLongErrorTip" xml:space="preserve">
+	<data name="AuthLocal_ExportToQRCodeTooLongErrorTip" xml:space="preserve">
     <value>数据长度超出二维码最大值，请尝试其他导出方式或单个导出</value>
   </data>
-  <data name="RememberChooseNotToAskAgain" xml:space="preserve">
+	<data name="RememberChooseNotToAskAgain" xml:space="preserve">
     <value>不再提醒</value>
   </data>
-  <data name="Downloaded" xml:space="preserve">
+	<data name="Downloaded" xml:space="preserve">
     <value>已下载</value>
   </data>
-  <data name="Installed" xml:space="preserve">
+	<data name="Installed" xml:space="preserve">
     <value>已安装</value>
   </data>
-  <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
+	<data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
     <value>Steam 游戏已下载完成
 系统将在 {0} 秒后{1}</value>
     <comment>Comment={0}倒计时时间 {1}执行操作;</comment>
   </data>
-  <data name="Settings_General_UseGPURendering" xml:space="preserve">
+	<data name="Settings_General_UseGPURendering" xml:space="preserve">
     <value>使用 GPU 渲染界面（硬件加速）</value>
   </data>
-  <data name="Settings_RestartEffective" xml:space="preserve">
+	<data name="Settings_RestartEffective" xml:space="preserve">
     <value>*需重启软件后生效</value>
   </data>
-  <data name="Settings_General_UpdateChannel" xml:space="preserve">
+	<data name="Settings_General_UpdateChannel" xml:space="preserve">
     <value>下载更新渠道</value>
   </data>
-  <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
+	<data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
     <value>打开 {0} 文件夹</value>
     <comment>Comment={0}文件夹名称英文字母组成;</comment>
   </data>
-  <data name="Settings_General_CacheSize" xml:space="preserve">
+	<data name="Settings_General_CacheSize" xml:space="preserve">
     <value>缓存文件已占用 {0}</value>
     <comment>Comment={0}占用体积大小;</comment>
   </data>
-  <data name="Settings_General_LogSize" xml:space="preserve">
+	<data name="Settings_General_LogSize" xml:space="preserve">
     <value>日志文件已占用 {0}</value>
     <comment>Comment={0}占用体积大小;</comment>
   </data>
-  <data name="Settings_General_StorageSpace" xml:space="preserve">
+	<data name="Settings_General_StorageSpace" xml:space="preserve">
     <value>存储空间</value>
   </data>
-  <data name="Settings_General_Calcing" xml:space="preserve">
+	<data name="Settings_General_Calcing" xml:space="preserve">
     <value>计算中…</value>
   </data>
-  <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
+	<data name="SetBootAutoStartTrueFail_" xml:space="preserve">
     <value>启用开机自启动失败，原因：{0}</value>
   </data>
-  <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
+	<data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
     <value>当 Steam 客户端登录时弹出通知</value>
   </data>
-  <data name="Steam_CheckStarted" xml:space="preserve">
+	<data name="Steam_CheckStarted" xml:space="preserve">
     <value>检测到启动：</value>
   </data>
-  <data name="Steam_CurrentIPCountry" xml:space="preserve">
+	<data name="Steam_CurrentIPCountry" xml:space="preserve">
     <value>Steam 客户端登录区域：</value>
   </data>
-  <data name="Steam_CurrentUser" xml:space="preserve">
+	<data name="Steam_CurrentUser" xml:space="preserve">
     <value>Steam 登录用户：</value>
   </data>
-  <data name="Steam_ServerTime" xml:space="preserve">
+	<data name="Steam_ServerTime" xml:space="preserve">
     <value>Steam 服务端时间：</value>
   </data>
-  <data name="Steam_SteamChina" xml:space="preserve">
+	<data name="Steam_SteamChina" xml:space="preserve">
     <value>Steam 国服</value>
   </data>
-  <data name="Steam_SteamWorld" xml:space="preserve">
+	<data name="Steam_SteamWorld" xml:space="preserve">
     <value>Steam 国际服</value>
   </data>
-  <data name="User_WaitFastLoginTip" xml:space="preserve">
+	<data name="User_WaitFastLoginTip" xml:space="preserve">
     <value>我们已使用您的系统浏览器打开快速登录窗口，请进入该页面并登录，保持该窗口打开</value>
   </data>
-  <data name="Retry" xml:space="preserve">
+	<data name="Retry" xml:space="preserve">
     <value>重试</value>
   </data>
-  <data name="ScanQRCode" xml:space="preserve">
+	<data name="ScanQRCode" xml:space="preserve">
     <value>扫描二维码</value>
   </data>
-  <data name="SelectAll" xml:space="preserve">
+	<data name="SelectAll" xml:space="preserve">
     <value>全选</value>
   </data>
-  <data name="Helper" xml:space="preserve">
+	<data name="Helper" xml:space="preserve">
     <value>帮助</value>
   </data>
-  <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
+	<data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
     <value>自定义背景图片</value>
   </data>
-  <data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
+	<data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
     <value>选择的图片格式不正确</value>
   </data>
-  <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
+	<data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
     <value>窗口背景透明材质</value>
   </data>
-  <data name="Reset" xml:space="preserve">
+	<data name="Reset" xml:space="preserve">
     <value>重置</value>
   </data>
-  <data name="Settings_UI_SelectImage" xml:space="preserve">
+	<data name="Settings_UI_SelectImage" xml:space="preserve">
     <value>选择图片</value>
   </data>
-  <data name="Login_ManualLogin" xml:space="preserve">
+	<data name="Login_ManualLogin" xml:space="preserve">
     <value>手动登录</value>
   </data>
-  <data name="LoginInputManualLoginToken" xml:space="preserve">
+	<data name="LoginInputManualLoginToken" xml:space="preserve">
     <value>请粘贴网页复制的内容</value>
   </data>
-  <data name="Login_ManualLoginEmpt" xml:space="preserve">
+	<data name="Login_ManualLoginEmpt" xml:space="preserve">
     <value>输入的内容不能为空</value>
   </data>
-  <data name="Login_WebSocketOnMessage" xml:space="preserve">
+	<data name="Login_WebSocketOnMessage" xml:space="preserve">
     <value>数据解密失败，请确定数据正确重试。</value>
   </data>
-  <data name="CommunityFix_ProxySettings" xml:space="preserve">
+	<data name="CommunityFix_ProxySettings" xml:space="preserve">
     <value>代理设置</value>
   </data>
-  <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
+	<data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
     <value>代理监听 IP 地址</value>
   </data>
-  <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
+	<data name="Settings_Proxy_CustomDNS" xml:space="preserve">
     <value>自定义代理 DNS</value>
   </data>
-  <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
+	<data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
     <value>代理仅启用脚本功能</value>
   </data>
-  <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
+	<data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
     <value>启用 Http 协议转发到 Https (需监听 80 端口)</value>
   </data>
-  <data name="Download_ScriptError_" xml:space="preserve">
+	<data name="Download_ScriptError_" xml:space="preserve">
     <value>脚本下载错误 {0}，请重试。</value>
   </data>
-  <data name="FixNetworkComplete" xml:space="preserve">
+	<data name="FixNetworkComplete" xml:space="preserve">
     <value>修复网络完成</value>
   </data>
-  <data name="CalcHashing3__" xml:space="preserve">
+	<data name="CalcHashing3__" xml:space="preserve">
     <value>正在校验（{1}/{2}）：{0}%</value>
   </data>
-  <data name="CalcHashing_" xml:space="preserve">
+	<data name="CalcHashing_" xml:space="preserve">
     <value>正在校验：{0}%</value>
   </data>
-  <data name="CreateCertificateFaild" xml:space="preserve">
+	<data name="CreateCertificateFaild" xml:space="preserve">
     <value>创建证书失败</value>
     <comment>Fail</comment>
   </data>
-  <data name="Decompressing_" xml:space="preserve">
+	<data name="Decompressing_" xml:space="preserve">
     <value>正在解压：{0}%</value>
   </data>
-  <data name="Downloading3__" xml:space="preserve">
+	<data name="Downloading3__" xml:space="preserve">
     <value>正在下载（{1}/{2}）：{0}%</value>
   </data>
-  <data name="Downloading_" xml:space="preserve">
+	<data name="Downloading_" xml:space="preserve">
     <value>正在下载：{0}%</value>
   </data>
-  <data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
+	<data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
     <value>文件属性为只读，修改失败，请按网页指南操作 {0}</value>
   </data>
-  <data name="FileAttributeIsReadOnlyModifyFailTryBakDelAgain" xml:space="preserve">
+	<data name="FileAttributeIsReadOnlyModifyFailTryBakDelAgain" xml:space="preserve">
     <value>文件属性为只读，修改失败，你可以尝试先备份该文件后删除再重试一遍</value>
   </data>
-  <data name="FileSizeTooLarge" xml:space="preserve">
+	<data name="FileSizeTooLarge" xml:space="preserve">
     <value>文件大小过大</value>
   </data>
-  <data name="FileUnauthorized" xml:space="preserve">
+	<data name="FileUnauthorized" xml:space="preserve">
     <value>文件访问被拒绝，没有权限</value>
   </data>
-  <data name="IsExistUpdateFalse" xml:space="preserve">
+	<data name="IsExistUpdateFalse" xml:space="preserve">
     <value>当前已是最新版本</value>
   </data>
-  <data name="NewVersionUpdate" xml:space="preserve">
+	<data name="NewVersionUpdate" xml:space="preserve">
     <value>新版本更新</value>
   </data>
-  <data name="NewVersionUpdateTitle__" xml:space="preserve">
+	<data name="NewVersionUpdateTitle__" xml:space="preserve">
     <value>{1} v{0} 版本更新</value>
   </data>
-  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
+	<data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
     <value>当有新公告时的提示通知</value>
   </data>
-  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+	<data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
     <value>当有新版本可用时的提示通知与下载新版本时的进度通知</value>
   </data>
-  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
+	<data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
     <value>我的消息</value>
   </data>
-  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
+	<data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
     <value>新版本通知</value>
   </data>
-  <data name="OperationHostsError_" xml:space="preserve">
+	<data name="OperationHostsError_" xml:space="preserve">
     <value>操作 Hosts 错误 {0}</value>
   </data>
-  <data name="Script_BuildDownloadError__" xml:space="preserve">
+	<data name="Script_BuildDownloadError__" xml:space="preserve">
     <value>脚本依赖下载出错：{0}
     {1}</value>
   </data>
-  <data name="Script_BuildError_" xml:space="preserve">
+	<data name="Script_BuildError_" xml:space="preserve">
     <value>脚本绑定出错：{0}</value>
   </data>
-  <data name="Script_CacheDeleteError_" xml:space="preserve">
+	<data name="Script_CacheDeleteError_" xml:space="preserve">
     <value>缓存文件删除失败：{0}</value>
   </data>
-  <data name="Script_DeleteError" xml:space="preserve">
+	<data name="Script_DeleteError" xml:space="preserve">
     <value>删除失败</value>
   </data>
-  <data name="Script_DeleteSuccess" xml:space="preserve">
+	<data name="Script_DeleteSuccess" xml:space="preserve">
     <value>删除成功</value>
   </data>
-  <data name="Script_FileDeleteError_" xml:space="preserve">
+	<data name="Script_FileDeleteError_" xml:space="preserve">
     <value>文件删除失败：{0}</value>
   </data>
-  <data name="Script_FileRepeat" xml:space="preserve">
+	<data name="Script_FileRepeat" xml:space="preserve">
     <value>脚本重复</value>
   </data>
-  <data name="Script_NoFile_" xml:space="preserve">
+	<data name="Script_NoFile_" xml:space="preserve">
     <value>脚本：{0} 文件丢失已删除</value>
   </data>
-  <data name="Script_NoFileDeleteError_" xml:space="preserve">
+	<data name="Script_NoFileDeleteError_" xml:space="preserve">
     <value>脚本：{0} 文件丢失，删除失败去尝试手动删除</value>
   </data>
-  <data name="Script_ReadFileError_" xml:space="preserve">
+	<data name="Script_ReadFileError_" xml:space="preserve">
     <value>脚本读取异常请检查语法是否有错误：{0}</value>
   </data>
-  <data name="Script_SaveDBError" xml:space="preserve">
+	<data name="Script_SaveDBError" xml:space="preserve">
     <value>保存数据出错请重试</value>
   </data>
-  <data name="Script_SaveDbSuccess" xml:space="preserve">
+	<data name="Script_SaveDbSuccess" xml:space="preserve">
     <value>添加成功</value>
   </data>
-  <data name="UpdateUnpackFail" xml:space="preserve">
+	<data name="UpdateUnpackFail" xml:space="preserve">
     <value>更新包解压失败，请打开官网手动更新</value>
   </data>
-  <data name="LocalAuth_ImportSuccessTip_" xml:space="preserve">
+	<data name="LocalAuth_ImportSuccessTip_" xml:space="preserve">
     <value>成功导入了 {0} 个文件</value>
   </data>
-  <data name="CopyToClipboard" xml:space="preserve">
+	<data name="CopyToClipboard" xml:space="preserve">
     <value>已复制到剪贴板</value>
   </data>
-  <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
+	<data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
     <value>下载更新包缓存文件验证失败，已删除缓存尝试重新下载，请等待</value>
   </data>
-  <data name="LinuxSudoTips" xml:space="preserve">
+	<data name="LinuxSudoTips" xml:space="preserve">
     <value>Linux 需要提供系统 root 密码才能正常使用该功能</value>
   </data>
-  <data name="ASF_Restarted" xml:space="preserve">
+	<data name="ASF_Restarted" xml:space="preserve">
     <value>ASF 服务已重启</value>
   </data>
-  <data name="ASF_Restarting" xml:space="preserve">
+	<data name="ASF_Restarting" xml:space="preserve">
     <value>正在重启 ASF 服务，请稍后...</value>
   </data>
-  <data name="ASF_Started" xml:space="preserve">
+	<data name="ASF_Started" xml:space="preserve">
     <value>ASF 服务已启动</value>
   </data>
-  <data name="ASF_Starting" xml:space="preserve">
+	<data name="ASF_Starting" xml:space="preserve">
     <value>正在启动 ASF 服务，请稍后...</value>
   </data>
-  <data name="ASF_Stoped" xml:space="preserve">
+	<data name="ASF_Stoped" xml:space="preserve">
     <value>ASF 服务已停止</value>
   </data>
-  <data name="ASF_Stoping" xml:space="preserve">
+	<data name="ASF_Stoping" xml:space="preserve">
     <value>正在停止 ASF 服务，请稍后...</value>
   </data>
-  <data name="Settings_System" xml:space="preserve">
+	<data name="Settings_System" xml:space="preserve">
     <value>系统设置</value>
   </data>
-  <data name="ExportedToPath_" xml:space="preserve">
+	<data name="ExportedToPath_" xml:space="preserve">
     <value>已导出到路径：{0}</value>
   </data>
-  <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
+	<data name="CommunityFix_OpenHostsDir" xml:space="preserve">
     <value>打开 Hosts 所在文件夹</value>
   </data>
-  <data name="CommunityFix_ResetHostsFile" xml:space="preserve">
+	<data name="CommunityFix_ResetHostsFile" xml:space="preserve">
     <value>重置 Hosts 文件</value>
   </data>
-  <data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
+	<data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
     <value>重置 Hosts 文件失败，错误：{0}</value>
   </data>
-  <data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
+	<data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
     <value>重置 Hosts 文件将删除所有数据并还原当前操作系统默认值，建议先编辑 Hosts 文件查看是否有需要的数据先进行备份后再执行此操作，是否确认重置？</value>
   </data>
-  <data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
+	<data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
     <value>Mark 出现多个 [{0}]，请尝试重置 Hosts 文件或编辑 Hosts 文件并删除多余的 Mark 后再试一次</value>
   </data>
-  <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
+	<data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
     <value>重置 Hosts 文件成功</value>
   </data>
-  <data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
+	<data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
     <value>当开启前台服务时的通知</value>
   </data>
-  <data name="NotificationChannelType_Description_Message" xml:space="preserve">
+	<data name="NotificationChannelType_Description_Message" xml:space="preserve">
     <value>当有提示消息时的通知</value>
   </data>
-  <data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
+	<data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
     <value>前台服务通知</value>
   </data>
-  <data name="NotificationChannelType_Name_Message" xml:space="preserve">
+	<data name="NotificationChannelType_Name_Message" xml:space="preserve">
     <value>消息通知</value>
   </data>
-  <data name="ASF_SetCryptKey" xml:space="preserve">
+	<data name="ASF_SetCryptKey" xml:space="preserve">
     <value>设置自定义密钥</value>
   </data>
-  <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
+	<data name="NewVersionUpdateNotifyText_" xml:space="preserve">
     <value>检测到新版本 v{0}</value>
   </data>
-  <data name="User_EngineOil" xml:space="preserve">
+	<data name="User_EngineOil" xml:space="preserve">
     <value>积分</value>
   </data>
-  <data name="User_Sponsor" xml:space="preserve">
+	<data name="User_Sponsor" xml:space="preserve">
     <value>赞助用户</value>
   </data>
-  <data name="User_SignIn_Ok" xml:space="preserve">
+	<data name="User_SignIn_Ok" xml:space="preserve">
     <value>签到成功</value>
   </data>
-  <data name="Save" xml:space="preserve">
+	<data name="Save" xml:space="preserve">
     <value>保存</value>
   </data>
-  <data name="ProxyMode_DNSIntercept" xml:space="preserve">
+	<data name="ProxyMode_DNSIntercept" xml:space="preserve">
     <value>DNS 驱动拦截模式</value>
   </data>
-  <data name="ProxyMode_Hosts" xml:space="preserve">
+	<data name="ProxyMode_Hosts" xml:space="preserve">
     <value>Hosts 代理模式</value>
   </data>
-  <data name="ProxyMode_ProxyOnly" xml:space="preserve">
+	<data name="ProxyMode_ProxyOnly" xml:space="preserve">
     <value>仅代理模式</value>
   </data>
-  <data name="ProxyMode_System" xml:space="preserve">
+	<data name="ProxyMode_System" xml:space="preserve">
     <value>系统代理模式</value>
   </data>
-  <data name="ProxyMode_VPN" xml:space="preserve">
+	<data name="ProxyMode_VPN" xml:space="preserve">
     <value>VPN 代理模式</value>
   </data>
-  <data name="MacSudoPasswordTips" xml:space="preserve">
+	<data name="MacSudoPasswordTips" xml:space="preserve">
     <value>请在弹出的控制台窗口中输入密码或者手动执行</value>
   </data>
-  <data name="CustomFilePicker_Tip" xml:space="preserve">
+	<data name="CustomFilePicker_Tip" xml:space="preserve">
     <value>选择文件</value>
   </data>
-  <data name="Info" xml:space="preserve">
+	<data name="Info" xml:space="preserve">
     <value>信息</value>
   </data>
-  <data name="Name" xml:space="preserve">
+	<data name="Name" xml:space="preserve">
     <value>名称</value>
   </data>
-  <data name="SortAs" xml:space="preserve">
+	<data name="SortAs" xml:space="preserve">
     <value>排序标题</value>
   </data>
-  <data name="Developer" xml:space="preserve">
+	<data name="Developer" xml:space="preserve">
     <value>开发商</value>
   </data>
-  <data name="Publisher" xml:space="preserve">
+	<data name="Publisher" xml:space="preserve">
     <value>发行商</value>
   </data>
-  <data name="SupportSystem" xml:space="preserve">
+	<data name="SupportSystem" xml:space="preserve">
     <value>支持的系统</value>
   </data>
-  <data name="Media" xml:space="preserve">
+	<data name="Media" xml:space="preserve">
     <value>媒体</value>
   </data>
-  <data name="Background" xml:space="preserve">
+	<data name="Background" xml:space="preserve">
     <value>背景</value>
   </data>
-  <data name="Icon" xml:space="preserve">
+	<data name="Icon" xml:space="preserve">
     <value>图标</value>
   </data>
-  <data name="LaunchItem" xml:space="preserve">
+	<data name="LaunchItem" xml:space="preserve">
     <value>启动项</value>
   </data>
-  <data name="Arguments" xml:space="preserve">
+	<data name="Arguments" xml:space="preserve">
     <value>启动参数</value>
   </data>
-  <data name="WorkingDir" xml:space="preserve">
+	<data name="WorkingDir" xml:space="preserve">
     <value>工作目录</value>
   </data>
-  <data name="SaveFile" xml:space="preserve">
+	<data name="SaveFile" xml:space="preserve">
     <value>存档</value>
   </data>
-  <data name="CloudMaxnumFiles" xml:space="preserve">
+	<data name="CloudMaxnumFiles" xml:space="preserve">
     <value>最大支持云存档数</value>
   </data>
-  <data name="FilePath" xml:space="preserve">
+	<data name="FilePath" xml:space="preserve">
     <value>文件路径</value>
   </data>
-  <data name="DirPath" xml:space="preserve">
+	<data name="DirPath" xml:space="preserve">
     <value>文件夹路径</value>
   </data>
-  <data name="ResetAll" xml:space="preserve">
+	<data name="ResetAll" xml:space="preserve">
     <value>重置全部</value>
   </data>
-  <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
+	<data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
     <value>保存 AppInfos 出现错误</value>
   </data>
-  <data name="Notice_Tray_Title" xml:space="preserve">
+	<data name="Notice_Tray_Title" xml:space="preserve">
     <value>消息提示</value>
   </data>
-  <data name="Notice_Tray_Content_" xml:space="preserve">
+	<data name="Notice_Tray_Content_" xml:space="preserve">
     <value>收到 {0} 条新消息，详情请在程序内我的消息处查看。</value>
   </data>
-  <data name="About_FormerName" xml:space="preserve">
+	<data name="About_FormerName" xml:space="preserve">
     <value>原名</value>
   </data>
-  <data name="FileSize" xml:space="preserve">
+	<data name="FileSize" xml:space="preserve">
     <value>文件大小</value>
   </data>
-  <data name="CreateTime" xml:space="preserve">
+	<data name="CreateTime" xml:space="preserve">
     <value>创建时间</value>
   </data>
-  <data name="FileNumber_" xml:space="preserve">
+	<data name="FileNumber_" xml:space="preserve">
     <value>{0} 个文件</value>
   </data>
-  <data name="UploadSuccess" xml:space="preserve">
+	<data name="UploadSuccess" xml:space="preserve">
     <value>上传成功</value>
   </data>
-  <data name="UploadFailed" xml:space="preserve">
+	<data name="UploadFailed" xml:space="preserve">
     <value>上传失败</value>
   </data>
-  <data name="Upload" xml:space="preserve">
+	<data name="Upload" xml:space="preserve">
     <value>上传</value>
   </data>
-  <data name="Advertisement" xml:space="preserve">
+	<data name="Advertisement" xml:space="preserve">
     <value>广告</value>
   </data>
-  <data name="Sign" xml:space="preserve">
+	<data name="Sign" xml:space="preserve">
     <value>签到</value>
   </data>
-  <data name="Signed" xml:space="preserve">
+	<data name="Signed" xml:space="preserve">
     <value>已签到</value>
   </data>
-  <data name="UploadFlow" xml:space="preserve">
+	<data name="UploadFlow" xml:space="preserve">
     <value>上行流量</value>
   </data>
-  <data name="DownloadFlow" xml:space="preserve">
+	<data name="DownloadFlow" xml:space="preserve">
     <value>下行流量</value>
   </data>
-  <data name="DownloadAndInstall" xml:space="preserve">
+	<data name="DownloadAndInstall" xml:space="preserve">
     <value>下载并安装</value>
   </data>
-  <data name="DownloadFailedPleaseTryAgainLater" xml:space="preserve">
+	<data name="DownloadFailedPleaseTryAgainLater" xml:space="preserve">
     <value>下载失败，请稍后重试</value>
   </data>
-  <data name="User_Level" xml:space="preserve">
+	<data name="User_Level" xml:space="preserve">
     <value>等级</value>
   </data>
-  <data name="User_Experience" xml:space="preserve">
+	<data name="User_Experience" xml:space="preserve">
     <value>经验值</value>
   </data>
-  <data name="Advertisement_NoShow" xml:space="preserve">
+	<data name="Advertisement_NoShow" xml:space="preserve">
     <value>关闭程序内所有广告</value>
   </data>
-  <data name="Advertisement_NoShow_Tip" xml:space="preserve">
+	<data name="Advertisement_NoShow_Tip" xml:space="preserve">
     <value>仅赞助用户可设置</value>
   </data>
-  <data name="AllTyoe" xml:space="preserve">
+	<data name="AllTyoe" xml:space="preserve">
     <value>全部类型</value>
   </data>
-  <data name="Error" xml:space="preserve">
+	<data name="Error" xml:space="preserve">
     <value>错误</value>
   </data>
-  <data name="Error_BaseDir_StartsWith_Temp" xml:space="preserve">
+	<data name="Error_BaseDir_StartsWith_Temp" xml:space="preserve">
     <value>不能在临时文件夹中运行此程序，请将所有文件复制或解压到其他路径后再启动程序</value>
   </data>
-  <data name="MacTrustRootCertificateTips" xml:space="preserve">
+	<data name="MacTrustRootCertificateTips" xml:space="preserve">
     <value>请在弹出的控制台窗口输入系统密码以安装信任证书，信任完成后点击确定按钮继续</value>
   </data>
-  <data name="Error_IncompatibleOS" xml:space="preserve">
+	<data name="Error_IncompatibleOS" xml:space="preserve">
     <value>此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本</value>
   </data>
-  <data name="CommunityFix_OnRunCatch" xml:space="preserve">
+	<data name="CommunityFix_OnRunCatch" xml:space="preserve">
     <value>启动网络加速失败</value>
   </data>
-  <data name="Settings_Steam_Path" xml:space="preserve">
+	<data name="Settings_Steam_Path" xml:space="preserve">
     <value>Steam 路径</value>
   </data>
-  <data name="Plugin_Version" xml:space="preserve">
+	<data name="Plugin_Version" xml:space="preserve">
     <value>版本号：</value>
   </data>
-  <data name="CommunityFix_SetAsSystemPACProxyFail" xml:space="preserve">
+	<data name="CommunityFix_SetAsSystemPACProxyFail" xml:space="preserve">
     <value>开启 PAC 代理失败</value>
   </data>
-  <data name="CommunityFix_SetAsSystemProxyFail" xml:space="preserve">
+	<data name="CommunityFix_SetAsSystemProxyFail" xml:space="preserve">
     <value>开启系统代理失败</value>
   </data>
-  <data name="LocalAuth_DeleteAuthTip2" xml:space="preserve">
+	<data name="LocalAuth_DeleteAuthTip2" xml:space="preserve">
     <value>确定要永久删除此令牌吗，您将会彻底遗失此令牌数据。非常建议您「解绑令牌」后再进行此操作。</value>
   </data>
-  <data name="Plugin_Author" xml:space="preserve">
+	<data name="Plugin_Author" xml:space="preserve">
     <value>作者：{0}</value>
   </data>
-  <data name="Plugin_Store" xml:space="preserve">
+	<data name="Plugin_Store" xml:space="preserve">
     <value>插件商店</value>
   </data>
-  <data name="GameList_FindAppsText" xml:space="preserve">
+	<data name="GameList_FindAppsText" xml:space="preserve">
     <value>已找到 {0} 个应用</value>
   </data>
-  <data name="User_LoginUnexpectedPrompt" xml:space="preserve">
+	<data name="User_LoginUnexpectedPrompt" xml:space="preserve">
     <value>如果登录过程出现意外，按照网页提示进行</value>
   </data>
-  <data name="Error_PageFault" xml:space="preserve">
+	<data name="Error_PageFault" xml:space="preserve">
     <value>发生了一些错误，无法打开此页面</value>
   </data>
-  <data name="About_ThankSupport" xml:space="preserve">
+	<data name="About_ThankSupport" xml:space="preserve">
     <value>感谢支持</value>
   </data>
-  <data name="Debug_InstructionPlaceholder" xml:space="preserve">
+	<data name="Debug_InstructionPlaceholder" xml:space="preserve">
     <value>在此输入控制台指令</value>
   </data>
-  <data name="PictureZoom" xml:space="preserve">
+	<data name="PictureZoom" xml:space="preserve">
     <value>选择图片缩放方式</value>
   </data>
-  <data name="PreviewPictures" xml:space="preserve">
+	<data name="PreviewPictures" xml:space="preserve">
     <value>预览图片</value>
   </data>
-  <data name="SelectPicture" xml:space="preserve">
+	<data name="SelectPicture" xml:space="preserve">
     <value>选择一张照片</value>
   </data>
-  <data name="Settings_General_AppData" xml:space="preserve">
+	<data name="Settings_General_AppData" xml:space="preserve">
     <value>AppData 数据</value>
   </data>
-  <data name="Settings_General_CacheData" xml:space="preserve">
+	<data name="Settings_General_CacheData" xml:space="preserve">
     <value>Cache 数据</value>
   </data>
-  <data name="Settings_General_LogsData" xml:space="preserve">
+	<data name="Settings_General_LogsData" xml:space="preserve">
     <value>Logs 数据</value>
   </data>
-  <data name="Settings_Plugin_OnlyLoadOfficial" xml:space="preserve">
+	<data name="Settings_Plugin_OnlyLoadOfficial" xml:space="preserve">
     <value>仅加载官方插件</value>
   </data>
-  <data name="Settings_Plugin_OpenCacheFolder" xml:space="preserve">
+	<data name="Settings_Plugin_OpenCacheFolder" xml:space="preserve">
     <value>打开插件缓存文件夹</value>
   </data>
-  <data name="Settings_Plugin_OpenFolder" xml:space="preserve">
+	<data name="Settings_Plugin_OpenFolder" xml:space="preserve">
     <value>打开插件文件夹</value>
   </data>
-  <data name="Settings_Plugin_SafeMode" xml:space="preserve">
+	<data name="Settings_Plugin_SafeMode" xml:space="preserve">
     <value>安全模式</value>
   </data>
-  <data name="Settings_Plugin_WasInstalled" xml:space="preserve">
+	<data name="Settings_Plugin_WasInstalled" xml:space="preserve">
     <value>已安装插件</value>
   </data>
-  <data name="Settings_StartupAutoRun" xml:space="preserve">
+	<data name="Settings_StartupAutoRun" xml:space="preserve">
     <value>系统启动时程序自动运行</value>
   </data>
-  <data name="Settings_StartupNoShowMainWindow" xml:space="preserve">
+	<data name="Settings_StartupNoShowMainWindow" xml:space="preserve">
     <value>设置后程序启动时不再主动显示主窗口</value>
   </data>
-  <data name="Settings_Steam_AdminRunPrompt" xml:space="preserve">
+	<data name="Settings_Steam_AdminRunPrompt" xml:space="preserve">
     <value>Steam 默认不应该以管理员运行，但如果有特殊需求可以勾选此项</value>
   </data>
-  <data name="Settings_Steam_AutoPopupMessage" xml:space="preserve">
+	<data name="Settings_Steam_AutoPopupMessage" xml:space="preserve">
     <value>程序检测到 Steam 启动后自动弹出相关信息通知</value>
   </data>
-  <data name="Settings_Steam_DefaultNoShowMainWindow" xml:space="preserve">
+	<data name="Settings_Steam_DefaultNoShowMainWindow" xml:space="preserve">
     <value>设置后程序启动 Steam 时默认不弹出主窗口</value>
   </data>
-  <data name="Settings_Steam_NoAutoUpdate" xml:space="preserve">
+	<data name="Settings_Steam_NoAutoUpdate" xml:space="preserve">
     <value>设置此参数后程序启动 Steam 将不会在自动检查更新</value>
   </data>
-  <data name="Settings_UI_AccentColor" xml:space="preserve">
+	<data name="Settings_UI_AccentColor" xml:space="preserve">
     <value>设置程序中显示的强调色</value>
   </data>
-  <data name="Settings_UI_CustomColor" xml:space="preserve">
+	<data name="Settings_UI_CustomColor" xml:space="preserve">
     <value>自定义颜色</value>
   </data>
-  <data name="Settings_UI_DefaultFonts" xml:space="preserve">
+	<data name="Settings_UI_DefaultFonts" xml:space="preserve">
     <value>设置程序首选的字体</value>
   </data>
-  <data name="Settings_UI_DefaultLanguage" xml:space="preserve">
+	<data name="Settings_UI_DefaultLanguage" xml:space="preserve">
     <value>设置程序首选的显示语言</value>
   </data>
-  <data name="Settings_UI_PreviewColor" xml:space="preserve">
+	<data name="Settings_UI_PreviewColor" xml:space="preserve">
     <value>预览颜色</value>
   </data>
-  <data name="Settings_UI_ThemeStyle" xml:space="preserve">
+	<data name="Settings_UI_ThemeStyle" xml:space="preserve">
     <value>设置程序的主题风格</value>
   </data>
-  <data name="Settings_UI_WindowBackgroundStyle" xml:space="preserve">
+	<data name="Settings_UI_WindowBackgroundStyle" xml:space="preserve">
     <value>设置窗口背景透明效果和透明材质</value>
   </data>
-  <data name="AboutThisPlugin" xml:space="preserve">
+	<data name="AboutThisPlugin" xml:space="preserve">
     <value>关于此插件</value>
   </data>
-  <data name="Accelerator_OpenHostsDir" xml:space="preserve">
+	<data name="Accelerator_OpenHostsDir" xml:space="preserve">
     <value>打开 hosts 文件夹</value>
   </data>
-  <data name="AddPlatform" xml:space="preserve">
+	<data name="AddPlatform" xml:space="preserve">
     <value>添加平台</value>
   </data>
-  <data name="AdministratorStartup" xml:space="preserve">
+	<data name="AdministratorStartup" xml:space="preserve">
     <value>以管理员权限启动</value>
   </data>
-  <data name="AllPassed" xml:space="preserve">
+	<data name="AllPassed" xml:space="preserve">
     <value>全部通过</value>
   </data>
-  <data name="AuthImport" xml:space="preserve">
+	<data name="AuthImport" xml:space="preserve">
     <value>令牌导入</value>
   </data>
-  <data name="Auth_AddMachineValidation" xml:space="preserve">
+	<data name="Auth_AddMachineValidation" xml:space="preserve">
     <value>添加机器验证</value>
   </data>
-  <data name="Auth_AddPasswordProtect" xml:space="preserve">
+	<data name="Auth_AddPasswordProtect" xml:space="preserve">
     <value>添加密码保护</value>
   </data>
-  <data name="Auth_EditName" xml:space="preserve">
+	<data name="Auth_EditName" xml:space="preserve">
     <value>编辑令牌名字</value>
   </data>
-  <data name="Auth_EncryptionHelp" xml:space="preserve">
+	<data name="Auth_EncryptionHelp" xml:space="preserve">
     <value>加密帮助</value>
   </data>
-  <data name="Auth_ExportAll" xml:space="preserve">
+	<data name="Auth_ExportAll" xml:space="preserve">
     <value>导出全部令牌</value>
   </data>
-  <data name="Auth_ExportmaFile" xml:space="preserve">
+	<data name="Auth_ExportmaFile" xml:space="preserve">
     <value>导出为 maFile</value>
   </data>
-  <data name="Auth_ExportUsingPassword" xml:space="preserve">
+	<data name="Auth_ExportUsingPassword" xml:space="preserve">
     <value>导出时携带密码</value>
   </data>
-  <data name="Auth_FixedDisplay" xml:space="preserve">
+	<data name="Auth_FixedDisplay" xml:space="preserve">
     <value>固定展示</value>
   </data>
-  <data name="Auth_ImportCustomFile" xml:space="preserve">
+	<data name="Auth_ImportCustomFile" xml:space="preserve">
     <value>导入自文件</value>
   </data>
-  <data name="Auth_lock" xml:space="preserve">
+	<data name="Auth_lock" xml:space="preserve">
     <value>锁定令牌</value>
   </data>
-  <data name="Auth_OnlylocalCanDecrypt" xml:space="preserve">
+	<data name="Auth_OnlylocalCanDecrypt" xml:space="preserve">
     <value>仅本机可解密</value>
   </data>
-  <data name="Auth_PasswordProtectedVerifyFirst" xml:space="preserve">
+	<data name="Auth_PasswordProtectedVerifyFirst" xml:space="preserve">
     <value>您的令牌具有密码保护，请先进行密码验证</value>
   </data>
-  <data name="Auth_RemoveMachineValidation" xml:space="preserve">
+	<data name="Auth_RemoveMachineValidation" xml:space="preserve">
     <value>移除机器验证</value>
   </data>
-  <data name="Auth_RemovePasswordProtect" xml:space="preserve">
+	<data name="Auth_RemovePasswordProtect" xml:space="preserve">
     <value>移除密码保护</value>
   </data>
-  <data name="Auth_SteamLoginImport" xml:space="preserve">
+	<data name="Auth_SteamLoginImport" xml:space="preserve">
     <value>Steam 登陆导入</value>
   </data>
-  <data name="Auth_UniversalImport" xml:space="preserve">
+	<data name="Auth_UniversalImport" xml:space="preserve">
     <value>2FA 通用导入</value>
   </data>
-  <data name="Auth_Version" xml:space="preserve">
+	<data name="Auth_Version" xml:space="preserve">
     <value>版本号: 0.1</value>
   </data>
-  <data name="BindThirdPartyAccount" xml:space="preserve">
+	<data name="BindThirdPartyAccount" xml:space="preserve">
     <value>绑定第三方帐户</value>
   </data>
-  <data name="CancelAll" xml:space="preserve">
+	<data name="CancelAll" xml:space="preserve">
     <value>全部取消</value>
   </data>
-  <data name="ChangePassword" xml:space="preserve">
+	<data name="ChangePassword" xml:space="preserve">
     <value>修改密码</value>
   </data>
-  <data name="ConfirmTransaction" xml:space="preserve">
+	<data name="ConfirmTransaction" xml:space="preserve">
     <value>确认交易</value>
   </data>
-  <data name="DefaultExport" xml:space="preserve">
+	<data name="DefaultExport" xml:space="preserve">
     <value>默认导出</value>
   </data>
-  <data name="Depot" xml:space="preserve">
+	<data name="Depot" xml:space="preserve">
     <value>库</value>
   </data>
-  <data name="DisplayQRCode" xml:space="preserve">
+	<data name="DisplayQRCode" xml:space="preserve">
     <value>展示二维码</value>
   </data>
-  <data name="Enabled" xml:space="preserve">
+	<data name="Enabled" xml:space="preserve">
     <value>已启用</value>
   </data>
-  <data name="Error_AnswerIncorrect" xml:space="preserve">
+	<data name="Error_AnswerIncorrect" xml:space="preserve">
     <value>答案错误，请重试</value>
   </data>
-  <data name="Error_AuthProtectFailed_" xml:space="preserve">
+	<data name="Error_AuthProtectFailed_" xml:space="preserve">
     <value>令牌本机电脑保护 {0} 失败</value>
   </data>
-  <data name="Error_AuthUnbindFailed" xml:space="preserve">
+	<data name="Error_AuthUnbindFailed" xml:space="preserve">
     <value>解绑令牌失败</value>
   </data>
-  <data name="Error_CannotConnectGoogleServer" xml:space="preserve">
+	<data name="Error_CannotConnectGoogleServer" xml:space="preserve">
     <value>无法连接到 Google 服务器</value>
   </data>
-  <data name="Error_CannotConnectTokenVerificationServer" xml:space="preserve">
+	<data name="Error_CannotConnectTokenVerificationServer" xml:space="preserve">
     <value>无法连接到令牌验证服务器</value>
   </data>
-  <data name="Error_CannotFindAccountFile_" xml:space="preserve">
+	<data name="Error_CannotFindAccountFile_" xml:space="preserve">
     <value>无法找到 {0} 的账号文件，添加失败</value>
   </data>
-  <data name="Error_CloudAuthMaximumQuantity___" xml:space="preserve">
+	<data name="Error_CloudAuthMaximumQuantity___" xml:space="preserve">
     <value>云令牌已达数量上限 {0}，云端令牌数量 {0}，正在上传数量 {0}</value>
   </data>
-  <data name="Error_CopyFileFailed" xml:space="preserve">
+	<data name="Error_CopyFileFailed" xml:space="preserve">
     <value>复制文件失败！</value>
   </data>
-  <data name="Error_DataNotUnified" xml:space="preserve">
+	<data name="Error_DataNotUnified" xml:space="preserve">
     <value>同步失败，数据未统一</value>
   </data>
-  <data name="Error_DelCloudData" xml:space="preserve">
+	<data name="Error_DelCloudData" xml:space="preserve">
     <value>同步删除云端数据失败</value>
   </data>
-  <data name="Error_DelFileFailedRunning" xml:space="preserve">
+	<data name="Error_DelFileFailedRunning" xml:space="preserve">
     <value>无法删除某些文件（程序可能正在运行？）</value>
   </data>
-  <data name="Error_EndProcessFailed_" xml:space="preserve">
+	<data name="Error_EndProcessFailed_" xml:space="preserve">
     <value>结束 {0} 进程失败</value>
   </data>
-  <data name="Error_Exception_" xml:space="preserve">
+	<data name="Error_Exception_" xml:space="preserve">
     <value>异常：{0}</value>
   </data>
-  <data name="Error_FailedToSynchronizeAuth" xml:space="preserve">
+	<data name="Error_FailedToSynchronizeAuth" xml:space="preserve">
     <value>同步至云令牌失败</value>
   </data>
-  <data name="Error_IncorrectPlatformPathSelection_" xml:space="preserve">
+	<data name="Error_IncorrectPlatformPathSelection_" xml:space="preserve">
     <value>{0} 平台路径没有正确选择</value>
   </data>
-  <data name="Error_localAuthNotEmpty" xml:space="preserve">
+	<data name="Error_localAuthNotEmpty" xml:space="preserve">
     <value>localAuth 不应为空</value>
   </data>
-  <data name="Error_ModifyJsonFileFailed" xml:space="preserve">
+	<data name="Error_ModifyJsonFileFailed" xml:space="preserve">
     <value>修改 JSON 文件失败</value>
   </data>
-  <data name="Error_NotSupportedFileImport" xml:space="preserve">
+	<data name="Error_NotSupportedFileImport" xml:space="preserve">
     <value>不支持该文件类型的导入方式。</value>
   </data>
-  <data name="Error_OperateRegistryFilesFailed" xml:space="preserve">
+	<data name="Error_OperateRegistryFilesFailed" xml:space="preserve">
     <value>查找或读取已保存的注册表文件失败！</value>
   </data>
-  <data name="Error_PathFailedUnableSwitchAccount_" xml:space="preserve">
+	<data name="Error_PathFailedUnableSwitchAccount_" xml:space="preserve">
     <value>路径没有正确选择，{0} 平台账号切换功能无法使用</value>
   </data>
-  <data name="Error_PleaseEnterAnswer" xml:space="preserve">
+	<data name="Error_PleaseEnterAnswer" xml:space="preserve">
     <value>请输入安全问题答案</value>
   </data>
-  <data name="Error_PleaseEnterCode" xml:space="preserve">
+	<data name="Error_PleaseEnterCode" xml:space="preserve">
     <value>请输入验证码。</value>
   </data>
-  <data name="Error_PleaseEnterEmailCode" xml:space="preserve">
+	<data name="Error_PleaseEnterEmailCode" xml:space="preserve">
     <value>请输入邮箱验证码。</value>
   </data>
-  <data name="Error_PleaseEnterTelCode" xml:space="preserve">
+	<data name="Error_PleaseEnterTelCode" xml:space="preserve">
     <value>请输入手机验证码。</value>
   </data>
-  <data name="Error_PleaseEnterUsernamePassword" xml:space="preserve">
+	<data name="Error_PleaseEnterUsernamePassword" xml:space="preserve">
     <value>请输入用户名及密码。</value>
   </data>
-  <data name="Error_PleaseLoginWattToolKit" xml:space="preserve">
+	<data name="Error_PleaseLoginWattToolKit" xml:space="preserve">
     <value>请先登录 WattToolKit</value>
   </data>
-  <data name="Error_ReadRegistryFailed" xml:space="preserve">
+	<data name="Error_ReadRegistryFailed" xml:space="preserve">
     <value>读取已保存的注册表项失败。如果不成功，请尝试删除并重新添加帐户。</value>
   </data>
-  <data name="Error_ScanQRCodeFailed_" xml:space="preserve">
+	<data name="Error_ScanQRCodeFailed_" xml:space="preserve">
     <value>扫描网页二维码失败：{0}</value>
   </data>
-  <data name="Error_SetSecurityIssuesFailed" xml:space="preserve">
+	<data name="Error_SetSecurityIssuesFailed" xml:space="preserve">
     <value>设置安全问题失败</value>
   </data>
-  <data name="Error_StartProcessFailed_" xml:space="preserve">
+	<data name="Error_StartProcessFailed_" xml:space="preserve">
     <value>启动 {0} 进程失败</value>
   </data>
-  <data name="Error_TokenPasswordRemovedFailed" xml:space="preserve">
+	<data name="Error_TokenPasswordRemovedFailed" xml:space="preserve">
     <value>令牌密码保护移除失败。</value>
   </data>
-  <data name="Error_TokenPasswordSetFailed" xml:space="preserve">
+	<data name="Error_TokenPasswordSetFailed" xml:space="preserve">
     <value>令牌密码保护设置失败。</value>
   </data>
-  <data name="Error_UnknownLogin_" xml:space="preserve">
+	<data name="Error_UnknownLogin_" xml:space="preserve">
     <value>未知登陆错误：{0}</value>
   </data>
-  <data name="Error_UpdateCloudData" xml:space="preserve">
+	<data name="Error_UpdateCloudData" xml:space="preserve">
     <value>同步更新云端数据失败</value>
   </data>
-  <data name="Error_WriteRegistryFailed" xml:space="preserve">
+	<data name="Error_WriteRegistryFailed" xml:space="preserve">
     <value>写入 Windows 注册表失败</value>
   </data>
-  <data name="ExportAuth" xml:space="preserve">
+	<data name="ExportAuth" xml:space="preserve">
     <value>导出令牌</value>
   </data>
-  <data name="FilePathNotExist" xml:space="preserve">
+	<data name="FilePathNotExist" xml:space="preserve">
     <value>文件路径不存在</value>
   </data>
-  <data name="Filter" xml:space="preserve">
+	<data name="Filter" xml:space="preserve">
     <value>筛选</value>
   </data>
-  <data name="FilterRequirement" xml:space="preserve">
+	<data name="FilterRequirement" xml:space="preserve">
     <value>筛选条件</value>
   </data>
-  <data name="GameAccount_AddNewAccount" xml:space="preserve">
+	<data name="GameAccount_AddNewAccount" xml:space="preserve">
     <value>添加新账号</value>
   </data>
-  <data name="GameAccount_EndProcessWay" xml:space="preserve">
+	<data name="GameAccount_EndProcessWay" xml:space="preserve">
     <value>结束进程方式</value>
   </data>
-  <data name="GameAccount_SaveCurrentAccount" xml:space="preserve">
+	<data name="GameAccount_SaveCurrentAccount" xml:space="preserve">
     <value>保存当前登录账号</value>
   </data>
-  <data name="GameAccount_StartProcessWay" xml:space="preserve">
+	<data name="GameAccount_StartProcessWay" xml:space="preserve">
     <value>启动进程方式</value>
   </data>
-  <data name="Game_Hidden" xml:space="preserve">
+	<data name="Game_Hidden" xml:space="preserve">
     <value>隐藏的游戏</value>
   </data>
-  <data name="Game_LayoutWay" xml:space="preserve">
+	<data name="Game_LayoutWay" xml:space="preserve">
     <value>布局方式</value>
   </data>
-  <data name="GeneralAuth_Code" xml:space="preserve">
+	<data name="GeneralAuth_Code" xml:space="preserve">
     <value>生成 Code</value>
   </data>
-  <data name="GeneralAuth_EnterkeyOrLink" xml:space="preserve">
+	<data name="GeneralAuth_EnterkeyOrLink" xml:space="preserve">
     <value>输入您的令牌 Key 或二维码图片 url 链接</value>
   </data>
-  <data name="GeneralAuth_ImportText" xml:space="preserve">
+	<data name="GeneralAuth_ImportText" xml:space="preserve">
     <value>导入文本：</value>
   </data>
-  <data name="GeneralAuth_Name" xml:space="preserve">
+	<data name="GeneralAuth_Name" xml:space="preserve">
     <value>令牌名称：</value>
   </data>
-  <data name="GeneralAuth_VerifySuccessfulImport" xml:space="preserve">
+	<data name="GeneralAuth_VerifySuccessfulImport" xml:space="preserve">
     <value>请验证下列 Code 是否正确，在其正确的情况下再进行导入</value>
   </data>
-  <data name="Info_AccountAlreadyLogin" xml:space="preserve">
+	<data name="Info_AccountAlreadyLogin" xml:space="preserve">
     <value>已经使用此账号登录</value>
   </data>
-  <data name="Info_AlreadyTheCurrentAccount" xml:space="preserve">
+	<data name="Info_AlreadyTheCurrentAccount" xml:space="preserve">
     <value>已经是当前登录的账号（没有执行操作）</value>
   </data>
-  <data name="Info_AuthMaximumQuantity" xml:space="preserve">
+	<data name="Info_AuthMaximumQuantity" xml:space="preserve">
     <value>已达到本地令牌数量上限</value>
   </data>
-  <data name="Info_PleaseEnterImportText" xml:space="preserve">
+	<data name="Info_PleaseEnterImportText" xml:space="preserve">
     <value>请输入「导入文本」。</value>
   </data>
-  <data name="Info_PleaseVerifyFirstAuthCode" xml:space="preserve">
+	<data name="Info_PleaseVerifyFirstAuthCode" xml:space="preserve">
     <value>请先验证令牌 Code 正确后，再点击导入</value>
   </data>
-  <data name="Info_SteamDesktopAuthImportMessage_" xml:space="preserve">
+	<data name="Info_SteamDesktopAuthImportMessage_" xml:space="preserve">
     <value>SteamDesktopAuth 令牌导入{0}</value>
   </data>
-  <data name="Info_V1ImportMessage_" xml:space="preserve">
+	<data name="Info_V1ImportMessage_" xml:space="preserve">
     <value>WattToolKitV1 令牌导入{0}</value>
   </data>
-  <data name="Info_V2ImportMessage_" xml:space="preserve">
+	<data name="Info_V2ImportMessage_" xml:space="preserve">
     <value>WattToolKitV2 令牌导入{0}</value>
   </data>
-  <data name="Info_WinAuthImportMessage_" xml:space="preserve">
+	<data name="Info_WinAuthImportMessage_" xml:space="preserve">
     <value>WinAuth 令牌导入{0}</value>
   </data>
-  <data name="ModelContent_CancelAllTrade" xml:space="preserve">
+	<data name="ModelContent_CancelAllTrade" xml:space="preserve">
     <value>您确认要取消所有交易报价吗\r\n您将拒绝列表内全部的报价请求。\r\n这将从以下列表中移除所有交易信息\r\n您可以在 Steam 库存查看交易报价记录。</value>
   </data>
-  <data name="ModelContent_CancelTrade" xml:space="preserve">
+	<data name="ModelContent_CancelTrade" xml:space="preserve">
     <value>您确认需要取消交易报价吗\r\n这将从以下列表中移除此条确认信息\r\n您可以在 Steam 库存查看交易报价记录。</value>
   </data>
-  <data name="ModelContent_ConfirmAllTrade" xml:space="preserve">
+	<data name="ModelContent_ConfirmAllTrade" xml:space="preserve">
     <value>您确认要通过所有交易报价吗\r\n您将同意列表内全部的报价请求。\r\n交易一经确认无法撤销，请谨慎选择。</value>
   </data>
-  <data name="ModelContent_ConfirmTrade___" xml:space="preserve">
+	<data name="ModelContent_ConfirmTrade___" xml:space="preserve">
     <value>{0}\r\n{1}\r\n{2}\r\n如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。</value>
   </data>
-  <data name="ModelContent_ConfirmUnbinding" xml:space="preserve">
+	<data name="ModelContent_ConfirmUnbinding" xml:space="preserve">
     <value>您确定要从您的 Steam 账号中解绑此令牌吗，解绑后此令牌将失效，您可以在解绑后删除此令牌。</value>
   </data>
-  <data name="ModelContent_ExportPassword" xml:space="preserve">
+	<data name="ModelContent_ExportPassword" xml:space="preserve">
     <value>请输入此令牌导出时设置的密码</value>
   </data>
-  <data name="ModelContent_ImportSuccessful_" xml:space="preserve">
+	<data name="ModelContent_ImportSuccessful_" xml:space="preserve">
     <value>{0}导入成功</value>
   </data>
-  <data name="ModelContent_LoginNewUser" xml:space="preserve">
+	<data name="ModelContent_LoginNewUser" xml:space="preserve">
     <value>此操作会结束当前平台进程并移除当前账号登录状态跳转至新账号登录，确定要继续吗？</value>
   </data>
-  <data name="ModelContent_SecretKey_" xml:space="preserve">
+	<data name="ModelContent_SecretKey_" xml:space="preserve">
     <value>{0}\r\n令牌 SecretKey</value>
   </data>
-  <data name="MyOrder" xml:space="preserve">
+	<data name="MyOrder" xml:space="preserve">
     <value>我的订单</value>
   </data>
-  <data name="OnHook" xml:space="preserve">
+	<data name="OnHook" xml:space="preserve">
     <value>挂机</value>
   </data>
-  <data name="PersonalCenter" xml:space="preserve">
+	<data name="PersonalCenter" xml:space="preserve">
     <value>个人中心</value>
   </data>
-  <data name="Script_Settings" xml:space="preserve">
+	<data name="Script_Settings" xml:space="preserve">
     <value>脚本设置</value>
   </data>
-  <data name="SelectFilepath" xml:space="preserve">
+	<data name="SelectFilepath" xml:space="preserve">
     <value>选择文件路径</value>
   </data>
-  <data name="SteamLoginImport" xml:space="preserve">
+	<data name="SteamLoginImport" xml:space="preserve">
     <value>Steam 登入导入</value>
   </data>
-  <data name="SteamTrade_YourOffer" xml:space="preserve">
+	<data name="SteamTrade_YourOffer" xml:space="preserve">
     <value>您的报价</value>
   </data>
-  <data name="Steam_AuthFileImportPath" xml:space="preserve">
+	<data name="Steam_AuthFileImportPath" xml:space="preserve">
     <value>令牌文件导入路径</value>
   </data>
-  <data name="Steam_BindTel" xml:space="preserve">
+	<data name="Steam_BindTel" xml:space="preserve">
     <value>绑定手机号</value>
   </data>
-  <data name="Steam_CustomAuthName" xml:space="preserve">
+	<data name="Steam_CustomAuthName" xml:space="preserve">
     <value>自定义令牌名称</value>
   </data>
-  <data name="Steam_EmailCode" xml:space="preserve">
+	<data name="Steam_EmailCode" xml:space="preserve">
     <value>邮箱验证码</value>
   </data>
-  <data name="Steam_EmailConfirmation" xml:space="preserve">
+	<data name="Steam_EmailConfirmation" xml:space="preserve">
     <value>请在收到邮件后，点击邮件内的「添加手机号码」进行确认后，再点击继续按钮。</value>
   </data>
-  <data name="Steam_Login" xml:space="preserve">
+	<data name="Steam_Login" xml:space="preserve">
     <value>Steam 登录</value>
   </data>
-  <data name="Steam_PleaseEnterBindTel" xml:space="preserve">
+	<data name="Steam_PleaseEnterBindTel" xml:space="preserve">
     <value>请输入您需要绑定的手机号</value>
   </data>
-  <data name="SubHeader_FirstNeedToSetPlatformPath_" xml:space="preserve">
+	<data name="SubHeader_FirstNeedToSetPlatformPath_" xml:space="preserve">
     <value>第一次使用需要先设置 {0} 平台路径</value>
   </data>
-  <data name="SubHeader_FirstSyncSetAuth" xml:space="preserve">
+	<data name="SubHeader_FirstSyncSetAuth" xml:space="preserve">
     <value>首次同步，请为您的云令牌设置一个安全问题及密码。\r\n请先输入「安全问题」</value>
   </data>
-  <data name="SubHeader_PleaseEnterTheAnswerAgain" xml:space="preserve">
+	<data name="SubHeader_PleaseEnterTheAnswerAgain" xml:space="preserve">
     <value>请再输入「问题答案」</value>
   </data>
-  <data name="SubHeader_SecurityIssues_" xml:space="preserve">
+	<data name="SubHeader_SecurityIssues_" xml:space="preserve">
     <value>安全问题：「{0}」</value>
   </data>
-  <data name="Success_AuthProtectSuccessfully_" xml:space="preserve">
+	<data name="Success_AuthProtectSuccessfully_" xml:space="preserve">
     <value>令牌本机电脑保护{0}成功</value>
   </data>
-  <data name="Success_AuthUnbindSuccessful" xml:space="preserve">
+	<data name="Success_AuthUnbindSuccessful" xml:space="preserve">
     <value>令牌解绑成功</value>
   </data>
-  <data name="Success_AuthUpload__" xml:space="preserve">
+	<data name="Success_AuthUpload__" xml:space="preserve">
     <value>{0} 已上传 {1} 个令牌至云端</value>
   </data>
-  <data name="Success_CloudSynchronizationSuccessful" xml:space="preserve">
+	<data name="Success_CloudSynchronizationSuccessful" xml:space="preserve">
     <value>云同步成功：{0}</value>
   </data>
-  <data name="Success_DelCloudData" xml:space="preserve">
+	<data name="Success_DelCloudData" xml:space="preserve">
     <value>同步删除云端数据成功</value>
   </data>
-  <data name="Success_ExecuteAllAuthEnd___" xml:space="preserve">
+	<data name="Success_ExecuteAllAuthEnd___" xml:space="preserve">
     <value>{0} 全部令牌执行结束，成功数量 {1} ，失败数量 {2}</value>
   </data>
-  <data name="Success_LocalAuthDelSuccessful" xml:space="preserve">
+	<data name="Success_LocalAuthDelSuccessful" xml:space="preserve">
     <value>本地令牌数据删除成功</value>
   </data>
-  <data name="Success_LocalAuthUpdateSuccessful" xml:space="preserve">
+	<data name="Success_LocalAuthUpdateSuccessful" xml:space="preserve">
     <value>本地令牌名称修改成功</value>
   </data>
-  <data name="Success_SavedSuccessfully_" xml:space="preserve">
+	<data name="Success_SavedSuccessfully_" xml:space="preserve">
     <value>保存成功 {0}</value>
   </data>
-  <data name="Success_SwitchAccount__" xml:space="preserve">
+	<data name="Success_SwitchAccount__" xml:space="preserve">
     <value>{0} 已经切换到账号 {1}</value>
   </data>
-  <data name="Success_AuthloadedSuccessfully" xml:space="preserve">
+	<data name="Success_AuthloadedSuccessfully" xml:space="preserve">
     <value>令牌加载成功</value>
   </data>
-  <data name="Success_AuthPasswordRemovedSuccessfully" xml:space="preserve">
+	<data name="Success_AuthPasswordRemovedSuccessfully" xml:space="preserve">
     <value>令牌密码保护移除成功。</value>
   </data>
-  <data name="Success_AuthPasswordSetSuccessfully" xml:space="preserve">
+	<data name="Success_AuthPasswordSetSuccessfully" xml:space="preserve">
     <value>令牌密码保护设置成功。</value>
   </data>
-  <data name="Success_UpdateCloudData" xml:space="preserve">
+	<data name="Success_UpdateCloudData" xml:space="preserve">
     <value>同步更新云端数据成功</value>
   </data>
-  <data name="TelCode" xml:space="preserve">
+	<data name="TelCode" xml:space="preserve">
     <value>手机验证码</value>
   </data>
-  <data name="Title_AddAccount_" xml:space="preserve">
+	<data name="Title_AddAccount_" xml:space="preserve">
     <value>添加新的 {0} 账号</value>
   </data>
-  <data name="Title_AuthEncryption" xml:space="preserve">
+	<data name="Title_AuthEncryption" xml:space="preserve">
     <value>令牌加密帮助</value>
   </data>
-  <data name="Title_DeleteAuth" xml:space="preserve">
+	<data name="Title_DeleteAuth" xml:space="preserve">
     <value>删除令牌</value>
   </data>
-  <data name="Title_InputAuthPassword" xml:space="preserve">
+	<data name="Title_InputAuthPassword" xml:space="preserve">
     <value>请输入令牌保护密码</value>
   </data>
-  <data name="Title_LoginAccount_" xml:space="preserve">
+	<data name="Title_LoginAccount_" xml:space="preserve">
     <value>登录 {0} 账号</value>
   </data>
-  <data name="Title_OldPasswordAuth" xml:space="preserve">
+	<data name="Title_OldPasswordAuth" xml:space="preserve">
     <value>请输入原令牌保护密码</value>
   </data>
-  <data name="Title_PasswordConfirm" xml:space="preserve">
+	<data name="Title_PasswordConfirm" xml:space="preserve">
     <value>请再次输入密码以确认</value>
   </data>
-  <data name="Title_PleaseEnterLoginPassword" xml:space="preserve">
+	<data name="Title_PleaseEnterLoginPassword" xml:space="preserve">
     <value>请输入该 Steam 账号登陆密码</value>
   </data>
-  <data name="Title_PleaseEnterNewAuthName" xml:space="preserve">
+	<data name="Title_PleaseEnterNewAuthName" xml:space="preserve">
     <value>请输入新令牌名或取消</value>
   </data>
-  <data name="Title_PleaseEnterTheAnswer" xml:space="preserve">
+	<data name="Title_PleaseEnterTheAnswer" xml:space="preserve">
     <value>请输入问题答案</value>
   </data>
-  <data name="Title_PleaseInputCurrentAccountName_" xml:space="preserve">
+	<data name="Title_PleaseInputCurrentAccountName_" xml:space="preserve">
     <value>请输入您当前登录的 {0} 账号的名称</value>
   </data>
-  <data name="Title_SetSecurityIssues" xml:space="preserve">
+	<data name="Title_SetSecurityIssues" xml:space="preserve">
     <value>设置安全问题</value>
   </data>
-  <data name="Title_SetUp_" xml:space="preserve">
+	<data name="Title_SetUp_" xml:space="preserve">
     <value>{0} 设置</value>
   </data>
-  <data name="UniversalAuthImport" xml:space="preserve">
+	<data name="UniversalAuthImport" xml:space="preserve">
     <value>通用 2FA 令牌导入</value>
   </data>
-  <data name="UseHelp" xml:space="preserve">
+	<data name="UseHelp" xml:space="preserve">
     <value>使用帮助</value>
   </data>
-  <data name="Verify" xml:space="preserve">
+	<data name="Verify" xml:space="preserve">
     <value>验证</value>
   </data>
-  <data name="ViewDetailedData" xml:space="preserve">
+	<data name="ViewDetailedData" xml:space="preserve">
     <value>查看详细数据</value>
   </data>
-  <data name="ViewInStore" xml:space="preserve">
+	<data name="ViewInStore" xml:space="preserve">
     <value>在 Steam++ 插件商店中查看</value>
   </data>
-  <data name="Warning_CodeNullPleaseLogin" xml:space="preserve">
+	<data name="Warning_CodeNullPleaseLogin" xml:space="preserve">
     <value>验证码 URL 为空，请重新登录</value>
   </data>
-  <data name="Warning_DoNotOperateFrequently" xml:space="preserve">
+	<data name="Warning_DoNotOperateFrequently" xml:space="preserve">
     <value>请勿频繁操作</value>
   </data>
-  <data name="Warning_NotAuthProvided" xml:space="preserve">
+	<data name="Warning_NotAuthProvided" xml:space="preserve">
     <value>没有加密令牌可供操作</value>
   </data>
-  <data name="Warning_OnlySupportSteamAuth" xml:space="preserve">
+	<data name="Warning_OnlySupportSteamAuth" xml:space="preserve">
     <value>解绑功能目前仅支持 Steam 令牌</value>
   </data>
-  <data name="Warning_PasswordError" xml:space="preserve">
+	<data name="Warning_PasswordError" xml:space="preserve">
     <value>密码错误，请重试</value>
   </data>
-  <data name="Warning_PlatformDeletionNotAllowed_" xml:space="preserve">
+	<data name="Warning_PlatformDeletionNotAllowed_" xml:space="preserve">
     <value>不允许删除 {0} 平台</value>
   </data>
-  <data name="Warning_PleaseEnterAuthName" xml:space="preserve">
+	<data name="Warning_PleaseEnterAuthName" xml:space="preserve">
     <value>请输入令牌名称</value>
   </data>
-  <data name="Warning_PleaseEnterTel" xml:space="preserve">
+	<data name="Warning_PleaseEnterTel" xml:space="preserve">
     <value>请正确输入手机号。</value>
   </data>
-  <data name="Warning_PleaseInputAccountName" xml:space="preserve">
+	<data name="Warning_PleaseInputAccountName" xml:space="preserve">
     <value>请输入账号名称</value>
   </data>
-  <data name="Warning_PleaseSelectAuth" xml:space="preserve">
+	<data name="Warning_PleaseSelectAuth" xml:space="preserve">
     <value>请先选中一个 Steam 令牌</value>
   </data>
-  <data name="Warning_PleaseSelectImportWay" xml:space="preserve">
+	<data name="Warning_PleaseSelectImportWay" xml:space="preserve">
     <value>请选择导入方式</value>
   </data>
-  <data name="Warning_PleaseStopAccelerate" xml:space="preserve">
+	<data name="Warning_PleaseStopAccelerate" xml:space="preserve">
     <value>请先停止加速</value>
   </data>
-  <data name="Warning_PleaseWaitExecuteFinish" xml:space="preserve">
+	<data name="Warning_PleaseWaitExecuteFinish" xml:space="preserve">
     <value>已有一项操作正在进行中，请等待执行结束</value>
   </data>
-  <data name="Warning_RefuseOperate" xml:space="preserve">
+	<data name="Warning_RefuseOperate" xml:space="preserve">
     <value>拒绝操作</value>
   </data>
-  <data name="Warning_SteamGuardNotEmpty" xml:space="preserve">
+	<data name="Warning_SteamGuardNotEmpty" xml:space="preserve">
     <value>UUID 及 SteamGuard 不可为空</value>
   </data>
-  <data name="Warning_TerminationAllAuth___" xml:space="preserve">
+	<data name="Warning_TerminationAllAuth___" xml:space="preserve">
     <value>已终止 {0} 全部令牌，已操作成功令牌数量 {1} ，操作失败令牌数量 {2}</value>
   </data>
-  <data name="Warning_TransactionOnlySteamAuth" xml:space="preserve">
+	<data name="Warning_TransactionOnlySteamAuth" xml:space="preserve">
     <value>确认交易功能仅限 Steam 令牌使用</value>
   </data>
-  <data name="Warning_UnbindFailed" xml:space="preserve">
+	<data name="Warning_UnbindFailed" xml:space="preserve">
     <value>解绑令牌失败：登陆未成功</value>
   </data>
 </root>

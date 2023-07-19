@@ -271,14 +271,46 @@
                 Content="{ReflectionBinding Path=Res.CommunityFix_SetupCertificate,
                                             Mode=OneWay,
                                             Source={x:Static s:ResourceService.Current}}" />
-            <Button HorizontalAlignment="Stretch" Content="{ReflectionBinding Path=Res.CommunityFix_DeleteCertificate, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-            <Button HorizontalAlignment="Stretch" Content="{ReflectionBinding Path=Res.CommunityFix_OpenCertificateDir, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+            <Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding DeleteCertificateCommand}"
+                Content="{ReflectionBinding Path=Res.CommunityFix_DeleteCertificate,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}" />
+            <Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding TrustCerCommand}"
+                Content="{ReflectionBinding Path=Res.CommunityFix_CertificateTrust,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
+                IsVisible="{spp:OnPlatform macOS}" />
+            <Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding OpenCertificateDirCommand}"
+                Content="{ReflectionBinding Path=Res.CommunityFix_OpenCertificateDir,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}" />
 
             <Separator Margin="0,8" Classes="Horizontal" />
 
-            <Button HorizontalAlignment="Stretch" Content="{ReflectionBinding Path=Res.CommunityFix_EditHostsFile, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-            <Button HorizontalAlignment="Stretch" Content="{ReflectionBinding Path=Res.CommunityFix_ResetHostsFile, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-            <Button HorizontalAlignment="Stretch" Content="{ReflectionBinding Path=Res.Accelerator_OpenHostsDir, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+            <Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding EditHostsFileCommand}"
+                Content="{ReflectionBinding Path=Res.CommunityFix_EditHostsFile,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}" />
+            <Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding ResetHostsFileCommand}"
+                Content="{ReflectionBinding Path=Res.CommunityFix_ResetHostsFile,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}" />
+            <Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding OpenHostsDirCommand}"
+                Content="{ReflectionBinding Path=Res.CommunityFix_OpenHostsDir,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}" />
 
             <!--<ui:FAComboBox ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" SelectedItem="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}">
                 <ui:FAComboBox.ItemTemplate>

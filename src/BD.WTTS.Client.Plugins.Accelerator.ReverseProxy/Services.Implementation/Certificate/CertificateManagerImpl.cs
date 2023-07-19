@@ -24,7 +24,16 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     public X509CertificatePackable RootCertificatePackable { get; set; }
 
     /// <inheritdoc cref="ICertificateManager.PfxPassword"/>
-    public string? PfxPassword { get; set; }
+    public byte[]? PfxPassword { get; set; }
+
+    string? GetPfxPassword()
+    {
+        var pfxPassword_ = Interface.PfxPassword;
+        var pfxPassword = pfxPassword_.Any_Nullable() ?
+                 Encoding.UTF8.GetString(pfxPassword_!) :
+                 null;
+        return pfxPassword;
+    }
 
     X509Certificate2? LoadRootCertificate()
     {
@@ -36,7 +45,8 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             X509Certificate2 rootCert;
             try
             {
-                RootCertificatePackable = X509CertificatePackable.CreateX509Certificate2(thiz.PfxFilePath, thiz.PfxPassword, X509KeyStorageFlags.Exportable);
+                RootCertificatePackable = X509CertificatePackable.CreateX509Certificate2(
+                    thiz.PfxFilePath, GetPfxPassword(), X509KeyStorageFlags.Exportable);
                 rootCert = RootCertificatePackable!;
                 rootCert.ThrowIsNull();
             }
@@ -112,11 +122,16 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         }
 
         var validFrom = DateTime.Today.AddDays(-1);
-        var validTo = DateTime.Today.AddDays(ICertificateManager.CertificateValidDays);
+        var validTo = DateTime.Today.AddDays(CertificateConstants.CertificateValidDays);
 
-        var rootCertificateName = ICertificateManager.RootCertificateName;
+        var rootCertificateName = CertificateConstants.RootCertificateName;
 
-        RootCertificate = CertGenerator.GenerateBySelfPfx(new[] { rootCertificateName }, validFrom, validTo, Interface.PfxFilePath, Interface.PfxPassword);
+        RootCertificate = CertGenerator.GenerateBySelfPfx(
+            new[] { rootCertificateName },
+            validFrom,
+            validTo,
+            Interface.PfxFilePath,
+            GetPfxPassword());
 
         return RootCertificate != null;
     }
@@ -330,7 +345,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     {
         using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
         store.Open(OpenFlags.ReadOnly);
-        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, ICertificateManager.RootCertificateName, false);
+        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateConstants.RootCertificateName, false);
         foreach (var item in collection)
         {
             if (item != null)
@@ -342,7 +357,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
                 }
                 catch
                 {
-                    platformService.RunShell($"rm -f \"/usr/local/share/ca-certificates/{ICertificateManager.CertificateName}.Certificate.pem\" && sudo update-ca-certificates", true);
+                    platformService.RunShell($"rm -f \"/usr/local/share/ca-certificates/{CertificateConstants.CertificateName}.Certificate.pem\" && sudo update-ca-certificates", true);
                 }
             }
         }
@@ -353,7 +368,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     {
         using var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
         store.Open(OpenFlags.ReadOnly);
-        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, ICertificateManager.RootCertificateName, false);
+        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateConstants.RootCertificateName, false);
         foreach (var item in collection)
         {
             if (item != null)

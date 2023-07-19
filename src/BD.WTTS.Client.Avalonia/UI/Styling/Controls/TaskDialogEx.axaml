@@ -118,7 +118,7 @@
 
                                 <Button
                                     Name="CloseButton"
-                                    Margin="0,0,18,0"
+                                    Margin="0,0,12,0"
                                     HorizontalAlignment="Right"
                                     Classes="Close"
                                     Content="&#xE8BB;"

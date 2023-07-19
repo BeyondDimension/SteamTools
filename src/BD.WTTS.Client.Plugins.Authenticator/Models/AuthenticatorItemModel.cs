@@ -1,186 +1,93 @@
 using Avalonia.Media;
 using Avalonia.Threading;
+using BD.SteamClient.Models;
+using BD.SteamClient.Services;
 using BD.WTTS.Client.Resources;
+using WinAuth;
 using KeyValuePair = BD.Common.Entities.KeyValuePair;
 
 namespace BD.WTTS.Models;
 
-public class AuthenticatorItemModel : ItemViewModel
+public partial class AuthenticatorItemModel : ItemViewModel
 {
     public override string Name => nameof(AuthenticatorItemModel);
 
     public IAuthenticatorDTO AuthData { get; set; }
 
-    // public override bool IsSelected
-    // {
-    //     get => AuthenticatorPageViewModel.AuthsSelected[AuthData.Id];
-    //     set
-    //     {
-    //         AuthenticatorPageViewModel.AuthsSelected[AuthData.Id] = value;
-    //         this.RaisePropertyChanged();
-    //         OnAuthenticatorItemIsSelectedChanged?.Invoke(this);
-    //         if (value == true)
-    //         {
-    //             RefreshSelected();
-    //         }
-    //     }
-    // }
-    
-    // void RefreshSelected()
-    // {
-    //     foreach (var item in AuthenticatorPageViewModel.AuthsSelected)
-    //     {
-    //         if (item.Key == AuthData.Id) continue;
-    //         AuthenticatorPageViewModel.AuthsSelected[item.Key] = false;
-    //         this.RaiseAndSetIfChanged(ref IsSelected, nameof(IsSelected));
-    //     }
-    // }
-    
-    // public override bool IsSelected
-    // {
-    //     get => AuthenticatorPageViewModel.AuthsSelected.First(i => i.Key == AuthData.Id).Value;
-    //     set
-    //     {
-    //         var temp = AuthenticatorPageViewModel.AuthsSelected.First(i => i.Key == AuthData.Id);
-    //         KeyValuePair<ushort, bool> newValue = new KeyValuePair<ushort, bool>(temp.Key, value);
-    //         AuthenticatorPageViewModel.AuthsSelected.Remove(temp);
-    //         AuthenticatorPageViewModel.AuthsSelected.Add(newValue);
-    //         this.RaisePropertyChanged();
-    //         OnAuthenticatorItemIsSelectedChanged?.Invoke(this);
-    //         if (value == true)
-    //         {
-    //             RefreshSelected();
-    //         }
-    //     }
-    // }
-    
-    bool _isSelected;
-    
-    public override bool IsSelected
-    {
-        get => _isSelected;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref _isSelected, value);
-            OnAuthenticatorItemIsSelectedChanged?.Invoke(this);
-        }
-    }
+    readonly DispatcherTimer _progressTimer;
 
+    int _progress;
+    
     public void OnPointerLeftPressed()
     {
         IsSelected = !IsSelected;
     }
 
-    public void OnPointerRightPressed()
-    {
-        CopyCode();
-    }
-    
-    async void CopyCode()
-    {
-        await Clipboard2.SetTextAsync(AuthData.Value?.CurrentCode);
-        Toast.Show(ToastIcon.Success, Strings.LocalAuth_CopyAuthTip + AuthName);
-    }
-
-    public delegate void AuthenticatorItemIsSelectedChangeEventHandler(AuthenticatorItemModel sender);
-
-    public static event AuthenticatorItemIsSelectedChangeEventHandler? OnAuthenticatorItemIsSelectedChanged;
-
-    bool iscloudauth;
-
-    public bool IsCloudAuth
-    {
-        get => iscloudauth;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref iscloudauth, value);
-        }
-    }
-
-    // string iconglyphtext = "&#xE753;";
-    //
-    // public string IconGlyphText
+    // public void OnPointerRightPressed()
     // {
-    //     get => iconglyphtext;
-    //     set
-    //     {
-    //         this.RaiseAndSetIfChanged(ref iconglyphtext, value);
-    //     }
+    //     //CopyCode();
     // }
 
-    string authname;
-
-    public string AuthName
+    public async Task OnTextPanelOnTapped()
     {
-        get => authname;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref authname, value);
-        }
+        await CopyCode();
     }
-
-    string? text;
-
-    public string? Text
+    
+    async Task CopyCode()
     {
-        get => text;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref text, value);
-        }
-    }
-
-    IBrush? strokecolor;
-
-    public IBrush? StrokeColor
-    {
-        get => strokecolor;
-        set => this.RaiseAndSetIfChanged(ref strokecolor, value);
-    }
-
-    double _value;
-
-    public double Value
-    {
-        get => _value;
-        set => this.RaiseAndSetIfChanged(ref _value, (double)(value * 12.00d));
+        if (!IsShowCode) return;
+        await Clipboard2.SetTextAsync(AuthData.Value?.CurrentCode);
+        Toast.Show(ToastIcon.Success, Strings.LocalAuth_CopyAuthTip + AuthName);
     }
 
     public AuthenticatorItemModel(IAuthenticatorDTO authenticatorDto)
     {
         AuthData = authenticatorDto;
-        authname = AuthData.Name;
+        _authName = AuthData.Name;
         StrokeColor = Brush.Parse("#61a4f0");
-        Test();
+        Text = "-----";
+        _progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
+        _progressTimer.Tick += ShowCode;
+    }
+    
+    void ShowCode(object? sender, EventArgs e)
+    {
+        _progress -= 1;
+        if (_progress < 1)
+        {
+            Text = RefreshCode();
+            if (string.IsNullOrEmpty(Text))
+            {
+                IsShowCode = false;
+                _progressTimer.Stop();
+                return;
+            }
+        }
+        StrokeColor = Brush.Parse(_progress % 2 == 0 ? "#61a4f0" : "#6198ff");
+        Value = _progress;
     }
 
-    //在获取CurrentCode时，如果连接不上steamApi时http请求会抛socket超时异常,此异常不捕获会导致程序闪退，待处理
-    public void Test()
+    string? RefreshCode()
     {
-        var progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
-        if (AuthData.Value == null) return;
-        var servertime = AuthData.Value.ServerTime;
-        var currentTimeChunk = AuthData.Value.CodeInterval;
-        int seconds = (int)((servertime - (currentTimeChunk * 30000L)) / 1000L);
-        var progress = AuthData.Value.Period - seconds;
-        Value = progress;
-        Text = AuthData.Value.CurrentCode;
-        progressTimer.Tick += (_, _) =>
+        try
         {
-            progress -= 1;
-            if (progress < 1)
-            {
-                servertime = AuthData.Value.ServerTime;
-                currentTimeChunk = AuthData.Value.CodeInterval;
-                seconds = (int)((servertime - (currentTimeChunk * 30000L)) / 1000L);
-                progress = AuthData.Value.Period - seconds;
-                Text = AuthData.Value.CurrentCode;
-            }
-            if (progress % 2 == 0) StrokeColor = Brush.Parse("#61a4f0");
-            else StrokeColor = Brush.Parse("#6198ff");
-            Value = progress;
-            //SecText = AuthenticatorDto.Value.CurrentCode;
-        };
-        progressTimer.Start();
+            var code = AuthData.Value!.CurrentCode;
+            _progress = AuthData.Value.Period -
+                        (int)((AuthData.Value.ServerTime - (AuthData.Value.CodeInterval * 30000L)) / 1000L);
+            return code;
+        }
+        catch (Exception e)
+        {
+            Toast.Show(ToastIcon.Error, $"计算令牌时与服务器时间同步失败：{e.Message}");
+            Log.Error(nameof(AuthenticatorItemModel), e, nameof(OnPointerLeftPressed));
+        }
+
+        return null;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        _progressTimer.Tick -= ShowCode;
     }
 }
