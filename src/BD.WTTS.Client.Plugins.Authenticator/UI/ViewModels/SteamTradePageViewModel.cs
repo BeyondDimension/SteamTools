@@ -1,4 +1,5 @@
-using BD.WTTS.Client.Resources;
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -97,7 +98,7 @@ public sealed partial class SteamTradePageViewModel
             //     return;
             // }
 
-            Toast.Show(ToastIcon.Error, $"未知登陆错误：{_steamClient.Error}");
+            Toast.Show(ToastIcon.Error, AppResources.Error_UnknownLogin_.Format(_steamClient.Error));
             IsLoading = false;
             return;
         }
@@ -214,7 +215,7 @@ public sealed partial class SteamTradePageViewModel
         }
 
         Log.Error(nameof(SteamTradePageViewModel), exception, nameof(ExceptionHandling));
-        Toast.Show(ToastIcon.Error, "异常：" + exception.Message);
+        Toast.Show(ToastIcon.Error, AppResources.Error_Exception_.Format(exception.Message));
     }
 
     // public async Task Logout()
@@ -243,12 +244,8 @@ public sealed partial class SteamTradePageViewModel
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
                 new MessageBoxWindowViewModel()
                 {
-                    Content =
-                        $"{trade.SendSummary}\r\n" +
-                        $"{trade.ReceiveSummary}\r\n" +
-                        $"{(trade.ReceiveNoItems ? $"您尚未让 {trade.Headline} 选择任何物品以交换您的物品。如果 {trade.Headline}  接受此交易，您将失去您提供的物品，但不会收到任何物品。" : string.Empty)}\r\n" +
-                        $"如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。",
-                }, "确认交易",
+                    Content = AppResources.ModelContent_ConfirmTrade___.Format(trade.SendSummary, trade.ReceiveSummary, trade.ReceiveNoItems ? $"您尚未让 {trade.Headline} 选择任何物品以交换您的物品。如果 {trade.Headline}  接受此交易，您将失去您提供的物品，但不会收到任何物品。" : string.Empty)
+                }, AppResources.ConfirmTransaction,
                 isCancelButton: true, isDialog: false))
         {
             await OperationTrade(true, trade);
@@ -258,9 +255,7 @@ public sealed partial class SteamTradePageViewModel
     public async Task ConfirmAllTrade()
     {
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
-                new MessageBoxWindowViewModel() { Content = "您确认要通过所有交易报价吗\r\n" +
-                                                            "您将同意列表内全部的报价请求。\r\n" +
-                                                            "交易一经确认无法撤销，请谨慎选择。" },
+                new MessageBoxWindowViewModel() { Content = AppResources.ModelContent_ConfirmAllTrade },
                 isCancelButton: true, isDialog: false))
         {
             await OperationTrade(true);
@@ -271,9 +266,7 @@ public sealed partial class SteamTradePageViewModel
     {
         if (sender is not SteamTradeConfirmationModel trade) return;
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
-                new MessageBoxWindowViewModel() { Content = "您确认需要取消交易报价吗\r\n" +
-                                                            "这将从以下列表中移除此条确认信息\r\n" +
-                                                            "您可以在Steam库存查看交易报价记录。" },
+                new MessageBoxWindowViewModel() { Content = AppResources.ModelContent_CancelTrade },
                 isCancelButton: true, isDialog: false))
         {
             await OperationTrade(false, trade);
@@ -283,10 +276,7 @@ public sealed partial class SteamTradePageViewModel
     public async Task CancelAllTrade()
     {
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
-                new MessageBoxWindowViewModel() { Content = "您确认要取消所有交易报价吗\r\n" +
-                                                            "您将拒绝列表内全部的报价请求。\r\n" +
-                                                            "这将从以下列表中移除所有交易信息\r\n" +
-                                                            "您可以在Steam库存查看交易报价记录。" },
+                new MessageBoxWindowViewModel() { Content = AppResources.ModelContent_CancelAllTrade },
                 isCancelButton: true, isDialog: false))
         {
             await OperationTrade(false);
@@ -316,7 +306,7 @@ public sealed partial class SteamTradePageViewModel
 
         if (_operationTradeAllCancelToken != null)
         {
-            Toast.Show(ToastIcon.Warning, "已有一项操作正在进行中，请等待执行结束");
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseWaitExecuteFinish);
             return;
         }
 
@@ -325,11 +315,11 @@ public sealed partial class SteamTradePageViewModel
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
                 new MessageBoxWindowViewModel()
                 {
-                    Content = Strings.LocalAuth_AuthTrade_MessageBoxTip.Format(statusText)
+                    Content = Strings.LocalAuth_AuthTrade_MessageBoxTip_.Format(statusText)
                 }, isCancelButton: true, isDialog: false))
         {
             SetToastServiceStatus(
-                Strings.LocalAuth_AuthTrade_ConfirmTip.Format(statusText));
+                Strings.LocalAuth_AuthTrade_ConfirmTip_.Format(statusText));
 
             _operationTradeAllCancelToken = new CancellationTokenSource();
             ushort success = 0;
@@ -339,8 +329,7 @@ public sealed partial class SteamTradePageViewModel
             {
                 if (_operationTradeAllCancelToken.IsCancellationRequested)
                 {
-                    Toast.Show(ToastIcon.Warning, 
-                        $"已终止{statusText}全部令牌,已操作成功令牌数量{success},操作失败令牌数量{failed}");
+                    Toast.Show(ToastIcon.Warning, AppResources.Warning_TerminationAllAuth___.Format(statusText, success, failed));
                     // Toast.Show(ToastIcon.None, 
                     //     $"已终止{statusText}全部令牌,已操作成功令牌数量{success},操作失败令牌数量{failed},剩余{executableNum - success - failed}令牌未操作");
                 }
@@ -370,8 +359,7 @@ public sealed partial class SteamTradePageViewModel
 
             _operationTradeAllCancelToken = null;
             //RefreshConfirmationsList();
-            Toast.Show(ToastIcon.Success, 
-                $"{statusText}全部令牌执行结束,成功数量{success},失败数量{failed}");
+            Toast.Show(ToastIcon.Success, AppResources.Success_ExecuteAllAuthEnd___.Format(statusText, success, failed));
             // Toast.Show(ToastIcon.None, 
             //     $"{statusText}全部令牌执行结束,成功数量{success},失败数量{failed},剩余{executableNum - success - failed}令牌未操作");
             SetToastServiceStatus();

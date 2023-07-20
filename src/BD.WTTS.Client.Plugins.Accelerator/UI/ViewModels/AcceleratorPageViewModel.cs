@@ -1,3 +1,5 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
 
@@ -22,7 +24,7 @@ public sealed partial class AcceleratorPageViewModel
             if (ProxyService.Current.ProxyStatus == false)
                 await ProxyService.Current.InitializeAccelerateAsync();
             else
-                Toast.Show(ToastIcon.Warning, "请先停止加速");
+                Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseStopAccelerate);
         });
 
         ProxySettingsCommand = ReactiveCommand.Create(() =>

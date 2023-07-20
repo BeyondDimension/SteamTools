@@ -17,7 +17,7 @@
         </Style>
     </UserControl.Styles>
     <spp:Stepper SelectedIndex="{Binding SelectIndex}">
-        <spp:StepperItem Index="0" Title="Steam登录">
+        <spp:StepperItem Index="0" Title="{ReflectionBinding Path=Res.Steam_Login, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
             <Grid
                 Margin="10"
                 MinHeight="300"
@@ -90,7 +90,7 @@
         <!--  MinWidth="280" />  -->
         <!--     </StackPanel> -->
         <!-- </spp:StepperItem> -->
-        <spp:StepperItem Index="1" Title="邮箱验证码">
+        <spp:StepperItem Index="1" Title="{ReflectionBinding Path=Res.Steam_EmailCode, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
             <Grid
                 Margin="10"
                 MinHeight="300"
@@ -129,16 +129,11 @@
                 </StackPanel>
             </Grid>
         </spp:StepperItem>
-        <spp:StepperItem Index="2" Title="绑定手机号">
+        <spp:StepperItem Index="2" Title="{ReflectionBinding Path=Res.Steam_BindTel, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
             <Grid
                 Margin="10"
                 MinHeight="300"
                 MinWidth="600">
-                <!--  <TextBlock  -->
-                <!--  HorizontalAlignment="Center"  -->
-                <!--  Margin="0,10,0,0"  -->
-                <!--  Text="请输入您需要绑定的手机号"  -->
-                <!--  VerticalAlignment="Top" />  -->
                 <StackPanel Margin="0,50,0,0" VerticalAlignment="Top">
                     <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.User_Phone, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <TextBox
@@ -151,7 +146,7 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         Margin="0,0,0,10"
-                        Text="请在收到邮件后，点击邮件内的「添加手机号码」进行确认后，再点击继续按钮。"
+                        Text="{ReflectionBinding Path=Res.Steam_EmailConfirmation, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                         VerticalAlignment="Bottom" />
                     <Button
                         Command="{ReflectionBinding LoginSteamImport}"
@@ -164,7 +159,7 @@
                 </StackPanel>
             </Grid>
         </spp:StepperItem>
-        <spp:StepperItem Index="3" Title="手机验证码">
+        <spp:StepperItem Index="3" Title="{ReflectionBinding Path=Res.TelCode, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
             <Grid
                 Margin="10"
                 MinHeight="300"
@@ -211,7 +206,7 @@
                 </StackPanel>
             </Grid>
         </spp:StepperItem>
-        <spp:StepperItem Index="4" Title="完成">
+        <spp:StepperItem Index="4" Title="{ReflectionBinding Path=Res.Btn_Text_Complete, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
             <Grid
                 Margin="10"
                 MinHeight="300"
@@ -226,16 +221,6 @@
                     TextAlignment="Center"
                     TextWrapping="Wrap"
                     VerticalAlignment="Top" />
-                <!--  <StackPanel  -->
-                <!--  HorizontalAlignment="Center"  -->
-                <!--  Spacing="10"  -->
-                <!--  VerticalAlignment="Bottom">  -->
-                <!--     ~1~ <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" /> @1@ -->
-                <!--  ~1~  <TextBox  @1@  -->
-                <!--  ~1~  IsReadOnly="True"  @1@  -->
-                <!--  ~1~  MaxWidth="200"  @1@  -->
-                <!--  ~1~  Text="{Binding RevocationCodeText, Mode=OneWay}" />  @1@  -->
-                <!-- </StackPanel> -->
                 <Button
                     Command="{ReflectionBinding Reset}"
                     Content="{ReflectionBinding Path=Res.Continue,

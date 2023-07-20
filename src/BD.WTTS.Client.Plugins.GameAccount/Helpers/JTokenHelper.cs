@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Formatting = Newtonsoft.Json.Formatting;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS;
 
@@ -67,7 +68,7 @@ public static class JTokenHelper
         {
             if (isBasic && !PathHelper.PathIsDirectoryEmpty(Path.GetDirectoryName(dictPath)!))
             {
-                Toast.Show("查找或读取已保存的注册表文件失败！");
+                Toast.Show(ToastIcon.Error, AppResources.Error_OperateRegistryFilesFailed);
             }
             return JsonConvert.DeserializeObject<Dictionary<string, string>>(s) ?? new Dictionary<string, string>();
         }

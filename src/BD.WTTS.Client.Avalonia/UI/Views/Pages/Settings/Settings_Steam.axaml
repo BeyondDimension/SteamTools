@@ -25,11 +25,11 @@
                 <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <Button Command="{ReflectionBinding SelectSteamProgramLocation}" Content="选择路径" />
+                <Button Command="{ReflectionBinding SelectSteamProgramLocation}" Content="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_SelectPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+		<spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
             </spp:OptionsDisplayItem.Icon>
@@ -38,8 +38,8 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem
-            Description="Steam 默认不应该以管理员运行，但如果有特殊需求可以勾选此项"
+		<spp:OptionsDisplayItem
+            Description="{ReflectionBinding Path=Res.Settings_Steam_AdminRunPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Header="{ReflectionBinding Path=Res.Settings_Steam_RuningAdmin,
                                        Mode=OneWay,
                                        Source={x:Static s:ResourceService.Current}}"
@@ -52,7 +52,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="设置后程序启动 Steam 时默认不弹出主窗口" Header="{ReflectionBinding Path=Res.Settings_Steam_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_Steam_SetUpDefaultNoShowMainWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_Steam_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
             </spp:OptionsDisplayItem.Icon>
@@ -61,7 +61,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="设置此参数后程序启动 Steam 将不会在自动检查更新" Header="{ReflectionBinding Path=Res.Settings_Steam_NotCheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_Steam_NoAutoUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_Steam_NotCheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;" />
             </spp:OptionsDisplayItem.Icon>
@@ -79,7 +79,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="程序检测到 Steam 启动后自动弹出相关信息通知" Header="{ReflectionBinding Path=Res.Settings_Steam_CheckSteamRuningNotification, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_Steam_AutoPopupMessage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_Steam_CheckSteamRuningNotification, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7E7;" />
             </spp:OptionsDisplayItem.Icon>

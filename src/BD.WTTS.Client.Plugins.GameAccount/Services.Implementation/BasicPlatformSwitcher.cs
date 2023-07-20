@@ -1,3 +1,5 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -39,7 +41,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
             if (!string.IsNullOrEmpty(uniqueId) && !RegistryKeyHelper.SetRegistryKey(platform.UniqueIdPath, uniqueId)) // Remove "REG:" and read data
             {
-                Toast.Show(ToastIcon.Info, "已经使用此账号登录");
+                Toast.Show(ToastIcon.Info, AppResources.Info_AccountAlreadyLogin);
                 return false;
             }
         }
@@ -53,7 +55,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             {
                 if (!regJson.ContainsKey(accFile))
                 {
-                    Toast.Show(ToastIcon.Error, "读取已保存的注册表项失败。如果不成功，请尝试删除并重新添加帐户。");
+                    Toast.Show(ToastIcon.Error, AppResources.Error_ReadRegistryFailed);
                     continue;
                 }
 
@@ -61,7 +63,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
                 if (!RegistryKeyHelper.SetRegistryKey(accFile[4..], regValue)) // Remove "REG:" and read data
                 {
-                    Toast.Show(ToastIcon.Error, "写入 Windows 注册表失败");
+                    Toast.Show(ToastIcon.Error, AppResources.Error_WriteRegistryFailed);
                     return false;
                 }
                 continue;
@@ -77,7 +79,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 var selector = accFile.Split("::")[2];
                 if (!JTokenHelper.ReplaceVarInJsonFile(path, selector, jToken))
                 {
-                    Toast.Show(ToastIcon.Error, "修改JSON文件失败");
+                    Toast.Show(ToastIcon.Error, AppResources.Error_ModifyJsonFileFailed);
                     return false;
                 }
                 continue;
@@ -111,7 +113,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                     if (account?.AccountId == uniqueId)
                     {
                         RunPlatformProcess(platform, true);
-                        Toast.Show("已经是当前登录的账号（没有执行操作）");
+                        Toast.Show(ToastIcon.Info, AppResources.Info_AlreadyTheCurrentAccount);
                         return;
                     }
                     CurrnetUserAdd(platform.Accounts.First(acc => acc.AccountId == uniqueId).DisplayName ?? "Unknown", platform);
@@ -187,7 +189,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             {
                 if (RegistryKeyHelper.SetRegistryKey(accFile[4..])) return true;
             }
-            Toast.Show("写入 Windows 注册表失败");
+            Toast.Show(ToastIcon.Error, AppResources.Error_WriteRegistryFailed);
             return false;
         }
 
@@ -214,7 +216,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 if (!Directory.Exists(Path.GetDirectoryName(folder)))
                     return true;
                 if (!PathHelper.RecursiveDelete(folder, false))
-                    Toast.Show("无法删除某些文件（程序可能正在运行？）");
+                    Toast.Show(ToastIcon.Warning, AppResources.Error_DelFileFailedRunning);
                 return true;
             }
 
@@ -232,7 +234,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         if (Directory.Exists(fullPath))
         {
             if (!PathHelper.RecursiveDelete(fullPath, true))
-                Toast.Show("无法删除某些文件（程序可能正在运行？）");
+                Toast.Show(ToastIcon.Warning, AppResources.Error_DelFileFailedRunning);
             return true;
         }
 
@@ -243,8 +245,8 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         }
         catch (UnauthorizedAccessException e)
         {
-            Log.Error(nameof(DeleteFileOrFolder), e, "无法删除某些文件（程序可能正在运行？）");
-            Toast.Show("无法删除某些文件（程序可能正在运行？）");
+            Log.Error(nameof(DeleteFileOrFolder), e, AppResources.Error_DelFileFailedRunning);
+            Toast.Show(ToastIcon.Warning, AppResources.Error_DelFileFailedRunning);
         }
         return true;
     }
@@ -271,7 +273,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         catch (Exception ex)
         {
             Log.Error(nameof(BasicPlatformSwitcher), ex, nameof(KillPlatformProcess));
-            Toast.Show($"结束 {platform.FullName} 进程失败");
+            Toast.Show(ToastIcon.Error, AppResources.Error_EndProcessFailed_.Format(platform.FullName));
             return false;
         }
 
@@ -288,7 +290,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         catch (Exception ex)
         {
             Log.Error(nameof(BasicPlatformSwitcher), ex, nameof(RunPlatformProcess));
-            Toast.Show($"启动 {platform.FullName} 进程失败");
+            Toast.Show(ToastIcon.Error, AppResources.Error_StartProcessFailed_.Format(platform.FullName));
             return false;
         }
         return true;
@@ -422,7 +424,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             if (PathHelper.HandleFileOrFolder(accFile, savedFile, localCachePath, false, platform.FolderPath)) continue;
 
             // Could not find file/folder
-            Toast.Show($"无法找到 {accFile} 的账号文件，添加失败");
+            Toast.Show(ToastIcon.Error, AppResources.Error_CannotFindAccountFile_.Format(accFile));
 
             return false;
 

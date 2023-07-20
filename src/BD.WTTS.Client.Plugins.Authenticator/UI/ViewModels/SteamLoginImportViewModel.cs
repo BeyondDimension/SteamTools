@@ -1,3 +1,5 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
 using BD.WTTS.Exceptions;
@@ -60,7 +62,7 @@ public sealed partial class SteamLoginImportViewModel
     {
         if (string.IsNullOrWhiteSpace(UserNameText) || string.IsNullOrWhiteSpace(PasswordText))
         {
-            throw new SteamLoginNullCatpchaCodeException("请输入用户名及密码。");
+            throw new SteamLoginNullCatpchaCodeException(AppResources.Error_PleaseEnterUsernamePassword);
         }
         _steamLoginState.Username = UserNameText;
         _steamLoginState.Password = PasswordText;
@@ -75,7 +77,7 @@ public sealed partial class SteamLoginImportViewModel
     {
         if (string.IsNullOrEmpty(CaptchaCodeText))
         {
-            throw new SteamLoginNullCatpchaCodeException("请输入验证码。");
+            throw new SteamLoginNullCatpchaCodeException(AppResources.Error_PleaseEnterCode);
         }
         else
             _steamLoginState.CaptchaText = CaptchaCodeText;
@@ -89,7 +91,7 @@ public sealed partial class SteamLoginImportViewModel
     {
         if (string.IsNullOrEmpty(EmailAuthText))
         {
-            throw new SteamLoginNullCatpchaCodeException("请输入邮箱验证码。");
+            throw new SteamLoginNullCatpchaCodeException(AppResources.Error_PleaseEnterEmailCode);
         }
         else
             _steamLoginState.EmailCode = EmailAuthText;
@@ -109,7 +111,7 @@ public sealed partial class SteamLoginImportViewModel
     {
         if (string.IsNullOrEmpty(PhoneCodeText))
         {
-            throw new SteamLoginNullCatpchaCodeException("请输入手机验证码。");
+            throw new SteamLoginNullCatpchaCodeException(AppResources.Error_PleaseEnterTelCode);
         }
         else
             _enrollState.ActivationCode = PhoneCodeText;
@@ -197,7 +199,7 @@ public sealed partial class SteamLoginImportViewModel
     {
         if (_IsLogining)
         {
-            Toast.Show(ToastIcon.Warning, "请勿频繁操作");
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_DoNotOperateFrequently);
             return;
         }
         _IsLogining = true;
@@ -258,7 +260,7 @@ public sealed partial class SteamLoginImportViewModel
                     {
                         if (string.IsNullOrEmpty(PhoneNumberText))
                         {
-                            Toast.Show(ToastIcon.Warning, "请正确输入手机号。");
+                            Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseEnterTel);
                             return;
                         }
                         

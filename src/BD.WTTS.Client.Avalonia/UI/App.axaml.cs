@@ -194,7 +194,7 @@ public sealed partial class App : Application
         //                //    t == WindowTransparencyLevel.Mica)
         //                //{
         //                //    UISettings.EnableDesktopBackground.Value = false;
-        //                //    Toast.Show(string.Format(AppResources.Settings_UI_EnableDesktopBackground_Error, t));
+        //                //    Toast.Show(string.Format(AppResources.Settings_UI_EnableDesktopBackground_Error_, t));
         //                //    return;
         //                //}
         //                SetDesktopBackgroundWindow();

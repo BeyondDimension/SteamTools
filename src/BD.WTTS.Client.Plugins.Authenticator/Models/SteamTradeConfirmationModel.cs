@@ -1,4 +1,4 @@
-using BD.WTTS.Client.Resources;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 using WinAuth;
 
 namespace BD.WTTS.Models;
@@ -129,6 +129,6 @@ public class SteamTradeConfirmationModel : ReactiveObject
             return;
         }
         Log.Error(nameof(SteamTradePageViewModel), exception, nameof(ExceptionHandling));
-        Toast.Show(ToastIcon.Error, "异常：" + exception.Message);
+        Toast.Show(ToastIcon.Error, AppResources.Error_Exception_.Format(exception.Message));
     }
 }

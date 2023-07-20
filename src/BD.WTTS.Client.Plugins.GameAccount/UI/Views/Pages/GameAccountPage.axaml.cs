@@ -1,7 +1,10 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 using FluentAvalonia.UI.Controls;
 using BD.WTTS.Client.Resources;
 using Avalonia.Controls;
 using BD.WTTS.UI.Views.Controls;
+using AngleSharp.Text;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -22,8 +25,7 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
             if (ViewModel?.SelectedPlatform != null)
             {
                 var model = new PlatformSettingsPageViewModel(ViewModel.SelectedPlatform);
-                await IWindowManager.Instance.ShowTaskDialogAsync(model,
-                    $"{ViewModel.SelectedPlatform.FullName} 设置",
+                await IWindowManager.Instance.ShowTaskDialogAsync(model, AppResources.Title_SetUp_.Format(ViewModel.SelectedPlatform.FullName),
                     pageContent: new PlatformSettingsPage(),
                     isCancelButton: true,
                     cancelCloseAction: () =>
@@ -31,7 +33,7 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
                         var cancel = !File.Exists(ViewModel.SelectedPlatform.PlatformSetting?.PlatformPath);
                         if (cancel)
                         {
-                            Toast.Show(ToastIcon.Error, $"{ViewModel.SelectedPlatform.FullName} 平台路径没有正确选择");
+                            Toast.Show(ToastIcon.Error, AppResources.Error_IncorrectPlatformPathSelection_.Format(ViewModel.SelectedPlatform.FullName));
                         }
                         return cancel;
                     });
@@ -46,9 +48,8 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
             if (item is PlatformAccount platform && !File.Exists(platform.ExePath))
             {
                 var model = new PlatformSettingsPageViewModel(platform);
-                if (!await IWindowManager.Instance.ShowTaskDialogAsync(model,
-                    $"{platform.FullName} 设置",
-                    subHeader: $"第一次使用需要先设置 {platform.FullName} 平台路径",
+                if (!await IWindowManager.Instance.ShowTaskDialogAsync(model, AppResources.Title_SetUp_.Format(platform.FullName),
+                    subHeader: AppResources.SubHeader_FirstNeedToSetPlatformPath_.Format(platform.FullName),
                     pageContent: new PlatformSettingsPage(),
                     isCancelButton: true,
                     cancelCloseAction: () =>
@@ -56,14 +57,14 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
                         var cancel = !File.Exists(platform.PlatformSetting?.PlatformPath);
                         if (cancel)
                         {
-                            Toast.Show(ToastIcon.Error, $"{platform.FullName} 平台路径没有正确选择");
+                            Toast.Show(ToastIcon.Error, AppResources.Error_IncorrectPlatformPathSelection_.Format(platform.FullName));
                         }
                         return cancel;
                     }))
                 {
                     if (!File.Exists(platform.PlatformSetting?.PlatformPath))
                     {
-                        Toast.Show(ToastIcon.Error, $"路径没有正确选择，{platform.FullName} 平台账号切换功能无法使用");
+                        Toast.Show(ToastIcon.Error, AppResources.Error_PathFailedUnableSwitchAccount_.Format(platform.FullName));
                     }
                 }
             }

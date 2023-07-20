@@ -1,3 +1,5 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 namespace BD.WTTS.UI.ViewModels;
 
 public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
@@ -22,7 +24,7 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
     {
         if (string.IsNullOrEmpty(SecretCode))
         {
-            Toast.Show(ToastIcon.Info, "请输入「导入文本」。");
+            Toast.Show(ToastIcon.Info, AppResources.Info_PleaseEnterImportText);
             return;
         }
         switch (ImportAuthenticatorType)
@@ -49,13 +51,13 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
     {
         if (_importAuthenticatorValueDto == null)
         {
-            Toast.Show(ToastIcon.Info, "请先验证令牌 Code 正确后，再点击导入");
+            Toast.Show(ToastIcon.Info, AppResources.Info_PleaseVerifyFirstAuthCode);
             return;
         }
 
         if (string.IsNullOrEmpty(AuthenticatorName))
         {
-            Toast.Show(ToastIcon.Warning, "请输入令牌名称");
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseEnterAuthName);
             return;
         }
 
@@ -67,6 +69,6 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
         };
         await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iAuthenticatorDtoDto, _password, _isLocal);
         await IWindowManager.Instance.ShowTaskDialogAsync(
-            new MessageBoxWindowViewModel { Content = $"{ImportAuthenticatorType}导入成功" });
+            new MessageBoxWindowViewModel { Content = AppResources.ModelContent_ImportSuccessful_.Format(ImportAuthenticatorType) });
     }
 }

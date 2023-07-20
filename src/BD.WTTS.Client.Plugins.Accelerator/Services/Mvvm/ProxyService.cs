@@ -448,7 +448,7 @@ public sealed partial class ProxyService
         }
         else
         {
-            var msg = Strings.Script_FileError.Format(filename); // $"文件不存在:{filePath}";
+            var msg = Strings.Script_FileError_.Format(filename); // $"文件不存在:{filePath}";
             Toast.Show(msg);
         }
     }
