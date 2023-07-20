@@ -1,11 +1,10 @@
 namespace BD.WTTS.UI.ViewModels;
 
-public partial class GeneralAuthenticatorImportViewModel
+public partial class AuthenticatorGeneralImportPageViewModel : ViewModelBase
 {
     string? _authenticatorName;
     string? _secretCode;
     string? _currentCode;
-    CanImportAuthenticatorType _importAuthenticatorType;
 
     public string? AuthenticatorName
     {
@@ -39,24 +38,4 @@ public partial class GeneralAuthenticatorImportViewModel
             this.RaisePropertyChanged();
         }
     }
-    
-    public enum CanImportAuthenticatorType
-    {
-        谷歌令牌,
-        微软令牌,
-        其他令牌,
-    }
-
-    public CanImportAuthenticatorType ImportAuthenticatorType
-    {
-        get => _importAuthenticatorType;
-        set
-        {
-            if (value == _importAuthenticatorType) return;
-            _importAuthenticatorType = value;
-            this.RaisePropertyChanged();
-        }
-    }
-
-    public CanImportAuthenticatorType[] ImportAuthenticatorTypes => Enum.GetValues<CanImportAuthenticatorType>();
 }

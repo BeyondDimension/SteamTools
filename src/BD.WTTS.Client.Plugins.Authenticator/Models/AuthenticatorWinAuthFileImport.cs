@@ -6,8 +6,10 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
 {
     public override string Name => "WinAuth 导入";
 
-    public override string Description => "通过 WinAuth 导出的文件，导入令牌";
+    public override string Description => "通过 WinAuth 导出的文件导入令牌";
     
+    public override string IconText => "&#xE8E5;";
+
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
     protected override string FileExtension => FileEx.Txt;

@@ -213,87 +213,18 @@ public sealed partial class AuthenticatorService
         return valueDto;
     }
 
-    public static async Task<IAuthenticatorValueDTO?> GeneralAuthenticatorImport(AuthenticatorPlatform platform,
-        string secretCode)
-    {
-
-        var privateKey = await DecodePrivateKey(secretCode);
-
-        if (string.IsNullOrEmpty(privateKey)) return null;
-
-        switch (platform)
-        {
-            case AuthenticatorPlatform.Microsoft:
-                try
-                {
-                    var auth = new MicrosoftAuthenticator();
-                    auth.Enroll(privateKey);
-
-                    if (auth.ServerTimeDiff == 0L)
-                        Toast.Show(ToastIcon.Error, AppResources.Error_CannotConnectTokenVerificationServer);
-
-                    return auth;
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(nameof(AuthenticatorService), ex, nameof(GeneralAuthenticatorImport));
-                    return null;
-                }
-
-                break;
-            case AuthenticatorPlatform.Google:
-                try
-                {
-                    var auth = new GoogleAuthenticator();
-                    auth.Enroll(privateKey);
-
-                    //string key = WinAuth.Base32.GetInstance().Encode(auth.SecretKey!);
-                    //var text1 = Regex.Replace(key, ".{3}", "$0 ").Trim();
-                    //var code = auth.CurrentCode;
-
-                    if (auth.ServerTimeDiff == 0L)
-                        Toast.Show(ToastIcon.Error, AppResources.Error_CannotConnectGoogleServer);
-
-                    return auth;
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(nameof(AuthenticatorService), ex, nameof(GeneralAuthenticatorImport));
-                    return null;
-                }
-            case AuthenticatorPlatform.HOTP:
-                try
-                {
-                    var auth = new HOTPAuthenticator();
-                    auth.Enroll(privateKey);
-
-                    if (auth.ServerTimeDiff == 0L)
-                        Toast.Show(ToastIcon.Error, AppResources.Error_CannotConnectTokenVerificationServer);
-
-                    return auth;
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(nameof(AuthenticatorService), ex, nameof(GeneralAuthenticatorImport));
-                    return null;
-                }
-                break;
-        }
-        return null;
-    }
-
     //待完善
     public static async Task<string?> DecodePrivateKey(string secretCode)
     {
         if (SecretCodeHttpRegex().Match(secretCode) is { Success: true })
         {
             //url图片二维码解码
-            HttpClientHandler handler = new HttpClientHandler
+            var handler = new HttpClientHandler
             {
                 AllowAutoRedirect = true,
                 MaxAutomaticRedirections = 1000,
             };
-            using HttpClient httpClient = new HttpClient(handler);
+            using var httpClient = new HttpClient(handler);
             httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Default);
             httpClient.Timeout = new TimeSpan(0, 0, 20);
             try
@@ -302,8 +233,8 @@ public sealed partial class AuthenticatorService
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     //response.Content.Headers.ContentType.;
-#if WINDOWS
-                    using (System.Drawing.Bitmap bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
+                    
+                    using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
                     {
                         //二维码解析
                         // IBarcodeReader reader = new BarcodeReader();
@@ -313,7 +244,6 @@ public sealed partial class AuthenticatorService
                         //     privatekey = HttpUtility.UrlDecode(result.Text);
                         // }
                     }
-#endif
                 }
 
             }
@@ -327,16 +257,14 @@ public sealed partial class AuthenticatorService
         else if (SecretCodeDataImageRegex().Match(secretCode) is { Success: true } dataImageMatch)
         {
             var imageData = Convert.FromBase64String(dataImageMatch.Groups[2].Value);
-            using (var ms = new MemoryStream(imageData))
-            {
+            using var ms = new MemoryStream(imageData);
 #if WINDOWS
-                using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(ms))
-                {
-                    //二维码解析
+            using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(ms))
+            {
+                //二维码解析
                     
-                }
-#endif
             }
+#endif
         }
         // else if (SecretCodeOptAuthRegex().Match(secretCode) is { Success: true } optMatch)
         // {

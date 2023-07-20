@@ -8,6 +8,8 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
 
     public override string Description => "从 Mafile 文件导入令牌";
 
+    public override string IconText => "&#xE8E5;";
+
     protected override string FileExtension => FileEx.maFile;
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
@@ -60,12 +62,11 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
                     Name = $"(Steam){steamAuthenticator.AccountName}", Value = steamAuthenticator, Created = DateTimeOffset.Now,
                 };
             await SaveAuthenticator(authDto);
-            Toast.Show(ToastIcon.Success, $"{authDto.Name} 导入成功");
+            Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(authDto.Name));
         }
         catch (Exception e)
         {
-            Log.Error(nameof(AuthenticatorSdaFileImport), e, nameof(ImportFromSdaFile));
-            Toast.Show(ToastIcon.Error, $"导入失败，错误信息：{e.Message}");
+            e.LogAndShowT();
         }
     }
 }

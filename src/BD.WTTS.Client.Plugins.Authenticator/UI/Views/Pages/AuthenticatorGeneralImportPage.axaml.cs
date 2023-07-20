@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace BD.WTTS.UI.Views.Pages;
 
-public partial class GeneralAuthenticatorImportPage : UserControl
+public partial class AuthenticatorGeneralImportPage : UserControl
 {
-    public GeneralAuthenticatorImportPage()
+    public AuthenticatorGeneralImportPage()
     {
         InitializeComponent();
     }

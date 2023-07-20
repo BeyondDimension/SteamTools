@@ -30,12 +30,12 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="令牌">
+            <TabStripItem Content="{ReflectionBinding Path=Res.Auth_Possession, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:AuthenticatorHomePage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="新增">
+            <TabStripItem Content="{ReflectionBinding Path=Res.Auth_Add, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:AuthenticatorImportPage" />
                 </TabStripItem.Tag>

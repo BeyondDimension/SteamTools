@@ -4,7 +4,9 @@ public class AuthenticatorWattToolKitV1Import : AuthenticatorFileImportBase
 {
     public override string Name => "WattToolKitV1 导入";
     
-    public override string Description => "通过 WattToolKitV1 工具箱导出的文件，导入令牌";
+    public override string Description => "通过 WattToolKitV1 工具箱导出的文件导入令牌";
+
+    public override string IconText => "&#xE8E5;";
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 

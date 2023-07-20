@@ -4,9 +4,11 @@ namespace BD.WTTS.Models;
 
 public class AuthenticatorSteamLoginImport : AuthenticatorImportBase
 {
-    public override string Name => "Steam 登陆导入";
+    public override string Name => Strings.Auth_SteamLoginImport;
 
     public override string Description => Strings.Steam_UserLoginTip;
+
+    public override string IconText => "&#xE77B;";
     
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 

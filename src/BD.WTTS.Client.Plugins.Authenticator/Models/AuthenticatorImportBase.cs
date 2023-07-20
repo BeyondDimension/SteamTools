@@ -5,6 +5,8 @@ public abstract class AuthenticatorImportBase : IAuthenticatorImport
     public abstract string Name { get; }
     
     public abstract string Description { get; }
+
+    public abstract string IconText { get; }
     
     public abstract ICommand AuthenticatorImportCommand { get; set; }
     
@@ -14,7 +16,7 @@ public abstract class AuthenticatorImportBase : IAuthenticatorImport
     {
         var auths = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
         if (auths.Length < IAccountPlatformAuthenticatorRepository.MaxValue) return true;
-        Toast.Show(ToastIcon.Info, "已达到本地令牌数量上限");
+        Toast.Show(ToastIcon.Info, Strings.Info_AuthMaximumQuantity);
         return false;
     }
 
@@ -30,7 +32,7 @@ public abstract class AuthenticatorImportBase : IAuthenticatorImport
             {
                 InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
             };
-            if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, "请输入令牌保护密码", isDialog: false,
+            if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, Strings.Title_InputAuthPassword, isDialog: false,
                     isCancelButton: true) &&
                 textViewmodel.Value != null)
             {
@@ -40,7 +42,7 @@ public abstract class AuthenticatorImportBase : IAuthenticatorImport
                 }
                 else
                 {
-                    Toast.Show(ToastIcon.Warning, "密码错误，请重试");
+                    Toast.Show(ToastIcon.Warning, Strings.Warning_PasswordError);
                     return;
                 }
             }

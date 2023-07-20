@@ -6,6 +6,8 @@ public interface IAuthenticatorImport
 
     public string Description { get; }
 
+    public string IconText { get; }
+
     public ICommand AuthenticatorImportCommand { get; set; }
     
     Task<bool> VerifyMaxValue();

@@ -292,10 +292,10 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                     HasLocalPcEncrypt);
             }
 
-            string changeMessage = $"本地令牌新增 {additions} 个 数据更新 {changes} 个";
+            string changeMessage = AppResources.Auth_Sync_UpdateTips.Format(additions, changes);
             if (changes == 0 && additions == 0)
             {
-                changeMessage = "本地令牌已为最新数据";
+                changeMessage = AppResources.Auth_Sync_LatestData;
             }
             Toast.Show(ToastIcon.Success, AppResources.Success_CloudSynchronizationSuccessful.Format(changeMessage));
             Initialize();
@@ -510,14 +510,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthUpdateSuccessful);
     }
 
-    public async Task OpenGeneralAuthenticatorImportWindow()
-    {
-        if (VerifyMaxValue())
-            await IWindowManager.Instance.ShowTaskDialogAsync(new GeneralAuthenticatorImportViewModel(_currentPassword, HasLocalPcEncrypt),
-                AppResources.UniversalAuthImport, pageContent: new GeneralAuthenticatorImportPage(), isOkButton: false);
-        Initialize();
-    }
-
     bool VerifyMaxValue()
     {
         if (Auths.Count >= IAccountPlatformAuthenticatorRepository.MaxValue)
@@ -647,11 +639,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 if (exportFile == null) return;
 
                 var filestream = exportFile.OpenWrite();
-                // if (filestream == null)
-                // {
-                //     Toast.Show(ToastIcon.Error, Strings.LocalAuth_ProtectionAuth_PathError);
-                //     return;
-                // }
 
                 if (filestream.CanSeek && filestream.Position != 0) filestream.Position = 0;
 
@@ -718,19 +705,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
                 if (await steamAuthenticator.RemoveAuthenticatorAsync(loginState.AccessToken))
                 {
-                    // var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
-                    // {
-                    //     Difference = new[]
-                    //     {
-                    //         new UserAuthenticatorPushItem()
-                    //         {
-                    //             Id = CurrentSelectedAuth.AuthData.ServerId, IsDeleted = true,
-                    //         },
-                    //     },
-                    // });
-                    // Toast.Show(ToastIcon.Warning, $"云令牌数据删除{(response.IsSuccess ? "成功" : "失败")}");
-                    // AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
-                    // Auths.Remove(CurrentSelectedAuth);
                     Toast.Show(ToastIcon.Success, AppResources.Success_AuthUnbindSuccessful);
                     return;
                 }

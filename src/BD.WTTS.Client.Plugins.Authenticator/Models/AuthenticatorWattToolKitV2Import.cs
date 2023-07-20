@@ -6,6 +6,8 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
 
     public override string Description => "通过 WattToolKitV2 工具箱导出的文件，导入令牌";
     
+    public override string IconText => "&#xE8E5;";
+
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
     protected override string FileExtension => FileEx.MPO;
@@ -45,7 +47,7 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
                 Toast.Show(ToastIcon.Warning, Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
                 var textViewModel =
                     new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.Password };
-                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, "请输入此令牌导出时设置的密码", isDialog: false,
+                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, Strings.ModelContent_ExportPassword, isDialog: false,
                         isCancelButton: true))
                 {
                     exportPassword = textViewModel.Value;

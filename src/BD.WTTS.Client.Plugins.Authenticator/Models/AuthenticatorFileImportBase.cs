@@ -15,7 +15,7 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
     protected async Task<string> SelectFolderPath()
     {
         var filePath = (await SelectFile())?.FullPath.TrimStart("file:///");
-        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) Toast.Show(ToastIcon.Warning, "文件路径不存在");
+        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) Toast.Show(ToastIcon.Warning, Strings.FilePathNotExist);
         return filePath;
     }
 
