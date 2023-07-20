@@ -63,6 +63,8 @@ false
 #endif
         ;
 
+#if !APP_HOST
+
     public const string APPLICATION_ID = "net.steampp.app";
 
     /// <inheritdoc cref="dotnetCampus.Ipc.CompilerServices.Attributes.IpcPublicAttribute.Timeout"/>
@@ -73,28 +75,40 @@ false
         8000;
 #endif
 
+#endif
+
     #region Modules/Plugins
+
+    public const string Accelerator = "Accelerator";
+
+#if !APP_HOST
+
+    public const string GameAccount = "GameAccount";
+
+    public const string GameList = "GameList";
+
+#endif
+
+    public const string ArchiSteamFarmPlus = "ArchiSteamFarmPlus";
+
+#if !APP_HOST
+
+    public const string Authenticator = "Authenticator";
+
+    public const string GameTools = "GameTools";
+    //public const string Update = "Update";
 
     public const string Plugins = "Plugins";
 
-    public const string Accelerator = "Accelerator";
     public const string AcceleratorId = "00000000-0000-0000-0000-000000000001";
-
-    public const string GameAccount = "GameAccount";
     public const string GameAccountId = "00000000-0000-0000-0000-000000000002";
-
-    public const string GameList = "GameList";
     public const string GameListId = "00000000-0000-0000-0000-000000000003";
-
-    public const string ArchiSteamFarmPlus = "ArchiSteamFarmPlus";
     public const string ArchiSteamFarmPlusId = "00000000-0000-0000-0000-000000000004";
-
-    public const string Authenticator = "Authenticator";
     public const string AuthenticatorId = "00000000-0000-0000-0000-000000000005";
-
-    public const string GameTools = "GameTools";
     public const string GameToolsId = "00000000-0000-0000-0000-000000000006";
-    //public const string Update = "Update";
+
+#endif
 
     #endregion
+
 }

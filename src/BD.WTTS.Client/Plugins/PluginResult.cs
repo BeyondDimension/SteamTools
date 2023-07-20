@@ -30,4 +30,11 @@ public sealed class PluginResult<TData>
 
     public bool Equals(TData? other)
         => EqualityComparer<TData>.Default.Equals(other, Data);
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is TData obj1) return Equals(obj1);
+        if (obj is PluginResult<TData> obj2) return Equals(obj2);
+        return base.Equals(obj);
+    }
 }

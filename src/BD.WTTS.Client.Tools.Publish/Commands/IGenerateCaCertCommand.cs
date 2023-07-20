@@ -39,7 +39,7 @@ interface IGenerateCaCertCommand : ICommand
     /// </summary>
     const string _13Oid = "1.3.6.1.4.1.311.10.3.13";
 
-    static byte[] GenerateCodeSigningCert(string x500DistinguishedNameValue, string password)
+    static (byte[] pfx, byte[] cer) GenerateCodeSigningCert(string x500DistinguishedNameValue, string password)
     {
         if (string.IsNullOrWhiteSpace(password))
             throw new ArgumentOutOfRangeException(nameof(password), password, null);
@@ -71,13 +71,14 @@ interface IGenerateCaCertCommand : ICommand
         var notBefore = DateTimeOffset.UtcNow;
         var notAfter = notBefore.AddDays(CertificateValidDays);
         using var cert = request.CreateSelfSigned(notBefore, notAfter);
-        var pfx = cert.Export(X509ContentType.Pfx, password);
-        return pfx;
+        var pfx = cert.Export(X509ContentType.Pfx, password); // 私钥
+        var cer = cert.Export(X509ContentType.Cert); // 公钥
+        return (pfx, cer);
     }
 
     internal static void Handler(int type, string path, string cn, string password)
     {
-        var bytes = type switch
+        (var pfx, var cer) = type switch
         {
             // 生成 BeyondDimension 代码签名证书
             1 => GenerateCodeSigningCert(X500DistinguishedNameValue, password),
@@ -85,6 +86,7 @@ interface IGenerateCaCertCommand : ICommand
             2 => GenerateCodeSigningCert($"CN={cn}", password),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
         };
-        File.WriteAllBytes(path, bytes);
+        File.WriteAllBytes(path, pfx);
+        File.WriteAllBytes(path.TrimEnd(".pfx", StringComparison.OrdinalIgnoreCase) + ".cer", cer);
     }
 }

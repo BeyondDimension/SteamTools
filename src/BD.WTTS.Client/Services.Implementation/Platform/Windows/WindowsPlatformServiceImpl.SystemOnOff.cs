@@ -39,7 +39,8 @@ partial class WindowsPlatformServiceImpl
                 if (startupTaskState != StartupTaskState.Enabled &&
                     startupTaskState != StartupTaskState.EnabledByPolicy)
                 {
-                    Toast.Show(AppResources.SetBootAutoStartTrueFail_.Format(startupTaskState));
+                    Toast.Show(ToastIcon.Error,
+                        AppResources.SetBootAutoStartTrueFail_.Format(startupTaskState));
                 }
             }
             else

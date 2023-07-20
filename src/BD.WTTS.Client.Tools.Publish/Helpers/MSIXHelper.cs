@@ -264,17 +264,39 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
         public const string pfxFilePath_BeyondDimension_CodeSigning = @"C:\BeyondDimension_CodeSigning.pfx";
 
         public static void Start(
+            bool force_sign,
             string fileName,
             string? pfxFilePath = null)
         {
-            var pwd = File.ReadAllText(@"C:\MSStore_CodeSigning.txt")?.Trim();
+            pfxFilePath ??= pfxFilePath_BeyondDimension_CodeSigning;
+            var pwdTxtPath = $"{pfxFilePath}.txt";
+
+            if (!File.Exists(pwdTxtPath))
+            {
+                if (force_sign) throw new FileNotFoundException(null, pwdTxtPath);
+                return; // 文件不存在则跳过代码签名
+            }
+
+            var parentDirPath = Path.GetDirectoryName(pfxFilePath);
+            parentDirPath.ThrowIsNull();
+
+            var optionalEntropy = File.ReadAllBytes(Path.Combine(parentDirPath, "optionalEntropy.txt"));
+            optionalEntropy.ThrowIsNull();
+
+            var pwd = File.ReadAllBytes(pwdTxtPath);
+#pragma warning disable CA1416 // 验证平台兼容性
+            pwd = ProtectedData.Unprotect(pwd,
+                optionalEntropy,
+                DataProtectionScope.LocalMachine);
+#pragma warning restore CA1416 // 验证平台兼容性
+            var pwdS = Encoding.UTF8.GetString(pwd);
             var psi = new ProcessStartInfo
             {
                 FileName = GetSignToolPath(),
                 UseShellExecute = false,
                 Arguments =
 $"""
-sign /a /fd SHA256 /f "{pfxFilePath ?? pfxFilePath_BeyondDimension_CodeSigning}" /p "{pwd}" /tr {timestamp_url} /td SHA256 {fileName}
+sign /a /fd SHA256 /f "{pfxFilePath}" /p "{pwdS}" /tr {timestamp_url} /td SHA256 {fileName}
 """,
             };
             DotNetCLIHelper.StartProcessAndWaitForExit(psi);
