@@ -75,7 +75,7 @@ partial interface IPlugin
     /// <summary>
     /// 插件显示图标图片资源路径，值为 <see langword="null"/> 时使用默认图片
     /// </summary>
-    string? Icon { get; }
+    object? Icon { get; }
 
     /// <summary>
     /// 插件安装时间

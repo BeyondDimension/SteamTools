@@ -2485,4 +2485,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Plugin_SafeMode" xml:space="preserve">
     <value>安全模式</value>
   </data>
+  <data name="Plugin_FileError" xml:space="preserve">
+    <value>找不到文件</value>
+  </data>
 </root>

@@ -4438,6 +4438,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 找不到文件 的本地化字符串。
+        /// </summary>
+        public static string Plugin_FileError {
+            get {
+                return ResourceManager.GetString("Plugin_FileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已安装插件 的本地化字符串。
         /// </summary>
         public static string Plugin_InstalledPlugins {

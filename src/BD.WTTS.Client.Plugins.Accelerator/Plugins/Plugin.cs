@@ -1,3 +1,4 @@
+using BD.WTTS.Properties;
 using BD.WTTS.UI.Views.Pages;
 
 namespace BD.WTTS.Plugins;
@@ -19,7 +20,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     protected sealed override string? AuthorOriginalString => null;
 
-    public sealed override string? Icon => "avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico";
+    public sealed override object? Icon => new MemoryStream(Resources.accelerator); //"avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico";
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {

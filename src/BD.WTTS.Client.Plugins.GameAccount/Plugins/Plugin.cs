@@ -1,3 +1,4 @@
+using BD.WTTS.Properties;
 using BD.WTTS.UI.Views.Pages;
 using System;
 
@@ -20,7 +21,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     protected sealed override string? AuthorOriginalString => null;
 
-    public sealed override string? Icon => "avares://BD.WTTS.Client.Plugins.GameAccount/UI/Assets/userswitcher.ico";
+    public sealed override object? Icon => new MemoryStream(Resources.userswitcher); //"avares://BD.WTTS.Client.Plugins.GameAccount/UI/Assets/userswitcher.ico";
 
     public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
     {

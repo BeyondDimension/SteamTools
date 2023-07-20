@@ -46,27 +46,32 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     {
         if (Plugins!.Any(x => x.IsDisable && x.Data.Id == plugin.Id))
         {
+
             var path = Path.GetDirectoryName(plugin.AssemblyLocation)!;
-            var msg = string.Empty;
-            try
+            if (Directory.Exists(path))
             {
-                var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
-                var now = DateTime.Now;
+                var msg = string.Empty;
+                try
+                {
+                    var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
+                    var now = DateTime.Now;
 
-                if (hasKey && (now - dt).TotalSeconds <= clickInterval)
-                    return;
+                    if (hasKey && (now - dt).TotalSeconds <= clickInterval)
+                        return;
 
-                Directory.Delete(path, true);
+                    Directory.Delete(path, true);
 
-                if (!clickTimeRecord.TryAdd(path, now))
-                    clickTimeRecord[path] = now;
+                    if (!clickTimeRecord.TryAdd(path, now))
+                        clickTimeRecord[path] = now;
 
-                Toast.Show(ToastIcon.Success, Strings.Plugin_DeleteSuccess.Format(plugin.Name));
+                    Toast.Show(ToastIcon.Success, Strings.Plugin_DeleteSuccess.Format(plugin.Name));
+                }
+                catch (Exception ex)
+                {
+                    Toast.LogAndShowT(ex);
+                }
             }
-            catch (Exception ex)
-            {
-                Toast.LogAndShowT(ex);
-            }
+            Toast.Show(ToastIcon.Warning, Strings.Plugin_FileError);
         }
         else
             Toast.Show(ToastIcon.Warning, Strings.Plugin_NeedDisable);

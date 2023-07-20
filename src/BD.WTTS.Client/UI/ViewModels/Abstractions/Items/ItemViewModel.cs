@@ -34,9 +34,10 @@ public abstract partial class ItemViewModel : ViewModelBase
 
     //public virtual string? IconSource => IApplication.Instance.GetIconSourceByIconKey(IconKey);
 
-    protected string? _IconKey;
+    protected object? _IconKey;
 
-    public virtual string? IconKey
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public virtual object? IconKey
     {
         get => _IconKey;
         set
