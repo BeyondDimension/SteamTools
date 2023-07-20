@@ -1,4 +1,5 @@
-using System.Reactive;
+using BD.SteamClient.Constants;
+using BD.WTTS.UI.Views.Pages;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -79,7 +80,8 @@ public partial class GameListPageViewModel : TabItemViewModel
 
         HideAppCommand = ReactiveCommand.Create(() =>
         {
-            //IWindowManager.Instance.Show(CustomWindow.HideApp, resizeMode: ResizeMode.CanResize);
+            IWindowManager.Instance.ShowTaskDialogAsync(new HideAppsPageViewModel(), Strings.GameList_HideGameManger,
+                pageContent: new HideAppsPage(), isOkButton: false);
         });
         IdleAppCommand = ReactiveCommand.Create(() =>
         {
@@ -188,5 +190,155 @@ public partial class GameListPageViewModel : TabItemViewModel
             {
                 item.Count = SteamConnectService.Current.SteamApps.Items.Count(s => s.Type == item.Value);
             }
+    }
+
+    public static void InstallOrStartApp(SteamApp app)
+    {
+        string url;
+        if (app.IsInstalled)
+            url = string.Format(SteamApiUrls.STEAM_RUNGAME_URL, app.AppId);
+        else
+            url = string.Format(SteamApiUrls.STEAM_INSTALL_URL, app.AppId);
+        Process2.Start(url, useShellExecute: true);
+    }
+
+    public static void EditAppInfoClick(SteamApp app)
+    {
+        if (app == null) return;
+        //IWindowManager.Instance.Show(CustomWindow.EditAppInfo, new EditAppInfoWindowViewModel(app), string.Empty, default);
+    }
+
+    public static async void ManageCloudArchive_Click(SteamApp app)
+    {
+        if (!ISteamService.Instance.IsRunningSteamProcess)
+        {
+            Toast.Show(Strings.GameList_SteamNotRuning);
+            return;
+        }
+
+        Toast.Show(Strings.GameList_RuningWait);
+        app.StartSteamAppProcess(SteamAppRunType.CloudManager);
+        SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
+    }
+
+    public static async void UnlockAchievement_Click(SteamApp app)
+    {
+        if (!ISteamService.Instance.IsRunningSteamProcess)
+        {
+            Toast.Show(Strings.GameList_SteamNotRuning);
+            return;
+        }
+        switch (app.Type)
+        {
+            case SteamAppType.Application:
+            case SteamAppType.Game:
+                var result = await MessageBox.ShowAsync(Strings.Achievement_RiskWarning, button: MessageBox.Button.OKCancel,
+                    rememberChooseKey: MessageBox.DontPromptType.UnLockAchievement);
+                if (result.IsOK())
+                {
+                    Toast.Show(Strings.GameList_RuningWait);
+                    app.StartSteamAppProcess(SteamAppRunType.UnlockAchievement);
+                    SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
+                }
+                break;
+            default:
+                Toast.Show(Strings.GameList_Unsupport);
+                break;
+        }
+    }
+
+    public static async void AddAFKAppList(SteamApp app)
+    {
+        try
+        {
+            if (GameLibrarySettings.AFKAppList.Value?.Count >= SteamConnectService.SteamAFKMaxCount)
+            {
+                await MessageBox.ShowAsync(Strings.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.SteamAFKMaxCount), button: MessageBox.Button.OK);
+            }
+            else
+            {
+                if (GameLibrarySettings.AFKAppList.Value?.Count == SteamConnectService.SteamAFKMaxCount - 2)
+                {
+                    var result = await MessageBox.ShowAsync(Strings.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.SteamAFKMaxCount, SteamConnectService.SteamAFKMaxCount), button: MessageBox.Button.OKCancel);
+                    if (result.IsOK())
+                    {
+                        AddAFKAppListFunc(app);
+                    }
+                }
+                else
+                {
+
+                    AddAFKAppListFunc(app);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.LogAndShowT(nameof(GameListPageViewModel));
+        }
+    }
+
+    public static void AddAFKAppListFunc(SteamApp app)
+    {
+        try
+        {
+            if (GameLibrarySettings.AFKAppList.Value == null)
+            {
+                GameLibrarySettings.AFKAppList.Value = new Dictionary<uint, string?>();
+            }
+            if (!GameLibrarySettings.AFKAppList.Value.ContainsKey(app.AppId))
+            {
+                GameLibrarySettings.AFKAppList.Value.Add(app.AppId, app.DisplayName);
+                GameLibrarySettings.AFKAppList.RaiseValueChanged();
+            }
+            Toast.Show(Strings.GameList_AddAFKAppsSuccess);
+        }
+        catch (Exception e)
+        {
+            e.LogAndShowT(nameof(GameListPageViewModel));
+        }
+    }
+
+    public static void AddHideAppList(SteamApp app)
+    {
+        try
+        {
+            GameLibrarySettings.HideGameList.Value!.Add(app.AppId, app.DisplayName);
+            GameLibrarySettings.HideGameList.RaiseValueChanged();
+
+            SteamConnectService.Current.SteamApps.Remove(app);
+            Toast.Show(Strings.GameList_HideAppsSuccess);
+        }
+        catch (Exception e)
+        {
+            e.LogAndShowT(nameof(GameListPageViewModel));
+        }
+    }
+
+    public static void NavAppToSteamView(SteamApp app)
+    {
+        var url = string.Format(SteamApiUrls.STEAM_NAVGAME_URL, app.AppId);
+        Process2.Start(url, useShellExecute: true);
+    }
+
+    public static void OpenFolder(SteamApp app)
+    {
+        if (!string.IsNullOrEmpty(app.InstalledDir))
+            IPlatformService.Instance.OpenFolder(app.InstalledDir);
+    }
+
+    public static async void OpenAppStoreUrl(SteamApp app)
+    {
+        await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMSTORE_APP_URL, app.AppId));
+    }
+
+    public static async void OpenSteamDBUrl(SteamApp app)
+    {
+        await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMDBINFO_APP_URL, app.AppId));
+    }
+
+    public static async void OpenSteamCardUrl(SteamApp app)
+    {
+        await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));
     }
 }

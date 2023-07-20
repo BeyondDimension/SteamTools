@@ -16,6 +16,92 @@
     x:CompileBindings="True"
     x:DataType="spp:PlatformAccount"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="spp:IAccount">
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.SwapToAccountCommand}"
+                CommandParameter="{Binding}"
+                Text="切换到此账号" />
+            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="登录为">
+                <ui:MenuFlyoutItem
+                    Click="SteamPersonaStateSwapMenuItem_Click"
+                    Tag="{x:Static sceums:PersonaState.Invisible}"
+                    Text="隐身" />
+                <ui:MenuFlyoutItem
+                    Click="SteamPersonaStateSwapMenuItem_Click"
+                    Tag="{x:Static sceums:PersonaState.Offline}"
+                    Text="离线" />
+                <ui:MenuFlyoutItem
+                    Click="SteamPersonaStateSwapMenuItem_Click"
+                    Tag="{x:Static sceums:PersonaState.Online}"
+                    Text="在线" />
+                <ui:MenuFlyoutItem
+                    Click="SteamPersonaStateSwapMenuItem_Click"
+                    Tag="{x:Static sceums:PersonaState.Busy}"
+                    Text="忙碌" />
+                <ui:MenuFlyoutItem
+                    Click="SteamPersonaStateSwapMenuItem_Click"
+                    Tag="{x:Static sceums:PersonaState.Away}"
+                    Text="离开" />
+                <ui:MenuFlyoutItem
+                    Click="SteamPersonaStateSwapMenuItem_Click"
+                    Tag="{x:Static sceums:PersonaState.Snooze}"
+                    Text="打盹" />
+                <ui:MenuFlyoutItem
+                    Click="SteamPersonaStateSwapMenuItem_Click"
+                    Tag="{x:Static sceums:PersonaState.LookingToTrade}"
+                    Text="想交易" />
+                <ui:MenuFlyoutItem
+                    Click="SteamPersonaStateSwapMenuItem_Click"
+                    Tag="{x:Static sceums:PersonaState.LookingToPlay}"
+                    Text="想玩游戏" />
+            </ui:MenuFlyoutSubItem>
+            <ui:MenuFlyoutSeparator />
+            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="复制">
+                <ui:MenuFlyoutSubItem Text="复制个人资料">
+                    <ui:MenuFlyoutItem Text="社区 URL" />
+                    <ui:MenuFlyoutItem Text="Steam 昵称" />
+                    <ui:MenuFlyoutItem Text="Steamn 用户名" />
+                </ui:MenuFlyoutSubItem>
+                <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="复制 SteamID">
+                    <ui:MenuFlyoutItem Text="SteamID [STEAM0:~]" />
+                    <ui:MenuFlyoutItem Text="SteamID3 [U:1:~]" />
+                    <ui:MenuFlyoutItem Text="SteamID32" />
+                    <ui:MenuFlyoutItem Text="SteamID64 7656~" />
+                </ui:MenuFlyoutSubItem>
+            </ui:MenuFlyoutSubItem>
+            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="打开链接">
+                <ui:MenuFlyoutItem Text="SteamRep" />
+                <ui:MenuFlyoutItem Text="SteamRepCN" />
+                <ui:MenuFlyoutItem Text="SteamDB" />
+                <ui:MenuFlyoutItem Text="SteamGifts" />
+                <ui:MenuFlyoutItem Text="SteamTrades" />
+                <ui:MenuFlyoutItem Text="Achievement Stats" />
+                <ui:MenuFlyoutItem Text="Backpack.tf" />
+            </ui:MenuFlyoutSubItem>
+            <ui:MenuFlyoutSeparator IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" />
+            <ui:MenuFlyoutItem Text="修改备注名" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.SetAccountAvatarCommand}"
+                CommandParameter="{Binding}"
+                IsVisible="{ReflectionBinding !#u.DataContext.IsSteamPlatform}"
+                Text="修改头像图片" />
+            <ui:MenuFlyoutSeparator />
+            <ui:MenuFlyoutItem Text="创建桌面快捷方式" />
+            <ui:MenuFlyoutItem
+                Click="OpenUserDataFolderMenuItem_Click"
+                IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}"
+                Text="{ReflectionBinding Path=Res.UserChange_ShowUserDataFolder,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.DeleteAccountCommand}"
+                CommandParameter="{Binding}"
+                Text="{ReflectionBinding Path=Res.Delete,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+        </ui:FAMenuFlyout>
+    </UserControl.Resources>
     <ScrollViewer>
         <ScrollViewer.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
@@ -34,7 +120,9 @@
                                 Title="{Binding DisplayName}"
                                 MaxWidth="128"
                                 Classes="Vertical"
+                                ContextFlyout="{StaticResource SharedMenuFlyout}"
                                 Description="{Binding LastLoginTime}"
+                                MoreFlyout="{StaticResource SharedMenuFlyout}"
                                 Status="{ReflectionBinding Path=Res.UserChange_RecentLogin,
                                                            Mode=OneWay,
                                                            Source={x:Static s:ResourceService.Current}}">
@@ -43,92 +131,6 @@
                                         <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     </Border>
                                 </spp:AppItem.Status>
-                                <spp:AppItem.ContextFlyout>
-                                    <ui:FAMenuFlyout>
-                                        <ui:MenuFlyoutItem
-                                            Command="{ReflectionBinding #u.DataContext.SwapToAccountCommand}"
-                                            CommandParameter="{Binding}"
-                                            Text="切换到此账号" />
-                                        <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="登录为">
-                                            <ui:MenuFlyoutItem
-                                                Click="SteamPersonaStateSwapMenuItem_Click"
-                                                Tag="{x:Static sceums:PersonaState.Invisible}"
-                                                Text="隐身" />
-                                            <ui:MenuFlyoutItem
-                                                Click="SteamPersonaStateSwapMenuItem_Click"
-                                                Tag="{x:Static sceums:PersonaState.Offline}"
-                                                Text="离线" />
-                                            <ui:MenuFlyoutItem
-                                                Click="SteamPersonaStateSwapMenuItem_Click"
-                                                Tag="{x:Static sceums:PersonaState.Online}"
-                                                Text="在线" />
-                                            <ui:MenuFlyoutItem
-                                                Click="SteamPersonaStateSwapMenuItem_Click"
-                                                Tag="{x:Static sceums:PersonaState.Busy}"
-                                                Text="忙碌" />
-                                            <ui:MenuFlyoutItem
-                                                Click="SteamPersonaStateSwapMenuItem_Click"
-                                                Tag="{x:Static sceums:PersonaState.Away}"
-                                                Text="离开" />
-                                            <ui:MenuFlyoutItem
-                                                Click="SteamPersonaStateSwapMenuItem_Click"
-                                                Tag="{x:Static sceums:PersonaState.Snooze}"
-                                                Text="打盹" />
-                                            <ui:MenuFlyoutItem
-                                                Click="SteamPersonaStateSwapMenuItem_Click"
-                                                Tag="{x:Static sceums:PersonaState.LookingToTrade}"
-                                                Text="想交易" />
-                                            <ui:MenuFlyoutItem
-                                                Click="SteamPersonaStateSwapMenuItem_Click"
-                                                Tag="{x:Static sceums:PersonaState.LookingToPlay}"
-                                                Text="想玩游戏" />
-                                        </ui:MenuFlyoutSubItem>
-                                        <ui:MenuFlyoutSeparator />
-                                        <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="复制">
-                                            <ui:MenuFlyoutSubItem Text="复制个人资料">
-                                                <ui:MenuFlyoutItem Text="社区 URL" />
-                                                <ui:MenuFlyoutItem Text="Steam 昵称" />
-                                                <ui:MenuFlyoutItem Text="Steamn 用户名" />
-                                            </ui:MenuFlyoutSubItem>
-                                            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="复制 SteamID">
-                                                <ui:MenuFlyoutItem Text="SteamID [STEAM0:~]" />
-                                                <ui:MenuFlyoutItem Text="SteamID3 [U:1:~]" />
-                                                <ui:MenuFlyoutItem Text="SteamID32" />
-                                                <ui:MenuFlyoutItem Text="SteamID64 7656~" />
-                                            </ui:MenuFlyoutSubItem>
-                                        </ui:MenuFlyoutSubItem>
-                                        <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="打开链接">
-                                            <ui:MenuFlyoutItem Text="SteamRep" />
-                                            <ui:MenuFlyoutItem Text="SteamRepCN" />
-                                            <ui:MenuFlyoutItem Text="SteamDB" />
-                                            <ui:MenuFlyoutItem Text="SteamGifts" />
-                                            <ui:MenuFlyoutItem Text="SteamTrades" />
-                                            <ui:MenuFlyoutItem Text="Achievement Stats" />
-                                            <ui:MenuFlyoutItem Text="Backpack.tf" />
-                                        </ui:MenuFlyoutSubItem>
-                                        <ui:MenuFlyoutSeparator IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" />
-                                        <ui:MenuFlyoutItem Text="修改备注名" />
-                                        <ui:MenuFlyoutItem
-                                            Command="{ReflectionBinding #u.DataContext.SetAccountAvatarCommand}"
-                                            CommandParameter="{Binding}"
-                                            IsVisible="{ReflectionBinding !#u.DataContext.IsSteamPlatform}"
-                                            Text="修改头像图片" />
-                                        <ui:MenuFlyoutSeparator />
-                                        <ui:MenuFlyoutItem Text="创建桌面快捷方式" />
-                                        <ui:MenuFlyoutItem
-                                            Click="OpenUserDataFolderMenuItem_Click"
-                                            IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}"
-                                            Text="{ReflectionBinding Path=Res.UserChange_ShowUserDataFolder,
-                                                                     Mode=OneWay,
-                                                                     Source={x:Static s:ResourceService.Current}}" />
-                                        <ui:MenuFlyoutItem
-                                            Command="{ReflectionBinding #u.DataContext.DeleteAccountCommand}"
-                                            CommandParameter="{Binding}"
-                                            Text="{ReflectionBinding Path=Res.Delete,
-                                                                     Mode=OneWay,
-                                                                     Source={x:Static s:ResourceService.Current}}" />
-                                    </ui:FAMenuFlyout>
-                                </spp:AppItem.ContextFlyout>
                                 <i:Interaction.Behaviors>
                                     <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="{ReflectionBinding #Item}">
                                         <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SwapToAccountCommand}" CommandParameter="{Binding}" />

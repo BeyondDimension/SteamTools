@@ -7,5 +7,6 @@ public partial class IdleAppsPage : UserControl
     public IdleAppsPage()
     {
         InitializeComponent();
+        DataContext ??= new IdleAppsPageViewModel();
     }
 }

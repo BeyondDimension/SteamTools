@@ -145,5 +145,47 @@
     },
     "UniqueIdFile": "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id",
     "UniqueIdType": 1
+  },
+  {
+    "FullName": "Rockstar",
+    "Icon": "Rockstar",
+    "Platform": 8192,
+    "PlatformIds": [ "rs", "rockstar", "socialclub" ],
+    "DefaultExePath": "%ProgramFiles%\\Rockstar Games\\Launcher\\LauncherPatcher.exe",
+    "ExesToEnd": [
+      "LauncherPatcher.exe",
+      "Launcher.exe",
+      "RockstarErrorHandler.exe",
+      "RockstarService.exe",
+      "SocialClubHelper.exe"
+    ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%LocalAppData%\\Rockstar Games\\Launcher\\settings_user.dat": "settings_user.dat",
+      "%ProgramData%\\Rockstar Games\\Launcher\\settings_machine.dat": "settings_machine.dat",
+      "%Documents%\\Rockstar Games\\Social Club\\Profiles\\*": "Profiles\\",
+      "%ProgramData%\\Rockstar Games\\WattToolkit.id": "WattToolkit.id"
+    },
+    "CachePaths": [
+      "%Documents%\\Rockstar Games\\Social Club\\Launcher\\Renderer\\Cache\\f_*"
+    ],
+    "IsExitBeforeInteract": true,
+    "UniqueIdFile": "%ProgramData%\\Rockstar Games\\WattToolkit.id",
+    "UniqueIdType": 1
+  },
+  {
+    "FullName": "BattleNet",
+    "Icon": "BattleNet",
+    "Platform": 8192,
+    "PlatformIds": [ "b", "bnet", "battlenet", "blizzard" ],
+    "DefaultExePath": "%ProgramFiles(x86)%\\Battle.net\\Battle.net.exe",
+    "ExesToEnd": [ "Battle.net" ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "JSON_SELECT_FIRST,::%AppData%\\Battle.net\\Battle.net.config::$.Client.SavedAccountNames": "email.json"
+    },
+    "IsExitBeforeInteract": true,
+    "UniqueIdFile": "%AppData%\\Battle.net\\Battle.net.config::$.Client.SavedAccountNames",
+    "UniqueIdMethod": "JSON_SELECT_FIRST,"
   }
 ]

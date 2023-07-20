@@ -9,6 +9,7 @@
     xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:Name="u"
     Title="{ReflectionBinding Name,
                               Source={x:Static s:Plugin.Instance},
                               Mode=OneWay}"
@@ -25,6 +26,105 @@
                                  Converter={StaticResource StringFormatConverter},
                                  ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
+    <spp:PageBase.Resources>
+        <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="scmd:SteamApp">
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
+                CommandParameter="{Binding}"
+                IconSource="Play"
+                IsVisible="{Binding IsInstalled}"
+                Text="{ReflectionBinding Path=Res.GameList_Play,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
+                CommandParameter="{Binding}"
+                IconSource="Download"
+                IsVisible="{Binding !IsInstalled}"
+                Text="{ReflectionBinding Path=Res.GameList_Install,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.EditAppInfoClick}"
+                CommandParameter="{Binding}"
+                IconSource="Edit"
+                Text="{ReflectionBinding Path=Res.GameList_EditAppInfo,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.ManageCloudArchive_Click}"
+                CommandParameter="{Binding}"
+                IconSource="CloudSync"
+                IsVisible="{Binding IsCloudArchive}"
+                Text="{ReflectionBinding Path=Res.GameList_CloudArchiveManager,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.UnlockAchievement_Click}"
+                CommandParameter="{Binding}"
+                IconSource="Diagnostic"
+                Text="{ReflectionBinding Path=Res.Achievement_Manage,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.AddAFKAppList}"
+                CommandParameter="{Binding}"
+                IconSource="DateTime"
+                Text="{ReflectionBinding Path=Res.GameList_AddAfkGameList,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutSeparator />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.NavAppToSteamView}"
+                CommandParameter="{Binding}"
+                Text="{ReflectionBinding Path=Res.GameList_NavToSteamView,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}">
+                <ui:MenuFlyoutItem.IconSource>
+                    <ui:PathIconSource Data="{StaticResource Steam}" />
+                </ui:MenuFlyoutItem.IconSource>
+            </ui:MenuFlyoutItem>
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.OpenFolder}"
+                CommandParameter="{Binding}"
+                IconSource="OpenFolder"
+                IsVisible="{Binding IsInstalled}"
+                Text="{ReflectionBinding Path=Res.GameList_OpenFolder,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutSeparator />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
+                CommandParameter="{Binding}"
+                IconSource="Link"
+                Text="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.OpenSteamDBUrl}"
+                CommandParameter="{Binding}"
+                IconSource="Link"
+                Text="{ReflectionBinding Path=Res.GameList_OpenSteamDBUrl,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.OpenSteamCardUrl}"
+                CommandParameter="{Binding}"
+                IconSource="Link"
+                Text="{ReflectionBinding Path=Res.GameList_OpenSteamCardUrl,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutSeparator />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.AddHideAppList}"
+                CommandParameter="{Binding}"
+                IconSource="Hide"
+                Text="{ReflectionBinding Path=Res.GameList_HideTheGame,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+
+        </ui:FAMenuFlyout>
+    </spp:PageBase.Resources>
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
@@ -414,17 +514,14 @@
                                 Height="340"
                                 MinWidth="128"
                                 MaxWidth="169"
-                                Classes="Vertical">
+                                Classes="Vertical"
+                                ContextFlyout="{StaticResource SharedMenuFlyout}"
+                                MoreFlyout="{StaticResource SharedMenuFlyout}">
                                 <spp:AppItem.Status>
                                     <Border Classes="Status">
                                         <TextBlock Text="{Binding AppId}" />
                                     </Border>
                                 </spp:AppItem.Status>
-                                <spp:AppItem.MoreFlyout>
-                                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                                        <ui:MenuFlyoutItem Text="112323" />
-                                    </ui:FAMenuFlyout>
-                                </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>
                                     <Panel MinWidth="{ReflectionBinding $parent[spp:AppItem].MinWidth}" MaxWidth="{ReflectionBinding $parent[spp:AppItem].MaxWidth}">
                                         <spp:Image2
