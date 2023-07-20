@@ -52,11 +52,16 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
             {
                 var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
                 var now = DateTime.Now;
-                if (hasKey && (now - dt).TotalSeconds <= clickInterval) return;
+
+                if (hasKey && (now - dt).TotalSeconds <= clickInterval)
+                    return;
+
                 Directory.Delete(path, true);
-                if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
+
+                if (!clickTimeRecord.TryAdd(path, now))
+                    clickTimeRecord[path] = now;
+
                 Toast.Show(ToastIcon.Success, Strings.Plugin_DeleteSuccess.Format(plugin.Name));
-                return;
             }
             catch (Exception ex)
             {
@@ -64,7 +69,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
             }
         }
         else
-            Toast.Show(ToastIcon.Info, Strings.Plugin_NeedDisable);
+            Toast.Show(ToastIcon.Warning, Strings.Plugin_NeedDisable);
     }
 
     private void PluginOpenFolder(string path)
