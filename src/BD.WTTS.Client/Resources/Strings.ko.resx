@@ -1957,4 +1957,25 @@
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>스크립트 레코드가 삭제되었는지 여부에 관계없이 텍스트 파일이 누락되었습니다.</value>
   </data>
+  <data name="LocalAuth_Import_DecodePrivateKeyError" xml:space="preserve">
+	  <value>{0} 密钥解析失败，请检查密钥是否正确</value>
+  </data>
+  <data name="Auth_Sync_LatestData" xml:space="preserve">
+	  <value>本地令牌已为最新数据</value>
+  </data>
+  <data name="Auth_Sync_UpdateTips" xml:space="preserve">
+	  <value>本地令牌新增 {0} 个 数据更新 {1} 个</value>
+  </data>
+  <data name="Auth_Possession" xml:space="preserve">
+	  <value>已有令牌</value>
+  </data>
+  <data name="Auth_Add" xml:space="preserve">
+	  <value>新增令牌</value>
+  </data>
+  <data name="EncryptSettings" xml:space="preserve">
+	  <value>加密设置</value>
+  </data>
+  <data name="Plugin_FileError" xml:space="preserve">
+    <value>找不到文件</value>
+  </data>
 </root>
