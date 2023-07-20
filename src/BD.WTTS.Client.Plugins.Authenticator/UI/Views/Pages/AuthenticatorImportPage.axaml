@@ -1,11 +1,76 @@
-<UserControl
+<spp:PageBase
+    Description="{ReflectionBinding Description,
+                                    Source={x:Static s:Plugin.Instance},
+                                    Mode=OneWay}"
+    Subtitle="{ReflectionBinding Author,
+                                 Source={x:Static s:Plugin.Instance},
+                                 Mode=OneWay,
+                                 Converter={StaticResource StringFormatConverter},
+                                 ConverterParameter=Plugin_Author}"
+    Title="{ReflectionBinding Name,
+                              Source={x:Static s:Plugin.Instance},
+                              Mode=OneWay}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
     x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorImportPage"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorImportPageViewModel"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    Welcome to Avalonia!
-</UserControl>
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                DockPanel.Dock="Right"
+                Padding="8,4"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Height="16"
+                        HorizontalAlignment="Left"
+                        Width="16">
+                        <ui:SymbolIcon Symbol="Refresh" />
+                    </Viewbox>
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Margin="28,4,0,4"
+                        Text="{ReflectionBinding Path=Res.Refresh,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Center" />
+                </Panel>
+            </Button>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+    <spp:ContentLoader IsLoading="{Binding !!!AuthenticatorImportBases.Count, Mode=OneWay}">
+        <StackPanel Spacing="{StaticResource SettingsSpacing}">
+            <ItemsRepeater ItemsSource="{Binding AuthenticatorImportBases}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate DataType="{x:Type spp:AuthenticatorImportBase}">
+                        <!-- <ui:SettingsExpander IsClickEnabled="False"> -->
+                        <!--     <ui:SettingsExpander.Header> -->
+                        <!--         <StackPanel Spacing="10"> -->
+                        <!--             <TextBlock Text="{Binding Name}" /> -->
+                        <!--             <TextBlock Text="{Binding Description}" /> -->
+                        <!--         </StackPanel> -->
+                        <!--     </ui:SettingsExpander.Header> -->
+                        <!-- </ui:SettingsExpander> -->
+                        <spp:OptionsDisplayItem Description="{Binding Description, Mode=OneWay}" Header="{Binding Name, Mode=OneWay}">
+                            <spp:OptionsDisplayItem.ActionButton>
+                                <Button Command="{Binding AuthenticatorImportCommand}" Content="{ReflectionBinding Source={x:Static s:ResourceService.Current}, Path=Res.Import}" />
+                            </spp:OptionsDisplayItem.ActionButton>
+                        </spp:OptionsDisplayItem>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </StackPanel>
+    </spp:ContentLoader>
+</spp:PageBase>

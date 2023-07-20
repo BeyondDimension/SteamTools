@@ -31,9 +31,9 @@ public sealed partial class AuthenticatorService
         return new Bitmap(stream);
     }
 
-    public static async Task AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password)
+    public static async Task AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password, bool isLocal)
     {
-        var isLocal = await repository.HasLocalAsync();
+        //var isLocal = await repository.HasLocalAsync();
         // var sourceList = await GetAllSourceAuthenticatorAsync();
         // if (sourceList.Length >= IAccountPlatformAuthenticatorRepository.MaxValue)
         // {
@@ -42,7 +42,7 @@ public sealed partial class AuthenticatorService
         //         Toast.Show(ToastIcon.Error, "操作失败：超出令牌最大数量限制");
         //         return false;
         //     }
-        // }
+        // }s
         // if (await repository.Exists(sourceList, authenticatorDto, isLocal, password))
         // {
         //     Toast.Show(ToastIcon.Error, "操作失败：令牌已存在重复数据");

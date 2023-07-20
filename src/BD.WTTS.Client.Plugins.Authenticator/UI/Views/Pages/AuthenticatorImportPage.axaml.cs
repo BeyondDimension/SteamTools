@@ -4,15 +4,12 @@ using Avalonia.Markup.Xaml;
 
 namespace BD.WTTS.UI.Views.Pages;
 
-public partial class AuthenticatorImportPage : UserControl
+public partial class AuthenticatorImportPage : PageBase<AuthenticatorImportPageViewModel>
 {
     public AuthenticatorImportPage()
     {
         InitializeComponent();
-    }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
+        DataContext ??= new AuthenticatorImportPageViewModel();
     }
 }

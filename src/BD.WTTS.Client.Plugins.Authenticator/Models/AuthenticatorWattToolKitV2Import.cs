@@ -14,13 +14,17 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            await ImportFromWattToolKitV2(password: password);
+            if (await VerifyMaxValue())
+                await ImportFromWattToolKitV2(password: password);
         });
     }
     
     async Task ImportFromWattToolKitV2(string? exportPassword = null, string? password = null)
     {
         var filePath = await SelectFolderPath();
+        
+        if (string.IsNullOrEmpty(filePath)) return;
+        
         var metadata = await IOPath.TryReadAllBytesAsync(filePath);
         if (!metadata.success || metadata.byteArray == null) return;
         var result = await AuthenticatorService.ImportAsync(exportPassword, metadata.byteArray);
@@ -30,7 +34,7 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
                 or IAccountPlatformAuthenticatorRepository.ImportResultCode.PartSuccess:
                 foreach (var item in result.result)
                 {
-                    await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(item, password);
+                    await SaveAuthenticator(item);
                 }
 
                 Toast.Show(ToastIcon.Success, result.resultCode == IAccountPlatformAuthenticatorRepository.ImportResultCode.Success

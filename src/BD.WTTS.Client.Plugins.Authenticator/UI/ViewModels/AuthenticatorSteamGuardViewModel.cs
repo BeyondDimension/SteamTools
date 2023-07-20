@@ -49,7 +49,7 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
         }
     }
 
-    public async Task<bool> ImportFromPhoneSteamGuard(string? password = null)
+    public async Task<bool> ImportFromPhoneSteamGuard(bool isLocal, string? password = null)
     {
         /* AuthService.ImportSteamGuard (System.String name, System.String uuid, System.String steamGuard, System.Boolean isLocal, System.String password)
              * System.NullReferenceException: Object reference not set to an instance of an object
@@ -135,7 +135,7 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
             new AuthenticatorDTO()
             {
                 Name = $"(Steam){ImportAuthNewName}", Value = auth, Created = DateTimeOffset.Now,
-            }, password);
+            }, password, isLocal);
         return true;
     }
 }

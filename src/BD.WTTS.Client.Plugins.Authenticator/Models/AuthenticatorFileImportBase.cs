@@ -15,7 +15,7 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
     protected async Task<string> SelectFolderPath()
     {
         var filePath = (await SelectFile())?.FullPath.TrimStart("file:///");
-        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) throw new FileNotFoundException("文件路径不存在");
+        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) Toast.Show(ToastIcon.Warning, "文件路径不存在");
         return filePath;
     }
 
@@ -23,11 +23,8 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
     {
         var options = new PickOptions();
         if (string.IsNullOrEmpty(FileExtension)) return await FilePicker2.PickAsync(options);
-        
-        FilePickerFileType fileTypes = new ValueTuple<string, string[]>[]
-        {
-            ("File", new[] { $"*.{FileExtension}" }),
-        };
+
+        FilePickerFileType fileTypes = new[] { ($"{FileExtension} Files", new[] { "*" + FileExtension, }), };
         options.FileTypes = fileTypes;
         return await FilePicker2.PickAsync(options);
     }

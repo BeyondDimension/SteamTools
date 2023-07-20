@@ -7,4 +7,8 @@ public interface IAuthenticatorImport
     public string Description { get; }
 
     public ICommand AuthenticatorImportCommand { get; set; }
+    
+    Task<bool> VerifyMaxValue();
+    
+    Task SaveAuthenticator(IAuthenticatorDTO authenticatorDto);
 }

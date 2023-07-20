@@ -55,15 +55,6 @@
             <Setter Property="RenderTransform" Value="translateY(80px)" />
         </Style>
     </spp:PageBase.Styles>
-    <spp:PageBase.TabContent>
-        <TabStrip
-            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
-            CornerRadius="{StaticResource ControlCornerRadius}"
-            HorizontalAlignment="Right"
-            ItemContainerTheme="{StaticResource TabItemStyle}"
-            Margin="4"
-            VerticalAlignment="Top" />
-    </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
@@ -73,7 +64,7 @@
                 <Button.Flyout>
                     <Flyout Placement="BottomEdgeAlignedLeft">
                         <StackPanel Spacing="5">
-                            <Button Command="{Binding OpenSteamLoginImportWindow}" Content="Steam登陆导入" />
+                            <!-- <Button Command="{Binding OpenSteamLoginImportWindow}" Content="Steam登陆导入" /> -->
                             <Button Command="{Binding OpenGeneralAuthenticatorImportWindow}" Content="2FA通用导入" />
                             <!-- <Button Command="{Binding OpenSteamOtherImportWindow}" Content="导入自文件" /> -->
                         </StackPanel>

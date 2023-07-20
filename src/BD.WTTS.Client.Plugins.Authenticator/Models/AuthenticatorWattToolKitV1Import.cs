@@ -14,13 +14,17 @@ public class AuthenticatorWattToolKitV1Import : AuthenticatorFileImportBase
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            await ImportFromWattToolKitV1(password);
+            if (await VerifyMaxValue())
+                await ImportFromWattToolKitV1(password);
         });
     }
     
     async Task ImportFromWattToolKitV1(string? password = null)
     {
         var filePath = await SelectFolderPath();
+        
+        if (string.IsNullOrEmpty(filePath)) return;
+
         if (IOPath.TryReadAllText(filePath, out var content, out var _))
         {
             string authString;
@@ -55,7 +59,7 @@ public class AuthenticatorWattToolKitV1Import : AuthenticatorFileImportBase
                         if (reader.Name != "WinAuthAuthenticator") continue;
                         var authDto = new AuthenticatorDTO();
                         ReadXml(ref authDto, reader, null);
-                        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(authDto, password);
+                        await SaveAuthenticator(authDto);
                     }
                     else
                     {

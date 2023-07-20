@@ -3,6 +3,7 @@ namespace BD.WTTS.UI.ViewModels;
 public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
 {
     string? _password;
+    bool _isLocal;
 
     IAuthenticatorValueDTO? _importAuthenticatorValueDto;
     
@@ -11,9 +12,10 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
         
     }
 
-    public GeneralAuthenticatorImportViewModel(string? password)
+    public GeneralAuthenticatorImportViewModel(string? password, bool isLocal)
     {
         _password = password;
+        _isLocal = isLocal;
     }
     
     public async Task GenerateCode()
@@ -63,7 +65,7 @@ public partial class GeneralAuthenticatorImportViewModel : ViewModelBase
             Value = _importAuthenticatorValueDto,
             Created = DateTimeOffset.Now,
         };
-        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iAuthenticatorDtoDto, _password);
+        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iAuthenticatorDtoDto, _password, _isLocal);
         await IWindowManager.Instance.ShowTaskDialogAsync(
             new MessageBoxWindowViewModel { Content = $"{ImportAuthenticatorType}导入成功" });
     }

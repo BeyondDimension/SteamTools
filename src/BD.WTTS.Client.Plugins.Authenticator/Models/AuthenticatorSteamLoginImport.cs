@@ -10,12 +10,12 @@ public class AuthenticatorSteamLoginImport : AuthenticatorImportBase
     
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
-    public AuthenticatorSteamLoginImport(string? password = null)
+    public AuthenticatorSteamLoginImport()
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
             if (await VerifyMaxValue())
-                await IWindowManager.Instance.ShowTaskDialogAsync(new SteamLoginImportViewModel(password),
+                await IWindowManager.Instance.ShowTaskDialogAsync(new SteamLoginImportViewModel(SaveAuthenticator),
                     Name,
                     pageContent: new SteamLoginImportPage(), isOkButton: false);
         });

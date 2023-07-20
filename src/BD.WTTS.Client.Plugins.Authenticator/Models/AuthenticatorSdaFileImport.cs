@@ -16,7 +16,8 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            await ImportFromSdaFile(password);
+            if (await VerifyMaxValue())
+                await ImportFromSdaFile(password);
         });
     }
     
@@ -26,6 +27,8 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
         {
             var filePath = await SelectFolderPath();
             
+            if (string.IsNullOrEmpty(filePath)) return;
+
             var text = await File.ReadAllTextAsync(filePath);
             
             var index = text.IndexOf("\"server_time\":", StringComparison.Ordinal) + 14;
@@ -56,7 +59,7 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
                 {
                     Name = $"(Steam){steamAuthenticator.AccountName}", Value = steamAuthenticator, Created = DateTimeOffset.Now,
                 };
-            await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(authDto, password);
+            await SaveAuthenticator(authDto);
             Toast.Show(ToastIcon.Success, $"{authDto.Name} 导入成功");
         }
         catch (Exception e)

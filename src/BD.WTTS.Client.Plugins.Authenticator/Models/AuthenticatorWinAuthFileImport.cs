@@ -16,13 +16,16 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            await ImportFromWinAuthFile(password);
+            if (await VerifyMaxValue())
+                await ImportFromWinAuthFile(password);
         });
     }
     
     async Task ImportFromWinAuthFile(string? password = null)
     {
         var filePath = await SelectFolderPath();
+
+        if (string.IsNullOrEmpty(filePath)) return;
 
         var urls = ReadUrlsByFilePath(filePath);
 
@@ -192,7 +195,7 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
                 Toast.Show(ToastIcon.Info, Strings.LocalAuth_AddAuthSyncTip, ToastLength.Short);
                 authenticatorDto.Value.Sync();
 
-                await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, password);
+                await SaveAuthenticator(authenticatorDto);
             }
             Toast.Show(ToastIcon.Success, Strings.LocalAuth_AddAuthSuccess);
         }

@@ -14,19 +14,20 @@ public sealed partial class SteamLoginImportViewModel
 
     bool _isConfirmMailUrl;
     
-    readonly string? _currentPassword;
-
     readonly ISteamAccountService _steamAccountService;
-    
+
+    Func<IAuthenticatorDTO, Task> _saveAuthFun;
+
     public SteamLoginImportViewModel()
     {
         _steamAccountService = Ioc.Get<ISteamAccountService>();
+        _saveAuthFun = (authenticatorDto) => Task.CompletedTask;
     }
     
-    public SteamLoginImportViewModel(string? password)
+    public SteamLoginImportViewModel(Func<IAuthenticatorDTO, Task> saveAuthFunc)
     {
         _steamAccountService = Ioc.Get<ISteamAccountService>();
-        _currentPassword = this.password;
+        _saveAuthFun = saveAuthFunc;
     }
 
     SteamAuthenticator steamAuthenticator = new();
@@ -238,7 +239,7 @@ public sealed partial class SteamLoginImportViewModel
                             Value = steamAuthenticator,
                             Created = DateTimeOffset.Now,
                         };
-                        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(iADTO, _currentPassword);
+                        await _saveAuthFun.Invoke(iADTO);
                         SelectIndex = 4;
                         return;
                     }
