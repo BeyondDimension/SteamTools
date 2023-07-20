@@ -186,7 +186,7 @@ partial class PluginBase
         }
     }
 
-    public virtual string? Icon => null;
+    public virtual object? Icon => null;
 
     DateTimeOffset GetInstallTime()
     {

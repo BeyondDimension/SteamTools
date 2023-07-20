@@ -8,15 +8,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="UI\Assets\accelerator.ico" />
-	  <None Remove="UI\Assets\script.ico" />
+		<None Remove="UI\Assets\accelerator.ico" />
+		<None Remove="UI\Assets\script.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AvaloniaResource Include="UI\Assets\accelerator.ico" />
-	  <AvaloniaResource Include="UI\Assets\script.ico" />
+		<AvaloniaResource Include="UI\Assets\accelerator.ico" />
+		<AvaloniaResource Include="UI\Assets\script.ico" />
 	</ItemGroup>
-
+	
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Xaml.cs">
 			<LinkBase>Properties</LinkBase>
@@ -104,6 +104,21 @@
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />

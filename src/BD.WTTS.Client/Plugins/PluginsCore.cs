@@ -94,7 +94,7 @@ public static class PluginsCore
 
         public bool IsOfficial { get; init; }
 
-        public string? Icon { get; init; }
+        public object? Icon { get; init; }
 
         public DateTimeOffset InstallTime { get; init; }
 
