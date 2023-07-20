@@ -16,4 +16,5 @@ public sealed class BasicAccount : ReactiveObject, IAccount
 
     public string? PlatformName { get; init; }
 
+    public bool MostRecent { get; set; }
 }

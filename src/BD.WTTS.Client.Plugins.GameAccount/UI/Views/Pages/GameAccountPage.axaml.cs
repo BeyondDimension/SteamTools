@@ -20,7 +20,7 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
         //    ViewModel?.LoadPlatforms();
         //});
 
-        PluginSettingButton.Click += async (_, e) =>
+        PlatformSettingButton.Click += async (_, e) =>
         {
             if (ViewModel?.SelectedPlatform != null)
             {

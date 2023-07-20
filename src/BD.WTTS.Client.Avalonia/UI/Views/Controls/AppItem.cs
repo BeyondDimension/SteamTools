@@ -18,6 +18,9 @@ public class AppItem : TemplatedControl
     public static readonly StyledProperty<Control> ImageProperty =
         AvaloniaProperty.Register<AppItem, Control>(nameof(Image));
 
+    public static readonly StyledProperty<Thickness> ImageMarginProperty =
+        AvaloniaProperty.Register<AppItem, Thickness>(nameof(ImageMargin));
+
     public static readonly StyledProperty<bool> ExpandsProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, bool>(nameof(Expands));
 
@@ -32,6 +35,9 @@ public class AppItem : TemplatedControl
 
     public static readonly StyledProperty<ICommand> ClickCommandProperty =
         AvaloniaProperty.Register<AppItem, ICommand>(nameof(ClickCommand));
+
+    public static readonly StyledProperty<object?> ActionButtonProperty =
+        AvaloniaProperty.Register<AppItem, object?>(nameof(ActionButton));
 
     public string Title
     {
@@ -57,6 +63,12 @@ public class AppItem : TemplatedControl
         set => SetValue(ImageProperty, value);
     }
 
+    public Thickness ImageMargin
+    {
+        get => GetValue(ImageMarginProperty);
+        set => SetValue(ImageMarginProperty, value);
+    }
+
     public bool Expands
     {
         get => GetValue(ExpandsProperty);
@@ -67,6 +79,12 @@ public class AppItem : TemplatedControl
     {
         get => GetValue(TagsProperty);
         set => SetValue(TagsProperty, value);
+    }
+
+    public object? ActionButton
+    {
+        get => GetValue(ActionButtonProperty);
+        set => SetValue(ActionButtonProperty, value);
     }
 
     public bool IsExpanded

@@ -1,20 +1,4 @@
 <spp:PageBase
-    x:Class="BD.WTTS.UI.Views.Pages.GameAccountPage"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:s="https://steampp.net/services"
-    xmlns:spp="https://steampp.net/ui"
-    xmlns:ui="using:FluentAvalonia.UI.Controls"
-    x:Name="u"
-    Title="{ReflectionBinding Name,
-                              Source={x:Static s:Plugin.Instance},
-                              Mode=OneWay}"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:CompileBindings="True"
-    x:DataType="spp:GameAccountPageViewModel"
     Description="{ReflectionBinding Description,
                                     Source={x:Static s:Plugin.Instance},
                                     Mode=OneWay}"
@@ -23,7 +7,23 @@
                                  Mode=OneWay,
                                  Converter={StaticResource StringFormatConverter},
                                  ConverterParameter=Plugin_Author}"
-    mc:Ignorable="d">
+    Title="{ReflectionBinding Name,
+                              Source={x:Static s:Plugin.Instance},
+                              Mode=OneWay}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="BD.WTTS.UI.Views.Pages.GameAccountPage"
+    x:CompileBindings="True"
+    x:DataType="spp:GameAccountPageViewModel"
+    x:Name="u"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
@@ -42,100 +42,103 @@
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
-                Padding="8,4"
                 Command="{Binding LoginNewCommand}"
                 DockPanel.Dock="Right"
+                Padding="8,4"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
-                        Width="16"
                         Height="16"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Width="16">
                         <ui:SymbolIcon Symbol="Add" />
                     </Viewbox>
                     <TextBlock
-                        Margin="28,4,0,4"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
+                        Margin="28,4,0,4"
                         Text="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,
                                                  Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Center" />
                 </Panel>
             </Button>
             <Button
-                Padding="8,4"
                 Command="{Binding SaveCurrentUserCommand}"
                 DockPanel.Dock="Right"
                 IsVisible="{Binding !IsSelectedSteam}"
+                Padding="8,4"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
-                        Width="16"
                         Height="16"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Width="16">
                         <ui:SymbolIcon Symbol="Save" />
                     </Viewbox>
                     <TextBlock
-                        Margin="28,4,0,4"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.GameAccount_SaveCurrentAccount, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        Margin="28,4,0,4"
+                        Text="{ReflectionBinding Path=Res.GameAccount_SaveCurrentAccount,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Center" />
                 </Panel>
             </Button>
             <Button
-                Padding="8,4"
                 Command="{Binding ShareManageCommand}"
                 DockPanel.Dock="Right"
                 IsVisible="{Binding IsSelectedSteam}"
+                Padding="8,4"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
-                        Width="16"
                         Height="16"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Width="16">
                         <ui:SymbolIcon Symbol="ShareAndroid" />
                     </Viewbox>
                     <TextBlock
-                        Margin="28,4,0,4"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
+                        Margin="28,4,0,4"
                         Text="{ReflectionBinding Path=Res.AccountChange_Title,
                                                  Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Center" />
                 </Panel>
             </Button>
             <Button
-                Padding="8,4"
                 Command="{Binding RefreshCommand}"
                 DockPanel.Dock="Right"
+                Padding="8,4"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
-                        Width="16"
                         Height="16"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Width="16">
                         <ui:SymbolIcon Symbol="Refresh" />
                     </Viewbox>
                     <TextBlock
-                        Margin="28,4,0,4"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
+                        Margin="28,4,0,4"
                         Text="{ReflectionBinding Path=Res.Refresh,
                                                  Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                                                 Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Center" />
                 </Panel>
             </Button>
             <DropDownButton
-                Padding="8"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
                 Content="{StaticResource More}"
                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                 FontSize="20"
-                Theme="{StaticResource TransparentButton}">
+                HorizontalContentAlignment="Center"
+                Padding="8"
+                Theme="{StaticResource TransparentButton}"
+                VerticalContentAlignment="Center">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <!-- <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" /> -->
+                        <ui:MenuFlyoutItem Text="平台设置" x:Name="PlatformSettingButton" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
@@ -151,38 +154,40 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>
     <ui:TabView
-        Padding="0"
-        VerticalAlignment="Stretch"
         Background="Transparent"
         CloseButtonOverlayMode="OnPointerOver"
         IsAddTabButtonVisible="False"
+        Padding="0"
         SelectedItem="{Binding SelectedPlatform}"
         SelectionChanged="TabView_SelectedItemChanged"
         TabCloseRequested="TabView_TabCloseRequested"
         TabItems="{Binding GamePlatforms}"
-        TabWidthMode="Equal">
+        TabWidthMode="Equal"
+        VerticalAlignment="Stretch">
         <ui:TabView.TabStripFooter>
             <Button
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
                 Content="&#xE710;"
                 FontFamily="{StaticResource SymbolThemeFontFamily}"
-                Theme="{StaticResource TabViewButtonStyle}">
+                HorizontalAlignment="Left"
+                Theme="{StaticResource TabViewButtonStyle}"
+                VerticalAlignment="Center">
                 <Button.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedLeft">
                         <ui:MenuFlyoutSubItem
                             IsVisible="{Binding !!AddGamePlatforms.Count}"
                             ItemsSource="{Binding AddGamePlatforms}"
-                            Text="{ReflectionBinding Path=Res.AddPlatform, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+                            Text="{ReflectionBinding Path=Res.AddPlatform,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}">
                             <ui:MenuFlyoutSubItem.DataTemplates>
                                 <DataTemplate DataType="{x:Type spp:PlatformAccount}">
                                     <ui:MenuFlyoutItem
@@ -197,9 +202,14 @@
                             </ui:MenuFlyoutSubItem.DataTemplates>
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IconSource="Add" Text="{ReflectionBinding Path=Res.GameAccount_AddNewAccount, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem
+                            Command="{Binding LoginNewCommand}"
+                            IconSource="Add"
+                            Text="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_EndProcessWay, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+                        <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <ui:RadioMenuFlyoutItem
                                 GroupName="KillMethond"
                                 IconSource="Games"
@@ -209,7 +219,7 @@
                                 IconSource="Icons"
                                 Text="Direct" />
                         </ui:MenuFlyoutSubItem>
-                        <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_StartProcessWay, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+                        <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_StartProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <ui:RadioMenuFlyoutItem
                                 GroupName="StartMethond"
                                 IconSource="Games"
@@ -220,13 +230,13 @@
                                 Text="Direct" />
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSeparator />
-                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{ReflectionBinding Path=Res.AdministratorStartup, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{ReflectionBinding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </Button.Flyout>
             </Button>
         </ui:TabView.TabStripFooter>
         <ui:TabView.Styles>
-            <Style x:DataType="spp:PlatformAccount" Selector="ui|TabViewItem">
+            <Style Selector="ui|TabViewItem" x:DataType="spp:PlatformAccount">
                 <!--<Setter Property="IconSource">
                     <ui:FontIconSource Glyph="{Binding Icon}" />
                 </Setter>-->
@@ -242,11 +252,11 @@
             <DataTemplate DataType="spp:PlatformAccount">
                 <DockPanel>
                     <PathIcon
-                        Width="16"
+                        Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}"
+                        DockPanel.Dock="Left"
                         Height="16"
                         Margin="0,0,8,0"
-                        Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}"
-                        DockPanel.Dock="Left" />
+                        Width="16" />
                     <TextBlock DockPanel.Dock="Right" Text="{Binding FullName}" />
                 </DockPanel>
             </DataTemplate>
