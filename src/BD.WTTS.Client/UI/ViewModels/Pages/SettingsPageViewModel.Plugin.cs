@@ -22,7 +22,13 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 
     public void SwitchEnablePlugin(PluginResult<IPlugin> plugin)
     {
-        throw new NotImplementedException();
+        // 禁用插件配置文件修改
+        if (plugin.IsDisable)
+            GeneralSettings.DisablePlugins.Add(plugin.Data.UniqueEnglishName, true, false);
+        else
+            GeneralSettings.DisablePlugins.Remove(plugin.Data.UniqueEnglishName, true, false);
+
+        // Todo 通知主页菜单栏Tab显示或隐藏，以及程序集unload
     }
 
     public void OpenPluginDirectory(string assemblyLocation)
