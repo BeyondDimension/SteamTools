@@ -13,11 +13,45 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
     public void SwapToAccount(IAccount? account, PlatformAccount platform)
     {
-        if (!string.IsNullOrEmpty(account?.AccountName))
+        if (account is SteamAccount steamAccount)
         {
             KillPlatformProcess(platform);
-            steamService.SetCurrentUser(account.AccountName);
-            //steamService.UpdateLocalUserData(SteamUsers!);
+            var users = platform.Accounts?.Cast<SteamAccount>().Select(s => s.SteamUser);
+            if (users.Any_Nullable())
+            {
+                if (!string.IsNullOrEmpty(account?.AccountName))
+                {
+                    steamService.SetCurrentUser(account.AccountName);
+                    foreach (var user in users)
+                    {
+                        if (user.AccountName == account.AccountName)
+                        {
+                            user.MostRecent = true;
+                            user.RememberPassword = true;
+                            user.WantsOfflineMode = steamAccount.WantsOfflineMode;
+                            user.SkipOfflineModeWarning = steamAccount.SkipOfflineModeWarning;
+                            ISteamService.Instance.SetPersonaState(steamAccount.SteamUser.SteamId32.ToString(), steamAccount.PersonaState);
+                        }
+                        else
+                        {
+                            user.MostRecent = false;
+                        }
+                    }
+                }
+                else
+                {
+                    steamService.SetCurrentUser("");
+                    foreach (var user in users)
+                    {
+                        user.MostRecent = false;
+                    }
+                }
+                steamService.UpdateLocalUserData(users);
+            }
+            else
+            {
+                Toast.Show(ToastIcon.Error, "Steam 用户信息获取失败");
+            }
             RunPlatformProcess(platform, false);
         }
     }
@@ -41,10 +75,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
     public void NewUserLogin(PlatformAccount platform)
     {
-        KillPlatformProcess(platform);
-        steamService.SetCurrentUser("");
-        //steamService.UpdateLocalUserData(SteamUsers!);
-        RunPlatformProcess(platform, false);
+        SwapToAccount(null, platform);
     }
 
     public bool CurrnetUserAdd(string name, PlatformAccount platform) => false;

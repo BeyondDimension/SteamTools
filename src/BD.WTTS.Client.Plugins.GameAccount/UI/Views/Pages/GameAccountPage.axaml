@@ -135,8 +135,9 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="平台设置" />
                         <ui:MenuFlyoutSeparator />
+                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
@@ -197,7 +198,12 @@
                             </ui:MenuFlyoutSubItem.DataTemplates>
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IconSource="Add" Text="{ReflectionBinding Path=Res.GameAccount_AddNewAccount, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem
+                            Command="{Binding LoginNewCommand}"
+                            IconSource="Add"
+                            Text="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_EndProcessWay, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
                             <ui:RadioMenuFlyoutItem

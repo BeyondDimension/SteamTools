@@ -55,15 +55,6 @@
             <Setter Property="RenderTransform" Value="translateY(80px)" />
         </Style>
     </spp:PageBase.Styles>
-    <spp:PageBase.TabContent>
-        <TabStrip
-            Margin="4"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
-            CornerRadius="{StaticResource ControlCornerRadius}"
-            ItemContainerTheme="{StaticResource TabItemStyle}" />
-    </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button

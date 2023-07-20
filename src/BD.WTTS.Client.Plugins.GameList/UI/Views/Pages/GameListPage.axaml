@@ -164,7 +164,8 @@
             <AutoCompleteBox
                 MinWidth="300"
                 VerticalAlignment="Center"
-                Classes="Search" />
+                Classes="Search"
+                Text="{Binding SearchText}" />
 
             <TextBlock Text="{ReflectionBinding Path=Res.Game_LayoutWay, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
@@ -184,6 +185,7 @@
 
                 <DropDownButton
                     Width="200"
+                    Height="36"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Center">
@@ -409,11 +411,15 @@
                         <Border spp:Animations.EnableAnimations="False">
                             <spp:AppItem
                                 Title="{Binding DisplayName}"
-                                Height="335"
+                                Height="340"
                                 MinWidth="128"
                                 MaxWidth="169"
-                                Classes="Vertical"
-                                Status="{Binding AppId}">
+                                Classes="Vertical">
+                                <spp:AppItem.Status>
+                                    <Border Classes="Status">
+                                        <TextBlock Text="{Binding AppId}" />
+                                    </Border>
+                                </spp:AppItem.Status>
                                 <spp:AppItem.MoreFlyout>
                                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
                                         <ui:MenuFlyoutItem Text="112323" />
@@ -440,7 +446,7 @@
                                             Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
                                         <Border
-                                            Margin="10,0,10,-5"
+                                            Margin="10,0,10,-3"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Bottom"
                                             Background="#3D4450"

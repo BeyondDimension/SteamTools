@@ -56,4 +56,20 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 
     [Reactive]
     public ObservableCollection<PluginResult<IPlugin>>? Plugins { get; set; }
+
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public ICommand? DeletePlugin_Click { get; }
+
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public ICommand? CheckUpdate_Click { get; }
+
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public ICommand? OpenPluginDirectory_Click { get; }
+
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public ICommand? OpenPluginCacheDirectory_Click { get; }
+
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public ICommand? SwitchEnablePlugin_Click { get; }
+
 }

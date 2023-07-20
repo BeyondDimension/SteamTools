@@ -1,4 +1,5 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
+using System.Linq;
 
 namespace BD.WTTS.Models;
 
@@ -6,9 +7,9 @@ public sealed partial class PlatformAccount
 {
     readonly IPlatformSwitcher platformSwitcher;
 
-    public ICommand SwapToAccountCommand { get; set; }
+    public ICommand SwapToAccountCommand { get; }
 
-    public ICommand OpenUrlToBrowserCommand { get; set; }
+    public ICommand OpenUrlToBrowserCommand { get; }
 
     public PlatformAccount(ThirdpartyPlatform platform)
     {

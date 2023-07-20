@@ -195,11 +195,17 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task EncryptHelp()
     {
         var messageViewmodel = new MessageBoxWindowViewModel();
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_Info + "\r\n\r\n";
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_EnablePassword + ":\r\n\r\n";
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_EnablePasswordTip + "\r\n\r\n";
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt + ":\r\n\r\n";
-        messageViewmodel.Content += Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip + "\r\n\r\n";
+        messageViewmodel.Content = $"""
+                {Strings.LocalAuth_ProtectionAuth_Info}
+
+                {Strings.LocalAuth_ProtectionAuth_EnablePassword}：
+
+                {Strings.LocalAuth_ProtectionAuth_EnablePasswordTip}
+
+                {Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt}：
+
+                {Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip}
+        """;
         await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, AppResources.Title_AuthEncryption);
     }
 
@@ -273,7 +279,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                     if (isChanged)
                     {
                         localAuth.LastUpdate = DateTimeOffset.Now;
-                        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword);
+                        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
+                            HasLocalPcEncrypt);
                         changes++;
                     }
 
@@ -281,7 +288,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 }
 
                 additions++;
-                await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(cloudAuth, _currentPassword);
+                await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(cloudAuth, _currentPassword,
+                    HasLocalPcEncrypt);
             }
 
             string changeMessage = $"本地令牌新增 {additions} 个 数据更新 {changes} 个";
@@ -332,7 +340,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             localAuth.ThrowIsNull(AppResources.Error_localAuthNotEmpty);
             localAuth.ServerId ??= item.Id;
             localAuth.LastUpdate = DateTimeOffset.Now;
-            await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword);
+            await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
+                HasLocalPcEncrypt);
         }
 
         Initialize();
@@ -501,27 +510,10 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthUpdateSuccessful);
     }
 
-    public async Task OpenSteamLoginImportWindow()
-    {
-        if (VerifyMaxValue())
-            await IWindowManager.Instance.ShowTaskDialogAsync(new SteamLoginImportViewModel(_currentPassword),
-                AppResources.SteamLoginImport,
-                pageContent: new SteamLoginImportPage(), isOkButton: false);
-        Initialize();
-    }
-
-    public async Task OpenSteamOtherImportWindow()
-    {
-        if (VerifyMaxValue())
-            await IWindowManager.Instance.ShowTaskDialogAsync(new SteamOtherImportViewModel(_currentPassword), AppResources.AuthImport,
-                pageContent: new SteamOtherImportPage(), isOkButton: false);
-        Initialize();
-    }
-
     public async Task OpenGeneralAuthenticatorImportWindow()
     {
         if (VerifyMaxValue())
-            await IWindowManager.Instance.ShowTaskDialogAsync(new GeneralAuthenticatorImportViewModel(_currentPassword),
+            await IWindowManager.Instance.ShowTaskDialogAsync(new GeneralAuthenticatorImportViewModel(_currentPassword, HasLocalPcEncrypt),
                 AppResources.UniversalAuthImport, pageContent: new GeneralAuthenticatorImportPage(), isOkButton: false);
         Initialize();
     }
