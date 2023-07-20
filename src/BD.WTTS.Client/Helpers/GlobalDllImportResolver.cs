@@ -71,18 +71,19 @@ public static partial class GlobalDllImportResolver
     public static string GetLibraryPath(string? libraryName = null)
         => Path.Combine(BaseDirectory, "native", RID, libraryName ?? string.Empty);
 
+    const string fileExtension_ =
+#if WINDOWS
+            ".dll";
+#elif MACCATALYST || MACOS
+            ".dylib";
+#elif LINUX
+            ".so";
+#else
+#endif
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static string GetLibraryFileName(string libraryName, string? fileExtension = null)
     {
-        const string fileExtension_ =
-#if WINDOWS
-                ".dll";
-#elif MACCATALYST || MACOS
-                ".dylib";
-#elif LINUX
-                ".so";
-#else
-#endif
         fileExtension ??= fileExtension_;
         if (!libraryName.EndsWith(fileExtension, StringComparison.OrdinalIgnoreCase))
             libraryName += fileExtension;
@@ -93,6 +94,8 @@ public static partial class GlobalDllImportResolver
 
     public static nint Delegate(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
     {
+        libraryName = libraryName.TrimEnd(fileExtension_, StringComparison.OrdinalIgnoreCase);
+
         if (pairs.TryGetValue(libraryName, out var libraryPath) &&
             NativeLibrary.TryLoad(libraryPath, out var handle))
         {
