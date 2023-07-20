@@ -2361,6 +2361,15 @@ namespace BD.WTTS.Client.Resources {
         /// <summary>
         ///   查找类似 导入数据出现错误，错误代码：{0} 的本地化字符串。
         /// </summary>
+        public static string LocalAuth_ExportAuth_Error {
+            get {
+                return ResourceManager.GetString("LocalAuth_ExportAuth_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导入数据出现错误，错误代码：{0} 的本地化字符串。
+        /// </summary>
         public static string LocalAuth_ExportAuth_Error_ {
             get {
                 return ResourceManager.GetString("LocalAuth_ExportAuth_Error_", resourceCulture);
@@ -3422,6 +3431,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 确定要删除这个脚本吗？ 的本地化字符串。
+        /// </summary>
+        public static string Script_DeleteItem {
+            get {
+                return ResourceManager.GetString("Script_DeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 删除成功 的本地化字符串。
         /// </summary>
         public static string Script_DeleteSuccess {
@@ -3436,6 +3454,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Script_Edit {
             get {
                 return ResourceManager.GetString("Script_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否完成脚本修改，点击确定刷新缓存 的本地化字符串。
+        /// </summary>
+        public static string Script_EditTxt {
+            get {
+                return ResourceManager.GetString("Script_EditTxt", resourceCulture);
             }
         }
         
@@ -3490,6 +3517,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Script_NoFileDeleteError_ {
             get {
                 return ResourceManager.GetString("Script_NoFileDeleteError_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 该文本文件已丢失，是否删除脚本记录 的本地化字符串。
+        /// </summary>
+        public static string Script_NoFileDeleteItem {
+            get {
+                return ResourceManager.GetString("Script_NoFileDeleteItem", resourceCulture);
             }
         }
         

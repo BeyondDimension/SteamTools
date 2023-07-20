@@ -64,9 +64,9 @@
                 <Button.Flyout>
                     <Flyout Placement="BottomEdgeAlignedLeft">
                         <StackPanel Spacing="5">
-                            <Button Command="{Binding OpenSteamLoginImportWindow}" Content="{ReflectionBinding Path=Res.Auth_SteamLoginImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <!--<Button Command="{Binding OpenSteamLoginImportWindow}" Content="{ReflectionBinding Path=Res.Auth_SteamLoginImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                             <Button Command="{Binding OpenGeneralAuthenticatorImportWindow}" Content="{ReflectionBinding Path=Res.Auth_UniversalImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                            <Button Command="{Binding OpenSteamOtherImportWindow}" Content="{ReflectionBinding Path=Res.Auth_ImportCustomFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <!--<Button Command="{Binding OpenSteamOtherImportWindow}" Content="{ReflectionBinding Path=Res.Auth_ImportCustomFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>

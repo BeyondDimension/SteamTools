@@ -1945,4 +1945,16 @@
   <data name="Plugin_SafeMode" xml:space="preserve">
     <value>安全模式</value>
   </data>
+  <data name="LocalAuth_ExportAuth_Error" xml:space="preserve">
+    <value>导入数据出现错误，错误代码：{0}</value>
+  </data>
+  <data name="Script_DeleteItem" xml:space="preserve">
+    <value>确定要删除这个脚本吗？</value>
+  </data>
+  <data name="Script_EditTxt" xml:space="preserve">
+    <value>是否完成脚本修改，点击确定刷新缓存</value>
+  </data>
+  <data name="Script_NoFileDeleteItem" xml:space="preserve">
+    <value>该文本文件已丢失，是否删除脚本记录</value>
+  </data>
 </root>
