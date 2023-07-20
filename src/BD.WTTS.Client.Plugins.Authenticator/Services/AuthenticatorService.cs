@@ -1,3 +1,5 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 using Avalonia.Media.Imaging;
 using BD.WTTS.Client.Resources;
 using WinAuth;
@@ -7,11 +9,11 @@ namespace BD.WTTS.Services;
 public sealed partial class AuthenticatorService
 {
     static IAccountPlatformAuthenticatorRepository repository = Ioc.Get<IAccountPlatformAuthenticatorRepository>();
-    
+
     public static async Task ShowCaptchaUrl(string? url)
     {
         if (string.IsNullOrEmpty(url))
-            Toast.Show(ToastIcon.Warning, "验证码URL为空，请重新登录");
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_CodeNullPleaseLogin);
         else
         {
             if (await Browser2.OpenAsync(url)) return;
@@ -19,11 +21,11 @@ public sealed partial class AuthenticatorService
             Toast.Show(ToastIcon.Success, Strings.CopyToClipboard);
         }
     }
-    
+
     public async Task<Bitmap> GetUrlImage(string url)
     {
         using var client = new HttpClient();
-        
+
         var imageBytes = await client.GetByteArrayAsync(
             new Uri(url));
         using var stream = new MemoryStream(imageBytes);
@@ -31,9 +33,9 @@ public sealed partial class AuthenticatorService
         return new Bitmap(stream);
     }
 
-    public static async Task AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password)
+    public static async Task AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password, bool isLocal)
     {
-        var isLocal = await repository.HasLocalAsync();
+        //var isLocal = await repository.HasLocalAsync();
         // var sourceList = await GetAllSourceAuthenticatorAsync();
         // if (sourceList.Length >= IAccountPlatformAuthenticatorRepository.MaxValue)
         // {
@@ -42,7 +44,7 @@ public sealed partial class AuthenticatorService
         //         Toast.Show(ToastIcon.Error, "操作失败：超出令牌最大数量限制");
         //         return false;
         //     }
-        // }
+        // }s
         // if (await repository.Exists(sourceList, authenticatorDto, isLocal, password))
         // {
         //     Toast.Show(ToastIcon.Error, "操作失败：令牌已存在重复数据");
@@ -104,7 +106,7 @@ public sealed partial class AuthenticatorService
         await repository.RenameAsync(authenticatorDto.Id, newName, isLocal);
     }
 
-    public static async Task<(IAccountPlatformAuthenticatorRepository.ImportResultCode resultCode, IReadOnlyList<IAuthenticatorDTO> result, int sourcesCount)> 
+    public static async Task<(IAccountPlatformAuthenticatorRepository.ImportResultCode resultCode, IReadOnlyList<IAuthenticatorDTO> result, int sourcesCount)>
         ImportAsync(string? exportPassword, byte[] data)
     {
         return await repository.ImportAsync(exportPassword, data);
@@ -164,14 +166,15 @@ public sealed partial class AuthenticatorService
         var valueDto = ConvertToAuthenticatorValueDto(exportDto);
         AuthenticatorDTO dto = new AuthenticatorDTO()
         {
-            ServerId = authenticatorResponse.Id, Value = valueDto,
+            ServerId = authenticatorResponse.Id,
+            Value = valueDto,
             Name = exportDto.Name,
             Index = (int)authenticatorResponse.Order,
             //LastUpdate = DateTimeOffset.Now,
         };
         return dto;
     }
-    
+
     static IAuthenticatorValueDTO? ConvertToAuthenticatorValueDto(AuthenticatorExportDTO authenticatorExportDto)
     {
         IAuthenticatorValueDTO? valueDto = null;
@@ -181,7 +184,7 @@ public sealed partial class AuthenticatorService
             case AuthenticatorPlatform.Steam:
                 valueDto = new SteamAuthenticator()
                 {
-                    DeviceId = authenticatorExportDto.DeviceId, 
+                    DeviceId = authenticatorExportDto.DeviceId,
                     SteamData = authenticatorExportDto.SteamData,
                 };
                 break;
@@ -199,7 +202,7 @@ public sealed partial class AuthenticatorService
                 break;
         }
         if (valueDto == null) return null;
-        
+
         valueDto.Issuer = authenticatorExportDto.Issuer;
         valueDto.HMACType = authenticatorExportDto.HMACType;
         valueDto.SecretKey = authenticatorExportDto.SecretKey;
@@ -227,7 +230,7 @@ public sealed partial class AuthenticatorService
                     auth.Enroll(privateKey);
 
                     if (auth.ServerTimeDiff == 0L)
-                        Toast.Show(ToastIcon.Error, "无法连接到令牌验证服务器");
+                        Toast.Show(ToastIcon.Error, AppResources.Error_CannotConnectTokenVerificationServer);
 
                     return auth;
                 }
@@ -249,7 +252,7 @@ public sealed partial class AuthenticatorService
                     //var code = auth.CurrentCode;
 
                     if (auth.ServerTimeDiff == 0L)
-                        Toast.Show(ToastIcon.Error, "无法连接到Google服务器");
+                        Toast.Show(ToastIcon.Error, AppResources.Error_CannotConnectGoogleServer);
 
                     return auth;
                 }
@@ -265,7 +268,7 @@ public sealed partial class AuthenticatorService
                     auth.Enroll(privateKey);
 
                     if (auth.ServerTimeDiff == 0L)
-                        Toast.Show(ToastIcon.Error, "无法连接到令牌验证服务器");
+                        Toast.Show(ToastIcon.Error, AppResources.Error_CannotConnectTokenVerificationServer);
 
                     return auth;
                 }
@@ -299,7 +302,7 @@ public sealed partial class AuthenticatorService
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     //response.Content.Headers.ContentType.;
-                    #if WINDOWS
+#if WINDOWS
                     using (System.Drawing.Bitmap bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
                     {
                         //二维码解析
@@ -310,29 +313,29 @@ public sealed partial class AuthenticatorService
                         //     privatekey = HttpUtility.UrlDecode(result.Text);
                         // }
                     }
-                    #endif
+#endif
                 }
-                
+
             }
             catch (Exception e)
             {
-                Toast.Show(ToastIcon.Error, "扫描网页二维码失败：" + e.Message);
+                Toast.Show(ToastIcon.Error, AppResources.Error_ScanQRCodeFailed_.Format(e.Message));
                 Log.Error(nameof(AuthenticatorService), e, nameof(DecodePrivateKey));
             }
-            
+
         }
         else if (SecretCodeDataImageRegex().Match(secretCode) is { Success: true } dataImageMatch)
         {
             var imageData = Convert.FromBase64String(dataImageMatch.Groups[2].Value);
             using (var ms = new MemoryStream(imageData))
             {
-                #if WINDOWS
+#if WINDOWS
                 using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(ms))
                 {
                     //二维码解析
                     
                 }
-                #endif
+#endif
             }
         }
         // else if (SecretCodeOptAuthRegex().Match(secretCode) is { Success: true } optMatch)
@@ -373,7 +376,7 @@ public sealed partial class AuthenticatorService
 
         return null;
     }
-    
+
     [GeneratedRegex("https?://.*")]
     private static partial Regex SecretCodeHttpRegex();
 
@@ -382,7 +385,7 @@ public sealed partial class AuthenticatorService
 
     [GeneratedRegex(@"otpauth://([^/]+)/([^?]+)\?(.*)", RegexOptions.IgnoreCase)]
     private static partial Regex SecretCodeOptAuthRegex();
-    
+
     [GeneratedRegex(@"[^0-9a-z]", RegexOptions.IgnoreCase)]
     private static partial Regex SecretHexCodeAuthRegex();
 }

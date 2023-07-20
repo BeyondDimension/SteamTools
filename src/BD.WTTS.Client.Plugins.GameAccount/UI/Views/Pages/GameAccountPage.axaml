@@ -79,7 +79,9 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="保存当前登录账号" />
+                        Text="{ReflectionBinding Path=Res.GameAccount_SaveCurrentAccount,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
             <Button
@@ -135,8 +137,9 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="插件设置" />
+                        <ui:MenuFlyoutItem x:Name="PlatformSettingButton" Text="平台设置" />
                         <ui:MenuFlyoutSeparator />
+                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
@@ -151,9 +154,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="在 Steam++ 插件商店中查看" />
-                        <ui:MenuFlyoutItem Text="使用帮助" />
-                        <ui:MenuFlyoutItem Text="关于此插件" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -182,7 +185,9 @@
                         <ui:MenuFlyoutSubItem
                             IsVisible="{Binding !!AddGamePlatforms.Count}"
                             ItemsSource="{Binding AddGamePlatforms}"
-                            Text="添加平台">
+                            Text="{ReflectionBinding Path=Res.AddPlatform,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}">
                             <ui:MenuFlyoutSubItem.DataTemplates>
                                 <DataTemplate DataType="{x:Type spp:PlatformAccount}">
                                     <ui:MenuFlyoutItem
@@ -197,9 +202,14 @@
                             </ui:MenuFlyoutSubItem.DataTemplates>
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IconSource="Add" Text="添加新账号" />
+                        <ui:MenuFlyoutItem
+                            Command="{Binding LoginNewCommand}"
+                            IconSource="Add"
+                            Text="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutSubItem Text="结束进程方式">
+                        <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <ui:RadioMenuFlyoutItem
                                 GroupName="KillMethond"
                                 IconSource="Games"
@@ -209,7 +219,7 @@
                                 IconSource="Icons"
                                 Text="Direct" />
                         </ui:MenuFlyoutSubItem>
-                        <ui:MenuFlyoutSubItem Text="启动进程方式">
+                        <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_StartProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <ui:RadioMenuFlyoutItem
                                 GroupName="StartMethond"
                                 IconSource="Games"
@@ -220,7 +230,7 @@
                                 Text="Direct" />
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSeparator />
-                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="以管理员权限启动" />
+                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{ReflectionBinding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </Button.Flyout>
             </Button>

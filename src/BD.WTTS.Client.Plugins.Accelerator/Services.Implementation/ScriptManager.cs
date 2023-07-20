@@ -50,7 +50,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         }
         else
         {
-            var msg = AppResources.Script_NoFile.Format(filePath); // $"文件不存在:{filePath}";
+            var msg = AppResources.Script_NoFile_.Format(filePath); // $"文件不存在:{filePath}";
             logger.LogError(msg);
             return ApiRspHelper.Fail<ScriptDTO?>(msg);
         }
@@ -102,7 +102,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                             var state = await DeleteScriptAsync(oldInfo, false);
                             if (!state.IsSuccess)
                             {
-                                return ApiRspHelper.Fail<ScriptDTO?>(AppResources.Script_FileDeleteError.Format(oldInfo.FilePath));
+                                return ApiRspHelper.Fail<ScriptDTO?>(AppResources.Script_FileDeleteError_.Format(oldInfo.FilePath));
                             }
                         }
                     }
@@ -150,7 +150,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                     }
                     else
                     {
-                        var msg = AppResources.Script_BuildError.Format(fileInfo.FullName);
+                        var msg = AppResources.Script_BuildError_.Format(fileInfo.FullName);
                         logger.LogError(msg);
                         toast.Show(msg);
                         return ApiRspHelper.Fail<ScriptDTO?>(msg);
@@ -158,7 +158,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 }
                 else
                 {
-                    var msg = AppResources.Script_ReadFileError.Format(fileInfo.FullName);
+                    var msg = AppResources.Script_ReadFileError_.Format(fileInfo.FullName);
                     logger.LogError(msg);
                     toast.Show(msg);
                     return ApiRspHelper.Fail<ScriptDTO?>(msg);
@@ -166,14 +166,14 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             }
             catch (Exception e)
             {
-                var msg = AppResources.Script_ReadFileError.Format(e.GetAllMessage());
+                var msg = AppResources.Script_ReadFileError_.Format(e.GetAllMessage());
                 logger.LogError(e, msg);
                 return ApiRspHelper.Code<ScriptDTO?>(ApiRspCode.Fail, msg, default, e);
             }
         }
         else
         {
-            var msg = string.Format(AppResources.Script_ReadFileError, fileInfo.FullName); //$"文件解析失败，请检查格式:{filePath}";
+            var msg = string.Format(AppResources.Script_ReadFileError_, fileInfo.FullName); //$"文件解析失败，请检查格式:{filePath}";
             logger.LogError(msg);
             return ApiRspHelper.Fail<ScriptDTO?>(msg);
         }
@@ -198,7 +198,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                         }
                         catch (Exception e)
                         {
-                            var errorMsg = AppResources.Script_BuildDownloadError.Format(model.Name, item);
+                            var errorMsg = AppResources.Script_BuildDownloadError__.Format(model.Name, item);
                             logger.LogError(e, errorMsg);
                             toast.Show(errorMsg);
                         }
@@ -232,7 +232,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         }
         catch (Exception e)
         {
-            var msg = AppResources.Script_BuildError.Format(e.GetAllMessage());
+            var msg = AppResources.Script_BuildError_.Format(e.GetAllMessage());
             logger.LogError(e, msg);
             toast.Show(msg);
         }
@@ -257,7 +257,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 }
                 catch (Exception e)
                 {
-                    var msg = AppResources.Script_CacheDeleteError.Format(e.GetAllMessage());
+                    var msg = AppResources.Script_CacheDeleteError_.Format(e.GetAllMessage());
                     logger.LogError(e, "cachePath: {cachePath}, msg: {msg}", cachePath, msg);
                     return ApiRspHelper.Fail(msg);
                 }
@@ -271,7 +271,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 }
                 catch (Exception e)
                 {
-                    var msg = AppResources.Script_FileDeleteError.Format(e.GetAllMessage());
+                    var msg = AppResources.Script_FileDeleteError_.Format(e.GetAllMessage());
                     logger.LogError(e, "savePath: {savePath}, msg: {msg}", savePath, msg);
                     return ApiRspHelper.Fail(msg);
                 }
@@ -316,7 +316,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 item.Content = File.ReadAllText(infoPath);
                 if (!await BuildScriptAsync(item, fileInfo, item.IsCompile))
                 {
-                    toast.Show(AppResources.Script_ReadFileError.Format(item.Name));
+                    toast.Show(AppResources.Script_ReadFileError_.Format(item.Name));
                 }
 
             }
@@ -326,12 +326,12 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 if (temp.IsSuccess)
                 {
                     //$"脚本:{item.Name}_文件丢失已删除"
-                    toast.Show(AppResources.Script_NoFile.Format(item.Name));
+                    toast.Show(AppResources.Script_NoFile_.Format(item.Name));
                 }
                 else
                 {
                     //toast.Show($"脚本:{item.Name}_文件丢失，删除失败去尝试手动删除");
-                    toast.Show(AppResources.Script_NoFileDeleteError.Format(item.Name));
+                    toast.Show(AppResources.Script_NoFileDeleteError_.Format(item.Name));
                 }
             }
         }
@@ -359,7 +359,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             }
             catch (Exception e)
             {
-                var errorMsg = AppResources.Script_ReadFileError.Format(e.GetAllMessage()); //$"文件读取出错:[{e}]";
+                var errorMsg = AppResources.Script_ReadFileError_.Format(e.GetAllMessage()); //$"文件读取出错:[{e}]";
                 logger.LogError(e, errorMsg);
                 toast.Show(errorMsg);
             }
@@ -398,7 +398,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                             "DownloadScriptDeleteCatch Error, url: {url}, cachePath: {cachePath}",
                             url, cachePath);
                         return ApiRspHelper.Fail<string>(
-                            AppResources.Script_CacheDeleteError.Format(cachePath));
+                            AppResources.Script_CacheDeleteError_.Format(cachePath));
                     }
                 }
                 using (var stream = fileInfo.CreateText())

@@ -49,7 +49,7 @@ public static class SendSmsUIHelper
             else
             {
                 i.TimeLimit = timeLimit;
-                i.BtnSendSmsCodeText = AppResources.User_LoginCodeTimeLimitTip.Format(i.TimeLimit);
+                i.BtnSendSmsCodeText = AppResources.User_LoginCodeTimeLimitTip_.Format(i.TimeLimit);
                 return true;
             }
         }

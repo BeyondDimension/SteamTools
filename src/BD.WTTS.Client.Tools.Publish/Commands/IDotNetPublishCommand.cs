@@ -11,15 +11,30 @@ interface IDotNetPublishCommand : ICommand
 {
     const string commandName = "run";
 
+    static bool GetDefForceSign()
+    {
+        var machineName = Hashs.String.SHA256(Environment.MachineName, false);
+        return machineName switch
+        {
+            "EACD5C77C0E7160CF8D2A6C21C4F0C1F04CEF40097DB4799127AABB2CF8786B6" or
+            "E34AB34336AF93190C550A082960F7610D01DE121897F432D9A5CBC6E326B5AB"
+            => true,
+            _ => false,
+        };
+    }
+
     static Command ICommand.GetCommand()
     {
         var debug = new Option<bool>("--debug", "Defines the build configuration");
         var rids = new Option<string[]>("--rids", "RID is short for runtime identifier");
+        var force_sign = new Option<bool>("--force-sign", GetDefForceSign, "Mandatory verification must be digitally signed"); ;
+        var sha256 = new Option<bool>("--sha256", () => true, "Calculate file hash value");
+        var sha384 = new Option<bool>("--sha384", () => true, "Calculate file hash value");
         var command = new Command(commandName, "DotNet publish app")
         {
-           debug, rids,
+           debug, rids, force_sign, sha256, sha384,
         };
-        command.SetHandler(Handler, debug, rids);
+        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384);
         return command;
     }
 
@@ -40,7 +55,7 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    internal static void Handler(bool debug, string[] rids)
+    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384)
     {
         foreach (var rid in rids)
         {
@@ -111,14 +126,10 @@ interface IDotNetPublishCommand : ICommand
             IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_AppData));
             IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_Cache));
 
-            const bool sha256 = false;
-            const bool sha384 = true;
-
             IScanPublicDirectoryCommand.ScanPathCore(appPublish.DirectoryPath,
                 appPublish.Files,
                 ignoreRootDirNames: ignoreDirNames);
 
-#if !DEBUG // 调试时不计算哈希值
             if (sha256)
             {
                 foreach (var item in appPublish.Files)
@@ -135,14 +146,12 @@ interface IDotNetPublishCommand : ICommand
                     item.SHA384 = Hashs.String.SHA384(fileStream);
                 }
             }
-#endif
 
             if (OperatingSystem.IsWindows() && isWindows)
             {
                 // 数字签名
                 List<AppPublishFileInfo> toBeSignedFiles = new();
                 HashSet<string> toBeSignedFilePaths = new();
-#if !DEBUG // 调试时不进行数字签名
                 foreach (var item in appPublish.Files!)
                 {
                     switch (item.FileEx.ToLowerInvariant())
@@ -156,7 +165,6 @@ interface IDotNetPublishCommand : ICommand
                             break;
                     }
                 }
-#endif
 
                 if (toBeSignedFilePaths.Any())
                 {
@@ -165,7 +173,7 @@ interface IDotNetPublishCommand : ICommand
 $"""
 "{x}"
 """));
-                    MSIXHelper.SignTool.Start(fileNames);
+                    MSIXHelper.SignTool.Start(force_sign, fileNames);
                     foreach (var item in toBeSignedFiles)
                     {
                         if (sha256)
@@ -189,7 +197,7 @@ $"""
                 // 签名 msix 包
                 var msixFilePath = $"{rootPublishDir}.msix";
                 // msix 签名证书名必须与包名一致
-                MSIXHelper.SignTool.Start($"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+                MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
 
                 using var msixFileStream = File.OpenRead(msixFilePath);
 
@@ -529,6 +537,9 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                "Steam++.exe",
                appconfigFileName,
             };
+
+            ObfuscarHelper.Start(appHostPublishDir);
+
             foreach (var item in apphostfilenames)
             {
                 var sourceFileName = Path.Combine(appHostPublishDir, item);
@@ -562,6 +573,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                     File.Copy(sourceFileName, destFileName, true);
                 }
             }
+
         }
     }
 

@@ -43,7 +43,7 @@
                             DockPanel.Dock="Left"
                             FontSize="12"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="感谢支持" />
+                            Text="{ReflectionBinding Path=Res.About_ThankSupport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
                     </DockPanel>
 

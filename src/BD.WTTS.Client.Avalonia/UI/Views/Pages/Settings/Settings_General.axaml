@@ -20,7 +20,8 @@
                                      Mode=OneWay,
                                      Source={x:Static s:ResourceService.Current}}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
-        <spp:OptionsDisplayItem Description="系统启动时程序自动运行" Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_StartupAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+								Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
             </spp:OptionsDisplayItem.Icon>
@@ -29,7 +30,8 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="设置后程序启动时不再主动显示主窗口" Header="{ReflectionBinding Path=Res.Settings_General_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_StartupNoShowMainWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" 
+								Header="{ReflectionBinding Path=Res.Settings_General_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEA6C;" />
             </spp:OptionsDisplayItem.Icon>
@@ -100,7 +102,7 @@
                 ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="AppData"
-                Content="AppData 数据"
+                Content="{ReflectionBinding Path=Res.Settings_General_AppData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 IsClickEnabled="True"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
                                                 Mode=OneWay,
@@ -111,7 +113,7 @@
                 ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Cache"
-                Content="Cache 数据"
+                Content="{ReflectionBinding Path=Res.Settings_General_CacheData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 IsClickEnabled="True"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
                                                 Mode=OneWay,
@@ -130,7 +132,7 @@
                 ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Logs"
-                Content="Logs 数据"
+                Content="{ReflectionBinding Path=Res.Settings_General_LogsData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 IsClickEnabled="True"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
                                                 Mode=OneWay,

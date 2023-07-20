@@ -1,3 +1,4 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
 using Avalonia.Platform;
 using BD.WTTS.UI.Views.Pages;
 
@@ -47,7 +48,7 @@ public sealed partial class GameAccountPageViewModel
     {
         if (platform.FullName == "Steam")
         {
-            Toast.Show(string.Format("不允许删除 {0} 平台", platform.FullName));
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_PlatformDeletionNotAllowed_.Format(platform.FullName));
             return;
         }
         AddGamePlatforms?.Add(platform);
@@ -119,17 +120,17 @@ public sealed partial class GameAccountPageViewModel
     {
         if (SelectedPlatform == null) return;
         var textModel = new TextBoxWindowViewModel();
-        var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, $"添加新的 {SelectedPlatform.FullName} 账号", subHeader: $"请输入您当前登录的 {SelectedPlatform.FullName} 账号的名称", isCancelButton: true);
+        var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, AppResources.Title_AddAccount_.Format(SelectedPlatform.FullName), subHeader: AppResources.Title_PleaseInputCurrentAccountName_.Format(SelectedPlatform.FullName), isCancelButton: true);
         if (result)
         {
             if (string.IsNullOrEmpty(textModel.Value))
             {
-                Toast.Show("请输入账号名称");
+                Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseInputAccountName);
                 return;
             }
             if (SelectedPlatform.CurrnetUserAdd(textModel.Value))
             {
-                Toast.Show($"保存成功 {textModel.Value}");
+                Toast.Show(ToastIcon.Success, AppResources.Success_SavedSuccessfully_.Format(textModel.Value));
                 SelectedPlatform.LoadUsers();
             }
         }
@@ -140,9 +141,9 @@ public sealed partial class GameAccountPageViewModel
         if (SelectedPlatform == null) return;
         var textModel = new MessageBoxWindowViewModel
         {
-            Content = "此操作会结束当前平台进程并移除当前账号登录状态跳转至新账号登录，确定要继续吗？"
+            Content = AppResources.ModelContent_LoginNewUser
         };
-        var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, $"登录 {SelectedPlatform.FullName} 账号", isCancelButton: true);
+        var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, AppResources.Title_LoginAccount_.Format(SelectedPlatform.FullName), isCancelButton: true);
         if (result)
             SelectedPlatform?.CurrnetUserAdd(null);
     }

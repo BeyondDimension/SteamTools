@@ -27,7 +27,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
         yield return new MenuTabItemViewModel()
         {
             ResourceKeyOrName = nameof(Strings.LocalAuth),
-            PageType = typeof(AuthenticatorHomePage),
+            PageType = typeof(MainFramePage),
             IsResourceGet = true,
             IconKey = Icon,
         };

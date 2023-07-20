@@ -1,3 +1,5 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 namespace BD.WTTS;
 
 public static partial class PathHelper
@@ -237,7 +239,7 @@ public static partial class PathHelper
                 if (!Directory.Exists(Path.GetDirectoryName(fromPath))) return false;
                 if (CopyFilesRecursive(Path.GetDirectoryName(fromPath), toFullPath)) return true;
 
-                Toast.Show("复制文件失败！");
+                Toast.Show(ToastIcon.Error, AppResources.Error_CopyFileFailed);
                 return false;
             }
 
@@ -267,7 +269,7 @@ public static partial class PathHelper
             _ = Directory.CreateDirectory(toFullPath);
             if (CopyFilesRecursive(fullPath, toFullPath)) return true;
 
-            Toast.Show("复制文件失败！");
+            Toast.Show(ToastIcon.Error, AppResources.Error_CopyFileFailed);
             return false;
         }
 

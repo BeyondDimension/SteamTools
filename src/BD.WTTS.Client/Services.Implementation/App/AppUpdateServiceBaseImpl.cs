@@ -89,7 +89,7 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
         }
     }
 
-    public string NewVersionInfoTitle => AppResources.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version, AssemblyInfo.Trademark);
+    public string NewVersionInfoTitle => AppResources.NewVersionUpdateTitle__.Format(NewVersionInfo?.Version, AssemblyInfo.Trademark);
 
     /// <summary>
     /// 当存在新的版本时，重写此方法实现弹窗提示用户 
@@ -192,9 +192,9 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
         protected set => this.RaiseAndSetIfChanged(ref _ProgressString, value);
     }
 
-    protected void OnReportDownloading3(float value, int current, int count) => OnReport(value, AppResources.Downloading3_.Format(MathF.Round(value, 2), current, count));
+    protected void OnReportDownloading3(float value, int current, int count) => OnReport(value, AppResources.Downloading3__.Format(MathF.Round(value, 2), current, count));
 
-    protected void OnReportCalcHashing3(float value, int current, int count) => OnReport(value, AppResources.CalcHashing3_.Format(MathF.Round(value, 2), current, count));
+    protected void OnReportCalcHashing3(float value, int current, int count) => OnReport(value, AppResources.CalcHashing3__.Format(MathF.Round(value, 2), current, count));
 
     protected void OnReportDownloading(float value) => OnReport(value, AppResources.Downloading_.Format(MathF.Round(value, 2)));
 
