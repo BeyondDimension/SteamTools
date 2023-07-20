@@ -68,7 +68,7 @@ public partial interface IGeneralSettings
     /// <summary>
     /// 启用托盘图标的默认值
     /// </summary>
-    const bool DefaultTrayIcon = false;
+    const bool DefaultTrayIcon = true;
 
     /// <summary>
     /// 游戏列表使用本地缓存
@@ -141,3 +141,4 @@ public partial interface IGeneralSettings
     const HashSet<string>? DefaultDisablePlugins = null;
 
 }
+

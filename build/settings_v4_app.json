@@ -250,7 +250,7 @@
         {
           "TypeName": "bool",
           "PropertyName": "TrayIcon",
-          "DefaultValue": "false",
+          "DefaultValue": "true",
           "DefaultValueIsConst": true,
           "Summary": "启用托盘图标",
           "IsRegionOrEndregion": null,
