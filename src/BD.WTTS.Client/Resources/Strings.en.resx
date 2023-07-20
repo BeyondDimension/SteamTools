@@ -126,106 +126,8 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="About_Contactus" xml:space="preserve">
-    <value>Contact us</value>
-  </data>
-  <data name="About_FAQ" xml:space="preserve">
-    <value>FAQs</value>
-  </data>
-  <data name="About_Joinus" xml:space="preserve">
-    <value>Join us</value>
-  </data>
-  <data name="About_OpenSource" xml:space="preserve">
-    <value>Open source license</value>
-  </data>
-  <data name="About_ProductionStaff" xml:space="preserve">
-    <value>Developers</value>
-  </data>
-  <data name="About_ThisSoft" xml:space="preserve">
-    <value>This software</value>
-  </data>
-  <data name="About_UpdateHistory" xml:space="preserve">
-    <value>Update history</value>
-  </data>
-  <data name="About_UpdateLog" xml:space="preserve">
-    <value>Update log</value>
-  </data>
-  <data name="AccountChange_RestartSteam" xml:space="preserve">
-    <value>Modified data requires a restart to steam and whether a restart to Steam is required.</value>
-  </data>
-  <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>Adjust the priority order of the Steam account shared on the current device to solve the problem that the sharing of account B that wants to play is always using the sharing of account A, from top to bottom, the priority order of the shared library is used, or you can choose to temporarily disable or enable the sharing of the specified account. Save after the adjustment and restart Steam to take effect!</value>
-  </data>
   <data name="AccountChange_Title" xml:space="preserve">
     <value>Home Shared Library Management</value>
-  </data>
-  <data name="Achievement_Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="Achievement_EditSucces" xml:space="preserve">
-    <value>Modified {0} achievements and {1} statistics</value>
-  </data>
-  <data name="Achievement_Icon" xml:space="preserve">
-    <value>Icon</value>
-  </data>
-  <data name="Achievement_IsProtection" xml:space="preserve">
-    <value>Protected</value>
-  </data>
-  <data name="Achievement_LoadData" xml:space="preserve">
-    <value>Load achievements and statistics...</value>
-  </data>
-  <data name="Achievement_LoadSucces" xml:space="preserve">
-    <value>Retrieved {0} achievements and {1} statistics</value>
-  </data>
-  <data name="Achievement_Manage" xml:space="preserve">
-    <value>Manage achievement progress</value>
-  </data>
-  <data name="Achievement_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Achievement_RefreshTip" xml:space="preserve">
-    <value>Refresh achievements and statistics</value>
-  </data>
-  <data name="Achievement_ResetTip" xml:space="preserve">
-    <value>Reset achievements and statistics</value>
-  </data>
-  <data name="Achievement_ResetWaring_1" xml:space="preserve">
-    <value>Confirm resetting game statistics?</value>
-  </data>
-  <data name="Achievement_ResetWaring_2" xml:space="preserve">
-    <value>Confirm resetting achievement progress as well?</value>
-  </data>
-  <data name="Achievement_ResetWaring_3" xml:space="preserve">
-    <value>Instead of reverting the current modifications, this operation zeros all achievements and stats.
-Are you really sure?</value>
-  </data>
-  <data name="Achievement_RiskWarning" xml:space="preserve">
-    <value>Reminder: Unlocking achievements may be deemed as cheating by game developers</value>
-  </data>
-  <data name="Achievement_StatsEdit" xml:space="preserve">
-    <value>Statistics modifier</value>
-  </data>
-  <data name="Achievement_StoreTip" xml:space="preserve">
-    <value>Save and apply achievement progress and game statistics</value>
-  </data>
-  <data name="Achievement_TimeFormat" xml:space="preserve">
-    <value>Unlocked at {0:yyyy-MM-dd HH:mm:ss}</value>
-  </data>
-  <data name="Achievement_Unlock" xml:space="preserve">
-    <value>Achievement unlocker</value>
-  </data>
-  <data name="Achievement_Warning_1" xml:space="preserve">
-    <value>Failed to establish connections with Steam. This could be because this game does not have achievements, or because you do not own this game.</value>
-  </data>
-  <data name="Achievement_Warning_2" xml:space="preserve">
-    <value>Error code: {0}
-An error occurred while retrieving achievement statistics, either because the game doesn't have achievements, or you don't have the game.</value>
-  </data>
-  <data name="Achievement_Warning_3" xml:space="preserve">
-    <value>An error occurred when modifying achievement {0}</value>
-  </data>
-  <data name="Achievement_Warning_4" xml:space="preserve">
-    <value>An error occurred when modifying statistics {0}</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>New</value>
@@ -239,122 +141,11 @@ An error occurred while retrieving achievement statistics, either because the ga
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
   </data>
-  <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
-    <value>No valid Key format is detected, verify that the correct Key is entered</value>
-  </data>
-  <data name="ASF_RuningTip" xml:space="preserve">
-    <value>The ASF is already running</value>
-  </data>
-  <data name="ASF_RedeemKey" xml:space="preserve">
-    <value>Volume activate key</value>
-  </data>
-  <data name="ASF_RedeemKey_InputKey" xml:space="preserve">
-    <value>Enter Key</value>
-  </data>
-  <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
-    <value>You can type any text that will be automatically recognized and added to the activation list as long as it contains a SteamKey, or you can enter it in the following format:
-AAAAA-BBBBB-CCCC1
-AAAAA-BBBBB-CCCC2
-AAAAA-BBBBB-CCCC3</value>
-  </data>
-  <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
-    <value>Used</value>
-  </data>
-  <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
-    <value>Not used</value>
-  </data>
-  <data name="ASF_Start" xml:space="preserve">
-    <value>Start the ASF</value>
-  </data>
-  <data name="ASF_Stop" xml:space="preserve">
-    <value>Stop ASF</value>
-  </data>
   <data name="ASF_AddBot" xml:space="preserve">
     <value>Add a Bot</value>
   </data>
-  <data name="ASF_DeleteBotTip" xml:space="preserve">
-    <value>Are you sure you want to delete this bot?</value>
-  </data>
-  <data name="ASF_RefreshBot" xml:space="preserve">
-    <value>Refresh the Bot</value>
-  </data>
-  <data name="ASF_OpenWebUIConsole" xml:space="preserve">
-    <value>Open the WebUI console</value>
-  </data>
-  <data name="ASF_Console" xml:space="preserve">
-    <value>ASF console</value>
-  </data>
   <data name="ASF_BotManage" xml:space="preserve">
     <value>Bot configuration</value>
-  </data>
-  <data name="ASF_GlobalConfig" xml:space="preserve">
-    <value>ASF configuration</value>
-  </data>
-  <data name="ASF_VersionNum" xml:space="preserve">
-    <value>Current ArchiSteamFarm version : </value>
-  </data>
-  <data name="ASF_AutoRunASF" xml:space="preserve">
-    <value>The ASF runs automatically at startup</value>
-  </data>
-  <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
-    <value>Jump to WebUI global settings</value>
-  </data>
-  <data name="ASF_ImportBotFile" xml:space="preserve">
-    <value>Import an existing ASF bot file</value>
-  </data>
-  <data name="ASF_RequirRunASF" xml:space="preserve">
-    <value>Run the ASF feature first</value>
-  </data>
-  <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
-    <value>{0} key has been added to the activation queue, and the key in the queue is automatically queued for activation.</value>
-  </data>
-  <data name="ASF_CardsRemaining" xml:space="preserve">
-    <value>Remaining cards</value>
-  </data>
-  <data name="ASF_TimeRemaining" xml:space="preserve">
-    <value>Time remaining</value>
-  </data>
-  <data name="ASF_GamesRemaining" xml:space="preserve">
-    <value>Remaining games</value>
-  </data>
-  <data name="ASF_RunCardFarming" xml:space="preserve">
-    <value>Start hanging up the card</value>
-  </data>
-  <data name="ASF_StopCardFarming" xml:space="preserve">
-    <value>Stop the hang-up card</value>
-  </data>
-  <data name="ASF_Enable" xml:space="preserve">
-    <value>enable</value>
-  </data>
-  <data name="ASF_Disable" xml:space="preserve">
-    <value>disable</value>
-  </data>
-  <data name="ASF_Offline" xml:space="preserve">
-    <value>offline</value>
-  </data>
-  <data name="ASF_Online" xml:space="preserve">
-    <value>online</value>
-  </data>
-  <data name="ASF_NowCardFarming" xml:space="preserve">
-    <value>Hanging card</value>
-  </data>
-  <data name="ASF_RequiredInput" xml:space="preserve">
-    <value>Input is required</value>
-  </data>
-  <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
-    <value>token</value>
-  </data>
-  <data name="ASF_RequiredInput_Login" xml:space="preserve">
-    <value>The user name</value>
-  </data>
-  <data name="ASF_RequiredInput_Password" xml:space="preserve">
-    <value>password</value>
-  </data>
-  <data name="ASF_RequiredInput_SteamParentalCode" xml:space="preserve">
-    <value>Family monitoring code</value>
-  </data>
-  <data name="ASF_WebConfigGenerator" xml:space="preserve">
-    <value>Online profile generator</value>
   </data>
   <data name="SelectFile" xml:space="preserve">
     <value>Select the file</value>
@@ -368,9 +159,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Btn_Text_Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
-  <data name="BugFeedback" xml:space="preserve">
-    <value>Bug feedback</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -383,21 +171,8 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix" xml:space="preserve">
     <value>Network routing</value>
   </data>
-  <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
-    <value>Enabled network routing</value>
-  </data>
-  <data name="CommunityFix_AllCheck" xml:space="preserve">
-    <value>Select all</value>
-  </data>
-  <data name="CommunityFix_AlreadyProxy" xml:space="preserve">
-    <value>Routing your connections</value>
-    <comment>Comment=末尾带空格;</comment>
-  </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
     <value>Start routing your connections upon launching Watt Toolkit</value>
-  </data>
-  <data name="CommunityFix_CertificateSettings" xml:space="preserve">
-    <value>Certificate settings</value>
   </data>
   <data name="CommunityFix_DeleteCertificate" xml:space="preserve">
     <value>Remove certificate</value>
@@ -411,12 +186,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_MenuName" xml:space="preserve">
     <value>Network routing settings</value>
   </data>
-  <data name="CommunityFix_NetworkFix" xml:space="preserve">
-    <value>Network repair</value>
-  </data>
-  <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
-    <value>No routing services were selected</value>
-  </data>
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
     <value>Only enable for Steam built-in browser</value>
   </data>
@@ -426,26 +195,11 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_ProxyMode" xml:space="preserve">
     <value>Routing mode</value>
   </data>
-  <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
-    <value>Route your traffic by modifying the hosts file based on your preferences. This mode runs more smoothly and only affects those websites that you select below, but it requires port 443 not to be in use.</value>
-  </data>
-  <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
-    <value>Route your traffic by setting up a Windows system proxy. It does not require a free port 443, yet it will affect all local network traffic. If hosts routing mode works, you won't be needing this mode.</value>
-  </data>
-  <data name="CommunityFix_ScriptManage" xml:space="preserve">
-    <value>Userscript manager</value>
-  </data>
-  <data name="CommunityFix_ScriptsEnable" xml:space="preserve">
-    <value>Enabled userscripts</value>
-  </data>
   <data name="CommunityFix_SetupCertificate" xml:space="preserve">
     <value>Install certificate</value>
   </data>
   <data name="CommunityFix_StartProxy" xml:space="preserve">
     <value>Start routing</value>
-  </data>
-  <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
-    <value>Failed to route your connections. Certificate improperly installed.</value>
   </data>
   <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
     <value>The acceleration service fails to start {0} port is occupied. Close the program that occupies the {0} port or try to use system proxy mode.</value>
@@ -464,9 +218,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="CommunityFix_StopProxy" xml:space="preserve">
     <value>Stop routing</value>
-  </data>
-  <data name="CommunityFix_FlowStatistics" xml:space="preserve">
-    <value>Traffic statistics</value>
   </data>
   <data name="CommunityFix_Services" xml:space="preserve">
     <value>Acceleration services</value>
@@ -495,23 +246,11 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="DelAccount" xml:space="preserve">
     <value>Deactivate account</value>
   </data>
-  <data name="DelAccountTips" xml:space="preserve">
-    <value>Your account information will be permanently deleted and you cannot log in again using this account's credentials. Ready to deactivate your account?</value>
-  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="DoNotUpdate" xml:space="preserve">
-    <value>Skip this version</value>
-  </data>
-  <data name="Dow" xml:space="preserve">
-    <value>Move down</value>
-  </data>
   <data name="Download" xml:space="preserve">
     <value>Download</value>
-  </data>
-  <data name="Downloading" xml:space="preserve">
-    <value>Downloading: {0}%</value>
   </data>
   <data name="Download_ScriptError" xml:space="preserve">
     <value>Error occurred while downloading userscript. Please try again.</value>
@@ -540,68 +279,11 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GameList" xml:space="preserve">
     <value>Library</value>
   </data>
-  <data name="GameList_AddAFKAppsMaxCountTips" xml:space="preserve">
-    <value>Idle Play waitlist capacity of maximum {0} games reached. Please remove some games from the waitlist first.</value>
-  </data>
-  <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
-    <value>Idle Play Mode enabled for waitlisted games</value>
-  </data>
-  <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
-    <value>Warning: Steam only allow maximum {0} games running simultaneously. Putting more than {1} games on Idle Play Mode may cause games to freeze or crash upon launch.</value>
-  </data>
-  <data name="GameList_AddAfkGameList" xml:space="preserve">
-    <value>Enable Idle Play Mode for waitlisted games</value>
-  </data>
-  <data name="GameList_AddHideAppEmpty" xml:space="preserve">
-    <value>No games are currently hidden. Right click on your selected games to hide them.</value>
-  </data>
-  <data name="GameList_AddIdeaAppEmpty" xml:space="preserve">
-    <value>Empty Idle Play waitlist. Right click on your selected games to waitlist them for Idle Play Mode.</value>
-  </data>
-  <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>Enable Idle Play Mode for waitlisted games upon launching Watt Toolkit</value>
-  </data>
-  <data name="GameList_DeleteAll" xml:space="preserve">
-    <value>Remove all games from Idle Play waitlist?</value>
-  </data>
-  <data name="GameList_DeleteItem" xml:space="preserve">
-    <value>Remove this game from Idle Play waitlist?</value>
-  </data>
-  <data name="GameList_DeleteSuccess" xml:space="preserve">
-    <value>Removed</value>
-  </data>
-  <data name="GameList_EditAppInfo" xml:space="preserve">
-    <value>Edit game information</value>
-  </data>
-  <data name="GameList_HideAppsSuccess" xml:space="preserve">
-    <value>Game Hidden</value>
-  </data>
-  <data name="GameList_HideApp_AllCheck" xml:space="preserve">
-    <value>Select all</value>
-  </data>
-  <data name="GameList_HideGameManger" xml:space="preserve">
-    <value>Manage list of hidden games</value>
-  </data>
-  <data name="GameList_HideTheGame" xml:space="preserve">
-    <value>Hide this game</value>
-  </data>
-  <data name="GameList_IdleGamesManger" xml:space="preserve">
-    <value>Idle Play waitlist</value>
-  </data>
-  <data name="GameList_Install" xml:space="preserve">
-    <value>Install</value>
-  </data>
   <data name="GameList_IsEmpty" xml:space="preserve">
     <value>No game data retrieved</value>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
     <value>正在加载 ...</value>
-  </data>
-  <data name="GameList_ListCount" xml:space="preserve">
-    <value>({0}/{1}) added</value>
-  </data>
-  <data name="GameList_LoaingTips" xml:space="preserve">
-    <value>Action in progress. Please try again later.</value>
   </data>
   <data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>Show only installed games</value>
@@ -609,143 +291,14 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GameList_OnlyCloudArchive" xml:space="preserve">
     <value>Only games that support Steam Cloud Save are displayed</value>
   </data>
-  <data name="GameList_OpenFolder" xml:space="preserve">
-    <value>Browse to the installation folder</value>
-  </data>
-  <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
-    <value>Steam Card Exchange</value>
-  </data>
-  <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
-    <value>SteamDB Info</value>
-  </data>
-  <data name="GameList_OpenSteamGridUrl" xml:space="preserve">
-    <value>SteamGrid</value>
-  </data>
-  <data name="GameList_OpenStoreUrl" xml:space="preserve">
-    <value>Open Steam store page</value>
-  </data>
-  <data name="GameList_OperationSuccess" xml:space="preserve">
-    <value>Action completed</value>
-  </data>
-  <data name="GameList_Play" xml:space="preserve">
-    <value>Start game</value>
-  </data>
-  <data name="GameList_NavToSteamView" xml:space="preserve">
-    <value>View in the Steam client</value>
-  </data>
-  <data name="GameList_RefreshGamesList" xml:space="preserve">
-    <value>Refresh library</value>
-  </data>
   <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
     <value>Library refreshed</value>
-  </data>
-  <data name="GameList_RemoveBtn" xml:space="preserve">
-    <value>Remove all</value>
-  </data>
-  <data name="GameList_RemoveItemBtn" xml:space="preserve">
-    <value>Remove from Idle Play waitlist</value>
-  </data>
-  <data name="GameList_ResizeAppLogo" xml:space="preserve">
-    <value>Adjust cover image size</value>
-  </data>
-  <data name="GameList_RuningBtn" xml:space="preserve">
-    <value>Launch all</value>
-  </data>
-  <data name="GameList_RuningCount" xml:space="preserve">
-    <value>{0}/{1} running</value>
-  </data>
-  <data name="GameList_RuningItemBtn" xml:space="preserve">
-    <value>Launch game</value>
-  </data>
-  <data name="GameList_RuningWait" xml:space="preserve">
-    <value>Launching…</value>
-  </data>
-  <data name="GameList_RunState" xml:space="preserve">
-    <value>Running</value>
-  </data>
-  <data name="GameList_SetCustomImage" xml:space="preserve">
-    <value>Set custom cover image</value>
-  </data>
-  <data name="GameList_SteamNotRuning" xml:space="preserve">
-    <value>Steam not running</value>
-  </data>
-  <data name="GameList_StopBtn" xml:space="preserve">
-    <value>Pause all</value>
-  </data>
-  <data name="GameList_StopItemBtn" xml:space="preserve">
-    <value>Pause</value>
-  </data>
-  <data name="GameList_StopState" xml:space="preserve">
-    <value>Paused</value>
-  </data>
-  <data name="GameList_Unsupport" xml:space="preserve">
-    <value>Unsupported action</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>Gaming tools</value>
   </data>
-  <data name="GameRelated_Borderless" xml:space="preserve">
-    <value>Borderless window mode</value>
-  </data>
-  <data name="GameRelated_Borderless_BorderlessWindow" xml:space="preserve">
-    <value>Borderless window mode</value>
-  </data>
-  <data name="GameRelated_Borderless_ClassName" xml:space="preserve">
-    <value>Type name</value>
-  </data>
-  <data name="GameRelated_Borderless_Hide" xml:space="preserve">
-    <value>Hide</value>
-  </data>
-  <data name="GameRelated_Borderless_KillProcess" xml:space="preserve">
-    <value>Kill process</value>
-  </data>
-  <data name="GameRelated_Borderless_Maximize" xml:space="preserve">
-    <value>Maximize window</value>
-  </data>
-  <data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
-    <value>Drag the cross to game window to perform subsequent actions.</value>
-  </data>
-  <data name="GameRelated_Borderless_Normal" xml:space="preserve">
-    <value>Default window size</value>
-  </data>
-  <data name="GameRelated_Borderless_Path" xml:space="preserve">
-    <value>Program path</value>
-  </data>
-  <data name="GameRelated_Borderless_Process" xml:space="preserve">
-    <value>Process</value>
-  </data>
-  <data name="GameRelated_Borderless_ResetWallerpaper" xml:space="preserve">
-    <value>Refresh wallpaper</value>
-  </data>
-  <data name="GameRelated_Borderless_Show" xml:space="preserve">
-    <value>Show</value>
-  </data>
-  <data name="GameRelated_Borderless_Title" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="GameRelated_Borderless_ToWallerpaper" xml:space="preserve">
-    <value>Run game as desktop wallpaper</value>
-  </data>
-  <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
-    <value>*Game running as a desktop wallpaper may be incontrollable and irresponsive to inputs. This bug can be fixed but it has not yet become the primary focus of this software. Hence, this bug may persist in several future updates. The wallpaper will freeze at the last remaining frame of the game after it stops running. A single click on 'Refresh wallpaper' button may reset the wallpaper to default. This feature conflicts with other live wallpaper softwares such as Wallpaper Engine. Quit other softwares like Wallpaper Engine before using this feature.</value>
-  </data>
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
-  </data>
-  <data name="Gender_Female" xml:space="preserve">
-    <value>Female</value>
-  </data>
-  <data name="Gender_Male" xml:space="preserve">
-    <value>男</value>
-  </data>
-  <data name="Gender_Unknown" xml:space="preserve">
-    <value>Prefer not to disclose</value>
-  </data>
-  <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
-    <value>Retrieving Steam login status</value>
-  </data>
-  <data name="GetLoginUsingSteamClientCookiesFail_" xml:space="preserve">
-    <value>Failed to retrieve Steam login status. Please enter your Steam account name and password for express login.</value>
   </data>
   <data name="Hosts_Exists" xml:space="preserve">
     <value>Written hosts already exist</value>
@@ -761,9 +314,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Hosts_WirteError" xml:space="preserve">
     <value>Error while updating hosts</value>
-  </data>
-  <data name="IdleCard" xml:space="preserve">
-    <value>Idle card collection</value>
   </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
@@ -789,48 +339,21 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_AddAuth_PartSuccess" xml:space="preserve">
     <value>Part of the data is imported.</value>
   </data>
-  <data name="LocalAuth_AuthData" xml:space="preserve">
-    <value>Authenticator data</value>
-  </data>
-  <data name="LocalAuth_AuthName" xml:space="preserve">
-    <value>Cuztomize name for Authenticator</value>
-  </data>
   <data name="LocalAuth_AuthTrade" xml:space="preserve">
     <value>Transaction manager</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_Cancel" xml:space="preserve">
-    <value>Reject transaction</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
-    <value>Reject all transactions</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
-    <value>Unable to reject this transaction</value>
   </data>
   <data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
     <value>Transaction manager</value>
   </data>
-  <data name="LocalAuth_AuthTrade_ConfirmAll" xml:space="preserve">
-    <value>Confirm all transactions</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_ConfirmCancel" xml:space="preserve">
-    <value>All transactions rejected</value>
-  </data>
   <data name="LocalAuth_AuthTrade_ConfirmError" xml:space="preserve">
     <value>Unable to confirm this transaction</value>
   </data>
-  <data name="LocalAuth_AuthTrade_ConfirmSuccess" xml:space="preserve">
-    <value>All transactions confirmed</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
-    <value>{0} all transactions...</value>
+  <data name="LocalAuth_AuthTrade_ConfirmTip_" xml:space="preserve">
+    <value>正在{0}所有交易中...</value>
     <comment>Comment=同意 or 取消;</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
     <value>You don't have permission to view confirmation messages. Check if you have enabled  'community-generated content' in Family View.</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
-    <value>Failed to retrieve Steam Authenticator transaction information. Please check if Steam market connection is routed.</value>
   </data>
   <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
     <value>The login status has expired Please try to log in again.</value>
@@ -838,21 +361,10 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
     <value>Gathering the latest trading deal information</value>
   </data>
-  <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
-    <value>{0} transactions pending</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
-    <value>There are currently no transactions to manage.</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
-    <value>This will {0} all your transactions. Ready to continue?</value>
+  <data name="LocalAuth_AuthTrade_MessageBoxTip_" xml:space="preserve">
+    <value>这将{0}您当前所有的交易报价
+确定要继续吗?</value>
     <comment>Comment=同意 or 取消;</comment>
-  </data>
-  <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
-    <value>There are currently no transactions</value>
-  </data>
-  <data name="LocalAuth_AuthTrade_TradeError" xml:space="preserve">
-    <value>Invalid transactions</value>
   </data>
   <data name="LocalAuth_CloudSync" xml:space="preserve">
     <value>Cloud sync Authenticators</value>
@@ -866,47 +378,20 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
     <value>Ready to permanently remove this Steam Authenticator?</value>
   </data>
-  <data name="LocalAuth_EditAuth" xml:space="preserve">
-    <value>Edit Authenticator</value>
-  </data>
   <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
     <value>Please enter the verification code sent to your email address to allow acccess from the new device. </value>
   </data>
   <data name="LocalAuth_ExportAuth" xml:space="preserve">
     <value>Export Authenticator</value>
   </data>
-  <data name="LocalAuth_ExportAuth_ConfirmExport" xml:space="preserve">
-    <value>Confirm export</value>
-  </data>
-  <data name="LocalAuth_ExportAuth_EncryptionExport" xml:space="preserve">
-    <value>Export encrypted data?</value>
-  </data>
-  <data name="LocalAuth_ExportAuth_Error" xml:space="preserve">
+  <data name="LocalAuth_ExportAuth_Error_" xml:space="preserve">
     <value>Failed to export data. Error code: {0}</value>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
-    <value>Enter password for exported data</value>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>Select path</value>
   </data>
-  <data name="LocalAuth_HasPasswordUnEncryptionAuth" xml:space="preserve">
-    <value>Data encrypted. Enter password to access.</value>
-  </data>
-  <data name="LocalAuth_ImportFaild" xml:space="preserve">
-    <value>Failed to import Authenticator. Please check validity of your imported data.</value>
-  </data>
-  <data name="LocalAuth_LockError" xml:space="preserve">
-    <value>Cannot lock Authenticator without a password</value>
-  </data>
-  <data name="LocalAuth_MenuName" xml:space="preserve">
-    <value>Edit Authenticator</value>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>No Authenticator imported. Click on gear icon in upper right corner to start import.</value>
-  </data>
-  <data name="LocalAuth_OtherImport" xml:space="preserve">
-    <value>Import from other apps</value>
   </data>
   <data name="LocalAuth_PasswordRequired" xml:space="preserve">
     <value>Enter password to continue</value>
@@ -923,9 +408,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
     <value>Your Authenticator will be encrypted by your password which is required for accessing the Authenticator. If you forget this password and do not have a valid back-up of the Authenticator, you will lose access to it.</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_Error" xml:space="preserve">
-    <value>Error while saving entryption options</value>
-  </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
     <value>It is highly recommended to password protect your Authenticator, otherwise your data may be accessed and stolen by other malwares. This is not mandatory, however your Authenticator may run at risk of being stolen.</value>
   </data>
@@ -934,9 +416,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
     <value>In addition, you can use Windows built-in account encryption to protect your data. This locks your Authenticators to the current user on this computer, so even if they're duplicated, they will remain inaccessible. You must turn this feature off if you want to reformat your disk, reinstall Windows or delete this user account.</value>
-  </data>
-  <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
-    <value>No changes made to be saved</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
     <value>Customize password</value>
@@ -950,29 +429,8 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_ProtectionAuth_PathError" xml:space="preserve">
     <value>Wrong file path</value>
   </data>
-  <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
-    <value>Save and apply</value>
-  </data>
-  <data name="LocalAuth_ProtectionAuth_Success" xml:space="preserve">
-    <value>Encryption options saved</value>
-  </data>
   <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
     <value>Enter your password again</value>
-  </data>
-  <data name="LocalAuth_ProtectionAuth_VerifyPasswordErrorTip" xml:space="preserve">
-    <value>Your entered password does not match</value>
-  </data>
-  <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
-    <value>Authenticator data loaded</value>
-  </data>
-  <data name="LocalAuth_SDAImport" xml:space="preserve">
-    <value>Import from Steam Desktop Authenticator</value>
-  </data>
-  <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>A desktop implementation of Steam Authenticator. Please import from file named 'maFile' in 'maFiles' folders under SDA path. (Encrypted files not supported. Remove password before continuing)</value>
-  </data>
-  <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
-    <value>View your Authenticator</value>
   </data>
   <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
     <value>View your Authenticator detailed data</value>
@@ -986,33 +444,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
     <value>Please enter the SMS verification code sent to your phone.</value>
   </data>
-  <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>Import from mobile Steam app</value>
-  </data>
-  <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
-    <value>You can import Steam Authenticator from your rooted Android device at: /data/data/com.valvesoftware.android.steam.community . Paste the corresponding data in these files into the text box below.</value>
-  </data>
-  <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
-    <value>Transaction manager</value>
-  </data>
-  <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>In the 'files' folder, open the 'SteamGuard-NNNNNNNNN' file and paste the entire contents of the file</value>
-  </data>
-  <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Import from Watt Toolkit</value>
-  </data>
-  <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>Import from Watt Toolkit Version 1.0</value>
-  </data>
-  <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>Import from Watt Toolkit Version 2.0</value>
-  </data>
-  <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
-    <value>Confirming transactions requires a logged in Steam status. Watt Toolkit will not record your password, but rather save a local logged-in status.</value>
-  </data>
-  <data name="LocalAuth_SteamUserImport" xml:space="preserve">
-    <value>Import from Steam account</value>
-  </data>
   <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
     <value>You have successfully imported your token through account login, please finally test whether your token can be used normally, if it is not available, the import may fail, try to re-import and delete the invalid token.</value>
   </data>
@@ -1024,18 +455,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
     <value>Device ID (uuid):</value>
-  </data>
-  <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>In 'shared_prefs' folder, paste uuidKey from 'steam_uuid.xml'</value>
-  </data>
-  <data name="LocalAuth_SyncTime" xml:space="preserve">
-    <value>Sync clock for Authenticator</value>
-  </data>
-  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
-    <value>Import from WinAuth</value>
-  </data>
-  <data name="LocalAuth_WinAuthTip" xml:space="preserve">
-    <value>WinAuth is Windows' portable open source authenticator, which provides counter-based or time-based RFC 6238 authenticators and common implementations. Import method: After exporting the txt file from WinAuth, select it here for importing.</value>
   </data>
   <data name="Lock" xml:space="preserve">
     <value>Lock</value>
@@ -1079,14 +498,8 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="My" xml:space="preserve">
     <value>It's mine</value>
   </data>
-  <data name="NextStep" xml:space="preserve">
-    <value>Next</value>
-  </data>
   <data name="NickName" xml:space="preserve">
     <value>Nickname</value>
-  </data>
-  <data name="OtherGamePlaform" xml:space="preserve">
-    <value>Other platforms</value>
   </data>
   <data name="Paste" xml:space="preserve">
     <value>Paste</value>
@@ -1096,9 +509,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="PleaseSelect" xml:space="preserve">
     <value>Please select</value>
-  </data>
-  <data name="ProductOfficialWebsite" xml:space="preserve">
-    <value>Product official website</value>
   </data>
   <data name="RecoveryCode" xml:space="preserve">
     <value>Recovery code</value>
@@ -1121,29 +531,14 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="RefreshAvatar" xml:space="preserve">
     <value>Refresh your avatar</value>
   </data>
-  <data name="AsyncSteamAvatar" xml:space="preserve">
-    <value>Sync your Steam avatar</value>
-  </data>
-  <data name="AsyncSteamAvatarDesc" xml:space="preserve">
-    <value>After binding a Steam account, you can manually synchronize and refresh the Steam account avatar.</value>
-  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save changes</value>
   </data>
   <data name="ScriptConfig" xml:space="preserve">
     <value>Userscripts</value>
   </data>
-  <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
-    <value>Matching userscript not found. You can download the userscript from the userscript workshop.</value>
-  </data>
   <data name="ScriptShop_GetTableError" xml:space="preserve">
     <value>Failed to retrieve userscript workshop content.</value>
-  </data>
-  <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
-    <value>GM is the foundamental framework for all userscripts and cannot be deleted. </value>
-  </data>
-  <data name="ScriptShop_NoLogin" xml:space="preserve">
-    <value>Log in Watt Toolkit before accessing the userscript workshop.</value>
   </data>
   <data name="ScriptStore" xml:space="preserve">
     <value>Userscript workshop</value>
@@ -1151,29 +546,14 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Script_AutoUpdate" xml:space="preserve">
     <value>Enable userscript auto-updates</value>
   </data>
-  <data name="Script_DeleteItem" xml:space="preserve">
-    <value>Ready to delete this userscript?</value>
-  </data>
   <data name="Script_Edit" xml:space="preserve">
     <value>Edit this userscript</value>
   </data>
-  <data name="Script_EditTxt" xml:space="preserve">
-    <value>After editing the userscript, click Yes to refresh cache for changes to take effect.</value>
-  </data>
-  <data name="Script_FileError" xml:space="preserve">
-    <value>File not found. Please check path {0}</value>
+  <data name="Script_FileError_" xml:space="preserve">
+    <value>找不到文件，请检查路径 {0}</value>
   </data>
   <data name="Script_Home" xml:space="preserve">
     <value>Userscript homepage</value>
-  </data>
-  <data name="Script_ImportLoading" xml:space="preserve">
-    <value>Processing imported userscript</value>
-  </data>
-  <data name="Script_Install" xml:space="preserve">
-    <value>Install userscript</value>
-  </data>
-  <data name="Script_NoFileDeleteItem" xml:space="preserve">
-    <value>The text file is missing. Do you want to delete this userscript history?</value>
   </data>
   <data name="Script_Refresh" xml:space="preserve">
     <value>Refresh cache</value>
@@ -1189,10 +569,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
-  </data>
-  <data name="SelectFileImport" xml:space="preserve">
-    <value>Select file {0} for import</value>
-    <comment>Comment=*.txt;</comment>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
@@ -1272,12 +648,8 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
     <value>Use a dynamic desktop background</value>
   </data>
-  <data name="Settings_UI_EnableDesktopBackground_Error" xml:space="preserve">
-    <value>Enabling this feature when the background transparency material is {0} is not supported</value>
-  </data>
-  <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
-    <value>*Experimental feature (it is recommended to set transparent materials to Transparent or AcrylicBlur when turned on)
-This feature can set the wallpaper of Wallpaper Engine and other wallpaper software as the program background, and if you have not started Wallpaper Engine, you will use the desktop background by default. The background only works in the main window, other windows recommend adjusting the transparency not to be completely transparent or using the image background. When using, pay attention to switching the corresponding theme according to the brightness and darkness of the wallpaper to get better results.</value>
+  <data name="Settings_UI_EnableDesktopBackground_Error_" xml:space="preserve">
+    <value>不支持在背景透明材质为 {0} 时启用此功能</value>
   </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
     <value>Dark mode</value>
@@ -1297,74 +669,11 @@ This feature can set the wallpaper of Wallpaper Engine and other wallpaper softw
   <data name="SMSCode" xml:space="preserve">
     <value>SMS verification code</value>
   </data>
-  <data name="SourceRepository" xml:space="preserve">
-    <value>Source repository</value>
-  </data>
   <data name="StartUpdate" xml:space="preserve">
     <value>Start update</value>
   </data>
   <data name="SteamAccount" xml:space="preserve">
     <value>Steam account name</value>
-  </data>
-  <data name="SteamAppType_Application" xml:space="preserve">
-    <value>Software</value>
-  </data>
-  <data name="SteamAppType_Beta" xml:space="preserve">
-    <value>Playtests</value>
-  </data>
-  <data name="SteamAppType_Config" xml:space="preserve">
-    <value>Configurations</value>
-  </data>
-  <data name="SteamAppType_Demo" xml:space="preserve">
-    <value>Demo</value>
-  </data>
-  <data name="SteamAppType_DepotOnly" xml:space="preserve">
-    <value>Depots</value>
-  </data>
-  <data name="SteamAppType_DLC" xml:space="preserve">
-    <value>DLC</value>
-  </data>
-  <data name="SteamAppType_Driver" xml:space="preserve">
-    <value>Drivers</value>
-  </data>
-  <data name="SteamAppType_Franchise" xml:space="preserve">
-    <value>Franchises</value>
-  </data>
-  <data name="SteamAppType_Game" xml:space="preserve">
-    <value>Games</value>
-  </data>
-  <data name="SteamAppType_Guide" xml:space="preserve">
-    <value>Guides</value>
-  </data>
-  <data name="SteamAppType_Hardware" xml:space="preserve">
-    <value>Hardware</value>
-  </data>
-  <data name="SteamAppType_Media" xml:space="preserve">
-    <value>Media</value>
-  </data>
-  <data name="SteamAppType_Mod" xml:space="preserve">
-    <value>Mods</value>
-  </data>
-  <data name="SteamAppType_Music" xml:space="preserve">
-    <value>OSTs</value>
-  </data>
-  <data name="SteamAppType_Plugin" xml:space="preserve">
-    <value>Plugins</value>
-  </data>
-  <data name="SteamAppType_Series" xml:space="preserve">
-    <value>Videos</value>
-  </data>
-  <data name="SteamAppType_Shortcut" xml:space="preserve">
-    <value>Shortcuts</value>
-  </data>
-  <data name="SteamAppType_Tool" xml:space="preserve">
-    <value>Tools</value>
-  </data>
-  <data name="SteamAppType_Unknown" xml:space="preserve">
-    <value>Others</value>
-  </data>
-  <data name="SteamAppType_Video" xml:space="preserve">
-    <value>Videos</value>
   </data>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
     <value>Enter verification code from image</value>
@@ -1397,72 +706,20 @@ This feature can set the wallpaper of Wallpaper Engine and other wallpaper softw
   <data name="Unbundling" xml:space="preserve">
     <value>Unlink</value>
   </data>
-  <data name="UnderConstruction" xml:space="preserve">
-    <value>Feature under development for future updates.</value>
-  </data>
-  <data name="UnsavedEditingWillBeDiscarded" xml:space="preserve">
-    <value>Unsaved edits will be discarded</value>
-  </data>
   <data name="Up" xml:space="preserve">
     <value>Move updawards</value>
   </data>
   <data name="UpdateContent" xml:space="preserve">
     <value>Update content</value>
   </data>
-  <data name="UploadYourAvatar" xml:space="preserve">
-    <value>Upload your avatar</value>
-  </data>
-  <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>Upload a picture from your device. The picture should be square in shape and at least 400px*400px</value>
-  </data>
-  <data name="UserChange_InGame" xml:space="preserve">
-    <value>game</value>
-  </data>
-  <data name="UserChange_BtnText" xml:space="preserve">
-    <value>Express Steam login</value>
-  </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
     <value>Restart Steam session and log in with this account</value>
-  </data>
-  <data name="UserChange_DeleteUser" xml:space="preserve">
-    <value>Remove this account</value>
-  </data>
-  <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
-    <value>Also delete cache related to this account?</value>
-  </data>
-  <data name="UserChange_DeleteUserTip" xml:space="preserve">
-    <value>Ready to remove this account from Watt Toolkit on this computer?</value>
-  </data>
-  <data name="UserChange_EditRemark" xml:space="preserve">
-    <value>Click here to edit remarks</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
     <value>登录新账号</value>
   </data>
-  <data name="UserChange_ShowHideUserName" xml:space="preserve">
-    <value>Show/hide user names</value>
-  </data>
-  <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
-    <value>Open the Userdata folder</value>
-  </data>
-  <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
-    <value>Are you sure you want to sign in to your new Steam account?
-This action ends with a running Steam jump to the new account login window.</value>
-  </data>
-  <data name="UserChange_NoUserTip" xml:space="preserve">
-    <value>Failed to retrieve any Steam account data in your computer.</value>
-  </data>
-  <data name="UserChange_OfflineBtn" xml:space="preserve">
-    <value>Start in offline mode</value>
-  </data>
-  <data name="UserChange_OpenUserUrl" xml:space="preserve">
-    <value>Open profile page</value>
-  </data>
   <data name="UserChange_RecentLogin" xml:space="preserve">
     <value>Recent logins</value>
-  </data>
-  <data name="UserChange_RememberMe" xml:space="preserve">
-    <value>Password remembered</value>
   </data>
   <data name="UserFastChange" xml:space="preserve">
     <value>Account switching</value>
@@ -1470,45 +727,17 @@ This action ends with a running Steam jump to the new account login window.</val
   <data name="UserProfile" xml:space="preserve">
     <value>Profile</value>
   </data>
-  <data name="UserProfile_BirthDate" xml:space="preserve">
-    <value>Birthday</value>
-  </data>
-  <data name="UserProfile_Location" xml:space="preserve">
-    <value>所在地</value>
-  </data>
   <data name="User_AccountBind" xml:space="preserve">
     <value>Linked accounts</value>
   </data>
-  <data name="User_AccountBindTip" xml:space="preserve">
-    <value>You must have a mobile number linked to your Watt Toolkit account before unlinking a third-party account from Watt Toolkit. If you want to relink this third-party account to another Watt Toolkit account, you need to go to About-This software-Deactivate account before doing that.</value>
-  </data>
   <data name="User_Agreement" xml:space="preserve">
     <value>User Agreement</value>
-  </data>
-  <data name="User_AppleLogin" xml:space="preserve">
-    <value>Log in with Apple</value>
-  </data>
-  <data name="User_BasicInfo" xml:space="preserve">
-    <value>Basic information</value>
-  </data>
-  <data name="User_BindPhoneNum" xml:space="preserve">
-    <value>Link your mobile number</value>
-  </data>
-  <data name="User_ChangePhoneNum" xml:space="preserve">
-    <value>Change your linked mobile number</value>
-    <comment>Comment=修改手机号;</comment>
-  </data>
-  <data name="User_EditProfile" xml:space="preserve">
-    <value>Edit profile</value>
   </data>
   <data name="User_FastLogin" xml:space="preserve">
     <value>Fast login</value>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
     <value>Choose how you would like to log in to your Watt Toolkit account</value>
-  </data>
-  <data name="User_FastLogin_" xml:space="preserve">
-    <value>Fast login with {0}</value>
   </data>
   <data name="User_GetSMSCode" xml:space="preserve">
     <value>Send SMS code</value>
@@ -1519,15 +748,12 @@ This action ends with a running Steam jump to the new account login window.</val
   <data name="User_UnLogin" xml:space="preserve">
     <value>Not logged in</value>
   </data>
-  <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
-    <value>Resend SMS code</value>
+  <data name="User_LoginCodeTimeLimitTip_" xml:space="preserve">
+    <value>重新获取({0})</value>
     <comment>Comment=短信验证码倒计时;</comment>
   </data>
   <data name="User_LoginError" xml:space="preserve">
     <value>Incorrect account name or password</value>
-  </data>
-  <data name="User_LoginError_Auth" xml:space="preserve">
-    <value>Invalid Authenticator: The linked Authenticator does not match your current logged-in account </value>
   </data>
   <data name="User_LoginError_CodeImage" xml:space="preserve">
     <value>Please complete reCAPCHA</value>
@@ -1535,20 +761,8 @@ This action ends with a running Steam jump to the new account login window.</val
   <data name="User_LoginError_Null" xml:space="preserve">
     <value>Please enter your account number and password</value>
   </data>
-  <data name="User_LoginTroubleshoot" xml:space="preserve">
-    <value>Cannot log in?</value>
-  </data>
-  <data name="User_LoiginSuccess" xml:space="preserve">
-    <value>Log in successful</value>
-  </data>
-  <data name="User_MicroSoftLogin" xml:space="preserve">
-    <value>Log in with Microsoft account</value>
-  </data>
   <data name="User_NewPhone" xml:space="preserve">
     <value>New mobile number</value>
-  </data>
-  <data name="User_OtherFastLogin" xml:space="preserve">
-    <value>Other fast login</value>
   </data>
   <data name="User_Phone" xml:space="preserve">
     <value>Mobile number</value>
@@ -1568,9 +782,6 @@ This action ends with a running Steam jump to the new account login window.</val
   <data name="User_RegisterAgreed" xml:space="preserve">
     <value>By signing up, you read and agree to</value>
   </data>
-  <data name="User_Rememberme" xml:space="preserve">
-    <value>Remember me</value>
-  </data>
   <data name="User_SignOutTip" xml:space="preserve">
     <value>Log out Watt Toolkit account?</value>
   </data>
@@ -1579,24 +790,6 @@ This action ends with a running Steam jump to the new account login window.</val
   </data>
   <data name="User_SMSCode_Error" xml:space="preserve">
     <value>Please request for an SMS code first.</value>
-  </data>
-  <data name="User_SteamAvatarTip" xml:space="preserve">
-    <value>Click on the avatar to quickly log in</value>
-  </data>
-  <data name="User_SteamFastLogin" xml:space="preserve">
-    <value>Fast log in with Steam</value>
-  </data>
-  <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
-    <value>Steam community connection timeout. Check if Steam community routing is on.</value>
-  </data>
-  <data name="User_SteamLogoTip" xml:space="preserve">
-    <value>Click to jump to fast log in window.</value>
-  </data>
-  <data name="User_SteamUnLoginTip" xml:space="preserve">
-    <value>Click on Steam Logo to log in</value>
-  </data>
-  <data name="User_UnbundleAccountTip" xml:space="preserve">
-    <value>Unlinking this third-party account will disable fast login via this way. Do you still want to unlink?</value>
   </data>
   <data name="User_UseExternalLoginChannel_" xml:space="preserve">
     <value>Log in with {0}</value>
@@ -1610,26 +803,8 @@ This action ends with a running Steam jump to the new account login window.</val
   <data name="Welcome" xml:space="preserve">
     <value>Home page</value>
   </data>
-  <data name="CommunityFix_CertificateTrust" xml:space="preserve">
-    <value>Trust the certificate</value>
-  </data>
-  <data name="LocalAuth_Loading" xml:space="preserve">
-    <value>Loading token data...</value>
-  </data>
-  <data name="LocalAuth_Code" xml:space="preserve">
-    <value>One-time password code</value>
-  </data>
-  <data name="LocalAuth_Code_Desc" xml:space="preserve">
-    <value>You can use a one-time password code generated by this app to verify sign-in</value>
-  </data>
-  <data name="LocalAuth_Code_Title" xml:space="preserve">
-    <value>One-time passwords are enabled</value>
-  </data>
   <data name="EditName" xml:space="preserve">
     <value>Modify the name</value>
-  </data>
-  <data name="SeeData" xml:space="preserve">
-    <value>View the data</value>
   </data>
   <data name="LocalAuth_Delete" xml:space="preserve">
     <value>Delete the token</value>
@@ -1640,20 +815,8 @@ This action ends with a running Steam jump to the new account login window.</val
   <data name="Confirmed" xml:space="preserve">
     <value>Confirmed</value>
   </data>
-  <data name="SelectAllText_" xml:space="preserve">
-    <value>Select All ({0}/{1})</value>
-  </data>
-  <data name="ImportByFilePicker" xml:space="preserve">
-    <value>File import</value>
-  </data>
-  <data name="ImportByQRCode" xml:space="preserve">
-    <value>Scan the code to import</value>
-  </data>
   <data name="LocalAuth_LogoutTip" xml:space="preserve">
     <value>Are you sure you want to log out the account information for the current token login?</value>
-  </data>
-  <data name="LocalAuth_ExportAuth_ToQRCode" xml:space="preserve">
-    <value>Export as QR code</value>
   </data>
   <data name="AuthLocal_ExportToQRCodeTooLongErrorTip" xml:space="preserve">
     <value>The data length exceeds the maximum QR code value, please try another export method or a single export</value>
@@ -1661,31 +824,16 @@ This action ends with a running Steam jump to the new account login window.</val
   <data name="RememberChooseNotToAskAgain" xml:space="preserve">
     <value>No more reminders</value>
   </data>
-  <data name="GameList_SteamShutdown" xml:space="preserve">
-    <value>Steam download completes the scheduled shutdown</value>
-  </data>
-  <data name="GameList_SteamShutdown_EnableWatchDownloading" xml:space="preserve">
-    <value>Enable download monitoring</value>
-  </data>
   <data name="Downloaded" xml:space="preserve">
     <value>Downloaded</value>
   </data>
   <data name="Installed" xml:space="preserve">
     <value>Installed</value>
   </data>
-  <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
-    <value>Execute after the selected game download and installation is complete</value>
-  </data>
   <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
     <value>The Steam game has been downloaded
 The system will {1} after {0} seconds.</value>
     <comment>Comment={0}倒计时时间 {1}执行操作;</comment>
-  </data>
-  <data name="Translators" xml:space="preserve">
-    <value>Community Translation</value>
-  </data>
-  <data name="UserChange_RemarkReplaceName" xml:space="preserve">
-    <value>Replace the nickname display with a note</value>
   </data>
   <data name="Settings_General_UseGPURendering" xml:space="preserve">
     <value>Rendering interface using GPU (hardware acceleration)</value>
@@ -1695,12 +843,6 @@ The system will {1} after {0} seconds.</value>
   </data>
   <data name="Settings_General_UpdateChannel" xml:space="preserve">
     <value>Download the update channel</value>
-  </data>
-  <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>Application details</value>
-  </data>
-  <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>App notifications</value>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
     <value>Open the {0} folder</value>
@@ -1713,9 +855,6 @@ The system will {1} after {0} seconds.</value>
   <data name="Settings_General_LogSize" xml:space="preserve">
     <value>Log file is occupied {0}</value>
     <comment>Comment={0}占用体积大小;</comment>
-  </data>
-  <data name="Settings_General_ClearCache" xml:space="preserve">
-    <value>Clean up cache files</value>
   </data>
   <data name="Settings_General_StorageSpace" xml:space="preserve">
     <value>Storage space</value>
@@ -1789,9 +928,6 @@ The system will {1} after {0} seconds.</value>
   <data name="Login_WebSocketOnMessage" xml:space="preserve">
     <value>Data decryption failed, make sure the data is retryed correctly.</value>
   </data>
-  <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
-    <value>The Home Shared Library is empty.</value>
-  </data>
   <data name="CommunityFix_ProxySettings" xml:space="preserve">
     <value>Proxy settings</value>
   </data>
@@ -1801,50 +937,11 @@ The system will {1} after {0} seconds.</value>
   <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
     <value>Custom proxy DNS</value>
   </data>
-  <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
-    <value>Socks5 local proxy</value>
-  </data>
-  <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
-    <value>Listening port</value>
-  </data>
-  <data name="Settings_Proxy_TwoLevelAgent" xml:space="preserve">
-    <value>Secondary agent</value>
-  </data>
-  <data name="Settings_Proxy_ProxyType" xml:space="preserve">
-    <value>Proxy type</value>
-  </data>
-  <data name="Settings_Proxy_IPAddress" xml:space="preserve">
-    <value>address</value>
-  </data>
-  <data name="Settings_Proxy_Port" xml:space="preserve">
-    <value>port</value>
-  </data>
-  <data name="Settings_Proxy_UserName" xml:space="preserve">
-    <value>The user name</value>
-  </data>
-  <data name="Settings_Proxy_Password" xml:space="preserve">
-    <value>password</value>
-  </data>
-  <data name="Settings_General_CaptureScreen" xml:space="preserve">
-    <value>Screen capture</value>
-  </data>
-  <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
-    <value>Allow other applications to capture your screen</value>
-  </data>
-  <data name="UserChange_ChangeUserTip" xml:space="preserve">
-    <value>Switch to {0} sign in to Steam</value>
-  </data>
   <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
     <value>The agent enables only the scripting feature</value>
   </data>
   <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
     <value>Enable Http protocol forwarding to Https (requires listening on port 80)</value>
-  </data>
-  <data name="About_AppReview" xml:space="preserve">
-    <value>Scoring &amp; Rating</value>
-  </data>
-  <data name="Settings_General_UseOpenGL" xml:space="preserve">
-    <value>Use OpenGL rendering</value>
   </data>
   <data name="Download_ScriptError_" xml:space="preserve">
     <value>Script download error {0}, please try again.</value>
@@ -1852,8 +949,8 @@ The system will {1} after {0} seconds.</value>
   <data name="FixNetworkComplete" xml:space="preserve">
     <value>Repairing the network is complete</value>
   </data>
-  <data name="CalcHashing3_" xml:space="preserve">
-    <value>Verifying ({1}/{2}): {0}%</value>
+  <data name="CalcHashing3__" xml:space="preserve">
+    <value>正在校验（{1}/{2}）：{0}%</value>
   </data>
   <data name="CalcHashing_" xml:space="preserve">
     <value>Verifying: {0}%</value>
@@ -1865,8 +962,8 @@ The system will {1} after {0} seconds.</value>
   <data name="Decompressing_" xml:space="preserve">
     <value>Unzipping: {0}%</value>
   </data>
-  <data name="Downloading3_" xml:space="preserve">
-    <value>Downloading ({1}/{2}): {0}%</value>
+  <data name="Downloading3__" xml:space="preserve">
+    <value>正在下载（{1}/{2}）：{0}%</value>
   </data>
   <data name="Downloading_" xml:space="preserve">
     <value>Downloading: {0}%</value>
@@ -1889,8 +986,8 @@ The system will {1} after {0} seconds.</value>
   <data name="NewVersionUpdate" xml:space="preserve">
     <value>New version update</value>
   </data>
-  <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>{1} v{0} version update</value>
+  <data name="NewVersionUpdateTitle__" xml:space="preserve">
+    <value>{1} v{0} 版本更新</value>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
     <value>Prompt notification when there is a new announcement.</value>
@@ -1907,18 +1004,15 @@ The system will {1} after {0} seconds.</value>
   <data name="OperationHostsError_" xml:space="preserve">
     <value>Operation Hosts Error {0}</value>
   </data>
-  <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Watt Toolkit replacement upgrade in progress...</value>
-  </data>
-  <data name="Script_BuildDownloadError" xml:space="preserve">
-    <value>Script dependency download error: {0}
+  <data name="Script_BuildDownloadError__" xml:space="preserve">
+    <value>脚本依赖下载出错：{0}
     {1}</value>
   </data>
-  <data name="Script_BuildError" xml:space="preserve">
-    <value>Script binding error: {0}</value>
+  <data name="Script_BuildError_" xml:space="preserve">
+    <value>脚本绑定出错：{0}</value>
   </data>
-  <data name="Script_CacheDeleteError" xml:space="preserve">
-    <value>Cache file deletion failed: {0}</value>
+  <data name="Script_CacheDeleteError_" xml:space="preserve">
+    <value>缓存文件删除失败：{0}</value>
   </data>
   <data name="Script_DeleteError" xml:space="preserve">
     <value>Delete failed</value>
@@ -1926,20 +1020,20 @@ The system will {1} after {0} seconds.</value>
   <data name="Script_DeleteSuccess" xml:space="preserve">
     <value>Delete successful</value>
   </data>
-  <data name="Script_FileDeleteError" xml:space="preserve">
-    <value>File deletion failed: {0}</value>
+  <data name="Script_FileDeleteError_" xml:space="preserve">
+    <value>文件删除失败：{0}</value>
   </data>
   <data name="Script_FileRepeat" xml:space="preserve">
     <value>The script is repeated</value>
   </data>
-  <data name="Script_NoFile" xml:space="preserve">
-    <value>Script: {0} Files are missing and deleted</value>
+  <data name="Script_NoFile_" xml:space="preserve">
+    <value>脚本：{0} 文件丢失已删除</value>
   </data>
-  <data name="Script_NoFileDeleteError" xml:space="preserve">
-    <value>Script: {0} File missing, delete failed to try to delete manually</value>
+  <data name="Script_NoFileDeleteError_" xml:space="preserve">
+    <value>脚本：{0} 文件丢失，删除失败去尝试手动删除</value>
   </data>
-  <data name="Script_ReadFileError" xml:space="preserve">
-    <value>Script read exceptionsCheck the syntax for errors: {0}</value>
+  <data name="Script_ReadFileError_" xml:space="preserve">
+    <value>脚本读取异常请检查语法是否有错误：{0}</value>
   </data>
   <data name="Script_SaveDBError" xml:space="preserve">
     <value>Save data error please try again</value>
@@ -1947,87 +1041,17 @@ The system will {1} after {0} seconds.</value>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
     <value>Added successfully</value>
   </data>
-  <data name="SteamInstallPathNotFound" xml:space="preserve">
-    <value>The Steam installation path could not be found</value>
-  </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>The update package cannot be extracted, please open the official website to update manually</value>
   </data>
-  <data name="Script_AllEnable" xml:space="preserve">
-    <value>Select all</value>
-  </data>
-  <data name="LocalAuth_ImportSuccessTip" xml:space="preserve">
-    <value>{0} files were successfully imported</value>
-  </data>
-  <data name="DelAccount_VerifyDesc_NickName" xml:space="preserve">
-    <value>Please enter a nickname to verify</value>
-  </data>
-  <data name="DelAccount_VerifyDesc_PhoneNumber" xml:space="preserve">
-    <value>Please enter your mobile phone number to verify</value>
-  </data>
-  <data name="DelAccount_VerifyError_NickName" xml:space="preserve">
-    <value>The nickname entered is incorrect, please re-enter it</value>
-  </data>
-  <data name="DelAccount_VerifyError_PhoneNumber" xml:space="preserve">
-    <value>The mobile phone number entered is incorrect, please re-enter it</value>
-  </data>
-  <data name="About_Donate" xml:space="preserve">
-    <value>donate</value>
-  </data>
-  <data name="About_Donate_Title" xml:space="preserve">
-    <value>Supports the development of Watt Toolkit</value>
-  </data>
-  <data name="About_Donate_Desc" xml:space="preserve">
-    <value>The release of the current version of Watt Toolkit can't be separated from everyone's support, and if Watt Toolkit is helpful to you, and you want us to keep new features developed and maintained for a long time, you may consider giving us a little contribution to make our more dynamic update maintenance Watt Toolkit.
-*Please remember to have the UID of your Watt Toolkit account in the notes message when making a donation, so that we can feed the donation reward back to your account later.</value>
-  </data>
-  <data name="About_DonateType" xml:space="preserve">
-    <value>Donation modalities</value>
-  </data>
-  <data name="About_DonateRecord" xml:space="preserve">
-    <value>Records of donations</value>
-  </data>
-  <data name="About_DonateRecord_Prompt" xml:space="preserve">
-    <value>Thank you to everyone on the record</value>
-  </data>
-  <data name="About_DonateRecord_NoData" xml:space="preserve">
-    <value>No one has donated this month...</value>
-  </data>
-  <data name="About_DonateRecord_Error" xml:space="preserve">
-    <value>Error loading donation list data:</value>
+  <data name="LocalAuth_ImportSuccessTip_" xml:space="preserve">
+    <value>成功导入了 {0} 个文件</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
     <value>Copied to the clipboard</value>
   </data>
-  <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
-    <value>Click here to copy the UID to the clipboard</value>
-  </data>
-  <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>You will need to log in to your Watt Toolkit account to get your UID</value>
-  </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
     <value>Download update package cache file validation failed, deleted cache attempts to re-download, please wait</value>
-  </data>
-  <data name="ASF_ConsoleFontName" xml:space="preserve">
-    <value>Console font</value>
-  </data>
-  <data name="ASF_ConsoleFontSize" xml:space="preserve">
-    <value>Console font size</value>
-  </data>
-  <data name="ASF_ConsoleMaxLine" xml:space="preserve">
-    <value>The console displays the maximum number of rows</value>
-  </data>
-  <data name="ASF_IPCPortId" xml:space="preserve">
-    <value>IPC port number</value>
-  </data>
-  <data name="ASF_IPCPortOccupiedRandom" xml:space="preserve">
-    <value>A random port number is used when an IPC port is occupied</value>
-  </data>
-  <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
-    <value>Please wait for the IPC to boot...</value>
-  </data>
-  <data name="ShowHide" xml:space="preserve">
-    <value>Show/Hide</value>
   </data>
   <data name="LinuxSudoTips" xml:space="preserve">
     <value>Linux requires a system root password to use the feature properly</value>
@@ -2053,23 +1077,8 @@ The system will {1} after {0} seconds.</value>
   <data name="Settings_System" xml:space="preserve">
     <value>System settings</value>
   </data>
-  <data name="CommunityFix_CertificateExport" xml:space="preserve">
-    <value>Export the certificate file</value>
-  </data>
-  <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
-    <value>Open Security Settings</value>
-  </data>
   <data name="ExportedToPath_" xml:space="preserve">
     <value>Exported to Path: {0}</value>
-  </data>
-  <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
-    <value>You must find {0} in System Settings - Security - Encryption &amp; Credentials - Credential Store - User Credentials Click on the item and click Uninstall in the pop-up window.</value>
-  </data>
-  <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
-    <value>Remove the certificate in Security Settings</value>
-  </data>
-  <data name="CommunityFix_IsVpnMode" xml:space="preserve">
-    <value>Enable VPN mode</value>
   </data>
   <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
     <value>Open the folder where Hosts is located</value>
@@ -2101,38 +1110,11 @@ The system will {1} after {0} seconds.</value>
   <data name="NotificationChannelType_Name_Message" xml:space="preserve">
     <value>Message notification</value>
   </data>
-  <data name="StopService" xml:space="preserve">
-    <value>Stop the service</value>
-  </data>
-  <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
-    <value>The local acceleration agent service is running.</value>
-  </data>
-  <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
-    <value>The ASF service is running.</value>
-  </data>
-  <data name="Steam_ShareDisable" xml:space="preserve">
-    <value>已禁用</value>
-  </data>
-  <data name="Steam_ShareDisableBtn" xml:space="preserve">
-    <value>disable</value>
-  </data>
-  <data name="Steam_ShareEnableBtn" xml:space="preserve">
-    <value>enable</value>
-  </data>
-  <data name="Steam_Share_RemoveShare" xml:space="preserve">
-    <value>Whether to delete this Home Library share.</value>
-  </data>
   <data name="ASF_SetCryptKey" xml:space="preserve">
     <value>Set up a custom key</value>
   </data>
-  <data name="ASF_ConsoleSettings" xml:space="preserve">
-    <value>Console settings</value>
-  </data>
   <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
     <value>A new version of v{0}</value>
-  </data>
-  <data name="User_Balance" xml:space="preserve">
-    <value>balance</value>
   </data>
   <data name="User_EngineOil" xml:space="preserve">
     <value>Integral</value>
@@ -2161,9 +1143,6 @@ The system will {1} after {0} seconds.</value>
   <data name="ProxyMode_VPN" xml:space="preserve">
     <value>VPN proxy mode</value>
   </data>
-  <data name="ProxyMode_PAC" xml:space="preserve">
-    <value>PAC proxy mode</value>
-  </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
     <value>Enter the password in the console window that pops up or do it manually</value>
   </data>
@@ -2188,44 +1167,8 @@ The system will {1} after {0} seconds.</value>
   <data name="SupportSystem" xml:space="preserve">
     <value>Supported systems</value>
   </data>
-  <data name="LastUpdatedDateTime" xml:space="preserve">
-    <value>Last updated</value>
-  </data>
-  <data name="DiskUsage" xml:space="preserve">
-    <value>Disk occupancy</value>
-  </data>
-  <data name="InstalledPath" xml:space="preserve">
-    <value>Installation path</value>
-  </data>
   <data name="Media" xml:space="preserve">
     <value>media</value>
-  </data>
-  <data name="SteamGridDBTitle" xml:space="preserve">
-    <value>SteamGridDB Image</value>
-  </data>
-  <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
-    <value>Images were not available from SteamGridDB</value>
-  </data>
-  <data name="OpenInBrowser" xml:space="preserve">
-    <value>Open in your browser</value>
-  </data>
-  <data name="OpenImageInBrowser" xml:space="preserve">
-    <value>Open the original image in a browser</value>
-  </data>
-  <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
-    <value>Open SteamGridDB Web Browsing</value>
-  </data>
-  <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
-    <value>Check out more of this author's work</value>
-  </data>
-  <data name="GetImageFromSteamGridDB" xml:space="preserve">
-    <value>Get it from SteamGridDB</value>
-  </data>
-  <data name="HorizontalTitlePage" xml:space="preserve">
-    <value>Horizontal cover</value>
-  </data>
-  <data name="VerticalTitlePage" xml:space="preserve">
-    <value>Vertical cover</value>
   </data>
   <data name="Background" xml:space="preserve">
     <value>背景</value>
@@ -2233,14 +1176,8 @@ The system will {1} after {0} seconds.</value>
   <data name="Icon" xml:space="preserve">
     <value>Icon</value>
   </data>
-  <data name="RecommendedResolution" xml:space="preserve">
-    <value>Recommended resolution</value>
-  </data>
   <data name="LaunchItem" xml:space="preserve">
     <value>Startup items</value>
-  </data>
-  <data name="ExecutableFile" xml:space="preserve">
-    <value>executable file</value>
   </data>
   <data name="Arguments" xml:space="preserve">
     <value>Startup parameters</value>
@@ -2248,14 +1185,8 @@ The system will {1} after {0} seconds.</value>
   <data name="WorkingDir" xml:space="preserve">
     <value>Working directory</value>
   </data>
-  <data name="GameList_EditedAppsSaveManger" xml:space="preserve">
-    <value>Save Steam game customization information</value>
-  </data>
   <data name="SaveFile" xml:space="preserve">
     <value>archive</value>
-  </data>
-  <data name="CloudSaveFileSize" xml:space="preserve">
-    <value>The size of the cloud archive space</value>
   </data>
   <data name="CloudMaxnumFiles" xml:space="preserve">
     <value>The maximum number of cloud archives supported</value>
@@ -2266,45 +1197,17 @@ The system will {1} after {0} seconds.</value>
   <data name="DirPath" xml:space="preserve">
     <value>Folder path</value>
   </data>
-  <data name="SaveImageFileFailed" xml:space="preserve">
-    <value>Failed to save {0} picture</value>
-    <comment> {0} 图片类型;</comment>
-  </data>
   <data name="ResetAll" xml:space="preserve">
     <value>Reset all</value>
-  </data>
-  <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
-    <value>Save all changes to Steam</value>
-  </data>
-  <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
-    <value>Edited game data was not obtained</value>
   </data>
   <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
     <value>There was an error saving AppInfos</value>
   </data>
-  <data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
-    <value>The modified data has been saved to a Steam local file, will steam be restarted immediately?</value>
-  </data>
-  <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
-    <value>Saving data to Steam succeeds</value>
-  </data>
-  <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
-    <value>Failed to save data, view the program log for detailed error information</value>
-  </data>
-  <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
-    <value>Failed to get the last steam account information logged in, unable to modify the custom cover page yes.</value>
-  </data>
-  <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
-    <value>Please choose the correct image to apply</value>
-  </data>
   <data name="Notice_Tray_Title" xml:space="preserve">
     <value>Message prompt</value>
   </data>
-  <data name="Notice_Tray_Content" xml:space="preserve">
-    <value>I received {0} new message, please check the My Messages section of the program for details.</value>
-  </data>
-  <data name="CommunityFix_CertificateStatus" xml:space="preserve">
-    <value>Certificate status</value>
+  <data name="Notice_Tray_Content_" xml:space="preserve">
+    <value>收到 {0} 条新消息，详情请在程序内我的消息处查看。</value>
   </data>
   <data name="About_FormerName" xml:space="preserve">
     <value>Former name</value>
@@ -2315,20 +1218,8 @@ The system will {1} after {0} seconds.</value>
   <data name="CreateTime" xml:space="preserve">
     <value>Creation time</value>
   </data>
-  <data name="GameList_CloudArchiveManager" xml:space="preserve">
-    <value>Steam Cloud Archive Management</value>
-  </data>
-  <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
-    <value>Are you sure you want to delete the currently selected archive data?</value>
-  </data>
-  <data name="GameList_CloudArchiveDeleteAllTip" xml:space="preserve">
-    <value>If you're sure you want to delete all your saves, be sure you're doing what you're doing, which will clear all of your current game's cloud saves!!!</value>
-  </data>
-  <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
-    <value>Manually upload the archive file</value>
-  </data>
-  <data name="FileNumber" xml:space="preserve">
-    <value>{0} files</value>
+  <data name="FileNumber_" xml:space="preserve">
+    <value>{0} 个文件</value>
   </data>
   <data name="UploadSuccess" xml:space="preserve">
     <value>Upload successful</value>
@@ -2339,17 +1230,8 @@ The system will {1} after {0} seconds.</value>
   <data name="Upload" xml:space="preserve">
     <value>upload</value>
   </data>
-  <data name="Download_Failed_FileNameTip" xml:space="preserve">
-    <value>Download {0} failed</value>
-  </data>
-  <data name="Download_Success_FileNameTip" xml:space="preserve">
-    <value>Download {0} successful</value>
-  </data>
   <data name="Advertisement" xml:space="preserve">
     <value>ad</value>
-  </data>
-  <data name="Advertisement_Close" xml:space="preserve">
-    <value>Turn off ads</value>
   </data>
   <data name="Sign" xml:space="preserve">
     <value>sign in</value>
@@ -2366,17 +1248,8 @@ The system will {1} after {0} seconds.</value>
   <data name="DownloadAndInstall" xml:space="preserve">
     <value>Download and install</value>
   </data>
-  <data name="YouNeedInstallWebView2Runtime" xml:space="preserve">
-    <value>You need to install the WebView2 Runtime to use this feature</value>
-  </data>
   <data name="DownloadFailedPleaseTryAgainLater" xml:space="preserve">
     <value>Download failed, please try again later</value>
-  </data>
-  <data name="InstallingPleaseWait" xml:space="preserve">
-    <value>Installing, please wait...</value>
-  </data>
-  <data name="FailedToRunSetupWithPath_PleaseRunItManually" xml:space="preserve">
-    <value>Failed to run the installer, the path is: {0}, please run it manually</value>
   </data>
   <data name="User_Level" xml:space="preserve">
     <value>grade</value>
@@ -2390,29 +1263,14 @@ The system will {1} after {0} seconds.</value>
   <data name="Advertisement_NoShow_Tip" xml:space="preserve">
     <value>Only sponsored users can set it</value>
   </data>
-  <data name="SeeDetails" xml:space="preserve">
-    <value>View details</value>
-  </data>
   <data name="AllTyoe" xml:space="preserve">
     <value>All types</value>
-  </data>
-  <data name="Notice_AllMarkHasRead" xml:space="preserve">
-    <value>All are marked as read</value>
-  </data>
-  <data name="Notice_Type" xml:space="preserve">
-    <value>The message type</value>
-  </data>
-  <data name="Settings_General_UseWinHttpHandler" xml:space="preserve">
-    <value>Use WinHttpHandler</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
   <data name="Error_BaseDir_StartsWith_Temp" xml:space="preserve">
     <value>不能在临时文件夹中运行此程序，请将所有文件复制或解压到其他路径后再启动程序</value>
-  </data>
-  <data name="Error_Lower_Than_Windows10_1607" xml:space="preserve">
-    <value>对于 Windows 10 操作系统最低需要 version 1607(10.0.14393)</value>
   </data>
   <data name="MacTrustRootCertificateTips" xml:space="preserve">
     <value>请在弹出的控制台窗口输入系统密码以安装信任证书，信任完成后点击确定按钮继续</value>
@@ -2447,10 +1305,655 @@ The system will {1} after {0} seconds.</value>
   <data name="GameList_FindAppsText" xml:space="preserve">
     <value>已找到 {0} 个应用</value>
   </data>
+  <data name="User_LoginUnexpectedPrompt" xml:space="preserve">
+    <value>如果登录过程出现意外，按照网页提示进行</value>
+  </data>
+  <data name="Error_PageFault" xml:space="preserve">
+    <value>发生了一些错误，无法打开此页面</value>
+  </data>
+  <data name="About_ThankSupport" xml:space="preserve">
+    <value>感谢支持</value>
+  </data>
+  <data name="Debug_InstructionPlaceholder" xml:space="preserve">
+    <value>在此输入控制台指令</value>
+  </data>
+  <data name="PictureZoom" xml:space="preserve">
+    <value>选择图片缩放方式</value>
+  </data>
+  <data name="PreviewPictures" xml:space="preserve">
+    <value>预览图片</value>
+  </data>
+  <data name="SelectPicture" xml:space="preserve">
+    <value>选择一张照片</value>
+  </data>
+  <data name="Settings_General_AppData" xml:space="preserve">
+    <value>AppData 数据</value>
+  </data>
+  <data name="Settings_General_CacheData" xml:space="preserve">
+    <value>Cache 数据</value>
+  </data>
+  <data name="Settings_General_LogsData" xml:space="preserve">
+    <value>Logs 数据</value>
+  </data>
+  <data name="Settings_Plugin_OnlyLoadOfficial" xml:space="preserve">
+    <value>仅加载官方插件</value>
+  </data>
+  <data name="Settings_Plugin_OpenCacheFolder" xml:space="preserve">
+    <value>打开插件缓存文件夹</value>
+  </data>
+  <data name="Settings_Plugin_OpenFolder" xml:space="preserve">
+    <value>打开插件文件夹</value>
+  </data>
+  <data name="Settings_Plugin_SafeMode" xml:space="preserve">
+    <value>安全模式</value>
+  </data>
+  <data name="Settings_Plugin_WasInstalled" xml:space="preserve">
+    <value>已安装插件</value>
+  </data>
+  <data name="Settings_StartupAutoRun" xml:space="preserve">
+    <value>系统启动时程序自动运行</value>
+  </data>
+  <data name="Settings_StartupNoShowMainWindow" xml:space="preserve">
+    <value>设置后程序启动时不再主动显示主窗口</value>
+  </data>
+  <data name="Settings_Steam_AdminRunPrompt" xml:space="preserve">
+    <value>Steam 默认不应该以管理员运行，但如果有特殊需求可以勾选此项</value>
+  </data>
+  <data name="Settings_Steam_AutoPopupMessage" xml:space="preserve">
+    <value>程序检测到 Steam 启动后自动弹出相关信息通知</value>
+  </data>
+  <data name="Settings_Steam_DefaultNoShowMainWindow" xml:space="preserve">
+    <value>设置后程序启动 Steam 时默认不弹出主窗口</value>
+  </data>
+  <data name="Settings_Steam_NoAutoUpdate" xml:space="preserve">
+    <value>设置此参数后程序启动 Steam 将不会在自动检查更新</value>
+  </data>
+  <data name="Settings_UI_AccentColor" xml:space="preserve">
+    <value>设置程序中显示的强调色</value>
+  </data>
+  <data name="Settings_UI_CustomColor" xml:space="preserve">
+    <value>自定义颜色</value>
+  </data>
+  <data name="Settings_UI_DefaultFonts" xml:space="preserve">
+    <value>设置程序首选的字体</value>
+  </data>
+  <data name="Settings_UI_DefaultLanguage" xml:space="preserve">
+    <value>设置程序首选的显示语言</value>
+  </data>
+  <data name="Settings_UI_PreviewColor" xml:space="preserve">
+    <value>预览颜色</value>
+  </data>
+  <data name="Settings_UI_ThemeStyle" xml:space="preserve">
+    <value>设置程序的主题风格</value>
+  </data>
+  <data name="Settings_UI_WindowBackgroundStyle" xml:space="preserve">
+    <value>设置窗口背景透明效果和透明材质</value>
+  </data>
+  <data name="AboutThisPlugin" xml:space="preserve">
+    <value>关于此插件</value>
+  </data>
+  <data name="Accelerator_OpenHostsDir" xml:space="preserve">
+    <value>打开 hosts 文件夹</value>
+  </data>
+  <data name="AddPlatform" xml:space="preserve">
+    <value>添加平台</value>
+  </data>
+  <data name="AdministratorStartup" xml:space="preserve">
+    <value>以管理员权限启动</value>
+  </data>
+  <data name="AllPassed" xml:space="preserve">
+    <value>全部通过</value>
+  </data>
+  <data name="AuthImport" xml:space="preserve">
+    <value>令牌导入</value>
+  </data>
+  <data name="Auth_AddMachineValidation" xml:space="preserve">
+    <value>添加机器验证</value>
+  </data>
+  <data name="Auth_AddPasswordProtect" xml:space="preserve">
+    <value>添加密码保护</value>
+  </data>
+  <data name="Auth_EditName" xml:space="preserve">
+    <value>编辑令牌名字</value>
+  </data>
+  <data name="Auth_EncryptionHelp" xml:space="preserve">
+    <value>加密帮助</value>
+  </data>
+  <data name="Auth_ExportAll" xml:space="preserve">
+    <value>导出全部令牌</value>
+  </data>
+  <data name="Auth_ExportmaFile" xml:space="preserve">
+    <value>导出为 Mafile</value>
+  </data>
+  <data name="Auth_ExportUsingPassword" xml:space="preserve">
+    <value>导出时携带密码</value>
+  </data>
+  <data name="Auth_FixedDisplay" xml:space="preserve">
+    <value>固定展示</value>
+  </data>
+  <data name="Auth_ImportCustomFile" xml:space="preserve">
+    <value>导入自文件</value>
+  </data>
+  <data name="Auth_lock" xml:space="preserve">
+    <value>锁定令牌</value>
+  </data>
+  <data name="Auth_OnlylocalCanDecrypt" xml:space="preserve">
+    <value>仅本机可解密</value>
+  </data>
+  <data name="Auth_PasswordProtectedVerifyFirst" xml:space="preserve">
+    <value>您的令牌具有密码保护，请先进行密码验证</value>
+  </data>
+  <data name="Auth_RemoveMachineValidation" xml:space="preserve">
+    <value>移除机器验证</value>
+  </data>
+  <data name="Auth_RemovePasswordProtect" xml:space="preserve">
+    <value>移除密码保护</value>
+  </data>
+  <data name="Auth_SteamLoginImport" xml:space="preserve">
+    <value>Steam 登陆导入</value>
+  </data>
+  <data name="Auth_UniversalImport" xml:space="preserve">
+    <value>2FA 通用导入</value>
+  </data>
+  <data name="Auth_Version" xml:space="preserve">
+    <value>版本号: 0.1</value>
+  </data>
+  <data name="BindThirdPartyAccount" xml:space="preserve">
+    <value>绑定第三方帐户</value>
+  </data>
+  <data name="CancelAll" xml:space="preserve">
+    <value>全部取消</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="ConfirmTransaction" xml:space="preserve">
+    <value>Transaction manager</value>
+  </data>
+  <data name="DefaultExport" xml:space="preserve">
+    <value>默认导出</value>
+  </data>
+  <data name="Depot" xml:space="preserve">
+    <value>库</value>
+  </data>
+  <data name="DisplayQRCode" xml:space="preserve">
+    <value>展示二维码</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="Error_AnswerIncorrect" xml:space="preserve">
+    <value>答案错误，请重试</value>
+  </data>
+  <data name="Error_AuthProtectFailed_" xml:space="preserve">
+    <value>令牌本机电脑保护 {0} 失败</value>
+  </data>
+  <data name="Error_AuthUnbindFailed" xml:space="preserve">
+    <value>解绑令牌失败</value>
+  </data>
+  <data name="Error_CannotConnectGoogleServer" xml:space="preserve">
+    <value>无法连接到 Google 服务器</value>
+  </data>
+  <data name="Error_CannotConnectTokenVerificationServer" xml:space="preserve">
+    <value>无法连接到令牌验证服务器</value>
+  </data>
+  <data name="Error_CannotFindAccountFile_" xml:space="preserve">
+    <value>无法找到 {0} 的账号文件，添加失败</value>
+  </data>
+  <data name="Error_CloudAuthMaximumQuantity___" xml:space="preserve">
+    <value>云令牌已达数量上限 {0}，云端令牌数量 {0}，正在上传数量 {0}</value>
+  </data>
+  <data name="Error_CopyFileFailed" xml:space="preserve">
+    <value>复制文件失败！</value>
+  </data>
+  <data name="Error_DataNotUnified" xml:space="preserve">
+    <value>同步失败，数据未统一</value>
+  </data>
+  <data name="Error_DelCloudData" xml:space="preserve">
+    <value>同步删除云端数据失败</value>
+  </data>
+  <data name="Error_DelFileFailedRunning" xml:space="preserve">
+    <value>无法删除某些文件（程序可能正在运行？）</value>
+  </data>
+  <data name="Error_EndProcessFailed_" xml:space="preserve">
+    <value>结束 {0} 进程失败</value>
+  </data>
+  <data name="Error_Exception_" xml:space="preserve">
+    <value>异常：{0}</value>
+  </data>
+  <data name="Error_FailedToSynchronizeAuth" xml:space="preserve">
+    <value>同步至云令牌失败</value>
+  </data>
+  <data name="Error_IncorrectPlatformPathSelection_" xml:space="preserve">
+    <value>{0} 平台路径没有正确选择</value>
+  </data>
+  <data name="Error_localAuthNotEmpty" xml:space="preserve">
+    <value>localAuth 不应为空</value>
+  </data>
+  <data name="Error_ModifyJsonFileFailed" xml:space="preserve">
+    <value>修改 JSON 文件失败</value>
+  </data>
+  <data name="Error_NotSupportedFileImport" xml:space="preserve">
+    <value>不支持该文件类型的导入方式。</value>
+  </data>
+  <data name="Error_OperateRegistryFilesFailed" xml:space="preserve">
+    <value>查找或读取已保存的注册表文件失败！</value>
+  </data>
+  <data name="Error_PathFailedUnableSwitchAccount_" xml:space="preserve">
+    <value>路径没有正确选择，{0} 平台账号切换功能无法使用</value>
+  </data>
+  <data name="Error_PleaseEnterAnswer" xml:space="preserve">
+    <value>请输入安全问题答案</value>
+  </data>
+  <data name="Error_PleaseEnterCode" xml:space="preserve">
+    <value>请输入验证码。</value>
+  </data>
+  <data name="Error_PleaseEnterEmailCode" xml:space="preserve">
+    <value>请输入邮箱验证码。</value>
+  </data>
+  <data name="Error_PleaseEnterTelCode" xml:space="preserve">
+    <value>请输入手机验证码。</value>
+  </data>
+  <data name="Error_PleaseEnterUsernamePassword" xml:space="preserve">
+    <value>请输入用户名及密码。</value>
+  </data>
+  <data name="Error_PleaseLoginWattToolKit" xml:space="preserve">
+    <value>请先登录 WattToolKit</value>
+  </data>
+  <data name="Error_ReadRegistryFailed" xml:space="preserve">
+    <value>读取已保存的注册表项失败。如果不成功，请尝试删除并重新添加帐户。</value>
+  </data>
+  <data name="Error_ScanQRCodeFailed_" xml:space="preserve">
+    <value>扫描网页二维码失败：{0}</value>
+  </data>
+  <data name="Error_SetSecurityIssuesFailed" xml:space="preserve">
+    <value>设置安全问题失败</value>
+  </data>
+  <data name="Error_StartProcessFailed_" xml:space="preserve">
+    <value>启动 {0} 进程失败</value>
+  </data>
+  <data name="Error_TokenPasswordRemovedFailed" xml:space="preserve">
+    <value>令牌密码保护移除失败。</value>
+  </data>
+  <data name="Error_TokenPasswordSetFailed" xml:space="preserve">
+    <value>令牌密码保护设置失败。</value>
+  </data>
+  <data name="Error_UnknownLogin_" xml:space="preserve">
+    <value>未知登陆错误：{0}</value>
+  </data>
+  <data name="Error_UpdateCloudData" xml:space="preserve">
+    <value>同步更新云端数据失败</value>
+  </data>
+  <data name="Error_WriteRegistryFailed" xml:space="preserve">
+    <value>写入 Windows 注册表失败</value>
+  </data>
+  <data name="ExportAuth" xml:space="preserve">
+    <value>Export Authenticator</value>
+  </data>
+  <data name="FilePathNotExist" xml:space="preserve">
+    <value>文件路径不存在</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="FilterRequirement" xml:space="preserve">
+    <value>筛选条件</value>
+  </data>
+  <data name="GameAccount_AddNewAccount" xml:space="preserve">
+    <value>添加新账号</value>
+  </data>
+  <data name="GameAccount_EndProcessWay" xml:space="preserve">
+    <value>结束进程方式</value>
+  </data>
+  <data name="GameAccount_SaveCurrentAccount" xml:space="preserve">
+    <value>保存当前登录账号</value>
+  </data>
+  <data name="GameAccount_StartProcessWay" xml:space="preserve">
+    <value>启动进程方式</value>
+  </data>
+  <data name="Game_Hidden" xml:space="preserve">
+    <value>隐藏的游戏</value>
+  </data>
+  <data name="Game_LayoutWay" xml:space="preserve">
+    <value>布局方式</value>
+  </data>
+  <data name="GeneralAuth_Code" xml:space="preserve">
+    <value>生成 Code</value>
+  </data>
+  <data name="GeneralAuth_EnterkeyOrLink" xml:space="preserve">
+    <value>输入您的令牌 Key 或二维码图片 url 链接</value>
+  </data>
+  <data name="GeneralAuth_ImportText" xml:space="preserve">
+    <value>导入文本：</value>
+  </data>
+  <data name="GeneralAuth_Name" xml:space="preserve">
+    <value>令牌名称：</value>
+  </data>
+  <data name="GeneralAuth_VerifySuccessfulImport" xml:space="preserve">
+    <value>请验证下列 Code 是否正确，在其正确的情况下再进行导入</value>
+  </data>
+  <data name="Info_AccountAlreadyLogin" xml:space="preserve">
+    <value>已经使用此账号登录</value>
+  </data>
+  <data name="Info_AlreadyTheCurrentAccount" xml:space="preserve">
+    <value>已经是当前登录的账号（没有执行操作）</value>
+  </data>
+  <data name="Info_AuthMaximumQuantity" xml:space="preserve">
+    <value>已达到本地令牌数量上限</value>
+  </data>
+  <data name="Info_PleaseEnterImportText" xml:space="preserve">
+    <value>请输入「导入文本」。</value>
+  </data>
+  <data name="Info_PleaseVerifyFirstAuthCode" xml:space="preserve">
+    <value>请先验证令牌 Code 正确后，再点击导入</value>
+  </data>
+  <data name="Info_SteamDesktopAuthImportMessage_" xml:space="preserve">
+    <value>SteamDesktopAuth 令牌导入{0}</value>
+  </data>
+  <data name="Info_V1ImportMessage_" xml:space="preserve">
+    <value>WattToolKitV1 令牌导入{0}</value>
+  </data>
+  <data name="Info_V2ImportMessage_" xml:space="preserve">
+    <value>WattToolKitV2 令牌导入{0}</value>
+  </data>
+  <data name="Info_WinAuthImportMessage_" xml:space="preserve">
+    <value>WinAuth 令牌导入{0}</value>
+  </data>
+  <data name="ModelContent_CancelAllTrade" xml:space="preserve">
+    <value>您确认要取消所有交易报价吗\r\n您将拒绝列表内全部的报价请求。\r\n这将从以下列表中移除所有交易信息\r\n您可以在 Steam 库存查看交易报价记录。</value>
+  </data>
+  <data name="ModelContent_CancelTrade" xml:space="preserve">
+    <value>您确认需要取消交易报价吗\r\n这将从以下列表中移除此条确认信息\r\n您可以在 Steam 库存查看交易报价记录。</value>
+  </data>
+  <data name="ModelContent_ConfirmAllTrade" xml:space="preserve">
+    <value>您确认要通过所有交易报价吗\r\n您将同意列表内全部的报价请求。\r\n交易一经确认无法撤销，请谨慎选择。</value>
+  </data>
+  <data name="ModelContent_ConfirmTrade___" xml:space="preserve">
+    <value>{0}\r\n{1}\r\n{2}\r\n如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。</value>
+  </data>
+  <data name="ModelContent_ConfirmUnbinding" xml:space="preserve">
+    <value>您确定要从您的 Steam 账号中解绑此令牌吗，解绑后此令牌将失效，您可以在解绑后删除此令牌。</value>
+  </data>
+  <data name="ModelContent_ExportPassword" xml:space="preserve">
+    <value>请输入此令牌导出时设置的密码</value>
+  </data>
+  <data name="ModelContent_ImportSuccessful_" xml:space="preserve">
+    <value>{0}导入成功</value>
+  </data>
+  <data name="ModelContent_LoginNewUser" xml:space="preserve">
+    <value>此操作会结束当前平台进程并移除当前账号登录状态跳转至新账号登录，确定要继续吗？</value>
+  </data>
+  <data name="ModelContent_SecretKey_" xml:space="preserve">
+    <value>{0}\r\n令牌 SecretKey</value>
+  </data>
+  <data name="MyOrder" xml:space="preserve">
+    <value>我的订单</value>
+  </data>
+  <data name="OnHook" xml:space="preserve">
+    <value>挂机</value>
+  </data>
+  <data name="PersonalCenter" xml:space="preserve">
+    <value>个人中心</value>
+  </data>
+  <data name="Script_Settings" xml:space="preserve">
+    <value>脚本设置</value>
+  </data>
+  <data name="SelectFilepath" xml:space="preserve">
+    <value>选择文件路径</value>
+  </data>
+  <data name="SteamLoginImport" xml:space="preserve">
+    <value>Steam 登入导入</value>
+  </data>
+  <data name="SteamTrade_YourOffer" xml:space="preserve">
+    <value>您的报价</value>
+  </data>
+  <data name="Steam_AuthFileImportPath" xml:space="preserve">
+    <value>令牌文件导入路径</value>
+  </data>
+  <data name="Steam_BindTel" xml:space="preserve">
+    <value>绑定手机号</value>
+  </data>
+  <data name="Steam_CustomAuthName" xml:space="preserve">
+    <value>自定义令牌名称</value>
+  </data>
+  <data name="Steam_EmailCode" xml:space="preserve">
+    <value>邮箱验证码</value>
+  </data>
+  <data name="Steam_EmailConfirmation" xml:space="preserve">
+    <value>请在收到邮件后，点击邮件内的「添加手机号码」进行确认后，再点击继续按钮。</value>
+  </data>
+  <data name="Steam_Login" xml:space="preserve">
+    <value>Steam 登录</value>
+  </data>
+  <data name="Steam_PleaseEnterBindTel" xml:space="preserve">
+    <value>请输入您需要绑定的手机号</value>
+  </data>
+  <data name="SubHeader_FirstNeedToSetPlatformPath_" xml:space="preserve">
+    <value>第一次使用需要先设置 {0} 平台路径</value>
+  </data>
+  <data name="SubHeader_FirstSyncSetAuth" xml:space="preserve">
+    <value>首次同步，请为您的云令牌设置一个安全问题及密码。\r\n请先输入「安全问题」</value>
+  </data>
+  <data name="SubHeader_PleaseEnterTheAnswerAgain" xml:space="preserve">
+    <value>请再输入「问题答案」</value>
+  </data>
+  <data name="SubHeader_SecurityIssues_" xml:space="preserve">
+    <value>安全问题：「{0}」</value>
+  </data>
+  <data name="Success_AuthProtectSuccessfully_" xml:space="preserve">
+    <value>令牌本机电脑保护{0}成功</value>
+  </data>
+  <data name="Success_AuthUnbindSuccessful" xml:space="preserve">
+    <value>令牌解绑成功</value>
+  </data>
+  <data name="Success_AuthUpload__" xml:space="preserve">
+    <value>{0} 已上传 {1} 个令牌至云端</value>
+  </data>
+  <data name="Success_CloudSynchronizationSuccessful" xml:space="preserve">
+    <value>云同步成功：{0}</value>
+  </data>
+  <data name="Success_DelCloudData" xml:space="preserve">
+    <value>同步删除云端数据成功</value>
+  </data>
+  <data name="Success_ExecuteAllAuthEnd___" xml:space="preserve">
+    <value>{0} 全部令牌执行结束，成功数量 {1} ，失败数量 {2}</value>
+  </data>
+  <data name="Success_LocalAuthDelSuccessful" xml:space="preserve">
+    <value>本地令牌数据删除成功</value>
+  </data>
+  <data name="Success_LocalAuthUpdateSuccessful" xml:space="preserve">
+    <value>本地令牌名称修改成功</value>
+  </data>
+  <data name="Success_SavedSuccessfully_" xml:space="preserve">
+    <value>保存成功 {0}</value>
+  </data>
+  <data name="Success_SwitchAccount__" xml:space="preserve">
+    <value>{0} 已经切换到账号 {1}</value>
+  </data>
+  <data name="Success_AuthloadedSuccessfully" xml:space="preserve">
+    <value>令牌加载成功</value>
+  </data>
+  <data name="Success_AuthPasswordRemovedSuccessfully" xml:space="preserve">
+    <value>令牌密码保护移除成功。</value>
+  </data>
+  <data name="Success_AuthPasswordSetSuccessfully" xml:space="preserve">
+    <value>令牌密码保护设置成功。</value>
+  </data>
+  <data name="Success_UpdateCloudData" xml:space="preserve">
+    <value>同步更新云端数据成功</value>
+  </data>
+  <data name="TelCode" xml:space="preserve">
+    <value>手机验证码</value>
+  </data>
+  <data name="Title_AddAccount_" xml:space="preserve">
+    <value>添加新的 {0} 账号</value>
+  </data>
+  <data name="Title_AuthEncryption" xml:space="preserve">
+    <value>令牌加密帮助</value>
+  </data>
+  <data name="Title_DeleteAuth" xml:space="preserve">
+    <value>Delete the token</value>
+  </data>
+  <data name="Title_InputAuthPassword" xml:space="preserve">
+    <value>请输入令牌保护密码</value>
+  </data>
+  <data name="Title_LoginAccount_" xml:space="preserve">
+    <value>登录 {0} 账号</value>
+  </data>
+  <data name="Title_OldPasswordAuth" xml:space="preserve">
+    <value>请输入原令牌保护密码</value>
+  </data>
+  <data name="Title_PasswordConfirm" xml:space="preserve">
+    <value>请再次输入密码以确认</value>
+  </data>
+  <data name="Title_PleaseEnterLoginPassword" xml:space="preserve">
+    <value>请输入该 Steam 账号登陆密码</value>
+  </data>
+  <data name="Title_PleaseEnterNewAuthName" xml:space="preserve">
+    <value>请输入新令牌名或取消</value>
+  </data>
+  <data name="Title_PleaseEnterTheAnswer" xml:space="preserve">
+    <value>请输入问题答案</value>
+  </data>
+  <data name="Title_PleaseInputCurrentAccountName_" xml:space="preserve">
+    <value>请输入您当前登录的 {0} 账号的名称</value>
+  </data>
+  <data name="Title_SetSecurityIssues" xml:space="preserve">
+    <value>设置安全问题</value>
+  </data>
+  <data name="Title_SetUp_" xml:space="preserve">
+    <value>{0} 设置</value>
+  </data>
+  <data name="UniversalAuthImport" xml:space="preserve">
+    <value>通用 2FA 令牌导入</value>
+  </data>
+  <data name="UseHelp" xml:space="preserve">
+    <value>使用帮助</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>验证</value>
+  </data>
+  <data name="ViewDetailedData" xml:space="preserve">
+    <value>查看详细数据</value>
+  </data>
+  <data name="ViewInStore" xml:space="preserve">
+    <value>在 Steam++ 插件商店中查看</value>
+  </data>
+  <data name="Warning_CodeNullPleaseLogin" xml:space="preserve">
+    <value>验证码 URL 为空，请重新登录</value>
+  </data>
+  <data name="Warning_DoNotOperateFrequently" xml:space="preserve">
+    <value>请勿频繁操作</value>
+  </data>
+  <data name="Warning_NotAuthProvided" xml:space="preserve">
+    <value>没有加密令牌可供操作</value>
+  </data>
+  <data name="Warning_OnlySupportSteamAuth" xml:space="preserve">
+    <value>解绑功能目前仅支持 Steam 令牌</value>
+  </data>
+  <data name="Warning_PasswordError" xml:space="preserve">
+    <value>密码错误，请重试</value>
+  </data>
+  <data name="Warning_PlatformDeletionNotAllowed_" xml:space="preserve">
+    <value>不允许删除 {0} 平台</value>
+  </data>
+  <data name="Warning_PleaseEnterAuthName" xml:space="preserve">
+    <value>请输入令牌名称</value>
+  </data>
+  <data name="Warning_PleaseEnterTel" xml:space="preserve">
+    <value>请正确输入手机号。</value>
+  </data>
+  <data name="Warning_PleaseInputAccountName" xml:space="preserve">
+    <value>请输入账号名称</value>
+  </data>
+  <data name="Warning_PleaseSelectAuth" xml:space="preserve">
+    <value>请先选中一个 Steam 令牌</value>
+  </data>
+  <data name="Warning_PleaseSelectImportWay" xml:space="preserve">
+    <value>请选择导入方式</value>
+  </data>
+  <data name="Warning_PleaseStopAccelerate" xml:space="preserve">
+    <value>请先停止加速</value>
+  </data>
+  <data name="Warning_PleaseWaitExecuteFinish" xml:space="preserve">
+    <value>已有一项操作正在进行中，请等待执行结束</value>
+  </data>
+  <data name="Warning_RefuseOperate" xml:space="preserve">
+    <value>拒绝操作</value>
+  </data>
+  <data name="Warning_SteamGuardNotEmpty" xml:space="preserve">
+    <value>UUID 及 SteamGuard 不可为空</value>
+  </data>
+  <data name="Warning_TerminationAllAuth___" xml:space="preserve">
+    <value>已终止 {0} 全部令牌，已操作成功令牌数量 {1} ，操作失败令牌数量 {2}</value>
+  </data>
+  <data name="Warning_TransactionOnlySteamAuth" xml:space="preserve">
+    <value>确认交易功能仅限 Steam 令牌使用</value>
+  </data>
+  <data name="Warning_UnbindFailed" xml:space="preserve">
+    <value>解绑令牌失败：登陆未成功</value>
+  </data>
+  <data name="Auth_OnlyMafileFormat" xml:space="preserve">
+    <value>Mafile 格式仅支持 Steam 令牌</value>
+  </data>
+  <data name="ExportAll" xml:space="preserve">
+    <value>全部导出</value>
+  </data>
+  <data name="FixedTop" xml:space="preserve">
+    <value>固定首位</value>
+  </data>
+  <data name="AccountChange_RestartSteam" xml:space="preserve">
+    <value>Modified data requires a restart to steam and whether a restart to Steam is required.</value>
+  </data>
+  <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
+    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，也可以选择暂时禁用或启用指定账号的共享。调整后保存重启 Steam 生效！</value>
+  </data>
   <data name="CommunityFix_SubProcessFileNotExist" xml:space="preserve">
     <value>网络加速子进程文件不存在</value>
   </data>
-  <data name="Library" xml:space="preserve">
-    <value>库</value>
+  <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
+    <value>There are currently no transactions</value>
+  </data>
+  <data name="Steam_Share_RemoveShare" xml:space="preserve">
+    <value>Whether to delete this Home Library share.</value>
+  </data>
+  <data name="Plugin_NeedDisable" xml:space="preserve">
+    <value>需要先禁用该插件</value>
+  </data>
+  <data name="Plugin_DeleteSuccess" xml:space="preserve">
+    <value>{0} 插件删除成功</value>
+  </data>
+  <data name="Plugin_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Plugin_InstalledPlugins" xml:space="preserve">
+    <value>已安装插件</value>
+  </data>
+  <data name="Plugin_ManageAllInstalledPlugins" xml:space="preserve">
+    <value>管理所有已安装插件</value>
+  </data>
+  <data name="Plugin_OnlyLoadOfficePlugins" xml:space="preserve">
+    <value>仅加载官方插件</value>
+  </data>
+  <data name="Plugin_OpenCacheFolder" xml:space="preserve">
+    <value>打开插件缓存文件夹</value>
+  </data>
+  <data name="Plugin_OpenFolder" xml:space="preserve">
+    <value>打开插件文件夹</value>
+  </data>
+  <data name="Plugin_SafeMode" xml:space="preserve">
+    <value>安全模式</value>
+  </data>
+  <data name="LocalAuth_ExportAuth_Error" xml:space="preserve">
+    <value>Failed to export data. Error code: {0}</value>
+  </data>
+  <data name="Script_DeleteItem" xml:space="preserve">
+    <value>Ready to delete this userscript?</value>
+  </data>
+  <data name="Script_EditTxt" xml:space="preserve">
+    <value>After editing the userscript, click Yes to refresh cache for changes to take effect.</value>
+  </data>
+  <data name="Script_NoFileDeleteItem" xml:space="preserve">
+    <value>The text file is missing. Do you want to delete this userscript history?</value>
   </data>
 </root>
