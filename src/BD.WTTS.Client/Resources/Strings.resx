@@ -1957,4 +1957,7 @@
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>该文本文件已丢失，是否删除脚本记录</value>
   </data>
+  <data name="Plugin_FileError" xml:space="preserve">
+    <value>找不到文件</value>
+  </data>
 </root>
