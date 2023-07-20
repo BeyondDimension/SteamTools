@@ -4420,6 +4420,87 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 删除 的本地化字符串。
+        /// </summary>
+        public static string Plugin_Delete {
+            get {
+                return ResourceManager.GetString("Plugin_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} 插件删除成功 的本地化字符串。
+        /// </summary>
+        public static string Plugin_DeleteSuccess {
+            get {
+                return ResourceManager.GetString("Plugin_DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已安装插件 的本地化字符串。
+        /// </summary>
+        public static string Plugin_InstalledPlugins {
+            get {
+                return ResourceManager.GetString("Plugin_InstalledPlugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 管理所有已安装插件 的本地化字符串。
+        /// </summary>
+        public static string Plugin_ManageAllInstalledPlugins {
+            get {
+                return ResourceManager.GetString("Plugin_ManageAllInstalledPlugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 需要先禁用该插件 的本地化字符串。
+        /// </summary>
+        public static string Plugin_NeedDisable {
+            get {
+                return ResourceManager.GetString("Plugin_NeedDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅加载官方插件 的本地化字符串。
+        /// </summary>
+        public static string Plugin_OnlyLoadOfficePlugins {
+            get {
+                return ResourceManager.GetString("Plugin_OnlyLoadOfficePlugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开插件缓存文件夹 的本地化字符串。
+        /// </summary>
+        public static string Plugin_OpenCacheFolder {
+            get {
+                return ResourceManager.GetString("Plugin_OpenCacheFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开插件文件夹 的本地化字符串。
+        /// </summary>
+        public static string Plugin_OpenFolder {
+            get {
+                return ResourceManager.GetString("Plugin_OpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安全模式 的本地化字符串。
+        /// </summary>
+        public static string Plugin_SafeMode {
+            get {
+                return ResourceManager.GetString("Plugin_SafeMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 插件商店 的本地化字符串。
         /// </summary>
         public static string Plugin_Store {
