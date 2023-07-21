@@ -1978,4 +1978,84 @@
   <data name="Plugin_FileError" xml:space="preserve">
     <value>找不到文件</value>
   </data>
+  <data name="SteamAppType_Application" xml:space="preserve">
+    <value>软件</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Beta" xml:space="preserve">
+    <value>测试</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Config" xml:space="preserve">
+    <value>配置</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Demo" xml:space="preserve">
+    <value>Demo</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_DepotOnly" xml:space="preserve">
+    <value>仓库</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_DLC" xml:space="preserve">
+    <value>DLC</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Driver" xml:space="preserve">
+    <value>驱动</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Franchise" xml:space="preserve">
+    <value>授权</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Game" xml:space="preserve">
+    <value>游戏</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Guide" xml:space="preserve">
+    <value>指南</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Hardware" xml:space="preserve">
+    <value>硬件</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Media" xml:space="preserve">
+    <value>预告视频</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Mod" xml:space="preserve">
+    <value>模组</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Music" xml:space="preserve">
+    <value>原声音轨</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Plugin" xml:space="preserve">
+    <value>插件</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Series" xml:space="preserve">
+    <value>影视集</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Shortcut" xml:space="preserve">
+    <value>快捷方式</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Tool" xml:space="preserve">
+    <value>工具</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAppType_Video" xml:space="preserve">
+    <value>视频</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
 </root>
