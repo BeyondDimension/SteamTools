@@ -54,6 +54,15 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 WebRootPath = RootPath,
             });
 
+            builder.Services.Configure<HostFilteringOptions>(static o =>
+            {
+                o.AllowEmptyHosts = true;
+                o.AllowedHosts = new List<string>
+                {
+                    "*",
+                };
+            });
+
             builder.Host.UseNLog();
             StartupConfigureServices(builder.Services);
             builder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(1d));
@@ -89,6 +98,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             });
 
             app = builder.Build();
+            app.UseHostFiltering();
             StartupConfigure(app);
 
             Exception? exception = null;

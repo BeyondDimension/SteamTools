@@ -40,7 +40,14 @@ static partial class ListenOptionsExtensions
         var certService = listen.ApplicationServices.GetRequiredService<CertService>();
         //certService.CreateCaCertIfNotExists();
         //certService.InstallAndTrustCaCert();
-        return listen.UseTls(https => https.ServerCertificateSelector = (ctx, domain) => certService.GetOrCreateServerCert(domain));
+        return listen.UseTls(https =>
+        {
+            https.ServerCertificateSelector = (ctx, domain) =>
+            {
+                var cert = certService.GetOrCreateServerCert(domain);
+                return cert;
+            };
+        });
     }
 
     /// <summary>
