@@ -94,39 +94,54 @@ partial class Program
                     });
 
                 var useGpu = !IApplication.DisableGPU && GeneralSettings.GPU.Value;
+#if WINDOWS
+                var useWgl = IApplication.UseWgl || GeneralSettings.NativeOpenGL.Value;
+#endif
+#if WINDOWS
+                IEnumerable<Win32RenderingMode> GetRenderingMode()
+                {
+                    if (useGpu)
+                        yield return Win32RenderingMode.AngleEgl;
+                    if (useWgl)
+                        yield return Win32RenderingMode.Wgl;
+                    yield return Win32RenderingMode.Software;
+                }
+#elif MACOS
+                IEnumerable<AvaloniaNativeRenderingMode> GetRenderingMode()
+                {
+                    if (useGpu)
+                        yield return AvaloniaNativeRenderingMode.OpenGl;
+                    yield return AvaloniaNativeRenderingMode.Software;
+                }
+#elif LINUX
+                IEnumerable<X11RenderingMode> GetRenderingMode()
+                {
+                    if (useGpu)
+                    {
+                        yield return X11RenderingMode.Glx;
+                        yield return X11RenderingMode.Egl;
+                    }
+                    yield return X11RenderingMode.Software;
+                }
+#endif
+
 #if MACOS
                 builder.With(new AvaloniaNativePlatformOptions
                 {
-                    RenderingMode = new[]
-                    {
-                        useGpu ? AvaloniaNativeRenderingMode.OpenGl : AvaloniaNativeRenderingMode.Software,
-                        AvaloniaNativeRenderingMode.Software
-                    },
+                    RenderingMode = GetRenderingMode().ToArray(),
                 });
 #elif LINUX
                 builder.With(new X11PlatformOptions
                 {
-                    RenderingMode = new[]
-                    {
-                        useGpu ? X11RenderingMode.Glx : X11RenderingMode.Software,
-                        useGpu ? X11RenderingMode.Egl : X11RenderingMode.Software,
-                        X11RenderingMode.Software
-                    },
+                    RenderingMode = GetRenderingMode().ToArray(),
                     EnableMultiTouch = true,
                     UseDBusMenu = true,
                     EnableIme = true,
                 });
 #elif WINDOWS
-                var useWgl = IApplication.UseWgl || GeneralSettings.NativeOpenGL.Value;
-
                 var options = new Win32PlatformOptions
                 {
-                    RenderingMode = new[]
-                    {
-                        useGpu ? Win32RenderingMode.AngleEgl : Win32RenderingMode.Software,
-                        useWgl ? Win32RenderingMode.Wgl : Win32RenderingMode.Software,
-                        Win32RenderingMode.Software
-                    },
+                    RenderingMode = GetRenderingMode().ToArray(),
                     WinUICompositionBackdropCornerRadius = 8f,
                 };
 

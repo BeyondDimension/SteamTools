@@ -572,27 +572,31 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
     /// <summary>
     /// 当前应用设置的更新渠道
     /// </summary>
+    [Obsolete]
     public static UpdateChannelType UpdateChannelType
     {
         get
         {
             var channel = GeneralSettings.UpdateChannel.Value;
-            switch (channel)
-            {
-                case UpdateChannelType.GitHub:
-                case UpdateChannelType.Gitee:
-                    break;
-                default:
-                    channel = ResourceService.IsChineseSimplified ?
-                        UpdateChannelType.Gitee : UpdateChannelType.GitHub;
-                    break;
-            }
+            //switch (channel)
+            //{
+            //    case UpdateChannelType.GitHub:
+            //    case UpdateChannelType.Gitee:
+            //    case UpdateChannelType.Official:
+            //        break;
+            //    default:
+            //        channel = ResourceService.IsChineseSimplified ?
+            //            UpdateChannelType.Gitee : UpdateChannelType.GitHub;
+            //        break;
+            //}
             return channel;
         }
     }
 
+    [Obsolete]
     protected virtual AppVersionDTODownload? GetByDownloadChannelSettings(IEnumerable<AppVersionDTODownload> downloads)
     {
+        // 应该将首选渠道传入 API 请求，返回中取首个
         var channel = UpdateChannelType;
         return downloads.FirstOrDefault(x => x.HasValue() && x.DownloadChannelType == channel)
             ?? downloads.FirstOrDefault(x => x.HasValue());

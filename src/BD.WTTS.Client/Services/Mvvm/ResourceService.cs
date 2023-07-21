@@ -18,6 +18,19 @@ public sealed class ResourceService : ReactiveObject
     public static readonly IReadOnlyDictionary<string, string> SteamLanguages;
     static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(GetFonts);
 
+    public static KeyValuePair<string, string> GetSelectLanguage()
+    {
+        var value = UISettings.Language.Value;
+        foreach (var item in Languages)
+        {
+            if (item.Value == value)
+            {
+                return item;
+            }
+        }
+        return Languages.FirstOrDefault();
+    }
+
     [MethodImpl(MethodImplOptions.NoInlining)]
     static IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
     {
@@ -26,6 +39,19 @@ public sealed class ResourceService : ReactiveObject
     }
 
     public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
+
+    public static KeyValuePair<string, string> GetSelectFont()
+    {
+        var value = UISettings.FontName.Value;
+        foreach (var item in mFonts.Value)
+        {
+            if (item.Value == value)
+            {
+                return item;
+            }
+        }
+        return mFonts.Value.FirstOrDefault();
+    }
 
     //static readonly Lazy<string> mDefaultConsoleFont = new(() =>
     //{

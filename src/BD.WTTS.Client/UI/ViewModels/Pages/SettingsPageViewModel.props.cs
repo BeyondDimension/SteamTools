@@ -44,8 +44,11 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 
     public IReadOnlyCollection<UpdateChannelType> UpdateChannels { get; }
 
-    const double clickInterval = 3d;
-    readonly Dictionary<string, DateTime> clickTimeRecord = new();
+    /// <summary>
+    /// 点击间隔时间（秒）Windows 11 上资源管理器启动缓慢，设置一个间隔时间避免频繁点击
+    /// </summary>
+    const double clickOpenFolderIntervalSeconds = 7.5d;
+    readonly Dictionary<string, DateTime> clickOpenFolderTimeRecord = new();
 
     public static string[] GetThemes() => new[]
     {

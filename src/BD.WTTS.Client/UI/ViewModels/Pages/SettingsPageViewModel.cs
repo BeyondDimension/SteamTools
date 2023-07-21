@@ -9,11 +9,16 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 {
     public SettingsPageViewModel()
     {
-        SelectLanguage = ResourceService.Languages.FirstOrDefault(x => x.Key == UISettings.Language.Value);
+        SelectLanguage = ResourceService.GetSelectLanguage();
         this.WhenValueChanged(x => x.SelectLanguage, false)
               .Subscribe(x => UISettings.Language.Value = x.Key);
 
-        UpdateChannels = Enum2.GetAll<UpdateChannelType>();
+        UpdateChannels = new[]
+        {
+            UpdateChannelType.Auto,
+            UpdateChannelType.GitHub,
+            UpdateChannelType.Official,
+        };
 
         OpenFolder_Click = ReactiveCommand.Create<string>(OpenFolder);
 
@@ -30,7 +35,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (IApplication.IsDesktop())
         {
-            SelectFont = ResourceService.Fonts.FirstOrDefault(x => x.Value == UISettings.FontName.Value);
+            SelectFont = ResourceService.GetSelectFont();
             this.WhenValueChanged(x => x.SelectFont, false)
                   .Subscribe(x => UISettings.FontName.Value = x.Value);
 
@@ -58,11 +63,11 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
             IPCSubProcessFileSystem.LogDirName => IApplication.LogDirPath,
             _ => IOPath.BaseDirectory,
         };
-        var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
+        var hasKey = clickOpenFolderTimeRecord.TryGetValue(path, out var dt);
         var now = DateTime.Now;
-        if (hasKey && (now - dt).TotalSeconds <= clickInterval) return;
+        if (hasKey && (now - dt).TotalSeconds <= clickOpenFolderIntervalSeconds) return;
         IPlatformService.Instance.OpenFolder(path);
-        if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
+        if (!clickOpenFolderTimeRecord.TryAdd(path, now)) clickOpenFolderTimeRecord[path] = now;
     }
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)

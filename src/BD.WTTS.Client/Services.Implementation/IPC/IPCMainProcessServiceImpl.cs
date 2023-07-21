@@ -78,6 +78,7 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             {
                 try
                 {
+                    subProcesses.TryRemove(moduleName, out var _);
                     process1.KillEntireProcessTree();
                 }
                 catch
@@ -284,6 +285,8 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         }
     }
 
+    readonly ConcurrentDictionary<string, DateTime> peerConnectionBrokenTimer = new();
+
     public async ValueTask<T?> GetServiceAsync<T>(string moduleName) where T : class
     {
         if (ipcProvider == null)
@@ -312,10 +315,49 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
                 peer.PeerConnectionBroken += async (_, _) =>
                 {
                     if (disposedValue || ipcProvider == null)
-                        return;
+                        return; // 被释放或者 ipc 提供者为 null 则跳过
 #if DEBUG
                     logger.LogError("连接断开 {peerName}", peer.PeerName);
 #endif
+                    try
+                    {
+                        if (peerConnectionBrokenTimer.TryGetValue(moduleName, out var time))
+                        {
+                            if ((DateTime.Now - time).TotalMilliseconds >= 3700.5D)
+                            {
+                                // 4.7s 内多次触发不执行重新启动进程
+                                return;
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        // 记录此模块当前断开连接的时间
+                        peerConnectionBrokenTimer.AddOrUpdate(moduleName,
+                            static _ => DateTime.Now,
+                            static (_, _) => DateTime.Now);
+                    }
+
+                    if (subProcesses.TryGetValue(moduleName, out var subProcess))
+                    {
+                        subProcesses.TryRemove(moduleName, out var _);
+                        if (!subProcess.HasExited)
+                        {
+                            subProcess.WaitForExit(3700);
+                            if (!subProcess.HasExited)
+                            {
+                                try
+                                {
+                                    subProcess.KillEntireProcessTree();
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+                        }
+                    }
+
                     if (startSubProcesses.TryGetValue(moduleName, out var startSubProcess))
                     {
                         // 连接断开时重新启动进程

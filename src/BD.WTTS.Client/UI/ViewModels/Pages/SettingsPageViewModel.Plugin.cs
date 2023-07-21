@@ -1,12 +1,8 @@
-using DynamicData;
-using AppResources = BD.WTTS.Client.Resources.Strings;
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class SettingsPageViewModel : TabItemViewModel
 {
-
     public void LoadPlugins()
     {
         if (Startup.Instance.TryGetPluginResults(out var plugins))
@@ -46,23 +42,13 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     {
         if (Plugins!.Any(x => x.IsDisable && x.Data.Id == plugin.Id))
         {
-
             var path = Path.GetDirectoryName(plugin.AssemblyLocation)!;
             if (Directory.Exists(path))
             {
                 var msg = string.Empty;
                 try
                 {
-                    var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
-                    var now = DateTime.Now;
-
-                    if (hasKey && (now - dt).TotalSeconds <= clickInterval)
-                        return;
-
                     Directory.Delete(path, true);
-
-                    if (!clickTimeRecord.TryAdd(path, now))
-                        clickTimeRecord[path] = now;
 
                     Toast.Show(ToastIcon.Success, Strings.Plugin_DeleteSuccess.Format(plugin.Name));
                 }
@@ -81,11 +67,12 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     {
         try
         {
-            var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
+            var hasKey = clickOpenFolderTimeRecord.TryGetValue(path, out var dt);
             var now = DateTime.Now;
-            if (hasKey && (now - dt).TotalSeconds <= clickInterval) return;
+            if (hasKey && (now - dt).TotalSeconds <= clickOpenFolderIntervalSeconds)
+                return;
             IPlatformService.Instance.OpenFolder(path);
-            if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
+            if (!clickOpenFolderTimeRecord.TryAdd(path, now)) clickOpenFolderTimeRecord[path] = now;
         }
         catch (Exception ex)
         {
