@@ -5,6 +5,7 @@ using BD.WTTS.UI.Styling;
 using FluentAvalonia.UI.Media.Animation;
 
 namespace BD.WTTS.UI.Views.Pages;
+
 public partial class MainFramePage : UserControl
 {
     int lastIndex = -1;

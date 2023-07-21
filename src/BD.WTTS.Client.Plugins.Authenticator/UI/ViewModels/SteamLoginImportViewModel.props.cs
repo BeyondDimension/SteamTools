@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BD.WTTS.UI.ViewModels;
+
 public sealed partial class SteamLoginImportViewModel : ViewModelBase
 {
     private int index;
@@ -87,7 +88,7 @@ public sealed partial class SteamLoginImportViewModel : ViewModelBase
             this.RaiseAndSetIfChanged(ref revocationcode, value);
         }
     }
-    
+
     bool emailcodetabcannext;
 
     private string? emailauth;
@@ -131,7 +132,7 @@ public sealed partial class SteamLoginImportViewModel : ViewModelBase
             this.RaiseAndSetIfChanged(ref emaildomain, value);
         }
     }
-    
+
     string? _phoneNumberText;
 
     public string? PhoneNumberText

@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 
 namespace BD.WTTS.UI.Views.Controls;
+
 public partial class AuthenticatorItem : UserControl
 {
     public AuthenticatorItem()

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HostFiltering;
 using NLog.Web;
 
 // ReSharper disable once CheckNamespace
@@ -58,17 +59,18 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             builder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(1d));
             builder.WebHost.UseKestrel(options =>
             {
+                options.AddServerHeader = false;
                 options.NoLimit();
 #if !NOT_WINDOWS
 #if !NET7_0_OR_GREATER
-                if (OperatingSystem2.IsWindows7())
-                {
-                    //https://github.com/dotnet/aspnetcore/issues/22563
-                    options.ConfigureHttpsDefaults(httpsOptions =>
-                    {
-                        httpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
-                    });
-                }
+                            if (OperatingSystem2.IsWindows7())
+                            {
+                                //https://github.com/dotnet/aspnetcore/issues/22563
+                                options.ConfigureHttpsDefaults(httpsOptions =>
+                                {
+                                    httpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
+                                });
+                            }
 #endif
                 //options.ListenSshReverseProxy();
                 //options.ListenGitReverseProxy();
