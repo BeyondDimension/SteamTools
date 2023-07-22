@@ -2,7 +2,7 @@ using BD.WTTS.Client.Resources;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public partial class GameListPageViewModel : TabItemViewModel
+public sealed partial class GameListPageViewModel : TabItemViewModel
 {
     public override string Name => Strings.GameList;
 
@@ -36,13 +36,15 @@ public partial class GameListPageViewModel : TabItemViewModel
     [Reactive]
     public IReadOnlyCollection<EnumModel<SteamAppType>>? EnableAppTypeFiltres { get; set; }
 
-    public ICommand? RefreshAppCommand { get; }
+    public ICommand RefreshAppCommand { get; }
 
-    public ICommand? HideAppCommand { get; }
+    public ICommand HideAppCommand { get; }
 
-    public ICommand? IdleAppCommand { get; }
+    public ICommand IdleAppCommand { get; }
 
-    public ICommand? SteamShutdownCommand { get; }
+    public ICommand SteamShutdownCommand { get; }
 
-    public ICommand? SaveEditedAppInfoCommand { get; }
+    public ICommand SaveEditedAppInfoCommand { get; }
+
+    public ICommand AddHideAppListCommand { get; }
 }

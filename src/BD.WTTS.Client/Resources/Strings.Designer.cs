@@ -133,6 +133,206 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 描述 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Description {
+            get {
+                return ResourceManager.GetString("Achievement_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改了 {0} 个成就和 {1} 条统计信息 的本地化字符串。
+        /// </summary>
+        public static string Achievement_EditSucces {
+            get {
+                return ResourceManager.GetString("Achievement_EditSucces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 图标 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Icon {
+            get {
+                return ResourceManager.GetString("Achievement_Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 受保护 的本地化字符串。
+        /// </summary>
+        public static string Achievement_IsProtection {
+            get {
+                return ResourceManager.GetString("Achievement_IsProtection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加载成就和统计数据... 的本地化字符串。
+        /// </summary>
+        public static string Achievement_LoadData {
+            get {
+                return ResourceManager.GetString("Achievement_LoadData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 获取到 {0} 个成就和 {1} 条统计信息 的本地化字符串。
+        /// </summary>
+        public static string Achievement_LoadSucces {
+            get {
+                return ResourceManager.GetString("Achievement_LoadSucces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 管理成就 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Manage {
+            get {
+                return ResourceManager.GetString("Achievement_Manage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 名称 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Name {
+            get {
+                return ResourceManager.GetString("Achievement_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷新成就和统计 的本地化字符串。
+        /// </summary>
+        public static string Achievement_RefreshTip {
+            get {
+                return ResourceManager.GetString("Achievement_RefreshTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 复位成就和统计 的本地化字符串。
+        /// </summary>
+        public static string Achievement_ResetTip {
+            get {
+                return ResourceManager.GetString("Achievement_ResetTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要复位统计信息吗? 的本地化字符串。
+        /// </summary>
+        public static string Achievement_ResetWaring_1 {
+            get {
+                return ResourceManager.GetString("Achievement_ResetWaring_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 也想要复位成就信息吗? 的本地化字符串。
+        /// </summary>
+        public static string Achievement_ResetWaring_2 {
+            get {
+                return ResourceManager.GetString("Achievement_ResetWaring_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 该操作不是还原当前修改，而是使所有成就和统计数据归零。
+        ///真的确定吗? 的本地化字符串。
+        /// </summary>
+        public static string Achievement_ResetWaring_3 {
+            get {
+                return ResourceManager.GetString("Achievement_ResetWaring_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。 的本地化字符串。
+        /// </summary>
+        public static string Achievement_RiskWarning {
+            get {
+                return ResourceManager.GetString("Achievement_RiskWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 统计修改 的本地化字符串。
+        /// </summary>
+        public static string Achievement_StatsEdit {
+            get {
+                return ResourceManager.GetString("Achievement_StatsEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存并应用成就和统计 的本地化字符串。
+        /// </summary>
+        public static string Achievement_StoreTip {
+            get {
+                return ResourceManager.GetString("Achievement_StoreTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 解锁于 {0:yyyy-MM-dd HH:mm:ss} 的本地化字符串。
+        /// </summary>
+        public static string Achievement_TimeFormat {
+            get {
+                return ResourceManager.GetString("Achievement_TimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 成就解锁 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Unlock {
+            get {
+                return ResourceManager.GetString("Achievement_Unlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 与 Steam 建立连接失败，可能是该游戏没有成就，或者你没有该游戏。 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Warning_1 {
+            get {
+                return ResourceManager.GetString("Achievement_Warning_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 错误代码：{0}
+        ///检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Warning_2 {
+            get {
+                return ResourceManager.GetString("Achievement_Warning_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改成就{0}时发生错误 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Warning_3 {
+            get {
+                return ResourceManager.GetString("Achievement_Warning_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改统计{0}时发生错误 的本地化字符串。
+        /// </summary>
+        public static string Achievement_Warning_4 {
+            get {
+                return ResourceManager.GetString("Achievement_Warning_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 新增 的本地化字符串。
         /// </summary>
         public static string Add {
@@ -219,6 +419,33 @@ namespace BD.WTTS.Client.Resources {
         public static string And {
             get {
                 return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 深色 的本地化字符串。
+        /// </summary>
+        public static string AppTheme_Dark {
+            get {
+                return ResourceManager.GetString("AppTheme_Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 跟随系统 的本地化字符串。
+        /// </summary>
+        public static string AppTheme_FollowingSystem {
+            get {
+                return ResourceManager.GetString("AppTheme_FollowingSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 浅色 的本地化字符串。
+        /// </summary>
+        public static string AppTheme_Light {
+            get {
+                return ResourceManager.GetString("AppTheme_Light", resourceCulture);
             }
         }
         
@@ -1150,6 +1377,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 下载 {0} 失败 的本地化字符串。
+        /// </summary>
+        public static string Download_Failed_FileNameTip {
+            get {
+                return ResourceManager.GetString("Download_Failed_FileNameTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 脚本下载错误请重试。 的本地化字符串。
         /// </summary>
         public static string Download_ScriptError {
@@ -1173,6 +1409,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Download_ScriptOk {
             get {
                 return ResourceManager.GetString("Download_ScriptOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下载 {0} 成功 的本地化字符串。
+        /// </summary>
+        public static string Download_Success_FileNameTip {
+            get {
+                return ResourceManager.GetString("Download_Success_FileNameTip", resourceCulture);
             }
         }
         
@@ -1708,6 +1953,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 {0}个文件 的本地化字符串。
+        /// </summary>
+        public static string FileNumber {
+            get {
+                return ResourceManager.GetString("FileNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0} 个文件 的本地化字符串。
         /// </summary>
         public static string FileNumber_ {
@@ -1861,11 +2115,191 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 挂机的游戏已达到限制 {0} 个，请移除部分游戏再添加。 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddAFKAppsMaxCountTips {
+            get {
+                return ResourceManager.GetString("GameList_AddAFKAppsMaxCountTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加到挂时长列表成功 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddAFKAppsSuccess {
+            get {
+                return ResourceManager.GetString("GameList_AddAFKAppsSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 警告：Steam允许的同时运行游戏数量为 {0} 个，如果您同时挂时长 {1} 款游戏，将无法正常游玩游戏！ 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddAFKAppsWarningCountTips {
+            get {
+                return ResourceManager.GetString("GameList_AddAFKAppsWarningCountTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加到挂时长列表 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddAfkGameList {
+            get {
+                return ResourceManager.GetString("GameList_AddAfkGameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 隐藏游戏列表为空，请从游戏列表右键添加需要隐藏的游戏。 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddHideAppEmpty {
+            get {
+                return ResourceManager.GetString("GameList_AddHideAppEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未添加挂时长的游戏，请从游戏列表右键添加。 的本地化字符串。
+        /// </summary>
+        public static string GameList_AddIdeaAppEmpty {
+            get {
+                return ResourceManager.GetString("GameList_AddIdeaAppEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 自动运行挂时长游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_AutoAFK {
+            get {
+                return ResourceManager.GetString("GameList_AutoAFK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要删除全部存档数据吗，请一定要明白你在做什么，该操作会清除当前游戏的全部云存档数据！！！ 的本地化字符串。
+        /// </summary>
+        public static string GameList_CloudArchiveDeleteAllTip {
+            get {
+                return ResourceManager.GetString("GameList_CloudArchiveDeleteAllTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要删除当前选中的存档数据吗？ 的本地化字符串。
+        /// </summary>
+        public static string GameList_CloudArchiveDeleteTip {
+            get {
+                return ResourceManager.GetString("GameList_CloudArchiveDeleteTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam云存档管理 的本地化字符串。
+        /// </summary>
+        public static string GameList_CloudArchiveManager {
+            get {
+                return ResourceManager.GetString("GameList_CloudArchiveManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否移除全部挂时长的游戏？ 的本地化字符串。
+        /// </summary>
+        public static string GameList_DeleteAll {
+            get {
+                return ResourceManager.GetString("GameList_DeleteAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否将此游戏移除挂时长列表? 的本地化字符串。
+        /// </summary>
+        public static string GameList_DeleteItem {
+            get {
+                return ResourceManager.GetString("GameList_DeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 移除成功 的本地化字符串。
+        /// </summary>
+        public static string GameList_DeleteSuccess {
+            get {
+                return ResourceManager.GetString("GameList_DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编辑游戏信息 的本地化字符串。
+        /// </summary>
+        public static string GameList_EditAppInfo {
+            get {
+                return ResourceManager.GetString("GameList_EditAppInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已找到 {0} 个应用 的本地化字符串。
         /// </summary>
         public static string GameList_FindAppsText {
             get {
                 return ResourceManager.GetString("GameList_FindAppsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 全部选中 的本地化字符串。
+        /// </summary>
+        public static string GameList_HideApp_AllCheck {
+            get {
+                return ResourceManager.GetString("GameList_HideApp_AllCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 隐藏游戏成功 的本地化字符串。
+        /// </summary>
+        public static string GameList_HideAppsSuccess {
+            get {
+                return ResourceManager.GetString("GameList_HideAppsSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 管理隐藏游戏列表 的本地化字符串。
+        /// </summary>
+        public static string GameList_HideGameManger {
+            get {
+                return ResourceManager.GetString("GameList_HideGameManger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 隐藏此游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_HideTheGame {
+            get {
+                return ResourceManager.GetString("GameList_HideTheGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 游戏时长挂机列表 的本地化字符串。
+        /// </summary>
+        public static string GameList_IdleGamesManger {
+            get {
+                return ResourceManager.GetString("GameList_IdleGamesManger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安装 的本地化字符串。
+        /// </summary>
+        public static string GameList_Install {
+            get {
+                return ResourceManager.GetString("GameList_Install", resourceCulture);
             }
         }
         
@@ -1879,7 +2313,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 正在加载 ... 的本地化字符串。
+        ///   查找类似 正在加载... 的本地化字符串。
         /// </summary>
         public static string GameList_IsLoading {
             get {
@@ -1888,7 +2322,34 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 仅显示支持 Steam 云存档的游戏 的本地化字符串。
+        ///   查找类似 已添加 ({0}/{1}) 的本地化字符串。
+        /// </summary>
+        public static string GameList_ListCount {
+            get {
+                return ResourceManager.GetString("GameList_ListCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 操作进行中请稍后再试 的本地化字符串。
+        /// </summary>
+        public static string GameList_LoaingTips {
+            get {
+                return ResourceManager.GetString("GameList_LoaingTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在 Steam 客户端中查看 的本地化字符串。
+        /// </summary>
+        public static string GameList_NavToSteamView {
+            get {
+                return ResourceManager.GetString("GameList_NavToSteamView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅显示支持Steam云存档的游戏 的本地化字符串。
         /// </summary>
         public static string GameList_OnlyCloudArchive {
             get {
@@ -1906,6 +2367,78 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 浏览安装文件夹 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenFolder {
+            get {
+                return ResourceManager.GetString("GameList_OpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam Card Exchange 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenSteamCardUrl {
+            get {
+                return ResourceManager.GetString("GameList_OpenSteamCardUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SteamDB Info 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenSteamDBUrl {
+            get {
+                return ResourceManager.GetString("GameList_OpenSteamDBUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SteamGrid 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenSteamGridUrl {
+            get {
+                return ResourceManager.GetString("GameList_OpenSteamGridUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开商店页 的本地化字符串。
+        /// </summary>
+        public static string GameList_OpenStoreUrl {
+            get {
+                return ResourceManager.GetString("GameList_OpenStoreUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 操作成功 的本地化字符串。
+        /// </summary>
+        public static string GameList_OperationSuccess {
+            get {
+                return ResourceManager.GetString("GameList_OperationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开始游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_Play {
+            get {
+                return ResourceManager.GetString("GameList_Play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷新游戏列表 的本地化字符串。
+        /// </summary>
+        public static string GameList_RefreshGamesList {
+            get {
+                return ResourceManager.GetString("GameList_RefreshGamesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新游戏列表完成 的本地化字符串。
         /// </summary>
         public static string GameList_RefreshGamesListSucess {
@@ -1915,12 +2448,174 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam 游戏已下载完成
-        ///系统将在 {0} 秒后{1} 的本地化字符串。
+        ///   查找类似 移除全部 的本地化字符串。
+        /// </summary>
+        public static string GameList_RemoveBtn {
+            get {
+                return ResourceManager.GetString("GameList_RemoveBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 取消挂时长 的本地化字符串。
+        /// </summary>
+        public static string GameList_RemoveItemBtn {
+            get {
+                return ResourceManager.GetString("GameList_RemoveItemBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 调整封面大小 的本地化字符串。
+        /// </summary>
+        public static string GameList_ResizeAppLogo {
+            get {
+                return ResourceManager.GetString("GameList_ResizeAppLogo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动全部 的本地化字符串。
+        /// </summary>
+        public static string GameList_RuningBtn {
+            get {
+                return ResourceManager.GetString("GameList_RuningBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在运行 {0}/{1} 的本地化字符串。
+        /// </summary>
+        public static string GameList_RuningCount {
+            get {
+                return ResourceManager.GetString("GameList_RuningCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_RuningItemBtn {
+            get {
+                return ResourceManager.GetString("GameList_RuningItemBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在启动中... 的本地化字符串。
+        /// </summary>
+        public static string GameList_RuningWait {
+            get {
+                return ResourceManager.GetString("GameList_RuningWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 运行中 的本地化字符串。
+        /// </summary>
+        public static string GameList_RunState {
+            get {
+                return ResourceManager.GetString("GameList_RunState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置自定义封面 的本地化字符串。
+        /// </summary>
+        public static string GameList_SetCustomImage {
+            get {
+                return ResourceManager.GetString("GameList_SetCustomImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam 未启动 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamNotRuning {
+            get {
+                return ResourceManager.GetString("GameList_SteamNotRuning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam 下载完成定时关机 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamShutdown {
+            get {
+                return ResourceManager.GetString("GameList_SteamShutdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用下载监控并在选中游戏下载安装完成后执行「{0}」操作 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamShutdown_DownloadComplete {
+            get {
+                return ResourceManager.GetString("GameList_SteamShutdown_DownloadComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam游戏已下载完成
+        ///系统将在 {0} 秒后「{1}」。 的本地化字符串。
         /// </summary>
         public static string GameList_SteamShutdown_DownloadCompleteTip {
             get {
                 return ResourceManager.GetString("GameList_SteamShutdown_DownloadCompleteTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用下载监控 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamShutdown_EnableWatchDownloading {
+            get {
+                return ResourceManager.GetString("GameList_SteamShutdown_EnableWatchDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 全部暂停 的本地化字符串。
+        /// </summary>
+        public static string GameList_StopBtn {
+            get {
+                return ResourceManager.GetString("GameList_StopBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 暂停 的本地化字符串。
+        /// </summary>
+        public static string GameList_StopItemBtn {
+            get {
+                return ResourceManager.GetString("GameList_StopItemBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 暂停中 的本地化字符串。
+        /// </summary>
+        public static string GameList_StopState {
+            get {
+                return ResourceManager.GetString("GameList_StopState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 不支持的操作 的本地化字符串。
+        /// </summary>
+        public static string GameList_Unsupport {
+            get {
+                return ResourceManager.GetString("GameList_Unsupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 手动上传存档文件 的本地化字符串。
+        /// </summary>
+        public static string GameList_UploadCloudArchiveFile {
+            get {
+                return ResourceManager.GetString("GameList_UploadCloudArchiveFile", resourceCulture);
             }
         }
         
@@ -1993,15 +2688,6 @@ namespace BD.WTTS.Client.Resources {
         public static string Helper {
             get {
                 return ResourceManager.GetString("Helper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 休眠 的本地化字符串。
-        /// </summary>
-        public static string Hibernate {
-            get {
-                return ResourceManager.GetString("Hibernate", resourceCulture);
             }
         }
         
@@ -2182,6 +2868,15 @@ namespace BD.WTTS.Client.Resources {
         public static string LaunchItem {
             get {
                 return ResourceManager.GetString("LaunchItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 库 的本地化字符串。
+        /// </summary>
+        public static string Library {
+            get {
+                return ResourceManager.GetString("Library", resourceCulture);
             }
         }
         
@@ -2665,15 +3360,6 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 锁定 的本地化字符串。
-        /// </summary>
-        public static string Lock {
-            get {
-                return ResourceManager.GetString("Lock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 登 录 的本地化字符串。
         /// </summary>
         public static string Login {
@@ -3075,6 +3761,42 @@ namespace BD.WTTS.Client.Resources {
         public static string OperationHostsError_ {
             get {
                 return ResourceManager.GetString("OperationHostsError_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 休眠 的本地化字符串。
+        /// </summary>
+        public static string OSExitMode_Hibernate {
+            get {
+                return ResourceManager.GetString("OSExitMode_Hibernate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 锁定 的本地化字符串。
+        /// </summary>
+        public static string OSExitMode_Lock {
+            get {
+                return ResourceManager.GetString("OSExitMode_Lock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 关机 的本地化字符串。
+        /// </summary>
+        public static string OSExitMode_Shutdown {
+            get {
+                return ResourceManager.GetString("OSExitMode_Shutdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 睡眠 的本地化字符串。
+        /// </summary>
+        public static string OSExitMode_Sleep {
+            get {
+                return ResourceManager.GetString("OSExitMode_Sleep", resourceCulture);
             }
         }
         
@@ -4367,15 +5089,6 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 关机 的本地化字符串。
-        /// </summary>
-        public static string Shutdown {
-            get {
-                return ResourceManager.GetString("Shutdown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 签到 的本地化字符串。
         /// </summary>
         public static string Sign {
@@ -4399,15 +5112,6 @@ namespace BD.WTTS.Client.Resources {
         public static string SignOut {
             get {
                 return ResourceManager.GetString("SignOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 睡眠 的本地化字符串。
-        /// </summary>
-        public static string Sleep {
-            get {
-                return ResourceManager.GetString("Sleep", resourceCulture);
             }
         }
         
@@ -5529,6 +6233,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 一键登录 Steam 的本地化字符串。
+        /// </summary>
+        public static string UserChange_BtnText {
+            get {
+                return ResourceManager.GetString("UserChange_BtnText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 按下此按钮将重启 Steam 并以该账号登录 的本地化字符串。
         /// </summary>
         public static string UserChange_BtnTootlip {
@@ -5538,11 +6251,93 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登录新账号 的本地化字符串。
+        ///   查找类似 删除此账号数据 的本地化字符串。
+        /// </summary>
+        public static string UserChange_DeleteUser {
+            get {
+                return ResourceManager.GetString("UserChange_DeleteUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否也要同时删除此账户在本地的 Steam 缓存数据(包括此账号游戏的配置文件及创意工坊文件)。 的本地化字符串。
+        /// </summary>
+        public static string UserChange_DeleteUserDataTip {
+            get {
+                return ResourceManager.GetString("UserChange_DeleteUserDataTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要删除这条本地记录帐户吗？ 的本地化字符串。
+        /// </summary>
+        public static string UserChange_DeleteUserTip {
+            get {
+                return ResourceManager.GetString("UserChange_DeleteUserTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改账号备注 的本地化字符串。
+        /// </summary>
+        public static string UserChange_EditRemark {
+            get {
+                return ResourceManager.GetString("UserChange_EditRemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 游戏中 的本地化字符串。
+        /// </summary>
+        public static string UserChange_InGame {
+            get {
+                return ResourceManager.GetString("UserChange_InGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登录新 Steam 账号 的本地化字符串。
         /// </summary>
         public static string UserChange_LoginNewAccount {
             get {
                 return ResourceManager.GetString("UserChange_LoginNewAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要登录 Steam 新账户吗？
+        ///此操作会结束正在运行的 Steam 跳转到新账号登录窗口。 的本地化字符串。
+        /// </summary>
+        public static string UserChange_LoginNewAccountTip {
+            get {
+                return ResourceManager.GetString("UserChange_LoginNewAccountTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 没有在您的电脑上读取到任何 Steam 帐户数据。 的本地化字符串。
+        /// </summary>
+        public static string UserChange_NoUserTip {
+            get {
+                return ResourceManager.GetString("UserChange_NoUserTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 离线模式启动 的本地化字符串。
+        /// </summary>
+        public static string UserChange_OfflineBtn {
+            get {
+                return ResourceManager.GetString("UserChange_OfflineBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开个人资料页面 的本地化字符串。
+        /// </summary>
+        public static string UserChange_OpenUserUrl {
+            get {
+                return ResourceManager.GetString("UserChange_OpenUserUrl", resourceCulture);
             }
         }
         
@@ -5552,6 +6347,33 @@ namespace BD.WTTS.Client.Resources {
         public static string UserChange_RecentLogin {
             get {
                 return ResourceManager.GetString("UserChange_RecentLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已记住登录状态 的本地化字符串。
+        /// </summary>
+        public static string UserChange_RememberMe {
+            get {
+                return ResourceManager.GetString("UserChange_RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 显示/隐藏用户名 的本地化字符串。
+        /// </summary>
+        public static string UserChange_ShowHideUserName {
+            get {
+                return ResourceManager.GetString("UserChange_ShowHideUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开 Userdata 文件夹 的本地化字符串。
+        /// </summary>
+        public static string UserChange_ShowUserDataFolder {
+            get {
+                return ResourceManager.GetString("UserChange_ShowUserDataFolder", resourceCulture);
             }
         }
         

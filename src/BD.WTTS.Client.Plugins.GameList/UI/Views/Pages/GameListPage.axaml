@@ -116,7 +116,7 @@
                                          Source={x:Static s:ResourceService.Current}}" />
             <ui:MenuFlyoutSeparator />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.AddHideAppList}"
+                Command="{ReflectionBinding #u.DataContext.AddHideAppListCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Hide"
                 Text="{ReflectionBinding Path=Res.GameList_HideTheGame,
@@ -128,21 +128,6 @@
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
-    <!--<spp:PageBase.TabContent>
-        <TabStrip
-            Margin="4"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
-            CornerRadius="{StaticResource ControlCornerRadius}"
-            ItemContainerTheme="{StaticResource TabItemStyle}"
-            Theme="{StaticResource TabStripStyle}">
-            <TabStripItem Content="{ReflectionBinding Path=Res.Depot, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-            <TabStripItem Content="{ReflectionBinding Path=Res.Download, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-            <TabStripItem Content="{ReflectionBinding Path=Res.OnHook, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-            <TabStripItem Content="{ReflectionBinding Path=Res.Edit, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-        </TabStrip>
-    </spp:PageBase.TabContent>-->
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <!--<ToggleButton
@@ -175,7 +160,9 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.Filter, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        Text="{ReflectionBinding Path=Res.Filter,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </ToggleButton>
             <!--<Button
@@ -228,8 +215,8 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Game_Hidden, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Command="{Binding HideAppCommand}" Text="{ReflectionBinding Path=Res.Game_Hidden, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
@@ -245,9 +232,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -267,7 +254,7 @@
                 Classes="Search"
                 Text="{Binding SearchText}" />
 
-            <TextBlock Text="{ReflectionBinding Path=Res.Game_LayoutWay, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{ReflectionBinding Path=Res.Game_LayoutWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <TabStrip
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
@@ -279,7 +266,7 @@
                 <TabStripItem Content="&#xE80A;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
             </TabStrip>
 
-            <TextBlock Text="{ReflectionBinding Path=Res.FilterRequirement, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{ReflectionBinding Path=Res.FilterRequirement, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <DockPanel>
 

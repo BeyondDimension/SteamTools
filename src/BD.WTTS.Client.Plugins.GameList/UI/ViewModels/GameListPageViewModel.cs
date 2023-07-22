@@ -3,7 +3,7 @@ using BD.WTTS.UI.Views.Pages;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public partial class GameListPageViewModel : TabItemViewModel
+public sealed partial class GameListPageViewModel : TabItemViewModel
 {
     readonly Dictionary<string, string[]> dictPinYinArray = new();
 
@@ -11,7 +11,7 @@ public partial class GameListPageViewModel : TabItemViewModel
     {
         if (!IApplication.IsDesktop())
         {
-            return;
+            throw new NotSupportedException();
         }
 
         AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnums<SteamAppType>());
@@ -56,8 +56,8 @@ public partial class GameListPageViewModel : TabItemViewModel
             .Filter(typeFilter)
             .Filter(installFilter)
             .Filter(isCloudArchiveFilter)
-            .ObserveOn(RxApp.MainThreadScheduler)
             .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName).ThenByDescending(s => s.SizeOnDisk))
+            .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _SteamApps)
             .Subscribe(_ =>
             {
@@ -86,6 +86,8 @@ public partial class GameListPageViewModel : TabItemViewModel
             //IWindowManager.Instance.Show(CustomWindow.SaveEditedAppInfo, resizeMode: ResizeMode.CanResize);
         });
         RefreshAppCommand = ReactiveCommand.CreateFromTask(SteamConnectService.Current.RefreshGamesListAsync);
+
+        AddHideAppListCommand = ReactiveCommand.Create<SteamApp>(AddHideAppList);
     }
 
     public override void Activation()
@@ -198,7 +200,7 @@ public partial class GameListPageViewModel : TabItemViewModel
         //IWindowManager.Instance.Show(CustomWindow.EditAppInfo, new EditAppInfoWindowViewModel(app), string.Empty, default);
     }
 
-    public static async void ManageCloudArchive_Click(SteamApp app)
+    public static void ManageCloudArchive_Click(SteamApp app)
     {
         if (!ISteamService.Instance.IsRunningSteamProcess)
         {
@@ -289,15 +291,14 @@ public partial class GameListPageViewModel : TabItemViewModel
         }
     }
 
-    public void AddHideAppList(SteamApp app)
+    public static void AddHideAppList(SteamApp app)
     {
         try
         {
-            GameLibrarySettings.HideGameList.Value!.Add(app.AppId, app.DisplayName);
-            GameLibrarySettings.HideGameList.RaiseValueChanged();
-
+            GameLibrarySettings.HideGameList.Add(app.AppId, app.DisplayName);
             SteamConnectService.Current.SteamApps.Remove(app);
-            Toast.Show(Strings.GameList_HideAppsSuccess);
+
+            Toast.Show(ToastIcon.Success, Strings.GameList_HideAppsSuccess);
         }
         catch (Exception e)
         {

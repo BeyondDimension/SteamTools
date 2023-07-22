@@ -6,6 +6,14 @@ public abstract class EnumModel : ReactiveObject
 {
     public static IEnumerable<EnumModel<TEnum>> GetEnums<TEnum>() where TEnum : struct, Enum
         => Enum2.GetAll<TEnum>().Select(x => new EnumModel<TEnum>(x.ToString(), x));
+
+    public static string? GetLocalizationName<TEnum>(TEnum value) where TEnum : struct, Enum
+    {
+        var desc = value.GetDescription();
+        return string.IsNullOrEmpty(desc) ?
+        AppResources.ResourceManager.GetString($"{typeof(TEnum).Name}_{Enum.GetName(value)}", AppResources.Culture) :
+        AppResources.ResourceManager.GetString(desc, AppResources.Culture);
+    }
 }
 
 public class EnumModel<TEnum> : EnumModel where TEnum : struct, Enum
@@ -46,10 +54,9 @@ public class EnumModel<TEnum> : EnumModel where TEnum : struct, Enum
     /// <summary>
     /// 获取该枚举值的本地化显示字符串，使用 枚举类型_枚举名 查找本地化资源
     /// </summary>
-    public string? LocalizationName =>
-        AppResources.ResourceManager.GetString(
-            $"{typeof(TEnum).Name}_{Name}",
-            AppResources.Culture);
+    public string? LocalizationName => string.IsNullOrEmpty(Description) ?
+        AppResources.ResourceManager.GetString($"{typeof(TEnum).Name}_{Name}", AppResources.Culture) :
+        AppResources.ResourceManager.GetString(Description, AppResources.Culture);
 
     string? _Description;
 

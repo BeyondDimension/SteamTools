@@ -28,7 +28,7 @@ public partial interface IGameLibrarySettings
     /// <summary>
     /// 已安装游戏筛选的默认值
     /// </summary>
-    const bool DefaultGameInstalledFilter = false;
+    const bool DefaultGameInstalledFilter = true;
 
     /// <summary>
     /// 支持云存档游戏筛选状态
@@ -81,3 +81,4 @@ public partial interface IGameLibrarySettings
     const bool DefaultIsAutoAFKApps = true;
 
 }
+

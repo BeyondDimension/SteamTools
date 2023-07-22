@@ -6,6 +6,9 @@ namespace BD.WTTS;
 
 static partial class Interop
 {
+    [DllImport("Powrprof.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+    public static extern bool SetSuspendState(bool hiberate, bool forceCritical, bool disableWakeEvent);
+
     public static partial class Kernel32
     {
         const uint QueryLimitedInformation = 0x00001000;

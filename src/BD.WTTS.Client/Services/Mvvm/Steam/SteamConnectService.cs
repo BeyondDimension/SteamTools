@@ -416,15 +416,11 @@ public sealed class SteamConnectService
     static void WatchDownloadingComplete()
     {
         var endMode = SteamSettings.DownloadCompleteSystemEndMode?.Value ?? OSExitMode.Sleep;
+        var endModeName = EnumModel.GetLocalizationName(endMode);
+        if (endModeName != null)
+            AppResources.ResourceManager.GetString(endModeName);
 
-        INotificationService.Instance.Notify(
-            string.Format(
-                AppResources.GameList_SteamShutdown_DownloadCompleteTip,
-                30,
-                AppResources.ResourceManager.GetString(
-                    Enum2.GetDescription(endMode) ??
-                    "System Sleep",
-                    ResourceService.Culture)), NotificationType.Message);
+        INotificationService.Instance.Notify(AppResources.GameList_SteamShutdown_DownloadCompleteTip.Format(30, endModeName), NotificationType.Message);
 
         switch (endMode)
         {
