@@ -4,11 +4,11 @@ namespace BD.WTTS.Models;
 
 public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
 {
-    public override string Name => "Mafile 文件导入";
+    public override string Name => Strings.LocalAuth_Import.Format(Strings.Mafile);
 
-    public override string Description => "从 Mafile 文件导入令牌";
+    public override string Description => Strings.LocalAuth_SDAImport;
 
-    public override string IconText => "&#xE8E5;";
+    public override ResIcon IconName => ResIcon.OpenFile;
 
     protected override string FileExtension => FileEx.maFile;
 

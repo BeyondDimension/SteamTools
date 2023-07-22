@@ -219,6 +219,13 @@ public interface IAccountPlatformAuthenticatorRepository
         return 0;
     }
 
+    /// <summary>
+    /// 指定改变IAuthenticatorDTO的排序指
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns>受影响的行数</returns>
+    Task<int> UpdateIndexByItemAsync(IAuthenticatorDTO item);
+
     public enum ImportResultCode
     {
         /// <summary>

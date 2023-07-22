@@ -50,39 +50,62 @@ public partial class AuthenticatorItemModel : ItemViewModel
         _progressTimer.Tick += ShowCode;
     }
     
-    void ShowCode(object? sender, EventArgs e)
+    async void ShowCode(object? sender, EventArgs e)
     {
         _progress -= 1;
         if (_progress < 1)
         {
-            Text = RefreshCode();
-            if (string.IsNullOrEmpty(Text))
+            await RefreshCode().ContinueWith((t) =>
             {
-                IsShowCode = false;
-                _progressTimer.Stop();
-                return;
-            }
+                if (string.IsNullOrEmpty(Text))
+                {
+                    DisableShowCode();
+                }
+            });
         }
         StrokeColor = Brush.Parse(_progress % 2 == 0 ? "#61a4f0" : "#6198ff");
         Value = _progress;
     }
 
-    string? RefreshCode()
+    async Task RefreshCode()
     {
-        try
+        await Task.Run(() =>
         {
-            var code = AuthData.Value!.CurrentCode;
-            _progress = AuthData.Value.Period -
+            try
+            {
+                var code = AuthData.Value!.CurrentCode;
+                return code;
+            }
+            catch (Exception e)
+            {
+                Toast.Show(ToastIcon.Error, $"计算令牌时与服务器时间同步失败：{e.Message}");
+                Log.Error(nameof(AuthenticatorItemModel), e, nameof(OnPointerLeftPressed));
+                return null;
+            }
+        }).ContinueWith(async (code) =>
+        {
+            _progress = AuthData.Value!.Period -
                         (int)((AuthData.Value.ServerTime - (AuthData.Value.CodeInterval * 30000L)) / 1000L);
-            return code;
-        }
-        catch (Exception e)
-        {
-            Toast.Show(ToastIcon.Error, $"计算令牌时与服务器时间同步失败：{e.Message}");
-            Log.Error(nameof(AuthenticatorItemModel), e, nameof(OnPointerLeftPressed));
-        }
+            Text = await code;
+        });
+    }
 
-        return null;
+    async void EnableShowCode()
+    {
+        if (AuthData.Value == null) return;
+        await RefreshCode().ContinueWith((t) =>
+        {
+            if (string.IsNullOrEmpty(Text)) return;
+            Value = _progress;
+            _progressTimer.Start();
+        });
+    }
+
+    void DisableShowCode()
+    {
+        _progressTimer.Stop();
+        Text = "-----";
+        IsShowCode = false;
     }
 
     protected override void Dispose(bool disposing)

@@ -353,6 +353,8 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
                 }
                 if (item != null)
                 {
+                    //导入数据应重新排序
+                    item.Index = 0;
                     list.Add(item);
                 }
                 else
@@ -368,7 +370,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         return (resultCode, result, sourcesCount);
     }
 
-    async Task<int> UpdateIndexByItemAsync(IAuthenticatorDTO item)
+    public async Task<int> UpdateIndexByItemAsync(IAuthenticatorDTO item)
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
         return await AttemptAndRetry(async t =>

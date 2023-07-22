@@ -49,6 +49,9 @@ public class SteamTradeConfirmationModel : ReactiveObject
     [Reactive]
     public ObservableCollection<string> ReceiveItemImageUrls { get; set; }
 
+    [Reactive]
+    public bool IsSelected { get; set; }
+
     WinAuth.SteamClient _steamClient;
 
     public SteamTradeConfirmationModel(SteamAuthenticator steamAuthenticator)

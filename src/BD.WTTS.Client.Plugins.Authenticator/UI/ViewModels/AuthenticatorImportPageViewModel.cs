@@ -9,6 +9,11 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
     {
         AuthenticatorImportBases = new ObservableCollection<AuthenticatorImportBase>();
         
+        Initialize();
+    }
+
+    public void Initialize()
+    {
         AuthenticatorImportBases.Clear();
         AuthenticatorImportBases.Add(new AuthenticatorSteamLoginImport());
         AuthenticatorImportBases.Add(new AuthenticatorSteamGuardImport());

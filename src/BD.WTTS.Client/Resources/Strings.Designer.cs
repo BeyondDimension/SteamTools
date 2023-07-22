@@ -711,7 +711,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 本地令牌已为最新数据 的本地化字符串。
+        ///   Looks up a localized string similar to 删除时间.
+        /// </summary>
+        public static string Auth_Sync_DeleteTime {
+            get {
+                return ResourceManager.GetString("Auth_Sync_DeleteTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 本地令牌已为最新数据.
         /// </summary>
         public static string Auth_Sync_LatestData {
             get {
@@ -720,7 +729,61 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 本地令牌新增 {0} 个 数据更新 {1} 个 的本地化字符串。
+        ///   Looks up a localized string similar to 数据未同步，调整令牌排序失败.
+        /// </summary>
+        public static string Auth_Sync_MoveError {
+            get {
+                return ResourceManager.GetString("Auth_Sync_MoveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未设置云令牌同步密码.
+        /// </summary>
+        public static string Auth_Sync_NoHasPassword {
+            get {
+                return ResourceManager.GetString("Auth_Sync_NoHasPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 没有可以恢复的云令牌.
+        /// </summary>
+        public static string Auth_Sync_NoHasRecover {
+            get {
+                return ResourceManager.GetString("Auth_Sync_NoHasRecover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 恢复云令牌.
+        /// </summary>
+        public static string Auth_Sync_Recover {
+            get {
+                return ResourceManager.GetString("Auth_Sync_Recover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 云令牌已恢复至云端，您可以点击云同步恢复对应令牌至本地.
+        /// </summary>
+        public static string Auth_Sync_RecoverSuccess {
+            get {
+                return ResourceManager.GetString("Auth_Sync_RecoverSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 重置云密令.
+        /// </summary>
+        public static string Auth_Sync_ResetPassword {
+            get {
+                return ResourceManager.GetString("Auth_Sync_ResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 本地令牌新增 {0} 个 数据更新 {1} 个.
         /// </summary>
         public static string Auth_Sync_UpdateTips {
             get {
@@ -729,7 +792,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 2FA 通用导入 的本地化字符串。
+        ///   Looks up a localized string similar to 确认恢复.
+        /// </summary>
+        public static string Auth_Sync_VerifyRecover {
+            get {
+                return ResourceManager.GetString("Auth_Sync_VerifyRecover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2FA 通用导入.
         /// </summary>
         public static string Auth_UniversalImport {
             get {
@@ -1755,7 +1827,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请输入安全问题答案 的本地化字符串。
+        ///   Looks up a localized string similar to 请输入云密令答案.
         /// </summary>
         public static string Error_PleaseEnterAnswer {
             get {
@@ -1827,7 +1899,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 设置安全问题失败 的本地化字符串。
+        ///   Looks up a localized string similar to 设置云密令失败.
         /// </summary>
         public static string Error_SetSecurityIssuesFailed {
             get {
@@ -2656,7 +2728,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 导入文本： 的本地化字符串。
+        ///   Looks up a localized string similar to 导入文本.
         /// </summary>
         public static string GeneralAuth_ImportText {
             get {
@@ -2665,7 +2737,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 令牌名称： 的本地化字符串。
+        ///   Looks up a localized string similar to 令牌名称.
         /// </summary>
         public static string GeneralAuth_Name {
             get {
@@ -2683,7 +2755,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 帮助 的本地化字符串。
+        ///   Looks up a localized string similar to Google .
+        /// </summary>
+        public static string Google {
+            get {
+                return ResourceManager.GetString("Google", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 帮助.
         /// </summary>
         public static string Helper {
             get {
@@ -2737,7 +2818,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 图标 的本地化字符串。
+        ///   Looks up a localized string similar to HOTP 通用.
+        /// </summary>
+        public static string HOTP {
+            get {
+                return ResourceManager.GetString("HOTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 图标.
         /// </summary>
         public static string Icon {
             get {
@@ -2908,7 +2998,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 导入令牌 的本地化字符串。
+        ///   Looks up a localized string similar to {0}密钥导入.
+        /// </summary>
+        public static string LocalAuth_2FAImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_2FAImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 导入令牌.
         /// </summary>
         public static string LocalAuth_AddAuth {
             get {
@@ -3126,7 +3225,34 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 {0} 密钥解析失败，请检查密钥是否正确 的本地化字符串。
+        ///   Looks up a localized string similar to 通过使用 Google 添加移动验证器时生成的密钥或二维码导入令牌.
+        /// </summary>
+        public static string LocalAuth_GoogleImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_GoogleImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 通过使用添加 HOTP 移动验证器时生成的通用密钥导入令牌.
+        /// </summary>
+        public static string LocalAuth_HOTPImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_HOTPImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}导入.
+        /// </summary>
+        public static string LocalAuth_Import {
+            get {
+                return ResourceManager.GetString("LocalAuth_Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} 密钥解析失败，请检查密钥是否正确.
         /// </summary>
         public static string LocalAuth_Import_DecodePrivateKeyError {
             get {
@@ -3153,7 +3279,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 你还没有导入任何令牌，请先新增令牌 的本地化字符串。
+        ///   Looks up a localized string similar to 通过使用 Microsoft 添加移动验证器时生成的密钥或二维码导入令牌.
+        /// </summary>
+        public static string LocalAuth_MicrosoftImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_MicrosoftImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 你还没有导入任何令牌，请先点击右上角新增令牌.
         /// </summary>
         public static string LocalAuth_NoAuthTip {
             get {
@@ -3288,7 +3423,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 查看令牌详细数据 的本地化字符串。
+        ///   Looks up a localized string similar to 从 Mafile 文件导入令牌.
+        /// </summary>
+        public static string LocalAuth_SDAImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_SDAImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 查看令牌详细数据.
         /// </summary>
         public static string LocalAuth_ShowAuthInfo {
             get {
@@ -3324,7 +3468,34 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 无法将添加身份验证器添加到您的帐户， 请稍后再试 的本地化字符串。
+        ///   Looks up a localized string similar to 您可以在已 root 的 Android 设备中找到以上输入框对应的信息 路径：/data/data/com.valvesoftware.android.steam.community.
+        /// </summary>
+        public static string LocalAuth_SteamAppImportTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamAppImportTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 通过使用 Steam 「移动验证器」内的可移植数据导入令牌.
+        /// </summary>
+        public static string LocalAuth_SteamGuardImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamGuardImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 在 files 文件夹中，打开 &apos;SteamGuard-NNNNNNNN&apos; 文件，粘贴文件的全部内容.
+        /// </summary>
+        public static string LocalAuth_SteamGuardTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamGuardTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无法将添加身份验证器添加到您的帐户， 请稍后再试.
         /// </summary>
         public static string LocalAuth_SteamUser_Error {
             get {
@@ -3360,7 +3531,52 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登 录 的本地化字符串。
+        ///   Looks up a localized string similar to 在 shared_prefs 文件夹中，粘贴 &apos;steam_uuid.xml&apos; 的 uuidKey.
+        /// </summary>
+        public static string LocalAuth_SteamuuidTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamuuidTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 通过 WattToolKitV1 工具箱导出的文件导入令牌.
+        /// </summary>
+        public static string LocalAuth_WattToolKitV1Import {
+            get {
+                return ResourceManager.GetString("LocalAuth_WattToolKitV1Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 通过 WattToolKitV2 工具箱导出的文件，导入令牌.
+        /// </summary>
+        public static string LocalAuth_WattToolKitV2Import {
+            get {
+                return ResourceManager.GetString("LocalAuth_WattToolKitV2Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 通过 WinAuth 导出的文件导入令牌.
+        /// </summary>
+        public static string LocalAuth_WinAuthImport {
+            get {
+                return ResourceManager.GetString("LocalAuth_WinAuthImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 锁定.
+        /// </summary>
+        public static string Lock {
+            get {
+                return ResourceManager.GetString("Lock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 登 录.
         /// </summary>
         public static string Login {
             get {
@@ -3450,7 +3666,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 媒体 的本地化字符串。
+        ///   Looks up a localized string similar to Mafile 文件.
+        /// </summary>
+        public static string Mafile {
+            get {
+                return ResourceManager.GetString("Mafile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 媒体.
         /// </summary>
         public static string Media {
             get {
@@ -3459,7 +3684,19 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 您确认要取消所有交易报价吗\r\n您将拒绝列表内全部的报价请求。\r\n这将从以下列表中移除所有交易信息\r\n您可以在 Steam 库存查看交易报价记录。 的本地化字符串。
+        ///   Looks up a localized string similar to Microsoft .
+        /// </summary>
+        public static string Microsoft {
+            get {
+                return ResourceManager.GetString("Microsoft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 您确认要取消所有交易报价吗
+        ///您将拒绝列表内全部的报价请求。
+        ///这将从以下列表中移除所有交易信息
+        ///您可以在 Steam 库存查看交易报价记录。.
         /// </summary>
         public static string ModelContent_CancelAllTrade {
             get {
@@ -3468,7 +3705,9 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 您确认需要取消交易报价吗\r\n这将从以下列表中移除此条确认信息\r\n您可以在 Steam 库存查看交易报价记录。 的本地化字符串。
+        ///   Looks up a localized string similar to 您确认需要取消交易报价吗
+        ///这将从以下列表中移除此条确认信息
+        ///您可以在 Steam 库存查看交易报价记录。.
         /// </summary>
         public static string ModelContent_CancelTrade {
             get {
@@ -3477,7 +3716,9 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 您确认要通过所有交易报价吗\r\n您将同意列表内全部的报价请求。\r\n交易一经确认无法撤销，请谨慎选择。 的本地化字符串。
+        ///   Looks up a localized string similar to 您确认要通过所有交易报价吗
+        ///您将同意列表内全部的报价请求。
+        ///交易一经确认无法撤销，请谨慎选择。.
         /// </summary>
         public static string ModelContent_ConfirmAllTrade {
             get {
@@ -3486,7 +3727,10 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 {0}\r\n{1}\r\n{2}\r\n如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。 的本地化字符串。
+        ///   Looks up a localized string similar to {0}
+        ///{1}
+        ///{2}
+        ///如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。.
         /// </summary>
         public static string ModelContent_ConfirmTrade___ {
             get {
@@ -3531,7 +3775,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 {0}\r\n令牌 SecretKey 的本地化字符串。
+        ///   Looks up a localized string similar to {0} 令牌 SecretKey.
         /// </summary>
         public static string ModelContent_SecretKey_ {
             get {
@@ -3873,7 +4117,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 找不到文件 的本地化字符串。
+        ///   Looks up a localized string similar to 找不到文件.
         /// </summary>
         public static string Plugin_FileError {
             get {
@@ -3882,7 +4126,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 已安装插件 的本地化字符串。
+        ///   Looks up a localized string similar to 已安装插件.
         /// </summary>
         public static string Plugin_InstalledPlugins {
             get {
@@ -5522,7 +5766,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 第一次使用需要先设置 {0} 平台路径 的本地化字符串。
+        ///   Looks up a localized string similar to SteamUUID.
+        /// </summary>
+        public static string SteamUUID {
+            get {
+                return ResourceManager.GetString("SteamUUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 第一次使用需要先设置 {0} 平台路径.
         /// </summary>
         public static string SubHeader_FirstNeedToSetPlatformPath_ {
             get {
@@ -5531,7 +5784,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 首次同步，请为您的云令牌设置一个安全问题及密码。\r\n请先输入「安全问题」 的本地化字符串。
+        ///   Looks up a localized string similar to 首次同步，请为您的云令牌设置一个安全问题及密码。请先输入「安全问题」.
         /// </summary>
         public static string SubHeader_FirstSyncSetAuth {
             get {
@@ -5540,7 +5793,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请再输入「问题答案」 的本地化字符串。
+        ///   Looks up a localized string similar to 请再输入「云密令答案」.
         /// </summary>
         public static string SubHeader_PleaseEnterTheAnswerAgain {
             get {
@@ -5549,7 +5802,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 安全问题：「{0}」 的本地化字符串。
+        ///   Looks up a localized string similar to 云密令问题：「{0}」.
         /// </summary>
         public static string SubHeader_SecurityIssues_ {
             get {
@@ -5558,7 +5811,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 {0}成功 的本地化字符串。
+        ///   Looks up a localized string similar to 正在重置，请为您的云令牌设置一个问题及密码。请先输入「云密令问题」.
+        /// </summary>
+        public static string SubHeader_SyncReSetAuth {
+            get {
+                return ResourceManager.GetString("SubHeader_SyncReSetAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}成功.
         /// </summary>
         public static string Success_ {
             get {
@@ -5756,16 +6018,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请输入原令牌保护密码 的本地化字符串。
-        /// </summary>
-        public static string Title_OldPasswordAuth {
-            get {
-                return ResourceManager.GetString("Title_OldPasswordAuth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 请再次输入密码以确认 的本地化字符串。
+        ///   Looks up a localized string similar to 请再次输入密码以确认.
         /// </summary>
         public static string Title_PasswordConfirm {
             get {
@@ -5792,7 +6045,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请输入问题答案 的本地化字符串。
+        ///   Looks up a localized string similar to 请输入当前云密令答案.
         /// </summary>
         public static string Title_PleaseEnterTheAnswer {
             get {
@@ -5810,7 +6063,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 设置安全问题 的本地化字符串。
+        ///   Looks up a localized string similar to 设置云密令.
         /// </summary>
         public static string Title_SetSecurityIssues {
             get {
@@ -6594,7 +6847,25 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 起始页 的本地化字符串。
+        ///   Looks up a localized string similar to WattToolKitv1.
+        /// </summary>
+        public static string WattToolKitV1 {
+            get {
+                return ResourceManager.GetString("WattToolKitV1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WattToolKitV2 .
+        /// </summary>
+        public static string WattToolKitV2 {
+            get {
+                return ResourceManager.GetString("WattToolKitV2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 起始页.
         /// </summary>
         public static string Welcome {
             get {
@@ -6603,7 +6874,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 工作目录 的本地化字符串。
+        ///   Looks up a localized string similar to WinAuth .
+        /// </summary>
+        public static string WinAuth {
+            get {
+                return ResourceManager.GetString("WinAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 工作目录.
         /// </summary>
         public static string WorkingDir {
             get {

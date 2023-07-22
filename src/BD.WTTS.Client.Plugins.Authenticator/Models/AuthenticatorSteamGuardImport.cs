@@ -1,20 +1,26 @@
+using BD.WTTS.UI.Views.Pages;
+
 namespace BD.WTTS.Models;
 
 public class AuthenticatorSteamGuardImport : AuthenticatorImportBase
 {
-    public override string Name => "Steam 「移动验证器」导入";
+    public override string Name => Strings.LocalAuth_Import.Format(Strings.SteamGuard);
 
-    public override string Description => "通过使用 Steam 「移动验证器」内的可移植数据导入令牌";
-    
-    public override string IconText => "&#xEC20;";
+    public override string Description => Strings.LocalAuth_SteamGuardImport;
+
+    public override ResIcon IconName => ResIcon.MobileLocked;
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
     public AuthenticatorSteamGuardImport(string? password = null)
     {
-        AuthenticatorImportCommand = ReactiveCommand.Create(() =>
+        AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            //TODO 移动验证器导入Page
+            if (await VerifyMaxValue())
+                await IWindowManager.Instance.ShowTaskDialogAsync(
+                    new AuthenticatorSteamGuardViewModel(SaveAuthenticator),
+                    Name,
+                    pageContent: new AuthenticatorSteamGuardImportPage(), isOkButton: false);
         });
     }
 }

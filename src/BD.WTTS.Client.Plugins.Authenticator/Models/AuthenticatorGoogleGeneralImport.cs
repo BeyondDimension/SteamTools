@@ -5,11 +5,11 @@ namespace BD.WTTS.Models;
 
 public class AuthenticatorGoogleGeneralImport : AuthenticatorGeneralImportBase
 {
-    public override string Name => "Google 密钥导入";
+    public override string Name => Strings.LocalAuth_2FAImport.Format(Strings.Google);
 
-    public override string Description => "通过使用 Google 添加移动验证器时生成的密钥或二维码导入令牌";
+    public override string Description => Strings.LocalAuth_GoogleImport;
 
-    public override string IconText => "&#xE723;";
+    public override ResIcon IconName => ResIcon.Attach;
     
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
     

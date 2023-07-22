@@ -48,8 +48,20 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
             this.RaisePropertyChanged();
         }
     }
+    
+    readonly Func<IAuthenticatorDTO, Task> _saveAuth;
 
-    public async Task<bool> ImportFromPhoneSteamGuard(bool isLocal, string? password = null)
+    public AuthenticatorSteamGuardViewModel()
+    {
+        _saveAuth = (authenticatorDto) => Task.CompletedTask;
+    }
+
+    public AuthenticatorSteamGuardViewModel(Func<IAuthenticatorDTO, Task> saveAuthFunc)
+    {
+        _saveAuth = saveAuthFunc;
+    }
+
+    public async Task Import()
     {
         /* AuthService.ImportSteamGuard (System.String name, System.String uuid, System.String steamGuard, System.Boolean isLocal, System.String password)
              * System.NullReferenceException: Object reference not set to an instance of an object
@@ -69,7 +81,7 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
                 if (node == null)
                 {
                     //WinAuthForm.ErrorDialog(this, "Cannot find uuidKey in xml");
-                    return false;
+                    return;
                 }
 
                 deviceId = node.InnerText;
@@ -78,8 +90,8 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
             {
                 //WinAuthForm.ErrorDialog(this, "Invalid uuid xml: " + ex.Message);
                 //ToastService.Current.Notify("Invalid uuid xml");
-                Log.Error(nameof(AuthenticatorSteamGuardViewModel), ex, nameof(ImportFromPhoneSteamGuard));
-                return false;
+                ex.LogAndShowT();
+                return;
             }
         }
         else
@@ -91,7 +103,7 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
                 RegexOptions.Singleline | RegexOptions.IgnoreCase) == false)
         {
             //WinAuthForm.ErrorDialog(this, "Invalid deviceid, expecting \"android:NNNN...\"");
-            return false;
+            return ;
         }
 
         // check the steamguard
@@ -102,7 +114,7 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
             var steamGuardModel = JsonSerializer.Deserialize(PhoneImportSteamGuard,
                 ImportFileModelJsonContext.Default.SteamGuardModel);
 
-            if (steamGuardModel == null) return false;
+            if (steamGuardModel == null) return;
 
             if (string.IsNullOrEmpty(steamGuardModel.SharedSecret))
             {
@@ -122,8 +134,8 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
         {
             //WinAuthForm.ErrorDialog(this, "Invalid SteamGuard JSON contents: " + ex.Message);
             //ToastService.Current.Notify("Invalid SteamGuard JSON");
-            Log.Error(nameof(AuthenticatorSteamGuardViewModel), ex, nameof(ImportFromPhoneSteamGuard));
-            return false;
+            ex.LogAndShowT();
+            return;
         }
 
         var auth = new SteamAuthenticator
@@ -131,11 +143,9 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
             SecretKey = secret, Serial = serial, SteamData = PhoneImportSteamGuard, DeviceId = deviceId
         };
 
-        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(
-            new AuthenticatorDTO()
-            {
-                Name = $"(Steam){ImportAuthNewName}", Value = auth, Created = DateTimeOffset.Now,
-            }, password, isLocal);
-        return true;
+        await _saveAuth.Invoke(new AuthenticatorDTO()
+        {
+            Name = $"(Steam){ImportAuthNewName}", Value = auth, Created = DateTimeOffset.Now,
+        });
     }
 }

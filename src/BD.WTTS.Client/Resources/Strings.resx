@@ -588,8 +588,8 @@
 	<data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>选择路径</value>
   </data>
-	<data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>你还没有导入任何令牌，请先新增令牌</value>
+  <data name="LocalAuth_NoAuthTip" xml:space="preserve">
+	  <value>你还没有导入任何令牌，请先点击右上角新增令牌</value>
   </data>
 	<data name="LocalAuth_PasswordRequired" xml:space="preserve">
     <value>需要解密才能继续</value>
@@ -1818,8 +1818,8 @@
 	<data name="Error_PathFailedUnableSwitchAccount_" xml:space="preserve">
     <value>路径没有正确选择，{0} 平台账号切换功能无法使用</value>
   </data>
-	<data name="Error_PleaseEnterAnswer" xml:space="preserve">
-    <value>请输入安全问题答案</value>
+  <data name="Error_PleaseEnterAnswer" xml:space="preserve">
+	  <value>请输入云密令答案</value>
   </data>
 	<data name="Error_PleaseEnterCode" xml:space="preserve">
     <value>请输入验证码。</value>
@@ -1842,8 +1842,8 @@
 	<data name="Error_ScanQRCodeFailed_" xml:space="preserve">
     <value>扫描网页二维码失败：{0}</value>
   </data>
-	<data name="Error_SetSecurityIssuesFailed" xml:space="preserve">
-    <value>设置安全问题失败</value>
+  <data name="Error_SetSecurityIssuesFailed" xml:space="preserve">
+	  <value>设置云密令失败</value>
   </data>
 	<data name="Error_StartProcessFailed_" xml:space="preserve">
     <value>启动 {0} 进程失败</value>
@@ -1899,11 +1899,11 @@
 	<data name="GeneralAuth_EnterkeyOrLink" xml:space="preserve">
     <value>输入您的令牌 Key 或二维码图片 url 链接</value>
   </data>
-	<data name="GeneralAuth_ImportText" xml:space="preserve">
-    <value>导入文本：</value>
+  <data name="GeneralAuth_ImportText" xml:space="preserve">
+	  <value>导入文本</value>
   </data>
-	<data name="GeneralAuth_Name" xml:space="preserve">
-    <value>令牌名称：</value>
+  <data name="GeneralAuth_Name" xml:space="preserve">
+	  <value>令牌名称</value>
   </data>
 	<data name="GeneralAuth_VerifySuccessfulImport" xml:space="preserve">
     <value>请验证下列 Code 是否正确，在其正确的情况下再进行导入</value>
@@ -1935,17 +1935,27 @@
 	<data name="Info_WinAuthImportMessage_" xml:space="preserve">
     <value>WinAuth 令牌导入{0}</value>
   </data>
-	<data name="ModelContent_CancelAllTrade" xml:space="preserve">
-    <value>您确认要取消所有交易报价吗\r\n您将拒绝列表内全部的报价请求。\r\n这将从以下列表中移除所有交易信息\r\n您可以在 Steam 库存查看交易报价记录。</value>
+  <data name="ModelContent_CancelAllTrade" xml:space="preserve">
+	  <value>您确认要取消所有交易报价吗
+您将拒绝列表内全部的报价请求。
+这将从以下列表中移除所有交易信息
+您可以在 Steam 库存查看交易报价记录。</value>
   </data>
-	<data name="ModelContent_CancelTrade" xml:space="preserve">
-    <value>您确认需要取消交易报价吗\r\n这将从以下列表中移除此条确认信息\r\n您可以在 Steam 库存查看交易报价记录。</value>
+  <data name="ModelContent_CancelTrade" xml:space="preserve">
+	  <value>您确认需要取消交易报价吗
+这将从以下列表中移除此条确认信息
+您可以在 Steam 库存查看交易报价记录。</value>
   </data>
-	<data name="ModelContent_ConfirmAllTrade" xml:space="preserve">
-    <value>您确认要通过所有交易报价吗\r\n您将同意列表内全部的报价请求。\r\n交易一经确认无法撤销，请谨慎选择。</value>
+  <data name="ModelContent_ConfirmAllTrade" xml:space="preserve">
+	  <value>您确认要通过所有交易报价吗
+您将同意列表内全部的报价请求。
+交易一经确认无法撤销，请谨慎选择。</value>
   </data>
-	<data name="ModelContent_ConfirmTrade___" xml:space="preserve">
-    <value>{0}\r\n{1}\r\n{2}\r\n如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。</value>
+  <data name="ModelContent_ConfirmTrade___" xml:space="preserve">
+	  <value>{0}
+{1}
+{2}
+如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。</value>
   </data>
 	<data name="ModelContent_ConfirmUnbinding" xml:space="preserve">
     <value>您确定要从您的 Steam 账号中解绑此令牌吗，解绑后此令牌将失效，您可以在解绑后删除此令牌。</value>
@@ -1959,8 +1969,8 @@
 	<data name="ModelContent_LoginNewUser" xml:space="preserve">
     <value>此操作会结束当前平台进程并移除当前账号登录状态跳转至新账号登录，确定要继续吗？</value>
   </data>
-	<data name="ModelContent_SecretKey_" xml:space="preserve">
-    <value>{0}\r\n令牌 SecretKey</value>
+  <data name="ModelContent_SecretKey_" xml:space="preserve">
+	  <value>{0} 令牌 SecretKey</value>
   </data>
 	<data name="MyOrder" xml:space="preserve">
     <value>我的订单</value>
@@ -2007,14 +2017,14 @@
 	<data name="SubHeader_FirstNeedToSetPlatformPath_" xml:space="preserve">
     <value>第一次使用需要先设置 {0} 平台路径</value>
   </data>
-	<data name="SubHeader_FirstSyncSetAuth" xml:space="preserve">
-    <value>首次同步，请为您的云令牌设置一个安全问题及密码。\r\n请先输入「安全问题」</value>
+  <data name="SubHeader_FirstSyncSetAuth" xml:space="preserve">
+	  <value>首次同步，请为您的云令牌设置一个安全问题及密码。请先输入「安全问题」</value>
   </data>
-	<data name="SubHeader_PleaseEnterTheAnswerAgain" xml:space="preserve">
-    <value>请再输入「问题答案」</value>
+  <data name="SubHeader_PleaseEnterTheAnswerAgain" xml:space="preserve">
+	  <value>请再输入「云密令答案」</value>
   </data>
-	<data name="SubHeader_SecurityIssues_" xml:space="preserve">
-    <value>安全问题：「{0}」</value>
+  <data name="SubHeader_SecurityIssues_" xml:space="preserve">
+	  <value>云密令问题：「{0}」</value>
   </data>
 	<data name="Success_AuthProtectSuccessfully_" xml:space="preserve">
     <value>令牌本机电脑保护{0}成功</value>
@@ -2076,10 +2086,7 @@
 	<data name="Title_LoginAccount_" xml:space="preserve">
     <value>登录 {0} 账号</value>
   </data>
-	<data name="Title_OldPasswordAuth" xml:space="preserve">
-    <value>请输入原令牌保护密码</value>
-  </data>
-	<data name="Title_PasswordConfirm" xml:space="preserve">
+  <data name="Title_PasswordConfirm" xml:space="preserve">
     <value>请再次输入密码以确认</value>
   </data>
 	<data name="Title_PleaseEnterLoginPassword" xml:space="preserve">
@@ -2088,14 +2095,14 @@
 	<data name="Title_PleaseEnterNewAuthName" xml:space="preserve">
     <value>请输入新令牌名或取消</value>
   </data>
-	<data name="Title_PleaseEnterTheAnswer" xml:space="preserve">
-    <value>请输入问题答案</value>
+  <data name="Title_PleaseEnterTheAnswer" xml:space="preserve">
+	  <value>请输入当前云密令答案</value>
   </data>
 	<data name="Title_PleaseInputCurrentAccountName_" xml:space="preserve">
     <value>请输入您当前登录的 {0} 账号的名称</value>
   </data>
-	<data name="Title_SetSecurityIssues" xml:space="preserve">
-    <value>设置安全问题</value>
+  <data name="Title_SetSecurityIssues" xml:space="preserve">
+	  <value>设置云密令</value>
   </data>
 	<data name="Title_SetUp_" xml:space="preserve">
     <value>{0} 设置</value>
@@ -2253,6 +2260,103 @@
 	<data name="Plugin_FileError" xml:space="preserve">
     <value>找不到文件</value>
   </data>
+  <data name="Auth_Sync_NoHasPassword" xml:space="preserve">
+	  <value>未设置云令牌同步密码</value>
+  </data>
+  <data name="Auth_Sync_ResetPassword" xml:space="preserve">
+	  <value>重置云密令</value>
+  </data>
+  <data name="SubHeader_SyncReSetAuth" xml:space="preserve">
+	  <value>正在重置，请为您的云令牌设置一个问题及密码。请先输入「云密令问题」</value>
+  </data>
+  <data name="Auth_Sync_Recover" xml:space="preserve">
+	  <value>恢复云令牌</value>
+  </data>
+  <data name="Auth_Sync_DeleteTime" xml:space="preserve">
+	  <value>删除时间</value>
+  </data>
+  <data name="Auth_Sync_VerifyRecover" xml:space="preserve">
+	  <value>确认恢复</value>
+  </data>
+  <data name="Auth_Sync_RecoverSuccess" xml:space="preserve">
+	  <value>云令牌已恢复至云端，您可以点击云同步恢复对应令牌至本地</value>
+  </data>
+  <data name="Mafile" xml:space="preserve">
+	  <value>Mafile 文件</value>
+  </data>
+  <data name="LocalAuth_Import" xml:space="preserve">
+	  <value>{0}导入</value>
+  </data>
+  <data name="LocalAuth_SDAImport" xml:space="preserve">
+	  <value>从 Mafile 文件导入令牌</value>
+  </data>
+  <data name="WattToolKitV2" xml:space="preserve">
+	  <value>WattToolKitV2 </value>
+  </data>
+  <data name="WattToolKitV1" xml:space="preserve">
+	  <value>WattToolKitv1</value>
+  </data>
+  <data name="LocalAuth_WattToolKitV1Import" xml:space="preserve">
+	  <value>通过 WattToolKitV1 工具箱导出的文件导入令牌</value>
+  </data>
+  <data name="LocalAuth_WattToolKitV2Import" xml:space="preserve">
+	  <value>通过 WattToolKitV2 工具箱导出的文件，导入令牌</value>
+  </data>
+  <data name="WinAuth" xml:space="preserve">
+	  <value>WinAuth </value>
+  </data>
+  <data name="LocalAuth_WinAuthImport" xml:space="preserve">
+	  <value>通过 WinAuth 导出的文件导入令牌</value>
+  </data>
+  <data name="SteamGuard" xml:space="preserve">
+	  <value>Steam 「移动验证器」</value>
+  </data>
+  <data name="LocalAuth_SteamGuardImport" xml:space="preserve">
+	  <value>通过使用 Steam 「移动验证器」内的可移植数据导入令牌</value>
+  </data>
+  <data name="LocalAuth_2FAImport" xml:space="preserve">
+	  <value>{0}密钥导入</value>
+  </data>
+  <data name="HOTP" xml:space="preserve">
+	  <value>HOTP 通用</value>
+  </data>
+  <data name="LocalAuth_HOTPImport" xml:space="preserve">
+	  <value>通过使用添加 HOTP 移动验证器时生成的通用密钥导入令牌</value>
+  </data>
+  <data name="Google" xml:space="preserve">
+	  <value>Google </value>
+  </data>
+  <data name="LocalAuth_GoogleImport" xml:space="preserve">
+	  <value>通过使用 Google 添加移动验证器时生成的密钥或二维码导入令牌</value>
+  </data>
+  <data name="Microsoft" xml:space="preserve">
+	  <value>Microsoft </value>
+  </data>
+  <data name="LocalAuth_MicrosoftImport" xml:space="preserve">
+	  <value>通过使用 Microsoft 添加移动验证器时生成的密钥或二维码导入令牌</value>
+  </data>
+  <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
+	  <value>您可以在已 root 的 Android 设备中找到以上输入框对应的信息 路径：/data/data/com.valvesoftware.android.steam.community</value>
+  </data>
+  <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
+	  <value>在 shared_prefs 文件夹中，粘贴 'steam_uuid.xml' 的 uuidKey</value>
+  </data>
+  <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
+	  <value>在 files 文件夹中，打开 'SteamGuard-NNNNNNNN' 文件，粘贴文件的全部内容</value>
+  </data>
+  <data name="SteamUUID" xml:space="preserve">
+	  <value>SteamUUID</value>
+  </data>
+  <data name="SteamGuardData" xml:space="preserve">
+	  <value>SteamGuard 数据</value>
+  </data>
+  <data name="Auth_Sync_NoHasRecover" xml:space="preserve">
+	  <value>没有可以恢复的云令牌</value>
+  </data>
+  <data name="Auth_Sync_MoveError" xml:space="preserve">
+	  <value>数据未同步，调整令牌排序失败</value>
+  </data>
+</root>
 	<data name="SteamAppType_Application" xml:space="preserve">
     <value>软件</value>
     <comment>Author=MicrosoftTranslator</comment>

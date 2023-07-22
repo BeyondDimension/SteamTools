@@ -12,6 +12,10 @@ public partial class AuthenticatorGeneralImportPageViewModel : ViewModelBase
         set
         {
             if (value == _authenticatorName) return;
+            if (value != null && value.Length > IAuthenticatorDTO.MaxLength_Name)
+            {
+                value = value.Substring(0, IAuthenticatorDTO.MaxLength_Name);
+            }
             _authenticatorName = value;
             this.RaisePropertyChanged();
         }

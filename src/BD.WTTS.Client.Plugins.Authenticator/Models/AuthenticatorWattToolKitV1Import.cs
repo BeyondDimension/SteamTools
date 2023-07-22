@@ -2,11 +2,11 @@ namespace BD.WTTS.Models;
 
 public class AuthenticatorWattToolKitV1Import : AuthenticatorFileImportBase
 {
-    public override string Name => "WattToolKitV1 导入";
-    
-    public override string Description => "通过 WattToolKitV1 工具箱导出的文件导入令牌";
+    public override string Name => Strings.LocalAuth_Import.Format(Strings.WattToolKitV1);
 
-    public override string IconText => "&#xE8E5;";
+    public override string Description => Strings.LocalAuth_WattToolKitV1Import;
+
+    public override ResIcon IconName => ResIcon.OpenFile;
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 

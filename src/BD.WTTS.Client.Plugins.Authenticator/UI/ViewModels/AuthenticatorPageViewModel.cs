@@ -28,7 +28,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         BorderBottomIsActive = false;
         AuthenticatorItemModel.OnAuthenticatorItemIsSelectedChanged +=
             AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged;
-        Initialize();
     }
 
     private void AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged(AuthenticatorItemModel sender)
@@ -92,8 +91,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             Auths.Add(new AuthenticatorItemModel(item));
         }
-
-        Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
+        //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
     }
 
     public async Task<bool> EnterPassword(AccountPlatformAuthenticator sourceData)
@@ -113,7 +111,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 IsVerificationPass = true;
                 return true;
             }
-            else Toast.Show(ToastIcon.Warning, AppResources.Warning_PasswordError);
+            else
+            {
+                Toast.Show(ToastIcon.Warning, AppResources.Warning_PasswordError);
+                return await EnterPassword(sourceData);
+            }
         }
 
         IsVerificationPass = false;
@@ -241,7 +243,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         if (string.IsNullOrEmpty(_currentAnswer))
         {
-            var answer = await VerifyIndependentPassword();
+            var answer = await AuthenticatorService.VerifyIndependentPassword();
             if (!string.IsNullOrEmpty(answer)) _currentAnswer = answer;
             else return;
         }
@@ -327,10 +329,23 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             Difference = pushItems, Answer = _currentAnswer,
         });
 
-        if (!syncResponse.IsSuccess) throw new Exception(AppResources.Error_FailedToSynchronizeAuth);
+        if (!syncResponse.IsSuccess)
+        {
+            Toast.Show(ToastIcon.Error, AppResources.Error_FailedToSynchronizeAuth);
+            return;
+        }
+        syncResponse.Content.ThrowIsNull();
+        if (!syncResponse.Content.Result)
+        {
+            Toast.Show(ToastIcon.Error, syncResponse.Content.Message);
+            return;
+        }
         response = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
-        if (response.Content?.Length != Auths.Count) throw new Exception(AppResources.Error_DataNotUnified);
-
+        if (response.Content?.Length != Auths.Count)
+        {
+            Toast.Show(ToastIcon.Error, AppResources.Error_DataNotUnified);
+            return;
+        }
         foreach (var item in response.Content)
         {
             var localAuth = Auths.FirstOrDefault(i => i.AuthData.Index == item.Order)?.AuthData;
@@ -348,119 +363,78 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         Toast.Show(ToastIcon.Success, AppResources.Success_AuthUpload__.Format(syncResponse.Content?.Message, pushItems.Length));
     }
 
-    /// <summary>
-    /// 验证安全问题
-    /// </summary>
-    /// <returns>成功返回正确答案，失败返回null</returns>
-    /// <exception cref="Exception">后端异常信息</exception>
-    async Task<string?> VerifyIndependentPassword()
-    {
-        string? question = null;
-        string? answer = null;
-        var passwordQuestionResponse =
-            await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
-        if (passwordQuestionResponse.Content == null)
-        {
-            var textViewModel = new TextBoxWindowViewModel();
-            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Error_SetSecurityIssuesFailed,
-                    subHeader: AppResources.SubHeader_FirstSyncSetAuth, isCancelButton: true)) return null;
-            question = textViewModel.Value;
-            textViewModel = new TextBoxWindowViewModel();
-            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Error_SetSecurityIssuesFailed, subHeader: AppResources.SubHeader_PleaseEnterTheAnswerAgain,
-                    isCancelButton: true)) return null;
-            answer = textViewModel.Value;
-            if (string.IsNullOrEmpty(question) || string.IsNullOrEmpty(answer)) return null;
-            var setPassword =
-                await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new()
-                {
-                    PwdQuestion = question, Answer = answer,
-                });
-            if (!setPassword.IsSuccess) throw new Exception(AppResources.Error_SetSecurityIssuesFailed);
-        }
-
-        question ??= passwordQuestionResponse.Content;
-        var answerTextViewModel = new TextBoxWindowViewModel();
-        if (string.IsNullOrEmpty(answer) && await IWindowManager.Instance.ShowTaskDialogAsync(answerTextViewModel,
-             AppResources.Title_PleaseEnterTheAnswer, subHeader: AppResources.SubHeader_SecurityIssues_.Format(question), isCancelButton: true))
-            answer = answerTextViewModel.Value;
-
-        if (string.IsNullOrEmpty(answer))
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterAnswer);
-            return null;
-        }
-
-        var verifyResponse =
-            await IMicroServiceClient.Instance.AuthenticatorClient
-                .VerifyIndependentPassword(new() { Answer = answer, });
-        if (!verifyResponse.Content)
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Error_AnswerIncorrect);
-            return null;
-        }
-
-        return answer;
-    }
-
     public async Task KeepDisplay()
     {
-        // var test1 = await IMicroServiceClient.Instance.Accelerate.Query();
-        // var test2 = await IMicroServiceClient.Instance.Accelerate.GetInfoByIds();
-        // var test3 = await IMicroServiceClient.Instance.Accelerate.GM();
-        //
-        // var test4 = await IMicroServiceClient.Instance.Script.GM();
-        // var test5 = await IMicroServiceClient.Instance.Script.GetInfoByIds();
-        // var test6 = await IMicroServiceClient.Instance.Script.Query();
-        // var test5 = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
-        // var test6 = await IMicroServiceClient.Instance.AuthenticatorClient.ResetIndependentPassword(new ()
-        // {
-        //     Answer = "123",
-        //     NewPwdQuestion = "Test",
-        //     NewAnswer = "123",
-        // });
-        // Guid test = test5.Content[0].Id;
-        // var test7 = await IMicroServiceClient.Instance.AuthenticatorClient.RecoverAuthenticatorsFromDeleteBackups(new()
-        // {
-        //     Answer = "123", Id = new[] { test, },
-        // });
     }
 
-    public async Task DeleteAuthAsync()
+    public async Task ResetIndependentPassword()
     {
-        if (CurrentSelectedAuth == null) return;
+        var passwordQuestionResponse =
+            await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
+        if (!passwordQuestionResponse.IsSuccess || passwordQuestionResponse.Content == null)
+        {
+            Toast.Show(ToastIcon.Warning, AppResources.Auth_Sync_NoHasPassword);
+            return;
+        }
+        _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+        if (string.IsNullOrEmpty(_currentAnswer)) return;
+        var textViewModel = new TextBoxWindowViewModel();
+        if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Title_SetSecurityIssues,
+                subHeader: AppResources.SubHeader_SyncReSetAuth, isCancelButton: true)) return;
+        var question = textViewModel.Value;
+        textViewModel = new TextBoxWindowViewModel();
+        if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Title_SetSecurityIssues, subHeader: AppResources.SubHeader_PleaseEnterTheAnswerAgain,
+                isCancelButton: true)) return;
+        var answer = textViewModel.Value;
+        if (string.IsNullOrEmpty(question) || string.IsNullOrEmpty(answer)) return;
+        var resetPassword = await IMicroServiceClient.Instance.AuthenticatorClient.ResetIndependentPassword(new ()
+        {
+            Answer = _currentAnswer,
+            NewPwdQuestion = question,
+            NewAnswer = answer,
+        });
+        if (!resetPassword.IsSuccess)
+        {
+            Toast.Show(ToastIcon.Error, AppResources.Error_SetSecurityIssuesFailed);
+            return;
+        }
+        _currentAnswer = answer;
+    }
+
+    public async Task DeleteAuthAsync(object sender)
+    {
+        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
         var messageViewmodel =
             new MessageBoxWindowViewModel { Content = Strings.LocalAuth_DeleteAuthTip2 };
         if (await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, AppResources.Title_DeleteAuth, isDialog: false,
                 isCancelButton: true))
         {
-            if (CurrentSelectedAuth.AuthData.ServerId != null)
+            if (authenticatorItemModel.AuthData.ServerId != null)
             {
                 if (string.IsNullOrEmpty(_currentAnswer))
                 {
-                    var answer = await VerifyIndependentPassword();
-                    if (!string.IsNullOrEmpty(answer)) _currentAnswer = answer;
+                    _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+                    if (string.IsNullOrEmpty(_currentAnswer)) return;
                 }
-                if (_currentAnswer != null)
+                var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
                 {
-                    var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+                    Difference = new[]
                     {
-                        Difference = new[]
+                        new UserAuthenticatorPushItem()
                         {
-                            new UserAuthenticatorPushItem()
-                            {
-                                Id = CurrentSelectedAuth.AuthData.ServerId, IsDeleted = true,
-                            },
+                            Id = authenticatorItemModel.AuthData.ServerId, IsDeleted = true,
                         },
-                        Answer = _currentAnswer,
-                    });
-                    if (response.IsSuccess)
-                        Toast.Show(ToastIcon.Success, AppResources.Success_DelCloudData);
-                    else
-                        Toast.Show(ToastIcon.Warning, AppResources.Error_DelCloudData);
-                }
+                    },
+                    Answer = _currentAnswer,
+                });
+                response.Content.ThrowIsNull();
+                if (response.IsSuccess && response.Content.Result)
+                    Toast.Show(ToastIcon.Success, AppResources.Success_DelCloudData);
+                else
+                    Toast.Show(ToastIcon.Warning, AppResources.Error_DelCloudData);
             }
-            AuthenticatorService.DeleteAuth(CurrentSelectedAuth.AuthData);
-            Auths.Remove(CurrentSelectedAuth);
+            AuthenticatorService.DeleteAuth(authenticatorItemModel.AuthData);
+            Auths.Remove(authenticatorItemModel);
             Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthDelSuccessful);
         }
     }
@@ -486,44 +460,37 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         {
             if (string.IsNullOrEmpty(_currentAnswer))
             {
-                var answer = await VerifyIndependentPassword();
-                if (!string.IsNullOrEmpty(answer)) _currentAnswer = answer;
+                _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+                if (string.IsNullOrEmpty(_currentAnswer)) return;
             }
-            if (_currentAnswer != null)
+
+            var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
             {
-                var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+                Difference = new[]
                 {
-                    Difference = new[]
+                    new UserAuthenticatorPushItem()
                     {
-                        new UserAuthenticatorPushItem() { Id = CurrentSelectedAuth.AuthData.ServerId, Name = newName, },
+                        Id = CurrentSelectedAuth.AuthData.ServerId,
+                        Name = newName,
+                        Order = CurrentSelectedAuth.AuthData.Index,
                     },
-                    Answer = _currentAnswer,
-                });
-                if (response.IsSuccess)
-                    Toast.Show(ToastIcon.Success, AppResources.Success_UpdateCloudData);
-                else
-                    Toast.Show(ToastIcon.Warning, AppResources.Error_UpdateCloudData);
-            }
+                },
+                Answer = _currentAnswer,
+            });
+            response.Content.ThrowIsNull();
+            if (response.IsSuccess && response.Content.Result)
+                Toast.Show(ToastIcon.Success, AppResources.Success_UpdateCloudData);
+            else
+                Toast.Show(ToastIcon.Warning, AppResources.Error_UpdateCloudData);
         }
         CurrentSelectedAuth.AuthName = newName;
         await AuthenticatorService.SaveEditAuthNameAsync(CurrentSelectedAuth.AuthData, newName);
         Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthUpdateSuccessful);
     }
 
-    bool VerifyMaxValue()
-    {
-        if (Auths.Count >= IAccountPlatformAuthenticatorRepository.MaxValue)
-        {
-            Toast.Show(ToastIcon.Info, AppResources.Info_AuthMaximumQuantity);
-            return false;
-        }
-
-        return true;
-    }
-    
     public async Task OpenExportWindow()
     {
-        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorExportViewModel(), AppResources.ExportAuth,
+        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorExportViewModel(_currentPassword), AppResources.ExportAuth,
             pageContent: new AuthenticatorExportPage(), isOkButton: false);
     }
 
@@ -563,6 +530,15 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             AppResources.ConfirmTransaction,
             pageContent: new SteamTradePage(), isOkButton: false);
         CurrentSelectedAuth.AuthData = authData;
+    }
+
+    public async Task ShowRecoverWindow()
+    {
+        if (string.IsNullOrEmpty(_currentAnswer))
+            _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+        if (string.IsNullOrEmpty(_currentAnswer)) return;
+        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorRecoverPageViewModel(_currentAnswer), AppResources.Auth_Sync_Recover,
+            pageContent: new AuthenticatorRecoverPage(), isOkButton: false);
     }
 
     public async Task ShowAuthJsonData()
@@ -657,6 +633,76 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             Toast.Show(ToastIcon.Warning, AppResources.Auth_OnlyMafileFormat);
         }
     }
+
+    public async Task AuthenticatorIndexMoveUp(object sender)
+    {
+        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
+        var index = Auths.IndexOf(authenticatorItemModel);
+        if (authenticatorItemModel.AuthData.ServerId != null)
+        {
+            if (string.IsNullOrEmpty(_currentAnswer))
+                _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+        }
+        var result = await AuthenticatorService.MoveAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData, Auths, index, true,
+            _currentAnswer);
+        if (result <= 1)
+        {
+            Toast.Show(ToastIcon.Error, AppResources.Auth_Sync_MoveError);
+            return;
+        }
+        Auths.Move(index, index - 1);
+    }
+    
+    public async Task AuthenticatorIndexMoveDown(object sender)
+    {
+        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
+        var index = Auths.IndexOf(authenticatorItemModel);
+        if (authenticatorItemModel.AuthData.ServerId != null)
+        {
+            if (string.IsNullOrEmpty(_currentAnswer))
+                _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+        }
+        var result = await AuthenticatorService.MoveAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData, Auths, index, false,
+            _currentAnswer);
+        if (result <= 1)
+        {
+            Toast.Show(ToastIcon.Error, AppResources.Auth_Sync_MoveError);
+            return;
+        }
+        Auths.Move(index, index + 1);
+    }
+
+    public async Task AuthenticatorIndexSticky(object sender)
+    {
+        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
+        var index = Auths.IndexOf(authenticatorItemModel);
+        if (authenticatorItemModel.AuthData.ServerId != null)
+        {
+            if (string.IsNullOrEmpty(_currentAnswer))
+                _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+        }
+        var result = await AuthenticatorService.ChangeAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData,
+            Auths, index, 0,
+            _currentAnswer);
+        if (result <= 1)
+        {
+            Toast.Show(ToastIcon.Error, AppResources.Auth_Sync_MoveError);
+            return;
+        }
+        var tmp = Auths.OrderBy(a => a.AuthData.Index).ToList();
+        Auths.Clear();
+        foreach (var item in tmp)
+            Auths.Add(item);
+    }
+
+    public async Task DefaultExport(object sender)
+    {
+        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
+        var exportFile = await AuthenticatorService.ExportAsync($"{authenticatorItemModel.AuthName}{FileEx.MPO}", false,
+            new[] { authenticatorItemModel.AuthData });
+        if (exportFile == null) return;
+        Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile.ToString()));
+    }
     
     public async Task UnbindingSteamAuthAsync(object sender)
     {
@@ -712,6 +758,12 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 Toast.Show(ToastIcon.Error, AppResources.Error_AuthUnbindFailed);
             }
         }
+    }
+
+    public override void Activation()
+    {
+        base.Activation();
+        Initialize();
     }
 
     protected override void Dispose(bool disposing)

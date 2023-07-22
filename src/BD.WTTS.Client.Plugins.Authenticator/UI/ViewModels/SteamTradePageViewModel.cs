@@ -321,51 +321,53 @@ public sealed partial class SteamTradePageViewModel
             SetToastServiceStatus(
                 Strings.LocalAuth_AuthTrade_ConfirmTip_.Format(statusText));
 
-            _operationTradeAllCancelToken = new CancellationTokenSource();
-            ushort success = 0;
-            ushort failed = 0;
-            //var executableNum = _confirmationsSourceList.Items.Count();
-            foreach (var item in Confirmations)
-            {
-                if (_operationTradeAllCancelToken.IsCancellationRequested)
-                {
-                    Toast.Show(ToastIcon.Warning, AppResources.Warning_TerminationAllAuth___.Format(statusText, success, failed));
-                    // Toast.Show(ToastIcon.None, 
-                    //     $"已终止{statusText}全部令牌,已操作成功令牌数量{success},操作失败令牌数量{failed},剩余{executableNum - success - failed}令牌未操作");
-                }
-
-                // if (item.IsOperate != 0 || item.NotChecked)
-                // {
-                //     executableNum--;
-                //     continue;
-                // }
-
-                var startTime = DateTime.Now;
-
-                if (!await ChangeTradeStatus(status, item))
-                {
-                    failed++;
-                    continue;
-                }
-
-                //item.IsOperate = 1;
-                success++;
-                
-                var duration = (int)DateTime.Now.Subtract(startTime).TotalMilliseconds;
-                var delay = WinAuth.SteamClient.CONFIRMATION_EVENT_DELAY +
-                            Random2.Next(WinAuth.SteamClient.CONFIRMATION_EVENT_DELAY / 2);
-                if (delay > duration) await Task.Delay(delay - duration);
-            }
-
-            _operationTradeAllCancelToken = null;
+            // _operationTradeAllCancelToken = new CancellationTokenSource();
+            // ushort success = 0;
+            // ushort failed = 0;
+            // //var executableNum = _confirmationsSourceList.Items.Count();
+            // foreach (var item in Confirmations)
+            // {
+            //     if (_operationTradeAllCancelToken.IsCancellationRequested)
+            //     {
+            //         Toast.Show(ToastIcon.Warning, AppResources.Warning_TerminationAllAuth___.Format(statusText, success, failed));
+            //         // Toast.Show(ToastIcon.None, 
+            //         //     $"已终止{statusText}全部令牌,已操作成功令牌数量{success},操作失败令牌数量{failed},剩余{executableNum - success - failed}令牌未操作");
+            //     }
+            //
+            //     // if (item.IsOperate != 0 || item.NotChecked)
+            //     // {
+            //     //     executableNum--;
+            //     //     continue;
+            //     // }
+            //
+            //     var startTime = DateTime.Now;
+            //
+            //     if (!await ChangeTradeStatus(status, item))
+            //     {
+            //         failed++;
+            //         continue;
+            //     }
+            //
+            //     //item.IsOperate = 1;
+            //     success++;
+            //     
+            //     var duration = (int)DateTime.Now.Subtract(startTime).TotalMilliseconds;
+            //     var delay = WinAuth.SteamClient.CONFIRMATION_EVENT_DELAY +
+            //                 Random2.Next(WinAuth.SteamClient.CONFIRMATION_EVENT_DELAY / 2);
+            //     if (delay > duration) await Task.Delay(delay - duration);
+            // }
+            //
+            // _operationTradeAllCancelToken = null;
             //RefreshConfirmationsList();
-            Toast.Show(ToastIcon.Success, AppResources.Success_ExecuteAllAuthEnd___.Format(statusText, success, failed));
+            if (!await ChangeTradeStatus(status, Confirmations)) return;
+            Toast.Show(ToastIcon.Success,
+                AppResources.Success_ExecuteAllAuthEnd___.Format(statusText, Confirmations.Count, 0));
             // Toast.Show(ToastIcon.None, 
             //     $"{statusText}全部令牌执行结束,成功数量{success},失败数量{failed},剩余{executableNum - success - failed}令牌未操作");
             SetToastServiceStatus();
         }
     }
-
+    
     async Task<bool> ChangeTradeStatus(bool status, SteamTradeConfirmationModel trade)
     {
         if (!await ChangeTradeStatus(status, new[] { trade })) return false;
@@ -376,10 +378,15 @@ public sealed partial class SteamTradePageViewModel
     
     async Task<bool> ChangeTradeStatus(bool status, IEnumerable<SteamTradeConfirmationModel> trades)
     {
-        var ids = trades.ToDictionary(item => item.Id, item => item.Nonce);
+        var steamTradeConfirmationModels = trades.ToList();
+        var ids = steamTradeConfirmationModels.ToDictionary(item => item.Id, item => item.Nonce);
 
         var task = Task.Run(() =>
-            _steamClient!.ConfirmTrade(ids, status));
+        {
+            var result = _steamClient!.ConfirmTrade(ids, status);
+            Confirmations.Remove(steamTradeConfirmationModels);
+            return result;
+        });
         var result = await task;
         if (!result) Toast.Show(ToastIcon.Error, Strings.LocalAuth_AuthTrade_ConfirmError);
         if (task.Exception == null) return result;

@@ -54,7 +54,7 @@
                 </StackPanel.IsVisible>
                 <ui:CommandBar DefaultLabelPosition="Right" HorizontalAlignment="Right">
                     <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="{ReflectionBinding Path=Res.AllPassed, Mode=OneWay,Source={x:Static s:ResourceService.Current}}">
+                        <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="{ReflectionBinding Path=Res.AllPassed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <ui:CommandBarButton.IconSource>
                                 <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource CheckMark}" />
                             </ui:CommandBarButton.IconSource>
@@ -64,19 +64,23 @@
                         <ui:CommandBarButton
                             Command="{Binding CancelAllTrade}"
                             IconSource="Cancel"
-                            Label="{ReflectionBinding Path=Res.CancelAll, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                            Label="{ReflectionBinding Path=Res.CancelAll,
+                                                      Mode=OneWay,
+                                                      Source={x:Static s:ResourceService.Current}}" />
                     </ui:CommandBar.PrimaryCommands>
                     <ui:CommandBarSeparator />
                     <ui:CommandBar.PrimaryCommands>
                         <ui:CommandBarButton
                             Command="{Binding Refresh}"
                             IconSource="Refresh"
-                            Label="{ReflectionBinding Path=Res.Refresh, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                            Label="{ReflectionBinding Path=Res.Refresh,
+                                                      Mode=OneWay,
+                                                      Source={x:Static s:ResourceService.Current}}" />
                     </ui:CommandBar.PrimaryCommands>
                 </ui:CommandBar>
                 <ScrollViewer
                     HorizontalScrollBarVisibility="Disabled"
-                    Padding="10"
+                    Padding="5"
                     VerticalScrollBarVisibility="Auto">
                     <ItemsRepeater ItemsSource="{Binding Confirmations}">
                         <ItemsRepeater.Layout>
@@ -163,7 +167,9 @@
                                             <TextBlock
                                                 HorizontalAlignment="Right"
                                                 MaxLines="3"
-                                                Text="{ReflectionBinding Path=Res.SteamTrade_YourOffer, Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+                                                Text="{ReflectionBinding Path=Res.SteamTrade_YourOffer,
+                                                                         Mode=OneWay,
+                                                                         Source={x:Static s:ResourceService.Current}}"
                                                 TextWrapping="Wrap"
                                                 VerticalAlignment="Top" />
                                             <ui:FontIcon

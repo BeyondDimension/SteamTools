@@ -74,33 +74,20 @@ public class AuthenticatorExportViewModel : ViewModelBase
         }
     }
 
+    string? _currentPassword;
+
+    public AuthenticatorExportViewModel()
+    {
+        
+    }
+    
+    public AuthenticatorExportViewModel(string? password = null)
+    {
+        _currentPassword = password;
+    }
+
     public async Task Export()
     {
-        if (Essentials.IsSupportedSaveFileDialog)
-        {
-            FilePickerFileType? fileTypes;
-            if (IApplication.IsDesktop())
-            {
-                fileTypes = new ValueTuple<string, string[]>[]
-                {
-                    ("MsgPack Files", new[] { FileEx.MPO, }),
-                    ("Data Files", new[] { FileEx.DAT, }),
-                    //("All Files", new[] { "*", }),
-                };
-            }
-            else
-            {
-                fileTypes = null;
-            }
-            ExportFile = await FilePicker2.SaveAsync(new PickOptions
-            {
-                FileTypes = fileTypes,
-                InitialFileName = DefaultExportAuthFileName,
-                PickerTitle = "Watt Toolkit",
-            });
-            if (ExportFile == null) return;
-        }
-
         if (HasPasswordProtection)
         {
             if (string.IsNullOrWhiteSpace(VerifyPassword) && VerifyPassword != Password)
@@ -110,54 +97,14 @@ public class AuthenticatorExportViewModel : ViewModelBase
             }
         }
 
-        var filestream = ExportFile?.OpenWrite();
-        if (filestream == null)
-        {
-            Toast.Show(ToastIcon.Error, Strings.LocalAuth_ProtectionAuth_PathError);
-            return;
-        }
-
-        if (filestream.CanSeek && filestream.Position != 0) filestream.Position = 0;
-
         var sourceData = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
-        var protection = AuthenticatorService.HasEncrypt(sourceData);
-        string? password = null;
-        if (protection.haspassword)
-        {
-            password = await GetAuthenticators(sourceData);
-            if (string.IsNullOrEmpty(password)) return;
-        }
 
-        var auths = await AuthenticatorService.GetAllAuthenticatorsAsync(sourceData, password);
+        var auths = await AuthenticatorService.GetAllAuthenticatorsAsync(sourceData, _currentPassword);
 
-        await AuthenticatorService.ExportAsync(filestream, HasLocalProtection, auths, VerifyPassword);
+        var exportFile = await AuthenticatorService.ExportAsync(DefaultExportAuthFileName, HasLocalProtection, auths, VerifyPassword);
 
-        await filestream.FlushAsync();
-        await filestream.DisposeAsync();
-
-        Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(ExportFile?.ToString()));
+        Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile?.ToString()));
 
         ExportFile = null;
-    }
-
-    public async Task<string?> GetAuthenticators(AccountPlatformAuthenticator[] sourceData)
-    {
-        var textViewmodel = new TextBoxWindowViewModel()
-        {
-            InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-        };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_OldPasswordAuth, isDialog: false,
-                isCancelButton: true) &&
-            textViewmodel.Value != null)
-        {
-            if (!(await AuthenticatorService.ValidatePassword(sourceData[0], textViewmodel.Value)))
-            {
-                Toast.Show(ToastIcon.Warning, AppResources.Warning_PasswordError);
-                await GetAuthenticators(sourceData);
-            }
-            return textViewmodel.Value;
-        }
-
-        return null;
     }
 }

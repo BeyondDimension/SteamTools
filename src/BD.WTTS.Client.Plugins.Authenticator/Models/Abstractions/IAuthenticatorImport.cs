@@ -6,7 +6,7 @@ public interface IAuthenticatorImport
 
     public string Description { get; }
 
-    public string IconText { get; }
+    public ResIcon IconName { get; }
 
     public ICommand AuthenticatorImportCommand { get; set; }
     

@@ -29,6 +29,7 @@
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
+                Command="{Binding Initialize}"
                 DockPanel.Dock="Right"
                 Padding="8,4"
                 Theme="{StaticResource TransparentButton}">
@@ -50,22 +51,43 @@
             </Button>
         </StackPanel>
     </spp:PageBase.ActionContent>
+    <spp:PageBase.Resources>
+        <spp:StringEqualsConverter x:Key="StringEqualsConverter" />
+    </spp:PageBase.Resources>
+    <spp:PageBase.Styles>
+        <Style Selector="ui|FontIcon.Contact">
+            <Setter Property="Glyph" Value="{StaticResource Contact}" />
+        </Style>
+        <Style Selector="ui|FontIcon.OpenFile">
+            <Setter Property="Glyph" Value="{StaticResource OpenFile}" />
+        </Style>
+        <Style Selector="ui|FontIcon.Attach">
+            <Setter Property="Glyph" Value="{StaticResource Attach}" />
+        </Style>
+        <Style Selector="ui|FontIcon.MobileLocked">
+            <Setter Property="Glyph" Value="{StaticResource MobileLocked}" />
+        </Style>
+    </spp:PageBase.Styles>
     <spp:ContentLoader IsLoading="{Binding !!!AuthenticatorImportBases.Count, Mode=OneWay}">
-        <StackPanel Spacing="{StaticResource SettingsSpacing}">
-            <ItemsRepeater ItemsSource="{Binding AuthenticatorImportBases}">
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate DataType="{x:Type spp:AuthenticatorImportBase}">
-                        <spp:OptionsDisplayItem Description="{Binding Description, Mode=OneWay}" Header="{Binding Name, Mode=OneWay}">
-                            <spp:OptionsDisplayItem.ActionButton>
-                                <Button Command="{Binding AuthenticatorImportCommand}" Content="{ReflectionBinding Source={x:Static s:ResourceService.Current}, Path=Res.Import}" />
-                            </spp:OptionsDisplayItem.ActionButton>
-                            <spp:OptionsDisplayItem.Icon>
-                                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{Binding IconText, Mode=OneWay}" />
-                            </spp:OptionsDisplayItem.Icon>
-                        </spp:OptionsDisplayItem>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
-        </StackPanel>
+        <ItemsRepeater ItemsSource="{Binding AuthenticatorImportBases}">
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate DataType="{x:Type spp:AuthenticatorImportBase}">
+                    <spp:OptionsDisplayItem Description="{Binding Description, Mode=OneWay}" Header="{Binding Name, Mode=OneWay}">
+                        <spp:OptionsDisplayItem.ActionButton>
+                            <Button Command="{Binding AuthenticatorImportCommand}" Content="{ReflectionBinding Source={x:Static s:ResourceService.Current}, Path=Res.Import}" />
+                        </spp:OptionsDisplayItem.ActionButton>
+                        <spp:OptionsDisplayItem.Icon>
+                            <!-- <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{Binding IconName, Mode=OneWay}" /> -->
+                            <ui:FontIcon
+                                Classes.Attach="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Attach}"
+                                Classes.Contact="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Contact}"
+                                Classes.MobileLocked="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=MobileLocked}"
+                                Classes.OpenFile="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=OpenFile}"
+                                FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                        </spp:OptionsDisplayItem.Icon>
+                    </spp:OptionsDisplayItem>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
     </spp:ContentLoader>
 </spp:PageBase>

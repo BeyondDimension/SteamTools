@@ -8,7 +8,7 @@ public class AuthenticatorSteamLoginImport : AuthenticatorImportBase
 
     public override string Description => Strings.Steam_UserLoginTip;
 
-    public override string IconText => "&#xE77B;";
+    public override ResIcon IconName => ResIcon.Contact;
     
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 

@@ -19,6 +19,10 @@ public enum ResIcon
     Apple,
     QQ,
     Phone,
+    Attach,
+    Contact,
+    OpenFile,
+    MobileLocked,
 
     /// <summary>
     /// 根据当前平台使用平台对应的📱图标，目前支持材料设计中 Android Phone 与 iPhone

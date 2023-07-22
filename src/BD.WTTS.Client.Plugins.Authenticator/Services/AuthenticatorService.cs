@@ -152,10 +152,188 @@ public sealed partial class AuthenticatorService
         }
     }
 
-    public static async Task ExportAsync(Stream stream, bool isLocal,
+    /// <summary>
+    /// 默认方式导出令牌
+    /// </summary>
+    /// <param name="fileName">保存文件名</param>
+    /// <param name="isLocal">导出是否携带本机加密</param>
+    /// <param name="items">需要导出的令牌集合</param>
+    /// <param name="password">导出是否携带二级密码</param>
+    /// <returns>返回文件保存结果,为Null则失败</returns>
+    public static async Task<SaveFileResult?> ExportAsync(string fileName, bool isLocal,
         IEnumerable<IAuthenticatorDTO> items, string? password = null)
     {
-        await repository.ExportAsync(stream, isLocal, password, items);
+        SaveFileResult? exportFile = null;
+        if (Essentials.IsSupportedSaveFileDialog)
+        {
+            FilePickerFileType? fileTypes;
+            if (IApplication.IsDesktop())
+            {
+                fileTypes = new ValueTuple<string, string[]>[]
+                {
+                    ("MsgPack Files", new[] { $"*{FileEx.MPO}", }), ("Data Files", new[] { $"*{FileEx.DAT}", }),
+                    //("All Files", new[] { "*", }),
+                };
+            }
+            else
+            {
+                fileTypes = null;
+            } 
+            exportFile = await FilePicker2.SaveAsync(new PickOptions
+            {
+                FileTypes = fileTypes,
+                InitialFileName = fileName,
+                PickerTitle = "Watt Toolkit",
+            });
+            if (exportFile == null) return exportFile;
+            
+            var filestream = exportFile.OpenWrite();
+
+            if (filestream.CanSeek && filestream.Position != 0) filestream.Position = 0;
+            
+            await repository.ExportAsync(filestream, isLocal, password, items);
+        
+            await filestream.FlushAsync();
+            await filestream.DisposeAsync();
+        }
+
+        return exportFile;
+    }
+
+    /// <summary>
+    /// 上移或下移令牌排序值
+    /// </summary>
+    /// <param name="convert">集合元素ConvertToAuthenticator的委托</param>
+    /// <param name="items">令牌所在的集合</param>
+    /// <param name="index">被操作令牌所在集合的Index</param>
+    /// <param name="upOrDown">true为上移false为下移</param>
+    /// <param name="answer">操作云令牌所需的安全问题答案</param>
+    /// /// <typeparam name="T"></typeparam>
+    public static async Task<int> MoveAuthenticatorIndex<T>(Func<T, IAuthenticatorDTO> convert, IReadOnlyList<T> items,
+        int index, bool upOrDown, string? answer = null)
+    {
+        var newIndex = upOrDown ? index - 1 : index + 1;
+        return await ChangeAuthenticatorIndex(convert, items, index, newIndex, answer);
+    }
+
+    /// <summary>
+    /// 调整令牌排序值
+    /// </summary>
+    /// <param name="convert">集合元素ConvertToAuthenticator的委托</param>
+    /// <param name="items">令牌所在的集合</param>
+    /// <param name="oldIndex">被操作令牌所在集合的Index</param>
+    /// <param name="newIndex">被操作令牌需要调整到所在集合的Index</param>
+    /// <param name="answer">操作云令牌所需的安全问题答案</param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static async Task<int> ChangeAuthenticatorIndex<T>(Func<T, IAuthenticatorDTO> convert, IReadOnlyList<T> items,
+        int oldIndex, int newIndex, string? answer = null)
+    {
+        var item = items[oldIndex];
+        var item2Index = newIndex;
+        if (item2Index <= -1 || item2Index >= items.Count || oldIndex == newIndex) return 0;
+        var item2 = items[item2Index];
+        var itemC = convert(item);
+        var itemC2 = convert(item2);
+        var orderIndex = itemC.Index;
+        var orderIndex2 = itemC2.Index;
+        itemC.Index = orderIndex2;
+        itemC2.Index = orderIndex;
+        var result = (await Task.WhenAll(UpdateAuthenticatorIndex(itemC, answer), UpdateAuthenticatorIndex(itemC2, answer)))
+            .Sum();
+        if (result < 2)
+        {
+            itemC.Index = orderIndex;
+            itemC2.Index = orderIndex2;
+            result = (await Task.WhenAll(UpdateAuthenticatorIndex(itemC, answer),
+                    UpdateAuthenticatorIndex(itemC2, answer)))
+                .Sum();
+        }
+        return result;
+    }
+
+    static async Task<int> UpdateAuthenticatorIndex(IAuthenticatorDTO authenticatorDto,
+        string? answer = null)
+    {
+        if (authenticatorDto.ServerId == null) return await repository.UpdateIndexByItemAsync(authenticatorDto);
+        if (string.IsNullOrEmpty(answer)) return 0;
+        var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+        {
+            Difference = new[]
+            {
+                new UserAuthenticatorPushItem()
+                {
+                    Id = authenticatorDto.ServerId,
+                    Order = authenticatorDto.Index,
+                    Name = authenticatorDto.Name,
+                },
+            },
+            Answer = answer,
+        });
+        response.Content.ThrowIsNull();
+        if (response.IsSuccess && response.Content.Result) return await repository.UpdateIndexByItemAsync(authenticatorDto);
+        Toast.Show(ToastIcon.Warning, AppResources.Error_UpdateCloudData);
+        return 0;
+    }
+    
+    /// <summary>
+    /// 验证安全问题
+    /// </summary>
+    /// <returns>成功返回正确答案，失败返回null</returns>
+    /// <exception cref="Exception">后端异常信息</exception>
+    public static async Task<string?> VerifyIndependentPassword()
+    {
+        string? question = null;
+        string? answer = null;
+        var passwordQuestionResponse =
+            await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
+        if (passwordQuestionResponse.Content == null)
+        {
+            var textViewModel = new TextBoxWindowViewModel();
+            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Title_SetSecurityIssues,
+                    subHeader: AppResources.SubHeader_FirstSyncSetAuth, isCancelButton: true)) return null;
+            question = textViewModel.Value;
+            textViewModel = new TextBoxWindowViewModel();
+            if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Title_SetSecurityIssues, subHeader: AppResources.SubHeader_PleaseEnterTheAnswerAgain,
+                    isCancelButton: true)) return null;
+            answer = textViewModel.Value;
+            if (string.IsNullOrEmpty(question) || string.IsNullOrEmpty(answer)) return null;
+            var setPassword =
+                await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new()
+                {
+                    PwdQuestion = question, Answer = answer,
+                });
+            if (!setPassword.IsSuccess)
+            {
+                Toast.Show(ToastIcon.Error, AppResources.Error_SetSecurityIssuesFailed);
+                return null;
+            }
+        }
+
+        question ??= passwordQuestionResponse.Content;
+        var answerTextViewModel = new TextBoxWindowViewModel();
+        if (string.IsNullOrEmpty(answer) && await IWindowManager.Instance.ShowTaskDialogAsync(answerTextViewModel,
+             AppResources.Title_PleaseEnterTheAnswer, subHeader: AppResources.SubHeader_SecurityIssues_.Format(question), isCancelButton: true))
+        {
+            answer = answerTextViewModel.Value;
+            
+            if (string.IsNullOrEmpty(answer))
+            {
+                Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterAnswer);
+                return await VerifyIndependentPassword();
+            }
+
+            var verifyResponse =
+                await IMicroServiceClient.Instance.AuthenticatorClient
+                    .VerifyIndependentPassword(new() { Answer = answer, });
+            if (!verifyResponse.Content)
+            {
+                Toast.Show(ToastIcon.Error, AppResources.Error_AnswerIncorrect);
+                return await VerifyIndependentPassword();
+            }
+        }
+
+        return answer;
     }
 
     public static IAuthenticatorDTO ConvertToAuthenticatorDto(

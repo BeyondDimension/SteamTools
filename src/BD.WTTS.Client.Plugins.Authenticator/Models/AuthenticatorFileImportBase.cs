@@ -12,7 +12,7 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
     
     public abstract override ICommand AuthenticatorImportCommand { get; set; }
 
-    protected async Task<string> SelectFolderPath()
+    protected async Task<string?> SelectFolderPath()
     {
         var filePath = (await SelectFile())?.FullPath.TrimStart("file:///");
         if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) Toast.Show(ToastIcon.Warning, Strings.FilePathNotExist);

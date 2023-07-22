@@ -6,7 +6,7 @@ public abstract class AuthenticatorGeneralImportBase : AuthenticatorImportBase
     
     public abstract override string Description { get; }
     
-    public abstract override string IconText { get; }
+    public abstract override ResIcon IconName { get; }
     
     public abstract override ICommand AuthenticatorImportCommand { get; set; }
 

@@ -20,16 +20,11 @@ public partial class AuthenticatorItemModel
             IsShowCode = value;
             if (IsShowCode)
             {
-                if (AuthData.Value == null) return;
-                Text = RefreshCode();
-                if (string.IsNullOrEmpty(Text)) return;
-                Value = _progress;
-                _progressTimer.Start();
+                EnableShowCode();
             }
             else
             {
-                _progressTimer.Stop();
-                Text = "-----";
+                DisableShowCode();
             }
             OnAuthenticatorItemIsSelectedChanged?.Invoke(this);
         }

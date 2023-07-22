@@ -5,11 +5,11 @@ namespace BD.WTTS.Models;
 
 public class AuthenticatorHOTPGeneralImport : AuthenticatorGeneralImportBase
 {
-    public override string Name => "HOTP 通用密钥导入";
-    
-    public override string Description => "通过使用添加 HOTP 移动验证器时生成的通用密钥导入令牌";
+    public override string Name => Strings.LocalAuth_2FAImport.Format(Strings.HOTP);
 
-    public override string IconText => "&#xE723;";
+    public override string Description => Strings.LocalAuth_HOTPImport;
+
+    public override ResIcon IconName => ResIcon.Attach;
     
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
