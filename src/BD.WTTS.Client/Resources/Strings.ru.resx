@@ -123,6 +123,74 @@
   <data name="On" xml:space="preserve">
     <value>开</value>
   </data>
+  <data name="Achievement_Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Achievement_EditSucces" xml:space="preserve">
+    <value>修改了 {0} 个成就和 {1} 条统计信息</value>
+  </data>
+  <data name="Achievement_Icon" xml:space="preserve">
+    <value>Иконка</value>
+  </data>
+  <data name="Achievement_IsProtection" xml:space="preserve">
+    <value>受保护</value>
+  </data>
+  <data name="Achievement_LoadData" xml:space="preserve">
+    <value>加载成就和统计数据...</value>
+  </data>
+  <data name="Achievement_LoadSucces" xml:space="preserve">
+    <value>获取到 {0} 个成就和 {1} 条统计信息</value>
+  </data>
+  <data name="Achievement_Manage" xml:space="preserve">
+    <value>管理成就</value>
+  </data>
+  <data name="Achievement_Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="Achievement_RefreshTip" xml:space="preserve">
+    <value>刷新成就和统计</value>
+  </data>
+  <data name="Achievement_ResetTip" xml:space="preserve">
+    <value>复位成就和统计</value>
+  </data>
+  <data name="Achievement_ResetWaring_1" xml:space="preserve">
+    <value>确定要复位统计信息吗?</value>
+  </data>
+  <data name="Achievement_ResetWaring_2" xml:space="preserve">
+    <value>也想要复位成就信息吗?</value>
+  </data>
+  <data name="Achievement_ResetWaring_3" xml:space="preserve">
+    <value>该操作不是还原当前修改，而是使所有成就和统计数据归零。
+真的确定吗?</value>
+  </data>
+  <data name="Achievement_RiskWarning" xml:space="preserve">
+    <value>【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。</value>
+  </data>
+  <data name="Achievement_StatsEdit" xml:space="preserve">
+    <value>统计修改</value>
+  </data>
+  <data name="Achievement_StoreTip" xml:space="preserve">
+    <value>保存并应用成就和统计</value>
+  </data>
+  <data name="Achievement_TimeFormat" xml:space="preserve">
+    <value>解锁于 {0:yyyy-MM-dd HH:mm:ss}</value>
+  </data>
+  <data name="Achievement_Unlock" xml:space="preserve">
+    <value>成就解锁</value>
+  </data>
+  <data name="Achievement_Warning_1" xml:space="preserve">
+    <value>与 Steam 建立连接失败，可能是该游戏没有成就，或者你没有该游戏。</value>
+  </data>
+  <data name="Achievement_Warning_2" xml:space="preserve">
+    <value>错误代码：{0}
+检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。</value>
+  </data>
+  <data name="Achievement_Warning_3" xml:space="preserve">
+    <value>修改成就{0}时发生错误</value>
+  </data>
+  <data name="Achievement_Warning_4" xml:space="preserve">
+    <value>修改统计{0}时发生错误</value>
+  </data>
   <data name="About" xml:space="preserve">
     <value>Справка</value>
   </data>
@@ -279,20 +347,146 @@
   <data name="GameList" xml:space="preserve">
     <value>Список игр</value>
   </data>
+  <data name="GameList_AddAFKAppsMaxCountTips" xml:space="preserve">
+    <value>挂机的游戏已达到限制 {0} 个，请移除部分游戏再添加。</value>
+  </data>
+  <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
+    <value>添加到挂时长列表成功</value>
+  </data>
+  <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
+    <value>警告：Steam允许的同时运行游戏数量为 {0} 个，如果您同时挂时长 {1} 款游戏，将无法正常游玩游戏！</value>
+  </data>
+  <data name="GameList_AddAfkGameList" xml:space="preserve">
+    <value>添加到挂时长列表</value>
+  </data>
+  <data name="GameList_AddHideAppEmpty" xml:space="preserve">
+    <value>隐藏游戏列表为空，请从游戏列表右键添加需要隐藏的游戏。</value>
+  </data>
+  <data name="GameList_AddIdeaAppEmpty" xml:space="preserve">
+    <value>未添加挂时长的游戏，请从游戏列表右键添加。</value>
+  </data>
+  <data name="GameList_AutoAFK" xml:space="preserve">
+    <value>自动运行挂时长游戏</value>
+  </data>
+  <data name="GameList_DeleteAll" xml:space="preserve">
+    <value>是否移除全部挂时长的游戏？</value>
+  </data>
+  <data name="GameList_DeleteItem" xml:space="preserve">
+    <value>是否将此游戏移除挂时长列表?</value>
+  </data>
+  <data name="GameList_DeleteSuccess" xml:space="preserve">
+    <value>移除成功</value>
+  </data>
+  <data name="GameList_EditAppInfo" xml:space="preserve">
+    <value>编辑游戏信息</value>
+  </data>
+  <data name="GameList_HideAppsSuccess" xml:space="preserve">
+    <value>隐藏游戏成功</value>
+  </data>
+  <data name="GameList_HideApp_AllCheck" xml:space="preserve">
+    <value>全部选中</value>
+  </data>
+  <data name="GameList_HideGameManger" xml:space="preserve">
+    <value>管理隐藏游戏列表</value>
+  </data>
+  <data name="GameList_HideTheGame" xml:space="preserve">
+    <value>隐藏此游戏</value>
+  </data>
+  <data name="GameList_IdleGamesManger" xml:space="preserve">
+    <value>游戏时长挂机列表</value>
+  </data>
+  <data name="GameList_Install" xml:space="preserve">
+    <value>安装</value>
+  </data>
   <data name="GameList_IsEmpty" xml:space="preserve">
     <value>Не удалось получить данные игры</value>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
-    <value>正在加载 ...</value>
+    <value>正在加载...</value>
+  </data>
+  <data name="GameList_ListCount" xml:space="preserve">
+    <value>已添加 ({0}/{1})</value>
+  </data>
+  <data name="GameList_LoaingTips" xml:space="preserve">
+    <value>操作进行中请稍后再试</value>
   </data>
   <data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>Показывать только установленные игры</value>
   </data>
   <data name="GameList_OnlyCloudArchive" xml:space="preserve">
-    <value>Отображаются только игры, поддерживающие Steam Cloud Save</value>
+    <value>仅显示支持Steam云存档的游戏</value>
+  </data>
+  <data name="GameList_OpenFolder" xml:space="preserve">
+    <value>浏览安装文件夹</value>
+  </data>
+  <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
+    <value>Steam Card Exchange</value>
+  </data>
+  <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
+    <value>SteamDB Info</value>
+  </data>
+  <data name="GameList_OpenSteamGridUrl" xml:space="preserve">
+    <value>SteamGrid</value>
+  </data>
+  <data name="GameList_OpenStoreUrl" xml:space="preserve">
+    <value>打开商店页</value>
+  </data>
+  <data name="GameList_OperationSuccess" xml:space="preserve">
+    <value>操作成功</value>
+  </data>
+  <data name="GameList_Play" xml:space="preserve">
+    <value>开始游戏</value>
+  </data>
+  <data name="GameList_NavToSteamView" xml:space="preserve">
+    <value>在 Steam 客户端中查看</value>
+  </data>
+  <data name="GameList_RefreshGamesList" xml:space="preserve">
+    <value>刷新游戏列表</value>
   </data>
   <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
     <value>Обновление списка игр выполнено успешно</value>
+  </data>
+  <data name="GameList_RemoveBtn" xml:space="preserve">
+    <value>移除全部</value>
+  </data>
+  <data name="GameList_RemoveItemBtn" xml:space="preserve">
+    <value>取消挂时长</value>
+  </data>
+  <data name="GameList_ResizeAppLogo" xml:space="preserve">
+    <value>调整封面大小</value>
+  </data>
+  <data name="GameList_RuningBtn" xml:space="preserve">
+    <value>启动全部</value>
+  </data>
+  <data name="GameList_RuningCount" xml:space="preserve">
+    <value>正在运行 {0}/{1}</value>
+  </data>
+  <data name="GameList_RuningItemBtn" xml:space="preserve">
+    <value>启动游戏</value>
+  </data>
+  <data name="GameList_RuningWait" xml:space="preserve">
+    <value>正在启动中...</value>
+  </data>
+  <data name="GameList_RunState" xml:space="preserve">
+    <value>运行中</value>
+  </data>
+  <data name="GameList_SetCustomImage" xml:space="preserve">
+    <value>设置自定义封面</value>
+  </data>
+  <data name="GameList_SteamNotRuning" xml:space="preserve">
+    <value>Steam 未启动</value>
+  </data>
+  <data name="GameList_StopBtn" xml:space="preserve">
+    <value>全部暂停</value>
+  </data>
+  <data name="GameList_StopItemBtn" xml:space="preserve">
+    <value>暂停</value>
+  </data>
+  <data name="GameList_StopState" xml:space="preserve">
+    <value>暂停中</value>
+  </data>
+  <data name="GameList_Unsupport" xml:space="preserve">
+    <value>不支持的操作</value>
   </data>
   <data name="GameRelated" xml:space="preserve">
     <value>Игровые инструменты</value>
@@ -320,6 +514,9 @@
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Загрузка…</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>库</value>
   </data>
   <data name="LocalAuth" xml:space="preserve">
     <value>Локальный токен</value>
@@ -456,18 +653,6 @@
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
     <value>ID устройства (uuid)</value>
-  </data>
-  <data name="Lock" xml:space="preserve">
-    <value>Блокировка</value>
-  </data>
-  <data name="Sleep" xml:space="preserve">
-    <value>睡眠</value>
-  </data>
-  <data name="Hibernate" xml:space="preserve">
-    <value>Гибернация</value>
-  </data>
-  <data name="Shutdown" xml:space="preserve">
-    <value>Завершение работы</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Войти</value>
@@ -713,14 +898,54 @@
   <data name="UpdateContent" xml:space="preserve">
     <value>Обновить содержимое</value>
   </data>
+  <data name="UserChange_InGame" xml:space="preserve">
+    <value>游戏中</value>
+  </data>
+  <data name="UserChange_BtnText" xml:space="preserve">
+    <value>一键登录 Steam</value>
+  </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
     <value>Нажатие этой кнопки приведёт к перезапуску Steam и входу в систему под этой учётной записью</value>
   </data>
+  <data name="UserChange_DeleteUser" xml:space="preserve">
+    <value>删除此账号数据</value>
+  </data>
+  <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
+    <value>是否也要同时删除此账户在本地的 Steam 缓存数据(包括此账号游戏的配置文件及创意工坊文件)。</value>
+  </data>
+  <data name="UserChange_DeleteUserTip" xml:space="preserve">
+    <value>确定要删除这条本地记录帐户吗？</value>
+  </data>
+  <data name="UserChange_EditRemark" xml:space="preserve">
+    <value>修改账号备注</value>
+  </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>登录新账号</value>
+    <value>登录新 Steam 账号</value>
+  </data>
+  <data name="UserChange_ShowHideUserName" xml:space="preserve">
+    <value>显示/隐藏用户名</value>
+  </data>
+  <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
+    <value>打开 Userdata 文件夹</value>
+  </data>
+  <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
+    <value>确定要登录 Steam 新账户吗？
+此操作会结束正在运行的 Steam 跳转到新账号登录窗口。</value>
+  </data>
+  <data name="UserChange_NoUserTip" xml:space="preserve">
+    <value>没有在您的电脑上读取到任何 Steam 帐户数据。</value>
+  </data>
+  <data name="UserChange_OfflineBtn" xml:space="preserve">
+    <value>离线模式启动</value>
+  </data>
+  <data name="UserChange_OpenUserUrl" xml:space="preserve">
+    <value>打开个人资料页面</value>
   </data>
   <data name="UserChange_RecentLogin" xml:space="preserve">
     <value>Входил недавно</value>
+  </data>
+  <data name="UserChange_RememberMe" xml:space="preserve">
+    <value>已记住登录状态</value>
   </data>
   <data name="UserFastChange" xml:space="preserve">
     <value>Переключить учётную запись</value>
@@ -1302,6 +1527,56 @@
   </data>
   <data name="Plugin_Store" xml:space="preserve">
     <value>插件商店</value>
+  </data>
+  <data name="GameList_CloudArchiveManager" xml:space="preserve">
+    <value>Steam云存档管理</value>
+  </data>
+  <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
+    <value>确定要删除当前选中的存档数据吗？</value>
+  </data>
+  <data name="GameList_CloudArchiveDeleteAllTip" xml:space="preserve">
+    <value>确定要删除全部存档数据吗，请一定要明白你在做什么，该操作会清除当前游戏的全部云存档数据！！！</value>
+  </data>
+  <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
+    <value>手动上传存档文件</value>
+  </data>
+  <data name="GameList_SteamShutdown" xml:space="preserve">
+    <value>Steam 下载完成定时关机</value>
+  </data>
+  <data name="GameList_SteamShutdown_EnableWatchDownloading" xml:space="preserve">
+    <value>启用下载监控</value>
+  </data>
+  <data name="Downloaded" xml:space="preserve">
+    <value>Скачано</value>
+  </data>
+  <data name="Installed" xml:space="preserve">
+    <value>Установлено</value>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
+    <value>启用下载监控并在选中游戏下载安装完成后执行「{0}」操作</value>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
+    <value>Steam游戏已下载完成
+系统将在 {0} 秒后「{1}」。</value>
+    <comment>Comment={0}倒计时时间 {1}执行操作;</comment>
+  </data>
+  <data name="FileNumber" xml:space="preserve">
+    <value>{0}个文件</value>
+  </data>
+  <data name="UploadSuccess" xml:space="preserve">
+    <value>Загрузка выполнена успешно</value>
+  </data>
+  <data name="UploadFailed" xml:space="preserve">
+    <value>Ошибка загрузки</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>закачать</value>
+  </data>
+  <data name="Download_Failed_FileNameTip" xml:space="preserve">
+    <value>下载 {0} 失败</value>
+  </data>
+  <data name="Download_Success_FileNameTip" xml:space="preserve">
+    <value>下载 {0} 成功</value>
   </data>
   <data name="GameList_FindAppsText" xml:space="preserve">
     <value>已找到 {0} 个应用</value>
@@ -2056,6 +2331,34 @@
   </data>
   <data name="SteamAppType_Video" xml:space="preserve">
     <value>视频</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OSExitMode_Lock" xml:space="preserve">
+    <value>锁定</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OSExitMode_Sleep" xml:space="preserve">
+    <value>睡眠</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OSExitMode_Hibernate" xml:space="preserve">
+    <value>休眠</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OSExitMode_Shutdown" xml:space="preserve">
+    <value>关机</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AppTheme_FollowingSystem" xml:space="preserve">
+    <value>Системная</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AppTheme_Light" xml:space="preserve">
+    <value>Светлая</value>
+    <comment>Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AppTheme_Dark" xml:space="preserve">
+    <value>Тёмная</value>
     <comment>Author=MicrosoftTranslator</comment>
   </data>
 </root>
