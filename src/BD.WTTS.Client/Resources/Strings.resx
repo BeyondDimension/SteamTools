@@ -1053,14 +1053,6 @@
 	<data name="Downloaded" xml:space="preserve">
     <value>已下载</value>
   </data>
-	<data name="Installed" xml:space="preserve">
-    <value>已安装</value>
-  </data>
-	<data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
-    <value>Steam 游戏已下载完成
-系统将在 {0} 秒后{1}</value>
-    <comment>Comment={0}倒计时时间 {1}执行操作;</comment>
-  </data>
 	<data name="Settings_General_UseGPURendering" xml:space="preserve">
     <value>使用 GPU 渲染界面（硬件加速）</value>
   </data>
@@ -1453,9 +1445,6 @@
 	<data name="UploadFailed" xml:space="preserve">
     <value>上传失败</value>
   </data>
-	<data name="Upload" xml:space="preserve">
-    <value>上传</value>
-  </data>
 	<data name="Advertisement" xml:space="preserve">
     <value>广告</value>
   </data>
@@ -1546,9 +1535,6 @@
 	<data name="GameList_SteamShutdown_EnableWatchDownloading" xml:space="preserve">
     <value>启用下载监控</value>
   </data>
-	<data name="Downloaded" xml:space="preserve">
-    <value>已下载</value>
-  </data>
 	<data name="Installed" xml:space="preserve">
     <value>已安装</value>
   </data>
@@ -1562,12 +1548,6 @@
   </data>
 	<data name="FileNumber" xml:space="preserve">
     <value>{0}个文件</value>
-  </data>
-	<data name="UploadSuccess" xml:space="preserve">
-    <value>上传成功</value>
-  </data>
-	<data name="UploadFailed" xml:space="preserve">
-    <value>上传失败</value>
   </data>
 	<data name="Upload" xml:space="preserve">
     <value>上传</value>
@@ -2356,113 +2336,112 @@
   <data name="Auth_Sync_MoveError" xml:space="preserve">
 	  <value>数据未同步，调整令牌排序失败</value>
   </data>
-</root>
-	<data name="SteamAppType_Application" xml:space="preserve">
+    <data name="SteamAppType_Application" xml:space="preserve">
     <value>软件</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Beta" xml:space="preserve">
+    <data name="SteamAppType_Beta" xml:space="preserve">
     <value>测试</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Config" xml:space="preserve">
+    <data name="SteamAppType_Config" xml:space="preserve">
     <value>配置</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Demo" xml:space="preserve">
+    <data name="SteamAppType_Demo" xml:space="preserve">
     <value>Demo</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_DepotOnly" xml:space="preserve">
+    <data name="SteamAppType_DepotOnly" xml:space="preserve">
     <value>仓库</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_DLC" xml:space="preserve">
+    <data name="SteamAppType_DLC" xml:space="preserve">
     <value>DLC</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Driver" xml:space="preserve">
+    <data name="SteamAppType_Driver" xml:space="preserve">
     <value>驱动</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Franchise" xml:space="preserve">
+    <data name="SteamAppType_Franchise" xml:space="preserve">
     <value>授权</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Game" xml:space="preserve">
+    <data name="SteamAppType_Game" xml:space="preserve">
     <value>游戏</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Guide" xml:space="preserve">
+    <data name="SteamAppType_Guide" xml:space="preserve">
     <value>指南</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Hardware" xml:space="preserve">
+    <data name="SteamAppType_Hardware" xml:space="preserve">
     <value>硬件</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Media" xml:space="preserve">
+    <data name="SteamAppType_Media" xml:space="preserve">
     <value>预告视频</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Mod" xml:space="preserve">
+    <data name="SteamAppType_Mod" xml:space="preserve">
     <value>模组</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Music" xml:space="preserve">
+    <data name="SteamAppType_Music" xml:space="preserve">
     <value>原声音轨</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Plugin" xml:space="preserve">
+    <data name="SteamAppType_Plugin" xml:space="preserve">
     <value>插件</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Series" xml:space="preserve">
+    <data name="SteamAppType_Series" xml:space="preserve">
     <value>影视集</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Shortcut" xml:space="preserve">
+    <data name="SteamAppType_Shortcut" xml:space="preserve">
     <value>快捷方式</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Tool" xml:space="preserve">
+    <data name="SteamAppType_Tool" xml:space="preserve">
     <value>工具</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Unknown" xml:space="preserve">
+    <data name="SteamAppType_Unknown" xml:space="preserve">
     <value>未知</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="SteamAppType_Video" xml:space="preserve">
+    <data name="SteamAppType_Video" xml:space="preserve">
     <value>视频</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="OSExitMode_Lock" xml:space="preserve">
+    <data name="OSExitMode_Lock" xml:space="preserve">
     <value>锁定</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="OSExitMode_Sleep" xml:space="preserve">
+    <data name="OSExitMode_Sleep" xml:space="preserve">
     <value>睡眠</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="OSExitMode_Hibernate" xml:space="preserve">
+    <data name="OSExitMode_Hibernate" xml:space="preserve">
     <value>休眠</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="OSExitMode_Shutdown" xml:space="preserve">
+    <data name="OSExitMode_Shutdown" xml:space="preserve">
     <value>关机</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="AppTheme_FollowingSystem" xml:space="preserve">
+    <data name="AppTheme_FollowingSystem" xml:space="preserve">
     <value>跟随系统</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="AppTheme_Light" xml:space="preserve">
+    <data name="AppTheme_Light" xml:space="preserve">
     <value>浅色</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
-	<data name="AppTheme_Dark" xml:space="preserve">
+    <data name="AppTheme_Dark" xml:space="preserve">
     <value>深色</value>
-    <comment>Author=MicrosoftTranslator</comment>
+        <comment>Author=MicrosoftTranslator</comment>
   </data>
 </root>
