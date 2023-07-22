@@ -14,7 +14,7 @@ public partial class MainFramePage : UserControl
     public MainFramePage()
     {
         InitializeComponent();
-        
+
         Tabs.SelectionChanged += Tabs_SelectionChanged;
     }
 

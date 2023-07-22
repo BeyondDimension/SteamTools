@@ -35,4 +35,14 @@ public partial class GameListPageViewModel : TabItemViewModel
 
     [Reactive]
     public IReadOnlyCollection<EnumModel<SteamAppType>>? EnableAppTypeFiltres { get; set; }
+
+    public ICommand? RefreshAppCommand { get; }
+
+    public ICommand? HideAppCommand { get; }
+
+    public ICommand? IdleAppCommand { get; }
+
+    public ICommand? SteamShutdownCommand { get; }
+
+    public ICommand? SaveEditedAppInfoCommand { get; }
 }

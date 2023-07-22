@@ -7,16 +7,6 @@ public partial class GameListPageViewModel : TabItemViewModel
 {
     readonly Dictionary<string, string[]> dictPinYinArray = new();
 
-    public ICommand? RefreshAppCommand { get; }
-
-    public ICommand? HideAppCommand { get; }
-
-    public ICommand? IdleAppCommand { get; }
-
-    public ICommand? SteamShutdownCommand { get; }
-
-    public ICommand? SaveEditedAppInfoCommand { get; }
-
     public GameListPageViewModel()
     {
         if (!IApplication.IsDesktop())
@@ -299,7 +289,7 @@ public partial class GameListPageViewModel : TabItemViewModel
         }
     }
 
-    public static void AddHideAppList(SteamApp app)
+    public void AddHideAppList(SteamApp app)
     {
         try
         {

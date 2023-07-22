@@ -71,27 +71,26 @@ partial class Program
             {
                 var builder = AppBuilder.Configure(() => UI.App.Instance)
 #if WINDOWS
-                    .UseWin32()
+                                        .UseWin32()
 #elif MACCATALYST || MACOS
-                    .UseAvaloniaNative()
+                                        .UseAvaloniaNative()
 #elif LINUX
-                    .UseX11()
-#else
+                                        .UseX11()
 #endif
-                    .UseSkia()
-                    .LogToTrace()
-                    .UseReactiveUI()
-                    .With(new FontManagerOptions
-                    {
-                        DefaultFamilyName = UI.App.DefaultFontFamily.Name,
-                        FontFallbacks = new[]
-                        {
-                            new FontFallback
-                            {
-                                FontFamily = UI.App.DefaultFontFamily.Name,
-                            },
-                        },
-                    });
+                                        .UseSkia()
+                                        .LogToTrace()
+                                        .UseReactiveUI()
+                                        .With(new FontManagerOptions
+                                        {
+                                            DefaultFamilyName = UI.App.DefaultFontFamily.Name,
+                                            FontFallbacks = new[]
+                                            {
+                                                new FontFallback
+                                                {
+                                                    FontFamily = UI.App.DefaultFontFamily.Name,
+                                                },
+                                            },
+                                        });
 
                 var useGpu = !IApplication.DisableGPU && GeneralSettings.GPU.Value;
 #if WINDOWS

@@ -399,8 +399,8 @@
         {
           "TypeName": "Dictionary<uint, string?>",
           "PropertyName": "HideGameList",
-          "DefaultValue": "null",
-          "DefaultValueIsConst": true,
+          "DefaultValue": "new()",
+          "DefaultValueIsConst": false,
           "Summary": "隐藏的游戏列表",
           "IsRegionOrEndregion": null,
           "IsValueType": null

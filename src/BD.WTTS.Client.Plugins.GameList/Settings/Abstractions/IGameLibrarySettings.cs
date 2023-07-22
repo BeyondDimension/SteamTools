@@ -58,7 +58,7 @@ public partial interface IGameLibrarySettings
     /// <summary>
     /// 隐藏的游戏列表的默认值
     /// </summary>
-    const Dictionary<uint, string?>? DefaultHideGameList = null;
+    static readonly Dictionary<uint, string?> DefaultHideGameList = new();
 
     /// <summary>
     /// 挂时长游戏列表

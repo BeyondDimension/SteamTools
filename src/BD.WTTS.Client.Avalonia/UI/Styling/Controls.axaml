@@ -19,17 +19,23 @@
             <ResourceDictionary.MergedDictionaries>
                 <MergeResourceInclude Source="/UI/Styling/Window.axaml" />
                 <!--<MergeResourceInclude Source="/UI/Styling/CoreWindow.axaml" />-->
+                <MergeResourceInclude Source="/UI/Styling/Controls/TextBlock.axaml" />
                 <MergeResourceInclude Source="/UI/Styling/Controls/SnackbarManager.axaml" />
                 <MergeResourceInclude Source="/UI/Styling/Controls/ContentLoader.axaml" />
                 <MergeResourceInclude Source="/UI/Styling/Controls/SettingsExpander.axaml" />
                 <MergeResourceInclude Source="/UI/Styling/Controls/TaskDialogEx.axaml" />
             </ResourceDictionary.MergedDictionaries>
+
         </ResourceDictionary>
     </Styles.Resources>
 
     <Style Selector=":is(TemplatedControl)">
         <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName}, Path=Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" />
     </Style>
+
+    <!--<Style Selector="TextBlock">
+        <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName}, Path=Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" />
+    </Style>-->
 
     <StyleInclude Source="/UI/Styling/Controls/PageBase.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/OptionsDisplayItem.axaml" />

@@ -49,6 +49,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                 IsResourceGet = false,
                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/bug.ico",
             },
+#endif
             new MenuTabItemViewModel()
             {
                 ResourceKeyOrName = "Plugin_Store",
@@ -56,7 +57,6 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                 IsResourceGet = true,
                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/store.ico",
             },
-#endif
             new MenuTabItemViewModel()
             {
                 ResourceKeyOrName = "Settings",
