@@ -84,7 +84,7 @@ partial class WindowsPlatformServiceImpl
     async void IPlatformService.SystemSleep(int waitSecond)
     {
         await Task.Delay(waitSecond * 1000);
-        Interop.SetSuspendState(false, true, false);
+        Vanara.PInvoke.PowrProf.SetSuspendState(false, true, false);
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ partial class WindowsPlatformServiceImpl
     async void IPlatformService.SystemHibernate(int waitSecond)
     {
         await Task.Delay(waitSecond * 1000);
-        Interop.SetSuspendState(true, true, false);
+        Vanara.PInvoke.PowrProf.SetSuspendState(true, true, false);
     }
 
     #endregion

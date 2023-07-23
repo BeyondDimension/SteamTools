@@ -6,11 +6,10 @@ namespace BD.WTTS;
 
 static partial class Interop
 {
-    [DllImport("Powrprof.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-    public static extern bool SetSuspendState(bool hiberate, bool forceCritical, bool disableWakeEvent);
-
     public static partial class Kernel32
     {
+        // use PInvoke.Kernel32
+
         const uint QueryLimitedInformation = 0x00001000;
 
         public static string QueryFullProcessImageName(Process process)
@@ -22,22 +21,12 @@ static partial class Interop
             string fullPath = sb.ToString(0, capacity);
             return fullPath;
         }
-
-        [LibraryImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static partial bool AttachConsole(int dwProcessId = -1);
-
-        [LibraryImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static partial bool FreeConsole();
-
-        [LibraryImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static partial bool AllocConsole();
     }
 
     public static partial class User32
     {
+        // use PInvoke.User32
+
         [LibraryImport("user32.dll")]
         public static partial IntPtr SetActiveWindow(IntPtr hWnd);
 

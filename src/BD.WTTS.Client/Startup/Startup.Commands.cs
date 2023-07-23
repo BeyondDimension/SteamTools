@@ -171,8 +171,8 @@ partial class Startup // 自定义控制台命令参数
 #if WINDOWS
             if (!IsDesignMode)
             {
-                if (!Interop.Kernel32.AttachConsole())
-                    Interop.Kernel32.AllocConsole();
+                if (!PInvoke.Kernel32.AttachConsole(-1))
+                    PInvoke.Kernel32.AllocConsole();
             }
 #endif
 
@@ -225,7 +225,7 @@ partial class Startup // 自定义控制台命令参数
 #if WINDOWS
             if (!IsDesignMode)
             {
-                Interop.Kernel32.FreeConsole();
+                PInvoke.Kernel32.FreeConsole();
             }
 #endif
         });
