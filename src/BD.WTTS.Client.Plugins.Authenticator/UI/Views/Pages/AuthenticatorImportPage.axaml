@@ -64,9 +64,9 @@
         <Style Selector="ui|FontIcon.Attach">
             <Setter Property="Glyph" Value="{StaticResource Attach}" />
         </Style>
-        <Style Selector="ui|FontIcon.MobileLocked">
-            <Setter Property="Glyph" Value="{StaticResource MobileLocked}" />
-        </Style>
+        <!-- <Style Selector="ui|FontIcon.ConnectApp"> -->
+        <!--     <Setter Property="Glyph" Value="{StaticResource ConnectApp}" /> -->
+        <!-- </Style> -->
     </spp:PageBase.Styles>
     <spp:ContentLoader IsLoading="{Binding !!!AuthenticatorImportBases.Count, Mode=OneWay}">
         <ItemsRepeater ItemsSource="{Binding AuthenticatorImportBases}">
@@ -79,10 +79,9 @@
                         <spp:OptionsDisplayItem.Icon>
                             <!-- <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{Binding IconName, Mode=OneWay}" /> -->
                             <ui:FontIcon
-                                Classes.Attach="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Attach}"
-                                Classes.Contact="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Contact}"
-                                Classes.MobileLocked="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=MobileLocked}"
-                                Classes.OpenFile="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=OpenFile}"
+                                Classes.Attach="{Binding IconName, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Attach}"
+                                Classes.Contact="{Binding IconName, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Contact}"
+                                Classes.OpenFile="{Binding IconName, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=OpenFile}"
                                 FontFamily="{StaticResource SymbolThemeFontFamily}" />
                         </spp:OptionsDisplayItem.Icon>
                     </spp:OptionsDisplayItem>

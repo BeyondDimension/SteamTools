@@ -29,7 +29,6 @@
     <x:String x:Key="Attach">&#xE723;</x:String>
     <x:String x:Key="Contact">&#xE77B;</x:String>
     <x:String x:Key="OpenFile">&#xE8E5;</x:String>
-    <x:String x:Key="MobileLocked">&#xEC20;</x:String>
 
 
     <ui:ImageIconSource Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" x:Key="AppIcon" />

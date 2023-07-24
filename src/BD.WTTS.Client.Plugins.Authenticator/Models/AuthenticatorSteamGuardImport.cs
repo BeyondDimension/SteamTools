@@ -8,7 +8,7 @@ public class AuthenticatorSteamGuardImport : AuthenticatorImportBase
 
     public override string Description => Strings.LocalAuth_SteamGuardImport;
 
-    public override ResIcon IconName => ResIcon.MobileLocked;
+    public override ResIcon IconName => ResIcon.Contact;
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 

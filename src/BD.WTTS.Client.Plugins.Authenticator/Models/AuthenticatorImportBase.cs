@@ -1,6 +1,6 @@
 namespace BD.WTTS.Models;
 
-public abstract class AuthenticatorImportBase : RIdTitleIconViewModel<string, ResIcon>, IAuthenticatorImport
+public abstract partial class AuthenticatorImportBase : IAuthenticatorImport
 {
     public abstract string Name { get; }
     
@@ -11,16 +11,6 @@ public abstract class AuthenticatorImportBase : RIdTitleIconViewModel<string, Re
     public abstract ICommand AuthenticatorImportCommand { get; set; }
     
     string? _currentPassword { get; set; }
-    
-    protected override string GetTitleById(string? id)
-    { 
-        return Name;
-    }
-
-    protected override ResIcon GetIconById(string? id)
-    {
-        return IconName;
-    }
 
     public async Task<bool> VerifyMaxValue()
     {
