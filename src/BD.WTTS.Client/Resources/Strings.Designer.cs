@@ -845,6 +845,24 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 批量通过.
+        /// </summary>
+        public static string BatchPass {
+            get {
+                return ResourceManager.GetString("BatchPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 批量拒绝.
+        /// </summary>
+        public static string BatchReject {
+            get {
+                return ResourceManager.GetString("BatchReject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 绑定.
         /// </summary>
         public static string Bind {
@@ -1934,7 +1952,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 未知登陆错误：{0}.
+        ///   Looks up a localized string similar to 登陆错误：{0}.
         /// </summary>
         public static string Error_UnknownLogin_ {
             get {
@@ -3105,7 +3123,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 这将{0}您当前所有的交易报价
+        ///   Looks up a localized string similar to 这将{0}您当前选中的所有交易报价
         ///确定要继续吗?.
         /// </summary>
         public static string LocalAuth_AuthTrade_MessageBoxTip_ {
@@ -3120,6 +3138,15 @@ namespace BD.WTTS.Client.Resources {
         public static string LocalAuth_AuthTrade_Null {
             get {
                 return ResourceManager.GetString("LocalAuth_AuthTrade_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 当前没有选中任何交易.
+        /// </summary>
+        public static string LocalAuth_AuthTrade_SelectNull {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_SelectNull", resourceCulture);
             }
         }
         
@@ -3720,6 +3747,8 @@ namespace BD.WTTS.Client.Resources {
         ///   Looks up a localized string similar to {0}
         ///{1}
         ///{2}
+        ///
+        ///{3}
         ///如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。.
         /// </summary>
         public static string ModelContent_ConfirmTrade___ {
@@ -5323,6 +5352,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 显示/隐藏.
+        /// </summary>
+        public static string ShowHide {
+            get {
+                return ResourceManager.GetString("ShowHide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 签到.
         /// </summary>
         public static string Sign {
@@ -5909,7 +5947,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} 全部令牌执行结束，成功数量 {1} ，失败数量 {2}.
+        ///   Looks up a localized string similar to {0}选中令牌执行结束，成功数量 {1} ，失败数量 {2}.
         /// </summary>
         public static string Success_ExecuteAllAuthEnd___ {
             get {

@@ -559,10 +559,10 @@
     <value>正在获取最新的交易报价信息…</value>
   </data>
 	<data name="LocalAuth_AuthTrade_MessageBoxTip_" xml:space="preserve">
-    <value>这将{0}您当前所有的交易报价
+		<value>这将{0}您当前选中的所有交易报价
 确定要继续吗?</value>
-    <comment>Comment=同意 or 取消;</comment>
-  </data>
+		<comment>Comment=同意 or 取消;</comment>
+	</data>
 	<data name="LocalAuth_CloudSync" xml:space="preserve">
     <value>令牌云同步</value>
   </data>
@@ -1835,8 +1835,8 @@
     <value>令牌密码保护设置失败。</value>
   </data>
 	<data name="Error_UnknownLogin_" xml:space="preserve">
-    <value>未知登陆错误：{0}</value>
-  </data>
+		<value>登陆错误：{0}</value>
+	</data>
 	<data name="Error_UpdateCloudData" xml:space="preserve">
     <value>同步更新云端数据失败</value>
   </data>
@@ -1931,12 +1931,14 @@
 您将同意列表内全部的报价请求。
 交易一经确认无法撤销，请谨慎选择。</value>
   </data>
-  <data name="ModelContent_ConfirmTrade___" xml:space="preserve">
-	  <value>{0}
+	<data name="ModelContent_ConfirmTrade___" xml:space="preserve">
+		<value>{0}
 {1}
 {2}
+
+{3}
 如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。</value>
-  </data>
+	</data>
 	<data name="ModelContent_ConfirmUnbinding" xml:space="preserve">
     <value>您确定要从您的 Steam 账号中解绑此令牌吗，解绑后此令牌将失效，您可以在解绑后删除此令牌。</value>
   </data>
@@ -2022,8 +2024,8 @@
     <value>同步删除云端数据成功</value>
   </data>
 	<data name="Success_ExecuteAllAuthEnd___" xml:space="preserve">
-    <value>{0} 全部令牌执行结束，成功数量 {1} ，失败数量 {2}</value>
-  </data>
+		<value>{0}选中令牌执行结束，成功数量 {1} ，失败数量 {2}</value>
+	</data>
 	<data name="Success_LocalAuthDelSuccessful" xml:space="preserve">
     <value>本地令牌数据删除成功</value>
   </data>
@@ -2444,4 +2446,16 @@
     <value>深色</value>
         <comment>Author=MicrosoftTranslator</comment>
   </data>
+	<data name="BatchPass" xml:space="preserve">
+		<value>批量通过</value>
+	</data>
+	<data name="BatchReject" xml:space="preserve">
+		<value>批量拒绝</value>
+	</data>
+	<data name="LocalAuth_AuthTrade_SelectNull" xml:space="preserve">
+		<value>当前没有选中任何交易</value>
+	</data>
+	<data name="ShowHide" xml:space="preserve">
+		<value>显示/隐藏</value>
+	</data>
 </root>

@@ -42,6 +42,9 @@ public class ShowSteamDataViewModel : ViewModelBase
         }
     }
 
+    [Reactive]
+    public bool ShowDetail { get; set; } = true;
+
     public ShowSteamDataViewModel()
     {
         

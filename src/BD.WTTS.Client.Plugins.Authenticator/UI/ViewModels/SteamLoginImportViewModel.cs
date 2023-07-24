@@ -191,6 +191,10 @@ public sealed partial class SteamLoginImportViewModel
             SelectIndex = 1;
             return false;
         }
+        else
+        {
+            _isFirstLogin = true;
+        }
 
         return !string.IsNullOrEmpty(_steamLoginState.AccessToken);
     }
@@ -206,11 +210,12 @@ public sealed partial class SteamLoginImportViewModel
         
         try
         {
-            var isSupportedToastService = ToastService.IsSupported;
-            if (isSupportedToastService)
+            if (ToastService.IsSupported)
             {
                 ToastService.Current.Set(Strings.Logining);
             }
+
+            IsLoading = true;
 
             if (_isFirstLogin)
             {
@@ -283,11 +288,6 @@ public sealed partial class SteamLoginImportViewModel
                     await CheckAddAuthenticatorResult();
                 }
             }
-            
-            if (isSupportedToastService)
-            {
-                ToastService.Current.Set();
-            }
         }
         catch (Exception ex)
         {
@@ -319,6 +319,8 @@ public sealed partial class SteamLoginImportViewModel
             {
                 ToastService.Current.Set();
             }
+
+            IsLoading = false;
         }
     }
 

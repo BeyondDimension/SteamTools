@@ -9,7 +9,14 @@ public partial class SteamTradePage : UserControl
     public SteamTradePage()
     {
         InitializeComponent();
-        //DataContext = new SteamTradePageViewModel();
+        
+        PasswordText.KeyUp += (_, e) =>
+        {
+            if (e.Key != Avalonia.Input.Key.Return) return;
+            if (DataContext is not SteamTradePageViewModel vm) return;
+            _ = vm.Login();
+            e.Handled = true;
+        };
     }
 
     // public SteamTradePage(IAuthenticatorDTO authenticatorDto)

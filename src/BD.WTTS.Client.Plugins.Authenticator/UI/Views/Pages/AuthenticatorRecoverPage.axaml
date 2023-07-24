@@ -12,7 +12,12 @@
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <spp:ContentLoader IsLoading="{Binding !!!AuthenticatorDeleteBackups.Count, Mode=OneWay}" NoResultMessage="{ReflectionBinding Source={x:Static s:ResourceService.Current}, Path=Res.Auth_Sync_NoHasRecover, Mode=OneWay}">
+    <spp:ContentLoader
+        IsLoading="{Binding !!!AuthenticatorDeleteBackups.Count, Mode=OneWay}"
+        NoResultMessage="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                                            Path=Res.Auth_Sync_NoHasRecover,
+                                            Mode=OneWay}"
+        x:Name="ContentLoader">
         <Grid RowDefinitions="*,Auto">
             <ItemsControl ItemsSource="{Binding AuthenticatorDeleteBackups, Mode=OneWay}">
                 <ItemsControl.ItemsPanel>
@@ -79,6 +84,7 @@
                                             Mode=OneWay}"
                 Grid.Row="1"
                 HorizontalAlignment="Center"
+                IsVisible="{Binding !#ContentLoader.IsLoading}"
                 Margin="0,5,0,0"
                 VerticalAlignment="Center" />
         </Grid>

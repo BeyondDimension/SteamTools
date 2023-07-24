@@ -11,6 +11,7 @@ public sealed partial class SteamTradePageViewModel : ViewModelBase
     string? _captchaImageUrlText;
     bool _isLogged;
     bool _isLoading;
+    bool _selectedAll;
 
     public string? UserNameText
     {
@@ -77,7 +78,19 @@ public sealed partial class SteamTradePageViewModel : ViewModelBase
             this.RaisePropertyChanged();
         }
     }
-    
+
+    public bool SelectedAll
+    {
+        get => _selectedAll;
+        set
+        {
+            if (value == _selectedAll) return;
+            _selectedAll = value;
+            SelectAll(_selectedAll);
+            this.RaisePropertyChanged();
+        }
+    }
+
     public bool IsConfirmationsAny => Confirmations.Any_Nullable();
     
 }

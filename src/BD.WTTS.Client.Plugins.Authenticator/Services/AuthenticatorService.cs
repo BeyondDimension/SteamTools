@@ -287,7 +287,7 @@ public sealed partial class AuthenticatorService
         string? answer = null;
         var passwordQuestionResponse =
             await IMicroServiceClient.Instance.AuthenticatorClient.GetIndependentPasswordQuestion();
-        if (passwordQuestionResponse.Content == null)
+        if (passwordQuestionResponse.Content == null && passwordQuestionResponse.Code != ApiRspCode.Unauthorized)
         {
             var textViewModel = new TextBoxWindowViewModel();
             if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Title_SetSecurityIssues,

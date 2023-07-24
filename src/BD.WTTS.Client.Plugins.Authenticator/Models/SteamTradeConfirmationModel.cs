@@ -75,8 +75,11 @@ public class SteamTradeConfirmationModel : ReactiveObject
         Multi = conf.Multi;
         Headline = conf.Headline;
         Summary = conf.Summary;
-        Warn = conf.Warn;
-
+        if (conf.Warn != null)
+            foreach (var warn in conf.Warn)
+            {
+                Warn += $"{warn}\r\n";
+            }
         SendItemImageUrls = new();
         ReceiveItemImageUrls = new();
         _steamClient = steamAuthenticator.GetClient();
@@ -131,7 +134,6 @@ public class SteamTradeConfirmationModel : ReactiveObject
             Toast.Show(ToastIcon.Error, Strings.LocalAuth_AuthTrade_GetError);
             return;
         }
-        Log.Error(nameof(SteamTradePageViewModel), exception, nameof(ExceptionHandling));
-        Toast.Show(ToastIcon.Error, AppResources.Error_Exception_.Format(exception.Message));
+        exception.LogAndShowT();
     }
 }

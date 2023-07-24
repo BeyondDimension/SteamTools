@@ -12,10 +12,9 @@ public sealed partial class SteamTradePageViewModel
 
     string? _captchaId;
 
+    [Reactive]
     public ObservableCollection<SteamTradeConfirmationModel> Confirmations { get; set; } = new();
-
-    CancellationTokenSource? _operationTradeAllCancelToken;
-
+    
     public SteamTradePageViewModel()
     {
     }
@@ -54,6 +53,14 @@ public sealed partial class SteamTradePageViewModel
     {
         if (_steamClient == null) return;
         _ = await GetConfirmations(_steamClient);
+    }
+
+    public void SelectAll(bool isSelect)
+    {
+        foreach (var item in Confirmations)
+        {
+            item.IsSelected = isSelect;
+        }
     }
 
     public async Task Login()
@@ -244,7 +251,11 @@ public sealed partial class SteamTradePageViewModel
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
                 new MessageBoxWindowViewModel()
                 {
-                    Content = AppResources.ModelContent_ConfirmTrade___.Format(trade.SendSummary, trade.ReceiveSummary, trade.ReceiveNoItems ? $"您尚未让 {trade.Headline} 选择任何物品以交换您的物品。如果 {trade.Headline}  接受此交易，您将失去您提供的物品，但不会收到任何物品。" : string.Empty)
+                    Content = AppResources.ModelContent_ConfirmTrade___.Format(trade.SendSummary,
+                        trade.ReceiveSummary,
+                        trade.ReceiveNoItems
+                            ? $"您尚未让 {trade.Headline} 选择任何物品以交换您的物品。如果 {trade.Headline}  接受此交易，您将失去您提供的物品，但不会收到任何物品。"
+                            : string.Empty, trade.Warn ?? string.Empty)
                 }, AppResources.ConfirmTransaction,
                 isCancelButton: true, isDialog: false))
         {
@@ -304,13 +315,20 @@ public sealed partial class SteamTradePageViewModel
             return;
         }
 
-        if (_operationTradeAllCancelToken != null)
+        // if (_operationTradeAllCancelToken != null)
+        // {
+        //     Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseWaitExecuteFinish);
+        //     return;
+        // }
+        var selectedList = Confirmations.Where(c => c.IsSelected).ToList();
+
+        if (!selectedList.Any_Nullable())
         {
-            Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseWaitExecuteFinish);
+            Toast.Show(ToastIcon.Warning, Strings.LocalAuth_AuthTrade_SelectNull);
             return;
         }
 
-        var statusText = status ? Strings.Agree : Strings.Cancel;
+        var statusText = status ? Strings.BatchPass : Strings.BatchReject;
 
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
                 new MessageBoxWindowViewModel()
@@ -359,9 +377,9 @@ public sealed partial class SteamTradePageViewModel
             //
             // _operationTradeAllCancelToken = null;
             //RefreshConfirmationsList();
-            if (!await ChangeTradeStatus(status, Confirmations)) return;
+            if (!await ChangeTradeStatus(status, selectedList)) return;
             Toast.Show(ToastIcon.Success,
-                AppResources.Success_ExecuteAllAuthEnd___.Format(statusText, Confirmations.Count, 0));
+                AppResources.Success_ExecuteAllAuthEnd___.Format(statusText, selectedList.Count, 0));
             // Toast.Show(ToastIcon.None, 
             //     $"{statusText}全部令牌执行结束,成功数量{success},失败数量{failed},剩余{executableNum - success - failed}令牌未操作");
             SetToastServiceStatus();

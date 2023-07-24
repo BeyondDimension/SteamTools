@@ -166,15 +166,19 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             return;
         }
 
-        if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData)))
+        var sourceList = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
+        if (await EnterPassword(sourceList[0]))
         {
-            Toast.Show(ToastIcon.Success, AppResources.Success_AuthPasswordRemovedSuccessfully);
-            _currentPassword = null;
-        }
-        else Toast.Show(ToastIcon.Error, AppResources.Error_TokenPasswordRemovedFailed);
+            if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData)))
+            {
+                Toast.Show(ToastIcon.Success, AppResources.Success_AuthPasswordRemovedSuccessfully);
+                _currentPassword = null;
+            }
+            else Toast.Show(ToastIcon.Error, AppResources.Error_TokenPasswordRemovedFailed);
 
-        HasPasswordEncrypt = false;
-        IsVerificationPass = true;
+            HasPasswordEncrypt = false;
+            IsVerificationPass = true;
+        }
     }
 
     public async Task ToggleLocalProtection()
@@ -725,7 +729,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 {
                     InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
                 };
-                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.ModelContent_ConfirmUnbinding ,
+                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_PleaseEnterLoginPassword,
                         isDialog: false, isCancelButton: true))
                 {
                     password = textViewmodel.Value;

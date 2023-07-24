@@ -37,12 +37,14 @@ public class AuthenticatorRecoverPageViewModel : ViewModelBase
 
     public async Task Recover()
     {
-        var ids = AuthenticatorDeleteBackups.Where(a => a.IsSelected).Select(a => a.AuthenticatorDeleteBackup.Id)
-            .ToArray();
+        var list = AuthenticatorDeleteBackups.Where(a => a.IsSelected).ToList();
+        var ids = list.Select(a => a.AuthenticatorDeleteBackup.Id).ToArray();
         var response = await IMicroServiceClient.Instance.AuthenticatorClient.RecoverAuthenticatorsFromDeleteBackups(new()
         {
             Answer = _currentAnswer, Id = ids,
         });
-        if (response.IsSuccess) Toast.Show(ToastIcon.Success, Strings.Auth_Sync_RecoverSuccess);
+        if (!response.IsSuccess) return;
+        AuthenticatorDeleteBackups.Remove(list);
+        Toast.Show(ToastIcon.Success, Strings.Auth_Sync_RecoverSuccess);
     }
 }

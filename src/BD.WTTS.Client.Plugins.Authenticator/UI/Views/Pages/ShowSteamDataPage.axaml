@@ -10,7 +10,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <spp:IsReadOnlyPasswordBoxConverter x:Key="IsReadOnlyPasswordBoxConverter" />
+    </UserControl.Resources>
     <UserControl.Styles>
         <Style Selector="Border">
             <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
@@ -19,18 +23,43 @@
             <Setter Property="Padding" Value="10" />
         </Style>
     </UserControl.Styles>
-    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-        <StackPanel
-            HorizontalAlignment="Center"
-            Margin="0,10"
-            Spacing="10">
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Disabled"
+        MinWidth="600"
+        Padding="20"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel HorizontalAlignment="Center" Spacing="10">
             <Border>
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
-                                             Path=Res.LocalAuth_ShowSteamAuthTip2}"
-                    TextWrapping="Wrap"
-                    VerticalAlignment="Center" />
+                <StackPanel Spacing="5">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                                                     Path=Res.LocalAuth_ShowAuthInfo,
+                                                     Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis"
+                            VerticalAlignment="Center" />
+                        <ToggleButton IsChecked="{Binding ShowDetail}" VerticalAlignment="Center">
+                            <ToggleButton.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:FontIcon
+                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                        FontSize="16"
+                                        Glyph="&#xE18B;"
+                                        VerticalAlignment="Center" />
+                                    <TextBlock Text="{ReflectionBinding Path=Res.ShowHide, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                </StackPanel>
+                            </ToggleButton.Content>
+                        </ToggleButton>
+                    </StackPanel>
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                                                 Path=Res.LocalAuth_ShowSteamAuthTip2}"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center" />
+                </StackPanel>
             </Border>
             <Border>
                 <DockPanel>
@@ -38,6 +67,9 @@
                     <TextBox
                         IsReadOnly="True"
                         Margin="5,0,0,0"
+                        PasswordChar="{ReflectionBinding ShowDetail,
+                                                         Converter={StaticResource IsReadOnlyPasswordBoxConverter},
+                                                         ConverterParameter=invert}"
                         Text="{Binding DeviceId}" />
                 </DockPanel>
             </Border>
@@ -47,6 +79,9 @@
                     <TextBox
                         IsReadOnly="True"
                         Margin="5,0,0,0"
+                        PasswordChar="{ReflectionBinding ShowDetail,
+                                                         Converter={StaticResource IsReadOnlyPasswordBoxConverter},
+                                                         ConverterParameter=invert}"
                         Text="{Binding RecoverCode}" />
                 </DockPanel>
             </Border>
@@ -57,6 +92,9 @@
                     <TextBox
                         Height="400"
                         IsReadOnly="True"
+                        PasswordChar="{ReflectionBinding ShowDetail,
+                                                         Converter={StaticResource IsReadOnlyPasswordBoxConverter},
+                                                         ConverterParameter=invert}"
                         Text="{Binding SteamData}"
                         Width="500" />
                 </StackPanel>
