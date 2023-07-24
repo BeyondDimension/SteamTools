@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using System.Linq;
+
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class SettingsPageViewModel : TabItemViewModel
@@ -38,29 +40,37 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         PluginOpenFolder(path);
     }
 
-    public void DeletePlugin(IPlugin plugin)
+    public async void DeletePlugin(IPlugin plugin)
     {
-        if (Plugins!.Any(x => x.IsDisable && x.Data.Id == plugin.Id))
+        var r = await MessageBox.ShowAsync(Strings.Plugin_DeleteComfirm.Format(plugin.Name), button: MessageBox.Button.OKCancel);
+        if (r.IsOK())
         {
-            var path = Path.GetDirectoryName(plugin.AssemblyLocation)!;
-            if (Directory.Exists(path))
+            var pluginResult = Plugins!.FirstOrDefault(x => x.IsDisable && x.Data.Id == plugin.Id);
+            if (pluginResult != null)
             {
-                var msg = string.Empty;
-                try
+                var path = Path.GetDirectoryName(plugin.AssemblyLocation)!;
+                if (Directory.Exists(path))
                 {
-                    Directory.Delete(path, true);
+                    var msg = string.Empty;
+                    try
+                    {
+                        Directory.Delete(path, true);
 
-                    Toast.Show(ToastIcon.Success, Strings.Plugin_DeleteSuccess.Format(plugin.Name));
+                        this.Plugins.Remove(pluginResult);
+                        Toast.Show(ToastIcon.Success, Strings.Plugin_DeleteSuccess.Format(plugin.Name));
+                    }
+                    catch (Exception ex)
+                    {
+                        Toast.LogAndShowT(ex);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Toast.LogAndShowT(ex);
-                }
+                else
+                    Toast.Show(ToastIcon.Error, Strings.Plugin_FileError);
             }
-            Toast.Show(ToastIcon.Warning, Strings.Plugin_FileError);
+            else
+                Toast.Show(ToastIcon.Warning, Strings.Plugin_NeedDisable);
         }
-        else
-            Toast.Show(ToastIcon.Warning, Strings.Plugin_NeedDisable);
+
     }
 
     private void PluginOpenFolder(string path)

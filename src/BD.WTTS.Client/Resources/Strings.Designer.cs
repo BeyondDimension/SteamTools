@@ -846,6 +846,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 绑定 的本地化字符串。
         ///   查找类似 批量通过 的本地化字符串。
         /// </summary>
         public static string BatchPass {
@@ -4259,6 +4260,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Plugin_Delete {
             get {
                 return ResourceManager.GetString("Plugin_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否要删除 {0} 插件 的本地化字符串。
+        /// </summary>
+        public static string Plugin_DeleteComfirm {
+            get {
+                return ResourceManager.GetString("Plugin_DeleteComfirm", resourceCulture);
             }
         }
         

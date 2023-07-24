@@ -2540,4 +2540,7 @@
   <data name="ShowHide" xml:space="preserve">
     <value>显示/隐藏</value>
   </data>
+  <data name="Plugin_DeleteComfirm" xml:space="preserve">
+    <value>是否要删除 {0} 插件</value>
+  </data>
 </root>
