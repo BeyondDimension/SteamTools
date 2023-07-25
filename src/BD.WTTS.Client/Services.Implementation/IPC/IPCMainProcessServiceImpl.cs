@@ -285,7 +285,8 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         }
     }
 
-    readonly ConcurrentDictionary<string, DateTime> peerConnectionBrokenTimer = new();
+    readonly HashSet<int> peerHashCodes = new();
+    //readonly ConcurrentDictionary<string, DateTime> peerConnectionBrokenTimer = new();
 
     public async ValueTask<T?> GetServiceAsync<T>(string moduleName) where T : class
     {
@@ -297,73 +298,79 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             var peerName = IPCSubProcessModuleService.Constants.GetClientPipeName(
                 moduleName, ipcProvider.IpcContext.PipeName);
             var peer = await ipcProvider.GetAndConnectToPeerAsync(peerName);
-#if DEBUG
-            peer.MessageReceived += (_, e) =>
-            {
-
-            };
-            peer.PeerReconnected += (_, _) =>
-            {
-#if DEBUG
-                logger.LogError("断开重连 {peerName}", peer.PeerName);
-#endif
-            };
-#endif
 
             if (peer != null)
             {
-                peer.PeerConnectionBroken += async (_, _) =>
+                var peerHashCode = peer.GetHashCode();
+                if (peerHashCodes.Add(peerHashCode)) // peer 委托避免重复 +=
                 {
-                    if (disposedValue || ipcProvider == null)
-                        return; // 被释放或者 ipc 提供者为 null 则跳过
 #if DEBUG
-                    logger.LogError("连接断开 {peerName}", peer.PeerName);
-#endif
-                    try
+                    peer.MessageReceived += (_, e) =>
                     {
-                        if (peerConnectionBrokenTimer.TryGetValue(moduleName, out var time))
-                        {
-                            if ((DateTime.Now - time).TotalMilliseconds >= 3700.5D)
-                            {
-                                // 4.7s 内多次触发不执行重新启动进程
-                                return;
-                            }
-                        }
-                    }
-                    finally
-                    {
-                        // 记录此模块当前断开连接的时间
-                        peerConnectionBrokenTimer.AddOrUpdate(moduleName,
-                            static _ => DateTime.Now,
-                            static (_, _) => DateTime.Now);
-                    }
 
-                    if (subProcesses.TryGetValue(moduleName, out var subProcess))
+                    };
+                    peer.PeerReconnected += (_, _) =>
                     {
-                        subProcesses.TryRemove(moduleName, out var _);
-                        if (!subProcess.HasExited)
+#if DEBUG
+                        logger.LogError("断开重连 {peerName}", peer.PeerName);
+#endif
+                    };
+#endif
+
+                    peer.PeerConnectionBroken += async (_, _) =>
+                    {
+                        if (disposedValue || ipcProvider == null)
+                            return; // 被释放或者 ipc 提供者为 null 则跳过
+#if DEBUG
+                        logger.LogError("连接断开 {peerName}", peer.PeerName);
+#endif
+                        //try
+                        //{
+                        //    if (peerConnectionBrokenTimer.TryGetValue(moduleName, out var time))
+                        //    {
+                        //        if ((DateTime.Now - time).TotalMilliseconds >= 3700.5D)
+                        //        {
+                        //            // 4.7s 内多次触发不执行重新启动进程
+                        //            return;
+                        //        }
+                        //    }
+                        //}
+                        //finally
+                        //{
+                        //    // 记录此模块当前断开连接的时间
+                        //    peerConnectionBrokenTimer.AddOrUpdate(moduleName,
+                        //        static _ => DateTime.Now,
+                        //        static (_, _) => DateTime.Now);
+                        //}
+
+                        if (subProcesses.TryGetValue(moduleName, out var subProcess))
                         {
-                            subProcess.WaitForExit(3700);
+                            subProcesses.TryRemove(moduleName, out var _);
                             if (!subProcess.HasExited)
                             {
-                                try
+                                subProcess.WaitForExit(3700);
+                                if (!subProcess.HasExited)
                                 {
-                                    subProcess.KillEntireProcessTree();
-                                }
-                                catch
-                                {
+                                    try
+                                    {
+                                        subProcess.KillEntireProcessTree();
+                                    }
+                                    catch
+                                    {
 
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    if (startSubProcesses.TryGetValue(moduleName, out var startSubProcess))
-                    {
-                        // 连接断开时重新启动进程
-                        await startSubProcess.Invoke(this);
-                    }
-                };
+                        if (startSubProcesses.TryGetValue(moduleName, out var startSubProcess))
+                        {
+                            // 连接断开时重新启动进程
+                            await startSubProcess.Invoke(this);
+                        }
+                    };
+                }
+
                 var s = ipcProvider.CreateIpcProxy<T>(peer);
                 return s;
             }
