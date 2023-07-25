@@ -117,48 +117,38 @@ partial class Startup // 自定义控制台命令参数
         run_SteamApp.AddOption(new Option<bool>("-achievement", "打开成就解锁窗口"));
         run_SteamApp.AddOption(new Option<bool>("-cloudmanager", "打开云存档管理窗口"));
         run_SteamApp.AddOption(new Option<bool>("-silence", "挂运行服务，不加载窗口，内存占用更小"));
-        run_SteamApp.Handler = CommandHandler.Create((int id, bool achievement, bool cloudmanager) =>
+        run_SteamApp.Handler = CommandHandler.Create(async (int id, bool achievement, bool cloudmanager) =>
         {
             if (id <= 0)
                 return;
-            Task.Factory.StartNew(async () =>
-            {
-                await WaitConfiguredServices;
 
-                if (cloudmanager)
-                {
-                    //IViewModelManager.Instance.InitCloudManageMain(id);
-                }
-                else if (achievement)
-                {
-                    //IViewModelManager.Instance.InitUnlockAchievement(id);
-                }
-                else
-                {
-                    SteamConnectService.Current.Initialize(id);
-                    TaskCompletionSource tcs = new();
-                    await tcs.Task;
-                }
-            });
-
-            AppServicesLevel level;
             if (cloudmanager)
             {
-                level = AppServicesLevel.UI |
+                RunUIApplication(AppServicesLevel.UI |
                     AppServicesLevel.Steam |
-                    AppServicesLevel.HttpClientFactory;
+                    AppServicesLevel.HttpClientFactory);
+                await WaitConfiguredServices;
+
+                //IViewModelManager.Instance.InitCloudManageMain(id);
             }
             else if (achievement)
             {
-                level = AppServicesLevel.UI |
+                RunUIApplication(AppServicesLevel.UI |
                     AppServicesLevel.Steam |
-                    AppServicesLevel.HttpClientFactory;
+                    AppServicesLevel.HttpClientFactory);
+                await WaitConfiguredServices;
+
+                //IViewModelManager.Instance.InitUnlockAchievement(id);
             }
             else
             {
-                level = AppServicesLevel.Steam;
+                RunUIApplication(AppServicesLevel.Steam);
+                await WaitConfiguredServices;
+
+                SteamConnectService.Current.Initialize(id);
+                TaskCompletionSource tcs = new();
+                await tcs.Task;
             }
-            RunUIApplication(level);
         });
         rootCommand.AddCommand(run_SteamApp);
 

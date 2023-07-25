@@ -408,8 +408,8 @@
         {
           "TypeName": "Dictionary<uint, string?>",
           "PropertyName": "AFKAppList",
-          "DefaultValue": "null",
-          "DefaultValueIsConst": true,
+          "DefaultValue": "new()",
+          "DefaultValueIsConst": false,
           "Summary": "挂时长游戏列表",
           "IsRegionOrEndregion": null,
           "IsValueType": null

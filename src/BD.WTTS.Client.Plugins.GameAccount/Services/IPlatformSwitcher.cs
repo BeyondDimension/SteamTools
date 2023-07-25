@@ -20,7 +20,7 @@ public interface IPlatformSwitcher
 
     bool SetPlatformPath(PlatformAccount platform);
 
-    void DeleteAccountInfo(IAccount account, PlatformAccount platform);
+    Task DeleteAccountInfo(IAccount account, PlatformAccount platform);
 
     Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform);
 }

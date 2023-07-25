@@ -38,13 +38,23 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
 
     public ICommand RefreshAppCommand { get; }
 
-    public ICommand HideAppCommand { get; }
-
-    public ICommand IdleAppCommand { get; }
-
-    public ICommand SteamShutdownCommand { get; }
-
-    public ICommand SaveEditedAppInfoCommand { get; }
+    public ICommand ShowHideAppCommand { get; }
 
     public ICommand AddHideAppListCommand { get; }
+
+    public ICommand AddAFKAppListCommand { get; }
+
+    public ICommand InstallOrStartAppCommand { get; }
+
+    public ICommand EditAppInfoClickCommand { get; }
+
+    public ICommand ManageCloudArchive_ClickCommand { get; }
+
+    public ICommand UnlockAchievement_ClickCommand { get; }
+
+    public ICommand NavAppToSteamViewCommand { get; }
+
+    public ICommand OpenFolderCommand { get; }
+
+    public ICommand OpenLinkUrlCommand { get; }
 }

@@ -11,6 +11,9 @@
                     Description="This is a description of whatver this does"
                     ImageMargin="20,0"
                     Tags="111">
+                    <spp:AppItem.ActionButton>
+                        <Button Content="delete" />
+                    </spp:AppItem.ActionButton>
                     <spp:AppItem.Status>
                         <Border Classes="Status">
                             <TextBlock Text="免费下载" />

@@ -1,19 +1,13 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
 using System.Linq;
+using System.Drawing.Drawing2D;
+using AngleSharp.Dom;
 
 namespace BD.WTTS.Models;
 
 public sealed partial class PlatformAccount
 {
     readonly IPlatformSwitcher platformSwitcher;
-
-    public ICommand SwapToAccountCommand { get; }
-
-    public ICommand OpenUrlToBrowserCommand { get; }
-
-    public ICommand DeleteAccountCommand { get; }
-
-    public ICommand SetAccountAvatarCommand { get; }
 
     public PlatformAccount(ThirdpartyPlatform platform)
     {
@@ -38,9 +32,9 @@ public sealed partial class PlatformAccount
             //Browser2.Open(acc);
         });
 
-        DeleteAccountCommand = ReactiveCommand.Create<IAccount>(acc =>
+        DeleteAccountCommand = ReactiveCommand.Create<IAccount>(async acc =>
         {
-            platformSwitcher.DeleteAccountInfo(acc, this);
+            await platformSwitcher.DeleteAccountInfo(acc, this);
             Toast.Show(ToastIcon.Success, $"已经删除 {FullName} 平台 {acc.DisplayName} 账号");
         });
 
@@ -61,6 +55,10 @@ public sealed partial class PlatformAccount
                 }
             }, fileTypes);
         });
+
+        CopyCommand = ReactiveCommand.Create<string>(async text => await Clipboard2.SetTextAsync(text));
+
+        OpenLinkCommand = ReactiveCommand.Create<string>(async url => await Browser2.OpenAsync(url));
 
         if (!Directory.Exists(PlatformLoginCache))
             Directory.CreateDirectory(PlatformLoginCache);
@@ -83,7 +81,7 @@ public sealed partial class PlatformAccount
             }
             catch (Exception ex)
             {
-                Log.Error(nameof(PlatformAccount), ex, "LoadUsers Faild");
+                ex.LogAndShowT(nameof(PlatformAccount));
             }
             finally
             {

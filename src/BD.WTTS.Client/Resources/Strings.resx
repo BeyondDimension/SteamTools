@@ -1529,6 +1529,9 @@
 	<data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
     <value>手动上传存档文件</value>
   </data>
+	<data name="GameList_SteamShutdown_AppsEmpty" xml:space="preserve">
+    <value>未获取到 Steam 下载游戏数据</value>
+  </data>
 	<data name="GameList_SteamShutdown" xml:space="preserve">
     <value>Steam 下载完成定时关机</value>
   </data>
@@ -1539,7 +1542,7 @@
     <value>已安装</value>
   </data>
 	<data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
-    <value>启用下载监控并在选中游戏下载安装完成后执行「{0}」操作</value>
+    <value>选中游戏下载完成后{0}</value>
   </data>
 	<data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
     <value>Steam游戏已下载完成
@@ -2445,6 +2448,142 @@
     <data name="AppTheme_Dark" xml:space="preserve">
     <value>深色</value>
         <comment>Author=MicrosoftTranslator</comment>
+  </data>
+	<data name="CustomFilePicker_Tip" xml:space="preserve">
+    <value>选择文件</value>
+  </data>
+	<data name="OpenLink" xml:space="preserve">
+    <value>打开链接</value>
+  </data>
+	<data name="Info" xml:space="preserve">
+    <value>信息</value>
+  </data>
+	<data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+	<data name="SortAs" xml:space="preserve">
+    <value>排序标题</value>
+  </data>
+	<data name="Developer" xml:space="preserve">
+    <value>开发商</value>
+  </data>
+	<data name="Publisher" xml:space="preserve">
+    <value>发行商</value>
+  </data>
+	<data name="SupportSystem" xml:space="preserve">
+    <value>支持的系统</value>
+  </data>
+	<data name="LastUpdatedDateTime" xml:space="preserve">
+    <value>最后更新时间</value>
+  </data>
+	<data name="DiskUsage" xml:space="preserve">
+    <value>磁盘占用</value>
+  </data>
+	<data name="InstalledPath" xml:space="preserve">
+    <value>安装路径</value>
+  </data>
+	<data name="Media" xml:space="preserve">
+    <value>媒体</value>
+  </data>
+	<data name="SteamGridDBTitle" xml:space="preserve">
+    <value>SteamGridDB Image</value>
+  </data>
+	<data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
+    <value>未能从 SteamGridDB 获取到图片</value>
+  </data>
+	<data name="OpenInBrowser" xml:space="preserve">
+    <value>在浏览器中打开</value>
+  </data>
+	<data name="OpenImageInBrowser" xml:space="preserve">
+    <value>在浏览器中打开原图</value>
+  </data>
+	<data name="OpenSteamGridDBInBrowser" xml:space="preserve">
+    <value>打开 SteamGridDB 网页浏览</value>
+  </data>
+	<data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
+    <value>查看该作者更多作品</value>
+  </data>
+	<data name="GetImageFromSteamGridDB" xml:space="preserve">
+    <value>从 SteamGridDB 获取</value>
+  </data>
+	<data name="HorizontalTitlePage" xml:space="preserve">
+    <value>横版封面</value>
+  </data>
+	<data name="VerticalTitlePage" xml:space="preserve">
+    <value>竖版封面</value>
+  </data>
+	<data name="Background" xml:space="preserve">
+    <value>背景</value>
+  </data>
+	<data name="Icon" xml:space="preserve">
+    <value>图标</value>
+  </data>
+	<data name="RecommendedResolution" xml:space="preserve">
+    <value>建议的分辨率</value>
+  </data>
+	<data name="LaunchItem" xml:space="preserve">
+    <value>启动项</value>
+  </data>
+	<data name="ExecutableFile" xml:space="preserve">
+    <value>可执行文件</value>
+  </data>
+	<data name="Arguments" xml:space="preserve">
+    <value>启动参数</value>
+  </data>
+	<data name="WorkingDir" xml:space="preserve">
+    <value>工作目录</value>
+  </data>
+	<data name="GameList_EditedAppsSaveManger" xml:space="preserve">
+    <value>保存 Steam 游戏自定义信息</value>
+  </data>
+	<data name="SaveFile" xml:space="preserve">
+    <value>存档</value>
+  </data>
+	<data name="CloudSaveFileSize" xml:space="preserve">
+    <value>云存档空间大小</value>
+  </data>
+	<data name="CloudMaxnumFiles" xml:space="preserve">
+    <value>最大支持云存档数</value>
+  </data>
+	<data name="FilePath" xml:space="preserve">
+    <value>文件路径</value>
+  </data>
+	<data name="DirPath" xml:space="preserve">
+    <value>文件夹路径</value>
+  </data>
+	<data name="SaveImageFileFailed" xml:space="preserve">
+    <value>保存 {0} 图片失败</value>
+    <comment> {0} 图片类型;</comment>
+  </data>
+	<data name="ResetAll" xml:space="preserve">
+    <value>重置全部</value>
+  </data>
+	<data name="SaveEditedAppInfo_AppsEmpty" xml:space="preserve">
+    <value>未获取到需要保存至Steam的游戏信息，请先编辑你要修改的游戏信息</value>
+  </data>
+	<data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
+    <value>保存全部更改到 Steam</value>
+  </data>
+	<data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
+    <value>没有获取到已编辑的游戏数据</value>
+  </data>
+	<data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
+    <value>保存 AppInfos 出现错误</value>
+  </data>
+	<data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
+    <value>修改的数据已保存到 Steam 本地文件中，是否立即重启 Steam 生效？</value>
+  </data>
+	<data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
+    <value>保存数据到 Steam 成功</value>
+  </data>
+	<data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
+    <value>保存数据失败，查看程序日志获取详细错误信息</value>
+  </data>
+	<data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
+    <value>获取最后登录的 Steam 账号信息失败，无法修改自定义封面是。</value>
+  </data>
+	<data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
+    <value>请正确选择一张要应用的图片</value>
   </data>
 	<data name="BatchPass" xml:space="preserve">
 		<value>批量通过</value>

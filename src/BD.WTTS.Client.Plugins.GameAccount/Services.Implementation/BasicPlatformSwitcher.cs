@@ -585,30 +585,36 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return false;
     }
 
-    public void DeleteAccountInfo(IAccount account, PlatformAccount platform)
+    public async Task DeleteAccountInfo(IAccount account, PlatformAccount platform)
     {
-        // Remove ID from list of ids
-        if (File.Exists(platform.IdsJsonPath))
+        var result = await MessageBox.ShowAsync(Strings.UserChange_DeleteUserTip, button: MessageBox.Button.OKCancel);
+        if (result == MessageBox.Result.OK)
         {
-            var allIds = JTokenHelper.ReadDict(platform.IdsJsonPath);
-            //if (accNameIsId)
-            //{
-            //    var accId = accName;
-            //    accName = allIds[accName];
-            //    _ = allIds.Remove(accId);
-            //}
-            //else
-            _ = allIds.Remove(allIds.Single(x => x.Value == account.AccountId).Key);
-            File.WriteAllText(platform.IdsJsonPath, JsonConvert.SerializeObject(allIds));
-        }
+            // Remove ID from list of ids
+            if (File.Exists(platform.IdsJsonPath))
+            {
+                var allIds = JTokenHelper.ReadDict(platform.IdsJsonPath);
+                //if (accNameIsId)
+                //{
+                //    var accId = accName;
+                //    accName = allIds[accName];
+                //    _ = allIds.Remove(accId);
+                //}
+                //else
+                _ = allIds.Remove(allIds.Single(x => x.Value == account.AccountId).Key);
+                File.WriteAllText(platform.IdsJsonPath, JsonConvert.SerializeObject(allIds));
+            }
 
-        // Remove cached files
-        if (!string.IsNullOrEmpty(account.AccountName))
-        {
-            PathHelper.RecursiveDelete(Path.Combine(platform.PlatformLoginCache, account.AccountName), false);
+            // Remove cached files
+            if (!string.IsNullOrEmpty(account.AccountName))
+            {
+                PathHelper.RecursiveDelete(Path.Combine(platform.PlatformLoginCache, account.AccountName), false);
 
-            // Remove image
-            PathHelper.DeleteFile(Path.Combine(platform.PlatformLoginCache, account.AccountName, "avatar.png"));
+                // Remove image
+                PathHelper.DeleteFile(Path.Combine(platform.PlatformLoginCache, account.AccountName, "avatar.png"));
+            }
+
+            platform.Accounts?.Remove(account);
         }
     }
 }

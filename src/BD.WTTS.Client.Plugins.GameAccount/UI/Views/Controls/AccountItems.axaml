@@ -70,7 +70,7 @@
                     <ui:MenuFlyoutItem Text="SteamID64 7656~" />
                 </ui:MenuFlyoutSubItem>
             </ui:MenuFlyoutSubItem>
-            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="打开链接">
+            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="{ReflectionBinding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <ui:MenuFlyoutItem Text="Steam 社区" />
                 <ui:MenuFlyoutItem Text="SteamRep" />
                 <ui:MenuFlyoutItem Text="SteamRepCN" />

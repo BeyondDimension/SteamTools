@@ -72,4 +72,16 @@ public sealed partial class PlatformAccount : ReactiveObject
     public bool IsSteamPlatform => Platform == ThirdpartyPlatform.Steam;
 
     public string RegJsonPath(string accName) => Path.Combine(PlatformLoginCache, accName, "reg.json");
+
+    public ICommand SwapToAccountCommand { get; }
+
+    public ICommand OpenUrlToBrowserCommand { get; }
+
+    public ICommand DeleteAccountCommand { get; }
+
+    public ICommand SetAccountAvatarCommand { get; }
+
+    public ICommand CopyCommand { get; }
+
+    public ICommand OpenLinkCommand { get; }
 }

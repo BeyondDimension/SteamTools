@@ -68,7 +68,7 @@ public partial interface IGameLibrarySettings
     /// <summary>
     /// 挂时长游戏列表的默认值
     /// </summary>
-    const Dictionary<uint, string?>? DefaultAFKAppList = null;
+    static readonly Dictionary<uint, string?> DefaultAFKAppList = new();
 
     /// <summary>
     /// 启用自动挂机
@@ -81,4 +81,3 @@ public partial interface IGameLibrarySettings
     const bool DefaultIsAutoAFKApps = true;
 
 }
-

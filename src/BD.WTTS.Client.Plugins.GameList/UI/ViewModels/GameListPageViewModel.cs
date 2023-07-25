@@ -68,26 +68,22 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         SteamConnectService.Current.WhenAnyValue(x => x.IsLoadingGameList)
             .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamAppsEmpty)));
 
-        HideAppCommand = ReactiveCommand.Create(() =>
+        ShowHideAppCommand = ReactiveCommand.Create(() =>
         {
             IWindowManager.Instance.ShowTaskDialogAsync(new HideAppsPageViewModel(), Strings.GameList_HideGameManger,
                 pageContent: new HideAppsPage(), isOkButton: false);
         });
-        IdleAppCommand = ReactiveCommand.Create(() =>
-        {
-            //IWindowManager.Instance.Show(CustomWindow.IdleApp, resizeMode: ResizeMode.CanResize);
-        });
-        SteamShutdownCommand = ReactiveCommand.Create(() =>
-        {
-            //IWindowManager.Instance.Show(CustomWindow.SteamShutdown, resizeMode: ResizeMode.CanResize);
-        });
-        SaveEditedAppInfoCommand = ReactiveCommand.Create(() =>
-        {
-            //IWindowManager.Instance.Show(CustomWindow.SaveEditedAppInfo, resizeMode: ResizeMode.CanResize);
-        });
         RefreshAppCommand = ReactiveCommand.CreateFromTask(SteamConnectService.Current.RefreshGamesListAsync);
 
         AddHideAppListCommand = ReactiveCommand.Create<SteamApp>(AddHideAppList);
+        AddAFKAppListCommand = ReactiveCommand.Create<SteamApp>(AddAFKAppList);
+        InstallOrStartAppCommand = ReactiveCommand.Create<SteamApp>(InstallOrStartApp);
+        EditAppInfoClickCommand = ReactiveCommand.Create<SteamApp>(EditAppInfoClick);
+        ManageCloudArchive_ClickCommand = ReactiveCommand.Create<SteamApp>(ManageCloudArchive_Click);
+        UnlockAchievement_ClickCommand = ReactiveCommand.Create<SteamApp>(UnlockAchievement_Click);
+        NavAppToSteamViewCommand = ReactiveCommand.Create<SteamApp>(NavAppToSteamView);
+        OpenFolderCommand = ReactiveCommand.Create<SteamApp>(OpenFolder);
+        OpenLinkUrlCommand = ReactiveCommand.Create<string>(async url => await Browser2.OpenAsync(url));
     }
 
     public override void Activation()
@@ -204,11 +200,11 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     {
         if (!ISteamService.Instance.IsRunningSteamProcess)
         {
-            Toast.Show(Strings.GameList_SteamNotRuning);
+            Toast.Show(ToastIcon.Warning, Strings.GameList_SteamNotRuning);
             return;
         }
 
-        Toast.Show(Strings.GameList_RuningWait);
+        Toast.Show(ToastIcon.Info, Strings.GameList_RuningWait);
         app.StartSteamAppProcess(SteamAppRunType.CloudManager);
         SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
     }
@@ -217,7 +213,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     {
         if (!ISteamService.Instance.IsRunningSteamProcess)
         {
-            Toast.Show(Strings.GameList_SteamNotRuning);
+            Toast.Show(ToastIcon.Warning, Strings.GameList_SteamNotRuning);
             return;
         }
         switch (app.Type)
@@ -228,13 +224,13 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
                     rememberChooseKey: MessageBox.DontPromptType.UnLockAchievement);
                 if (result.IsOK())
                 {
-                    Toast.Show(Strings.GameList_RuningWait);
+                    Toast.Show(ToastIcon.Info, Strings.GameList_RuningWait);
                     app.StartSteamAppProcess(SteamAppRunType.UnlockAchievement);
                     SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
                 }
                 break;
             default:
-                Toast.Show(Strings.GameList_Unsupport);
+                Toast.Show(ToastIcon.Warning, Strings.GameList_Unsupport);
                 break;
         }
     }
@@ -274,16 +270,11 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     {
         try
         {
-            if (GameLibrarySettings.AFKAppList.Value == null)
+            if (!GameLibrarySettings.AFKAppList.ContainsKey(app.AppId))
             {
-                GameLibrarySettings.AFKAppList.Value = new Dictionary<uint, string?>();
+                GameLibrarySettings.AFKAppList.Add(app.AppId, app.DisplayName);
             }
-            if (!GameLibrarySettings.AFKAppList.Value.ContainsKey(app.AppId))
-            {
-                GameLibrarySettings.AFKAppList.Value.Add(app.AppId, app.DisplayName);
-                GameLibrarySettings.AFKAppList.RaiseValueChanged();
-            }
-            Toast.Show(Strings.GameList_AddAFKAppsSuccess);
+            Toast.Show(ToastIcon.Success, Strings.GameList_AddAFKAppsSuccess);
         }
         catch (Exception e)
         {
@@ -316,20 +307,5 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     {
         if (!string.IsNullOrEmpty(app.InstalledDir))
             IPlatformService.Instance.OpenFolder(app.InstalledDir);
-    }
-
-    public static async void OpenAppStoreUrl(SteamApp app)
-    {
-        await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMSTORE_APP_URL, app.AppId));
-    }
-
-    public static async void OpenSteamDBUrl(SteamApp app)
-    {
-        await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMDBINFO_APP_URL, app.AppId));
-    }
-
-    public static async void OpenSteamCardUrl(SteamApp app)
-    {
-        await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));
     }
 }

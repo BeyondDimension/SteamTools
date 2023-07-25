@@ -161,7 +161,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         return false;
     }
 
-    public async void DeleteAccountInfo(IAccount account, PlatformAccount platform)
+    public async Task DeleteAccountInfo(IAccount account, PlatformAccount platform)
     {
         if (account is SteamAccount steamAccount)
         {

@@ -9,7 +9,6 @@
     xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    x:Name="u"
     Title="{ReflectionBinding Name,
                               Source={x:Static s:Plugin.Instance},
                               Mode=OneWay}"
@@ -29,7 +28,7 @@
     <spp:PageBase.Resources>
         <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="scmd:SteamApp">
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
+                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.InstallOrStartAppCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Play"
                 IsVisible="{Binding IsInstalled}"
@@ -37,7 +36,7 @@
                                          Mode=OneWay,
                                          Source={x:Static s:ResourceService.Current}}" />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
+                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.InstallOrStartAppCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Download"
                 IsVisible="{Binding !IsInstalled}"
@@ -45,14 +44,14 @@
                                          Mode=OneWay,
                                          Source={x:Static s:ResourceService.Current}}" />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.EditAppInfoClick}"
+                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.EditAppInfoClickCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Edit"
                 Text="{ReflectionBinding Path=Res.GameList_EditAppInfo,
                                          Mode=OneWay,
                                          Source={x:Static s:ResourceService.Current}}" />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.ManageCloudArchive_Click}"
+                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.ManageCloudArchive_ClickCommand}"
                 CommandParameter="{Binding}"
                 IconSource="CloudSync"
                 IsVisible="{Binding IsCloudArchive}"
@@ -60,22 +59,29 @@
                                          Mode=OneWay,
                                          Source={x:Static s:ResourceService.Current}}" />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.UnlockAchievement_Click}"
+                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.UnlockAchievement_ClickCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Diagnostic"
                 Text="{ReflectionBinding Path=Res.Achievement_Manage,
                                          Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}" />
+                                         Source={x:Static s:ResourceService.Current}}">
+                <ui:MenuFlyoutItem.IconSource>
+                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEB4F;" />
+                </ui:MenuFlyoutItem.IconSource>
+            </ui:MenuFlyoutItem>
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.AddAFKAppList}"
+                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.AddAFKAppListCommand}"
                 CommandParameter="{Binding}"
-                IconSource="DateTime"
                 Text="{ReflectionBinding Path=Res.GameList_AddAfkGameList,
                                          Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}" />
+                                         Source={x:Static s:ResourceService.Current}}">
+                <ui:MenuFlyoutItem.IconSource>
+                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEC92;" />
+                </ui:MenuFlyoutItem.IconSource>
+            </ui:MenuFlyoutItem>
             <ui:MenuFlyoutSeparator />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.NavAppToSteamView}"
+                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.NavAppToSteamViewCommand}"
                 CommandParameter="{Binding}"
                 Text="{ReflectionBinding Path=Res.GameList_NavToSteamView,
                                          Mode=OneWay,
@@ -85,7 +91,7 @@
                 </ui:MenuFlyoutItem.IconSource>
             </ui:MenuFlyoutItem>
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.OpenFolder}"
+                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.OpenFolderCommand}"
                 CommandParameter="{Binding}"
                 IconSource="OpenFolder"
                 IsVisible="{Binding IsInstalled}"
@@ -93,35 +99,40 @@
                                          Mode=OneWay,
                                          Source={x:Static s:ResourceService.Current}}" />
             <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
-                CommandParameter="{Binding}"
-                IconSource="Link"
-                Text="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,
-                                         Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}" />
-            <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.OpenSteamDBUrl}"
-                CommandParameter="{Binding}"
-                IconSource="Link"
-                Text="{ReflectionBinding Path=Res.GameList_OpenSteamDBUrl,
-                                         Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}" />
-            <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.OpenSteamCardUrl}"
-                CommandParameter="{Binding}"
-                IconSource="Link"
-                Text="{ReflectionBinding Path=Res.GameList_OpenSteamCardUrl,
-                                         Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}" />
+            <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <ui:MenuFlyoutItem
+                    Click="AppOpenLink_MenuItem_Click"
+                    IconSource="Link"
+                    Text="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,
+                                             Mode=OneWay,
+                                             Source={x:Static s:ResourceService.Current}}" />
+                <ui:MenuFlyoutItem
+                    Click="AppOpenLink_MenuItem_Click"
+                    IconSource="Link"
+                    Tag="steamdb"
+                    Text="{ReflectionBinding Path=Res.GameList_OpenSteamDBUrl,
+                                             Mode=OneWay,
+                                             Source={x:Static s:ResourceService.Current}}" />
+                <ui:MenuFlyoutItem
+                    Click="AppOpenLink_MenuItem_Click"
+                    IconSource="Link"
+                    Tag="steamcardexchange"
+                    Text="{ReflectionBinding Path=Res.GameList_OpenSteamCardUrl,
+                                             Mode=OneWay,
+                                             Source={x:Static s:ResourceService.Current}}" />
+            </ui:MenuFlyoutSubItem>
             <ui:MenuFlyoutSeparator />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.AddHideAppListCommand}"
+                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.AddHideAppListCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Hide"
                 Text="{ReflectionBinding Path=Res.GameList_HideTheGame,
                                          Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}" />
+                                         Source={x:Static s:ResourceService.Current}}">
+                <ui:MenuFlyoutItem.IconSource>
+                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Hide}" />
+                </ui:MenuFlyoutItem.IconSource>
+            </ui:MenuFlyoutItem>
 
         </ui:FAMenuFlyout>
     </spp:PageBase.Resources>
@@ -215,7 +226,7 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem Command="{Binding HideAppCommand}" Text="{ReflectionBinding Path=Res.Game_Hidden, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Command="{Binding ShowHideAppCommand}" Text="{ReflectionBinding Path=Res.Game_Hidden, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False">
@@ -495,67 +506,65 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="scmd:SteamApp">
-                        <Border spp:Animations.EnableAnimations="False">
-                            <spp:AppItem
-                                Title="{Binding DisplayName}"
-                                Height="340"
-                                MinWidth="128"
-                                MaxWidth="169"
-                                Classes="Vertical"
-                                ContextFlyout="{StaticResource SharedMenuFlyout}"
-                                MoreFlyout="{StaticResource SharedMenuFlyout}">
-                                <spp:AppItem.Status>
-                                    <Border Classes="Status">
-                                        <TextBlock Text="{Binding AppId}" />
-                                    </Border>
-                                </spp:AppItem.Status>
-                                <spp:AppItem.Image>
-                                    <Panel MinWidth="{ReflectionBinding $parent[spp:AppItem].MinWidth}" MaxWidth="{ReflectionBinding $parent[spp:AppItem].MaxWidth}">
-                                        <spp:Image2
-                                            Name="AppImage"
-                                            DecodeWidth="169"
-                                            FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
-                                            RenderOptions.BitmapInterpolationMode="HighQuality"
-                                            Source="{Binding LibraryGridUrl}"
-                                            Stretch="UniformToFill" />
-                                        <TextBlock
-                                            Margin="8,0"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                            IsVisible="{ReflectionBinding #AppImage.IsFailed}"
-                                            Text="{Binding DisplayName}"
-                                            TextAlignment="Center"
-                                            TextWrapping="WrapWithOverflow"
-                                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                        <spp:AppItem
+                            Title="{Binding DisplayName}"
+                            Height="340"
+                            MinWidth="128"
+                            MaxWidth="169"
+                            Classes="Vertical"
+                            ContextFlyout="{StaticResource SharedMenuFlyout}"
+                            MoreFlyout="{StaticResource SharedMenuFlyout}">
+                            <spp:AppItem.Status>
+                                <Border Classes="Status">
+                                    <TextBlock Text="{Binding AppId}" />
+                                </Border>
+                            </spp:AppItem.Status>
+                            <spp:AppItem.Image>
+                                <Panel MinWidth="{ReflectionBinding $parent[spp:AppItem].MinWidth}" MaxWidth="{ReflectionBinding $parent[spp:AppItem].MaxWidth}">
+                                    <spp:Image2
+                                        Name="AppImage"
+                                        DecodeWidth="169"
+                                        FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                        Source="{Binding LibraryGridUrl}"
+                                        Stretch="UniformToFill" />
+                                    <TextBlock
+                                        Margin="8,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                        IsVisible="{ReflectionBinding #AppImage.IsFailed}"
+                                        Text="{Binding DisplayName}"
+                                        TextAlignment="Center"
+                                        TextWrapping="WrapWithOverflow"
+                                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
-                                        <Border
-                                            Margin="10,0,10,-3"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Bottom"
-                                            Background="#3D4450"
-                                            CornerRadius="3"
-                                            IsVisible="{Binding IsInstalled}">
-                                            <DockPanel Margin="10,3" HorizontalAlignment="Center">
-                                                <TextBlock
-                                                    Margin="0,0,5,0"
-                                                    VerticalAlignment="Center"
-                                                    FontSize="11"
-                                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                    IsVisible="{Binding InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                                                    Text="{Binding InstalledDrive}" />
-                                                <TextBlock
-                                                    VerticalAlignment="Center"
-                                                    FontSize="11"
-                                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                    Text="{Binding SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
-                                                    TextWrapping="Wrap" />
-                                            </DockPanel>
-                                        </Border>
-                                    </Panel>
-                                </spp:AppItem.Image>
-                            </spp:AppItem>
-                        </Border>
+                                    <Border
+                                        Margin="10,0,10,-3"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Background="#3D4450"
+                                        CornerRadius="3"
+                                        IsVisible="{Binding IsInstalled}">
+                                        <DockPanel Margin="10,3" HorizontalAlignment="Center">
+                                            <TextBlock
+                                                Margin="0,0,5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                IsVisible="{Binding InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                Text="{Binding InstalledDrive}" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                Text="{Binding SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
+                                                TextWrapping="Wrap" />
+                                        </DockPanel>
+                                    </Border>
+                                </Panel>
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>

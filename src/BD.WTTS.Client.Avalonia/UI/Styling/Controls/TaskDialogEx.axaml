@@ -121,7 +121,7 @@
                                     Margin="0,0,12,0"
                                     HorizontalAlignment="Right"
                                     Classes="Close"
-                                    Content="&#xE8BB;"
+                                    Content="{StaticResource Close}"
                                     Focusable="True"
                                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                     IsTabStop="True"

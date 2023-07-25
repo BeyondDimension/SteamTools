@@ -101,7 +101,7 @@
                     <Button
                         Name="CloseButton"
                         Classes="Close"
-                        Content="&#xE8BB;"
+                        Content="{StaticResource Close}"
                         Theme="{StaticResource FA_SystemCaptionButton}" />
                 </StackPanel>
             </ControlTemplate>

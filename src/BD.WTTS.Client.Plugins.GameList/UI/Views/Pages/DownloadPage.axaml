@@ -9,7 +9,6 @@
     xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    x:Name="u"
     Title="Steam 下载监控"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -106,7 +105,9 @@
     <spp:ContentLoader
         IsLoading="false"
         IsShowNoResultText="{Binding !!!DownloadingApps.Count, Mode=OneWay}"
-        NoResultMessage="未获取到 Steam 下载游戏数据">
+        NoResultMessage="{ReflectionBinding Path=Res.GameList_SteamShutdown_AppsEmpty,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}">
         <ItemsControl ItemsSource="{Binding DownloadingApps}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

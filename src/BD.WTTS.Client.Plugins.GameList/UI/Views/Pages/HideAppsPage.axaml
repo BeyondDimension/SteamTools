@@ -10,7 +10,6 @@
     xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    x:Name="u"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
@@ -28,7 +27,7 @@
                     <ui:SettingsExpander Description="{Binding Key}" Header="{Binding Value}">
                         <ui:SettingsExpander.Footer>
                             <Button
-                                Command="{ReflectionBinding #u.DataContext.RemoveHideAppCommand}"
+                                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.RemoveHideAppCommand}"
                                 CommandParameter="{Binding}"
                                 Content="{ReflectionBinding Path=Res.Delete,
                                                             Mode=OneWay,
