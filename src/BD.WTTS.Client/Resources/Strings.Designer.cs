@@ -846,7 +846,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 批量通过.
+        ///   查找类似 批量通过 的本地化字符串。
         /// </summary>
         public static string BatchPass {
             get {
@@ -855,7 +855,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 批量拒绝.
+        ///   查找类似 批量拒绝 的本地化字符串。
         /// </summary>
         public static string BatchReject {
             get {
@@ -864,7 +864,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 绑定.
+        ///   查找类似 绑定 的本地化字符串。
         /// </summary>
         public static string Bind {
             get {
@@ -1971,7 +1971,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 未知登陆错误：{0} 的本地化字符串。
+        ///   查找类似 登陆错误：{0} 的本地化字符串。
         /// </summary>
         public static string Error_UnknownLogin_ {
             get {
@@ -3214,7 +3214,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 这将{0}您当前所有的交易报价
+        ///   查找类似 这将{0}您当前选中的所有交易报价
         ///确定要继续吗? 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_MessageBoxTip_ {
@@ -3233,7 +3233,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 当前没有选中任何交易.
+        ///   查找类似 当前没有选中任何交易 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_SelectNull {
             get {
@@ -3242,7 +3242,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 令牌云同步.
+        ///   查找类似 令牌云同步 的本地化字符串。
         /// </summary>
         public static string LocalAuth_CloudSync {
             get {
@@ -3840,7 +3840,7 @@ namespace BD.WTTS.Client.Resources {
         ///{2}
         ///
         ///{3}
-        ///如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。.
+        ///如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。 的本地化字符串。
         /// </summary>
         public static string ModelContent_ConfirmTrade___ {
             get {
@@ -5578,7 +5578,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 显示/隐藏.
+        ///   查找类似 显示/隐藏 的本地化字符串。
         /// </summary>
         public static string ShowHide {
             get {
@@ -5587,7 +5587,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 签到.
+        ///   查找类似 签到 的本地化字符串。
         /// </summary>
         public static string Sign {
             get {
@@ -6182,7 +6182,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 {0} 全部令牌执行结束，成功数量 {1} ，失败数量 {2} 的本地化字符串。
+        ///   查找类似 {0}选中令牌执行结束，成功数量 {1} ，失败数量 {2} 的本地化字符串。
         /// </summary>
         public static string Success_ExecuteAllAuthEnd___ {
             get {
