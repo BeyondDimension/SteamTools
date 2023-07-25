@@ -8,7 +8,7 @@
     xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="Steam 游戏信息修改"
+    Title="Steam 游戏修改"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Description="可以修改 Steam 游戏名称、发行商、封面图片、启动项等信息，并且保存生效至 Steam。"
