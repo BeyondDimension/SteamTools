@@ -63,7 +63,7 @@ public sealed class SteamFamilyShareManagePageViewModel : WindowViewModel
 
     public async Task Refresh_Cash()
     {
-        IReadOnlyDictionary<long, string?>? accountRemarks = GameAccountSettings.AccountRemarks.Value;
+        var accountRemarks = GameAccountSettings.AccountRemarks.Value;
 
         foreach (var item in _AuthorizedSourceList.Items)
         {
@@ -79,7 +79,7 @@ public sealed class SteamFamilyShareManagePageViewModel : WindowViewModel
                 item.AvatarMedium = item.MiniProfile.AnimatedAvatar;
             }
 
-            if (accountRemarks?.TryGetValue(item.SteamId64_Int, out var remark) == true &&
+            if (accountRemarks?.TryGetValue("Steam-" + item.SteamId64_Int, out var remark) == true &&
                  !string.IsNullOrEmpty(remark))
                 item.Remark = remark;
         }

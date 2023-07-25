@@ -81,7 +81,10 @@
                 <ui:MenuFlyoutItem Text="Backpack.tf" />
             </ui:MenuFlyoutSubItem>
             <ui:MenuFlyoutSeparator IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" />
-            <ui:MenuFlyoutItem Text="修改备注名" />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding #u.DataContext.EditRemarkCommand}"
+                CommandParameter="{Binding}"
+                Text="修改备注名" />
             <ui:MenuFlyoutItem
                 Command="{ReflectionBinding #u.DataContext.SetAccountAvatarCommand}"
                 CommandParameter="{Binding}"
@@ -126,7 +129,8 @@
                                 MoreFlyout="{StaticResource SharedMenuFlyout}"
                                 Status="{ReflectionBinding Path=Res.UserChange_RecentLogin,
                                                            Mode=OneWay,
-                                                           Source={x:Static s:ResourceService.Current}}">
+                                                           Source={x:Static s:ResourceService.Current}}"
+                                Tags="{Binding AliasName}">
                                 <spp:AppItem.Status>
                                     <Border Classes="Status" IsVisible="{Binding MostRecent}">
                                         <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />

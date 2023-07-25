@@ -12,9 +12,9 @@ public partial interface IPartialGameAccountSettings
         => Ioc.Get_Nullable<IPartialGameAccountSettings>();
 
     /// <summary>
-    /// Steam 账号备注字典
+    /// 账号备注字典
     /// </summary>
-    ConcurrentDictionary<long, string?>? AccountRemarks { get; set; }
+    ConcurrentDictionary<string, string?>? AccountRemarks { get; set; }
 
     /// <summary>
     /// Steam 家庭共享临时禁用

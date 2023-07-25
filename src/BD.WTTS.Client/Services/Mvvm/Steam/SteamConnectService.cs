@@ -503,14 +503,14 @@ public sealed class SteamConnectService
 
         #region 加载备注信息和 JumpList
 
-        IReadOnlyDictionary<long, string?>? accountRemarks = Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
+        var accountRemarks = Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
 
 #if WINDOWS
         List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = new();
 #endif
         foreach (var user in SteamUsers.Items)
         {
-            if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
+            if (accountRemarks?.TryGetValue("Steam-" + user.SteamId64, out var remark) == true &&
                 !string.IsNullOrEmpty(remark))
                 user.Remark = remark;
 

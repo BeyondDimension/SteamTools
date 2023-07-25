@@ -81,6 +81,8 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     public ICommand SetAccountAvatarCommand { get; }
 
+    public ICommand EditRemarkCommand { get; }
+
     public ICommand CopyCommand { get; }
 
     public ICommand OpenLinkCommand { get; }

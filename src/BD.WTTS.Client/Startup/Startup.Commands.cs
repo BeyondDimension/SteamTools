@@ -250,12 +250,12 @@ partial class Startup // 自定义控制台命令参数
             var steamService = ISteamService.Instance;
             var users = steamService.GetRememberUserList();
 
-            IReadOnlyDictionary<long, string?>? accountRemarks =
+            var accountRemarks =
                 Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
 
             var sUsers = users.Select(s =>
             {
-                if (accountRemarks?.TryGetValue(s.SteamId64, out var remark) == true &&
+                if (accountRemarks?.TryGetValue("Steam-" + s.SteamId64, out var remark) == true &&
                    !string.IsNullOrEmpty(remark))
                     s.Remark = remark;
 

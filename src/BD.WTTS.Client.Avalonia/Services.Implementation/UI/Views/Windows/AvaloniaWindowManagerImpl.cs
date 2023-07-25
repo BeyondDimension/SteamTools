@@ -103,7 +103,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         object? pageContent = null,
         string? okButtonText = null,
         Func<bool>? cancelCloseAction = null)
-        where TPageViewModel : ViewModelBase, new()
+        where TPageViewModel : ViewModelBase
     {
         var td = new TaskDialogEx
         {

@@ -530,11 +530,6 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return uniqueId;
     }
 
-    public void ChangeUserRemark()
-    {
-
-    }
-
     public Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform)
     {
         List<BasicAccount>? accounts = null;

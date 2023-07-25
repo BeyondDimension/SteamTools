@@ -32,7 +32,7 @@ public interface IWindowManager
         object? pageContent = null,
         string? okButtonText = null,
         Func<bool>? cancelCloseAction = null)
-        where TPageViewModel : ViewModelBase, new();
+        where TPageViewModel : ViewModelBase;
 
     /// <summary>
     /// 显示一个窗口

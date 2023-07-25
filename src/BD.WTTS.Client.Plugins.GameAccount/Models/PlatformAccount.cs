@@ -55,6 +55,19 @@ public sealed partial class PlatformAccount
                 }
             }, fileTypes);
         });
+        EditRemarkCommand = ReactiveCommand.Create<IAccount>(async acc =>
+        {
+            var text = await TextBoxWindowViewModel.ShowDialogAsync(new()
+            {
+                Value = acc.AliasName,
+                Title = AppResources.UserChange_EditRemark,
+            });
+            //可将名字设置为空字符串重置
+            if (text == null)
+                return;
+            acc.AliasName = text;
+            platformSwitcher.ChangeUserRemark(acc);
+        });
 
         CopyCommand = ReactiveCommand.Create<string>(async text => await Clipboard2.SetTextAsync(text));
 

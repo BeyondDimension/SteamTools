@@ -1,3 +1,5 @@
+using Avalonia.Markup.Xaml.MarkupExtensions;
+
 namespace BD.WTTS.UI.Views.Pages;
 
 public partial class TextInputDialogPage : ReactiveUserControl<TextBoxWindowViewModel>
@@ -19,13 +21,15 @@ public partial class TextInputDialogPage : ReactiveUserControl<TextBoxWindowView
         {
             case TextBoxWindowViewModel.TextBoxInputType.Password:
                 PasswordBox.IsVisible = true;
-                PasswordBox.PasswordChar = '*';
+                PasswordBox.PasswordChar = App.Instance.FindResource("PasswordChar") as char? ?? '*';
                 PasswordBox.Classes.Set("revealPasswordButton", true);
+                PasswordBox.Classes.Set("clearButton", false);
                 break;
             case TextBoxWindowViewModel.TextBoxInputType.TextBox:
                 PasswordBox.IsVisible = true;
                 PasswordBox.PasswordChar = default;
                 PasswordBox.Classes.Set("revealPasswordButton", false);
+                PasswordBox.Classes.Set("clearButton", true);
                 break;
             case TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText:
                 PasswordBox.IsVisible = false;

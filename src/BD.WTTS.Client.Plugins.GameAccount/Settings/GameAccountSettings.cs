@@ -44,10 +44,10 @@ public sealed partial class GameAccountSettings_ : IGameAccountSettings, ISettin
         => GameAccountSettingsContext.Instance.GameAccountSettings_;
 
     /// <summary>
-    /// Steam 账号备注字典
+    /// 账号备注字典
     /// </summary>
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
-    public ConcurrentDictionary<long, string?>? AccountRemarks { get; set; }
+    public ConcurrentDictionary<string, string?>? AccountRemarks { get; set; }
 
     /// <summary>
     /// Steam 家庭共享临时禁用
@@ -72,9 +72,9 @@ public sealed partial class GameAccountSettings_ : IGameAccountSettings, ISettin
 public static partial class GameAccountSettings
 {
     /// <summary>
-    /// Steam 账号备注字典
+    /// 账号备注字典
     /// </summary>
-    public static SettingsProperty<long, string?, ConcurrentDictionary<long, string?>, GameAccountSettings_> AccountRemarks { get; }
+    public static SettingsProperty<string, string?, ConcurrentDictionary<string, string?>, GameAccountSettings_> AccountRemarks { get; }
         = new(DefaultAccountRemarks);
 
     /// <summary>

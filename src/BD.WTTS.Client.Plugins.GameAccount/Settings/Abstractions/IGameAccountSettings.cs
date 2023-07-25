@@ -21,14 +21,14 @@ public partial interface IGameAccountSettings
         => Ioc.Get_Nullable<IOptionsMonitor<IGameAccountSettings>>()?.CurrentValue;
 
     /// <summary>
-    /// Steam 账号备注字典
+    /// 账号备注字典
     /// </summary>
-    ConcurrentDictionary<long, string?>? AccountRemarks { get; set; }
+    ConcurrentDictionary<string, string?>? AccountRemarks { get; set; }
 
     /// <summary>
-    /// Steam 账号备注字典的默认值
+    /// 账号备注字典的默认值
     /// </summary>
-    const ConcurrentDictionary<long, string?>? DefaultAccountRemarks = null;
+    static readonly ConcurrentDictionary<string, string?> DefaultAccountRemarks = new();
 
     /// <summary>
     /// Steam 家庭共享临时禁用

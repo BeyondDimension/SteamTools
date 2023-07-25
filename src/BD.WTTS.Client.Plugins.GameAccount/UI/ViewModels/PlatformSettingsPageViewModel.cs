@@ -6,11 +6,6 @@ public class PlatformSettingsPageViewModel : ViewModelBase
 
     public PlatformAccount? Platform { get; init; }
 
-    public PlatformSettingsPageViewModel()
-    {
-        PlatformSettings = new();
-    }
-
     public PlatformSettingsPageViewModel(PlatformAccount platform)
     {
         Platform = platform;

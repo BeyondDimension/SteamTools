@@ -190,10 +190,21 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         Process2.Start(url, useShellExecute: true);
     }
 
-    public static void EditAppInfoClick(SteamApp app)
+    public static async void EditAppInfoClick(SteamApp app)
     {
         if (app == null) return;
-        //IWindowManager.Instance.Show(CustomWindow.EditAppInfo, new EditAppInfoWindowViewModel(app), string.Empty, default);
+        var vm = new EditAppInfoPageViewModel(app);
+        var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.GameList_EditAppInfo,
+            pageContent: new EditAppInfoPage(), okButtonText: Strings.Save, isCancelButton: true);
+
+        if (result)
+        {
+            vm.SaveEditAppInfo();
+        }
+        else
+        {
+            vm.CancelEditAppInfo();
+        }
     }
 
     public static void ManageCloudArchive_Click(SteamApp app)

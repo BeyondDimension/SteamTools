@@ -16,7 +16,13 @@ public interface IPlatformSwitcher
 
     string GetCurrentAccountId(PlatformAccount platform);
 
-    void ChangeUserRemark();
+    void ChangeUserRemark(IAccount account)
+    {
+        if (!string.IsNullOrEmpty(account.AccountId))
+            GameAccountSettings.AccountRemarks.Add($"{account.PlatformName}-{account.AccountId}", account.AliasName);
+        else
+            Toast.Show(ToastIcon.Error, "账号 Id 为空");
+    }
 
     bool SetPlatformPath(PlatformAccount platform);
 

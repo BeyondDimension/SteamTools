@@ -90,11 +90,6 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         return "";
     }
 
-    public void ChangeUserRemark()
-    {
-
-    }
-
     public async Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform)
     {
         var users = steamService.GetRememberUserList();

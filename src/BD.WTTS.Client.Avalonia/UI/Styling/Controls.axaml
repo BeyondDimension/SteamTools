@@ -52,6 +52,7 @@
     <StyleInclude Source="/UI/Styling/Controls/TabStrip.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/AutoCompleteBox.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/IconElement.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/CustomFilePicker.axaml" />
 
     <!--<Style Selector=":is(Window):transparent">
 		<Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}">

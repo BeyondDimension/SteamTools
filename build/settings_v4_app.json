@@ -327,11 +327,11 @@
       "InterfaceFilePath": "..\\src\\BD.WTTS.Client.Plugins.GameAccount\\Settings\\Abstractions",
       "Properties": [
         {
-          "TypeName": "ConcurrentDictionary<long, string?>",
+          "TypeName": "ConcurrentDictionary<string, string?>",
           "PropertyName": "AccountRemarks",
-          "DefaultValue": "null",
-          "DefaultValueIsConst": true,
-          "Summary": "Steam 账号备注字典",
+          "DefaultValue": "new()",
+          "DefaultValueIsConst": false,
+          "Summary": "账号备注字典",
           "IsRegionOrEndregion": null,
           "IsValueType": null
         },
