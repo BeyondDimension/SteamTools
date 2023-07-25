@@ -35,7 +35,7 @@ public sealed partial class AcceleratorPageViewModel
 
         if (IApplication.IsDesktop())
         {
-            hostsFileService = IHostsFileService.Instance;
+            hostsFileService = IHostsFileService.Constants.Instance;
             SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
             DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
             EditHostsFileCommand = ReactiveCommand.Create(hostsFileService.OpenFile);

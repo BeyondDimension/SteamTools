@@ -1,4 +1,5 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+using dotnetCampus.Ipc.CompilerServices.Attributes;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
@@ -6,11 +7,13 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// hosts 文件助手服务，修改需要管理员权限或 Root 权限
 /// </summary>
+[IpcPublic(Timeout = AssemblyInfo.IpcTimeout, IgnoresIpcException = false)]
 public interface IHostsFileService
 {
-    static IHostsFileService Instance => Ioc.Get<IHostsFileService>();
-
-    protected const string TAG = "HostsFileS";
+    static class Constants
+    {
+        public static IHostsFileService Instance => Ioc.Get<IHostsFileService>();
+    }
 
     /// <summary>
     /// 打开 hosts 文件
@@ -31,7 +34,7 @@ public interface IHostsFileService
     /// 读取 hosts 文件
     /// </summary>
     /// <returns></returns>
-    IOperationResult<List<(string ip, string domain)>> ReadHostsAllLines();
+    OperationResult<List<(string ip, string domain)>> ReadHostsAllLines();
 
     /// <summary>
     /// 更新一条 hosts 纪录
@@ -39,17 +42,17 @@ public interface IHostsFileService
     /// <param name="ip"></param>
     /// <param name="domain"></param>
     /// <returns></returns>
-    IOperationResult UpdateHosts(string ip, string domain);
+    OperationResult UpdateHosts(string ip, string domain);
 
     /// <inheritdoc cref="UpdateHosts(IReadOnlyDictionary{string, string})"/>
-    IOperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts);
+    OperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts);
 
     /// <summary>
     /// 更新多条 hosts 纪录
     /// </summary>
     /// <param name="hosts"></param>
     /// <returns></returns>
-    IOperationResult UpdateHosts(IReadOnlyDictionary<string, string> hosts);
+    OperationResult UpdateHosts(IReadOnlyDictionary<string, string> hosts);
 
     /// <summary>
     /// 移除一条 hosts 纪录
@@ -57,16 +60,16 @@ public interface IHostsFileService
     /// <param name="ip"></param>
     /// <param name="domain"></param>
     /// <returns></returns>
-    IOperationResult RemoveHosts(string ip, string domain);
+    OperationResult RemoveHosts(string ip, string domain);
 
     /// <inheritdoc cref="RemoveHosts(string, string)"/>
-    IOperationResult RemoveHosts(string domain);
+    OperationResult RemoveHosts(string domain);
 
     /// <summary>
     /// 移除当前程序写入的 hosts 纪录并还原写入时冲突的备份纪录
     /// </summary>
     /// <returns></returns>
-    IOperationResult RemoveHostsByTag();
+    OperationResult RemoveHostsByTag();
 
     /// <summary>
     /// 当程序退出时还原 hosts 文件

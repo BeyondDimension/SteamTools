@@ -137,12 +137,14 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
     {
         var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
         var pid = Environment.ProcessId;
-        const bool useShellExecute =
-#if DEBUG
-            true; // 调试模式下此子进程与主进程不使用同一个控制台窗口
-#else
-            false;
-#endif
+        //        const bool useShellExecute =
+        //#if DEBUG
+        //            true; // 调试模式下此子进程与主进程不使用同一个控制台窗口
+        //#else
+        //            false;
+        //#endif
+        // System.InvalidOperationException: The Process object must have the UseShellExecute property set to false in order to use environment variables.
+        const bool useShellExecute = false;
         const bool createNoWindow =
 #if DEBUG
             false; // 调试模式下显示窗口

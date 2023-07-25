@@ -315,10 +315,12 @@ partial class Startup // 自定义控制台命令参数
                     {
                         // 添加平台服务（供主进程的 IPC 远程访问）
                         var platformService = IPlatformService.Instance;
+                        IHostsFileService hostsFileService = IHostsFileService.Constants.Instance;
 #if DEBUG
                         Console.WriteLine(platformService.GetDebugString());
 #endif
                         ipcProvider.CreateIpcJoint<IPCPlatformService>(platformService);
+                        ipcProvider.CreateIpcJoint(hostsFileService);
                     }, new[] { n, p.ToString() });
 
                     return exitCode;

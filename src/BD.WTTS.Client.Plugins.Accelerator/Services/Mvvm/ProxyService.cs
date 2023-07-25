@@ -14,7 +14,7 @@ public sealed partial class ProxyService
 
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
     readonly IScriptManager scriptManager = IScriptManager.Instance;
-    readonly IHostsFileService hostsFileService = IHostsFileService.Instance;
+    readonly IHostsFileService hostsFileService = IHostsFileService.Constants.Instance;
     readonly IPlatformService platformService = IPlatformService.Instance;
 
     ProxyService()

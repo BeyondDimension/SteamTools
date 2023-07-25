@@ -15,10 +15,20 @@ internal sealed class HostsFileServiceImpl
 
     readonly IPlatformService s;
     readonly object lockObj = new();
+    readonly IHostsFileService? privilegedThis;
 
-    public HostsFileServiceImpl(IPlatformService s)
+    const string TAG = "HostsFileS";
+
+    public HostsFileServiceImpl(IServiceProvider serviceProvider, IPlatformService s)
     {
         this.s = s;
+#if WINDOWS
+        if (Startup.Instance.IsMainProcess && !WindowsPlatformServiceImpl.IsPrivilegedProcess)
+        {
+            var ipc = serviceProvider.GetService<IPCSubProcessService>();
+            privilegedThis = ipc?.GetService<IHostsFileService>();
+        }
+#endif
     }
 
     #region Mark
@@ -488,23 +498,37 @@ internal sealed class HostsFileServiceImpl
 
     public async void ResetFile()
     {
-        var r = await MessageBox.ShowAsync(
-            AppResources.CommunityFix_ResetHostsFileTip,
-            AppResources.Warning,
-            button: MessageBox.Button.OKCancel,
-            rememberChooseKey: MessageBox.DontPromptType.ResetHostsFile);
-        if (r.IsOK())
+        if (Startup.Instance.IsMainProcess)
         {
-            try
+            var r = await MessageBox.ShowAsync(
+                AppResources.CommunityFix_ResetHostsFileTip,
+                AppResources.Warning,
+                button: MessageBox.Button.OKCancel,
+                rememberChooseKey: MessageBox.DontPromptType.ResetHostsFile);
+            if (r.IsOK())
             {
-                s.WriteDefaultHostsContent();
-                Toast.Show(AppResources.CommunityFix_ResetHostsFileOk);
+                try
+                {
+                    if (privilegedThis != null)
+                    {
+                        privilegedThis.ResetFile();
+                    }
+                    else
+                    {
+                        s.WriteDefaultHostsContent();
+                    }
+                    Toast.Show(ToastIcon.Success, AppResources.CommunityFix_ResetHostsFileOk);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(TAG, e, nameof(ResetFile));
+                    Toast.Show(ToastIcon.Error, AppResources.CommunityFix_ResetHostsFileCatchTip_.Format(e.Message));
+                }
             }
-            catch (Exception e)
-            {
-                Log.Error(TAG, e, nameof(ResetFile));
-                Toast.Show(AppResources.CommunityFix_ResetHostsFileCatchTip_.Format(e.Message));
-            }
+        }
+        else
+        {
+            s.WriteDefaultHostsContent();
         }
     }
 
@@ -547,7 +571,7 @@ internal sealed class HostsFileServiceImpl
         return dict;
     }
 
-    public IOperationResult<List<(string ip, string domain)>> ReadHostsAllLines()
+    public OperationResult<List<(string ip, string domain)>> ReadHostsAllLines()
     {
         lock (lockObj)
         {
@@ -620,8 +644,12 @@ internal sealed class HostsFileServiceImpl
         }
     }
 
-    public IOperationResult UpdateHosts(string ip, string domain)
+    public OperationResult UpdateHosts(string ip, string domain)
     {
+        if (privilegedThis != null)
+        {
+            return privilegedThis.UpdateHosts(ip, domain);
+        }
         var dict = new Dictionary<string, string>
             {
                 { domain, ip },
@@ -629,8 +657,12 @@ internal sealed class HostsFileServiceImpl
         return UpdateHosts(dict);
     }
 
-    public IOperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts)
+    public OperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts)
     {
+        if (privilegedThis != null)
+        {
+            return privilegedThis.UpdateHosts(hosts);
+        }
         //var value = hosts.ToDictionary(k => k.domain, v => v.ip);
         var value = new Dictionary<string, string>();
         foreach (var (ip, domain) in hosts)
@@ -638,25 +670,48 @@ internal sealed class HostsFileServiceImpl
         return UpdateHosts(value);
     }
 
-    public IOperationResult UpdateHosts(IReadOnlyDictionary<string, string> hosts)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static OperationResult Convert(IOperationResult result)
     {
-        return HandleHosts(isUpdateOrRemove: true, hosts);
+        if (result is OperationResult operationResult)
+            return operationResult;
+        return new OperationResult(result);
     }
 
-    public IOperationResult RemoveHosts(string ip, string domain)
+    public OperationResult UpdateHosts(IReadOnlyDictionary<string, string> hosts)
     {
+        if (privilegedThis != null)
+        {
+            return privilegedThis.UpdateHosts(hosts);
+        }
+        var result = HandleHosts(isUpdateOrRemove: true, hosts);
+        return Convert(result);
+    }
+
+    public OperationResult RemoveHosts(string ip, string domain)
+    {
+        if (privilegedThis != null)
+        {
+            return privilegedThis.RemoveHosts(ip, domain);
+        }
         var hosts = new Dictionary<string, string>
             {
                 { domain, ip },
             };
-        return HandleHosts(isUpdateOrRemove: false, hosts);
+        var result = HandleHosts(isUpdateOrRemove: false, hosts);
+        return Convert(result);
     }
 
-    public IOperationResult RemoveHosts(string domain) => RemoveHosts(string.Empty, domain);
+    public OperationResult RemoveHosts(string domain) => RemoveHosts(string.Empty, domain);
 
-    public IOperationResult RemoveHostsByTag()
+    public OperationResult RemoveHostsByTag()
     {
-        return HandleHosts(isUpdateOrRemove: false);
+        if (privilegedThis != null)
+        {
+            return privilegedThis.RemoveHostsByTag();
+        }
+        var result = HandleHosts(isUpdateOrRemove: false);
+        return Convert(result);
     }
 
     static IOperationResult<T> TryReadHosts<T>(Func<T> func, string methodName)
@@ -692,14 +747,14 @@ internal sealed class HostsFileServiceImpl
                 }
                 else
                 {
-                    Toast.Show(AppResources.OperationHostsError_.Format(result.Message));
+                    Toast.Show(ToastIcon.Error, AppResources.OperationHostsError_.Format(result.Message));
                 }
             }
         }
         catch (Exception ex)
         {
             Log.Error(TAG, ex, "ContainsHostsByTag fail.");
-            Toast.Show(AppResources.OperationHostsError_.Format(ex.GetAllMessage()));
+            Toast.Show(ToastIcon.Error, AppResources.OperationHostsError_.Format(ex.GetAllMessage()));
         }
         return false;
     }
@@ -722,6 +777,11 @@ internal sealed class HostsFileServiceImpl
 
     public void OccupyHosts()
     {
+        if (privilegedThis != null)
+        {
+            privilegedThis.OccupyHosts();
+            return;
+        }
         mOccupyHostsFileStream = new FileStream(s.HostsFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
     }
 #endif
