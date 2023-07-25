@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using System.Security.Authentication;
+
 namespace Microsoft.Extensions.DependencyInjection;
 
 static partial class ListenOptionsExtensions
@@ -38,33 +40,35 @@ static partial class ListenOptionsExtensions
     public static ListenOptions UseTls(this ListenOptions listen)
     {
         var certService = listen.ApplicationServices.GetRequiredService<CertService>();
-        //certService.CreateCaCertIfNotExists();
-        //certService.InstallAndTrustCaCert();
-        return listen.UseTls(https =>
+        listen.Use(next => context => TlsInvadeMiddleware.InvokeAsync(next, context));
+        listen.UseHttps(new TlsHandshakeCallbackOptions
         {
-            https.ServerCertificateSelector = (ctx, domain) =>
+            OnConnection = ctx =>
             {
-                var cert = certService.GetOrCreateServerCert(domain);
-                return cert;
-            };
+                var domain = ctx.ClientHelloInfo.ServerName;
+                var o = new SslServerAuthenticationOptions
+                {
+                    ServerCertificate = certService.GetOrCreateServerCert(domain),
+                };
+                return ValueTask.FromResult(o);
+            },
         });
-    }
-
-    /// <summary>
-    /// 使用 Tls 中间件
-    /// </summary>
-    /// <param name="listen"></param>
-    /// <param name="configureOptions">https配置</param>
-    /// <returns></returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static ListenOptions UseTls(this ListenOptions listen, Action<HttpsConnectionAdapterOptions> configureOptions)
-    {
-        var invadeMiddleware = listen.ApplicationServices.GetRequiredService<TlsInvadeMiddleware>();
-        var restoreMiddleware = listen.ApplicationServices.GetRequiredService<TlsRestoreMiddleware>();
-
-        listen.Use(next => context => invadeMiddleware.InvokeAsync(next, context));
-        listen.UseHttps(configureOptions);
-        listen.Use(next => context => restoreMiddleware.InvokeAsync(next, context));
+        listen.Use(next => context => TlsRestoreMiddleware.InvokeAsync(next, context));
         return listen;
     }
+
+    ///// <summary>
+    ///// 使用 Tls 中间件
+    ///// </summary>
+    ///// <param name="listen"></param>
+    ///// <param name="configureOptions">https配置</param>
+    ///// <returns></returns>
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //static ListenOptions UseTls(this ListenOptions listen, Action<HttpsConnectionAdapterOptions> configureOptions)
+    //{
+    //    listen.Use(next => context => TlsInvadeMiddleware.InvokeAsync(next, context));
+    //    listen.UseHttps(configureOptions);
+    //    listen.Use(next => context => TlsRestoreMiddleware.InvokeAsync(next, context));
+    //    return listen;
+    //}
 }

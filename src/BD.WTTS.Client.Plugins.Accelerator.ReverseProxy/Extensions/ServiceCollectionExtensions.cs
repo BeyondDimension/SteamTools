@@ -124,8 +124,8 @@ public static partial class ServiceCollectionExtensions
             .AddSingleton<TunnelMiddleware>()
 
             // tls
-            .AddSingleton<TlsInvadeMiddleware>()
-            .AddSingleton<TlsRestoreMiddleware>()
+            //.AddSingleton<TlsInvadeMiddleware>()
+            //.AddSingleton<TlsRestoreMiddleware>()
 
             //http
             .AddSingleton<HttpLocalRequestMiddleware>()

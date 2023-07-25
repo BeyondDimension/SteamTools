@@ -14,5 +14,17 @@ partial interface IReverseProxyService
     /// 获取流量统计信息
     /// </summary>
     /// <returns></returns>
-    FlowStatistics? GetFlowStatistics();
+    byte[]? GetFlowStatistics_Bytes();
+}
+
+public static partial class ReverseProxyServiceExtensions
+{
+    /// <inheritdoc cref="IReverseProxyService.GetFlowStatistics_Bytes"/>
+    public static FlowStatistics? GetFlowStatistics(this IReverseProxyService s)
+    {
+        var bytes = s.GetFlowStatistics_Bytes();
+        if (bytes == default) return default;
+        var flowStatistics = Serializable.DMP2<FlowStatistics>(bytes);
+        return flowStatistics;
+    }
 }

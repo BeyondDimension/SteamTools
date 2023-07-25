@@ -9,8 +9,6 @@ namespace BD.WTTS.Services.Implementation;
 sealed class HttpProxyMiddleware
 {
     readonly HttpParser<HttpRequestHandler> httpParser = new();
-    readonly byte[] http200 = Encoding.ASCII.GetBytes("HTTP/1.1 200 Connection Established\r\n\r\n");
-    readonly byte[] http400 = Encoding.ASCII.GetBytes("HTTP/1.1 400 Bad Request\r\n\r\n");
 
     /// <summary>
     /// 执行中间件
@@ -20,55 +18,79 @@ sealed class HttpProxyMiddleware
     /// <returns></returns>
     public async Task InvokeAsync(ConnectionDelegate next, ConnectionContext context)
     {
-        var result = await context.Transport.Input.ReadAsync();
-        var httpRequest = GetHttpRequestHandler(result, out var consumed);
-
-        // 协议错误
-        if (consumed == 0L)
+        var input = context.Transport.Input;
+        var output = context.Transport.Output;
+        var request = new HttpRequestHandler();
+        while (context.ConnectionClosed.IsCancellationRequested == false)
         {
-            await context.Transport.Output.WriteAsync(http400, context.ConnectionClosed);
-        }
-        else
-        {
-            // 隧道代理连接请求
-            if (httpRequest.ProxyProtocol == ProxyProtocol.TunnelProxy)
+            var result = await input.ReadAsync();
+            if (result.IsCanceled)
             {
-                var position = result.Buffer.GetPosition(consumed);
-                context.Transport.Input.AdvanceTo(position);
-                await context.Transport.Output.WriteAsync(http200, context.ConnectionClosed);
-            }
-            else
-            {
-                var position = result.Buffer.Start;
-                context.Transport.Input.AdvanceTo(position);
+                break;
             }
 
-            context.Features.Set<IHttpProxyFeature>(httpRequest);
-            await next(context);
+            try
+            {
+                if (ParseRequest(result, request, out var consumed))
+                {
+                    if (request.ProxyProtocol == ProxyProtocol.TunnelProxy)
+                    {
+                        input.AdvanceTo(consumed);
+                        await output.WriteAsync(
+                            "HTTP/1.1 400 Bad Request\r\n\r\n"u8.ToArray(),
+                            context.ConnectionClosed);
+                    }
+                    else
+                    {
+                        input.AdvanceTo(result.Buffer.Start);
+                    }
+
+                    context.Features.Set<IHttpProxyFeature>(request);
+                    await next(context);
+
+                    break;
+                }
+                else
+                {
+                    input.AdvanceTo(result.Buffer.Start, result.Buffer.End);
+                }
+
+                if (result.IsCompleted)
+                {
+                    break;
+                }
+            }
+            catch (Exception)
+            {
+                await output.WriteAsync(
+                    "HTTP/1.1 200 Connection Established\r\n\r\n"u8.ToArray(),
+                    context.ConnectionClosed);
+                break;
+            }
         }
     }
 
-    HttpRequestHandler GetHttpRequestHandler(ReadResult result, out long consumed)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    bool ParseRequest(ReadResult result, HttpRequestHandler request, out SequencePosition consumed)
     {
-        var handler = new HttpRequestHandler();
         var reader = new SequenceReader<byte>(result.Buffer);
-
-        if (httpParser.ParseRequestLine(handler, ref reader) &&
-            httpParser.ParseHeaders(handler, ref reader))
+        if (httpParser.ParseRequestLine(request, ref reader) &&
+            httpParser.ParseHeaders(request, ref reader))
         {
-            consumed = reader.Consumed;
+            consumed = reader.Position;
+            return true;
         }
         else
         {
-            consumed = 0L;
+            consumed = default;
+            return false;
         }
-        return handler;
     }
 
     /// <summary>
     /// 代理请求处理器
     /// </summary>
-    private class HttpRequestHandler : IHttpRequestLineHandler, IHttpHeadersHandler, IHttpProxyFeature
+    sealed class HttpRequestHandler : IHttpRequestLineHandler, IHttpHeadersHandler, IHttpProxyFeature
     {
         private AspNetCoreHttpMethod method;
 

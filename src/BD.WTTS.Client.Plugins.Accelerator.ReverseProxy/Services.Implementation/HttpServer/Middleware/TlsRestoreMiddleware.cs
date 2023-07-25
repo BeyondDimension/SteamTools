@@ -6,7 +6,7 @@ namespace BD.WTTS.Services.Implementation;
 /// <summary>
 /// Https 恢复中间件
 /// </summary>
-sealed class TlsRestoreMiddleware
+static class TlsRestoreMiddleware
 {
     /// <summary>
     /// 执行中间件
@@ -14,7 +14,7 @@ sealed class TlsRestoreMiddleware
     /// <param name="next"></param>
     /// <param name="context"></param>
     /// <returns></returns>
-    public async Task InvokeAsync(ConnectionDelegate next, ConnectionContext context)
+    public static async Task InvokeAsync(ConnectionDelegate next, ConnectionContext context)
     {
         if (context.Features.Get<ITlsConnectionFeature>() == FakeTlsConnectionFeature.Instance)
         {

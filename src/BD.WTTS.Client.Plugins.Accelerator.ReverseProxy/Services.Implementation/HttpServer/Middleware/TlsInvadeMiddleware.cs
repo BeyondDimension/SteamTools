@@ -6,7 +6,7 @@ namespace BD.WTTS.Services.Implementation;
 /// <summary>
 /// Https 入侵中间件
 /// </summary>
-sealed class TlsInvadeMiddleware
+static class TlsInvadeMiddleware
 {
     /// <summary>
     /// 执行中间件
@@ -14,7 +14,7 @@ sealed class TlsInvadeMiddleware
     /// <param name="next"></param>
     /// <param name="context"></param>
     /// <returns></returns>
-    public async Task InvokeAsync(ConnectionDelegate next, ConnectionContext context)
+    public static async Task InvokeAsync(ConnectionDelegate next, ConnectionContext context)
     {
         // 连接不是 tls
         if (await IsTlsConnectionAsync(context) == false)

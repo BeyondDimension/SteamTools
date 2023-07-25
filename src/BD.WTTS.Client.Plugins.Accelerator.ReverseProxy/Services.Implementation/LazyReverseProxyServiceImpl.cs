@@ -21,7 +21,7 @@ sealed class LazyReverseProxyServiceImpl : IReverseProxyService
 
     public void Dispose() => impl().Dispose();
 
-    public FlowStatistics? GetFlowStatistics() => impl().GetFlowStatistics();
+    public byte[]? GetFlowStatistics_Bytes() => impl().GetFlowStatistics_Bytes();
 
     public async Task<StartProxyResult> StartProxyAsync(byte[] reverseProxySettings)
     {

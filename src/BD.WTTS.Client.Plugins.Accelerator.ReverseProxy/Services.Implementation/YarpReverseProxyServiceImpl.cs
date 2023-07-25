@@ -141,7 +141,13 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         app = null;
     }
 
-    public FlowStatistics? GetFlowStatistics() => app?.Services.GetService<IFlowAnalyzer>()?.GetFlowStatistics();
+    public byte[]? GetFlowStatistics_Bytes()
+    {
+        var flowAnalyzer = app?.Services.GetService<IFlowAnalyzer>();
+        var flowStatistics = flowAnalyzer?.GetFlowStatistics();
+        var bytes = Serializable.SMP2(flowStatistics);
+        return bytes;
+    }
 
     // IDisposable
 

@@ -45,16 +45,6 @@ partial class YarpReverseProxyServiceImpl
         app.UseRequestLogging();
         app.UseHttpReverseProxy();
 
-        //app.UseRouting();
         app.DisableRequestLogging();
-
-        //app.UseEndpoints(endpoint =>
-        //{
-        //    endpoint.MapGet("/flowStatistics", context =>
-        //    {
-        //        var flowStatistics = context.RequestServices.GetRequiredService<IFlowAnalyzer>().GetFlowStatistics();
-        //        return context.Response.WriteAsJsonAsync(flowStatistics);
-        //    });
-        //});
     }
 }

@@ -69,15 +69,19 @@ sealed class CertService
         var key = $"{nameof(CertService)}:{domain}";
         return serverCertCache.GetOrCreate(key, GetOrCreateCert);
 
-        // 生成域名的1年证书
+        // 生成域名的 1 年证书
         X509Certificate2 GetOrCreateCert(ICacheEntry entry)
         {
             var domains = GetDomains(domain).Distinct();
-            var validFrom = DateTime.Today.AddDays(-1);
-            var validTo = DateTime.Today.AddYears(1);
+            DateTimeOffset today = DateTime.Today;
+            var validFrom = today.AddDays(-1);
+            var validTo = today.AddYears(1);
 
             entry.SetAbsoluteExpiration(validTo);
-            return CertGenerator.GenerateByCaPfx(domains, validFrom, validTo, CaPfxFilePath);
+            using var serverCert = CertGenerator.GenerateByCaPfx(domains, validFrom, validTo, CaPfxFilePath);
+            var serverCertPfx = serverCert.Export(X509ContentType.Pfx);
+            // 将生成的证书导出后重新创建一个
+            return new X509Certificate2(serverCertPfx);
         }
     }
 

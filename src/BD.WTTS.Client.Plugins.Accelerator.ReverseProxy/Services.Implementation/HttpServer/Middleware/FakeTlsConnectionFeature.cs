@@ -9,12 +9,12 @@ sealed class FakeTlsConnectionFeature : ITlsConnectionFeature
 
     public X509Certificate2? ClientCertificate
     {
-        get => throw new NotImplementedException();
-        set => throw new NotImplementedException();
+        get => default;
+        set { }
     }
 
     public Task<X509Certificate2?> GetClientCertificateAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<X509Certificate2?>(default);
     }
 }
