@@ -164,7 +164,11 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         DotNetRuntimeHelper.AddEnvironment(psi);
         if (!string.IsNullOrWhiteSpace(Startup.NativeLibraryPath))
             psi.Environment.TryAdd(IPCSubProcessService.EnvKey_NativeLibraryPath, Startup.NativeLibraryPath);
-        if (isAdministrator)
+        if (isAdministrator
+#if WINDOWS
+            && !WindowsPlatformServiceImpl.IsPrivilegedProcess
+#endif
+            )
         {
             var psi_ = Serializable.SMP2(psi);
             var startPid = await IPlatformService.Instance.StartProcessAsAdministratorAsync(psi_);

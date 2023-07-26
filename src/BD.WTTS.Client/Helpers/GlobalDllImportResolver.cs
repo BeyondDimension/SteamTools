@@ -189,6 +189,11 @@ public static partial class GlobalDllImportResolver
                 //Console.WriteLine($"rootLibraryPath: {rootLibraryPath}");
                 rootLibraryFileExists = File.Exists(rootLibraryPath);
             }
+            if (!rootLibraryFileExists)
+            {
+                rootLibraryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location!)!, "runtimes", RID, "native", libraryName);
+                rootLibraryFileExists = File.Exists(rootLibraryPath);
+            }
             if (rootLibraryFileExists)
             {
                 var destLibraryPath = GetLibraryPath(libraryName);
