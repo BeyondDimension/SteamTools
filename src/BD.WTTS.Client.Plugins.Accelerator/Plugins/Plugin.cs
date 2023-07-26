@@ -81,7 +81,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
         {
             var subProcessPath = SubProcessPath;
             var p = await ipc.StartSubProcessAsync(subProcessPath.ThrowIsNull(),
-                isAdministrator: false);
+                isAdministrator: true);
             return p;
         });
     }
