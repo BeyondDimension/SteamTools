@@ -60,7 +60,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 var script = new ScriptDTO
                 {
                     FilePath = path,
-                    Content = content.Replace("</script>", "<\\/script>"),
+                    Content = content.Replace("</script>", "<\\/script>"),//不读取至 Content
                     //Content = content.Replace("</script>", "<\\/script>").Replace(" ", "").Replace("\r", "").Replace("\n", "").Replace("\t", ""),
                     Name = Regex.Match(userScript, string.Format(DescRegex, "@Name"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
                     //NameSpace = Regex.Matches(userScript, string.Format(DescRegex, $"@NameSpace"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).ToArray(),

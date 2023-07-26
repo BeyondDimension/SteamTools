@@ -65,7 +65,7 @@ sealed class HttpLocalRequestMiddleware
                         return;
                     }
                     // TODO: Scripts
-                    if (reverseProxyConfig.TryGetScriptContent(lid, out string content))
+                    if (reverseProxyConfig.TryGetScriptContent(lid, out string? content))
                     {
                         if (string.IsNullOrEmpty(content))
                         {
