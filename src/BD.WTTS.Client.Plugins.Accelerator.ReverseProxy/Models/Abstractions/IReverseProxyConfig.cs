@@ -13,7 +13,7 @@ public partial interface IReverseProxyConfig
 
     IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
-    IReadOnlyCollection<ScriptDTO>? ProxyScripts { get; set; }
+    IReadOnlyCollection<ScriptIPCDTO>? ProxyScripts { get; set; }
 
     /// <summary>
     /// 是否匹配指定的域名
@@ -37,6 +37,14 @@ public partial interface IReverseProxyConfig
     /// <param name="value"></param>
     /// <returns></returns>
     bool TryGetScriptConfig(string domain, [MaybeNullWhen(false)] out IEnumerable<IScriptConfig> value);
+
+    /// <summary>
+    /// 尝试获取脚本内容
+    /// </summary>
+    /// <param name="lid"></param>
+    /// <param name="content"></param>
+    /// <returns></returns>
+    bool TryGetScriptContent(int lid, out string? content);
 
     /// <summary>
     /// 获取所有域名表达式

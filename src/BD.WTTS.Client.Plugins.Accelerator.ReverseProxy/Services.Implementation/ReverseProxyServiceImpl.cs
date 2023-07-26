@@ -30,7 +30,7 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
     public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
     /// <inheritdoc cref="IReverseProxyService.Scripts"/>
-    public IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
+    public IReadOnlyCollection<ScriptIPCDTO>? Scripts { get; set; }
 
     /// <inheritdoc cref="IReverseProxyService.IsEnableScript"/>
     public bool IsEnableScript { get; set; }

@@ -228,7 +228,7 @@ public sealed partial class ProxyService
         var result = await client.All();
 #if DEBUG
         stopwatch.Stop();
-        Toast.Show($"加载代理服务数据耗时：{stopwatch.ElapsedMilliseconds}ms，IsSuccess：{result.IsSuccess}，Code：{result.Code}，Count：{result.Content?.Count}");
+        Toast.Show(ToastIcon.Info, $"加载代理服务数据耗时：{stopwatch.ElapsedMilliseconds}ms，IsSuccess：{result.IsSuccess}，Code：{result.Code}，Count：{result.Content?.Count}");
 #endif
         if (result.IsSuccess)
         {
@@ -368,10 +368,10 @@ public sealed partial class ProxyService
                   if (reverseProxyService.ProxyRunning)
                   {
 
-                      await EnableProxyScripts.ContinueWith(e =>
-                      {
-                          reverseProxyService.Scripts = e.Result?.ToImmutableArray();
-                      });
+                      //await EnableProxyScripts.ContinueWith(e =>
+                      //{
+                      //    reverseProxyService.Scripts = e.Result?.ToImmutableArray();
+                      //});
                       this.RaisePropertyChanged(nameof(EnableProxyScripts));
                   }
               }));
@@ -410,19 +410,20 @@ public sealed partial class ProxyService
                     }
                 }
                 else
-                    Toast.Show(build.Message);
+                    Toast.Show(ToastIcon.Error, build.Message);
             }
             else
-                Toast.Show(jspath.GetMessageByFormat(Strings.Download_ScriptError_));
+                Toast.Show(ToastIcon.Error, jspath.GetMessageByFormat(Strings.Download_ScriptError_));
         }
     }
 
-    public async Task AddNewScriptAsync(string filename)
+    public async Task AddNewScriptAsync(string filePath)
     {
-        var fileInfo = new FileInfo(filename);
+        var fileInfo = new FileInfo(filePath);
         if (fileInfo.Exists)
         {
-            ScriptDTO.TryParse(filename, out ScriptDTO? info);
+            var info = await scriptManager.ReadScriptAsync(filePath);
+            //ScriptDTO.TryParse(filename, out ScriptDTO? info);
             if (info != null)
             {
                 var scriptItem = ProxyScripts.Items.FirstOrDefault(x => x.Name == info.Name);
@@ -448,8 +449,8 @@ public sealed partial class ProxyService
         }
         else
         {
-            var msg = Strings.Script_FileError_.Format(filename); // $"文件不存在:{filePath}";
-            Toast.Show(msg);
+            // $"文件不存在:{filePath}";
+            Toast.Show(ToastIcon.Error, Strings.Script_FileError_.Format(filePath));
         }
     }
 
@@ -462,7 +463,7 @@ public sealed partial class ProxyService
             isCompile = oldInfo.IsCompile;
             order = oldInfo.Order;
         }
-        var item = await scriptManager.AddScriptAsync(fileInfo, info, oldInfo, isCompile: isCompile, order: order);
+        var item = await scriptManager.SaveScriptAsync(fileInfo, info, oldInfo, isCompile: isCompile, order: order);
         if (item.IsSuccess)
         {
             if (item.Content != null)
@@ -477,7 +478,7 @@ public sealed partial class ProxyService
                 }
             }
         }
-        Toast.Show(item.Message);
+        Toast.Show(item.IsSuccess ? ToastIcon.Success : ToastIcon.Error, item.Message);
         RefreshScript();
     }
 
@@ -521,17 +522,17 @@ public sealed partial class ProxyService
                     {
                         ProxyScripts.Add(build.Content);
                     }
-                    Toast.Show(Strings.Download_ScriptOk);
+                    Toast.Show(ToastIcon.Success, Strings.Download_ScriptOk);
                 }
             }
             else
             {
-                Toast.Show(build.Message);
+                Toast.Show(ToastIcon.Error, build.Message);
             }
         }
         else
         {
-            Toast.Show(jspath.GetMessageByFormat(Strings.Download_ScriptError_));
+            Toast.Show(ToastIcon.Error, jspath.GetMessageByFormat(Strings.Download_ScriptError_));
         }
         model.IsLoading = false;
     }
@@ -590,7 +591,7 @@ public sealed partial class ProxyService
         }
 #endif
 
-        Toast.Show(Strings.FixNetworkComplete);
+        Toast.Show(ToastIcon.Success, Strings.FixNetworkComplete);
     }
 
     public void Dispose()

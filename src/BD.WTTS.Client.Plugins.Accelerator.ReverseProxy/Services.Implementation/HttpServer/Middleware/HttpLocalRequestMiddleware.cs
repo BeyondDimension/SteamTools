@@ -65,15 +65,22 @@ sealed class HttpLocalRequestMiddleware
                         return;
                     }
                     // TODO: Scripts
-                    //var content = reverseProxyConfig.Service.Scripts?.FirstOrDefault(x => x.LocalId == lid)?.Content;
-                    //if (string.IsNullOrEmpty(content))
-                    //{
-                    //    await Handle404NotFoundAsync(context);
-                    //    return;
-                    //}
-                    //context.Response.Headers.ContentType = "text/javascript;charset=UTF-8";
-                    //await context.Response.WriteAsync(content);
-                    return;
+                    if (reverseProxyConfig.TryGetScriptContent(lid, out string content))
+                    {
+                        if (string.IsNullOrEmpty(content))
+                        {
+                            await Handle404NotFoundAsync(context);
+                            return;
+                        }
+                        context.Response.Headers.ContentType = "text/javascript;charset=UTF-8";
+                        await context.Response.WriteAsync(content);
+                        return;
+                    }
+                    else
+                    {
+                        await Handle404NotFoundAsync(context);
+                        return;
+                    }
             }
         }
 

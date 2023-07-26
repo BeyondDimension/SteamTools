@@ -40,7 +40,7 @@ public partial interface IReverseProxyService : IDisposable
     bool ProxyRunning { get; }
 
     /// <inheritdoc cref="IReverseProxySettings.Scripts"/>
-    IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
+    IReadOnlyCollection<ScriptIPCDTO>? Scripts { get; set; }
 
     /// <summary>
     /// 启动代理服务
@@ -80,7 +80,7 @@ public partial interface IReverseProxySettings
     /// <summary>
     /// 当前勾选的脚本集
     /// </summary>
-    IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
+    IReadOnlyCollection<ScriptIPCDTO>? Scripts { get; set; }
 
     /// <summary>
     /// 是否启用脚本
@@ -160,7 +160,7 @@ public readonly partial record struct ReverseProxySettings(
     [property: MP2Key(0)]
     IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains,
     [property:MP2Key(1)]
-    IReadOnlyCollection<ScriptDTO>? Scripts,
+    IReadOnlyCollection<ScriptIPCDTO>? Scripts,
     [property:MP2Key(2)]
     bool IsEnableScript,
     [property:MP2Key(3)]

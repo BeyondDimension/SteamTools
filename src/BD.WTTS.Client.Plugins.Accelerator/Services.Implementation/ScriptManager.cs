@@ -7,6 +7,14 @@ namespace BD.WTTS.Services.Implementation;
 public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
 {
     const string TAG = nameof(ScriptManager);
+    const string HomepageURL = "HomepageURL";
+    const string DownloadURL = "DownloadURL";
+    const string UpdateURL = "UpdateURL";
+    const string Exclude = "Exclude";
+    const string Grant = "Grant";
+    const string Require = "Require";
+    const string Include = "Include";
+    const string DescRegex = @"(?<={0})[\s\S]*?(?=\n)";
 
     protected override string? DefaultClientName => TAG;
 
@@ -40,13 +48,53 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             cancellationToken: cancellationToken, userAgent: http_helper.UserAgent);
     }
 
+    public async Task<ScriptDTO?> ReadScriptAsync(string path)
+    {
+
+        var content = await File.ReadAllTextAsync(path);
+        if (!string.IsNullOrEmpty(content))
+        {
+            var userScript = content.Substring("==UserScript==", "==/UserScript==");
+            if (!string.IsNullOrEmpty(userScript))
+            {
+                var script = new ScriptDTO
+                {
+                    FilePath = path,
+                    Content = content.Replace("</script>", "<\\/script>"),
+                    //Content = content.Replace("</script>", "<\\/script>").Replace(" ", "").Replace("\r", "").Replace("\n", "").Replace("\t", ""),
+                    Name = Regex.Match(userScript, string.Format(DescRegex, "@Name"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                    //NameSpace = Regex.Matches(userScript, string.Format(DescRegex, $"@NameSpace"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).ToArray(),
+                    Version = Regex.Match(userScript, string.Format(DescRegex, "@Version"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                    Describe = Regex.Match(userScript, string.Format(DescRegex, "@Description"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                    AuthorName = Regex.Match(userScript, string.Format(DescRegex, "@Author"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                    SourceLink = Regex.Match(userScript, string.Format(DescRegex, "@HomepageURL"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                    //SupportURL = Regex.Match(userScript, string.Format(DescRegex, $"@SupportURL"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                    DownloadLink = Regex.Match(userScript, string.Format(DescRegex, $"@{DownloadURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                    UpdateLink = Regex.Match(userScript, string.Format(DescRegex, $"@{UpdateURL}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true),
+                    ExcludeDomainNames = string.Join(ApiConstants.GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Exclude}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
+                    DependentGreasyForkFunction = Regex.Matches(userScript, string.Format(DescRegex, $"@{Grant}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true).Any_Nullable(),
+                    RequiredJs = string.Join(ApiConstants.GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Require}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
+                };
+                var matchs = string.Join(ApiConstants.GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@Match"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
+                var includes = string.Join(ApiConstants.GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Include}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
+                script.MatchDomainNames = string.IsNullOrEmpty(matchs) ? includes : matchs;
+                // 忽略脚本 Enable 启动标签默认启动
+                //var enable = Regex.Match(userScript, string.Format(DescRegex, "@Enable"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true);
+                script.Disable = true;
+                //script.Enable = bool.TryParse(enable, out var e) && e;
+                return script;
+            }
+        }
+        return null;
+    }
+
     public async Task<IApiRsp<ScriptDTO?>> AddScriptAsync(string filePath, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false)
     {
         var fileInfo = new FileInfo(filePath);
         if (fileInfo.Exists)
         {
-            _ = ScriptDTO.TryParse(filePath, out ScriptDTO? info);
-            return await AddScriptAsync(fileInfo, info, oldInfo, isCompile, order, deleteFile, pid, ignoreCache);
+            var info = await ReadScriptAsync(filePath);
+            return await SaveScriptAsync(fileInfo, info, oldInfo, isCompile, order, deleteFile, pid, ignoreCache);
         }
         else
         {
@@ -56,7 +104,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         }
     }
 
-    public async Task<IApiRsp<ScriptDTO?>> AddScriptAsync(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false)
+    public async Task<IApiRsp<ScriptDTO?>> SaveScriptAsync(FileInfo fileInfo, ScriptDTO? info, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false)
     {
         if (info != null)
         {
@@ -152,7 +200,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                     {
                         var msg = AppResources.Script_BuildError_.Format(fileInfo.FullName);
                         logger.LogError(msg);
-                        toast.Show(msg);
+                        toast.Show(ToastIcon.Error, msg);
                         return ApiRspHelper.Fail<ScriptDTO?>(msg);
                     }
                 }
@@ -160,7 +208,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 {
                     var msg = AppResources.Script_ReadFileError_.Format(fileInfo.FullName);
                     logger.LogError(msg);
-                    toast.Show(msg);
+                    toast.Show(ToastIcon.Error, msg);
                     return ApiRspHelper.Fail<ScriptDTO?>(msg);
                 }
             }
@@ -200,7 +248,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                         {
                             var errorMsg = AppResources.Script_BuildDownloadError__.Format(model.Name, item);
                             logger.LogError(e, errorMsg);
-                            toast.Show(errorMsg);
+                            toast.Show(ToastIcon.Error, errorMsg);
                         }
                     }
                     scriptContent.AppendLine("try{var jq2 = $.noConflict(true);}catch{};(($, jQuery) => {");
@@ -234,7 +282,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         {
             var msg = AppResources.Script_BuildError_.Format(e.GetAllMessage());
             logger.LogError(e, msg);
-            toast.Show(msg);
+            toast.Show(ToastIcon.Error, msg);
         }
         return false;
     }
@@ -300,12 +348,17 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         static IApiRsp OK_Script_DeleteSuccess() => ApiRspHelper.Ok(AppResources.Script_DeleteSuccess);
     }
 
+    /// <summary>
+    /// 修改为仅尝试判断文件是否存在
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public async Task<ScriptDTO> TryReadFileAsync(ScriptDTO item)
     {
         var cachePath = Path.Combine(Plugin.Instance.CacheDirectory, item.CachePath);
         if (File.Exists(cachePath))
         {
-            item.Content = File.ReadAllText(cachePath);
+            //item.Content = File.ReadAllText(cachePath);
         }
         else
         {
@@ -313,12 +366,11 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             var infoPath = Path.Combine(Plugin.Instance.AppDataDirectory, item.FilePath);
             if (File.Exists(infoPath))
             {
-                item.Content = File.ReadAllText(infoPath);
+                //item.Content = File.ReadAllText(infoPath);
                 if (!await BuildScriptAsync(item, fileInfo, item.IsCompile))
                 {
-                    toast.Show(AppResources.Script_ReadFileError_.Format(item.Name));
+                    toast.Show(ToastIcon.Error, AppResources.Script_ReadFileError_.Format(item.Name));
                 }
-
             }
             else
             {
@@ -326,12 +378,12 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 if (temp.IsSuccess)
                 {
                     //$"脚本:{item.Name}_文件丢失已删除"
-                    toast.Show(AppResources.Script_NoFile_.Format(item.Name));
+                    toast.Show(ToastIcon.Warning, AppResources.Script_NoFile_.Format(item.Name));
                 }
                 else
                 {
                     //toast.Show($"脚本:{item.Name}_文件丢失，删除失败去尝试手动删除");
-                    toast.Show(AppResources.Script_NoFileDeleteError_.Format(item.Name));
+                    toast.Show(ToastIcon.Error, AppResources.Script_NoFileDeleteError_.Format(item.Name));
                 }
             }
         }
@@ -361,7 +413,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             {
                 var errorMsg = AppResources.Script_ReadFileError_.Format(e.GetAllMessage()); //$"文件读取出错:[{e}]";
                 logger.LogError(e, errorMsg);
-                toast.Show(errorMsg);
+                toast.Show(ToastIcon.Error, errorMsg);
             }
             return all;
         }

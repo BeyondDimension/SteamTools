@@ -14,7 +14,7 @@ partial class ProxyService
     async Task<OperateProxyServiceResult> StartProxyServiceAsync()
     {
         IReadOnlyCollection<AccelerateProjectDTO>? proxyDomains = EnableProxyDomains;
-        IReadOnlyCollection<ScriptDTO>? scripts = default;
+        IReadOnlyCollection<ScriptIPCDTO>? scripts = default;
         bool isEnableScript = ProxySettings.IsEnableScript.Value;
         bool isOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
         ushort proxyPort = ProxySettings.SystemProxyPortId.Value;
@@ -52,7 +52,20 @@ partial class ProxyService
         {
             await EnableProxyScripts.ContinueWith(e =>
             {
-                scripts = e.Result?.ToImmutableArray();
+                scripts = e.Result?.Select(item => new ScriptIPCDTO(
+                               item.LocalId,
+                               item.CachePath,
+                               item.MatchDomainNamesArray,
+                               item.ExcludeDomainNames,
+                               item.Order)
+                          ).ToImmutableArray();
+                //.Select(item =>
+                //          new ScriptIPCDTO(
+                //               item.LocalId,
+                //               item.CachePath,
+                //               item.MatchDomainNamesArray,
+                //               item.ExcludeDomainNames)
+                //          );
             });
         }
 

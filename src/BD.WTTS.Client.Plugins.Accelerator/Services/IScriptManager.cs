@@ -35,7 +35,14 @@ public interface IScriptManager
     Task<IApiRsp<ScriptDTO?>> AddScriptAsync(string path, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
 
     /// <summary>
-    /// 添加 JS
+    /// 读取文件转 DTO
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    Task<ScriptDTO?> ReadScriptAsync(string path);
+
+    /// <summary>
+    /// 保存 JS
     /// </summary>
     /// <param name="path"></param>
     /// <param name="info"></param>
@@ -46,7 +53,7 @@ public interface IScriptManager
     /// <param name="pid"></param>
     /// <param name="ignoreCache"></param>
     /// <returns></returns>
-    Task<IApiRsp<ScriptDTO?>> AddScriptAsync(FileInfo path, ScriptDTO? info, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
+    Task<IApiRsp<ScriptDTO?>> SaveScriptAsync(FileInfo path, ScriptDTO? info, ScriptDTO? oldInfo = null, bool isCompile = true, long? order = null, bool deleteFile = false, Guid? pid = null, bool ignoreCache = false);
 
     /// <summary>
     /// 获取全部脚本

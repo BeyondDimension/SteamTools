@@ -9,14 +9,17 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     readonly ICollection<KeyValuePair<DomainPattern, IScriptConfig>> scriptConfigs;
     readonly ConcurrentDictionary<string, IDomainConfig?> domainConfigCache;
     readonly YarpReverseProxyServiceImpl reverseProxyService;
+    readonly ConcurrentDictionary<int, string> scriptsContent;
 
     public ReverseProxyConfig(YarpReverseProxyServiceImpl reverseProxyService)
     {
         this.reverseProxyService = reverseProxyService;
         domainConfigs = new();
+        scriptsContent = new();
         scriptConfigs = new List<KeyValuePair<DomainPattern, IScriptConfig>>();
         AddDomainConfigs(domainConfigs, reverseProxyService.ProxyDomains);
         AddScriptConfigs(scriptConfigs, reverseProxyService.Scripts);
+        LoadScriptContent(scriptsContent, reverseProxyService.Scripts);
         domainConfigCache = new();
     }
 
@@ -34,7 +37,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         set => reverseProxyService.ProxyDomains = value;
     }
 
-    public IReadOnlyCollection<ScriptDTO>? ProxyScripts
+    public IReadOnlyCollection<ScriptIPCDTO>? ProxyScripts
     {
         get => reverseProxyService.Scripts;
         set => reverseProxyService.Scripts = value;
@@ -55,8 +58,35 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         }
     }
 
+    void LoadScriptContent(ConcurrentDictionary<int, string> dict, IEnumerable<ScriptIPCDTO>? scripts)
+    {
+        if (IReverseProxyService.Constants.Instance.IsEnableScript && scripts != null)
+        {
+            foreach (var item in scripts)
+            {
+                if (LoadScriptFille(item.CachePath, out string? content))
+                {
+                    if (!string.IsNullOrEmpty(content))
+                        scriptsContent.TryAdd(item.LocalId, content);
+                }
+            }
+        }
+    }
+
+    static bool LoadScriptFille(string cachePath, out string? content)
+    {
+        var cacheFilePath = Path.Combine(IOPath.CacheDirectory, cachePath);
+        if (File.Exists(cacheFilePath))
+        {
+            content = File.ReadAllText(cacheFilePath);
+            return true;
+        }
+        content = null;
+        return false;
+    }
+
     static void AddScriptConfigs(ICollection<KeyValuePair<DomainPattern, IScriptConfig>> dict,
-    IEnumerable<ScriptDTO>? scripts)
+    IEnumerable<ScriptIPCDTO>? scripts)
     {
         if (IReverseProxyService.Constants.Instance.IsEnableScript && scripts != null)
         {
@@ -152,6 +182,27 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
                     .Select(item => item.Value);
 
         return value.Any_Nullable();
+    }
+
+    public bool TryGetScriptContent(int lid, out string? content)
+    {
+        if (!IReverseProxyService.Constants.Instance.IsEnableScript)
+        {
+            content = null;
+            return false;
+        }
+        if (scriptsContent.TryGetValue(lid, out string? content_))
+        {
+            if (string.IsNullOrEmpty(content_))
+            {
+                content = null;
+                return false;
+            }
+            content = content_;
+            return true;
+        }
+        content = null;
+        return false;
     }
 
     public DomainPattern[] GetDomainPatterns() => domainConfigs.Keys.ToArray();
