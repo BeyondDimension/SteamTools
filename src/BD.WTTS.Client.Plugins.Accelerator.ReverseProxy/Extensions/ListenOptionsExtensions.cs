@@ -45,10 +45,9 @@ static partial class ListenOptionsExtensions
         {
             OnConnection = ctx =>
             {
-                var domain = ctx.ClientHelloInfo.ServerName;
                 var o = new SslServerAuthenticationOptions
                 {
-                    ServerCertificate = certService.GetOrCreateServerCert(domain),
+                    ServerCertificate = certService.GetOrCreateServerCert(ctx.ClientHelloInfo.ServerName),
                 };
                 return ValueTask.FromResult(o);
             },

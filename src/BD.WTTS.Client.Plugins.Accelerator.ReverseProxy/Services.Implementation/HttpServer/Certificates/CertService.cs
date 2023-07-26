@@ -1,6 +1,8 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/CertService.cs
 
 // ReSharper disable once CheckNamespace
+using BD.Common.Columns;
+
 namespace BD.WTTS.Services.Implementation;
 
 /// <summary>
@@ -11,6 +13,7 @@ sealed class CertService
     readonly IMemoryCache serverCertCache;
     readonly ILogger<CertService> logger;
     readonly IReverseProxyConfig reverseProxyConfig;
+    private X509Certificate2? caCert;
 
     ReverseProxyServiceImpl ReverseProxyService => reverseProxyConfig.Service;
 
@@ -66,19 +69,24 @@ sealed class CertService
     /// <returns></returns>
     public X509Certificate2? GetOrCreateServerCert(string? domain)
     {
+        if (this.caCert == null)
+        {
+            this.caCert = new X509Certificate2(fileName: this.CaPfxFilePath, password: default(string));
+        }
+
         var key = $"{nameof(CertService)}:{domain}";
         return serverCertCache.GetOrCreate(key, GetOrCreateCert);
 
         // 生成域名的 1 年证书
         X509Certificate2 GetOrCreateCert(ICacheEntry entry)
         {
-            var domains = GetDomains(domain).Distinct();
             DateTimeOffset today = DateTime.Today;
-            var validFrom = today.AddDays(-1);
-            var validTo = today.AddYears(1);
+            var notBefore = today.AddDays(-1);
+            var notAfter = today.AddYears(1);
+            entry.SetAbsoluteExpiration(notAfter);
 
-            entry.SetAbsoluteExpiration(validTo);
-            using var serverCert = CertGenerator.GenerateByCaPfx(domains, validFrom, validTo, CaPfxFilePath);
+            var subjectName = new X500DistinguishedName($"CN={domain}");
+            using var serverCert = CertGenerator.CreateEndCertificate(this.caCert, subjectName, GetDomains(), notBefore, notAfter);
             var serverCertPfx = serverCert.Export(X509ContentType.Pfx);
             // 将生成的证书导出后重新创建一个
             return new X509Certificate2(serverCertPfx);
@@ -90,14 +98,8 @@ sealed class CertService
     /// </summary>
     /// <param name="domain"></param>
     /// <returns></returns>
-    static IEnumerable<string> GetDomains(string? domain)
+    static IEnumerable<string> GetDomains()
     {
-        if (string.IsNullOrEmpty(domain) == false)
-        {
-            yield return domain;
-            yield break;
-        }
-
         yield return Environment.MachineName;
         yield return IPAddress.Loopback.ToString();
         yield return IPAddress.IPv6Loopback.ToString();
