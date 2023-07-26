@@ -42,8 +42,24 @@ sealed partial class WindowsPlatformServiceImpl : IPlatformService
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
+    [Obsolete("use StartProcessRegedit(string path, string content, int millisecondsDelay)", true)]
     public static Process? StartProcessRegedit(string? args)
         => Process2.Start(Regedit, args, workingDirectory: _windir.Value);
+
+    /// <summary>
+    /// 带参数(可选/null)启动 %windir%\regedit.exe 并等待退出后删除文件
+    /// </summary>
+    /// <param name="path"></param>
+    public static void StartProcessRegedit(
+        string path,
+        string contents,
+        int millisecondsDelay = 3700)
+    {
+        File.WriteAllText(path, contents, Encoding.UTF8);
+        var args = $"/s \"{path}\"";
+        var p = Process2.Start(Regedit, args, workingDirectory: _windir.Value);
+        IOPath.TryDeleteInDelay(p, path, millisecondsDelay, millisecondsDelay);
+    }
 
     /// <summary>
     /// 带参数(可选/null)启动 %windir%\explorer.exe

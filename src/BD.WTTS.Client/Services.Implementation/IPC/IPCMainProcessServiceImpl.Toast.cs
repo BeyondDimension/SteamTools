@@ -1,5 +1,7 @@
 using static BD.WTTS.Services.IPCToastService;
 using AppResources = BD.WTTS.Client.Resources.Strings;
+using BDToastIcon = BD.Common.Enums.ToastIcon;
+using ToastIcon = BD.WTTS.Services.IPCToastService.ToastIcon;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
@@ -14,43 +16,59 @@ partial class IPCMainProcessServiceImpl : IPCToastService
         _ => string.Empty,
     };
 
-    public void Show(ToastText text, int? duration = null)
+    public void Show(ToastIcon icon, ToastText text, int? duration = null)
     {
-        Toast.Show(GetText(text), duration);
+        var icon_ = (BDToastIcon)icon;
+        var text_ = GetText(text);
+        Toast.Show(icon_, text_, duration);
     }
 
-    public void Show(ToastText text, ToastLength duration)
+    public void Show(ToastIcon icon, ToastText text, ToastLength duration)
     {
-        Toast.Show(GetText(text), duration);
+        var icon_ = (BDToastIcon)icon;
+        var text_ = GetText(text);
+        Toast.Show(icon_, text_, duration);
     }
 
-    public void Show(ToastText text, int? duration = null, params string?[] args)
+    public void Show(ToastIcon icon, ToastText text, int? duration = null, params string?[] args)
     {
-        Toast.Show(GetText(text).Format(args), duration);
+        var icon_ = (BDToastIcon)icon;
+        var text_ = GetText(text).Format(args);
+        Toast.Show(icon_, text_, duration);
     }
 
-    public void Show(ToastText text, ToastLength duration, params string?[] args)
+    public void Show(ToastIcon icon, ToastText text, ToastLength duration, params string?[] args)
     {
-        Toast.Show(GetText(text).Format(args), duration);
+        var icon_ = (BDToastIcon)icon;
+        var text_ = GetText(text).Format(args);
+        Toast.Show(icon_, text_, duration);
     }
 
-    public void Show(ToastText text, params string?[] args)
+    public void Show(ToastIcon icon, ToastText text, params string?[] args)
     {
-        Toast.Show(GetText(text).Format(args));
+        var icon_ = (BDToastIcon)icon;
+        var text_ = GetText(text).Format(args);
+        Toast.Show(icon_, text_);
     }
 
-    public void ShowAppend(ToastText text, int? duration = null, string? appendText = null)
+    public void ShowAppend(ToastIcon icon, ToastText text, int? duration = null, string? appendText = null)
     {
-        Toast.Show(GetText(text) + appendText, duration);
+        var icon_ = (BDToastIcon)icon;
+        var text_ = GetText(text) + appendText;
+        Toast.Show(icon_, text_, duration);
     }
 
-    public void ShowAppend(ToastText text, ToastLength duration, string? appendText)
+    public void ShowAppend(ToastIcon icon, ToastText text, ToastLength duration, string? appendText)
     {
-        Toast.Show(GetText(text) + appendText, duration);
+        var icon_ = (BDToastIcon)icon;
+        var text_ = GetText(text) + appendText;
+        Toast.Show(icon_, text_, duration);
     }
 
-    public void ShowAppend(ToastText text, string? appendText)
+    public void ShowAppend(ToastIcon icon, ToastText text, string? appendText)
     {
-        Toast.Show(GetText(text) + appendText);
+        var icon_ = (BDToastIcon)icon;
+        var text_ = GetText(text) + appendText;
+        Toast.Show(icon_, text_);
     }
 }

@@ -21,11 +21,16 @@ partial class WindowsPlatformServiceImpl
             var proxyEnable = $"\"ProxyEnable\"=dword:{(state ? "00000001" : "00000000")}";
             var hasIpAndProt = ip != null && port >= 0;
             var proxyServer = hasIpAndProt ? $"\"proxyServer\"=\"{ip}:{port}\"" : "";
-            var reg = $"Windows Registry Editor Version 5.00{Environment.NewLine}[HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings]{Environment.NewLine}{proxyEnable}{Environment.NewLine}{(state ? $"{ProxyOverride}{Environment.NewLine}" : "")}{proxyServer}";
+            string contents =
+$"""
+Windows Registry Editor Version 5.00
+; {AssemblyInfo.Trademark} BD.WTTS.Services.Implementation.WindowsPlatformServiceImpl.SetAsSystemProxy
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings]
+{proxyEnable}
+{(state ? $"{ProxyOverride}{Environment.NewLine}" : "")}{proxyServer}
+""";
             var path = IOPath.GetCacheFilePath(CacheTempDirName, "SwitchProxy", FileEx.Reg);
-            File.WriteAllText(path, reg, Encoding.UTF8);
-            var p = StartProcessRegedit($"/s \"{path}\"");
-            IOPath.TryDeleteInDelay(p, path);
+            StartProcessRegedit(path, contents);
             return true;
         }
         catch (Exception ex)
@@ -46,11 +51,15 @@ partial class WindowsPlatformServiceImpl
         try
         {
             var regAutoConfigUrl = state ? $"\"AutoConfigURL\"=\"{url}\"" : "\"AutoConfigURL\"=\"\"";
-            var reg = $"Windows Registry Editor Version 5.00{Environment.NewLine}[HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings]{Environment.NewLine}{regAutoConfigUrl}";
+            string contents =
+$"""
+Windows Registry Editor Version 5.00
+; {AssemblyInfo.Trademark} BD.WTTS.Services.Implementation.WindowsPlatformServiceImpl.SetAsSystemPACProxy
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings]
+{regAutoConfigUrl}
+""";
             var path = IOPath.GetCacheFilePath(CacheTempDirName, "SwitchPacProxy", FileEx.Reg);
-            File.WriteAllText(path, reg, Encoding.UTF8);
-            var p = StartProcessRegedit($"/s \"{path}\"");
-            IOPath.TryDeleteInDelay(p, path);
+            StartProcessRegedit(path, contents);
             return true;
         }
         catch (Exception ex)

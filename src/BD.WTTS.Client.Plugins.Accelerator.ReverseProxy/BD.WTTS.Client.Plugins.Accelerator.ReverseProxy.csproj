@@ -9,6 +9,7 @@
 		<SelfContained>false</SelfContained>
 		<DefineConstants>APP_REVERSE_PROXY;$(DefineConstants)</DefineConstants>
 		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">

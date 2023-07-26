@@ -197,7 +197,9 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         if (!result || RootCertificate == null)
         {
             Log.Error(TAG, "Failed to create certificate");
-            toast.Show(IPCToastService.ToastText.CreateCertificateFaild);
+            toast.Show(
+                IPCToastService.ToastIcon.Error,
+                IPCToastService.ToastText.CreateCertificateFaild);
             return false;
         }
 

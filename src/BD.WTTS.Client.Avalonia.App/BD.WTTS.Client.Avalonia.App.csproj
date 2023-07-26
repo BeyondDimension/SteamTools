@@ -7,6 +7,7 @@
 		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
 		<ApplicationId>net.steampp.app</ApplicationId>
 		<ServerGarbageCollection>false</ServerGarbageCollection>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

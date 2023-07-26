@@ -27,9 +27,10 @@ public static class RegexHelper
         accFile = PathHelper.ExpandEnvironmentVariables(accFile);
         regex = ExpandRegex(regex);
         // The "file" is a registry key
-        if (OperatingSystem.IsWindows() && accFile.StartsWith("REG:"))
+#if WINDOWS
+        if (accFile.StartsWith("REG:"))
         {
-            var res = RegistryKeyHelper.ReadRegistryKey(accFile[4..]);
+            var res = Registry2.ReadRegistryKey(accFile[4..]);
             if (res == null)
                 return null;
             switch (res)
@@ -37,12 +38,13 @@ public static class RegexHelper
                 case string s:
                     return s;
                 case byte[] bytes:
-                    return HashStringHelper.GetSha256HashString(bytes);
+                    return Hashs.String.SHA256(bytes);
                 default:
                     Log.Warn(nameof(RegexHelper), $"REG was read, and was returned something that is not a string or byte array! {accFile}.");
                     return res?.ToString();
             }
         }
+#endif
 
         // Handle wildcards
         if (accFile.Contains('*'))

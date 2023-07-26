@@ -18,19 +18,50 @@ public interface IPCToastService
         CommunityFix_OnRunCatch,
     }
 
-    void Show(ToastText text, int? duration = null);
+    /// <summary>
+    /// Toast 显示的图标
+    /// </summary>
+    enum ToastIcon : byte
+    {
+        /// <summary>
+        /// 无图标
+        /// </summary>
+        None,
 
-    void Show(ToastText text, ToastLength duration);
+        /// <summary>
+        /// ℹ
+        /// </summary>
+        Info,
 
-    void Show(ToastText text, int? duration = null, params string?[] args);
+        /// <summary>
+        /// ✅
+        /// </summary>
+        Success,
 
-    void Show(ToastText text, ToastLength duration, params string?[] args);
+        /// <summary>
+        /// ⚠️
+        /// </summary>
+        Warning,
 
-    void Show(ToastText text, params string?[] args);
+        /// <summary>
+        /// ❌
+        /// </summary>
+        Error,
+    }
 
-    void ShowAppend(ToastText text, int? duration = null, string? appendText = null);
+    void Show(ToastIcon icon, ToastText text, int? duration = null);
 
-    void ShowAppend(ToastText text, ToastLength duration, string? appendText);
+    void Show(ToastIcon icon, ToastText text, ToastLength duration);
 
-    void ShowAppend(ToastText text, string? appendText);
+    void Show(ToastIcon icon, ToastText text, int? duration = null, params string?[] args);
+
+    void Show(ToastIcon icon, ToastText text, ToastLength duration, params string?[] args);
+
+    void Show(ToastIcon icon, ToastText text, params string?[] args);
+
+    void ShowAppend(ToastIcon icon, ToastText text, int? duration = null, string? appendText = null);
+
+    void ShowAppend(ToastIcon icon, ToastText text, ToastLength duration, string? appendText);
+
+    void ShowAppend(ToastIcon icon, ToastText text, string? appendText);
 }

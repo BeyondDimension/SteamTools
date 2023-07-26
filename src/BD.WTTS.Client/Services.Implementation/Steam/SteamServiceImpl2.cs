@@ -49,16 +49,21 @@ sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
         return platform.StartAsInvoker(fileName, arguments);
     }
 
-    protected override void SetSteamCurrentUser(string userName)
+    protected sealed override void SetSteamCurrentUser(string userName)
     {
 #if WINDOWS
         if (DesktopBridge.IsRunningAsUwp)
         {
-            var reg = $"Windows Registry Editor Version 5.00{Environment.NewLine}[HKEY_CURRENT_USER\\Software\\Valve\\Steam]{Environment.NewLine}\"AutoLoginUser\"=\"{userName}\"";
+            string contents =
+$"""
+Windows Registry Editor Version 5.00
+; {AssemblyInfo.Trademark} BD.WTTS.Services.Implementation.SteamServiceImpl2.SetSteamCurrentUser
+[HKEY_CURRENT_USER\Software\Valve\Steam]
+"AutoLoginUser"="{userName}"
+"RememberPassword"=dword:00000001
+""";
             var path = IOPath.GetCacheFilePath(WindowsPlatformServiceImpl.CacheTempDirName, "SwitchSteamUser", FileEx.Reg);
-            File.WriteAllText(path, reg, Encoding.UTF8);
-            var p = WindowsPlatformServiceImpl.StartProcessRegedit($"/s \"{path}\"");
-            IOPath.TryDeleteInDelay(p, path);
+            WindowsPlatformServiceImpl.StartProcessRegedit(path, contents);
             return;
         }
 #endif

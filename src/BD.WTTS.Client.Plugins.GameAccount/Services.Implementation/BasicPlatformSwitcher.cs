@@ -35,23 +35,26 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         }
 
         // Get unique ID from IDs file if unique ID is a registry key. Set if exists.
-        if (OperatingSystem.IsWindows() && platform.UniqueIdType is UniqueIdType.REGKEY && !string.IsNullOrEmpty(platform.UniqueIdPath))
+#if WINDOWS
+        if (platform.UniqueIdType is UniqueIdType.REGKEY && !string.IsNullOrEmpty(platform.UniqueIdPath))
         {
             var uniqueId = JTokenHelper.ReadDict(platform.FullName).FirstOrDefault(x => x.Value == accName).Key;
 
-            if (!string.IsNullOrEmpty(uniqueId) && !RegistryKeyHelper.SetRegistryKey(platform.UniqueIdPath, uniqueId)) // Remove "REG:" and read data
+            if (!string.IsNullOrEmpty(uniqueId) && !Registry2.SetRegistryKey(platform.UniqueIdPath, uniqueId)) // Remove "REG:" and read data
             {
                 Toast.Show(ToastIcon.Info, AppResources.Info_AccountAlreadyLogin);
                 return false;
             }
         }
+#endif
 
         var regJson = platform.UniqueIdPath.StartsWith("REG:") ? JTokenHelper.ReadRegJson(platform.RegJsonPath(accName)) : new Dictionary<string, string>();
 
         foreach (var (accFile, savedFile) in platform.LoginFiles)
         {
             // The "file" is a registry key
-            if (OperatingSystem.IsWindows() && accFile.StartsWith("REG:"))
+#if WINDOWS
+            if (accFile.StartsWith("REG:"))
             {
                 if (!regJson.ContainsKey(accFile))
                 {
@@ -61,13 +64,14 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
                 var regValue = regJson[accFile] ?? "";
 
-                if (!RegistryKeyHelper.SetRegistryKey(accFile[4..], regValue)) // Remove "REG:" and read data
+                if (!Registry2.SetRegistryKey(accFile[4..], regValue)) // Remove "REG:" and read data
                 {
                     Toast.Show(ToastIcon.Error, AppResources.Error_WriteRegistryFailed);
                     return false;
                 }
                 continue;
             }
+#endif
 
             // The "file" is a JSON value
             if (accFile.StartsWith("JSON"))
@@ -178,20 +182,22 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
     private bool DeleteFileOrFolder(string accFile, PlatformAccount platform)
     {
         // The "file" is a registry key
-        if (OperatingSystem.IsWindows() && accFile.StartsWith("REG:"))
+#if WINDOWS
+        if (accFile.StartsWith("REG:"))
         {
             // If set to clear LoginCache for account before adding (Enabled by default):
             if (platform.IsRegDeleteOnClear)
             {
-                if (RegistryKeyHelper.DeleteRegistryKey(accFile[4..])) return true;
+                if (Registry2.DeleteRegistryKey(accFile[4..])) return true;
             }
             else
             {
-                if (RegistryKeyHelper.SetRegistryKey(accFile[4..])) return true;
+                if (Registry2.SetRegistryKey(accFile[4..])) return true;
             }
             Toast.Show(ToastIcon.Error, AppResources.Error_WriteRegistryFailed);
             return false;
         }
+#endif
 
         // The "file" is a JSON value
         if (accFile.StartsWith("JSON"))
@@ -369,18 +375,20 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
         foreach (var (accFile, savedFile) in platform.LoginFiles)
         {
-            if (accFile.StartsWith("REG:") && OperatingSystem.IsWindows())
+#if WINDOWS
+            if (accFile.StartsWith("REG:"))
             {
                 // Remove "REG:    " and read data
-                if (RegistryKeyHelper.TryReadRegistryKey(accFile[4..], out var response))
+                if (Registry2.TryReadRegistryKey(accFile[4..], out var response))
                 {
                     // Write registry value to provided file
                     if (response is string s) regJson[accFile] = s;
-                    else if (response is byte[] ba) regJson[accFile] = "(hex) " + RegistryKeyHelper.ByteArrayToString(ba);
-                    else Log.Error(nameof(BasicPlatformSwitcher), $"Unexpected registry type encountered (2)! {response.GetType()}");
+                    else if (response is byte[] ba) regJson[accFile] = $"(hex) {ba.ToHexString()}";
+                    else Log.Error(nameof(BasicPlatformSwitcher), $"Unexpected registry type encountered (2)! {response?.GetType()}");
                 }
                 continue;
             }
+#endif
 
             if (accFile.StartsWith("JSON"))
             {
@@ -443,11 +451,11 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
     public string? GetUniqueId(PlatformAccount platform)
     {
-        if (OperatingSystem.IsWindows() &&
-            platform.UniqueIdType is UniqueIdType.REGKEY &&
+#if WINDOWS
+        if (platform.UniqueIdType is UniqueIdType.REGKEY &&
             !string.IsNullOrEmpty(platform.UniqueIdPath))
         {
-            var r = RegistryKeyHelper.ReadRegistryKey(platform.UniqueIdPath[4..]);
+            var r = Registry2.ReadRegistryKey(platform.UniqueIdPath[4..]);
             if (r == null)
                 return null;
 
@@ -456,12 +464,13 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 case string s:
                     return s;
                 case byte[] b:
-                    return HashStringHelper.GetSha256HashString(b);
+                    return Hashs.String.SHA256(b);
                 default:
                     Log.Warn(nameof(BasicPlatformSwitcher), $"{platform.FullName} Unexpected registry type encountered (1)! {r.GetType()}");
                     return null;
             }
         }
+#endif
 
         if (string.IsNullOrEmpty(platform.UniqueIdPath))
             return null;
@@ -519,13 +528,16 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             }
             else if (platform.UniqueIdType is UniqueIdType.FILE_MD5) // TODO: TEST THIS! -- This is used for static files that do not change throughout the lifetime of an account login.
             {
-                uniqueId = HashStringHelper.GetFileMd5(uniqueIdPath.Contains('*')
+                var filePath = uniqueIdPath.Contains('*')
                     ? Directory.GetFiles(Path.GetDirectoryName(uniqueIdPath) ?? string.Empty, Path.GetFileName(uniqueIdPath)).First()
-                    : uniqueIdPath);
+                    : uniqueIdPath;
+                using var fileStream = IOPath.OpenRead(filePath);
+                fileStream.ThrowIsNull();
+                uniqueId = fileStream.Length != 0 ? Hashs.String.MD5(fileStream) : "0";
             }
         }
         else if (uniqueId != "")
-            uniqueId = HashStringHelper.GetSha256HashString(uniqueId);
+            uniqueId = string.IsNullOrEmpty(uniqueId) ? string.Empty : Hashs.String.SHA512(uniqueId);
 
         return uniqueId;
     }
