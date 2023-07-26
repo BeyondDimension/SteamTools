@@ -64,10 +64,13 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         {
             foreach (var item in scripts)
             {
-                if (LoadScriptFille(item.CachePath, out string? content))
+                if (!scriptsContent.ContainsKey(item.LocalId))
                 {
-                    if (!string.IsNullOrEmpty(content))
-                        scriptsContent.TryAdd(item.LocalId, content);
+                    if (LoadScriptFille(item.CachePath, out string? content))
+                    {
+                        if (!string.IsNullOrEmpty(content))
+                            scriptsContent.TryAdd(item.LocalId, content);
+                    }
                 }
             }
         }
