@@ -27,13 +27,13 @@ public static class CertGenerator
     /// <param name="password"></param>
     /// <returns></returns>
     public static X509Certificate2 GenerateBySelfPfx(
-        IEnumerable<string>? extraDnsNames,
+        string? x509Name,
         DateTimeOffset notBefore,
         DateTimeOffset notAfter,
         string? caPfxPath,
         string? password = default)
     {
-        var r = CreateCACertificate(new X500DistinguishedName(X500DistinguishedNameValue), notBefore, notAfter);
+        var r = CreateCACertificate(new X500DistinguishedName(string.IsNullOrEmpty(x509Name) ? X500DistinguishedNameValue : x509Name), notBefore, notAfter);
         if (!string.IsNullOrEmpty(caPfxPath))
         {
             byte[] exported = r.Export(X509ContentType.Pkcs12, password);
@@ -72,7 +72,7 @@ public static class CertGenerator
         request.CertificateExtensions.Add(enhancedKeyUsage);
 
         var dnsBuilder = new SubjectAlternativeNameBuilder();
-        dnsBuilder.Add(subjectName.Name[3..]);
+        dnsBuilder.Add(CertificateConstants.RootCertificateName);
         request.CertificateExtensions.Add(dnsBuilder.Build());
 
         var subjectKeyId = new X509SubjectKeyIdentifierExtension(request.PublicKey, false);

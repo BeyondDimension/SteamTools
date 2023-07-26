@@ -15,6 +15,7 @@
             <Setter Property="Margin" Value="4" />
             <Setter Property="Padding" Value="5,10" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="White" />
         </Style>
     </UserControl.Styles>
     <Border
@@ -31,7 +32,6 @@
             <Button
                 Name="Left"
                 HorizontalAlignment="Left"
-                Classes="action"
                 IsVisible="False"
                 Theme="{StaticResource TransparentButton}">
                 <ui:SymbolIcon FontSize="20" Symbol="ChevronLeft" />
@@ -39,7 +39,6 @@
             <Button
                 Name="Right"
                 HorizontalAlignment="Right"
-                Classes="action"
                 IsVisible="False"
                 Theme="{StaticResource TransparentButton}">
                 <ui:SymbolIcon FontSize="20" Symbol="ChevronRight" />

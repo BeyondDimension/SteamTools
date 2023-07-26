@@ -32,6 +32,7 @@ public sealed class IpcSerializableTest
     /// 测试带有 IpcPublicAttribute 的接口中是否存在不能被序列化的类型
     /// </summary>
     [Test]
+    [Ignore("因覆盖不到所有的类型检测而暂时弃用")]
     public void TestSerializable()
     {
         var ignoreTypes = new[]

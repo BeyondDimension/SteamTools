@@ -124,10 +124,10 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         var validFrom = DateTime.Today.AddDays(-1);
         var validTo = DateTime.Today.AddDays(CertificateConstants.CertificateValidDays);
 
-        var rootCertificateName = CertificateConstants.RootCertificateName;
+        //var rootCertificateName = CertificateConstants.RootCertificateName;
 
         RootCertificate = CertGenerator.GenerateBySelfPfx(
-            new[] { rootCertificateName },
+            null,
             validFrom,
             validTo,
             Interface.PfxFilePath,
