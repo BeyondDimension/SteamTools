@@ -144,7 +144,9 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.CommunityFix_MenuName,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        Text="{ReflectionBinding Path=Res.CommunityFix_MenuName,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </ToggleButton>
 
@@ -165,7 +167,7 @@
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
                         </ui:MenuFlyoutSubItem>-->
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Settings_Plugin,Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
                         <!--<ui:MenuFlyoutItem Text="安装证书" />
                         <ui:MenuFlyoutItem Text="移除证书" />
@@ -189,9 +191,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -199,7 +201,7 @@
     </spp:PageBase.ActionContent>
     <spp:PageBase.PaneContent>
         <StackPanel Margin="15,20" Spacing="10">
-            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <TabStrip
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
@@ -219,7 +221,7 @@
                 </TabStrip.ItemTemplate>
             </TabStrip>
 
-            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_MenuName, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_MenuName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <ToggleSwitch
                 VerticalAlignment="Center"
@@ -322,87 +324,88 @@
 
         </StackPanel>
     </spp:PageBase.PaneContent>
-    <Carousel
-        Name="AcceleratorCarousel"
-        AutoScrollToSelectedItem="True"
-        SelectedIndex="0">
-        <i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior
-                Binding="{ReflectionBinding Source={x:Static s:ProxyService.Current},
-                                            Path=!ProxyStatus,
-                                            Mode=OneWay}"
-                ComparisonCondition="Equal"
-                Value="True">
-                <ia:ChangePropertyAction
-                    PropertyName="SelectedIndex"
-                    TargetObject="{ReflectionBinding #AcceleratorCarousel}"
-                    Value="0" />
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior
-                Binding="{ReflectionBinding Source={x:Static s:ProxyService.Current},
-                                            Path=!ProxyStatus,
-                                            Mode=OneWay}"
-                ComparisonCondition="Equal"
-                Value="False">
-                <ia:ChangePropertyAction
-                    PropertyName="SelectedIndex"
-                    TargetObject="{ReflectionBinding #AcceleratorCarousel}"
-                    Value="1" />
-            </ia:DataTriggerBehavior>
-        </i:Interaction.Behaviors>
-        <Carousel.PageTransition>
-            <PageSlide Orientation="Horizontal" Duration="0.25" />
-        </Carousel.PageTransition>
+    <Grid ColumnDefinitions="*,Auto">
+        <Carousel
+            Name="AcceleratorCarousel"
+            AutoScrollToSelectedItem="True"
+            SelectedIndex="0">
+            <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior
+                    Binding="{ReflectionBinding Source={x:Static s:ProxyService.Current},
+                                                Path=!ProxyStatus,
+                                                Mode=OneWay}"
+                    ComparisonCondition="Equal"
+                    Value="True">
+                    <ia:ChangePropertyAction
+                        PropertyName="SelectedIndex"
+                        TargetObject="{ReflectionBinding #AcceleratorCarousel}"
+                        Value="0" />
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior
+                    Binding="{ReflectionBinding Source={x:Static s:ProxyService.Current},
+                                                Path=!ProxyStatus,
+                                                Mode=OneWay}"
+                    ComparisonCondition="Equal"
+                    Value="False">
+                    <ia:ChangePropertyAction
+                        PropertyName="SelectedIndex"
+                        TargetObject="{ReflectionBinding #AcceleratorCarousel}"
+                        Value="1" />
+                </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+            <Carousel.PageTransition>
+                <PageSlide Orientation="Horizontal" Duration="0.25" />
+            </Carousel.PageTransition>
 
-        <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="获取加速信息失败，请检查程序是否能正常联网">
-            <Grid RowDefinitions="Auto,*">
-                <ItemsControl ItemsSource="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+            <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="获取加速信息失败，请检查程序是否能正常联网">
+                <Grid ColumnDefinitions="*,Auto">
+                    <ItemsControl ItemsSource="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="spp:AccelerateProjectGroupDTO">
-                            <Border>
-                                <!--<ui:SettingsExpander ItemsSource="{Binding Items}">-->
-                                <ui:SettingsExpander IsClickEnabled="False">
-                                    <ui:SettingsExpander.Header>
-                                        <StackPanel Orientation="Horizontal" Spacing="10">
-                                            <CheckBox IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}" />
-                                            <spp:Image2
-                                                Width="30"
-                                                Height="30"
-                                                VerticalAlignment="Center"
-                                                RenderOptions.BitmapInterpolationMode="HighQuality"
-                                                Source="{Binding IconUrl}"
-                                                Stretch="UniformToFill" />
-                                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-                                        </StackPanel>
-                                    </ui:SettingsExpander.Header>
-                                    <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
-                                        <TreeView ItemsSource="{Binding ObservableItems}" SelectionMode="Single">
-                                            <TreeView.ItemTemplate>
-                                                <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding ObservableItems}">
-                                                    <DockPanel Margin="8,0">
-                                                        <CheckBox
-                                                            HorizontalAlignment="Left"
-                                                            DockPanel.Dock="Left"
-                                                            IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}">
-                                                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-                                                        </CheckBox>
-                                                        <TextBlock
-                                                            HorizontalAlignment="Right"
-                                                            VerticalAlignment="Center"
-                                                            DockPanel.Dock="Right"
-                                                            Text="{Binding DomainNamesArray[0]}" />
-                                                    </DockPanel>
-                                                </TreeDataTemplate>
-                                            </TreeView.ItemTemplate>
-                                        </TreeView>
-                                    </ui:SettingsExpanderItem>
-                                    <!--<ui:SettingsExpander.ItemTemplate>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="spp:AccelerateProjectGroupDTO">
+                                <Border>
+                                    <!--<ui:SettingsExpander ItemsSource="{Binding Items}">-->
+                                    <ui:SettingsExpander IsClickEnabled="False">
+                                        <ui:SettingsExpander.Header>
+                                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                                <CheckBox IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}" />
+                                                <spp:Image2
+                                                    Width="30"
+                                                    Height="30"
+                                                    VerticalAlignment="Center"
+                                                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                                                    Source="{Binding IconUrl}"
+                                                    Stretch="UniformToFill" />
+                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                            </StackPanel>
+                                        </ui:SettingsExpander.Header>
+                                        <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+                                            <TreeView ItemsSource="{Binding ObservableItems}" SelectionMode="Single">
+                                                <TreeView.ItemTemplate>
+                                                    <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding ObservableItems}">
+                                                        <DockPanel Margin="8,0">
+                                                            <CheckBox
+                                                                HorizontalAlignment="Left"
+                                                                DockPanel.Dock="Left"
+                                                                IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}">
+                                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                            </CheckBox>
+                                                            <TextBlock
+                                                                HorizontalAlignment="Right"
+                                                                VerticalAlignment="Center"
+                                                                DockPanel.Dock="Right"
+                                                                Text="{Binding DomainNamesArray[0]}" />
+                                                        </DockPanel>
+                                                    </TreeDataTemplate>
+                                                </TreeView.ItemTemplate>
+                                            </TreeView>
+                                        </ui:SettingsExpanderItem>
+                                        <!--<ui:SettingsExpander.ItemTemplate>
                                         <DataTemplate DataType="spp:AccelerateProjectDTO">
                                             <ui:SettingsExpanderItem IsClickEnabled="True">
                                                 <ui:SettingsExpanderItem.Content>
@@ -417,17 +420,27 @@
                                             </ui:SettingsExpanderItem>
                                         </DataTemplate>
                                     </ui:SettingsExpander.ItemTemplate>-->
-                                </ui:SettingsExpander>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
+                                    </ui:SettingsExpander>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
 
-                </ItemsControl>
-            </Grid>
-        </spp:ContentLoader>
+                    </ItemsControl>
+                </Grid>
+            </spp:ContentLoader>
 
-        <Panel>
-            <spp:ProxyChartView Margin="5,0" />
-        </Panel>
-    </Carousel>
+            <Panel>
+                <spp:ProxyChartView Margin="5,0" />
+            </Panel>
+        </Carousel>
+
+        <spp:AdControl
+            Grid.Column="1"
+            Width="165"
+            MaxHeight="390"
+            Margin="10,0,0,0"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Right"
+            Standard="Vertical" />
+    </Grid>
 </spp:PageBase>

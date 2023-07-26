@@ -116,6 +116,8 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 #endif
              }
 
+             AdvertiseService.Current.InitAdvertise();
+
              var mainWindow = App.Instance.MainWindow;
              mainWindow.ThrowIsNull();
 

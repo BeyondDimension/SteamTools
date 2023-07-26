@@ -40,7 +40,7 @@
                     <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource HeartBroken}" />
                 </ui:SettingsExpander.IconSource>
                 <ui:SettingsExpander.Footer>
-                    <ToggleSwitch Classes="LeftContent" />
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.IsShowAdvertisement}, Path=!Value, Mode=TwoWay}" />
                 </ui:SettingsExpander.Footer>
             </ui:SettingsExpander>
         </Border>

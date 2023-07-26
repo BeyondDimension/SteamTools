@@ -212,7 +212,8 @@
 
             <Style Selector="^:informational">
                 <Style Selector="^ /template/ ui|FABorder#ContentRoot">
-                    <Setter Property="Background" Value="{DynamicResource InfoBarInformationalSeverityBackgroundBrush}" />
+                    <!--<Setter Property="Background" Value="{DynamicResource InfoBarInformationalSeverityBackgroundBrush}" />-->
+                    <Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}" />
                 </Style>
                 <Style Selector="^ /template/ Ellipse#IconBackground">
                     <Setter Property="Fill" Value="{DynamicResource InfoBarInformationalSeverityIconBackground}" />

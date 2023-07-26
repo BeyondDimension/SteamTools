@@ -26,6 +26,8 @@ public sealed class AdvertiseService : ReactiveObject
     [Reactive]
     public bool IsShowAdvertise { get; set; } = true;
 
+    public ICommand ClickAdvertisementCommand { get; }
+
     AdvertiseService()
     {
         mCurrent = this;
@@ -47,6 +49,8 @@ public sealed class AdvertiseService : ReactiveObject
             .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
             .Bind(out _VerticalBannerAdvertisements)
             .Subscribe(_ => this.RaisePropertyChanged(nameof(VerticalBannerAdvertisements)));
+
+        ClickAdvertisementCommand = ReactiveCommand.Create<AdvertisementDTO>(ClickAdvertisement);
 
         UserService.Current.WhenValueChanged(x => x.User, false)
                 .Subscribe(_ => CheckShow());
@@ -83,7 +87,7 @@ public sealed class AdvertiseService : ReactiveObject
     public async Task RefrshAdvertiseAsync()
     {
         var client = IMicroServiceClient.Instance.Advertisement;
-        var result = await client.All(AdvertisementType.Embedded);
+        var result = await client.All(AdvertisementType.Banner);
 
         if (result.IsSuccess && result.Content != null)
         {
@@ -96,7 +100,7 @@ public sealed class AdvertiseService : ReactiveObject
         }
     }
 
-    public async void ClickAdvertisement(AdvertisementDTO dto)
+    private static async void ClickAdvertisement(AdvertisementDTO dto)
     {
         if (dto != null)
         {

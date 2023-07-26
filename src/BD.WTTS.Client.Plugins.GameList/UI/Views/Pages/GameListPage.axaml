@@ -543,7 +543,7 @@
                                         Margin="10,0,10,-3"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
-                                        Background="#3D4450"
+                                        Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
                                         CornerRadius="3"
                                         IsVisible="{Binding IsInstalled}">
                                         <DockPanel Margin="10,3" HorizontalAlignment="Center">
