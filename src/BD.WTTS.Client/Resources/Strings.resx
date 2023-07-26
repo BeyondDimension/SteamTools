@@ -2559,4 +2559,7 @@
 	<data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
     <value>设置系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。</value>
   </data>
+	<data name="Message_AreYouSureYouWantToDeleteTheAccount" xml:space="preserve">
+    <value>确定要移除 {0} 平台吗？保存的账号数据也将被删除！</value>
+  </data>
 </root>

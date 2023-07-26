@@ -1,10 +1,8 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 using FluentAvalonia.UI.Controls;
-using BD.WTTS.Client.Resources;
 using Avalonia.Controls;
 using BD.WTTS.UI.Views.Controls;
-using AngleSharp.Text;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -71,11 +69,19 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
         }
     }
 
-    private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
+    private async void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
     {
         if (args.Item is PlatformAccount platform)
         {
-            ViewModel?.RemovePlatform(platform);
+            if (platform.FullName == "Steam")
+            {
+                Toast.Show(ToastIcon.Warning, AppResources.Warning_PlatformDeletionNotAllowed_.Format(platform.FullName));
+                return;
+            }
+            var isOK = await MessageBox.ShowAsync(AppResources.Message_AreYouSureYouWantToDeleteTheAccount.Format(platform.FullName), button: MessageBox.Button.OKCancel);
+
+            if (isOK == MessageBox.Result.OK)
+                ViewModel?.RemovePlatform(platform);
         }
     }
 }

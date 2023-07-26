@@ -3828,6 +3828,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 确定要移除 {0} 平台吗？保存的账号数据也将被删除！ 的本地化字符串。
+        /// </summary>
+        public static string Message_AreYouSureYouWantToDeleteTheAccount {
+            get {
+                return ResourceManager.GetString("Message_AreYouSureYouWantToDeleteTheAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Microsoft  的本地化字符串。
         /// </summary>
         public static string Microsoft {
