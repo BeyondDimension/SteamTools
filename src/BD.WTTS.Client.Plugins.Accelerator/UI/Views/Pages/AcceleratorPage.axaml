@@ -429,9 +429,119 @@
                 </Grid>
             </spp:ContentLoader>
 
-            <Panel>
-                <spp:ProxyChartView Margin="5,0" />
-            </Panel>
+            <Grid RowDefinitions="Auto,*,Auto">
+                <StackPanel
+                    Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    Spacing="8">
+                    <StackPanel.Styles>
+                        <Style Selector="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </StackPanel.Styles>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock FontSize="26" Text="{ReflectionBinding Path=Res.CommunityFix_AlreadyProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            FontSize="26"
+                            Text="{ReflectionBinding AccelerateTime,
+                                                     Source={x:Static s:ProxyService.Current},
+                                                     StringFormat={}{0:hh\\:mm\\:ss}}" />
+                    </StackPanel>
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <WrapPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+
+                            <TextBlock Text="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
+                        </WrapPanel>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+
+                            <TextBlock Text="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript}" />
+                        </WrapPanel>
+                    </StackPanel>
+                </StackPanel>
+                <TabControl
+                    Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    TabStripPlacement="Top">
+                    <TabItem Header="{ReflectionBinding Path=Res.CommunityFix_FlowStatistics, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <spp:ProxyChartView Margin="5,0" />
+                    </TabItem>
+                    <TabItem Header="{ReflectionBinding Path=Res.CommunityFix_Services, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <Grid ColumnDefinitions="*,20,*">
+                            <Border
+                                Grid.Column="0"
+                                Padding="10"
+                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                Classes="paper">
+                                <DockPanel>
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        DockPanel.Dock="Top"
+                                        FontSize="16"
+                                        Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,
+                                                                 Mode=OneWay,
+                                                                 Source={x:Static s:ResourceService.Current}}" />
+                                    <ScrollViewer>
+                                        <ItemsControl ItemsSource="{ReflectionBinding EnableProxyDomains, Source={x:Static s:ProxyService.Current}}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type spp:AccelerateProjectDTO}">
+                                                    <StackPanel Margin="10">
+                                                        <DockPanel>
+                                                            <TextBlock Text="{Binding Name}" />
+                                                        </DockPanel>
+                                                        <Separator Classes="Separator" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </DockPanel>
+                            </Border>
+
+                            <Border
+                                Grid.Column="2"
+                                Padding="10"
+                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                Classes="paper">
+                                <DockPanel>
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        DockPanel.Dock="Top"
+                                        FontSize="16"
+                                        Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,
+                                                                 Mode=OneWay,
+                                                                 Source={x:Static s:ResourceService.Current}}" />
+                                    <ScrollViewer>
+                                        <ItemsControl ItemsSource="{ReflectionBinding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type spp:ScriptDTO}">
+                                                    <StackPanel Margin="10">
+                                                        <DockPanel>
+                                                            <TextBlock Text="{Binding Name}" />
+                                                        </DockPanel>
+                                                        <Separator Classes="Separator" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </DockPanel>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+                    <!--<TabItem Header="加速日志">
+
+            </TabItem>-->
+                    <!--<TabItem Header="AD">
+            <controls:AdDialog />
+          </TabItem>-->
+                </TabControl>
+            </Grid>
         </Carousel>
 
         <spp:AdControl

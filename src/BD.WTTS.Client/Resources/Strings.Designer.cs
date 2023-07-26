@@ -846,7 +846,6 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 绑定 的本地化字符串。
         ///   查找类似 批量通过 的本地化字符串。
         /// </summary>
         public static string BatchPass {
@@ -1009,6 +1008,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 已加速   的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_AlreadyProxy {
+            get {
+                return ResourceManager.GetString("CommunityFix_AlreadyProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启动时自动启动加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix_AutoRunProxy {
@@ -1059,6 +1067,15 @@ namespace BD.WTTS.Client.Resources {
         public static string CommunityFix_EnableScriptService {
             get {
                 return ResourceManager.GetString("CommunityFix_EnableScriptService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 流量统计 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_FlowStatistics {
+            get {
+                return ResourceManager.GetString("CommunityFix_FlowStatistics", resourceCulture);
             }
         }
         
@@ -1122,6 +1139,24 @@ namespace BD.WTTS.Client.Resources {
         public static string CommunityFix_ProxyMode {
             get {
                 return ResourceManager.GetString("CommunityFix_ProxyMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxyMode_HostsTip {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxyMode_HostsTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxyMode_WinSystemTip {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxyMode_WinSystemTip", resourceCulture);
             }
         }
         

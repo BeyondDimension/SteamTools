@@ -2543,4 +2543,20 @@
   <data name="Plugin_DeleteComfirm" xml:space="preserve">
     <value>是否要删除 {0} 插件</value>
   </data>
+	<data name="CommunityFix_AlreadyProxy" xml:space="preserve">
+    <value>已加速  </value>
+    <comment>Comment=末尾带空格;</comment>
+  </data>
+	<data name="CommunityFix_FlowStatistics" xml:space="preserve">
+    <value>流量统计</value>
+  </data>
+	<data name="CommunityFix_Services" xml:space="preserve">
+    <value>加速服务</value>
+  </data>
+	<data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
+    <value>修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用。</value>
+  </data>
+	<data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
+    <value>设置系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。</value>
+  </data>
 </root>
