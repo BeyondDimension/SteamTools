@@ -8,7 +8,9 @@ namespace BD.WTTS.Services.Implementation;
 /// </summary>
 sealed class HttpProxyMiddleware
 {
-    readonly HttpParser<HttpRequestHandler> httpParser = new();
+    private readonly HttpParser<HttpRequestHandler> httpParser = new();
+    private readonly byte[] http200 = Encoding.ASCII.GetBytes("HTTP/1.1 200 Connection Established\r\n\r\n");
+    private readonly byte[] http400 = Encoding.ASCII.GetBytes("HTTP/1.1 400 Bad Request\r\n\r\n");
 
     /// <summary>
     /// 执行中间件
@@ -21,6 +23,7 @@ sealed class HttpProxyMiddleware
         var input = context.Transport.Input;
         var output = context.Transport.Output;
         var request = new HttpRequestHandler();
+
         while (context.ConnectionClosed.IsCancellationRequested == false)
         {
             var result = await input.ReadAsync();
@@ -31,14 +34,12 @@ sealed class HttpProxyMiddleware
 
             try
             {
-                if (ParseRequest(result, request, out var consumed))
+                if (this.ParseRequest(result, request, out var consumed))
                 {
                     if (request.ProxyProtocol == ProxyProtocol.TunnelProxy)
                     {
                         input.AdvanceTo(consumed);
-                        await output.WriteAsync(
-                            "HTTP/1.1 400 Bad Request\r\n\r\n"u8.ToArray(),
-                            context.ConnectionClosed);
+                        await output.WriteAsync(this.http200, context.ConnectionClosed);
                     }
                     else
                     {
@@ -62,20 +63,24 @@ sealed class HttpProxyMiddleware
             }
             catch (Exception)
             {
-                await output.WriteAsync(
-                    "HTTP/1.1 200 Connection Established\r\n\r\n"u8.ToArray(),
-                    context.ConnectionClosed);
+                await output.WriteAsync(this.http400, context.ConnectionClosed);
                 break;
             }
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    bool ParseRequest(ReadResult result, HttpRequestHandler request, out SequencePosition consumed)
+    /// <summary>
+    /// 解析http请求
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="requestHandler"></param>
+    /// <param name="consumed"></param>
+    /// <returns></returns>
+    private bool ParseRequest(ReadResult result, HttpRequestHandler request, out SequencePosition consumed)
     {
         var reader = new SequenceReader<byte>(result.Buffer);
-        if (httpParser.ParseRequestLine(request, ref reader) &&
-            httpParser.ParseHeaders(request, ref reader))
+        if (this.httpParser.ParseRequestLine(request, ref reader) &&
+            this.httpParser.ParseHeaders(request, ref reader))
         {
             consumed = reader.Position;
             return true;
@@ -90,7 +95,7 @@ sealed class HttpProxyMiddleware
     /// <summary>
     /// 代理请求处理器
     /// </summary>
-    sealed class HttpRequestHandler : IHttpRequestLineHandler, IHttpHeadersHandler, IHttpProxyFeature
+    private class HttpRequestHandler : IHttpRequestLineHandler, IHttpHeadersHandler, IHttpProxyFeature
     {
         private AspNetCoreHttpMethod method;
 
@@ -100,11 +105,11 @@ sealed class HttpProxyMiddleware
         {
             get
             {
-                if (ProxyHost.HasValue == false)
+                if (this.ProxyHost.HasValue == false)
                 {
                     return ProxyProtocol.None;
                 }
-                if (method == AspNetCoreHttpMethod.Connect)
+                if (this.method == AspNetCoreHttpMethod.Connect)
                 {
                     return ProxyProtocol.TunnelProxy;
                 }
@@ -114,15 +119,15 @@ sealed class HttpProxyMiddleware
 
         void IHttpRequestLineHandler.OnStartLine(HttpVersionAndMethod versionAndMethod, TargetOffsetPathLength targetPath, Span<byte> startLine)
         {
-            method = versionAndMethod.Method;
+            this.method = versionAndMethod.Method;
             var host = Encoding.ASCII.GetString(startLine.Slice(targetPath.Offset, targetPath.Length));
             if (versionAndMethod.Method == AspNetCoreHttpMethod.Connect)
             {
-                ProxyHost = HostString.FromUriComponent(host);
+                this.ProxyHost = HostString.FromUriComponent(host);
             }
             else if (Uri.TryCreate(host, UriKind.Absolute, out var uri))
             {
-                ProxyHost = HostString.FromUriComponent(uri);
+                this.ProxyHost = HostString.FromUriComponent(uri);
             }
         }
 
