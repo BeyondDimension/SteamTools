@@ -88,7 +88,7 @@ public static class JTokenHelper
         if (path == null) return;
         var outText = JsonConvert.SerializeObject(dict);
         if (outText.Length < 4 && File.Exists(path))
-            IPlatformService.Instance.DeleteFile(path);
+            IPlatformService.Instance.FileTryDelete(path);
         else
             File.WriteAllText(path, outText);
     }
