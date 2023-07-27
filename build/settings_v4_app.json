@@ -135,7 +135,7 @@
         {
           "TypeName": "double",
           "PropertyName": "WindowBackgroundOpacity",
-          "DefaultValue": ".8",
+          "DefaultValue": ".0",
           "DefaultValueIsConst": true,
           "Summary": "窗口背景不透明度",
           "IsRegionOrEndregion": null,

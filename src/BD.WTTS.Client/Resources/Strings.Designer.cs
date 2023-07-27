@@ -1008,6 +1008,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 启用的加速服务 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_AccelerationsEnable {
+            get {
+                return ResourceManager.GetString("CommunityFix_AccelerationsEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已加速   的本地化字符串。
         /// </summary>
         public static string CommunityFix_AlreadyProxy {
@@ -1229,6 +1238,15 @@ namespace BD.WTTS.Client.Resources {
         public static string CommunityFix_ResetHostsFileTip {
             get {
                 return ResourceManager.GetString("CommunityFix_ResetHostsFileTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用的脚本服务 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ScriptsEnable {
+            get {
+                return ResourceManager.GetString("CommunityFix_ScriptsEnable", resourceCulture);
             }
         }
         

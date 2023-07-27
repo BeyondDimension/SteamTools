@@ -2565,4 +2565,10 @@
 	<data name="Message_AreYouSureYouWantToDeleteTheAccount" xml:space="preserve">
     <value>确定要移除 {0} 平台吗？</value>
   </data>
+	<data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
+    <value>启用的加速服务</value>
+  </data>
+	<data name="CommunityFix_ScriptsEnable" xml:space="preserve">
+    <value>启用的脚本服务</value>
+  </data>
 </root>
