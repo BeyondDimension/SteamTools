@@ -7,6 +7,7 @@ public static partial class PathHelper
     /// <summary>
     /// 删除路径中的非法字符
     /// </summary>
+    [Obsolete("use IOPath", true)]
     public static string? CleanPathIlegalCharacter(string? f)
     {
         if (string.IsNullOrEmpty(f))
@@ -16,6 +17,7 @@ public static partial class PathHelper
         return r.Replace(f, "");
     }
 
+    [Obsolete("use IOPath", true)]
     public static string ExpandEnvironmentVariables(string? path, string? platform_Folder = null)
     {
         if (string.IsNullOrEmpty(path))
@@ -43,12 +45,14 @@ public static partial class PathHelper
         return Environment.ExpandEnvironmentVariables(path);
     }
 
+    [Obsolete("use IPlatformService.Instance.RegexSearchFile")]
     public static string RegexSearchFile(string file, string pattern)
     {
         var m = Regex.Match(File.ReadAllText(file), pattern);
         return m.Success ? m.Value : "";
     }
 
+    [Obsolete("use IPlatformService.Instance.RegexSearchFolder")]
     public static string RegexSearchFolder(string folder, string pattern, string wildcard = "")
     {
         // Foreach file in folder (until match):
@@ -62,6 +66,7 @@ public static partial class PathHelper
         return "";
     }
 
+    [Obsolete("use IPlatformService.Instance.CopyFile")]
     public static bool CopyFile(string source, string dest, bool overwrite = true)
     {
         if (string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(dest))
@@ -169,6 +174,7 @@ public static partial class PathHelper
     /// <param name="outputFolder">Destination folder</param>
     /// <param name="overwrite">Whether to overwrite files or not</param>
     /// <param name="throwOnError">When false, error is only logged (default)</param>
+    [Obsolete("use IPlatformService.Instance.CopyFilesRecursive")]
     public static bool CopyFilesRecursive(string? inputFolder, string outputFolder, bool overwrite = true, bool throwOnError = false)
     {
         try
@@ -211,7 +217,7 @@ public static partial class PathHelper
     {
         // Expand, or join localCachePath
         var toFullPath = toPath.Contains('%')
-            ? ExpandEnvironmentVariables(toPath, folderPath)
+            ? IOPath.ExpandEnvironmentVariables(toPath, folderPath)
             : Path.Combine(localCachePath, toPath);
 
         // Reverse if necessary. Explained in summary above.
@@ -221,7 +227,7 @@ public static partial class PathHelper
             var wildcard = Path.GetFileName(toPath);
             // Expand, or join localCachePath
             fromPath = fromPath.Contains('%')
-                ? ExpandEnvironmentVariables(Path.Combine(fromPath, wildcard), folderPath)
+                ? IOPath.ExpandEnvironmentVariables(Path.Combine(fromPath, wildcard), folderPath)
                 : Path.Combine(localCachePath, fromPath, wildcard);
             toPath = toPath.Replace(wildcard, "");
             toFullPath = toPath;
@@ -230,7 +236,7 @@ public static partial class PathHelper
         // Handle wildcards
         if (fromPath.Contains('*'))
         {
-            var folder = ExpandEnvironmentVariables(Path.GetDirectoryName(fromPath) ?? "", folderPath);
+            var folder = IOPath.ExpandEnvironmentVariables(Path.GetDirectoryName(fromPath) ?? "", folderPath);
             var file = Path.GetFileName(fromPath);
 
             // Handle "...\\*" folder.
@@ -260,8 +266,8 @@ public static partial class PathHelper
         if (reverse)
             (fromPath, toFullPath) = (toFullPath, fromPath);
 
-        var fullPath = ExpandEnvironmentVariables(fromPath, folderPath);
-        toFullPath = ExpandEnvironmentVariables(toFullPath, folderPath);
+        var fullPath = IOPath.ExpandEnvironmentVariables(fromPath, folderPath);
+        toFullPath = IOPath.ExpandEnvironmentVariables(toFullPath, folderPath);
 
         // Is folder? Recursive copy folder
         if (Directory.Exists(fullPath))
@@ -282,38 +288,12 @@ public static partial class PathHelper
 
     }
 
-#if NETFRAMEWORK
-    [DllImport("shlwapi.dll", EntryPoint = "PathIsDirectoryEmptyW", SetLastError = true, CharSet = CharSet.Unicode)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool PathIsDirectoryEmpty([MarshalAs(UnmanagedType.LPTStr)] string pszPath);
-#elif NET7_0_OR_GREATER && WINDOWS
-    [LibraryImport("shlwapi.dll", EntryPoint = "PathIsDirectoryEmptyW", SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static partial bool PathIsDirectoryEmpty([MarshalAs(UnmanagedType.LPTStr)] string pszPath);
-#else
-#if NET35 || NET40
-    [MethodImpl((MethodImplOptions)0x100)]
-#else
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-    public static bool PathIsDirectoryEmpty(string pszPath)
-    {
-        try
-        {
-            return !Directory.EnumerateFiles(pszPath).Any();
-        }
-        catch (DirectoryNotFoundException)
-        {
-            return true;
-        }
-    }
-#endif
-
     /// <summary>
     /// A replacement for File.ReadAllText() that doesn't crash if a file is in use.
     /// </summary>
     /// <param name="f">File to be read</param>
     /// <returns>string of content</returns>
+    [Obsolete("use IPlatformService.Instance.ReadAllText/ReadAllTextAsync", true)]
     public static string ReadAllText(string f)
     {
         using var fs = new FileStream(f, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -321,6 +301,7 @@ public static partial class PathHelper
         return tr.ReadToEnd();
     }
 
+    [Obsolete("use IPlatformService.Instance.FileTryDelete", true)]
     public static bool DeleteFile(string path, bool throwErr = false)
     {
         try

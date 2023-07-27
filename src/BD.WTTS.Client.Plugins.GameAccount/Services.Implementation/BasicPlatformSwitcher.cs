@@ -162,7 +162,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         if (platform.ClearPaths.Any_Nullable(accFile => !DeleteFileOrFolder(accFile, platform)))
             return false;
 
-        var uniqueIdFile = PathHelper.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
+        var uniqueIdFile = IOPath.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
 
         if (platform.UniqueIdType is UniqueIdType.JSON_SELECT or UniqueIdType.JSON_SELECT_FIRST or UniqueIdType.JSON_SELECT_LAST)
         {
@@ -174,7 +174,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         if (platform.UniqueIdType != UniqueIdType.CREATE_ID_FILE) return true;
 
         // Unique ID file --> This needs to be deleted for a new instance
-        PathHelper.DeleteFile(uniqueIdFile);
+        IPlatformService.Instance.FileTryDelete(uniqueIdFile);
 
         return true;
     }
@@ -213,7 +213,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         // Handle wildcards
         if (accFile.Contains('*'))
         {
-            var folder = PathHelper.ExpandEnvironmentVariables(Path.GetDirectoryName(accFile) ?? "", platform.FolderPath);
+            var folder = IOPath.ExpandEnvironmentVariables(Path.GetDirectoryName(accFile) ?? "", platform.FolderPath);
             var file = Path.GetFileName(accFile);
 
             // Handle "...\\*" folder.
@@ -230,12 +230,12 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             // This is NOT recursive - Specify folders manually in JSON
             if (!Directory.Exists(folder)) return true;
             foreach (var f in Directory.GetFiles(folder, file))
-                PathHelper.DeleteFile(f);
+                IPlatformService.Instance.FileTryDelete(f);
 
             return true;
         }
 
-        var fullPath = PathHelper.ExpandEnvironmentVariables(accFile, platform.FolderPath);
+        var fullPath = IOPath.ExpandEnvironmentVariables(accFile, platform.FolderPath);
         // Is folder? Recursive copy folder
         if (Directory.Exists(fullPath))
         {
@@ -244,14 +244,10 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             return true;
         }
 
-        try
+        // Is file? Delete file
+        var isDelete = IPlatformService.Instance.FileTryDelete(fullPath);
+        if (!isDelete)
         {
-            // Is file? Delete file
-            PathHelper.DeleteFile(fullPath, true);
-        }
-        catch (UnauthorizedAccessException e)
-        {
-            Log.Error(nameof(DeleteFileOrFolder), e, AppResources.Error_DelFileFailedRunning);
             Toast.Show(ToastIcon.Warning, AppResources.Error_DelFileFailedRunning);
         }
         return true;
@@ -362,7 +358,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         if (uniqueId == "" && platform.UniqueIdType is UniqueIdType.CREATE_ID_FILE)
         {
             // Unique ID file, and does not already exist: Therefore create!
-            var uniqueIdFile = PathHelper.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
+            var uniqueIdFile = IOPath.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
             uniqueId = Random2.GenerateRandomString(16);
             if (!string.IsNullOrEmpty(uniqueIdFile))
                 File.WriteAllText(uniqueIdFile, uniqueId);
@@ -422,7 +418,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 }
 
                 var originalValueString = (string)originalValue;
-                originalValueString = PathHelper.CleanPathIlegalCharacter(firstResult ? originalValueString.Split(delimiter).First() : originalValueString.Split(delimiter).Last());
+                originalValueString = IOPath.CleanPathIlegalCharacter(firstResult ? originalValueString.Split(delimiter).First() : originalValueString.Split(delimiter).Last());
 
                 JTokenHelper.SaveJsonFile(Path.Combine(localCachePath, savedFile), originalValueString);
                 continue;
@@ -475,7 +471,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         if (string.IsNullOrEmpty(platform.UniqueIdPath))
             return null;
 
-        var uniqueIdPath = PathHelper.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
+        var uniqueIdPath = IOPath.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
 
         if (string.IsNullOrEmpty(uniqueIdPath))
             return null;
@@ -495,7 +491,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             {
                 JTokenHelper.TryReadJsonFile(uniqueIdPath.Split("::")[0], ref js);
                 searchFor = uniqueIdPath.Split("::")[1];
-                uniqueId = PathHelper.CleanPathIlegalCharacter((string?)js?.SelectToken(searchFor));
+                uniqueId = IOPath.CleanPathIlegalCharacter((string?)js?.SelectToken(searchFor));
                 return uniqueId;
             }
 
@@ -516,7 +512,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             var res = (string?)js?.SelectToken(searchFor);
             if (res is null)
                 return "";
-            uniqueId = PathHelper.CleanPathIlegalCharacter(firstResult ? res.Split(delimiter).First() : res.Split(delimiter).Last());
+            uniqueId = IOPath.CleanPathIlegalCharacter(firstResult ? res.Split(delimiter).First() : res.Split(delimiter).Last());
             return uniqueId;
         }
 
@@ -524,7 +520,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         {
             if (!string.IsNullOrEmpty(platform.UniqueIdRegex))
             {
-                uniqueId = PathHelper.CleanPathIlegalCharacter(RegexHelper.RegexSearchFileOrFolder(uniqueIdPath, platform.UniqueIdRegex)); // Get unique ID from Regex, but replace any illegal characters.
+                uniqueId = IOPath.CleanPathIlegalCharacter(RegexHelper.RegexSearchFileOrFolder(uniqueIdPath, platform.UniqueIdRegex)); // Get unique ID from Regex, but replace any illegal characters.
             }
             else if (platform.UniqueIdType is UniqueIdType.FILE_MD5) // TODO: TEST THIS! -- This is used for static files that do not change throughout the lifetime of an account login.
             {
@@ -618,7 +614,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 PathHelper.RecursiveDelete(Path.Combine(platform.PlatformLoginCache, account.AccountName), false);
 
                 // Remove image
-                PathHelper.DeleteFile(Path.Combine(platform.PlatformLoginCache, account.AccountName, "avatar.png"));
+                IPlatformService.Instance.FileTryDelete(Path.Combine(platform.PlatformLoginCache, account.AccountName, "avatar.png"));
             }
 
             platform.Accounts?.Remove(account);

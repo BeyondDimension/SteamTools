@@ -10,7 +10,7 @@ public static class RegexHelper
         Dictionary<string, string> regexDictionary = new()
         {
                 { "EMAIL_REGEX", "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])" },
-                { "WIN_FILEPATH_REGEX", @"[a-zA-Z]:[\\\/](?:[a-zA-Z0-9]+[\\\/])*([a-zA-Z0-9]+\.[a-zA-Z]*)" }
+                { "WIN_FILEPATH_REGEX", @"[a-zA-Z]:[\\\/](?:[a-zA-Z0-9]+[\\\/])*([a-zA-Z0-9]+\.[a-zA-Z]*)" },
         };
 
         return regexDictionary.ContainsKey(regex) ? regexDictionary[regex] : regex;
@@ -24,7 +24,7 @@ public static class RegexHelper
     /// <returns></returns>
     public static string? RegexSearchFileOrFolder(string accFile, string regex)
     {
-        accFile = PathHelper.ExpandEnvironmentVariables(accFile);
+        accFile = IOPath.ExpandEnvironmentVariables(accFile);
         regex = ExpandRegex(regex);
         // The "file" is a registry key
 #if WINDOWS
@@ -49,7 +49,7 @@ public static class RegexHelper
         // Handle wildcards
         if (accFile.Contains('*'))
         {
-            var folder = PathHelper.ExpandEnvironmentVariables(Path.GetDirectoryName(accFile) ?? "");
+            var folder = IOPath.ExpandEnvironmentVariables(Path.GetDirectoryName(accFile) ?? "");
             var file = Path.GetFileName(accFile);
 
             // Handle "...\\*" folder.
@@ -58,7 +58,7 @@ public static class RegexHelper
             return Directory.Exists(folder) ? PathHelper.RegexSearchFolder(folder, regex, file) : "";
         }
 
-        var fullPath = PathHelper.ExpandEnvironmentVariables(accFile);
+        var fullPath = IOPath.ExpandEnvironmentVariables(accFile);
         // Is folder? Search folder.
         if (Directory.Exists(fullPath))
             return PathHelper.RegexSearchFolder(fullPath, regex);

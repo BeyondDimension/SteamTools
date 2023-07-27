@@ -66,7 +66,7 @@ public static class JTokenHelper
         var s = JsonConvert.SerializeObject(new Dictionary<string, string>());
         if (!File.Exists(dictPath))
         {
-            if (isBasic && !PathHelper.PathIsDirectoryEmpty(Path.GetDirectoryName(dictPath)!))
+            if (isBasic && !IOPath.PathIsDirectoryEmpty(Path.GetDirectoryName(dictPath)!))
             {
                 Toast.Show(ToastIcon.Error, AppResources.Error_OperateRegistryFilesFailed);
             }
@@ -74,7 +74,7 @@ public static class JTokenHelper
         }
         try
         {
-            s = PathHelper.ReadAllText(dictPath);
+            s = IPlatformService.Instance.ReadAllText(dictPath);
         }
         catch (Exception)
         {
@@ -88,7 +88,7 @@ public static class JTokenHelper
         if (path == null) return;
         var outText = JsonConvert.SerializeObject(dict);
         if (outText.Length < 4 && File.Exists(path))
-            PathHelper.DeleteFile(path);
+            IPlatformService.Instance.DeleteFile(path);
         else
             File.WriteAllText(path, outText);
     }
