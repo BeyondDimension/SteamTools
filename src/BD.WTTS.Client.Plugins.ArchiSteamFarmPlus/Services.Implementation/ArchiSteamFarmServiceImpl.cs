@@ -1,4 +1,5 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+using ASFStrings = ArchiSteamFarm.Localization.Strings;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 using ASFNLogManager = ArchiSteamFarm.LogManager;
 
@@ -164,11 +165,11 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
         if (targetBot == null)
         {
-            ASF.ArchiLogger.LogGenericWarning(Strings.ErrorNoBotsDefined);
+            ASF.ArchiLogger.LogGenericWarning(ASFStrings.ErrorNoBotsDefined);
             return null;
         }
 
-        ASF.ArchiLogger.LogGenericInfo(Strings.Executing);
+        ASF.ArchiLogger.LogGenericInfo(ASFStrings.Executing);
 
         ulong steamOwnerID = ASF.GlobalConfig?.SteamOwnerID ?? GlobalConfig.DefaultSteamOwnerID;
 

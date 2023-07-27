@@ -74,6 +74,7 @@ public sealed class ToastService : ReactiveObject
         CloseBtn_Click();
     }
 
+    [Obsolete("不再使用常驻通知")]
     public void Set(string message)
     {
         MainThread2.BeginInvokeOnMainThread(() => Message = message);
