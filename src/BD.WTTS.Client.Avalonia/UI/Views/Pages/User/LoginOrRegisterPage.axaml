@@ -36,10 +36,7 @@
     </UserControl.Styles>
     <Grid RowDefinitions="*,Auto,Auto">
 
-        <Carousel AutoScrollToSelectedItem="True" SelectedIndex="{Binding LoginState}">
-            <Carousel.PageTransition>
-                <PageSlide Orientation="Horizontal" Duration="0.25" />
-            </Carousel.PageTransition>
+        <Carousel Classes="AnimeSlide" SelectedIndex="{Binding LoginState}">
             <Carousel.Styles>
                 <Style Selector="StackPanel.Mid">
                     <Setter Property="VerticalAlignment" Value="Center" />

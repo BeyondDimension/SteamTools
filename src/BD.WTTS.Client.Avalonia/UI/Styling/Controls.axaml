@@ -16,6 +16,8 @@
             <FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>
             <BoxShadows x:Key="InfoBoxShadow">4 4 32 0 #66000000</BoxShadows>
 
+            <x:String x:Key="DefaultAvatar">avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/avatar.ico</x:String>
+
             <ResourceDictionary.MergedDictionaries>
                 <MergeResourceInclude Source="/UI/Styling/Window.axaml" />
                 <!--<MergeResourceInclude Source="/UI/Styling/CoreWindow.axaml" />-->
@@ -37,6 +39,7 @@
         <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName}, Path=Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" />
     </Style>-->
 
+    <StyleInclude Source="/UI/Styling/InfoBox.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/PageBase.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/OptionsDisplayItem.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/Stepper.axaml" />
@@ -50,6 +53,9 @@
     <StyleInclude Source="/UI/Styling/Controls/Button.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/TabView.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/TabStrip.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/TabControl.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/Carousel.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/Border.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/AutoCompleteBox.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/IconElement.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/CustomFilePicker.axaml" />

@@ -137,9 +137,12 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem x:Name="PlatformSettingButton" Text="平台设置" />
-                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem
+                            x:Name="PlatformSettingButton"
+                            IsVisible="{Binding !IsSelectedSteam}"
+                            Text="平台设置" />
                         <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
+                        <ui:MenuFlyoutSeparator IsVisible="{Binding !IsSelectedSteam}" />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">

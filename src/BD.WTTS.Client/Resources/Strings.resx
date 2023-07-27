@@ -239,6 +239,9 @@
   <data name="CommunityFix" xml:space="preserve">
     <value>网络加速</value>
   </data>
+	<data name="CommunityFix_ItemsEmpty" xml:space="preserve">
+    <value>获取加速信息失败，请检查程序是否能正常联网</value>
+  </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
     <value>启动时自动启动加速</value>
   </data>

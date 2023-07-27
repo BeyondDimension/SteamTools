@@ -22,7 +22,19 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
     [Reactive]
     public bool IsLoadingSteamGrid { get; set; }
 
-    public bool IsSteamGridEmpty => !IsLoadingSteamGrid && !SteamGridItems.Any_Nullable();
+    public bool IsSteamGridEmpty => !IsLoadingSteamGrid && !_SteamGridItemSourceList.Items.Any_Nullable();
+
+    public ICommand UpLaunchItemCommand { get; }
+
+    public ICommand DownLaunchItemCommand { get; }
+
+    public ICommand DeleteLaunchItemCommand { get; }
+
+    public ICommand OpenSteamGridDBImageUrlCommand { get; }
+
+    public ICommand OpenSteamGridDBAppUrlCommand { get; }
+
+    public ICommand OpenSteamGridDBAuthorUrlCommand { get; }
 
     public EditAppInfoPageViewModel(SteamApp app)
     {
@@ -44,6 +56,13 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
           .Sort(SortExpressionComparer<SteamGridItem>.Ascending(x => x.Id))
           .Bind(out _SteamGridItems)
           .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamGridEmpty)));
+
+        UpLaunchItemCommand = ReactiveCommand.Create<SteamAppLaunchItem>(UpLaunchItem);
+        DownLaunchItemCommand = ReactiveCommand.Create<SteamAppLaunchItem>(DownLaunchItem);
+        DeleteLaunchItemCommand = ReactiveCommand.Create<SteamAppLaunchItem>(DeleteLaunchItem);
+        OpenSteamGridDBImageUrlCommand = ReactiveCommand.Create<SteamGridItem>(OpenSteamGridDBImageUrl);
+        OpenSteamGridDBAppUrlCommand = ReactiveCommand.Create<SteamGridItem>(OpenSteamGridDBAppUrl);
+        OpenSteamGridDBAuthorUrlCommand = ReactiveCommand.Create<SteamGridItem>(OpenSteamGridDBAuthorUrl);
     }
 
     public void AddLaunchItem()
@@ -58,17 +77,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         }
     }
 
-    public void UpLaunchItem(SteamAppLaunchItem item)
-    {
-        MoveLaunchItem(item, true);
-    }
-
-    public void DownLaunchItem(SteamAppLaunchItem item)
-    {
-        MoveLaunchItem(item, false);
-    }
-
-    private void MoveLaunchItem(in SteamAppLaunchItem item, bool isUp)
+    void MoveLaunchItem(in SteamAppLaunchItem item, bool isUp)
     {
         if (App.LaunchItems != null)
         {
@@ -81,6 +90,16 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         }
     }
 
+    public void UpLaunchItem(SteamAppLaunchItem item)
+    {
+        MoveLaunchItem(item, true);
+    }
+
+    public void DownLaunchItem(SteamAppLaunchItem item)
+    {
+        MoveLaunchItem(item, false);
+    }
+
     public void DeleteLaunchItem(SteamAppLaunchItem item)
     {
         if (App.LaunchItems != null)
@@ -89,7 +108,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         }
     }
 
-    bool CheckCurrentSteamUserStats(in SteamUser? user)
+    static bool CheckCurrentSteamUserStats(in SteamUser? user)
     {
         if (user == null)
         {
@@ -156,13 +175,13 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         //await MessageBox.ShowAsync("保存成功但还不会直接写入Steam文件, 请打开[保存Steam游戏自定义信息窗口]保存所有更改信息到Steam文件中。",
         //    ThisAssembly.AssemblyTrademark, MessageBox.Button.OK, MessageBox.Image.None, MessageBox.DontPromptType.SaveEditAppInfo);
 
-        this.Close();
+        this.Close?.Invoke();
     }
 
     public void CancelEditAppInfo()
     {
         App.RefreshEditImage();
-        this.Close();
+        this.Close?.Invoke();
     }
 
     public void ResetEditAppInfo()
@@ -268,9 +287,9 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         await Browser2.OpenAsync(string.Format(SteamGridDBApiUrls.SteamGridDB_Author_URL, item.Author.Steam64));
     }
 
-    public void OpenFolder(string path)
+    public void OpenFolder(object? parm)
     {
-        if (!string.IsNullOrEmpty(path))
+        if (parm is string path && !string.IsNullOrEmpty(path))
             IPlatformService.Instance.OpenFolder(path);
     }
 

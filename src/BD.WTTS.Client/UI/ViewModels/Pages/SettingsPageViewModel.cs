@@ -83,9 +83,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
                 SteamSettings.SteamProgramPath.Value = path;
         }, fileTypes);
     }
-#endif
 
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     public void SetBackgroundImagePath(string? imagePath)
     {
         if (string.IsNullOrWhiteSpace(imagePath))

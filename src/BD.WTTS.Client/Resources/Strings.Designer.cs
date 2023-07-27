@@ -1089,6 +1089,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 获取加速信息失败，请检查程序是否能正常联网 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ItemsEmpty {
+            get {
+                return ResourceManager.GetString("CommunityFix_ItemsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 加速设置 的本地化字符串。
         /// </summary>
         public static string CommunityFix_MenuName {

@@ -206,7 +206,7 @@
                             Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
                             ClipToBounds="True"
                             CornerRadius="30">
-                            <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="/UI/Assets/Icons/avatar.ico" />
+                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{StaticResource DefaultAvatar}" />
                         </Border>
                         <DropDownButton.Flyout>
                             <MenuFlyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
@@ -221,7 +221,7 @@
                                                     ClipToBounds="True"
                                                     CornerRadius="64"
                                                     DockPanel.Dock="Left">
-                                                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="/UI/Assets/Icons/avatar.ico" />
+                                                    <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{StaticResource DefaultAvatar}" />
                                                 </Border>
                                                 <Panel>
                                                     <TextBlock

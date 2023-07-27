@@ -102,6 +102,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         bool isRetryButton = false,
         object? pageContent = null,
         string? okButtonText = null,
+        string? retryButtonText = null,
         Func<bool>? cancelCloseAction = null)
         where TPageViewModel : ViewModelBase
     {
@@ -124,7 +125,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         {
             if (viewModel is IWindowViewModel window)
             {
-                window.Close = () => td.Hide(TaskDialogStandardResult.Close);
+                window.Close = () => td?.Hide(TaskDialogStandardResult.Close);
             }
             td.DataContext = viewModel;
             td.Content = pageContent ?? GetPageContent(viewModel);
@@ -136,6 +137,10 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             td.Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, };
         }
 
+        if (isRetryButton)
+        {
+            td.Buttons.Add(new TaskDialogButton(string.IsNullOrEmpty(retryButtonText) ? Strings.Retry : retryButtonText, TaskDialogStandardResult.Retry));
+        }
         if (isOkButton)
         {
             td.Buttons.Add(new TaskDialogButton(string.IsNullOrEmpty(okButtonText) ? Strings.Confirm : okButtonText, TaskDialogStandardResult.OK));
@@ -143,10 +148,6 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         if (isCancelButton)
         {
             td.Buttons.Add(new TaskDialogButton(Strings.Cancel, TaskDialogStandardResult.Cancel));
-        }
-        if (isRetryButton)
-        {
-            td.Buttons.Add(new TaskDialogButton(Strings.Retry, TaskDialogStandardResult.Retry));
         }
         //td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
 
@@ -157,6 +158,12 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             if (result is not TaskDialogStandardResult.Cancel or TaskDialogStandardResult.No)
             {
                 args.Cancel = cancelCloseAction?.Invoke() ?? false;
+            }
+            if (viewModel is IWindowViewModel window)
+            {
+                var e = new CancelEventArgs(args.Cancel);
+                window.OnClosing(window, e);
+                args.Cancel = e.Cancel;
             }
         }
         try
@@ -180,6 +187,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         }
         td.Closing -= OnClosing;
         td = null;
+
         return result is TaskDialogStandardResult.OK;
     }
 
