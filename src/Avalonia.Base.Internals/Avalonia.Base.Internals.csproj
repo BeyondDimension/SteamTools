@@ -18,6 +18,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia" />
+		<ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX.props" />

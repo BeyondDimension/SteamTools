@@ -361,7 +361,6 @@ public sealed partial class ProxyService
               .WhenPropertyChanged(x => x.Disable, false)
               .Subscribe(async item =>
               {
-                  item.Sender.Disable = !item.Value;
                   await scriptManager.SaveEnableScriptAsync(item.Sender);
                   //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                   //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();

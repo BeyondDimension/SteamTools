@@ -92,7 +92,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiSteamFarm.Library", "r
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibAPNG", "ref\Avalonia.Image2\LibAPNG\LibAPNG.csproj", "{47B2D651-8EE0-4C05-B451-F2DA264DD5B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaGif", "ref\Avalonia.Image2\AvaloniaGif\AvaloniaGif.csproj", "{5D6D28A7-1CD8-4C30-A0E4-1F8ACF389A29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Gif", "ref\Avalonia.Image2\Avalonia.Gif\Avalonia.Gif.csproj", "{5D6D28A7-1CD8-4C30-A0E4-1F8ACF389A29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArchiSteamFarm", "ArchiSteamFarm", "{A3A703CC-F22E-40CE-9064-6DF3E55DD556}"
 EndProject

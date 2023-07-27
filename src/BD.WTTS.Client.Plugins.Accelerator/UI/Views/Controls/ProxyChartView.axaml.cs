@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using LiveChartsCore;
 using LiveChartsCore.Motion;
 using LiveChartsCore.SkiaSharpView;
@@ -81,7 +82,11 @@ public partial class ProxyChartView : UserControl
                 }
                 else
                 {
-                    cancellation?.Cancel();
+                    if (cancellation != null)
+                    {
+                        cancellation.Cancel();
+                        cancellation.Dispose();
+                    }
                     reads.Clear();
                     writes.Clear();
                 }
@@ -111,15 +116,18 @@ public partial class ProxyChartView : UserControl
             {
                 var flowStatistics = IReverseProxyService.Constants.Instance.GetFlowStatistics();
                 if (flowStatistics == null)
-                {
                     continue;
-                }
 
-                Dispatcher.UIThread.Post(() =>
+                var isAttachedToVisualTree = this.IsAttachedToVisualTree();
+
+                if (isAttachedToVisualTree)
                 {
-                    textBlockRead.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalRead);
-                    textBlockWrite.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalWrite);
-                });
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        textBlockRead.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalRead);
+                        textBlockWrite.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalWrite);
+                    });
+                }
 
                 var timestamp = GetTimestamp(DateTime.Now);
 
@@ -132,7 +140,7 @@ public partial class ProxyChartView : UserControl
                     this.writes.RemoveAt(0);
                 }
 
-                if (Chart != null)
+                if (Chart != null && isAttachedToVisualTree)
                     Dispatcher.UIThread.Post(() =>
                     {
                         Chart.Series = new ISeries[] { readSeries, writeSeries };
