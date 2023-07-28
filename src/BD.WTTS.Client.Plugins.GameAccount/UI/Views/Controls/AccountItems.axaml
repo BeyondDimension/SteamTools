@@ -142,13 +142,32 @@
                                     </ia:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
                                 <spp:AppItem.Image>
-                                    <spp:Image2
-                                        Width="128"
-                                        Height="128"
-                                        FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
-                                        RenderOptions.BitmapInterpolationMode="HighQuality"
-                                        Source="{Binding ImagePath}"
-                                        Stretch="UniformToFill" />
+                                    <Panel>
+                                        <spp:Image2
+                                            Width="128"
+                                            Height="128"
+                                            FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
+                                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                                            Source="{Binding ImagePath}"
+                                            Stretch="UniformToFill" />
+                                        <spp:Image2
+                                            Width="155"
+                                            Height="155"
+                                            IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}"
+                                            RenderOptions.BitmapInterpolationMode="MediumQuality"
+                                            Source="{Binding AvatarFramePath}"
+                                            Stretch="UniformToFill">
+                                            <!--<spp:Image2.IsVisible>
+                                                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                                    <ReflectionBinding ElementName="u" Path="DataContext.IsSteamPlatform" />
+                                                    <CompiledBinding
+                                                        Converter="{StaticResource IsNullConverter}"
+                                                        ConverterParameter="invert"
+                                                        Path="AvatarFramePath" />
+                                                </MultiBinding>
+                                            </spp:Image2.IsVisible>-->
+                                        </spp:Image2>
+                                    </Panel>
                                 </spp:AppItem.Image>
                             </spp:AppItem>
                         </Border>

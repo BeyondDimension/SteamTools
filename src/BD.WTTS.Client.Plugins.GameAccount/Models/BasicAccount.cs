@@ -16,6 +16,8 @@ public sealed class BasicAccount : ReactiveObject, IAccount
 
     public string? ImagePath { get; set; }
 
+    public string? AvatarFramePath { get; set; }
+
     public ThirdpartyPlatform Platform { get; init; }
 
     public string? PlatformName { get; init; }

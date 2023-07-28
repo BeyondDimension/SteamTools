@@ -40,6 +40,12 @@ public sealed class SteamAccount : ReactiveObject, IAccount
         set => this.SteamUser.AvatarMedium = value;
     }
 
+    public string? AvatarFramePath
+    {
+        get => this.SteamUser.MiniProfile?.AvatarFrame;
+        set => this.SteamUser.MiniProfile.AvatarFrame = value;
+    }
+
     public bool MostRecent
     {
         get => this.SteamUser.MostRecent;

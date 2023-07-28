@@ -16,6 +16,8 @@ public interface IAccount
 
     string? ImagePath { get; set; }
 
+    string? AvatarFramePath { get; set; }
+
     ThirdpartyPlatform Platform { get; init; }
 
     string? PlatformName { get; init; }
