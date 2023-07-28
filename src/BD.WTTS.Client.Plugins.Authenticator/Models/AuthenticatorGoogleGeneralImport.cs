@@ -10,9 +10,9 @@ public class AuthenticatorGoogleGeneralImport : AuthenticatorGeneralImportBase
     public override string Description => Strings.LocalAuth_GoogleImport;
 
     public override ResIcon IconName => ResIcon.Attach;
-    
+
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
-    
+
     public AuthenticatorGoogleGeneralImport()
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
@@ -24,7 +24,7 @@ public class AuthenticatorGoogleGeneralImport : AuthenticatorGeneralImportBase
                     pageContent: new AuthenticatorGeneralImportPage(), isOkButton: false);
         });
     }
-    
+
     protected override async Task<IAuthenticatorValueDTO?> CreateAuthenticatorValueDto(string secretCode)
     {
         try
@@ -36,7 +36,7 @@ public class AuthenticatorGoogleGeneralImport : AuthenticatorGeneralImportBase
                 Toast.Show(ToastIcon.Error, Strings.LocalAuth_Import_DecodePrivateKeyError.Format("Google"));
                 return null;
             }
-            
+
             var auth = new GoogleAuthenticator();
             auth.Enroll(privateKey);
 

@@ -92,5 +92,4 @@ public sealed partial class SteamTradePageViewModel : ViewModelBase
     }
 
     public bool IsConfirmationsAny => Confirmations.Any_Nullable();
-    
 }

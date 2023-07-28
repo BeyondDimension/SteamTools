@@ -13,7 +13,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     const int MAX_SYNC_VALUE = 100;
 
     string? _currentAnswer;
-    
+
     string? _currentPassword;
 
     DateTime _initializeTime;
@@ -256,7 +256,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         response.Content.ThrowIsNull();
         var cloudAuths = response.Content.Select(AuthenticatorService.ConvertToAuthenticatorDto).ToList();
-        
+
         if (cloudAuths.Count >= Auths.Count)
         {
             int changes = 0;
@@ -308,7 +308,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             return;
         }
 
-        var pushItems = (from item in Auths
+        var pushItems = (
+            from item in Auths
             let cloudAuth = cloudAuths.FirstOrDefault(i => i.ServerId == item.AuthData.ServerId)
             where cloudAuth == null
             select new UserAuthenticatorPushItem()
@@ -330,7 +331,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         var syncResponse = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
         {
-            Difference = pushItems, Answer = _currentAnswer,
+            Difference = pushItems,
+            Answer = _currentAnswer,
         });
 
         if (!syncResponse.IsSuccess)
@@ -391,7 +393,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 isCancelButton: true)) return;
         var answer = textViewModel.Value;
         if (string.IsNullOrEmpty(question) || string.IsNullOrEmpty(answer)) return;
-        var resetPassword = await IMicroServiceClient.Instance.AuthenticatorClient.ResetIndependentPassword(new ()
+        var resetPassword = await IMicroServiceClient.Instance.AuthenticatorClient.ResetIndependentPassword(new()
         {
             Answer = _currentAnswer,
             NewPwdQuestion = question,
@@ -450,7 +452,8 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         var textViewmodel = new TextBoxWindowViewModel
         {
-            InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox, Value = CurrentSelectedAuth.AuthName
+            InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
+            Value = CurrentSelectedAuth.AuthName
         };
         if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_PleaseEnterNewAuthName, isDialog: false,
                 isCancelButton: true))
@@ -559,15 +562,16 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             await IWindowManager.Instance.ShowTaskDialogAsync(
                 new TextBoxWindowViewModel()
                 {
-                    InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox, Value = temp,
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
+                    Value = temp,
                 }, AppResources.ModelContent_SecretKey_.Format(CurrentSelectedAuth.AuthName), isDialog: false, isOkButton: false);
         }
     }
-    
+
     public async void ExportAuthWithSdaFile(object sender)
     {
         if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
-        
+
         if (authenticatorItemModel.AuthData.Value is SteamAuthenticator steamAuthenticator)
         {
             if (string.IsNullOrEmpty(steamAuthenticator.SteamData)) return;
@@ -656,7 +660,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         }
         Auths.Move(index, index - 1);
     }
-    
+
     public async Task AuthenticatorIndexMoveDown(object sender)
     {
         if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
@@ -707,11 +711,11 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (exportFile == null) return;
         Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile.ToString()));
     }
-    
+
     public async Task UnbindingSteamAuthAsync(object sender)
     {
         if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
-        
+
         if (authenticatorItemModel.AuthData.Platform != AuthenticatorPlatform.Steam)
         {
             Toast.Show(ToastIcon.Warning, AppResources.Warning_OnlySupportSteamAuth);

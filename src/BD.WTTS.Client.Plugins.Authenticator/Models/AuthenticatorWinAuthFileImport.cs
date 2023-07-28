@@ -7,7 +7,7 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
     public override string Name => Strings.LocalAuth_Import.Format(Strings.WinAuth);
 
     public override string Description => Strings.LocalAuth_WinAuthImport;
-    
+
     public override ResIcon IconName => ResIcon.OpenFile;
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
@@ -22,7 +22,7 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
                 await ImportFromWinAuthFile(password);
         });
     }
-    
+
     async Task ImportFromWinAuthFile(string? password = null)
     {
         var filePath = await SelectFolderPath();
@@ -99,7 +99,7 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
                 }
 
                 AuthenticatorDTO authenticatorDto = new();
-                
+
                 AuthenticatorValueDTO auth;
                 if (string.Compare(issuer, "BattleNet", StringComparison.OrdinalIgnoreCase) == 0)
                 {
@@ -177,7 +177,7 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
                 {
                     auth.HMACType = hmactype;
                 }
-                
+
                 if (label.Length != 0)
                 {
                     authenticatorDto.Name = issuer.Length != 0 ? issuer + " (" + label + ")" : label;
@@ -190,7 +190,7 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
                 {
                     authenticatorDto.Name = "Imported";
                 }
-                
+
                 authenticatorDto.Value = auth;
 
                 // sync

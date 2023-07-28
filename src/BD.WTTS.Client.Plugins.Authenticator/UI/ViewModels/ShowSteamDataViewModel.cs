@@ -47,7 +47,7 @@ public class ShowSteamDataViewModel : ViewModelBase
 
     public ShowSteamDataViewModel()
     {
-        
+
     }
 
     public ShowSteamDataViewModel(IAuthenticatorDTO authenticatorDto)
@@ -68,5 +68,4 @@ public class ShowSteamDataViewModel : ViewModelBase
             //await IWindowManager.Instance.ShowTaskDialogAsync(viewModel, Strings.LocalAuth_ShowAuthInfo);
         }
     }
-   
 }

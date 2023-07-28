@@ -10,7 +10,7 @@ public class AuthenticatorHOTPGeneralImport : AuthenticatorGeneralImportBase
     public override string Description => Strings.LocalAuth_HOTPImport;
 
     public override ResIcon IconName => ResIcon.Attach;
-    
+
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
     public AuthenticatorHOTPGeneralImport()
@@ -24,7 +24,7 @@ public class AuthenticatorHOTPGeneralImport : AuthenticatorGeneralImportBase
                     pageContent: new AuthenticatorGeneralImportPage(), isOkButton: false);
         });
     }
-    
+
     protected override async Task<IAuthenticatorValueDTO?> CreateAuthenticatorValueDto(string secretCode)
     {
         try
@@ -36,7 +36,7 @@ public class AuthenticatorHOTPGeneralImport : AuthenticatorGeneralImportBase
                 Toast.Show(ToastIcon.Error, Strings.LocalAuth_Import_DecodePrivateKeyError.Format("HOTP"));
                 return null;
             }
-            
+
             var auth = new HOTPAuthenticator();
             auth.Enroll(privateKey);
             return auth;

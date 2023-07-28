@@ -5,11 +5,11 @@ namespace BD.WTTS.Models;
 public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
 {
     public abstract override string Name { get; }
-    
+
     public abstract override string Description { get; }
 
     protected abstract string? FileExtension { get; }
-    
+
     public abstract override ICommand AuthenticatorImportCommand { get; set; }
 
     protected async Task<string?> SelectFolderPath()
@@ -28,11 +28,11 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
         options.FileTypes = fileTypes;
         return await FilePicker2.PickAsync(options);
     }
-    
+
     protected bool ReadXml(ref AuthenticatorDTO authenticatorDto, XmlReader reader, string? password)
     {
         bool changed = false;
-        
+
         var authenticatorType = reader.GetAttribute("type");
         switch (authenticatorType)
         {
@@ -121,7 +121,7 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
 
         return changed;
     }
-    
+
     protected IEnumerable<string> ReadUrlsByFilePath(string filePath)
     {
         StringBuilder lines = new();

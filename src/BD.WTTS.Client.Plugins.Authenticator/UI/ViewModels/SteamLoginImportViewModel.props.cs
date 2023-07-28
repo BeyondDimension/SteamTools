@@ -10,7 +10,7 @@ public sealed partial class SteamLoginImportViewModel : ViewModelBase
 {
     [Reactive]
     public bool IsLoading { get; set; }
-    
+
     private int index;
 
     public int SelectIndex

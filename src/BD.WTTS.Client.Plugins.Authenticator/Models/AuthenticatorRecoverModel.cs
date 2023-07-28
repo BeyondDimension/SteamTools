@@ -2,7 +2,7 @@ namespace BD.WTTS.Models;
 
 public class AuthenticatorRecoverModel
 {
-    [Reactive] 
+    [Reactive]
     public UserAuthenticatorDeleteBackupResponse AuthenticatorDeleteBackup { get; set; }
 
     [Reactive]

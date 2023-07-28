@@ -78,9 +78,9 @@ public class AuthenticatorExportViewModel : ViewModelBase
 
     public AuthenticatorExportViewModel()
     {
-        
+
     }
-    
+
     public AuthenticatorExportViewModel(string? password = null)
     {
         _currentPassword = password;

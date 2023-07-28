@@ -10,7 +10,7 @@ public class AuthenticatorMicrosoftGeneralImport : AuthenticatorGeneralImportBas
     public override string Description => Strings.LocalAuth_MicrosoftImport;
 
     public override ResIcon IconName => ResIcon.Attach;
-    
+
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
     public AuthenticatorMicrosoftGeneralImport()
@@ -24,7 +24,7 @@ public class AuthenticatorMicrosoftGeneralImport : AuthenticatorGeneralImportBas
                     pageContent: new AuthenticatorGeneralImportPage(), isOkButton: false);
         });
     }
-    
+
     protected override async Task<IAuthenticatorValueDTO?> CreateAuthenticatorValueDto(string secretCode)
     {
         try
@@ -36,7 +36,7 @@ public class AuthenticatorMicrosoftGeneralImport : AuthenticatorGeneralImportBas
                 Toast.Show(ToastIcon.Error, Strings.LocalAuth_Import_DecodePrivateKeyError.Format("Microsoft"));
                 return null;
             }
-            
+
             var auth = new MicrosoftAuthenticator();
             auth.Enroll(privateKey);
 

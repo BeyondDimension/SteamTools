@@ -4,11 +4,11 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
 {
     [Reactive]
     public ObservableCollection<AuthenticatorImportBase> AuthenticatorImportBases { get; set; }
-    
+
     public AuthenticatorImportPageViewModel()
     {
         AuthenticatorImportBases = new ObservableCollection<AuthenticatorImportBase>();
-        
+
         Initialize();
     }
 

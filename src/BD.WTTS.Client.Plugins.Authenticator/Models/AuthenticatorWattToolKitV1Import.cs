@@ -20,11 +20,11 @@ public class AuthenticatorWattToolKitV1Import : AuthenticatorFileImportBase
                 await ImportFromWattToolKitV1(password);
         });
     }
-    
+
     async Task ImportFromWattToolKitV1(string? password = null)
     {
         var filePath = await SelectFolderPath();
-        
+
         if (string.IsNullOrEmpty(filePath)) return;
 
         if (IOPath.TryReadAllText(filePath, out var content, out var _))

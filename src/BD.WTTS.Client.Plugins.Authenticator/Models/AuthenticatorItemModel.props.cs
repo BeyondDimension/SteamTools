@@ -49,7 +49,7 @@ public partial class AuthenticatorItemModel
         get => _strokeColor;
         set => this.RaiseAndSetIfChanged(ref _strokeColor, value);
     }
-    
+
     public double Value
     {
         get => _value;

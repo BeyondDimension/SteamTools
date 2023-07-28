@@ -33,7 +33,7 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
             this.RaisePropertyChanged();
         }
     }
-    
+
     public string? ImportAuthNewName
     {
         get => _importAuthNewName;
@@ -48,7 +48,7 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
             this.RaisePropertyChanged();
         }
     }
-    
+
     readonly Func<IAuthenticatorDTO, Task> _saveAuth;
 
     public AuthenticatorSteamGuardViewModel()
@@ -103,7 +103,7 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
                 RegexOptions.Singleline | RegexOptions.IgnoreCase) == false)
         {
             //WinAuthForm.ErrorDialog(this, "Invalid deviceid, expecting \"android:NNNN...\"");
-            return ;
+            return;
         }
 
         // check the steamguard
@@ -140,12 +140,17 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
 
         var auth = new SteamAuthenticator
         {
-            SecretKey = secret, Serial = serial, SteamData = PhoneImportSteamGuard, DeviceId = deviceId
+            SecretKey = secret,
+            Serial = serial,
+            SteamData = PhoneImportSteamGuard,
+            DeviceId = deviceId
         };
 
         await _saveAuth.Invoke(new AuthenticatorDTO()
         {
-            Name = $"(Steam){ImportAuthNewName}", Value = auth, Created = DateTimeOffset.Now,
+            Name = $"(Steam){ImportAuthNewName}",
+            Value = auth,
+            Created = DateTimeOffset.Now,
         });
     }
 }

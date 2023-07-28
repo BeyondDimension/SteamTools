@@ -17,7 +17,7 @@ public partial class AuthenticatorItemModel : ItemViewModel
     readonly DispatcherTimer _progressTimer;
 
     int _progress;
-    
+
     public void OnPointerLeftPressed()
     {
         IsSelected = !IsSelected;
@@ -32,7 +32,7 @@ public partial class AuthenticatorItemModel : ItemViewModel
     {
         await CopyCode();
     }
-    
+
     async Task CopyCode()
     {
         if (!IsShowCode) return;
@@ -49,7 +49,7 @@ public partial class AuthenticatorItemModel : ItemViewModel
         _progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
         _progressTimer.Tick += ShowCode;
     }
-    
+
     async void ShowCode(object? sender, EventArgs e)
     {
         _progress -= 1;

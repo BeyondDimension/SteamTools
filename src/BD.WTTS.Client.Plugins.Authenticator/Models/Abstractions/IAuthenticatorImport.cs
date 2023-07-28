@@ -9,8 +9,8 @@ public interface IAuthenticatorImport
     public ResIcon IconName { get; }
 
     public ICommand AuthenticatorImportCommand { get; set; }
-    
+
     Task<bool> VerifyMaxValue();
-    
+
     Task SaveAuthenticator(IAuthenticatorDTO authenticatorDto);
 }

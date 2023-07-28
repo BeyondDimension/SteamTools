@@ -83,7 +83,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         var resultCode__ = (ImportResultCode)resultCode_;
         return resultCode__;
     }
-    
+
     public async Task<bool> Exists(IEnumerable<AccountPlatformAuthenticator> sourceList, IAuthenticatorDTO item,
         bool isLocal, string? secondaryPassword = null)
     {

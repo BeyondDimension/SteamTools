@@ -5,5 +5,5 @@ namespace BD.WTTS.Models;
 [JsonSerializable(typeof(SdaFileConvertToSteamDataModel))]
 public partial class ImportFileModelJsonContext : JsonSerializerContext
 {
-    
+
 }

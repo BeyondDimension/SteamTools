@@ -15,7 +15,7 @@ public sealed partial class SteamLoginImportViewModel
     bool _isFirstLogin = true;
 
     bool _isConfirmMailUrl;
-    
+
     readonly ISteamAccountService _steamAccountService;
 
     readonly Func<IAuthenticatorDTO, Task> _saveAuth;
@@ -25,7 +25,7 @@ public sealed partial class SteamLoginImportViewModel
         _steamAccountService = Ioc.Get<ISteamAccountService>();
         _saveAuth = (authenticatorDto) => Task.CompletedTask;
     }
-    
+
     public SteamLoginImportViewModel(Func<IAuthenticatorDTO, Task> saveAuthFunc)
     {
         _steamAccountService = Ioc.Get<ISteamAccountService>();
@@ -33,7 +33,7 @@ public sealed partial class SteamLoginImportViewModel
     }
 
     SteamAuthenticator steamAuthenticator = new();
-    
+
     SteamLoginState _steamLoginState = new();
 
     SteamAuthenticator.EnrollState _enrollState = new SteamAuthenticator.EnrollState();
@@ -68,7 +68,7 @@ public sealed partial class SteamLoginImportViewModel
         _steamLoginState.Password = PasswordText;
         _steamLoginState.Language = ResourceService.GetCurrentCultureSteamLanguageName();
         _IsLogining = true;
-        
+
         await _steamAccountService.DoLoginV2Async(_steamLoginState);
         _isFirstLogin = false;
     }
@@ -81,7 +81,7 @@ public sealed partial class SteamLoginImportViewModel
         }
         else
             _steamLoginState.CaptchaText = CaptchaCodeText;
-        
+
         await _steamAccountService.DoLoginV2Async(_steamLoginState);
 
         CaptchaCodeText = null;
@@ -97,7 +97,7 @@ public sealed partial class SteamLoginImportViewModel
             _steamLoginState.EmailCode = EmailAuthText;
 
         await _steamAccountService.DoLoginV2Async(_steamLoginState);
-        
+
         EmailAuthText = null;
         EmailDomainText = null;
     }
@@ -106,7 +106,7 @@ public sealed partial class SteamLoginImportViewModel
     {
         return await steamAuthenticator.AddAuthenticatorAsync(_enrollState);
     }
-    
+
     public async Task<bool> FinalizeAddAuthenticatorAsync()
     {
         if (string.IsNullOrEmpty(PhoneCodeText))
@@ -115,10 +115,10 @@ public sealed partial class SteamLoginImportViewModel
         }
         else
             _enrollState.ActivationCode = PhoneCodeText;
-        
+
         await steamAuthenticator.FinalizeAddAuthenticatorAsync(_enrollState);
         PhoneCodeText = null;
-        
+
         return _steamLoginState.Success;
     }
 
@@ -151,7 +151,7 @@ public sealed partial class SteamLoginImportViewModel
             SelectIndex = 3;
         }
     }
-    
+
     /// <summary>
     /// 检查登陆是否成功
     /// </summary>
@@ -207,7 +207,7 @@ public sealed partial class SteamLoginImportViewModel
             return;
         }
         _IsLogining = true;
-        
+
         try
         {
             if (ToastService.IsSupported)
@@ -227,7 +227,7 @@ public sealed partial class SteamLoginImportViewModel
             }
             else if (_steamLoginState.RequiresEmailAuth)
             {
-               await LoginSteamWithEmailCodeAsync();
+                await LoginSteamWithEmailCodeAsync();
             }
 
             if (await CheckLoginResult())
@@ -235,7 +235,7 @@ public sealed partial class SteamLoginImportViewModel
                 _enrollState.AccessToken ??= _steamLoginState.AccessToken;
                 _enrollState.RefreshToken ??= _steamLoginState.RefreshToken;
                 _enrollState.SteamId ??= _steamLoginState.SteamId.ToString();
-                
+
                 if (_enrollState.RequiresActivation)
                 {
                     if (await FinalizeAddAuthenticatorAsync())
@@ -268,11 +268,11 @@ public sealed partial class SteamLoginImportViewModel
                             Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseEnterTel);
                             return;
                         }
-                        
+
                         var reslut = await steamAuthenticator.AddPhoneNumberAsync(_enrollState.AccessToken!,
                             _enrollState.SteamId,
                             PhoneNumberText, _isConfirmMailUrl);
-                        
+
                         if (!string.IsNullOrEmpty(reslut))
                         {
                             Toast.Show(ToastIcon.Info, reslut);

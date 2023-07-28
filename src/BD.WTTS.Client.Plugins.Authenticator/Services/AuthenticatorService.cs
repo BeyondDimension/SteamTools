@@ -178,7 +178,7 @@ public sealed partial class AuthenticatorService
             else
             {
                 fileTypes = null;
-            } 
+            }
             exportFile = await FilePicker2.SaveAsync(new PickOptions
             {
                 FileTypes = fileTypes,
@@ -186,13 +186,13 @@ public sealed partial class AuthenticatorService
                 PickerTitle = "Watt Toolkit",
             });
             if (exportFile == null) return exportFile;
-            
+
             var filestream = exportFile.OpenWrite();
 
             if (filestream.CanSeek && filestream.Position != 0) filestream.Position = 0;
-            
+
             await repository.ExportAsync(filestream, isLocal, password, items);
-        
+
             await filestream.FlushAsync();
             await filestream.DisposeAsync();
         }
@@ -275,7 +275,7 @@ public sealed partial class AuthenticatorService
         Toast.Show(ToastIcon.Warning, AppResources.Error_UpdateCloudData);
         return 0;
     }
-    
+
     /// <summary>
     /// 验证安全问题
     /// </summary>
@@ -301,7 +301,8 @@ public sealed partial class AuthenticatorService
             var setPassword =
                 await IMicroServiceClient.Instance.AuthenticatorClient.SetIndependentPassword(new()
                 {
-                    PwdQuestion = question, Answer = answer,
+                    PwdQuestion = question,
+                    Answer = answer,
                 });
             if (!setPassword.IsSuccess)
             {
@@ -316,7 +317,7 @@ public sealed partial class AuthenticatorService
              AppResources.Title_PleaseEnterTheAnswer, subHeader: AppResources.SubHeader_SecurityIssues_.Format(question), isCancelButton: true))
         {
             answer = answerTextViewModel.Value;
-            
+
             if (string.IsNullOrEmpty(answer))
             {
                 Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterAnswer);
@@ -411,7 +412,7 @@ public sealed partial class AuthenticatorService
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     //response.Content.Headers.ContentType.;
-                    
+
                     using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
                     {
                         //二维码解析

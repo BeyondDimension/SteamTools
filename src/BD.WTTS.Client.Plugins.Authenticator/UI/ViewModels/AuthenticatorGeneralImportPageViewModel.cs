@@ -5,7 +5,7 @@ public partial class AuthenticatorGeneralImportPageViewModel
     readonly Func<IAuthenticatorDTO, Task> _saveAuth;
 
     readonly Func<string, Task<IAuthenticatorValueDTO?>> _createAuthenticatorValueDto;
-    
+
     IAuthenticatorValueDTO? _importAuthenticatorValueDto;
 
     public AuthenticatorGeneralImportPageViewModel()
@@ -28,9 +28,9 @@ public partial class AuthenticatorGeneralImportPageViewModel
             Toast.Show(ToastIcon.Info, Strings.Info_PleaseEnterImportText);
             return;
         }
-        
+
         _importAuthenticatorValueDto = await _createAuthenticatorValueDto.Invoke(SecretCode);
-        
+
         if (_importAuthenticatorValueDto != null)
             CurrentCode = _importAuthenticatorValueDto.CurrentCode;
     }
@@ -48,7 +48,7 @@ public partial class AuthenticatorGeneralImportPageViewModel
             Toast.Show(ToastIcon.Warning, Strings.Warning_PleaseEnterAuthName);
             return;
         }
-        
+
         var iAuthenticatorDtoDto = new AuthenticatorDTO()
         {
             Name = $"{_importAuthenticatorValueDto.Platform}({AuthenticatorName})",

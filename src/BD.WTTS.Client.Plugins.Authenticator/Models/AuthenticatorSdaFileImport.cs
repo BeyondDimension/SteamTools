@@ -22,17 +22,17 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
                 await ImportFromSdaFile(password);
         });
     }
-    
+
     async Task ImportFromSdaFile(string? password = null)
     {
         try
         {
             var filePath = await SelectFolderPath();
-            
+
             if (string.IsNullOrEmpty(filePath)) return;
 
             var text = await File.ReadAllTextAsync(filePath);
-            
+
             var index = text.IndexOf("\"server_time\":", StringComparison.Ordinal) + 14;
             if (index != -1)
             {
@@ -47,7 +47,7 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
             var sdaFileModel = JsonSerializer.Deserialize(text, ImportFileModelJsonContext.Default.SdaFileModel);
             sdaFileModel.ThrowIsNull();
             var steamDataModel = new SdaFileConvertToSteamDataModel(sdaFileModel);
-            
+
             SteamAuthenticator steamAuthenticator = new()
             {
                 DeviceId = sdaFileModel.DeviceId,
@@ -55,11 +55,13 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
                 SecretKey = Convert.FromBase64String(sdaFileModel.SharedSecret),
                 SteamData = JsonSerializer.Serialize(steamDataModel, ImportFileModelJsonContext.Default.SdaFileConvertToSteamDataModel),
             };
-            
+
             var authDto =
                 new AuthenticatorDTO()
                 {
-                    Name = $"(Steam){steamAuthenticator.AccountName}", Value = steamAuthenticator, Created = DateTimeOffset.Now,
+                    Name = $"(Steam){steamAuthenticator.AccountName}",
+                    Value = steamAuthenticator,
+                    Created = DateTimeOffset.Now,
                 };
             await SaveAuthenticator(authDto);
             Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(authDto.Name));

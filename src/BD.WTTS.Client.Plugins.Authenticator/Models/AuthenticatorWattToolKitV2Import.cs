@@ -5,7 +5,7 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
     public override string Name => Strings.LocalAuth_Import.Format(Strings.WattToolKitV2);
 
     public override string Description => Strings.LocalAuth_WattToolKitV2Import;
-    
+
     public override ResIcon IconName => ResIcon.OpenFile;
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
@@ -20,13 +20,13 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
                 await ImportFromWattToolKitV2(password: password);
         });
     }
-    
+
     async Task ImportFromWattToolKitV2(string? exportPassword = null, string? password = null)
     {
         var filePath = await SelectFolderPath();
-        
+
         if (string.IsNullOrEmpty(filePath)) return;
-        
+
         var metadata = await IOPath.TryReadAllBytesAsync(filePath);
         if (!metadata.success || metadata.byteArray == null) return;
         var result = await AuthenticatorService.ImportAsync(exportPassword, metadata.byteArray);

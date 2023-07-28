@@ -235,7 +235,7 @@ public sealed partial class SteamTradePageViewModel
     //         _steamClient.Logout();
     //     }
     // }
-    
+
     // void RefreshConfirmationsList()
     // {
     //     var items = _confirmationsSourceList.Items.Where(s => s.IsOperate == 0);

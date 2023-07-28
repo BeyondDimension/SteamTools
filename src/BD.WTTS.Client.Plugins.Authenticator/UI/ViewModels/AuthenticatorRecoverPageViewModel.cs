@@ -41,7 +41,8 @@ public class AuthenticatorRecoverPageViewModel : ViewModelBase
         var ids = list.Select(a => a.AuthenticatorDeleteBackup.Id).ToArray();
         var response = await IMicroServiceClient.Instance.AuthenticatorClient.RecoverAuthenticatorsFromDeleteBackups(new()
         {
-            Answer = _currentAnswer, Id = ids,
+            Answer = _currentAnswer,
+            Id = ids,
         });
         if (!response.IsSuccess) return;
         AuthenticatorDeleteBackups.Remove(list);

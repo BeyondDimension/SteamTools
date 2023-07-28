@@ -9,7 +9,7 @@ public partial class SteamTradePage : UserControl
     public SteamTradePage()
     {
         InitializeComponent();
-        
+
         PasswordText.KeyUp += (_, e) =>
         {
             if (e.Key != Avalonia.Input.Key.Return) return;

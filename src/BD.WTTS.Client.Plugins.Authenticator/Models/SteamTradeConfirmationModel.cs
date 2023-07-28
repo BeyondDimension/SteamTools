@@ -8,31 +8,31 @@ public class SteamTradeConfirmationModel : ReactiveObject
     public int Type { get; set; }
 
     public string TypeName { get; set; } = string.Empty;
-    
+
     public string Id { get; set; } = string.Empty;
 
     public string CreatorId { get; set; } = string.Empty;
 
     public string Nonce { get; set; } = string.Empty;
-    
+
     long CreationTime { get; set; }
 
     public string Cancel { get; set; } = string.Empty;
 
     public string Accept { get; set; } = string.Empty;
-    
+
     public string Icon { get; set; } = string.Empty;
-    
+
     public bool Multi { get; set; }
-    
+
     public string Headline { get; set; } = string.Empty;
-    
+
     string[]? Summary { get; set; }
-    
+
     public string? Warn { get; set; }
 
     public string? SelfIcon { get; set; }
-    
+
     public string SendSummary => Summary![0];
 
     public string ReceiveSummary => Summary![1];
@@ -45,7 +45,7 @@ public class SteamTradeConfirmationModel : ReactiveObject
 
     [Reactive]
     public ObservableCollection<string> SendItemImageUrls { get; set; }
-    
+
     [Reactive]
     public ObservableCollection<string> ReceiveItemImageUrls { get; set; }
 
@@ -103,14 +103,14 @@ public class SteamTradeConfirmationModel : ReactiveObject
         {
             ReceiveItemImageUrls.Add(item);
         }
-        
+
         SendItemImageUrls.Clear();
         foreach (var item in imageUrls.sendItems)
         {
             SendItemImageUrls.Add(item);
         }
     }
-    
+
     async Task<T?> RunTaskAndExceptionHandlingAsync<T>(Task<T> task)
     {
         try

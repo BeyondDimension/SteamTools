@@ -3,13 +3,13 @@ namespace BD.WTTS.Models;
 public abstract partial class AuthenticatorImportBase : IAuthenticatorImport
 {
     public abstract string Name { get; }
-    
+
     public abstract string Description { get; }
 
     public abstract ResIcon IconName { get; }
-    
+
     public abstract ICommand AuthenticatorImportCommand { get; set; }
-    
+
     string? _currentPassword { get; set; }
 
     public async Task<bool> VerifyMaxValue()
@@ -22,8 +22,8 @@ public abstract partial class AuthenticatorImportBase : IAuthenticatorImport
 
     public async Task SaveAuthenticator(IAuthenticatorDTO authenticatorDto)
     {
-        var sourceList = await AuthenticatorService.GetAllSourceAuthenticatorAsync(); 
-        
+        var sourceList = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
+
         var (hasLocalPcEncrypt, hasPasswordEncrypt) = AuthenticatorService.HasEncrypt(sourceList);
 
         if (hasPasswordEncrypt && string.IsNullOrEmpty(_currentPassword))
