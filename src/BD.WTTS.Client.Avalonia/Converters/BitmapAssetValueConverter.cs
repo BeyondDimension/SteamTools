@@ -19,7 +19,7 @@ public sealed class BitmapAssetValueConverter : ImageValueConverter
             {
                 return GetDecodeBitmap(rawUri, width);
             }
-            // 在列表中使用此方法性能极差
+            // 在列表中使用此方法性能极差!!!
             else if (String2.IsHttpUrl(rawUri))
             {
                 return DownloadImage(rawUri, width);

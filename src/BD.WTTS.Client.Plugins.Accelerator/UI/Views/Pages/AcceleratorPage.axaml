@@ -465,22 +465,15 @@
                                                      Source={x:Static s:ProxyService.Current},
                                                      StringFormat={}{0:hh\\:mm\\:ss}}" />
                     </StackPanel>-->
-                    <StackPanel
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <WrapPanel HorizontalAlignment="Center">
-                            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <TextBlock>
+                        <Run Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <Run Text="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
 
-                            <TextBlock Text="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
-                        </WrapPanel>
-                        <WrapPanel HorizontalAlignment="Center">
-                            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <Run Text="  " />
 
-                            <TextBlock Text="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
-                        </WrapPanel>
-                    </StackPanel>
+                        <Run Text="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <Run Text="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
+                    </TextBlock>
                 </StackPanel>
 
                 <Carousel

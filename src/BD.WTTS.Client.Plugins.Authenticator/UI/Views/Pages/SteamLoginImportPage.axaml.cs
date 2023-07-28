@@ -11,10 +11,10 @@ public partial class SteamLoginImportPage : UserControl
     {
         InitializeComponent();
         //DataContext = new SteamLoginImportViewModel();
-        PasswordText.KeyUp += PasswordTextOnKeyUp;
-        EmailAuthText.KeyUp += PasswordTextOnKeyUp;
-        PhoneNumberText.KeyUp += PasswordTextOnKeyUp;
-        PhoneCodeText.KeyUp += PasswordTextOnKeyUp;
+        //PasswordText.KeyUp += PasswordTextOnKeyUp;
+        //EmailAuthText.KeyUp += PasswordTextOnKeyUp;
+        //PhoneNumberText.KeyUp += PasswordTextOnKeyUp;
+        //PhoneCodeText.KeyUp += PasswordTextOnKeyUp;
     }
 
     void PasswordTextOnKeyUp(object? sender, KeyEventArgs e)

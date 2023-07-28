@@ -1,22 +1,22 @@
 <UserControl
-    d:DesignHeight="300"
-    d:DesignWidth="600"
-    mc:Ignorable="d"
     x:Class="BD.WTTS.UI.Views.Pages.SteamLoginImportPage"
-    x:CompileBindings="True"
-    x:DataType="spp:SteamLoginImportViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="300"
+    d:DesignWidth="600"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamLoginImportViewModel"
+    mc:Ignorable="d">
     <UserControl.Styles>
         <Style Selector="StackPanel">
             <Setter Property="Spacing" Value="20" />
         </Style>
     </UserControl.Styles>
-    <spp:Stepper SelectedIndex="{Binding SelectIndex}">
+    <!--<spp:Stepper SelectedIndex="{Binding SelectIndex}">
         <spp:StepperItem Index="0" Title="{ReflectionBinding Path=Res.Steam_Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:ContentLoader
                 HorizontalAlignment="Center"
@@ -175,7 +175,9 @@
                     MinWidth="600">
                     <StackPanel Margin="0,50,0,0" VerticalAlignment="Top">
                         <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <!--  恢复代码  -->
+    -->
+    <!--  恢复代码  -->
+    <!--
                         <TextBox
                             IsReadOnly="True"
                             MaxWidth="200"
@@ -243,5 +245,5 @@
                     VerticalAlignment="Bottom" />
             </Grid>
         </spp:StepperItem>
-    </spp:Stepper>
+    </spp:Stepper>-->
 </UserControl>
