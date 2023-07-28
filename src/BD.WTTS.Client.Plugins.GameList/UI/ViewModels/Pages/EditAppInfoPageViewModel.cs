@@ -227,7 +227,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
     {
         if (SelectGrid == null)
         {
-            Toast.Show(Strings.SaveEditedAppInfo_SelectImageFailed);
+            Toast.Show(ToastIcon.Warning, Strings.SaveEditedAppInfo_SelectImageFailed);
             return;
         }
         var imageHttpClientService = Ioc.Get<IImageHttpClientService>();

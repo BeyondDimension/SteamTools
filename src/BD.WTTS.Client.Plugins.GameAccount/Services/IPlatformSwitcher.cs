@@ -1,3 +1,5 @@
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 namespace BD.WTTS.Services;
 
 public interface IPlatformSwitcher
@@ -21,7 +23,7 @@ public interface IPlatformSwitcher
         if (!string.IsNullOrEmpty(account.AccountId))
             GameAccountSettings.AccountRemarks.Add($"{account.PlatformName}-{account.AccountId}", account.AliasName);
         else
-            Toast.Show(ToastIcon.Error, "账号 Id 为空");
+            Toast.Show(ToastIcon.Error, AppResources.Error_AccountIdIsEmpty);
     }
 
     bool SetPlatformPath(PlatformAccount platform);

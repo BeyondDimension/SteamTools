@@ -343,7 +343,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
         if (!platform.LoginFiles.Any_Nullable())
         {
-            Toast.Show("No data in platform: " + platform.FullName);
+            Toast.Show(ToastIcon.Warning, "No data in platform: " + platform.FullName);
             return false;
         }
 
@@ -351,7 +351,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
         if (string.IsNullOrEmpty(uniqueId))
         {
-            Toast.Show("No data in platform: " + platform.FullName);
+            Toast.Show(ToastIcon.Warning, "No data in platform: " + platform.FullName);
             return false;
         }
 

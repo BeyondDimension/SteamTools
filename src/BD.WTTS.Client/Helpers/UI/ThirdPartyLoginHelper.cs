@@ -39,7 +39,7 @@ public static class ThirdPartyLoginHelper
             {
                 if (modelvm.Value != null)
                 {
-                    Toast.Show(AppResources.Login_ManualLoginEmpt);
+                    Toast.Show(ToastIcon.Warning, AppResources.Login_ManualLoginEmpt);
                 }
                 return;
             }
@@ -66,7 +66,7 @@ public static class ThirdPartyLoginHelper
         }
         catch
         {
-            Toast.Show(AppResources.Login_WebSocketOnMessage);
+            Toast.Show(ToastIcon.Error, AppResources.Login_WebSocketOnMessage);
             return;
         }
         var rsp = ApiRspHelper.Deserialize<LoginOrRegisterResponse>(byteArray);
@@ -77,7 +77,7 @@ public static class ThirdPartyLoginHelper
             if (socket != null)
                 await socket.Send(JsonSerializer.Serialize(webRsp));
             else
-                Toast.Show(webRsp.Msg);
+                Toast.Show(ToastIcon.None, webRsp.Msg);
             return;
         }
         var conn_helper = Ioc.Get<IApiConnectionPlatformHelper>();
@@ -85,7 +85,7 @@ public static class ThirdPartyLoginHelper
         if (socket != null)
             await socket.Send(JsonSerializer.Serialize(webRsp)); // 仅可在 close 之前传递消息
         else
-            Toast.Show(webRsp.Msg);
+            Toast.Show(ToastIcon.None, webRsp.Msg);
         if (rsp.IsSuccess)
         {
             if (isBind)
@@ -109,7 +109,7 @@ public static class ThirdPartyLoginHelper
                     {
                         msg = "Account bind fail, unknown channel.";
                     }
-                    Toast.Show(msg);
+                    Toast.Show(ToastIcon.None, msg);
                 });
             }
             else
@@ -140,7 +140,7 @@ public static class ThirdPartyLoginHelper
             AppResources.User_Login :
             AppResources.User_Register);
         close?.Invoke();
-        Toast.Show(msg);
+        Toast.Show(ToastIcon.Success, msg);
     }
 
     static IDisposable? serverDisposable;

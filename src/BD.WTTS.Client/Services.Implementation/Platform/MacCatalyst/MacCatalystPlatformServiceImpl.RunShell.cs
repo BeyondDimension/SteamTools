@@ -28,8 +28,7 @@ partial class MacCatalystPlatformServiceImpl
         var msg = UnixHelper.RunShell(scriptContent.ToString());
         if (!string.IsNullOrWhiteSpace(msg))
         {
-
-            Toast.Show(msg);
+            Toast.Show(ToastIcon.None, msg);
         }
     }
 

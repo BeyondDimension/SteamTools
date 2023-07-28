@@ -74,7 +74,7 @@ public sealed class UserService : ReactiveObject
         await RefreshUserAsync();
         if (message != null)
         {
-            Toast.Show(message);
+            Toast.Show(ToastIcon.Error, message);
         }
     }
 
@@ -107,11 +107,11 @@ public sealed class UserService : ReactiveObject
                 User.Level = state.Content!.Level;
                 //User.EngineOil = state.Content!.Strength;
                 User.IsSignIn = true;
-                Toast.Show(AppResources.User_SignIn_Ok);
+                Toast.Show(ToastIcon.Success, AppResources.User_SignIn_Ok);
             }
             else
             {
-                Toast.Show(state.Message);
+                Toast.Show(ToastIcon.Error, state.Message);
             }
         }
     }

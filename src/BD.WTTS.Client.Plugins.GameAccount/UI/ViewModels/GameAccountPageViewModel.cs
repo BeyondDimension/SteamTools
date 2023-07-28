@@ -153,7 +153,7 @@ public sealed partial class GameAccountPageViewModel
         if (platform == null) return false;
         if (!File.Exists(platform.PlatformSetting?.PlatformPath))
         {
-            Toast.Show(ToastIcon.Error, $"路径没有正确选择，{platform.FullName} 平台账号切换功能无法使用");
+            Toast.Show(ToastIcon.Error, Strings.Error_UnableSwitchPlatformAccount_.Format(platform.FullName));
             return false;
         }
         return true;

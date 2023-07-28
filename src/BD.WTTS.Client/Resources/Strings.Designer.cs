@@ -873,7 +873,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 绑定第三方帐户 的本地化字符串。
+        ///   查找类似 绑定第三方账户 的本地化字符串。
         /// </summary>
         public static string BindThirdPartyAccount {
             get {
@@ -1719,6 +1719,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 账号 Id 为空 的本地化字符串。
+        /// </summary>
+        public static string Error_AccountIdIsEmpty {
+            get {
+                return ResourceManager.GetString("Error_AccountIdIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 答案错误，请重试 的本地化字符串。
         /// </summary>
         public static string Error_AnswerIncorrect {
@@ -1733,6 +1742,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Error_AuthProtectFailed_ {
             get {
                 return ResourceManager.GetString("Error_AuthProtectFailed_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 计算令牌时与服务器时间同步失败：{0} 的本地化字符串。
+        /// </summary>
+        public static string Error_AuthSynchronizationFailed_ {
+            get {
+                return ResourceManager.GetString("Error_AuthSynchronizationFailed_", resourceCulture);
             }
         }
         
@@ -1796,6 +1814,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Error_CopyFileFailed {
             get {
                 return ResourceManager.GetString("Error_CopyFileFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当前 Steam 路径不正确 的本地化字符串。
+        /// </summary>
+        public static string Error_CurrentSteamPathIncorrect {
+            get {
+                return ResourceManager.GetString("Error_CurrentSteamPathIncorrect", resourceCulture);
             }
         }
         
@@ -1980,7 +2007,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 读取已保存的注册表项失败。如果不成功，请尝试删除并重新添加帐户。 的本地化字符串。
+        ///   查找类似 读取已保存的注册表项失败。如果不成功，请尝试删除并重新添加账户。 的本地化字符串。
         /// </summary>
         public static string Error_ReadRegistryFailed {
             get {
@@ -2016,6 +2043,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Steam 用户信息获取失败 的本地化字符串。
+        /// </summary>
+        public static string Error_SteamGetUserInfo {
+            get {
+                return ResourceManager.GetString("Error_SteamGetUserInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 令牌密码保护移除失败。 的本地化字符串。
         /// </summary>
         public static string Error_TokenPasswordRemovedFailed {
@@ -2030,6 +2066,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Error_TokenPasswordSetFailed {
             get {
                 return ResourceManager.GetString("Error_TokenPasswordSetFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 路径没有正确选择，{0} 平台账号切换功能无法使用 的本地化字符串。
+        /// </summary>
+        public static string Error_UnableSwitchPlatformAccount_ {
+            get {
+                return ResourceManager.GetString("Error_UnableSwitchPlatformAccount_", resourceCulture);
             }
         }
         
@@ -2322,7 +2367,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 警告：Steam允许的同时运行游戏数量为 {0} 个，如果您同时挂时长 {1} 款游戏，将无法正常游玩游戏！ 的本地化字符串。
+        ///   查找类似 警告：Steam 允许的同时运行游戏数量为 {0} 个，如果您同时挂时长 {1} 款游戏，将无法正常游玩游戏！ 的本地化字符串。
         /// </summary>
         public static string GameList_AddAFKAppsWarningCountTips {
             get {
@@ -2385,7 +2430,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam云存档管理 的本地化字符串。
+        ///   查找类似 Steam 云存档管理 的本地化字符串。
         /// </summary>
         public static string GameList_CloudArchiveManager {
             get {
@@ -2547,7 +2592,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 仅显示支持Steam云存档的游戏 的本地化字符串。
+        ///   查找类似 仅显示支持 Steam 云存档的游戏 的本地化字符串。
         /// </summary>
         public static string GameList_OnlyCloudArchive {
             get {
@@ -2763,7 +2808,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam游戏已下载完成
+        ///   查找类似 Steam 游戏已下载完成
         ///系统将在 {0} 秒后「{1}」。 的本地化字符串。
         /// </summary>
         public static string GameList_SteamShutdown_DownloadCompleteTip {
@@ -3030,6 +3075,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Info_AuthMaximumQuantity {
             get {
                 return ResourceManager.GetString("Info_AuthMaximumQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加载代理服务数据耗时：{0}ms，IsSuccess：{1}，Code：{2}，Count：{3} 的本地化字符串。
+        /// </summary>
+        public static string Info_LoadingAgentTakesTime____ {
+            get {
+                return ResourceManager.GetString("Info_LoadingAgentTakesTime____", resourceCulture);
             }
         }
         
@@ -3675,7 +3729,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 无法将添加身份验证器添加到您的帐户， 请稍后再试 的本地化字符串。
+        ///   查找类似 无法将添加身份验证器添加到您的账户， 请稍后再试 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUser_Error {
             get {
@@ -3684,7 +3738,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 您的帐户似乎已添加了身份验证器，需要移除现有的身份验证器才可以通过账号导入 的本地化字符串。
+        ///   查找类似 您的账户似乎已添加了身份验证器，需要移除现有的身份验证器才可以通过账号导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUser_Requires2FA {
             get {
@@ -3912,7 +3966,7 @@ namespace BD.WTTS.Client.Resources {
         ///{2}
         ///
         ///{3}
-        ///如果您没有创建此交易，请立即取消该交易。您的帐户或电脑可能已遭盗用。 的本地化字符串。
+        ///如果您没有创建此交易，请立即取消该交易。您的账户或电脑可能已遭盗用。 的本地化字符串。
         /// </summary>
         public static string ModelContent_ConfirmTrade___ {
             get {
@@ -4632,7 +4686,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 未获取到需要保存至Steam的游戏信息，请先编辑你要修改的游戏信息 的本地化字符串。
+        ///   查找类似 未获取到需要保存至 Steam 的游戏信息，请先编辑你要修改的游戏信息 的本地化字符串。
         /// </summary>
         public static string SaveEditedAppInfo_AppsEmpty {
             get {
@@ -6263,6 +6317,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 已经删除 {0} 平台 {1} 账号 的本地化字符串。
+        /// </summary>
+        public static string Success_DeletePlatformAccount__ {
+            get {
+                return ResourceManager.GetString("Success_DeletePlatformAccount__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0}选中令牌执行结束，成功数量 {1} ，失败数量 {2} 的本地化字符串。
         /// </summary>
         public static string Success_ExecuteAllAuthEnd___ {
@@ -6623,7 +6686,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 选择如何登录您的 Watt Toolkit 帐户 的本地化字符串。
+        ///   查找类似 选择如何登录您的 Watt Toolkit 账户 的本地化字符串。
         /// </summary>
         public static string User_FastLoginTip {
             get {
@@ -6884,7 +6947,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 确定要删除这条本地记录帐户吗？ 的本地化字符串。
+        ///   查找类似 确定要删除这条本地记录户吗？ 的本地化字符串。
         /// </summary>
         public static string UserChange_DeleteUserTip {
             get {
@@ -6930,7 +6993,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 没有在您的电脑上读取到任何 Steam 帐户数据。 的本地化字符串。
+        ///   查找类似 没有在您的电脑上读取到任何 Steam 账户数据。 的本地化字符串。
         /// </summary>
         public static string UserChange_NoUserTip {
             get {

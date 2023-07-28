@@ -113,7 +113,7 @@ public static class SendSmsUIHelper
     {
         if (!i.SendSmsCodeSuccess)
         {
-            Toast.Show(AppResources.User_SMSCode_Error);
+            Toast.Show(ToastIcon.Error, AppResources.User_SMSCode_Error);
             return false;
         }
 
