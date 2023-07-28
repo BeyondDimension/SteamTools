@@ -17,7 +17,7 @@ partial interface IApplication
         if (!string.IsNullOrWhiteSpace(text))
         {
             await Clipboard2.SetTextAsync(text);
-            if (showToast) Toast.Show(msgToast ?? AppResources.CopyToClipboard);
+            if (showToast) Toast.Show(ToastIcon.Success, msgToast ?? AppResources.CopyToClipboard);
         }
     }
 }

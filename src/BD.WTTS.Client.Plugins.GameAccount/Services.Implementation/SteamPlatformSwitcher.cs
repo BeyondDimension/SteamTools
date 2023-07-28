@@ -50,7 +50,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
             }
             else
             {
-                Toast.Show(ToastIcon.Error, "Steam 用户信息获取失败");
+                Toast.Show(ToastIcon.Error, Strings.Error_SteamGetUserInfo);
             }
             RunPlatformProcess(platform, false);
         }

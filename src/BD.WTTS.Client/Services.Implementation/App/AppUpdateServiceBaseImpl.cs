@@ -144,7 +144,7 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
             if (!rsp.Content.HasValue() || rsp.Content?.Version == AssemblyInfo.Version)
             {
                 IsExistUpdate = false;
-                if (showIsExistUpdateFalse) toast.Show(AppResources.IsExistUpdateFalse);
+                if (showIsExistUpdateFalse) toast.Show(ToastIcon.None, AppResources.IsExistUpdateFalse);
             }
             else
             {
@@ -338,7 +338,7 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
                             Fail(FailCode.UpdatePackCacheHashInvalidDeleteFileFail_, packFilePath);
                             goto end;
                         }
-                        toast.Show(AppResources.UpdatePackCacheHashInvalidDeleteFileTrue);
+                        toast.Show(ToastIcon.Error, AppResources.UpdatePackCacheHashInvalidDeleteFileTrue);
                     }
                 }
 
@@ -454,7 +454,7 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
         void Fail(FailCode failCode, params string[] args)
         {
             var error = failCode.ToString2(args);
-            toast.Show(error);
+            toast.Show(ToastIcon.Error, error);
             Browser2.Open(string.Format(Constants.Urls.OfficialWebsite_AppUpdateFailCode_, (byte)failCode));
             OnReport(100f);
         }
@@ -515,7 +515,7 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
             }
             else
             {
-                toast.Show(AppResources.UpdateUnpackFail);
+                toast.Show(ToastIcon.Error, AppResources.UpdateUnpackFail);
                 OnReport(100f);
                 IsNotStartUpdateing = true;
             }

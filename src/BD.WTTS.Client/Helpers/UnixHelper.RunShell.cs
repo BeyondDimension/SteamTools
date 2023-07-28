@@ -33,7 +33,7 @@ static partial class UnixHelper
         scriptContent.AppendLine(script);
         var msg = RunShell(scriptContent.ToString());
         if (!string.IsNullOrWhiteSpace(msg))
-            Toast.Show(msg);
+            Toast.Show(ToastIcon.None, msg);
     }
 
     /// <summary>

@@ -35,7 +35,7 @@ public sealed partial class PlatformAccount
         DeleteAccountCommand = ReactiveCommand.Create<IAccount>(async acc =>
         {
             await platformSwitcher.DeleteAccountInfo(acc, this);
-            Toast.Show(ToastIcon.Success, $"已经删除 {FullName} 平台 {acc.DisplayName} 账号");
+            Toast.Show(ToastIcon.Success, Strings.Success_DeletePlatformAccount__.Format(FullName, acc.DisplayName));
         });
 
         SetAccountAvatarCommand = ReactiveCommand.Create<IAccount>(async acc =>

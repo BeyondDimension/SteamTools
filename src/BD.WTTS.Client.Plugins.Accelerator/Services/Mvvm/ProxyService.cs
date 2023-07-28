@@ -228,7 +228,7 @@ public sealed partial class ProxyService
         var result = await client.All();
 #if DEBUG
         stopwatch.Stop();
-        Toast.Show(ToastIcon.Info, $"加载代理服务数据耗时：{stopwatch.ElapsedMilliseconds}ms，IsSuccess：{result.IsSuccess}，Code：{result.Code}，Count：{result.Content?.Count}");
+        Toast.Show(ToastIcon.Info, Strings.Info_LoadingAgentTakesTime____.Format(stopwatch.ElapsedMilliseconds, result.IsSuccess, result.Code, result.Content?.Count));
 #endif
         if (result.IsSuccess)
         {

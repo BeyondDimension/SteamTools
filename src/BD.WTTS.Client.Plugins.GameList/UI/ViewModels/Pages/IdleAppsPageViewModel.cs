@@ -68,7 +68,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                         RunState = false;
                         GameLibrarySettings.AFKAppList.Value.Clear();
                         GameLibrarySettings.AFKAppList.RaiseValueChanged();
-                        Toast.Show(Strings.GameList_DeleteSuccess);
+                        Toast.Show(ToastIcon.Success, Strings.GameList_DeleteSuccess);
                     });
                 }
             }
@@ -98,7 +98,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                             ChangeRunTxt();
                             GameLibrarySettings.AFKAppList.Value.Remove(app.AppId);
                             GameLibrarySettings.AFKAppList.RaiseValueChanged();
-                            Toast.Show(Strings.GameList_DeleteSuccess);
+                            Toast.Show(ToastIcon.Success, Strings.GameList_DeleteSuccess);
                         });
                     }
                 }
@@ -168,11 +168,11 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                     }
                 }
                 RunLoaingState = false;
-                Toast.Show(Strings.GameList_OperationSuccess);
+                Toast.Show(ToastIcon.Success, Strings.GameList_OperationSuccess);
             }
             else
             {
-                Toast.Show(Strings.GameList_LoaingTips);
+                Toast.Show(ToastIcon.Warning, Strings.GameList_LoaingTips);
             }
         }
         else

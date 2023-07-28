@@ -70,12 +70,12 @@ public class TextBoxWindowViewModel : DialogWindowViewModel, ITextBoxWindowViewM
     {
         if (ValueIsNullOrWhiteSpaceTip != null && string.IsNullOrWhiteSpace(Value))
         {
-            Toast.Show(ValueIsNullOrWhiteSpaceTip);
+            Toast.Show(ToastIcon.Warning, ValueIsNullOrWhiteSpaceTip);
             return false;
         }
         else if (ValueIsNullOrEmptyTip != null && string.IsNullOrEmpty(Value))
         {
-            Toast.Show(ValueIsNullOrEmptyTip);
+            Toast.Show(ToastIcon.Warning, ValueIsNullOrEmptyTip);
             return false;
         }
         return true;

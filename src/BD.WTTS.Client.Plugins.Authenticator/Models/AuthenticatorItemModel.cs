@@ -78,7 +78,7 @@ public partial class AuthenticatorItemModel : ItemViewModel
             }
             catch (Exception e)
             {
-                Toast.Show(ToastIcon.Error, $"计算令牌时与服务器时间同步失败：{e.Message}");
+                Toast.Show(ToastIcon.Error, Strings.Error_AuthSynchronizationFailed_.Format(e.Message));
                 Log.Error(nameof(AuthenticatorItemModel), e, nameof(OnPointerLeftPressed));
                 return null;
             }

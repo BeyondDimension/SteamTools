@@ -62,7 +62,7 @@ partial class MacCatalystPlatformServiceImpl
             return null;
         if (!string.IsNullOrWhiteSpace(msg))
         {
-            Toast.Show(msg);
+            Toast.Show(ToastIcon.None, msg);
             return false;
         }
         return true;
