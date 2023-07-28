@@ -336,8 +336,7 @@ public sealed class SteamConnectService
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(nameof(SteamConnectService), ex, "SteamConnect Task LongRunning");
-                    ToastService.Current.Notify(ex.Message);
+                    ex.LogAndShowT(nameof(SteamConnectService));
                 }
                 finally
                 {
@@ -476,8 +475,7 @@ public sealed class SteamConnectService
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(nameof(SteamConnectService), ex, "Task RefreshGamesList");
-                        ToastService.Current.Notify(ex.Message);
+                        ex.LogAndShowT(nameof(SteamConnectService));
                         IsLoadingGameList = false;
                         DisposeSteamClient();
                     }

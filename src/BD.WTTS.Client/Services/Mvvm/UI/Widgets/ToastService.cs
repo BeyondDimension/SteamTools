@@ -4,6 +4,7 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 提供对显示在主窗口底部的状态栏的访问
 /// </summary>
+[Obsolete("不再使用常驻通知")]
 public sealed class ToastService : ReactiveObject
 {
     static ToastService? mCurrent;

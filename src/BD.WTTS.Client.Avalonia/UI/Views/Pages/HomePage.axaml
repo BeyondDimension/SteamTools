@@ -187,16 +187,11 @@
                     </spp:AppItem>
                 </StackPanel>
 
-                <spp:Stepper>
-                    <spp:StepperItem Title="Title1">
-                        <TextBlock Text="Test1" />
-                    </spp:StepperItem>
-                    <spp:StepperItem Title="Title2" IsSkip="True">
-                        <TextBlock Text="Test2" />
-                    </spp:StepperItem>
-                    <spp:StepperItem Title="Title3">
-                        <TextBlock Text="Test3" />
-                    </spp:StepperItem>
+                <spp:Stepper IsMouseSelectable="True">
+                    <spp:StepperItem>Register</spp:StepperItem>
+                    <spp:StepperItem>Basinc Info</spp:StepperItem>
+                    <spp:StepperItem>UploadFile</spp:StepperItem>
+                    <spp:StepperItem>Complete</spp:StepperItem>
                 </spp:Stepper>
             </StackPanel>
         </Grid>

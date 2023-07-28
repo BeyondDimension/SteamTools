@@ -26,6 +26,7 @@
                 <MergeResourceInclude Source="/UI/Styling/Controls/ContentLoader.axaml" />
                 <MergeResourceInclude Source="/UI/Styling/Controls/SettingsExpander.axaml" />
                 <MergeResourceInclude Source="/UI/Styling/Controls/TaskDialogEx.axaml" />
+                <MergeResourceInclude Source="/UI/Styling/Controls/Stepper.axaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
@@ -42,7 +43,6 @@
     <StyleInclude Source="/UI/Styling/InfoBox.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/PageBase.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/OptionsDisplayItem.axaml" />
-    <StyleInclude Source="/UI/Styling/Controls/Stepper.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/RippleEffect.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/AppItem.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/ToggleSwitch.axaml" />

@@ -1,7 +1,7 @@
 using Avalonia.Rendering.Composition;
 using FluentAvalonia.UI.Media.Animation;
 
-namespace BD.WTTS.UI.Styling;
+namespace BD.WTTS.UI;
 
 public static class FrameEffect
 {

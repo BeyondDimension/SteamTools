@@ -1,158 +1,381 @@
-<Styles
+<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:col="using:System.Collections"
     xmlns:spp="https://steampp.net/ui"
-    xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Design.PreviewWith>
-        <Border Padding="20">
-            <StackPanel Spacing="10">
-                <spp:StepperItem Title="Title">
-                    <TextBlock Text="Test" />
-                </spp:StepperItem>
+    xmlns:sys="using:System"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
 
-                <spp:Stepper>
-                    <spp:StepperItem Index="1" Title="Title1">
-                        <TextBlock Text="Test1" />
-                    </spp:StepperItem>
-                    <spp:StepperItem
-                        Index="2"
-                        IsSkip="True"
-                        Title="Title2">
-                        <TextBlock Text="Test2" />
-                    </spp:StepperItem>
-                    <spp:StepperItem Index="3" Title="Title3">
-                        <TextBlock Text="Test3" />
-                    </spp:StepperItem>
-                </spp:Stepper>
-            </StackPanel>
+    <Design.PreviewWith>
+        <Border Width="400" MinHeight="400">
+            <Border.Resources>
+                <col:ArrayList x:Key="Data">
+                    <sys:String>A</sys:String>
+                    <sys:String>B</sys:String>
+                    <sys:String>C</sys:String>
+                </col:ArrayList>
+            </Border.Resources>
+            <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
+                <spp:Stepper
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center"
+                    IsMouseSelectable="True"
+                    ItemsSource="{StaticResource Data}" />
+
+                <spp:Stepper
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    Dock="Left"
+                    IsMouseSelectable="True"
+                    ItemsSource="{StaticResource Data}" />
+
+                <spp:Stepper
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    Dock="Right"
+                    ItemsSource="{StaticResource Data}" />
+
+                <spp:Stepper
+                    Grid.Row="3"
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center"
+                    Dock="Bottom"
+                    ItemsSource="{StaticResource Data}" />
+
+            </Grid>
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="spp|Stepper">
-        <!--  Set Defaults  -->
-        <Setter Property="Template">
-            <ControlTemplate>
-                <DockPanel HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                    <ScrollViewer DockPanel.Dock="Top">
-                        <ItemsPresenter Name="PART_ItemsPresenter">
-                            <ItemsPresenter.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" Spacing="5" />
-                                </ItemsPanelTemplate>
-                            </ItemsPresenter.ItemsPanel>
-                        </ItemsPresenter>
-                    </ScrollViewer>
-                    <Border
-                        DockPanel.Dock="Bottom"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="*,Auto">
-                            <Panel>
-                                <Border
-                                    HorizontalAlignment="Center"
-                                    IsVisible="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsFinish, Mode=OneWay}"
-                                    VerticalAlignment="Center">
-                                    <WrapPanel>
-                                        <Border
-                                            Background="{DynamicResource InfoBadgeBackground}"
-                                            ClipToBounds="True"
-                                            CornerRadius="25"
-                                            Height="50"
-                                            Margin="6"
-                                            Width="50">
-                                            <ui:SymbolIcon Symbol="Checkmark" />
-                                        </Border>
-                                        <TextBlock
-                                            FontSize="16"
-                                            Text="你已经完成了所有步骤~"
-                                            VerticalAlignment="Center" />
-                                    </WrapPanel>
-                                </Border>
-                                <ScrollViewer
-                                    Grid.ColumnSpan="3"
-                                    Grid.Row="0"
-                                    IsVisible="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=!IsFinish, Mode=OneWay}"
-                                    Margin="0,0,0,5">
-                                    <ContentPresenter
-                                        Content="{TemplateBinding SelectedContent}"
-                                        ContentTemplate="{TemplateBinding SelectedContentTemplate}"
-                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        Margin="{TemplateBinding Padding}"
-                                        Name="PART_SelectedContentHost"
-                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                </ScrollViewer>
-                            </Panel>
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="StepeBarUnderWayTextBrush" Color="#FF0078D7" />
 
-                            <Button
-                                Content="{TemplateBinding BackButtonName}"
-                                Grid.Row="1"
-                                IsVisible="False"
-                                Name="PreviousButton" />
-                            <Button
-                                Content="{TemplateBinding SkipButtonName}"
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                HorizontalAlignment="Right"
-                                IsVisible="False"
-                                Name="SkipButton" />
-                            <Button
-                                Content="{TemplateBinding NextButtonName}"
-                                Grid.Column="2"
-                                Grid.Row="1"
-                                IsVisible="False"
-                                Name="NextButton" />
-                        </Grid>
+            <SolidColorBrush x:Key="StepeBarUnderWayBorderBrush" Color="#FF0078D7" />
+
+            <SolidColorBrush x:Key="StepeBarUnderWayBackgroundBrush" Color="White" />
+
+            <SolidColorBrush x:Key="StepeBarCompleteTextBrush" Color="Black" />
+
+            <SolidColorBrush x:Key="StepeBarCompleteBorderBrush" Color="Black" />
+
+            <SolidColorBrush x:Key="StepeBarCompleteBackgroundBrush" Color="White" />
+
+
+            <SolidColorBrush x:Key="StepeBarErrorTextBrush" Color="Red" />
+
+            <SolidColorBrush x:Key="StepeBarErrorBorderBrush" Color="Red" />
+
+            <SolidColorBrush x:Key="StepeBarErrorBackgroundBrush" Color="White" />
+
+            <SolidColorBrush x:Key="StepeBarWaitingTextBrush" Color="Gray" />
+
+            <SolidColorBrush x:Key="StepeBarWaitingBorderBrush" Color="Gray" />
+
+            <SolidColorBrush x:Key="StepeBarWaitingBackgroundBrush" Color="White" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="StepeBarUnderWayTextBrush" Color="#FF0078D7" />
+
+            <SolidColorBrush x:Key="StepeBarUnderWayBorderBrush" Color="#FF0078D7" />
+
+            <SolidColorBrush x:Key="StepeBarUnderWayBackgroundBrush" Color="White" />
+
+            <SolidColorBrush x:Key="StepeBarCompleteTextBrush" Color="White" />
+
+            <SolidColorBrush x:Key="StepeBarCompleteBorderBrush" Color="White" />
+
+            <SolidColorBrush x:Key="StepeBarCompleteBackgroundBrush" Color="Black" />
+
+
+            <SolidColorBrush x:Key="StepeBarErrorTextBrush" Color="Red" />
+
+            <SolidColorBrush x:Key="StepeBarErrorBorderBrush" Color="Red" />
+
+            <SolidColorBrush x:Key="StepeBarErrorBackgroundBrush" Color="Black" />
+
+            <SolidColorBrush x:Key="StepeBarWaitingTextBrush" Color="Gray" />
+
+            <SolidColorBrush x:Key="StepeBarWaitingBorderBrush" Color="Gray" />
+
+            <SolidColorBrush x:Key="StepeBarWaitingBackgroundBrush" Color="Black" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <ItemsPanelTemplate x:Key="UniformHorizontalItemsPanelTemplate">
+        <UniformGrid FocusAdorner="{x:Null}" Rows="1" />
+    </ItemsPanelTemplate>
+
+    <ItemsPanelTemplate x:Key="UniformVerticalItemsPanelTemplate">
+        <UniformGrid Columns="1" FocusAdorner="{x:Null}" />
+    </ItemsPanelTemplate>
+
+    <ControlTheme x:Key="StepperItemBaseStyle" TargetType="spp:StepperItem">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource StepeBarWaitingBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource StepeBarWaitingBackgroundBrush}" />
+
+        <Style Selector="^[Status=Complete]">
+            <Setter Property="Foreground" Value="{DynamicResource StepeBarCompleteTextBrush}" />
+            <Setter Property="Background" Value="{DynamicResource StepeBarCompleteBackgroundBrush}" />
+        </Style>
+
+        <Style Selector="^[Status=UnderWay]">
+            <Setter Property="Foreground" Value="{DynamicResource StepeBarUnderWayTextBrush}" />
+            <Setter Property="Background" Value="{DynamicResource StepeBarUnderWayBackgroundBrush}" />
+        </Style>
+
+        <Style Selector="^[Status=Waiting]">
+            <Setter Property="Foreground" Value="{DynamicResource StepeBarWaitingTextBrush}" />
+            <Setter Property="Background" Value="{DynamicResource StepeBarWaitingBackgroundBrush}" />
+        </Style>
+
+        <Style Selector="^[Status=Error]">
+            <Setter Property="Foreground" Value="{DynamicResource StepeBarErrorTextBrush}" />
+            <Setter Property="Background" Value="{DynamicResource StepeBarErrorBackgroundBrush}" />
+        </Style>
+
+        <Style Selector="^ /template/ TextBlock.StepperItemText">
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
+    </ControlTheme>
+
+    <ControlTheme
+        x:Key="StepperItemHorizontalTop"
+        BasedOn="{StaticResource StepperItemBaseStyle}"
+        TargetType="spp:StepperItem">
+
+        <Setter Property="Margin" Value="10,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="spp:StepperItem">
+                    <Border Background="Transparent">
+                        <StackPanel>
+                            <Border
+                                Height="24"
+                                MinWidth="24"
+                                HorizontalAlignment="Center"
+                                Background="{TemplateBinding spp:StepperItem.Background}"
+                                BorderBrush="{TemplateBinding Foreground}"
+                                BorderThickness="2"
+                                CornerRadius="12">
+                                <TextBlock
+                                    Classes="StepperItemText"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Text="{Binding Index, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Border>
+                            <ContentPresenter
+                                Margin="0,4,0,0"
+                                HorizontalAlignment="Center"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource AncestorType=spp:Stepper}}"
+                                TextElement.Foreground="{TemplateBinding Foreground}" />
+                        </StackPanel>
                     </Border>
-                </DockPanel>
-            </ControlTemplate>
+                </ControlTemplate>
+            </Setter.Value>
         </Setter>
-    </Style>
+    </ControlTheme>
 
-
-    <Style Selector="spp|StepperItem">
-        <!-- <Setter Property="Cursor" Value="Hand" /> -->
-        <!--  Set Defaults  -->
+    <ControlTheme
+        x:Key="StepperItemHorizontalBottom"
+        BasedOn="{StaticResource StepperItemBaseStyle}"
+        TargetType="spp:StepperItem">
+        <Setter Property="Margin" Value="10,0" />
         <Setter Property="Template">
-            <ControlTemplate>
-                <DockPanel>
-                    <Border
-                        Background="{DynamicResource ControlFillColorDefaultBrush}"
-                        ClipToBounds="True"
-                        CornerRadius="15"
-                        DockPanel.Dock="Left"
-                        Height="30"
-                        Margin="6"
-                        Name="PART_Index"
-                        Width="30">
-                        <TextBlock
-                            FontSize="12"
-                            Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
+            <Setter.Value>
+                <ControlTemplate TargetType="spp:StepperItem">
+                    <StackPanel>
+                        <ContentPresenter
+                            Margin="0,0,0,4"
                             HorizontalAlignment="Center"
-                            Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Index, Mode=OneWay}"
-                            VerticalAlignment="Center" />
-                    </Border>
-                    <Border DockPanel.Dock="Right">
-                        <TextBlock
-                            Foreground="{DynamicResource AccentTextFillColorDisabled}"
-                            Name="PART_Title"
-                            Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, Mode=OneWay}"
-                            TextWrapping="Wrap"
-                            VerticalAlignment="Center" />
-                    </Border>
-                </DockPanel>
-            </ControlTemplate>
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource AncestorType=spp:Stepper}}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                        <Border
+                            Height="24"
+                            MinWidth="24"
+                            HorizontalAlignment="Center"
+                            Background="{TemplateBinding spp:StepperItem.Background}"
+                            BorderBrush="{TemplateBinding Foreground}"
+                            BorderThickness="2"
+                            CornerRadius="12">
+                            <TextBlock
+                                Classes="StepperItemText"
+                                Foreground="{TemplateBinding Foreground}"
+                                Text="{Binding Index, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Border>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
         </Setter>
-    </Style>
+    </ControlTheme>
 
-    <Style Selector="spp|StepperItem:selected">
-        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-    </Style>
+    <ControlTheme
+        x:Key="StepperItemLeft"
+        BasedOn="{StaticResource StepperItemBaseStyle}"
+        TargetType="{x:Type spp:StepperItem}">
+        <Setter Property="Margin" Value="0, 10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="spp:StepperItem">
+                    <StackPanel Orientation="Horizontal">
+                        <Border
+                            Height="24"
+                            MinWidth="24"
+                            HorizontalAlignment="Center"
+                            Background="{TemplateBinding spp:StepperItem.Background}"
+                            BorderBrush="{TemplateBinding Foreground}"
+                            BorderThickness="2"
+                            CornerRadius="12">
+                            <TextBlock
+                                Classes="StepperItemText"
+                                Foreground="{TemplateBinding Foreground}"
+                                Text="{Binding Index, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Border>
+                        <ContentPresenter
+                            Margin="10,4,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource AncestorType=spp:Stepper}}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </ControlTheme>
 
-    <Style Selector="spp|StepperItem:selected /template/ Border#PART_Index">
-        <Setter Property="Background" Value="{DynamicResource InfoBadgeBackground}" />
-    </Style>
+    <ControlTheme
+        x:Key="StepperItemRight"
+        BasedOn="{StaticResource StepperItemBaseStyle}"
+        TargetType="{x:Type spp:StepperItem}">
+        <Setter Property="Margin" Value="0, 10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="spp:StepperItem">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <ContentPresenter
+                            Margin="0,0,10,4"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource AncestorType=spp:Stepper}}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                        <Border
+                            Height="24"
+                            MinWidth="24"
+                            HorizontalAlignment="Center"
+                            Background="{TemplateBinding spp:StepperItem.Background}"
+                            BorderBrush="{TemplateBinding Foreground}"
+                            BorderThickness="2"
+                            CornerRadius="12">
+                            <TextBlock
+                                Classes="StepperItemText"
+                                Foreground="{TemplateBinding Foreground}"
+                                Text="{Binding Index, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Border>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </ControlTheme>
 
-    <Style Selector="spp|StepperItem:selected /template/ TextBlock#PART_Title">
-        <Setter Property="Foreground" Value="{DynamicResource InfoBadgeBackground}" />
-    </Style>
-</Styles>
+    <ControlTemplate x:Key="StepperHorizontalTopControlTemplate" TargetType="spp:Stepper">
+        <Grid>
+            <ProgressBar
+                Name="PART_ProgressBar"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Background="{DynamicResource StepeBarWaitingBorderBrush}" />
+            <ItemsPresenter HorizontalAlignment="Stretch" ItemsPanel="{TemplateBinding spp:Stepper.ItemsPanel}" />
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="StepperHorizontalBottomControlTemplate" TargetType="spp:Stepper">
+        <Grid>
+            <ProgressBar
+                Name="PART_ProgressBar"
+                Margin="0,0,0,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Background="{DynamicResource StepeBarWaitingBorderBrush}" />
+            <ItemsPresenter VerticalAlignment="Bottom" ItemsPanel="{TemplateBinding spp:Stepper.ItemsPanel}" />
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="StepperVerticalControlTemplate" TargetType="{x:Type spp:Stepper}">
+        <Grid>
+            <Grid.Styles>
+                <Style Selector="spp|Stepper[Dock=Left]">
+                    <Style Selector="^ /template/ ProgressBar#PART_ProgressBar">
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                    </Style>
+                    <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                    </Style>
+                </Style>
+                <Style Selector="spp|Stepper[Dock=Right]">
+                    <Style Selector="^ /template/ ProgressBar#PART_ProgressBar">
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="Margin" Value="0,0,10,0" />
+                    </Style>
+                    <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                    </Style>
+                </Style>
+            </Grid.Styles>
+            <ProgressBar
+                Name="PART_ProgressBar"
+                Width="4"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="{DynamicResource StepeBarWaitingBorderBrush}"
+                Orientation="Vertical">
+                <ProgressBar.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-180" />
+                    </TransformGroup>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+            <ItemsPresenter
+                Name="PART_ItemsPresenter"
+                HorizontalAlignment="Left"
+                ItemsPanel="{TemplateBinding spp:Stepper.ItemsPanel}" />
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTheme x:Key="{x:Type spp:Stepper}" TargetType="spp:Stepper">
+        <Setter Property="Focusable" Value="False" />
+
+        <Style Selector="^[Dock=Top]">
+            <Setter Property="ItemContainerTheme" Value="{StaticResource StepperItemHorizontalTop}" />
+            <Setter Property="Template" Value="{StaticResource StepperHorizontalTopControlTemplate}" />
+            <Setter Property="ItemsPanel" Value="{StaticResource UniformHorizontalItemsPanelTemplate}" />
+        </Style>
+
+        <Style Selector="^[Dock=Left]">
+            <Setter Property="ItemContainerTheme" Value="{StaticResource StepperItemLeft}" />
+            <Setter Property="Template" Value="{StaticResource StepperVerticalControlTemplate}" />
+            <Setter Property="ItemsPanel" Value="{StaticResource UniformVerticalItemsPanelTemplate}" />
+        </Style>
+
+        <Style Selector="^[Dock=Bottom]">
+            <Setter Property="ItemContainerTheme" Value="{StaticResource StepperItemHorizontalBottom}" />
+            <Setter Property="Template" Value="{StaticResource StepperHorizontalBottomControlTemplate}" />
+            <Setter Property="ItemsPanel" Value="{StaticResource UniformHorizontalItemsPanelTemplate}" />
+        </Style>
+
+        <Style Selector="^[Dock=Right]">
+            <Setter Property="ItemContainerTheme" Value="{StaticResource StepperItemRight}" />
+            <Setter Property="Template" Value="{StaticResource StepperVerticalControlTemplate}" />
+            <Setter Property="ItemsPanel" Value="{StaticResource UniformVerticalItemsPanelTemplate}" />
+        </Style>
+
+    </ControlTheme>
+
+</ResourceDictionary>
