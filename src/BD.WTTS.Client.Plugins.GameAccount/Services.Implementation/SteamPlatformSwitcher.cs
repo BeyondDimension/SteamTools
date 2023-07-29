@@ -98,6 +98,51 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
             return null;
         }
 
+        #region 加载备注信息和 JumpList
+
+        var accountRemarks = Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
+
+#if WINDOWS
+        List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = new();
+#endif
+        foreach (var user in users)
+        {
+            if (accountRemarks?.TryGetValue("Steam-" + user.SteamId64, out var remark) == true &&
+                !string.IsNullOrEmpty(remark))
+                user.Remark = remark;
+
+#if WINDOWS
+            {
+                var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
+                if (!string.IsNullOrEmpty(user.Remark))
+                {
+                    title = user.SteamNickName + "(" + user.Remark + ")";
+                }
+
+                var processPath = Environment.ProcessPath;
+                processPath.ThrowIsNull();
+                if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((title,
+                    applicationPath: processPath,
+                    iconResourcePath: processPath,
+                    arguments: $"-clt steam -account {user.AccountName}",
+                    description: Strings.UserChange_BtnTootlip,
+                    customCategory: Strings.UserFastChange));
+            }
+#endif
+        }
+
+#if WINDOWS
+        if (jumplistData.Any())
+        {
+            MainThread2.BeginInvokeOnMainThread(async () =>
+            {
+                var s = IJumpListService.Instance;
+                await s.AddJumpItemsAsync(jumplistData);
+            });
+        }
+#endif
+        #endregion
+
         #region 通过webapi加载头像图片用户信息
         foreach (var user in users)
         {

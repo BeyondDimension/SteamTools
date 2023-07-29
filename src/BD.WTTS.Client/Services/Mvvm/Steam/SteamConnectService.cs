@@ -312,10 +312,10 @@ public sealed class SteamConnectService
                                     InitializeDownloadGameList();
                                 }
 
-                                if (!SteamUsers.Lookup(id).HasValue)
-                                {
-                                    RefreshSteamUsers();
-                                }
+                                //if (!SteamUsers.Lookup(id).HasValue)
+                                //{
+                                //    RefreshSteamUsers();
+                                //}
 
                                 //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                 //await mainViewModel.SteamAppPage.Initialize();
