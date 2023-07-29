@@ -14,17 +14,6 @@ updates:
     labels:
       - "automatic"
     open-pull-requests-limit: 99
-  - package-ecosystem: "nuget"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      time: "07:15"
-      timezone: "Asia/Shanghai"
-    labels:
-      - "automatic"
-      - "dependencies"
-      - ".NET"
-    open-pull-requests-limit: 99
   - package-ecosystem: "gitsubmodule"
     directory: "/"
     schedule:
