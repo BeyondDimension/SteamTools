@@ -159,15 +159,19 @@ sealed partial class Program : Startup
                 }
             });
 
-            // 添加仓储服务
-            services.AddRepositories();
-
             // 业务平台用户管理
             services.TryAddUserManager();
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("ConfigureDemandServices.ServerApiClient");
 #endif
         }
+
+        if (HasRepositories)
+        {
+            // 添加仓储服务
+            services.AddRepositories();
+        }
+
         // 添加通知服务
         AddNotificationService();
         void AddNotificationService()

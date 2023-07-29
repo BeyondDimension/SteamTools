@@ -35,6 +35,7 @@ partial class Startup // 配置 Host
         HasTrayIcon = level.Value.HasFlag(AppServicesLevel.AppUpdateAndTrayIcon);
         HasUI = level.Value.HasFlag(AppServicesLevel.UI);
         HasServerApiClient = level.Value.HasFlag(AppServicesLevel.ServerApiClient);
+        HasRepositories = HasServerApiClient || level.Value.HasFlag(AppServicesLevel.Repositories);
         HasSteam = level.Value.HasFlag(AppServicesLevel.Steam);
         HasHttpClientFactory = HasSteam || level.Value.HasFlag(AppServicesLevel.HttpClientFactory);
         HasHttpProxy = level.Value.HasFlag(AppServicesLevel.HttpProxy);
@@ -54,7 +55,7 @@ partial class Startup // 配置 Host
         #endregion
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-        if (IsMainProcess)
+        if (IsMainProcess || loadModules.Any())
         {
             pluginResults = PluginsCore.InitPlugins(generalSettings?.CurrentValue.DisablePlugins, loadModules);
             plugins = pluginResults?.Where(x => !x.IsDisable).Select(x => x.Data).ToHashSet();

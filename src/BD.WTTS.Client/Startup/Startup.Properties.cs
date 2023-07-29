@@ -109,6 +109,9 @@ partial class Startup // Properties
     /// <inheritdoc cref="AppServicesLevel.ServerApiClient"/>
     public bool HasServerApiClient { get; private set; }
 
+    /// <inheritdoc cref="AppServicesLevel.Repositories"/>
+    public bool Repositories { get; private set; }
+
     /// <inheritdoc cref="AppServicesLevel.HttpClientFactory"/>
     public bool HasHttpClientFactory { get; private set; }
 

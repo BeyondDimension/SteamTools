@@ -51,7 +51,11 @@ public enum AppServicesLevel : uint
     /// </summary>
     IPCRoot = 256,
 
-    // 512
+    /// <summary>
+    /// 仓储层
+    /// </summary>
+    Repositories = 512,
+
     //Placeholder = 1024,
     //Placeholder1 = 2048,
     //Placeholder2 = 4096,
