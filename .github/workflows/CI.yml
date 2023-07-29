@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - v3.x
+      - develop
+      - main
     tags:
       - "*"
   pull_request:
