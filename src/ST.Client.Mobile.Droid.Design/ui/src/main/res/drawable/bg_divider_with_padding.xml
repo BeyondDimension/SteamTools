@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-  <item
-    android:drawable="@color/bg_divider"
-    android:left="@dimen/activity_horizontal_margin"
-    android:right="@dimen/activity_horizontal_margin" />
-</layer-list>

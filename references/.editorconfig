@@ -1,7 +1,0 @@
-[*.cs]
-
-# IDE0055: 修正格式
-dotnet_diagnostic.IDE0055.severity = suggestion
-
-# IDE1006: 命名样式
-dotnet_diagnostic.IDE1006.severity = suggestion

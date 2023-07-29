@@ -1,8 +1,0 @@
-<resources>
-  <dimen name="settings_ui_item_textbox_title_width">120dp</dimen>
-  <dimen name="settings_ui_item_switch_title_width">260dp</dimen>
-  <dimen name="settings_ui_item_switch_title_width_with_icon">220dp</dimen>
-  <!-- Guide Image Size ↓ -->
-  <dimen name="guide_img_size_w">0dp</dimen>
-  <dimen name="guide_desc_margin_bottom">200dp</dimen>
-</resources>

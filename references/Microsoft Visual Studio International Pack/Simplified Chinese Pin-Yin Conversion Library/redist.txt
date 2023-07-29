@@ -1,4 +1,0 @@
-﻿在符合Simplified Chinese Pin-Yin Conversion Library 许可的条件下下面的文件可以再分发:”
- 
-ChnCharInfo.dll
-zh-CN\ChnCharInfo.resources.dll

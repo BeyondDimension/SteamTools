@@ -1,8 +1,0 @@
-<Project>
-  <PropertyGroup>
-    <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <!-- https://www.nuget.org/packages/Microsoft.Windows.SDK.NET.Ref -->
-    <WindowsSdkPackageVersion>10.0.19041.26</WindowsSdkPackageVersion>
-  </PropertyGroup>
-</Project>

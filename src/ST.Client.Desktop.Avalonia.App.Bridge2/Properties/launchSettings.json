@@ -1,7 +1,0 @@
-{
-  "profiles": {
-    "Steam++ (Package)": {
-      "commandName": "MsixPackage"
-    }
-  }
-}
