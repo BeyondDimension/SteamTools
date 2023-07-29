@@ -115,6 +115,11 @@ public abstract partial class PluginBase : IPlugin
         return ValueTask.CompletedTask;
     }
 
+    public virtual ValueTask OnCommandRun(params string[] commandParams)
+    {
+        return ValueTask.CompletedTask;
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected static async ValueTask GetIpcRemoteServiceAsync<T>(
         string moduleName,

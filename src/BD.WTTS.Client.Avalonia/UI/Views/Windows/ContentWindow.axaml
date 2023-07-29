@@ -7,9 +7,12 @@
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
-    xmlns:vm="using:BD.WTTS.UI.ViewModels"
     xmlns:wnd="using:FluentAvalonia.UI.Windowing"
-    Title="ContentWindow"
+    Title="{Binding Title}"
+    Width="{Binding Width}"
+    Height="{Binding Height}"
+    MaxWidth="{Binding MaxWidth}"
+    MaxHeight="{Binding MaxHeight}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
@@ -32,24 +35,44 @@
                 DockPanel.Dock="Left"
                 IsHitTestVisible="False"
                 RenderOptions.BitmapInterpolationMode="HighQuality"
-                Source="/UI/Assets/ApplicationIcon.ico" />
+                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
 
             <TextBlock
                 Grid.Column="1"
                 VerticalAlignment="Center"
-                FontSize="14"
+                FontSize="12"
                 IsHitTestVisible="False"
                 Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
 
-            <Separator
-                Grid.Column="3"
-                Height="18"
-                Margin="10,0"
+            <Border
+                Grid.Column="2"
+                Padding="6"
                 VerticalAlignment="Center"
-                Background="{DynamicResource ButtonBorderBrush}"
-                Classes="Vertical" />
+                IsVisible="{Binding IsShowSearchBox}">
+                <AutoCompleteBox
+                    Name="SearchBox"
+                    MaxWidth="500"
+                    VerticalAlignment="Center"
+                    wnd:AppWindow.AllowInteractionInTitleBar="True"
+                    Classes="Search" />
+            </Border>
+
+            <DockPanel Grid.Column="3" IsVisible="{Binding ActionContent, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                <ContentControl Content="{Binding ActionContent}" DockPanel.Dock="Left" />
+
+                <Separator
+                    Height="18"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Classes="Vertical"
+                    DockPanel.Dock="Right"
+                    IsHitTestVisible="False" />
+            </DockPanel>
         </Grid>
-        <ContentControl Grid.Row="1" Content="{Binding PageViewModel}">
+        <ContentControl
+            Name="ViewContent"
+            Grid.Row="1"
+            Content="{Binding PageViewModel}">
             <ContentControl.DataTemplates>
                 <DataTemplate DataType="spp:AboutPageViewModel">
                     <spp:AboutPage />

@@ -5,8 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
-    xmlns:scenums="using:BD.SteamClient.Enums"
-    xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     Title="{ReflectionBinding Name,
@@ -26,7 +24,7 @@
                                  ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.Resources>
-        <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="scmd:SteamApp">
+        <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="spp:SteamApp">
             <ui:MenuFlyoutItem
                 Command="{ReflectionBinding $parent[spp:PageBase].DataContext.InstallOrStartAppCommand}"
                 CommandParameter="{Binding}"
@@ -308,7 +306,7 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <DataTemplate.DataType>
-                                                    <x:Type x:TypeArguments="scenums:SteamAppType" TypeName="spp:EnumModel" />
+                                                    <x:Type x:TypeArguments="spp:SteamAppType" TypeName="spp:EnumModel" />
                                                 </DataTemplate.DataType>
                                                 <DockPanel>
                                                     <CheckBox VerticalAlignment="Center" IsChecked="{Binding Enable, Mode=TwoWay}">
@@ -449,7 +447,7 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <DataTemplate.DataType>
-                                                    <x:Type x:TypeArguments="scenums:SteamAppType" TypeName="spp:EnumModel" />
+                                                    <x:Type x:TypeArguments="spp:SteamAppType" TypeName="spp:EnumModel" />
                                                 </DataTemplate.DataType>
                                                 <DockPanel>
                                                     <CheckBox VerticalAlignment="Center" IsChecked="{Binding Enable, Mode=TwoWay}">
@@ -505,7 +503,7 @@
                         VerticalSpacing="10" />-->
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
-                    <DataTemplate DataType="scmd:SteamApp">
+                    <DataTemplate DataType="spp:SteamApp">
                         <spp:AppItem
                             Title="{Binding DisplayName}"
                             Height="340"

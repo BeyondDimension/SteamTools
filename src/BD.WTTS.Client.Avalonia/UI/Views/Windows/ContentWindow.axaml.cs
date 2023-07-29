@@ -6,4 +6,9 @@ public partial class ContentWindow : ReactiveAppWindow<ContentWindowViewModel>
     {
         InitializeComponent();
     }
+
+    public ContentWindow(Control page) : this()
+    {
+        ViewContent.Content = page;
+    }
 }

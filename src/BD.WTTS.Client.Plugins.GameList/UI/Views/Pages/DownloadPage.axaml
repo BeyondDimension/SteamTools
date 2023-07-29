@@ -6,7 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
-    xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     Title="Steam 下载监控"
@@ -115,7 +114,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="scmd:SteamApp">
+                <DataTemplate DataType="spp:SteamApp">
                     <spp:AppItem Title="{Binding DisplayName}" MaxHeight="116">
                         <spp:AppItem.Status>
                             <!--<Border VerticalAlignment="Center" Classes="Status">

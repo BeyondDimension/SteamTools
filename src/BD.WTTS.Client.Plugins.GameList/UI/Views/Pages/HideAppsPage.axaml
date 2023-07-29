@@ -7,7 +7,6 @@
     xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
-    xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="450"

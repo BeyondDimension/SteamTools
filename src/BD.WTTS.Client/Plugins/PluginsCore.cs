@@ -153,6 +153,11 @@ public static class PluginsCore
             return ValueTask.CompletedTask;
         }
 
+        public ValueTask OnCommandRun(params string[] commandParams)
+        {
+            return ValueTask.CompletedTask;
+        }
+
         public void OnUnhandledException(Exception ex, string name, bool? isTerminating = null)
         {
         }

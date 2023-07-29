@@ -111,7 +111,7 @@ partial class Startup // 自定义控制台命令参数
         });
         rootCommand.AddCommand(steamuser);
 
-        // -clt app -id 632360
+        // -clt app -id 282800
         var run_SteamApp = new Command("app", "运行 Steam 应用");
         run_SteamApp.AddOption(new Option<int>("-id", "指定一个 Steam 游戏 Id"));
         run_SteamApp.AddOption(new Option<bool>("-achievement", "打开成就解锁窗口"));
@@ -122,23 +122,19 @@ partial class Startup // 自定义控制台命令参数
             if (id <= 0)
                 return;
 
-            if (cloudmanager)
+            if (cloudmanager || achievement)
             {
                 RunUIApplication(AppServicesLevel.UI |
                     AppServicesLevel.Steam |
-                    AppServicesLevel.HttpClientFactory);
+                    AppServicesLevel.HttpClientFactory, null, AssemblyInfo.GameList);
                 await WaitConfiguredServices;
 
-                //IViewModelManager.Instance.InitCloudManageMain(id);
-            }
-            else if (achievement)
-            {
-                RunUIApplication(AppServicesLevel.UI |
-                    AppServicesLevel.Steam |
-                    AppServicesLevel.HttpClientFactory);
-                await WaitConfiguredServices;
+                if (TryGetPlugins(out var plugins) && plugins.Any_Nullable())
+                {
+                    await plugins.First().OnCommandRun(id.ToString(), achievement ? nameof(achievement) : nameof(cloudmanager));
+                }
 
-                //IViewModelManager.Instance.InitUnlockAchievement(id);
+                StartUIApplication();
             }
             else
             {

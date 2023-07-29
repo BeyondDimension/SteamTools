@@ -36,7 +36,8 @@
                                 Title="{Binding Name}"
                                 MaxWidth="135"
                                 Classes="Vertical"
-                                Description="{Binding AuthorName}">
+                                Description="{Binding AuthorName}"
+                                ToolTip.Tip="{Binding Describe}">
                                 <spp:AppItem.Status>
                                     <Panel>
                                         <Border Classes="Status" IsVisible="{Binding IsExist}">

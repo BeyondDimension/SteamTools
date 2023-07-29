@@ -1,0 +1,286 @@
+<Window
+    x:Class="BD.WTTS.UI.Views.Windows.CloudArchiveWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:scmd="using:BD.SteamClient.Models"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+    x:Name="u"
+    Title="{Binding Title}"
+    Width="750"
+    Height="500"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:CloudArchiveAppPageViewModel"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto, *">
+        <Grid
+            Name="TitleBarHost"
+            Height="{StaticResource TitleBarHeight}"
+            Background="Transparent"
+            ColumnDefinitions="Auto,Auto,*,Auto,150">
+            <Image
+                Name="WindowIcon"
+                Grid.Column="0"
+                Width="26"
+                Height="26"
+                Margin="22,4,12,4"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                IsHitTestVisible="False"
+                RenderOptions.BitmapInterpolationMode="HighQuality"
+                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+
+            <TextBlock
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                FontSize="12"
+                IsHitTestVisible="False"
+                Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+
+            <!--<Border
+                Grid.Column="2"
+                Padding="6"
+                VerticalAlignment="Center">
+                <AutoCompleteBox
+                    Name="SearchBox"
+                    MaxWidth="500"
+                    VerticalAlignment="Center"
+                    wnd:AppWindow.AllowInteractionInTitleBar="True"
+                    Classes="Search"
+                    Text="{Binding SearchText, Mode=TwoWay}" />
+            </Border>-->
+
+            <DockPanel Grid.Column="3">
+                <Button
+                    Width="40"
+                    Height="40"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding RefreshList}"
+                    Theme="{DynamicResource TransparentButton}"
+                    ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}">
+                    <Viewbox
+                        Width="22"
+                        Height="22"
+                        VerticalAlignment="Center">
+                        <ui:SymbolIcon Symbol="Refresh" />
+                    </Viewbox>
+                </Button>
+                <Button
+                    Width="40"
+                    Height="40"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding UploadFile}"
+                    Theme="{DynamicResource TransparentButton}"
+                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_UploadCloudArchiveFile,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}">
+                    <Viewbox
+                        Width="22"
+                        Height="22"
+                        VerticalAlignment="Center">
+                        <ui:SymbolIcon Symbol="OpenFile" />
+                    </Viewbox>
+                </Button>
+                <Button
+                    Width="40"
+                    Height="40"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding ClearAllFiles}"
+                    Theme="{DynamicResource TransparentButton}"
+                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RemoveBtn,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}">
+                    <Viewbox
+                        Width="22"
+                        Height="22"
+                        VerticalAlignment="Center">
+                        <ui:SymbolIcon Symbol="DeleteFilled" />
+                    </Viewbox>
+                </Button>
+
+                <Separator
+                    Height="18"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Classes="Vertical"
+                    DockPanel.Dock="Right"
+                    IsHitTestVisible="False" />
+            </DockPanel>
+        </Grid>
+        <spp:ContentLoader Grid.Row="1" IsLoading="{Binding !!!CloudArchivews.Count, Mode=OneWay}">
+            <Panel>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <TextBlock Text="{Binding CloudArchivewCountStr}" />
+                    <DockPanel VerticalAlignment="Center">
+                        <TextBlock
+                            Margin="20,0"
+                            DockPanel.Dock="Top"
+                            TextAlignment="Center"
+                            Theme="{StaticResource CaptionTextBlockStyle}">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} MB/ {1} MB">
+                                    <Binding Path="UsedQutoa" />
+                                    <Binding Path="TotalQutoa" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <ProgressBar
+                            Width="{ReflectionBinding $parent.Width}"
+                            Height="5"
+                            Classes="Material"
+                            DockPanel.Dock="Bottom"
+                            Maximum="{Binding TotalQutoa}"
+                            Value="{Binding UsedQutoa}" />
+                    </DockPanel>
+                </StackPanel>
+
+                <TabControl Padding="0">
+                    <TabItem Header="{ReflectionBinding Path=Res.GameList_CloudArchiveManager, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <DataGrid
+                            x:Name="CloudGrid"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding CloudArchivews}">
+                            <DataGrid.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuItem
+                                        Command="{ReflectionBinding #u.DataContext.DownloadFile}"
+                                        CommandParameter="{ReflectionBinding #CloudGrid.SelectedItem}"
+                                        Header="{ReflectionBinding Path=Res.Download,
+                                                                   Mode=OneWay,
+                                                                   Source={x:Static s:ResourceService.Current}}" />
+                                    <MenuItem Header="-" />
+                                    <MenuItem
+                                        Command="{ReflectionBinding #u.DataContext.DeleteFile}"
+                                        CommandParameter="{ReflectionBinding #CloudGrid.SelectedItem}"
+                                        Header="{ReflectionBinding Path=Res.Delete,
+                                                                   Mode=OneWay,
+                                                                   Source={x:Static s:ResourceService.Current}}" />
+                                </MenuFlyout>
+                            </DataGrid.ContextFlyout>
+                            <DataGrid.Styles>
+                                <Style Selector="TextBlock.content">
+                                    <Setter Property="Margin" Value="8 0" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+                                </Style>
+                            </DataGrid.Styles>
+                            <DataGrid.Columns>
+                                <!--  CheckBox  -->
+                                <!--<DataGridTemplateColumn
+                                Width="58">
+              <DataGridTemplateColumn.Header>
+                <CheckBox Classes="onlyCheckBox"
+                          IsChecked="{ReflectionBinding #u.DataContext.IsCheckAll,Mode=TwoWay}"
+                          VerticalAlignment="Center"
+                          Margin="8 0 0 0"></CheckBox>
+              </DataGridTemplateColumn.Header>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate x:DataType="spp:SteamRemoteFile">
+                  <CheckBox Classes="onlyCheckBox"
+                            IsChecked="{Binding IsChecked,Mode=TwoWay}"
+                            VerticalAlignment="Center"
+                            Margin="0 0 0 0"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center">
+                  </CheckBox>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>-->
+
+                                <!--  FileName  -->
+                                <DataGridTemplateColumn
+                                    Width="3*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Name">
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{ReflectionBinding Path=Res.Achievement_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate x:DataType="spp:SteamRemoteFile">
+                                            <TextBlock Classes="content" Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!--  Size  -->
+                                <DataGridTemplateColumn
+                                    Width="110"
+                                    CanUserSort="True"
+                                    SortMemberPath="Size">
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{ReflectionBinding Path=Res.FileSize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate x:DataType="spp:SteamRemoteFile">
+                                            <TextBlock Classes="content" Text="{Binding Size, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!--<DataGridTemplateColumn
+                                Width="110"
+                                CanUserSort="True"
+                                SortMemberPath="Exists">
+              <DataGridTemplateColumn.Header>
+                <TextBlock Text="存在本地"/>
+              </DataGridTemplateColumn.Header>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate x:DataType="spp:SteamRemoteFile">
+                  <ui:SymbolIcon Symbol="Checkmark"/>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn
+                                Width="100"
+                                CanUserSort="True"
+                                SortMemberPath="IsPersisted">
+              <DataGridTemplateColumn.Header>
+                <TextBlock Text="持久化"/>
+              </DataGridTemplateColumn.Header>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate x:DataType="spp:SteamRemoteFile">
+                  <ui:SymbolIcon Symbol="Checkmark"/>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>-->
+
+                                <!--  DateTime  -->
+                                <DataGridTemplateColumn
+                                    Width="2*"
+                                    CanUserSort="True"
+                                    SortMemberPath="CreateTime">
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{ReflectionBinding Path=Res.CreateTime, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate x:DataType="spp:SteamRemoteFile">
+                                            <TextBlock Classes="content" Text="{ReflectionBinding Timestamp, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                </TabControl>
+            </Panel>
+        </spp:ContentLoader>
+    </Grid>
+</Window>

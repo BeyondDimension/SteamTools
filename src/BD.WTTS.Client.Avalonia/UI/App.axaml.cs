@@ -15,8 +15,12 @@ public sealed partial class App : Application
     /// </summary>
     public Window? MainWindow { get; internal set; }
 
+    public static event InitializeHandler? InitializeMainWindow;
+
+    public delegate Window InitializeHandler(object sender);
+
     /// <summary>
-    /// 获取任意一个窗口，优先返回主窗口
+    /// 获取任意第一个窗口，优先返回主窗口
     /// </summary>
     /// <returns></returns>
     public Window? GetFirstOrDefaultWindow()
@@ -38,49 +42,49 @@ public sealed partial class App : Application
         {
             AvaloniaXamlLoader.Load(this);
 
-            LiveCharts.Configure(config =>
-            {
-                config
-                    // registers SkiaSharp as the library backend
-                    // REQUIRED unless you build your own
-                    .AddSkiaSharp();
-                // adds the default supported types
-                // OPTIONAL but highly recommend
-                //.AddDefaultMappers()
+            //LiveCharts.Configure(config =>
+            //{
+            //    config
+            //        // registers SkiaSharp as the library backend
+            //        // REQUIRED unless you build your own
+            //        .AddSkiaSharp();
+            //    // adds the default supported types
+            //    // OPTIONAL but highly recommend
+            //    //.AddDefaultMappers()
 
-                // select a theme, default is Light
-                // OPTIONAL
-                //.AddDarkTheme()
+            //    // select a theme, default is Light
+            //    // OPTIONAL
+            //    //.AddDarkTheme()
 
-                // In case you need a non-Latin based font, you must register a typeface for SkiaSharp
-                config.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('汉')); // <- Chinese // mark
-                //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('أ'))  // <- Arabic // mark
-                //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('あ')) // <- Japanese // mark
-                //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('헬')) // <- Korean // mark
-                //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('Ж'))  // <- Russian // mark
+            //    // In case you need a non-Latin based font, you must register a typeface for SkiaSharp
+            //    config.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('汉')); // <- Chinese // mark
+            //    //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('أ'))  // <- Arabic // mark
+            //    //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('あ')) // <- Japanese // mark
+            //    //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('헬')) // <- Korean // mark
+            //    //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('Ж'))  // <- Russian // mark
 
-                if (Theme != AppTheme.FollowingSystem)
-                {
-                    if (Theme == AppTheme.Light)
-                        config.AddLightTheme();
-                    else
-                        config.AddDarkTheme();
-                }
-                else
-                {
-                    var dps = IPlatformService.Instance;
-                    dps.SetLightOrDarkThemeFollowingSystem(false);
-                    var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
-                    if (isLightOrDarkTheme.HasValue)
-                    {
-                        var mThemeFS = IApplication.GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
-                        if (mThemeFS == AppTheme.Light)
-                            config.AddLightTheme();
-                        else
-                            config.AddDarkTheme();
-                    }
-                }
-            });
+            //    if (Theme != AppTheme.FollowingSystem)
+            //    {
+            //        if (Theme == AppTheme.Light)
+            //            config.AddLightTheme();
+            //        else
+            //            config.AddDarkTheme();
+            //    }
+            //    else
+            //    {
+            //        var dps = IPlatformService.Instance;
+            //        dps.SetLightOrDarkThemeFollowingSystem(false);
+            //        var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
+            //        if (isLightOrDarkTheme.HasValue)
+            //        {
+            //            var mThemeFS = IApplication.GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+            //            if (mThemeFS == AppTheme.Light)
+            //                config.AddLightTheme();
+            //            else
+            //                config.AddDarkTheme();
+            //        }
+            //    }
+            //});
         }
         catch (Exception ex)
         {
@@ -103,6 +107,7 @@ public sealed partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            MainWindow = InitializeMainWindow?.Invoke(this);
             desktop.MainWindow = MainWindow ??= new MainWindow();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)

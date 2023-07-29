@@ -80,4 +80,10 @@ public partial interface IPlugin
     /// <param name="isReconnected">是否为重连</param>
     /// <returns></returns>
     ValueTask OnPeerConnected(bool isReconnected);
+
+    /// <summary>
+    /// 带参数启动时执行
+    /// </summary>
+    /// <returns></returns>
+    ValueTask OnCommandRun(params string[] commandParams);
 }

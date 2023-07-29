@@ -340,7 +340,6 @@
                     Height="18"
                     Margin="10,0"
                     VerticalAlignment="Center"
-                    Background="{DynamicResource ButtonBorderBrush}"
                     Classes="Vertical"
                     DockPanel.Dock="Right"
                     IsHitTestVisible="False" />

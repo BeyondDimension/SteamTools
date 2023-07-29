@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+        </Border>
+    </Design.PreviewWith>
+    <!--  Add Styles Here  -->
+
+    <Style Selector="DataGrid">
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="CanUserResizeColumns" Value="True" />
+        <Setter Property="CanUserReorderColumns" Value="True" />
+        <Setter Property="CanUserSortColumns" Value="True" />
+        <Setter Property="HeadersVisibility" Value="All" />
+    </Style>
+
+    <Style Selector="DataGridCell">
+        <Setter Property="Padding" Value="0 10" />
+    </Style>
+
+    <Style Selector="DataGridColumnHeader">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Padding" Value="10" />
+    </Style>
+</Styles>

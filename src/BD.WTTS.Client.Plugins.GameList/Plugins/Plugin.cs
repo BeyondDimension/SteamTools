@@ -1,5 +1,6 @@
 using BD.WTTS.Properties;
 using BD.WTTS.UI.Views.Pages;
+using BD.WTTS.UI.Views.Windows;
 
 namespace BD.WTTS.Plugins;
 
@@ -31,6 +32,32 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             IsResourceGet = true,
             IconKey = Icon,
         };
+    }
+
+    public override async ValueTask OnCommandRun(params string[] commandParams)
+    {
+        if (commandParams.Length == 2)
+        {
+            var id = Convert.ToInt32(commandParams[0]);
+            var action = commandParams[1];
+
+            switch (action)
+            {
+                case "achievement":
+                    App.InitializeMainWindow += (s) =>
+                    {
+                        return new AchievementWindow(id);
+                    };
+                    break;
+                case "cloudmanager":
+                    App.InitializeMainWindow += (s) =>
+                    {
+                        return new CloudArchiveWindow(id);
+                    };
+                    break;
+            }
+        }
+        await ValueTask.CompletedTask;
     }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)

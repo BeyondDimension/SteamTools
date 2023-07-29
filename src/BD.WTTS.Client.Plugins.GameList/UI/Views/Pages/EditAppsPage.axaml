@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
-    xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     Title="Steam 游戏修改"
@@ -116,7 +115,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="scmd:SteamApp">
+                <DataTemplate DataType="spp:SteamApp">
                     <Border Margin="5" spp:Animations.EnableAnimations="True">
                         <spp:AppItem
                             Title="{Binding DisplayName}"
