@@ -11,4 +11,16 @@ public partial class ScriptPageViewModel : TabItemViewModel
     public ReadOnlyObservableCollection<ScriptDTO>? ProxyScripts => _ProxyScripts;
 
     public bool IsProxyScriptsEmpty => !ProxyScripts.Any_Nullable();
+
+    public ICommand EditScriptItemButton { get; }
+
+    public ICommand RefreshScriptItemButton { get; }
+
+    public ICommand OpenHomeScriptItemButton { get; }
+
+    public ICommand ScriptStoreCommand { get; }
+
+    public ICommand? AddNewScriptCommand { get; }
+
+    public ICommand? RefreshALLScriptCommand { get; }
 }

@@ -15,25 +15,22 @@ public partial class ScriptPageViewModel : TabItemViewModel
 
     //public ReactiveCommand<Unit, Unit>? OnlySteamBrowserCommand { get; }
 
-    public ReactiveCommand<Unit, Unit>? ScriptStoreCommand { get; }
+    //public ReactiveCommand<Unit, Unit>? ScriptStoreCommand { get; }
 
     //public ReactiveCommand<Unit, Unit>? AllEnableScriptCommand { get; }
 
-    public ICommand? AddNewScriptButton_Click { get; }
-
     public ScriptPageViewModel()
     {
-        ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
         //AllEnableScriptCommand = ReactiveCommand.Create(AllEnableScript);
-        AddNewScriptButton_Click = ReactiveCommand.CreateFromTask(async () =>
+        AddNewScriptCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             FilePickerFileType? fileTypes;
             if (IApplication.IsDesktop())
             {
                 fileTypes = new ValueTuple<string, string[]>[]
                 {
-                        ("JavaScript Files", new[] { FileEx.JS, }),
-                        ("Text Files", new[] { FileEx.TXT, }),
+                        ("JavaScript Files", new[] { $"*{FileEx.JS}", }),
+                        ("Text Files", new[] { $"*{FileEx.TXT}", }),
                     //("All Files", new[] { "*", }),
                 };
             }
@@ -49,6 +46,20 @@ public partial class ScriptPageViewModel : TabItemViewModel
         });
 
         //var scriptFilter = this.WhenAnyValue(x => x.SearchText).Select(ScriptFilter);
+
+        EditScriptItemButton = ReactiveCommand.Create<ScriptDTO>(EditScriptItem);
+
+        RefreshScriptItemButton = ReactiveCommand.Create<ScriptDTO>(RefreshScriptItem);
+
+        OpenHomeScriptItemButton = ReactiveCommand.Create<ScriptDTO>(OpenHomeScriptItem);
+
+        ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
+
+        RefreshALLScriptCommand = ReactiveCommand.Create(() =>
+        {
+            ProxyService.Current.RefreshScript();
+            Toast.Show(ToastIcon.Success, Strings.RefreshOK);
+        });
 
         ProxyService.Current.ProxyScripts
             .Connect()
@@ -87,7 +98,7 @@ public partial class ScriptPageViewModel : TabItemViewModel
                         ProxyService.Current.ProxyScripts.Remove(script);
                     }
                 }
-                Toast.Show(item.Message);
+                Toast.Show(item.IsSuccess ? ToastIcon.Success : ToastIcon.Error, item.Message);
             }
         });
     }
@@ -106,14 +117,14 @@ public partial class ScriptPageViewModel : TabItemViewModel
                         ProxyService.Current.ProxyScripts.Remove(script);
                     }
                 }
-                Toast.Show(item.Message);
+                Toast.Show(item.IsSuccess ? ToastIcon.Success : ToastIcon.Error, item.Message);
             }
         });
     }
 
-    public void EditScriptItemButton(ScriptDTO script)
+    public void EditScriptItem(ScriptDTO script)
     {
-        var url = Path.Combine(IOPath.AppDataDirectory, script.FilePath);
+        var url = Path.Combine(Plugin.Instance.AppDataDirectory, script.FilePath);
         var fileInfo = new FileInfo(url);
         if (fileInfo.Exists)
         {
@@ -128,7 +139,7 @@ public partial class ScriptPageViewModel : TabItemViewModel
                         if (ProxyService.Current.ProxyScripts.Items.Any() && rsp.Content != null)
                         {
                             ProxyService.Current.ProxyScripts.Replace(script, rsp.Content);
-                            Toast.Show(Strings.Success_.Format(Strings.Script_Edit));
+                            Toast.Show(ToastIcon.Success, Strings.Success_.Format(Strings.Script_Edit));
                         }
                     }
                 }
@@ -141,27 +152,27 @@ public partial class ScriptPageViewModel : TabItemViewModel
 
     }
 
-    public async void OpenHomeScriptItemButton(ScriptDTO script)
+    public async void OpenHomeScriptItem(ScriptDTO script)
     {
         await Browser2.OpenAsync(script.SourceLink);
     }
 
-    public async void RefreshScriptItemButton(ScriptDTO script)
+    public async void RefreshScriptItem(ScriptDTO script)
     {
         if (script?.FilePath != null)
         {
-            var item = await IScriptManager.Instance.AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), script, order: script.Order, isCompile: script.IsCompile, ignoreCache: true);
+            var item = await IScriptManager.Instance.AddScriptAsync(Path.Combine(Plugin.Instance.AppDataDirectory, script.FilePath), script, order: script.Order, isCompile: script.IsCompile, ignoreCache: true);
             if (item.IsSuccess)
             {
                 if (item.Content != null)
                 {
                     ProxyService.Current.ProxyScripts.Replace(script, item.Content);
-                    Toast.Show(Strings.RefreshOK);
+                    Toast.Show(ToastIcon.Success, Strings.RefreshOK);
                 }
                 else
                 {
                     script.Disable = true;
-                    Toast.Show(item.Message);
+                    Toast.Show(ToastIcon.Error, item.Message);
                 }
             }
             else

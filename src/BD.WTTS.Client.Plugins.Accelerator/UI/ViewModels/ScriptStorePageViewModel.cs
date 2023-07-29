@@ -16,6 +16,10 @@ public partial class ScriptStorePageViewModel : ViewModelBase
             .Bind(out _Scripts)
             .Subscribe(_ => this.RaisePropertyChanged(nameof(IsScriptsEmpty)));
 
+        DownloadScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(DownloadScriptItem);
+
+        OpenHomeScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(OpenHomeScriptItem);
+
         this.WhenAnyValue(x => x.SearchText)
             .Subscribe(x =>
             {
@@ -23,12 +27,12 @@ public partial class ScriptStorePageViewModel : ViewModelBase
             });
     }
 
-    public void DownloadScriptItemButton(ScriptDTO model)
+    public void DownloadScriptItem(ScriptDTO model)
     {
         ProxyService.Current.DownloadScript(model);
     }
 
-    public async void OpenHomeScriptItemButton(ScriptDTO script)
+    public async void OpenHomeScriptItem(ScriptDTO script)
     {
         await Browser2.OpenAsync(script.SourceLink);
     }
