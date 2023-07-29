@@ -1,4 +1,3 @@
-using System;
 using WebView2BaseType = Avalonia.Controls.Shapes.Rectangle;
 
 namespace Avalonia.Controls;

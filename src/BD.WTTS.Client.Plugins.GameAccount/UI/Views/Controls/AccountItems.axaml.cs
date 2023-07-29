@@ -1,0 +1,47 @@
+using Avalonia.Controls;
+using Avalonia.ReactiveUI;
+using FluentAvalonia.UI.Controls;
+
+namespace BD.WTTS.UI.Views.Controls;
+
+public partial class AccountItems : ReactiveUserControl<PlatformAccount>
+{
+    public AccountItems()
+    {
+        InitializeComponent();
+
+        //this.WhenActivated(disposable =>
+        //{
+        //    ViewModel?.LoadUsers();
+        //});
+
+#if DEBUG
+        if (Design.IsDesignMode)
+            Design.SetDataContext(this, new PlatformAccount(ThirdpartyPlatform.Steam)
+            {
+                FullName = "Steam",
+                Icon = "Steam"
+            });
+#endif
+    }
+
+    private void SteamPersonaStateSwapMenuItem_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (sender is MenuFlyoutItem item && item.DataContext is SteamAccount account && item.Tag is PersonaState state)
+        {
+            account.PersonaState = state;
+            ViewModel?.SwapToAccountCommand.Execute(account);
+        }
+    }
+
+    private void OpenUserDataFolderMenuItem_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (sender is MenuFlyoutItem item && item.DataContext is SteamAccount account)
+        {
+            if (ISteamService.Instance.SteamDirPath != null)
+                IPlatformService.Instance.OpenFolder(Path.Combine(ISteamService.Instance.SteamDirPath, account.SteamUser.UserdataPath));
+            else
+                Toast.Show(ToastIcon.Error, "当前 Steam 路径不正确");
+        }
+    }
+}

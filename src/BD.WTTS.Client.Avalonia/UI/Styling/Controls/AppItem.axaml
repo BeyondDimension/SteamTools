@@ -1,0 +1,343 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Spacing="10">
+                <spp:AppItem
+                    Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
+                    Description="This is a description of whatver this does"
+                    ImageMargin="20,0"
+                    Tags="111">
+                    <spp:AppItem.ActionButton>
+                        <Button Content="delete" />
+                    </spp:AppItem.ActionButton>
+                    <spp:AppItem.Status>
+                        <Border Classes="Status">
+                            <TextBlock Text="免费下载" />
+                        </Border>
+                    </spp:AppItem.Status>
+                    <spp:AppItem.MoreFlyout>
+                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                            <ui:MenuFlyoutItem Text="112323" />
+                        </ui:FAMenuFlyout>
+                    </spp:AppItem.MoreFlyout>
+                    <spp:AppItem.Image>
+                        <spp:Image2
+                            Height="60"
+                            Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/mona-loading-default.gif"
+                            Stretch="Uniform" />
+                    </spp:AppItem.Image>
+                </spp:AppItem>
+
+                <spp:AppItem
+                    Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
+                    MaxHeight="120"
+                    Description="This is a description of whatver this does"
+                    Tags="111">
+                    <spp:AppItem.Status>
+                        <Border Classes="Status">
+                            <TextBlock Text="免费下载" />
+                        </Border>
+                    </spp:AppItem.Status>
+                    <spp:AppItem.MoreFlyout>
+                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                            <ui:MenuFlyoutItem Text="112323" />
+                        </ui:FAMenuFlyout>
+                    </spp:AppItem.MoreFlyout>
+                    <spp:AppItem.Image>
+                        <spp:Image2 Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" />
+                    </spp:AppItem.Image>
+                </spp:AppItem>
+
+                <spp:AppItem
+                    Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）1111111111111111111111111111"
+                    MaxWidth="300"
+                    Classes="Vertical"
+                    Description="This is a description of whatver this does"
+                    Tags="111">
+                    <spp:AppItem.Status>
+                        <Border Classes="Status">
+                            <TextBlock Text="免费下载" />
+                        </Border>
+                    </spp:AppItem.Status>
+                    <spp:AppItem.MoreFlyout>
+                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                            <ui:MenuFlyoutItem Text="112323" />
+                        </ui:FAMenuFlyout>
+                    </spp:AppItem.MoreFlyout>
+                    <spp:AppItem.Image>
+                        <spp:Image2 Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" />
+                    </spp:AppItem.Image>
+                </spp:AppItem>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="spp|AppItem">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+        <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ImageMargin" Value="0,0,12,0" />
+        <Setter Property="Padding" Value="{StaticResource ButtonPadding}" />
+        <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="LayoutRoot"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    ClipToBounds="True"
+                    CornerRadius="{StaticResource OverlayCornerRadius}">
+                    <spp:RippleEffect>
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto,*">
+                            <Viewbox
+                                Name="IconHost"
+                                Grid.RowSpan="3"
+                                Height="{TemplateBinding Height}"
+                                MaxHeight="{TemplateBinding MaxHeight}"
+                                Margin="{TemplateBinding ImageMargin}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <ContentPresenter Content="{TemplateBinding Image}" />
+                            </Viewbox>
+
+                            <TextBlock
+                                Name="HeaderText"
+                                Grid.Column="1"
+                                Margin="0,5"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Classes="BaseTextBlockStyle"
+                                FontWeight="SemiBold"
+                                MaxLines="2"
+                                Text="{TemplateBinding Title}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="Wrap" />
+
+                            <ContentPresenter
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Content="{TemplateBinding Tags}"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                IsVisible="{TemplateBinding Tags,
+                                                            Converter={StaticResource IsNullConverter},
+                                                            ConverterParameter=invert}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="NoWrap" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="0,5"
+                                VerticalAlignment="Top"
+                                Classes="CaptionTextBlockStyle"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{TemplateBinding Description}"
+                                TextWrapping="Wrap" />
+
+                            <DockPanel Grid.RowSpan="3" Grid.Column="3">
+                                <ContentPresenter
+                                    Margin="12,8"
+                                    Content="{TemplateBinding Status}"
+                                    DockPanel.Dock="Top"
+                                    FontSize="12"
+                                    IsVisible="{TemplateBinding Status,
+                                                                Converter={StaticResource IsNullConverter},
+                                                                ConverterParameter=invert}"
+                                    TextWrapping="Wrap" />
+
+                                <DockPanel
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    DockPanel.Dock="Bottom">
+                                    <ContentPresenter Content="{TemplateBinding ActionButton}" DockPanel.Dock="Left" />
+
+                                    <DropDownButton
+                                        Margin="8"
+                                        Padding="6"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Content="{StaticResource More}"
+                                        DockPanel.Dock="Right"
+                                        Flyout="{TemplateBinding MoreFlyout}"
+                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                        FontSize="20"
+                                        IsVisible="{TemplateBinding MoreFlyout,
+                                                                    Converter={StaticResource IsNullConverter},
+                                                                    ConverterParameter=invert}"
+                                        Theme="{StaticResource TransparentButton}" />
+                                </DockPanel>
+                            </DockPanel>
+                        </Grid>
+                    </spp:RippleEffect>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="spp|AppItem /template/ Viewbox#IconHost">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="spp|AppItem /template/ ContentPresenter#ExpandedContentPresenter">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="spp|AppItem /template/ Border#LayoutRoot:pointerover">
+        <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+        <Setter Property="BoxShadow" Value="{StaticResource InfoBoxShadow}" />
+    </Style>
+    <!--<Style Selector="spp|AppItem:pressed /template/ Border#LayoutRoot:pointerover">
+        <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+    </Style>-->
+
+    <Style Selector="spp|AppItem:icon /template/ Viewbox#IconHost">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <Style Selector="spp|AppItem:desc /template/ TextBlock#HeaderText">
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="Grid.RowSpan" Value="1" />
+    </Style>
+
+    <Style Selector="spp|AppItem:expanded /template/ ContentPresenter#ExpandedContentPresenter">
+        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BottomCornerRadiusFilterConverter}}" />
+    </Style>
+
+    <Style Selector="spp|AppItem:expanded /template/ Border#LayoutRoot">
+        <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TopCornerRadiusFilterConverter}}" />
+    </Style>
+
+    <Style Selector="spp|AppItem:not(:expands):expanded /template/ ContentPresenter#ExpandedContentPresenter">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="spp|AppItem /template/ ContentPresenter#ActionButton ComboBox">
+        <Setter Property="MinWidth" Value="150" />
+    </Style>
+
+    <Style Selector="spp|AppItem:pointerover">
+        <Setter Property="RenderTransform" Value="translateY(-3px)" />
+    </Style>
+
+    <Style Selector="spp|AppItem Border.Status">
+        <Setter Property="Padding" Value="8,5" />
+        <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+        <Setter Property="ClipToBounds" Value="True" />
+        <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+    </Style>
+
+    <!--  Vertical Style  -->
+    <Style Selector="spp|AppItem.Vertical">
+        <Setter Property="ImageMargin" Value="0" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="LayoutRoot"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    ClipToBounds="True"
+                    CornerRadius="{StaticResource OverlayCornerRadius}">
+                    <spp:RippleEffect>
+                        <Grid RowDefinitions="Auto,*,Auto">
+                            <Border VerticalAlignment="Top" Background="Transparent">
+                                <Viewbox
+                                    Name="IconHost"
+                                    MaxWidth="{TemplateBinding MaxWidth}"
+                                    Margin="{TemplateBinding ImageMargin}">
+                                    <ContentPresenter Content="{TemplateBinding Image}" />
+                                </Viewbox>
+                            </Border>
+
+                            <Border Grid.Row="1" Padding="10,5">
+                                <StackPanel>
+                                    <TextBlock
+                                        Margin="0,5"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Classes="BaseTextBlockStyle"
+                                        FontWeight="SemiBold"
+                                        MaxLines="2"
+                                        Text="{TemplateBinding Title}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap" />
+
+                                    <ContentPresenter
+                                        Margin="0,5"
+                                        Content="{TemplateBinding Tags}"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        IsVisible="{TemplateBinding Tags,
+                                                                    Converter={StaticResource IsNullConverter},
+                                                                    ConverterParameter=invert}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="NoWrap" />
+
+                                    <TextBlock
+                                        Margin="0,5"
+                                        VerticalAlignment="Top"
+                                        Classes="CaptionTextBlockStyle"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{TemplateBinding Description}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border
+                                Grid.Row="2"
+                                Padding="10,5"
+                                IsVisible="{TemplateBinding Status,
+                                                            Converter={StaticResource IsNullConverter},
+                                                            ConverterParameter=invert}">
+                                <DockPanel>
+                                    <ContentPresenter
+                                        Margin="0,5"
+                                        VerticalAlignment="Top"
+                                        Content="{TemplateBinding Status}"
+                                        DockPanel.Dock="Left"
+                                        FontSize="12"
+                                        IsVisible="{TemplateBinding Status,
+                                                                    Converter={StaticResource IsNullConverter},
+                                                                    ConverterParameter=invert}"
+                                        TextWrapping="Wrap" />
+
+                                    <DockPanel HorizontalAlignment="Right" DockPanel.Dock="Right">
+                                        <ContentPresenter Content="{TemplateBinding ActionButton}" DockPanel.Dock="Left" />
+
+                                        <DropDownButton
+                                            Padding="6"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Content="{StaticResource More}"
+                                            DockPanel.Dock="Right"
+                                            Flyout="{TemplateBinding MoreFlyout}"
+                                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                            FontSize="20"
+                                            IsVisible="{TemplateBinding MoreFlyout,
+                                                                        Converter={StaticResource IsNullConverter},
+                                                                        ConverterParameter=invert}"
+                                            Theme="{StaticResource TransparentButton}" />
+                                    </DockPanel>
+                                </DockPanel>
+                            </Border>
+                        </Grid>
+                    </spp:RippleEffect>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

@@ -1,0 +1,130 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.DebugPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="{Binding Name}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:DebugPageViewModel"
+    mc:Ignorable="d">
+    <Design.DataContext>
+        <spp:DebugPageViewModel />
+    </Design.DataContext>
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="{Binding IconKey, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.TabContent>
+        <TabStrip
+            Margin="4"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            ItemContainerTheme="{StaticResource TabItemStyle}">
+            <TabStripItem>
+                <Viewbox
+                    Width="26"
+                    Height="26"
+                    HorizontalAlignment="Left">
+                    <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                </Viewbox>
+            </TabStripItem>
+            <TabStripItem>
+                <Viewbox
+                    Width="26"
+                    Height="26"
+                    HorizontalAlignment="Left">
+                    <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                </Viewbox>
+            </TabStripItem>
+            <TabStripItem>
+                <Viewbox
+                    Width="26"
+                    Height="26"
+                    HorizontalAlignment="Left">
+                    <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                </Viewbox>
+            </TabStripItem>
+        </TabStrip>
+    </spp:PageBase.TabContent>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Action Button" />
+                </Panel>
+            </Button>
+            <ToggleButton
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Open Pane" />
+                </Panel>
+            </ToggleButton>
+            <DropDownButton
+                Padding="8"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+                <DropDownButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <ui:MenuFlyoutItem Text="Test111" />
+                        <ui:MenuFlyoutItem Text="Test111" />
+                        <ui:MenuFlyoutItem Text="Test111" />
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem Text="Test111" />
+                    </ui:FAMenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
+        <Grid RowDefinitions="*,Auto">
+            <TextBox
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Classes="readonlybox"
+                Text="{Binding DebugString}"
+                TextAlignment="Start"
+                TextWrapping="Wrap" />
+            <TextBox
+                Name="CommandTextBox"
+                Grid.Row="1"
+                Watermark="{ReflectionBinding Path=Res.Debug_InstructionPlaceholder,
+                                              Mode=OneWay,
+                                              Source={x:Static s:ResourceService.Current}}" />
+        </Grid>
+    </Border>
+</spp:PageBase>

@@ -1,0 +1,92 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="600"
+    mc:Ignorable="d"
+    x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorRecoverPage"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorRecoverPageViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <spp:ContentLoader
+        IsLoading="{Binding !!!AuthenticatorDeleteBackups.Count, Mode=OneWay}"
+        NoResultMessage="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                                            Path=Res.Auth_Sync_NoHasRecover,
+                                            Mode=OneWay}"
+        x:Name="ContentLoader">
+        <Grid RowDefinitions="*,Auto">
+            <ItemsControl ItemsSource="{Binding AuthenticatorDeleteBackups, Mode=OneWay}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="spp:AuthenticatorRecoverModel">
+                        <ui:SettingsExpander IsClickEnabled="False" MinWidth="400">
+                            <ui:SettingsExpander.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding IsSelected}" />
+                                    <StackPanel
+                                        HorizontalAlignment="Left"
+                                        Spacing="5"
+                                        VerticalAlignment="Center">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                                                                     Path=Res.GeneralAuth_Name,
+                                                                     Mode=OneWay}"
+                                            TextTrimming="CharacterEllipsis"
+                                            VerticalAlignment="Center" />
+
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                            Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                                                                     Path=Res.Auth_Sync_DeleteTime,
+                                                                     Mode=OneWay}"
+                                            TextWrapping="Wrap"
+                                            VerticalAlignment="Top" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </ui:SettingsExpander.Header>
+                            <ui:SettingsExpander.Footer>
+                                <StackPanel
+                                    HorizontalAlignment="Left"
+                                    Spacing="5"
+                                    VerticalAlignment="Center">
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        Text="{Binding AuthenticatorDeleteBackup.Name}"
+                                        TextTrimming="CharacterEllipsis"
+                                        VerticalAlignment="Center" />
+
+                                    <TextBlock
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding AuthenticatorDeleteBackup.CreationTime}"
+                                        TextWrapping="Wrap"
+                                        VerticalAlignment="Top" />
+                                </StackPanel>
+                            </ui:SettingsExpander.Footer>
+                        </ui:SettingsExpander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button
+                Command="{Binding Recover}"
+                Content="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                                            Path=Res.Auth_Sync_VerifyRecover,
+                                            Mode=OneWay}"
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                IsVisible="{Binding !#ContentLoader.IsLoading}"
+                Margin="0,5,0,0"
+                VerticalAlignment="Center" />
+        </Grid>
+    </spp:ContentLoader>
+</UserControl>

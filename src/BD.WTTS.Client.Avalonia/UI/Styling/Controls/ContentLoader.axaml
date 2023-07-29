@@ -1,0 +1,68 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    x:CompileBindings="True">
+    <Design.PreviewWith>
+        <Border Padding="50">
+            <spp:ContentLoader NoResultMessage="Test" />
+        </Border>
+    </Design.PreviewWith>
+    <!--  Add Resources Here  -->
+    <ControlTheme x:Key="{x:Type spp:ContentLoader}" TargetType="spp:ContentLoader">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsVisible="{TemplateBinding IsLoading}"
+                        Spacing="8">
+                        <spp:Image2
+                            Width="150"
+                            Height="150"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                            Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/mona-loading-default.gif"
+                            Stretch="UniformToFill" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="{ReflectionBinding Path=Res.GameList_IsLoading,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}"
+                            Theme="{StaticResource SubtitleTextBlockStyle}" />
+                        <Border
+                            Width="35"
+                            Height="35"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top">
+                            <ProgressBar
+                                Classes="Circle ParentSize"
+                                IsIndeterminate="{TemplateBinding IsIndeterminate}"
+                                Maximum="{TemplateBinding Maximum}"
+                                Minimum="{TemplateBinding Minimum}"
+                                Value="{TemplateBinding ProgressValue}" />
+                        </Border>
+                    </StackPanel>
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsVisible="{TemplateBinding IsShowNoResultText}"
+                        Text="{TemplateBinding NoResultMessage}"
+                        Theme="{StaticResource SubtitleTextBlockStyle}" />
+
+                    <ContentPresenter
+                        Name="ContentPresenter"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Content="{TemplateBinding Content}"
+                        Foreground="{TemplateBinding Foreground}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

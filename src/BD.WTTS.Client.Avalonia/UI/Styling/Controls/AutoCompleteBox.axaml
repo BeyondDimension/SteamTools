@@ -1,0 +1,38 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+            <AutoCompleteBox
+                Width="300"
+                VerticalAlignment="Center"
+                Classes="Search"
+                Watermark="Search" />
+        </Border>
+    </Design.PreviewWith>
+
+    <!--  AutoCompleteBox  -->
+    <Style Selector="AutoCompleteBox.Search /template/ TextBox#PART_TextBox">
+        <Setter Property="Watermark" Value="{ReflectionBinding Path=Res.Search, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="InnerRightContent">
+            <Template>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Command="{Binding $parent[TextBox].Clear}"
+                        Content="&#xE8BB;"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        IsVisible="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                        Theme="{StaticResource TransparentButton}" />
+                    <Button
+                        Command="{Binding $parent[TextBox].Clear}"
+                        Content="&#xE721;"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        IsHitTestVisible="False"
+                        Theme="{StaticResource TransparentButton}" />
+                </StackPanel>
+            </Template>
+        </Setter>
+    </Style>
+</Styles>

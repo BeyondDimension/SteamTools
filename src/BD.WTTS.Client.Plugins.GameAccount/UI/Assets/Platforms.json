@@ -1,0 +1,191 @@
+[
+  {
+    "FullName": "Epic Games",
+    "Icon": "EpicGames",
+    "Platform": 128,
+    "IsExitBeforeInteract": false,
+    "DefaultExePath": "C:\\Program Files (x86)\\Epic Games\\Launcher\\Portal\\Binaries\\Win32\\EpicGamesLauncher.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "e", "epg", "epic", "epicgames" ],
+    "ExesToEnd": [ "EpicGamesLauncher.exe" ],
+    "LoginFiles": {
+      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\Windows\\GameUserSettings.ini": "GameUserSettings.ini",
+      "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId": "UNIQUE_ID"
+    },
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "CachePaths": [
+      "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\Cache",
+      "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\GPUCache",
+      "%LocalAppData%\\Epic Games\\EOSOverlay\\BrowserCache\\Cache"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\"
+    ],
+    "BackupFileTypesIgnore": null,
+    "BackupFileTypesInclude": null,
+    "UniqueIdPath": "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId",
+    "UniqueIdType": 2
+  },
+  {
+    "FullName": "Ubisoft",
+    "Icon": "Ubisoft",
+    "Platform": 16,
+    "IsExitBeforeInteract": true,
+    "DefaultExePath": "%ProgramFiles(x86)%\\Ubisoft\\Ubisoft Game launcher\\upc.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "u", "ubi", "uplay", "ubisoft" ],
+    "ExesToEnd": [ "upc.exe", "UplayService.exe", "UplayWebCore.exe" ],
+    "LoginFiles": {
+      "%Platform_Folder%\\logs\\launcher_log.txt": "logs\\launcher_log.txt",
+      "%LocalAppData%\\Ubisoft Game Launcher\\settings.yaml": "settings.yaml",
+      "%LocalAppData%\\Ubisoft Game Launcher\\user.dat": "user.dat"
+    },
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "CachePaths": [
+      "%Platform_Folder%\\cache\\achievements",
+      "%Platform_Folder%\\cache\\assets",
+      "%Platform_Folder%\\cache\\download",
+      "%Platform_Folder%\\cache\\http2"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\Ubisoft Game Launcher\\settings.yaml",
+      "%Platform_Folder%\\savegames\\"
+    ],
+    "BackupFileTypesIgnore": null,
+    "BackupFileTypesInclude": null,
+    "UniqueIdPath": "%Platform_Folder%\\logs\\launcher_log.txt",
+    "UniqueIdRegex": "(?<=User: ).*",
+    "UniqueIdType": 3
+  },
+  {
+    "FullName": "EA Desktop",
+    "Icon": "EADesktop",
+    "Platform": 8,
+    "IsExitBeforeInteract": true,
+    "DefaultExePath": "%ProgramFiles%\\Electronic Arts\\EA Desktop\\EA Desktop\\EADesktop.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "ea", "eadesktop" ],
+    "ExesToEnd": [ "EADesktop.exe", "EABackgroundService.exe" ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%LocalAppData%\\Electronic Arts\\EA Desktop\\": "LocalAppData\\"
+    },
+    "CachePaths": [
+      "%LocalAppData%\\EADesktop\\QtWebEngine\\Default\\GPUCache",
+      "%LocalAppData%\\EADesktop\\cache\\QtWebEngine\\Default\\Cache",
+      "%LocalAppData%\\EADesktop\\cache\\qmlcache"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\Electronic Arts\\EA Desktop\\"
+    ],
+    "BackupFileTypesIgnore": [
+      ".log"
+    ],
+    "BackupFileTypesInclude": null,
+    "UniqueIdPath": "%LocalAppData%\\Electronic Arts\\EA Desktop\\telemetry.ini",
+    "UniqueIdRegex": "(?<=\\=).*",
+    "UniqueIdType": 3
+  },
+  {
+    "FullName": "Origin",
+    "Icon": "Origin",
+    "Platform": 4,
+    "IsExitBeforeInteract": true,
+    "DefaultExePath": "%ProgramFiles(x86)%\\Origin\\Origin.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "o", "origin" ],
+    "ExesToEnd": [ "Origin.exe", "OriginWebHelperService.exe" ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%AppData%\\Origin\\ConsolidatedCache\\": "AppData\\ConsolidatedCache",
+      "%AppData%\\Origin\\Logs\\": "AppData\\Logs",
+      "%AppData%\\Origin\\NucleusCache\\": "AppData\\NucleusCache",
+      "%AppData%\\Origin\\*.xml": "AppData\\",
+      "%AppData%\\Origin\\Logs\\dserrors.data": "AppData\\Logs\\dserrors.data",
+      "%ProgramData%\\Origin\\AchievementCache\\": "ProgramData\\AchievementCache",
+      "%ProgramData%\\Origin\\Subscription\\": "ProgramData\\Subscription",
+      "%ProgramData%\\Origin\\local.xml": "ProgramData\\local.xml",
+      "%ProgramData%\\Origin\\*.olc": "ProgramData\\",
+      "%ProgramData%\\Origin\\WattToolkit.id": "WattToolkit.id"
+    },
+    "CachePaths": [
+      "%ProgramData%\\Origin\\DownloadCache",
+      "%LocalAppData%\\Origin\\Origin\\cache\\QtWebEngine\\Default\\Cache",
+      "%LocalAppData%\\Origin\\Origin\\QtWebEngine\\Default\\Application Cache\\Cache"
+    ],
+    "BackupPaths": [
+      "%ProgramData%\\Origin\\LocalContent\\",
+      "%ProgramData%\\Origin\\local.xml"
+    ],
+    "BackupFileTypesIgnore": null,
+    "BackupFileTypesInclude": null,
+    "UniqueIdPath": "%ProgramData%\\Origin\\WattToolkit.id",
+    "UniqueIdType": 1
+  },
+  {
+    "FullName": "Riot Games",
+    "Icon": "RiotGames",
+    "Platform": 8192,
+    "PlatformIds": [ "r", "riot", "riotgames" ],
+    "DefaultExePath": "C:\\Riot Games\\Riot Client\\RiotClientServices.exe",
+    "ExesToEnd": [
+      "LeagueClient.exe",
+      "LoR.exe",
+      "VALORANT.exe",
+      "RiotClientServices.exe",
+      "RiotClientUx.exe",
+      "RiotClientUxRender.exe"
+    ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data\\Cookies\\": "Cookies",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data": "RiotClientPrivateSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Config": "RiotClientSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id": "WattToolkit.id"
+    },
+    "UniqueIdFile": "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id",
+    "UniqueIdType": 1
+  },
+  {
+    "FullName": "Rockstar",
+    "Icon": "Rockstar",
+    "Platform": 8192,
+    "PlatformIds": [ "rs", "rockstar", "socialclub" ],
+    "DefaultExePath": "%ProgramFiles%\\Rockstar Games\\Launcher\\LauncherPatcher.exe",
+    "ExesToEnd": [
+      "LauncherPatcher.exe",
+      "Launcher.exe",
+      "RockstarErrorHandler.exe",
+      "RockstarService.exe",
+      "SocialClubHelper.exe"
+    ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%LocalAppData%\\Rockstar Games\\Launcher\\settings_user.dat": "settings_user.dat",
+      "%ProgramData%\\Rockstar Games\\Launcher\\settings_machine.dat": "settings_machine.dat",
+      "%Documents%\\Rockstar Games\\Social Club\\Profiles\\*": "Profiles\\",
+      "%ProgramData%\\Rockstar Games\\WattToolkit.id": "WattToolkit.id"
+    },
+    "CachePaths": [
+      "%Documents%\\Rockstar Games\\Social Club\\Launcher\\Renderer\\Cache\\f_*"
+    ],
+    "IsExitBeforeInteract": true,
+    "UniqueIdFile": "%ProgramData%\\Rockstar Games\\WattToolkit.id",
+    "UniqueIdType": 1
+  },
+  {
+    "FullName": "BattleNet",
+    "Icon": "BattleNet",
+    "Platform": 8192,
+    "PlatformIds": [ "b", "bnet", "battlenet", "blizzard" ],
+    "DefaultExePath": "%ProgramFiles(x86)%\\Battle.net\\Battle.net.exe",
+    "ExesToEnd": [ "Battle.net" ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "JSON_SELECT_FIRST,::%AppData%\\Battle.net\\Battle.net.config::$.Client.SavedAccountNames": "email.json"
+    },
+    "IsExitBeforeInteract": true,
+    "UniqueIdFile": "%AppData%\\Battle.net\\Battle.net.config::$.Client.SavedAccountNames",
+    "UniqueIdMethod": "JSON_SELECT_FIRST,"
+  }
+]

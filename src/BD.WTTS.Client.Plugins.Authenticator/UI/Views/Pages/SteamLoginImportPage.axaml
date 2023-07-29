@@ -1,0 +1,249 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.SteamLoginImportPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="300"
+    d:DesignWidth="600"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamLoginImportViewModel"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="StackPanel">
+            <Setter Property="Spacing" Value="20" />
+        </Style>
+    </UserControl.Styles>
+    <!--<spp:Stepper SelectedIndex="{Binding SelectIndex}">
+        <spp:StepperItem Index="0" Title="{ReflectionBinding Path=Res.Steam_Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:ContentLoader
+                HorizontalAlignment="Center"
+                IsLoading="{Binding IsLoading}"
+                IsShowNoResultText="False"
+                Margin="10"
+                MinHeight="320"
+                MinWidth="600"
+                VerticalAlignment="Center">
+                <Grid
+                    IsVisible="{Binding !IsLoading}"
+                    Margin="10"
+                    MinHeight="300"
+                    MinWidth="600">
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        Margin="0,50,0,0"
+                        MinWidth="600"
+                        VerticalAlignment="Top">
+                        <TextBox
+                            HorizontalContentAlignment="Center"
+                            MaxWidth="300"
+                            Text="{Binding UserNameText}"
+                            Watermark="{ReflectionBinding Path=Res.Steam_User,
+                                                          Mode=OneWay,
+                                                          Source={x:Static s:ResourceService.Current}}" />
+                        <TextBox
+                            Classes="revealPasswordButton"
+                            HorizontalContentAlignment="Center"
+                            MaxWidth="300"
+                            Name="PasswordText"
+                            PasswordChar="{StaticResource PasswordChar}"
+                            Text="{Binding PasswordText}"
+                            Watermark="{ReflectionBinding Path=Res.Steam_Password,
+                                                          Mode=OneWay,
+                                                          Source={x:Static s:ResourceService.Current}}" />
+                    </StackPanel>
+                    <Button
+                        Command="{ReflectionBinding LoginSteamImport}"
+                        Content="{ReflectionBinding Path=Res.Login,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        MinWidth="280"
+                        VerticalAlignment="Bottom" />
+                </Grid>
+            </spp:ContentLoader>
+        </spp:StepperItem>
+        <spp:StepperItem Index="1" Title="{ReflectionBinding Path=Res.Steam_EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:ContentLoader
+                HorizontalAlignment="Center"
+                IsLoading="{Binding IsLoading}"
+                IsShowNoResultText="False"
+                Margin="10"
+                MinHeight="320"
+                MinWidth="600"
+                VerticalAlignment="Center">
+                <Grid
+                    IsVisible="{Binding !IsLoading}"
+                    Margin="10"
+                    MinHeight="300"
+                    MinWidth="600">
+                    <StackPanel Margin="0,50,0,0" VerticalAlignment="Top">
+                        <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBox
+                            HorizontalContentAlignment="Center"
+                            MaxWidth="200"
+                            Name="EmailAuthText"
+                            Text="{Binding EmailAuthText}"
+                            Watermark="{ReflectionBinding Path=Res.EmailCode,
+                                                          Mode=OneWay,
+                                                          Source={x:Static s:ResourceService.Current}}" />
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Bottom">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Margin="10,0"
+                            Text="{Binding EmailDomainText}" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Margin="10,0"
+                            Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}"
+                            TextAlignment="Center"
+                            TextWrapping="WrapWithOverflow" />
+                        <Button
+                            Command="{ReflectionBinding LoginSteamImport}"
+                            Content="{ReflectionBinding Path=Res.Continue,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            MinWidth="280" />
+                    </StackPanel>
+                </Grid>
+            </spp:ContentLoader>
+        </spp:StepperItem>
+        <spp:StepperItem Index="2" Title="{ReflectionBinding Path=Res.Steam_BindTel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:ContentLoader
+                HorizontalAlignment="Center"
+                IsLoading="{Binding IsLoading}"
+                IsShowNoResultText="False"
+                Margin="10"
+                MinHeight="320"
+                MinWidth="600"
+                VerticalAlignment="Center">
+                <Grid
+                    IsVisible="{Binding !IsLoading}"
+                    Margin="10"
+                    MinHeight="300"
+                    MinWidth="600">
+                    <StackPanel Margin="0,50,0,0" VerticalAlignment="Top">
+                        <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.User_Phone, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBox
+                            HorizontalContentAlignment="Center"
+                            MaxWidth="200"
+                            Name="PhoneNumberText"
+                            Text="{Binding PhoneNumberText}"
+                            Watermark="123-4567-8910" />
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,10"
+                            Text="{ReflectionBinding Path=Res.Steam_EmailConfirmation,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}"
+                            VerticalAlignment="Bottom" />
+                        <Button
+                            Command="{ReflectionBinding LoginSteamImport}"
+                            Content="{ReflectionBinding Path=Res.Continue,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            MinWidth="280" />
+                    </StackPanel>
+                </Grid>
+            </spp:ContentLoader>
+        </spp:StepperItem>
+        <spp:StepperItem Index="3" Title="{ReflectionBinding Path=Res.TelCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:ContentLoader
+                HorizontalAlignment="Center"
+                IsLoading="{Binding IsLoading}"
+                IsShowNoResultText="False"
+                Margin="10"
+                MinHeight="320"
+                MinWidth="600"
+                VerticalAlignment="Center">
+                <Grid
+                    IsVisible="{Binding !IsLoading}"
+                    Margin="10"
+                    MinHeight="300"
+                    MinWidth="600">
+                    <StackPanel Margin="0,50,0,0" VerticalAlignment="Top">
+                        <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+    -->
+    <!--  恢复代码  -->
+    <!--
+                        <TextBox
+                            IsReadOnly="True"
+                            MaxWidth="200"
+                            Text="{Binding RevocationCodeText, Mode=OneWay}" />
+                        <TextBox
+                            HorizontalContentAlignment="Center"
+                            MaxWidth="200"
+                            Name="PhoneCodeText"
+                            Text="{Binding PhoneCodeText}"
+                            Watermark="{ReflectionBinding Path=Res.SMSCode,
+                                                          Mode=OneWay,
+                                                          Source={x:Static s:ResourceService.Current}}" />
+                        <CheckBox
+                            Content="{ReflectionBinding Path=Res.RecoveryCode_Remember,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}"
+                            HorizontalAlignment="Center"
+                            MinWidth="200" />
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Margin="10,0"
+                            Text="{ReflectionBinding Path=Res.LocalAuth_SMSCodeTip,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}"
+                            TextAlignment="Center"
+                            TextWrapping="WrapWithOverflow" />
+                        <Button
+                            Command="{ReflectionBinding LoginSteamImport}"
+                            Content="{ReflectionBinding Path=Res.Continue,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            MinWidth="280" />
+                    </StackPanel>
+                </Grid>
+            </spp:ContentLoader>
+        </spp:StepperItem>
+        <spp:StepperItem Index="4" Title="{ReflectionBinding Path=Res.Btn_Text_Complete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <Grid
+                IsVisible="{Binding !IsLoading}"
+                Margin="10"
+                MinHeight="300"
+                MinWidth="600">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Margin="0,50,0,0"
+                    MaxWidth="300"
+                    Text="{ReflectionBinding Path=Res.LocalAuth_SteamUserImportSuccess,
+                                             Mode=OneWay,
+                                             Source={x:Static s:ResourceService.Current}}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Top" />
+                <Button
+                    Command="{ReflectionBinding Reset}"
+                    Content="{ReflectionBinding Path=Res.Continue,
+                                                Mode=OneWay,
+                                                Source={x:Static s:ResourceService.Current}}"
+                    HorizontalAlignment="Center"
+                    MinWidth="280"
+                    VerticalAlignment="Bottom" />
+            </Grid>
+        </spp:StepperItem>
+    </spp:Stepper>-->
+</UserControl>

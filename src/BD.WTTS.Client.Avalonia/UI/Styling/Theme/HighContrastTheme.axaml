@@ -1,0 +1,19 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Add Resources Here  -->
+    <LinearGradientBrush x:Key="HeaderOpacityMaskBrush" StartPoint="0,0" EndPoint="0%,100%">
+        <GradientStop Color="#00000000" />
+        <GradientStop Offset="1" Color="#33000000" />
+    </LinearGradientBrush>
+
+    <ImageBrush
+        x:Key="PageHeaderBackgroundBrush"
+        AlignmentY="Center"
+        Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+        Stretch="UniformToFill">
+        <!--<RenderOptions.BitmapInterpolationMode>
+            <OnPlatform Default="HighQuality">
+                <On Content="MediumQuality" Options="iOS,Android,Browser" />
+            </OnPlatform>
+        </RenderOptions.BitmapInterpolationMode>-->
+    </ImageBrush>
+</ResourceDictionary>

@@ -1,6 +1,8 @@
-# Steam++ v2.X Source Code
+# Steam++ v3.X Source Code
 
-## 🏗️ 项目结构
+### 🏗️ 项目结构
+TODO
+<!-- TODO
 - Common **通用基础类库**
     - Common.AreaLib **地区数据**
     - Common.ClientLib **适用于客户端的通用基础类库**
@@ -64,7 +66,7 @@
     - ~~ST.Client.Desktop.Avalonia.Demo.App~~ **桌面客户端(UI演示)**
     - ST.Client.Maui.App **MAUI 客户端**
 
-## 🗂️ 命名空间/文件夹
+### 🗂️ 命名空间/文件夹
 - ~~中划线~~ 表示此文件夹下的命名空间使用上一级的值
 - Properties
     - AssemblyInfo.cs **程序集信息**
@@ -105,23 +107,4 @@
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 </pre>
-
-## 📁 存储空间
-- AppData
-    - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalState```
-    - Windows ```\AppData``` or ```%LocalAppData%\Steam++```
-    - macOS ```~/Library/Steam++```
-    - Linux ```$XDG_DATA_HOME/Steam++``` or ```$HOME/.local/share/Steam++```
-    - Android ```/data/data/net.steampp.app/files```
-- Cache
-    - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache```
-    - Windows ```\Cache``` or ```%Tmp%\Steam++```
-    - macOS ```~/Library/Caches/Steam++```
-    - Linux ```$XDG_CACHE_HOME/Steam++``` or ```$HOME/.cache/Steam++```
-    - Android ```/data/data/net.steampp.app/cache```
-- Logs
-    - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache\Logs```
-    - Windows ```\Logs``` or ```%Tmp%\Steam++\Logs```
-    - macOS ```~/Library/Caches/Steam++/Logs```
-    - Linux ```$XDG_CACHE_HOME/Steam++/Logs``` or ```$HOME/.cache/Steam++/Logs```
-    - Android ```/data/data/net.steampp.app/cache/Logs```
+-->

@@ -1,0 +1,33 @@
+# Steam++ v3.X Program File Structure for macOS
+
+- Steam++.app (包含 arm64 与 x64 以及 .NET Runtime x2 与 ASP.NET Core Runtime 文件大小应该较大)  
+  - Contents  
+      - Info.plist 
+      - MacOS  
+          - Steam++ (主启动程序)
+      - MonoBundle  
+          - dotnet 运行时，其中 Microsoft.NETCore.App 与 tfm macos 中将存在两份重复的，此目录参考 [aspnetcore-runtime-7.0.7-osx-arm64.tar.gz](https://wnload.visualstudio.microsoft.com/download/pr/97bb1f46-3b87-4475-bc06-e5cb7f4e6d0a/3e36e0c804c5805d2fe856505d7b1b3c/aspnetcore-runtime-7.0.7-osx-arm64.tar.gz)
+            - host
+	            - fxr
+		            - x.y.z
+			            - hostfxr.dll
+                - shared
+	                - Microsoft.AspNetCore.App
+		                - x.y.z
+	                - Microsoft.NETCore.App
+		                - x.y.z
+          - modules 可选模块
+              - Accelerator 网络加速
+                  - Steam++.Accelerator 控制台子服务进程，使用匿名管道与主进程通信，无参数或指定某个参数(待定)启动时可读取配置文件启动加速，可完全独立运行，ASP.NET Core Web API 项目，可支持 ocker
+                  - Steam++.Plugins.Accelerator.dll 插件程序集
+              - AccountSwitch 账号切换
+                  - Steam++.Plugins.AccountSwitch.dll
+              - ~~ArchiSteamFarm~~
+                  - Steam++.ArchiSteamFarm.dll
+                  - Steam++.Plugins.ArchiSteamFarm.dll
+              - GameList 库存游戏
+                  - Steam++.Plugins.GameList.dll
+              - LocalAuth 本地令牌
+                  - Steam++.Plugins.LocalAuth.dll
+      - PkgInfo  
+      - Resources  

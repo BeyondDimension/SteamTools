@@ -1,0 +1,33 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Width="400     " Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+            <TabControl>
+                <TabItem Classes="AnimeTab" Header="Arch">
+                    <Border Height="100" Background="AntiqueWhite">
+                        <TextBlock
+                            FontSize="20"
+                            Foreground="Black"
+                            Text="Content" />
+                    </Border>
+                </TabItem>
+                <TabItem Header="Leaf">
+                    <Border Height="100" Background="Green" />
+                </TabItem>
+                <TabItem Header="Disabled" IsEnabled="False" />
+            </TabControl>
+        </Border>
+    </Design.PreviewWith>
+
+    <!--  Add Styles Here  -->
+    <Style Selector="TabControl TabItem">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="MinHeight" Value="36" />
+    </Style>
+
+    <Style Selector="TabControl /template/ DockPanel">
+        <Setter Property="Margin" Value="0 -10 0 0" />
+    </Style>
+
+    <Style Selector="TabControl.AnimeTab" />
+</Styles>

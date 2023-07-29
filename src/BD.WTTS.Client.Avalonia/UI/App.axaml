@@ -1,0 +1,24 @@
+<Application
+    x:Class="BD.WTTS.UI.App"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:sty="using:FluentAvalonia.Styling">
+    <Application.Resources>
+        <spp:IsNullConverter x:Key="IsNullConverter" />
+        <spp:ResourceKeyValueConverter x:Key="ResourceKeyValueConverter" />
+        <spp:ColorStringToBrushConverter x:Key="ColorStringToBrushConverter" />
+        <spp:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
+        <spp:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
+        <spp:StringFormatConverter x:Key="StringFormatConverter" />
+        <spp:EnumConverter x:Key="EnumConverter" />
+        <spp:EnumEqualValueConverter x:Key="EnumEqualValueConverter" />
+        <spp:EnumLocalizationNameConverter x:Key="EnumLocalizationNameConverter" />
+    </Application.Resources>
+    <Application.Styles>
+        <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
+        <spp:CustomTheme Mode="Default" />
+    </Application.Styles>
+</Application>

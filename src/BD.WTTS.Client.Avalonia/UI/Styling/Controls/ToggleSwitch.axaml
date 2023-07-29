@@ -1,0 +1,193 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Spacing="5">
+                <ToggleSwitch Content="Button" />
+                <ToggleSwitch
+                    Classes="NoContent"
+                    OffContent="222"
+                    OnContent="111" />
+                <ToggleSwitch Classes="LeftContent" Content="Button" />
+                <WrapPanel>
+                    <TextBlock VerticalAlignment="Center" Text="OnlySwitch" />
+                    <ToggleSwitch VerticalAlignment="Center" Classes="OnlySwitch" />
+                    <TextBlock VerticalAlignment="Center" Text="OnlySwitch test margin" />
+                    <ToggleSwitch VerticalAlignment="Center" Classes="LeftContent" />
+                </WrapPanel>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+    <Styles.Resources>
+        <GridLength x:Key="ToggleSwitchPreContentMargin">5</GridLength>
+        <GridLength x:Key="ToggleSwitchPostContentMargin">5</GridLength>
+    </Styles.Resources>
+
+    <Style Selector="ToggleSwitch">
+        <Setter Property="OffContent" Value="{ReflectionBinding Path=Res.Off, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="OnContent" Value="{ReflectionBinding Path=Res.On, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="MinWidth" Value="0" />
+    </Style>
+
+    <Style Selector="ToggleSwitch.NoContent /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Height" Value="0" />
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="ToggleSwitch.OnlySwitch">
+        <Setter Property="Content" Value="" />
+        <Setter Property="OffContent" Value="" />
+        <Setter Property="OnContent" Value="" />
+        <Setter Property="Width" Value="40" />
+    </Style>
+
+    <Style Selector="ToggleSwitch.OnlySwitch /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Height" Value="0" />
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="ToggleSwitch.LeftContent">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}">
+                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{DynamicResource ToggleSwitchPreContentMargin}" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="{DynamicResource ToggleSwitchPostContentMargin}" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="12" MaxWidth="12" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            x:Name="SwitchAreaGrid"
+                            Grid.RowSpan="3"
+                            Grid.ColumnSpan="3"
+                            Margin="0,5"
+                            Background="{DynamicResource ToggleSwitchContainerBackground}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            TemplatedControl.IsTemplateFocusTarget="True" />
+
+                        <ContentPresenter
+                            x:Name="PART_OffContentPresenter"
+                            Grid.RowSpan="3"
+                            Grid.Column="0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding OffContent}"
+                            ContentTemplate="{TemplateBinding OffContentTemplate}" />
+
+                        <ContentPresenter
+                            x:Name="PART_OnContentPresenter"
+                            Grid.RowSpan="3"
+                            Grid.Column="0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding OnContent}"
+                            ContentTemplate="{TemplateBinding OnContentTemplate}" />
+
+                        <Border
+                            x:Name="OuterBorder"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Width="40"
+                            Height="20"
+                            Background="{DynamicResource ToggleSwitchFillOff}"
+                            BorderBrush="{DynamicResource ToggleSwitchStrokeOff}"
+                            BorderThickness="{DynamicResource ToggleSwitchOuterBorderStrokeThickness}"
+                            CornerRadius="10">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <BrushTransition Property="BorderBrush" Duration="00:00:00.167" />
+                                    <BrushTransition Property="Background" Duration="00:00:00.167" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+
+                        <Border
+                            x:Name="SwitchKnobBounds"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Width="40"
+                            Height="20"
+                            Background="{DynamicResource ToggleSwitchFillOn}"
+                            BorderBrush="{DynamicResource ToggleSwitchStrokeOn}"
+                            BorderThickness="{DynamicResource ToggleSwitchOnStrokeThickness}"
+                            CornerRadius="10">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <BrushTransition Property="BorderBrush" Duration="00:00:00.167" />
+                                    <BrushTransition Property="Background" Duration="00:00:00.167" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+
+                        <Canvas
+                            x:Name="PART_SwitchKnob"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Left">
+
+                            <Grid
+                                x:Name="PART_MovingKnobs"
+                                Width="20"
+                                Height="20">
+
+                                <Ellipse
+                                    x:Name="SwitchKnobOn"
+                                    Width="12"
+                                    Height="12"
+                                    Fill="{DynamicResource ToggleSwitchKnobFillOn}">
+                                    <Ellipse.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition
+                                                Easing="0,0 0,1"
+                                                Property="Width"
+                                                Duration="00:00:00.167" />
+                                            <DoubleTransition
+                                                Easing="0,0 0,1"
+                                                Property="Height"
+                                                Duration="00:00:00.167" />
+                                        </Transitions>
+                                    </Ellipse.Transitions>
+                                </Ellipse>
+
+                                <Ellipse
+                                    x:Name="SwitchKnobOff"
+                                    Width="12"
+                                    Height="12"
+                                    Fill="{DynamicResource ToggleSwitchKnobFillOff}">
+                                    <Ellipse.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition
+                                                Easing="0,0 0,1"
+                                                Property="Width"
+                                                Duration="00:00:00.167" />
+                                            <DoubleTransition
+                                                Easing="0,0 0,1"
+                                                Property="Height"
+                                                Duration="00:00:00.167" />
+                                        </Transitions>
+                                    </Ellipse.Transitions>
+                                </Ellipse>
+                            </Grid>
+                        </Canvas>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="RadioButton">
+        <Setter Property="MinWidth" Value="0" />
+    </Style>
+</Styles>

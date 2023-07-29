@@ -1,25 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>Avalonia.Skia</RootNamespace>
-    <AssemblyName>Avalonia.Skia.UnitTests</AssemblyName>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\avalonia.snk</AssemblyOriginatorKeyFile>
-    <!--https://github.com/AvaloniaUI/Avalonia/blob/0.10.10/build/SharedVersion.props#L18-->
-  </PropertyGroup>
+	<PropertyGroup>
+		<RootNamespace>Avalonia.Skia</RootNamespace>
+		<AssemblyName>Avalonia.Skia.UnitTests</AssemblyName>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\avalonia.snk</AssemblyOriginatorKeyFile>
+		<!--https://github.com/AvaloniaUI/Avalonia/blob/0.10.10/build/SharedVersion.props#L18-->
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Avalonia.Skia" Aliases="AvaloniaSkia" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="..\AssemblyInfo.cs" />
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="BD.Common" />
+		<PackageReference Include="Avalonia.Skia" Aliases="AvaloniaSkia" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Avalonia.Controls.Internals\Avalonia.Controls.Internals.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NETX.props" />
 
 </Project>

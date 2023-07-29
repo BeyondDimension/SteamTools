@@ -1,0 +1,43 @@
+# Steam++ v3.X Program File Structure for Windows
+
+- dotnet 共享运行时，删除后将使用已安装的运行时，此目参考 ```C:\Program Files\dotnet```，可自行升级行库小版本号，二进制兼容
+	- host
+		- fxr
+			- x.y.z
+				- hostfxr.dll
+	- shared
+		- Microsoft.AspNetCore.App
+			- x.y.z
+		- Microsoft.NETCore.App
+			- x.y.z
+- native
+    - win-x64
+        - 7z.dll
+        - av_libglesv2.dll
+        - e_sqlite3.dll
+        - libHarfBuzzSharp.dll
+        - libSkiaSharp.dll
+        - WebView2Loader.dll
+        - WinDivert.dll
+        - WinDivert64.sys
+- assemblies 主模块程序集
+- modules 可选模块
+    - ~~Update 自更新模块，删除该文件夹后禁用更新~~
+        - Steam++.Update.exe 更新程序，CDN 分发更包，下载与解压在主程序中，此进程仅退出主程执行覆盖操作
+    - Accelerator 网络加速
+        - Steam++.Accelerator.exe 控制台子服务进，使用匿名管道与主进程通信，无参数或指定某参数(待定)启动时可读取配置文件启动加速，可全独立运行，ASP.NET Core Web API 项目，支持 Docker
+        - Steam++.Plugins.Accelerator.dll 插件程集
+    - AccountSwitch 账号切换
+        - Steam++.Plugins.AccountSwitch.dll
+    - ~~ArchiSteamFarm~~
+        - Steam++.ArchiSteamFarm.exe
+        - Steam++.Plugins.ArchiSteamFarm.dll
+    - GameList 库存游戏
+        - Steam++.Plugins.GameList.dll
+    - LocalAuth 本地令牌
+        - Steam++.Plugins.LocalAuth.dll
+    - GameTools 游戏工具
+        - Steam++.Plugins.GameTools.dll
+- Steam++.exe (主启动程序).NET Framework 二进制主程序  
+- Steam++.exe.config 使用该配置文件以允许在 .NET Framework 3.5 ~ 4.8.1 中任意版本中兼容运行(从 Windows 7 ~ 11 中所有系统自带运行时)  
+- ~~Steam++.Uninstall.exe 卸载程序(WinForms?AOT?)~~ 

@@ -1,0 +1,26 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+            <StackPanel Spacing="8">
+                <Border Padding="20" Classes="paper">
+                    <TextBox Text="Code Font Family" />
+                </Border>
+
+                <Border Padding="20" Classes="card">
+                    <TextBox Text="Code Font Family" />
+                </Border>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!--  Add Styles Here  -->
+    <Style Selector="Border.paper">
+        <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+        <!--<Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />-->
+        <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ClipToBounds" Value="True" />
+    </Style>
+</Styles>

@@ -1,0 +1,36 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    x:CompileBindings="True">
+    <ControlTheme x:Key="{x:Type spp:SnackbarManager}" TargetType="spp:SnackbarManager">
+        <Setter Property="Margin" Value="16" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ReversibleStackPanel Name="PART_Items" />
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:topleft /template/ ReversibleStackPanel#PART_Items">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+
+        <Style Selector="^:topright /template/ ReversibleStackPanel#PART_Items">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+
+        <Style Selector="^:bottomleft /template/ ReversibleStackPanel#PART_Items">
+            <Setter Property="ReverseOrder" Value="True" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+
+        <Style Selector="^:bottomright /template/ ReversibleStackPanel#PART_Items">
+            <Setter Property="ReverseOrder" Value="True" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

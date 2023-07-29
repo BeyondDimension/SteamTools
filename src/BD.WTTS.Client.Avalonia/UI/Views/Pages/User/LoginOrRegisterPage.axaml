@@ -1,0 +1,295 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.LoginOrRegisterPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:columns="using:BD.Common.Columns"
+    xmlns:com="using:BD.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:Name="u"
+    MinWidth="350"
+    MaxWidth="400"
+    d:DesignHeight="450"
+    d:DesignWidth="300"
+    x:CompileBindings="True"
+    x:DataType="spp:LoginOrRegisterWindowViewModel"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <spp:StringEqualsConverter x:Key="StringEqualsConverter" />
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="PathIcon.Steam">
+            <Setter Property="Data" Value="{StaticResource Steam}" />
+        </Style>
+        <Style Selector="PathIcon.QQ">
+            <Setter Property="Data" Value="{StaticResource QQ}" />
+        </Style>
+        <Style Selector="PathIcon.Xbox">
+            <Setter Property="Data" Value="{StaticResource Xbox}" />
+        </Style>
+        <Style Selector="PathIcon.Apple">
+            <Setter Property="Data" Value="{StaticResource Apple}" />
+        </Style>
+    </UserControl.Styles>
+    <Grid RowDefinitions="*,Auto,Auto">
+
+        <Carousel Classes="AnimeSlide" SelectedIndex="{Binding LoginState}">
+            <Carousel.Styles>
+                <Style Selector="StackPanel.Mid">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="30,0" />
+                    <Setter Property="Spacing" Value="10" />
+                </Style>
+            </Carousel.Styles>
+
+            <!--  0 快速登录  -->
+            <StackPanel Classes="Mid">
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    Text="{ReflectionBinding Path=Res.User_FastLoginTip,
+                                             Mode=OneWay,
+                                             Source={x:Static s:ResourceService.Current}}"
+                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                <ItemsControl Background="Transparent" ItemsSource="{Binding ExternalLoginChannels}">
+                    <ItemsControl.Styles>
+                        <!--<Style Selector="ListBoxItem">
+                  <Setter Property="MinHeight" Value="50"></Setter>
+                  <Setter Property="Margin" Value="0 5"></Setter>
+                  <Setter Property="Background" Value="{StaticResource ThemeBrushKey}"></Setter>
+                </Style>-->
+                        <Style Selector="PathIcon">
+                            <Setter Property="Height" Value="20" />
+                            <Setter Property="Width" Value="20" />
+                        </Style>
+                    </ItemsControl.Styles>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="spp:ExternalLoginChannelViewModel">
+                            <Button
+                                MinHeight="50"
+                                Margin="0,5"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Command="{ReflectionBinding #u.DataContext.ChooseChannel}"
+                                CommandParameter="{Binding Id, Mode=OneWay}">
+                                <DockPanel>
+                                    <Panel Margin="5,0,0,0" DockPanel.Dock="Left">
+                                        <PathIcon
+                                            Classes.Apple="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Apple}"
+                                            Classes.QQ="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=QQ}"
+                                            Classes.Steam="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Steam}"
+                                            Classes.Xbox="{Binding Id, Mode=OneWay, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Xbox}" />
+                                    </Panel>
+                                    <Panel Margin="10,0,0,0" DockPanel.Dock="Right">
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Title, Mode=OneWay}" />
+                                    </Panel>
+                                </DockPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <!--  1 手机号登录  -->
+            <StackPanel Classes="Mid">
+                <Image
+                    Width="128"
+                    Height="128"
+                    Margin="0,0,0,25"
+                    HorizontalAlignment="Center"
+                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico">
+                    <!--<Image.Clip>
+                                <EllipseGeometry Rect="0,0,128,128"/>
+                            </Image.Clip>-->
+                </Image>
+
+                <Panel Height="38">
+                    <TextBox
+                        Name="TbPhoneNumber"
+                        Padding="80,0,0,0"
+                        VerticalAlignment="Stretch"
+                        MaxLength="{x:Static com:PhoneNumberHelper.ChineseMainlandPhoneNumberLength}"
+                        Text="{Binding PhoneNumber}"
+                        TextAlignment="Left"
+                        Watermark="{ReflectionBinding Path=Res.User_Phone,
+                                                      Mode=OneWay,
+                                                      Source={x:Static s:ResourceService.Current}}" />
+                    <Border HorizontalAlignment="Left" Cursor="Hand">
+                        <DropDownButton
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="+86"
+                            Cursor="Hand">
+                            <DropDownButton.Flyout>
+                                <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                    <MenuItem Header="+86" />
+                                    <!--<MenuItem Header="+852" />
+                                    <MenuItem Header="+853" />
+                                    <MenuItem Header="+886" />
+                                    <MenuItem Header="+81" />-->
+                                </MenuFlyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
+                    </Border>
+                </Panel>
+
+                <Panel Height="38">
+                    <TextBox
+                        Name="TbSmsCode"
+                        Height="38"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        MaxLength="{x:Static columns:MaxLengths.SMS_CAPTCHA}"
+                        Text="{Binding SmsCode}"
+                        Watermark="{ReflectionBinding Path=Res.User_SMSCode,
+                                                      Mode=OneWay,
+                                                      Source={x:Static s:ResourceService.Current}}" />
+                    <Border
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch"
+                        Cursor="Hand">
+                        <Button
+                            Margin="0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{ReflectionBinding SendSms}"
+                            Content="{Binding BtnSendSmsCodeText}"
+                            IsEnabled="{Binding !IsUnTimeLimit}" />
+                    </Border>
+                </Panel>
+
+                <Button
+                    Height="38"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Classes="accent"
+                    Command="{Binding Submit}"
+                    Content="{ReflectionBinding Path=Res.LoginAndRegister,
+                                                Mode=OneWay,
+                                                Source={x:Static s:ResourceService.Current}}" />
+
+            </StackPanel>
+
+            <!--  2 加载中状态  -->
+            <StackPanel Classes="Mid">
+                <TextBlock Text="{ReflectionBinding Path=Res.User_WaitFastLoginTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" TextWrapping="Wrap" />
+
+                <WrapPanel Margin="0,20" HorizontalAlignment="Center">
+                    <TextBlock Text="{ReflectionBinding Path=Res.User_LoginUnexpectedPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                    <ui:HyperlinkButton
+                        Margin="5,0"
+                        Padding="0"
+                        HorizontalContentAlignment="Center"
+                        Command="{Binding ManualLogin}">
+                        <TextBlock Text="{ReflectionBinding Path=Res.Login_ManualLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                    </ui:HyperlinkButton>
+                </WrapPanel>
+
+                <ProgressBar
+                    Width="80"
+                    Height="80"
+                    Margin="0,40"
+                    VerticalAlignment="Center"
+                    Classes="Circle"
+                    IsIndeterminate="True" />
+
+                <StackPanel
+                    Margin="0,0,0,40"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="50">
+                    <Button
+                        HorizontalContentAlignment="Center"
+                        Command="{ReflectionBinding ChangeState}"
+                        Content="{ReflectionBinding Path=Res.Cancel,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}"
+                        Theme="{StaticResource TransparentButton}">
+                        <Button.CommandParameter>
+                            <x:Int16>0</x:Int16>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button
+                        HorizontalContentAlignment="Center"
+                        Command="{Binding ChooseChannel}"
+                        CommandParameter="{Binding CurrentSelectChannel}"
+                        Content="{ReflectionBinding Path=Res.Retry,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}"
+                        Theme="{StaticResource TransparentButton}" />
+                </StackPanel>
+            </StackPanel>
+
+        </Carousel>
+
+        <WrapPanel
+            Grid.Row="1"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Center">
+            <TextBlock
+                FontSize="12"
+                Text="{ReflectionBinding Path=Res.User_RegisterAgreed,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}"
+                Theme="{StaticResource CaptionTextBlockStyle}" />
+            <ui:HyperlinkButton
+                Margin="5,0"
+                Padding="0"
+                Command="{ReflectionBinding OpenHyperlink}"
+                CommandParameter="Agreement"
+                Cursor="Hand">
+                <TextBlock Text="{ReflectionBinding Path=Res.User_Agreement, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+            </ui:HyperlinkButton>
+            <TextBlock Text="{ReflectionBinding Path=Res.And, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+            <ui:HyperlinkButton
+                Margin="5,0"
+                Padding="0"
+                Command="{ReflectionBinding OpenHyperlink}"
+                CommandParameter="Privacy"
+                Cursor="Hand">
+                <TextBlock Text="{ReflectionBinding Path=Res.User_Privacy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+            </ui:HyperlinkButton>
+        </WrapPanel>
+
+        <StackPanel
+            Grid.Row="2"
+            Margin="0,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal">
+            <ui:HyperlinkButton
+                HorizontalContentAlignment="Center"
+                Command="{ReflectionBinding ChangeState}"
+                Cursor="Hand">
+                <ui:HyperlinkButton.CommandParameter>
+                    <x:Int16>0</x:Int16>
+                </ui:HyperlinkButton.CommandParameter>
+                <TextBlock Text="{ReflectionBinding Path=Res.User_FastLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </ui:HyperlinkButton>
+            <Separator
+                Height="18"
+                Margin="10,0"
+                VerticalAlignment="Stretch"
+                Background="{DynamicResource ButtonBorderBrush}"
+                Classes="Vertical"
+                IsHitTestVisible="False" />
+            <ui:HyperlinkButton
+                HorizontalContentAlignment="Center"
+                Command="{ReflectionBinding ChangeState}"
+                Cursor="Hand">
+                <ui:HyperlinkButton.CommandParameter>
+                    <x:Int16>1</x:Int16>
+                </ui:HyperlinkButton.CommandParameter>
+                <TextBlock Text="{ReflectionBinding Path=Res.User_PhoneLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </ui:HyperlinkButton>
+        </StackPanel>
+    </Grid>
+</UserControl>

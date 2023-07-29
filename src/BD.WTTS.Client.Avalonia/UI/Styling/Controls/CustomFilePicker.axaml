@@ -1,0 +1,78 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <Design.PreviewWith>
+        <Border Padding="40">
+            <StackPanel Spacing="10">
+                <spp:CustomFilePicker>
+                    <Image
+                        Width="150"
+                        Height="150"
+                        Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico"
+                        Stretch="UniformToFill" />
+                </spp:CustomFilePicker>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="spp|CustomFilePicker">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="DragDrop.AllowDrop" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="MinHeight" Value="65" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    BorderBrush="{DynamicResource ButtonBorderBrush}"
+                    BorderThickness="1"
+                    ClipToBounds="True"
+                    CornerRadius="5">
+                    <Panel>
+                        <ContentPresenter
+                            Name="ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        <Panel
+                            Name="FilePickerTipBorder"
+                            MaxWidth="{ReflectionBinding $parent.Bounds.Width}"
+                            MaxHeight="{ReflectionBinding $parent.Bounds.Height}">
+                            <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
+                                <StackPanel
+                                    Margin="10,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <ui:SymbolIcon FontSize="30" Symbol="Download" />
+                                    <TextBlock
+                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                        Text="{ReflectionBinding Path=Res.CustomFilePicker_Tip,
+                                                                 Mode=OneWay,
+                                                                 Source={x:Static s:ResourceService.Current}}"
+                                        TextAlignment="Center"
+                                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                </StackPanel>
+                            </Border>
+                            <Rectangle
+                                Margin="5"
+                                RadiusX="2"
+                                RadiusY="2"
+                                Stroke="{DynamicResource CircleElevationBorderBrush}"
+                                StrokeDashArray="5,5"
+                                StrokeThickness="1.5" />
+                        </Panel>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="spp|CustomFilePicker /template/ Panel#FilePickerTipBorder">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="spp|CustomFilePicker:pointerover /template/ Panel#FilePickerTipBorder">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+</Styles>

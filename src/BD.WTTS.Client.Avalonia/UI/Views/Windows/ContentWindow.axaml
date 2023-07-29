@@ -1,0 +1,89 @@
+<Window
+    x:Class="BD.WTTS.UI.Views.Windows.ContentWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+    xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+    Title="{Binding Title}"
+    Width="{Binding Width}"
+    Height="{Binding Height}"
+    MaxWidth="{Binding MaxWidth}"
+    MaxHeight="{Binding MaxHeight}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:ContentWindowViewModel"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto, *">
+        <Grid
+            Name="TitleBarHost"
+            Height="{StaticResource TitleBarHeight}"
+            Background="Transparent"
+            ColumnDefinitions="Auto,Auto,*,Auto,150">
+            <Image
+                Name="WindowIcon"
+                Grid.Column="0"
+                Width="26"
+                Height="26"
+                Margin="22,4,12,4"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                IsHitTestVisible="False"
+                RenderOptions.BitmapInterpolationMode="HighQuality"
+                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+
+            <TextBlock
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                FontSize="12"
+                IsHitTestVisible="False"
+                Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+
+            <Border
+                Grid.Column="2"
+                Padding="6"
+                VerticalAlignment="Center"
+                IsVisible="{Binding IsShowSearchBox}">
+                <AutoCompleteBox
+                    Name="SearchBox"
+                    MaxWidth="500"
+                    VerticalAlignment="Center"
+                    wnd:AppWindow.AllowInteractionInTitleBar="True"
+                    Classes="Search" />
+            </Border>
+
+            <DockPanel Grid.Column="3" IsVisible="{Binding ActionContent, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                <ContentControl Content="{Binding ActionContent}" DockPanel.Dock="Left" />
+
+                <Separator
+                    Height="18"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Classes="Vertical"
+                    DockPanel.Dock="Right"
+                    IsHitTestVisible="False" />
+            </DockPanel>
+        </Grid>
+        <ContentControl
+            Name="ViewContent"
+            Grid.Row="1"
+            Content="{Binding PageViewModel}">
+            <ContentControl.DataTemplates>
+                <DataTemplate DataType="spp:AboutPageViewModel">
+                    <spp:AboutPage />
+                </DataTemplate>
+                <DataTemplate DataType="spp:SettingsPageViewModel">
+                    <spp:SettingsPage />
+                </DataTemplate>
+                <DataTemplate DataType="spp:DebugPageViewModel">
+                    <spp:DebugPage />
+                </DataTemplate>
+            </ContentControl.DataTemplates>
+        </ContentControl>
+    </Grid>
+</Window>

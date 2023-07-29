@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\avalonia.snk</AssemblyOriginatorKeyFile>
+		<!--https://github.com/AvaloniaUI/Avalonia/blob/0.10.10/build/SharedVersion.props#L18-->
+		<IsTrimmable>true</IsTrimmable>
+		<PackageId>Avalonia</PackageId>
+		<Version>0.0.0.1</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="..\AssemblyInfo.cs" />
+		<Compile Remove="..\ImplicitUsings.BCL.cs" />
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NETX.props" />
+
+</Project>

@@ -2,39 +2,52 @@
 extern alias AvaloniaSkia;
 
 using Avalonia.Media;
-using System.Collections.Generic;
-using System.Globalization;
 using FontManagerImpl = AvaloniaSkia::Avalonia.Skia.FontManagerImpl;
 
 // ReSharper disable once CheckNamespace
-namespace Avalonia.Platform
+namespace Avalonia.Platform;
+
+public interface IFontManagerImpl2 : IFontManagerImpl
 {
-    public interface IFontManagerImpl2 : IFontManagerImpl
+    protected IFontManagerImpl Impl { get; }
+
+    string DefaultFontFamilyName { get; }
+
+    string OnCreateGlyphTypeface(string familyName);
+
+    string IFontManagerImpl.GetDefaultFontFamilyName() => DefaultFontFamilyName;
+
+    string[] IFontManagerImpl.GetInstalledFontFamilyNames(bool checkForUpdates)
     {
-        protected IFontManagerImpl Impl { get; }
-
-        string DefaultFontFamilyName { get; }
-
-        Typeface OnCreateGlyphTypeface(Typeface typeface);
-
-        string IFontManagerImpl.GetDefaultFontFamilyName() => DefaultFontFamilyName;
-
-        IEnumerable<string> IFontManagerImpl.GetInstalledFontFamilyNames(bool checkForUpdates)
-        {
-            return Impl.GetInstalledFontFamilyNames(checkForUpdates);
-        }
-
-        bool IFontManagerImpl.TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontFamily fontFamily, CultureInfo culture, out Typeface typeface)
-        {
-            return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontFamily, culture, out typeface);
-        }
-
-        IGlyphTypefaceImpl IFontManagerImpl.CreateGlyphTypeface(Typeface typeface)
-        {
-            typeface = OnCreateGlyphTypeface(typeface);
-            return Impl.CreateGlyphTypeface(typeface);
-        }
-
-        protected static IFontManagerImpl CreateFontManager() => new FontManagerImpl();
+        return Impl.GetInstalledFontFamilyNames(checkForUpdates);
     }
+
+    new string[] GetInstalledFontFamilyNames(bool checkForUpdates)
+    {
+        return Impl.GetInstalledFontFamilyNames(checkForUpdates);
+    }
+
+    bool IFontManagerImpl.TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, CultureInfo? culture, out Typeface typeface)
+    {
+        return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontStretch, culture, out typeface);
+    }
+
+    bool IFontManagerImpl.TryCreateGlyphTypeface(string familyName, FontStyle style, FontWeight weight, FontStretch stretch, [NotNullWhen(returnValue: true)] out IGlyphTypeface? glyphTypeface)
+    {
+        familyName = OnCreateGlyphTypeface(familyName);
+        return Impl.TryCreateGlyphTypeface(familyName, style, weight, stretch, out glyphTypeface);
+    }
+
+    bool IFontManagerImpl.TryCreateGlyphTypeface(Stream stream, [NotNullWhen(returnValue: true)] out IGlyphTypeface? glyphTypeface)
+    {
+        return Impl.TryCreateGlyphTypeface(stream, out glyphTypeface);
+    }
+
+    //IGlyphTypeface IFontManagerImpl.CreateGlyphTypeface(Typeface typeface)
+    //{
+    //    typeface = OnCreateGlyphTypeface(typeface);
+    //    return Impl.CreateGlyphTypeface(typeface);
+    //}
+
+    protected static IFontManagerImpl CreateFontManager() => new FontManagerImpl();
 }

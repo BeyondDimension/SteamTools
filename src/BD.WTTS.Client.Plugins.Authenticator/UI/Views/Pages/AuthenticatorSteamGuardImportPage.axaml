@@ -1,0 +1,53 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorSteamGuardImportPage"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorSteamGuardViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Margin="{StaticResource PageMargin}">
+        <StackPanel Spacing="30">
+            <StackPanel Spacing="5">
+                <TextBlock Text="{ReflectionBinding Path=Res.GeneralAuth_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox
+                    HorizontalContentAlignment="Center"
+                    Text="{Binding ImportAuthNewName}"
+                    Watermark="{ReflectionBinding Path=Res.Warning_PleaseEnterAuthName,
+                                                  Mode=OneWay,
+                                                  Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>
+            <StackPanel Spacing="5">
+                <TextBlock Text="{ReflectionBinding Path=Res.SteamUUID, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox
+                    HorizontalContentAlignment="Center"
+                    Text="{Binding PhoneImportUuid}"
+                    Watermark="{ReflectionBinding Path=Res.LocalAuth_SteamuuidTip,
+                                                  Mode=OneWay,
+                                                  Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>
+            <StackPanel Spacing="5">
+                <TextBlock Text="{ReflectionBinding Path=Res.SteamGuardData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox Text="{Binding PhoneImportSteamGuard}" Watermark="{ReflectionBinding Path=Res.LocalAuth_SteamGuardTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                                         Path=Res.LocalAuth_SteamAppImportTip,
+                                         Mode=OneWay}"
+                TextWrapping="Wrap" />
+            <Button
+                Command="{Binding Import}"
+                Content="{ReflectionBinding Path=Res.ConfirmImport,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom" />
+        </StackPanel>
+    </Border>
+</UserControl>

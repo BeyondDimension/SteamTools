@@ -1,31 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\avalonia.snk</AssemblyOriginatorKeyFile>
-    <!--https://github.com/AvaloniaUI/Avalonia/blob/0.10.10/build/SharedVersion.props#L18-->
-    <IsTrimmable>true</IsTrimmable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\avalonia.snk</AssemblyOriginatorKeyFile>
+		<!--https://github.com/AvaloniaUI/Avalonia/blob/0.10.10/build/SharedVersion.props#L18-->
+		<IsTrimmable>true</IsTrimmable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\AssemblyInfo.Version.Max.cs">
-      <LinkBase>Properties</LinkBase>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\AssemblyInfo.Version.Max.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Remove="..\AssemblyInfo.cs" />
+		<Compile Remove="..\ImplicitUsings.BCL.cs" />
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Avalonia.Win32" />
+		<PackageReference Include="Avalonia.Skia" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Avalonia.Win32" />
-  </ItemGroup>
+	<ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
+		<PackageReference Include="Avalonia.X11" />
+		<PackageReference Include="Avalonia.Native" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
-    <PackageReference Include="Avalonia.X11" />
-    <PackageReference Include="Avalonia.Native" />
-  </ItemGroup>
+	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>

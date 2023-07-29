@@ -1,0 +1,387 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:FluentAvalonia.Core"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+    x:CompileBindings="True">
+    <Design.PreviewWith>
+        <Border
+            Width="600"
+            Height="530"
+            Padding="20"
+            Background="#CDCDCD">
+            <Border BorderBrush="#35EFEFEF" BorderThickness="1">
+                <spp:TaskDialogEx
+                    core:VisualStateHelper.ForcedClassesProperty=":open,:progressSuspend:hosted"
+                    Content="Dialog Content goes here"
+                    FooterVisibility="Auto"
+                    Header="Dialog Heading"
+                    IsVisible="True"
+                    ShowProgressBar="True"
+                    SubHeader="Dialog SubHeader">
+                    <!--<spp:TaskDialogEx.Buttons>
+                        <ui:TaskDialogButton
+                            IconSource="Checkmark"
+                            IsDefault="True"
+                            Text="OK" />
+                        <ui:TaskDialogButton
+                            IconSource="Dismiss"
+                            IsEnabled="False"
+                            Text="Cancel" />
+                    </spp:TaskDialogEx.Buttons>-->
+
+                    <spp:TaskDialogEx.Commands>
+                        <ui:TaskDialogCommand
+                            Description="A bigger description goes here"
+                            IconSource="Map"
+                            Text="Text here" />
+                        <ui:TaskDialogCommand
+                            Description="A bigger description goes here"
+                            IsEnabled="False"
+                            Text="Text here" />
+                        <ui:TaskDialogCommand Text="Text here" />
+                        <ui:TaskDialogCheckBox Text="CheckBox" />
+                        <ui:TaskDialogRadioButton Text="RadioButton" />
+                    </spp:TaskDialogEx.Commands>
+
+                    <spp:TaskDialogEx.Footer>
+                        <CheckBox Content="Never show me this again" />
+                    </spp:TaskDialogEx.Footer>
+                </spp:TaskDialogEx>
+            </Border>
+        </Border>
+    </Design.PreviewWith>
+
+    <Thickness x:Key="TaskDialogHeaderPadding">60 18 12 9</Thickness>
+    <Thickness x:Key="TaskDialogHeaderPaddingNoIcon">18 18 12 9</Thickness>
+
+    <ControlTheme x:Key="TaskDialogMoreDetailsButton" TargetType="Button">
+        <Setter Property="Foreground" Value="{DynamicResource TaskDialogFooterButtonForeground}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="Transparent">
+                    <TextBlock Text="{TemplateBinding Content}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^ /template/ TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TaskDialogFooterButtonForegroundPointerOver}" />
+        </Style>
+        <Style Selector="^ /template/ TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TaskDialogFooterButtonForegroundPressed}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type spp:TaskDialogEx}" TargetType="spp:TaskDialogEx">
+        <Setter Property="Background" Value="{DynamicResource ContentDialogBackground}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel Name="LayoutRoot" Background="{x:Null}">
+                    <ui:FABorder
+                        Name="ContentRoot"
+                        MinWidth="{DynamicResource TaskDialogMinWidth}"
+                        MinHeight="{DynamicResource TaskDialogMinHeight}"
+                        MaxWidth="{DynamicResource TaskDialogMaxWidth}"
+                        MaxHeight="{DynamicResource TaskDialogMaxHeight}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="{TemplateBinding Background}">
+                        <Grid RowDefinitions="Auto,Auto,*,Auto">
+                            <Panel
+                                Name="HeaderHost"
+                                Grid.Row="0"
+                                Background="{TemplateBinding HeaderBackground}"
+                                IsVisible="False">
+                                <Viewbox
+                                    Name="IconHost"
+                                    Width="{StaticResource TaskDialogIconSize}"
+                                    Height="{StaticResource TaskDialogIconSize}"
+                                    Margin="{DynamicResource TaskDialogIconMargin}"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    IsVisible="False">
+                                    <ui:IconSourceElement Name="IconElement" IconSource="{TemplateBinding IconSource}" />
+                                </Viewbox>
+                                <TextBlock
+                                    Name="HeaderText"
+                                    Margin="{DynamicResource TaskDialogHeaderPadding}"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="{DynamicResource TaskDialogHeaderFontSize}"
+                                    FontWeight="{StaticResource TaskDialogHeaderFontWeight}"
+                                    IsVisible="False"
+                                    Text="{TemplateBinding Header}"
+                                    TextWrapping="Wrap" />
+
+                                <Button
+                                    Name="CloseButton"
+                                    Margin="0,0,12,0"
+                                    HorizontalAlignment="Right"
+                                    Classes="Close"
+                                    Content="{StaticResource Close}"
+                                    Focusable="True"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    IsTabStop="True"
+                                    Theme="{StaticResource FA_SystemCaptionButton}" />
+                            </Panel>
+
+                            <TextBlock
+                                Name="SubHeaderText"
+                                Grid.Row="1"
+                                Margin="{DynamicResource TaskDialogSubHeaderPadding}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="{StaticResource TaskDialogSubHeaderFontSize}"
+                                FontWeight="{StaticResource TaskDialogSubHeaderFontWeight}"
+                                IsVisible="False"
+                                Text="{TemplateBinding SubHeader}"
+                                TextWrapping="Wrap" />
+
+                            <ScrollViewer
+                                Grid.Row="2"
+                                Margin="{StaticResource TaskDialogContentMargin}"
+                                HorizontalScrollBarVisibility="Disabled"
+                                VerticalScrollBarVisibility="Auto">
+                                <StackPanel Spacing="18">
+                                    <ContentPresenter
+                                        Name="ContentPresenter"
+                                        Grid.Row="2"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}">
+                                        <ContentPresenter.Styles>
+                                            <Style Selector="TextBlock">
+                                                <Setter Property="TextWrapping" Value="Wrap" />
+                                            </Style>
+                                        </ContentPresenter.Styles>
+                                    </ContentPresenter>
+
+                                    <ProgressBar
+                                        Name="ProgressBar"
+                                        Grid.Row="3"
+                                        IsVisible="False" />
+
+                                    <ItemsControl Name="CommandsHost" Grid.Row="4">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Spacing="2" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+
+                                    <StackPanel
+                                        Name="MoreDetailsPanel"
+                                        Grid.Row="5"
+                                        IsVisible="False">
+                                        <Button
+                                            Name="MoreDetailsButton"
+                                            Classes="TaskDialog_MoreDetails"
+                                            Content="{StaticResource TaskDialogFooterButtonNormalText}"
+                                            IsVisible="False"
+                                            Theme="{StaticResource TaskDialogMoreDetailsButton}" />
+                                        <ContentPresenter
+                                            Name="FooterHost"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Top"
+                                            HorizontalContentAlignment="Stretch"
+                                            VerticalContentAlignment="Top"
+                                            Content="{TemplateBinding Footer}"
+                                            ContentTemplate="{TemplateBinding FooterTemplate}"
+                                            IsVisible="False" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </ScrollViewer>
+
+                            <Border
+                                Name="ButtonBorder"
+                                Grid.Row="3"
+                                Padding="{StaticResource TaskDialogButtonHostMargin}"
+                                Background="{DynamicResource TaskDialogButtonAreaBackground}"
+                                IsVisible="{Binding !!#ButtonsHost.ItemCount}">
+                                <ItemsControl Name="ButtonsHost" KeyboardNavigation.TabNavigation="Continue">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <uip:TaskDialogButtonsPanel Spacing="8" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </Border>
+                        </Grid>
+                    </ui:FABorder>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:hidden:not(:hosted) /template/ Panel#LayoutRoot">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:open:not(:hosted) /template/ Panel#LayoutRoot">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+
+        <Style Selector="^:header">
+            <Style Selector="^ /template/ Panel#HeaderHost">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+            <Style Selector="^ /template/ TextBlock#HeaderText">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+            <Style Selector="^:not(:icon) /template/ TextBlock#HeaderText">
+                <Setter Property="Margin" Value="{DynamicResource TaskDialogHeaderPaddingNoIcon}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^:subheader /template/ TextBlock#SubHeaderText">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+
+        <Style Selector="^:icon">
+            <Style Selector="^ /template/ DockPanel#SubHeaderRoot">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+
+            <Style Selector="^ /template/ Viewbox#IconHost">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+            <Style Selector="^ /template/ Panel#HeaderHost">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+        </Style>
+
+        <Style Selector="^:footerAuto">
+            <Style Selector="^ /template/ Button#MoreDetailsButton">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+
+            <Style Selector="^:expanded /template/ Button#MoreDetailsButton">
+                <Setter Property="Content" Value="{StaticResource TaskDialogFooterButtonExpandedText}" />
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+        </Style>
+        <Style Selector="^:footer">
+            <Style Selector="^:expanded /template/ ContentPresenter#FooterHost">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+            <Style Selector="^ /template/ StackPanel#MoreDetailsPanel">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+        </Style>
+
+        <Style Selector="^:progress /template/ ProgressBar#ProgressBar">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+
+        <Style Selector="^:progressError /template/ ProgressBar#ProgressBar">
+            <Setter Property="Foreground" Value="{DynamicResource TaskDialogProgressBarErrorColor}" />
+            <Setter Property="Background" Value="{DynamicResource TaskDialogProgressBarErrorBackgroundColor}" />
+        </Style>
+
+        <Style Selector="^:progressSuspend /template/ ProgressBar#ProgressBar">
+            <Setter Property="Foreground" Value="{DynamicResource TaskDialogProgressBarSuspendColor}" />
+            <Setter Property="Background" Value="{DynamicResource TaskDialogProgressBarSuspendBackgroundColor}" />
+        </Style>
+
+        <Style Selector="^:headerForeground /template/ TextBlock#HeaderText">
+            <Setter Property="Foreground" Value="{Binding $parent[ui:TaskDialog].HeaderForeground}" />
+        </Style>
+
+        <Style Selector="^:iconForeground /template/ ui|IconSourceElement#IconElement">
+            <Setter Property="Foreground" Value="{Binding $parent[ui:TaskDialog].IconForeground}" />
+        </Style>
+
+
+        <Style Selector="^:hosted">
+            <Style Selector="^ /template/ Panel#LayoutRoot">
+                <Setter Property="Background" Value="{DynamicResource TaskDialogSmokeFill}" />
+            </Style>
+            <Style Selector="^ /template/ ui|FABorder#ContentRoot">
+                <Setter Property="BorderBrush" Value="{DynamicResource TaskDialogBorderBrush}" />
+                <Setter Property="CornerRadius" Value="{DynamicResource OverlayCornerRadius}" />
+                <Setter Property="BorderThickness" Value="{DynamicResource TaskDialogBorderWidth}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="BoxShadow" Value="0 8 32 0 #66000000" />
+            </Style>
+            <Style Selector="^ /template/ Border#HeaderRoot">
+                <Setter Property="CornerRadius" Value="{Binding Source={StaticResource OverlayCornerRadius}, Converter={StaticResource TopCornerRadiusFilterConverter}}}" />
+            </Style>
+            <Style Selector="^ /template/ Border#ButtonBorder">
+                <Setter Property="CornerRadius" Value="{Binding Source={StaticResource OverlayCornerRadius}, Converter={StaticResource BottomCornerRadiusFilterConverter}}}" />
+            </Style>
+
+
+            <Style Selector="^:hidden /template/ Panel#LayoutRoot">
+                <Style.Animations>
+                    <Animation FillMode="Forward" Duration="00:00:00.167">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="Opacity" Value="1.0" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="Opacity" Value="0.0" />
+                            <Setter Property="IsVisible" Value="False" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+            <Style Selector="^:hidden /template/ ui|FABorder#ContentRoot">
+                <Style.Animations>
+                    <Animation FillMode="Forward" Duration="00:00:00.167">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="ScaleTransform.ScaleX" Value="1.0" />
+                            <Setter Property="ScaleTransform.ScaleY" Value="1.0" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%" KeySpline="0,0 0,1">
+                            <Setter Property="ScaleTransform.ScaleX" Value="1.05" />
+                            <Setter Property="ScaleTransform.ScaleY" Value="1.05" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+
+            <!--  Handle open dialog  -->
+            <Style Selector="^:open /template/ Panel#LayoutRoot">
+                <Setter Property="IsVisible" Value="True" />
+                <Style.Animations>
+                    <!--
+                        Animation applies with priority of LocalValue
+                        To overrule the IsVisible=False in :hidden, set
+                        IsVisible=True in BOTH KeyFrames here
+                    -->
+                    <Animation FillMode="Forward" Duration="00:00:00.250">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="IsVisible" Value="True" />
+                            <Setter Property="Opacity" Value="0.0" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="IsVisible" Value="True" />
+                            <Setter Property="Opacity" Value="1.0" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+            <Style Selector="^:open /template/ ui|FABorder#ContentRoot">
+                <Style.Animations>
+                    <Animation FillMode="Forward" Duration="00:00:00.250">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="ScaleTransform.ScaleX" Value="1.05" />
+                            <Setter Property="ScaleTransform.ScaleY" Value="1.05" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%" KeySpline="0,0 0,1">
+                            <Setter Property="ScaleTransform.ScaleX" Value="1.00" />
+                            <Setter Property="ScaleTransform.ScaleY" Value="1.00" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+
+        </Style>
+
+    </ControlTheme>
+
+</ResourceDictionary>

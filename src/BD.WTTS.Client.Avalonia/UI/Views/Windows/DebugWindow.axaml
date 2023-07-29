@@ -1,0 +1,100 @@
+<Window
+    x:Class="BD.WTTS.UI.Views.Windows.DebugWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="DebugWindow"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <NativeMenu.Menu>
+        <NativeMenu>
+            <NativeMenuItem Header="Decorated">
+                <NativeMenu>
+                    <NativeMenuItem Header="Open" />
+                    <NativeMenuItem Header="Recent">
+                        <NativeMenuItem.Menu>
+                            <NativeMenu />
+                        </NativeMenuItem.Menu>
+                    </NativeMenuItem>
+                    <NativeMenuItem Gesture="CMD+Q" Header="Quit" />
+                </NativeMenu>
+            </NativeMenuItem>
+            <NativeMenuItem Header="Edit">
+                <NativeMenu>
+                    <NativeMenuItem Header="Copy" />
+                    <NativeMenuItem Header="Paste" />
+                </NativeMenu>
+            </NativeMenuItem>
+        </NativeMenu>
+    </NativeMenu.Menu>
+    <Grid ColumnDefinitions="3,*,3" RowDefinitions="3,*,3">
+        <DockPanel Grid.Row="1" Grid.Column="1">
+            <!--<Grid
+                Name="TitleBar"
+                Height="40"
+                Background="Transparent"
+                ColumnDefinitions="Auto,*,Auto"
+                DockPanel.Dock="Top">
+                <TextBlock
+                    Margin="15,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+                --><!--<StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <StackPanel.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Margin" Value="2 1" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                        <Style Selector="PathIcon">
+                            <Setter Property="Width" Value="12" />
+                        </Style>
+                    </StackPanel.Styles>
+                    --><!--<spp:MinMaxCloseControl />--><!--
+                </StackPanel>--><!--
+            </Grid>-->
+			<spp:TitleBar Name="TitleBar" 
+						  DockPanel.Dock="Top"/>
+            <Border>
+                <spp:MainView />
+            </Border>
+        </DockPanel>
+        <Border Name="TopLeft" Background="Transparent" />
+        <Border
+            Name="TopRight"
+            Grid.Column="2"
+            Background="Transparent" />
+        <Border
+            Name="BottomLeft"
+            Grid.Row="2"
+            Background="Transparent" />
+        <Border
+            Name="BottomRight"
+            Grid.Row="2"
+            Grid.Column="2"
+            Background="Transparent" />
+        <Border
+            Name="Top"
+            Grid.Column="1"
+            Background="Transparent" />
+        <Border
+            Name="Right"
+            Grid.Row="1"
+            Grid.Column="2"
+            Background="Transparent" />
+        <Border
+            Name="Bottom"
+            Grid.Row="2"
+            Grid.Column="1" />
+        <Border
+            Name="Left"
+            Grid.Row="1"
+            Background="Transparent" />
+    </Grid>
+</Window>

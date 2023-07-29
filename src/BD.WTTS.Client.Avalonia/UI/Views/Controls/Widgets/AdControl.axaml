@@ -1,0 +1,56 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.AdControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    IsVisible="{ReflectionBinding IsShowAdvertise,
+                                  Mode=OneWay,
+                                  Source={x:Static s:AdvertiseService.Current}}"
+    mc:Ignorable="d">
+    <Border ClipToBounds="True" CornerRadius="{DynamicResource ControlCornerRadius}">
+        <Panel>
+            <spp:CarouselBanner x:Name="AdBanner">
+                <spp:CarouselBanner.ItemTemplate>
+                    <DataTemplate x:DataType="spp:AdvertisementDTO">
+                        <Button
+                            Padding="0"
+                            Classes="Plain"
+                            Command="{ReflectionBinding ClickAdvertisementCommand,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:AdvertiseService.Current}}"
+                            CommandParameter="{Binding}"
+                            Cursor="Hand"
+                            ToolTip.Tip="{Binding Remark}">
+                            <spp:Image2
+                                FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/mona-loading-default.gif"
+                                Source="{Binding ImageUrl}"
+                                Stretch="UniformToFill" />
+                        </Button>
+                    </DataTemplate>
+                </spp:CarouselBanner.ItemTemplate>
+            </spp:CarouselBanner>
+            <TextBlock
+                Margin="10,5"
+                FontSize="10"
+                Foreground="White"
+                Text="{ReflectionBinding Path=Res.Advertisement,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}" />
+            <Button
+                Name="CloseAdBtn"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Content="{ReflectionBinding Path=Res.Advertisement_Close,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
+                Cursor="Hand"
+                Foreground="White" />
+        </Panel>
+    </Border>
+</UserControl>

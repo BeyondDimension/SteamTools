@@ -1,0 +1,5 @@
+files:
+  - source: /src/BD.WTTS.Client/Resources/Strings.resx
+    ignore:
+      - '*.cs'
+    translation: /src/BD.WTTS.Client/Resources/Strings.%two_letters_code%.resx

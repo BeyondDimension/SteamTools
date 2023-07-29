@@ -1,0 +1,212 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>BD.WTTS</RootNamespace>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\AssemblyInfo.Constants.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\AssemblyInfo.Xaml.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<!-- ImplicitUsings -->
+		<Compile Include="..\ImplicitUsings.MessagePack.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.JsonProperty.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.SQLite.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Repositories.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Services.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.ReactiveUI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Models.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Enums.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.ViewModels.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Settings.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.AutoMapper.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.WTTS.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.MSEX.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Nito.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.NLog.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Steam.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Plugins.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.IPC\Services\IPCSubProcessService.cs">
+			<LinkBase>Services\IPC</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.IPC\Services.Implementation\IPCSubProcessServiceImpl.cs">
+			<LinkBase>Services.Implementation\IPC</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- PackageReference -->
+		<PackageReference Include="BD.Common" />
+		<PackageReference Include="BD.Common.Area" />
+		<PackageReference Include="BD.Common.Security" />
+		<PackageReference Include="BD.Common.Mvvm" />
+		<PackageReference Include="BD.Common.Mvvm.ReactiveUI" />
+		<PackageReference Include="BD.Common.Primitives" />
+		<PackageReference Include="BD.Common.Primitives.ApiResponse" />
+		<PackageReference Include="BD.Common.Settings" />
+		<PackageReference Include="BD.Common.Repositories.SQLitePCL" />
+		<PackageReference Include="BD.Common.Essentials" />
+		<PackageReference Include="BD.Common.Essentials.Primitives" />
+		<PackageReference Include="BD.Common.Essentials.Utils" />
+		<PackageReference Include="BD.Common.Essentials.Preferences.SQLite" />
+		<PackageReference Include="BD.Common.Pinyin" />
+		<!--<PackageReference Include="BD.SteamClient" />-->
+		<PackageReference Include="AutoMapper" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+		<PackageReference Include="SharpZipLib" />
+		<PackageReference Include="NLog" />
+		<PackageReference Include="NLog.Extensions.Logging" />
+		<PackageReference Include="SkiaSharp" />
+		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
+		<PackageReference Include="Fleck" />
+		<PackageReference Include="System.Linq.Async" />
+		<!--<PackageReference Include="Portable.BouncyCastle" />-->
+		<PackageReference Include="ReactiveUI.Fody" />
+		<PackageReference Include="dotnetCampus.Ipc" />
+		<PackageReference Include="fusillade" />
+		<PackageReference Include="Splat.Drawing" />
+		<PackageReference Include="System.Drawing.Common" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
+		<!-- Not Windows -->
+		<Compile Remove="Services.Implementation\Platform\Windows\*.cs" />
+		<None Include="Services.Implementation\Platform\Windows\*.cs" />
+		<!--<Compile Remove="Services\Implementation\Platform\Windows\WindowsPlatformServiceImpl.Net.Hosts.cs" />-->
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != ''">
+		<!-- Not Linux -->
+		<Compile Remove="Services.Implementation\Platform\Linux\*.cs" />
+		<None Include="Services.Implementation\Platform\Linux\*.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'macos' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'maccatalyst' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'ios'">
+		<!-- Not MacCatalyst(macOS/iOS) -->
+		<Compile Remove="Services.Implementation\Platform\MacCatalyst\*.cs" />
+		<None Include="Services.Implementation\Platform\MacCatalyst\*.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<!-- Windows Only -->
+		<PackageReference Include="System.Reactive" />
+		<!--<PackageReference Include="JumpLists.Win32.Avalonia" />-->
+		<PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" />
+		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
+		<PackageReference Include="7-Zip.NativeAssets.Win32" />
+		<PackageReference Include="System.Management" />
+		<PackageReference Include="Aigio.WinDivertSharp.NativeAssets.Win32" />
+		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
+		<PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
+		<PackageReference Include="Microsoft.Win32.SystemEvents" />
+		<PackageReference Include="Vanara.PInvoke.PowrProf" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
+		<!-- Desktop Only -->
+		<PackageReference Include="System.Composition" />
+		<PackageReference Include="System.CommandLine" />
+		<PackageReference Include="System.CommandLine.NamingConventionBinder" />
+		<PackageReference Include="SteamKit2" />
+		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
+		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
+		<PackageReference Include="Avalonia" />
+		<PackageReference Include="BD.Common.XmlnsDefinition.Avalonia">
+			<Aliases>BD_Common_XmlnsDefinition_Avalonia</Aliases>
+		</PackageReference>
+		<!--<PackageReference Include="Avalonia.Desktop" />
+		<PackageReference Include="Avalonia.ReactiveUI" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" />
+		<PackageReference Include="Avalonia.Xaml.Behaviors" />
+		<PackageReference Include="Avalonia.AvaloniaEdit" />
+		<PackageReference Include="FluentAvaloniaUI" />-->
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
+		<!-- Linux Only -->
+		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<!-- Android Only -->
+		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<!-- Mobile Only -->
+		<Compile Remove="Services\Mvvm\Steam\SteamConnectService.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
+		<!-- iOS/macOS/MacCatalyst Only -->
+		<PackageReference Include="BD.Common.Pinyin.CFStringTransform" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Strings.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Strings.Designer.cs</LastGenOutput>
+			<CustomToolNamespace>BD.WTTS.Client.Resources</CustomToolNamespace>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\ref\SteamClient\src\BD.SteamClient\BD.SteamClient.csproj" />
+		<ProjectReference Include="..\..\ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.ClientSDK\BD.WTTS.MicroServices.ClientSDK.csproj" />
+		<ProjectReference Include="..\..\ref\WinAuth\src\WinAuth\WinAuth.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\Strings.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Strings.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	
+	<Import Project="..\TFM_NETX_WITH_ALL.props" />
+
+</Project>

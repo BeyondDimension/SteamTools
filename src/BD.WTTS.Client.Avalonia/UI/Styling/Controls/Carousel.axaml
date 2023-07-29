@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Width="200" Spacing="10">
+                <Slider x:Name="sl" Maximum="{Binding #ca.ItemCount}" />
+                <Carousel
+                    x:Name="ca"
+                    Classes="AnimeSlide"
+                    SelectedIndex="{Binding #sl.Value}">
+                    <TextBlock Text="test1" />
+                    <TextBlock Text="test2" />
+                    <TextBlock Text="test3" />
+                </Carousel>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!--  Add Styles Here  -->
+    <Style Selector="Carousel.AnimeSlide">
+        <Setter Property="AutoScrollToSelectedItem" Value="True" />
+        <Setter Property="PageTransition">
+            <PageSlide Orientation="Horizontal" Duration="0.25" />
+        </Setter>
+    </Style>
+</Styles>

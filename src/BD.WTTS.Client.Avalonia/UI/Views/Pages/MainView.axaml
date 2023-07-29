@@ -1,0 +1,387 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.MainView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enum="using:BD.WTTS.Enums"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+    xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:MainWindowViewModel"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="ui|NavigationView.AppNav">
+            <Setter Property="IsPaneToggleButtonVisible" Value="False" />
+            <Setter Property="OpenPaneLength" Value="72" />
+            <Setter Property="IsPaneOpen" Value="True" />
+        </Style>
+
+        <Style Selector="ui|NavigationView.AppNav /template/ Button#NavigationViewBackButton">
+            <Setter Property="Width" Value="{DynamicResource NavigationBackButtonWidth}" />
+        </Style>
+        <Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
+            <Setter Property="Margin" Value="0 50 0 0" />
+        </Style>
+        <Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=True] SplitView /template/ ContentPresenter#PART_PanePresenter">
+            <Setter Property="Margin" Value="0 10 0 0" />
+        </Style>
+
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter">
+            <Setter Property="Width" Value="72" />
+            <Setter Property="MinHeight" Value="75" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border
+                        Name="LayoutRoot"
+                        Margin="4,6"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        TemplatedControl.IsTemplateFocusTarget="True">
+                        <Panel>
+                            <Panel HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                                <Border
+                                    Name="SelectionIndicator"
+                                    Width="3"
+                                    Height="20"
+                                    VerticalAlignment="Center"
+                                    Background="{DynamicResource NavigationViewSelectionIndicatorForeground}"
+                                    CornerRadius="{StaticResource ControlCornerRadius}"
+                                    Opacity="0" />
+                            </Panel>
+
+
+                            <DockPanel>
+                                <ContentPresenter
+                                    Name="ContentPresenter"
+                                    Grid.Row="1"
+                                    Margin="0,-15,0,3"
+                                    Padding="0,4"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    DockPanel.Dock="Bottom"
+                                    FontSize="10">
+                                    <ContentPresenter.Styles>
+                                        <Style Selector="TextBlock">
+                                            <Setter Property="TextWrapping" Value="Wrap" />
+                                        </Style>
+                                    </ContentPresenter.Styles>
+                                </ContentPresenter>
+
+                                <Viewbox
+                                    Name="IconBox"
+                                    Height="28"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <ContentPresenter Name="Icon" Content="{Binding TemplateSettings.Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                </Viewbox>
+
+                            </DockPanel>
+                        </Panel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#ContentPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        </Style>
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#Icon">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
+            <Setter Property="IsVisible" Value="False" />
+            <Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+        </Style>
+
+        <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
+            <Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto, *">
+        <Grid
+            Name="TitleBarHost"
+            Height="{StaticResource TitleBarHeight}"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            ColumnDefinitions="Auto,Auto,Auto,*,Auto,150">
+            <!--<Panel Width="90"
+				   Height="75">
+				<Button
+					Name="BackViewButton"
+					Width="36"
+					Height="36"
+					HorizontalAlignment="Center"
+					Background="Transparent"
+					BorderThickness="0"
+					Cursor="Hand">
+					<Viewbox Height="18" Width="18">
+						<ui:SymbolIcon Symbol="Back"/>
+					</Viewbox>
+				</Button>
+			</Panel>-->
+
+            <Image
+                Name="WindowIcon"
+                Grid.Column="1"
+                Width="26"
+                Height="26"
+                Margin="22,4,10,4"
+                DockPanel.Dock="Left"
+                IsHitTestVisible="False"
+                RenderOptions.BitmapInterpolationMode="HighQuality"
+                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+
+            <TextBlock
+                Grid.Column="2"
+                VerticalAlignment="Center"
+                FontSize="12"
+                IsHitTestVisible="False"
+                Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+
+
+            <!--<Border
+                Grid.Column="3"
+                Padding="6"
+                VerticalAlignment="Center">
+                <AutoCompleteBox
+                    Name="SearchBox"
+                    MaxWidth="500"
+                    VerticalAlignment="Center"
+                    wnd:AppWindow.AllowInteractionInTitleBar="True"
+                    Classes="Search" />
+            </Border>-->
+
+            <DockPanel Grid.Column="4">
+                <StackPanel
+                    DockPanel.Dock="Left"
+                    Orientation="Horizontal"
+                    Spacing="8">
+
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Theme="{DynamicResource TransparentButton}">
+                        <Panel>
+                            <ui:InfoBadge
+                                Margin="0,-3,-3,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Classes="Attention Dot" />
+                            <Viewbox
+                                Width="22"
+                                Height="22"
+                                VerticalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Alert" />
+                            </Viewbox>
+                        </Panel>
+                    </Button>
+
+                    <DropDownButton Padding="4" Theme="{DynamicResource TransparentButton}">
+                        <Border
+                            Width="32"
+                            Height="32"
+                            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                            ClipToBounds="True"
+                            CornerRadius="30">
+                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{StaticResource DefaultAvatar}" />
+                        </Border>
+                        <DropDownButton.Flyout>
+                            <MenuFlyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
+                                <MenuItem IsHitTestVisible="False">
+                                    <MenuItem.Header>
+                                        <DockPanel>
+                                            <DockPanel DockPanel.Dock="Top">
+                                                <Border
+                                                    Width="64"
+                                                    Height="64"
+                                                    Margin="0,0,8,0"
+                                                    ClipToBounds="True"
+                                                    CornerRadius="64"
+                                                    DockPanel.Dock="Left">
+                                                    <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{StaticResource DefaultAvatar}" />
+                                                </Border>
+                                                <Panel>
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        IsVisible="{ReflectionBinding Path=User,
+                                                                                      Mode=OneWay,
+                                                                                      Source={x:Static s:UserService.Current},
+                                                                                      Converter={StaticResource IsNullConverter}}"
+                                                        Text="{ReflectionBinding Path=Res.User_UnLogin,
+                                                                                 Mode=OneWay,
+                                                                                 Source={x:Static s:ResourceService.Current}}" />
+
+                                                    <StackPanel VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                                                        <TextBlock Text="{ReflectionBinding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
+
+                                                        <Border VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
+                                                            <TextBlock FontSize="10" Text="{ReflectionBinding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}❤️{0}}" />
+                                                        </Border>
+
+                                                    </StackPanel>
+                                                </Panel>
+                                            </DockPanel>
+                                            <!--<WrapPanel HorizontalAlignment="Center" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                                            -->
+                                            <!--<TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Classes="h8"
+                                                            Text="{ReflectionBinding Path=User.LevelStr,
+                                                                                     Mode=OneWay,
+                                                                                     Source={x:Static service:UserService.Current}}" />-->
+                                            <!--
+                                                <Button Margin="5,0" FontSize="10">
+                                                    <ToolTip.Tip>
+                                                        <MultiBinding StringFormat="{}{0} : {1} / {2}">
+                                                            <Binding Path="Res.User_Experience" Source="{x:Static s:ResourceService.Current}" />
+                                                            <Binding Path="User.Experience" Source="{x:Static s:UserService.Current}" />
+                                                            <Binding Path="User.NextExperience" Source="{x:Static s:UserService.Current}" />
+                                                        </MultiBinding>
+                                                    </ToolTip.Tip>
+                                                    <Button.Content>
+                                                        <MultiBinding StringFormat="{}{0} : Lv.{1}">
+                                                            <Binding Path="Res.User_Level" Source="{x:Static s:ResourceService.Current}" />
+                                                            <Binding Path="User.Level" Source="{x:Static s:UserService.Current}" />
+                                                        </MultiBinding>
+                                                    </Button.Content>
+                                                </Button>
+                                                <Button
+                                                    Margin="5,0"
+                                                    Command="{ReflectionBinding Path=SignIn,
+                                                                                Mode=OneWay,
+                                                                                Source={x:Static s:UserService.Current}}"
+                                                    Content="{ReflectionBinding Path=Res.Sign,
+                                                                                Mode=OneWay,
+                                                                                Source={x:Static s:ResourceService.Current}}"
+                                                    FontSize="10"
+                                                    IsVisible="{ReflectionBinding Path=!User.IsSignIn,
+                                                                                  Mode=OneWay,
+                                                                                  Source={x:Static s:UserService.Current}}" />
+                                                <Button
+                                                    Margin="5,0"
+                                                    FontSize="10"
+                                                    IsVisible="{ReflectionBinding Path=User.IsSignIn,
+                                                                                  Mode=OneWay,
+                                                                                  Source={x:Static s:UserService.Current}}"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.Signed,
+                                                                                    Mode=OneWay,
+                                                                                    Source={x:Static s:ResourceService.Current}}">
+                                                    <Button.Content>
+                                                        <MultiBinding StringFormat="{}{0} : {1}">
+                                                            <Binding Path="Res.User_EngineOil" Source="{x:Static s:ResourceService.Current}" />
+                                                            <Binding Path="User.Balance" Source="{x:Static s:UserService.Current}" />
+                                                        </MultiBinding>
+                                                    </Button.Content>
+                                                </Button>
+                                            </WrapPanel>-->
+                                        </DockPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Header="-" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="{ReflectionBinding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="{ReflectionBinding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="{ReflectionBinding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="{ReflectionBinding Path=Res.ChangePassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="-" />
+                                <MenuItem
+                                    Command="{ReflectionBinding Path=SignOut,
+                                                                Source={x:Static s:UserService.Current}}"
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    Header="{ReflectionBinding Path=Res.SignOut,
+                                                               Mode=OneWay,
+                                                               Source={x:Static s:ResourceService.Current}}"
+                                    IsVisible="{ReflectionBinding Path=User,
+                                                                  Mode=OneWay,
+                                                                  Source={x:Static s:UserService.Current},
+                                                                  Converter={StaticResource IsNullConverter},
+                                                                  ConverterParameter=invert}" />
+                                <MenuItem
+                                    Command="{ReflectionBinding Path=ShowWindow,
+                                                                Source={x:Static s:UserService.Current}}"
+                                    CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
+                                    Foreground="{DynamicResource SystemFillColorAttentionBrush}"
+                                    Header="{ReflectionBinding Path=Res.LoginAndRegister,
+                                                               Mode=OneWay,
+                                                               Source={x:Static s:ResourceService.Current}}"
+                                    IsVisible="{ReflectionBinding Path=User,
+                                                                  Mode=OneWay,
+                                                                  Source={x:Static s:UserService.Current},
+                                                                  Converter={StaticResource IsNullConverter}}" />
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
+                </StackPanel>
+
+                <Separator
+                    Height="18"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Classes="Vertical"
+                    DockPanel.Dock="Right"
+                    IsHitTestVisible="False" />
+            </DockPanel>
+        </Grid>
+
+        <ui:NavigationView
+            Name="NavView"
+            Grid.RowSpan="2"
+            AlwaysShowHeader="False"
+            Classes="AppNav"
+            FooterMenuItemsSource="{Binding FooterTabItems}"
+            IsBackButtonVisible="True"
+            IsBackEnabled="{Binding #FrameView.CanGoBack}"
+            IsPaneOpen="True"
+            IsSettingsVisible="False"
+            MenuItemsSource="{Binding TabItems}"
+            PaneDisplayMode="Left"
+            SelectedItem="{Binding SelectedItem}">
+            <ui:NavigationView.Resources>
+                <!--  Override this  -->
+                <Thickness x:Key="NavigationViewContentMargin">0,60,0,0</Thickness>
+            </ui:NavigationView.Resources>
+            <ui:NavigationView.Styles>
+                <Style Selector="Button#NavigationViewBackButton">
+                    <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
+                </Style>
+                <Style Selector="Grid#PaneToggleButtonGrid">
+                    <Setter Property="Margin" Value="0 6 0 0" />
+                </Style>
+            </ui:NavigationView.Styles>
+            <ui:NavigationView.MenuItemTemplate>
+                <DataTemplate DataType="spp:TabItemViewModel">
+                    <ui:NavigationViewItem Classes="AppNav" Content="{Binding Name}">
+                        <ui:NavigationViewItem.IconSource>
+                            <!--<ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{Binding IconKey, Converter={StaticResource ResourceKeyValueConverter}, ConverterParameter=fonticon}" />-->
+                            <ui:ImageIconSource Source="{Binding IconKey, Converter={StaticResource BitmapAssetValueConverter}}" />
+                        </ui:NavigationViewItem.IconSource>
+                    </ui:NavigationViewItem>
+                </DataTemplate>
+            </ui:NavigationView.MenuItemTemplate>
+            <ui:Frame Name="FrameView" />
+        </ui:NavigationView>
+    </Grid>
+</UserControl>

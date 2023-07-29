@@ -1,0 +1,76 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.ScriptStorePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:ScriptStorePageViewModel"
+    mc:Ignorable="d">
+		<StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
+				<AutoCompleteBox
+            MinWidth="300"
+            Margin="0,0,0,10"
+            VerticalAlignment="Center"
+            Classes="Search"
+            Text="{Binding SearchText}" />
+				<!--<TextBlock Margin="0,0,0,5" Text="脚本工坊" />-->
+				<spp:ContentLoader IsLoading="{Binding !!!Scripts.Count, Mode=OneWay}">
+						<ItemsRepeater ItemsSource="{Binding Scripts}">
+								<ItemsRepeater.Layout>
+										<WrapLayout
+                        HorizontalSpacing="10"
+                        Orientation="Horizontal"
+                        VerticalSpacing="10" />
+								</ItemsRepeater.Layout>
+								<ItemsRepeater.ItemTemplate>
+										<DataTemplate DataType="spp:ScriptDTO">
+												<Border spp:Animations.EnableAnimations="True">
+														<spp:AppItem
+                                Title="{Binding Name}"
+                                MaxWidth="135"
+                                Classes="Vertical"
+                                Description="{Binding AuthorName}"
+                                ToolTip.Tip="{Binding Describe}">
+																<spp:AppItem.Status>
+																		<Panel>
+																				<Border Classes="Status" IsVisible="{Binding IsExist}">
+																						<TextBlock Text="{ReflectionBinding Path=Res.Installed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+																				</Border>
+																				<Button
+																					  Command="{ReflectionBinding #u.DataContext.DownloadScriptItemCommand}"
+                                            CommandParameter="{Binding}"
+                                            Classes="accent"
+                                            Content="获取"
+                                            IsVisible="{Binding !IsExist}" />
+																		</Panel>
+																</spp:AppItem.Status>
+																<spp:AppItem.MoreFlyout>
+																		<ui:FAMenuFlyout>
+																				<ui:MenuFlyoutItem IsVisible="{Binding IsExist}" Text="更新" />
+																				<ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+																		</ui:FAMenuFlyout>
+																</spp:AppItem.MoreFlyout>
+																<spp:AppItem.Image>
+																		<spp:Image2
+                                        Width="80"
+                                        Height="80"
+                                        FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                        Source="{Binding IconUrl}"
+                                        Stretch="Uniform" />
+																</spp:AppItem.Image>
+														</spp:AppItem>
+												</Border>
+										</DataTemplate>
+								</ItemsRepeater.ItemTemplate>
+						</ItemsRepeater>
+				</spp:ContentLoader>
+		</StackPanel>
+</UserControl>
