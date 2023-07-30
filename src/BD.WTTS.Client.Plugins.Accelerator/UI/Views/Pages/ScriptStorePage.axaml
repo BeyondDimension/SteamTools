@@ -8,6 +8,7 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:Name="u"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
@@ -53,8 +54,14 @@
 																</spp:AppItem.Status>
 																<spp:AppItem.MoreFlyout>
 																		<ui:FAMenuFlyout>
-																				<ui:MenuFlyoutItem IsVisible="{Binding IsExist}" Text="更新" />
-																				<ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+																				<ui:MenuFlyoutItem
+																						Command="{ReflectionBinding #u.DataContext.DownloadScriptItemCommand}"
+                                            CommandParameter="{Binding}"
+																						IsVisible="{Binding IsExist}" Text="更新" />
+																				<ui:MenuFlyoutItem
+																					  Command="{ReflectionBinding #u.DataContext.OpenHomeScriptItemCommand}"
+                                            CommandParameter="{Binding}"
+																						Text="{ReflectionBinding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 																		</ui:FAMenuFlyout>
 																</spp:AppItem.MoreFlyout>
 																<spp:AppItem.Image>
