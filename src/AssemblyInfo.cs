@@ -34,7 +34,7 @@ using AssemblyInfo = BD.WTTS.AssemblyInfo;
 [assembly: AssemblyCopyright(AssemblyInfo.Copyright)]
 [assembly: AssemblyCompany(AssemblyInfo.Company)]
 [assembly: AssemblyVersion(AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(AssemblyInfo.Version)]
-[assembly: AssemblyInformationalVersion(AssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(AssemblyInfo.FileVersion)]
+[assembly: AssemblyInformationalVersion(AssemblyInfo.InformationalVersion)]
 [assembly: NeutralResourcesLanguage(AssemblyInfo.CultureName_SimplifiedChinese)]
 #endif

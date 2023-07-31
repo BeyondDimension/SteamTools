@@ -6,9 +6,26 @@ namespace BD.WTTS;
 public static partial class AssemblyInfo
 {
     /// <summary>
-    /// 与应用程序关联的产品名称。
+    /// 语义化应用程序版本
+    /// https://semver.org/lang/zh-CN/
     /// </summary>
     public const string Version = "3.0.0";
+
+    /// <summary>
+    /// 预览版本号，范围 1~9
+    /// </summary>
+    const string ver_for_preview = "1";
+
+    /// <summary>
+    /// RC 版本号，范围 0~9
+    /// </summary>
+    const string ver_for_rc = "0";
+
+    public const string FileVersion = $"{Version}.{ver_for_rc}0{ver_for_preview}";
+
+    //public const string InformationalVersion = Version;
+    public const string InformationalVersion = $"{Version}-preview.{ver_for_preview}";
+    //public const string InformationalVersion = $"{Version}-rc.{ver_for_rc}";
 
     /// <summary>
     /// 与应用程序关联的产品名称。

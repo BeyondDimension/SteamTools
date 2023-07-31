@@ -55,7 +55,7 @@ createconfig /cf "{xmlPath}" /dq lang-en-US /o /pv 10.0.0
                 WorkingDirectory = rootPublicPath,
             };
             DotNetCLIHelper.StartProcessAndWaitForExit(psi);
-            var prPath = $@"{ProjectUtils.ProjPath}\build\windows\makepri";
+            var prPath = $@"{ProjectUtils.ProjPath}\res\windows\makepri";
             CopyDirectory(prPath, rootPublicPath, true);
             psi = new ProcessStartInfo
             {

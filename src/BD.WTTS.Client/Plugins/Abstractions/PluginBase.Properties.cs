@@ -23,7 +23,7 @@ partial class PluginBase
 
     public virtual Type? SettingsPageViewType { get; }
 
-    const string OfficialAuthor = "Steam++ 官方";
+    const string OfficialAuthor = $"{AssemblyInfo.Trademark} 官方";
     const string IllegalAuthor = "存在非法字符";
     const string UnknownAuthor = "未知";
 
@@ -220,6 +220,15 @@ partial class PluginBase<TPlugin>
     public static TPlugin Instance { get; private set; } = null!;
 
     public static IPlugin InterfaceInstance => Instance;
+
+    static readonly Lazy<string> mFileVersion = new(() =>
+    {
+        var assembly = typeof(TPlugin).Assembly;
+        string? version = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
+        return version ?? string.Empty;
+    });
+
+    public static string FileVersion => mFileVersion.Value;
 
     readonly Lazy<string> mVersion = new(() =>
     {

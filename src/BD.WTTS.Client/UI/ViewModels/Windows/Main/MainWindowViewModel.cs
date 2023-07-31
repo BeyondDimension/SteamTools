@@ -22,7 +22,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         {
             var platformService = IPlatformService.Instance;
             var adminTag = platformService.IsAdministrator ? (OperatingSystem.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
-            var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.Version} for {DeviceInfo2.OSName()}{adminTag}";
+            var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.InformationalVersion} for {DeviceInfo2.OSName()}{adminTag}";
 #if DEBUG
             title = $"[Debug] {title}";
 #endif
