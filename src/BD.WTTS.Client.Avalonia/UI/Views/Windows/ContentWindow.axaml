@@ -20,55 +20,11 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid RowDefinitions="Auto, *">
-        <Grid
-            Name="TitleBarHost"
-            Height="{StaticResource TitleBarHeight}"
-            Background="Transparent"
-            ColumnDefinitions="Auto,Auto,*,Auto,150">
-            <Image
-                Name="WindowIcon"
-                Grid.Column="0"
-                Width="26"
-                Height="26"
-                Margin="22,4,12,4"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                IsHitTestVisible="False"
-                RenderOptions.BitmapInterpolationMode="HighQuality"
-                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
-
-            <TextBlock
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                FontSize="12"
-                IsHitTestVisible="False"
-                Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
-
-            <Border
-                Grid.Column="2"
-                Padding="6"
-                VerticalAlignment="Center"
-                IsVisible="{Binding IsShowSearchBox}">
-                <AutoCompleteBox
-                    Name="SearchBox"
-                    MaxWidth="500"
-                    VerticalAlignment="Center"
-                    wnd:AppWindow.AllowInteractionInTitleBar="True"
-                    Classes="Search" />
-            </Border>
-
-            <DockPanel Grid.Column="3" IsVisible="{Binding ActionContent, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-                <ContentControl Content="{Binding ActionContent}" DockPanel.Dock="Left" />
-
-                <Separator
-                    Height="18"
-                    Margin="10,0"
-                    VerticalAlignment="Center"
-                    Classes="Vertical"
-                    DockPanel.Dock="Right"
-                    IsHitTestVisible="False" />
-            </DockPanel>
-        </Grid>
+        <spp:TitleBar Name="TitleBarHost">
+            <spp:TitleBar.ActionContent>
+                111
+            </spp:TitleBar.ActionContent>
+        </spp:TitleBar>
         <ContentControl
             Name="ViewContent"
             Grid.Row="1"

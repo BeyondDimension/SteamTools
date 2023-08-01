@@ -134,7 +134,7 @@ public partial interface IUISettings
     /// <summary>
     /// 窗口背景不透明度的默认值
     /// </summary>
-    const double DefaultWindowBackgroundOpacity = .0;
+    static readonly double DefaultWindowBackgroundOpacity = OperatingSystem2.IsWindows11AtLeast() ? .0 : .8;
 
     /// <summary>
     /// 窗口背景材质

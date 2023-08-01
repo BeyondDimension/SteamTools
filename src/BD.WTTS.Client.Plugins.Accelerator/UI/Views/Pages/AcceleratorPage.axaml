@@ -90,6 +90,9 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
+                        <!--<Run Text="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Source={x:Static s:ResourceService.Current}},Mode=OneWay}" />
+                        <Run Text=" " />
+                        <Run Text="{ReflectionBinding Path=AccelerateTime,Source={x:Static s:ProxyService.Current}},Mode=OneWay,Converter={StaticResource StringFormatConverter}}" />-->
                         <TextBlock.Text>
                             <MultiBinding StringFormat="{}{0} {1}">
                                 <Binding
@@ -97,10 +100,10 @@
                                     Path="Res.CommunityFix_StopProxy"
                                     Source="{x:Static s:ResourceService.Current}}" />
                                 <Binding
+                                    Converter="{StaticResource StringFormatConverter}"
                                     Mode="OneWay"
                                     Path="AccelerateTime"
-                                    Source="{x:Static s:ProxyService.Current}"
-                                    StringFormat="{}{0:hh\:mm\:ss}" />
+                                    Source="{x:Static s:ProxyService.Current}" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>

@@ -253,9 +253,8 @@ public sealed class SteamConnectService
         if (!stmService.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
             stmService.StartSteamWithParameter();
 
-        Task.Factory.StartNew(async () =>
+        Task2.InBackground(async () =>
         {
-            Thread.CurrentThread.IsBackground = true;
             while (true)
             {
                 try
@@ -343,7 +342,7 @@ public sealed class SteamConnectService
                     await Task.Delay(3000);
                 }
             }
-        }, TaskCreationOptions.LongRunning).ConfigureAwait(false);
+        });
     }
 
     public bool Initialize(int appid)

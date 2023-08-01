@@ -52,8 +52,6 @@ public partial interface ISteamSettings
     /// </summary>
     static readonly string DefaultSteamProgramPath = Ioc.Get<ISteamService>().SteamProgramPath;
 
-#endif
-
     /// <summary>
     /// 自动运行 Steam
     /// </summary>
@@ -95,6 +93,16 @@ public partial interface ISteamSettings
     const bool DefaultIsRunSteamChina = false;
 
     /// <summary>
+    /// Steam 以旧版VGUI启动
+    /// </summary>
+    bool? IsRunSteamVGUI { get; set; }
+
+    /// <summary>
+    /// Steam 以旧版VGUI启动的默认值
+    /// </summary>
+    const bool DefaultIsRunSteamVGUI = false;
+
+    /// <summary>
     /// Steam 登录时弹出消息通知
     /// </summary>
     bool? IsEnableSteamLaunchNotification { get; set; }
@@ -123,5 +131,7 @@ public partial interface ISteamSettings
     /// Steam 以管理员权限运行的默认值
     /// </summary>
     const bool DefaultIsRunSteamAdministrator = false;
+
+#endif
 
 }

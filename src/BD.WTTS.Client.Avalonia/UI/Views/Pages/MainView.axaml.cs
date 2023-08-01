@@ -104,7 +104,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
 
     private async void AnimateContentForBackButton(bool show)
     {
-        if (!WindowIcon.IsVisible)
+        if (!TitleBarHost.WindowIcon.IsVisible)
             return;
 
         if (show)
@@ -135,7 +135,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
                 }
             };
 
-            await ani.RunAsync(WindowIcon);
+            await ani.RunAsync(TitleBarHost.WindowIcon);
 
             NavView.IsBackButtonVisible = true;
         }
@@ -169,7 +169,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
                 }
             };
 
-            await ani.RunAsync(WindowIcon);
+            await ani.RunAsync(TitleBarHost.WindowIcon);
         }
     }
 }

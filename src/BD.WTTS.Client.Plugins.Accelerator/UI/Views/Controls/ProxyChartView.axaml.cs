@@ -20,7 +20,8 @@ public partial class ProxyChartView : UserControl
         EnableNullSplitting = false,
         DataLabelsSize = 12,
         //Stroke = LiveChartsSkiaSharp.DefaultPaint,
-        YToolTipLabelFormatter = (e) => $"Upload {IOPath.GetDisplayFileSizeString(e.Coordinate.PrimaryValue)}/s",
+        Name = Strings.Upload,
+        YToolTipLabelFormatter = (e) => $"{IOPath.GetDisplayFileSizeString(e.Coordinate.PrimaryValue)}/s",
         Mapping = (rate, point) =>
         {
             point.Coordinate = new(rate.Timestamp, rate.Rate);
@@ -37,8 +38,9 @@ public partial class ProxyChartView : UserControl
         LineSmoothness = 1,
         EnableNullSplitting = false,
         DataLabelsSize = 12,
+        Name = Strings.Download,
         //Stroke = LiveChartsSkiaSharp.DefaultPaint,
-        YToolTipLabelFormatter = (e) => $"Download {IOPath.GetDisplayFileSizeString(e.Coordinate.PrimaryValue)}/s",
+        YToolTipLabelFormatter = (e) => $"{IOPath.GetDisplayFileSizeString(e.Coordinate.PrimaryValue)}/s",
         Mapping = (rate, point) =>
         {
             point.Coordinate = new(rate.Timestamp, rate.Rate);

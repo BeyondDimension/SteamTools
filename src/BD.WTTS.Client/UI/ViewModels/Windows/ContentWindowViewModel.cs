@@ -11,8 +11,8 @@ public class ContentWindowViewModel : WindowViewModel
 
     public double MaxHeight { get; init; }
 
-    [Reactive]
-    public bool IsShowSearchBox { get; set; }
+    //[Reactive]
+    //public bool IsShowSearchBox { get; set; }
 
     /// <summary>
     /// 可以是 Page 也可以是 ViewModel
@@ -20,8 +20,8 @@ public class ContentWindowViewModel : WindowViewModel
     [Reactive]
     public object? PageViewModel { get; set; }
 
-    [Reactive]
-    public object? ActionContent { get; set; }
+    //[Reactive]
+    //public object? ActionContent { get; set; }
 
     public ContentWindowViewModel()
     {

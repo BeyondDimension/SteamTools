@@ -19,105 +19,67 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid RowDefinitions="Auto, *">
-        <Grid
+        <spp:TitleBar
             Name="TitleBarHost"
-            Height="{StaticResource TitleBarHeight}"
-            Background="Transparent"
-            ColumnDefinitions="Auto,Auto,*,Auto,150">
-            <Image
-                Name="WindowIcon"
-                Grid.Column="0"
-                Width="26"
-                Height="26"
-                Margin="22,4,12,4"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                IsHitTestVisible="False"
-                RenderOptions.BitmapInterpolationMode="HighQuality"
-                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+            IsShowSearchBox="True"
+            SearchText="{Binding SearchText, Mode=TwoWay}">
+            <spp:TitleBar.ActionContent>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding RefreshStats_Click}"
+                        Theme="{DynamicResource TransparentButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_RefreshTip,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox
+                            Width="22"
+                            Height="22"
+                            VerticalAlignment="Center">
+                            <ui:SymbolIcon Symbol="Refresh" />
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ResetAllStats_Click}"
+                        Theme="{DynamicResource TransparentButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_ResetTip,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox
+                            Width="22"
+                            Height="22"
+                            VerticalAlignment="Center">
+                            <ui:SymbolIcon Symbol="Redo" />
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding SaveChange_Click}"
+                        Theme="{DynamicResource TransparentButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_StoreTip,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox
+                            Width="22"
+                            Height="22"
+                            VerticalAlignment="Center">
+                            <ui:SymbolIcon Symbol="SaveFilled" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </spp:TitleBar.ActionContent>
+        </spp:TitleBar>
 
-            <TextBlock
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                FontSize="12"
-                IsHitTestVisible="False"
-                Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
-
-            <Border
-                Grid.Column="2"
-                Padding="6"
-                VerticalAlignment="Center">
-                <AutoCompleteBox
-                    Name="SearchBox"
-                    MaxWidth="500"
-                    VerticalAlignment="Center"
-                    wnd:AppWindow.AllowInteractionInTitleBar="True"
-                    Classes="Search"
-                    Text="{Binding SearchText, Mode=TwoWay}" />
-            </Border>
-
-            <DockPanel Grid.Column="3">
-                <Button
-                    Width="40"
-                    Height="40"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Command="{Binding RefreshStats_Click}"
-                    Theme="{DynamicResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_RefreshTip,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
-                    <Viewbox
-                        Width="22"
-                        Height="22"
-                        VerticalAlignment="Center">
-                        <ui:SymbolIcon Symbol="Refresh" />
-                    </Viewbox>
-                </Button>
-                <Button
-                    Width="40"
-                    Height="40"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Command="{Binding ResetAllStats_Click}"
-                    Theme="{DynamicResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_ResetTip,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
-                    <Viewbox
-                        Width="22"
-                        Height="22"
-                        VerticalAlignment="Center">
-                        <ui:SymbolIcon Symbol="Redo" />
-                    </Viewbox>
-                </Button>
-                <Button
-                    Width="40"
-                    Height="40"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Command="{Binding SaveChange_Click}"
-                    Theme="{DynamicResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_StoreTip,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
-                    <Viewbox
-                        Width="22"
-                        Height="22"
-                        VerticalAlignment="Center">
-                        <ui:SymbolIcon Symbol="SaveFilled" />
-                    </Viewbox>
-                </Button>
-
-                <Separator
-                    Height="18"
-                    Margin="10,0"
-                    VerticalAlignment="Center"
-                    Classes="Vertical"
-                    DockPanel.Dock="Right"
-                    IsHitTestVisible="False" />
-            </DockPanel>
-        </Grid>
         <spp:ContentLoader Grid.Row="1" IsLoading="{Binding !!!Achievements.Count, Mode=OneWay}">
             <TabControl Padding="0">
                 <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">

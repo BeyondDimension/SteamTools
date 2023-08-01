@@ -20,106 +20,65 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid RowDefinitions="Auto, *">
-        <Grid
-            Name="TitleBarHost"
-            Height="{StaticResource TitleBarHeight}"
-            Background="Transparent"
-            ColumnDefinitions="Auto,Auto,*,Auto,150">
-            <Image
-                Name="WindowIcon"
-                Grid.Column="0"
-                Width="26"
-                Height="26"
-                Margin="22,4,12,4"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                IsHitTestVisible="False"
-                RenderOptions.BitmapInterpolationMode="HighQuality"
-                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+        <spp:TitleBar Name="TitleBarHost">
+            <spp:TitleBar.ActionContent>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding RefreshList}"
+                        Theme="{DynamicResource TransparentButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox
+                            Width="22"
+                            Height="22"
+                            VerticalAlignment="Center">
+                            <ui:SymbolIcon Symbol="Refresh" />
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding UploadFile}"
+                        Theme="{DynamicResource TransparentButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_UploadCloudArchiveFile,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox
+                            Width="22"
+                            Height="22"
+                            VerticalAlignment="Center">
+                            <ui:SymbolIcon Symbol="OpenFile" />
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearAllFiles}"
+                        Theme="{DynamicResource TransparentButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RemoveBtn,
+                                                        Mode=OneWay,
+                                                        Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox
+                            Width="22"
+                            Height="22"
+                            VerticalAlignment="Center">
+                            <ui:SymbolIcon Symbol="DeleteFilled" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </spp:TitleBar.ActionContent>
+        </spp:TitleBar>
 
-            <TextBlock
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                FontSize="12"
-                IsHitTestVisible="False"
-                Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
-
-            <!--<Border
-                Grid.Column="2"
-                Padding="6"
-                VerticalAlignment="Center">
-                <AutoCompleteBox
-                    Name="SearchBox"
-                    MaxWidth="500"
-                    VerticalAlignment="Center"
-                    wnd:AppWindow.AllowInteractionInTitleBar="True"
-                    Classes="Search"
-                    Text="{Binding SearchText, Mode=TwoWay}" />
-            </Border>-->
-
-            <DockPanel Grid.Column="3">
-                <Button
-                    Width="40"
-                    Height="40"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Command="{Binding RefreshList}"
-                    Theme="{DynamicResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
-                    <Viewbox
-                        Width="22"
-                        Height="22"
-                        VerticalAlignment="Center">
-                        <ui:SymbolIcon Symbol="Refresh" />
-                    </Viewbox>
-                </Button>
-                <Button
-                    Width="40"
-                    Height="40"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Command="{Binding UploadFile}"
-                    Theme="{DynamicResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_UploadCloudArchiveFile,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
-                    <Viewbox
-                        Width="22"
-                        Height="22"
-                        VerticalAlignment="Center">
-                        <ui:SymbolIcon Symbol="OpenFile" />
-                    </Viewbox>
-                </Button>
-                <Button
-                    Width="40"
-                    Height="40"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Command="{Binding ClearAllFiles}"
-                    Theme="{DynamicResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RemoveBtn,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
-                    <Viewbox
-                        Width="22"
-                        Height="22"
-                        VerticalAlignment="Center">
-                        <ui:SymbolIcon Symbol="DeleteFilled" />
-                    </Viewbox>
-                </Button>
-
-                <Separator
-                    Height="18"
-                    Margin="10,0"
-                    VerticalAlignment="Center"
-                    Classes="Vertical"
-                    DockPanel.Dock="Right"
-                    IsHitTestVisible="False" />
-            </DockPanel>
-        </Grid>
-        <spp:ContentLoader Grid.Row="1" IsLoading="{Binding !!!CloudArchivews.Count, Mode=OneWay}">
+        <spp:ContentLoader Grid.Row="1" IsLoading="{Binding IsLoading}">
             <Panel>
                 <StackPanel
                     HorizontalAlignment="Right"

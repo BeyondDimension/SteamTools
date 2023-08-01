@@ -86,21 +86,27 @@ public sealed partial class SteamSettings_ : ISteamSettings, ISettings, ISetting
     public bool? IsRunSteamChina { get; set; }
 
     /// <summary>
-    /// Steam 登录时弹出消息通知
+    /// Steam 以旧版VGUI启动
     /// </summary>
     [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
+    public bool? IsRunSteamVGUI { get; set; }
+
+    /// <summary>
+    /// Steam 登录时弹出消息通知
+    /// </summary>
+    [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
     public bool? IsEnableSteamLaunchNotification { get; set; }
 
     /// <summary>
     /// Steam 下载完成执行任务
     /// </summary>
-    [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
+    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
     public OSExitMode? DownloadCompleteSystemEndMode { get; set; }
 
     /// <summary>
     /// Steam 以管理员权限运行
     /// </summary>
-    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
+    [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
     public bool? IsRunSteamAdministrator { get; set; }
 
 }
@@ -127,8 +133,6 @@ public static partial class SteamSettings
     public static SettingsProperty<string, SteamSettings_> SteamProgramPath { get; }
         = new(DefaultSteamProgramPath);
 
-#endif
-
     /// <summary>
     /// 自动运行 Steam
     /// </summary>
@@ -154,6 +158,12 @@ public static partial class SteamSettings
         = new(DefaultIsRunSteamChina);
 
     /// <summary>
+    /// Steam 以旧版VGUI启动
+    /// </summary>
+    public static SettingsStructProperty<bool, SteamSettings_> IsRunSteamVGUI { get; }
+        = new(DefaultIsRunSteamVGUI);
+
+    /// <summary>
     /// Steam 登录时弹出消息通知
     /// </summary>
     public static SettingsStructProperty<bool, SteamSettings_> IsEnableSteamLaunchNotification { get; }
@@ -170,5 +180,7 @@ public static partial class SteamSettings
     /// </summary>
     public static SettingsStructProperty<bool, SteamSettings_> IsRunSteamAdministrator { get; }
         = new(DefaultIsRunSteamAdministrator);
+
+#endif
 
 }

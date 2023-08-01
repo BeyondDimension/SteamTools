@@ -119,65 +119,9 @@
     </UserControl.Styles>
 
     <Grid RowDefinitions="Auto, *">
-        <Grid
-            Name="TitleBarHost"
-            Height="{StaticResource TitleBarHeight}"
-            VerticalAlignment="Center"
-            Background="Transparent"
-            ColumnDefinitions="Auto,Auto,Auto,*,Auto,150">
-            <!--<Panel Width="90"
-				   Height="75">
-				<Button
-					Name="BackViewButton"
-					Width="36"
-					Height="36"
-					HorizontalAlignment="Center"
-					Background="Transparent"
-					BorderThickness="0"
-					Cursor="Hand">
-					<Viewbox Height="18" Width="18">
-						<ui:SymbolIcon Symbol="Back"/>
-					</Viewbox>
-				</Button>
-			</Panel>-->
-
-            <Image
-                Name="WindowIcon"
-                Grid.Column="1"
-                Width="26"
-                Height="26"
-                Margin="22,4,10,4"
-                DockPanel.Dock="Left"
-                IsHitTestVisible="False"
-                RenderOptions.BitmapInterpolationMode="HighQuality"
-                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
-
-            <TextBlock
-                Grid.Column="2"
-                VerticalAlignment="Center"
-                FontSize="12"
-                IsHitTestVisible="False"
-                Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
-
-
-            <!--<Border
-                Grid.Column="3"
-                Padding="6"
-                VerticalAlignment="Center">
-                <AutoCompleteBox
-                    Name="SearchBox"
-                    MaxWidth="500"
-                    VerticalAlignment="Center"
-                    wnd:AppWindow.AllowInteractionInTitleBar="True"
-                    Classes="Search" />
-            </Border>-->
-
-            <DockPanel Grid.Column="4">
-                <StackPanel
-                    DockPanel.Dock="Left"
-                    Orientation="Horizontal"
-                    Spacing="8">
-
+        <spp:TitleBar Name="TitleBarHost">
+            <spp:TitleBar.ActionContent>
+                <StackPanel Orientation="Horizontal" Spacing="8">
                     <Button
                         Width="40"
                         Height="40"
@@ -335,16 +279,8 @@
                         </DropDownButton.Flyout>
                     </DropDownButton>
                 </StackPanel>
-
-                <Separator
-                    Height="18"
-                    Margin="10,0"
-                    VerticalAlignment="Center"
-                    Classes="Vertical"
-                    DockPanel.Dock="Right"
-                    IsHitTestVisible="False" />
-            </DockPanel>
-        </Grid>
+            </spp:TitleBar.ActionContent>
+        </spp:TitleBar>
 
         <ui:NavigationView
             Name="NavView"

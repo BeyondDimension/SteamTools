@@ -9,7 +9,10 @@ public sealed class StringFormatConverter : IValueConverter, IMultiValueConverte
 
     static object? Format(object? value, object? parameter, CultureInfo culture)
     {
-        if (value is bool b) return b ? Strings.On : Strings.Off;
+        if (value is bool b)
+            return b ? Strings.On : Strings.Off;
+        if (value is TimeSpan t)
+            return t.ToDisplayString();
         if (value is not string str) str = value?.ToString() ?? string.Empty;
         if (parameter is not string para) para = parameter?.ToString() ?? string.Empty;
         if (!string.IsNullOrEmpty(para))

@@ -135,8 +135,8 @@
         {
           "TypeName": "double",
           "PropertyName": "WindowBackgroundOpacity",
-          "DefaultValue": ".0",
-          "DefaultValueIsConst": true,
+          "DefaultValue": "OperatingSystem2.IsWindows11AtLeast() ? .0 : .8",
+          "DefaultValueIsConst": false,
           "Summary": "窗口背景不透明度",
           "IsRegionOrEndregion": null,
           "IsValueType": null
@@ -461,9 +461,6 @@
           "IsValueType": null
         },
         {
-          "Sharp": "endif"
-        },
-        {
           "TypeName": "bool",
           "PropertyName": "IsAutoRunSteam",
           "DefaultValue": "false",
@@ -501,6 +498,15 @@
         },
         {
           "TypeName": "bool",
+          "PropertyName": "IsRunSteamVGUI",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 以旧版VGUI启动",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
           "PropertyName": "IsEnableSteamLaunchNotification",
           "DefaultValue": "true",
           "DefaultValueIsConst": true,
@@ -525,6 +531,9 @@
           "Summary": "Steam 以管理员权限运行",
           "IsRegionOrEndregion": null,
           "IsValueType": null
+        },
+        {
+          "Sharp": "endif"
         }
       ],
       "Usings": ""
