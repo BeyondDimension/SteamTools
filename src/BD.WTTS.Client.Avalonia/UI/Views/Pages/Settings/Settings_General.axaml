@@ -20,8 +20,7 @@
                                      Mode=OneWay,
                                      Source={x:Static s:ResourceService.Current}}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
-        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_StartupAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-								Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_StartupAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
             </spp:OptionsDisplayItem.Icon>
@@ -30,8 +29,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_StartupNoShowMainWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" 
-								Header="{ReflectionBinding Path=Res.Settings_General_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_StartupNoShowMainWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEA6C;" />
             </spp:OptionsDisplayItem.Icon>
@@ -63,7 +61,7 @@
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE71D;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <ComboBox ItemsSource="{Binding UpdateChannels}" SelectedItem="{ReflectionBinding Source={x:Static ms:GeneralSettings.UpdateChannel}, Path=Value, Mode=TwoWay}" />
+                <ComboBox ItemsSource="{Binding UpdateChannels}" SelectedValue="{ReflectionBinding Source={x:Static ms:GeneralSettings.UpdateChannel}, Path=Value, Mode=TwoWay}" />
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
@@ -102,7 +100,9 @@
                 ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="AppData"
-                Content="{ReflectionBinding Path=Res.Settings_General_AppData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{ReflectionBinding Path=Res.Settings_General_AppData,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
                 IsClickEnabled="True"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
                                                 Mode=OneWay,
@@ -113,7 +113,9 @@
                 ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Cache"
-                Content="{ReflectionBinding Path=Res.Settings_General_CacheData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{ReflectionBinding Path=Res.Settings_General_CacheData,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
                 IsClickEnabled="True"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
                                                 Mode=OneWay,
@@ -132,7 +134,9 @@
                 ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Logs"
-                Content="{ReflectionBinding Path=Res.Settings_General_LogsData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{ReflectionBinding Path=Res.Settings_General_LogsData,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
                 IsClickEnabled="True"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
                                                 Mode=OneWay,

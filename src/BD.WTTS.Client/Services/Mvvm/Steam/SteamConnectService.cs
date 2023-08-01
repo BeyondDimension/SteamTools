@@ -1,4 +1,5 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+using BD.SteamClient.Helpers;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 #endif
 
@@ -267,7 +268,7 @@ public sealed class SteamConnectService
                             {
                                 IsDisposedClient = false;
                                 var id = swLocalService.GetSteamId64();
-                                if (id <= 0 || id == SteamUser.UndefinedId)
+                                if (id <= 0 || id == SteamIdConvert.UndefinedId)
                                 {
                                     // 该 64 位 id 的 steamID3 等于0，是 steam 未获取到当前登录用户的默认返回值，所以直接重新获取
                                     DisposeSteamClient();

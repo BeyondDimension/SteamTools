@@ -8,6 +8,7 @@
     xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:Name="u"
     MinWidth="350"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -39,16 +40,39 @@
                                                            Source={x:Static s:ResourceService.Current}}">
                                 <spp:AppItem.MoreFlyout>
                                     <ui:FAMenuFlyout>
-                                        <ui:MenuFlyoutItem Text="启用" />
+                                        <!--<ui:MenuFlyoutItem Text="启用" />
                                         <ui:MenuFlyoutItem Text="禁用" />
+                                        <ui:MenuFlyoutSeparator />-->
+                                        <ui:MenuFlyoutItem
+                                            Command="{ReflectionBinding #u.DataContext.SetFirstButton_Click}"
+                                            CommandParameter="{Binding}"
+                                            Text="置顶" />
+                                        <ui:MenuFlyoutItem
+                                            Command="{ReflectionBinding #u.DataContext.UpButton_Click}"
+                                            CommandParameter="{Binding}"
+                                            Text="上移" />
+                                        <ui:MenuFlyoutItem
+                                            Command="{ReflectionBinding #u.DataContext.DownButton_Click}"
+                                            CommandParameter="{Binding}"
+                                            Text="下移" />
                                         <ui:MenuFlyoutSeparator />
-                                        <ui:MenuFlyoutItem Text="置顶" />
-                                        <ui:MenuFlyoutItem Text="上移" />
-                                        <ui:MenuFlyoutItem Text="下移" />
-                                        <ui:MenuFlyoutSeparator />
-                                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <ui:MenuFlyoutItem
+                                            Command="{ReflectionBinding #u.DataContext.RemoveButton_Click}"
+                                            CommandParameter="{Binding}"
+                                            Text="{ReflectionBinding Path=Res.Delete,
+                                                                     Mode=OneWay,
+                                                                     Source={x:Static s:ResourceService.Current}}" />
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.MoreFlyout>
+                                <spp:AppItem.ActionButton>
+                                    <StackPanel Orientation="Horizontal" Spacing="2">
+                                        <ToggleSwitch
+                                            Classes="LeftContent"
+                                            Command="{ReflectionBinding #u.DataContext.DisableOrEnableButton_Click}"
+                                            CommandParameter="{Binding}"
+                                            IsChecked="{Binding !Disable, Mode=OneWay}" />
+                                    </StackPanel>
+                                </spp:AppItem.ActionButton>
                                 <spp:AppItem.Image>
                                     <spp:Image2
                                         Width="92"

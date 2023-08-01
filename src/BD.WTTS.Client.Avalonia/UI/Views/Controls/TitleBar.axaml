@@ -11,12 +11,15 @@
     d:DesignWidth="1080"
     Background="Transparent"
     mc:Ignorable="d">
-    <Grid Height="{StaticResource TitleBarHeight}" Background="Transparent">
-        <Grid.ColumnDefinitions>
-            <OnPlatform Default="Auto,Auto,*,Auto">
-                <On Content="Auto,Auto,*,Auto,140" Options="Windows" />
+    <Grid
+        Height="{StaticResource TitleBarHeight}"
+        Background="Transparent"
+        ColumnDefinitions="Auto,Auto,*,Auto">
+        <Grid.Margin>
+            <OnPlatform Default="0,0,22,0">
+                <On Content="0,0,140,0" Options="Windows" />
             </OnPlatform>
-        </Grid.ColumnDefinitions>
+        </Grid.Margin>
         <Image
             Name="BarIcon"
             Grid.Column="0"

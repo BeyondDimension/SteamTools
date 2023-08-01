@@ -1,3 +1,5 @@
+using ReactiveUI;
+
 namespace BD.WTTS.Models;
 
 public sealed class SteamAccount : ReactiveObject, IAccount
@@ -19,8 +21,15 @@ public sealed class SteamAccount : ReactiveObject, IAccount
         set => this.SteamUser.SteamId64 = Convert.ToInt64(value);
     }
 
-    [Reactive]
-    public string? AliasName { get; set; }
+    public string? AliasName
+    {
+        get => this.SteamUser.Remark;
+        set
+        {
+            this.SteamUser.Remark = value;
+            this.RaisePropertyChanged(nameof(this.AliasName));
+        }
+    }
 
     public string? AccountName
     {

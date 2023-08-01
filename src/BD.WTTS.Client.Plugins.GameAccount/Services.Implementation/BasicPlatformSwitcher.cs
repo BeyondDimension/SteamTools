@@ -548,6 +548,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
         var idsFile = Path.Combine(localCachePath, "ids.json");
 
+        var accountRemarks = Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
         var accList = File.Exists(idsFile) ? JTokenHelper.ReadDict(idsFile).ToList() : null;
 
         if (accList.Any_Nullable())
@@ -566,6 +567,8 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                     AccountId = item.Key,
                     AccountName = item.Value
                 };
+                if (accountRemarks?.TryGetValue($"{platform.FullName}-{account.AccountId}", out var remark) == true && !string.IsNullOrEmpty(remark))
+                    account.AliasName = remark;
                 if (!string.IsNullOrEmpty(account.AccountName))
                 {
                     // Handle account image

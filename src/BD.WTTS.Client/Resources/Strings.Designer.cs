@@ -4047,6 +4047,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 更多信息 的本地化字符串。
+        /// </summary>
+        public static string MoreInfo {
+            get {
+                return ResourceManager.GetString("MoreInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 下移 的本地化字符串。
         /// </summary>
         public static string MoveDown {
@@ -4664,6 +4673,15 @@ namespace BD.WTTS.Client.Resources {
         public static string ResetAll {
             get {
                 return ResourceManager.GetString("ResetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 收起 的本地化字符串。
+        /// </summary>
+        public static string Retract {
+            get {
+                return ResourceManager.GetString("Retract", resourceCulture);
             }
         }
         

@@ -167,7 +167,10 @@
                                         Grid.Row="3"
                                         IsVisible="False" />
 
-                                    <ItemsControl Name="CommandsHost" Grid.Row="4">
+                                    <ItemsControl
+                                        Name="CommandsHost"
+                                        Grid.Row="4"
+                                        IsVisible="{Binding !!$self.ItemCount}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel Spacing="2" />
@@ -182,7 +185,7 @@
                                         <Button
                                             Name="MoreDetailsButton"
                                             Classes="TaskDialog_MoreDetails"
-                                            Content="{StaticResource TaskDialogFooterButtonNormalText}"
+                                            Content="{x:Static spp:Strings.MoreInfo}"
                                             IsVisible="False"
                                             Theme="{StaticResource TaskDialogMoreDetailsButton}" />
                                         <ContentPresenter
@@ -260,7 +263,7 @@
             </Style>
 
             <Style Selector="^:expanded /template/ Button#MoreDetailsButton">
-                <Setter Property="Content" Value="{StaticResource TaskDialogFooterButtonExpandedText}" />
+                <Setter Property="Content" Value="{x:Static spp:Strings.Retract}" />
                 <Setter Property="IsVisible" Value="True" />
             </Style>
         </Style>

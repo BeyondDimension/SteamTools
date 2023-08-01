@@ -72,11 +72,3 @@ public sealed partial class AccountPlatformAuthenticator : IEntity<ushort>, IOrd
         set => Index = (int)value;
     }
 }
-
-#if DEBUG
-[Obsolete("use AccountPlatformAuthenticator", true)]
-public sealed class GameAccountPlatformAuthenticator
-{
-
-}
-#endif

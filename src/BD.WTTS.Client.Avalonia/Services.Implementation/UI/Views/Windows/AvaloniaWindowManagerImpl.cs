@@ -103,6 +103,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         object? pageContent = null,
         string? okButtonText = null,
         string? retryButtonText = null,
+        string? moreInfoText = null,
         Func<bool>? cancelCloseAction = null)
         where TPageViewModel : ViewModelBase
     {
@@ -131,7 +132,12 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             td.Content = pageContent ?? GetPageContent(viewModel);
         }
 
-        if (isRememberChooseFooter)
+        if (!string.IsNullOrEmpty(moreInfoText))
+        {
+            td.FooterVisibility = TaskDialogFooterVisibility.Auto;
+            td.Footer = new TextBlock { Text = moreInfoText, TextWrapping = TextWrapping.Wrap };
+        }
+        else if (isRememberChooseFooter)
         {
             td.FooterVisibility = TaskDialogFooterVisibility.Always;
             td.Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, };

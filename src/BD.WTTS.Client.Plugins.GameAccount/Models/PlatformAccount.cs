@@ -89,6 +89,7 @@ public sealed partial class PlatformAccount
             {
                 Accounts = null;
                 var users = await platformSwitcher.GetUsers(this);
+
                 if (users.Any_Nullable())
                     Accounts = new ObservableCollection<IAccount>(users);
             }

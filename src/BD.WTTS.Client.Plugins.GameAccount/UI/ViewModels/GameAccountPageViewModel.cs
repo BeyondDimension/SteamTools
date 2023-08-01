@@ -25,7 +25,13 @@ public sealed partial class GameAccountPageViewModel
         ShareManageCommand = ReactiveCommand.Create(async () =>
         {
             var vm = new SteamFamilyShareManagePageViewModel();
-            await IWindowManager.Instance.ShowTaskDialogAsync(vm, vm.Title, pageContent: new SteamFamilyShareManagePage(), isOkButton: false);
+            var r = await IWindowManager.Instance.ShowTaskDialogAsync(vm, vm.Title, pageContent: new SteamFamilyShareManagePage(),
+                isOkButton: true, isCancelButton: true, okButtonText: Strings.Save, moreInfoText: Strings.AccountChange_ShareManageAboutTips);
+
+            if (r == true)
+            {
+                vm.SetActivity_Click();
+            }
         });
 
         LoadPlatforms();
@@ -151,6 +157,7 @@ public sealed partial class GameAccountPageViewModel
     static bool CheckPlatformStatus(PlatformAccount? platform)
     {
         if (platform == null) return false;
+        if (platform.Platform == ThirdpartyPlatform.Steam) return true;
         if (!File.Exists(platform.PlatformSetting?.PlatformPath))
         {
             Toast.Show(ToastIcon.Error, Strings.Error_UnableSwitchPlatformAccount_.Format(platform.FullName));
