@@ -59,7 +59,9 @@
                 VerticalAlignment="Center"
                 Classes="Vertical"
                 DockPanel.Dock="Right"
-                IsHitTestVisible="False" />
+                IsHitTestVisible="False"
+                IsVisible="{OnPlatform False,
+                                       Windows=True}" />
         </DockPanel>
     </Grid>
 </UserControl>
