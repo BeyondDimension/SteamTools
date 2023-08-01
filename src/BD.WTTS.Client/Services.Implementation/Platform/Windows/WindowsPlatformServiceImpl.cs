@@ -21,7 +21,11 @@ sealed partial class WindowsPlatformServiceImpl : IPlatformService
     /// <summary>
     /// %windir%
     /// </summary>
-    static readonly Lazy<string> _windir = new(() => Environment.GetFolderPath(Environment.SpecialFolder.Windows));
+    static readonly Lazy<string> _windir = new(() =>
+    {
+        var windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+        return windir.ThrowIsNull();
+    });
 
     static readonly Lazy<string> _explorer_exe = new(() => Path.Combine(_windir.Value, "explorer.exe"));
 

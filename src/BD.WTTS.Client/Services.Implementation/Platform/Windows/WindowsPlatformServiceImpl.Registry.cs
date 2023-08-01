@@ -2,9 +2,13 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
-partial class WindowsPlatformServiceImpl
+partial class WindowsPlatformServiceImpl : IRegistryService
 {
-    static readonly Lazy<string> _regedit_exe = new(() => Path.Combine(_windir.Value, "regedit.exe"));
+    static readonly Lazy<string> _regedit_exe = new(() =>
+    {
+        var regedit_exe = Path.Combine(_windir!.Value, "regedit.exe");
+        return regedit_exe;
+    });
 
     /// <summary>
     /// %windir%\regedit.exe
@@ -44,6 +48,11 @@ partial class WindowsPlatformServiceImpl
         }
     }
 
+    void IRegistryService.StartProcessRegedit(
+        string path,
+        string contents,
+        int millisecondsDelay) => StartProcessRegedit(path, contents, millisecondsDelay);
+
     /// <inheritdoc cref="StartProcessRegedit(string, string, int)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void StartProcessRegeditCore(
@@ -67,7 +76,7 @@ partial class WindowsPlatformServiceImpl
     }
 
     /// <inheritdoc cref="Registry2.ReadRegistryKey(string, RegistryView)"/>
-    string? IPCPlatformService.ReadRegistryKey(string encodedPath, RegistryView view)
+    public string? ReadRegistryKey(string encodedPath, RegistryView view)
     {
         if (IsPrivilegedProcess)
         {
@@ -92,7 +101,7 @@ partial class WindowsPlatformServiceImpl
         return result;
     }
 
-    bool IPCPlatformService.SetRegistryKey(string encodedPath, RegistryView view, string? value)
+    public bool SetRegistryKey(string encodedPath, RegistryView view, string? value)
     {
         if (IsPrivilegedProcess)
         {
@@ -117,7 +126,7 @@ partial class WindowsPlatformServiceImpl
         return result;
     }
 
-    bool IPCPlatformService.DeleteRegistryKey(string encodedPath, RegistryView view)
+    public bool DeleteRegistryKey(string encodedPath, RegistryView view)
     {
         if (IsPrivilegedProcess)
         {

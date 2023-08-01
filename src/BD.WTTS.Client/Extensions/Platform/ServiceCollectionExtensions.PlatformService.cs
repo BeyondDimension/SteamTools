@@ -21,7 +21,9 @@ public static partial class ServiceCollectionExtensions
         services.AddSingleton<INotificationService, MacCatalystNotificationServiceImpl>();
 #elif WINDOWS
         services.AddSingleton<IHttpPlatformHelperService, WindowsClientHttpPlatformHelperServiceImpl>();
-        services.AddSingleton<IPlatformService, WindowsPlatformServiceImpl>();
+        services.AddSingleton<WindowsPlatformServiceImpl>();
+        services.AddSingleton<IPlatformService>(static s => s.GetRequiredService<WindowsPlatformServiceImpl>());
+        services.AddSingleton<IRegistryService>(static s => s.GetRequiredService<WindowsPlatformServiceImpl>());
         services.AddSingleton<ILocalDataProtectionProvider.IProtectedData, WindowsProtectedData>();
         services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
         //if (options.IsMainProcess)
