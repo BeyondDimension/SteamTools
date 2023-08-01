@@ -10,8 +10,6 @@
 	<string>3.0.0.0</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.15</string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>zh_CN</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -26,5 +24,16 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleIdentifier</key>
 	<string>net.steampp.app</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+	    <dict>
+ 	       <key>CFBundleURLName</key>
+    	   <string>steampp.app</string>
+		   <key>CFBundleURLSchemes</key>
+           <array>
+               <string>spp</string>
+            </array>
+        </dict>
+	</array>
 </dict>
 </plist>
