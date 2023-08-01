@@ -23,7 +23,7 @@ partial class YarpReverseProxyServiceImpl
         services.AddReverseProxyServer();
         services.AddFlowAnalyze();
 
-#if !NOT_WINDOWS
+#if WINDOWS
         if (ProxyMode == ProxyMode.DNSIntercept)
         {
             services.AddPacketIntercept();

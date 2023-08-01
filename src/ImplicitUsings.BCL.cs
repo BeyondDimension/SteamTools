@@ -83,7 +83,7 @@ global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using System.Management;
 #endif
 
-#if WINDOWS || APP_HOST
+#if !NONE_UI && (WINDOWS || APP_HOST)
 global using WPFMessageBox = MS.Win32.MessageBox;
 global using WPFMessageBoxButton = MS.Win32.MessageBoxButton;
 global using WPFMessageBoxImage = MS.Win32.MessageBoxImage;

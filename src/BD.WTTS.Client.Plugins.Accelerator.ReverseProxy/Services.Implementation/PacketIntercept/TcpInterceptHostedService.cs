@@ -1,6 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/TcpInterceptHostedService.cs
 
-#if !NOT_WINDOWS
+#if WINDOWS
 
 using static BD.WTTS.Models.Abstractions.IReverseProxyConfig;
 

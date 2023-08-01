@@ -7,9 +7,13 @@
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<SelfContained>false</SelfContained>
-		<DefineConstants>APP_REVERSE_PROXY;$(DefineConstants)</DefineConstants>
+		<DefineConstants>APP_REVERSE_PROXY;NONE_UI;$(DefineConstants)</DefineConstants>
 		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
 		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows')) AND ($(RuntimeIdentifier.StartsWith('win-')) OR $(RuntimeIdentifier) == '')">
+		<DefineConstants>WINDOWS7_0_OR_GREATER;WINDOWS;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -76,7 +80,10 @@
 		<PackageReference Include="DnsClient" />
 		<PackageReference Include="Yarp.ReverseProxy" />
 		<PackageReference Include="NLog.Web.AspNetCore" />
-		<PackageReference Include="Aigio.WinDivertSharp" Condition="$(RuntimeIdentifier.StartsWith('win-')) OR $(RuntimeIdentifier) == ''" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::IsOSPlatform('windows')) AND ($(RuntimeIdentifier.StartsWith('win-')) OR $(RuntimeIdentifier) == '')">
+		<PackageReference Include="Aigio.WinDivertSharp" />
 	</ItemGroup>
 
 	<ItemGroup>

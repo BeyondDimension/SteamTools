@@ -146,7 +146,7 @@ public static partial class ServiceCollectionExtensions
         return services.AddSingleton<IFlowAnalyzer, FlowAnalyzer>();
     }
 
-#if !NOT_WINDOWS
+#if WINDOWS
 
     /// <summary>
     /// 注册数据包拦截器

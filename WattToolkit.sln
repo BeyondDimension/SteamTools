@@ -29,6 +29,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{1E1DFB1C-55FC-4D74-9791-6A692E647034}"
 	ProjectSection(SolutionItems) = preProject
 		doc\file-system.md = doc\file-system.md
+		doc\open-source-library.md = doc\open-source-library.md
 		doc\openwrt.md = doc\openwrt.md
 		doc\publish.md = doc\publish.md
 		doc\release-keylol.md = doc\release-keylol.md

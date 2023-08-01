@@ -70,7 +70,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             {
                 options.AddServerHeader = false;
                 options.NoLimit();
-#if !NOT_WINDOWS
+#if WINDOWS
 #if !NET7_0_OR_GREATER
                             if (OperatingSystem2.IsWindows7())
                             {
