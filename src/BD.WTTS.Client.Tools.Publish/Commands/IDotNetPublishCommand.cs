@@ -439,7 +439,7 @@ $"""
                         arg.ReadyToRun = null;
                         arg.Trimmed = null;
                         arg.SelfContained = null;
-                        arg.CreatePackage = false;
+                        arg.CreatePackage = null;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(deviceIdiom), deviceIdiom, null);
@@ -604,8 +604,16 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
         if (arg.UseAppHost.HasValue)
             argumentList.Add($"-p:UseAppHost={arg.UseAppHost.Value.ToLowerString()}");
 
-        // PublishDir is used by the CLI to denote the Publish target.
-        argumentList.Add($@"-p:PublishDir={arg.PublishDir}");
+        if (!arg.Framework.StartsWith("osx"))
+        {
+            // PublishDir is used by the CLI to denote the Publish target.
+            argumentList.Add($@"-p:PublishDir={arg.PublishDir}");
+        }
+        else
+        {
+            argumentList.Add("-o");
+            argumentList.Add(arg.PublishDir);
+        }
 
         // 将应用打包到特定于平台的单个文件可执行文件中。
         if (arg.SingleFile.HasValue)
