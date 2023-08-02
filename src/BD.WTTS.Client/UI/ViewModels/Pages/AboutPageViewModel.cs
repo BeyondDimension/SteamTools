@@ -74,7 +74,7 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
         try
         {
             var assembly = Type.GetType(typeName)?.Assembly;
-            var value = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+            var value = assembly?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
                 .InformationalVersion
                 .Split(new[] { '+', '-' }, StringSplitOptions.RemoveEmptyEntries)
                 .FirstOrDefault();
