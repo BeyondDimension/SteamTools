@@ -29,7 +29,62 @@ public sealed partial class AboutPageViewModel : TabItemViewModel
     }
 
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
-    public string VersionDisplay => $"{AssemblyInfo.InformationalVersion} for {DeviceInfo2.OSName()} ({RuntimeInformation.ProcessArchitecture.ToString().ToLower()})";
+    public string VersionDisplay
+    {
+        get
+        {
+            var value = $"{AssemblyInfo.InformationalVersion} for {DeviceInfo2.OSName()} ({RuntimeInformation.ProcessArchitecture.ToString().ToLower()})";
+            value = Strings.About_Version_.Format(value);
+            return value;
+        }
+    }
+
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public string DotnetDesc =>
+"""
+.NET is a free, cross-platform, open source developer platform for building many different types of applications.
+
+With .NET, you can use multiple languages, editors, and libraries to build for web, mobile, desktop, games, IoT, and more.
+""";
+
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public string AvaloniaDesc =>
+"""
+Avalonia is a cross-platform UI framework for dotnet, providing a flexible styling system and supporting a wide range of platforms such as Windows, macOS, Linux, iOS, Android and WebAssembly. Avalonia is mature and production ready and is used by companies, including Schneider Electric, Unity, JetBrains and Github.
+""";
+
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public string AvaloniaVersion
+    {
+        get
+        {
+            var avaloniaVersion = GetAssemblyVersion(
+               "Avalonia.Application, Avalonia.Controls") ?? "???";
+            var value = $"Avalonia {avaloniaVersion}";
+            return value;
+        }
+    }
+
+    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    public string RuntimeVersion => $".NET {Environment.Version}";
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static string? GetAssemblyVersion(string typeName)
+    {
+        try
+        {
+            var assembly = Type.GetType(typeName)?.Assembly;
+            var value = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+                .InformationalVersion
+                .Split(new[] { '+', '-' }, StringSplitOptions.RemoveEmptyEntries)
+                .FirstOrDefault();
+            return value;
+        }
+        catch
+        {
+            return default;
+        }
+    }
 
     /** links
      * 检查更新

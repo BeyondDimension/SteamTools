@@ -88,6 +88,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 版本 {0} 的本地化字符串。
+        /// </summary>
+        public static string About_Version_ {
+            get {
+                return ResourceManager.GetString("About_Version_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 关于此插件 的本地化字符串。
         /// </summary>
         public static string AboutThisPlugin {

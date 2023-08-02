@@ -12,10 +12,14 @@
 		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 		<DefineConstants>APP_HOST;$(DefineConstants)</DefineConstants>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<ServerGarbageCollection>false</ServerGarbageCollection>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ApplicationIcon Condition="'$(Configuration)'=='Release'">..\..\res\icons\app\v2\Icon.ico"</ApplicationIcon>
+		<ApplicationIcon Condition="'$(Configuration)'=='Debug'">..\..\res\icons\app\v2\Development\Icon.ico"</ApplicationIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">

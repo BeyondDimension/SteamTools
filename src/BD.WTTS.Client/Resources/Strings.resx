@@ -2589,4 +2589,7 @@
   <data name="Success_DeletePlatformAccount__" xml:space="preserve">
     <value>已经删除 {0} 平台 {1} 账号</value>
   </data>
+  <data name="About_Version_" xml:space="preserve">
+    <value>版本 {0}</value>
+  </data>
 </root>

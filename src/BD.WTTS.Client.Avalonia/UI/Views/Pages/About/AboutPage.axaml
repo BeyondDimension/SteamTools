@@ -37,16 +37,49 @@
             </spp:OptionsDisplayItem.ActionButton>
             <spp:OptionsDisplayItem.Content>
                 <StackPanel Spacing="4">
-                    <DockPanel Margin="24,0,0,6" LastChildFill="False">
-                        <TextBox
+                    <StackPanel
+                        Margin="24,0,0,6"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
                             Classes="readonlybox"
-                            DockPanel.Dock="Left"
                             FontSize="12"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{ReflectionBinding Path=Res.About_ThankSupport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-
-                    </DockPanel>
-
+                            Text="Powered by" />
+                        <DockPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ToolTip.Tip="{Binding AvaloniaDesc}">
+                            <Image
+                                Width="18"
+                                Height="18"
+                                Margin="4,0,4,0"
+                                DockPanel.Dock="Left"
+                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/avaloniaui-logo.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Classes="readonlybox"
+                                DockPanel.Dock="Right"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding AvaloniaVersion}" />
+                        </DockPanel>
+                        <TextBlock
+                            Margin="4,0,5,0"
+                            VerticalAlignment="Center"
+                            Classes="readonlybox"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="&amp;" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Classes="readonlybox"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{Binding RuntimeVersion}"
+                            ToolTip.Tip="{Binding DotnetDesc}" />
+                    </StackPanel>
                     <Border
                         Height="1"
                         Margin="-20"
@@ -54,5 +87,49 @@
                 </StackPanel>
             </spp:OptionsDisplayItem.Content>
         </spp:OptionsDisplayItem>
+        <StackPanel
+            Margin="0,20,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <TextBlock
+                VerticalAlignment="Center"
+                Classes="readonlybox"
+                FontSize="12"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="Powered by" />
+            <DockPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ToolTip.Tip="{Binding AvaloniaDesc}">
+                <Image
+                    Width="18"
+                    Height="18"
+                    Margin="4,0,4,0"
+                    DockPanel.Dock="Left"
+                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/avaloniaui-logo.png" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Classes="readonlybox"
+                    DockPanel.Dock="Right"
+                    FontSize="12"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{Binding AvaloniaVersion}" />
+            </DockPanel>
+            <TextBlock
+                Margin="4,0,5,0"
+                VerticalAlignment="Center"
+                Classes="readonlybox"
+                FontSize="12"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="&amp;" />
+            <TextBlock
+                VerticalAlignment="Center"
+                Classes="readonlybox"
+                FontSize="12"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="{Binding RuntimeVersion}"
+                ToolTip.Tip="{Binding DotnetDesc}" />
+        </StackPanel>
     </StackPanel>
 </UserControl>
