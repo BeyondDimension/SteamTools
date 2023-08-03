@@ -8,7 +8,7 @@ using AngleSharp.Text;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed partial class AuthenticatorPageViewModel : ViewModelBase
+public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 {
     const int MAX_SYNC_VALUE = 100;
 
@@ -18,37 +18,22 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     DateTime _initializeTime;
 
-    AuthenticatorItemModel? PrevSelectedAuth { get; set; }
-
-    AuthenticatorItemModel? CurrentSelectedAuth { get; set; }
-
-    public AuthenticatorPageViewModel()
+    public AuthenticatorHomePageViewModel()
     {
         Auths = new();
-        BorderBottomIsActive = false;
-        AuthenticatorItemModel.OnAuthenticatorItemIsSelectedChanged +=
-            AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged;
-    }
 
-    private void AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged(AuthenticatorItemModel sender)
-    {
-        if (sender.IsSelected)
-        {
-            CurrentSelectedAuth = sender;
-
-            if (PrevSelectedAuth != null) PrevSelectedAuth.IsSelected = false;
-
-            PrevSelectedAuth = sender;
-
-            BorderBottomIsActive = true;
-        }
-        else
-        {
-            if (PrevSelectedAuth == CurrentSelectedAuth) PrevSelectedAuth = null;
-            if (PrevSelectedAuth != null) return;
-            BorderBottomIsActive = false;
-            CurrentSelectedAuth = null;
-        }
+        this.WhenAnyValue(v => v.Auths)
+            .Subscribe(items => items?
+                .ToObservableChangeSet()
+                .AutoRefresh(x => x.IsSelected)
+                .WhenPropertyChanged(x => x.IsSelected, false)
+                .Subscribe(s =>
+                {
+                    if (s.Value)
+                        SelectedAuth = s.Sender;
+                    else
+                        SelectedAuth = null;
+                }));
     }
 
     public async void Initialize()
@@ -63,14 +48,13 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         _initializeTime = DateTime.Now;
 
         Auths.Clear();
-        BorderBottomIsActive = false;
 
-        var sourceList = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
+        var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
         if (sourceList.Length < 1) return;
 
         AuthenticatorIsEmpty = false;
 
-        (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorService.HasEncrypt(sourceList);
+        (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
 
         if (HasPasswordEncrypt && IsVerificationPass == false)
         {
@@ -84,7 +68,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         // var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
         //     _currentPassword.Base64Encode_Nullable());
 
-        var list = (await AuthenticatorService.GetAllAuthenticatorsAsync(sourceList,
+        var list = (await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceList,
             _currentPassword)).OrderBy(i => i.Index);
 
         foreach (var item in list)
@@ -104,7 +88,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 isCancelButton: true) &&
             textViewmodel.Value != null)
         {
-            if (await AuthenticatorService.ValidatePassword(sourceData, textViewmodel.Value))
+            if (await AuthenticatorHelper.ValidatePassword(sourceData, textViewmodel.Value))
             {
                 //_currentPassword = textViewmodel.Value.Base64DecodeToByteArray_Nullable();
                 _currentPassword = textViewmodel.Value;
@@ -146,7 +130,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         }
         else return;
 
-        if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
+        if (await AuthenticatorHelper.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
                 newPassword))
         {
             Toast.Show(ToastIcon.Success, AppResources.Success_AuthPasswordSetSuccessfully);
@@ -166,10 +150,10 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             return;
         }
 
-        var sourceList = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
+        var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
         if (await EnterPassword(sourceList[0]))
         {
-            if (await AuthenticatorService.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData)))
+            if (await AuthenticatorHelper.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData)))
             {
                 Toast.Show(ToastIcon.Success, AppResources.Success_AuthPasswordRemovedSuccessfully);
                 _currentPassword = null;
@@ -191,7 +175,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         bool newStatus = HasLocalPcEncrypt == false;
 
-        if (await AuthenticatorService.SwitchEncryptionAuthenticators(newStatus, Auths.Select(i => i.AuthData), _currentPassword))
+        if (await AuthenticatorHelper.SwitchEncryptionAuthenticators(newStatus, Auths.Select(i => i.AuthData), _currentPassword))
             Toast.Show(ToastIcon.Success, AppResources.Success_AuthProtectSuccessfully_.Format(newStatus ? "开启" : "关闭"));
         else Toast.Show(ToastIcon.Error, AppResources.Error_AuthProtectFailed_.Format(newStatus ? "开启" : "关闭"));
 
@@ -224,7 +208,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         }
 
         Auths.Clear();
-        BorderBottomIsActive = false;
         IsVerificationPass = false;
     }
 
@@ -247,7 +230,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
         if (string.IsNullOrEmpty(_currentAnswer))
         {
-            var answer = await AuthenticatorService.VerifyIndependentPassword();
+            var answer = await AuthenticatorHelper.VerifyIndependentPassword();
             if (!string.IsNullOrEmpty(answer)) _currentAnswer = answer;
             else return;
         }
@@ -255,7 +238,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         #endregion
 
         response.Content.ThrowIsNull();
-        var cloudAuths = response.Content.Select(AuthenticatorService.ConvertToAuthenticatorDto).ToList();
+        var cloudAuths = response.Content.Select(AuthenticatorHelper.ConvertToAuthenticatorDto).ToList();
 
         if (cloudAuths.Count >= Auths.Count)
         {
@@ -285,7 +268,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                     if (isChanged)
                     {
                         localAuth.LastUpdate = DateTimeOffset.Now;
-                        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
+                        await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
                             HasLocalPcEncrypt);
                         changes++;
                     }
@@ -294,7 +277,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 }
 
                 additions++;
-                await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(cloudAuth, _currentPassword,
+                await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(cloudAuth, _currentPassword,
                     HasLocalPcEncrypt);
             }
 
@@ -361,16 +344,12 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             localAuth.ThrowIsNull(AppResources.Error_localAuthNotEmpty);
             localAuth.ServerId ??= item.Id;
             localAuth.LastUpdate = DateTimeOffset.Now;
-            await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
+            await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
                 HasLocalPcEncrypt);
         }
 
         Initialize();
         Toast.Show(ToastIcon.Success, AppResources.Success_AuthUpload__.Format(syncResponse.Content?.Message, pushItems.Length));
-    }
-
-    public async Task KeepDisplay()
-    {
     }
 
     public async Task ResetIndependentPassword()
@@ -382,7 +361,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             Toast.Show(ToastIcon.Warning, AppResources.Auth_Sync_NoHasPassword);
             return;
         }
-        _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+        _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
         if (string.IsNullOrEmpty(_currentAnswer)) return;
         var textViewModel = new TextBoxWindowViewModel();
         if (!await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, AppResources.Title_SetSecurityIssues,
@@ -419,7 +398,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             {
                 if (string.IsNullOrEmpty(_currentAnswer))
                 {
-                    _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+                    _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
                     if (string.IsNullOrEmpty(_currentAnswer)) return;
                 }
                 var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
@@ -439,60 +418,10 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
                 else
                     Toast.Show(ToastIcon.Warning, AppResources.Error_DelCloudData);
             }
-            AuthenticatorService.DeleteAuth(authenticatorItemModel.AuthData);
+            AuthenticatorHelper.DeleteAuth(authenticatorItemModel.AuthData);
             Auths.Remove(authenticatorItemModel);
             Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthDelSuccessful);
         }
-    }
-
-    public async Task EditAuthNameAsync()
-    {
-        if (CurrentSelectedAuth == null) return;
-        string? newName = null;
-
-        var textViewmodel = new TextBoxWindowViewModel
-        {
-            InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
-            Value = CurrentSelectedAuth.AuthName
-        };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_PleaseEnterNewAuthName, isDialog: false,
-                isCancelButton: true))
-        {
-            newName = textViewmodel.Value;
-        }
-
-        if (string.IsNullOrEmpty(newName)) return;
-
-        if (CurrentSelectedAuth.AuthData.ServerId != null)
-        {
-            if (string.IsNullOrEmpty(_currentAnswer))
-            {
-                _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
-                if (string.IsNullOrEmpty(_currentAnswer)) return;
-            }
-
-            var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
-            {
-                Difference = new[]
-                {
-                    new UserAuthenticatorPushItem()
-                    {
-                        Id = CurrentSelectedAuth.AuthData.ServerId,
-                        Name = newName,
-                        Order = CurrentSelectedAuth.AuthData.Index,
-                    },
-                },
-                Answer = _currentAnswer,
-            });
-            response.Content.ThrowIsNull();
-            if (response.IsSuccess && response.Content.Result)
-                Toast.Show(ToastIcon.Success, AppResources.Success_UpdateCloudData);
-            else
-                Toast.Show(ToastIcon.Warning, AppResources.Error_UpdateCloudData);
-        }
-        CurrentSelectedAuth.AuthName = newName;
-        await AuthenticatorService.SaveEditAuthNameAsync(CurrentSelectedAuth.AuthData, newName);
-        Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthUpdateSuccessful);
     }
 
     public async Task OpenExportWindow()
@@ -501,71 +430,13 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
             pageContent: new AuthenticatorExportPage(), isOkButton: false);
     }
 
-    public void ShowQrCode()
-    {
-        if (CurrentSelectedAuth == null) return;
-        var dto = CurrentSelectedAuth.AuthData.ToExport();
-        var bytes = Serializable.SMP(dto);
-
-        var bytes_compress_br = bytes.CompressByteArrayByBrotli();
-
-        var (result, stream, e) = QRCodeHelper.Create(bytes_compress_br);
-        switch (result)
-        {
-            case QRCodeHelper.QRCodeCreateResult.DataTooLong:
-                Toast.Show(ToastIcon.Error, Strings.AuthLocal_ExportToQRCodeTooLongErrorTip);
-                break;
-            case QRCodeHelper.QRCodeCreateResult.Exception:
-                Toast.Show(ToastIcon.Error, e!.Message);
-                Log.Error(nameof(AuthenticatorPageViewModel), e, nameof(ShowQrCode));
-                break;
-        }
-
-        QrCodeStream = stream;
-    }
-
-    public async Task ShowReplyWindow()
-    {
-        if (CurrentSelectedAuth == null || CurrentSelectedAuth.AuthData.Platform != AuthenticatorPlatform.Steam)
-        {
-            Toast.Show(ToastIcon.Warning, AppResources.Warning_TransactionOnlySteamAuth);
-            return;
-        }
-
-        var authData = CurrentSelectedAuth.AuthData;
-        await IWindowManager.Instance.ShowTaskDialogAsync(new SteamTradePageViewModel(ref authData),
-            AppResources.ConfirmTransaction,
-            pageContent: new SteamTradePage(), isOkButton: false);
-        CurrentSelectedAuth.AuthData = authData;
-    }
-
     public async Task ShowRecoverWindow()
     {
         if (string.IsNullOrEmpty(_currentAnswer))
-            _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+            _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
         if (string.IsNullOrEmpty(_currentAnswer)) return;
         await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorRecoverPageViewModel(_currentAnswer), AppResources.Auth_Sync_Recover,
             pageContent: new AuthenticatorRecoverPage(), isOkButton: false);
-    }
-
-    public async Task ShowAuthJsonData()
-    {
-        if (CurrentSelectedAuth == null) return;
-        if (CurrentSelectedAuth.AuthData.Platform == AuthenticatorPlatform.Steam)
-            await IWindowManager.Instance.ShowTaskDialogAsync(new ShowSteamDataViewModel(CurrentSelectedAuth.AuthData),
-                AppResources.LocalAuth_ShowAuthInfo,
-                pageContent: new ShowSteamDataPage(), isCancelButton: true);
-        else
-        {
-            var temp = CurrentSelectedAuth.AuthData.Value?.SecretKey
-                .ThrowIsNull().ToHexString();
-            await IWindowManager.Instance.ShowTaskDialogAsync(
-                new TextBoxWindowViewModel()
-                {
-                    InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
-                    Value = temp,
-                }, AppResources.ModelContent_SecretKey_.Format(CurrentSelectedAuth.AuthName), isDialog: false, isOkButton: false);
-        }
     }
 
     public async void ExportAuthWithSdaFile(object sender)
@@ -649,9 +520,9 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (authenticatorItemModel.AuthData.ServerId != null)
         {
             if (string.IsNullOrEmpty(_currentAnswer))
-                _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+                _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
         }
-        var result = await AuthenticatorService.MoveAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData, Auths, index, true,
+        var result = await AuthenticatorHelper.MoveAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData, Auths, index, true,
             _currentAnswer);
         if (result <= 1)
         {
@@ -668,9 +539,9 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (authenticatorItemModel.AuthData.ServerId != null)
         {
             if (string.IsNullOrEmpty(_currentAnswer))
-                _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+                _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
         }
-        var result = await AuthenticatorService.MoveAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData, Auths, index, false,
+        var result = await AuthenticatorHelper.MoveAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData, Auths, index, false,
             _currentAnswer);
         if (result <= 1)
         {
@@ -687,9 +558,9 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
         if (authenticatorItemModel.AuthData.ServerId != null)
         {
             if (string.IsNullOrEmpty(_currentAnswer))
-                _currentAnswer = await AuthenticatorService.VerifyIndependentPassword();
+                _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
         }
-        var result = await AuthenticatorService.ChangeAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData,
+        var result = await AuthenticatorHelper.ChangeAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData,
             Auths, index, 0,
             _currentAnswer);
         if (result <= 1)
@@ -706,7 +577,7 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
     public async Task DefaultExport(object sender)
     {
         if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
-        var exportFile = await AuthenticatorService.ExportAsync($"{authenticatorItemModel.AuthName}{FileEx.MPO}", false,
+        var exportFile = await AuthenticatorHelper.ExportAsync($"{authenticatorItemModel.AuthName}{FileEx.MPO}", false,
             new[] { authenticatorItemModel.AuthData });
         if (exportFile == null) return;
         Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile.ToString()));
@@ -776,8 +647,6 @@ public sealed partial class AuthenticatorPageViewModel : ViewModelBase
 
     protected override void Dispose(bool disposing)
     {
-        AuthenticatorItemModel.OnAuthenticatorItemIsSelectedChanged -=
-            AuthenticatorItemModel_OnAuthenticatorItemIsSelectedChanged;
         base.Dispose(disposing);
     }
 }

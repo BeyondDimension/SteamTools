@@ -7290,15 +7290,6 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 确认交易功能仅限 Steam 令牌使用 的本地化字符串。
-        /// </summary>
-        public static string Warning_TransactionOnlySteamAuth {
-            get {
-                return ResourceManager.GetString("Warning_TransactionOnlySteamAuth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 解绑令牌失败：登陆未成功 的本地化字符串。
         /// </summary>
         public static string Warning_UnbindFailed {

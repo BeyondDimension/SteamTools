@@ -3,10 +3,11 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 using Avalonia.Media.Imaging;
 using BD.WTTS.Client.Resources;
 using WinAuth;
+using BD.WTTS.Helper;
 
 namespace BD.WTTS.Services;
 
-public sealed partial class AuthenticatorService
+public static class AuthenticatorHelper
 {
     static IAccountPlatformAuthenticatorRepository repository = Ioc.Get<IAccountPlatformAuthenticatorRepository>();
 
@@ -22,7 +23,7 @@ public sealed partial class AuthenticatorService
         }
     }
 
-    public async Task<Bitmap> GetUrlImage(string url)
+    public static async Task<Bitmap> GetUrlImage(string url)
     {
         using var client = new HttpClient();
 
@@ -147,7 +148,7 @@ public sealed partial class AuthenticatorService
         }
         catch (Exception ex)
         {
-            Log.Error(nameof(AuthenticatorService), ex, nameof(SwitchEncryptionAuthenticators));
+            Log.Error(nameof(AuthenticatorHelper), ex, nameof(SwitchEncryptionAuthenticators));
             return false;
         }
     }
@@ -395,7 +396,7 @@ public sealed partial class AuthenticatorService
     //待完善
     public static async Task<string?> DecodePrivateKey(string secretCode)
     {
-        if (SecretCodeHttpRegex().Match(secretCode) is { Success: true })
+        if (AuthenticatorRegexHelper.SecretCodeHttpRegex().Match(secretCode) is { Success: true })
         {
             //url图片二维码解码
             var handler = new HttpClientHandler
@@ -429,11 +430,11 @@ public sealed partial class AuthenticatorService
             catch (Exception e)
             {
                 Toast.Show(ToastIcon.Error, AppResources.Error_ScanQRCodeFailed_.Format(e.Message));
-                Log.Error(nameof(AuthenticatorService), e, nameof(DecodePrivateKey));
+                Log.Error(nameof(AuthenticatorHelper), e, nameof(DecodePrivateKey));
             }
 
         }
-        else if (SecretCodeDataImageRegex().Match(secretCode) is { Success: true } dataImageMatch)
+        else if (AuthenticatorRegexHelper.SecretCodeDataImageRegex().Match(secretCode) is { Success: true } dataImageMatch)
         {
             var imageData = Convert.FromBase64String(dataImageMatch.Groups[2].Value);
             using var ms = new MemoryStream(imageData);
@@ -477,22 +478,10 @@ public sealed partial class AuthenticatorService
         // }
         else
         {
-            var privateKey = SecretHexCodeAuthRegex().Replace(secretCode, "");
+            var privateKey = AuthenticatorRegexHelper.SecretHexCodeAuthRegex().Replace(secretCode, "");
             return privateKey.Length < 1 ? null : privateKey;
         }
 
         return null;
     }
-
-    [GeneratedRegex("https?://.*")]
-    private static partial Regex SecretCodeHttpRegex();
-
-    [GeneratedRegex(@"data:image/([^;]+);base64,(.*)", RegexOptions.IgnoreCase)]
-    private static partial Regex SecretCodeDataImageRegex();
-
-    [GeneratedRegex(@"otpauth://([^/]+)/([^?]+)\?(.*)", RegexOptions.IgnoreCase)]
-    private static partial Regex SecretCodeOptAuthRegex();
-
-    [GeneratedRegex(@"[^0-9a-z]", RegexOptions.IgnoreCase)]
-    private static partial Regex SecretHexCodeAuthRegex();
 }

@@ -8,11 +8,15 @@
             <StackPanel Spacing="10">
                 <spp:AppItem
                     Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
-                    Description="This is a description of whatver this does"
+                    Description="This is a description of whatver this doesThis is a description of whatver this does"
                     ImageMargin="20,0"
                     Tags="111">
                     <spp:AppItem.ActionButton>
-                        <Button Content="delete" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Content="delete" />
+                            <Button Content="delete" />
+                            <Button Content="delete" />
+                        </StackPanel>
                     </spp:AppItem.ActionButton>
                     <spp:AppItem.Status>
                         <Border Classes="Status">
@@ -37,6 +41,13 @@
                     MaxHeight="120"
                     Description="This is a description of whatver this does"
                     Tags="111">
+                    <spp:AppItem.ActionButton>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Content="delete" />
+                            <Button Content="delete" />
+                            <Button Content="delete" />
+                        </StackPanel>
+                    </spp:AppItem.ActionButton>
                     <spp:AppItem.Status>
                         <Border Classes="Status">
                             <TextBlock Text="免费下载" />
@@ -56,8 +67,11 @@
                     Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）1111111111111111111111111111"
                     MaxWidth="300"
                     Classes="Vertical"
-                    Description="This is a description of whatver this does"
+                    Description="This is a description of whatver this doesThis is a description of whatver this doesThis is a description of whatver this doesThis is a description of whatver this doesThis is a description of whatver this doesThis is a description of whatver this doesThis is a description of whatver this doesThis is a description of whatver this doesThis is a description of whatver this does"
                     Tags="111">
+                    <spp:AppItem.ActionButton>
+                        <Button Content="delete" />
+                    </spp:AppItem.ActionButton>
                     <spp:AppItem.Status>
                         <Border Classes="Status">
                             <TextBlock Text="免费下载" />
@@ -98,10 +112,10 @@
                     ClipToBounds="True"
                     CornerRadius="{StaticResource OverlayCornerRadius}">
                     <spp:RippleEffect>
-                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto,*">
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto,*,Auto">
                             <Viewbox
                                 Name="IconHost"
-                                Grid.RowSpan="3"
+                                Grid.RowSpan="4"
                                 Height="{TemplateBinding Height}"
                                 MaxHeight="{TemplateBinding MaxHeight}"
                                 Margin="{TemplateBinding ImageMargin}"
@@ -146,38 +160,42 @@
                                 Text="{TemplateBinding Description}"
                                 TextWrapping="Wrap" />
 
-                            <DockPanel Grid.RowSpan="3" Grid.Column="3">
-                                <ContentPresenter
-                                    Margin="12,8"
-                                    Content="{TemplateBinding Status}"
-                                    DockPanel.Dock="Top"
-                                    FontSize="12"
-                                    IsVisible="{TemplateBinding Status,
+                            <ContentPresenter
+                                Grid.RowSpan="2"
+                                Grid.Column="3"
+                                Margin="12,8"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Content="{TemplateBinding Status}"
+                                FontSize="12"
+                                IsVisible="{TemplateBinding Status,
+                                                            Converter={StaticResource IsNullConverter},
+                                                            ConverterParameter=invert}"
+                                TextWrapping="Wrap" />
+
+                            <DockPanel
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                DockPanel.Dock="Bottom">
+                                <ContentPresenter Content="{TemplateBinding ActionButton}" DockPanel.Dock="Left" />
+
+                                <DropDownButton
+                                    Margin="8"
+                                    Padding="6"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Content="{StaticResource More}"
+                                    DockPanel.Dock="Right"
+                                    Flyout="{TemplateBinding MoreFlyout}"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="20"
+                                    IsVisible="{TemplateBinding MoreFlyout,
                                                                 Converter={StaticResource IsNullConverter},
                                                                 ConverterParameter=invert}"
-                                    TextWrapping="Wrap" />
-
-                                <DockPanel
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Bottom"
-                                    DockPanel.Dock="Bottom">
-                                    <ContentPresenter Content="{TemplateBinding ActionButton}" DockPanel.Dock="Left" />
-
-                                    <DropDownButton
-                                        Margin="8"
-                                        Padding="6"
-                                        HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        Content="{StaticResource More}"
-                                        DockPanel.Dock="Right"
-                                        Flyout="{TemplateBinding MoreFlyout}"
-                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                        FontSize="20"
-                                        IsVisible="{TemplateBinding MoreFlyout,
-                                                                    Converter={StaticResource IsNullConverter},
-                                                                    ConverterParameter=invert}"
-                                        Theme="{StaticResource TransparentButton}" />
-                                </DockPanel>
+                                    Theme="{StaticResource TransparentButton}" />
                             </DockPanel>
                         </Grid>
                     </spp:RippleEffect>
@@ -316,7 +334,10 @@
                                         TextWrapping="Wrap" />
 
                                     <DockPanel HorizontalAlignment="Right" DockPanel.Dock="Right">
-                                        <ContentPresenter Content="{TemplateBinding ActionButton}" DockPanel.Dock="Left" />
+                                        <ContentPresenter
+                                            Margin="8,0"
+                                            Content="{TemplateBinding ActionButton}"
+                                            DockPanel.Dock="Left" />
 
                                         <DropDownButton
                                             Padding="6"

@@ -2164,9 +2164,6 @@
 	<data name="Warning_TerminationAllAuth___" xml:space="preserve">
     <value>已终止 {0} 全部令牌，已操作成功令牌数量 {1} ，操作失败令牌数量 {2}</value>
   </data>
-	<data name="Warning_TransactionOnlySteamAuth" xml:space="preserve">
-    <value>确认交易功能仅限 Steam 令牌使用</value>
-  </data>
 	<data name="Warning_UnbindFailed" xml:space="preserve">
     <value>解绑令牌失败：登陆未成功</value>
   </data>

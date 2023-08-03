@@ -7,6 +7,8 @@
 		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
 		<ApplicationId>net.steampp.app</ApplicationId>
 		<ServerGarbageCollection>false</ServerGarbageCollection>
+		<ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+		<RetainVMGarbageCollection>false</RetainVMGarbageCollection>
 		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 	</PropertyGroup>
 

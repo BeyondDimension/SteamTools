@@ -4,11 +4,11 @@ using Avalonia.Markup.Xaml;
 
 namespace BD.WTTS.UI.Views.Pages;
 
-public partial class AuthenticatorHomePage : PageBase<AuthenticatorPageViewModel>
+public partial class AuthenticatorHomePage : PageBase<AuthenticatorHomePageViewModel>
 {
     public AuthenticatorHomePage()
     {
         InitializeComponent();
-        DataContext ??= new AuthenticatorPageViewModel();
+        DataContext ??= new AuthenticatorHomePageViewModel();
     }
 }

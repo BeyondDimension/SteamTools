@@ -47,12 +47,19 @@
                         </Border>
                     </StackPanel>
 
-                    <TextBlock
+                    <ContentPresenter
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding NoResultMessage}"
+                        Foreground="{TemplateBinding Foreground}"
+                        IsVisible="{TemplateBinding IsShowNoResultText}"
+                        Theme="{StaticResource SubtitleTextBlockStyle}" />
+                    <!--<TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         IsVisible="{TemplateBinding IsShowNoResultText}"
                         Text="{TemplateBinding NoResultMessage}"
-                        Theme="{StaticResource SubtitleTextBlockStyle}" />
+                        Theme="{StaticResource SubtitleTextBlockStyle}" />-->
 
                     <ContentPresenter
                         Name="ContentPresenter"

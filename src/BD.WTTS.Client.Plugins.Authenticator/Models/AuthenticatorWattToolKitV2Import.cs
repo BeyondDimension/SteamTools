@@ -29,7 +29,7 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
 
         var metadata = await IOPath.TryReadAllBytesAsync(filePath);
         if (!metadata.success || metadata.byteArray == null) return;
-        var result = await AuthenticatorService.ImportAsync(exportPassword, metadata.byteArray);
+        var result = await AuthenticatorHelper.ImportAsync(exportPassword, metadata.byteArray);
         switch (result.resultCode)
         {
             case IAccountPlatformAuthenticatorRepository.ImportResultCode.Success

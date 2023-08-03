@@ -48,6 +48,40 @@ public sealed partial class ProxyService
                 if (proxyStatusLeft != proxyStatusRight)
                     ProxyStatus = proxyStatusRight;
             });
+
+        this.WhenAnyValue(v => v.ProxyDomainsList)
+              .Subscribe(domain => domain?
+              .ToObservableChangeSet()
+              .AutoRefresh(x => x.ObservableItems)
+              .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
+              .AutoRefresh(x => x.Checked)
+              .WhenPropertyChanged(x => x.Checked, false)
+              .Subscribe(_ =>
+              {
+                  IsChangeSupportProxyServicesStatus = true;
+                  ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains?.Select(k => k.Id.ToString()).ToImmutableHashSet();
+              }));
+
+        this.WhenAnyValue(v => v.ProxyScripts)
+              .Subscribe(script => script?
+              .Connect()
+              .AutoRefresh(x => x.Disable)
+              .WhenPropertyChanged(x => x.Disable, false)
+              .Subscribe(async item =>
+              {
+                  await scriptManager.SaveEnableScriptAsync(item.Sender);
+                  //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
+                  //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
+                  if (reverseProxyService.ProxyRunning)
+                  {
+
+                      //await EnableProxyScripts.ContinueWith(e =>
+                      //{
+                      //    reverseProxyService.Scripts = e.Result?.ToImmutableArray();
+                      //});
+                      this.RaisePropertyChanged(nameof(EnableProxyScripts));
+                  }
+              }));
     }
 
     public SourceList<AccelerateProjectGroupDTO> ProxyDomains { get; }
@@ -256,19 +290,6 @@ public sealed partial class ProxyService
         //        item.ImageStream = ImageChannelType.AccelerateGroup.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId));
         //    }
         //}
-
-        this.WhenAnyValue(v => v.ProxyDomainsList)
-              .Subscribe(domain => domain?
-              .ToObservableChangeSet()
-              .AutoRefresh(x => x.ObservableItems)
-              .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-              .AutoRefresh(x => x.Checked)
-              .WhenPropertyChanged(x => x.Checked, false)
-              .Subscribe(_ =>
-              {
-                  IsChangeSupportProxyServicesStatus = true;
-                  ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains?.Select(k => k.Id.ToString()).ToImmutableHashSet();
-              }));
     }
 
     public static bool IsChangeSupportProxyServicesStatus { get; set; }
@@ -353,27 +374,6 @@ public sealed partial class ProxyService
 
         //拉取 GM.js
         await BasicsInfoAsync();
-
-        this.WhenAnyValue(v => v.ProxyScripts)
-              .Subscribe(script => script?
-              .Connect()
-              .AutoRefresh(x => x.Disable)
-              .WhenPropertyChanged(x => x.Disable, false)
-              .Subscribe(async item =>
-              {
-                  await scriptManager.SaveEnableScriptAsync(item.Sender);
-                  //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                  //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                  if (reverseProxyService.ProxyRunning)
-                  {
-
-                      //await EnableProxyScripts.ContinueWith(e =>
-                      //{
-                      //    reverseProxyService.Scripts = e.Result?.ToImmutableArray();
-                      //});
-                      this.RaisePropertyChanged(nameof(EnableProxyScripts));
-                  }
-              }));
     }
 
     /// <summary>

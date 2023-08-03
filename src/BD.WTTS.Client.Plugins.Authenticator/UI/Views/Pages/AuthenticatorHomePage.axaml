@@ -13,7 +13,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
-    x:DataType="spp:AuthenticatorPageViewModel"
+    x:DataType="spp:AuthenticatorHomePageViewModel"
     Description="{ReflectionBinding Description,
                                     Source={x:Static s:Plugin.Instance},
                                     Mode=OneWay}"
@@ -190,210 +190,149 @@
         </StackPanel>
     </spp:PageBase.ActionContent>
 
-    <DockPanel>
-        <Border
-            Name="BorderBottom"
-            Background="{DynamicResource ControlFillColorDefaultBrush}"
-            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-            Classes.IsActive="{Binding BorderBottomIsActive}"
-            CornerRadius="{StaticResource ControlCornerRadius}"
-            DockPanel.Dock="Bottom">
-            <DockPanel>
-                <ui:CommandBar
-                    HorizontalAlignment="Center"
-                    DefaultLabelPosition="Right"
-                    DockPanel.Dock="Left">
-                    <!-- <ui:CommandBar.PrimaryCommands> -->
-                    <!--     <ui:CommandBarButton Command="{Binding KeepDisplay}" Label="{ReflectionBinding Path=Res.Auth_FixedDisplay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"> -->
-                    <!--         <ui:CommandBarButton.IconSource> -->
-                    <!--             <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource FavoriteStar}" /> -->
-                    <!--         </ui:CommandBarButton.IconSource> -->
-                    <!--     </ui:CommandBarButton> -->
-                    <!-- </ui:CommandBar.PrimaryCommands> -->
-                    <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton
-                            Command="{Binding EditAuthNameAsync}"
-                            IconSource="Edit"
-                            Label="{ReflectionBinding Path=Res.Auth_EditName,
-                                                      Mode=OneWay,
-                                                      Source={x:Static s:ResourceService.Current}}" />
-                    </ui:CommandBar.PrimaryCommands>
-                    <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton Command="{Binding ShowReplyWindow}" Label="{ReflectionBinding Path=Res.LocalAuth_AuthTrade, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                            <ui:CommandBarButton.IconSource>
-                                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Reply}" />
-                            </ui:CommandBarButton.IconSource>
-                        </ui:CommandBarButton>
-                    </ui:CommandBar.PrimaryCommands>
-                    <ui:CommandBarSeparator />
-                    <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton
-                            Command="{Binding ShowAuthJsonData}"
-                            IconSource="ZoomIn"
-                            Label="{ReflectionBinding Path=Res.ViewDetailedData,
-                                                      Mode=OneWay,
-                                                      Source={x:Static s:ResourceService.Current}}" />
-                    </ui:CommandBar.PrimaryCommands>
-                    <ui:CommandBar.PrimaryCommands>
-                        <ui:CommandBarButton Command="{Binding ShowQrCode}" Label="{ReflectionBinding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                            <ui:CommandBarButton.IconSource>
-                                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
-                            </ui:CommandBarButton.IconSource>
-                            <ui:CommandBarButton.Flyout>
-                                <Flyout Placement="Top">
-                                    <Image
-                                        Width="200"
-                                        Height="200"
-                                        Source="{Binding QrCodeStream, Converter={StaticResource BitmapAssetValueConverter}, Mode=OneWay}" />
-                                </Flyout>
-                            </ui:CommandBarButton.Flyout>
-                        </ui:CommandBarButton>
-                    </ui:CommandBar.PrimaryCommands>
-                </ui:CommandBar>
-            </DockPanel>
-        </Border>
-        <Panel DockPanel.Dock="Top">
-            <StackPanel
+    <Panel>
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Horizontal"
+            Spacing="5">
+            <StackPanel.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding Path="!IsVerificationPass" />
+                    <Binding Path="!AuthenticatorIsEmpty" />
+                </MultiBinding>
+            </StackPanel.IsVisible>
+            <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                IsVisible="{CompiledBinding AuthenticatorIsEmpty}"
-                Orientation="Horizontal"
-                Spacing="5">
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
-                                             Path=Res.LocalAuth_NoAuthTip,
-                                             Mode=OneWay}"
-                    TextWrapping="WrapWithOverflow" />
-            </StackPanel>
-            <StackPanel
+                Text="{ReflectionBinding Path=Res.Auth_PasswordProtectedVerifyFirst,
+                                         Mode=OneWay,
+                                         Source={x:Static s:ResourceService.Current}}"
+                TextWrapping="WrapWithOverflow" />
+            <Button
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal"
-                Spacing="5">
-                <StackPanel.IsVisible>
-                    <MultiBinding Converter="{x:Static BoolConverters.And}">
-                        <Binding Path="!IsVerificationPass" />
-                        <Binding Path="!AuthenticatorIsEmpty" />
-                    </MultiBinding>
-                </StackPanel.IsVisible>
-                <TextBlock
+                Command="{Binding Initialize}"
+                Content="{ReflectionBinding Path=Res.Verify,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
+                IsEnabled="True" />
+        </StackPanel>
+
+        <spp:ContentLoader
+            DockPanel.Dock="Top"
+            IsLoading="False"
+            IsShowNoResultText="{Binding AuthenticatorIsEmpty}">
+            <spp:ContentLoader.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding Path="IsVerificationPass" />
+                    <Binding Path="!AuthenticatorIsEmpty" />
+                </MultiBinding>
+            </spp:ContentLoader.IsVisible>
+            <spp:ContentLoader.NoResultMessage>
+                <StackPanel
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Text="{ReflectionBinding Path=Res.Auth_PasswordProtectedVerifyFirst,
-                                             Mode=OneWay,
-                                             Source={x:Static s:ResourceService.Current}}"
-                    TextWrapping="WrapWithOverflow" />
-                <Button
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding Initialize}"
-                    Content="{ReflectionBinding Path=Res.Verify,
-                                                Mode=OneWay,
-                                                Source={x:Static s:ResourceService.Current}}"
-                    IsEnabled="True" />
-            </StackPanel>
-            <ScrollViewer
-                Margin="0,0,0,0"
-                HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto">
-                <ScrollViewer.IsVisible>
-                    <MultiBinding Converter="{x:Static BoolConverters.And}">
-                        <Binding Path="IsVerificationPass" />
-                        <Binding Path="!AuthenticatorIsEmpty" />
-                    </MultiBinding>
-                </ScrollViewer.IsVisible>
-                <ItemsRepeater ItemsSource="{Binding Auths}">
-                    <ItemsRepeater.Layout>
-                        <UniformGridLayout
-                            ItemsJustification="Start"
-                            ItemsStretch="Uniform"
-                            MinColumnSpacing="10"
-                            MinRowSpacing="10" />
-                    </ItemsRepeater.Layout>
-                    <ItemsRepeater.ItemTemplate>
-                        <DataTemplate DataType="{x:Type spp:AuthenticatorItemModel}">
-                            <spp:AuthenticatorItem>
-                                <spp:AuthenticatorItem.ContextFlyout>
-                                    <MenuFlyout>
-                                        <MenuItem
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.AuthenticatorIndexMoveUp}"
-                                            CommandParameter="{Binding}"
-                                            Header="{ReflectionBinding Path=Res.Up,
-                                                                       Mode=OneWay,
-                                                                       Source={x:Static s:ResourceService.Current}}">
-                                            <MenuItem.Icon>
-                                                <ui:SymbolIcon Symbol="ChevronUp" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                        <MenuItem
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.AuthenticatorIndexMoveDown}"
-                                            CommandParameter="{Binding}"
-                                            Header="{ReflectionBinding Path=Res.MoveDown,
-                                                                       Mode=OneWay,
-                                                                       Source={x:Static s:ResourceService.Current}}">
-                                            <MenuItem.Icon>
-                                                <ui:SymbolIcon Symbol="ChevronDown" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                        <MenuItem
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.AuthenticatorIndexSticky}"
-                                            CommandParameter="{Binding}"
-                                            Header="{ReflectionBinding Path=Res.FixedTop,
-                                                                       Mode=OneWay,
-                                                                       Source={x:Static s:ResourceService.Current}}">
-                                            <MenuItem.Icon>
-                                                <ui:SymbolIcon Symbol="Pin" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                        <MenuItem
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.DefaultExport}"
-                                            CommandParameter="{Binding}"
-                                            Header="{ReflectionBinding Path=Res.DefaultExport,
-                                                                       Mode=OneWay,
-                                                                       Source={x:Static s:ResourceService.Current}}">
-                                            <MenuItem.Icon>
-                                                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                        <MenuItem
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.ExportAuthWithSdaFile}"
-                                            CommandParameter="{Binding}"
-                                            Header="{ReflectionBinding Path=Res.Auth_ExportmaFile,
-                                                                       Mode=OneWay,
-                                                                       Source={x:Static s:ResourceService.Current}}">
-                                            <MenuItem.Icon>
-                                                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                        <MenuItem
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.UnbindingSteamAuthAsync}"
-                                            CommandParameter="{Binding}"
-                                            Header="{ReflectionBinding Path=Res.LocalAuth_RemoveAuth,
-                                                                       Mode=OneWay,
-                                                                       Source={x:Static s:ResourceService.Current}}">
-                                            <MenuItem.Icon>
-                                                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC9;" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                        <MenuItem
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.DeleteAuthAsync}"
-                                            CommandParameter="{Binding}"
-                                            Header="{ReflectionBinding Path=Res.LocalAuth_Delete,
-                                                                       Mode=OneWay,
-                                                                       Source={x:Static s:ResourceService.Current}}">
-                                            <MenuItem.Icon>
-                                                <ui:SymbolIcon Symbol="Delete" />
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                    </MenuFlyout>
-                                </spp:AuthenticatorItem.ContextFlyout>
-                            </spp:AuthenticatorItem>
-                        </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
-            </ScrollViewer>
-        </Panel>
-    </DockPanel>
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                                                 Path=Res.LocalAuth_NoAuthTip,
+                                                 Mode=OneWay}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </spp:ContentLoader.NoResultMessage>
+            <ItemsRepeater ItemsSource="{Binding Auths}">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout
+                        ItemsJustification="Start"
+                        ItemsStretch="Uniform"
+                        MinColumnSpacing="10"
+                        MinRowSpacing="10" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate DataType="{x:Type spp:AuthenticatorItemModel}">
+                        <spp:AuthenticatorItem>
+                            <spp:AuthenticatorItem.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuItem
+                                        Command="{ReflectionBinding $parent[spp:PageBase].DataContext.AuthenticatorIndexMoveUp}"
+                                        CommandParameter="{Binding}"
+                                        Header="{ReflectionBinding Path=Res.Up,
+                                                                   Mode=OneWay,
+                                                                   Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:SymbolIcon Symbol="ChevronUp" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{ReflectionBinding $parent[spp:PageBase].DataContext.AuthenticatorIndexMoveDown}"
+                                        CommandParameter="{Binding}"
+                                        Header="{ReflectionBinding Path=Res.MoveDown,
+                                                                   Mode=OneWay,
+                                                                   Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:SymbolIcon Symbol="ChevronDown" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{ReflectionBinding $parent[spp:PageBase].DataContext.AuthenticatorIndexSticky}"
+                                        CommandParameter="{Binding}"
+                                        Header="{ReflectionBinding Path=Res.FixedTop,
+                                                                   Mode=OneWay,
+                                                                   Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:SymbolIcon Symbol="Pin" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{ReflectionBinding $parent[spp:PageBase].DataContext.DefaultExport}"
+                                        CommandParameter="{Binding}"
+                                        Header="{ReflectionBinding Path=Res.DefaultExport,
+                                                                   Mode=OneWay,
+                                                                   Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{ReflectionBinding $parent[spp:PageBase].DataContext.ExportAuthWithSdaFile}"
+                                        CommandParameter="{Binding}"
+                                        Header="{ReflectionBinding Path=Res.Auth_ExportmaFile,
+                                                                   Mode=OneWay,
+                                                                   Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{ReflectionBinding $parent[spp:PageBase].DataContext.UnbindingSteamAuthAsync}"
+                                        CommandParameter="{Binding}"
+                                        Header="{ReflectionBinding Path=Res.LocalAuth_RemoveAuth,
+                                                                   Mode=OneWay,
+                                                                   Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC9;" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{ReflectionBinding $parent[spp:PageBase].DataContext.DeleteAuthAsync}"
+                                        CommandParameter="{Binding}"
+                                        Header="{ReflectionBinding Path=Res.LocalAuth_Delete,
+                                                                   Mode=OneWay,
+                                                                   Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:SymbolIcon Symbol="Delete" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </MenuFlyout>
+                            </spp:AuthenticatorItem.ContextFlyout>
+                        </spp:AuthenticatorItem>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </spp:ContentLoader>
+    </Panel>
 </spp:PageBase>

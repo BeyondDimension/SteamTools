@@ -7,14 +7,14 @@ namespace BD.WTTS.UI.ViewModels;
 public sealed partial class SteamTradePageViewModel
 {
     readonly SteamAuthenticator? _steamAuthenticator;
-    
+
     WinAuth.SteamClient? _steamClient;
 
     string? _captchaId;
 
     [Reactive]
     public ObservableCollection<SteamTradeConfirmationModel> Confirmations { get; set; } = new();
-    
+
     public SteamTradePageViewModel()
     {
     }
@@ -26,7 +26,7 @@ public sealed partial class SteamTradePageViewModel
             _steamAuthenticator = steamAuthenticator;
 
             _steamClient = _steamAuthenticator.GetClient();
-            
+
             Initialize();
 
             UserNameText = _steamAuthenticator.AccountName ?? "";
@@ -48,7 +48,7 @@ public sealed partial class SteamTradePageViewModel
             await GetConfirmations(_steamClient);
         }
     }
-    
+
     public async Task Refresh()
     {
         if (_steamClient == null) return;
@@ -71,7 +71,7 @@ public sealed partial class SteamTradePageViewModel
             return;
         }
         if (IsLoading || IsLogged || _steamAuthenticator == null) return;
-        
+
         _steamClient ??= _steamAuthenticator.GetClient();
 
         SetToastServiceStatus(Strings.Logining);
@@ -86,7 +86,7 @@ public sealed partial class SteamTradePageViewModel
         }));
 
         if (_steamClient == null) return;
-        
+
         if (!result)
         {
             IsLogged = result;
@@ -111,12 +111,12 @@ public sealed partial class SteamTradePageViewModel
         }
 
         Toast.Show(ToastIcon.Success, string.Format(Strings.Success_, Strings.User_Login));
-            
+
         SetToastServiceStatus();
 
         //_steamAuthenticator.SessionData = RemenberLogin ? result.steamClient.Session.ToString() : null;
         _ = await GetConfirmations(_steamClient);
-        
+
         IsLoading = false;
     }
 
@@ -131,14 +131,14 @@ public sealed partial class SteamTradePageViewModel
         if (result == null) return null;
 
         //var models = result.Select(item => new SteamTradeConfirmationModel(_steamAuthenticator!, item)).ToList();
-        
+
         Confirmations.Clear();
         foreach (var item in result)
         {
             Confirmations.Add(new SteamTradeConfirmationModel(_steamAuthenticator!, item));
         }
         //Confirmations.AddRange(models);
-        
+
         SetToastServiceStatus();
         IsLoading = false;
 
@@ -293,7 +293,7 @@ public sealed partial class SteamTradePageViewModel
             await OperationTrade(false);
         }
     }
-    
+
     async Task<bool> OperationTrade(bool status, SteamTradeConfirmationModel trade)
     {
         var result = await ChangeTradeStatus(status, trade);
@@ -385,7 +385,7 @@ public sealed partial class SteamTradePageViewModel
             SetToastServiceStatus();
         }
     }
-    
+
     async Task<bool> ChangeTradeStatus(bool status, SteamTradeConfirmationModel trade)
     {
         if (!await ChangeTradeStatus(status, new[] { trade })) return false;
@@ -393,7 +393,7 @@ public sealed partial class SteamTradePageViewModel
         return true;
 
     }
-    
+
     async Task<bool> ChangeTradeStatus(bool status, IEnumerable<SteamTradeConfirmationModel> trades)
     {
         var steamTradeConfirmationModels = trades.ToList();
@@ -413,5 +413,5 @@ public sealed partial class SteamTradePageViewModel
         return result;
     }
 
-    public async Task ShowCaptchaUrl() => await AuthenticatorService.ShowCaptchaUrl(CaptchaImageUrlText);
+    public async Task ShowCaptchaUrl() => await AuthenticatorHelper.ShowCaptchaUrl(CaptchaImageUrlText);
 }

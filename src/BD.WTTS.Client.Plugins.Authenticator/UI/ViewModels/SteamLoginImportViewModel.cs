@@ -308,7 +308,7 @@ public sealed partial class SteamLoginImportViewModel
             }
             else
             {
-                Log.Error(nameof(AuthenticatorPageViewModel), ex, nameof(LoginSteamImport));
+                Log.Error(nameof(AuthenticatorHomePageViewModel), ex, nameof(LoginSteamImport));
                 await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel { Content = ex + "\rError " + nameof(LoginSteamImport), IsCancelcBtn = true });
             }
         }
@@ -324,5 +324,5 @@ public sealed partial class SteamLoginImportViewModel
         }
     }
 
-    public async Task ShowCaptchaUrl() => await AuthenticatorService.ShowCaptchaUrl(_steamLoginState.CaptchaUrl);
+    public async Task ShowCaptchaUrl() => await AuthenticatorHelper.ShowCaptchaUrl(_steamLoginState.CaptchaUrl);
 }

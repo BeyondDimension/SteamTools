@@ -97,11 +97,11 @@ public class AuthenticatorExportViewModel : ViewModelBase
             }
         }
 
-        var sourceData = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
+        var sourceData = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
 
-        var auths = await AuthenticatorService.GetAllAuthenticatorsAsync(sourceData, _currentPassword);
+        var auths = await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceData, _currentPassword);
 
-        var exportFile = await AuthenticatorService.ExportAsync(DefaultExportAuthFileName, HasLocalProtection, auths, VerifyPassword);
+        var exportFile = await AuthenticatorHelper.ExportAsync(DefaultExportAuthFileName, HasLocalProtection, auths, VerifyPassword);
 
         Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile?.ToString()));
 

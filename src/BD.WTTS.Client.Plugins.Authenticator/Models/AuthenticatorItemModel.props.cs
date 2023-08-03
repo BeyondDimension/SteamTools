@@ -1,72 +1,28 @@
 using Avalonia.Media;
+using WinAuth;
 
 namespace BD.WTTS.Models;
 
 public partial class AuthenticatorItemModel
 {
-    bool _isSelected;
-    string _authName;
-    string? _text;
-    double _value;
-    IBrush? _strokeColor;
-    bool _isShowCode;
-
-    public override bool IsSelected
-    {
-        get => _isSelected;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref _isSelected, value);
-            IsShowCode = value;
-            if (IsShowCode)
-            {
-                EnableShowCode();
-            }
-            else
-            {
-                DisableShowCode();
-            }
-            OnAuthenticatorItemIsSelectedChanged?.Invoke(this);
-        }
-    }
+    const string DefaultCode = "-----";
 
     public bool IsCloudAuth => AuthData.ServerId != null;
 
-    public string AuthName
-    {
-        get => _authName;
-        set => this.RaiseAndSetIfChanged(ref _authName, value);
-    }
+    public bool IsSteamAuthenticator => AuthData.Platform == AuthenticatorPlatform.Steam;
 
-    public string? Text
-    {
-        get => _text;
-        set => this.RaiseAndSetIfChanged(ref _text, value);
-    }
+    [Reactive]
+    public bool IsSelected { get; set; }
 
-    public IBrush? StrokeColor
-    {
-        get => _strokeColor;
-        set => this.RaiseAndSetIfChanged(ref _strokeColor, value);
-    }
+    [Reactive]
+    public string AuthName { get; set; }
 
-    public double Value
-    {
-        get => _value;
-        set => this.RaiseAndSetIfChanged(ref _value, (double)(value * 12.00d));
-    }
+    [Reactive]
+    public string? Code { get; set; } = DefaultCode;
 
-    public bool IsShowCode
-    {
-        get => _isShowCode;
-        set
-        {
-            if (_isShowCode == value) return;
-            this.RaiseAndSetIfChanged(ref _isShowCode, value);
-        }
-    }
+    [Reactive]
+    public double Value { get; set; }
 
-    public delegate void AuthenticatorItemIsSelectedChangeEventHandler(AuthenticatorItemModel sender);
-
-    public static event AuthenticatorItemIsSelectedChangeEventHandler? OnAuthenticatorItemIsSelectedChanged;
+    [Reactive]
+    public bool IsShowCode { get; set; }
 }

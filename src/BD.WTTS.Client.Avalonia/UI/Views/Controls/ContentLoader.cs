@@ -15,8 +15,8 @@ public class ContentLoader : ContentControl
     /// <summary>
     /// Defines the <see cref="NoResultMessage"/> property
     /// </summary>
-    public static readonly StyledProperty<string?> NoResultMessageProperty =
-        AvaloniaProperty.Register<ContentLoader, string?>(nameof(NoResultMessage), null);
+    public static readonly StyledProperty<object?> NoResultMessageProperty =
+        AvaloniaProperty.Register<ContentLoader, object?>(nameof(NoResultMessage), null);
 
     /// <summary>
     /// Defines the <see cref="ProgressValue"/> property
@@ -78,7 +78,7 @@ public class ContentLoader : ContentControl
     /// <summary>
     /// 无结果时提示
     /// </summary>
-    public string? NoResultMessage
+    public object? NoResultMessage
     {
         get => GetValue(NoResultMessageProperty);
         set => SetValue(NoResultMessageProperty, value);

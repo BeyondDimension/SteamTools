@@ -27,7 +27,7 @@ public sealed class SteamAccount : ReactiveObject, IAccount
         set
         {
             this.SteamUser.Remark = value;
-            this.RaisePropertyChanged(nameof(this.AliasName));
+            this.RaisePropertyChanged();
         }
     }
 

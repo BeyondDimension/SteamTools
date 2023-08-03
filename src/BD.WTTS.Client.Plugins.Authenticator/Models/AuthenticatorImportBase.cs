@@ -14,7 +14,7 @@ public abstract partial class AuthenticatorImportBase : IAuthenticatorImport
 
     public async Task<bool> VerifyMaxValue()
     {
-        var auths = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
+        var auths = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
         if (auths.Length < IAccountPlatformAuthenticatorRepository.MaxValue) return true;
         Toast.Show(ToastIcon.Info, Strings.Info_AuthMaximumQuantity);
         return false;
@@ -22,9 +22,9 @@ public abstract partial class AuthenticatorImportBase : IAuthenticatorImport
 
     public async Task SaveAuthenticator(IAuthenticatorDTO authenticatorDto)
     {
-        var sourceList = await AuthenticatorService.GetAllSourceAuthenticatorAsync();
+        var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
 
-        var (hasLocalPcEncrypt, hasPasswordEncrypt) = AuthenticatorService.HasEncrypt(sourceList);
+        var (hasLocalPcEncrypt, hasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
 
         if (hasPasswordEncrypt && string.IsNullOrEmpty(_currentPassword))
         {
@@ -36,7 +36,7 @@ public abstract partial class AuthenticatorImportBase : IAuthenticatorImport
                     isCancelButton: true) &&
                 textViewmodel.Value != null)
             {
-                if (await AuthenticatorService.ValidatePassword(sourceList[0], textViewmodel.Value))
+                if (await AuthenticatorHelper.ValidatePassword(sourceList[0], textViewmodel.Value))
                 {
                     _currentPassword = textViewmodel.Value;
                 }
@@ -49,7 +49,7 @@ public abstract partial class AuthenticatorImportBase : IAuthenticatorImport
             else return;
         }
 
-        await AuthenticatorService.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, _currentPassword,
+        await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, _currentPassword,
             hasLocalPcEncrypt);
     }
 }

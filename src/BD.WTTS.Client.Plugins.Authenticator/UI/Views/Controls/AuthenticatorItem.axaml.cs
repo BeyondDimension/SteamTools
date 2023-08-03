@@ -15,20 +15,17 @@ public partial class AuthenticatorItem : UserControl
     {
         base.OnPointerPressed(e);
 
-        if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed)
+        if (DataContext is AuthenticatorItemModel authenticatorItemModel)
         {
-            if (DataContext is AuthenticatorItemModel authenticatorItemModel)
+            if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed)
             {
                 authenticatorItemModel.OnPointerLeftPressed();
             }
+            // else if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.RightButtonPressed)
+            // {
+            //      authenticatorItemModel.OnPointerRightPressed();
+            // }
         }
-        // else if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.RightButtonPressed)
-        // {
-        //     if (DataContext is AuthenticatorItemModel authenticatorItemModel)
-        //     {
-        //         authenticatorItemModel.OnPointerRightPressed();
-        //     }
-        // }
     }
 
     async void InputElement_OnTapped(object? sender, TappedEventArgs e)

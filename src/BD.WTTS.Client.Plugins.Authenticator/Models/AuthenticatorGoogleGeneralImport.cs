@@ -29,7 +29,7 @@ public class AuthenticatorGoogleGeneralImport : AuthenticatorGeneralImportBase
     {
         try
         {
-            var privateKey = await AuthenticatorService.DecodePrivateKey(secretCode);
+            var privateKey = await AuthenticatorHelper.DecodePrivateKey(secretCode);
 
             if (string.IsNullOrEmpty(privateKey))
             {

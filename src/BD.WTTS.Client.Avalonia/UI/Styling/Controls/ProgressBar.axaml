@@ -240,7 +240,7 @@
 
     <Style Selector="ProgressBar.Material">
         <Setter Property="Foreground" Value="{DynamicResource ProgressBarForeground}" />
-        <Setter Property="Background" Value="{DynamicResource ProgressBarBackground}" />
+        <Setter Property="Background" Value="{DynamicResource ControlStrokeColorSecondaryBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ProgressBarBorderBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
