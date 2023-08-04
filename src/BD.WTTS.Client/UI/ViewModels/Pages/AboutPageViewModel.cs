@@ -1,3 +1,5 @@
+using HL = BD.WTTS.Models.HyperlinkModel;
+
 namespace BD.WTTS.UI.ViewModels;
 
 [MP2Obj]
@@ -73,7 +75,9 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
     {
         try
         {
+#pragma warning disable IL2057 // Unrecognized value passed to the parameter of method. It's not possible to guarantee the availability of the target type.
             var assembly = Type.GetType(typeName)?.Assembly;
+#pragma warning restore IL2057 // Unrecognized value passed to the parameter of method. It's not possible to guarantee the availability of the target type.
             var value = assembly?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
                 .InformationalVersion
                 .Split(new[] { '+', '-' }, StringSplitOptions.RemoveEmptyEntries)
@@ -86,22 +90,43 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
         }
     }
 
-    /** links
-     * 检查更新
-     * 官网 https://steampp.net
-     * 打分并评价
-     * 赞助我们
-     * 更新日志 https://steampp.net/changelog
-     * 联系我们 https://steampp.net/contact
-     * 加入我们 https://steampp.net/join
-     * 疑难解答|FAQ https://steampp.net/faq
-     * 用户协议 https://steampp.net/agreement
-     * 隐私政策 https://steampp.net/privacy
-     * 账号注销
-     * Bug 提交(GitHub) https://github.com/BeyondDimension/SteamTools/issues
-     * Bug 提交(Gitee) https://gitee.com/rmbgame/SteamTools/issues
-     * Crow Translate https://crowdin.com/project/steampp
-     * Source Code(GitHub) https://github.com/BeyondDimension/SteamTools
-     * Source Code(Gitee) https://gitee.com/rmbgame/SteamTools
-     */
+    public HL[] Hyperlinks { get; } = GetHyperlinks().ToArray();
+
+    static IEnumerable<HL> GetHyperlinks() // links
+    {
+        // 检查更新
+        yield return new HL(Strings.CheckUpdate, (ICommand)null!);
+        // 官网 https://steampp.net
+        yield return new HL(Strings.OfficialWebsite, Constants.Urls.OfficialWebsite);
+        // 打分并评价
+        yield return new HL(Strings.RatingsAndReviews, (ICommand)null!);
+        // 赞助我们
+        yield return new HL(Strings.SponsorUs, (ICommand)null!);
+        // 更新日志 https://steampp.net/changelog
+        yield return new HL(Strings.Changelog, Constants.Urls.OfficialWebsite_Changelog);
+        // 联系我们 https://steampp.net/contact
+        yield return new HL(Strings.ContactUs, Constants.Urls.OfficialWebsite_Contact);
+        // 加入我们 https://steampp.net/joinus
+        yield return new HL(Strings.JoinUs, Constants.Urls.OfficialWebsite_JoinUs);
+        // 疑难解答|FAQ https://steampp.net/faq
+        yield return new HL(Strings.FAQ, Constants.Urls.OfficialWebsite_Faq);
+        // 用户协议 https://steampp.net/agreement
+        yield return new HL(Strings.User_Agreement, Constants.Urls.OfficialWebsite_Agreement);
+        // 隐私政策 https://steampp.net/privacy
+        yield return new HL(Strings.User_Privacy, Constants.Urls.OfficialWebsite_Privacy);
+        // 复制 UID
+        yield return new HL(Strings.CopyUserId, (ICommand)null!);
+        // 账号注销
+        yield return new HL(Strings.DelAccount, (ICommand)null!);
+        // Bug 提交(GitHub) https://github.com/BeyondDimension/SteamTools/issues
+        yield return new HL($"{Strings.BugReport}(GitHub)", Constants.Urls.GitHub_Issues);
+        // Bug 提交(Gitee) https://gitee.com/rmbgame/SteamTools/issues
+        yield return new HL($"{Strings.BugReport}(Gitee)", Constants.Urls.Gitee_Issues);
+        // Crow Translate https://crowdin.com/project/steampp
+        yield return new HL("Crow Translate", Constants.Urls.CrowUrl);
+        // Source Code(GitHub) https://github.com/BeyondDimension/SteamTools
+        yield return new HL("Source Code(GitHub)", Constants.Urls.GitHub_Repository);
+        // Source Code(Gitee) https://gitee.com/rmbgame/SteamTools
+        yield return new HL("Source Code(Gitee)", Constants.Urls.Gitee_Repository);
+    }
 }

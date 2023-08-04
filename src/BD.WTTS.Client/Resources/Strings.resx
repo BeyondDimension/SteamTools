@@ -2595,4 +2595,31 @@
   <data name="About_Version_" xml:space="preserve">
     <value>版本 {0}</value>
   </data>
+  <data name="BugReport" xml:space="preserve">
+    <value>Bug 提交</value>
+  </data>
+  <data name="Changelog" xml:space="preserve">
+    <value>更新日志</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>联系我们</value>
+  </data>
+  <data name="CopyUserId" xml:space="preserve">
+    <value>复制 UID</value>
+  </data>
+  <data name="FAQ" xml:space="preserve">
+    <value>疑难解答</value>
+  </data>
+  <data name="JoinUs" xml:space="preserve">
+    <value>加入我们</value>
+  </data>
+  <data name="OfficialWebsite" xml:space="preserve">
+    <value>官网</value>
+  </data>
+  <data name="RatingsAndReviews" xml:space="preserve">
+    <value>打分并评价</value>
+  </data>
+  <data name="SponsorUs" xml:space="preserve">
+    <value>赞助我们</value>
+  </data>
 </root>

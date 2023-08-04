@@ -909,6 +909,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Bug 提交 的本地化字符串。
+        /// </summary>
+        public static string BugReport {
+            get {
+                return ResourceManager.GetString("BugReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 正在校验：{0}% 的本地化字符串。
         /// </summary>
         public static string CalcHashing_ {
@@ -950,6 +959,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Cancelled {
             get {
                 return ResourceManager.GetString("Cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新日志 的本地化字符串。
+        /// </summary>
+        public static string Changelog {
+            get {
+                return ResourceManager.GetString("Changelog", resourceCulture);
             }
         }
         
@@ -1386,6 +1404,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 联系我们 的本地化字符串。
+        /// </summary>
+        public static string ContactUs {
+            get {
+                return ResourceManager.GetString("ContactUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 继续 的本地化字符串。
         /// </summary>
         public static string Continue {
@@ -1409,6 +1436,15 @@ namespace BD.WTTS.Client.Resources {
         public static string CopyToClipboard {
             get {
                 return ResourceManager.GetString("CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 复制 UID 的本地化字符串。
+        /// </summary>
+        public static string CopyUserId {
+            get {
+                return ResourceManager.GetString("CopyUserId", resourceCulture);
             }
         }
         
@@ -2174,6 +2210,15 @@ namespace BD.WTTS.Client.Resources {
         public static string FailedGetImageFromSteamGridDB {
             get {
                 return ResourceManager.GetString("FailedGetImageFromSteamGridDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 疑难解答 的本地化字符串。
+        /// </summary>
+        public static string FAQ {
+            get {
+                return ResourceManager.GetString("FAQ", resourceCulture);
             }
         }
         
@@ -3174,6 +3219,15 @@ namespace BD.WTTS.Client.Resources {
         public static string IsExistUpdateFalse {
             get {
                 return ResourceManager.GetString("IsExistUpdateFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加入我们 的本地化字符串。
+        /// </summary>
+        public static string JoinUs {
+            get {
+                return ResourceManager.GetString("JoinUs", resourceCulture);
             }
         }
         
@@ -4236,6 +4290,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 官网 的本地化字符串。
+        /// </summary>
+        public static string OfficialWebsite {
+            get {
+                return ResourceManager.GetString("OfficialWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 开 的本地化字符串。
         /// </summary>
         public static string On {
@@ -4574,6 +4637,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Publisher {
             get {
                 return ResourceManager.GetString("Publisher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打分并评价 的本地化字符串。
+        /// </summary>
+        public static string RatingsAndReviews {
+            get {
+                return ResourceManager.GetString("RatingsAndReviews", resourceCulture);
             }
         }
         
@@ -5790,6 +5862,15 @@ namespace BD.WTTS.Client.Resources {
         public static string SortAs {
             get {
                 return ResourceManager.GetString("SortAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 赞助我们 的本地化字符串。
+        /// </summary>
+        public static string SponsorUs {
+            get {
+                return ResourceManager.GetString("SponsorUs", resourceCulture);
             }
         }
         
