@@ -312,7 +312,8 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         {
             if (OperatingSystem2.IsMacOS())
             {
-                DeleteRootCertificateMacOS();
+                var cer = Serializable.SMP2(RootCertificatePackable);
+                platformService.RemoveCertificate(cer);
             }
             else if (OperatingSystem2.IsLinux())
             {
@@ -365,28 +366,28 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         }
     }
 
-    [SupportedOSPlatform("macOS")]
-    async void DeleteRootCertificateMacOS()
-    {
-        using var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
-        store.Open(OpenFlags.ReadOnly);
-        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateConstants.RootCertificateName, false);
-        foreach (var item in collection)
-        {
-            if (item != null)
-            {
-                try
-                {
-                    store.Open(OpenFlags.ReadWrite);
-                    store.Remove(item);
-                }
-                catch
-                {
-                    await platformService.RunShellAsync($"security delete-certificate -Z \\\"{item.GetCertHashString()}\\\"", true);
-                }
-            }
-        }
-    }
+    //[SupportedOSPlatform("macOS")]
+    //async void DeleteRootCertificateMacOS()
+    //{
+    //    //using var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
+    //    //store.Open(OpenFlags.ReadOnly);
+    //    //var collection = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateConstants.RootCertificateName, false);
+    //    //foreach (var item in collection)
+    //    //{
+    //    //    if (item != null)
+    //    //    {
+    //    //        try
+    //    //        {
+    //    //            store.Open(OpenFlags.ReadWrite);
+    //    //            store.Remove(item);
+    //    //        }
+    //    //        catch
+    //    //        {
+    //    //            await platformService.RunShellAsync($"security delete-certificate -Z \\\"{item.GetCertHashString()}\\\"", true);
+    //    //        }
+    //    //    }
+    //    //}
+    //}
 
     /// <inheritdoc cref="ICertificateManager.IsRootCertificateInstalled"/>
     public bool IsRootCertificateInstalled
