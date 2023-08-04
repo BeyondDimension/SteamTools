@@ -68,9 +68,9 @@ public static partial class ProjectUtils
 #elif LINUX
     "";
 #elif MACCATALYST
-    "maccatalyst";
+    "-maccatalyst";
 #elif MACOS
-    "macos";
+    "-macos";
 #else
     "";
 #endif

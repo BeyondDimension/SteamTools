@@ -23,6 +23,10 @@ static void SetConsoleTitle(string title)
 [MethodImpl(MethodImplOptions.AggressiveInlining)]
 static bool IsProcessElevated_DEBUG_Only()
 {
+    if (!OperatingSystem2.IsWindows())
+    {
+        return false;
+    }
     // use WindowsPlatformServiceImpl.IsProcessElevated on not Debug
     using WindowsIdentity identity = WindowsIdentity.GetCurrent();
     WindowsPrincipal principal = new(identity);
