@@ -1717,8 +1717,8 @@
   <data name="Auth_RemovePasswordProtect" xml:space="preserve">
     <value>移除密码保护</value>
   </data>
-  <data name="Auth_SteamLoginImport" xml:space="preserve">
-    <value>Steam 登陆导入</value>
+	<data name="Auth_SteamLoginImport" xml:space="preserve">
+    <value>Steam 登录导入</value>
   </data>
   <data name="Auth_UniversalImport" xml:space="preserve">
     <value>2FA 通用导入</value>
@@ -1846,8 +1846,8 @@
   <data name="Error_TokenPasswordSetFailed" xml:space="preserve">
     <value>令牌密码保护设置失败。</value>
   </data>
-  <data name="Error_UnknownLogin_" xml:space="preserve">
-    <value>登陆错误：{0}</value>
+	<data name="Error_UnknownLogin_" xml:space="preserve">
+    <value>登录错误：{0}</value>
   </data>
   <data name="Error_UpdateCloudData" xml:space="preserve">
     <value>同步更新云端数据失败</value>
@@ -2083,8 +2083,8 @@
   <data name="Title_PasswordConfirm" xml:space="preserve">
     <value>请再次输入密码以确认</value>
   </data>
-  <data name="Title_PleaseEnterLoginPassword" xml:space="preserve">
-    <value>请输入该 Steam 账号登陆密码</value>
+	<data name="Title_PleaseEnterLoginPassword" xml:space="preserve">
+    <value>请输入该 Steam 账号登录密码</value>
   </data>
   <data name="Title_PleaseEnterNewAuthName" xml:space="preserve">
     <value>请输入新令牌名或取消</value>
@@ -2164,8 +2164,8 @@
   <data name="Warning_TerminationAllAuth___" xml:space="preserve">
     <value>已终止 {0} 全部令牌，已操作成功令牌数量 {1} ，操作失败令牌数量 {2}</value>
   </data>
-  <data name="Warning_UnbindFailed" xml:space="preserve">
-    <value>解绑令牌失败：登陆未成功</value>
+	<data name="Warning_UnbindFailed" xml:space="preserve">
+    <value>解绑令牌失败：登录未成功</value>
   </data>
   <data name="Auth_OnlyMafileFormat" xml:space="preserve">
     <value>Mafile 格式仅支持 Steam 令牌</value>

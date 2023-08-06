@@ -2,10 +2,10 @@ namespace BD.WTTS.Models;
 
 public class SdaFileModel
 {
-    [JsonPropertyName("shared_secret")] 
+    [JsonPropertyName("shared_secret")]
     public string SharedSecret { get; set; } = string.Empty;
 
-    [JsonPropertyName("serial_number")] 
+    [JsonPropertyName("serial_number")]
     public string SerialNumber { get; set; } = string.Empty;
 
     [JsonPropertyName("revocation_code")]
@@ -44,10 +44,10 @@ public class SdaFileModel
 
 public class SdaFileConvertToSteamDataModel
 {
-    [JsonPropertyName("shared_secret")] 
+    [JsonPropertyName("shared_secret")]
     public string SharedSecret { get; set; } = string.Empty;
 
-    [JsonPropertyName("serial_number")] 
+    [JsonPropertyName("serial_number")]
     public string SerialNumber { get; set; } = string.Empty;
 
     [JsonPropertyName("revocation_code")]

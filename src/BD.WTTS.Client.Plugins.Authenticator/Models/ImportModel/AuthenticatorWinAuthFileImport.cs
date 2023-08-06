@@ -8,7 +8,7 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
 
     public override string Description => Strings.LocalAuth_WinAuthImport;
 
-    public override ResIcon IconName => ResIcon.OpenFile;
+    public ResIcon IconName => ResIcon.OpenFile;
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
@@ -18,7 +18,7 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            if (await VerifyMaxValue())
+            if (await IAuthenticatorImport.VerifyMaxValue())
                 await ImportFromWinAuthFile(password);
         });
     }
@@ -197,7 +197,7 @@ public class AuthenticatorWinAuthFileImport : AuthenticatorFileImportBase
                 Toast.Show(ToastIcon.Info, Strings.LocalAuth_AddAuthSyncTip, ToastLength.Short);
                 authenticatorDto.Value.Sync();
 
-                await SaveAuthenticator(authenticatorDto);
+                await IAuthenticatorImport.SaveAuthenticator(authenticatorDto);
             }
             Toast.Show(ToastIcon.Success, Strings.LocalAuth_AddAuthSuccess);
         }

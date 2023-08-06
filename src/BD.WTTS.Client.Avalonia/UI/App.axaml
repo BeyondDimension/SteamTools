@@ -15,6 +15,7 @@
         <spp:StringFormatConverter x:Key="StringFormatConverter" />
         <spp:EnumConverter x:Key="EnumConverter" />
         <spp:EnumEqualValueConverter x:Key="EnumEqualValueConverter" />
+        <spp:StringEqualsConverter x:Key="StringEqualsConverter" />
         <spp:EnumLocalizationNameConverter x:Key="EnumLocalizationNameConverter" />
     </Application.Resources>
     <Application.Styles>

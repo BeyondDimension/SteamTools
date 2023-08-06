@@ -6,7 +6,7 @@ public class AuthenticatorWattToolKitV1Import : AuthenticatorFileImportBase
 
     public override string Description => Strings.LocalAuth_WattToolKitV1Import;
 
-    public override ResIcon IconName => ResIcon.OpenFile;
+    public ResIcon IconName => ResIcon.OpenFile;
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
@@ -16,7 +16,7 @@ public class AuthenticatorWattToolKitV1Import : AuthenticatorFileImportBase
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            if (await VerifyMaxValue())
+            if (await IAuthenticatorImport.VerifyMaxValue())
                 await ImportFromWattToolKitV1(password);
         });
     }
@@ -61,7 +61,7 @@ public class AuthenticatorWattToolKitV1Import : AuthenticatorFileImportBase
                         if (reader.Name != "WinAuthAuthenticator") continue;
                         var authDto = new AuthenticatorDTO();
                         ReadXml(ref authDto, reader, null);
-                        await SaveAuthenticator(authDto);
+                        await IAuthenticatorImport.SaveAuthenticator(authDto);
                     }
                     else
                     {

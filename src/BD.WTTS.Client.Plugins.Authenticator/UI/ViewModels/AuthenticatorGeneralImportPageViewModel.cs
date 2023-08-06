@@ -2,7 +2,7 @@ namespace BD.WTTS.UI.ViewModels;
 
 public partial class AuthenticatorGeneralImportPageViewModel
 {
-    readonly Func<IAuthenticatorDTO, Task> _saveAuth;
+    readonly Func<IAuthenticatorDTO, string?, Task> _saveAuth;
 
     readonly Func<string, Task<IAuthenticatorValueDTO?>> _createAuthenticatorValueDto;
 
@@ -10,11 +10,11 @@ public partial class AuthenticatorGeneralImportPageViewModel
 
     public AuthenticatorGeneralImportPageViewModel()
     {
-        _saveAuth = (authenticatorDto) => Task.CompletedTask;
+        _saveAuth = (_,_) => Task.CompletedTask;
         _createAuthenticatorValueDto = (secretCode) => null!;
     }
 
-    public AuthenticatorGeneralImportPageViewModel(Func<IAuthenticatorDTO, Task> saveAuthFunc,
+    public AuthenticatorGeneralImportPageViewModel(Func<IAuthenticatorDTO, string?, Task> saveAuthFunc,
         Func<string, Task<IAuthenticatorValueDTO?>> createAuthenticatorValueDto)
     {
         _saveAuth = saveAuthFunc;
@@ -35,7 +35,7 @@ public partial class AuthenticatorGeneralImportPageViewModel
             CurrentCode = _importAuthenticatorValueDto.CurrentCode;
     }
 
-    public async Task Import()
+    public async Task Import(string? password)
     {
         if (_importAuthenticatorValueDto == null)
         {
@@ -55,7 +55,7 @@ public partial class AuthenticatorGeneralImportPageViewModel
             Value = _importAuthenticatorValueDto,
             Created = DateTimeOffset.Now,
         };
-        await _saveAuth.Invoke(iAuthenticatorDtoDto);
+        await _saveAuth.Invoke(iAuthenticatorDtoDto, password);
         Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(iAuthenticatorDtoDto.Name));
     }
 }

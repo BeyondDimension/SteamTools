@@ -8,17 +8,17 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
 
     public override string Description => Strings.LocalAuth_SDAImport;
 
-    public override ResIcon IconName => ResIcon.OpenFile;
+    public ResIcon IconName => ResIcon.OpenFile;
 
     protected override string FileExtension => FileEx.maFile;
 
-    public sealed override ICommand AuthenticatorImportCommand { get; set; }
+    public override ICommand AuthenticatorImportCommand { get; set; }
 
     public AuthenticatorSdaFileImport(string? password = null)
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            if (await VerifyMaxValue())
+            if (await IAuthenticatorImport.VerifyMaxValue())
                 await ImportFromSdaFile(password);
         });
     }
@@ -63,7 +63,7 @@ public class AuthenticatorSdaFileImport : AuthenticatorFileImportBase
                     Value = steamAuthenticator,
                     Created = DateTimeOffset.Now,
                 };
-            await SaveAuthenticator(authDto);
+            await IAuthenticatorImport.SaveAuthenticator(authDto);
             Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(authDto.Name));
         }
         catch (Exception e)

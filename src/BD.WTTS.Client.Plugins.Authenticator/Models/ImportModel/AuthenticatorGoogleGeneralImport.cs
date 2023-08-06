@@ -3,29 +3,29 @@ using WinAuth;
 
 namespace BD.WTTS.Models;
 
-public class AuthenticatorGoogleGeneralImport : AuthenticatorGeneralImportBase
+public class AuthenticatorGoogleGeneralImport : IAuthenticatorImport
 {
-    public override string Name => Strings.LocalAuth_2FAImport.Format(Strings.Google);
+    public string Name => Strings.LocalAuth_2FAImport.Format(Strings.Google);
 
-    public override string Description => Strings.LocalAuth_GoogleImport;
+    public string Description => Strings.LocalAuth_GoogleImport;
 
-    public override ResIcon IconName => ResIcon.Attach;
+    public ResIcon IconName => ResIcon.Attach;
 
-    public sealed override ICommand AuthenticatorImportCommand { get; set; }
+    public ICommand AuthenticatorImportCommand { get; set; }
 
     public AuthenticatorGoogleGeneralImport()
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            if (await VerifyMaxValue())
+            if (await IAuthenticatorImport.VerifyMaxValue())
                 await IWindowManager.Instance.ShowTaskDialogAsync(
-                    new AuthenticatorGeneralImportPageViewModel(SaveAuthenticator, CreateAuthenticatorValueDto),
+                    new AuthenticatorGeneralImportPageViewModel(IAuthenticatorImport.SaveAuthenticator, CreateAuthenticatorValueDto),
                     Name,
                     pageContent: new AuthenticatorGeneralImportPage(), isOkButton: false);
         });
     }
 
-    protected override async Task<IAuthenticatorValueDTO?> CreateAuthenticatorValueDto(string secretCode)
+    protected async Task<IAuthenticatorValueDTO?> CreateAuthenticatorValueDto(string secretCode)
     {
         try
         {

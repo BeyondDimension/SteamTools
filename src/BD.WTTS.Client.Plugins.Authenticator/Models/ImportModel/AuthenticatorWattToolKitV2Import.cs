@@ -6,7 +6,7 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
 
     public override string Description => Strings.LocalAuth_WattToolKitV2Import;
 
-    public override ResIcon IconName => ResIcon.OpenFile;
+    public ResIcon IconName => ResIcon.OpenFile;
 
     public sealed override ICommand AuthenticatorImportCommand { get; set; }
 
@@ -16,7 +16,7 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
     {
         AuthenticatorImportCommand = ReactiveCommand.Create(async () =>
         {
-            if (await VerifyMaxValue())
+            if (await IAuthenticatorImport.VerifyMaxValue())
                 await ImportFromWattToolKitV2(password: password);
         });
     }
@@ -36,7 +36,7 @@ public class AuthenticatorWattToolKitV2Import : AuthenticatorFileImportBase
                 or IAccountPlatformAuthenticatorRepository.ImportResultCode.PartSuccess:
                 foreach (var item in result.result)
                 {
-                    await SaveAuthenticator(item);
+                    await IAuthenticatorImport.SaveAuthenticator(item);
                 }
 
                 Toast.Show(ToastIcon.Success, result.resultCode == IAccountPlatformAuthenticatorRepository.ImportResultCode.Success

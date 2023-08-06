@@ -2,27 +2,21 @@ namespace BD.WTTS.UI.ViewModels;
 
 public class AuthenticatorImportPageViewModel : ViewModelBase
 {
-    [Reactive]
-    public ObservableCollection<AuthenticatorImportBase> AuthenticatorImportBases { get; set; }
+    public IEnumerable<IAuthenticatorImport> AuthenticatorImports { get; }
 
     public AuthenticatorImportPageViewModel()
     {
-        AuthenticatorImportBases = new ObservableCollection<AuthenticatorImportBase>();
-
-        Initialize();
-    }
-
-    public void Initialize()
-    {
-        AuthenticatorImportBases.Clear();
-        AuthenticatorImportBases.Add(new AuthenticatorSteamLoginImport());
-        AuthenticatorImportBases.Add(new AuthenticatorSteamGuardImport());
-        AuthenticatorImportBases.Add(new AuthenticatorSdaFileImport());
-        AuthenticatorImportBases.Add(new AuthenticatorWattToolKitV2Import());
-        AuthenticatorImportBases.Add(new AuthenticatorWattToolKitV1Import());
-        AuthenticatorImportBases.Add(new AuthenticatorWinAuthFileImport());
-        AuthenticatorImportBases.Add(new AuthenticatorGoogleGeneralImport());
-        AuthenticatorImportBases.Add(new AuthenticatorMicrosoftGeneralImport());
-        AuthenticatorImportBases.Add(new AuthenticatorHOTPGeneralImport());
+        AuthenticatorImports = new List<IAuthenticatorImport>
+        {
+            new AuthenticatorSteamLoginImport(),
+            new AuthenticatorSteamGuardImport(),
+            new AuthenticatorSdaFileImport(),
+            new AuthenticatorWattToolKitV2Import(),
+            new AuthenticatorWattToolKitV1Import(),
+            new AuthenticatorWinAuthFileImport(),
+            new AuthenticatorGoogleGeneralImport(),
+            new AuthenticatorMicrosoftGeneralImport(),
+            new AuthenticatorHOTPGeneralImport(),
+        };
     }
 }

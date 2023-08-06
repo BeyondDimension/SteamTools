@@ -49,6 +49,27 @@
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
                 Padding="8,4"
+                Command="{Binding ShowAddWindow}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Add" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{ReflectionBinding Path=Res.Add,
+                                                 Mode=OneWay,
+                                                 Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
                 Command="{Binding SyncAuthenticators}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">

@@ -1,20 +1,20 @@
 using WinAuth;
 
-namespace BD.WTTS.Models;
+namespace BD.WTTS.Models.Abstractions;
 
-public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
+public abstract class AuthenticatorFileImportBase : IAuthenticatorImport
 {
-    public abstract override string Name { get; }
+    public abstract string Name { get; }
 
-    public abstract override string Description { get; }
+    public abstract string Description { get; }
 
     protected abstract string? FileExtension { get; }
 
-    public abstract override ICommand AuthenticatorImportCommand { get; set; }
+    public abstract ICommand AuthenticatorImportCommand { get; set; }
 
     protected async Task<string?> SelectFolderPath()
     {
-        var filePath = (await SelectFile())?.FullPath.TrimStart("file:///");
+        var filePath = (await SelectFile())?.FullPath;
         if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) Toast.Show(ToastIcon.Warning, Strings.FilePathNotExist);
         return filePath;
     }
@@ -31,7 +31,7 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
 
     protected bool ReadXml(ref AuthenticatorDTO authenticatorDto, XmlReader reader, string? password)
     {
-        bool changed = false;
+        var changed = false;
 
         var authenticatorType = reader.GetAttribute("type");
         switch (authenticatorType)
@@ -65,9 +65,7 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
 
         reader.Read();
         while (reader.EOF == false)
-        {
             if (reader.IsStartElement())
-            {
                 switch (reader.Name)
                 {
                     case "name":
@@ -75,7 +73,7 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
                         break;
 
                     case "created":
-                        long t = reader.ReadElementContentAsLong();
+                        var t = reader.ReadElementContentAsLong();
                         t += Convert.ToInt64(new TimeSpan(new DateTime(1970, 1, 1).Ticks).TotalMilliseconds);
                         t *= TimeSpan.TicksPerMillisecond;
                         authenticatorDto.Created = new DateTimeOffset(new DateTime(t).ToLocalTime());
@@ -111,13 +109,11 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
                         reader.Skip();
                         break;
                 }
-            }
             else
             {
                 reader.Read();
                 break;
             }
-        }
 
         return changed;
     }
@@ -136,8 +132,6 @@ public abstract class AuthenticatorFileImportBase : AuthenticatorImportBase
 
         using var sr = new StringReader(lines.ToString());
         while (sr.ReadLine() is { } line)
-        {
             yield return line;
-        }
     }
 }

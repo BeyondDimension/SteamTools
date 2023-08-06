@@ -711,7 +711,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam 登陆导入 的本地化字符串。
+        ///   查找类似 Steam 登录导入 的本地化字符串。
         /// </summary>
         public static string Auth_SteamLoginImport {
             get {
@@ -2124,7 +2124,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登陆错误：{0} 的本地化字符串。
+        ///   查找类似 登录错误：{0} 的本地化字符串。
         /// </summary>
         public static string Error_UnknownLogin_ {
             get {
@@ -6578,7 +6578,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请输入该 Steam 账号登陆密码 的本地化字符串。
+        ///   查找类似 请输入该 Steam 账号登录密码 的本地化字符串。
         /// </summary>
         public static string Title_PleaseEnterLoginPassword {
             get {
@@ -7389,7 +7389,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 解绑令牌失败：登陆未成功 的本地化字符串。
+        ///   查找类似 解绑令牌失败：登录未成功 的本地化字符串。
         /// </summary>
         public static string Warning_UnbindFailed {
             get {

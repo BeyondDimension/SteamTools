@@ -17,9 +17,6 @@
     x:CompileBindings="True"
     x:DataType="spp:LoginOrRegisterWindowViewModel"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <spp:StringEqualsConverter x:Key="StringEqualsConverter" />
-    </UserControl.Resources>
     <UserControl.Styles>
         <Style Selector="PathIcon.Steam">
             <Setter Property="Data" Value="{StaticResource Steam}" />

@@ -18,15 +18,15 @@ public sealed partial class SteamLoginImportViewModel
 
     readonly ISteamAccountService _steamAccountService;
 
-    readonly Func<IAuthenticatorDTO, Task> _saveAuth;
+    readonly Func<IAuthenticatorDTO, string?, Task> _saveAuth;
 
     public SteamLoginImportViewModel()
     {
         _steamAccountService = Ioc.Get<ISteamAccountService>();
-        _saveAuth = (authenticatorDto) => Task.CompletedTask;
+        _saveAuth = (authenticatorDto, password) => Task.CompletedTask;
     }
 
-    public SteamLoginImportViewModel(Func<IAuthenticatorDTO, Task> saveAuthFunc)
+    public SteamLoginImportViewModel(Func<IAuthenticatorDTO, string?, Task> saveAuthFunc)
     {
         _steamAccountService = Ioc.Get<ISteamAccountService>();
         _saveAuth = saveAuthFunc;
@@ -246,7 +246,7 @@ public sealed partial class SteamLoginImportViewModel
                             Value = steamAuthenticator,
                             Created = DateTimeOffset.Now,
                         };
-                        await _saveAuth.Invoke(iADTO);
+                        await _saveAuth.Invoke(iADTO, null);
                         SelectIndex = 4;
                         return;
                     }

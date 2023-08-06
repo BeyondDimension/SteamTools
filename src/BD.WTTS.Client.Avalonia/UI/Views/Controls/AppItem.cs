@@ -33,8 +33,11 @@ public class AppItem : TemplatedControl
     public static readonly StyledProperty<FlyoutBase?> MoreFlyoutProperty =
         AvaloniaProperty.Register<AppItem, FlyoutBase?>(nameof(MoreFlyout));
 
-    public static readonly StyledProperty<ICommand> ClickCommandProperty =
-        AvaloniaProperty.Register<AppItem, ICommand>(nameof(ClickCommand));
+    public static readonly StyledProperty<ICommand?> ClickCommandProperty =
+        Button.CommandProperty.AddOwner<AppItem>();
+
+    public static readonly StyledProperty<object?> ClickCommandParameterProperty =
+        Button.CommandParameterProperty.AddOwner<AppItem>();
 
     public static readonly StyledProperty<object?> ActionButtonProperty =
         AvaloniaProperty.Register<AppItem, object?>(nameof(ActionButton));
@@ -99,10 +102,16 @@ public class AppItem : TemplatedControl
         set => SetValue(MoreFlyoutProperty, value);
     }
 
-    public ICommand ClickCommand
+    public ICommand? ClickCommand
     {
         get => GetValue(ClickCommandProperty);
         set => SetValue(ClickCommandProperty, value);
+    }
+
+    public object? ClickCommandParameter
+    {
+        get => GetValue(ClickCommandParameterProperty);
+        set => SetValue(ClickCommandParameterProperty, value);
     }
 
     public static readonly RoutedEvent<RoutedEventArgs> NavigationRequestedEvent =
@@ -170,7 +179,7 @@ public class AppItem : TemplatedControl
             if (ClickCommand != null)
             {
                 RaiseEvent(new RoutedEventArgs(NavigationRequestedEvent, this));
-                ClickCommand.Execute(null);
+                ClickCommand.Execute(ClickCommandParameter);
             }
         }
     }

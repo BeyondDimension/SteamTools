@@ -430,6 +430,12 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
             pageContent: new AuthenticatorExportPage(), isOkButton: false);
     }
 
+    public async void ShowAddWindow()
+    {
+        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorImportPageViewModel(), AppResources.LocalAuth_AddAuth,
+        pageContent: new AuthenticatorImportPage(), isOkButton: false);
+    }
+
     public async Task ShowRecoverWindow()
     {
         if (string.IsNullOrEmpty(_currentAnswer))

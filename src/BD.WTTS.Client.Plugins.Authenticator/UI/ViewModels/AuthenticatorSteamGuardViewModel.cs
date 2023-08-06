@@ -49,14 +49,14 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
         }
     }
 
-    readonly Func<IAuthenticatorDTO, Task> _saveAuth;
+    readonly Func<IAuthenticatorDTO, string?, Task> _saveAuth;
 
     public AuthenticatorSteamGuardViewModel()
     {
-        _saveAuth = (authenticatorDto) => Task.CompletedTask;
+        _saveAuth = (_, _) => Task.CompletedTask;
     }
 
-    public AuthenticatorSteamGuardViewModel(Func<IAuthenticatorDTO, Task> saveAuthFunc)
+    public AuthenticatorSteamGuardViewModel(Func<IAuthenticatorDTO, string?, Task> saveAuthFunc)
     {
         _saveAuth = saveAuthFunc;
     }
@@ -151,6 +151,6 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
             Name = $"(Steam){ImportAuthNewName}",
             Value = auth,
             Created = DateTimeOffset.Now,
-        });
+        }, null);
     }
 }
