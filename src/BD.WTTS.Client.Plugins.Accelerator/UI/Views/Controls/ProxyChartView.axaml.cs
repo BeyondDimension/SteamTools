@@ -111,7 +111,7 @@ public partial class ProxyChartView : UserControl
 
         if (Chart != null)
         {
-            Chart.UpdateFinished += Chart_UpdateFinished;
+            //Chart.UpdateFinished += Chart_UpdateFinished;
             Chart.Series = new ISeries[] { readSeries, writeSeries };
             Chart.XAxes = new Axis[] { new Axis { Labeler = XFormatter } };
             Chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter, MinLimit = 0 } };
@@ -205,16 +205,16 @@ public partial class ProxyChartView : UserControl
 
     //解决内存泄露问题
     //https://github.com/beto-rodriguez/LiveCharts2/issues/1080#issuecomment-1601536016
-    private static void Chart_UpdateFinished(LiveChartsCore.Kernel.Sketches.IChartView<SkiaSharpDrawingContext> chart)
-    {
-        // Chart library leaks PaintTasks
-        if (chart.CoreCanvas != null)
-        {
-            // Periodically clean up drawables, this may cause the chart to blip if the user mouses over it during this time
-            if (chart.CoreCanvas.DrawablesCount > 50)
-            {
-                chart.CoreCanvas.SetPaintTasks(new HashSet<LiveChartsCore.Drawing.IPaint<SkiaSharpDrawingContext>>());
-            }
-        }
-    }
+    //private static void Chart_UpdateFinished(LiveChartsCore.Kernel.Sketches.IChartView<SkiaSharpDrawingContext> chart)
+    //{
+    //    // Chart library leaks PaintTasks
+    //    if (chart.CoreCanvas != null)
+    //    {
+    //        // Periodically clean up drawables, this may cause the chart to blip if the user mouses over it during this time
+    //        if (chart.CoreCanvas.DrawablesCount > 50)
+    //        {
+    //            chart.CoreCanvas.SetPaintTasks(new HashSet<LiveChartsCore.Drawing.IPaint<SkiaSharpDrawingContext>>());
+    //        }
+    //    }
+    //}
 }
