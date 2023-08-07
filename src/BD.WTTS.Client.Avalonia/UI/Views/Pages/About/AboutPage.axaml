@@ -56,10 +56,10 @@
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate x:DataType="spp:HyperlinkModel">
                                 <Button
-                                    Classes="Hyperlink"
                                     Command="{Binding Command, Mode=OneWay}"
                                     Content="{Binding Text, Mode=OneWay}"
-                                    Cursor="Hand" />
+                                    Cursor="Hand"
+                                    Theme="{StaticResource HyperlinkButton}" />
                             </DataTemplate>
                         </ItemsRepeater.ItemTemplate>
                     </ItemsRepeater>
@@ -81,10 +81,10 @@
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate x:DataType="spp:HyperlinkModel">
                                 <Button
-                                    Classes="Hyperlink"
                                     Command="{Binding Command, Mode=OneWay}"
                                     Content="{Binding Text, Mode=OneWay}"
-                                    Cursor="Hand" />
+                                    Cursor="Hand"
+                                    Theme="{StaticResource HyperlinkButton}" />
                             </DataTemplate>
                         </ItemsRepeater.ItemTemplate>
                     </ItemsRepeater>

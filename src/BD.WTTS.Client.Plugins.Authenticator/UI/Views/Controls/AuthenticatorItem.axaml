@@ -64,9 +64,27 @@
             </StackPanel>
         </spp:AppItem.ActionButton>
         <spp:AppItem.Status>
-            <Border Classes="Status" IsVisible="{Binding IsSelected}">
-                <TextBlock Text="展示中" />
+            <Border Classes="Status">
+                <!--<TextBlock Text="展示中" />-->
+                <Border.Styles>
+                    <Style Selector="ui|FontIcon.Eye">
+                        <Setter Property="Glyph" Value="{StaticResource RedEye}" />
+                    </Style>
+                    <Style Selector="ui|FontIcon.Hide">
+                        <Setter Property="Glyph" Value="{StaticResource Hide}" />
+                    </Style>
+                </Border.Styles>
+                <ui:FontIcon
+                    Classes.Eye="{Binding IsSelected}"
+                    Classes.Hide="{Binding !IsSelected}"
+                    FontFamily="{StaticResource SymbolThemeFontFamily}" />
             </Border>
+            <!--<ToggleButton IsChecked="{Binding IsSelected}">
+                <ui:FontIcon
+                    Classes.Eye="{Binding IsSelected}"
+                    Classes.Hide="{Binding !IsSelected}"
+                    FontFamily="{StaticResource SymbolThemeFontFamily}" />
+            </ToggleButton>-->
         </spp:AppItem.Status>
         <spp:AppItem.Image>
             <Panel Width="100" Margin="10">

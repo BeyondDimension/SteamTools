@@ -32,6 +32,7 @@
     <x:String x:Key="Contact">&#xE77B;</x:String>
     <x:String x:Key="OpenFile">&#xE8E5;</x:String>
     <x:String x:Key="Close">&#xE8BB;</x:String>
+    <x:String x:Key="RedEye">&#xE7B3;</x:String>
     <x:String x:Key="Hide">&#xED1A;</x:String>
     <x:String x:Key="Back">&#xE112;</x:String>
 
