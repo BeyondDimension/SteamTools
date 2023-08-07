@@ -1,11 +1,6 @@
-#if MACOS || MACCATALYST || IOS
-using crypto;
+#if MACOS || MACCATALYST
 using Security;
-using SteamKit2;
-using System;
-using System.Runtime.ConstrainedExecution;
-using static System.CommandLine.Help.HelpBuilder;
-using AppResources = BD.WTTS.Client.Resources.Strings;
+using Authorization = Security.Authorization;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;

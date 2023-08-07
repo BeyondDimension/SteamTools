@@ -7,7 +7,6 @@
             <!--  Add Controls for Previewer Here  -->
             <StackPanel Spacing="10">
                 <ui:HyperlinkButton Content="更新日志" />
-                <ui:HyperlinkButton Classes="NoUnderline" Content="更新日志" />
                 <Button Classes="Hyperlink" Content="更新日志" />
                 <Button Classes="Plain" Content="Code Font Family" />
                 <Button Content="Code Font Family" Theme="{StaticResource TransparentButton}" />
@@ -34,7 +33,35 @@
     </Style>
 
 
-    <Style Selector="ui|HyperlinkButton.NoUnderline TextBlock">
-        <Setter Property="TextDecorations" Value="Baseline" />
+    <Style Selector="Button.Hyperlink">
+        <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForeground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource HyperlinkButtonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource HyperlinkButtonBorderThemeThickness}" />
+        <Setter Property="Padding" Value="{DynamicResource ButtonPadding}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+    </Style>
+
+    <Style Selector="Button.Hyperlink:pointerover /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundPointerOver}" />
+        <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackgroundPointerOver}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource HyperlinkButtonBorderBrushPointerOver}" />
+    </Style>
+
+    <Style Selector="Button.Hyperlink:pressed /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundPressed}" />
+        <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackgroundPressed}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource HyperlinkButtonBorderBrushPressed}" />
+    </Style>
+
+    <Style Selector="Button.Hyperlink:disabled /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundDisabled}" />
+        <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackgroundDisabled}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource HyperlinkButtonBorderBrushDisabled}" />
     </Style>
 </Styles>

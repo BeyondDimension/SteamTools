@@ -37,11 +37,11 @@
             <ItemsRepeater.ItemTemplate>
                 <DataTemplate DataType="spp:AuthenticatorImportMethod">
                     <spp:AppItem
-                        Title="{Binding Name, Mode=OneTime}"
+                        Title="{Binding Name}"
                         MaxWidth="200"
                         Classes="Vertical"
                         Cursor="Hand"
-                        Description="{Binding Description, Mode=OneTime}"
+                        Description="{Binding Description}"
                         Tag="{Binding PageType}"
                         Tapped="AuthenticatorImportPage_Tapped" />
                 </DataTemplate>

@@ -75,22 +75,21 @@ public class Stepper : SelectingItemsControl
             new Command(GoBack, CanGoBack);
     }
 
-    bool CanGoBack(object? parameter)
+    bool CanGoBack(object? _)
     {
         if (Items?.Count is int count)
             return count > 0 && (SelectedIndex - 1) >= 0;
         return false;
     }
 
-    void GoBack(object? parameter)
+    void GoBack(object? _)
     {
         SelectedIndex--;
     }
 
-    bool CanGoNext(object? parameter) =>
-     Items?.Count is int count && count > 0 && SelectedIndex + 1 < count;
+    bool CanGoNext(object? _) => Items?.Count is int count && count > 0 && SelectedIndex + 1 < count;
 
-    void GoNext(object? parameter)
+    void GoNext(object? _)
     {
         SelectedIndex++;
     }

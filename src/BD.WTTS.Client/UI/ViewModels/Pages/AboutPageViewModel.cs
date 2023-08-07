@@ -10,13 +10,13 @@ public sealed partial class AboutPageViewModel : TabItemViewModel
 
     public override string Name => Strings.About;
 
-    public const string Title_2_ = "({0} Steam++)";
+    //public const string Title_2_ = "({0} Steam++)";
 
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
-    public string AppName => AssemblyInfo.Trademark;
+    public string AppName => $"{AssemblyInfo.Trademark} (Steam++)";
 
-    [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
-    public string FormerAppName => string.Format(Title_2_, Strings.About_FormerName);
+    //[IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
+    //public string FormerAppName => string.Format(Title_2_, Strings.About_FormerName);
 
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
     public string Copyright
@@ -91,7 +91,7 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
         }
     }
 
-    public HL[] Hyperlinks => GetHyperlinks().ToArray();
+    public IEnumerable<HL> Hyperlinks => GetHyperlinks();
 
     static IEnumerable<HL> GetHyperlinks() // links
     {
@@ -123,15 +123,15 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
         yield return new HL($"{Strings.BugReport}(GitHub)", Constants.Urls.GitHub_Issues);
         // Bug 提交(Gitee) https://gitee.com/rmbgame/SteamTools/issues
         yield return new HL($"{Strings.BugReport}(Gitee)", Constants.Urls.Gitee_Issues);
-        // Crow Translate https://crowdin.com/project/steampp
-        yield return new HL("Crow Translate", Constants.Urls.CrowUrl);
+        // Crowdin Translate https://crowdin.com/project/steampp
+        yield return new HL($"Crowdin Translate", Constants.Urls.CrowdinUrl);
         // Source Code(GitHub) https://github.com/BeyondDimension/SteamTools
         yield return new HL("Source Code(GitHub)", Constants.Urls.GitHub_Repository);
         // Source Code(Gitee) https://gitee.com/rmbgame/SteamTools
         yield return new HL("Source Code(Gitee)", Constants.Urls.Gitee_Repository);
     }
 
-    public HL[]? OSL
+    public IReadOnlyCollection<HL>? OSL
     {
         get
         {
