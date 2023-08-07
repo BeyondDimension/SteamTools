@@ -58,7 +58,7 @@ partial class MacCatalystPlatformServiceImpl
     public bool IsCertificateInstalled(X509CertificatePackable certificate2)
           => IsCertificateInstalledCore(certificate2);
 
-    public ValueTask<bool?> TrustRootCertificateAsync(string filePath)
+    public async bool? TrustRootCertificateAsync(string filePath)
     {
         //信任系统证书
         //var script = $"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"";

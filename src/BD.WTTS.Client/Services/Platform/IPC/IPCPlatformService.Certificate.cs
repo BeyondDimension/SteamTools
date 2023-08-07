@@ -16,7 +16,7 @@ partial interface IPCPlatformService
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    ValueTask<bool?> TrustRootCertificateAsync(string filePath)
+    bool? TrustRootCertificateAsync(string filePath)
         => throw new PlatformNotSupportedException();
 
     /// <summary>
