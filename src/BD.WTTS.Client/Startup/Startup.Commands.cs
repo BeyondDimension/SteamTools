@@ -217,6 +217,11 @@ partial class Startup // 自定义控制台命令参数
         });
         rootCommand.AddCommand(show);
 
+#if MACOS
+        var macOs = new Command("macOS", "Mac 平台 Root 权限 操作指令");
+
+#endif
+
         // -clt proxy -on
         var proxy = new Command(key_proxy, "启用代理服务，静默启动（不弹窗口）");
         proxy.AddOption(new Option<bool>("-on", "开启代理服务"));
