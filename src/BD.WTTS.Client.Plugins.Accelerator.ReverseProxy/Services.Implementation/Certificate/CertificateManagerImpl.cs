@@ -269,7 +269,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     {
         var filePath = GetCerFilePathGeneratedWhenNoFileExists();
         if (filePath == null) return;
-        var state = await platformService.TrustRootCertificateAsync(filePath);
+        var state = platformService.TrustRootCertificateAsync(filePath);
         //await platformService.RunShellAsync($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
         if (state != null && !IsRootCertificateInstalled)
             await TrustRootCertificateMacOSAsync();
