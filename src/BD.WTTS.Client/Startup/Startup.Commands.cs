@@ -1,6 +1,7 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+using BD.WTTS.Services;
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 #endif
 
@@ -217,10 +218,27 @@ partial class Startup // 自定义控制台命令参数
         });
         rootCommand.AddCommand(show);
 
-#if MACOS
-        var macOs = new Command("macOS", "Mac 平台 Root 权限 操作指令");
+//#if MACOS
+//        var macOS = new Command("macoscert", "Mac 平台 Root 权限 操作指令");
+//        macOS.AddOption(new Option<string>("-i", "安装证书 参数为用户名 因为 Root 启动无法获取指定用户名"));
+//        macOS.AddOption(new Option<string>("-d", "删除证书"));
+//        macOS.Handler = CommandHandler.Create((string i, string d) =>
+//        {
+//            if (string.IsNullOrWhiteSpace(i) || string.IsNullOrWhiteSpace(i))
+//                return (int)CommandExitCode.HttpStatusBadRequest;
+//            if (!string.IsNullOrWhiteSpace(i))
+//            {
 
-#endif
+//                return (int)CommandExitCode.HttpStatusBadRequest;
+//            }
+//            if (!string.IsNullOrWhiteSpace(d))
+//            {
+//                using var rootCert = X509CertificatePackable.CreateX509Certificate2(CertificateConstants.DefaultPfxFilePath, (string?)null, X509KeyStorageFlags.Exportable);
+//                return MacCatalystPlatformServiceImpl.RemoveCertificate(rootCert);
+//            }
+//            return (int)CommandExitCode.HttpStatusBadRequest;
+//        });
+//#endif
 
         // -clt proxy -on
         var proxy = new Command(key_proxy, "启用代理服务，静默启动（不弹窗口）");

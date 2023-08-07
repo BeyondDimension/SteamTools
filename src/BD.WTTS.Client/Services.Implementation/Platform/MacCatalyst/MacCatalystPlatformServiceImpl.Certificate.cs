@@ -1,6 +1,9 @@
 #if MACOS || MACCATALYST || IOS
+using crypto;
 using Security;
 using SteamKit2;
+using System;
+using System.Runtime.ConstrainedExecution;
 using static System.CommandLine.Help.HelpBuilder;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 using Authorization = Security.Authorization;
@@ -10,6 +13,8 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
+    const string SecurityPath = "/usr/bin/security";
+
     internal static bool IsCertificateInstalledCore(X509CertificatePackable certificate2)
     {
         //using var p = new Process();
@@ -53,10 +58,10 @@ partial class MacCatalystPlatformServiceImpl
     public bool IsCertificateInstalled(X509CertificatePackable certificate2)
           => IsCertificateInstalledCore(certificate2);
 
-    public async ValueTask<bool?> TrustRootCertificateAsync(string filePath)
+    public ValueTask<bool?> TrustRootCertificateAsync(string filePath)
     {
         //信任系统证书
-        var script = $"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain";
+        //var script = $"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"";
         //TextBoxWindowViewModel vm = new()
         //{
         //    Title = AppResources.MacTrustRootCertificateTips,
@@ -72,23 +77,52 @@ partial class MacCatalystPlatformServiceImpl
         //    Toast.Show(ToastIcon.None, msg);
         //    return false;
         //}
-        var code = RunRootCommand(script);
+        var code = RunRootCommand(SecurityPath, new string[] {
+                   "add-trusted-cert",
+                   "-d",
+                   "-r",
+                   "trustRoot",
+                   "-k",
+                   "/Library/Keychains/System.keychain",
+                   "\"{filePath}\""
+                   });
         ShowRootCommandError(code, "安装证书：{0}");
         return code == 0;
     }
 
-    //public static 
+    //public static int TrustRootCertificate(X509CertificatePackable certificate2)
+    //{
+    //    //X509Certificate2? cert = certificate2;
+    //    //if (cert == null)
+    //    //    return (int)CommandExitCode.HttpStatusCodeInternalServerError;
+    //    //var scert = new SecCertificate(cert);
+    //    //var itemCertificate = new SecRecord(scert);
+    //    //var queryCer = SecKeyChain.QueryAsRecord(itemCertificate, out SecStatusCode code);
+    //    //if (code == SecStatusCode.ItemNotFound)
+    //    //{
+    //    //    var rCode = SecKeyChain.Add(itemCertificate);
+    //    //    Console.WriteLine(rCode);
+    //    //    //using (var st = new SecTrust(scert, SecPolicy.CreateBasicX509Policy()))
+    //    //    //{
+    //    //    //    st.
+    //    //    //}
+    //    //}
+    //    //else
+    //    //{
+    //    //    return (int)CommandExitCode.HttpStatusCodeInternalServerError;
+    //    //    // Toast.Show(ToastIcon.Error, "证书删除失败，找不到证书。");
+    //    //}
+    //    //return 0;
+    //}
 
-    public int RunRootCommand(string arg)
+    public int RunRootCommand(string path, string[] args)
     {
         var defaults = AuthorizationFlags.Defaults;
         using (var auth = Authorization.Create(defaults))
         {
             if (auth == null)
                 Toast.Show(ToastIcon.Error, "获取授权出错");
-            var args = new[] { "-c", $"\"\"{arg}\"\"" };
-            return auth.ExecuteWithPrivileges("/bin/sh", defaults, args);
-            //return auth.ExecuteWithPrivileges(IOPath.BaseDirectory, AuthorizationFlags.Defaults, args);
+            return auth.ExecuteWithPrivileges(path!, AuthorizationFlags.Defaults, args);
         }
     }
 
@@ -123,61 +157,72 @@ partial class MacCatalystPlatformServiceImpl
         X509Certificate2? cert = certificate2;
         if (cert == null)
             return;
-        var code = RunRootCommand($"security delete-certificate -Z {cert.GetCertHashString()}");
-        ShowRootCommandError(code, "安装证书：{0}");
-        return;
-        //if (certificate2 == null) return;
-        //using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-        //try
-        //{
-        //    store.Open(OpenFlags.ReadWrite);
-        //    store.Remove(certificate2);
-        //}
-        //catch
-        //{
-        //    // 出现错误尝试命令删除
-        //    await RunShellAsync(
-        //        $"security delete-certificate -Z {certificate2.GetCertHashString()}", true);
-        //}
-        // XAMARIN_MAC
-        //X509Certificate2? cert = certificate2;
-        //if (cert == null)
-        //    return;
-
-        //var itemCertificate = new SecRecord(new SecCertificate(cert));
-        //var queryCer = SecKeyChain.QueryAsRecord(itemCertificate, out SecStatusCode code);
-        //if (code != SecStatusCode.ItemNotFound)
-        //{
-        //    if (queryCer == null)
-        //        return;
-        //    var rCode = SecKeyChain.Remove(queryCer);
-        //    if (rCode != SecStatusCode.Success && rCode != SecStatusCode.ItemNotFound)
-        //    {
-        //        // await RunShellAsync($"security delete-certificate -Z {cert.GetCertHashString()}", true);
-        //    }
-        //}
-        //else
-        //{
-        //    // Toast.Show(ToastIcon.Error, "证书删除失败，找不到证书。");
-        //}
-        //using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-        //store.Open(OpenFlags.ReadOnly);
-        //var lisrts = store.Certificates.Find(X509FindType.FindByIssuerName, IHttpProxyService.RootCertificateName, false);
-        //foreach (var item in lisrts)
-        //{
-        //    var ces2 = new SecCertificate(item);
-        //    var itemCertificate = new SecRecord(ces2);
-        //    var cers = SecKeyChain.QueryAsRecord(itemCertificate, out SecStatusCode code);
-        //    if (code != SecStatusCode.ItemNotFound)
-        //    {
-        //        var rcode = SecKeyChain.Remove(cers);
-        //        if (rcode != SecStatusCode.Success && rcode != SecStatusCode.ItemNotFound)
-        //        {
-        //            await RunShellAsync($"security delete-certificate -Z {item.GetCertHashString()}", true);
-        //        }
-        //    }
-        //}
-
+        var code = RunRootCommand(SecurityPath, new string[] { "delete-certificate", "-Z", cert.GetCertHashStringCompat(HashAlgorithmName.SHA1) });
+        ShowRootCommandError(code, "删除证书：{0}");
     }
+    //public static int RemoveCertificate(X509CertificatePackable certificate2)
+    //{
+    //    //X509Certificate2? cert = certificate2;
+    //    //if (cert == null)
+    //    //    return;
+    //    //var code = RunRootCommand($"security delete-certificate -Z {cert.GetCertHashStringCompat(HashAlgorithmName.SHA1)}");
+    //    //ShowRootCommandError(code, "安装证书：{0}");
+    //    //return;
+    //    //if (certificate2 == null) return;
+    //    //using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+    //    //try
+    //    //{
+    //    //    store.Open(OpenFlags.ReadWrite);
+    //    //    store.Remove(certificate2);
+    //    //}
+    //    //catch
+    //    //{
+    //    //    // 出现错误尝试命令删除
+    //    //    await RunShellAsync(
+    //    //        $"security delete-certificate -Z {certificate2.GetCertHashString()}", true);
+    //    //}
+    //    // XAMARIN_MAC
+    //    X509Certificate2? cert = certificate2;
+    //    if (cert == null)
+    //        return (int)CommandExitCode.HttpStatusCodeInternalServerError;
+
+    //    var itemCertificate = new SecRecord(new SecCertificate(cert));
+    //    var queryCer = SecKeyChain.QueryAsRecord(itemCertificate, out SecStatusCode code);
+    //    if (code != SecStatusCode.ItemNotFound)
+    //    {
+    //        if (queryCer == null)
+    //            return (int)CommandExitCode.HttpStatusCodeInternalServerError;
+    //        var rCode = SecKeyChain.Remove(queryCer);
+    //        if (rCode != SecStatusCode.Success && rCode != SecStatusCode.ItemNotFound)
+    //        {
+    //            return (int)CommandExitCode.HttpStatusCodeInternalServerError;
+    //            // await RunShellAsync($"security delete-certificate -Z {cert.GetCertHashString()}", true);
+    //        }
+    //        return (int)CommandExitCode.HttpStatusCodeOk;
+    //    }
+    //    else
+    //    {
+    //        return (int)CommandExitCode.HttpStatusCodeInternalServerError;
+    //        // Toast.Show(ToastIcon.Error, "证书删除失败，找不到证书。");
+    //    }
+    //    //using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+    //    //store.Open(OpenFlags.ReadOnly);
+    //    //var lisrts = store.Certificates.Find(X509FindType.FindByIssuerName, IHttpProxyService.RootCertificateName, false);
+    //    //foreach (var item in lisrts)
+    //    //{
+    //    //    var ces2 = new SecCertificate(item);
+    //    //    var itemCertificate = new SecRecord(ces2);
+    //    //    var cers = SecKeyChain.QueryAsRecord(itemCertificate, out SecStatusCode code);
+    //    //    if (code != SecStatusCode.ItemNotFound)
+    //    //    {
+    //    //        var rcode = SecKeyChain.Remove(cers);
+    //    //        if (rcode != SecStatusCode.Success && rcode != SecStatusCode.ItemNotFound)
+    //    //        {
+    //    //            await RunShellAsync($"security delete-certificate -Z {item.GetCertHashString()}", true);
+    //    //        }
+    //    //    }
+    //    //}
+
+    //}
 }
 #endif
