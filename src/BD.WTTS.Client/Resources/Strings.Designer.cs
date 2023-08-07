@@ -3259,6 +3259,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 链接 的本地化字符串。
+        /// </summary>
+        public static string Link {
+            get {
+                return ResourceManager.GetString("Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Linux 需要提供系统 root 密码才能正常使用该功能 的本地化字符串。
         /// </summary>
         public static string LinuxSudoTips {
@@ -4290,15 +4299,6 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 官网 的本地化字符串。
-        /// </summary>
-        public static string OfficialWebsite {
-            get {
-                return ResourceManager.GetString("OfficialWebsite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 开 的本地化字符串。
         /// </summary>
         public static string On {
@@ -4340,6 +4340,24 @@ namespace BD.WTTS.Client.Resources {
         public static string OpenLink {
             get {
                 return ResourceManager.GetString("OpenLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开官网 的本地化字符串。
+        /// </summary>
+        public static string OpenOfficialWebsite {
+            get {
+                return ResourceManager.GetString("OpenOfficialWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开放源代码库 的本地化字符串。
+        /// </summary>
+        public static string OpenSourceLibrary {
+            get {
+                return ResourceManager.GetString("OpenSourceLibrary", resourceCulture);
             }
         }
         

@@ -210,6 +210,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinAuth", "WinAuth", "{84FF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinAuth", "ref\WinAuth\src\WinAuth\WinAuth.csproj", "{3F67183A-CC29-4B60-B534-08C2FB1A6746}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Client.Tools.OpenSourceLibraryList", "src\BD.WTTS.Client.Tools.OpenSourceLibraryList\BD.WTTS.Client.Tools.OpenSourceLibraryList.csproj", "{64F0101B-F54C-442E-BA70-738ACF72247F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -400,6 +402,10 @@ Global
 		{3F67183A-CC29-4B60-B534-08C2FB1A6746}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F67183A-CC29-4B60-B534-08C2FB1A6746}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F67183A-CC29-4B60-B534-08C2FB1A6746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F0101B-F54C-442E-BA70-738ACF72247F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F0101B-F54C-442E-BA70-738ACF72247F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F0101B-F54C-442E-BA70-738ACF72247F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F0101B-F54C-442E-BA70-738ACF72247F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -463,6 +469,7 @@ Global
 		{3A790499-6030-48FF-AD0A-934A0B1EE404} = {5AB1998B-043D-4BC7-B8CE-8A02BCBB3D5E}
 		{84FF822C-BF60-493F-A8C8-6A413167E3DA} = {90E88965-DB90-4B49-94F5-6D2965491988}
 		{3F67183A-CC29-4B60-B534-08C2FB1A6746} = {84FF822C-BF60-493F-A8C8-6A413167E3DA}
+		{64F0101B-F54C-442E-BA70-738ACF72247F} = {D6C8A54D-878F-44A9-857F-6ED01491C7BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {567F588F-E95C-4286-8B30-DB3B2200221C}

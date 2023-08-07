@@ -1,3 +1,4 @@
+#pragma warning disable CA1822 // 将成员标记为 static
 using HL = BD.WTTS.Models.HyperlinkModel;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -90,14 +91,14 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
         }
     }
 
-    public HL[] Hyperlinks { get; } = GetHyperlinks().ToArray();
+    public HL[] Hyperlinks => GetHyperlinks().ToArray();
 
     static IEnumerable<HL> GetHyperlinks() // links
     {
         // 检查更新
         yield return new HL(Strings.CheckUpdate, (ICommand)null!);
-        // 官网 https://steampp.net
-        yield return new HL(Strings.OfficialWebsite, Constants.Urls.OfficialWebsite);
+        // 打开官网 https://steampp.net
+        yield return new HL(Strings.OpenOfficialWebsite, Constants.Urls.OfficialWebsite);
         // 打分并评价
         yield return new HL(Strings.RatingsAndReviews, (ICommand)null!);
         // 赞助我们
@@ -128,5 +129,20 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
         yield return new HL("Source Code(GitHub)", Constants.Urls.GitHub_Repository);
         // Source Code(Gitee) https://gitee.com/rmbgame/SteamTools
         yield return new HL("Source Code(Gitee)", Constants.Urls.Gitee_Repository);
+    }
+
+    public HL[]? OSL
+    {
+        get
+        {
+            try
+            {
+                return Serializable.DMP2<HL[]>(Properties.Resources.open_source_library);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

@@ -24,7 +24,8 @@
         <spp:OptionsDisplayItem
             Description="{Binding Copyright}"
             Expands="True"
-            Header="{Binding AppName}">
+            Header="{Binding AppName}"
+            IsExpanded="True">
             <spp:OptionsDisplayItem.Icon>
                 <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
             </spp:OptionsDisplayItem.Icon>
@@ -46,13 +47,91 @@
                             Classes="readonlybox"
                             FontSize="14"
                             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                            Text="链接" />
-                        <ItemsRepeater>
+                            Text="{ReflectionBinding Path=Res.Link,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}" />
+                        <ItemsRepeater Margin="0,0,6,6" ItemsSource="{Binding Hyperlinks, Mode=OneTime}">
                             <ItemsRepeater.Layout>
-                                <UniformGridLayout />
+                                <UniformGridLayout MinItemWidth="166" />
                             </ItemsRepeater.Layout>
-                            <ItemsRepeater.ItemTemplate />
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="spp:HyperlinkModel">
+                                    <ui:HyperlinkButton Command="{Binding Command, Mode=OneTime}" Content="{Binding Text, Mode=OneTime}" />
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>
+                        <Border
+                            Height="1"
+                            Margin="-50"
+                            Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+                        <TextBlock
+                            Margin="0,12,0,0"
+                            VerticalAlignment="Center"
+                            Classes="readonlybox"
+                            FontSize="14"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            Text="{ReflectionBinding Path=Res.OpenSourceLibrary,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}" />
+                        <ItemsRepeater Margin="0,0,6,6" ItemsSource="{Binding OSL, Mode=OneTime}">
+                            <ItemsRepeater.Layout>
+                                <UniformGridLayout MinItemWidth="440" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="spp:HyperlinkModel">
+                                    <ui:HyperlinkButton Command="{Binding Command, Mode=OneTime}" Content="{Binding Text, Mode=OneTime}" />
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                        <Border
+                            Height="1"
+                            Margin="-50"
+                            Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+                        <StackPanel
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Classes="readonlybox"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Powered by " />
+                            <TextBlock
+                                Margin="1,0,0,0"
+                                VerticalAlignment="Center"
+                                Classes="readonlybox"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding RuntimeVersion}"
+                                ToolTip.Tip="{Binding DotnetDesc, Mode=OneTime}" />
+                            <TextBlock
+                                Margin="2,0,2,0"
+                                VerticalAlignment="Center"
+                                Classes="readonlybox"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="&amp;" />
+                            <DockPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                ToolTip.Tip="{Binding AvaloniaDesc, Mode=OneTime}">
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Margin="0,0,2,0"
+                                    DockPanel.Dock="Left"
+                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/avaloniaui-logo.png" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Classes="readonlybox"
+                                    DockPanel.Dock="Right"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{Binding AvaloniaVersion}" />
+                            </DockPanel>
+                        </StackPanel>
                     </StackPanel>
                     <Border
                         Height="1"
@@ -61,49 +140,5 @@
                 </StackPanel>
             </spp:OptionsDisplayItem.Content>
         </spp:OptionsDisplayItem>
-        <StackPanel
-            Margin="0,20,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <TextBlock
-                VerticalAlignment="Center"
-                Classes="readonlybox"
-                FontSize="12"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Text="Powered by" />
-            <DockPanel
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                ToolTip.Tip="{Binding AvaloniaDesc}">
-                <Image
-                    Width="18"
-                    Height="18"
-                    Margin="4,0,4,0"
-                    DockPanel.Dock="Left"
-                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/avaloniaui-logo.png" />
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Classes="readonlybox"
-                    DockPanel.Dock="Right"
-                    FontSize="12"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding AvaloniaVersion}" />
-            </DockPanel>
-            <TextBlock
-                Margin="4,0,5,0"
-                VerticalAlignment="Center"
-                Classes="readonlybox"
-                FontSize="12"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Text="&amp;" />
-            <TextBlock
-                VerticalAlignment="Center"
-                Classes="readonlybox"
-                FontSize="12"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Text="{Binding RuntimeVersion}"
-                ToolTip.Tip="{Binding DotnetDesc}" />
-        </StackPanel>
     </StackPanel>
 </UserControl>

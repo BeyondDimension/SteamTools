@@ -1,4 +1,4 @@
-<!--👇图标如果发生更改，还需更改 Tools.OpenSourceLibraryList(Program.OpenSourceLibraryListEmoji) -->
+<!--👇图标如果发生更改，还需更改 BD.WTTS.Client.Tools.OpenSourceLibraryList(Program.OpenSourceLibraryListEmoji) -->
 ## 📄 Open Source Library
 * [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 * [System.Reactive](https://github.com/dotnet/reactive)
