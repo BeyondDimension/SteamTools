@@ -328,7 +328,10 @@ public class PageBase<TViewModel> : PageBase, IViewFor<TViewModel> where TViewMo
     {
         // This WhenActivated block calls ViewModel's WhenActivated
         // block if the ViewModel implements IActivatableViewModel.
-        this.WhenActivated(disposables => { });
+        this.WhenActivated(disposables =>
+        {
+            disposables.Add(UISettings.WindowBackgroundCustomImage.Subscribe(x => IsShowBackgroundImage = !x));
+        });
         this.GetObservable(ViewModelProperty).Subscribe(OnViewModelChanged);
     }
 

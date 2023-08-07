@@ -1,9 +1,14 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
     <Design.PreviewWith>
         <Border Padding="20">
             <!--  Add Controls for Previewer Here  -->
             <StackPanel Spacing="10">
-                <Button Classes="Hyperlink" Content="Code Font Family" />
+                <ui:HyperlinkButton Content="更新日志" />
+                <ui:HyperlinkButton Classes="NoUnderline" Content="更新日志" />
+                <Button Classes="Hyperlink" Content="更新日志" />
                 <Button Classes="Plain" Content="Code Font Family" />
                 <Button Content="Code Font Family" Theme="{StaticResource TransparentButton}" />
             </StackPanel>
@@ -26,5 +31,10 @@
     </Style>
     <Style Selector="Button.Plain:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+
+    <Style Selector="ui|HyperlinkButton.NoUnderline TextBlock">
+        <Setter Property="TextDecorations" Value="Baseline" />
     </Style>
 </Styles>

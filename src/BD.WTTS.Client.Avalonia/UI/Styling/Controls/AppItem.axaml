@@ -337,7 +337,10 @@
                                         <ContentPresenter
                                             Margin="8,0"
                                             Content="{TemplateBinding ActionButton}"
-                                            DockPanel.Dock="Left" />
+                                            DockPanel.Dock="Left"
+                                            IsVisible="{TemplateBinding ActionButton,
+                                                                        Converter={StaticResource IsNullConverter},
+                                                                        ConverterParameter=invert}" />
 
                                         <DropDownButton
                                             Padding="6"

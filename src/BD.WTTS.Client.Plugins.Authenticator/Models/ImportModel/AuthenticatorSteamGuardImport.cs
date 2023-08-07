@@ -19,9 +19,9 @@ public class AuthenticatorSteamGuardImport : IAuthenticatorImport
             if (await IAuthenticatorImport.VerifyMaxValue())
                 await IWindowManager.Instance.ShowTaskDialogAsync(
 
-                    new AuthenticatorSteamGuardViewModel(IAuthenticatorImport.SaveAuthenticator),
+                    new SteamGuardImportPageViewModel(IAuthenticatorImport.SaveAuthenticator),
                     Name,
-                    pageContent: new AuthenticatorSteamGuardImportPage(), isOkButton: false);
+                    pageContent: new SteamGuardImportPage(), isOkButton: false);
         });
     }
 }

@@ -10,7 +10,7 @@ using ToastLength = BD.Common.Enums.ToastLength;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed partial class SteamLoginImportViewModel
+public sealed partial class SteamLoginImportViewModel : ViewModelBase
 {
     bool _isFirstLogin = true;
 

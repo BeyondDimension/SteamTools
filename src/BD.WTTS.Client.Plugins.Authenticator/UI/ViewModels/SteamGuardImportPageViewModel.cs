@@ -2,7 +2,7 @@ using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public class AuthenticatorSteamGuardViewModel : ViewModelBase
+public class SteamGuardImportPageViewModel : ViewModelBase
 {
     string _phoneImportUuid = string.Empty;
     string _phoneImportSteamGuard = string.Empty;
@@ -51,12 +51,12 @@ public class AuthenticatorSteamGuardViewModel : ViewModelBase
 
     readonly Func<IAuthenticatorDTO, string?, Task> _saveAuth;
 
-    public AuthenticatorSteamGuardViewModel()
+    public SteamGuardImportPageViewModel()
     {
         _saveAuth = (_, _) => Task.CompletedTask;
     }
 
-    public AuthenticatorSteamGuardViewModel(Func<IAuthenticatorDTO, string?, Task> saveAuthFunc)
+    public SteamGuardImportPageViewModel(Func<IAuthenticatorDTO, string?, Task> saveAuthFunc)
     {
         _saveAuth = saveAuthFunc;
     }

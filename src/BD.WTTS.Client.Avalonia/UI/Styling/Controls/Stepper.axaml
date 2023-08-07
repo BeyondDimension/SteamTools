@@ -48,61 +48,6 @@
         </Border>
     </Design.PreviewWith>
 
-    <ResourceDictionary.ThemeDictionaries>
-        <ResourceDictionary x:Key="Default">
-            <SolidColorBrush x:Key="StepeBarUnderWayTextBrush" Color="#FF0078D7" />
-
-            <SolidColorBrush x:Key="StepeBarUnderWayBorderBrush" Color="#FF0078D7" />
-
-            <SolidColorBrush x:Key="StepeBarUnderWayBackgroundBrush" Color="White" />
-
-            <SolidColorBrush x:Key="StepeBarCompleteTextBrush" Color="Black" />
-
-            <SolidColorBrush x:Key="StepeBarCompleteBorderBrush" Color="Black" />
-
-            <SolidColorBrush x:Key="StepeBarCompleteBackgroundBrush" Color="White" />
-
-
-            <SolidColorBrush x:Key="StepeBarErrorTextBrush" Color="Red" />
-
-            <SolidColorBrush x:Key="StepeBarErrorBorderBrush" Color="Red" />
-
-            <SolidColorBrush x:Key="StepeBarErrorBackgroundBrush" Color="White" />
-
-            <SolidColorBrush x:Key="StepeBarWaitingTextBrush" Color="Gray" />
-
-            <SolidColorBrush x:Key="StepeBarWaitingBorderBrush" Color="Gray" />
-
-            <SolidColorBrush x:Key="StepeBarWaitingBackgroundBrush" Color="White" />
-        </ResourceDictionary>
-        <ResourceDictionary x:Key="Dark">
-            <SolidColorBrush x:Key="StepeBarUnderWayTextBrush" Color="#FF0078D7" />
-
-            <SolidColorBrush x:Key="StepeBarUnderWayBorderBrush" Color="#FF0078D7" />
-
-            <SolidColorBrush x:Key="StepeBarUnderWayBackgroundBrush" Color="White" />
-
-            <SolidColorBrush x:Key="StepeBarCompleteTextBrush" Color="White" />
-
-            <SolidColorBrush x:Key="StepeBarCompleteBorderBrush" Color="White" />
-
-            <SolidColorBrush x:Key="StepeBarCompleteBackgroundBrush" Color="Black" />
-
-
-            <SolidColorBrush x:Key="StepeBarErrorTextBrush" Color="Red" />
-
-            <SolidColorBrush x:Key="StepeBarErrorBorderBrush" Color="Red" />
-
-            <SolidColorBrush x:Key="StepeBarErrorBackgroundBrush" Color="Black" />
-
-            <SolidColorBrush x:Key="StepeBarWaitingTextBrush" Color="Gray" />
-
-            <SolidColorBrush x:Key="StepeBarWaitingBorderBrush" Color="Gray" />
-
-            <SolidColorBrush x:Key="StepeBarWaitingBackgroundBrush" Color="Black" />
-        </ResourceDictionary>
-    </ResourceDictionary.ThemeDictionaries>
-
     <ItemsPanelTemplate x:Key="UniformHorizontalItemsPanelTemplate">
         <UniformGrid FocusAdorner="{x:Null}" Rows="1" />
     </ItemsPanelTemplate>
@@ -113,31 +58,32 @@
 
     <ControlTheme x:Key="StepperItemBaseStyle" TargetType="spp:StepperItem">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Foreground" Value="{DynamicResource StepeBarWaitingBorderBrush}" />
-        <Setter Property="Background" Value="{DynamicResource StepeBarWaitingBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorTertiaryBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ControlOnImageFillColorDefaultBrush}" />
 
         <Style Selector="^[Status=Complete]">
-            <Setter Property="Foreground" Value="{DynamicResource StepeBarCompleteTextBrush}" />
-            <Setter Property="Background" Value="{DynamicResource StepeBarCompleteBackgroundBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="Background" Value="{DynamicResource ControlOnImageFillColorDefaultBrush}" />
         </Style>
 
         <Style Selector="^[Status=UnderWay]">
-            <Setter Property="Foreground" Value="{DynamicResource StepeBarUnderWayTextBrush}" />
-            <Setter Property="Background" Value="{DynamicResource StepeBarUnderWayBackgroundBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AccentTextFillColorTertiaryBrush}" />
+            <Setter Property="Background" Value="{DynamicResource ControlOnImageFillColorDefaultBrush}" />
         </Style>
 
         <Style Selector="^[Status=Waiting]">
-            <Setter Property="Foreground" Value="{DynamicResource StepeBarWaitingTextBrush}" />
-            <Setter Property="Background" Value="{DynamicResource StepeBarWaitingBackgroundBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorTertiaryBrush}" />
+            <Setter Property="Background" Value="{DynamicResource ControlOnImageFillColorDefaultBrush}" />
         </Style>
 
         <Style Selector="^[Status=Error]">
-            <Setter Property="Foreground" Value="{DynamicResource StepeBarErrorTextBrush}" />
-            <Setter Property="Background" Value="{DynamicResource StepeBarErrorBackgroundBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+            <Setter Property="Background" Value="{DynamicResource ControlOnImageFillColorDefaultBrush}" />
         </Style>
 
         <Style Selector="^ /template/ TextBlock.StepperItemText">
             <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
     </ControlTheme>
@@ -290,7 +236,8 @@
                 Margin="0,10,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
-                Background="{DynamicResource StepeBarWaitingBorderBrush}" />
+                Background="{DynamicResource TextFillColorTertiaryBrush}"
+                Classes="Material" />
             <ItemsPresenter HorizontalAlignment="Stretch" ItemsPanel="{TemplateBinding spp:Stepper.ItemsPanel}" />
         </Grid>
     </ControlTemplate>
@@ -302,7 +249,8 @@
                 Margin="0,0,0,10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Background="{DynamicResource StepeBarWaitingBorderBrush}" />
+                Background="{DynamicResource TextFillColorTertiaryBrush}"
+                Classes="Material" />
             <ItemsPresenter VerticalAlignment="Bottom" ItemsPanel="{TemplateBinding spp:Stepper.ItemsPanel}" />
         </Grid>
     </ControlTemplate>
@@ -334,7 +282,8 @@
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Background="{DynamicResource StepeBarWaitingBorderBrush}"
+                Background="{DynamicResource TextFillColorTertiaryBrush}"
+                Classes="Material"
                 Orientation="Vertical">
                 <ProgressBar.RenderTransform>
                     <TransformGroup>

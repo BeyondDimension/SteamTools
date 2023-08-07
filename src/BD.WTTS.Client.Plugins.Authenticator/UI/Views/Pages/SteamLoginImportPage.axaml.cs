@@ -1,16 +1,17 @@
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.ReactiveUI;
 using BD.WTTS.UI.Views.Controls;
 using KeyEventArgs = Avalonia.Input.KeyEventArgs;
 
 namespace BD.WTTS.UI.Views.Pages;
 
-public partial class SteamLoginImportPage : UserControl
+public partial class SteamLoginImportPage : ReactiveUserControl<SteamLoginImportViewModel>
 {
     public SteamLoginImportPage()
     {
         InitializeComponent();
-        //DataContext = new SteamLoginImportViewModel();
+        DataContext ??= new SteamLoginImportViewModel();
         //PasswordText.KeyUp += PasswordTextOnKeyUp;
         //EmailAuthText.KeyUp += PasswordTextOnKeyUp;
         //PhoneNumberText.KeyUp += PasswordTextOnKeyUp;

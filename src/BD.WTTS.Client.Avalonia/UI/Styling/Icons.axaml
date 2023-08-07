@@ -33,6 +33,7 @@
     <x:String x:Key="OpenFile">&#xE8E5;</x:String>
     <x:String x:Key="Close">&#xE8BB;</x:String>
     <x:String x:Key="Hide">&#xED1A;</x:String>
+    <x:String x:Key="Back">&#xE112;</x:String>
 
 
     <ui:ImageIconSource x:Key="AppIcon" Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
