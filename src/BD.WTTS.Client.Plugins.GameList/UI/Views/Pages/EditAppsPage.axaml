@@ -10,6 +10,8 @@
     Title="Steam 游戏修改"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:EditAppsPageViewModel"
     Description="可以修改 Steam 游戏名称、发行商、封面图片、启动项等信息，并且保存生效至 Steam。"
     Subtitle="{ReflectionBinding Author,
                                  Source={x:Static s:Plugin.Instance},
@@ -73,13 +75,13 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem
+                        <!--<ui:MenuFlyoutItem
                             Command="{Binding DeleteAllButton_Click}"
                             IconSource="Delete"
                             Text="{ReflectionBinding Path=Res.GameList_RemoveBtn,
                                                      Mode=OneWay,
                                                      Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutSeparator />-->
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">

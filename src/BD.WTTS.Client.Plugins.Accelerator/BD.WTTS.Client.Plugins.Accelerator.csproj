@@ -5,6 +5,7 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstants>WTTS_PLUGIN;WTTS_PLUGIN_ACCELERATOR;$(DefineConstants)</DefineConstants>
 		<!--<EnableDynamicLoading>true</EnableDynamicLoading>-->
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 	</PropertyGroup>
 
 	<ItemGroup>

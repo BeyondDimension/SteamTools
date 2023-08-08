@@ -13,6 +13,8 @@
     Title="Steam 挂时长"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:IdleAppsPageViewModel"
     Description="不需要真正启动游戏即可让 Steam 认为你在同时运行多个游戏，达到运行时长增长目的"
     Subtitle="{ReflectionBinding Author,
                                  Source={x:Static s:Plugin.Instance},

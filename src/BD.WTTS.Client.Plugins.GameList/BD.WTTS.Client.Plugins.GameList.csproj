@@ -4,6 +4,7 @@
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstants>WTTS_PLUGIN;WTTS_PLUGIN_GAMELIST;$(DefineConstants)</DefineConstants>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 	</PropertyGroup>
 
 	<ItemGroup>

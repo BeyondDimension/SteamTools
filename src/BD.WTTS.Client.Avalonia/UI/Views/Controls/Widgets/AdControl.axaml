@@ -25,7 +25,7 @@
                                                         Source={x:Static s:AdvertiseService.Current}}"
                             CommandParameter="{Binding}"
                             Cursor="Hand"
-                            ToolTip.Tip="{Binding Remark}">
+                            ToolTip.Tip="{Binding Describe}">
                             <spp:Image2
                                 FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/mona-loading-default.gif"
                                 Source="{Binding ImageUrl}"

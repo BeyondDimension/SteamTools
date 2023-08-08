@@ -37,24 +37,30 @@
             VerticalAlignment="Center"
             FontSize="12"
             IsHitTestVisible="False"
-            Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+            Text="{ReflectionBinding Title,
+                                     RelativeSource={RelativeSource FindAncestor,
+                                                                    AncestorType=Window}}" />
 
         <Border
             Grid.Column="2"
             Padding="6"
             VerticalAlignment="Center"
-            IsVisible="{Binding IsShowSearchBox, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+            IsVisible="{ReflectionBinding IsShowSearchBox,
+                                          RelativeSource={RelativeSource FindAncestor,
+                                                                         AncestorType=UserControl}}">
             <AutoCompleteBox
                 Name="SearchBox"
                 MaxWidth="500"
                 VerticalAlignment="Center"
                 wnd:AppWindow.AllowInteractionInTitleBar="True"
                 Classes="Search"
-                Text="{Binding SearchText, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                Text="{ReflectionBinding SearchText,
+                                         RelativeSource={RelativeSource FindAncestor,
+                                                                        AncestorType=UserControl}}" />
         </Border>
 
-        <DockPanel Grid.Column="3" IsVisible="{Binding ActionContent, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
-            <ContentControl Content="{Binding ActionContent, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" DockPanel.Dock="Left" />
+        <DockPanel Grid.Column="3" IsVisible="{ReflectionBinding ActionContent, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+            <ContentControl Content="{ReflectionBinding ActionContent, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" DockPanel.Dock="Left" />
 
             <Separator
                 Height="18"

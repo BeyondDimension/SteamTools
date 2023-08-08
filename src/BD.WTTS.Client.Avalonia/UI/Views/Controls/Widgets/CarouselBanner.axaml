@@ -64,7 +64,7 @@
                                     Height="10"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Fill="{Binding}"
+                                    Fill="{ReflectionBinding}"
                                     Opacity="0.6"
                                     StrokeThickness="0" />
                             </Panel>
