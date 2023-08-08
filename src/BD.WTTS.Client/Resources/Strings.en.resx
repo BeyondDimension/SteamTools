@@ -2940,10 +2940,6 @@ The system will {1} after {0} seconds.</value>
     <value>Vertical cover</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_FormerName" xml:space="preserve">
-    <value>Former name</value>
-    <comment>Comment=;Author=AigioL</comment>
-  </data>
   <data name="CommunityFix_FlowStatistics" xml:space="preserve">
     <value>Traffic statistics</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

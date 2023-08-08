@@ -70,11 +70,11 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 原名 的本地化字符串。
+        ///   查找类似 {0}（原名 {1}） 的本地化字符串。
         /// </summary>
-        public static string About_FormerName {
+        public static string About_FormerName__ {
             get {
-                return ResourceManager.GetString("About_FormerName", resourceCulture);
+                return ResourceManager.GetString("About_FormerName__", resourceCulture);
             }
         }
         

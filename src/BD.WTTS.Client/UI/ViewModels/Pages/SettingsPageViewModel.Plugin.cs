@@ -45,7 +45,14 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         var r = await MessageBox.ShowAsync(Strings.Plugin_DeleteComfirm.Format(plugin.Name), button: MessageBox.Button.OKCancel);
         if (r.IsOK())
         {
-            var pluginResult = Plugins!.FirstOrDefault(x => x.IsDisable && x.Data.Id == plugin.Id);
+            void ShowSuccess() => Toast.Show(ToastIcon.Success, Strings.Plugin_DeleteSuccess.Format(plugin.Name));
+            var plugins = Plugins;
+            if (plugins == null)
+            {
+                ShowSuccess();
+                return;
+            }
+            var pluginResult = plugins.FirstOrDefault(x => x.IsDisable && x.Data.Id == plugin.Id);
             if (pluginResult != null)
             {
                 var path = Path.GetDirectoryName(plugin.AssemblyLocation)!;
@@ -55,9 +62,8 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
                     try
                     {
                         Directory.Delete(path, true);
-
-                        this.Plugins.Remove(pluginResult);
-                        Toast.Show(ToastIcon.Success, Strings.Plugin_DeleteSuccess.Format(plugin.Name));
+                        plugins.Remove(pluginResult);
+                        ShowSuccess();
                     }
                     catch (Exception ex)
                     {
@@ -65,15 +71,19 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
                     }
                 }
                 else
+                {
                     Toast.Show(ToastIcon.Error, Strings.Plugin_FileError);
+                }
             }
             else
+            {
                 Toast.Show(ToastIcon.Warning, Strings.Plugin_NeedDisable);
+            }
         }
 
     }
 
-    private void PluginOpenFolder(string path)
+    void PluginOpenFolder(string path)
     {
         try
         {

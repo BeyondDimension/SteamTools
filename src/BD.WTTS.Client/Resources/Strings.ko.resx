@@ -2993,10 +2993,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>인증서 상태입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_FormerName" xml:space="preserve">
-    <value>원래 이름입니다</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="FileSize" xml:space="preserve">
     <value>파일 크기입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

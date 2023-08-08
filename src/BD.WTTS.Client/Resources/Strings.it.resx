@@ -2989,10 +2989,6 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <value>Stato del certificato</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_FormerName" xml:space="preserve">
-    <value>Un tempo</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="FileSize" xml:space="preserve">
     <value>Dimensione del file</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

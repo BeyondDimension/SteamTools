@@ -38,12 +38,95 @@
             </spp:OptionsDisplayItem.ActionButton>
             <spp:OptionsDisplayItem.Content>
                 <StackPanel
-                    Margin="24,0,0,6"
+                    Margin="24,0,24,6"
                     VerticalAlignment="Center"
                     Orientation="Vertical"
                     Spacing="6">
+                    <DockPanel Margin="0,-12,0,-6" LastChildFill="False">
+                        <Image
+                            Width="42"
+                            Height="21"
+                            Margin="12,10,0,10"
+                            Cursor="Hand"
+                            DockPanel.Dock="Left"
+                            Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/gplv3-with-text-84x42.png"
+                            Tapped="GPLv3_Tapped"
+                            ToolTip.Tip="GNU General Public License (GPLv3)" />
+                        <StackPanel
+                            Margin="0,0,-10,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            Spacing="0">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Powered by"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                            <!--<Border
+                            Width="18"
+                            Height="18"
+                            Margin="0,0,2,0"
+                            Background="#512BD4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="6"
+                                Foreground="White"
+                                Text=".NET"
+                                TextAlignment="Center" />
+                        </Border>-->
+                            <DockPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Cursor="Hand"
+                                Tapped="Dotnet_Tapped"
+                                ToolTip.Tip="{Binding DotnetDesc, Mode=OneTime}">
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Margin="4,0,4,0"
+                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/dotnet-logo.png" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    DockPanel.Dock="Right"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{Binding RuntimeVersion}"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </DockPanel>
+                            <TextBlock
+                                Margin="4,0,0,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="&amp;"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                            <DockPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Cursor="Hand"
+                                Tapped="Avalonia_Tapped"
+                                ToolTip.Tip="{Binding AvaloniaDesc, Mode=OneTime}">
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Margin="1.5,0,1.5,0"
+                                    DockPanel.Dock="Left"
+                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/avaloniaui-logo.png" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    DockPanel.Dock="Right"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{Binding AvaloniaVersion}"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </DockPanel>
+                        </StackPanel>
+                    </DockPanel>
+                    <Border
+                        Height="1"
+                        Margin="-50,0"
+                        Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
                     <TextBlock
-                        Margin="12,0,0,6"
+                        Margin="12,4,0,0"
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                         Text="{ReflectionBinding Path=Res.Link,
@@ -68,7 +151,7 @@
                         Margin="-50,0"
                         Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
                     <TextBlock
-                        Margin="12,12,0,6"
+                        Margin="12,4,0,0"
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                         Text="{ReflectionBinding Path=Res.OpenSourceLibrary,
@@ -76,7 +159,7 @@
                                                  Source={x:Static s:ResourceService.Current}}" />
                     <ItemsRepeater Margin="0,0,6,6" ItemsSource="{Binding OSL, Mode=OneTime}">
                         <ItemsRepeater.Layout>
-                            <UniformGridLayout MinItemWidth="440" />
+                            <UniformGridLayout MinItemWidth="432" />
                         </ItemsRepeater.Layout>
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate x:DataType="spp:HyperlinkModel">
@@ -88,62 +171,6 @@
                             </DataTemplate>
                         </ItemsRepeater.ItemTemplate>
                     </ItemsRepeater>
-                    <Border
-                        Height="1"
-                        Margin="-50,0"
-                        Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
-                    <StackPanel
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="2">
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="Powered by "
-                            Theme="{StaticResource CaptionTextBlockStyle}" />
-                        <Border
-                            Width="18"
-                            Height="18"
-                            Margin="0,0,2,0"
-                            Background="#512BD4">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontSize="6"
-                                Foreground="White"
-                                Text=".NET"
-                                TextAlignment="Center" />
-                        </Border>
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{Binding RuntimeVersion}"
-                            Theme="{StaticResource CaptionTextBlockStyle}"
-                            ToolTip.Tip="{Binding DotnetDesc, Mode=OneTime}" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="&amp;"
-                            Theme="{StaticResource CaptionTextBlockStyle}" />
-                        <DockPanel
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            ToolTip.Tip="{Binding AvaloniaDesc, Mode=OneTime}">
-                            <Image
-                                Width="18"
-                                Height="18"
-                                Margin="0,0,2,0"
-                                DockPanel.Dock="Left"
-                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/avaloniaui-logo.png" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                DockPanel.Dock="Right"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{Binding AvaloniaVersion}"
-                                Theme="{StaticResource CaptionTextBlockStyle}" />
-                        </DockPanel>
-                    </StackPanel>
                 </StackPanel>
             </spp:OptionsDisplayItem.Content>
         </spp:OptionsDisplayItem>

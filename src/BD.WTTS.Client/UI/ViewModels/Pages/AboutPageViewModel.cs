@@ -10,13 +10,8 @@ public sealed partial class AboutPageViewModel : TabItemViewModel
 
     public override string Name => Strings.About;
 
-    //public const string Title_2_ = "({0} Steam++)";
-
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
-    public string AppName => $"{AssemblyInfo.Trademark} (Steam++)";
-
-    //[IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
-    //public string FormerAppName => string.Format(Title_2_, Strings.About_FormerName);
+    public string AppName => Strings.About_FormerName__.Format(AssemblyInfo.Trademark, Constants.HARDCODED_APP_NAME);
 
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
     public string Copyright
@@ -69,7 +64,9 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
     }
 
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
-    public string RuntimeVersion => $".NET {Environment.Version}";
+    public string RuntimeVersion =>
+        //$".NET {Environment.Version}";
+        Environment.Version.ToString();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static string? GetAssemblyVersion(string typeName)

@@ -2993,10 +2993,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>証明書の状態</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_FormerName" xml:space="preserve">
-    <value>元の名前</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="FileSize" xml:space="preserve">
     <value>ファイル サイズ</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

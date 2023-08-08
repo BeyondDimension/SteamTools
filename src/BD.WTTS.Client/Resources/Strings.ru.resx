@@ -2993,10 +2993,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Статус сертификата</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_FormerName" xml:space="preserve">
-    <value>Прежде</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="FileSize" xml:space="preserve">
     <value>Размер файла</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

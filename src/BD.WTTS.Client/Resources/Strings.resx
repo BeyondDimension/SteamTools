@@ -1436,8 +1436,8 @@
   <data name="Notice_Tray_Content_" xml:space="preserve">
     <value>收到 {0} 条新消息，详情请在程序内我的消息处查看。</value>
   </data>
-  <data name="About_FormerName" xml:space="preserve">
-    <value>原名</value>
+  <data name="About_FormerName__" xml:space="preserve">
+    <value>{0}（原名 {1}）</value>
   </data>
   <data name="FileSize" xml:space="preserve">
     <value>文件大小</value>
