@@ -43,15 +43,27 @@
                     Orientation="Vertical"
                     Spacing="6">
                     <DockPanel Margin="0,-12,0,-6" LastChildFill="False">
-                        <Image
-                            Width="42"
-                            Height="21"
+                        <DockPanel
                             Margin="12,10,0,10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
                             Cursor="Hand"
-                            DockPanel.Dock="Left"
-                            Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/gplv3-with-text-84x42.png"
-                            Tapped="GPLv3_Tapped"
-                            ToolTip.Tip="GNU General Public License (GPLv3)" />
+                            Tapped="GPLv3_Tapped">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding Licensed}"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                            <Image
+                                Width="42"
+                                Height="21"
+                                Margin="4,0,0,0"
+                                Cursor="Hand"
+                                DockPanel.Dock="Right"
+                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Logos/gplv3-with-text-84x42.png"
+                                Tapped="GPLv3_Tapped"
+                                ToolTip.Tip="GNU General Public License (GPLv3) Free Software Free as in Freedom" />
+                        </DockPanel>
                         <StackPanel
                             Margin="0,0,-10,0"
                             HorizontalAlignment="Left"
