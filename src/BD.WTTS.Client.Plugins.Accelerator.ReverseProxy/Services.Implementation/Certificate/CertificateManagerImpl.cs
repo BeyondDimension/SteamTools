@@ -224,19 +224,6 @@ sealed partial class CertificateManagerImpl : ICertificateManager
 
     async ValueTask TrustRootCertificateAsync()
     {
-        try
-        {
-            SharedTrustRootCertificate();
-        }
-#if DEBUG
-        catch (Exception e)
-        {
-            Log.Error(TAG, e, "SharedTrustRootCertificate Error");
-        }
-#else
-        catch { }
-#endif
-
         await PlatformTrustRootCertificateGuideAsync();
     }
 
@@ -245,7 +232,22 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     {
         try
         {
-            if (OperatingSystem.IsMacOS())
+            if (OperatingSystem.IsWindows())
+            {
+                try
+                {
+                    SharedTrustRootCertificate();
+                }
+#if DEBUG
+                catch (Exception e)
+                {
+                    Log.Error(TAG, e, "SharedTrustRootCertificate Error");
+                }
+#else
+        catch { }
+#endif
+            }
+            else if (OperatingSystem.IsMacOS())
             {
                 await TrustRootCertificateMacOSAsync();
             }
@@ -271,7 +273,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         if (filePath == null) return;
         var state = platformService.TrustRootCertificateAsync(filePath);
         //await platformService.RunShellAsync($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
-        if (state != null && !IsRootCertificateInstalled)
+        if (state.HasValue && !state.Value)
             await TrustRootCertificateMacOSAsync();
     }
 
@@ -327,7 +329,9 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             {
                 RootCertificate = null;
                 var pfxFilePath = Interface.PfxFilePath;
+                var cerFilePath = Interface.CerFilePath;
                 if (File.Exists(pfxFilePath)) File.Delete(pfxFilePath);
+                if (File.Exists(cerFilePath)) File.Delete(cerFilePath);
             }
         }
         catch (CryptographicException)

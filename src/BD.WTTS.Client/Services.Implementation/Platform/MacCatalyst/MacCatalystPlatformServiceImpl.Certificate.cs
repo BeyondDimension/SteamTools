@@ -31,13 +31,22 @@ partial class MacCatalystPlatformServiceImpl
         var cerTrust = SecKeyChain.QueryAsRecord(addCertificate, out var t2Code);
         if (t2Code != SecStatusCode.ItemNotFound)
         {
-            using (var trust = new SecTrust(cert, null))
+            try
             {
-                result = trust.Evaluate(out var error);
+                using (var trust = new SecTrust(cert, null))
+                {
+                    result = trust.Evaluate(out var error);
 #if DEBUG
-                if (error != null)
-                    Toast.Show(ToastIcon.Error, error.Description);
+                    // 不显示错误 
+                    if (error != null)
+                        Toast.Show(ToastIcon.Error, error.Description);
 #endif
+                }
+            }
+            catch
+            {
+                //任何异常视为 False
+                return false;
             }
         }
         return result;
@@ -71,6 +80,7 @@ partial class MacCatalystPlatformServiceImpl
         //    Toast.Show(ToastIcon.None, msg);
         //    return false;
         //}
+        //路径不需要包裹 参数传入不需要像控制台包裹
         var code = RunRootCommand(SecurityPath, new string[] {
                    "add-trusted-cert",
                    "-d",
@@ -78,7 +88,7 @@ partial class MacCatalystPlatformServiceImpl
                    "trustRoot",
                    "-k",
                    "/Library/Keychains/System.keychain",
-                   "\"{filePath}\""
+                   filePath
                    });
         ShowRootCommandError(code, "安装证书：{0}");
         return code == 0;
@@ -116,6 +126,7 @@ partial class MacCatalystPlatformServiceImpl
         {
             if (auth == null)
                 Toast.Show(ToastIcon.Error, "获取授权出错");
+            Console.WriteLine($"{path} {string.Join(" ", args)}");
             return auth.ExecuteWithPrivileges(path!, AuthorizationFlags.Defaults, args);
         }
     }
@@ -151,7 +162,8 @@ partial class MacCatalystPlatformServiceImpl
         X509Certificate2? cert = certificate2;
         if (cert == null)
             return;
-        var code = RunRootCommand(SecurityPath, new string[] { "delete-certificate", "-Z", cert.GetCertHashStringCompat(HashAlgorithmName.SHA1) });
+        // -t 删除证书信任 -Z 删除证书  -c 根据名字删除证书
+        var code = RunRootCommand(SecurityPath, new string[] { "delete-certificate", "-t", "-Z", cert.GetCertHashStringCompat(HashAlgorithmName.SHA1) });
         ShowRootCommandError(code, "删除证书：{0}");
     }
     //public static int RemoveCertificate(X509CertificatePackable certificate2)
