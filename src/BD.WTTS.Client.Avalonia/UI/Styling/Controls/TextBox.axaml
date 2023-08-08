@@ -58,6 +58,50 @@
                 IsEnabled="{Binding $parent[TextBox].Text, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
         </MenuFlyout>
 
+        <ControlTheme x:Key="TextBoxPasswordButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border
+                        Name="ButtonLayoutGrid"
+                        Margin="{DynamicResource TextBoxInnerButtonMargin}"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlButtonBorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                        <ui:FontIcon
+                            Name="Glyph"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            FontSize="{StaticResource TextBoxIconFontSize}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Glyph="{StaticResource RedEye}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+
+            <Style Selector="^:pointerover">
+                <Style Selector="^ /template/ Border#ButtonLayoutGrid">
+                    <Setter Property="Background" Value="{DynamicResource TextControlButtonBackgroundPointerOver}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource TextControlButtonBorderBrushPointerOver}" />
+                </Style>
+            </Style>
+
+            <Style Selector="^:pressed">
+                <Style Selector="^ /template/ Border#ButtonLayoutGrid">
+                    <Setter Property="Background" Value="{DynamicResource TextControlButtonBackgroundPressed}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource TextControlButtonBorderBrushPressed}" />
+                </Style>
+            </Style>
+
+            <Style Selector="^:checked /template/ ui|FontIcon#Glyph">
+                <Setter Property="Glyph" Value="{StaticResource Hide}" />
+            </Style>
+
+            <Style Selector="^:disabled /template/ Border#ButtonLayoutGrid">
+                <Setter Property="Opacity" Value="0" />
+            </Style>
+        </ControlTheme>
     </Styles.Resources>
 
     <Style Selector="PathIcon.TextBoxIcon">

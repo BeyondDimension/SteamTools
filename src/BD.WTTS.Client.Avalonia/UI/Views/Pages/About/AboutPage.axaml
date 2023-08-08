@@ -96,21 +96,32 @@
                         Margin="0,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        Spacing="2">
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Text="Powered by "
                             Theme="{StaticResource CaptionTextBlockStyle}" />
+                        <Border
+                            Width="18"
+                            Height="18"
+                            Margin="0,0,2,0"
+                            Background="#512BD4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="6"
+                                Foreground="White"
+                                Text=".NET"
+                                TextAlignment="Center" />
+                        </Border>
                         <TextBlock
-                            Margin="1,0,0,0"
                             VerticalAlignment="Center"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Text="{Binding RuntimeVersion}"
                             Theme="{StaticResource CaptionTextBlockStyle}"
                             ToolTip.Tip="{Binding DotnetDesc, Mode=OneTime}" />
                         <TextBlock
-                            Margin="2,0,2,0"
                             VerticalAlignment="Center"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Text="&amp;"
