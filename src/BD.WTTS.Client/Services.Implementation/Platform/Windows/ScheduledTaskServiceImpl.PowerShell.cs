@@ -9,6 +9,41 @@ partial class ScheduledTaskServiceImpl
     // https://github.com/PowerShell/PowerShell/issues/13540
     // Microsoft.PowerShell.SDK 不支持单文件发布
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static string GetScheduledTaskXml(string comment, string description, string userName, string userId, bool isPrivileged, string programName, string arguments, string workingDirectory)
+    {
+        var xml = $"<?xml version=\"1.0\" encoding=\"UTF-16\"?><Task version=\"1.2\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\"><!-- {comment} --><RegistrationInfo><Description>{description}</Description></RegistrationInfo><Triggers><LogonTrigger><Enabled>true</Enabled><UserId>{userName}</UserId></LogonTrigger></Triggers><Principals><Principal id=\"Author\"><UserId>{userId}</UserId><LogonType>InteractiveToken</LogonType><RunLevel>{(isPrivileged ? "HighestAvailable" : "LeastPrivilege")}</RunLevel></Principal></Principals><Settings><MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy><DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries><StopIfGoingOnBatteries>false</StopIfGoingOnBatteries><AllowHardTerminate>false</AllowHardTerminate><StartWhenAvailable>false</StartWhenAvailable><RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable><IdleSettings><Duration>PT10M</Duration><WaitTimeout>PT1H</WaitTimeout><StopOnIdleEnd>true</StopOnIdleEnd><RestartOnIdle>false</RestartOnIdle></IdleSettings><AllowStartOnDemand>true</AllowStartOnDemand><Enabled>true</Enabled><Hidden>false</Hidden><RunOnlyIfIdle>false</RunOnlyIfIdle><WakeToRun>false</WakeToRun><ExecutionTimeLimit>PT0S</ExecutionTimeLimit><Priority>5</Priority></Settings><Actions Context=\"Author\"><Exec><Command>{programName}</Command><Arguments>{arguments}</Arguments><WorkingDirectory>{workingDirectory}</WorkingDirectory></Exec></Actions></Task>";
+        return xml;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static async Task RegisterScheduledTask(string taskName, string xml)
+    {
+        taskName = Escape(taskName);
+        xml = Escape(xml);
+        await RunPowerShellSinglePipeAsync($"Register-ScheduledTask -Force -TaskName '{taskName}' -Xml '{xml}';exit");
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static async Task UnregisterScheduledTask(IEnumerable<string>? taskNames)
+    {
+        if (!taskNames.Any_Nullable()) return;
+
+        StringBuilder builder = new();
+        foreach (var taskName in taskNames)
+        {
+            var taskName_ = Escape(taskName);
+            builder.Append($"Unregister-ScheduledTask -TaskName '{taskName_}' -Confirm:$false");
+            builder.Append(';');
+        }
+        builder.Append("exit");
+        var arguments = builder.ToString();
+        await RunPowerShellSinglePipeAsync(arguments);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static Task UnregisterScheduledTask(params string[] taskNames) => UnregisterScheduledTask(taskNames.AsEnumerable());
+
     /// <summary>
     /// 使用 PowerShell 实现的开机启动
     /// <para>https://docs.microsoft.com/en-us/powershell/module/scheduledtasks</para>
@@ -17,9 +52,9 @@ partial class ScheduledTaskServiceImpl
     /// <param name="name"></param>
     /// <param name="userId"></param>
     /// <param name="userName"></param>
-    /// <param name="tdName"></param>
+    /// <param name="taskName"></param>
     /// <param name="programName"></param>
-    static async void SetBootAutoStartByPowerShell(bool isAutoStart, string name, string userId, string userName, string tdName, string programName)
+    static async void SetBootAutoStartByPowerShell(bool isAutoStart, string name, string userId, string userName, string taskName, string programName)
     {
         if (isAutoStart)
         {
@@ -31,12 +66,12 @@ partial class ScheduledTaskServiceImpl
             if (string.IsNullOrWhiteSpace(userName)) userName = userId;
             else userName = SecurityElement.Escape(userName);
             var description = SecurityElement.Escape(GetDescription(name));
-            var xml = $"<?xml version=\"1.0\" encoding=\"UTF-16\"?><Task version=\"1.2\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\"><RegistrationInfo><Description>{description}</Description></RegistrationInfo><Triggers><LogonTrigger><Enabled>true</Enabled><UserId>{userName}</UserId></LogonTrigger></Triggers><Principals><Principal id=\"Author\"><UserId>{userId}</UserId><LogonType>InteractiveToken</LogonType><RunLevel>{(WindowsPlatformServiceImpl.IsPrivilegedProcess ? "HighestAvailable" : "LeastPrivilege")}</RunLevel></Principal></Principals><Settings><MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy><DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries><StopIfGoingOnBatteries>false</StopIfGoingOnBatteries><AllowHardTerminate>false</AllowHardTerminate><StartWhenAvailable>false</StartWhenAvailable><RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable><IdleSettings><Duration>PT10M</Duration><WaitTimeout>PT1H</WaitTimeout><StopOnIdleEnd>true</StopOnIdleEnd><RestartOnIdle>false</RestartOnIdle></IdleSettings><AllowStartOnDemand>true</AllowStartOnDemand><Enabled>true</Enabled><Hidden>false</Hidden><RunOnlyIfIdle>false</RunOnlyIfIdle><WakeToRun>false</WakeToRun><ExecutionTimeLimit>PT0S</ExecutionTimeLimit><Priority>5</Priority></Settings><Actions Context=\"Author\"><Exec><Command>{programName}</Command><Arguments>{arguments}</Arguments><WorkingDirectory>{workingDirectory}</WorkingDirectory></Exec></Actions></Task>";
-            await RunPowerShellSinglePipeAsync($"Register-ScheduledTask -Force -TaskName '{Escape(tdName)}' -Xml '{Escape(xml)}';exit");
+            var xml = GetScheduledTaskXml(nameof(SetBootAutoStartByPowerShell), description, userName, userId, WindowsPlatformServiceImpl.IsPrivilegedProcess, programName, arguments, workingDirectory);
+            await RegisterScheduledTask(taskName, xml);
         }
         else
         {
-            await RunPowerShellSinglePipeAsync($"Unregister-ScheduledTask -TaskName '{Escape(name)}' -Confirm:$false;Unregister-ScheduledTask -TaskName '{Escape(tdName)}' -Confirm:$false;exit");
+            await UnregisterScheduledTask(name, taskName);
         }
     }
 

@@ -27,13 +27,14 @@
             Header="{Binding AppName}"
             IsExpanded="True">
             <spp:OptionsDisplayItem.Icon>
-                <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" Tapped="EasterEgg_Tapped" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="12"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Tapped="EasterEgg_Tapped"
                     Text="{Binding VersionDisplay}" />
             </spp:OptionsDisplayItem.ActionButton>
             <spp:OptionsDisplayItem.Content>

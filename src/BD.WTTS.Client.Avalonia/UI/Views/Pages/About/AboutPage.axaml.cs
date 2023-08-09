@@ -49,4 +49,11 @@ public partial class AboutPage : ReactiveUserControl<AboutPageViewModel>
     {
         OpenBrowser("https://avaloniaui.net");
     }
+
+    void EasterEgg_Tapped(object? sender, TappedEventArgs e)
+    {
+        e.Handled = true;
+        e.Route = RoutingStrategies.Direct;
+        AboutPageViewModel.OnEasterEggClick();
+    }
 }

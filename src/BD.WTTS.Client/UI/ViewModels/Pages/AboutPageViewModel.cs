@@ -76,6 +76,19 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
 #pragma warning disable IL2057 // Unrecognized value passed to the parameter of method. It's not possible to guarantee the availability of the target type.
             var assembly = Type.GetType(typeName)?.Assembly;
 #pragma warning restore IL2057 // Unrecognized value passed to the parameter of method. It's not possible to guarantee the availability of the target type.
+            return GetAssemblyVersion(assembly);
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static string? GetAssemblyVersion(Assembly? assembly)
+    {
+        try
+        {
             var value = assembly?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
                 .InformationalVersion
                 .Split(new[] { '+', '-' }, StringSplitOptions.RemoveEmptyEntries)
