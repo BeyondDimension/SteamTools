@@ -2,19 +2,19 @@ using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public class SteamGuardImportPageViewModel : ViewModelBase
+public sealed class SteamGuardImportPageViewModel : ViewModelBase
 {
-    string _phoneImportUuid = string.Empty;
-    string _phoneImportSteamGuard = string.Empty;
-    string? _importAuthNewName;
+    public static string Name => Strings.LocalAuth_Import.Format(Strings.SteamGuard);
 
-    public string PhoneImportUuid
+    string? _phoneImportUuid;
+
+    public string? PhoneImportUuid
     {
         get => _phoneImportUuid;
         set
         {
             if (value == _phoneImportUuid) return;
-            if (!value.StartsWith("android:", StringComparison.Ordinal))
+            if (value?.StartsWith("android:", StringComparison.Ordinal) == false)
             {
                 value = $"android:{value}";
             }
@@ -23,16 +23,15 @@ public class SteamGuardImportPageViewModel : ViewModelBase
         }
     }
 
-    public string PhoneImportSteamGuard
+    string? _phoneImportSteamGuard;
+
+    public string? PhoneImportSteamGuard
     {
         get => _phoneImportSteamGuard;
-        set
-        {
-            if (value == _phoneImportSteamGuard) return;
-            _phoneImportSteamGuard = value;
-            this.RaisePropertyChanged();
-        }
+        set => this.RaiseAndSetIfChanged(ref _phoneImportSteamGuard, value);
     }
+
+    string? _importAuthNewName;
 
     public string? ImportAuthNewName
     {
@@ -49,68 +48,59 @@ public class SteamGuardImportPageViewModel : ViewModelBase
         }
     }
 
-    readonly Func<IAuthenticatorDTO, string?, Task> _saveAuth;
-
-    public SteamGuardImportPageViewModel()
-    {
-        _saveAuth = (_, _) => Task.CompletedTask;
-    }
-
-    public SteamGuardImportPageViewModel(Func<IAuthenticatorDTO, string?, Task> saveAuthFunc)
-    {
-        _saveAuth = saveAuthFunc;
-    }
-
     public async Task Import()
     {
-        /* AuthService.ImportSteamGuard (System.String name, System.String uuid, System.String steamGuard, System.Boolean isLocal, System.String password)
-             * System.NullReferenceException: Object reference not set to an instance of an object
-             * Crash Version 2.6.5(20220206) 12 users 14 reports
-             * Android 9 ~ 12
-             */
-
-        // check the deviceid
-        string deviceId;
-        if (PhoneImportUuid.IndexOf("?xml", StringComparison.Ordinal) != -1)
-        {
-            try
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(PhoneImportUuid);
-                var node = doc.SelectSingleNode("//string[@name='uuidKey']");
-                if (node == null)
-                {
-                    //WinAuthForm.ErrorDialog(this, "Cannot find uuidKey in xml");
-                    return;
-                }
-
-                deviceId = node.InnerText;
-            }
-            catch (Exception ex)
-            {
-                //WinAuthForm.ErrorDialog(this, "Invalid uuid xml: " + ex.Message);
-                //ToastService.Current.Notify("Invalid uuid xml");
-                ex.LogAndShowT();
-                return;
-            }
-        }
-        else
-        {
-            deviceId = PhoneImportUuid;
-        }
-
-        if (string.IsNullOrEmpty(deviceId) || Regex.IsMatch(deviceId, @"android:[0-9abcdef-]+",
-                RegexOptions.Singleline | RegexOptions.IgnoreCase) == false)
-        {
-            //WinAuthForm.ErrorDialog(this, "Invalid deviceid, expecting \"android:NNNN...\"");
-            return;
-        }
-
-        // check the steamguard
-        byte[] secret;
-        string serial;
         try
         {
+            /* AuthService.ImportSteamGuard (System.String name, System.String uuid, System.String steamGuard, System.Boolean isLocal, System.String password)
+                 * System.NullReferenceException: Object reference not set to an instance of an object
+                 * Crash Version 2.6.5(20220206) 12 users 14 reports
+                 * Android 9 ~ 12
+                 */
+            PhoneImportUuid.ThrowIsNull();
+            PhoneImportSteamGuard.ThrowIsNull();
+            ImportAuthNewName.ThrowIsNull();
+
+            // check the deviceid
+            string deviceId;
+            if (PhoneImportUuid.IndexOf("?xml", StringComparison.Ordinal) != -1)
+            {
+                try
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.LoadXml(PhoneImportUuid);
+                    var node = doc.SelectSingleNode("//string[@name='uuidKey']");
+                    if (node == null)
+                    {
+                        //WinAuthForm.ErrorDialog(this, "Cannot find uuidKey in xml");
+                        return;
+                    }
+
+                    deviceId = node.InnerText;
+                }
+                catch (Exception ex)
+                {
+                    //WinAuthForm.ErrorDialog(this, "Invalid uuid xml: " + ex.Message);
+                    //ToastService.Current.Notify("Invalid uuid xml");
+                    ex.LogAndShowT();
+                    return;
+                }
+            }
+            else
+            {
+                deviceId = PhoneImportUuid;
+            }
+
+            if (string.IsNullOrEmpty(deviceId) || Regex.IsMatch(deviceId, @"android:[0-9abcdef-]+",
+                    RegexOptions.Singleline | RegexOptions.IgnoreCase) == false)
+            {
+                //WinAuthForm.ErrorDialog(this, "Invalid deviceid, expecting \"android:NNNN...\"");
+                return;
+            }
+
+            // check the steamguard
+            byte[] secret;
+            string? serial;
             var steamGuardModel = JsonSerializer.Deserialize(PhoneImportSteamGuard,
                 ImportFileModelJsonContext.Default.SteamGuardModel);
 
@@ -129,28 +119,27 @@ public class SteamGuardImportPageViewModel : ViewModelBase
             }
 
             serial = steamGuardModel.SerialNumber;
+
+            var auth = new SteamAuthenticator
+            {
+                SecretKey = secret,
+                Serial = serial,
+                SteamData = PhoneImportSteamGuard,
+                DeviceId = deviceId
+            };
+
+            await IAuthenticatorImport.SaveAuthenticator(new AuthenticatorDTO()
+            {
+                Name = $"(Steam){ImportAuthNewName}",
+                Value = auth,
+                Created = DateTimeOffset.Now,
+            });
         }
         catch (Exception ex)
         {
             //WinAuthForm.ErrorDialog(this, "Invalid SteamGuard JSON contents: " + ex.Message);
             //ToastService.Current.Notify("Invalid SteamGuard JSON");
             ex.LogAndShowT();
-            return;
         }
-
-        var auth = new SteamAuthenticator
-        {
-            SecretKey = secret,
-            Serial = serial,
-            SteamData = PhoneImportSteamGuard,
-            DeviceId = deviceId
-        };
-
-        await _saveAuth.Invoke(new AuthenticatorDTO()
-        {
-            Name = $"(Steam){ImportAuthNewName}",
-            Value = auth,
-            Created = DateTimeOffset.Now,
-        }, null);
     }
 }

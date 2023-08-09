@@ -5,6 +5,9 @@ namespace BD.WTTS.UI.ViewModels;
 public partial class AuthenticatorHomePageViewModel
 {
     [Reactive]
+    public bool IsLoading { get; set; }
+
+    [Reactive]
     public ObservableCollection<AuthenticatorItemModel> Auths { get; set; }
 
     [Reactive]

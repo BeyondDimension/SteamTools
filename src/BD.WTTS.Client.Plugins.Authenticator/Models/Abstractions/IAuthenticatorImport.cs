@@ -48,5 +48,7 @@ public interface IAuthenticatorImport
 
         await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, password,
             hasLocalPcEncrypt);
+
+        Toast.Show(ToastIcon.Success, Strings.LocalAuth_SteamAppAddSuccess);
     }
 }

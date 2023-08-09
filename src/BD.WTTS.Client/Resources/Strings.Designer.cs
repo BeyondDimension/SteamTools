@@ -3765,7 +3765,8 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。 的本地化字符串。
+        ///   查找类似 还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。
+        ///请记住你的恢复代码，这很重要！ 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SMSCodeTip {
             get {
@@ -3774,7 +3775,16 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 您可以在已 root 的 Android 设备中找到以上输入框对应的信息 路径：/data/data/com.valvesoftware.android.steam.community 的本地化字符串。
+        ///   查找类似 令牌已成功添加 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamAppAddSuccess {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamAppAddSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 新版本 SteamApp 令牌的一些导入方案参考 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamAppImportTip {
             get {
@@ -3819,7 +3829,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可 的本地化字符串。
+        ///   查找类似 你已经成功通过账号登录添加并导入了令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能是因为网络问题导入失败，尝试重新进行导入并且删除掉无效令牌。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUserImportSuccess {
             get {
@@ -5965,7 +5975,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请在收到邮件后，点击邮件内的「添加手机号码」进行确认后，再点击继续按钮。 的本地化字符串。
+        ///   查找类似 添加的手机号为 {0}，请检查你的 {1} 邮箱，收到 Steam 邮件后，点击邮件内的「添加手机号码」进行确认后，再点击确认按钮。 的本地化字符串。
         /// </summary>
         public static string Steam_EmailConfirmation {
             get {

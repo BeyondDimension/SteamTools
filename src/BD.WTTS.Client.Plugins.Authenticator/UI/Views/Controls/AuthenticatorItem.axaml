@@ -32,7 +32,7 @@
                 </Button>
                 <Button
                     Command="{Binding ShowSteamTradeWindow}"
-                    IsVisible="{Binding IsSteamAuthenticator, Mode=OneTime}"
+                    IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}"
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade,
                                                     Mode=OneWay,

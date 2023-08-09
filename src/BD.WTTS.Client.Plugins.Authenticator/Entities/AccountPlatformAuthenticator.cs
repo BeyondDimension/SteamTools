@@ -60,7 +60,7 @@ public sealed partial class AccountPlatformAuthenticator : IEntity<ushort>, IOrd
     public DateTimeOffset LastUpdate { get; set; }
 
     /// <summary>
-    /// 云同步Id
+    /// 服务端Id
     /// </summary>
     [Column(ColumnName_ServerId)]
     [MPIgnore]

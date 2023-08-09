@@ -13,8 +13,12 @@
     x:DataType="spp:AuthenticatorImportPageViewModel"
     mc:Ignorable="d">
     <Grid RowDefinitions="Auto,*">
-        <StackPanel Orientation="Horizontal" Spacing="8">
+        <StackPanel
+            Margin="0,0,0,8"
+            Orientation="Horizontal"
+            Spacing="8">
             <Button
+                Padding="8"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Command="{ReflectionBinding #InnerNavFrame.GoBack}"
@@ -24,29 +28,9 @@
                 Theme="{StaticResource TransparentButton}" />
             <TextBlock
                 VerticalAlignment="Center"
-                Text="Title"
+                Text="{ReflectionBinding #InnerNavFrame.Content.DataContext.Name}"
                 Theme="{StaticResource BodyStrongTextBlockStyle}" />
         </StackPanel>
-        <ItemsRepeater ItemsSource="{Binding AuthenticatorImportMethods}">
-            <ItemsRepeater.Layout>
-                <UniformGridLayout
-                    ItemsJustification="SpaceAround"
-                    MinColumnSpacing="5"
-                    MinRowSpacing="5" />
-            </ItemsRepeater.Layout>
-            <ItemsRepeater.ItemTemplate>
-                <DataTemplate DataType="spp:AuthenticatorImportMethod">
-                    <spp:AppItem
-                        Title="{Binding Name}"
-                        MaxWidth="200"
-                        Classes="Vertical"
-                        Cursor="Hand"
-                        Description="{Binding Description}"
-                        Tag="{Binding PageType}"
-                        Tapped="AuthenticatorImportPage_Tapped" />
-                </DataTemplate>
-            </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
         <ui:Frame x:Name="InnerNavFrame" Grid.Row="1" />
     </Grid>
 </UserControl>

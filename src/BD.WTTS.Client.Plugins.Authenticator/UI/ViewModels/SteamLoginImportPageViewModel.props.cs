@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed partial class SteamLoginImportViewModel
+public sealed partial class SteamLoginImportPageViewModel
 {
     [Reactive]
     public bool IsLoading { get; set; }
 
+    /// <summary>
+    /// 进度状态  0 登录 1 绑定手机 2 手机验证码 3 完成
+    /// </summary>
     [Reactive]
     public int SelectIndex { get; set; }
 
@@ -27,13 +30,7 @@ public sealed partial class SteamLoginImportViewModel
     public string? PasswordText { get; set; }
 
     /// <summary>
-    /// 文字验证码
-    /// </summary>
-    [Reactive]
-    public string? CaptchaCodeText { get; set; }
-
-    /// <summary>
-    /// 手机验证码
+    /// 手机短信验证码
     /// </summary>
     [Reactive]
     public string? PhoneCodeText { get; set; }

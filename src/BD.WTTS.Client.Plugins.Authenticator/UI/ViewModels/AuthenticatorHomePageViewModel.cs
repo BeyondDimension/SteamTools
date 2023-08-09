@@ -16,7 +16,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
     string? _currentPassword;
 
-    DateTime _initializeTime;
+    //DateTime _initializeTime;
 
     public AuthenticatorHomePageViewModel()
     {
@@ -38,44 +38,54 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
     public async void Initialize()
     {
-        //await AuthenticatorService.DeleteAllAuthenticatorsAsync();
-        if (_initializeTime > DateTime.Now.AddSeconds(-1))
-        {
-            Toast.Show(ToastIcon.Warning, AppResources.Warning_DoNotOperateFrequently);
-            return;
-        }
+        if (IsLoading) return;
 
-        _initializeTime = DateTime.Now;
+        IsLoading = true;
+        //await AuthenticatorService.DeleteAllAuthenticatorsAsync();
+        //if (_initializeTime > DateTime.Now.AddSeconds(-1))
+        //{
+        //    Toast.Show(ToastIcon.Warning, AppResources.Warning_DoNotOperateFrequently);
+        //    return;
+        //}
+
+        //_initializeTime = DateTime.Now;
 
         Auths.Clear();
 
         var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
-        if (sourceList.Length < 1) return;
-
-        AuthenticatorIsEmpty = false;
-
-        (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
-
-        if (HasPasswordEncrypt && IsVerificationPass == false)
+        if (sourceList.Any_Nullable())
         {
-            if (!await EnterPassword(sourceList[0])) return;
-        }
-        else
-        {
-            IsVerificationPass = true;
+            AuthenticatorIsEmpty = false;
+
+            (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
+
+            if (HasPasswordEncrypt && IsVerificationPass == false)
+            {
+                if (!await EnterPassword(sourceList[0]))
+                {
+                    IsLoading = false;
+                    return;
+                }
+            }
+            else
+            {
+                IsVerificationPass = true;
+            }
+
+            // var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
+            //     _currentPassword.Base64Encode_Nullable());
+
+            var list = (await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceList,
+                _currentPassword)).OrderBy(i => i.Index);
+
+            foreach (var item in list)
+            {
+                Auths.Add(new AuthenticatorItemModel(item));
+            }
+            //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
         }
 
-        // var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
-        //     _currentPassword.Base64Encode_Nullable());
-
-        var list = (await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceList,
-            _currentPassword)).OrderBy(i => i.Index);
-
-        foreach (var item in list)
-        {
-            Auths.Add(new AuthenticatorItemModel(item));
-        }
-        //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
+        IsLoading = false;
     }
 
     public async Task<bool> EnterPassword(AccountPlatformAuthenticator sourceData)
@@ -434,6 +444,8 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
     {
         await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorImportPageViewModel(), AppResources.LocalAuth_AddAuth,
         pageContent: new AuthenticatorImportPage(), isOkButton: false);
+
+        Initialize();
     }
 
     public async Task ShowRecoverWindow()

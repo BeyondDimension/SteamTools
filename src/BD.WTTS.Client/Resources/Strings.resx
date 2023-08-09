@@ -643,10 +643,11 @@
     <value>在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方</value>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。</value>
+    <value>还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。
+请记住你的恢复代码，这很重要！</value>
   </data>
   <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
-    <value>你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可</value>
+    <value>你已经成功通过账号登录添加并导入了令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能是因为网络问题导入失败，尝试重新进行导入并且删除掉无效令牌。</value>
   </data>
   <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
     <value>无法将添加身份验证器添加到您的账户， 请稍后再试</value>
@@ -2000,7 +2001,7 @@
     <value>邮箱验证码</value>
   </data>
   <data name="Steam_EmailConfirmation" xml:space="preserve">
-    <value>请在收到邮件后，点击邮件内的「添加手机号码」进行确认后，再点击继续按钮。</value>
+    <value>添加的手机号为 {0}，请检查你的 {1} 邮箱，收到 Steam 邮件后，点击邮件内的「添加手机号码」进行确认后，再点击确认按钮。</value>
   </data>
   <data name="Steam_Login" xml:space="preserve">
     <value>Steam 登录</value>
@@ -2327,7 +2328,10 @@
     <value>通过使用 Microsoft 添加移动验证器时生成的密钥或二维码导入令牌</value>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
-    <value>您可以在已 root 的 Android 设备中找到以上输入框对应的信息 路径：/data/data/com.valvesoftware.android.steam.community</value>
+    <value>新版本 SteamApp 令牌的一些导入方案参考</value>
+  </data>
+	<data name="LocalAuth_SteamAppAddSuccess" xml:space="preserve">
+    <value>令牌已成功添加</value>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
     <value>在 shared_prefs 文件夹中，粘贴 'steam_uuid.xml' 的 uuidKey</value>
