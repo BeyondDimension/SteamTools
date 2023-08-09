@@ -282,13 +282,16 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     {
         var filePath = GetCerFilePathGeneratedWhenNoFileExists();
         if (filePath == null) return;
+        var state = platformService.TrustRootCertificateAsync(filePath);
+        if (state.HasValue && !state.Value)
+            GetCerFilePathGeneratedWhenNoFileExists();
         //全部屏蔽 Linux 浏览器全部不信任系统证书 只能手动导入 如需导入请手动操作
         //var crtFile = $"{Path.Combine(IOPath.AppDataDirectory, $@"{ICertificateManager.CertificateName}.Certificate.crt")}";
         ////复制一份Crt导入系统用 ca-certificates 只识别Crt后缀 
         //platformService.RunShell($"cp -f \"{filePath}\" \"{crtFile}\"", false);
         //platformService.RunShell($"cp -f \"{crtFile}\" \"/usr/local/share/ca-certificates\" && sudo update-ca-certificates", true);
         //浏览器不信任系统证书列表
-        Browser2.Open(Constants.Urls.OfficialWebsite_LiunxSetupCer);
+        //Browser2.Open(Constants.Urls.OfficialWebsite_LiunxSetupCer);
     }
 
     /// <inheritdoc cref="ICertificateManager.SetupRootCertificate"/>
