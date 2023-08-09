@@ -23,6 +23,7 @@
                     Title="{Binding Name}"
                     MaxWidth="200"
                     Classes="Vertical"
+                    ClickCommand="{Binding Command}"
                     Cursor="Hand"
                     Description="{Binding Description}"
                     Tag="{Binding PageType}"

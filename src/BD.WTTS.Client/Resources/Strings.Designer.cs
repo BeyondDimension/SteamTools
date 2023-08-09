@@ -3856,7 +3856,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过 WattToolKitV1 工具箱导出的文件导入令牌 的本地化字符串。
+        ///   查找类似 通过 Steam++ V1 版本工具箱导出的文件导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WattToolKitV1Import {
             get {
@@ -3865,7 +3865,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过 WattToolKitV2 工具箱导出的文件，导入令牌 的本地化字符串。
+        ///   查找类似 通过 WattToolKit V2 工具箱导出的文件，导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WattToolKitV2Import {
             get {
@@ -7435,7 +7435,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 WattToolKitv1 的本地化字符串。
+        ///   查找类似 Steam++ V1 的本地化字符串。
         /// </summary>
         public static string WattToolKitV1 {
             get {
@@ -7444,7 +7444,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 WattToolKitV2  的本地化字符串。
+        ///   查找类似 WattToolKit V2  的本地化字符串。
         /// </summary>
         public static string WattToolKitV2 {
             get {

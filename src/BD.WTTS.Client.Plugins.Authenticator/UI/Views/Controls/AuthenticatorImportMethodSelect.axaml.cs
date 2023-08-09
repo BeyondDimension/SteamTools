@@ -15,7 +15,7 @@ public partial class AuthenticatorImportMethodSelect : UserControl
 
     private void AuthenticatorImportPage_Tapped(object? sender, Avalonia.Input.TappedEventArgs e)
     {
-        if (sender is Control item && item.Tag is Type t)
+        if (sender is AppItem item && item.Tag is Type t && item.ClickCommand == null)
         {
             AuthenticatorImportPage.InnerFrame?.Navigate(t, null, new SlideNavigationTransitionInfo
             {

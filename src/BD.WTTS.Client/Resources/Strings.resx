@@ -2283,16 +2283,16 @@
     <value>从 Mafile 文件导入令牌</value>
   </data>
   <data name="WattToolKitV2" xml:space="preserve">
-    <value>WattToolKitV2 </value>
+    <value>WattToolKit V2 </value>
   </data>
   <data name="WattToolKitV1" xml:space="preserve">
-    <value>WattToolKitv1</value>
+    <value>Steam++ V1</value>
   </data>
   <data name="LocalAuth_WattToolKitV1Import" xml:space="preserve">
-    <value>通过 WattToolKitV1 工具箱导出的文件导入令牌</value>
+    <value>通过 Steam++ V1 版本工具箱导出的文件导入令牌</value>
   </data>
   <data name="LocalAuth_WattToolKitV2Import" xml:space="preserve">
-    <value>通过 WattToolKitV2 工具箱导出的文件，导入令牌</value>
+    <value>通过 WattToolKit V2 工具箱导出的文件，导入令牌</value>
   </data>
   <data name="WinAuth" xml:space="preserve">
     <value>WinAuth </value>

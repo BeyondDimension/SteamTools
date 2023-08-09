@@ -412,6 +412,4 @@ public sealed partial class SteamTradePageViewModel
         Toast.Show(ToastIcon.Error, task.Exception.Message);
         return result;
     }
-
-    public async Task ShowCaptchaUrl() => await AuthenticatorHelper.ShowCaptchaUrl(CaptchaImageUrlText);
 }

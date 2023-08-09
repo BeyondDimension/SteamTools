@@ -4,24 +4,13 @@ using Avalonia.Media.Imaging;
 using BD.WTTS.Client.Resources;
 using WinAuth;
 using BD.WTTS.Helper;
+using BD.Common.Columns;
 
 namespace BD.WTTS.Services;
 
 public static class AuthenticatorHelper
 {
     static IAccountPlatformAuthenticatorRepository repository = Ioc.Get<IAccountPlatformAuthenticatorRepository>();
-
-    public static async Task ShowCaptchaUrl(string? url)
-    {
-        if (string.IsNullOrEmpty(url))
-            Toast.Show(ToastIcon.Warning, AppResources.Warning_CodeNullPleaseLogin);
-        else
-        {
-            if (await Browser2.OpenAsync(url)) return;
-            await Clipboard2.SetTextAsync(url);
-            Toast.Show(ToastIcon.Success, Strings.CopyToClipboard);
-        }
-    }
 
     public static async Task<Bitmap> GetUrlImage(string url)
     {
@@ -483,5 +472,161 @@ public static class AuthenticatorHelper
         }
 
         return null;
+    }
+
+    public static bool ReadXml(ref AuthenticatorDTO authenticatorDto, XmlReader reader, string? password)
+    {
+        var changed = false;
+
+        var authenticatorType = reader.GetAttribute("type");
+        switch (authenticatorType)
+        {
+            case "WinAuth.SteamAuthenticator":
+                authenticatorDto.Value = new SteamAuthenticator();
+                break;
+            case "WinAuth.BattleNetAuthenticator":
+                authenticatorDto.Value = new BattleNetAuthenticator();
+                break;
+            case "WinAuth.GoogleAuthenticator":
+                authenticatorDto.Value = new GoogleAuthenticator();
+                break;
+            case "WinAuth.HOTPAuthenticator":
+                authenticatorDto.Value = new HOTPAuthenticator();
+                break;
+            case "WinAuth.MicrosoftAuthenticator":
+                authenticatorDto.Value = new MicrosoftAuthenticator();
+                break;
+            default:
+                return false;
+        }
+
+        reader.MoveToContent();
+
+        if (reader.IsEmptyElement)
+        {
+            reader.Read();
+            return changed;
+        }
+
+        reader.Read();
+        while (reader.EOF == false)
+            if (reader.IsStartElement())
+                switch (reader.Name)
+                {
+                    case "name":
+                        authenticatorDto.Name = reader.ReadElementContentAsString();
+                        break;
+
+                    case "created":
+                        var t = reader.ReadElementContentAsLong();
+                        t += Convert.ToInt64(new TimeSpan(new DateTime(1970, 1, 1).Ticks).TotalMilliseconds);
+                        t *= TimeSpan.TicksPerMillisecond;
+                        authenticatorDto.Created = new DateTimeOffset(new DateTime(t).ToLocalTime());
+                        break;
+
+                    case "authenticatordata":
+                        try
+                        {
+                            // we don't pass the password as they are locked till clicked
+                            changed = authenticatorDto.Value!.ReadXml(reader) || changed;
+                        }
+                        catch (WinAuthEncryptedSecretDataException)
+                        {
+                            // no action needed
+                        }
+                        catch (WinAuthBadPasswordException)
+                        {
+                            // no action needed
+                        }
+
+                        break;
+
+                    // v2
+                    case "authenticator":
+                        authenticatorDto.Value = AuthenticatorValueDTO.ReadXmlv2(reader, password);
+                        break;
+                    // v2
+                    case "servertimediff":
+                        authenticatorDto.Value!.ServerTimeDiff = reader.ReadElementContentAsLong();
+                        break;
+
+                    default:
+                        reader.Skip();
+                        break;
+                }
+            else
+            {
+                reader.Read();
+                break;
+            }
+
+        return changed;
+    }
+
+    public static async Task<string?> SelectFolderPath(string? fileExtension = null)
+    {
+        var options = new PickOptions();
+        if (!string.IsNullOrEmpty(fileExtension))
+        {
+            FilePickerFileType fileTypes = new[] { ($"{fileExtension} Files", new[] { "*" + fileExtension, }), };
+            options.FileTypes = fileTypes;
+        }
+        var filePath = (await FilePicker2.PickAsync(options))?.FullPath;
+
+        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            Toast.Show(ToastIcon.Warning, Strings.FilePathNotExist);
+        return filePath;
+    }
+
+    public static async Task<bool> VerifyMaxValue()
+    {
+        var auths = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
+        if (auths.Length < IAccountPlatformAuthenticatorRepository.MaxValue) return true;
+        Toast.Show(ToastIcon.Info, Strings.Info_AuthMaximumQuantity);
+        return false;
+    }
+
+    public static async Task SaveAuthenticator(IAuthenticatorDTO authenticatorDto, string? password = null, bool? isLocalProtect = null)
+    {
+        if (!string.IsNullOrEmpty(password) && isLocalProtect != null)
+        {
+            await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, password, isLocalProtect.Value);
+        }
+        else
+        {
+            var r = await GetCurrentPassword();
+            await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, r.password, r.hasLocalPcEncrypt);
+        }
+        Toast.Show(ToastIcon.Success, Strings.LocalAuth_SteamAppAddSuccess);
+    }
+
+    public static async Task<(bool hasLocalPcEncrypt, bool hasPasswordEncrypt, string? password)> GetCurrentPassword()
+    {
+        var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
+
+        var (hasLocalPcEncrypt, hasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
+
+        if (hasPasswordEncrypt)
+        {
+            var textViewmodel = new TextBoxWindowViewModel()
+            {
+                InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+            };
+            if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, Strings.Title_InputAuthPassword, isDialog: false,
+                    isCancelButton: true) &&
+                textViewmodel.Value != null)
+            {
+                if (await AuthenticatorHelper.ValidatePassword(sourceList[0], textViewmodel.Value))
+                {
+                    return (hasLocalPcEncrypt, hasPasswordEncrypt, textViewmodel.Value);
+                }
+                else
+                {
+                    Toast.Show(ToastIcon.Warning, Strings.Warning_PasswordError);
+                }
+            }
+        }
+
+        return (hasLocalPcEncrypt, hasPasswordEncrypt, null);
     }
 }

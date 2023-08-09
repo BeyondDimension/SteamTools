@@ -130,6 +130,13 @@ public class ContentLoader : ContentControl
                 }
             }
         }
+        else if (e.Property == IsLoadingProperty)
+        {
+            if (IsLoading && IsShowNoResultText)
+            {
+                IsShowNoResultText = false;
+            }
+        }
         else if (e.Property == ItemsSourceProperty)
         {
             var items = e.GetNewValue<IEnumerable?>();

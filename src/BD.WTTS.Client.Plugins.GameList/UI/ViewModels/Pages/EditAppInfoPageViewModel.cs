@@ -227,7 +227,22 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
     {
         if (SelectGrid == null)
         {
-            Toast.Show(ToastIcon.Warning, Strings.SaveEditedAppInfo_SelectImageFailed);
+            //Toast.Show(ToastIcon.Warning, Strings.SaveEditedAppInfo_SelectImageFailed);
+            switch (type)
+            {
+                case SteamGridItemType.Header:
+                    App.EditHeaderLogoStream = (await App.HeaderLogoStream)?.Stream;
+                    break;
+                case SteamGridItemType.Grid:
+                    App.EditLibraryGridStream = (await App.LibraryGridStream)?.Stream;
+                    break;
+                case SteamGridItemType.Hero:
+                    App.EditLibraryHeroStream = (await App.LibraryHeroStream)?.Stream;
+                    break;
+                case SteamGridItemType.Logo:
+                    App.EditLibraryLogoStream = (await App.LibraryLogoStream)?.Stream;
+                    break;
+            }
             return;
         }
         var imageHttpClientService = Ioc.Get<IImageHttpClientService>();
