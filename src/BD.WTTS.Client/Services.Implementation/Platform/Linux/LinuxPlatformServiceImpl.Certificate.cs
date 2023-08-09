@@ -31,10 +31,37 @@ namespace BD.WTTS.Services.Implementation
             }
         }
 
-        public static bool? TrustRootCertificateAsync(string cerPath)
+        public bool? TrustRootCertificateAsync(string cerPath)
         {
-            return false;
+            return RunRootCommand(PkexecPath, new string[] { "-i", CertificateConstants.AppDataDirectory }) == 0;
         }
+
+        public static int RunRootCommand(string path, string[] args)
+        {
+            var p = Process.Start(path, args);
+            p.WaitForExit();
+            return p.ExitCode;
+        }
+
+        //public void ShowRootCommandError(int code, string msg)
+        //{
+        //    if (code == 0)
+        //        return;
+        //    if (Enum.TryParse(code.ToString(), out AuthorizationStatus authStatus))
+        //    {
+        //        switch (authStatus)
+        //        {
+        //            case AuthorizationStatus.Canceled:
+        //                Toast.Show(ToastIcon.Warning, msg.Format("授权被取消!"));
+        //                return;
+        //            case AuthorizationStatus.ToolExecuteFailure:
+        //            default:
+        //                Toast.Show(ToastIcon.Error, msg.Format("执行命令失败!"));
+        //                return;
+
+        //        }
+        //    }
+        //}
 
         public static bool? TrustRootCertificateCore(string cerPath)
         {
@@ -123,6 +150,8 @@ namespace BD.WTTS.Services.Implementation
                 return (RedHatCaCertUpdatePath, RedHatCaCertStorePath);
             }
         }
+
+        const string PkexecPath = "pkexec";
 
         #region trust
         const string TrustPath = "/usr/bin/trust";

@@ -107,8 +107,11 @@ interface IDotNetPublishCommand : ICommand
             var runtimeconfigjsonpath = Path.Combine(publishDir, runtimeconfigjsonfilename);
             ILaunchAppTestCommand.HandlerJsonFiles(runtimeconfigjsonpath, info.Platform);
 
-            // 发布 apphost
-            PublishAppHost(publishDir, info.Platform, debug);
+            if (isWindows)
+            {
+                // 发布 apphost
+                PublishAppHost(publishDir, info.Platform, debug);
+            }
 
             // 发布插件
             PublishPlugins(debug, info.Platform, info.Architecture, publishDir, arg.Configuration, arg.Framework);
@@ -793,10 +796,10 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 CleanProjDir(projRootPath);
                 var psi = GetProcessStartInfo(projRootPath);
                 SetPublishCommandArgumentList(psi.ArgumentList, arg);
-                if (!isWindows)
-                {
-                    psi.ArgumentList.Add("-p:DefineConstants=NOT_WINDOWS;$(DefineConstants)");
-                }
+                //if (!isWindows)
+                //{
+                //    psi.ArgumentList.Add("-p:\"DefineConstants=NOT_WINDOWS;$(DefineConstants)\"");
+                //}
 
                 var argument = string.Join(' ', psi.ArgumentList);
                 Console.WriteLine(argument);

@@ -20,7 +20,7 @@ partial class WindowsPlatformServiceImpl
         string? workingDirectory = null)
     {
         WshShell shell = new();
-        IWshShortcut shortcut = shell.CreateShortcut(pathLink);
+        IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(pathLink);
         shortcut.TargetPath = targetPath;
         if (!string.IsNullOrEmpty(arguments))
             shortcut.Arguments = arguments;

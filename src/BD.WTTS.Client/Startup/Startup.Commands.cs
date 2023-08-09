@@ -241,6 +241,7 @@ partial class Startup // 自定义控制台命令参数
         //#endif
 
 #if LINUX
+        // -clt linux -i or -d AppDataDirectory
         //Linux 可以自定义用户文件夹
         var macOS = new Command("linux", "Linux 平台 Root 权限 操作指令");
         macOS.AddOption(new Option<string>("-i", "安装证书 参数为 AppDataDirectory"));
