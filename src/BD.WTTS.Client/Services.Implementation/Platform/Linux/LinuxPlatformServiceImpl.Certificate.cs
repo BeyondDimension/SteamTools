@@ -33,7 +33,16 @@ namespace BD.WTTS.Services.Implementation
 
         public bool? TrustRootCertificateAsync(string cerPath)
         {
-            return RunRootCommand(PkexecPath, new string[] { "-i", CertificateConstants.AppDataDirectory }) == 0;
+            if (string.IsNullOrWhiteSpace(Environment.ProcessPath))
+                return false;
+            return RunRootCommand(PkexecPath, new string[] { Environment.ProcessPath!, "-ceri", CertificateConstants.AppDataDirectory }) == 0;
+        }
+
+        public void RemoveCertificate(byte[] certificate2)
+        {
+            if (string.IsNullOrWhiteSpace(Environment.ProcessPath))
+                return;
+            RunRootCommand(PkexecPath, new string[] { Environment.ProcessPath!, "-cerd", CertificateConstants.AppDataDirectory });
         }
 
         public static int RunRootCommand(string path, string[] args)

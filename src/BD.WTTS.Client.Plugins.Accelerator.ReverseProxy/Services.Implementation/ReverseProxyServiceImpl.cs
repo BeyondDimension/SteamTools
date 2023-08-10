@@ -149,6 +149,23 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
         {
             return StartProxyResultCode.DeserializeReverseProxySettingsFail;
         }
+
+        // Linux 如果是443 需要验证 是否允许使用 
+        if (OperatingSystem.IsLinux())
+        {
+            if (string.IsNullOrWhiteSpace(reverseProxySettings.ProxyIp))
+                return StartProxyResultCode.Exception;
+            var inUsePort = SocketHelper.IsUsePort(IPAddress.Parse(reverseProxySettings.ProxyIp!), 443);
+            if (inUsePort)
+            {
+                if (!string.IsNullOrWhiteSpace(Environment.ProcessPath))
+                {
+                    Process.Start("pkexec", new string[] { "setcap", "cap_net_bind_service=+eip", Environment.ProcessPath! }).WaitForExit();
+                }
+                return StartProxyResultCode.BindPortError;
+            }
+        }
+
         reverseProxySettings.SetValue(this);
 
         if (!CertificateManager.IsRootCertificateInstalled)

@@ -99,31 +99,38 @@ partial class ProxyService
                 var inUsePort = SocketHelper.IsUsePort(proxyIp_.Value, httpsPort);
                 if (inUsePort)
                 {
-                    string? error_CommunityFix_StartProxyFaild443 = default;
-                    if (OperatingSystem.IsWindows())
+                    if (!OperatingSystem.IsLinux())
+                    //{
+                    //    //if (string.IsNullOrWhiteSpace(Plugin.Instance.SubProcessPath))
+                    //    //{
+
+                    //    //}
+                    //    //    var processPath = Environment.ProcessPath;
+                    //    //    processPath.ThrowIsNull();
+                    //    //    var urlUnixHostAccess = string.Format(
+                    //    //        Constants.Urls.OfficialWebsite_UnixHostAccess_,
+                    //    //        WebUtility.UrlEncode(processPath));
+                    //    //    Browser2.Open(urlUnixHostAccess);
+                    //}
+                    //else
                     {
-#pragma warning disable CA1416 // 验证平台兼容性
-                        var p = SocketHelper.GetProcessByTcpPort(httpsPort);
-#pragma warning restore CA1416 // 验证平台兼容性
-                        if (p != null)
+                        string? error_CommunityFix_StartProxyFaild443 = default;
+                        if (OperatingSystem.IsWindows())
                         {
-                            error_CommunityFix_StartProxyFaild443 =
-                                Strings.CommunityFix_StartProxyFaild443___.Format(
-                                    httpsPort, p.ProcessName, p.Id);
+#pragma warning disable CA1416 // 验证平台兼容性
+                            var p = SocketHelper.GetProcessByTcpPort(httpsPort);
+#pragma warning restore CA1416 // 验证平台兼容性
+                            if (p != null)
+                            {
+                                error_CommunityFix_StartProxyFaild443 =
+                                    Strings.CommunityFix_StartProxyFaild443___.Format(
+                                        httpsPort, p.ProcessName, p.Id);
+                            }
                         }
+                        error_CommunityFix_StartProxyFaild443 ??=
+                            Strings.CommunityFix_StartProxyFaild443_.Format(httpsPort);
+                        return error_CommunityFix_StartProxyFaild443;
                     }
-                    error_CommunityFix_StartProxyFaild443 ??=
-                        Strings.CommunityFix_StartProxyFaild443_.Format(httpsPort);
-                    if (OperatingSystem.IsLinux())
-                    {
-                        var processPath = Environment.ProcessPath;
-                        processPath.ThrowIsNull();
-                        var urlUnixHostAccess = string.Format(
-                            Constants.Urls.OfficialWebsite_UnixHostAccess_,
-                            WebUtility.UrlEncode(processPath));
-                        Browser2.Open(urlUnixHostAccess);
-                    }
-                    return error_CommunityFix_StartProxyFaild443;
                 }
                 break;
             case ProxyMode.System:
@@ -208,12 +215,20 @@ partial class ProxyService
         }
         else
         {
-            var errorString = startProxyResult.Code switch
+            if (startProxyResult.Code == StartProxyResultCode.BindPortError)
             {
-                StartProxyResultCode.Exception => startProxyResult.Exception?.ToString() ?? nameof(StartProxyResultCode.Exception),
-                _ => $"StartProxyFail, ErrCode: {startProxyResult.Code}",
-            };
-            return errorString;
+                //新线程等待 IPC 错误返回后 Kill 自己 Linux 修改权限需要重新启动
+                return "StartProxyFail: BindPortError";
+            }
+            else
+            {
+                var errorString = startProxyResult.Code switch
+                {
+                    StartProxyResultCode.Exception => startProxyResult.Exception?.ToString() ?? nameof(StartProxyResultCode.Exception),
+                    _ => $"StartProxyFail, ErrCode: {startProxyResult.Code}"
+                };
+                return errorString;
+            }
         }
     }
 

@@ -277,6 +277,11 @@ public enum StartProxyResultCode : byte
     /// 出现未处理的异常
     /// </summary>
     Exception,
+
+    /// <summary>
+    /// 绑定端口错误
+    /// </summary>
+    BindPortError
 }
 
 /// <summary>

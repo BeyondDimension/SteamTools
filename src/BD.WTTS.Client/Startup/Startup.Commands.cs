@@ -252,24 +252,27 @@ partial class Startup // 自定义控制台命令参数
 #if LINUX
         // -clt linux -i or -d AppDataDirectory
         //Linux 可以自定义用户文件夹
-        var macOS = new Command("linux", "Linux 平台 Root 权限 操作指令");
-        macOS.AddOption(new Option<string>("-i", "安装证书 参数为 AppDataDirectory"));
-        macOS.AddOption(new Option<string>("-d", "删除证书 参数为 AppDataDirectory"));
-        macOS.Handler = CommandHandler.Create((string i, string d) =>
+        var linux = new Command("linux", "Linux 平台 Root 权限 操作指令");
+        linux.AddOption(new Option<string>("-ceri", "安装证书 参数为 AppDataDirectory"));
+        linux.AddOption(new Option<string>("-cerd", "删除证书 参数为 AppDataDirectory"));
+        //linux.AddOption(new Option<bool>("-bindProt", "执行允许绑定 443"));
+        linux.Handler = CommandHandler.Create((string i, string d) =>
         {
             if (string.IsNullOrWhiteSpace(i) || string.IsNullOrWhiteSpace(i))
                 return (int)CommandExitCode.HttpStatusBadRequest;
             if (!string.IsNullOrWhiteSpace(i))
             {
                 LinuxPlatformServiceImpl.TrustRootCertificateCore(Path.Combine(i, CertificateConstants.CerFileName));
-                return (int)CommandExitCode.HttpStatusBadRequest;
+                return (int)CommandExitCode.HttpStatusCodeOk;
             }
             if (!string.IsNullOrWhiteSpace(d))
             {
-                LinuxPlatformServiceImpl.TrustRootCertificateCore(Path.Combine(d, CertificateConstants.CerFileName));
+                LinuxPlatformServiceImpl.RemoveCertificate(Path.Combine(d, CertificateConstants.CerFileName));
+                return (int)CommandExitCode.HttpStatusCodeOk;
             }
             return (int)CommandExitCode.HttpStatusBadRequest;
         });
+        rootCommand.AddCommand(linux);
 #endif
 
         // -clt proxy -on

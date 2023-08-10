@@ -143,7 +143,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     /// <summary>
     /// 获取子进程文件所在路径
     /// </summary>
-    string? SubProcessPath
+    internal string? SubProcessPath
     {
         get
         {

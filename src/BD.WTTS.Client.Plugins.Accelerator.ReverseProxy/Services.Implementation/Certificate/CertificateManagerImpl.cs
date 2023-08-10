@@ -353,24 +353,9 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     [SupportedOSPlatform("Linux")]
     void DeleteRootCertificateLinux()
     {
-        using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
-        store.Open(OpenFlags.ReadOnly);
-        var collection = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateConstants.RootCertificateName, false);
-        foreach (var item in collection)
-        {
-            if (item != null)
-            {
-                try
-                {
-                    store.Open(OpenFlags.ReadWrite);
-                    store.Remove(item);
-                }
-                catch
-                {
-                    platformService.RunShell($"rm -f \"/usr/local/share/ca-certificates/{CertificateConstants.CertificateName}.Certificate.pem\" && sudo update-ca-certificates", true);
-                }
-            }
-        }
+
+        var cer = Serializable.SMP2(RootCertificatePackable);
+        platformService.RemoveCertificate(cer);
     }
 
     //[SupportedOSPlatform("macOS")]
