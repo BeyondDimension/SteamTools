@@ -54,7 +54,7 @@ createconfig /cf "{xmlPath}" /dq lang-en-US /o /pv 10.0.0
 """,
                 WorkingDirectory = rootPublicPath,
             };
-            DotNetCLIHelper.StartProcessAndWaitForExit(psi);
+            ProcessHelper.StartAndWaitForExit(psi);
             var prPath = $@"{ProjectUtils.ProjPath}\res\windows\makepri";
             CopyDirectory(prPath, rootPublicPath, true);
             psi = new ProcessStartInfo
@@ -67,7 +67,7 @@ new /cf "{xmlPath}" /pr "{prPath}"
 """,
                 WorkingDirectory = rootPublicPath,
             };
-            DotNetCLIHelper.StartProcessAndWaitForExit(psi);
+            ProcessHelper.StartAndWaitForExit(psi);
 
             IOPath.FileIfExistsItDelete(xmlPath);
         }
@@ -119,7 +119,7 @@ $"""
 pack /v /h SHA256 /d "{rootPublicPath}" /p "{msixPath}"
 """,
             };
-            DotNetCLIHelper.StartProcessAndWaitForExit(psi);
+            ProcessHelper.StartAndWaitForExit(psi);
         }
 
         /// <summary>
@@ -299,7 +299,7 @@ $"""
 sign /a /fd SHA256 /f "{pfxFilePath}" /p "{pwdS}" /tr {timestamp_url} /td SHA256 {fileName}
 """,
             };
-            DotNetCLIHelper.StartProcessAndWaitForExit(psi);
+            ProcessHelper.StartAndWaitForExit(psi);
         }
     }
 

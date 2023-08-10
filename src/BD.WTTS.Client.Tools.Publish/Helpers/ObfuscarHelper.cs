@@ -56,14 +56,18 @@ static class ObfuscarHelper
     {
         WriteConfig(dirPath);
 
-        var psi = new ProcessStartInfo
+        var psi = DotNetCLIHelper.GetProcessStartInfo(AppContext.BaseDirectory);
+        psi.Arguments = "tool install --global Obfuscar.GlobalTool";
+        ProcessHelper.StartAndWaitForExit(psi);
+
+        psi = new ProcessStartInfo
         {
             FileName = "obfuscar.console.exe",
             UseShellExecute = false,
             Arguments = configFileName,
             WorkingDirectory = dirPath,
         };
-        DotNetCLIHelper.StartProcessAndWaitForExit(psi);
+        ProcessHelper.StartAndWaitForExit(psi);
 
         var oldFilePath = Path.Combine(dirPath, "Steam++.exe");
         var newFilePath = Path.Combine(dirPath, "Obfuscar", "Steam++.exe");

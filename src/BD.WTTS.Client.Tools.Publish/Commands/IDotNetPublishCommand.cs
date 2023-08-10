@@ -85,7 +85,7 @@ interface IDotNetPublishCommand : ICommand
             DirTryDelete(rootPublishDir);
 
             // 发布主体
-            StartProcessAndWaitForExit(psi);
+            ProcessHelper.StartAndWaitForExit(psi);
 
             // 验证 Avalonia.Base.dll 版本号必须为 11+
             var avaloniaBaseDllPath = Path.Combine(publishDir, "Avalonia.Base.dll");
@@ -804,7 +804,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 var argument = string.Join(' ', psi.ArgumentList);
                 Console.WriteLine(argument);
 
-                StartProcessAndWaitForExit(psi);
+                ProcessHelper.StartAndWaitForExit(psi);
 
                 var publishDir = Path.Combine(projRootPath, arg.PublishDir);
                 CopyDirectory(publishDir, destinationDir, true);

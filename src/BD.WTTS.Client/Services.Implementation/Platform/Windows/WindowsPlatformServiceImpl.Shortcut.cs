@@ -9,23 +9,35 @@ partial class WindowsPlatformServiceImpl
     /// <summary>
     /// 创建一个快捷方式
     /// </summary>
-    /// <param name="pathLink"></param>
-    /// <param name="targetPath"></param>
-    /// <param name="arguments"></param>
-    /// <param name="workingDirectory"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void CreateShortcut(
         string pathLink,
         string targetPath,
         string? arguments = null,
+        string? description = null,
+        string? hotkey = null,
+        string? iconLocation = null,
         string? workingDirectory = null)
     {
         WshShell shell = new();
-        IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(pathLink);
+        var shortcut = (IWshShortcut)shell.CreateShortcut(pathLink);
         shortcut.TargetPath = targetPath;
+
+        if (!string.IsNullOrEmpty(description))
+            shortcut.Description = description;
+
         if (!string.IsNullOrEmpty(arguments))
             shortcut.Arguments = arguments;
+
+        if (!string.IsNullOrEmpty(hotkey))
+            shortcut.Hotkey = hotkey;
+
+        if (!string.IsNullOrEmpty(iconLocation))
+            shortcut.IconLocation = iconLocation;
+
         if (!string.IsNullOrEmpty(workingDirectory))
             shortcut.WorkingDirectory = workingDirectory;
+
         shortcut.Save();
     }
 }

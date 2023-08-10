@@ -15,23 +15,11 @@ static partial class DotNetCLIHelper
         IOPath.DirTryDelete(objPath);
     }
 
-    public static void StartProcessAndWaitForExit(ProcessStartInfo psi)
-    {
-        var process = Process.Start(psi);
-        process.ThrowIsNull();
-        process.WaitForExit();
-        var exitCode = process.ExitCode;
-        if (exitCode != default)
-        {
-            throw new ArgumentOutOfRangeException(nameof(exitCode), exitCode, null);
-        }
-    }
-
     public static void StartProcessAndWaitForExit(string workingDirectory, string? arguments = null)
     {
         var psi = GetProcessStartInfo(workingDirectory);
         if (arguments != null) psi.Arguments = arguments;
-        StartProcessAndWaitForExit(psi);
+        ProcessHelper.StartAndWaitForExit(psi);
     }
 
     public static ProcessStartInfo GetProcessStartInfo(string workingDirectory)
