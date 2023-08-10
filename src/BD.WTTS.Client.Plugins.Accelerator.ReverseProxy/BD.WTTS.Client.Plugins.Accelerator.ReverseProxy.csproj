@@ -12,8 +12,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<ApplicationIcon Condition="'$(Configuration)'=='Release'">..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
-		<ApplicationIcon Condition="'$(Configuration)'=='Debug'">..\..\res\icons\app\v2\Development\Icon.ico</ApplicationIcon>
+		<ApplicationIcon Condition="'$(Configuration)'=='Release'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+		<ApplicationIcon Condition="'$(Configuration)'=='Debug'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows')) AND ($(RuntimeIdentifier.StartsWith('win-')) OR $(RuntimeIdentifier) == '')">

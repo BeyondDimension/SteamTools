@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>pub</AssemblyName>
 		<OutputType>Exe</OutputType>
-		<ApplicationIcon>..\..\res\icons\app\v2\Icon.ico</ApplicationIcon>
+		<ApplicationIcon>..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstants>TOOL_PUBLISH;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>

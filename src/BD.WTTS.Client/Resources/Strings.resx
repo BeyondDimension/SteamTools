@@ -1718,7 +1718,7 @@
   <data name="Auth_RemovePasswordProtect" xml:space="preserve">
     <value>移除密码保护</value>
   </data>
-	<data name="Auth_SteamLoginImport" xml:space="preserve">
+  <data name="Auth_SteamLoginImport" xml:space="preserve">
     <value>Steam 登录导入</value>
   </data>
   <data name="Auth_UniversalImport" xml:space="preserve">
@@ -1847,7 +1847,7 @@
   <data name="Error_TokenPasswordSetFailed" xml:space="preserve">
     <value>令牌密码保护设置失败。</value>
   </data>
-	<data name="Error_UnknownLogin_" xml:space="preserve">
+  <data name="Error_UnknownLogin_" xml:space="preserve">
     <value>登录错误：{0}</value>
   </data>
   <data name="Error_UpdateCloudData" xml:space="preserve">
@@ -2084,7 +2084,7 @@
   <data name="Title_PasswordConfirm" xml:space="preserve">
     <value>请再次输入密码以确认</value>
   </data>
-	<data name="Title_PleaseEnterLoginPassword" xml:space="preserve">
+  <data name="Title_PleaseEnterLoginPassword" xml:space="preserve">
     <value>请输入该 Steam 账号登录密码</value>
   </data>
   <data name="Title_PleaseEnterNewAuthName" xml:space="preserve">
@@ -2165,7 +2165,7 @@
   <data name="Warning_TerminationAllAuth___" xml:space="preserve">
     <value>已终止 {0} 全部令牌，已操作成功令牌数量 {1} ，操作失败令牌数量 {2}</value>
   </data>
-	<data name="Warning_UnbindFailed" xml:space="preserve">
+  <data name="Warning_UnbindFailed" xml:space="preserve">
     <value>解绑令牌失败：登录未成功</value>
   </data>
   <data name="Auth_OnlyMafileFormat" xml:space="preserve">
@@ -2330,7 +2330,7 @@
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
     <value>新版本 SteamApp 令牌的一些导入方案参考</value>
   </data>
-	<data name="LocalAuth_SteamAppAddSuccess" xml:space="preserve">
+  <data name="LocalAuth_SteamAppAddSuccess" xml:space="preserve">
     <value>令牌已成功添加</value>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
@@ -2631,5 +2631,14 @@
   </data>
   <data name="OpenSourceLibrary" xml:space="preserve">
     <value>开放源代码库</value>
+  </data>
+  <data name="Plugin_IllegalAuthor" xml:space="preserve">
+    <value>存在非法字符</value>
+  </data>
+  <data name="Plugin_OfficialAuthor_" xml:space="preserve">
+    <value>{0}  官方</value>
+  </data>
+  <data name="Plugin_UnknownAuthor" xml:space="preserve">
+    <value>未知</value>
   </data>
 </root>

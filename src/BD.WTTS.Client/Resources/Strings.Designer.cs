@@ -4525,6 +4525,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 存在非法字符 的本地化字符串。
+        /// </summary>
+        public static string Plugin_IllegalAuthor {
+            get {
+                return ResourceManager.GetString("Plugin_IllegalAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已安装插件 的本地化字符串。
         /// </summary>
         public static string Plugin_InstalledPlugins {
@@ -4548,6 +4557,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Plugin_NeedDisable {
             get {
                 return ResourceManager.GetString("Plugin_NeedDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0}  官方 的本地化字符串。
+        /// </summary>
+        public static string Plugin_OfficialAuthor_ {
+            get {
+                return ResourceManager.GetString("Plugin_OfficialAuthor_", resourceCulture);
             }
         }
         
@@ -4593,6 +4611,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Plugin_Store {
             get {
                 return ResourceManager.GetString("Plugin_Store", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未知 的本地化字符串。
+        /// </summary>
+        public static string Plugin_UnknownAuthor {
+            get {
+                return ResourceManager.GetString("Plugin_UnknownAuthor", resourceCulture);
             }
         }
         

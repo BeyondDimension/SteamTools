@@ -23,10 +23,6 @@ partial class PluginBase
 
     public virtual Type? SettingsPageViewType { get; }
 
-    const string OfficialAuthor = $"{AssemblyInfo.Trademark} 官方";
-    const string IllegalAuthor = "存在非法字符";
-    const string UnknownAuthor = "未知";
-
     /// <summary>
     /// 作者名字符串中是否存在非法字符
     /// </summary>
@@ -54,12 +50,12 @@ partial class PluginBase
         get
         {
             if (IsOfficial)
-                return OfficialAuthor;
+                return Strings.Plugin_OfficialAuthor_.Format(AssemblyInfo.Trademark);
             var author = AuthorOriginalString;
             if (string.IsNullOrWhiteSpace(author))
-                return UnknownAuthor;
+                return Strings.Plugin_UnknownAuthor;
             if (IsIllegalAuthor(author))
-                return IllegalAuthor;
+                return Strings.Plugin_IllegalAuthor;
             return author;
         }
     }
@@ -103,30 +99,30 @@ partial class PluginBase
     //    internal bool IsDefault() => this == default || Value == default || Value.IsEmpty;
     //}
 
-    /// <summary>
-    /// 是否为嵌入式插件，嵌入在程序安装目录中的
-    /// </summary>
-    /// <returns></returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    bool IsEmbeddedPlugin()
-    {
-        try
-        {
-            var rootPath = Path.GetFullPath(Path.Combine(AssemblyLocation,
-#if DEBUG
-                "..", "..", "..", "..", ".."
-#else
-                "..", ".."
-#endif
-                ));
-            var value = Environment.ProcessPath!.StartsWith(rootPath);
-            return value;
-        }
-        catch
-        {
-        }
-        return false;
-    }
+    //    /// <summary>
+    //    /// 是否为嵌入式插件，嵌入在程序安装目录中的
+    //    /// </summary>
+    //    /// <returns></returns>
+    //    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //    bool IsEmbeddedPlugin()
+    //    {
+    //        try
+    //        {
+    //            var rootPath = Path.GetFullPath(Path.Combine(AssemblyLocation,
+    //#if DEBUG
+    //                "..", "..", "..", "..", ".."
+    //#else
+    //                "..", "..", ".."
+    //#endif
+    //                ));
+    //            var value = Environment.ProcessPath!.StartsWith(rootPath);
+    //            return value;
+    //        }
+    //        catch
+    //        {
+    //        }
+    //        return false;
+    //    }
 
     public bool IsOfficial
     {
@@ -159,22 +155,22 @@ partial class PluginBase
             var value = thisType.FullName == "BD.WTTS.Plugins.Plugin" &&
                 thisType.Assembly.GetName().Name?.TrimStart("BD.WTTS.Client.Plugins.") switch
                 {
-                    AssemblyInfo.Accelerator => IsEmbeddedPlugin() &&
+                    AssemblyInfo.Accelerator => // IsEmbeddedPlugin() &&
                         UniqueEnglishName == AssemblyInfo.Accelerator &&
                         Id.ToString() == AssemblyInfo.AcceleratorId,
-                    AssemblyInfo.ArchiSteamFarmPlus => IsEmbeddedPlugin() &&
+                    AssemblyInfo.ArchiSteamFarmPlus => // IsEmbeddedPlugin() &&
                         UniqueEnglishName == AssemblyInfo.ArchiSteamFarmPlus &&
                         Id.ToString() == AssemblyInfo.ArchiSteamFarmPlusId,
-                    AssemblyInfo.Authenticator => IsEmbeddedPlugin() &&
+                    AssemblyInfo.Authenticator => // IsEmbeddedPlugin() &&
                         UniqueEnglishName == AssemblyInfo.Authenticator &&
                         Id.ToString() == AssemblyInfo.AuthenticatorId,
-                    AssemblyInfo.GameAccount => IsEmbeddedPlugin() &&
+                    AssemblyInfo.GameAccount => // IsEmbeddedPlugin() &&
                         UniqueEnglishName == AssemblyInfo.GameAccount &&
                         Id.ToString() == AssemblyInfo.GameAccountId,
-                    AssemblyInfo.GameList => IsEmbeddedPlugin() &&
+                    AssemblyInfo.GameList => // IsEmbeddedPlugin() &&
                         UniqueEnglishName == AssemblyInfo.GameList &&
                         Id.ToString() == AssemblyInfo.GameListId,
-                    AssemblyInfo.GameTools => IsEmbeddedPlugin() &&
+                    AssemblyInfo.GameTools => // IsEmbeddedPlugin() &&
                         UniqueEnglishName == AssemblyInfo.GameTools &&
                         Id.ToString() == AssemblyInfo.GameToolsId,
                     _ => false,
@@ -238,9 +234,9 @@ partial class PluginBase<TPlugin>
         {
             version = i switch
             {
-                0 => assembly.GetCustomAttribute<AssemblyVersionAttribute>()?.Version ?? string.Empty,
-                1 => assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? string.Empty,
-                2 => assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? string.Empty,
+                2 => assembly.GetCustomAttribute<AssemblyVersionAttribute>()?.Version ?? string.Empty,
+                3 => assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? string.Empty,
+                1 => assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? string.Empty,
                 _ => null,
             };
             if (version == null) return string.Empty;

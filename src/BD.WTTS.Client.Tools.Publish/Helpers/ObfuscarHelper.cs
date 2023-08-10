@@ -58,7 +58,7 @@ static class ObfuscarHelper
 
         var psi = DotNetCLIHelper.GetProcessStartInfo(AppContext.BaseDirectory);
         psi.Arguments = "tool install --global Obfuscar.GlobalTool";
-        ProcessHelper.StartAndWaitForExit(psi);
+        ProcessHelper.StartAndWaitForExit(psi, ignoreExitCode: true);
 
         psi = new ProcessStartInfo
         {
