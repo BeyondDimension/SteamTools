@@ -884,7 +884,7 @@
     <value>Steam 用户名</value>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。(如果没有开 Steam 网络加速会导致无法登录成功)</value>
+    <value>登录 Steam 账号进行令牌导入，此导入方式会替换原有令牌，完成导入后 2 天无法交易，如果您未绑定令牌则会有市场交易 15 天冷却期。(请记得启用 Steam 网络加速)</value>
   </data>
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
@@ -2288,22 +2288,22 @@
     <value>Steam++ V1</value>
   </data>
   <data name="LocalAuth_WattToolKitV1Import" xml:space="preserve">
-    <value>通过 Steam++ V1 版本工具箱导出的文件导入令牌</value>
+    <value>使用 Steam++ V1 版本工具箱导出的文件导入令牌</value>
   </data>
   <data name="LocalAuth_WattToolKitV2Import" xml:space="preserve">
-    <value>通过 WattToolKit V2 工具箱导出的文件，导入令牌</value>
+    <value>使用 WattToolKit V2 工具箱导出的文件，导入令牌</value>
   </data>
   <data name="WinAuth" xml:space="preserve">
     <value>WinAuth </value>
   </data>
   <data name="LocalAuth_WinAuthImport" xml:space="preserve">
-    <value>通过 WinAuth 导出的文件导入令牌</value>
+    <value>使用 WinAuth 导出的文件导入令牌</value>
   </data>
   <data name="SteamGuard" xml:space="preserve">
     <value>Steam 「移动验证器」</value>
   </data>
   <data name="LocalAuth_SteamGuardImport" xml:space="preserve">
-    <value>通过使用 Steam 「移动验证器」内的可移植数据导入令牌</value>
+    <value>使用 Steam 「移动验证器」内的可移植数据导入令牌</value>
   </data>
   <data name="LocalAuth_2FAImport" xml:space="preserve">
     <value>{0}密钥导入</value>
@@ -2312,19 +2312,19 @@
     <value>HOTP、TOTP通用令牌</value>
   </data>
   <data name="LocalAuth_HOTPImport" xml:space="preserve">
-    <value>通过使用添加 HOTP、TOTP 移动验证器时生成的通用密钥导入令牌</value>
+    <value>添加 HOTP、TOTP 移动验证器时生成的通用密钥导入令牌</value>
   </data>
   <data name="Google" xml:space="preserve">
     <value>Google 令牌</value>
   </data>
   <data name="LocalAuth_GoogleImport" xml:space="preserve">
-    <value>通过使用 Google 添加移动验证器时生成的密钥或二维码导入令牌</value>
+    <value>添加 Google 移动验证器时生成的密钥或二维码导入令牌</value>
   </data>
   <data name="Microsoft" xml:space="preserve">
     <value>Microsoft 令牌</value>
   </data>
   <data name="LocalAuth_MicrosoftImport" xml:space="preserve">
-    <value>通过使用 Microsoft 添加移动验证器时生成的密钥或二维码导入令牌</value>
+    <value>添加 Microsoft 移动验证器时生成的密钥或二维码导入令牌</value>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
     <value>新版本 SteamApp 令牌的一些导入方案参考</value>

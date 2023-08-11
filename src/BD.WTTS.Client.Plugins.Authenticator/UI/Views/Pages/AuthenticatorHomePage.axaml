@@ -110,57 +110,27 @@
                                                  Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
-            <Button
+            <ToggleButton
                 Padding="8,4"
                 DockPanel.Dock="Right"
-                Theme="{StaticResource TransparentButton}">
-                <Button.Flyout>
-                    <Flyout Placement="BottomEdgeAlignedLeft">
-                        <StackPanel Spacing="5">
-                            <Button
-                                Command="{Binding SetPasswordProtection}"
-                                Content="{ReflectionBinding Path=Res.Auth_AddPasswordProtect,
-                                                            Mode=OneWay,
-                                                            Source={x:Static s:ResourceService.Current}}"
-                                IsEnabled="{Binding !HasPasswordEncrypt}" />
-                            <Button
-                                Command="{Binding RemovePasswordProtection}"
-                                Content="{ReflectionBinding Path=Res.Auth_RemovePasswordProtect,
-                                                            Mode=OneWay,
-                                                            Source={x:Static s:ResourceService.Current}}"
-                                IsEnabled="{Binding HasPasswordEncrypt}" />
-                            <Button
-                                Command="{Binding ToggleLocalProtection}"
-                                Content="{ReflectionBinding Path=Res.Auth_AddMachineValidation,
-                                                            Mode=OneWay,
-                                                            Source={x:Static s:ResourceService.Current}}"
-                                IsEnabled="{Binding !HasLocalPcEncrypt}" />
-                            <Button
-                                Command="{Binding ToggleLocalProtection}"
-                                Content="{ReflectionBinding Path=Res.Auth_RemoveMachineValidation,
-                                                            Mode=OneWay,
-                                                            Source={x:Static s:ResourceService.Current}}"
-                                IsEnabled="{Binding HasLocalPcEncrypt}" />
-                            <Button Command="{Binding EncryptHelp}" Content="{ReflectionBinding Path=Res.Auth_EncryptionHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        </StackPanel>
-                    </Flyout>
-                </Button.Flyout>
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
+                Theme="{StaticResource TransparentToggleButton}">
                 <Panel>
                     <Viewbox
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Lock}" />
+                        <ui:SymbolIcon Symbol="Settings" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.EncryptSettings,
+                        Text="{ReflectionBinding Path=Res.Settings_Auth,
                                                  Mode=OneWay,
                                                  Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
-            </Button>
+            </ToggleButton>
             <DropDownButton
                 Padding="8"
                 HorizontalContentAlignment="Center"
@@ -191,12 +161,12 @@
                         <!--     <ui:MenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
                         <!-- </ui:MenuFlyoutSubItem> -->
                         <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="{ReflectionBinding Path=Res.ExportAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem
+                        <!--<ui:MenuFlyoutItem
                             Command="{Binding ReLockAuthenticator}"
                             IsEnabled="{Binding IsVerificationPass}"
                             Text="{ReflectionBinding Path=Res.Auth_lock,
                                                      Mode=OneWay,
-                                                     Source={x:Static s:ResourceService.Current}}" />
+                                                     Source={x:Static s:ResourceService.Current}}" />-->
                         <ui:MenuFlyoutItem Command="{Binding ShowRecoverWindow}" Text="{ReflectionBinding Path=Res.Auth_Sync_Recover, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem Command="{Binding ResetIndependentPassword}" Text="{ReflectionBinding Path=Res.Auth_Sync_ResetPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
@@ -211,6 +181,43 @@
         </StackPanel>
     </spp:PageBase.ActionContent>
 
+    <spp:PageBase.PaneContent>
+        <StackPanel Margin="15,20" Spacing="10">
+            <TextBlock Text="{ReflectionBinding Path=Res.EncryptSettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+            <Button
+                Command="{Binding ReLockAuthenticator}"
+                Content="{ReflectionBinding Path=Res.Auth_lock,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
+                IsEnabled="{Binding HasPasswordEncrypt}" />
+            <Button
+                Command="{Binding SetPasswordProtection}"
+                Content="{ReflectionBinding Path=Res.Auth_AddPasswordProtect,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
+                IsEnabled="{Binding !HasPasswordEncrypt}" />
+            <Button
+                Command="{Binding RemovePasswordProtection}"
+                Content="{ReflectionBinding Path=Res.Auth_RemovePasswordProtect,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
+                IsEnabled="{Binding HasPasswordEncrypt}" />
+            <Button
+                Command="{Binding ToggleLocalProtection}"
+                Content="{ReflectionBinding Path=Res.Auth_AddMachineValidation,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
+                IsEnabled="{Binding !HasLocalPcEncrypt}" />
+            <Button
+                Command="{Binding ToggleLocalProtection}"
+                Content="{ReflectionBinding Path=Res.Auth_RemoveMachineValidation,
+                                            Mode=OneWay,
+                                            Source={x:Static s:ResourceService.Current}}"
+                IsEnabled="{Binding HasLocalPcEncrypt}" />
+            <Button Command="{Binding EncryptHelp}" Content="{ReflectionBinding Path=Res.Auth_EncryptionHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        </StackPanel>
+    </spp:PageBase.PaneContent>
     <Panel>
         <StackPanel
             HorizontalAlignment="Center"
@@ -268,6 +275,7 @@
                         ItemsJustification="Start"
                         ItemsStretch="Uniform"
                         MinColumnSpacing="10"
+                        MinItemHeight="150"
                         MinRowSpacing="10" />
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>

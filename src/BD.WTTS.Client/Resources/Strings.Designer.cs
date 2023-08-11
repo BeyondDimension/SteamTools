@@ -3531,7 +3531,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过使用 Google 添加移动验证器时生成的密钥或二维码导入令牌 的本地化字符串。
+        ///   查找类似 添加 Google 移动验证器时生成的密钥或二维码导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_GoogleImport {
             get {
@@ -3540,7 +3540,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过使用添加 HOTP、TOTP 移动验证器时生成的通用密钥导入令牌 的本地化字符串。
+        ///   查找类似 添加 HOTP、TOTP 移动验证器时生成的通用密钥导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_HOTPImport {
             get {
@@ -3585,7 +3585,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过使用 Microsoft 添加移动验证器时生成的密钥或二维码导入令牌 的本地化字符串。
+        ///   查找类似 添加 Microsoft 移动验证器时生成的密钥或二维码导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_MicrosoftImport {
             get {
@@ -3793,7 +3793,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过使用 Steam 「移动验证器」内的可移植数据导入令牌 的本地化字符串。
+        ///   查找类似 使用 Steam 「移动验证器」内的可移植数据导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamGuardImport {
             get {
@@ -3856,7 +3856,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过 Steam++ V1 版本工具箱导出的文件导入令牌 的本地化字符串。
+        ///   查找类似 使用 Steam++ V1 版本工具箱导出的文件导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WattToolKitV1Import {
             get {
@@ -3865,7 +3865,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过 WattToolKit V2 工具箱导出的文件，导入令牌 的本地化字符串。
+        ///   查找类似 使用 WattToolKit V2 工具箱导出的文件，导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WattToolKitV2Import {
             get {
@@ -3874,7 +3874,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过 WinAuth 导出的文件导入令牌 的本地化字符串。
+        ///   查找类似 使用 WinAuth 导出的文件导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WinAuthImport {
             get {
@@ -6101,7 +6101,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。(如果没有开 Steam 网络加速会导致无法登录成功) 的本地化字符串。
+        ///   查找类似 登录 Steam 账号进行令牌导入，此导入方式会替换原有令牌，完成导入后 2 天无法交易，如果您未绑定令牌则会有市场交易 15 天冷却期。(请记得启用 Steam 网络加速) 的本地化字符串。
         /// </summary>
         public static string Steam_UserLoginTip {
             get {

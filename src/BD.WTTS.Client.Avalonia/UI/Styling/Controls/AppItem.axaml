@@ -30,7 +30,7 @@
                     </spp:AppItem.MoreFlyout>
                     <spp:AppItem.Image>
                         <spp:Image2
-                            Height="60"
+                            Width="60"
                             Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/mona-loading-default.gif"
                             Stretch="Uniform" />
                     </spp:AppItem.Image>

@@ -10,7 +10,7 @@ public partial class AuthenticatorItem : UserControl
     {
         InitializeComponent();
 
-        this.Tapped += AuthenticatorItem_Tapped;
+        ToggleEye.Tapped += AuthenticatorItem_Tapped;
         //this.DoubleTapped += AuthenticatorItem_DoubleTapped;
     }
 
@@ -22,7 +22,7 @@ public partial class AuthenticatorItem : UserControl
     //    }
     //}
 
-    private async void AuthenticatorItem_Tapped(object? sender, TappedEventArgs e)
+    private void AuthenticatorItem_Tapped(object? sender, TappedEventArgs e)
     {
         if (DataContext is AuthenticatorItemModel authenticatorItemModel)
         {

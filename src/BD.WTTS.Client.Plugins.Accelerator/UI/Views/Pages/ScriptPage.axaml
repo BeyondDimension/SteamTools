@@ -145,14 +145,13 @@
                     ItemsJustification="Start"
                     ItemsStretch="Uniform"
                     MinColumnSpacing="10"
+                    MinItemHeight="160"
+                    MinItemWidth="400"
                     MinRowSpacing="10" />
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
                 <DataTemplate DataType="spp:ScriptDTO">
-                    <spp:AppItem
-                        Title="{Binding Name}"
-                        MaxHeight="160"
-                        Description="{Binding Describe}">
+                    <spp:AppItem Title="{Binding Name}" Description="{Binding Describe}">
                         <spp:AppItem.Status>
                             <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !Disable, Mode=TwoWay}" />
                         </spp:AppItem.Status>
@@ -229,15 +228,15 @@
                         <spp:AppItem.Image>
                             <Panel>
                                 <spp:Image2
-                                    Height="80"
+                                    Height="64"
                                     FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
                                     IsVisible="{Binding !IsLoading}"
                                     RenderOptions.BitmapInterpolationMode="HighQuality"
                                     Source="{Binding IconUrl}"
                                     Stretch="Uniform" />
                                 <ProgressBar
-                                    Width="80"
-                                    Height="80"
+                                    Width="64"
+                                    Height="64"
                                     Classes="Circle"
                                     IsIndeterminate="True"
                                     IsVisible="{Binding IsLoading}"

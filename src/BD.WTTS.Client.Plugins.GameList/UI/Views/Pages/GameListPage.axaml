@@ -496,6 +496,8 @@
                         ItemsJustification="Start"
                         ItemsStretch="Uniform"
                         MinColumnSpacing="10"
+                        MinItemHeight="340"
+                        MinItemWidth="169"
                         MinRowSpacing="10" />
                     <!--<WrapLayout
                         HorizontalSpacing="10"
@@ -506,9 +508,6 @@
                     <DataTemplate DataType="spp:SteamApp">
                         <spp:AppItem
                             Title="{Binding DisplayName}"
-                            Height="340"
-                            MinWidth="128"
-                            MaxWidth="169"
                             Classes="Vertical"
                             ContextFlyout="{StaticResource SharedMenuFlyout}"
                             MoreFlyout="{StaticResource SharedMenuFlyout}">
@@ -518,7 +517,7 @@
                                 </Border>
                             </spp:AppItem.Status>
                             <spp:AppItem.Image>
-                                <Panel MinWidth="{ReflectionBinding $parent[spp:AppItem].MinWidth}" MaxWidth="{ReflectionBinding $parent[spp:AppItem].MaxWidth}">
+                                <Panel Width="{ReflectionBinding $parent[spp:AppItem].Bounds.Width}">
                                     <spp:Image2
                                         Name="AppImage"
                                         DecodeWidth="169"
