@@ -198,7 +198,7 @@ partial class ProxyService
                         var updateHostsResult = hostsFileService.UpdateHosts(hosts);
                         if (updateHostsResult.ResultType != OperationResultType.Success)
                         {
-                            if (OperatingSystem2.IsMacOS())
+                            if (OperatingSystem2.IsMacOS() || OperatingSystem2.IsLinux())
                             {
                                 Browser2.Open(Constants.Urls.OfficialWebsite_UnixHostAccess);
                                 //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"");
@@ -218,6 +218,7 @@ partial class ProxyService
             if (startProxyResult.Code == StartProxyResultCode.BindPortError)
             {
                 //新线程等待 IPC 错误返回后 Kill 自己 Linux 修改权限需要重新启动
+                reverseProxyService.Exit();
                 return "StartProxyFail: BindPortError";
             }
             else

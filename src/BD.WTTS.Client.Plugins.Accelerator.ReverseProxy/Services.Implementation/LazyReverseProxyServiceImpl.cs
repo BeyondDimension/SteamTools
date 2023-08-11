@@ -29,6 +29,11 @@ sealed class LazyReverseProxyServiceImpl : IReverseProxyService
         return result;
     }
 
+    public void Exit()
+    {
+        impl().Exit();
+    }
+
     public async Task StopProxyAsync()
     {
         await impl().StopProxyAsync();

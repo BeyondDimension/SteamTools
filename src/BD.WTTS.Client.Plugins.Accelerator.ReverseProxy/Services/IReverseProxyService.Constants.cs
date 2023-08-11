@@ -48,6 +48,11 @@ public partial interface IReverseProxyService : IDisposable
     Task<StartProxyResult> StartProxyAsync(byte[] reverseProxySettings);
 
     /// <summary>
+    /// 退出进程
+    /// </summary>
+    void Exit();
+
+    /// <summary>
     /// 停止代理服务
     /// </summary>
     /// <returns></returns>
