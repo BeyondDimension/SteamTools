@@ -2998,7 +2998,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Google  的本地化字符串。
+        ///   查找类似 Google 令牌 的本地化字符串。
         /// </summary>
         public static string Google {
             get {
@@ -3070,7 +3070,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 HOTP 通用 的本地化字符串。
+        ///   查找类似 HOTP、TOTP通用令牌 的本地化字符串。
         /// </summary>
         public static string HOTP {
             get {
@@ -3540,7 +3540,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 通过使用添加 HOTP 移动验证器时生成的通用密钥导入令牌 的本地化字符串。
+        ///   查找类似 通过使用添加 HOTP、TOTP 移动验证器时生成的通用密钥导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_HOTPImport {
             get {
@@ -4000,7 +4000,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Microsoft  的本地化字符串。
+        ///   查找类似 Microsoft 令牌 的本地化字符串。
         /// </summary>
         public static string Microsoft {
             get {
@@ -6101,8 +6101,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。
-        ///(如果没有开 Steam 网络加速会导致无法登录成功) 的本地化字符串。
+        ///   查找类似 登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。(如果没有开 Steam 网络加速会导致无法登录成功) 的本地化字符串。
         /// </summary>
         public static string Steam_UserLoginTip {
             get {
@@ -6345,7 +6344,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 SteamUUID 的本地化字符串。
+        ///   查找类似 Steam UUID 的本地化字符串。
         /// </summary>
         public static string SteamUUID {
             get {
@@ -7137,7 +7136,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登录新 Steam 账号 的本地化字符串。
+        ///   查找类似 登录新账号 的本地化字符串。
         /// </summary>
         public static string UserChange_LoginNewAccount {
             get {

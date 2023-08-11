@@ -15,13 +15,18 @@ public partial class AuthenticatorImportMethodSelect : UserControl
 
     private void AuthenticatorImportPage_Tapped(object? sender, Avalonia.Input.TappedEventArgs e)
     {
-        if (sender is AppItem item && item.Tag is Type t && item.ClickCommand == null)
+        if (sender is AppItem item && item.Tag is AuthenticatorImportMethod importMethod && item.ClickCommand == null && AuthenticatorImportPage.InnerFrame != null)
         {
-            AuthenticatorImportPage.InnerFrame?.Navigate(t, null, new SlideNavigationTransitionInfo
+            AuthenticatorImportPage.InnerFrame.Navigate(importMethod.PageType, null, new SlideNavigationTransitionInfo
             {
                 Effect = SlideNavigationTransitionEffect.FromRight,
                 FromHorizontalOffset = 70,
             });
+
+            if (importMethod.PageType == typeof(AuthenticatorGeneralImportPage) && importMethod.Platform != null && AuthenticatorImportPage.InnerFrame.Content is Control content)
+            {
+                content.DataContext = new AuthenticatorGeneralImportPageViewModel(importMethod.Platform.Value);
+            }
         }
     }
 }

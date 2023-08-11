@@ -5,25 +5,16 @@ using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public record AuthenticatorImportMethod(string Name, string Description, string? Image = null, Type? PageType = null, ICommand? Command = null);
+public record AuthenticatorImportMethod(string Name, string Description, string? Image = null, Type? PageType = null, ICommand? Command = null, AuthenticatorPlatform? Platform = null);
 
 public class AuthenticatorImportPageViewModel : ViewModelBase
 {
     public static string Name => Strings.PleaseSelect + Strings.AuthImport;
 
-    public IReadOnlyCollection<IAuthenticatorImport> AuthenticatorImports { get; }
-
     public IReadOnlyCollection<AuthenticatorImportMethod> AuthenticatorImportMethods { get; }
 
     public AuthenticatorImportPageViewModel()
     {
-        AuthenticatorImports = new List<IAuthenticatorImport>
-        {
-            new AuthenticatorGoogleGeneralImport(),
-            new AuthenticatorMicrosoftGeneralImport(),
-            new AuthenticatorHOTPGeneralImport(),
-        };
-
         AuthenticatorImportMethods = new List<AuthenticatorImportMethod>
         {
             new AuthenticatorImportMethod(Strings.Auth_SteamLoginImport, Strings.Steam_UserLoginTip,
@@ -64,11 +55,11 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                                 }
                                             })),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.Google), Strings.LocalAuth_GoogleImport,
-                                            PageType: typeof(AuthenticatorGeneralImportPage)),
+                                            PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.Google),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.Microsoft), Strings.LocalAuth_MicrosoftImport,
-                                            PageType: typeof(AuthenticatorGeneralImportPage)),
+                                            PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.Microsoft),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.HOTP), Strings.LocalAuth_HOTPImport,
-                                            PageType: typeof(AuthenticatorGeneralImportPage)),
+                                            PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.HOTP),
         };
     }
 
@@ -383,7 +374,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                     auth.CodeDigits = digits;
                 }
 
-                if (Enum.TryParse(query["algorithm"], true, out IAuthenticatorValueDTO.HMACTypes hmactype))
+                if (Enum.TryParse(query["algorithm"], true, out HMACTypes hmactype))
                 {
                     auth.HMACType = hmactype;
                 }

@@ -187,6 +187,12 @@
         <Setter Property="(DockPanel.Dock)" Value="Right" />
     </Style>
 
+    <Style Selector="StackPanel.InfoBox DockPanel &gt; TabStrip">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="(DockPanel.Dock)" Value="Right" />
+    </Style>
+
     <Style Selector="StackPanel.InfoBox DockPanel &gt; Slider">
         <Setter Property="MinWidth" Value="{StaticResource InfoBoxRightContentWidth}" />
         <!--<Setter Property="Margin" Value="0 -15 0 0" />-->

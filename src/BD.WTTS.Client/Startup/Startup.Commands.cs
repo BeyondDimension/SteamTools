@@ -135,14 +135,14 @@ partial class Startup // 自定义控制台命令参数
                 if (TryGetPlugins(out var plugins) && plugins.Any_Nullable())
                 {
                     await plugins.First().OnCommandRun(id.ToString(), achievement ? nameof(achievement) : nameof(cloudmanager));
+                    StartUIApplication();
                 }
                 else
                 {
+                    INotificationService.Instance.Notify(Strings.GameList + " plugin does not exist.", NotificationType.Message);
                     // 找不到插件，可能该插件已被删除
                     return 404;
                 }
-
-                StartUIApplication();
             }
             else
             {
@@ -150,8 +150,7 @@ partial class Startup // 自定义控制台命令参数
                 await WaitConfiguredServices;
 
                 SteamConnectService.Current.Initialize(id);
-                TaskCompletionSource tcs = new();
-                await tcs.Task;
+                await new TaskCompletionSource().Task;
             }
 
             return exitCode;

@@ -4,7 +4,7 @@ namespace BD.WTTS.UI;
 
 partial class App
 {
-    const AppTheme _DefaultActualTheme = AppTheme.Dark;
+    const AppTheme _DefaultActualTheme = AppTheme.FollowingSystem;
 
     AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 

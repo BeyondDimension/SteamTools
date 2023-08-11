@@ -60,6 +60,7 @@
     <StyleInclude Source="/UI/Styling/Controls/AutoCompleteBox.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/IconElement.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/CustomFilePicker.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/NumericUpDown.axaml" />
 
     <!--<Style Selector=":is(Window):transparent">
 		<Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}">

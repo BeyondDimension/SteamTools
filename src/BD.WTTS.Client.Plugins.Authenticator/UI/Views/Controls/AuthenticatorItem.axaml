@@ -21,6 +21,16 @@
         <spp:AppItem.ActionButton>
             <StackPanel Orientation="Horizontal" Spacing="8">
                 <Button
+                    Command="{Binding CopyCode}"
+                    Theme="{StaticResource TransparentButton}"
+                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_Copy,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}">
+                    <Viewbox Width="20">
+                        <ui:SymbolIcon Symbol="Copy" />
+                    </Viewbox>
+                </Button>
+                <Button
                     Command="{Binding EditAuthNameAsync}"
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{ReflectionBinding Path=Res.Auth_EditName,
@@ -131,6 +141,19 @@
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     Text="{Binding Code}"
                     Theme="{StaticResource TitleTextBlockStyle}" />
+                <!--<TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="10"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    TextAlignment="Center">
+                    <Run
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Text="{Binding Code}" />
+                    <LineBreak />
+                    <Run Text="单击复制" />
+                </TextBlock>-->
             </Panel>
         </spp:AppItem.Image>
     </spp:AppItem>

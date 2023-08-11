@@ -1,27 +1,13 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
-using Avalonia.Media.Imaging;
-using BD.WTTS.Client.Resources;
 using WinAuth;
 using BD.WTTS.Helper;
-using BD.Common.Columns;
 
 namespace BD.WTTS.Services;
 
 public static class AuthenticatorHelper
 {
     static IAccountPlatformAuthenticatorRepository repository = Ioc.Get<IAccountPlatformAuthenticatorRepository>();
-
-    public static async Task<Bitmap> GetUrlImage(string url)
-    {
-        using var client = new HttpClient();
-
-        var imageBytes = await client.GetByteArrayAsync(
-            new Uri(url));
-        using var stream = new MemoryStream(imageBytes);
-
-        return new Bitmap(stream);
-    }
 
     public static async Task AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password, bool isLocal)
     {
@@ -126,9 +112,7 @@ public static class AuthenticatorHelper
         return (await repository.ConvertToListAsync(new[] { sourceData }, password)).Any_Nullable();
     }
 
-    public static async Task<bool> SwitchEncryptionAuthenticators(bool hasLocal, IEnumerable<IAuthenticatorDTO>? auths,
-        string? password = null
-    )
+    public static async Task<bool> SwitchEncryptionAuthenticators(bool hasLocal, IEnumerable<IAuthenticatorDTO>? auths, string? password = null)
     {
         try
         {

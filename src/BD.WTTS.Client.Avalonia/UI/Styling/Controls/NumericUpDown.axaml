@@ -1,0 +1,29 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Spacing="20">
+                <NumericUpDown
+                    Width="150"
+                    Increment="0.5"
+                    Maximum="1454350"
+                    Minimum="0"
+                    ShowButtonSpinner="True"
+                    Watermark="Enter text"
+                    Value="28393255555555" />
+                <NumericUpDown
+                    Width="150"
+                    ButtonSpinnerLocation="Left"
+                    Increment="0.5"
+                    Maximum="10"
+                    Minimum="0"
+                    Watermark="Enter text"
+                    Value="28393255555555" />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!--  Add Styles Here  -->
+    <Style Selector="NumericUpDown #PART_SpinnerPanel RepeatButton">
+        <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}" />
+    </Style>
+</Styles>

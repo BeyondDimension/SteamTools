@@ -26,7 +26,7 @@
                     ClickCommand="{Binding Command}"
                     Cursor="Hand"
                     Description="{Binding Description}"
-                    Tag="{Binding PageType}"
+                    Tag="{Binding}"
                     Tapped="AuthenticatorImportPage_Tapped" />
             </DataTemplate>
         </ItemsRepeater.ItemTemplate>

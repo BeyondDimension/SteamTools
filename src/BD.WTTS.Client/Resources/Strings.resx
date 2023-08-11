@@ -884,8 +884,7 @@
     <value>Steam 用户名</value>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。
-(如果没有开 Steam 网络加速会导致无法登录成功)</value>
+    <value>登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。(如果没有开 Steam 网络加速会导致无法登录成功)</value>
   </data>
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
@@ -930,7 +929,7 @@
     <value>修改账号备注</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>登录新 Steam 账号</value>
+    <value>登录新账号</value>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
     <value>显示/隐藏用户名</value>
@@ -2310,19 +2309,19 @@
     <value>{0}密钥导入</value>
   </data>
   <data name="HOTP" xml:space="preserve">
-    <value>HOTP 通用</value>
+    <value>HOTP、TOTP通用令牌</value>
   </data>
   <data name="LocalAuth_HOTPImport" xml:space="preserve">
-    <value>通过使用添加 HOTP 移动验证器时生成的通用密钥导入令牌</value>
+    <value>通过使用添加 HOTP、TOTP 移动验证器时生成的通用密钥导入令牌</value>
   </data>
   <data name="Google" xml:space="preserve">
-    <value>Google </value>
+    <value>Google 令牌</value>
   </data>
   <data name="LocalAuth_GoogleImport" xml:space="preserve">
     <value>通过使用 Google 添加移动验证器时生成的密钥或二维码导入令牌</value>
   </data>
   <data name="Microsoft" xml:space="preserve">
-    <value>Microsoft </value>
+    <value>Microsoft 令牌</value>
   </data>
   <data name="LocalAuth_MicrosoftImport" xml:space="preserve">
     <value>通过使用 Microsoft 添加移动验证器时生成的密钥或二维码导入令牌</value>
@@ -2340,7 +2339,7 @@
     <value>在 files 文件夹中，打开 'SteamGuard-NNNNNNNN' 文件，粘贴文件的全部内容</value>
   </data>
   <data name="SteamUUID" xml:space="preserve">
-    <value>SteamUUID</value>
+    <value>Steam UUID</value>
   </data>
   <data name="SteamGuardData" xml:space="preserve">
     <value>SteamGuard 数据</value>

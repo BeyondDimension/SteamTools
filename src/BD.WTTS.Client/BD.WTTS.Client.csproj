@@ -169,6 +169,7 @@
 		<PackageReference Include="BD.Common.XmlnsDefinition.Avalonia">
 			<Aliases>BD_Common_XmlnsDefinition_Avalonia</Aliases>
 		</PackageReference>
+		<!--<PackageReference Include="Facepunch.Steamworks" />-->
 		<!--<PackageReference Include="Avalonia.Desktop" />
 		<PackageReference Include="Avalonia.ReactiveUI" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />

@@ -1,24 +1,25 @@
+using BD.WTTS.Enums;
+using System.Diagnostics.Metrics;
+using WinAuth;
+
 namespace BD.WTTS.UI.ViewModels;
 
 public partial class AuthenticatorGeneralImportPageViewModel
 {
-    readonly Func<IAuthenticatorDTO, string?, Task> _saveAuth;
+    public string Name => Strings.LocalAuth_Import.Format(Platform.ToString());
 
-    readonly Func<string, Task<IAuthenticatorValueDTO?>> _createAuthenticatorValueDto;
+    IAuthenticatorValueDTO? importAuthenticatorValueDto;
 
-    IAuthenticatorValueDTO? _importAuthenticatorValueDto;
+    public AuthenticatorPlatform Platform { get; }
 
     public AuthenticatorGeneralImportPageViewModel()
     {
-        _saveAuth = (_,_) => Task.CompletedTask;
-        _createAuthenticatorValueDto = (secretCode) => null!;
+        Platform = AuthenticatorPlatform.HOTP;
     }
 
-    public AuthenticatorGeneralImportPageViewModel(Func<IAuthenticatorDTO, string?, Task> saveAuthFunc,
-        Func<string, Task<IAuthenticatorValueDTO?>> createAuthenticatorValueDto)
+    public AuthenticatorGeneralImportPageViewModel(AuthenticatorPlatform platform)
     {
-        _saveAuth = saveAuthFunc;
-        _createAuthenticatorValueDto = createAuthenticatorValueDto;
+        Platform = platform;
     }
 
     public async Task GenerateCode()
@@ -29,15 +30,93 @@ public partial class AuthenticatorGeneralImportPageViewModel
             return;
         }
 
-        _importAuthenticatorValueDto = await _createAuthenticatorValueDto.Invoke(SecretCode);
+        try
+        {
+            var privateKey = await AuthenticatorHelper.DecodePrivateKey(SecretCode);
 
-        if (_importAuthenticatorValueDto != null)
-            CurrentCode = _importAuthenticatorValueDto.CurrentCode;
+            if (string.IsNullOrEmpty(privateKey))
+            {
+                Toast.Show(ToastIcon.Error, Strings.LocalAuth_Import_DecodePrivateKeyError.Format(Platform.ToString()));
+                return;
+            }
+
+            switch (Platform)
+            {
+                case AuthenticatorPlatform.Google:
+                    {
+                        var auth = new GoogleAuthenticator();
+                        auth.Enroll(privateKey);
+
+                        if (auth.ServerTimeDiff == 0L)
+                        {
+                            // 可以强行添加，但无法保证令牌准确性。
+                            Toast.Show(ToastIcon.Error, Strings.Error_CannotConnectGoogleServer);
+                            return;
+                        }
+                        importAuthenticatorValueDto = auth;
+                        break;
+                    }
+                case AuthenticatorPlatform.Microsoft:
+                    {
+                        var auth = new MicrosoftAuthenticator();
+                        auth.Enroll(privateKey);
+
+                        if (auth.ServerTimeDiff == 0L)
+                        {
+                            // 可以强行添加，但无法保证令牌准确性。
+                            Toast.Show(ToastIcon.Error, Strings.Error_CannotConnectGoogleServer);
+                            return;
+                        }
+                        importAuthenticatorValueDto = auth;
+                        break;
+                    }
+                case AuthenticatorPlatform.HOTP:
+                    {
+
+                        if (AuthType == AuthType.TOTP)
+                        {
+                            var auth = new GoogleAuthenticator();
+                            auth.Enroll(privateKey);
+
+                            auth.HMACType = HMACType;
+                            auth.CodeDigits = CodeDigits;
+                            auth.Period = Period;
+                            importAuthenticatorValueDto = auth;
+                        }
+                        else
+                        {
+                            var auth = new HOTPAuthenticator();
+                            long counter = 0;
+                            if (CurrentCode?.Trim().Any_Nullable() == true)
+                            {
+                                long.TryParse(CurrentCode.Trim(), out counter);
+                            }
+                            auth.Enroll(privateKey, counter);
+
+                            auth.HMACType = HMACType;
+                            auth.CodeDigits = CodeDigits;
+                            auth.Period = Period;
+                            importAuthenticatorValueDto = auth;
+                        }
+                    }
+                    break;
+            }
+            if (importAuthenticatorValueDto == null)
+            {
+                Toast.Show(ToastIcon.Info, "导入失败、请检查数据正确");
+            }
+            else
+                CurrentCode = importAuthenticatorValueDto.CurrentCode;
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT();
+        }
     }
 
     public async Task Import(string? password)
     {
-        if (_importAuthenticatorValueDto == null)
+        if (importAuthenticatorValueDto == null)
         {
             Toast.Show(ToastIcon.Info, Strings.Info_PleaseVerifyFirstAuthCode);
             return;
@@ -51,11 +130,11 @@ public partial class AuthenticatorGeneralImportPageViewModel
 
         var iAuthenticatorDtoDto = new AuthenticatorDTO()
         {
-            Name = $"{_importAuthenticatorValueDto.Platform}({AuthenticatorName})",
-            Value = _importAuthenticatorValueDto,
+            Name = $"{importAuthenticatorValueDto.Platform}({AuthenticatorName})",
+            Value = importAuthenticatorValueDto,
             Created = DateTimeOffset.Now,
         };
-        await _saveAuth.Invoke(iAuthenticatorDtoDto, password);
+        await AuthenticatorHelper.SaveAuthenticator(iAuthenticatorDtoDto, password);
         Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(iAuthenticatorDtoDto.Name));
     }
 }

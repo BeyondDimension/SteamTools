@@ -14,17 +14,7 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         IsSelected = !IsSelected;
     }
 
-    // public void OnPointerRightPressed()
-    // {
-    //     //CopyCode();
-    // }
-
-    public async Task OnTextPanelOnTapped()
-    {
-        await CopyCode();
-    }
-
-    async Task CopyCode()
+    public async Task CopyCode()
     {
         //if (!IsShowCode) return;
         await Clipboard2.SetTextAsync(AuthData.Value?.CurrentCode);
@@ -168,9 +158,9 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
             await IWindowManager.Instance.ShowTaskDialogAsync(
                 new TextBoxWindowViewModel()
                 {
-                    InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText,
                     Value = temp,
-                }, Strings.ModelContent_SecretKey_.Format(AuthName), isDialog: false, isOkButton: false);
+                }, Strings.ModelContent_SecretKey_.Format(AuthName), isOkButton: true);
         }
     }
 
