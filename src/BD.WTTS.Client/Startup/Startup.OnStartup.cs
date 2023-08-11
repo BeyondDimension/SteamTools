@@ -43,8 +43,31 @@ partial class Startup // OnStartup
                         .CheckUpdateAsync(showIsExistUpdateFalse: false);
                 });
             }
-        }
+#if WINDOWS || LINUX || MACOS
+            try
+            {
+                Steamworks.Dispatch.OnException = (e) =>
+                {
+                    Console.Error.WriteLine(e.Message);
+                    Console.Error.WriteLine(e.StackTrace);
+                    Log.Error(nameof(Steamworks), e, "Steamworks.SteamClient OnException.");
+                };
 
+                // Init Client
+                Steamworks.SteamClient.Init(2425030);
+
+                if (Steamworks.SteamClient.IsValid)
+                {
+                    var isOk = Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_AtMainMenu");
+                    var r = Steamworks.SteamFriends.GetRichPresence("steam_display");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(Steamworks), ex, "Steamworks.SteamClient Init");
+            }
+#endif 
+        }
 #if DEBUG
         DebugConsole.WriteInfo();
 #endif

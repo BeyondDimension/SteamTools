@@ -26,25 +26,6 @@
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
-    <spp:PageBase.Styles>
-        <Style Selector="Border#BorderBottom">
-            <Setter Property="Transitions">
-                <Transitions>
-                    <TransformOperationsTransition
-                        Delay="0:0:0.25"
-                        Easing="ExponentialEaseOut"
-                        Property="RenderTransform"
-                        Duration="0:0:0.7" />
-                </Transitions>
-            </Setter>
-        </Style>
-        <Style Selector="Border#BorderBottom.IsActive">
-            <Setter Property="RenderTransform" Value="translateY(10px)" />
-        </Style>
-        <Style Selector="Border#BorderBottom:not(.IsActive)">
-            <Setter Property="RenderTransform" Value="translateY(80px)" />
-        </Style>
-    </spp:PageBase.Styles>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
@@ -190,7 +171,7 @@
                 Content="{ReflectionBinding Path=Res.Auth_lock,
                                             Mode=OneWay,
                                             Source={x:Static s:ResourceService.Current}}"
-                IsEnabled="{Binding HasPasswordEncrypt}" />
+                IsEnabled="{Binding IsVerificationPass}" />
             <Button
                 Command="{Binding SetPasswordProtection}"
                 Content="{ReflectionBinding Path=Res.Auth_AddPasswordProtect,
@@ -346,6 +327,7 @@
                                     <MenuItem
                                         Command="{ReflectionBinding $parent[spp:PageBase].DataContext.DeleteAuthAsync}"
                                         CommandParameter="{Binding}"
+                                        Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                                         Header="{ReflectionBinding Path=Res.LocalAuth_Delete,
                                                                    Mode=OneWay,
                                                                    Source={x:Static s:ResourceService.Current}}">

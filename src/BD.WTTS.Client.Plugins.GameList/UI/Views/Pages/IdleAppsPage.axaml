@@ -115,6 +115,7 @@
                         <ui:ToggleMenuFlyoutItem IsChecked="{ReflectionBinding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps}, Path=Value}" Text="{ReflectionBinding Path=Res.GameList_AutoAFK, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem
                             Command="{Binding DeleteAllButton_Click}"
+                            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                             IconSource="Delete"
                             Text="{ReflectionBinding Path=Res.GameList_RemoveBtn,
                                                      Mode=OneWay,

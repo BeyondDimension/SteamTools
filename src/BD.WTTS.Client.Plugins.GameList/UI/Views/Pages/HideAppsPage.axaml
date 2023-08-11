@@ -26,11 +26,12 @@
                     <ui:SettingsExpander Description="{Binding Key}" Header="{Binding Value}">
                         <ui:SettingsExpander.Footer>
                             <Button
-                                Command="{ReflectionBinding $parent[spp:PageBase].DataContext.RemoveHideAppCommand}"
+                                Command="{ReflectionBinding $parent[UserControl].DataContext.RemoveHideAppCommand}"
                                 CommandParameter="{Binding}"
                                 Content="{ReflectionBinding Path=Res.Delete,
                                                             Mode=OneWay,
-                                                            Source={x:Static s:ResourceService.Current}}" />
+                                                            Source={x:Static s:ResourceService.Current}}"
+                                Foreground="{DynamicResource SystemFillColorCriticalBrush}" />
                         </ui:SettingsExpander.Footer>
                     </ui:SettingsExpander>
                 </DataTemplate>

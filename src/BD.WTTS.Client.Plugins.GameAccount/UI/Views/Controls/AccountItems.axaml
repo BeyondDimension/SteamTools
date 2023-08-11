@@ -101,6 +101,7 @@
             <ui:MenuFlyoutItem
                 Command="{ReflectionBinding #u.DataContext.DeleteAccountCommand}"
                 CommandParameter="{Binding}"
+                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                 Text="{ReflectionBinding Path=Res.Delete,
                                          Mode=OneWay,
                                          Source={x:Static s:ResourceService.Current}}" />

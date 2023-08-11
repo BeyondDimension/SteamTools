@@ -123,6 +123,7 @@
             <ui:MenuFlyoutItem
                 Command="{ReflectionBinding $parent[spp:PageBase].DataContext.AddHideAppListCommand}"
                 CommandParameter="{Binding}"
+                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                 IconSource="Hide"
                 Text="{ReflectionBinding Path=Res.GameList_HideTheGame,
                                          Mode=OneWay,
@@ -496,8 +497,8 @@
                         ItemsJustification="Start"
                         ItemsStretch="Uniform"
                         MinColumnSpacing="10"
-                        MinItemHeight="340"
-                        MinItemWidth="169"
+                        MinItemHeight="302"
+                        MinItemWidth="150"
                         MinRowSpacing="10" />
                     <!--<WrapLayout
                         HorizontalSpacing="10"

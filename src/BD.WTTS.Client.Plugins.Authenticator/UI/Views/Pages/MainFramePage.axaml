@@ -37,7 +37,7 @@
             </TabStripItem>
             <TabStripItem Content="Steam 市场">
                 <TabStripItem.Tag>
-                    <x:Type TypeName="spp:SteamTradePage" />
+                    <x:Type TypeName="spp:SteamMarketManagePage" />
                 </TabStripItem.Tag>
             </TabStripItem>
         </TabStrip>

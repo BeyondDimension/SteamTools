@@ -139,8 +139,8 @@ partial class Startup // 自定义控制台命令参数
                 }
                 else
                 {
-                    INotificationService.Instance.Notify(Strings.GameList + " plugin does not exist.", NotificationType.Message);
                     // 找不到插件，可能该插件已被删除
+                    INotificationService.Instance.Notify(Strings.GameList + " plugin does not exist.", NotificationType.Message);
                     return 404;
                 }
             }
