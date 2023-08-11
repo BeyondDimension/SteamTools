@@ -68,9 +68,7 @@
                                     <StackPanel Orientation="Horizontal" Spacing="2">
                                         <ToggleSwitch
                                             Classes="LeftContent"
-                                            Command="{ReflectionBinding #u.DataContext.DisableOrEnableButton_Click}"
-                                            CommandParameter="{Binding}"
-                                            IsChecked="{Binding !Disable, Mode=OneWay}" />
+                                            IsChecked="{Binding !Disable, Mode=TwoWay}" />
                                     </StackPanel>
                                 </spp:AppItem.ActionButton>
                                 <spp:AppItem.Image>

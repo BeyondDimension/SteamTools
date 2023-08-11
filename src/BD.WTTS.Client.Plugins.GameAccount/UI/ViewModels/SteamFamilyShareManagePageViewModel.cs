@@ -2,7 +2,7 @@ using BD.WTTS.Client.Resources;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class SteamFamilyShareManagePageViewModel : WindowViewModel
+public sealed partial class SteamFamilyShareManagePageViewModel : WindowViewModel
 {
     public static string DisplayName => Strings.AccountChange_Title;
 
@@ -20,6 +20,16 @@ public sealed class SteamFamilyShareManagePageViewModel : WindowViewModel
          .Sort(SortExpressionComparer<AuthorizedDevice>.Ascending(x => x.Index))
          .Bind(out _AuthorizedList)
          .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthorizedListEmpty)));
+
+        OpenUserProfileUrl_Click = ReactiveCommand.Create<AuthorizedDevice>(OpenUserProfileUrl);
+
+        SetFirstButton_Click = ReactiveCommand.Create<AuthorizedDevice>(SetFirstButton);
+
+        RemoveButton_Click = ReactiveCommand.Create<AuthorizedDevice>(RemoveButton);
+
+        UpButton_Click = ReactiveCommand.Create<AuthorizedDevice>(UpButton);
+
+        DownButton_Click = ReactiveCommand.Create<AuthorizedDevice>(DownButton);
 
         Refresh_Click();
     }
@@ -97,7 +107,7 @@ public sealed class SteamFamilyShareManagePageViewModel : WindowViewModel
         await MessageBox.ShowAsync(Strings.AccountChange_ShareManageAboutTips, button: MessageBox.Button.OK);
     }
 
-    public void SetFirstButton_Click(AuthorizedDevice item)
+    public void SetFirstButton(AuthorizedDevice item)
     {
         if (item.Index != 0)
         {
@@ -110,7 +120,7 @@ public sealed class SteamFamilyShareManagePageViewModel : WindowViewModel
         }
     }
 
-    public async void RemoveButton_Click(AuthorizedDevice item)
+    public async void RemoveButton(AuthorizedDevice item)
     {
         var result = await MessageBox.ShowAsync(Strings.Steam_Share_RemoveShare, button: MessageBox.Button.OKCancel);
         if (result.IsOK())
@@ -119,18 +129,12 @@ public sealed class SteamFamilyShareManagePageViewModel : WindowViewModel
         }
     }
 
-    public void DisableOrEnableButton_Click(AuthorizedDevice item)
-    {
-        item.Disable = !item.Disable;
-        _AuthorizedSourceList.AddOrUpdate(_AuthorizedList!);
-    }
-
-    public void UpButton_Click(AuthorizedDevice item)
+    public void UpButton(AuthorizedDevice item)
     {
         Sort(item, true);
     }
 
-    public void DownButton_Click(AuthorizedDevice item)
+    public void DownButton(AuthorizedDevice item)
     {
         Sort(item, false);
     }

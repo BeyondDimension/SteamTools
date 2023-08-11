@@ -283,6 +283,8 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         var filePath = GetCerFilePathGeneratedWhenNoFileExists();
         if (filePath == null) return;
         var state = platformService.TrustRootCertificateAsync(filePath);
+        //部分系统还是只能手动导入浏览器
+        Browser2.Open(Constants.Urls.OfficialWebsite_LiunxSetupCer);
         if (state.HasValue && !state.Value)
             GetCerFilePathGeneratedWhenNoFileExists();
         //全部屏蔽 Linux 浏览器全部不信任系统证书 只能手动导入 如需导入请手动操作
