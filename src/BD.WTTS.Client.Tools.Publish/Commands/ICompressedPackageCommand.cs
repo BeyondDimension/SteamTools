@@ -168,8 +168,16 @@ interface ICompressedPackageCommand : ICommand
         }
     }
 
+    static readonly Lazy<object?> SetSevenZipLibraryPath = new(() =>
+    {
+        var libPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip", "7z.dll");
+        SevenZipBase.SetLibraryPath(libPath);
+        return null;
+    });
+
     static void CreateSevenZipPack(string packPath, IEnumerable<AppPublishFileInfo> files)
     {
+        _ = SetSevenZipLibraryPath.Value;
         SevenZipCompressor? compressor = new()
         {
             ArchiveFormat = OutArchiveFormat.SevenZip,

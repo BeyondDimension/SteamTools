@@ -57,177 +57,309 @@ interface IDotNetPublishCommand : ICommand
 
     internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384)
     {
-        foreach (var rid in rids)
+        var bgOriginalColor = Console.BackgroundColor;
+        var fgOriginalColor = Console.ForegroundColor;
+
+        void ResetConsoleColor()
         {
-            var info = DeconstructRuntimeIdentifier(rid);
-            if (info == default) continue;
-
-            bool isWindows = false;
-            switch (info.Platform)
-            {
-                case Platform.Windows:
-                case Platform.UWP:
-                case Platform.WinUI:
-                    isWindows = true;
-                    break;
-            }
-
-            var projRootPath = ProjectPath_AvaloniaApp;
-            var psi = GetProcessStartInfo(projRootPath);
-            var arg = SetPublishCommandArgumentList(psi.ArgumentList, debug, info.Platform, info.DeviceIdiom, info.Architecture);
-            Console.Write("[");
-            Console.Write(rid);
-            Console.Write("] dotnet ");
-            Console.WriteLine(string.Join(' ', psi.ArgumentList));
-
-            var publishDir = Path.Combine(projRootPath, arg.PublishDir);
-            var rootPublishDir = Path.GetFullPath(Path.Combine(publishDir, ".."));
-            DirTryDelete(rootPublishDir);
-
-            // 发布主体
-            ProcessHelper.StartAndWaitForExit(psi);
-
-            // 验证 Avalonia.Base.dll 版本号必须为 11+
-            var avaloniaBaseDllPath = Path.Combine(publishDir, "Avalonia.Base.dll");
-            var avaloniaBaseDllVersion = Version.Parse(FileVersionInfo.GetVersionInfo(avaloniaBaseDllPath).FileVersion!);
-            if (avaloniaBaseDllVersion < new Version(11, 0))
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(avaloniaBaseDllVersion),
-                    avaloniaBaseDllVersion, null);
-            }
-
-            // 删除 CreateDump
-            RemoveCreateDump(publishDir);
-
-            // 移动本机库
-            MoveNativeLibrary(publishDir, arg.RuntimeIdentifier, info.Platform);
-
-            // 处理 json 文件
-            var runtimeconfigjsonpath = Path.Combine(publishDir, runtimeconfigjsonfilename);
-            ILaunchAppTestCommand.HandlerJsonFiles(runtimeconfigjsonpath, info.Platform);
-
-            if (isWindows)
-            {
-                // 发布 apphost
-                PublishAppHost(publishDir, info.Platform, debug);
-            }
-
-            // 发布插件
-            PublishPlugins(debug, info.Platform, info.Architecture, publishDir, arg.Configuration, arg.Framework);
-
-            // 复制运行时
-            CopyRuntime(rootPublishDir, isWindows, info.Architecture);
-
-            var appPublish = new AppPublishInfo()
-            {
-                DeploymentMode = DeploymentMode.SCD,
-                RuntimeIdentifier = arg.RuntimeIdentifier,
-                DirectoryPath = rootPublishDir,
-            };
-
-            IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_AppData));
-            IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_Cache));
-
-            IScanPublicDirectoryCommand.ScanPathCore(appPublish.DirectoryPath,
-                appPublish.Files,
-                ignoreRootDirNames: ignoreDirNames);
-
-            if (sha256)
-            {
-                foreach (var item in appPublish.Files)
-                {
-                    using var fileStream = File.OpenRead(item.FilePath);
-                    item.SHA256 = Hashs.String.SHA256(fileStream);
-                }
-            }
-            if (sha384)
-            {
-                foreach (var item in appPublish.Files)
-                {
-                    using var fileStream = File.OpenRead(item.FilePath);
-                    item.SHA384 = Hashs.String.SHA384(fileStream);
-                }
-            }
-
-            if (OperatingSystem.IsWindows() && isWindows)
-            {
-                // 数字签名
-                List<AppPublishFileInfo> toBeSignedFiles = new();
-                HashSet<string> toBeSignedFilePaths = new();
-                foreach (var item in appPublish.Files!)
-                {
-                    switch (item.FileEx.ToLowerInvariant())
-                    {
-                        case ".dll" or ".exe" or ".sys":
-                            if (!MSIXHelper.IsDigitalSigned(item.FilePath))
-                            {
-                                toBeSignedFiles.Add(item);
-                                toBeSignedFilePaths.Add(item.FilePath);
-                            }
-                            break;
-                    }
-                }
-
-                if (toBeSignedFilePaths.Any())
-                {
-                    Console.WriteLine($"正在进行数字签名，文件数量：{toBeSignedFilePaths.Count}");
-                    var fileNames = string.Join(' ', toBeSignedFilePaths.Select(x =>
-$"""
-"{x}"
-"""));
-                    MSIXHelper.SignTool.Start(force_sign, fileNames);
-                    foreach (var item in toBeSignedFiles)
-                    {
-                        if (sha256)
-                        {
-                            using var fileStream = File.OpenRead(item.FilePath);
-                            item.SignatureSHA256 = Hashs.String.SHA256(fileStream);
-                        }
-                        if (sha384)
-                        {
-                            using var fileStream = File.OpenRead(item.FilePath);
-                            item.SignatureSHA384 = Hashs.String.SHA384(fileStream);
-                        }
-                    }
-                }
-
-                // 打包资源 images
-                MSIXHelper.MakePri.Start(rootPublishDir);
-                // 生成 msix 包
-                MSIXHelper.MakeAppx.Start(rootPublishDir, GetVersion(), info.Architecture);
-                Thread.Sleep(TimeSpan.FromSeconds(1.2d));
-                // 签名 msix 包
-                var msixFilePath = $"{rootPublishDir}.msix";
-                // msix 签名证书名必须与包名一致
-                MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
-
-                using var msixFileStream = File.OpenRead(msixFilePath);
-
-                var msixInfo = new AppPublishFileInfo
-                {
-                    FileEx = ".msix",
-                    FilePath = msixFilePath,
-                    Length = msixFileStream.Length,
-                    SignatureSHA384 = Hashs.String.SHA384(msixFileStream),
-                };
-                appPublish.SingleFile.Add(CloudFileType.Msix, msixInfo);
-            }
-
-            var jsonFilePath = $"{rootPublishDir}.json";
-            using var jsonFileStream = File.Open(jsonFilePath, FileMode.OpenOrCreate);
-            JsonSerializer.Serialize(jsonFileStream, appPublish, new AppPublishInfoContext(new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            }).AppPublishInfo);
-            jsonFileStream.Flush();
-            jsonFileStream.SetLength(jsonFileStream.Position);
-
-            Console.WriteLine(jsonFilePath);
+            Console.BackgroundColor = bgOriginalColor;
+            Console.ForegroundColor = fgOriginalColor;
+        }
+        void SetConsoleColor(ConsoleColor foregroundColor, ConsoleColor backgroundColor)
+        {
+            Console.BackgroundColor = backgroundColor;
+            Console.ForegroundColor = foregroundColor;
         }
 
-        Console.WriteLine("OK");
+        try
+        {
+            foreach (var rid in rids)
+            {
+                var info = DeconstructRuntimeIdentifier(rid);
+                if (info == default) continue;
+
+                bool isWindows = false;
+                switch (info.Platform)
+                {
+                    case Platform.Windows:
+                    case Platform.UWP:
+                    case Platform.WinUI:
+                        isWindows = true;
+                        break;
+                }
+
+                var projRootPath = ProjectPath_AvaloniaApp;
+                var psi = GetProcessStartInfo(projRootPath);
+                var arg = SetPublishCommandArgumentList(psi.ArgumentList, debug, info.Platform, info.DeviceIdiom, info.Architecture);
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                Console.Write("[");
+                Console.Write(rid);
+                Console.Write("] dotnet ");
+                Console.WriteLine(string.Join(' ', psi.ArgumentList));
+                ResetConsoleColor();
+
+                var publishDir = Path.Combine(projRootPath, arg.PublishDir);
+                var rootPublishDir = Path.GetFullPath(Path.Combine(publishDir, ".."));
+                DirTryDelete(rootPublishDir);
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                Console.Write("已删除目录：");
+                Console.WriteLine(rootPublishDir);
+                ResetConsoleColor();
+
+                // 发布主体
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                Console.WriteLine("开始发布【主项目】");
+                ResetConsoleColor();
+                ProcessHelper.StartAndWaitForExit(psi);
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("发布成功【主项目】");
+                ResetConsoleColor();
+
+                // 验证 Avalonia.Base.dll 版本号必须为 11+
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                Console.WriteLine("开始验证【Avalonia.Base.dll 版本号必须为 11+】");
+                ResetConsoleColor();
+                var avaloniaBaseDllPath = Path.Combine(publishDir, "Avalonia.Base.dll");
+                var avaloniaBaseDllVersion = Version.Parse(FileVersionInfo.GetVersionInfo(avaloniaBaseDllPath).FileVersion!);
+                if (avaloniaBaseDllVersion < new Version(11, 0))
+                {
+                    throw new ArgumentOutOfRangeException(
+                        nameof(avaloniaBaseDllVersion),
+                        avaloniaBaseDllVersion, null);
+                }
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("验证成功【Avalonia.Base.dll 版本号必须为 11+】");
+                ResetConsoleColor();
+
+                // 删除 CreateDump
+                RemoveCreateDump(publishDir);
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("已删除 CreateDump");
+                ResetConsoleColor();
+
+                // 移动本机库
+                MoveNativeLibrary(publishDir, arg.RuntimeIdentifier, info.Platform);
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("移动本机库");
+                ResetConsoleColor();
+
+                // 处理 json 文件
+                var runtimeconfigjsonpath = Path.Combine(publishDir, runtimeconfigjsonfilename);
+                ILaunchAppTestCommand.HandlerJsonFiles(runtimeconfigjsonpath, info.Platform);
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("已处理 json 文件");
+                ResetConsoleColor();
+
+                if (isWindows)
+                {
+                    // 发布 apphost
+                    SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                    Console.WriteLine("开始发布【AppHost】");
+                    ResetConsoleColor();
+                    PublishAppHost(publishDir, info.Platform, debug);
+                    SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                    Console.WriteLine("发布成功【AppHost】");
+                    ResetConsoleColor();
+                }
+
+                // 发布插件
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                Console.WriteLine("开始发布【插件】");
+                ResetConsoleColor();
+                PublishPlugins(debug, info.Platform, info.Architecture, publishDir, arg.Configuration, arg.Framework);
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("发布成功【插件】");
+                ResetConsoleColor();
+
+                // 复制运行时
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                Console.WriteLine("开始复制运行时");
+                ResetConsoleColor();
+                CopyRuntime(rootPublishDir, isWindows, info.Architecture);
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("完成复制运行时");
+                ResetConsoleColor();
+
+                var appPublish = new AppPublishInfo()
+                {
+                    DeploymentMode = DeploymentMode.SCD,
+                    RuntimeIdentifier = arg.RuntimeIdentifier,
+                    DirectoryPath = rootPublishDir,
+                };
+
+                IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_AppData));
+                IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_Cache));
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("已删除 AppData/Cache");
+                ResetConsoleColor();
+
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                Console.WriteLine("开始扫描文件");
+                ResetConsoleColor();
+                IScanPublicDirectoryCommand.ScanPathCore(appPublish.DirectoryPath,
+                    appPublish.Files,
+                    ignoreRootDirNames: ignoreDirNames);
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("完成扫描文件");
+                ResetConsoleColor();
+
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                Console.WriteLine("开始文件计算哈希值");
+                ResetConsoleColor();
+                if (sha256)
+                {
+                    foreach (var item in appPublish.Files)
+                    {
+                        using var fileStream = File.OpenRead(item.FilePath);
+                        item.SHA256 = Hashs.String.SHA256(fileStream);
+                    }
+                }
+                if (sha384)
+                {
+                    foreach (var item in appPublish.Files)
+                    {
+                        using var fileStream = File.OpenRead(item.FilePath);
+                        item.SHA384 = Hashs.String.SHA384(fileStream);
+                    }
+                }
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.WriteLine("完成文件计算哈希值");
+                ResetConsoleColor();
+
+                if (OperatingSystem.IsWindows() && isWindows)
+                {
+                    // 数字签名
+                    List<AppPublishFileInfo> toBeSignedFiles = new();
+                    HashSet<string> toBeSignedFilePaths = new();
+                    foreach (var item in appPublish.Files!)
+                    {
+                        switch (item.FileEx.ToLowerInvariant())
+                        {
+                            case ".dll" or ".exe" or ".sys":
+                                if (!MSIXHelper.IsDigitalSigned(item.FilePath))
+                                {
+                                    toBeSignedFiles.Add(item);
+                                    toBeSignedFilePaths.Add(item.FilePath);
+                                }
+                                break;
+                        }
+                    }
+
+                    if (toBeSignedFilePaths.Any())
+                    {
+                        SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                        Console.Write("正在进行数字签名，文件数量：");
+                        Console.WriteLine(toBeSignedFilePaths.Count);
+                        ResetConsoleColor();
+                        var fileNames = string.Join(' ', toBeSignedFilePaths.Select(x =>
+    $"""
+"{x}"
+"""));
+                        MSIXHelper.SignTool.Start(force_sign, fileNames);
+                        foreach (var item in toBeSignedFiles)
+                        {
+                            if (sha256)
+                            {
+                                using var fileStream = File.OpenRead(item.FilePath);
+                                item.SignatureSHA256 = Hashs.String.SHA256(fileStream);
+                            }
+                            if (sha384)
+                            {
+                                using var fileStream = File.OpenRead(item.FilePath);
+                                item.SignatureSHA384 = Hashs.String.SHA384(fileStream);
+                            }
+                        }
+                    }
+
+                    SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                    Console.WriteLine("开始生成【MSIX 包】");
+                    ResetConsoleColor();
+
+                    // 打包资源 images
+                    MSIXHelper.MakePri.Start(rootPublishDir);
+                    // 生成 msix 包
+                    MSIXHelper.MakeAppx.Start(rootPublishDir, GetVersion(), info.Architecture);
+                    Thread.Sleep(TimeSpan.FromSeconds(1.2d));
+                    // 签名 msix 包
+                    var msixFilePath = $"{rootPublishDir}.msix";
+                    // msix 签名证书名必须与包名一致
+                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+
+                    using var msixFileStream = File.OpenRead(msixFilePath);
+
+                    var msixInfo = new AppPublishFileInfo
+                    {
+                        FileEx = ".msix",
+                        FilePath = msixFilePath,
+                        Length = msixFileStream.Length,
+                        SignatureSHA384 = Hashs.String.SHA384(msixFileStream),
+                    };
+                    appPublish.SingleFile.Add(CloudFileType.Msix, msixInfo);
+
+                    SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                    Console.Write("已生成【MSIX 包】，文件大小：");
+                    Console.Write(IOPath.GetDisplayFileSizeString(msixInfo.Length));
+                    Console.Write("，路径：");
+                    Console.WriteLine(msixFilePath);
+                    ResetConsoleColor();
+                }
+
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
+                Console.WriteLine("开始创建【压缩包】");
+                ResetConsoleColor();
+                string? packPath = null;
+                switch (info.Platform)
+                {
+                    case Platform.Windows:
+                    case Platform.UWP:
+                    case Platform.WinUI:
+                    case Platform.Apple:
+                        ICompressedPackageCommand.CreateSevenZipPack(packPath = $"{rootPublishDir}{FileEx._7Z}", appPublish.Files);
+                        break;
+                    case Platform.Linux:
+                        ICompressedPackageCommand.CreateZstdPack(packPath = $"{rootPublishDir}{FileEx.TAR_ZST}", appPublish.Files);
+                        break;
+                }
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.Write("创建成功【压缩包】，文件大小：");
+                if (packPath != null)
+                {
+                    Console.Write(IOPath.GetDisplayFileSizeString(new FileInfo(packPath).Length));
+                }
+                else
+                {
+                    Console.Write(0);
+                }
+                Console.Write("，路径：");
+                Console.WriteLine(packPath);
+                ResetConsoleColor();
+
+                var jsonFilePath = $"{rootPublishDir}.json";
+                using var jsonFileStream = File.Open(jsonFilePath, FileMode.OpenOrCreate);
+                JsonSerializer.Serialize(jsonFileStream, appPublish, new AppPublishInfoContext(new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                }).AppPublishInfo);
+                jsonFileStream.Flush();
+                jsonFileStream.SetLength(jsonFileStream.Position);
+
+                SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+                Console.Write("发布文件信息清单已生成，文件大小：");
+                Console.Write(IOPath.GetDisplayFileSizeString(appPublish.Files.Sum(x => x.Length)));
+                Console.Write("，路径：");
+                Console.WriteLine(jsonFilePath);
+                ResetConsoleColor();
+            }
+
+            SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
+            Console.WriteLine("OK");
+            ResetConsoleColor();
+        }
+        finally
+        {
+            ResetConsoleColor();
+        }
     }
 
     static string GetVersion()

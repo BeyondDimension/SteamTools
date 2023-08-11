@@ -120,19 +120,26 @@ partial class Startup // 自定义控制台命令参数
         run_SteamApp.AddOption(new Option<bool>("-silence", "挂运行服务，不加载窗口，内存占用更小"));
         run_SteamApp.Handler = CommandHandler.Create(async (int id, bool achievement, bool cloudmanager) =>
         {
+            int exitCode = default;
             if (id <= 0)
-                return;
+                return -1;
 
             if (cloudmanager || achievement)
             {
                 RunUIApplication(AppServicesLevel.UI |
                     AppServicesLevel.Steam |
-                    AppServicesLevel.HttpClientFactory, null, AssemblyInfo.GameList);
+                    AppServicesLevel.HttpClientFactory, null,
+                    loadModules: AssemblyInfo.GameList);
                 await WaitConfiguredServices;
 
                 if (TryGetPlugins(out var plugins) && plugins.Any_Nullable())
                 {
                     await plugins.First().OnCommandRun(id.ToString(), achievement ? nameof(achievement) : nameof(cloudmanager));
+                }
+                else
+                {
+                    // 找不到插件，可能该插件已被删除
+                    return 404;
                 }
 
                 StartUIApplication();
@@ -146,6 +153,8 @@ partial class Startup // 自定义控制台命令参数
                 TaskCompletionSource tcs = new();
                 await tcs.Task;
             }
+
+            return exitCode;
         });
         rootCommand.AddCommand(run_SteamApp);
 
