@@ -67,17 +67,24 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
     //    CaptchaCodeText = null;
     //}
 
-    private async Task LoginSteamWithEmailCodeAsync()
+    private async Task LoginSteamWithCodeAsync()
     {
         if (string.IsNullOrEmpty(EmailAuthText))
         {
-            Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterEmailCode);
+            Toast.Show(ToastIcon.Error, _steamLoginState.Requires2FA ? AppResources.Error_PleaseEnterEmailCode
+                : AppResources.Error_PleaseEnterCode);
             return;
         }
+        else if (_steamLoginState.Requires2FA)
+        {
+            _steamLoginState.TwofactorCode = EmailAuthText;
+            await _steamAccountService.DoLoginV2Async(_steamLoginState);
+        }
         else
+        {
             _steamLoginState.EmailCode = EmailAuthText;
-
-        await _steamAccountService.DoLoginV2Async(_steamLoginState);
+            await _steamAccountService.DoLoginV2Async(_steamLoginState);
+        }
 
         EmailAuthText = null;
         EmailDomainText = null;
@@ -99,6 +106,18 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
         return _enrollState.Success;
     }
 
+    public async Task SaveAuthenticatorAsync()
+    {
+        var iADTO = new AuthenticatorDTO()
+        {
+            Name = $"Steam({UserNameText})",
+            Value = steamAuthenticator,
+            Created = DateTimeOffset.Now,
+        };
+        await AuthenticatorHelper.SaveAuthenticator(iADTO);
+        SelectIndex = 4;
+    }
+
     /// <summary>
     /// 检查添加令牌是否成功
     /// </summary>
@@ -117,7 +136,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
         if (_enrollState.NoPhoneNumber == true)
         {
             _enrollState.Error = null;
-            SelectIndex = 1;
+            SelectIndex = 2;
         }
 
         //导入最后一步，需要账号绑定的手机验证码确认
@@ -125,7 +144,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
         {
             _enrollState.Error = null;
             RevocationCodeText = _enrollState.RevocationCode;
-            SelectIndex = 2;
+            SelectIndex = 3;
         }
     }
 
@@ -136,22 +155,24 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
     /// <returns>accessToken不为空返回true,否则返回false</returns>
     async Task<bool> CheckLoginResult()
     {
-        //已有令牌，无法导入
+        //已有令牌，执行替换逻辑
         if (_steamLoginState.Requires2FA == true)
         {
-            Toast.Show(ToastIcon.Error, Strings.LocalAuth_SteamUser_Requires2FA);
-            Reset();
+            //Toast.Show(ToastIcon.Error, Strings.LocalAuth_SteamUser_Requires2FA);
+            //Reset();
+            Requires2FA = _steamLoginState.Requires2FA;
+            SelectIndex = 1;
             return false;
         }
         //需要邮箱验证码
-        //else if (_steamLoginState.RequiresEmailAuth == true)
-        //{
-        //    EmailDomainText = string.IsNullOrEmpty(_steamLoginState.EmailDomain) == false
-        //        ? $"******@{_steamLoginState.EmailDomain}"
-        //        : string.Empty;
-        //    SelectIndex = -1;
-        //    return false;
-        //}
+        else if (_steamLoginState.RequiresEmailAuth == true)
+        {
+            EmailDomainText = string.IsNullOrEmpty(_steamLoginState.EmailDomain) == false
+                ? $"******@{_steamLoginState.EmailDomain}"
+                : string.Empty;
+            SelectIndex = 1;
+            return false;
+        }
         else if (!string.IsNullOrEmpty(_steamLoginState.Message))
         {
             if (_steamLoginState.Message.Length > 50)
@@ -187,31 +208,50 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
             //{
             //    await LoginSteamWithCaptchaCodeAsync();
             //}
-            else if (_steamLoginState.RequiresEmailAuth)
+            else if (_steamLoginState.Requires2FA || _steamLoginState.RequiresEmailAuth)
             {
-                await LoginSteamWithEmailCodeAsync();
+                _enrollState.ReplaceAuth = _steamLoginState.Requires2FA;
+                await LoginSteamWithCodeAsync();
             }
 
             //验证登录
             if (await CheckLoginResult())
             {
-                _enrollState.AccessToken ??= _steamLoginState.AccessToken;
-                _enrollState.RefreshToken ??= _steamLoginState.RefreshToken;
-                _enrollState.SteamId ??= _steamLoginState.SteamId.ToString();
+                _enrollState.AccessToken = _steamLoginState.AccessToken;
+                _enrollState.RefreshToken = _steamLoginState.RefreshToken;
+                _enrollState.SteamId = _steamLoginState.SteamId.ToString();
 
-                //是否需激活令牌
-                if (_enrollState.RequiresActivation)
+                //已有令牌情况下执行替换令牌逻辑
+                if (_enrollState.ReplaceAuth)
+                {
+                    if (SelectIndex == 1 && await steamAuthenticator.RemoveAuthenticatorViaChallengeStartSync(_enrollState.AccessToken!))
+                    {
+                        SelectIndex = 3;
+                        return;
+                    }
+                    else if (SelectIndex == 3)
+                    {
+                        if (string.IsNullOrEmpty(PhoneCodeText))
+                        {
+                            Toast.Show(ToastIcon.Error, Strings.Error_PleaseEnterTelCode);
+                            return;
+                        }
+
+                        if (await steamAuthenticator.RemoveAuthenticatorViaChallengeContinueSync(PhoneCodeText, _enrollState.AccessToken!))
+                        {
+                            await SaveAuthenticatorAsync();
+                            return;
+                        }
+                    }
+
+                    var error = string.IsNullOrEmpty(_enrollState.Error) ? Strings.LocalAuth_SteamUser_Error : _enrollState.Error;
+                    Toast.Show(ToastIcon.Error, error);
+                }
+                else if (_enrollState.RequiresActivation) //是否需激活令牌
                 {
                     if (await FinalizeAddAuthenticatorAsync())
                     {
-                        var iADTO = new AuthenticatorDTO()
-                        {
-                            Name = $"Steam({UserNameText})",
-                            Value = steamAuthenticator,
-                            Created = DateTimeOffset.Now,
-                        };
-                        await IAuthenticatorImport.SaveAuthenticator(iADTO);
-                        SelectIndex = 3;
+                        await SaveAuthenticatorAsync();
                         return;
                     }
                     else

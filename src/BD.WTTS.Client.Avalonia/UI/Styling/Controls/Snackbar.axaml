@@ -8,7 +8,7 @@
 
     <Design.PreviewWith>
         <Border Padding="40">
-            <StackPanel Spacing="10">
+            <StackPanel MaxWidth="500" Spacing="10">
                 <spp:Snackbar
                     Title="Title1"
                     IsClosable="True"
@@ -20,7 +20,7 @@
                     IsClosable="False"
                     IsIconVisible="True"
                     IsOpen="True"
-                    Message="Message" />
+                    Message="MessageMessageMessageMessageMessageMessageMessageMessage" />
                 <spp:Snackbar
                     Title="Title"
                     IsClosable="True"
@@ -38,7 +38,7 @@
                 <spp:Snackbar
                     Title="Title"
                     IsOpen="True"
-                    Message="Message"
+                    Message="MessageMessageMessageMessageMessageMessageMessageMessage"
                     Severity="Warning" />
                 <spp:Snackbar
                     Title="Title"

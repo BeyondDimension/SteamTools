@@ -11,9 +11,6 @@ public class SteamDetailPageViewModel : ViewModelBase
 
     public string? SteamData { get; }
 
-    [Reactive]
-    public bool ShowDetail { get; set; } = true;
-
     public SteamDetailPageViewModel(IAuthenticatorDTO authenticatorDto)
     {
         if (authenticatorDto.Value is SteamAuthenticator steamAuthenticator)

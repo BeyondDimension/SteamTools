@@ -48,6 +48,12 @@ public sealed partial class SteamLoginImportPageViewModel
     public string? EmailAuthText { get; set; }
 
     /// <summary>
+    /// 是否需要2FA令牌
+    /// </summary>
+    [Reactive]
+    public bool Requires2FA { get; set; }
+
+    /// <summary>
     /// 文字验证码图片链接
     /// </summary>
     [Reactive]

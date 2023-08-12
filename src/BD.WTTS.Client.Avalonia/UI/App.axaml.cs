@@ -212,7 +212,8 @@ public sealed partial class App : Application
     {
         try
         {
-            var fontFamily = IPlatformService.Instance.GetDefaultFontFamily();
+            //var fontFamily = IPlatformService.Instance.GetDefaultFontFamily();
+            var fontFamily = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Fonts/HarmonyOS_Sans_SC_Regular.woff2#HarmonyOS Sans SC";
             return FontFamily.Parse(fontFamily);
         }
         catch

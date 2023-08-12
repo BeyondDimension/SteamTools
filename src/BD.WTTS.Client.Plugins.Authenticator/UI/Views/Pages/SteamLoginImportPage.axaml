@@ -14,7 +14,7 @@
     <Grid RowDefinitions="Auto,*">
         <spp:Stepper SelectedIndex="{Binding SelectIndex}">
             <spp:StepperItem Content="{ReflectionBinding Path=Res.Steam_Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            <!--<spp:StepperItem Content="{ReflectionBinding Path=Res.Steam_EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+            <spp:StepperItem Content="{ReflectionBinding Path=Res.LoginVerify, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <spp:StepperItem Content="{ReflectionBinding Path=Res.Steam_BindTel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <spp:StepperItem Content="{ReflectionBinding Path=Res.TelCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <spp:StepperItem Content="{ReflectionBinding Path=Res.Btn_Text_Complete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
@@ -63,31 +63,54 @@
                 </StackPanel>
 
                 <!--  邮箱验证  -->
-                <!--<Panel>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Panel>
+                    <spp:Snackbar
+                        Title="{ReflectionBinding Path=Res.Notice_Tray_Title,
+                                                  Mode=OneWay,
+                                                  Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Top"
+                        IsClosable="False"
+                        IsOpen="True"
+                        IsVisible="{Binding !Requires2FA}"
+                        Message="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}"
+                        Severity="Warning" />
+                    <spp:Snackbar
+                        Title="{ReflectionBinding Path=Res.Notice_Tray_Title,
+                                                  Mode=OneWay,
+                                                  Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Top"
+                        IsClosable="False"
+                        IsOpen="True"
+                        IsVisible="{Binding Requires2FA}"
+                        Message="{ReflectionBinding Path=Res.LocalAuth_Steam2FACodeTip,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}"
+                        Severity="Warning" />
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="10">
+                        <TextBlock IsVisible="{Binding !Requires2FA}" Text="{ReflectionBinding Path=Res.EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock IsVisible="{Binding Requires2FA}" Text="{ReflectionBinding Path=Res.Steam2FACode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBox
                             Name="EmailAuthText"
-                            MaxWidth="300"
-                            HorizontalContentAlignment="Center"
-                            Text="{Binding EmailAuthText}"
-                            Watermark="{ReflectionBinding Path=Res.EmailCode,
-                                                          Mode=OneWay,
-                                                          Source={x:Static s:ResourceService.Current}}" />
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Bottom">
-                        <TextBlock
+                            MinWidth="300"
+                            FontSize="24"
+                            Text="{Binding EmailAuthText}" />
+                        <!--<TextBlock
                             Margin="10,0"
                             HorizontalAlignment="Center"
-                            Text="{Binding EmailDomainText}" />
-                        <TextBlock
+                            Text="{Binding EmailDomainText}" />-->
+                        <!--<TextBlock
                             Margin="10,0"
                             HorizontalAlignment="Center"
                             Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,
                                                      Mode=OneWay,
                                                      Source={x:Static s:ResourceService.Current}}"
                             TextAlignment="Center"
-                            TextWrapping="WrapWithOverflow" />
+                            TextWrapping="WrapWithOverflow" />-->
                         <Button
                             MinWidth="280"
                             HorizontalAlignment="Center"
@@ -97,7 +120,7 @@
                                                         Mode=OneWay,
                                                         Source={x:Static s:ResourceService.Current}}" />
                     </StackPanel>
-                </Panel>-->
+                </Panel>
 
                 <!--  绑定手机  -->
                 <Panel>
@@ -159,7 +182,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Spacing="10">
-                        <DockPanel>
+                        <DockPanel IsVisible="{Binding RevocationCodeText, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
                             <TextBlock
                                 Margin="0,0,0,6"
                                 DockPanel.Dock="Top"
@@ -197,18 +220,30 @@
 
                 <!--  完成  -->
                 <Panel>
+                    <spp:Snackbar
+                        Title="{ReflectionBinding Path=Res.Notice_Tray_Title,
+                                                  Mode=OneWay,
+                                                  Source={x:Static s:ResourceService.Current}}"
+                        VerticalAlignment="Top"
+                        IsClosable="False"
+                        IsOpen="True"
+                        Message="{ReflectionBinding Path=Res.RecoveryCode_RememberTip,
+                                                    Mode=OneWay,
+                                                    Source={x:Static s:ResourceService.Current}}"
+                        Severity="Success" />
                     <StackPanel VerticalAlignment="Center" Spacing="10">
-                        <spp:Snackbar
-                            Title="{ReflectionBinding Path=Res.Notice_Tray_Title,
-                                                      Mode=OneWay,
-                                                      Source={x:Static s:ResourceService.Current}}"
-                            VerticalAlignment="Top"
-                            IsClosable="False"
-                            IsOpen="True"
-                            Message="{ReflectionBinding Path=Res.LocalAuth_SteamUserImportSuccess,
-                                                        Mode=OneWay,
-                                                        Source={x:Static s:ResourceService.Current}}"
-                            Severity="Warning" />
+                        <DockPanel IsVisible="{Binding RevocationCodeText, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                            <TextBlock
+                                Margin="0,0,0,6"
+                                DockPanel.Dock="Top"
+                                Text="{ReflectionBinding Path=Res.RecoveryCode,
+                                                         Mode=OneWay,
+                                                         Source={x:Static s:ResourceService.Current}}" />
+                            <TextBox
+                                MaxWidth="300"
+                                IsReadOnly="True"
+                                Text="{Binding RevocationCodeText, Mode=OneWay}" />
+                        </DockPanel>
                         <Button
                             MinWidth="280"
                             HorizontalAlignment="Center"

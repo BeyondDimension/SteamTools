@@ -83,20 +83,12 @@ public class SteamTradeConfirmationModel : ReactiveObject
         SendItemImageUrls = new();
         ReceiveItemImageUrls = new();
         _steamClient = steamAuthenticator.GetClient();
-        Initialize();
+        GetItemImages();
     }
 
-    async void Initialize()
+    private async void GetItemImages()
     {
-        await GetItemImages();
-    }
-
-    private async Task GetItemImages()
-    {
-        var imageUrls =
-            await RunTaskAndExceptionHandlingAsync(
-                new Task<(string[] receiveItems, string[] sendItems)>(() =>
-                    _steamClient.GetConfirmationItemImageUrls(Id)));
+        var imageUrls = await _steamClient.GetConfirmationItemImageUrls(Id);
         SelfIcon = _steamClient.SteamUserImageUrl;
         ReceiveItemImageUrls.Clear();
         foreach (var item in imageUrls.receiveItems)

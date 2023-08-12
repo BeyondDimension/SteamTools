@@ -82,32 +82,30 @@ partial class Startup // 自定义控制台命令参数
         // -clt steam -account
         var steamuser = new Command("steam", "Steam 相关操作");
         steamuser.AddOption(new Option<string>("-account", "指定对应 Steam 用户名"));
-        steamuser.Handler = CommandHandler.Create((string account) =>
+        steamuser.Handler = CommandHandler.Create(async (string account) =>
         {
             if (!string.IsNullOrEmpty(account))
             {
-                Task.Factory.StartNew(async () =>
-                {
-                    await WaitConfiguredServices;
-
-                    var steamService = ISteamService.Instance;
-
-                    var users = steamService.GetRememberUserList();
-
-                    var currentuser = users.Where(s => s.AccountName == account).FirstOrDefault();
-
-                    steamService.TryKillSteamProcess();
-
-                    if (currentuser != null)
-                    {
-                        currentuser.MostRecent = true;
-                        steamService.UpdateLocalUserData(users);
-                        steamService.SetCurrentUser(account);
-                    }
-
-                    steamService.StartSteamWithParameter();
-                });
                 RunUIApplication(AppServicesLevel.Steam);
+
+                await WaitConfiguredServices;
+
+                var steamService = ISteamService.Instance;
+
+                var users = steamService.GetRememberUserList();
+
+                var currentuser = users.Where(s => s.AccountName == account).FirstOrDefault();
+
+                steamService.TryKillSteamProcess();
+
+                if (currentuser != null)
+                {
+                    currentuser.MostRecent = true;
+                    steamService.UpdateLocalUserData(users);
+                    steamService.SetCurrentUser(account);
+                }
+
+                steamService.StartSteamWithParameter();
             }
         });
         rootCommand.AddCommand(steamuser);

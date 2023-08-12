@@ -10,25 +10,28 @@
     x:CompileBindings="True"
     x:DataType="spp:AuthenticatorImportPageViewModel"
     mc:Ignorable="d">
-    <ItemsRepeater ItemsSource="{Binding AuthenticatorImportMethods}">
-        <ItemsRepeater.Layout>
-            <UniformGridLayout
-                ItemsJustification="SpaceAround"
-                MinColumnSpacing="5"
-                MinRowSpacing="5" />
-        </ItemsRepeater.Layout>
-        <ItemsRepeater.ItemTemplate>
+    <ItemsControl ItemsSource="{Binding AuthenticatorImportMethods}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
             <DataTemplate DataType="spp:AuthenticatorImportMethod">
-                <spp:AppItem
-                    Title="{Binding Name}"
-                    MaxWidth="200"
-                    Classes="Vertical"
-                    ClickCommand="{Binding Command}"
-                    Cursor="Hand"
-                    Description="{Binding Description}"
-                    Tag="{Binding}"
-                    Tapped="AuthenticatorImportPage_Tapped" />
+                <Border
+                    MaxWidth="215"
+                    Margin="3"
+                    spp:Animations.EnableAnimations="True">
+                    <spp:AppItem
+                        Title="{Binding Name}"
+                        Classes="Vertical"
+                        ClickCommand="{Binding Command}"
+                        Cursor="Hand"
+                        Description="{Binding Description}"
+                        Tag="{Binding}"
+                        Tapped="AuthenticatorImportPage_Tapped" />
+                </Border>
             </DataTemplate>
-        </ItemsRepeater.ItemTemplate>
-    </ItemsRepeater>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </UserControl>

@@ -497,7 +497,7 @@
                         ItemsJustification="Start"
                         ItemsStretch="Uniform"
                         MinColumnSpacing="10"
-                        MinItemHeight="302"
+                        MinItemHeight="310"
                         MinItemWidth="150"
                         MinRowSpacing="10" />
                     <!--<WrapLayout

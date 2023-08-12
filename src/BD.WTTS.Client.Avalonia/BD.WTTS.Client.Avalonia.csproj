@@ -11,6 +11,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="UI\Assets\Fonts\HarmonyOS_Sans_SC_Regular.woff2" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Xaml.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>

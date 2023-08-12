@@ -87,7 +87,7 @@ partial class Program
                                             {
                                                 new FontFallback
                                                 {
-                                                    FontFamily = UI.App.DefaultFontFamily.Name,
+                                                    FontFamily = UI.App.DefaultFontFamily,
                                                 },
                                             },
                                         });

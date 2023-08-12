@@ -3468,7 +3468,7 @@ namespace BD.WTTS.Client.Resources {
         
         /// <summary>
         ///   查找类似 确定要永久删除此令牌吗，这只是删除令牌文件数据，并不会解绑你的账号和令牌，
-        ///    如果需要解绑令牌请到 https://store.steampowered.com/twofactor/manage 解绑后在删除 的本地化字符串。
+        ///如果需要解绑令牌请到 https://store.steampowered.com/twofactor/manage 解绑后在删除。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_DeleteAuthTip {
             get {
@@ -3486,7 +3486,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请输入发送到您电子邮件地址的代码，以批准从新设备进行访问 的本地化字符串。
+        ///   查找类似 请输入发送到你电子邮件地址的代码，以批准从新设备进行访问 的本地化字符串。
         /// </summary>
         public static string LocalAuth_EmailCodeTip {
             get {
@@ -3531,7 +3531,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 添加 Google 移动验证器时生成的密钥或二维码导入令牌 的本地化字符串。
+        ///   查找类似 添加 Google 令牌时生成的密钥或二维码导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_GoogleImport {
             get {
@@ -3540,7 +3540,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 添加 HOTP、TOTP 移动验证器时生成的通用密钥导入令牌 的本地化字符串。
+        ///   查找类似 添加 HOTP、TOTP 令牌时生成的通用密钥导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_HOTPImport {
             get {
@@ -3585,7 +3585,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 添加 Microsoft 移动验证器时生成的密钥或二维码导入令牌 的本地化字符串。
+        ///   查找类似 添加 Microsoft 令牌时生成的密钥或二维码导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_MicrosoftImport {
             get {
@@ -3775,6 +3775,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 请输入你的 Steam 令牌验证码，或者使用你的手机令牌确认后直接点击继续。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_Steam2FACodeTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_Steam2FACodeTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 令牌已成功添加 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamAppAddSuccess {
@@ -3793,7 +3802,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 使用 Steam 「移动验证器」内的可移植数据导入令牌 的本地化字符串。
+        ///   查找类似 使用 Steam 令牌内的可移植数据导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamGuardImport {
             get {
@@ -3942,6 +3951,15 @@ namespace BD.WTTS.Client.Resources {
         public static string LoginInputManualLoginToken {
             get {
                 return ResourceManager.GetString("LoginInputManualLoginToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登录验证 的本地化字符串。
+        /// </summary>
+        public static string LoginVerify {
+            get {
+                return ResourceManager.GetString("LoginVerify", resourceCulture);
             }
         }
         
@@ -4732,7 +4750,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 您的令牌已被添加到您的 Steam 账户上并已经成功导入 Watt Toolkit。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方 的本地化字符串。
+        ///   查找类似 你的令牌已被添加到您的 Steam 账户上并已经成功导入 Watt Toolkit。这是你的恢复代码，如果你丢失了令牌数据，可以用它从你的账户移除令牌。请你现在就写下它，并将其放在安全的地方。 的本地化字符串。
         /// </summary>
         public static string RecoveryCode_RememberTip {
             get {
@@ -6101,11 +6119,20 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登录 Steam 账号进行令牌导入，此导入方式会替换原有令牌，完成导入后 2 天无法交易，如果您未绑定令牌则会有市场交易 15 天冷却期。(请记得启用 Steam 网络加速) 的本地化字符串。
+        ///   查找类似 此导入方式可直接替换原有令牌，完成导入后 2 天无法交易，如果您未绑定令牌则会有市场交易 15 天冷却期。(请记得启用 Steam 网络加速) 的本地化字符串。
         /// </summary>
         public static string Steam_UserLoginTip {
             get {
                 return ResourceManager.GetString("Steam_UserLoginTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam 令牌验证代码 的本地化字符串。
+        /// </summary>
+        public static string Steam2FACode {
+            get {
+                return ResourceManager.GetString("Steam2FACode", resourceCulture);
             }
         }
         
@@ -6308,7 +6335,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam 「移动验证器」 的本地化字符串。
+        ///   查找类似 Steam 令牌 的本地化字符串。
         /// </summary>
         public static string SteamGuard {
             get {

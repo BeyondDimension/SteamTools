@@ -23,9 +23,9 @@
                                                  Path=Res.LocalAuth_ShowAuthInfo,
                                                  Mode=OneWay}"
                         TextTrimming="CharacterEllipsis" />
-                    <ToggleButton VerticalAlignment="Center" IsChecked="{Binding ShowDetail}">
+                    <ToggleButton x:Name="ShowDetail" VerticalAlignment="Center">
                         <ToggleButton.Content>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
                                 <ui:FontIcon
                                     VerticalAlignment="Center"
                                     FontFamily="{StaticResource SymbolThemeFontFamily}"
@@ -51,6 +51,8 @@
                 <TextBox
                     Margin="5,0,0,0"
                     IsReadOnly="True"
+                    PasswordChar="{StaticResource PasswordChar}"
+                    RevealPassword="{ReflectionBinding #ShowDetail.IsChecked}"
                     Text="{Binding DeviceId}" />
             </DockPanel>
         </Border>
@@ -60,6 +62,8 @@
                 <TextBox
                     Margin="5,0,0,0"
                     IsReadOnly="True"
+                    PasswordChar="{StaticResource PasswordChar}"
+                    RevealPassword="{ReflectionBinding #ShowDetail.IsChecked}"
                     Text="{Binding RecoverCode}" />
             </DockPanel>
         </Border>
@@ -69,7 +73,10 @@
                 <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowSteamAuthTip1, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <TextBox
                     Height="250"
+                    AcceptsReturn="True"
                     IsReadOnly="True"
+                    PasswordChar="{StaticResource PasswordChar}"
+                    RevealPassword="{ReflectionBinding #ShowDetail.IsChecked}"
                     Text="{Binding SteamData}" />
             </StackPanel>
         </Border>

@@ -18,11 +18,11 @@ public partial class SteamLoginImportPage : ReactiveUserControl<SteamLoginImport
         //PhoneCodeText.KeyUp += PasswordTextOnKeyUp;
     }
 
-    void PasswordTextOnKeyUp(object? sender, KeyEventArgs e)
-    {
-        if (e.Key != Avalonia.Input.Key.Return) return;
-        if (DataContext is not SteamLoginImportPageViewModel vm) return;
-        _ = vm.LoginSteamImport();
-        e.Handled = true;
-    }
+    //void PasswordTextOnKeyUp(object? sender, KeyEventArgs e)
+    //{
+    //    if (e.Key != Avalonia.Input.Key.Return) return;
+    //    if (DataContext is not SteamLoginImportPageViewModel vm) return;
+    //    _ = vm.LoginSteamImport();
+    //    e.Handled = true;
+    //}
 }
