@@ -432,11 +432,9 @@
                                         <Label Content="{ReflectionBinding Path=Res.SupportSystem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         <ui:FAComboBox IsEditable="True" Text="{Binding Platform, Mode=TwoWay}">
                                             <ui:FAComboBox.Items>
-                                                <col:ArrayList>
-                                                    <x:String>windows</x:String>
-                                                    <x:String>linux</x:String>
-                                                    <x:String>macos</x:String>
-                                                </col:ArrayList>
+                                                <x:String>windows</x:String>
+                                                <x:String>linux</x:String>
+                                                <x:String>macos</x:String>
                                             </ui:FAComboBox.Items>
                                         </ui:FAComboBox>
                                     </DockPanel>
