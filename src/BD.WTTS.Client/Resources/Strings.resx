@@ -893,7 +893,7 @@
     <value>Steam 用户名</value>
   </data>
 	<data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>此导入方式可直接替换原有令牌，完成导入后 2 天无法交易，如果您未绑定令牌则会有市场交易 15 天冷却期。(请记得启用 Steam 网络加速)</value>
+    <value>此导入方式可直接替换原有令牌，完成导入后2天无法交易，如果您未绑定令牌则会有市场交易15天冷却期。(请记得启用 Steam 加速)</value>
   </data>
 	<data name="Success_" xml:space="preserve">
     <value>{0}成功</value>

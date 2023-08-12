@@ -43,6 +43,11 @@ partial class Startup // Properties
     public bool IsDesignMode { get; set; }
 
     /// <summary>
+    /// 是否在 Steam 中运行
+    /// </summary>
+    public bool IsSteamRun { get; set; }
+
+    /// <summary>
     /// 是否最小化启动
     /// </summary>
     public bool IsMinimize { get; private set; }

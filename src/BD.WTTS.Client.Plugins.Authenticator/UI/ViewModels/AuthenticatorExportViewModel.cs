@@ -4,55 +4,19 @@ namespace BD.WTTS.UI.ViewModels;
 
 public class AuthenticatorExportViewModel : ViewModelBase
 {
-    bool _hasPasswordProtection;
-    bool _hasLocalProtection;
-    string? _password;
-    string? _verifyPassword;
     SaveFileResult? _exportFile;
 
-    public bool HasPasswordProtection
-    {
-        get => _hasPasswordProtection;
-        set
-        {
-            if (value == _hasPasswordProtection) return;
-            _hasPasswordProtection = value;
-            this.RaisePropertyChanged();
-        }
-    }
+    [Reactive]
+    public bool HasPasswordProtection { get; set; }
 
-    public bool HasLocalProtection
-    {
-        get => _hasLocalProtection;
-        set
-        {
-            if (value == _hasLocalProtection) return;
-            _hasLocalProtection = value;
-            this.RaisePropertyChanged();
-        }
-    }
+    [Reactive]
+    public bool HasLocalProtection { get; set; }
 
-    public string? Password
-    {
-        get => _password;
-        set
-        {
-            if (value == _password) return;
-            _password = value;
-            this.RaisePropertyChanged();
-        }
-    }
+    [Reactive]
+    public string? Password { get; set; }
 
-    public string? VerifyPassword
-    {
-        get => _verifyPassword;
-        set
-        {
-            if (value == _verifyPassword) return;
-            _verifyPassword = value;
-            this.RaisePropertyChanged();
-        }
-    }
+    [Reactive]
+    public string? VerifyPassword { get; set; }
 
     /// <summary>
     /// 默认导出文件名

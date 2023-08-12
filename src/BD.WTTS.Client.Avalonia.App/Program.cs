@@ -79,18 +79,23 @@ partial class Program
 #endif
                                         .UseSkia()
                                         .LogToTrace()
-                                        .UseReactiveUI()
-                                        .With(new FontManagerOptions
-                                        {
-                                            DefaultFamilyName = UI.App.DefaultFontFamily.Name,
-                                            FontFallbacks = new[]
-                                            {
-                                                new FontFallback
-                                                {
-                                                    FontFamily = UI.App.DefaultFontFamily,
-                                                },
-                                            },
-                                        });
+                                        .UseReactiveUI();
+
+                builder.With(new FontManagerOptions
+                {
+                    DefaultFamilyName = UI.App.DefaultFontFamily.Name,
+                    FontFallbacks = new[]
+                    {
+                        new FontFallback
+                        {
+                            FontFamily = UI.App.DefaultFontFamily,
+                        },
+                        new FontFallback
+                        {
+                            FontFamily = FontFamily.Default,
+                        },
+                    },
+                });
 
                 var useGpu = !IApplication.DisableGPU && GeneralSettings.GPU.Value;
 #if WINDOWS

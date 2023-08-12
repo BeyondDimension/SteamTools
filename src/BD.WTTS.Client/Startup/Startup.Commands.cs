@@ -48,13 +48,15 @@ partial class Startup // 自定义控制台命令参数
         devtools.AddOption(new Option<bool>("-disable_gpu", () => false, "禁用 GPU 硬件加速"));
         devtools.AddOption(new Option<bool>("-use_wgl", () => false, "使用 Native OpenGL（仅 Windows）"));
         devtools.AddOption(new Option<bool>("-use_localhost", () => false, "使用本机服务端"));
-        devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_wgl, bool use_localhost) =>
+        devtools.AddOption(new Option<bool>("-steamrun", () => true, "Steam 内启动"));
+        devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_wgl, bool use_localhost,bool steamrun) =>
         {
 #if DEBUG
             AppSettings.UseLocalhostApiBaseUrl = use_localhost;
 #endif
             IsMainProcess = true;
             IsConsoleLineToolProcess = false;
+            IsSteamRun = steamrun;
 
             overrideLoggerMinLevel = LogLevel.Debug;
             IApplication.EnableDevtools = true;
@@ -68,9 +70,11 @@ partial class Startup // 自定义控制台命令参数
         // -clt c -silence
         var common = new Command("c", "common");
         common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
-        common.Handler = CommandHandler.Create((bool silence) =>
+        common.AddOption(new Option<bool>("-steamrun", "Steam 内启动"));
+        common.Handler = CommandHandler.Create((bool silence, bool steamrun) =>
         {
             IsMinimize = silence;
+            IsSteamRun = steamrun;
 
             IsMainProcess = true;
             IsConsoleLineToolProcess = false;

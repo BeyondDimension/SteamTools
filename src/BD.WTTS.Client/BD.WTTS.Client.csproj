@@ -6,11 +6,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Libs\libsteam_api.dylib" />
-	  <None Remove="Libs\libsteam_api.so" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Constants.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -232,30 +227,6 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Strings.resx</DependentUpon>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
-		<!-- Windows Only -->
-		<None Update="Sdk\steam_api.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Sdk\steam_api64.dll">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
-		 <!--Linux Only--> 
-		<None Update="Libs\libsteam_api.so">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos'">
-		 <!--macOS Only--> 
-		<None Update="Sdk\libsteam_api.dylib">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_ALL.props" />

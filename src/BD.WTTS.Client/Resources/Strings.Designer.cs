@@ -6119,7 +6119,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 此导入方式可直接替换原有令牌，完成导入后 2 天无法交易，如果您未绑定令牌则会有市场交易 15 天冷却期。(请记得启用 Steam 网络加速) 的本地化字符串。
+        ///   查找类似 此导入方式可直接替换原有令牌，完成导入后2天无法交易，如果您未绑定令牌则会有市场交易15天冷却期。(请记得启用 Steam 加速) 的本地化字符串。
         /// </summary>
         public static string Steam_UserLoginTip {
             get {

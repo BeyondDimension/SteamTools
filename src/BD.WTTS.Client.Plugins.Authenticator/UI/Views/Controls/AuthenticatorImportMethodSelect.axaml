@@ -19,7 +19,7 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate DataType="spp:AuthenticatorImportMethod">
                 <Border
-                    MaxWidth="215"
+                    Width="200"
                     Margin="3"
                     spp:Animations.EnableAnimations="True">
                     <spp:AppItem

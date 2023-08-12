@@ -44,27 +44,30 @@ partial class Startup // OnStartup
                 });
             }
 #if WINDOWS || LINUX || MACOS
-            try
+            if (IsSteamRun)
             {
-                Steamworks.Dispatch.OnException = (e) =>
+                try
                 {
-                    Console.Error.WriteLine(e.Message);
-                    Console.Error.WriteLine(e.StackTrace);
-                    Log.Error(nameof(Steamworks), e, "Steamworks.SteamClient OnException.");
-                };
+                    Steamworks.Dispatch.OnException = (e) =>
+                    {
+                        Console.Error.WriteLine(e.Message);
+                        Console.Error.WriteLine(e.StackTrace);
+                        Log.Error(nameof(Steamworks), e, "Steamworks.SteamClient OnException.");
+                    };
 
-                // Init Client
-                Steamworks.SteamClient.Init(2425030);
+                    // Init Client
+                    Steamworks.SteamClient.Init(2425030);
 
-                if (Steamworks.SteamClient.IsValid)
-                {
-                    var isOk = Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_AtMainMenu");
-                    var r = Steamworks.SteamFriends.GetRichPresence("steam_display");
+                    if (Steamworks.SteamClient.IsValid)
+                    {
+                        Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_AtMainMenu");
+                        //var r = Steamworks.SteamFriends.GetRichPresence("steam_display");
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(nameof(Steamworks), ex, "Steamworks.SteamClient Init");
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(Steamworks), ex, "Steamworks.SteamClient Init");
+                }
             }
 #endif 
         }
