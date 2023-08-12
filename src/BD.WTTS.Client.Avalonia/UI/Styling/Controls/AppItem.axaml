@@ -112,7 +112,7 @@
                     ClipToBounds="True"
                     CornerRadius="{StaticResource OverlayCornerRadius}">
                     <spp:RippleEffect>
-                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto,*,Auto">
+                        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,*,Auto">
                             <Viewbox
                                 Name="IconHost"
                                 Grid.RowSpan="4"
@@ -162,7 +162,7 @@
 
                             <ContentPresenter
                                 Grid.RowSpan="2"
-                                Grid.Column="3"
+                                Grid.Column="2"
                                 Margin="12,8"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
@@ -176,7 +176,7 @@
                             <DockPanel
                                 Grid.Row="3"
                                 Grid.Column="1"
-                                Grid.ColumnSpan="3"
+                                Grid.ColumnSpan="2"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 DockPanel.Dock="Bottom">

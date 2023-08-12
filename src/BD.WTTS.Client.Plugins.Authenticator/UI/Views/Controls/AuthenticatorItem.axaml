@@ -92,7 +92,8 @@
                 <ui:FontIcon
                     Classes.Eye="{Binding IsSelected}"
                     Classes.Hide="{Binding !IsSelected}"
-                    FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                    FontSize="18" />
             </Border>
             <!--<ToggleButton IsChecked="{Binding IsSelected}">
                 <ui:FontIcon

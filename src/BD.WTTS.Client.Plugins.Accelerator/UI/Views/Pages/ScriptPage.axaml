@@ -151,7 +151,11 @@
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
                 <DataTemplate DataType="spp:ScriptDTO">
-                    <spp:AppItem Title="{Binding Name}" Description="{Binding Describe}">
+                    <spp:AppItem
+                        Title="{Binding Name}"
+                        MaxHeight="200"
+                        Description="{Binding Describe}"
+                        ImageMargin="25">
                         <spp:AppItem.Status>
                             <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !Disable, Mode=TwoWay}" />
                         </spp:AppItem.Status>
@@ -228,7 +232,8 @@
                         <spp:AppItem.Image>
                             <Panel>
                                 <spp:Image2
-                                    Height="64"
+                                    Width="64"
+                                    DecodeWidth="64"
                                     FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
                                     IsVisible="{Binding !IsLoading}"
                                     RenderOptions.BitmapInterpolationMode="HighQuality"
