@@ -96,6 +96,12 @@ namespace System.Application.UI
 
         public static AppSettings AppSettings => GetAppSettings();
 
+        const string DevRSAPublicKey =
+"""
+{"v":"AQAB","n":"z3JV6g-cRPGBef0Dk_zCV3iwfg2pfoJ5dCyZdzWu1SznOZEOFoBSNVOzSSJB-9_WrsmjB2TFtxebTa3EqfLMtOYjpVZzIfWpGX2OMOelIwOsaBkrWzoxlFDJDD0ZDrp0027FtpbrGAb3HwWF73KxiQfpXGU_6W881ALz6D1JnQu1EaKwZULCu8ACiIRp9EBswqMMamWYYj8caGKywohBHMdwURV3y451jNrSjLSXcdGVRACEa1agj81EcBCr9331pyBznHC0rXgLyTqnyk6bGvMqILPqeEs5P375RftzniwsCHZCpXo5EAtUCEzIE86dY6mBv6vgdv0WiJ1kpER-MqT84mKXqi5Yw7KiVtIjGPg8Sv58oLYbVYENDZZqve2rDy_XpoCN4XFCVEjrLYmJ8NN6qBNnjx7TO7OIrYBxkB4DRDp2P1uwMLFtke9JtrtGB-ZGkxRA4hqnXNvnP6VcYfo1uWd8EvjSp8UZndCFEqP63DKNCZHBQFFXV3oMGEG9fUvMO6URRAVW3A_MF6Sv4YWaxNPUlUuE5t_UiqCkIf_Bedbckdwtq6n5w37Jgm_2N2L2UZuc8FM-Jywx4khViG8LpGdTadBx5f6udVXripfLpPcYVEDbR0_6nRKfFLa4hV2efzTY47DpAJ4eFnw5cPZLchnr_CxoWmW0UGKqpsE"}
+
+""";
+
         static AppSettings GetAppSettings(bool isTrace = false)
         {
             if (mAppSettings == null)
@@ -104,7 +110,8 @@ namespace System.Application.UI
                 {
                     //AppVersion = GetResValueGuid("app-id", isSingle: false, ResSecrets.ResValueFormat.StringGuidN),
                     AesSecret = ResSecrets.GetResValue("aes-key", isSingle: true, ResSecrets.ResValueFormat.String),
-                    RSASecret = ResSecrets.GetResValue("rsa-public-key", isSingle: false, ResSecrets.ResValueFormat.String),
+                    //RSASecret = ResSecrets.GetResValue("rsa-public-key", isSingle: false, ResSecrets.ResValueFormat.String),
+                    RSASecret = DevRSAPublicKey,
                     //MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResSecrets.ResValueFormat.StringGuidN),
                 };
                 SetApiBaseUrl(mAppSettings);
