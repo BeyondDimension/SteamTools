@@ -30,7 +30,9 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                             user.RememberPassword = true;
                             user.WantsOfflineMode = steamAccount.WantsOfflineMode;
                             user.SkipOfflineModeWarning = steamAccount.SkipOfflineModeWarning;
-                            ISteamService.Instance.SetPersonaState(steamAccount.SteamUser.SteamId32.ToString(), steamAccount.PersonaState);
+
+                            if (steamAccount.PersonaState != PersonaState.Default)
+                                ISteamService.Instance.SetPersonaState(steamAccount.SteamUser.SteamId32.ToString(), steamAccount.PersonaState);
                         }
                         else
                         {
