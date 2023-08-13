@@ -35,7 +35,7 @@
                 </spp:CarouselBanner.ItemTemplate>
             </spp:CarouselBanner>
             <TextBlock
-                Margin="10,5"
+                Margin="10"
                 FontSize="10"
                 Foreground="White"
                 Text="{ReflectionBinding Path=Res.Advertisement,

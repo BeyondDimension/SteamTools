@@ -104,14 +104,14 @@
         <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Name="LayoutRoot"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    ClipToBounds="True"
-                    CornerRadius="{StaticResource OverlayCornerRadius}">
-                    <spp:RippleEffect>
+                <spp:RippleEffect>
+                    <Border
+                        Name="LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        ClipToBounds="True"
+                        CornerRadius="{StaticResource OverlayCornerRadius}">
                         <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,*,Auto">
                             <Viewbox
                                 Name="IconHost"
@@ -198,8 +198,8 @@
                                     Theme="{StaticResource TransparentButton}" />
                             </DockPanel>
                         </Grid>
-                    </spp:RippleEffect>
-                </Border>
+                    </Border>
+                </spp:RippleEffect>
             </ControlTemplate>
         </Setter>
     </Style>

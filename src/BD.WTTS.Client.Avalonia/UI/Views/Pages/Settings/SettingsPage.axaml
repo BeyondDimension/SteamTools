@@ -68,7 +68,7 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>-->
-    <StackPanel Name="SettingPanel">
+    <StackPanel Name="SettingPanel" Spacing="10">
         <spp:Settings_General Name="Settings_General" />
         <spp:Settings_UI Name="Settings_UI" />
         <spp:Settings_Plugin Name="Settings_Plugin" />

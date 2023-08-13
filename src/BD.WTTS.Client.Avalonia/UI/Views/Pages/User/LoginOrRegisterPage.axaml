@@ -262,15 +262,16 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
             Orientation="Horizontal">
-            <ui:HyperlinkButton
+            <Button
                 HorizontalContentAlignment="Center"
                 Command="{ReflectionBinding ChangeState}"
-                Cursor="Hand">
-                <ui:HyperlinkButton.CommandParameter>
+                Cursor="Hand"
+                Theme="{StaticResource HyperlinkButton}">
+                <Button.CommandParameter>
                     <x:Int16>0</x:Int16>
-                </ui:HyperlinkButton.CommandParameter>
+                </Button.CommandParameter>
                 <TextBlock Text="{ReflectionBinding Path=Res.User_FastLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            </ui:HyperlinkButton>
+            </Button>
             <Separator
                 Height="18"
                 Margin="10,0"
@@ -278,15 +279,16 @@
                 Background="{DynamicResource ButtonBorderBrush}"
                 Classes="Vertical"
                 IsHitTestVisible="False" />
-            <ui:HyperlinkButton
+            <Button
                 HorizontalContentAlignment="Center"
                 Command="{ReflectionBinding ChangeState}"
-                Cursor="Hand">
-                <ui:HyperlinkButton.CommandParameter>
+                Cursor="Hand"
+                Theme="{StaticResource HyperlinkButton}">
+                <Button.CommandParameter>
                     <x:Int16>1</x:Int16>
-                </ui:HyperlinkButton.CommandParameter>
+                </Button.CommandParameter>
                 <TextBlock Text="{ReflectionBinding Path=Res.User_PhoneLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            </ui:HyperlinkButton>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -157,7 +157,15 @@
                         </Border>
                         <DropDownButton.Flyout>
                             <MenuFlyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
-                                <MenuItem IsHitTestVisible="False">
+                                <MenuItem
+                                    Command="{ReflectionBinding Path=ShowWindow,
+                                                                Source={x:Static s:UserService.Current}}"
+                                    CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
+                                    Cursor="Hand"
+                                    IsHitTestVisible="{ReflectionBinding Path=User,
+                                                                         Mode=OneWay,
+                                                                         Source={x:Static s:UserService.Current},
+                                                                         Converter={StaticResource IsNullConverter}}">
                                     <MenuItem.Header>
                                         <DockPanel>
                                             <DockPanel DockPanel.Dock="Top">
@@ -253,7 +261,7 @@
                                 <MenuItem Header="{ReflectionBinding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem Header="{ReflectionBinding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem Header="{ReflectionBinding Path=Res.ChangePassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <MenuItem Header="-" />
+                                <MenuItem Header="-" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem
                                     Command="{ReflectionBinding Path=SignOut,
                                                                 Source={x:Static s:UserService.Current}}"
@@ -266,7 +274,7 @@
                                                                   Source={x:Static s:UserService.Current},
                                                                   Converter={StaticResource IsNullConverter},
                                                                   ConverterParameter=invert}" />
-                                <MenuItem
+                                <!--<MenuItem
                                     Command="{ReflectionBinding Path=ShowWindow,
                                                                 Source={x:Static s:UserService.Current}}"
                                     CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
@@ -277,7 +285,7 @@
                                     IsVisible="{ReflectionBinding Path=User,
                                                                   Mode=OneWay,
                                                                   Source={x:Static s:UserService.Current},
-                                                                  Converter={StaticResource IsNullConverter}}" />
+                                                                  Converter={StaticResource IsNullConverter}}" />-->
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
@@ -307,6 +315,7 @@
                     <Setter Property="Width" Value="36" />
                     <Setter Property="Height" Value="36" />
                     <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Content" Value="&#xF0D5;" />
                 </Style>
                 <Style Selector="Grid#PaneToggleButtonGrid">
                     <Setter Property="Margin" Value="5 5 0 0" />

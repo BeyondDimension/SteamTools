@@ -32,7 +32,11 @@ public partial class TextInputDialogPage : ReactiveUserControl<TextBoxWindowView
                 PasswordBox.Classes.Set("clearButton", true);
                 break;
             case TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText:
-                PasswordBox.IsVisible = false;
+                PasswordBox.IsVisible = true;
+                PasswordBox.PasswordChar = default;
+                PasswordBox.Classes.Set("revealPasswordButton", false);
+                PasswordBox.AcceptsReturn = true;
+                PasswordBox.IsReadOnly = true;
                 break;
         }
 

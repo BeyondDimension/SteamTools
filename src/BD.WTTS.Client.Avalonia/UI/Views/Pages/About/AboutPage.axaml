@@ -12,8 +12,7 @@
     x:CompileBindings="True"
     x:DataType="spp:AboutPageViewModel"
     mc:Ignorable="d">
-
-    <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
+    <StackPanel Spacing="{StaticResource SettingsSpacing}">
         <TextBlock
             Margin="0,0,0,5"
             Text="{ReflectionBinding Path=Res.About,
@@ -27,14 +26,13 @@
             Header="{Binding AppName}"
             IsExpanded="True">
             <spp:OptionsDisplayItem.Icon>
-                <ui:ImageIcon Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" Tapped="EasterEgg_Tapped" />
+                <ui:ImageIcon PointerReleased="EasterEgg_PointerReleased" Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="12"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Tapped="EasterEgg_Tapped"
                     Text="{Binding VersionDisplay}" />
             </spp:OptionsDisplayItem.ActionButton>
             <spp:OptionsDisplayItem.Content>
@@ -43,7 +41,7 @@
                     VerticalAlignment="Center"
                     Orientation="Vertical"
                     Spacing="6">
-                    <DockPanel Margin="0,-12,0,-6" LastChildFill="False">
+                    <DockPanel Margin="0,-6,0,0" LastChildFill="False">
                         <DockPanel
                             Margin="12,10,0,10"
                             HorizontalAlignment="Center"

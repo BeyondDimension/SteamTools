@@ -66,14 +66,11 @@
                                 </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.ActionButton>
                                     <StackPanel Orientation="Horizontal" Spacing="2">
-                                        <ToggleSwitch
-                                            Classes="LeftContent"
-                                            IsChecked="{Binding !Disable, Mode=TwoWay}" />
+                                        <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !Disable, Mode=TwoWay}" />
                                     </StackPanel>
                                 </spp:AppItem.ActionButton>
                                 <spp:AppItem.Image>
                                     <spp:Image2
-                                        Width="92"
                                         Height="92"
                                         FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
                                         RenderOptions.BitmapInterpolationMode="HighQuality"

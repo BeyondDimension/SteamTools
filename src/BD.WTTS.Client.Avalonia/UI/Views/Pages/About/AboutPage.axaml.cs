@@ -15,9 +15,9 @@ public partial class AboutPage : ReactiveUserControl<AboutPageViewModel>
     /// 点击间隔时间（秒）设置一个间隔时间避免频繁点击
     /// </summary>
     const double clickOpenBrowserIntervalSeconds = .75d;
-    readonly Dictionary<string, DateTime> clickOpenBrowserTimeRecord = new();
+    static readonly Dictionary<string, DateTime> clickOpenBrowserTimeRecord = new();
 
-    void OpenBrowser(string url)
+    static void OpenBrowser(string url)
     {
         try
         {
@@ -50,10 +50,9 @@ public partial class AboutPage : ReactiveUserControl<AboutPageViewModel>
         OpenBrowser("https://avaloniaui.net");
     }
 
-    void EasterEgg_Tapped(object? sender, TappedEventArgs e)
+    void EasterEgg_PointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        e.Handled = true;
-        e.Route = RoutingStrategies.Direct;
         AboutPageViewModel.OnEasterEggClick();
+        e.Handled = true;
     }
 }

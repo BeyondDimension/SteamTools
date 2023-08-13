@@ -96,7 +96,7 @@
     </Design.PreviewWith>
 
     <Styles.Resources>
-        <Thickness x:Key="AppPageMargin">20 20 20 0</Thickness>
+        <Thickness x:Key="AppPageMargin">20</Thickness>
     </Styles.Resources>
 
     <Style Selector="spp|PageBase">
@@ -244,7 +244,7 @@
                             <ScrollViewer.GestureRecognizers>
                                 <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
                             </ScrollViewer.GestureRecognizers>
-                            <DockPanel Margin="0,0,0,20">
+                            <DockPanel>
                                 <TextBlock
                                     Margin="0,0,0,8"
                                     DockPanel.Dock="Top"

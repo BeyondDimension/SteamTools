@@ -115,12 +115,15 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="spp:SteamApp">
-                    <spp:AppItem Title="{Binding DisplayName}" MaxHeight="116">
+                    <spp:AppItem
+                        Name="App"
+                        Title="{Binding DisplayName}"
+                        MaxHeight="116">
                         <spp:AppItem.Status>
                             <!--<Border VerticalAlignment="Center" Classes="Status">
                                 <TextBlock Text="正在下载" />
                             </Border>-->
-                            <CheckBox IsChecked="{Binding IsWatchDownloading, Mode=TwoWay}" />
+                            <CheckBox Name="AppCheckBox" IsChecked="{Binding IsWatchDownloading, Mode=TwoWay}" />
                         </spp:AppItem.Status>
                         <spp:AppItem.Tags>
                             <StackPanel Spacing="8">

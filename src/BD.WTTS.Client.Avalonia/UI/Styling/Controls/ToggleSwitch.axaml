@@ -5,6 +5,7 @@
     <Design.PreviewWith>
         <Border Padding="20">
             <StackPanel Spacing="5">
+                <CheckBox Content="Button" />
                 <ToggleSwitch Content="Button" />
                 <ToggleSwitch
                     Classes="NoContent"
@@ -185,6 +186,11 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+    </Style>
+
+    <Style Selector="CheckBox">
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
 
     <Style Selector="RadioButton">
