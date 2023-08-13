@@ -48,6 +48,7 @@
                                             Mode=OneWay,
                                             Source={x:Static s:ResourceService.Current}}"
                 IsChecked="{Binding HasPasswordProtection}" />
+			
             <CheckBox
                 HorizontalAlignment="Center"
                 Content="{ReflectionBinding Path=Res.Auth_OnlylocalCanDecrypt,

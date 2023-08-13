@@ -122,11 +122,12 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
              mainWindow.ThrowIsNull();
 
              var mainWindowVM = MainWindow.GetMainWinodwViewModel();
-
              Dispatcher.UIThread.Post(() =>
              {
                  mainWindow.DataContext = mainWindowVM;
                  s.InitSettingSubscribe();
+
+                 INavigationService.Instance.Navigate(mainWindowVM.TabItems.First().PageType!);
              });
 #if STARTUP_WATCH_TRACE || DEBUG
              WatchTrace.Record("InitMainWindowViewModel");

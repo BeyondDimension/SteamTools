@@ -22,9 +22,6 @@
             <Setter Property="IsPaneOpen" Value="True" />
         </Style>
 
-        <Style Selector="ui|NavigationView.AppNav /template/ Button#NavigationViewBackButton">
-            <Setter Property="Width" Value="{DynamicResource NavigationBackButtonWidth}" />
-        </Style>
         <Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
             <Setter Property="Margin" Value="0 50 0 0" />
         </Style>
@@ -299,8 +296,7 @@
             IsPaneOpen="True"
             IsSettingsVisible="False"
             MenuItemsSource="{Binding TabItems}"
-            PaneDisplayMode="Left"
-            SelectedItem="{Binding SelectedItem}">
+            PaneDisplayMode="Left">
             <ui:NavigationView.Resources>
                 <!--  Override this  -->
                 <Thickness x:Key="NavigationViewContentMargin">0,60,0,0</Thickness>
@@ -308,9 +304,14 @@
             <ui:NavigationView.Styles>
                 <Style Selector="Button#NavigationViewBackButton">
                     <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
+                    <Setter Property="Width" Value="36" />
+                    <Setter Property="Height" Value="36" />
+                    <Setter Property="FontSize" Value="14" />
                 </Style>
                 <Style Selector="Grid#PaneToggleButtonGrid">
-                    <Setter Property="Margin" Value="0 6 0 0" />
+                    <Setter Property="Margin" Value="5 5 0 0" />
+                    <Setter Property="ToolTip.Tip" Value="{ReflectionBinding Path=Res.Back, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <Setter Property="ToolTip.Placement" Value="Bottom" />
                 </Style>
             </ui:NavigationView.Styles>
             <ui:NavigationView.MenuItemTemplate>

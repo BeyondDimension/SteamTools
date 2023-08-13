@@ -4,11 +4,41 @@ using FluentAvalonia.UI.Media.Animation;
 
 namespace BD.WTTS.Services.Implementation;
 
-public class NavigationService
+public sealed class NavigationService : INavigationService
 {
-    public static NavigationService Instance { get; } = new NavigationService();
+    public static NavigationService Instance { get; } = (NavigationService)Ioc.Get<INavigationService>();
 
     public Control? PreviousPage { get; set; }
+
+    public object? GetViewModelToPageContent(object viewModel, bool isCreateInstance = true)
+    {
+        string name;
+
+        if (viewModel is Type t)
+        {
+            name = t.Name;
+        }
+        else
+        {
+            name = viewModel.GetType().Name;
+        }
+
+        var type = name switch
+        {
+            nameof(DebugPageViewModel) => typeof(DebugPage),
+            nameof(TextBoxWindowViewModel) => typeof(TextInputDialogPage),
+            nameof(MessageBoxWindowViewModel) => typeof(MessageBoxPage),
+            nameof(LoginOrRegisterWindowViewModel) => typeof(LoginOrRegisterPage),
+            _ => null,
+        };
+
+        if (isCreateInstance && type != null)
+        {
+            return Activator.CreateInstance(type);
+        }
+
+        return type;
+    }
 
     public void SetFrame(Frame f)
     {
@@ -20,19 +50,18 @@ public class NavigationService
         _overlayHost = p;
     }
 
-    public void Navigate(Type t)
+    public void Navigate(Type t, NavigationTransitionEffect effect = NavigationTransitionEffect.None)
     {
-        if (_frame?.Content?.GetType() != t)
+        if (t.IsSubclassOf(typeof(ViewModelBase)))
         {
-            _frame?.Navigate(t);
+            var pageType = GetViewModelToPageContent(t, false);
+            if (pageType == null) return;
+            t = (Type)pageType;
         }
-    }
 
-    public void Navigate(Type t, NavigationTransitionInfo? transitionInfo = null)
-    {
         if (_frame?.Content?.GetType() != t)
         {
-            _frame?.Navigate(t, null, transitionInfo ?? new SuppressNavigationTransitionInfo());
+            _frame?.Navigate(t, null, GetNavigationTransitionInfo(effect));
         }
     }
 
@@ -41,7 +70,7 @@ public class NavigationService
         _frame?.GoBack();
     }
 
-    public void NavigateFromContext(object dataContext, NavigationTransitionInfo? transitionInfo = null)
+    public void NavigateFromContext(object dataContext, NavigationTransitionEffect effect = NavigationTransitionEffect.None)
     {
         if ((_frame?.Content as Control)?.DataContext != dataContext)
         {
@@ -49,7 +78,7 @@ public class NavigationService
             new FluentAvalonia.UI.Navigation.FrameNavigationOptions
             {
                 IsNavigationStackEnabled = true,
-                TransitionInfoOverride = transitionInfo ?? new SuppressNavigationTransitionInfo()
+                TransitionInfoOverride = GetNavigationTransitionInfo(effect)
             });
         }
     }
@@ -66,6 +95,34 @@ public class NavigationService
     {
         _overlayHost?.Children.Clear();
 
+    }
+
+    private static NavigationTransitionInfo GetNavigationTransitionInfo(NavigationTransitionEffect effect)
+    {
+        NavigationTransitionInfo transitionInfo = effect switch
+        {
+            NavigationTransitionEffect.FromLeft => new SlideNavigationTransitionInfo()
+            {
+                Effect = SlideNavigationTransitionEffect.FromLeft,
+            },
+            NavigationTransitionEffect.FromRight => new SlideNavigationTransitionInfo()
+            {
+                Effect = SlideNavigationTransitionEffect.FromRight,
+            },
+            NavigationTransitionEffect.FromTop => new SlideNavigationTransitionInfo()
+            {
+                Effect = SlideNavigationTransitionEffect.FromTop,
+            },
+            NavigationTransitionEffect.FromBottom => new SlideNavigationTransitionInfo()
+            {
+                Effect = SlideNavigationTransitionEffect.FromBottom,
+            },
+            NavigationTransitionEffect.DrillIn => new DrillInNavigationTransitionInfo(),
+            NavigationTransitionEffect.Entrance => new EntranceNavigationTransitionInfo(),
+            _ => new SuppressNavigationTransitionInfo(),
+        };
+
+        return transitionInfo;
     }
 
     private Frame? _frame;

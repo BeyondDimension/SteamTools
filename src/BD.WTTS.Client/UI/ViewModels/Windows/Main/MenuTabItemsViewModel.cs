@@ -7,7 +7,7 @@ public class MenuTabItemViewModel : TabItemViewModel, IExplicitHasValue
 {
     public string ResourceKeyOrName { get; init; } = string.Empty;
 
-    public Type? PageType { get; init; }
+    public override Type? PageType { get; init; }
 
     public bool IsResourceGet { get; init; }
 

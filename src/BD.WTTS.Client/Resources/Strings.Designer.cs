@@ -846,6 +846,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 返回 的本地化字符串。
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 背景 的本地化字符串。
         /// </summary>
         public static string Background {
@@ -4000,6 +4009,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 最大化 的本地化字符串。
+        /// </summary>
+        public static string Maximize {
+            get {
+                return ResourceManager.GetString("Maximize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 媒体 的本地化字符串。
         /// </summary>
         public static string Media {
@@ -4023,6 +4041,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Microsoft {
             get {
                 return ResourceManager.GetString("Microsoft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 最小化 的本地化字符串。
+        /// </summary>
+        public static string Minimize {
+            get {
+                return ResourceManager.GetString("Minimize", resourceCulture);
             }
         }
         
@@ -4818,6 +4845,15 @@ namespace BD.WTTS.Client.Resources {
         public static string ResetAll {
             get {
                 return ResourceManager.GetString("ResetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 还原 的本地化字符串。
+        /// </summary>
+        public static string Restore {
+            get {
+                return ResourceManager.GetString("Restore", resourceCulture);
             }
         }
         

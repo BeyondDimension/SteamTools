@@ -5,6 +5,7 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
     public LoginOrRegisterPage()
     {
         InitializeComponent();
+        DataContext ??= new LoginOrRegisterWindowViewModel();
 
         TbPhoneNumber.KeyUp += (_, e) =>
         {

@@ -18,4 +18,16 @@ public static partial class ServiceCollectionExtensions
         services.TryAddSingleton<IWindowManager, WindowManagerImpl_>();
         return services;
     }
+
+    /// <summary>
+    /// 添加内容导航服务
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static IServiceCollection TryAddNavigationService(this IServiceCollection services)
+    {
+        services.TryAddSingleton<INavigationService, NavigationService>();
+        return services;
+    }
 }

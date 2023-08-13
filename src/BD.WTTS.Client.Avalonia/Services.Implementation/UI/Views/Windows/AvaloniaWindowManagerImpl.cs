@@ -8,18 +8,6 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
 {
     Type? IWindowManagerImpl.WindowType => typeof(Window);
 
-    object? GetPageContent(ViewModelBase viewModel)
-    {
-        return viewModel switch
-        {
-            DebugPageViewModel => new DebugPage(),
-            TextBoxWindowViewModel => new TextInputDialogPage(),
-            MessageBoxWindowViewModel => new MessageBoxPage(),
-            LoginOrRegisterWindowViewModel => new LoginOrRegisterPage(),
-            _ => null,
-        };
-    }
-
     public static TopLevel? GetWindowTopLevel()
     {
         if (App.Instance.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -129,7 +117,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
                 window.Close = () => td?.Hide(TaskDialogStandardResult.Close);
             }
             td.DataContext = viewModel;
-            td.Content = pageContent ?? GetPageContent(viewModel);
+            td.Content = pageContent ?? INavigationService.Instance.GetViewModelToPageContent(viewModel);
         }
 
         if (!string.IsNullOrEmpty(moreInfoText))

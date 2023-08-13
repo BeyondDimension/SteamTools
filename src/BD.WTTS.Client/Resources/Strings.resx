@@ -296,6 +296,18 @@
 	<data name="Close" xml:space="preserve">
     <value>关闭</value>
   </data>
+	<data name="Minimize" xml:space="preserve">
+    <value>最小化</value>
+  </data>
+	<data name="Maximize" xml:space="preserve">
+    <value>最大化</value>
+  </data>
+	<data name="Restore" xml:space="preserve">
+    <value>还原</value>
+  </data>
+	<data name="Back" xml:space="preserve">
+    <value>返回</value>
+  </data>
 	<data name="Confirm" xml:space="preserve">
     <value>确定</value>
   </data>

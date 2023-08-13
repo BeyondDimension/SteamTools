@@ -4,8 +4,8 @@ namespace BD.WTTS.UI.ViewModels;
 public sealed partial class MainWindowViewModel : WindowViewModel
 {
     #region 更改通知
-    [Reactive]
-    public TabItemViewModel? SelectedItem { get; set; }
+    //[Reactive]
+    //public TabItemViewModel? SelectedItem { get; set; }
 
     [Reactive]
     public bool IsOpenUserMenu { get; set; }
@@ -65,7 +65,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         }
 
         TabItems = tabItems.ToList();
-        SelectedItem = TabItems.FirstOrDefault();
+        //SelectedItem = TabItems.FirstOrDefault();
 
         FooterTabItems = footerTabItems;
     }

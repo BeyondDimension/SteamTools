@@ -195,7 +195,11 @@
                                 <Style x:DataType="spp:PlatformAccount" Selector="MenuItem">
                                     <Setter Property="Header" Value="{Binding FullName}" />
                                     <Setter Property="Icon">
-                                        <PathIcon Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}" />
+                                        <Setter.Value>
+                                            <Template>
+                                                <PathIcon Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}" />
+                                            </Template>
+                                        </Setter.Value>
                                     </Setter>
                                     <Setter Property="Command" Value="{ReflectionBinding #u.DataContext.AddPlatformCommand}" />
                                     <Setter Property="CommandParameter" Value="{Binding}" />

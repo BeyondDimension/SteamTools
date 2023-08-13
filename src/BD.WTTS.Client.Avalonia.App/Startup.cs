@@ -95,9 +95,10 @@ sealed partial class Program : Startup
 
             services.TryAddAvaloniaFilePickerPlatformService();
 
-            #region MessageBox
+            #region WindowManager
 
             services.TryAddWindowManager();
+            services.TryAddNavigationService();
             services.TryToastService();
 
             #endregion

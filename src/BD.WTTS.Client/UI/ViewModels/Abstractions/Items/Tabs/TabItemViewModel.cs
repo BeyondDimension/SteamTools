@@ -27,6 +27,8 @@ public abstract partial class TabItemViewModel : ItemViewModel, IReadOnlyName
 
     #endregion
 
+    public virtual Type? PageType { get; init; }
+
     protected TabItemViewModel() : base()
     {
         ResourceService.Subscribe(() =>
