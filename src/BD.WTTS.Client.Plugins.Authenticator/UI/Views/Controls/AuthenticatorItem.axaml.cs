@@ -18,7 +18,7 @@ public partial class AuthenticatorItem : UserControl
     //{
     //    if (DataContext is AuthenticatorItemModel authenticatorItemModel)
     //    {
-    //        authenticatorItemModel.OnPointerLeftPressed();
+    //        authenticatorItemModel.Tapped();
     //    }
     //}
 
@@ -27,7 +27,7 @@ public partial class AuthenticatorItem : UserControl
         if (DataContext is AuthenticatorItemModel authenticatorItemModel)
         {
             //await authenticatorItemModel.CopyCode();
-            authenticatorItemModel.OnPointerLeftPressed();
+            authenticatorItemModel.Tapped();
         }
     }
 
@@ -39,7 +39,7 @@ public partial class AuthenticatorItem : UserControl
     //    {
     //        if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed)
     //        {
-    //            authenticatorItemModel.OnPointerLeftPressed();
+    //            authenticatorItemModel.Tapped();
     //        }
     //        // else if (e.GetCurrentPoint(e.Source as Visual).Properties.PointerUpdateKind == PointerUpdateKind.RightButtonPressed)
     //        // {

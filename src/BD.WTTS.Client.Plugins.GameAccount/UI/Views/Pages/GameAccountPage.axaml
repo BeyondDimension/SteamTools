@@ -184,40 +184,50 @@
                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                 Theme="{StaticResource TabViewButtonStyle}">
                 <Button.Flyout>
-                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedLeft">
-                        <ui:MenuFlyoutSubItem
+                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                        <MenuItem
+                            Header="{ReflectionBinding Path=Res.AddPlatform,
+                                                       Mode=OneWay,
+                                                       Source={x:Static s:ResourceService.Current}}"
                             IsVisible="{Binding !!AddGamePlatforms.Count}"
-                            ItemsSource="{Binding AddGamePlatforms}"
-                            Text="{ReflectionBinding Path=Res.AddPlatform,
-                                                     Mode=OneWay,
-                                                     Source={x:Static s:ResourceService.Current}}">
-                            <ui:MenuFlyoutSubItem.DataTemplates>
+                            ItemsSource="{Binding AddGamePlatforms}">
+                            <MenuItem.Styles>
+                                <Style x:DataType="spp:PlatformAccount" Selector="MenuItem">
+                                    <Setter Property="Header" Value="{Binding FullName}" />
+                                    <Setter Property="Icon">
+                                        <PathIcon Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}" />
+                                    </Setter>
+                                    <Setter Property="Command" Value="{ReflectionBinding #u.DataContext.AddPlatformCommand}" />
+                                    <Setter Property="CommandParameter" Value="{Binding}" />
+                                </Style>
+                            </MenuItem.Styles>
+                            <!--<MenuItem.DataTemplates>
                                 <DataTemplate DataType="{x:Type spp:PlatformAccount}">
-                                    <ui:MenuFlyoutItem
+                                    <MenuItem
                                         Command="{ReflectionBinding #u.DataContext.AddPlatformCommand}"
-                                        CommandParameter="{ReflectionBinding}"
-                                        Text="{Binding FullName}">
-                                        <ui:MenuFlyoutItem.IconSource>
-                                            <ui:PathIconSource Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}" />
-                                        </ui:MenuFlyoutItem.IconSource>
-                                    </ui:MenuFlyoutItem>
+                                        CommandParameter="{Binding}"
+                                        Header="{Binding FullName}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
                                 </DataTemplate>
-                            </ui:MenuFlyoutSubItem.DataTemplates>
-                        </ui:MenuFlyoutSubItem>
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem
-                            Command="{Binding LoginNewCommand}"
-                            IconSource="Add"
-                            Text="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,
-                                                     Mode=OneWay,
-                                                     Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutSeparator />
+                            </MenuItem.DataTemplates>-->
+                        </MenuItem>
+                        <MenuItem Header="-" />
+                        <MenuItem Command="{Binding LoginNewCommand}" Header="{ReflectionBinding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                            <MenuItem.Icon>
+                                <ui:SymbolIcon Symbol="Add" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <!--<ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <ui:RadioMenuFlyoutItem
                                 GroupName="KillMethond"
                                 IconSource="Games"
                                 Text="TaskKill" />
-                            <ui:RadioMenuFlyoutItem
+
+			 <ui:RadioMenuFlyoutItem
                                 GroupName="KillMethond"
                                 IconSource="Icons"
                                 Text="Direct" />
@@ -233,8 +243,8 @@
                                 Text="Direct" />
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSeparator />
-                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{ReflectionBinding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                    </ui:FAMenuFlyout>
+                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{ReflectionBinding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                    </MenuFlyout>
                 </Button.Flyout>
             </Button>
         </ui:TabView.TabStripFooter>

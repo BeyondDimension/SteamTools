@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="UI\Assets\Fonts\HarmonyOS_Sans_SC_Regular.woff2" />
+	  <None Remove="UI\Assets\Fonts\HarmonyOS_Sans_SC_Regular.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>

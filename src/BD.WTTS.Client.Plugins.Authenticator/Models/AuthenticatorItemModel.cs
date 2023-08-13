@@ -9,7 +9,7 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
 
     Timer? _progressTimer;
 
-    public void OnPointerLeftPressed()
+    public void Tapped()
     {
         IsSelected = !IsSelected;
     }
@@ -52,7 +52,7 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         {
             Code = null;
             Toast.Show(ToastIcon.Error, Strings.Error_AuthSynchronizationFailed_.Format(ex.Message));
-            Log.Error(nameof(AuthenticatorItemModel), ex, nameof(OnPointerLeftPressed));
+            Log.Error(nameof(AuthenticatorItemModel), ex, nameof(ShowCode));
         }
 
         if (string.IsNullOrEmpty(Code))

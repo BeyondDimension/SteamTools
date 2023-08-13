@@ -213,14 +213,15 @@ public sealed partial class App : Application
         try
         {
             //var fontFamily = IPlatformService.Instance.GetDefaultFontFamily();
-            var fontFamily = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Fonts/HarmonyOS_Sans_SC_Regular.woff2#HarmonyOS Sans SC";
-            return FontFamily.Parse(fontFamily);
+            return FontFamily.Parse(DefaultFontFamilyName);
         }
         catch
         {
         }
         return FontFamily.Default;
     }
+
+    public const string DefaultFontFamilyName = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC";
 
     static readonly Lazy<FontFamily> _DefaultFontFamily = new(GetDefaultFontFamily);
 

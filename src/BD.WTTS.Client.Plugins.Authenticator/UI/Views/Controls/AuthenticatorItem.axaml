@@ -15,6 +15,7 @@
     mc:Ignorable="d">
     <spp:AppItem
         Title="{Binding AuthName}"
+        Description="{Binding AuthData.Created}"
         ImageMargin="10"
         MoreFlyout="{Binding $parent.ContextFlyout}">
         <spp:AppItem.Tags>
