@@ -171,6 +171,7 @@ public sealed partial class App : Application
         {
             MainThread2.BeginInvokeOnMainThread(() =>
             {
+                IPCMainProcessService.Instance.DisposeAsync();
                 desktop.Shutdown(exitCode);
             });
             return true;
@@ -226,4 +227,17 @@ public sealed partial class App : Application
     static readonly Lazy<FontFamily> _DefaultFontFamily = new(GetDefaultFontFamily);
 
     public static FontFamily DefaultFontFamily => _DefaultFontFamily.Value;
+
+    public static ICommand OpenBrowserCommand { get; } = ReactiveCommand.Create((string url) =>
+    {
+        try
+        {
+            Browser2.Open(url);
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex);
+        }
+
+    });
 }

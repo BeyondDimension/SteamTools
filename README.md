@@ -101,7 +101,7 @@
 - 单个组件
 	- GitHub Extension for Visual Studio(可选)
 - [Visual Studio Marketplace](https://marketplace.visualstudio.com)
-	- [Avalonia for Visual Studio(可选)](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)  
+	- [Avalonia for Visual Studio(可选)](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaVS)  
 	- [NUnit VS Templates(可选)](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)  
 
 [JetBrains Rider](https://www.jetbrains.com/rider)  
