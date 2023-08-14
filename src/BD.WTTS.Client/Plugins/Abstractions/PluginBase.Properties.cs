@@ -232,7 +232,7 @@ partial class PluginBase<TPlugin>
     {
         var assembly = typeof(TPlugin).Assembly;
         string? version = null;
-        for (int i = 0; string.IsNullOrWhiteSpace(version); i++)
+        for (int i = 1; string.IsNullOrWhiteSpace(version); i++)
         {
             version = i switch
             {

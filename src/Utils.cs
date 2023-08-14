@@ -31,21 +31,29 @@ public static partial class ProjectUtils
 #else
         AppDomain.CurrentDomain.BaseDirectory;
 #endif
+        try
+        {
 #pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable SA1003 // Symbols should be spaced correctly
-        if (!
+            if (!
 #pragma warning restore SA1003 // Symbols should be spaced correctly
 #pragma warning restore IDE0079 // 请删除不必要的忽略
 #if NET35
             Directory.GetFiles
 #else
-            Directory.EnumerateFiles
+                Directory.EnumerateFiles
 #endif
-            (path, "*.sln").Any())
+                (path, "*.sln").Any())
+            {
+                var parent = Directory.GetParent(path);
+                if (parent == null)
+                    return string.Empty;
+                return GetProjectPath(parent.FullName);
+            }
+        }
+        catch
         {
-            var parent = Directory.GetParent(path);
-            if (parent == null) return string.Empty;
-            return GetProjectPath(parent.FullName);
+            return string.Empty;
         }
         return path;
     }

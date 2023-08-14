@@ -17,7 +17,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string UniqueEnglishName => moduleName;
 
-    public sealed override string Description => "管理 Steam 库存游戏信息，Steam启动时加载当前账号库存，未启动时加载 Steam 本地缓存数据";
+    public sealed override string Description => "管理 Steam 库存游戏信息，Steam 启动时加载当前账号库存，未启动时加载 Steam 本地缓存数据";
 
     protected sealed override string? AuthorOriginalString => null;
 

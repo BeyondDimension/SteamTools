@@ -106,13 +106,24 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
     static IEnumerable<HL> GetHyperlinks() // links
     {
         // 检查更新
-        yield return new HL(Strings.CheckUpdate, (ICommand)null!);
+        yield return new HL(Strings.CheckUpdate, ReactiveCommand.CreateFromTask(async () =>
+        {
+            await IAppUpdateService.Instance.CheckUpdateAsync(showIsExistUpdateFalse: true);
+        }));
         // 打开官网 https://steampp.net
         yield return new HL(Strings.OpenOfficialWebsite, Constants.Urls.OfficialWebsite);
         // 打分并评价
-        yield return new HL(Strings.RatingsAndReviews, (ICommand)null!);
+        static HL GetRatingsAndReviews()
+        {
+#if WINDOWS
+            return new HL(Strings.RatingsAndReviews, Constants.Urls.MicrosoftStoreReviewLink);
+#else
+            return new HL(Strings.RatingsAndReviews, Constants.Urls.MicrosoftStoreAppWebsite);
+#endif
+        }
+        yield return GetRatingsAndReviews();
         // 赞助我们
-        yield return new HL(Strings.SponsorUs, (ICommand)null!);
+        yield return new HL(Strings.SponsorUs, Constants.Urls.OfficialWebsite_Sponsor);
         // 更新日志 https://steampp.net/changelog
         yield return new HL(Strings.Changelog, Constants.Urls.OfficialWebsite_Changelog);
         // 联系我们 https://steampp.net/contact
@@ -126,7 +137,19 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
         // 隐私政策 https://steampp.net/privacy
         yield return new HL(Strings.User_Privacy, Constants.Urls.OfficialWebsite_Privacy);
         // 复制 UID
-        yield return new HL(Strings.CopyUserId, (ICommand)null!);
+        yield return new HL(Strings.CopyUserId, ReactiveCommand.CreateFromTask(async () =>
+        {
+            var uid = UserService.Current.User?.Id;
+            if (uid.HasValue)
+            {
+                await IApplication.CopyToClipboardAsync(uid.Value.ToString());
+            }
+            else
+            {
+                Toast.Show(ToastIcon.Info,
+                    Strings.YouNeedSignInToGetUID_.Format(AssemblyInfo.Trademark));
+            }
+        }));
         // 账号注销
         yield return new HL(Strings.DelAccount, (ICommand)null!);
         // Bug 提交(GitHub) https://github.com/BeyondDimension/SteamTools/issues

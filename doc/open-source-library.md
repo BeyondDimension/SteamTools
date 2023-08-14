@@ -60,7 +60,7 @@
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)
 * [Xamarin.Forms](https://github.com/xamarin/Xamarin.Forms)
 * [Open Source Components for Xamarin](https://github.com/xamarin/XamarinComponents)
-* [Google Play Services / Firebase / ML Kit for Xamarin.Android](https://github.com/xamarin/GooglePlayServicesComponents)
+* [GooglePlayServicesComponents](https://github.com/xamarin/GooglePlayServicesComponents)
 * [Picasso](https://github.com/square/picasso)
 * [OkHttp](https://github.com/square/okhttp)
 * [Material Components for Android](https://github.com/material-components/material-components-android)

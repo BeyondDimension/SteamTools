@@ -52,7 +52,7 @@ public static partial class AssemblyInfo
     /// <summary>
     /// 与该应用程序关联的公司名称。
     /// </summary>
-    public const string Company = "长沙次元超越科技有限公司";
+    public const string Company = "江苏蒸汽凡星科技有限公司";
 
     /// <summary>
     /// 与应用程序关联的版权声明。

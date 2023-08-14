@@ -7540,5 +7540,14 @@ namespace BD.WTTS.Client.Resources {
                 return ResourceManager.GetString("WorkingDir", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 需要登录 {0} 账号才能获取 UID 的本地化字符串。
+        /// </summary>
+        public static string YouNeedSignInToGetUID_ {
+            get {
+                return ResourceManager.GetString("YouNeedSignInToGetUID_", resourceCulture);
+            }
+        }
     }
 }
