@@ -963,7 +963,7 @@
 此操作会结束正在运行的 Steam 跳转到新账号登录窗口。</value>
   </data>
   <data name="UserChange_NoUserTip" xml:space="preserve">
-    <value>没有在您的电脑上读取到任何 Steam 账户数据。</value>
+    <value>未获取到账号数据，请先在右上角尝试添加新账号</value>
   </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
     <value>离线模式启动</value>

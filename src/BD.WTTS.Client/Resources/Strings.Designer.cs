@@ -7245,7 +7245,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 没有在您的电脑上读取到任何 Steam 账户数据。 的本地化字符串。
+        ///   查找类似 未获取到账号数据，请先在右上角尝试添加新账号 的本地化字符串。
         /// </summary>
         public static string UserChange_NoUserTip {
             get {

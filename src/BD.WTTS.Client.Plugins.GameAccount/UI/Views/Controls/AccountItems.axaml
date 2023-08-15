@@ -105,7 +105,10 @@
         <ScrollViewer.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
         </ScrollViewer.GestureRecognizers>
-        <spp:ContentLoader IsLoading="{Binding IsLoading}">
+        <spp:ContentLoader
+            IsLoading="{Binding IsLoading}"
+            IsShowNoResultText="{Binding !!!Accounts.Count, Mode=OneWay}"
+            NoResultMessage="{Binding Path=Res.UserChange_NoUserTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <ItemsControl Grid.Row="1" ItemsSource="{Binding Accounts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
