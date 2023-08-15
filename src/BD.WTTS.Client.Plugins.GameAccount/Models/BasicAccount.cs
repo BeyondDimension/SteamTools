@@ -2,6 +2,11 @@ namespace BD.WTTS.Models;
 
 public sealed class BasicAccount : ReactiveObject, IAccount
 {
+    public BasicAccount(string id)
+    {
+        AccountId = id;
+    }
+
     public string? DisplayName => AccountName;
 
     [Reactive]
@@ -9,7 +14,7 @@ public sealed class BasicAccount : ReactiveObject, IAccount
 
     public string? AccountName { get; set; }
 
-    public string? AccountId { get; set; }
+    public string AccountId { get; set; }
 
     [Reactive]
     public DateTime? LastLoginTime { get; set; }

@@ -11,11 +11,11 @@ public sealed class SteamAccount : ReactiveObject, IAccount
         this.SteamUser = user;
     }
 
-    public SteamUser SteamUser { get; init; }
+    public SteamUser SteamUser { get; }
 
     public string? DisplayName => this.SteamUser.SteamNickName;
 
-    public string? AccountId
+    public string AccountId
     {
         get => this.SteamUser.SteamId64.ToString();
         set => this.SteamUser.SteamId64 = Convert.ToInt64(value);

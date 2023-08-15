@@ -88,7 +88,18 @@ public sealed partial class PlatformAccount
             try
             {
                 Accounts = null;
-                var users = await platformSwitcher.GetUsers(this);
+                var users = await platformSwitcher.GetUsers(this, () =>
+                {
+                    if (Accounts.Any_Nullable())
+                        foreach (var user in Accounts)
+                        {
+                            if (user is SteamAccount su)
+                            {
+                                su.RaisePropertyChanged(nameof(su.ImagePath));
+                                su.RaisePropertyChanged(nameof(su.AvatarFramePath));
+                            }
+                        }
+                });
 
                 if (users.Any_Nullable())
                     Accounts = new ObservableCollection<IAccount>(users);

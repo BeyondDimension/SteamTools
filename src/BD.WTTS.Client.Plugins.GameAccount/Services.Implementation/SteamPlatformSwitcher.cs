@@ -92,7 +92,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         return "";
     }
 
-    public async Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform)
+    public async Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform, Action? refreshUsers = null)
     {
         var users = steamService.GetRememberUserList();
         if (!users.Any_Nullable())
@@ -146,33 +146,38 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         #endregion
 
         #region 通过webapi加载头像图片用户信息
-        foreach (var user in users)
+        Task2.InBackground(async () =>
         {
-            var temp = await swWebService.GetUserInfo(user.SteamId64);
-            if (!string.IsNullOrEmpty(temp.SteamID))
+            foreach (var user in users)
             {
-                user.SteamID = temp.SteamID;
-                user.OnlineState = temp.OnlineState;
-                user.MemberSince = temp.MemberSince;
-                user.VacBanned = temp.VacBanned;
-                user.Summary = temp.Summary;
-                user.PrivacyState = temp.PrivacyState;
-                user.AvatarIcon = temp.AvatarIcon;
-                user.AvatarMedium = temp.AvatarMedium;
-                user.AvatarFull = temp.AvatarFull;
-                user.MiniProfile = temp.MiniProfile;
+                var temp = await swWebService.GetUserInfo(user.SteamId64);
+                if (!string.IsNullOrEmpty(temp.SteamID))
+                {
+                    user.SteamID = temp.SteamID;
+                    user.OnlineState = temp.OnlineState;
+                    user.MemberSince = temp.MemberSince;
+                    user.VacBanned = temp.VacBanned;
+                    user.Summary = temp.Summary;
+                    user.PrivacyState = temp.PrivacyState;
+                    user.AvatarIcon = temp.AvatarIcon;
+                    user.AvatarMedium = temp.AvatarMedium;
+                    user.AvatarFull = temp.AvatarFull;
+                    user.MiniProfile = temp.MiniProfile;
+                    user.Level = user.MiniProfile?.Level;
 
-                //if (user.MiniProfile != null && !string.IsNullOrEmpty(user.MiniProfile.AnimatedAvatar))
-                //{
-                //    user.AvatarStream = imageHttpClientService.GetImageMemoryStreamAsync(user.MiniProfile.AnimatedAvatar, cache: true);
-                //}
-                //else
-                //{
-                //    user.AvatarStream = imageHttpClientService.GetImageMemoryStreamAsync(temp.AvatarFull, cache: true);
-                //}
+                    //if (user.MiniProfile != null && !string.IsNullOrEmpty(user.MiniProfile.AnimatedAvatar))
+                    //{
+                    //    user.AvatarStream = imageHttpClientService.GetImageMemoryStreamAsync(user.MiniProfile.AnimatedAvatar, cache: true);
+                    //}
+                    //else
+                    //{
+                    //    user.AvatarStream = imageHttpClientService.GetImageMemoryStreamAsync(temp.AvatarFull, cache: true);
+                    //}
+                }
             }
-        }
 
+            refreshUsers?.Invoke();
+        });
         #endregion
 
         #region 加载动态头像头像框数据
@@ -219,6 +224,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                 {
                     steamService.DeleteLocalUserData(steamAccount.SteamUser, false);
                 }
+
                 platform.Accounts?.Remove(account);
             }
         }

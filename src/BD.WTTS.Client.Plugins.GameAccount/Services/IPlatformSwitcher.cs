@@ -30,5 +30,5 @@ public interface IPlatformSwitcher
 
     Task DeleteAccountInfo(IAccount account, PlatformAccount platform);
 
-    Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform);
+    Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform, Action? refreshUsers = null);
 }

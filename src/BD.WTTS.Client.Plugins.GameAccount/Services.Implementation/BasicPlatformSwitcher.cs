@@ -538,7 +538,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return uniqueId;
     }
 
-    public Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform)
+    public Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform, Action? refreshUsers = null)
     {
         List<BasicAccount>? accounts = null;
         var localCachePath = platform.PlatformLoginCache;
@@ -560,12 +560,12 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
             foreach (var item in accList)
             {
-                var account = new BasicAccount
+                var account = new BasicAccount(item.Key)
                 {
+                    //AccountId = item.Key,
+                    AccountName = item.Value,
                     PlatformName = platform.FullName,
                     Platform = platform.Platform,
-                    AccountId = item.Key,
-                    AccountName = item.Value
                 };
                 if (accountRemarks?.TryGetValue($"{platform.FullName}-{account.AccountId}", out var remark) == true && !string.IsNullOrEmpty(remark))
                     account.AliasName = remark;

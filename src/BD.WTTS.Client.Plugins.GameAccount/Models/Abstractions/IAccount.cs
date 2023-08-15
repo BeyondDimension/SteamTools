@@ -6,7 +6,7 @@ public interface IAccount
 
     string? AliasName { get; set; }
 
-    string? AccountId { get; set; }
+    string AccountId { get; set; }
 
     string? AccountName { get; set; }
 
