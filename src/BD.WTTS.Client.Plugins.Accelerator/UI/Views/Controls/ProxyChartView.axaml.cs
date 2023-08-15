@@ -60,49 +60,6 @@ public partial class ProxyChartView : UserControl
 
     public ProxyChartView()
     {
-        LiveCharts.Configure(config =>
-        {
-            config
-                // registers SkiaSharp as the library backend
-                // REQUIRED unless you build your own
-                .AddSkiaSharp();
-            // adds the default supported types
-            // OPTIONAL but highly recommend
-            //.AddDefaultMappers()
-
-            // select a theme, default is Light
-            // OPTIONAL
-            //.AddDarkTheme()
-
-            // In case you need a non-Latin based font, you must register a typeface for SkiaSharp
-            config.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('汉')); // <- Chinese // mark
-                                                                                   //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('أ'))  // <- Arabic // mark
-                                                                                   //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('あ')) // <- Japanese // mark
-                                                                                   //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('헬')) // <- Korean // mark
-                                                                                   //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('Ж'))  // <- Russian // mark
-
-            if (App.Instance.Theme != AppTheme.FollowingSystem)
-            {
-                if (App.Instance.Theme == AppTheme.Light)
-                    config.AddLightTheme();
-                else
-                    config.AddDarkTheme();
-            }
-            else
-            {
-                var dps = IPlatformService.Instance;
-                var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
-                if (isLightOrDarkTheme.HasValue)
-                {
-                    var mThemeFS = IApplication.GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
-                    if (mThemeFS == AppTheme.Light)
-                        config.AddLightTheme();
-                    else
-                        config.AddDarkTheme();
-                }
-            }
-        });
-
         InitializeComponent();
 
         this.readSeries.Values = reads;

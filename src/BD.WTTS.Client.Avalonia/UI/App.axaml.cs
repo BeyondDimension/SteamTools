@@ -41,50 +41,6 @@ public sealed partial class App : Application
         try
         {
             AvaloniaXamlLoader.Load(this);
-
-            //LiveCharts.Configure(config =>
-            //{
-            //    config
-            //        // registers SkiaSharp as the library backend
-            //        // REQUIRED unless you build your own
-            //        .AddSkiaSharp();
-            //    // adds the default supported types
-            //    // OPTIONAL but highly recommend
-            //    //.AddDefaultMappers()
-
-            //    // select a theme, default is Light
-            //    // OPTIONAL
-            //    //.AddDarkTheme()
-
-            //    // In case you need a non-Latin based font, you must register a typeface for SkiaSharp
-            //    config.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('汉')); // <- Chinese // mark
-            //    //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('أ'))  // <- Arabic // mark
-            //    //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('あ')) // <- Japanese // mark
-            //    //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('헬')) // <- Korean // mark
-            //    //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('Ж'))  // <- Russian // mark
-
-            //    if (Theme != AppTheme.FollowingSystem)
-            //    {
-            //        if (Theme == AppTheme.Light)
-            //            config.AddLightTheme();
-            //        else
-            //            config.AddDarkTheme();
-            //    }
-            //    else
-            //    {
-            //        var dps = IPlatformService.Instance;
-            //        dps.SetLightOrDarkThemeFollowingSystem(false);
-            //        var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
-            //        if (isLightOrDarkTheme.HasValue)
-            //        {
-            //            var mThemeFS = IApplication.GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
-            //            if (mThemeFS == AppTheme.Light)
-            //                config.AddLightTheme();
-            //            else
-            //                config.AddDarkTheme();
-            //        }
-            //    }
-            //});
         }
         catch (Exception ex)
         {
