@@ -39,7 +39,7 @@ partial class AboutPageViewModel
             show_runtime_info_counter = 0;
             show_runtime_info_last_click_time = default;
 
-            MessageBox.Show(GetInfoString(), "Hello My Friend~");
+            MessageBox.Show(GetInfoString(), "Hello My Friend ~");
         }
     }
 

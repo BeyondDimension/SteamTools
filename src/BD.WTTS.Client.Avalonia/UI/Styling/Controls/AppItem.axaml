@@ -163,7 +163,7 @@
                             <ContentPresenter
                                 Grid.RowSpan="2"
                                 Grid.Column="2"
-                                Margin="12,8"
+                                Margin="12,8,12,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
                                 Content="{TemplateBinding Status}"

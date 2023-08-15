@@ -224,10 +224,10 @@
                         PanePlacement="Right">
                         <SplitView.Pane>
                             <Border
-                                Margin="2,0,0,0"
                                 Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
-                                BoxShadow="0 4 16 0 #66000000"
-                                CornerRadius="4 0 0 4">
+                                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6 0 0 6">
                                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                                     <ScrollViewer.GestureRecognizers>
                                         <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />

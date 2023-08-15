@@ -1,3 +1,5 @@
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Markup.Xaml.MarkupExtensions.CompiledBindings;
 using FluentAvalonia.Core;
 
 namespace BD.WTTS.UI.Views.Controls;

@@ -161,9 +161,7 @@
                 Margin="0,10"
                 Spacing="5">
                 <spp:Snackbar
-                    Title="{ReflectionBinding Path=Res.Notice_Tray_Title,
-                                              Mode=OneWay,
-                                              Source={x:Static s:ResourceService.Current}}"
+                    Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                     VerticalAlignment="Top"
                     IsClosable="False"
                     IsOpen="True"

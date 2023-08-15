@@ -10,6 +10,7 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
     xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+    xmlns:wtts="using:BD.WTTS"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
@@ -158,14 +159,10 @@
                         <DropDownButton.Flyout>
                             <MenuFlyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
                                 <MenuItem
-                                    Command="{ReflectionBinding Path=ShowWindow,
-                                                                Source={x:Static s:UserService.Current}}"
+                                    Command="{Binding Path=ShowWindow, Source={x:Static s:UserService.Current}}"
                                     CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
                                     Cursor="Hand"
-                                    IsHitTestVisible="{ReflectionBinding Path=User,
-                                                                         Mode=OneWay,
-                                                                         Source={x:Static s:UserService.Current},
-                                                                         Converter={StaticResource IsNullConverter}}">
+                                    IsHitTestVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}}">
                                     <MenuItem.Header>
                                         <DockPanel>
                                             <DockPanel DockPanel.Dock="Top">
@@ -181,34 +178,22 @@
                                                 <Panel>
                                                     <TextBlock
                                                         VerticalAlignment="Center"
-                                                        IsVisible="{ReflectionBinding Path=User,
-                                                                                      Mode=OneWay,
-                                                                                      Source={x:Static s:UserService.Current},
-                                                                                      Converter={StaticResource IsNullConverter}}"
-                                                        Text="{ReflectionBinding Path=Res.User_UnLogin,
-                                                                                 Mode=OneWay,
-                                                                                 Source={x:Static s:ResourceService.Current}}" />
+                                                        IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}}"
+                                                        Text="{Binding Path=Res.User_UnLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
-                                                    <StackPanel VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-                                                        <TextBlock Text="{ReflectionBinding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
+                                                    <StackPanel VerticalAlignment="Center" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                                                        <TextBlock Text="{Binding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
 
-                                                        <Border VerticalAlignment="Center" IsVisible="{ReflectionBinding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
-                                                            <TextBlock FontSize="10" Text="{ReflectionBinding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}❤️{0}}" />
+                                                        <Border VerticalAlignment="Center" IsVisible="{Binding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
+                                                            <TextBlock FontSize="10" Text="{Binding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}❤️{0}}" />
                                                         </Border>
 
                                                     </StackPanel>
                                                 </Panel>
                                             </DockPanel>
-                                            <!--<WrapPanel HorizontalAlignment="Center" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-                                            -->
-                                            <!--<TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Classes="h8"
-                                                            Text="{ReflectionBinding Path=User.LevelStr,
-                                                                                     Mode=OneWay,
-                                                                                     Source={x:Static service:UserService.Current}}" />-->
-                                            <!--
+                                            <WrapPanel HorizontalAlignment="Center" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+
+
                                                 <Button Margin="5,0" FontSize="10">
                                                     <ToolTip.Tip>
                                                         <MultiBinding StringFormat="{}{0} : {1} / {2}">
@@ -226,25 +211,15 @@
                                                 </Button>
                                                 <Button
                                                     Margin="5,0"
-                                                    Command="{ReflectionBinding Path=SignIn,
-                                                                                Mode=OneWay,
-                                                                                Source={x:Static s:UserService.Current}}"
-                                                    Content="{ReflectionBinding Path=Res.Sign,
-                                                                                Mode=OneWay,
-                                                                                Source={x:Static s:ResourceService.Current}}"
+                                                    Command="{Binding Path=SignInAsync, Mode=OneWay, Source={x:Static s:UserService.Current}}"
+                                                    Content="{Binding Path=Res.Sign, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                                     FontSize="10"
-                                                    IsVisible="{ReflectionBinding Path=!User.IsSignIn,
-                                                                                  Mode=OneWay,
-                                                                                  Source={x:Static s:UserService.Current}}" />
+                                                    IsVisible="{Binding Path=!User.IsSignIn, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
                                                 <Button
                                                     Margin="5,0"
                                                     FontSize="10"
-                                                    IsVisible="{ReflectionBinding Path=User.IsSignIn,
-                                                                                  Mode=OneWay,
-                                                                                  Source={x:Static s:UserService.Current}}"
-                                                    ToolTip.Tip="{ReflectionBinding Path=Res.Signed,
-                                                                                    Mode=OneWay,
-                                                                                    Source={x:Static s:ResourceService.Current}}">
+                                                    IsVisible="{Binding Path=User.IsSignIn, Mode=OneWay, Source={x:Static s:UserService.Current}}"
+                                                    ToolTip.Tip="{Binding Path=Res.Signed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                                     <Button.Content>
                                                         <MultiBinding StringFormat="{}{0} : {1}">
                                                             <Binding Path="Res.User_EngineOil" Source="{x:Static s:ResourceService.Current}" />
@@ -252,40 +227,34 @@
                                                         </MultiBinding>
                                                     </Button.Content>
                                                 </Button>
-                                            </WrapPanel>-->
+                                            </WrapPanel>
                                         </DockPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Header="-" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <MenuItem Header="{ReflectionBinding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <!--<MenuItem Header="{ReflectionBinding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />-->
-                                <MenuItem Header="{ReflectionBinding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <!--<MenuItem 
-																		Command="{ReflectionBinding Path=.,Source={x:Static spp:App.OpenBrowserCommand}}"
-																		CommandParameter="{x:Static spp:Constants.Urls.OfficialWebsite_AccountSafe}"
-																		Header="{ReflectionBinding Path=Res.ChangePassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />-->
-                                <MenuItem Header="-" IsVisible="{ReflectionBinding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="-" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="{Binding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <!--<MenuItem Header="{Binding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />-->
+                                <MenuItem Header="{Binding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem
-                                    Command="{ReflectionBinding Path=SignOut,
-                                                                Source={x:Static s:UserService.Current}}"
+                                    Command="{x:Static spp:App.OpenBrowserCommand}"
+                                    CommandParameter="https://steampp.net/account/center/safe"
+                                    Header="{Binding Path=Res.ChangePassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                    IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem Header="-" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem
+                                    Command="{Binding Path=SignOut, Mode=OneWay, Source={x:Static s:UserService.Current}}"
                                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                    Header="{ReflectionBinding Path=Res.SignOut,
-                                                               Mode=OneWay,
-                                                               Source={x:Static s:ResourceService.Current}}"
-                                    IsVisible="{ReflectionBinding Path=User,
-                                                                  Mode=OneWay,
-                                                                  Source={x:Static s:UserService.Current},
-                                                                  Converter={StaticResource IsNullConverter},
-                                                                  ConverterParameter=invert}" />
+                                    Header="{Binding Path=Res.SignOut, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                    IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <!--<MenuItem
-                                    Command="{ReflectionBinding Path=ShowWindow,
+                                    Command="{Binding Path=ShowWindow,
                                                                 Source={x:Static s:UserService.Current}}"
                                     CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
                                     Foreground="{DynamicResource SystemFillColorAttentionBrush}"
-                                    Header="{ReflectionBinding Path=Res.LoginAndRegister,
+                                    Header="{Binding Path=Res.LoginAndRegister,
                                                                Mode=OneWay,
                                                                Source={x:Static s:ResourceService.Current}}"
-                                    IsVisible="{ReflectionBinding Path=User,
+                                    IsVisible="{Binding Path=User,
                                                                   Mode=OneWay,
                                                                   Source={x:Static s:UserService.Current},
                                                                   Converter={StaticResource IsNullConverter}}" />-->
@@ -322,7 +291,7 @@
                 </Style>
                 <Style Selector="Grid#PaneToggleButtonGrid">
                     <Setter Property="Margin" Value="5 5 0 0" />
-                    <Setter Property="ToolTip.Tip" Value="{ReflectionBinding Path=Res.Back, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <Setter Property="ToolTip.Tip" Value="{Binding Path=Res.Back, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <Setter Property="ToolTip.Placement" Value="Bottom" />
                 </Style>
             </ui:NavigationView.Styles>

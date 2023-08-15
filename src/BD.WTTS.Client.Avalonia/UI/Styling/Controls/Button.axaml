@@ -69,6 +69,134 @@
                 <Setter Property="BorderBrush" Value="{DynamicResource HyperlinkButtonBorderBrushDisabled}" />
             </Style>
         </ControlTheme>
+
+        <ControlTheme x:Key="TransparentToggleButton" TargetType="ToggleButton">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="{StaticResource ButtonPadding}" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ui:FABorder
+                        Name="Root"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                        <ContentPresenter
+                            Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            RecognizesAccessKey="True" />
+                    </ui:FABorder>
+                </ControlTemplate>
+            </Setter>
+
+
+            <Style Selector="^:pointerover">
+                <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                </Style>
+            </Style>
+
+            <Style Selector="^:pressed">
+                <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Setter Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                </Style>
+            </Style>
+
+            <Style Selector="^:disabled">
+                <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Setter Property="Background" Value="{DynamicResource SubtleFillColorDisabledBrush}" />
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
+                </Style>
+            </Style>
+
+            <Style Selector="^:checked">
+                <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Setter Property="Background" Value="{DynamicResource ToggleButtonBackgroundChecked}" />
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource ToggleButtonForegroundChecked}" />
+                </Style>
+
+
+                <Style Selector="^:pointerover">
+                    <Style Selector="^ /template/ ui|FABorder#Root">
+                        <Setter Property="Background" Value="{DynamicResource ToggleButtonBackgroundCheckedPointerOver}" />
+                    </Style>
+                    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="{DynamicResource ToggleButtonForegroundCheckedPointerOver}" />
+                    </Style>
+                </Style>
+
+                <Style Selector="^:pressed">
+                    <Style Selector="^ /template/ ui|FABorder#Root">
+                        <Setter Property="Background" Value="{DynamicResource ToggleButtonBackgroundCheckedPressed}" />
+                    </Style>
+                    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="{DynamicResource ToggleButtonForegroundCheckedPressed}" />
+                    </Style>
+                </Style>
+
+                <Style Selector="^:disabled">
+                    <Style Selector="^ /template/ ui|FABorder#Root">
+                        <Setter Property="Background" Value="{DynamicResource SubtleFillColorDisabledBrush}" />
+                    </Style>
+                    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="{DynamicResource ToggleButtonForegroundCheckedDisabled}" />
+                    </Style>
+                </Style>
+            </Style>
+
+            <Style Selector="^:indeterminate">
+                <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Setter Property="Background" Value="{DynamicResource SubtleFillColorTransparentBrush}" />
+                </Style>
+
+
+                <Style Selector="^:pointerover">
+                    <Style Selector="^ /template/ ui|FABorder#Root">
+                        <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                    </Style>
+                </Style>
+
+                <Style Selector="^:pressed">
+                    <Style Selector="^ /template/ ui|FABorder#Root">
+                        <Setter Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
+                    </Style>
+                    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </Style>
+                </Style>
+
+                <Style Selector="^:disabled">
+                    <Style Selector="^ /template/ ui|FABorder#Root">
+                        <Setter Property="Background" Value="{DynamicResource SubtleFillColorDisabledBrush}" />
+                    </Style>
+                    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="{DynamicResource AccentTextFillColorDisabledBrush}" />
+                    </Style>
+                </Style>
+            </Style>
+        </ControlTheme>
     </Styles.Resources>
 
     <!--  Add Styles Here  -->

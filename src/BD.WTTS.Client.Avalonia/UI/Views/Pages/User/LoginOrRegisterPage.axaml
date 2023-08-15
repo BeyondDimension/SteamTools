@@ -9,7 +9,6 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    x:Name="u"
     MinWidth="350"
     MaxWidth="400"
     d:DesignHeight="450"
@@ -46,9 +45,7 @@
             <StackPanel Classes="Mid">
                 <TextBlock
                     HorizontalAlignment="Left"
-                    Text="{ReflectionBinding Path=Res.User_FastLoginTip,
-                                             Mode=OneWay,
-                                             Source={x:Static s:ResourceService.Current}}"
+                    Text="{Binding Path=Res.User_FastLoginTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                     Theme="{StaticResource CaptionTextBlockStyle}" />
                 <ItemsControl Background="Transparent" ItemsSource="{Binding ExternalLoginChannels}">
                     <ItemsControl.Styles>
@@ -69,7 +66,7 @@
                                 Margin="0,5"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
-                                Command="{ReflectionBinding #u.DataContext.ChooseChannel}"
+                                Command="{ReflectionBinding $parent[UserControl].DataContext.ChooseChannel}"
                                 CommandParameter="{Binding Id, Mode=OneWay}">
                                 <DockPanel>
                                     <Panel Margin="5,0,0,0" DockPanel.Dock="Left">
@@ -110,9 +107,7 @@
                         MaxLength="{x:Static com:PhoneNumberHelper.ChineseMainlandPhoneNumberLength}"
                         Text="{Binding PhoneNumber}"
                         TextAlignment="Left"
-                        Watermark="{ReflectionBinding Path=Res.User_Phone,
-                                                      Mode=OneWay,
-                                                      Source={x:Static s:ResourceService.Current}}" />
+                        Watermark="{Binding Path=Res.User_Phone, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <Border HorizontalAlignment="Left" Cursor="Hand">
                         <DropDownButton
                             Margin="0"
@@ -144,9 +139,7 @@
                         VerticalContentAlignment="Center"
                         MaxLength="{x:Static columns:MaxLengths.SMS_CAPTCHA}"
                         Text="{Binding SmsCode}"
-                        Watermark="{ReflectionBinding Path=Res.User_SMSCode,
-                                                      Mode=OneWay,
-                                                      Source={x:Static s:ResourceService.Current}}" />
+                        Watermark="{Binding Path=Res.User_SMSCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <Border
                         HorizontalAlignment="Right"
                         VerticalAlignment="Stretch"
@@ -157,7 +150,7 @@
                             VerticalAlignment="Stretch"
                             Background="Transparent"
                             BorderThickness="0"
-                            Command="{ReflectionBinding SendSms}"
+                            Command="{Binding SendSms}"
                             Content="{Binding BtnSendSmsCodeText}"
                             IsEnabled="{Binding !IsUnTimeLimit}" />
                     </Border>
@@ -169,24 +162,22 @@
                     HorizontalContentAlignment="Center"
                     Classes="accent"
                     Command="{Binding Submit}"
-                    Content="{ReflectionBinding Path=Res.LoginAndRegister,
-                                                Mode=OneWay,
-                                                Source={x:Static s:ResourceService.Current}}" />
+                    Content="{Binding Path=Res.LoginAndRegister, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
             </StackPanel>
 
             <!--  2 加载中状态  -->
             <StackPanel Classes="Mid">
-                <TextBlock Text="{ReflectionBinding Path=Res.User_WaitFastLoginTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Path=Res.User_WaitFastLoginTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" TextWrapping="Wrap" />
 
                 <WrapPanel Margin="0,20" HorizontalAlignment="Center">
-                    <TextBlock Text="{ReflectionBinding Path=Res.User_LoginUnexpectedPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                    <TextBlock Text="{Binding Path=Res.User_LoginUnexpectedPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
                     <ui:HyperlinkButton
                         Margin="5,0"
                         Padding="0"
                         HorizontalContentAlignment="Center"
                         Command="{Binding ManualLogin}">
-                        <TextBlock Text="{ReflectionBinding Path=Res.Login_ManualLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                        <TextBlock Text="{Binding Path=Res.Login_ManualLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
                     </ui:HyperlinkButton>
                 </WrapPanel>
 
@@ -205,10 +196,8 @@
                     Spacing="50">
                     <Button
                         HorizontalContentAlignment="Center"
-                        Command="{ReflectionBinding ChangeState}"
-                        Content="{ReflectionBinding Path=Res.Cancel,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}"
+                        Command="{Binding ChangeState}"
+                        Content="{Binding Path=Res.Cancel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                         Theme="{StaticResource TransparentButton}">
                         <Button.CommandParameter>
                             <x:Int16>0</x:Int16>
@@ -218,9 +207,7 @@
                         HorizontalContentAlignment="Center"
                         Command="{Binding ChooseChannel}"
                         CommandParameter="{Binding CurrentSelectChannel}"
-                        Content="{ReflectionBinding Path=Res.Retry,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}"
+                        Content="{Binding Path=Res.Retry, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                         Theme="{StaticResource TransparentButton}" />
                 </StackPanel>
             </StackPanel>
@@ -233,26 +220,24 @@
             HorizontalAlignment="Center">
             <TextBlock
                 FontSize="12"
-                Text="{ReflectionBinding Path=Res.User_RegisterAgreed,
-                                         Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}"
+                Text="{Binding Path=Res.User_RegisterAgreed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 Theme="{StaticResource CaptionTextBlockStyle}" />
             <ui:HyperlinkButton
                 Margin="5,0"
                 Padding="0"
-                Command="{ReflectionBinding OpenHyperlink}"
+                Command="{Binding OpenHyperlink}"
                 CommandParameter="Agreement"
                 Cursor="Hand">
-                <TextBlock Text="{ReflectionBinding Path=Res.User_Agreement, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                <TextBlock Text="{Binding Path=Res.User_Agreement, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
             </ui:HyperlinkButton>
-            <TextBlock Text="{ReflectionBinding Path=Res.And, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+            <TextBlock Text="{Binding Path=Res.And, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
             <ui:HyperlinkButton
                 Margin="5,0"
                 Padding="0"
-                Command="{ReflectionBinding OpenHyperlink}"
+                Command="{Binding OpenHyperlink}"
                 CommandParameter="Privacy"
                 Cursor="Hand">
-                <TextBlock Text="{ReflectionBinding Path=Res.User_Privacy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                <TextBlock Text="{Binding Path=Res.User_Privacy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
             </ui:HyperlinkButton>
         </WrapPanel>
 
@@ -264,13 +249,13 @@
             Orientation="Horizontal">
             <Button
                 HorizontalContentAlignment="Center"
-                Command="{ReflectionBinding ChangeState}"
+                Command="{Binding ChangeState}"
                 Cursor="Hand"
                 Theme="{StaticResource HyperlinkButton}">
                 <Button.CommandParameter>
                     <x:Int16>0</x:Int16>
                 </Button.CommandParameter>
-                <TextBlock Text="{ReflectionBinding Path=Res.User_FastLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.User_FastLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </Button>
             <Separator
                 Height="18"
@@ -281,13 +266,13 @@
                 IsHitTestVisible="False" />
             <Button
                 HorizontalContentAlignment="Center"
-                Command="{ReflectionBinding ChangeState}"
+                Command="{Binding ChangeState}"
                 Cursor="Hand"
                 Theme="{StaticResource HyperlinkButton}">
                 <Button.CommandParameter>
                     <x:Int16>1</x:Int16>
                 </Button.CommandParameter>
-                <TextBlock Text="{ReflectionBinding Path=Res.User_PhoneLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.User_PhoneLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </Button>
         </StackPanel>
     </Grid>

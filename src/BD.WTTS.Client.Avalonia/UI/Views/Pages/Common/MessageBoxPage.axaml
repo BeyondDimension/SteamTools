@@ -4,13 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:MessageBoxWindowViewModel"
     mc:Ignorable="d">
     <TextBox
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         Classes="readonlybox"
-        Text="{ReflectionBinding Content}"
+        Text="{Binding Content}"
         TextWrapping="Wrap" />
 </UserControl>

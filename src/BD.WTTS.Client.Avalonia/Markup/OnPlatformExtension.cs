@@ -34,6 +34,8 @@ public sealed class OnPlatformExtension : MarkupExtension<bool>
             "Mono" => OperatingSystem2.IsRunningOnMono(),
             "Windows10PackageIdentity" => OperatingSystem2.IsRunningAsUwp(),
             "DesktopBridge" => DesktopBridge.IsRunningAsUwp,
+            "SteamApp" => Startup.Instance.IsSteamRun,
+            "OfficialRelease" => !(Startup.Instance.IsSteamRun || DesktopBridge.IsRunningAsUwp),
             _ => false,
         };
 }

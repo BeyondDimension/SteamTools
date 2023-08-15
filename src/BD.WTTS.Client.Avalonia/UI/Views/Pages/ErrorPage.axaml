@@ -14,8 +14,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="16"
-            Text="{ReflectionBinding Path=Res.Error_PageFault,
-                                     Mode=OneWay,
-                                     Source={x:Static s:ResourceService.Current}}" />
+            Foreground="White"
+            Text="{Binding Path=Res.Error_PageFault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
     </Panel>
 </UserControl>

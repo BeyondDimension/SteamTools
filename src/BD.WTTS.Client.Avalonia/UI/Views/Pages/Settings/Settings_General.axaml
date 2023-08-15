@@ -16,68 +16,64 @@
     <StackPanel Spacing="{StaticResource SettingsSpacing}">
         <TextBlock
             Margin="0,0,0,10"
-            Text="{ReflectionBinding Path=Res.Settings_General,
-                                     Mode=OneWay,
-                                     Source={x:Static s:ResourceService.Current}}"
+            Text="{Binding Path=Res.Settings_General, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
-        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_StartupAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{Binding Path=Res.Settings_StartupAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{Binding Path=Res.Settings_General_StartAutoRun, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.AutoRunOnStartup}, Path=Value, Mode=TwoWay}" />
+                <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:GeneralSettings.AutoRunOnStartup}, Path=Value, Mode=TwoWay}" />
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_StartupNoShowMainWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{Binding Path=Res.Settings_StartupNoShowMainWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{Binding Path=Res.Settings_General_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEA6C;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.MinimizeOnStartup}, Path=Value, Mode=TwoWay}" />
+                <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:GeneralSettings.MinimizeOnStartup}, Path=Value, Mode=TwoWay}" />
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{Binding Path=Res.Settings_General_EnableTrayIcon_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{Binding Path=Res.Settings_General_EnableTrayIcon, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.TrayIcon}, Path=Value, Mode=TwoWay}" />
+                <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:GeneralSettings.TrayIcon}, Path=Value, Mode=TwoWay}" />
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_AutoCheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_General_AutoCheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.AutoCheckAppUpdate}, Path=Value, Mode=TwoWay}" />
+                <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:GeneralSettings.AutoCheckAppUpdate}, Path=Value, Mode=TwoWay}" />
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Header="{ReflectionBinding Path=Res.Settings_General_UpdateChannel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{ReflectionBinding Path=!., Source={spp:OnPlatform DesktopBridge}}">
+        <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_General_UpdateChannel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{spp:OnPlatform OfficialRelease}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE71D;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <ComboBox ItemsSource="{Binding UpdateChannels}" SelectedValue="{ReflectionBinding Source={x:Static ms:GeneralSettings.UpdateChannel}, Path=Value, Mode=TwoWay}" />
+                <ComboBox ItemsSource="{Binding UpdateChannels}" SelectedValue="{Binding Source={x:Static ms:GeneralSettings.UpdateChannel}, Path=Value, Mode=TwoWay}" />
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="{ReflectionBinding Path=Res.Settings_RestartEffective, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{ReflectionBinding Path=Res.Settings_General_UseGPURendering, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{Binding Path=Res.Settings_RestartEffective, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{Binding Path=Res.Settings_General_UseGPURendering, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE950;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.GPU}, Path=Value, Mode=TwoWay}" />
+                <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:GeneralSettings.GPU}, Path=Value, Mode=TwoWay}" />
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
         <ui:SettingsExpander
-            Header="{ReflectionBinding Path=Res.Settings_General_StorageSpace,
-                                       Mode=OneWay,
-                                       Source={x:Static s:ResourceService.Current}}"
+            Header="{Binding Path=Res.Settings_General_StorageSpace, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             IconSource="Globe"
             IsClickEnabled="False"
             IsExpanded="True"
@@ -89,39 +85,23 @@
                 <Button
                     Command="{Binding OpenFolder_Click}"
                     CommandParameter="{x:Null}"
-                    Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
-                                                Mode=OneWay,
-                                                Source={x:Static s:ResourceService.Current},
-                                                Converter={StaticResource StringFormatConverter},
-                                                ConverterParameter=App}" />
+                    Content="{Binding Path=Res.Settings_General_BrowseCustomFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter=App}" />
             </ui:SettingsExpander.Footer>
 
             <ui:SettingsExpanderItem
                 ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="AppData"
-                Content="{ReflectionBinding Path=Res.Settings_General_AppData,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}"
+                Content="{Binding Path=Res.Settings_General_AppData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 IsClickEnabled="True"
-                ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
-                                                Mode=OneWay,
-                                                Source={x:Static s:ResourceService.Current},
-                                                Converter={StaticResource StringFormatConverter},
-                                                ConverterParameter=AppData}" />
+                ToolTip.Tip="{Binding Path=Res.Settings_General_BrowseCustomFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter=AppData}" />
             <ui:SettingsExpanderItem
                 ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Cache"
-                Content="{ReflectionBinding Path=Res.Settings_General_CacheData,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}"
+                Content="{Binding Path=Res.Settings_General_CacheData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 IsClickEnabled="True"
-                ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
-                                                Mode=OneWay,
-                                                Source={x:Static s:ResourceService.Current},
-                                                Converter={StaticResource StringFormatConverter},
-                                                ConverterParameter=Cache}">
+                ToolTip.Tip="{Binding Path=Res.Settings_General_BrowseCustomFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Cache}">
                 <ui:SettingsExpanderItem.Footer>
                     <TextBlock
                         Name="CacheSize"
@@ -134,15 +114,9 @@
                 ActionIconSource="Open"
                 Command="{Binding OpenFolder_Click}"
                 CommandParameter="Logs"
-                Content="{ReflectionBinding Path=Res.Settings_General_LogsData,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}"
+                Content="{Binding Path=Res.Settings_General_LogsData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 IsClickEnabled="True"
-                ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
-                                                Mode=OneWay,
-                                                Source={x:Static s:ResourceService.Current},
-                                                Converter={StaticResource StringFormatConverter},
-                                                ConverterParameter=Logs}">
+                ToolTip.Tip="{Binding Path=Res.Settings_General_BrowseCustomFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Logs}">
                 <ui:SettingsExpanderItem.Footer>
                     <TextBlock
                         Name="LogSize"
