@@ -152,8 +152,10 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
         var fileEx = fileTypeResult.FileEx;
         var fileName = hashKey + fileEx;
         var subDirName = fileTypeResult.ImageFormat.HasValue ? "Images" : "Binaries";
-        var relativePath = Path.Combine(CacheDirName, subDirName, fileName);
-        var baseDirPath = Path.Combine(IOPath.CacheDirectory, CacheDirName, subDirName);
+        var hash_0 = hashKey[..2];
+        var hash_1 = hashKey[2..4]; // 通过两级目录来避免文件夹内文件过多造成的性能下降
+        var relativePath = Path.Combine(CacheDirName, subDirName, hash_0, hash_1, fileName);
+        var baseDirPath = Path.Combine(IOPath.CacheDirectory, CacheDirName, subDirName, hash_0, hash_1);
         IOPath.DirCreateByNotExists(baseDirPath);
         var filePath = Path.Combine(baseDirPath, fileName);
         var isWriteFile = true;
