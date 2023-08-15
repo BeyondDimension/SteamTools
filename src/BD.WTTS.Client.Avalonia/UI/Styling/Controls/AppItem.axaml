@@ -9,6 +9,32 @@
             <StackPanel Spacing="10">
                 <spp:AppItem
                     Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
+                    MaxHeight="90"
+                    Tags="111">
+                    <spp:AppItem.ActionButton>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Content="delete" />
+                            <Button Content="delete" />
+                            <Button Content="delete" />
+                        </StackPanel>
+                    </spp:AppItem.ActionButton>
+                    <spp:AppItem.Status>
+                        <Border Classes="Status">
+                            <TextBlock Text="免费下载" />
+                        </Border>
+                    </spp:AppItem.Status>
+                    <spp:AppItem.MoreFlyout>
+                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                            <ui:MenuFlyoutItem Text="112323" />
+                        </ui:FAMenuFlyout>
+                    </spp:AppItem.MoreFlyout>
+                    <spp:AppItem.Image>
+                        <spp:Image2 Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" />
+                    </spp:AppItem.Image>
+                </spp:AppItem>
+
+                <spp:AppItem
+                    Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
                     Description="This is a description of whatver this doesThis is a description of whatver this does"
                     ImageMargin="20,0"
                     Tags="111">
@@ -158,6 +184,9 @@
                                 Classes="CaptionTextBlockStyle"
                                 FontSize="12"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                IsVisible="{TemplateBinding Description,
+                                                            Converter={StaticResource IsNullConverter},
+                                                            ConverterParameter=invert}"
                                 Text="{TemplateBinding Description}"
                                 TextWrapping="Wrap" />
 
@@ -178,13 +207,13 @@
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 Grid.ColumnSpan="2"
+                                Margin="8,0,8,8"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 DockPanel.Dock="Bottom">
                                 <ContentPresenter Content="{TemplateBinding ActionButton}" DockPanel.Dock="Left" />
 
                                 <DropDownButton
-                                    Margin="8"
                                     Padding="6"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"

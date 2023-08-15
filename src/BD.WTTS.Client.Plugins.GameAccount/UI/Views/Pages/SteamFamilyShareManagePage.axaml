@@ -31,8 +31,8 @@
                             <spp:AppItem
                                 Title="{Binding SteamNickName}"
                                 MaxHeight="92"
-                                Description="{Binding TimeusedTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
-                                Status="{Binding Path=Res.Disabled, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                Status="{Binding Path=Res.Disabled, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                Tags="{Binding TimeusedTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}">
                                 <spp:AppItem.MoreFlyout>
                                     <ui:FAMenuFlyout>
                                         <!--<ui:MenuFlyoutItem Text="启用" />

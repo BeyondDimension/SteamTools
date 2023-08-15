@@ -35,7 +35,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
                 return;
             }
 
-            NavigationService.Instance.Navigate(typeof(ErrorPage), NavigationTransitionEffect.DrillIn);
+            NavigationService.Instance.Navigate(typeof(ErrorPage), NavigationTransitionEffect.Entrance);
         }
     }
 
@@ -49,7 +49,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
     //        return;
     //    }
 
-    //    NavigationService.Instance.Navigate(typeof(ErrorPage), NavigationTransitionEffect.DrillIn);
+    //    NavigationService.Instance.Navigate(typeof(ErrorPage), NavigationTransitionEffect.Entrance);
     //    //FrameView?.Navigate(typeof(ErrorPage), info);
     //}
 
