@@ -7,9 +7,8 @@ namespace BD.WTTS.Repositories;
 internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposable
 {
     const string DefaultRequestUri = "/";
-    const string DefaultRequestHost = "_";
-    const string HTTP = "HTTP";
-    const string TableName = "RequestCache";
+    const string CacheDirName = "Http";
+    const string TableName = "Fusillade_RequestCache";
     const string DbFileName = "RequestCache.LiteDB";
 
     readonly LiteDatabase db;
@@ -18,7 +17,7 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
 
     public RequestCacheRepository()
     {
-        var dbPath = Path.Combine(IOPath.CacheDirectory, HTTP);
+        var dbPath = Path.Combine(IOPath.CacheDirectory, CacheDirName);
         IOPath.DirCreateByNotExists(dbPath);
         dbPath = Path.Combine(dbPath, DbFileName);
         db = new LiteDatabase(dbPath);
@@ -138,17 +137,13 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
             return;
 
         var requestUri = response.RequestMessage?.RequestUri ?? request.RequestUri;
-        string requestHost, requestUriString;
+        string requestUriString;
         if (requestUri == null)
         {
             requestUriString = DefaultRequestUri;
-            requestHost = DefaultRequestHost;
         }
         else
         {
-            requestHost = requestUri.Host;
-            if (string.IsNullOrWhiteSpace(requestHost))
-                requestHost = DefaultRequestHost;
             requestUriString = requestUri.ToString();
         }
 
@@ -156,10 +151,11 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
         var hashKey = Hashs.String.SHA384(bytes, false);
         var fileEx = fileTypeResult.FileEx;
         var fileName = hashKey + fileEx;
-        var relativePath = Path.Combine(HTTP, requestHost, fileName);
-        var baseDirPath = Path.Combine(IOPath.CacheDirectory, HTTP, requestHost);
+        var subDirName = fileTypeResult.ImageFormat.HasValue ? "Images" : "Binaries";
+        var relativePath = Path.Combine(CacheDirName, subDirName, fileName);
+        var baseDirPath = Path.Combine(IOPath.CacheDirectory, CacheDirName, subDirName);
         IOPath.DirCreateByNotExists(baseDirPath);
-        var filePath = Path.Combine(IOPath.CacheDirectory, HTTP, requestHost, fileName);
+        var filePath = Path.Combine(baseDirPath, fileName);
         var isWriteFile = true;
         try
         {
@@ -286,7 +282,7 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
     public Task<int> DeleteAllAsync() => Task.Run(() =>
     {
         var r = table.DeleteAll();
-        var dirPath = Path.Combine(IOPath.CacheDirectory, HTTP);
+        var dirPath = Path.Combine(IOPath.CacheDirectory, CacheDirName);
         var items = Directory.EnumerateDirectories(dirPath);
         foreach (var item in items)
         {
