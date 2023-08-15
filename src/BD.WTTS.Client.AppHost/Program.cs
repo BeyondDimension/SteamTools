@@ -182,12 +182,12 @@ static unsafe partial class Program
     [System.Runtime.ExceptionServices.HandleProcessCorruptedStateExceptions]
 #endif
     [STAThread]
-    static int Main()
+    static int Main(string[] args)
 #if DEBUG
     {
         try
         {
-            var exitCode = MainCore();
+            var exitCode = MainCore(args);
             Console.ReadLine();
             return exitCode;
         }
@@ -201,7 +201,7 @@ static unsafe partial class Program
 #endif
 
 #if DEBUG
-    static int MainCore()
+    static int MainCore(string[] args)
 #endif
     {
         // TODO 合并 32 位与 64 位本机库？检查进程是否是 x64，加载不同的运行库与程序集
@@ -225,7 +225,7 @@ static unsafe partial class Program
                 AppDomain.CurrentDomain.BaseDirectory;
 #endif
 
-        if (!CompatibilityCheck(baseDirectory))
+        if (args.Length == 0 && !CompatibilityCheck(baseDirectory))
             return 0;
 
         var requireAspNetCore = RequireAspNetCore(baseDirectory);

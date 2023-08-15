@@ -172,7 +172,7 @@ public abstract partial class Startup
             if (!IsDesignMode) // 仅在非设计器中执行
             {
 #if WINDOWS // Windows 需要检查兼容性
-                if (!IsCustomEntryPoint && !CompatibilityCheck(AppContext.BaseDirectory))
+                if (args.Length == 0 && !IsCustomEntryPoint && !CompatibilityCheck(AppContext.BaseDirectory))
                     return 0;
 #elif MACOS // macOS 需要初始化 NSApplication
                 NSApplication.Init();

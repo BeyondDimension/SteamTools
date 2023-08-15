@@ -1,10 +1,31 @@
 using Fusillade;
+using LiteDB;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Repositories;
 
-internal sealed class RequestCacheRepository : CacheRepository<RequestCache, string>, IRequestCacheRepository
+internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposable
 {
+    const string DefaultRequestUri = "/";
+    const string DefaultRequestHost = "_";
+    const string HTTP = "HTTP";
+    const string TableName = "RequestCache";
+    const string DbFileName = "RequestCache.LiteDB";
+
+    readonly LiteDatabase db;
+    readonly ILiteCollection<RequestCache> table;
+    bool disposedValue;
+
+    public RequestCacheRepository()
+    {
+        var dbPath = Path.Combine(IOPath.CacheDirectory, HTTP);
+        IOPath.DirCreateByNotExists(dbPath);
+        dbPath = Path.Combine(dbPath, DbFileName);
+        db = new LiteDatabase(dbPath);
+        BsonMapper.Global.Entity<RequestCache>().Id(x => x.Id, autoId: false);
+        table = db.GetCollection<RequestCache>(TableName);
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static string GetRequestUri(HttpRequestMessage request)
         => request.RequestUri?.ToString() ?? "/";
@@ -29,35 +50,115 @@ internal sealed class RequestCacheRepository : CacheRepository<RequestCache, str
         if (rspContent == null)
             return;
 
-        var bytes = await rspContent.ReadAsByteArrayAsync();
+        var bytes = await rspContent.ReadAsByteArrayAsync(cancellationToken);
         if (!bytes.Any_Nullable())
             return;
 
-        var entity = new RequestCache
+        var requestUri = response.RequestMessage?.RequestUri ?? request.RequestUri;
+        string requestHost, requestUriString;
+        if (requestUri == null)
         {
-            Id = key,
-            HttpMethod = request.Method.Method,
-            RequestUri = GetRequestUri(request),
-            Response = bytes,
-        };
+            requestUriString = DefaultRequestUri;
+            requestHost = DefaultRequestHost;
+        }
+        else
+        {
+            requestHost = requestUri.Host;
+            if (string.IsNullOrWhiteSpace(requestHost))
+                requestHost = DefaultRequestHost;
+            requestUriString = requestUri.ToString();
+        }
+        var imageFormat = FileFormat.IsImage(bytes, out var imageFormat_)
+            ? imageFormat_ : (ImageFormat?)null;
 
-        await InsertOrUpdateAsync(entity, cancellationToken);
+        var hashKey = Hashs.String.SHA384(bytes, false);
+        var fileEx = imageFormat.HasValue ? imageFormat.Value.GetExtension() : FileEx.BIN;
+        var fileName = hashKey + fileEx;
+        var relativePath = Path.Combine(HTTP, requestHost, fileName);
+        var baseDirPath = Path.Combine(IOPath.CacheDirectory, HTTP, requestHost);
+        IOPath.DirCreateByNotExists(baseDirPath);
+        var filePath = Path.Combine(IOPath.CacheDirectory, HTTP, requestHost, fileName);
+        var isWriteFile = true;
+        try
+        {
+            var fileInfo = new FileInfo(filePath);
+            if (fileInfo.Exists)
+            {
+                if (isWriteFile = fileInfo.Length != bytes.Length)
+                {
+                    fileInfo.Delete();
+                }
+            }
+        }
+        catch
+        {
+
+        }
+        if (isWriteFile)
+        {
+            try
+            {
+                await File.WriteAllBytesAsync(filePath, bytes, cancellationToken); // 写入文件
+            }
+            catch
+            {
+                return;
+            }
+            finally
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    try
+                    {
+                        IOPath.FileIfExistsItDelete(filePath);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+        }
+
+        if (cancellationToken.IsCancellationRequested)
+            return;
+
+        var entity = table.FindById(key);
+        bool isInsertOrUpdate;
+        if (entity == null)
+        {
+            isInsertOrUpdate = true;
+            entity = new()
+            {
+                Id = key,
+            };
+        }
+        else
+        {
+            isInsertOrUpdate = false;
+        }
+        entity.HttpMethod = request.Method.Method;
+        entity.RequestUri = requestUriString;
+        entity.RelativePath = relativePath;
+
+        if (cancellationToken.IsCancellationRequested)
+            return;
+
+        if (isInsertOrUpdate)
+            table.Insert(entity);
+        else
+            table.Update(entity);
     }
 
-    public async Task UpdateUsageTimeByIdAsync(string id, CancellationToken cancellationToken)
+    public Task UpdateUsageTimeByIdAsync(string id, CancellationToken cancellationToken) => Task.Run(() =>
     {
-        var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        await AttemptAndRetry(async t =>
+        var entity = table.FindById(id);
+        if (!cancellationToken.IsCancellationRequested && entity != null)
         {
-            t.ThrowIfCancellationRequested();
-            const string sql_ = $"{SQLStrings.Update}[{RequestCache.TableName}] " +
-               $"set [{RequestCache.ColumnName_UsageTime}] = {{0}} " +
-               $"where [{RequestCache.ColumnName_Id}] = {{1}}";
-            var sql = string.Format(sql_, DateTimeOffset.Now.Ticks, id);
-            var r = await dbConnection.ExecuteAsync(sql);
-            return r;
-        }, cancellationToken: cancellationToken).ConfigureAwait(false);
-    }
+            var now = DateTimeOffset.Now.Ticks;
+            table.UpdateMany(x => new() { UsageTime = now, }, x => x.Id == id);
+        }
+    }, cancellationToken);
 
     async Task<byte[]> IRequestCache.Fetch(
         HttpRequestMessage request,
@@ -65,33 +166,83 @@ internal sealed class RequestCacheRepository : CacheRepository<RequestCache, str
         CancellationToken cancellationToken)
     {
         var requestUri = GetRequestUri(request);
-        var entity = await FirstOrDefaultAsync(x => x.Id == key &&
+        var entity = table.Query().Where(x => x.Id == key &&
             x.HttpMethod == request.Method.Method &&
-            x.RequestUri == requestUri,
-            cancellationToken);
+            x.RequestUri == requestUri).FirstOrDefault();
 
-        if (entity != null)
+        if (!cancellationToken.IsCancellationRequested && entity != null)
         {
+            try
+            {
+                var filePath = Path.Combine(IOPath.CacheDirectory, entity.RelativePath);
+                if (File.Exists(filePath))
+                {
+                    var bytes = await File.ReadAllBytesAsync(filePath, cancellationToken);
+                    return bytes;
+                }
+            }
+            catch
+            {
+                goto reZero;
+            }
             await UpdateUsageTimeByIdAsync(entity.Id, cancellationToken);
-            return entity.Response;
         }
 
-        return Array.Empty<byte>();
+    reZero: return Array.Empty<byte>();
     }
 
-    public async Task<int> DeleteAllAsync()
+    public Task<int> DeleteAllAsync() => Task.Run(() =>
     {
-        var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        var r = await dbConnection.DeleteAllAsync<RequestCache>();
+        var r = table.DeleteAll();
+        var dirPath = Path.Combine(IOPath.CacheDirectory, HTTP);
+        var items = Directory.EnumerateDirectories(dirPath);
+        foreach (var item in items)
+        {
+            IOPath.DirTryDelete(item, true);
+        }
         return r;
+    });
+
+    public Task<int> DeleteAllAsync(DateTimeOffset usageTime)
+    {
+        var usageTime_ = usageTime.Ticks;
+        return Task.Run(() =>
+        {
+            Expression<Func<RequestCache, bool>> predicate = x => x.UsageTime < usageTime_;
+            var r = table.DeleteMany(predicate);
+            if (r > 0)
+            {
+                var items = table.Query().Where(predicate).ToArray();
+                foreach (var item in items)
+                {
+                    var filePath = Path.Combine(IOPath.CacheDirectory, item.RelativePath);
+                    IOPath.FileTryDelete(filePath);
+                }
+            }
+            return r;
+        });
     }
 
-    public async Task<int> DeleteAllAsync(DateTimeOffset dateTimeOffset)
+    void Dispose(bool disposing)
     {
-        var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        const string sql = $"{SQLStrings.DeleteFrom}[{RequestCache.TableName}] " +
-               $"where [{RequestCache.ColumnName_UsageTime}] < ?";
-        var r = await dbConnection.ExecuteAsync(sql, dateTimeOffset.UtcTicks);
-        return r;
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // 释放托管状态(托管对象)
+                db.Dispose();
+            }
+
+            // 释放未托管的资源(未托管的对象)并重写终结器
+            // 将大型字段设置为 null
+            disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

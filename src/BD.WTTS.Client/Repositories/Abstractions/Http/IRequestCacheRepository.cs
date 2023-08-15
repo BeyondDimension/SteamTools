@@ -3,7 +3,7 @@ using Fusillade;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Repositories.Abstractions;
 
-public interface IRequestCacheRepository : IRepository<RequestCache, string>, IRequestCache
+public interface IRequestCacheRepository : IRequestCache
 {
     /// <summary>
     /// 根据主键更新使用时间
