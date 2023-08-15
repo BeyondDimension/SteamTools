@@ -301,10 +301,11 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
         return Task.Run(() =>
         {
             Expression<Func<RequestCache, bool>> predicate = x => x.UsageTime < usageTime_;
-            var r = table.DeleteMany(predicate);
+            var items = table.Query().Where(predicate).ToArray();
+            int r = items.Length;
             if (r > 0)
             {
-                var items = table.Query().Where(predicate).ToArray();
+                r = table.DeleteMany(predicate);
                 foreach (var item in items)
                 {
                     var filePath = Path.Combine(IOPath.CacheDirectory, item.RelativePath);
