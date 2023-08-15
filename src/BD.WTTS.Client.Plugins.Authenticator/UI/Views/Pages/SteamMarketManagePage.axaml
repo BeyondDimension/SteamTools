@@ -7,21 +7,13 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="{ReflectionBinding Name,
-                              Source={x:Static s:Plugin.Instance},
-                              Mode=OneWay}"
+    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:SteamMarketManagePageViewModel"
-    Description="{ReflectionBinding Description,
-                                    Source={x:Static s:Plugin.Instance},
-                                    Mode=OneWay}"
-    Subtitle="{ReflectionBinding Author,
-                                 Source={x:Static s:Plugin.Instance},
-                                 Mode=OneWay,
-                                 Converter={StaticResource StringFormatConverter},
-                                 ConverterParameter=Plugin_Author}"
+    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.Authenticator/UI/Assets/market.ico" />
@@ -44,9 +36,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.Settings_Auth,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Settings_Auth, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </ToggleButton>
             <DropDownButton
@@ -59,11 +49,11 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout>
-                        <ui:MenuFlyoutItem IsEnabled="False" Text="{ReflectionBinding Path=Res.Auth_Version, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem IsEnabled="False" Text="{Binding Path=Res.Auth_Version, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>

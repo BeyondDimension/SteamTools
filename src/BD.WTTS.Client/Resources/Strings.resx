@@ -1771,6 +1771,9 @@
   <data name="Enabled" xml:space="preserve">
     <value>已启用</value>
   </data>
+	<data name="Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
   <data name="Error_AnswerIncorrect" xml:space="preserve">
     <value>答案错误，请重试</value>
   </data>
@@ -2663,5 +2666,11 @@
   </data>
   <data name="YouNeedSignInToGetUID_" xml:space="preserve">
     <value>需要登录 {0} 账号才能获取 UID</value>
+  </data>
+	<data name="Script_ImportLoading" xml:space="preserve">
+    <value>处理导入脚本中</value>
+  </data>
+	<data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
+    <value>家庭共享库为空</value>
   </data>
 </root>

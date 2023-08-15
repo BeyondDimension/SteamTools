@@ -14,32 +14,32 @@
     x:DataType="spp:ProxySettingsWindowViewModel"
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
-        <ui:SettingsExpander Header="{ReflectionBinding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsExpanded="True">
+        <ui:SettingsExpander Header="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsExpanded="True">
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_SystemProxyIp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.Settings_Proxy_SystemProxyIp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
                         ItemsSource="{Binding SystemProxyIps}"
-                        Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},
+                        Text="{Binding Source={x:Static ms:ProxySettings.SystemProxyIp},
                                                  Path=Value,
                                                  Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
                         ItemsSource="{Binding ProxyDNSs}"
-                        Text="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMasterDns},
+                        Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns},
                                                  Path=Value,
                                                  Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
             <!--<DockPanel>
                 <Label Content="监听端口"></Label>
-                <NumericUpDown Value="{ReflectionBinding Source={x:Static ms:ProxySettings.HostProxyPortId},Path=Value, Mode=TwoWay}"
+                <NumericUpDown Value="{Binding Source={x:Static ms:ProxySettings.HostProxyPortId},Path=Value, Mode=TwoWay}"
                                FormatString="0"
                                Maximum="65535"/>
               </DockPanel>-->
@@ -47,26 +47,26 @@
             <!--<DockPanel>
                 <TextBlock Text="IPV6支持：" />
                 <TextBlock Text="IPV6地址" ></TextBlock>
-                <Button Content="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
+                <Button Content="{Binding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
               </DockPanel>-->
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AutoRunProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.CommunityFix_AutoRunProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
 
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyOnlyOnScript, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.CommunityFix_ProxyOnlyOnScript, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>
-                    <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript}, Path=Value, Mode=TwoWay}" />
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
 
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_EnableHttpProxyToHttps, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.CommunityFix_EnableHttpProxyToHttps, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>
-                    <ToggleSwitch Classes="LeftContent" IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.EnableHttpProxyToHttps}, Path=Value, Mode=TwoWay}" />
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableHttpProxyToHttps}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
 

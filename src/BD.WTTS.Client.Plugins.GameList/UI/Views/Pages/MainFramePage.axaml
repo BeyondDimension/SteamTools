@@ -30,7 +30,7 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="{ReflectionBinding Path=Res.Library, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <TabStripItem Content="{Binding Path=Res.Library, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:GameListPage" />
                 </TabStripItem.Tag>

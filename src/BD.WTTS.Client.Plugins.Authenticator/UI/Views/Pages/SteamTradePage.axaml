@@ -1,80 +1,70 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="BD.WTTS.UI.Views.Pages.SteamTradePage"
-    x:CompileBindings="True"
-    x:DataType="spp:SteamTradePageViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <UserControl.MinHeight>450</UserControl.MinHeight>
-    <UserControl.MinWidth>600</UserControl.MinWidth>
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamTradePageViewModel"
+    mc:Ignorable="d">
     <spp:ContentLoader IsLoading="{Binding IsLoading}">
         <Grid>
             <StackPanel
                 HorizontalAlignment="Center"
+                VerticalAlignment="Center"
                 IsVisible="{Binding !IsLogged}"
                 Orientation="Vertical"
-                Spacing="25"
-                VerticalAlignment="Center">
+                Spacing="25">
                 <TextBox
                     MaxWidth="300"
                     Text="{Binding UserNameText}"
-                    Watermark="{ReflectionBinding Path=Res.Steam_User,
-                                                  Mode=OneWay,
-                                                  Source={x:Static s:ResourceService.Current}}" />
+                    Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <TextBox
-                    Classes="revealPasswordButton"
-                    MaxWidth="300"
                     Name="PasswordText"
+                    MaxWidth="300"
+                    Classes="revealPasswordButton"
                     PasswordChar="{StaticResource PasswordChar}"
                     Text="{Binding PasswordText}"
-                    Watermark="{ReflectionBinding Path=Res.Steam_Password,
-                                                  Mode=OneWay,
-                                                  Source={x:Static s:ResourceService.Current}}" />
+                    Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <Button
-                    Command="{ReflectionBinding Login}"
-                    Content="{ReflectionBinding Path=Res.Login,
-                                                Mode=OneWay,
-                                                Source={x:Static s:ResourceService.Current}}"
+                    MinWidth="280"
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center"
-                    MinWidth="280" />
+                    Command="{Binding Login}"
+                    Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </StackPanel>
             <StackPanel>
                 <StackPanel.IsVisible>
                     <MultiBinding Converter="{x:Static BoolConverters.And}">
-                        <Binding Path="!IsLoading" />
-                        <Binding Path="IsLogged" />
+                        <CompiledBinding Path="!IsLoading" />
+                        <CompiledBinding Path="IsLogged" />
                     </MultiBinding>
                 </StackPanel.IsVisible>
                 <DockPanel>
                     <ui:CommandBar
+                        HorizontalAlignment="Left"
                         DefaultLabelPosition="Right"
                         DockPanel.Dock="Left"
-                        HorizontalAlignment="Left"
                         IsSticky="False">
                         <ui:CommandBar.PrimaryCommands>
                             <ui:CommandBarToggleButton
+                                Margin="30,0,0,0"
                                 IsChecked="{Binding SelectedAll}"
-                                Label="{ReflectionBinding Path=Res.SelectAll,
-                                                          Mode=OneWay,
-                                                          Source={x:Static s:ResourceService.Current}}"
-                                Margin="30,0,0,0" />
+                                Label="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         </ui:CommandBar.PrimaryCommands>
                     </ui:CommandBar>
                     <ui:CommandBar
+                        HorizontalAlignment="Right"
                         DefaultLabelPosition="Right"
                         DockPanel.Dock="Right"
-                        HorizontalAlignment="Right"
                         IsSticky="False">
                         <ui:CommandBar.PrimaryCommands>
-                            <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="{ReflectionBinding Path=Res.BatchPass, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                            <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="{Binding Path=Res.BatchPass, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                 <ui:CommandBarButton.IconSource>
                                     <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource CheckMark}" />
                                 </ui:CommandBarButton.IconSource>
@@ -84,18 +74,14 @@
                             <ui:CommandBarButton
                                 Command="{Binding CancelAllTrade}"
                                 IconSource="Cancel"
-                                Label="{ReflectionBinding Path=Res.BatchReject,
-                                                          Mode=OneWay,
-                                                          Source={x:Static s:ResourceService.Current}}" />
+                                Label="{Binding Path=Res.BatchReject, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         </ui:CommandBar.PrimaryCommands>
                         <ui:CommandBarSeparator />
                         <ui:CommandBar.PrimaryCommands>
                             <ui:CommandBarButton
                                 Command="{Binding Refresh}"
                                 IconSource="Refresh"
-                                Label="{ReflectionBinding Path=Res.Refresh,
-                                                          Mode=OneWay,
-                                                          Source={x:Static s:ResourceService.Current}}" />
+                                Label="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         </ui:CommandBar.PrimaryCommands>
                     </ui:CommandBar>
                 </DockPanel>
@@ -109,41 +95,41 @@
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding IsSelected}" />
                                     <Expander
-                                        HorizontalAlignment="Left"
-                                        MaxWidth="560"
                                         MinWidth="560"
+                                        MaxWidth="560"
+                                        HorizontalAlignment="Left"
                                         VerticalAlignment="Top">
                                         <Expander.Header>
-                                            <Grid ColumnDefinitions="Auto,Auto,*" Margin="0,10,0,10">
+                                            <Grid Margin="0,10,0,10" ColumnDefinitions="Auto,Auto,*">
                                                 <spp:Image2
                                                     Grid.Column="0"
+                                                    Width="128"
                                                     Height="128"
                                                     HorizontalAlignment="Left"
                                                     Source="{Binding Icon}"
-                                                    Stretch="None"
-                                                    Width="128" />
+                                                    Stretch="None" />
                                                 <Panel
                                                     Grid.Column="1"
-                                                    HorizontalAlignment="Left"
+                                                    MaxWidth="180"
                                                     Margin="5,5"
-                                                    MaxWidth="180">
+                                                    HorizontalAlignment="Left">
                                                     <TextBlock
+                                                        VerticalAlignment="Top"
                                                         MaxLines="3"
                                                         Text="{Binding TypeNameText}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalAlignment="Top" />
+                                                        TextWrapping="Wrap" />
                                                     <ui:FontIcon
-                                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                                        Glyph="&#xEDDA;"
                                                         HorizontalAlignment="Left"
-                                                        VerticalAlignment="Center" />
+                                                        VerticalAlignment="Center"
+                                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                        Glyph="&#xEDDA;" />
                                                     <TextBlock
                                                         Margin="0,50,0,0"
+                                                        VerticalAlignment="Center"
                                                         MaxLines="2"
                                                         Text="{Binding ReceiveSummary}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalAlignment="Center" />
-                                                    <TextBlock Text="{Binding CreateTime}" VerticalAlignment="Bottom" />
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock VerticalAlignment="Bottom" Text="{Binding CreateTime}" />
                                                 </Panel>
                                                 <ScrollViewer
                                                     Grid.Column="2"
@@ -160,10 +146,10 @@
                                                         <ItemsRepeater.ItemTemplate>
                                                             <DataTemplate>
                                                                 <spp:Image2
+                                                                    Width="96"
                                                                     Height="96"
                                                                     Source="{Binding}"
-                                                                    Stretch="None"
-                                                                    Width="96" />
+                                                                    Stretch="None" />
                                                             </DataTemplate>
                                                         </ItemsRepeater.ItemTemplate>
                                                     </ItemsRepeater>
@@ -172,60 +158,56 @@
                                         </Expander.Header>
                                         <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="*,Auto">
                                             <spp:Image2
-                                                Grid.Column="2"
                                                 Grid.Row="0"
+                                                Grid.Column="2"
+                                                Width="128"
                                                 Height="128"
                                                 HorizontalAlignment="Right"
-                                                Source="{Binding SelfIcon}"
-                                                Width="128" />
+                                                Source="{Binding SelfIcon}" />
                                             <Panel
-                                                Grid.Column="1"
                                                 Grid.Row="0"
-                                                HorizontalAlignment="Right"
+                                                Grid.Column="1"
+                                                MaxWidth="180"
                                                 Margin="5,5"
-                                                MaxWidth="180">
+                                                HorizontalAlignment="Right">
                                                 <TextBlock
                                                     HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
                                                     MaxLines="3"
-                                                    Text="{ReflectionBinding Path=Res.SteamTrade_YourOffer,
-                                                                             Mode=OneWay,
-                                                                             Source={x:Static s:ResourceService.Current}}"
-                                                    TextWrapping="Wrap"
-                                                    VerticalAlignment="Top" />
+                                                    Text="{Binding Path=Res.SteamTrade_YourOffer, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                                    TextWrapping="Wrap" />
                                                 <ui:FontIcon
-                                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                                    Glyph="&#xEDD9;"
                                                     HorizontalAlignment="Right"
-                                                    VerticalAlignment="Center" />
+                                                    VerticalAlignment="Center"
+                                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                    Glyph="&#xEDD9;" />
                                             </Panel>
                                             <StackPanel
-                                                Grid.Column="2"
                                                 Grid.Row="1"
+                                                Grid.Column="2"
                                                 Margin="0,10,0,0"
                                                 Orientation="Horizontal"
                                                 Spacing="10">
                                                 <Button
-                                                    Command="{ReflectionBinding RelativeSource={RelativeSource AncestorType=spp:SteamTradePage},
-                                                                                Path=DataContext.CancelTrade}"
+                                                    HorizontalAlignment="Left"
+                                                    Command="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).CancelTrade}"
                                                     CommandParameter="{Binding}"
-                                                    Content="{Binding Cancel}"
-                                                    HorizontalAlignment="Left" />
+                                                    Content="{Binding Cancel}" />
                                                 <Button
-                                                    Command="{ReflectionBinding RelativeSource={RelativeSource AncestorType=spp:SteamTradePage},
-                                                                                Path=DataContext.ConfirmTrade}"
+                                                    HorizontalAlignment="Right"
+                                                    Command="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).ConfirmTrade}"
                                                     CommandParameter="{Binding}"
-                                                    Content="{Binding Accept}"
-                                                    HorizontalAlignment="Right" />
+                                                    Content="{Binding Accept}" />
                                             </StackPanel>
                                             <TextBlock
-                                                Grid.Column="0"
                                                 Grid.Row="1"
-                                                HorizontalAlignment="Center"
-                                                Text="{Binding SendSummary}"
-                                                VerticalAlignment="Center" />
-                                            <ScrollViewer
                                                 Grid.Column="0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding SendSummary}" />
+                                            <ScrollViewer
                                                 Grid.Row="0"
+                                                Grid.Column="0"
                                                 HorizontalAlignment="Right"
                                                 HorizontalScrollBarVisibility="Auto"
                                                 VerticalScrollBarVisibility="Disabled">
@@ -239,10 +221,10 @@
                                                     <ItemsRepeater.ItemTemplate>
                                                         <DataTemplate>
                                                             <spp:Image2
+                                                                Width="96"
                                                                 Height="96"
                                                                 Source="{Binding}"
-                                                                Stretch="None"
-                                                                Width="96" />
+                                                                Stretch="None" />
                                                         </DataTemplate>
                                                     </ItemsRepeater.ItemTemplate>
                                                 </ItemsRepeater>

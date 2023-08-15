@@ -19,7 +19,7 @@
                     <TextBlock
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                        Text="{Binding Source={x:Static s:ResourceService.Current},
                                                  Path=Res.LocalAuth_ShowAuthInfo,
                                                  Mode=OneWay}"
                         TextTrimming="CharacterEllipsis" />
@@ -31,7 +31,7 @@
                                     FontFamily="{StaticResource SymbolThemeFontFamily}"
                                     FontSize="16"
                                     Glyph="&#xE18B;" />
-                                <TextBlock Text="{ReflectionBinding Path=Res.ShowHide, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                <TextBlock Text="{Binding Path=Res.ShowHide, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                             </StackPanel>
                         </ToggleButton.Content>
                     </ToggleButton>
@@ -40,43 +40,43 @@
                     VerticalAlignment="Center"
                     FontSize="12"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
+                    Text="{Binding Source={x:Static s:ResourceService.Current},
                                              Path=Res.LocalAuth_ShowSteamAuthTip2}"
                     TextWrapping="Wrap" />
             </StackPanel>
         </Border>
         <Border Classes="Item">
             <DockPanel>
-                <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_SteamUUID}" />
+                <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_SteamUUID}" />
                 <TextBox
                     Margin="5,0,0,0"
                     IsReadOnly="True"
                     PasswordChar="{StaticResource PasswordChar}"
-                    RevealPassword="{ReflectionBinding #ShowDetail.IsChecked}"
+                    RevealPassword="{Binding #ShowDetail.IsChecked}"
                     Text="{Binding DeviceId}" />
             </DockPanel>
         </Border>
         <Border Classes="Item">
             <DockPanel>
-                <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Source={x:Static s:ResourceService.Current}, Path=Res.RecoveryCode}" />
+                <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.RecoveryCode}" />
                 <TextBox
                     Margin="5,0,0,0"
                     IsReadOnly="True"
                     PasswordChar="{StaticResource PasswordChar}"
-                    RevealPassword="{ReflectionBinding #ShowDetail.IsChecked}"
+                    RevealPassword="{Binding #ShowDetail.IsChecked}"
                     Text="{Binding RecoverCode}" />
             </DockPanel>
         </Border>
         <Border Classes="Item">
             <StackPanel Spacing="10">
                 <TextBlock Text="SteamGuard" />
-                <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowSteamAuthTip1, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.LocalAuth_ShowSteamAuthTip1, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <TextBox
                     Height="250"
                     AcceptsReturn="True"
                     IsReadOnly="True"
                     PasswordChar="{StaticResource PasswordChar}"
-                    RevealPassword="{ReflectionBinding #ShowDetail.IsChecked}"
+                    RevealPassword="{Binding #ShowDetail.IsChecked}"
                     Text="{Binding SteamData}" />
             </StackPanel>
         </Border>

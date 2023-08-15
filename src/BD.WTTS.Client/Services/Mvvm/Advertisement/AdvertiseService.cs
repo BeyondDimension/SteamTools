@@ -12,13 +12,13 @@ public sealed class AdvertiseService : ReactiveObject
 
     public SourceCache<AdvertisementDTO, Guid> AdvertisementsSource { get; }
 
-    readonly ReadOnlyObservableCollection<AdvertisementDTO>? _HorizontalBannerAdvertisements;
+    readonly ReadOnlyObservableCollection<AdvertisementDTO> _HorizontalBannerAdvertisements;
 
-    public ReadOnlyObservableCollection<AdvertisementDTO>? HorizontalBannerAdvertisements => _HorizontalBannerAdvertisements;
+    public ReadOnlyObservableCollection<AdvertisementDTO> HorizontalBannerAdvertisements => _HorizontalBannerAdvertisements;
 
-    readonly ReadOnlyObservableCollection<AdvertisementDTO>? _VerticalBannerAdvertisements;
+    readonly ReadOnlyObservableCollection<AdvertisementDTO> _VerticalBannerAdvertisements;
 
-    public ReadOnlyObservableCollection<AdvertisementDTO>? VerticalBannerAdvertisements => _VerticalBannerAdvertisements;
+    public ReadOnlyObservableCollection<AdvertisementDTO> VerticalBannerAdvertisements => _VerticalBannerAdvertisements;
 
     [Reactive]
     public bool IsInitialized { get; set; }

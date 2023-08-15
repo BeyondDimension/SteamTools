@@ -14,38 +14,34 @@
     x:CompileBindings="True"
     x:DataType="spp:DownloadPageViewModel"
     Description="监听 Steam 下载任务并提供下载安装完成后执行睡眠、休眠、关机功能"
-    Subtitle="{ReflectionBinding Author,
-                                 Source={x:Static s:Plugin.Instance},
-                                 Mode=OneWay,
-                                 Converter={StaticResource StringFormatConverter},
-                                 ConverterParameter=Plugin_Author}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="6">
             <!--<ToggleSwitch
-                IsChecked="{ReflectionBinding Source={x:Static s:SteamConnectService.Current},
+                IsChecked="{Binding Source={x:Static s:SteamConnectService.Current},
                                               Path=IsWatchSteamDownloading,
                                               Mode=TwoWay}"
-                OffContent="{ReflectionBinding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
+                OffContent="{Binding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
                                                Mode=OneWay,
                                                Source={x:Static s:ResourceService.Current}}"
-                OnContent="{ReflectionBinding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
+                OnContent="{Binding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
                                               Mode=OneWay,
                                               Source={x:Static s:ResourceService.Current}}" />-->
 
-            <ToggleSplitButton IsChecked="{ReflectionBinding Source={x:Static s:SteamConnectService.Current}, Path=IsWatchSteamDownloading, Mode=TwoWay}">
+            <ToggleSplitButton IsChecked="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsWatchSteamDownloading, Mode=TwoWay}">
                 <ToggleSplitButton.Content>
                     <TextBlock>
                         <TextBlock.Text>
                             <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                <Binding
+                                <CompiledBinding
                                     Mode="OneWay"
                                     Path="Res.GameList_SteamShutdown_DownloadComplete"
                                     Source="{x:Static s:ResourceService.Current}}" />
-                                <Binding
+                                <CompiledBinding
                                     Converter="{StaticResource EnumLocalizationNameConverter}"
                                     Mode="OneWay"
                                     Path="Value"
@@ -58,33 +54,18 @@
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
                         <ui:RadioMenuFlyoutItem
                             GroupName="OSExit"
-                            IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode},
-                                                          Path=Value,
-                                                          Mode=TwoWay,
-                                                          Converter={StaticResource EnumEqualValueConverter},
-                                                          ConverterParameter={x:Static spp:OSExitMode.Sleep}}"
-                            Text="{ReflectionBinding Source={x:Static spp:OSExitMode.Sleep},
-                                                     Converter={StaticResource EnumLocalizationNameConverter}}" />
+                            IsChecked="{Binding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:OSExitMode.Sleep}}"
+                            Text="{Binding Source={x:Static spp:OSExitMode.Sleep}, Converter={StaticResource EnumLocalizationNameConverter}}" />
                         <ui:RadioMenuFlyoutItem
                             GroupName="OSExit"
-                            IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode},
-                                                          Path=Value,
-                                                          Mode=TwoWay,
-                                                          Converter={StaticResource EnumEqualValueConverter},
-                                                          ConverterParameter={x:Static spp:OSExitMode.Hibernate}}"
+                            IsChecked="{Binding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:OSExitMode.Hibernate}}"
                             IsVisible="{OnPlatform True,
                                                    macOS=False}"
-                            Text="{ReflectionBinding Source={x:Static spp:OSExitMode.Hibernate},
-                                                     Converter={StaticResource EnumLocalizationNameConverter}}" />
+                            Text="{Binding Source={x:Static spp:OSExitMode.Hibernate}, Converter={StaticResource EnumLocalizationNameConverter}}" />
                         <ui:RadioMenuFlyoutItem
                             GroupName="OSExit"
-                            IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode},
-                                                          Path=Value,
-                                                          Mode=TwoWay,
-                                                          Converter={StaticResource EnumEqualValueConverter},
-                                                          ConverterParameter={x:Static spp:OSExitMode.Shutdown}}"
-                            Text="{ReflectionBinding Source={x:Static spp:OSExitMode.Shutdown},
-                                                     Converter={StaticResource EnumLocalizationNameConverter}}" />
+                            IsChecked="{Binding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:OSExitMode.Shutdown}}"
+                            Text="{Binding Source={x:Static spp:OSExitMode.Shutdown}, Converter={StaticResource EnumLocalizationNameConverter}}" />
                     </ui:FAMenuFlyout>
                 </ToggleSplitButton.Flyout>
             </ToggleSplitButton>
@@ -98,15 +79,13 @@
                 DockPanel.Dock="Right"
                 IsHitTestVisible="False" />
 
-            <CheckBox Content="{ReflectionBinding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding IsAllCheck, Mode=TwoWay}" />
+            <CheckBox Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding IsAllCheck, Mode=TwoWay}" />
         </StackPanel>
     </spp:PageBase.ActionContent>
     <spp:ContentLoader
         IsLoading="false"
         IsShowNoResultText="{Binding !!!DownloadingApps.Count, Mode=OneWay}"
-        NoResultMessage="{ReflectionBinding Path=Res.GameList_SteamShutdown_AppsEmpty,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{Binding Path=Res.GameList_SteamShutdown_AppsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
         <ItemsControl ItemsSource="{Binding DownloadingApps}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -130,9 +109,7 @@
                                 <WrapPanel>
                                     <TextBlock
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                        Text="{ReflectionBinding Path=Res.Downloaded,
-                                                                 Mode=OneWay,
-                                                                 Source={x:Static s:ResourceService.Current}}"
+                                        Text="{Binding Path=Res.Downloaded, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                         Theme="{StaticResource CaptionTextBlockStyle}" />
                                     <TextBlock
                                         Margin="5,0,0,0"
@@ -140,11 +117,11 @@
                                         Theme="{StaticResource CaptionTextBlockStyle}">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} / {1}">
-                                                <Binding
+                                                <CompiledBinding
                                                     Converter="{StaticResource StringFormatConverter}"
                                                     ConverterParameter="size"
                                                     Path="BytesDownloaded" />
-                                                <Binding
+                                                <CompiledBinding
                                                     Converter="{StaticResource StringFormatConverter}"
                                                     ConverterParameter="size"
                                                     Path="BytesToDownload" />
@@ -164,9 +141,7 @@
                                 <WrapPanel>
                                     <TextBlock
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                        Text="{ReflectionBinding Path=Res.Installed,
-                                                                 Mode=OneWay,
-                                                                 Source={x:Static s:ResourceService.Current}}"
+                                        Text="{Binding Path=Res.Installed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                         Theme="{StaticResource CaptionTextBlockStyle}" />
                                     <TextBlock
                                         Margin="5,0,0,0"
@@ -174,11 +149,11 @@
                                         Theme="{StaticResource CaptionTextBlockStyle}">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} / {1}">
-                                                <Binding
+                                                <CompiledBinding
                                                     Converter="{StaticResource StringFormatConverter}"
                                                     ConverterParameter="size"
                                                     Path="BytesStaged" />
-                                                <Binding
+                                                <CompiledBinding
                                                     Converter="{StaticResource StringFormatConverter}"
                                                     ConverterParameter="size"
                                                     Path="BytesToStage" />

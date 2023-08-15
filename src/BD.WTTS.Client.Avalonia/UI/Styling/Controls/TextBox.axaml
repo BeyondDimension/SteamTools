@@ -2,7 +2,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="https://steampp.net/services"
-    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:CompileBindings="True">
     <Design.PreviewWith>
         <Border Padding="20">
             <StackPanel Spacing="5">
@@ -26,34 +27,26 @@
             <MenuItem
                 x:Name="TextBoxContextMenuCutItem"
                 Command="{Binding $parent[TextBox].Cut}"
-                Header="{ReflectionBinding Path=Res.Cut,
-                                           Mode=OneWay,
-                                           Source={x:Static s:ResourceService.Current}}"
+                Header="{Binding Path=Res.Cut, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 InputGesture="{x:Static TextBox.CutGesture}"
                 IsEnabled="{Binding $parent[TextBox].CanCut}" />
             <MenuItem
                 x:Name="TextBoxContextMenuCopyItem"
                 Command="{Binding $parent[TextBox].Copy}"
-                Header="{ReflectionBinding Path=Res.Copy,
-                                           Mode=OneWay,
-                                           Source={x:Static s:ResourceService.Current}}"
+                Header="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 InputGesture="{x:Static TextBox.CopyGesture}"
                 IsEnabled="{Binding $parent[TextBox].CanCopy}" />
             <MenuItem
                 x:Name="TextBoxContextMenuPasteItem"
                 Command="{Binding $parent[TextBox].Paste}"
-                Header="{ReflectionBinding Path=Res.Paste,
-                                           Mode=OneWay,
-                                           Source={x:Static s:ResourceService.Current}}"
+                Header="{Binding Path=Res.Paste, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 InputGesture="{x:Static TextBox.PasteGesture}"
                 IsEnabled="{Binding $parent[TextBox].CanPaste}" />
             <MenuItem Header="-" />
             <MenuItem
                 x:Name="TextBoxContextMenuSelectAllItem"
                 Command="{Binding $parent[TextBox].SelectAll}"
-                Header="{ReflectionBinding Path=Res.SelectAll,
-                                           Mode=OneWay,
-                                           Source={x:Static s:ResourceService.Current}}"
+                Header="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 InputGesture="Ctrl + A"
                 IsEnabled="{Binding $parent[TextBox].Text, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
         </MenuFlyout>

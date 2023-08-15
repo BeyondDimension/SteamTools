@@ -2,7 +2,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ms="https://steampp.net/settings"
-    xmlns:sys="using:System">
+    xmlns:sys="using:System"
+    x:CompileBindings="True">
     <Styles.Resources>
         <ResourceDictionary>
             <sys:Double x:Key="TitleBarHeight">60</sys:Double>
@@ -75,12 +76,12 @@
 					<Panel>
 						<Panel.Background>
 							<SolidColorBrush Color="{DynamicResource SolidBackgroundFillColorBase}"
-											 Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" />
+											 Opacity="{Binding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" />
 						</Panel.Background>
-						<Image Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
-							   Stretch="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImageStretch},Path=Value, Mode=OneWay}"
-							   Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.BackgroundImageOpacity},Mode=OneWay}"
-							   IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay}"/>
+						<Image Source="{Binding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+							   Stretch="{Binding Source={x:Static ms:UISettings.BackgroundImageStretch},Path=Value, Mode=OneWay}"
+							   Opacity="{Binding Value,Source={x:Static ms:UISettings.BackgroundImageOpacity},Mode=OneWay}"
+							   IsVisible="{Binding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay}"/>
 					</Panel>
 				</VisualBrush.Visual>
 			</VisualBrush>
@@ -89,10 +90,10 @@
 
     <!--<Style Selector=":is(Window):image">
 		<Setter Property="Background">
-			<ImageBrush Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
-				   Stretch="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImageStretch},Path=Value, Mode=OneWay}"
+			<ImageBrush Source="{Binding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+				   Stretch="{Binding Source={x:Static ms:UISettings.BackgroundImageStretch},Path=Value, Mode=OneWay}"
 				   BitmapInterpolationMode="HighQuality"
-				   Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.BackgroundImageOpacity},Mode=OneWay}"/>
+				   Opacity="{Binding Value,Source={x:Static ms:UISettings.BackgroundImageOpacity},Mode=OneWay}"/>
 		</Setter>
 	</Style>-->
 

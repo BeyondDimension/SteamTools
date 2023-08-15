@@ -8,7 +8,6 @@
     xmlns:scmd="using:BD.SteamClient.Models"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    x:Name="u"
     MinWidth="350"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -18,9 +17,7 @@
     <spp:ContentLoader
         IsLoading="False"
         IsShowNoResultText="{Binding IsAuthorizedListEmpty}"
-        NoResultMessage="{ReflectionBinding Path=Res.SteamAccountPage_ShareEmpt,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{Binding Path=Res.SteamAccountPage_ShareEmpt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
         <ScrollViewer>
             <ItemsControl ItemsSource="{Binding AuthorizedList}">
                 <ItemsControl.ItemsPanel>
@@ -35,40 +32,36 @@
                                 Title="{Binding SteamNickName}"
                                 MaxHeight="92"
                                 Description="{Binding TimeusedTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
-                                Status="{ReflectionBinding Path=Res.Steam_ShareDisable,
-                                                           Mode=OneWay,
-                                                           Source={x:Static s:ResourceService.Current}}">
+                                Status="{Binding Path=Res.Disabled, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                 <spp:AppItem.MoreFlyout>
                                     <ui:FAMenuFlyout>
                                         <!--<ui:MenuFlyoutItem Text="启用" />
                                         <ui:MenuFlyoutItem Text="禁用" />
                                         <ui:MenuFlyoutSeparator />-->
                                         <ui:MenuFlyoutItem
-                                            Command="{ReflectionBinding #u.DataContext.SetFirstButton_Click}"
+                                            Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).SetFirstButton_Click}"
                                             CommandParameter="{Binding}"
                                             Text="置顶" />
                                         <ui:MenuFlyoutItem
-                                            Command="{ReflectionBinding #u.DataContext.UpButton_Click}"
+                                            Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).UpButton_Click}"
                                             CommandParameter="{Binding}"
                                             Text="上移" />
                                         <ui:MenuFlyoutItem
-                                            Command="{ReflectionBinding #u.DataContext.DownButton_Click}"
+                                            Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).DownButton_Click}"
                                             CommandParameter="{Binding}"
                                             Text="下移" />
                                         <ui:MenuFlyoutSeparator />
                                         <ui:MenuFlyoutItem
-                                            Command="{ReflectionBinding #u.DataContext.RemoveButton_Click}"
+                                            Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).RemoveButton_Click}"
                                             CommandParameter="{Binding}"
-                                            Text="{ReflectionBinding Path=Res.Delete,
-                                                                     Mode=OneWay,
-                                                                     Source={x:Static s:ResourceService.Current}}" />
+                                            Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.MoreFlyout>
-                                <spp:AppItem.ActionButton>
+                                <spp:AppItem.Status>
                                     <StackPanel Orientation="Horizontal" Spacing="2">
                                         <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !Disable, Mode=TwoWay}" />
                                     </StackPanel>
-                                </spp:AppItem.ActionButton>
+                                </spp:AppItem.Status>
                                 <spp:AppItem.Image>
                                     <spp:Image2
                                         Height="92"

@@ -1,6 +1,9 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:CompileBindings="True">
     <Design.PreviewWith>
-        <Border Width="400     " Padding="20">
+        <Border Width="400" Padding="20">
             <!--  Add Controls for Previewer Here  -->
             <TabControl>
                 <TabItem Classes="AnimeTab" Header="Arch">

@@ -16,14 +16,10 @@
     x:CompileBindings="True"
     x:DataType="spp:IdleAppsPageViewModel"
     Description="不需要真正启动游戏即可让 Steam 认为你在同时运行多个游戏，达到运行时长增长目的"
-    Subtitle="{ReflectionBinding Author,
-                                 Source={x:Static s:Plugin.Instance},
-                                 Mode=OneWay,
-                                 Converter={StaticResource StringFormatConverter},
-                                 ConverterParameter=Plugin_Author}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -34,12 +30,10 @@
                 IsIndeterminate="True"
                 IsVisible="{Binding RunLoaingState}"
                 Orientation="Vertical"
-                ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RuningWait,
-                                                Mode=OneWay,
-                                                Source={x:Static s:ResourceService.Current}}" />
+                ToolTip.Tip="{Binding Path=Res.GameList_RuningWait, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <Button
                 Padding="8,4"
-                Command="{ReflectionBinding RunOrStopAllButton_Click}"
+                Command="{Binding RunOrStopAllButton_Click}"
                 DockPanel.Dock="Right"
                 IsVisible="{Binding !RunState}"
                 Theme="{StaticResource TransparentButton}">
@@ -54,14 +48,12 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.GameList_RuningBtn,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.GameList_RuningBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
             <Button
                 Padding="8,4"
-                Command="{ReflectionBinding RunOrStopAllButton_Click}"
+                Command="{Binding RunOrStopAllButton_Click}"
                 DockPanel.Dock="Right"
                 IsVisible="{Binding RunState}"
                 Theme="{StaticResource TransparentButton}">
@@ -76,14 +68,12 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.GameList_StopBtn,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.GameList_StopBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
             <Button
                 Padding="8,4"
-                Command="{ReflectionBinding Refresh_Click}"
+                Command="{Binding Refresh_Click}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
@@ -97,9 +87,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.Refresh,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
             <DropDownButton
@@ -112,32 +100,30 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:ToggleMenuFlyoutItem IsChecked="{ReflectionBinding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps}, Path=Value}" Text="{ReflectionBinding Path=Res.GameList_AutoAFK, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps}, Path=Value}" Text="{Binding Path=Res.GameList_AutoAFK, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem
                             Command="{Binding DeleteAllButton_Click}"
                             Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                             IconSource="Delete"
-                            Text="{ReflectionBinding Path=Res.GameList_RemoveBtn,
-                                                     Mode=OneWay,
-                                                     Source={x:Static s:ResourceService.Current}}" />
+                            Text="{Binding Path=Res.GameList_RemoveBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <Binding
+                                    <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <Binding
+                                    <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -146,9 +132,7 @@
     <spp:ContentLoader
         IsLoading="false"
         IsShowNoResultText="{Binding !!!IdleGameList.Count, Mode=OneWay}"
-        NoResultMessage="{ReflectionBinding Path=Res.GameList_AddIdeaAppEmpty,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{Binding Path=Res.GameList_AddIdeaAppEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
         <ItemsControl ItemsSource="{Binding IdleGameList}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -175,9 +159,7 @@
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
-                                                Text="{ReflectionBinding Path=Res.GameList_RunState,
-                                                                         Mode=OneWay,
-                                                                         Source={x:Static s:ResourceService.Current}}" />
+                                                Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         </WrapPanel>
                                         <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}}">
                                             <Ellipse
@@ -188,19 +170,17 @@
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
-                                                Text="{ReflectionBinding Path=Res.GameList_StopState,
-                                                                         Mode=OneWay,
-                                                                         Source={x:Static s:ResourceService.Current}}" />
+                                                Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         </WrapPanel>
                                     </Panel>
                                 </Border>
                             </spp:AppItem.Status>
                             <!--<spp:AppItem.ActionButton>
                                 <Button
-                                    Command="{ReflectionBinding $parent[spp:PageBase].DataContext.DeleteButtonCommand}"
+                                    Command="{Binding $parent[spp:PageBase].((spp:IdleAppsPageViewModel)DataContext).DeleteButtonCommand}"
                                     CommandParameter="{Binding}"
                                     Cursor="Hand"
-                                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RemoveItemBtn,
+                                    ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn,
                                                                     Mode=OneWay,
                                                                     Source={x:Static s:ResourceService.Current}}">
                                     <Viewbox>
@@ -211,20 +191,20 @@
                             <spp:AppItem.Image>
                                 <Panel x:Name="ItemImage">
                                     <i:Interaction.Behaviors>
-                                        <ia:EventTriggerBehavior EventName="PointerEntered" SourceObject="{ReflectionBinding #ItemImage}">
+                                        <ia:EventTriggerBehavior EventName="PointerEntered" SourceObject="{Binding #ItemImage}">
                                             <ia:ChangePropertyAction
                                                 PropertyName="IsVisible"
-                                                TargetObject="{ReflectionBinding #ItemBox}"
+                                                TargetObject="{Binding #ItemBox}"
                                                 Value="True" />
                                         </ia:EventTriggerBehavior>
-                                        <ia:EventTriggerBehavior EventName="PointerExited" SourceObject="{ReflectionBinding #ItemImage}">
+                                        <ia:EventTriggerBehavior EventName="PointerExited" SourceObject="{Binding #ItemImage}">
                                             <ia:ChangePropertyAction
                                                 PropertyName="IsVisible"
-                                                TargetObject="{ReflectionBinding #ItemBox}"
+                                                TargetObject="{Binding #ItemBox}"
                                                 Value="False" />
                                         </ia:EventTriggerBehavior>
                                     </i:Interaction.Behaviors>
-                                    <Panel MinWidth="{ReflectionBinding $parent[spp:AppItem].MinWidth}" MaxWidth="{ReflectionBinding $parent[spp:AppItem].MaxWidth}">
+                                    <Panel MinWidth="{Binding $parent[spp:AppItem].MinWidth}" MaxWidth="{Binding $parent[spp:AppItem].MaxWidth}">
                                         <spp:Image2
                                             Name="AppImage"
                                             DecodeWidth="120"
@@ -237,7 +217,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                            IsVisible="{ReflectionBinding #AppImage.IsFailed}"
+                                            IsVisible="{Binding #AppImage.IsFailed}"
                                             Text="{Binding DisplayName}"
                                             TextAlignment="Center"
                                             TextWrapping="WrapWithOverflow"
@@ -277,13 +257,11 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Classes="Plain"
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.RunStopBtnCommand}"
+                                            Command="{Binding $parent[spp:PageBase].((spp:IdleAppsPageViewModel)DataContext).RunStopBtnCommand}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
                                             IsVisible="{Binding !Process, Converter={StaticResource IsNullConverter}}"
-                                            ToolTip.Tip="{ReflectionBinding Path=Res.GameList_StopItemBtn,
-                                                                            Mode=OneWay,
-                                                                            Source={x:Static s:ResourceService.Current}}">
+                                            ToolTip.Tip="{Binding Path=Res.GameList_StopItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <Viewbox Width="60" Height="60">
                                                 <ui:SymbolIcon Symbol="Pause" />
                                             </Viewbox>
@@ -293,13 +271,11 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Classes="Plain"
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.RunStopBtnCommand}"
+                                            Command="{Binding $parent[spp:PageBase].((spp:IdleAppsPageViewModel)DataContext).RunStopBtnCommand}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
                                             IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}}"
-                                            ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RuningItemBtn,
-                                                                            Mode=OneWay,
-                                                                            Source={x:Static s:ResourceService.Current}}">
+                                            ToolTip.Tip="{Binding Path=Res.GameList_RuningItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <Viewbox Width="60" Height="60">
                                                 <ui:SymbolIcon Symbol="Play" />
                                             </Viewbox>
@@ -309,12 +285,10 @@
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Top"
                                             Classes="Plain"
-                                            Command="{ReflectionBinding $parent[spp:PageBase].DataContext.DeleteButtonCommand}"
+                                            Command="{Binding $parent[spp:PageBase].((spp:IdleAppsPageViewModel)DataContext).DeleteButtonCommand}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RemoveItemBtn,
-                                                                            Mode=OneWay,
-                                                                            Source={x:Static s:ResourceService.Current}}">
+                                            ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <Viewbox Width="20" Height="20">
                                                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Close}" />
                                             </Viewbox>

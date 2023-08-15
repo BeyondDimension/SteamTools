@@ -26,7 +26,7 @@
                 <!--<Button
                     Command="{Binding CopyCode}"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_Copy,
+                    ToolTip.Tip="{Binding Path=Res.LocalAuth_Copy,
                                                     Mode=OneWay,
                                                     Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
@@ -36,9 +36,7 @@
                 <Button
                     Command="{Binding EditAuthNameAsync}"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.Auth_EditName,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.Auth_EditName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
                         <ui:SymbolIcon Symbol="Edit" />
                     </Viewbox>
@@ -47,9 +45,7 @@
                     Command="{Binding ShowSteamTradeWindow}"
                     IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9D5;" />
                     </Viewbox>
@@ -57,9 +53,7 @@
                 <Button
                     Command="{Binding ShowDetailData}"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.ViewDetailedData,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
                         <ui:SymbolIcon Symbol="Calendar" />
                     </Viewbox>
@@ -67,9 +61,7 @@
                 <Button
                     Command="{Binding ShowQrCode}"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.DisplayQRCode,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
                     </Viewbox>
@@ -149,9 +141,7 @@
                     Command="{Binding CopyCode}"
                     Cursor="Hand"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.Copy,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <!--<StackPanel Orientation="Horizontal">-->
                     <TextBlock
                         FontSize="20"

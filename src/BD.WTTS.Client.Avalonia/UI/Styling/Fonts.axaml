@@ -2,14 +2,15 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="using:System"
-    xmlns:ui="https://steampp.net/ui">
+    xmlns:ui="https://steampp.net/ui"
+    x:CompileBindings="True">
     <!--<ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="DefaultFont">
             <sys:Double x:Key="DefaultFontSize">12</sys:Double>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>-->
-	<sys:Double x:Key="MinFontSize">8</sys:Double>
-	<sys:Double x:Key="DescriptionFontSize">10</sys:Double>
+    <sys:Double x:Key="MinFontSize">8</sys:Double>
+    <sys:Double x:Key="DescriptionFontSize">10</sys:Double>
     <sys:Double x:Key="DefaultFontSize">12</sys:Double>
-	<sys:Double x:Key="MediumFontSize">14</sys:Double>
+    <sys:Double x:Key="MediumFontSize">14</sys:Double>
 </ResourceDictionary>

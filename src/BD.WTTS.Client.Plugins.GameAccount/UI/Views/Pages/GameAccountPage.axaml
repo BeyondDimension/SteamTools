@@ -7,25 +7,16 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    x:Name="u"
-    Title="{ReflectionBinding Name,
-                              Source={x:Static s:Plugin.Instance},
-                              Mode=OneWay}"
+    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:GameAccountPageViewModel"
-    Description="{ReflectionBinding Description,
-                                    Source={x:Static s:Plugin.Instance},
-                                    Mode=OneWay}"
-    Subtitle="{ReflectionBinding Author,
-                                 Source={x:Static s:Plugin.Instance},
-                                 Mode=OneWay,
-                                 Converter={StaticResource StringFormatConverter},
-                                 ConverterParameter=Plugin_Author}"
+    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.TabContent>
         <!--<TabStrip
@@ -57,9 +48,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
             <Button
@@ -79,9 +68,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.GameAccount_SaveCurrentAccount,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.GameAccount_SaveCurrentAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
             <Button
@@ -101,9 +88,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.AccountChange_Title,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.AccountChange_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
             <Button
@@ -122,9 +107,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.Refresh,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
             <DropDownButton
@@ -141,25 +124,25 @@
                             x:Name="PlatformSettingButton"
                             IsVisible="{Binding !IsSelectedSteam}"
                             Text="平台设置" />
-                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
                         <ui:MenuFlyoutSeparator IsVisible="{Binding !IsSelectedSteam}" />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <Binding
+                                    <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <Binding
+                                    <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -186,9 +169,7 @@
                 <Button.Flyout>
                     <MenuFlyout Placement="BottomEdgeAlignedLeft">
                         <MenuItem
-                            Header="{ReflectionBinding Path=Res.AddPlatform,
-                                                       Mode=OneWay,
-                                                       Source={x:Static s:ResourceService.Current}}"
+                            Header="{Binding Path=Res.AddPlatform, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             IsVisible="{Binding !!AddGamePlatforms.Count}"
                             ItemsSource="{Binding AddGamePlatforms}">
                             <MenuItem.Styles>
@@ -201,14 +182,14 @@
                                             </Template>
                                         </Setter.Value>
                                     </Setter>
-                                    <Setter Property="Command" Value="{ReflectionBinding #u.DataContext.AddPlatformCommand}" />
+                                    <Setter Property="Command" Value="{Binding $parent[spp:PageBase].$parent[spp:PageBase].((spp:GameAccountPageViewModel).AddPlatformCommand}" />
                                     <Setter Property="CommandParameter" Value="{Binding}" />
                                 </Style>
                             </MenuItem.Styles>
                             <!--<MenuItem.DataTemplates>
                                 <DataTemplate DataType="{x:Type spp:PlatformAccount}">
                                     <MenuItem
-                                        Command="{ReflectionBinding #u.DataContext.AddPlatformCommand}"
+                                        Command="{Binding $parent[spp:PageBase].$parent[spp:PageBase].((spp:GameAccountPageViewModel).AddPlatformCommand}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding FullName}">
                                         <MenuItem.Icon>
@@ -219,13 +200,13 @@
                             </MenuItem.DataTemplates>-->
                         </MenuItem>
                         <MenuItem Header="-" />
-                        <MenuItem Command="{Binding LoginNewCommand}" Header="{ReflectionBinding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <MenuItem Command="{Binding LoginNewCommand}" Header="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <MenuItem.Icon>
                                 <ui:SymbolIcon Symbol="Add" />
                             </MenuItem.Icon>
                         </MenuItem>
                         <!--<ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <ui:RadioMenuFlyoutItem
                                 GroupName="KillMethond"
                                 IconSource="Games"
@@ -236,7 +217,7 @@
                                 IconSource="Icons"
                                 Text="Direct" />
                         </ui:MenuFlyoutSubItem>
-                        <ui:MenuFlyoutSubItem Text="{ReflectionBinding Path=Res.GameAccount_StartProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_StartProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <ui:RadioMenuFlyoutItem
                                 GroupName="StartMethond"
                                 IconSource="Games"
@@ -247,7 +228,7 @@
                                 Text="Direct" />
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSeparator />
-                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{ReflectionBinding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{Binding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>

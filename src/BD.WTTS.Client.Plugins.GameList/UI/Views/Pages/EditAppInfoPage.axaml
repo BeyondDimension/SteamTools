@@ -8,14 +8,13 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    x:Name="u"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:EditAppInfoPageViewModel"
     mc:Ignorable="d">
     <TabControl DockPanel.Dock="Top">
-        <TabItem Header="{ReflectionBinding Path=Res.Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <TabItem Header="{Binding Path=Res.Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <StackPanel Classes="InfoBox">
 
                 <Border Classes="Item">
@@ -27,28 +26,28 @@
 
                 <Border Classes="Item">
                     <DockPanel>
-                        <TextBlock Text="{ReflectionBinding Path=Res.Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock Text="{Binding Path=Res.Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBox Text="{Binding App.Name}" />
                     </DockPanel>
                 </Border>
 
                 <Border Classes="Item">
                     <DockPanel>
-                        <TextBlock Text="{ReflectionBinding Path=Res.SortAs, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock Text="{Binding Path=Res.SortAs, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBox Text="{Binding App.SortAs}" />
                     </DockPanel>
                 </Border>
 
                 <Border Classes="Item">
                     <DockPanel>
-                        <TextBlock Text="{ReflectionBinding Path=Res.Developer, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock Text="{Binding Path=Res.Developer, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBox Text="{Binding App.Developer}" />
                     </DockPanel>
                 </Border>
 
                 <Border Classes="Item">
                     <DockPanel>
-                        <TextBlock Text="{ReflectionBinding Path=Res.Publisher, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock Text="{Binding Path=Res.Publisher, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBox Text="{Binding App.Publisher}" />
                     </DockPanel>
                 </Border>
@@ -62,31 +61,27 @@
 
                 <Border Classes="Item">
                     <DockPanel>
-                        <TextBlock Text="{ReflectionBinding Path=Res.SupportSystem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock Text="{Binding Path=Res.SupportSystem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBlock Classes="right" Text="{Binding App.OSList}" />
                     </DockPanel>
                 </Border>
 
                 <Border Classes="Item" IsVisible="{Binding App.IsInstalled}">
                     <DockPanel>
-                        <TextBlock Text="{ReflectionBinding Path=Res.DiskUsage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock Text="{Binding Path=Res.DiskUsage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBlock Classes="right" Text="{Binding App.SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}" />
                     </DockPanel>
                 </Border>
 
                 <Border Classes="Item" IsVisible="{Binding App.IsInstalled}">
                     <DockPanel>
-                        <TextBlock Text="{ReflectionBinding Path=Res.InstalledPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock Text="{Binding Path=Res.InstalledPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:HyperlinkButton
                             HorizontalAlignment="Right"
                             VerticalContentAlignment="Stretch"
-                            Command="{ReflectionBinding OpenFolder}"
+                            Command="{Binding OpenFolder}"
                             CommandParameter="{Binding App.InstalledDir}"
-                            ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
-                                                            Mode=OneWay,
-                                                            Source={x:Static s:ResourceService.Current},
-                                                            Converter={StaticResource StringFormatConverter},
-                                                            ConverterParameter={x:Null}}">
+                            ToolTip.Tip="{Binding Path=Res.Settings_General_BrowseCustomFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
                             <TextBlock Text="{Binding App.InstalledDir}" TextWrapping="Wrap" />
                         </ui:HyperlinkButton>
                     </DockPanel>
@@ -94,7 +89,7 @@
 
                 <Border Classes="Item" IsVisible="{Binding App.IsInstalled}">
                     <DockPanel>
-                        <TextBlock Text="{ReflectionBinding Path=Res.LastUpdatedDateTime, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock Text="{Binding Path=Res.LastUpdatedDateTime, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBlock Classes="right" Text="{Binding App.LastUpdated, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
                     </DockPanel>
                 </Border>
@@ -102,16 +97,14 @@
             </StackPanel>
         </TabItem>
 
-        <TabItem Header="{ReflectionBinding Path=Res.Media, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <TabItem Header="{Binding Path=Res.Media, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <Panel>
                 <spp:ContentLoader
                     x:Name="SteamGridDBContent"
                     IsLoading="{Binding IsLoadingSteamGrid}"
                     IsShowNoResultText="{Binding IsSteamGridEmpty}"
                     IsVisible="False"
-                    NoResultMessage="{ReflectionBinding Path=Res.FailedGetImageFromSteamGridDB,
-                                                        Mode=OneWay,
-                                                        Source={x:Static s:ResourceService.Current}}">
+                    NoResultMessage="{Binding Path=Res.FailedGetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <ItemsControl
                         ItemsSource="{Binding SteamGridItems}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -135,23 +128,17 @@
                                     <spp:AppItem.MoreFlyout>
                                         <MenuFlyout>
                                             <MenuItem
-                                                Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBImageUrlCommand}"
+                                                Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenSteamGridDBImageUrlCommand}"
                                                 CommandParameter="{Binding}"
-                                                Header="{ReflectionBinding Path=Res.OpenImageInBrowser,
-                                                                           Mode=OneWay,
-                                                                           Source={x:Static s:ResourceService.Current}}" />
+                                                Header="{Binding Path=Res.OpenImageInBrowser, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                             <MenuItem
-                                                Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBAppUrlCommand}"
+                                                Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenSteamGridDBAppUrlCommand}"
                                                 CommandParameter="{Binding}"
-                                                Header="{ReflectionBinding Path=Res.OpenSteamGridDBInBrowser,
-                                                                           Mode=OneWay,
-                                                                           Source={x:Static s:ResourceService.Current}}" />
+                                                Header="{Binding Path=Res.OpenSteamGridDBInBrowser, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                             <MenuItem
-                                                Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBAuthorUrlCommand}"
+                                                Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenSteamGridDBAuthorUrlCommand}"
                                                 CommandParameter="{Binding}"
-                                                Header="{ReflectionBinding Path=Res.OpenTheAuthorPageInBrowser,
-                                                                           Mode=OneWay,
-                                                                           Source={x:Static s:ResourceService.Current}}" />
+                                                Header="{Binding Path=Res.OpenTheAuthorPageInBrowser, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         </MenuFlyout>
                                     </spp:AppItem.MoreFlyout>
                                     <spp:AppItem.Image>
@@ -171,16 +158,14 @@
                         <DockPanel>
                             <StackPanel Margin="0">
                                 <WrapPanel>
-                                    <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.HorizontalTitlePage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.HorizontalTitlePage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     <Button
                                         Margin="5,0"
                                         Click="ShowGridDialog_Click"
                                         Cursor="Hand"
                                         Tag="{x:Static spp:SteamGridItemType.Header}"
                                         Theme="{StaticResource TransparentButton}"
-                                        ToolTip.Tip="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}">
+                                        ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <ui:SymbolIcon FontSize="18" Symbol="CloudDownload" />
                                     </Button>
                                     <Button
@@ -188,25 +173,21 @@
                                         Cursor="Hand"
                                         Tag="{x:Static spp:SteamGridItemType.Header}"
                                         Theme="{StaticResource TransparentButton}"
-                                        ToolTip.Tip="{ReflectionBinding Path=Res.Reset,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}">
+                                        ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <ui:SymbolIcon FontSize="18" Symbol="Redo" />
                                     </Button>
                                 </WrapPanel>
 
-                                <!--<TextBlock Text="{ReflectionBinding Path=Res.HorizontalTitlePage,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>
+                                <!--<TextBlock Text="{Binding Path=Res.HorizontalTitlePage,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>
                       <Button Classes="Hyperlink"
                               FontSize="12"
-                              Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+                              Content="{Binding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                               Tag="{x:Static spp:SteamGridItemType.Header}"
                               Click="ShowGridDialog_Click"/>-->
 
                                 <TextBlock
                                     Classes="prompt"
-                                    Text="{ReflectionBinding Path=Res.RecommendedResolution,
-                                                             Mode=OneWay,
-                                                             Source={x:Static s:ResourceService.Current}}"
+                                    Text="{Binding Path=Res.RecommendedResolution, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                     Theme="{StaticResource CaptionTextBlockStyle}" />
                                 <TextBlock
                                     Classes="prompt"
@@ -230,16 +211,14 @@
                         <DockPanel>
                             <StackPanel Margin="0">
                                 <WrapPanel>
-                                    <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.VerticalTitlePage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.VerticalTitlePage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     <Button
                                         Margin="5,0"
                                         Click="ShowGridDialog_Click"
                                         Cursor="Hand"
                                         Tag="{x:Static spp:SteamGridItemType.Grid}"
                                         Theme="{StaticResource TransparentButton}"
-                                        ToolTip.Tip="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}">
+                                        ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <ui:SymbolIcon FontSize="18" Symbol="CloudDownload" />
                                     </Button>
                                     <Button
@@ -247,24 +226,20 @@
                                         Cursor="Hand"
                                         Tag="{x:Static spp:SteamGridItemType.Header}"
                                         Theme="{StaticResource TransparentButton}"
-                                        ToolTip.Tip="{ReflectionBinding Path=Res.Reset,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}">
+                                        ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <ui:SymbolIcon FontSize="18" Symbol="Redo" />
                                     </Button>
                                 </WrapPanel>
-                                <!--<TextBlock Text="{ReflectionBinding Path=Res.VerticalTitlePage,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>
+                                <!--<TextBlock Text="{Binding Path=Res.VerticalTitlePage,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>
                       <Button Classes="Hyperlink"
                               FontSize="12"
-                              Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+                              Content="{Binding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                               Tag="{x:Static spp:SteamGridItemType.Grid}"
                               Click="ShowGridDialog_Click"/>-->
 
                                 <TextBlock
                                     Classes="prompt"
-                                    Text="{ReflectionBinding Path=Res.RecommendedResolution,
-                                                             Mode=OneWay,
-                                                             Source={x:Static s:ResourceService.Current}}"
+                                    Text="{Binding Path=Res.RecommendedResolution, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                     Theme="{StaticResource CaptionTextBlockStyle}" />
                                 <TextBlock
                                     Classes="prompt"
@@ -288,16 +263,14 @@
                         <DockPanel>
                             <StackPanel Margin="0">
                                 <WrapPanel>
-                                    <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.Background, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.Background, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     <Button
                                         Margin="5,0"
                                         Click="ShowGridDialog_Click"
                                         Cursor="Hand"
                                         Tag="{x:Static spp:SteamGridItemType.Hero}"
                                         Theme="{StaticResource TransparentButton}"
-                                        ToolTip.Tip="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}">
+                                        ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <ui:SymbolIcon FontSize="18" Symbol="CloudDownload" />
                                     </Button>
                                     <Button
@@ -305,24 +278,20 @@
                                         Cursor="Hand"
                                         Tag="{x:Static spp:SteamGridItemType.Header}"
                                         Theme="{StaticResource TransparentButton}"
-                                        ToolTip.Tip="{ReflectionBinding Path=Res.Reset,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}">
+                                        ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <ui:SymbolIcon FontSize="18" Symbol="Redo" />
                                     </Button>
                                 </WrapPanel>
-                                <!--<TextBlock Text="{ReflectionBinding Path=Res.Background,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>
+                                <!--<TextBlock Text="{Binding Path=Res.Background,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>
                       <Button Classes="Hyperlink"
                               FontSize="12"
-                              Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+                              Content="{Binding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                               Tag="{x:Static spp:SteamGridItemType.Hero}"
                               Click="ShowGridDialog_Click"/>-->
 
                                 <TextBlock
                                     Classes="prompt"
-                                    Text="{ReflectionBinding Path=Res.RecommendedResolution,
-                                                             Mode=OneWay,
-                                                             Source={x:Static s:ResourceService.Current}}"
+                                    Text="{Binding Path=Res.RecommendedResolution, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                     Theme="{StaticResource CaptionTextBlockStyle}" />
                                 <TextBlock
                                     Classes="prompt"
@@ -346,16 +315,14 @@
                         <DockPanel>
                             <StackPanel Margin="0">
                                 <WrapPanel>
-                                    <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.Icon, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.Icon, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     <Button
                                         Margin="5,0"
                                         Click="ShowGridDialog_Click"
                                         Cursor="Hand"
                                         Tag="{x:Static spp:SteamGridItemType.Logo}"
                                         Theme="{StaticResource TransparentButton}"
-                                        ToolTip.Tip="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}">
+                                        ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <ui:SymbolIcon FontSize="18" Symbol="CloudDownload" />
                                     </Button>
                                     <Button
@@ -363,22 +330,18 @@
                                         Cursor="Hand"
                                         Tag="{x:Static spp:SteamGridItemType.Header}"
                                         Theme="{StaticResource TransparentButton}"
-                                        ToolTip.Tip="{ReflectionBinding Path=Res.Reset,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}">
+                                        ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <ui:SymbolIcon FontSize="18" Symbol="Redo" />
                                     </Button>
                                 </WrapPanel>
                                 <!--<Button Classes="Hyperlink"
                               FontSize="12"
-                              Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+                              Content="{Binding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
                               Tag="{x:Static spp:SteamGridItemType.Logo}"
                               Click="ShowGridDialog_Click"/>-->
                                 <TextBlock
                                     Classes="prompt"
-                                    Text="{ReflectionBinding Path=Res.RecommendedResolution,
-                                                             Mode=OneWay,
-                                                             Source={x:Static s:ResourceService.Current}}"
+                                    Text="{Binding Path=Res.RecommendedResolution, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                     Theme="{StaticResource CaptionTextBlockStyle}" />
                                 <TextBlock
                                     Classes="prompt"
@@ -402,7 +365,7 @@
             </Panel>
         </TabItem>
 
-        <TabItem Header="{ReflectionBinding Path=Res.LaunchItem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding App.IsInstalled}">
+        <TabItem Header="{Binding Path=Res.LaunchItem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding App.IsInstalled}">
             <StackPanel Classes="InfoBox">
                 <ItemsRepeater ItemsSource="{Binding App.LaunchItems}">
                     <ItemsRepeater.Layout>
@@ -413,23 +376,23 @@
                             <Border Classes="Item">
                                 <StackPanel Spacing="5">
                                     <DockPanel>
-                                        <Label Content="{ReflectionBinding Path=Res.Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <Label Content="{Binding Path=Res.Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         <TextBox Text="{Binding Label}" />
                                     </DockPanel>
                                     <DockPanel>
-                                        <Label Content="{ReflectionBinding Path=Res.ExecutableFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <Label Content="{Binding Path=Res.ExecutableFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         <TextBox Text="{Binding Executable}" />
                                     </DockPanel>
                                     <DockPanel>
-                                        <Label Content="{ReflectionBinding Path=Res.Arguments, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <Label Content="{Binding Path=Res.Arguments, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         <TextBox Text="{Binding Arguments}" />
                                     </DockPanel>
                                     <DockPanel>
-                                        <Label Content="{ReflectionBinding Path=Res.WorkingDir, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <Label Content="{Binding Path=Res.WorkingDir, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         <TextBox Text="{Binding WorkingDir}" />
                                     </DockPanel>
                                     <DockPanel>
-                                        <Label Content="{ReflectionBinding Path=Res.SupportSystem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <Label Content="{Binding Path=Res.SupportSystem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         <ui:FAComboBox IsEditable="True" Text="{Binding Platform, Mode=TwoWay}">
                                             <ui:FAComboBox.Items>
                                                 <x:String>windows</x:String>
@@ -444,33 +407,27 @@
                                             Margin="5"
                                             HorizontalAlignment="Stretch"
                                             HorizontalContentAlignment="Center"
-                                            Command="{ReflectionBinding #u.DataContext.UpLaunchItemCommand}"
+                                            Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).UpLaunchItemCommand}"
                                             CommandParameter="{Binding}"
-                                            Content="{ReflectionBinding Path=Res.MoveUp,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}"
+                                            Content="{Binding Path=Res.MoveUp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                             Cursor="Hand" />
                                         <Button
                                             Grid.Column="1"
                                             Margin="5"
                                             HorizontalAlignment="Stretch"
                                             HorizontalContentAlignment="Center"
-                                            Command="{ReflectionBinding #u.DataContext.DownLaunchItemCommand}"
+                                            Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).DownLaunchItemCommand}"
                                             CommandParameter="{Binding}"
-                                            Content="{ReflectionBinding Path=Res.MoveDown,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}"
+                                            Content="{Binding Path=Res.MoveDown, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                             Cursor="Hand" />
                                         <Button
                                             Grid.Column="2"
                                             Margin="5"
                                             HorizontalAlignment="Stretch"
                                             HorizontalContentAlignment="Center"
-                                            Command="{ReflectionBinding #u.DataContext.DeleteLaunchItemCommand}"
+                                            Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).DeleteLaunchItemCommand}"
                                             CommandParameter="{Binding}"
-                                            Content="{ReflectionBinding Path=Res.Delete,
-                                                                        Mode=OneWay,
-                                                                        Source={x:Static s:ResourceService.Current}}"
+                                            Content="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                             Cursor="Hand" />
                                     </Grid>
                                 </StackPanel>
@@ -482,7 +439,7 @@
                     <Button
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        Command="{ReflectionBinding AddLaunchItem}"
+                        Command="{Binding AddLaunchItem}"
                         Cursor="Hand">
                         <ui:SymbolIcon
                             Margin="0,20"
@@ -493,26 +450,24 @@
             </StackPanel>
         </TabItem>
 
-        <TabItem Header="{ReflectionBinding Path=Res.SaveFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding App.IsCloudArchive}">
+        <TabItem Header="{Binding Path=Res.SaveFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding App.IsCloudArchive}">
             <StackPanel Classes="InfoBox">
                 <Border Classes="Item">
                     <StackPanel Spacing="5">
                         <DockPanel>
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <Label Content="{ReflectionBinding Path=Res.CloudSaveFileSize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                <Label Content="{Binding Path=Res.CloudSaveFileSize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                 <Button
-                                    Command="{ReflectionBinding ManageCloudArchive_Click}"
+                                    Command="{Binding ManageCloudArchive_Click}"
                                     Cursor="Hand"
-                                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_CloudArchiveManager,
-                                                                    Mode=OneWay,
-                                                                    Source={x:Static s:ResourceService.Current}}">
+                                    ToolTip.Tip="{Binding Path=Res.GameList_CloudArchiveManager, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                     <ui:SymbolIcon FontSize="18" Symbol="CloudBackup" />
                                 </Button>
                             </StackPanel>
-                            <TextBlock Classes="right" Text="{ReflectionBinding App.CloudQuota, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}" />
+                            <TextBlock Classes="right" Text="{Binding App.CloudQuota, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}" />
                         </DockPanel>
                         <DockPanel>
-                            <Label Content="{ReflectionBinding Path=Res.CloudMaxnumFiles, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <Label Content="{Binding Path=Res.CloudMaxnumFiles, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                             <TextBlock Classes="right" Text="{Binding App.CloudMaxnumFiles}" />
                         </DockPanel>
                     </StackPanel>
@@ -539,17 +494,13 @@
                                         <TextBlock Classes="right" Text="{Binding Pattern}" />
                                     </DockPanel>
                                     <DockPanel>
-                                        <Label Content="{ReflectionBinding Path=Res.DirPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <Label Content="{Binding Path=Res.DirPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         <ui:HyperlinkButton
                                             HorizontalAlignment="Right"
                                             HorizontalContentAlignment="Stretch"
-                                            Command="{ReflectionBinding #u.DataContext.OpenFolder}"
+                                            Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenFolder}"
                                             CommandParameter="{Binding FormatDirPath}"
-                                            ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,
-                                                                            Mode=OneWay,
-                                                                            Source={x:Static s:ResourceService.Current},
-                                                                            Converter={StaticResource StringFormatConverter},
-                                                                            ConverterParameter={x:Null}}">
+                                            ToolTip.Tip="{Binding Path=Res.Settings_General_BrowseCustomFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
                                             <TextBlock
                                                 HorizontalAlignment="Stretch"
                                                 Text="{Binding FormatDirPath}"

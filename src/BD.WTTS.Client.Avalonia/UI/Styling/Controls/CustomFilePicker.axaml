@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
-    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:CompileBindings="True">
     <Design.PreviewWith>
         <Border Padding="40">
             <StackPanel Spacing="10">

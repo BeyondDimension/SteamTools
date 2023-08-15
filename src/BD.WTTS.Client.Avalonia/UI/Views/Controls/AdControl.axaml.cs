@@ -53,25 +53,26 @@ public partial class AdControl : UserControl
 
         if (AdBanner != null)
         {
-            this.GetObservable(StandardProperty)
-                .Subscribe(x =>
-                {
-                    var bind = new Binding()
-                    {
-                        Source = AdvertiseService.Current,
-                        Mode = BindingMode.OneWay,
-                    };
+            //this.GetObservable(StandardProperty)
+            //    .Subscribe(x =>
+            //    {
+            //        var bind = new Binding()
+            //        {
+            //            Source = AdvertiseService.Current,
+            //            Mode = BindingMode.OneWay,
+            //        };
 
-                    if (Standard == AdvertisementOrientation.Vertical)
-                    {
-                        bind.Path = nameof(AdvertiseService.Current.VerticalBannerAdvertisements);
-                    }
-                    else
-                    {
-                        bind.Path = nameof(AdvertiseService.Current.HorizontalBannerAdvertisements);
-                    }
-                    AdBanner.Bind(CarouselBanner.ItemsSourceProperty, bind);
-                });
+            //        if (Standard == AdvertisementOrientation.Vertical)
+            //        {
+            //            bind.Path = nameof(AdvertiseService.Current.VerticalBannerAdvertisements);
+            //            //AdBanner.Bind(CarouselBanner.ItemsSourceProperty, AdvertiseService.Current.VerticalBannerAdvertisements.ToObservable().ToBinding());
+            //        }
+            //        else
+            //        {
+            //            bind.Path = nameof(AdvertiseService.Current.HorizontalBannerAdvertisements);
+            //        }
+            //        AdBanner.Bind(CarouselBanner.ItemsSourceProperty, bind);
+            //    });
 
             //AdBanner.ItemsSource.WhenAnyValue(x => x)
             //    .Subscribe(x =>
@@ -103,21 +104,19 @@ public partial class AdControl : UserControl
     //    }
     //}
 
-    //protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
-    //{
-    //    base.OnApplyTemplate(e);
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
 
-    //    //if (Standard == AdvertisementOrientation.Vertical)
-    //    //{
-    //    //    AdvertiseService.Current.WhenAnyValue(x => x.VerticalBannerAdvertisements)
-    //    //            .Subscribe(x => CheckItems(x));
-    //    //}
-    //    //else
-    //    //{
-    //    //    AdvertiseService.Current.WhenAnyValue(x => x.HorizontalBannerAdvertisements)
-    //    //            .Subscribe(x => CheckItems(x));
-    //    //}
-    //}
+        if (Standard == AdvertisementOrientation.Vertical)
+        {
+            AdBanner.ItemsSource = AdvertiseService.Current.VerticalBannerAdvertisements;
+        }
+        else
+        {
+            AdBanner.ItemsSource = AdvertiseService.Current.HorizontalBannerAdvertisements;
+        }
+    }
 
     void CheckItems(IEnumerable? x)
     {

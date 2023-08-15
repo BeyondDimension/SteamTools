@@ -1575,6 +1575,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 已禁用 的本地化字符串。
+        /// </summary>
+        public static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 磁盘占用 的本地化字符串。
         /// </summary>
         public static string DiskUsage {
@@ -5120,6 +5129,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 处理导入脚本中 的本地化字符串。
+        /// </summary>
+        public static string Script_ImportLoading {
+            get {
+                return ResourceManager.GetString("Script_ImportLoading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 脚本：{0} 文件丢失已删除 的本地化字符串。
         /// </summary>
         public static string Script_NoFile_ {
@@ -6178,6 +6196,15 @@ namespace BD.WTTS.Client.Resources {
         public static string SteamAccount {
             get {
                 return ResourceManager.GetString("SteamAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 家庭共享库为空 的本地化字符串。
+        /// </summary>
+        public static string SteamAccountPage_ShareEmpt {
+            get {
+                return ResourceManager.GetString("SteamAccountPage_ShareEmpt", resourceCulture);
             }
         }
         

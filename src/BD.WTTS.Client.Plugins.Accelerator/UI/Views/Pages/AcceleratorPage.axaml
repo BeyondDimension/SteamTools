@@ -10,25 +10,17 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="{ReflectionBinding Name,
-                              Source={x:Static s:Plugin.Instance},
-                              Mode=OneWay}"
+    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:AcceleratorPageViewModel"
-    Description="{ReflectionBinding Description,
-                                    Source={x:Static s:Plugin.Instance},
-                                    Mode=OneWay}"
+    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
     OpenPaneLength="335"
-    Subtitle="{ReflectionBinding Author,
-                                 Source={x:Static s:Plugin.Instance},
-                                 Mode=OneWay,
-                                 Converter={StaticResource StringFormatConverter},
-                                 ConverterParameter=Plugin_Author}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{ReflectionBinding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -38,16 +30,14 @@
                 VerticalContentAlignment="Center"
                 Command="{Binding StartProxyCommand}"
                 DockPanel.Dock="Right"
-                IsVisible="{ReflectionBinding Source={x:Static s:ProxyService.Current},
-                                              Path=!ProxyStatus,
-                                              Mode=OneWay}"
+                IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
                 Theme="{StaticResource TransparentButton}">
                 <!--<SplitButton.Flyout>
                     <ui:FAMenuFlyout>
-                        <ui:MenuFlyoutSubItem ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+                        <ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
                             <ui:MenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate>
-                                    <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{ReflectionBinding}" />
+                                    <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
                         </ui:MenuFlyoutSubItem>
@@ -65,9 +55,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.CommunityFix_StartProxy,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.CommunityFix_StartProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
 
@@ -75,9 +63,7 @@
                 Padding="8,4"
                 Command="{Binding StartProxyCommand}"
                 DockPanel.Dock="Right"
-                IsVisible="{ReflectionBinding Source={x:Static s:ProxyService.Current},
-                                              Path=ProxyStatus,
-                                              Mode=OneWay}"
+                IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
@@ -90,16 +76,16 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
-                        <!--<Run Text="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Source={x:Static s:ResourceService.Current}},Mode=OneWay}" />
+                        <!--<Run Text="{Binding Path=Res.CommunityFix_StopProxy,Source={x:Static s:ResourceService.Current}},Mode=OneWay}" />
                         <Run Text=" " />
-                        <Run Text="{ReflectionBinding Path=AccelerateTime,Source={x:Static s:ProxyService.Current}},Mode=OneWay,Converter={StaticResource StringFormatConverter}}" />-->
+                        <Run Text="{Binding Path=AccelerateTime,Source={x:Static s:ProxyService.Current}},Mode=OneWay,Converter={StaticResource StringFormatConverter}}" />-->
                         <TextBlock.Text>
                             <MultiBinding StringFormat="{}{0} {1}">
-                                <Binding
+                                <CompiledBinding
                                     Mode="OneWay"
                                     Path="Res.CommunityFix_StopProxy"
                                     Source="{x:Static s:ResourceService.Current}}" />
-                                <Binding
+                                <CompiledBinding
                                     Converter="{StaticResource StringFormatConverter}"
                                     Mode="OneWay"
                                     Path="AccelerateTime"
@@ -136,9 +122,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.Refresh,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </Button>
 
@@ -158,9 +142,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{ReflectionBinding Path=Res.CommunityFix_MenuName,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.CommunityFix_MenuName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </Panel>
             </ToggleButton>
 
@@ -174,14 +156,14 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:MenuFlyoutSubItem ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+                        <!--<ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
                             <ui:MenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate>
-                                    <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{ReflectionBinding}" />
+                                    <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
                         </ui:MenuFlyoutSubItem>-->
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
                         <!--<ui:MenuFlyoutItem Text="安装证书" />
                         <ui:MenuFlyoutItem Text="移除证书" />
@@ -194,20 +176,20 @@
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <Binding
+                                    <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <Binding
+                                    <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -215,18 +197,14 @@
     </spp:PageBase.ActionContent>
     <spp:PageBase.PaneContent>
         <StackPanel Margin="15,20" Spacing="10">
-            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{Binding Path=Res.CommunityFix_ProxyMode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <TabStrip
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
                 CornerRadius="{StaticResource ControlCornerRadius}"
                 ItemContainerTheme="{StaticResource TabItemStyle}"
-                ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes},
-                                                Path=.,
-                                                Mode=OneWay}"
-                SelectedItem="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode},
-                                                 Path=Value,
-                                                 Mode=TwoWay}"
+                ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}"
+                SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}"
                 Theme="{StaticResource TabStripStyle}">
                 <TabStrip.ItemTemplate>
                     <DataTemplate DataType="spp:ProxyMode">
@@ -235,24 +213,20 @@
                 </TabStrip.ItemTemplate>
             </TabStrip>
 
-            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_MenuName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{Binding Path=Res.CommunityFix_MenuName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <ToggleSwitch
                 VerticalAlignment="Center"
                 Classes="NoContent"
                 IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}"
-                OffContent="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,
-                                               Mode=OneWay,
-                                               Source={x:Static s:ResourceService.Current}}"
-                OnContent="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,
-                                              Mode=OneWay,
-                                              Source={x:Static s:ResourceService.Current}}" />
+                OffContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                OnContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
             <!--<StackPanel Orientation="Horizontal" Spacing="4">
                 <ToggleButton
                     Padding="8"
                     Theme="{StaticResource TransparentToggleButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,
+                    ToolTip.Tip="{Binding Path=Res.GameList_OnlyInstalled,
                                                     Mode=OneWay,
                                                     Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20" Height="20">
@@ -263,7 +237,7 @@
                 <ToggleButton
                     Padding="8"
                     Theme="{StaticResource TransparentToggleButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyCloudArchive,
+                    ToolTip.Tip="{Binding Path=Res.GameList_OnlyCloudArchive,
                                                     Mode=OneWay,
                                                     Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20" Height="20">
@@ -275,60 +249,39 @@
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding ProxySettingsCommand}"
-                Content="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
             <Separator Margin="0,8" Classes="Horizontal" />
 
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding SetupCertificateCommand}"
-                Content="{ReflectionBinding Path=Res.CommunityFix_SetupCertificate,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_SetupCertificate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding DeleteCertificateCommand}"
-                Content="{ReflectionBinding Path=Res.CommunityFix_DeleteCertificate,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding TrustCerCommand}"
-                Content="{ReflectionBinding Path=Res.CommunityFix_CertificateTrust,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}"
-                IsVisible="{spp:OnPlatform macOS}" />
+                Content="{Binding Path=Res.CommunityFix_DeleteCertificate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding OpenCertificateDirCommand}"
-                Content="{ReflectionBinding Path=Res.CommunityFix_OpenCertificateDir,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_OpenCertificateDir, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
             <Separator Margin="0,8" Classes="Horizontal" />
 
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding EditHostsFileCommand}"
-                Content="{ReflectionBinding Path=Res.CommunityFix_EditHostsFile,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_EditHostsFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding ResetHostsFileCommand}"
-                Content="{ReflectionBinding Path=Res.CommunityFix_ResetHostsFile,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_ResetHostsFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding OpenHostsDirCommand}"
-                Content="{ReflectionBinding Path=Res.CommunityFix_OpenHostsDir,
-                                            Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_OpenHostsDir, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
-            <!--<ui:FAComboBox ItemsSource="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" SelectedItem="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}">
+            <!--<ui:FAComboBox ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}">
                 <ui:FAComboBox.ItemTemplate>
                     <DataTemplate DataType="spp:ProxyMode">
                         <TextBlock Text="{Binding}" />
@@ -345,32 +298,28 @@
             SelectedIndex="0">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior
-                    Binding="{ReflectionBinding Source={x:Static s:ProxyService.Current},
-                                                Path=!ProxyStatus,
-                                                Mode=OneWay}"
+                    Binding="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
                     ComparisonCondition="Equal"
                     Value="True">
                     <ia:ChangePropertyAction
                         PropertyName="SelectedIndex"
-                        TargetObject="{ReflectionBinding #AcceleratorCarousel}"
+                        TargetObject="{Binding #AcceleratorCarousel}"
                         Value="0" />
                 </ia:DataTriggerBehavior>
                 <ia:DataTriggerBehavior
-                    Binding="{ReflectionBinding Source={x:Static s:ProxyService.Current},
-                                                Path=!ProxyStatus,
-                                                Mode=OneWay}"
+                    Binding="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
                     ComparisonCondition="Equal"
                     Value="False">
                     <ia:ChangePropertyAction
                         PropertyName="SelectedIndex"
-                        TargetObject="{ReflectionBinding #AcceleratorCarousel}"
+                        TargetObject="{Binding #AcceleratorCarousel}"
                         Value="1" />
                 </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
 
-            <spp:ContentLoader IsLoading="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{ReflectionBinding Path=Res.CommunityFix_ItemsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{Binding Path=Res.CommunityFix_ItemsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <Grid ColumnDefinitions="*,Auto">
-                    <ItemsControl ItemsSource="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
+                    <ItemsControl ItemsSource="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
@@ -445,8 +394,8 @@
                     x:Name="Tabs"
                     ItemContainerTheme="{StaticResource TabItemStyle}"
                     Theme="{StaticResource TabStripStyle}">
-                    <TabStripItem Content="{ReflectionBinding Path=Res.CommunityFix_FlowStatistics, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                    <TabStripItem Content="{ReflectionBinding Path=Res.CommunityFix_Services, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <TabStripItem Content="{Binding Path=Res.CommunityFix_FlowStatistics, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <TabStripItem Content="{Binding Path=Res.CommunityFix_Services, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </TabStrip>
                 <StackPanel
                     Grid.Row="0"
@@ -460,22 +409,22 @@
                         </Style>
                     </StackPanel.Styles>
                     <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock FontSize="26" Text="{ReflectionBinding Path=Res.CommunityFix_AlreadyProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock FontSize="26" Text="{Binding Path=Res.CommunityFix_AlreadyProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBlock
                             Margin="5,0,0,0"
                             FontSize="26"
-                            Text="{ReflectionBinding AccelerateTime,
+                            Text="{Binding AccelerateTime,
                                                      Source={x:Static s:ProxyService.Current},
                                                      StringFormat={}{0:hh\\:mm\\:ss}}" />
                     </StackPanel>-->
                     <TextBlock>
-                        <Run Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <Run Text="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
+                        <Run Text="{Binding Path=Res.CommunityFix_ProxyMode, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <Run Text="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
 
                         <Run Text="  " />
 
-                        <Run Text="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <Run Text="{ReflectionBinding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
+                        <Run Text="{Binding Path=Res.CommunityFix_EnableScriptService, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <Run Text="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
                     </TextBlock>
                 </StackPanel>
 
@@ -497,11 +446,9 @@
                                     Margin="0,0,0,10"
                                     DockPanel.Dock="Top"
                                     FontSize="16"
-                                    Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,
-                                                             Mode=OneWay,
-                                                             Source={x:Static s:ResourceService.Current}}" />
+                                    Text="{Binding Path=Res.CommunityFix_AccelerationsEnable, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                 <ScrollViewer>
-                                    <ItemsControl ItemsSource="{ReflectionBinding EnableProxyDomains, Source={x:Static s:ProxyService.Current}}">
+                                    <ItemsControl ItemsSource="{Binding EnableProxyDomains, Source={x:Static s:ProxyService.Current}}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate DataType="{x:Type spp:AccelerateProjectDTO}">
                                                 <StackPanel Margin="10">
@@ -526,11 +473,9 @@
                                     Margin="0,0,0,10"
                                     DockPanel.Dock="Top"
                                     FontSize="16"
-                                    Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,
-                                                             Mode=OneWay,
-                                                             Source={x:Static s:ResourceService.Current}}" />
+                                    Text="{Binding Path=Res.CommunityFix_ScriptsEnable, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                 <ScrollViewer>
-                                    <ItemsControl ItemsSource="{ReflectionBinding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
+                                    <ItemsControl ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate DataType="{x:Type spp:ScriptDTO}">
                                                 <StackPanel Margin="10">

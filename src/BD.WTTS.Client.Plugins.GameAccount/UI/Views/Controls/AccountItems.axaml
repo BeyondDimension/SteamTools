@@ -7,10 +7,8 @@
     xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
-    xmlns:sceums="using:BD.SteamClient.Enums"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    x:Name="u"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
@@ -19,58 +17,58 @@
     <UserControl.Resources>
         <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="spp:IAccount">
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.SwapToAccountCommand}"
+                Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).SwapToAccountCommand}"
                 CommandParameter="{Binding}"
                 Text="切换到此账号" />
-            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="登录为">
+            <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="登录为">
                 <ui:MenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
-                    Tag="{x:Static sceums:PersonaState.Invisible}"
+                    Tag="{x:Static spp:PersonaState.Invisible}"
                     Text="隐身" />
                 <ui:MenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
-                    Tag="{x:Static sceums:PersonaState.Offline}"
+                    Tag="{x:Static spp:PersonaState.Offline}"
                     Text="离线" />
                 <ui:MenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
-                    Tag="{x:Static sceums:PersonaState.Online}"
+                    Tag="{x:Static spp:PersonaState.Online}"
                     Text="在线" />
                 <ui:MenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
-                    Tag="{x:Static sceums:PersonaState.Busy}"
+                    Tag="{x:Static spp:PersonaState.Busy}"
                     Text="忙碌" />
                 <ui:MenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
-                    Tag="{x:Static sceums:PersonaState.Away}"
+                    Tag="{x:Static spp:PersonaState.Away}"
                     Text="离开" />
                 <ui:MenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
-                    Tag="{x:Static sceums:PersonaState.Snooze}"
+                    Tag="{x:Static spp:PersonaState.Snooze}"
                     Text="打盹" />
                 <ui:MenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
-                    Tag="{x:Static sceums:PersonaState.LookingToTrade}"
+                    Tag="{x:Static spp:PersonaState.LookingToTrade}"
                     Text="想交易" />
                 <ui:MenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
-                    Tag="{x:Static sceums:PersonaState.LookingToPlay}"
+                    Tag="{x:Static spp:PersonaState.LookingToPlay}"
                     Text="想玩游戏" />
             </ui:MenuFlyoutSubItem>
             <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="复制">
+            <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="复制">
                 <ui:MenuFlyoutSubItem Text="复制个人资料">
                     <ui:MenuFlyoutItem Text="社区 URL" />
                     <ui:MenuFlyoutItem Text="Steam 昵称" />
                     <ui:MenuFlyoutItem Text="Steamn 用户名" />
                 </ui:MenuFlyoutSubItem>
-                <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="复制 SteamID">
+                <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="复制 SteamID">
                     <ui:MenuFlyoutItem Text="SteamID [STEAM0:~]" />
                     <ui:MenuFlyoutItem Text="SteamID3 [U:1:~]" />
                     <ui:MenuFlyoutItem Text="SteamID32" />
                     <ui:MenuFlyoutItem Text="SteamID64 7656~" />
                 </ui:MenuFlyoutSubItem>
             </ui:MenuFlyoutSubItem>
-            <ui:MenuFlyoutSubItem IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" Text="{ReflectionBinding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{Binding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <ui:MenuFlyoutItem Text="Steam 社区" />
                 <ui:MenuFlyoutItem Text="SteamRep" />
                 <ui:MenuFlyoutItem Text="SteamRepCN" />
@@ -80,31 +78,27 @@
                 <ui:MenuFlyoutItem Text="Achievement Stats" />
                 <ui:MenuFlyoutItem Text="Backpack.tf" />
             </ui:MenuFlyoutSubItem>
-            <ui:MenuFlyoutSeparator IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}" />
+            <ui:MenuFlyoutSeparator IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.EditRemarkCommand}"
+                Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).EditRemarkCommand}"
                 CommandParameter="{Binding}"
                 Text="修改备注名" />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.SetAccountAvatarCommand}"
+                Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).SetAccountAvatarCommand}"
                 CommandParameter="{Binding}"
-                IsVisible="{ReflectionBinding !#u.DataContext.IsSteamPlatform}"
+                IsVisible="{Binding !$parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
                 Text="修改头像图片" />
             <ui:MenuFlyoutSeparator />
             <ui:MenuFlyoutItem Text="创建桌面快捷方式" />
             <ui:MenuFlyoutItem
                 Click="OpenUserDataFolderMenuItem_Click"
-                IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}"
-                Text="{ReflectionBinding Path=Res.UserChange_ShowUserDataFolder,
-                                         Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}" />
+                IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
+                Text="{Binding Path=Res.UserChange_ShowUserDataFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding #u.DataContext.DeleteAccountCommand}"
+                Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).DeleteAccountCommand}"
                 CommandParameter="{Binding}"
                 Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                Text="{ReflectionBinding Path=Res.Delete,
-                                         Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}" />
+                Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
         </ui:FAMenuFlyout>
     </UserControl.Resources>
     <ScrollViewer>
@@ -122,24 +116,23 @@
                     <DataTemplate DataType="spp:IAccount">
                         <Border Margin="5" spp:Animations.EnableAnimations="True">
                             <spp:AppItem
+                                x:Name="Item"
                                 Title="{Binding DisplayName}"
                                 MaxWidth="128"
                                 Classes="Vertical"
                                 ContextFlyout="{StaticResource SharedMenuFlyout}"
                                 Description="{Binding LastLoginTime}"
                                 MoreFlyout="{StaticResource SharedMenuFlyout}"
-                                Status="{ReflectionBinding Path=Res.UserChange_RecentLogin,
-                                                           Mode=OneWay,
-                                                           Source={x:Static s:ResourceService.Current}}"
+                                Status="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                 Tags="{Binding AliasName}">
                                 <spp:AppItem.Status>
                                     <Border Classes="Status" IsVisible="{Binding MostRecent}">
-                                        <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <TextBlock Text="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     </Border>
                                 </spp:AppItem.Status>
                                 <i:Interaction.Behaviors>
-                                    <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="{ReflectionBinding #Item}">
-                                        <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SwapToAccountCommand}" CommandParameter="{Binding}" />
+                                    <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="Item">
+                                        <ia:InvokeCommandAction Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).SwapToAccountCommand}" CommandParameter="{Binding}" />
                                     </ia:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
                                 <spp:AppItem.Image>
@@ -154,13 +147,13 @@
                                         <spp:Image2
                                             Width="155"
                                             Height="155"
-                                            IsVisible="{ReflectionBinding #u.DataContext.IsSteamPlatform}"
+                                            IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
                                             RenderOptions.BitmapInterpolationMode="MediumQuality"
                                             Source="{Binding AvatarFramePath}"
                                             Stretch="UniformToFill">
                                             <!--<spp:Image2.IsVisible>
                                                 <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                                    <ReflectionBinding ElementName="u" Path="DataContext.IsSteamPlatform" />
+                                                    <CompiledBinding ElementName="u" Path="DataContext.IsSteamPlatform" />
                                                     <CompiledBinding
                                                         Converter="{StaticResource IsNullConverter}"
                                                         ConverterParameter="invert"

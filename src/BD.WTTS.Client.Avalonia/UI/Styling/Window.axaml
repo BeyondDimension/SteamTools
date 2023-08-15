@@ -5,7 +5,8 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:wnd="using:FluentAvalonia.UI.Windowing">
+    xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+    x:CompileBindings="True">
 
     <Design.PreviewWith>
         <wnd:MinMaxCloseControl>
@@ -96,33 +97,27 @@
                         Content="&#xE921;"
                         Theme="{StaticResource FA_SystemCaptionButton}"
                         ToolTip.Placement="Bottom"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.Minimize,
-                                                        Mode=OneWay,
-                                                        Source={x:Static s:ResourceService.Current}}" />
+                        ToolTip.Tip="{Binding Path=Res.Minimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <Button
                         Name="MaxRestoreButton"
                         Content="&#xE922;"
                         Theme="{StaticResource FA_SystemCaptionButton}"
                         ToolTip.Placement="Bottom"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.Maximize,
-                                                        Mode=OneWay,
-                                                        Source={x:Static s:ResourceService.Current}}" />
+                        ToolTip.Tip="{Binding Path=Res.Maximize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <Button
                         Name="CloseButton"
                         Classes="Close"
                         Content="{StaticResource Close}"
                         Theme="{StaticResource FA_SystemCaptionButton}"
                         ToolTip.Placement="Bottom"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.Close,
-                                                        Mode=OneWay,
-                                                        Source={x:Static s:ResourceService.Current}}" />
+                        ToolTip.Tip="{Binding Path=Res.Close, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </StackPanel>
             </ControlTemplate>
         </Setter>
 
         <Style Selector="^:maximized /template/ Button#MaxRestoreButton">
             <Setter Property="Content" Value="&#xE923;" />
-            <Setter Property="ToolTip.Tip" Value="{ReflectionBinding Path=Res.Restore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            <Setter Property="ToolTip.Tip" Value="{Binding Path=Res.Restore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
         </Style>
     </ControlTheme>
 
@@ -164,24 +159,13 @@
                 Background="{TemplateBinding Background}">
                 <Panel>
                     <Panel Name="WindowBackground">
-                        <Border Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Opacity="{ReflectionBinding Value, Source={x:Static ms:UISettings.WindowBackgroundOpacity}, Mode=OneWay}" />
+                        <Border Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Opacity="{Binding Value, Source={x:Static ms:UISettings.WindowBackgroundOpacity}, Mode=OneWay}" />
                         <Image
-                            IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImage},
-                                                          Path=Value,
-                                                          Mode=OneWay}"
-                            Opacity="{ReflectionBinding Value,
-                                                        Source={x:Static ms:UISettings.WindowBackgroundCustomImageOpacity},
-                                                        Mode=OneWay}"
+                            IsVisible="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=OneWay}"
+                            Opacity="{Binding Value, Source={x:Static ms:UISettings.WindowBackgroundCustomImageOpacity}, Mode=OneWay}"
                             RenderOptions.BitmapInterpolationMode="HighQuality"
-                            Source="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImagePath},
-                                                       Path=Value,
-                                                       Mode=OneWay,
-                                                       Converter={StaticResource BitmapAssetValueConverter}}"
-                            Stretch="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImageStretch},
-                                                        Path=Value,
-                                                        Mode=OneWay,
-                                                        Converter={StaticResource EnumConverter},
-                                                        ConverterParameter={x:Type Stretch}}" />
+                            Source="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImagePath}, Path=Value, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}"
+                            Stretch="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImageStretch}, Path=Value, Mode=OneWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type Stretch}}" />
                     </Panel>
                     <Panel
                         Name="DefaultTitleBar"
@@ -240,22 +224,13 @@
             <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
             <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
             <Panel Name="WindowBackground" IsHitTestVisible="False">
-                <Border Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Opacity="{ReflectionBinding Value, Source={x:Static ms:UISettings.WindowBackgroundOpacity}, Mode=OneWay}" />
+                <Border Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Opacity="{Binding Value, Source={x:Static ms:UISettings.WindowBackgroundOpacity}, Mode=OneWay}" />
                 <Image
-                    IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImage},
-                                                  Path=Value,
-                                                  Mode=OneWay}"
-                    Opacity="{ReflectionBinding Value,
-                                                Source={x:Static ms:UISettings.WindowBackgroundCustomImageOpacity},
-                                                Mode=OneWay}"
+                    IsVisible="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=OneWay}"
+                    Opacity="{Binding Value, Source={x:Static ms:UISettings.WindowBackgroundCustomImageOpacity}, Mode=OneWay}"
                     RenderOptions.BitmapInterpolationMode="HighQuality"
-                    Source="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImagePath},
-                                               Path=Value,
-                                               Mode=OneWay,
-                                               Converter={StaticResource BitmapAssetValueConverter}}"
-                    Stretch="{ReflectionBinding Source={x:Static ms:UISettings.WindowBackgroundCustomImageStretch},
-                                                Path=Value,
-                                                Mode=OneWay}" />
+                    Source="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImagePath}, Path=Value, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}"
+                    Stretch="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImageStretch}, Path=Value, Mode=OneWay}" />
             </Panel>
             <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
             <VisualLayerManager>

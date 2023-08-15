@@ -21,10 +21,10 @@
                 Padding="8"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Command="{ReflectionBinding #InnerNavFrame.GoBack}"
+                Command="{Binding #InnerNavFrame.GoBack}"
                 Content="{StaticResource Back}"
                 FontFamily="{StaticResource SymbolThemeFontFamily}"
-                IsVisible="{ReflectionBinding #InnerNavFrame.CanGoBack}"
+                IsVisible="{Binding #InnerNavFrame.CanGoBack}"
                 Theme="{StaticResource TransparentButton}" />
             <TextBlock
                 VerticalAlignment="Center"

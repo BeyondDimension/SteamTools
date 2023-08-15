@@ -4,7 +4,8 @@
     xmlns:col="using:System.Collections"
     xmlns:spp="https://steampp.net/ui"
     xmlns:sys="using:System"
-    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:CompileBindings="True">
 
     <Design.PreviewWith>
         <Border Width="400" MinHeight="400">

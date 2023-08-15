@@ -15,9 +15,7 @@
     <spp:ContentLoader
         x:Name="ContentLoader"
         IsLoading="{Binding !!!AuthenticatorDeleteBackups.Count, Mode=OneWay}"
-        NoResultMessage="{ReflectionBinding Source={x:Static s:ResourceService.Current},
-                                            Path=Res.Auth_Sync_NoHasRecover,
-                                            Mode=OneWay}">
+        NoResultMessage="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.Auth_Sync_NoHasRecover, Mode=OneWay}">
         <Grid RowDefinitions="*,Auto">
             <ItemsControl ItemsSource="{Binding AuthenticatorDeleteBackups, Mode=OneWay}">
                 <ItemsControl.ItemsPanel>
@@ -38,18 +36,14 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
-                                                                     Path=Res.GeneralAuth_Name,
-                                                                     Mode=OneWay}"
+                                            Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.GeneralAuth_Name, Mode=OneWay}"
                                             TextTrimming="CharacterEllipsis" />
 
                                         <TextBlock
                                             VerticalAlignment="Top"
                                             FontSize="12"
                                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Text="{ReflectionBinding Source={x:Static s:ResourceService.Current},
-                                                                     Path=Res.Auth_Sync_DeleteTime,
-                                                                     Mode=OneWay}"
+                                            Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.Auth_Sync_DeleteTime, Mode=OneWay}"
                                             TextWrapping="Wrap" />
                                     </StackPanel>
                                 </StackPanel>
@@ -83,9 +77,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Command="{Binding Recover}"
-                Content="{ReflectionBinding Source={x:Static s:ResourceService.Current},
-                                            Path=Res.Auth_Sync_VerifyRecover,
-                                            Mode=OneWay}"
+                Content="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.Auth_Sync_VerifyRecover, Mode=OneWay}"
                 IsVisible="{Binding !#ContentLoader.IsLoading}" />
         </Grid>
     </spp:ContentLoader>

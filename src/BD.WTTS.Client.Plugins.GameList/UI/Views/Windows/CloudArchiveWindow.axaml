@@ -9,7 +9,6 @@
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:wnd="using:FluentAvalonia.UI.Windowing"
-    x:Name="u"
     Title="{Binding Title}"
     Width="750"
     Height="500"
@@ -30,9 +29,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding RefreshList}"
                         Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,
-                                                        Mode=OneWay,
-                                                        Source={x:Static s:ResourceService.Current}}">
+                        ToolTip.Tip="{Binding Path=Res.RefreshList, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                         <Viewbox
                             Width="22"
                             Height="22"
@@ -47,9 +44,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding UploadFile}"
                         Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_UploadCloudArchiveFile,
-                                                        Mode=OneWay,
-                                                        Source={x:Static s:ResourceService.Current}}">
+                        ToolTip.Tip="{Binding Path=Res.GameList_UploadCloudArchiveFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                         <Viewbox
                             Width="22"
                             Height="22"
@@ -64,9 +59,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding ClearAllFiles}"
                         Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RemoveBtn,
-                                                        Mode=OneWay,
-                                                        Source={x:Static s:ResourceService.Current}}">
+                        ToolTip.Tip="{Binding Path=Res.GameList_RemoveBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                         <Viewbox
                             Width="22"
                             Height="22"
@@ -94,13 +87,13 @@
                             Theme="{StaticResource CaptionTextBlockStyle}">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} MB/ {1} MB">
-                                    <Binding Path="UsedQutoa" />
-                                    <Binding Path="TotalQutoa" />
+                                    <CompiledBinding Path="UsedQutoa" />
+                                    <CompiledBinding Path="TotalQutoa" />
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
                         <ProgressBar
-                            Width="{ReflectionBinding $parent.Width}"
+                            Width="{Binding $parent.Width}"
                             Height="5"
                             Classes="Material"
                             DockPanel.Dock="Bottom"
@@ -110,7 +103,7 @@
                 </StackPanel>
 
                 <TabControl Padding="0">
-                    <TabItem Header="{ReflectionBinding Path=Res.GameList_CloudArchiveManager, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    <TabItem Header="{Binding Path=Res.GameList_CloudArchiveManager, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                         <DataGrid
                             x:Name="CloudGrid"
                             IsReadOnly="True"
@@ -118,18 +111,14 @@
                             <DataGrid.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuItem
-                                        Command="{ReflectionBinding #u.DataContext.DownloadFile}"
-                                        CommandParameter="{ReflectionBinding #CloudGrid.SelectedItem}"
-                                        Header="{ReflectionBinding Path=Res.Download,
-                                                                   Mode=OneWay,
-                                                                   Source={x:Static s:ResourceService.Current}}" />
+                                        Command="{Binding $parent[Window].((spp:CloudArchiveAppPageViewModel)DataContext).DownloadFile}"
+                                        CommandParameter="{Binding #CloudGrid.SelectedItem}"
+                                        Header="{Binding Path=Res.Download, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     <MenuItem Header="-" />
                                     <MenuItem
-                                        Command="{ReflectionBinding #u.DataContext.DeleteFile}"
-                                        CommandParameter="{ReflectionBinding #CloudGrid.SelectedItem}"
-                                        Header="{ReflectionBinding Path=Res.Delete,
-                                                                   Mode=OneWay,
-                                                                   Source={x:Static s:ResourceService.Current}}" />
+                                        Command="{Binding $parent[Window].((spp:CloudArchiveAppPageViewModel)DataContext).DeleteFile}"
+                                        CommandParameter="{Binding #CloudGrid.SelectedItem}"
+                                        Header="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                 </MenuFlyout>
                             </DataGrid.ContextFlyout>
                             <DataGrid.Styles>
@@ -145,7 +134,7 @@
                                 Width="58">
               <DataGridTemplateColumn.Header>
                 <CheckBox Classes="onlyCheckBox"
-                          IsChecked="{ReflectionBinding #u.DataContext.IsCheckAll,Mode=TwoWay}"
+                          IsChecked="{Binding $parent[Window].((spp:CloudArchiveAppPageViewModel)DataContext).IsCheckAll,Mode=TwoWay}"
                           VerticalAlignment="Center"
                           Margin="8 0 0 0"></CheckBox>
               </DataGridTemplateColumn.Header>
@@ -168,7 +157,7 @@
                                     CanUserSort="True"
                                     SortMemberPath="Name">
                                     <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{ReflectionBinding Path=Res.Achievement_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <TextBlock Text="{Binding Path=Res.Achievement_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate x:DataType="spp:SteamRemoteFile">
@@ -183,7 +172,7 @@
                                     CanUserSort="True"
                                     SortMemberPath="Size">
                                     <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{ReflectionBinding Path=Res.FileSize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <TextBlock Text="{Binding Path=Res.FileSize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate x:DataType="spp:SteamRemoteFile">
@@ -226,11 +215,11 @@
                                     CanUserSort="True"
                                     SortMemberPath="CreateTime">
                                     <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{ReflectionBinding Path=Res.CreateTime, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <TextBlock Text="{Binding Path=Res.CreateTime, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate x:DataType="spp:SteamRemoteFile">
-                                            <TextBlock Classes="content" Text="{ReflectionBinding Timestamp, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}}" />
+                                            <TextBlock Classes="content" Text="{Binding Timestamp, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}}" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

@@ -197,15 +197,15 @@
                                                 <Button Margin="5,0" FontSize="10">
                                                     <ToolTip.Tip>
                                                         <MultiBinding StringFormat="{}{0} : {1} / {2}">
-                                                            <Binding Path="Res.User_Experience" Source="{x:Static s:ResourceService.Current}" />
-                                                            <Binding Path="User.Experience" Source="{x:Static s:UserService.Current}" />
-                                                            <Binding Path="User.NextExperience" Source="{x:Static s:UserService.Current}" />
+                                                            <CompiledBinding Path="Res.User_Experience" Source="{x:Static s:ResourceService.Current}" />
+                                                            <CompiledBinding Path="User.Experience" Source="{x:Static s:UserService.Current}" />
+                                                            <CompiledBinding Path="User.NextExperience" Source="{x:Static s:UserService.Current}" />
                                                         </MultiBinding>
                                                     </ToolTip.Tip>
                                                     <Button.Content>
                                                         <MultiBinding StringFormat="{}{0} : Lv.{1}">
-                                                            <Binding Path="Res.User_Level" Source="{x:Static s:ResourceService.Current}" />
-                                                            <Binding Path="User.Level" Source="{x:Static s:UserService.Current}" />
+                                                            <CompiledBinding Path="Res.User_Level" Source="{x:Static s:ResourceService.Current}" />
+                                                            <CompiledBinding Path="User.Level" Source="{x:Static s:UserService.Current}" />
                                                         </MultiBinding>
                                                     </Button.Content>
                                                 </Button>
@@ -222,8 +222,8 @@
                                                     ToolTip.Tip="{Binding Path=Res.Signed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                                     <Button.Content>
                                                         <MultiBinding StringFormat="{}{0} : {1}">
-                                                            <Binding Path="Res.User_EngineOil" Source="{x:Static s:ResourceService.Current}" />
-                                                            <Binding Path="User.Balance" Source="{x:Static s:UserService.Current}" />
+                                                            <CompiledBinding Path="Res.User_EngineOil" Source="{x:Static s:ResourceService.Current}" />
+                                                            <CompiledBinding Path="User.Balance" Source="{x:Static s:UserService.Current}" />
                                                         </MultiBinding>
                                                     </Button.Content>
                                                 </Button>

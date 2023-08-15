@@ -30,12 +30,12 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="{ReflectionBinding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <TabStripItem Content="{Binding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:AcceleratorPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="{ReflectionBinding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <TabStripItem Content="{Binding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:ScriptPage" />
                 </TabStripItem.Tag>

@@ -2,7 +2,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives">
+    xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+    x:CompileBindings="True">
     <Design.PreviewWith>
         <Border Padding="20">
             <!--  Add Controls for Previewer Here  -->

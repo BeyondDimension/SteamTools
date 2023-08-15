@@ -52,45 +52,40 @@
                         <ui:SettingsExpander.Footer>
                             <ToggleSwitch
                                 Classes="LeftContent"
-                                Command="{ReflectionBinding Path=DataContext.SwitchEnablePlugin_Click,
-                                                            RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                                Command="{Binding $parent[spp:Settings_Plugin].((spp:SettingsPageViewModel)DataContext).SwitchEnablePlugin_Click}"
                                 CommandParameter="{Binding}"
                                 IsChecked="{Binding !IsDisable, Mode=TwoWay}" />
                         </ui:SettingsExpander.Footer>
                         <ui:SettingsExpanderItem
                             ActionIconSource="Refresh"
-                            Command="{ReflectionBinding Path=DataContext.CheckUpdate_Click,
-                                                        RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                            Command="{Binding $parent[spp:Settings_Plugin].((spp:SettingsPageViewModel)DataContext).CheckUpdate_Click}"
                             Content="{Binding Path=Res.CheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             IsClickEnabled="True">
                             <ui:SettingsExpanderItem.Description>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <Binding
+                                    <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <Binding Mode="OneWay" Path="Data.Version" />
+                                    <CompiledBinding Mode="OneWay" Path="Data.Version" />
                                 </MultiBinding>
                             </ui:SettingsExpanderItem.Description>
                         </ui:SettingsExpanderItem>
                         <ui:SettingsExpanderItem
                             ActionIconSource="Open"
-                            Command="{ReflectionBinding Path=DataContext.OpenPluginDirectory_Click,
-                                                        RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                            Command="{Binding $parent[spp:Settings_Plugin].((spp:SettingsPageViewModel)DataContext).OpenPluginDirectory_Click}"
                             CommandParameter="{Binding Data.AssemblyLocation}"
                             Content="{Binding Path=Res.Plugin_OpenFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             IsClickEnabled="True" />
                         <ui:SettingsExpanderItem
                             ActionIconSource="Open"
-                            Command="{ReflectionBinding Path=DataContext.OpenPluginCacheDirectory_Click,
-                                                        RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                            Command="{Binding $parent[spp:Settings_Plugin].((spp:SettingsPageViewModel)DataContext).OpenPluginCacheDirectory_Click}"
                             CommandParameter="{Binding Data.CacheDirectory}"
                             Content="{Binding Path=Res.Plugin_OpenCacheFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             IsClickEnabled="True" />
                         <ui:SettingsExpanderItem
                             ActionIconSource="Delete"
-                            Command="{ReflectionBinding Path=DataContext.DeletePlugin_Click,
-                                                        RelativeSource={RelativeSource AncestorType=spp:Settings_Plugin}}"
+                            Command="{Binding $parent[spp:Settings_Plugin].((spp:SettingsPageViewModel)DataContext).DeletePlugin_Click}"
                             CommandParameter="{Binding Data}"
                             Content="{Binding Path=Res.Plugin_Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             IsClickEnabled="True" />
