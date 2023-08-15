@@ -182,9 +182,11 @@ public sealed partial class App : Application
     public void InitSettingSubscribe()
     {
         GeneralSettings.TrayIcon.Subscribe(x => InitTrayIcon());
-        UISettings.ThemeAccent.Subscribe(SetThemeAccent);
         UISettings.UseSystemThemeAccent.Subscribe(useSystemThemeAccent
             => SetThemeAccent(useSystemThemeAccent ? bool.TrueString : UISettings.ThemeAccent.Value));
+        UISettings.ThemeAccent.Subscribe(color
+            => SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value),
+            !UISettings.UseSystemThemeAccent.Value);
 
         GeneralSettings.AutoRunOnStartup.Subscribe(IApplication.SetBootAutoStart);
 

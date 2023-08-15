@@ -91,7 +91,6 @@ public partial class ProxyChartView : UserControl
             else
             {
                 var dps = IPlatformService.Instance;
-                dps.SetLightOrDarkThemeFollowingSystem(false);
                 var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                 if (isLightOrDarkTheme.HasValue)
                 {

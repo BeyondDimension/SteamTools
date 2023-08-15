@@ -78,25 +78,24 @@ partial class App
         if (Color.TryParse(colorHex, out var color))
         {
             thm.CustomAccentColor = color;
+            thm.PreferUserAccentColor = false;
         }
-        else
+        else if (colorHex.Equals(bool.TrueString, StringComparison.OrdinalIgnoreCase))
         {
-            if (colorHex.Equals(bool.TrueString, StringComparison.OrdinalIgnoreCase))
-            {
-                thm.CustomAccentColor = null;
-            }
-        }
-
-        if (OperatingSystem.IsWindows())
-        {
-            if (OperatingSystem.IsWindowsVersionAtLeast(6, 2))
-                thm.PreferUserAccentColor = true;
-            else
-                thm.PreferUserAccentColor = false;
-        }
-        else
-        {
+            thm.CustomAccentColor = null;
             thm.PreferUserAccentColor = true;
         }
+
+        //if (OperatingSystem.IsWindows())
+        //{
+        //    if (OperatingSystem.IsWindowsVersionAtLeast(6, 2))
+        //        thm.PreferUserAccentColor = true;
+        //    else
+        //        thm.PreferUserAccentColor = false;
+        //}
+        //else
+        //{
+        //  thm.PreferUserAccentColor = true;
+        //}
     }
 }

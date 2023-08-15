@@ -19,7 +19,7 @@
         <spp:EnumLocalizationNameConverter x:Key="EnumLocalizationNameConverter" />
     </Application.Resources>
     <Application.Styles>
-        <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
+        <sty:FluentAvaloniaTheme PreferSystemTheme="False" PreferUserAccentColor="True" />
         <spp:CustomTheme Mode="Default" />
     </Application.Styles>
 </Application>
