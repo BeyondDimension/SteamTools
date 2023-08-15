@@ -26,9 +26,92 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
         table = db.GetCollection<RequestCache>(TableName);
     }
 
+    readonly record struct AnalyzeFileTypeResult
+    {
+        AnalyzeFileTypeResult(string fileEx)
+        {
+            FileEx = fileEx;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator AnalyzeFileTypeResult(string fileEx)
+            => new(fileEx);
+
+        AnalyzeFileTypeResult(ImageFormat imageFormat)
+        {
+            ImageFormat = imageFormat;
+            FileEx = imageFormat.GetExtension();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator AnalyzeFileTypeResult(ImageFormat imageFormat)
+            => new(imageFormat);
+
+        public string FileEx { get; init; }
+
+        public ImageFormat? ImageFormat { get; init; }
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static string GetRequestUri(HttpRequestMessage request)
-        => request.RequestUri?.ToString() ?? "/";
+    static AnalyzeFileTypeResult AnalyzeFileType(byte[] buffer)
+    {
+        if (FileFormat.IsImage(buffer, out var imageFormat))
+        {
+            return imageFormat;
+        }
+
+        var buffer_ = buffer.AsSpan();
+        Utf8StringComparerOrdinalIgnoreCase comparer = new();
+
+        // 根据文件头识别一些文件类型使用正确的文件扩展名
+        var magicNumber = "<html"u8;
+        if (magicNumber.SequenceEqual(buffer_[..magicNumber.Length], comparer))
+        {
+            return FileEx.HTML;
+        }
+        magicNumber = "<body"u8;
+        if (magicNumber.SequenceEqual(buffer_[..magicNumber.Length], comparer))
+        {
+            return FileEx.HTML;
+        }
+        magicNumber = "<!DOCTYPE"u8;
+        if (magicNumber.SequenceEqual(buffer_[..magicNumber.Length], comparer))
+        {
+            return FileEx.HTML;
+        }
+        magicNumber = "<?xml"u8;
+        if (magicNumber.SequenceEqual(buffer_[..magicNumber.Length], comparer))
+        {
+            return FileEx.XML;
+        }
+        magicNumber = "{"u8;
+        if (magicNumber.SequenceEqual(buffer_[..magicNumber.Length], comparer))
+        {
+            return FileEx.JSON;
+        }
+
+        return FileEx.BIN;
+    }
+
+    sealed class Utf8StringComparerOrdinalIgnoreCase : IEqualityComparer<byte>
+    {
+        public Utf8StringComparerOrdinalIgnoreCase() { }
+
+        // https://www.geeksforgeeks.org/lower-case-upper-case-interesting-fact/
+
+        static byte Convert(byte b)
+        {
+            int i = b;
+            i &= ~32;
+            return (byte)i;
+        }
+
+        bool IEqualityComparer<byte>.Equals(byte x, byte y)
+            => Convert(x) == Convert(y);
+
+        int IEqualityComparer<byte>.GetHashCode(byte obj)
+            => EqualityComparer<byte>.Default.GetHashCode(Convert(obj));
+    }
 
     async Task IRequestCache.Save(
         HttpRequestMessage request,
@@ -68,11 +151,10 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
                 requestHost = DefaultRequestHost;
             requestUriString = requestUri.ToString();
         }
-        var imageFormat = FileFormat.IsImage(bytes, out var imageFormat_)
-            ? imageFormat_ : (ImageFormat?)null;
 
+        var fileTypeResult = AnalyzeFileType(bytes);
         var hashKey = Hashs.String.SHA384(bytes, false);
-        var fileEx = imageFormat.HasValue ? imageFormat.Value.GetExtension() : FileEx.BIN;
+        var fileEx = fileTypeResult.FileEx;
         var fileName = hashKey + fileEx;
         var relativePath = Path.Combine(HTTP, requestHost, fileName);
         var baseDirPath = Path.Combine(IOPath.CacheDirectory, HTTP, requestHost);
@@ -165,10 +247,20 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
         string key,
         CancellationToken cancellationToken)
     {
-        var requestUri = GetRequestUri(request);
+        var requestUri = request.RequestUri;
+        string requestUriString;
+        if (requestUri == null)
+        {
+            requestUriString = DefaultRequestUri;
+        }
+        else
+        {
+            requestUriString = requestUri.ToString();
+        }
+
         var entity = table.Query().Where(x => x.Id == key &&
             x.HttpMethod == request.Method.Method &&
-            x.RequestUri == requestUri).FirstOrDefault();
+            x.RequestUri == requestUriString).FirstOrDefault();
 
         if (!cancellationToken.IsCancellationRequested && entity != null)
         {
