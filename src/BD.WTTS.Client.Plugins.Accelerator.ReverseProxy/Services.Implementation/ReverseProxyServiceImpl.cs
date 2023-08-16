@@ -170,7 +170,7 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
 
         if (!CertificateManager.IsRootCertificateInstalled)
         {
-            var isOk = await CertificateManager.SetupRootCertificateAsync();
+            var isOk = CertificateManager.SetupRootCertificate();
             if (!isOk)
             {
                 return StartProxyResultCode.SetupRootCertificateFail;

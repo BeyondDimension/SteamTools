@@ -51,19 +51,35 @@ public sealed partial class AcceleratorPageViewModel
         }
     }
 
-    public async void TrustCer_OnClick()
+    public void TrustCer_OnClick()
     {
         certificateManager.GetCerFilePathGeneratedWhenNoFileExists();
-        await certificateManager.PlatformTrustRootCertificateGuideAsync();
+        certificateManager.TrustRootCertificate();
     }
 
-    public async void SetupCertificate_OnClick()
+    public void SetupCertificate_OnClick()
     {
-        await certificateManager.SetupRootCertificateAsync();
+        var r = certificateManager.SetupRootCertificate();
+        if (r)
+        {
+            Toast.Show(ToastIcon.Success, Strings.CommunityFix_SetupCertificate_Success);
+        }
+        else
+        {
+            Toast.Show(ToastIcon.Error, Strings.CommunityFix_SetupCertificate_Fail);
+        }
     }
 
-    public bool DeleteCertificate_OnClick()
+    public void DeleteCertificate_OnClick()
     {
-        return certificateManager.DeleteRootCertificate();
+        var r = certificateManager.DeleteRootCertificate();
+        if (r)
+        {
+            Toast.Show(ToastIcon.Success, Strings.CommunityFix_DeleteCertificate_Success);
+        }
+        else
+        {
+            Toast.Show(ToastIcon.Error, Strings.CommunityFix_DeleteCertificate_Fail);
+        }
     }
 }

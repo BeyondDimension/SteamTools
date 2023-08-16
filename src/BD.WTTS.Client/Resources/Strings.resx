@@ -1771,7 +1771,7 @@
   <data name="Enabled" xml:space="preserve">
     <value>已启用</value>
   </data>
-	<data name="Disabled" xml:space="preserve">
+  <data name="Disabled" xml:space="preserve">
     <value>已禁用</value>
   </data>
   <data name="Error_AnswerIncorrect" xml:space="preserve">
@@ -2667,10 +2667,22 @@
   <data name="YouNeedSignInToGetUID_" xml:space="preserve">
     <value>需要登录 {0} 账号才能获取 UID</value>
   </data>
-	<data name="Script_ImportLoading" xml:space="preserve">
+  <data name="Script_ImportLoading" xml:space="preserve">
     <value>处理导入脚本中</value>
   </data>
-	<data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
+  <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>家庭共享库为空</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificate_Fail" xml:space="preserve">
+    <value>删除 CA 证书失败</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificate_Success" xml:space="preserve">
+    <value>删除 CA 证书成功</value>
+  </data>
+  <data name="CommunityFix_SetupCertificate_Fail" xml:space="preserve">
+    <value>安装 CA 证书失败</value>
+  </data>
+  <data name="CommunityFix_SetupCertificate_Success" xml:space="preserve">
+    <value>安装 CA 证书成功</value>
   </data>
 </root>

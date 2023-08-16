@@ -1080,6 +1080,24 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 删除 CA 证书失败 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificate_Fail {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificate_Fail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除 CA 证书成功 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificate_Success {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificate_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 DNS 解析遇到异常，请尝试在代理设置中修改其它 DNS 再次尝试 的本地化字符串。
         /// </summary>
         public static string CommunityFix_DNSErrorNotify {
@@ -1319,6 +1337,24 @@ namespace BD.WTTS.Client.Resources {
         public static string CommunityFix_SetupCertificate {
             get {
                 return ResourceManager.GetString("CommunityFix_SetupCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安装 CA 证书失败 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_SetupCertificate_Fail {
+            get {
+                return ResourceManager.GetString("CommunityFix_SetupCertificate_Fail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安装 CA 证书成功 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_SetupCertificate_Success {
+            get {
+                return ResourceManager.GetString("CommunityFix_SetupCertificate_Success", resourceCulture);
             }
         }
         
