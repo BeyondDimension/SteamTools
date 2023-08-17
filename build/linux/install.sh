@@ -60,7 +60,12 @@ aarch64)
 esac
 
 # 获取发行版信息
-read -r os_name os_version <<<"$(cat /etc/os-release | grep -E 'NAME=|VERSION=' | awk -F'=' '{ print $2 }' | tr -d '"')"
+read -r os_name os_version os_build <<<"$(cat /etc/os-release | grep -E 'NAME=|VERSION=|BUILD_ID=' | awk -F'=' '{ print $2 }' | tr -d '"')"
+
+# 如果 VERSION 为空，则使用 BUILD_ID 填充
+if [ -z "$os_version" ]; then
+    os_version=$(cat /etc/os-release | grep -E 'BUILD_ID=' | awk -F'=' '{ print $2 }' | tr -d '"')
+fi
 
 # 分割版本号
 IFS='.' read -ra version_parts <<<"$os_version"
@@ -173,7 +178,7 @@ zenity --progress \
 chmod +x "$exec_name"
 rm -f "$appVer_path" &>/dev/null
 
-xdg-icon-resource install "./Watt-Toolkit.png" --size 128 Watt-Toolkit
+xdg-icon-resource install "$base_path/Icons/Watt-Toolkit.png" --size 128 Watt-Toolkit
 
 rm -rf "$HOME/Desktop/Watt Toolkit.desktop" 2>/dev/null
 echo "#!/usr/bin/env xdg-open
