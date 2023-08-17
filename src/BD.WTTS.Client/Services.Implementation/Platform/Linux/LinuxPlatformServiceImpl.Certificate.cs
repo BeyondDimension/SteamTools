@@ -19,14 +19,30 @@ namespace BD.WTTS.Services.Implementation
                 X509Certificate2? cert = certificate2;
                 if (cert == null)
                     return false;
-                var path = GetCertStore();
-                var destCertFilePath = Path.Combine(path.CaCertStorePath, CertificateConstants.CerFileName);
-                return File.Exists(destCertFilePath) && cert.GetRawCertData().SequenceEqual(File.ReadAllBytes(destCertFilePath));
+                var shellStr = $"""
+                    #!/bin/bash
 
+                    # 参数：证书名称
+                    CERT_NAME="{CertificateConstants.CertificateName}"
+
+                    # 检查证书是否存在
+                    CERT_RESULT=$(certutil -L -d sql:$HOME/.pki/nssdb | grep "$CERT_NAME")
+
+                    if [ -n "$CERT_RESULT" ]; then
+                        echo "证书 '$CERT_NAME' 存在。"
+                        exit 200
+                    else
+                        echo "证书 '$CERT_NAME' 不存在。"
+                        exit 404
+                    fi
+                    """;
+                var p = Process.Start("/bin/sh", new string[] { "-c", shellStr });
+                p.WaitForExit();
+                return p.ExitCode == 200;
             }
             catch (Exception e)
             {
-                Toast.Show(ToastIcon.Error, $"安装证书错误:{e}");
+                Toast.Show(ToastIcon.Error, $"检测证书安装错误:{e}");
                 return false;
             }
         }
@@ -78,6 +94,18 @@ namespace BD.WTTS.Services.Implementation
                 return false;
             try
             {
+                // 使用  Certutil  NSS 工具 添加到 sql:$HOME/.pki/nssdb Chrome 信任此储存区
+                Process.Start(Certutil, new string[] {
+                        "-A",
+                        "-d",
+                        "sql:$HOME/.pki/nssdb",
+                        "-n",
+                        CertificateConstants.CertificateName,
+                        "-t",
+                        "C,,",
+                        "-i",
+                        cerPath
+                    }).WaitForExit();
                 // 如果存在 /bin/trust 则直接用该命令执行
                 if (File.Exists(TrustPath))
                 {
@@ -118,6 +146,14 @@ namespace BD.WTTS.Services.Implementation
                 return;
             try
             {
+                // 使用  Certutil  NSS 工具 从 sql:$HOME/.pki/nssdb 中删除证书
+                Process.Start(Certutil, new string[] {
+                        "-D",
+                        "-d",
+                        "sql:$HOME/.pki/nssdb",
+                        "-n",
+                        CertificateConstants.CertificateName
+                    }).WaitForExit();
                 // 如果存在 /bin/trust 则直接用该命令执行
                 if (File.Exists(TrustPath))
                 {
@@ -159,6 +195,11 @@ namespace BD.WTTS.Services.Implementation
                 return (RedHatCaCertUpdatePath, RedHatCaCertStorePath);
             }
         }
+
+        /// <summary>
+        /// 使用安装脚本 会要求前置必须安装 该依赖
+        /// </summary>
+        const string Certutil = "certutil";
 
         const string PkexecPath = "pkexec";
 

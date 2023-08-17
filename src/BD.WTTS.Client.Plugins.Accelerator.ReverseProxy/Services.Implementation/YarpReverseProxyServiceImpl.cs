@@ -133,7 +133,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public void Exit()
     {
-        Environment.Exit((int)StartProxyResultCode.BindPortError);
+        DisposeCore();
     }
 
     public async Task StopProxyAsync()

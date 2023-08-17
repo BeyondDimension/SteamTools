@@ -68,7 +68,8 @@ static unsafe partial class Program
     {
         try
         {
-            return !Directory.EnumerateFiles(pszPath).Any();
+            //修复 Files 获取不到文件夹数量 被认为是空文件夹的问题
+            return !Directory.EnumerateFileSystemEntries(pszPath).Any();
         }
         catch (DirectoryNotFoundException)
         {
