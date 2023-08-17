@@ -2138,7 +2138,7 @@
     <value>查看详细数据</value>
   </data>
   <data name="ViewInStore" xml:space="preserve">
-    <value>在 Steam++ 插件商店中查看</value>
+    <value>在插件商店中查看</value>
   </data>
   <data name="Warning_CodeNullPleaseLogin" xml:space="preserve">
     <value>验证码 URL 为空，请重新登录</value>

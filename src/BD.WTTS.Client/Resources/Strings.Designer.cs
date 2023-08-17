@@ -7389,7 +7389,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 在 Steam++ 插件商店中查看 的本地化字符串。
+        ///   查找类似 在插件商店中查看 的本地化字符串。
         /// </summary>
         public static string ViewInStore {
             get {

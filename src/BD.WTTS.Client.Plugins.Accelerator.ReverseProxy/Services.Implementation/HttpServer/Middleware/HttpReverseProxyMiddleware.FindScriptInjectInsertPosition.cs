@@ -3,6 +3,8 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class HttpReverseProxyMiddleware
 {
+    static readonly Utf8StringComparerOrdinalIgnoreCase comparer = new();
+
     /// <summary>
     /// 查找脚本注入位置
     /// </summary>
@@ -65,8 +67,10 @@ partial class HttpReverseProxyMiddleware
                         {
                             var body = "BODY"u8;
                             var head = "HEAD"u8;
-                            if ((bytes.Length == body.Length && bytes.SequenceEqual(body, Utf8StringComparerOrdinalIgnoreCase.Instance)) ||
-                                (bytes.Length == head.Length && bytes.SequenceEqual(head, Utf8StringComparerOrdinalIgnoreCase.Instance)))
+                            if ((bytes.Length == body.Length &&
+                                bytes.SequenceEqual(body, comparer)) ||
+                                (bytes.Length == head.Length &&
+                                bytes.SequenceEqual(head, comparer)))
                             {
                                 insertPosition = index_name_start - mark_start.Length;
                                 return true;
@@ -85,27 +89,5 @@ partial class HttpReverseProxyMiddleware
 
     notfound: insertPosition = -1;
         return false;
-    }
-
-    sealed class Utf8StringComparerOrdinalIgnoreCase : IEqualityComparer<byte>
-    {
-        Utf8StringComparerOrdinalIgnoreCase() { }
-
-        public static readonly Utf8StringComparerOrdinalIgnoreCase Instance = new();
-
-        // https://www.geeksforgeeks.org/lower-case-upper-case-interesting-fact/
-
-        static byte Convert(byte b)
-        {
-            int i = b;
-            i &= ~32;
-            return (byte)i;
-        }
-
-        bool IEqualityComparer<byte>.Equals(byte x, byte y)
-            => Convert(x) == Convert(y);
-
-        int IEqualityComparer<byte>.GetHashCode(byte obj)
-            => EqualityComparer<byte>.Default.GetHashCode(Convert(obj));
     }
 }

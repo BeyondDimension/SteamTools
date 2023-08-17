@@ -13,7 +13,7 @@ static unsafe partial class Program
 {
     public const string dotnet_version_major = "7";
     public const string dotnet_version_minor = "0";
-    public const string dotnet_version_build = "9";
+    public const string dotnet_version_build = "10";
     public const string dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}";
 
     const string dotnet_runtime = "Microsoft.NETCore.App";
