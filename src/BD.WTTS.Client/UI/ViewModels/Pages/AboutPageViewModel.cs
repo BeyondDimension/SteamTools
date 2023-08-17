@@ -26,12 +26,26 @@ public sealed partial class AboutPageViewModel : TabItemViewModel
         }
     }
 
+    static string? GetOSName()
+    {
+        string? osName;
+#if LINUX
+        var platformService = IPlatformService.Instance;
+        osName = platformService.GetLinuxReleaseValue(IPlatformService.LinuxConstants.ReleaseKey_NAME);
+        if (!string.IsNullOrWhiteSpace(osName)) return osName;
+        osName = platformService.GetLinuxReleaseValue(IPlatformService.LinuxConstants.ReleaseKey_ID);
+        if (!string.IsNullOrWhiteSpace(osName)) return osName;
+#endif
+        osName = DeviceInfo2.OSName();
+        return osName;
+    }
+
     [IgnoreDataMember, MPIgnore, MP2Ignore, N_JsonIgnore, S_JsonIgnore]
     public string VersionDisplay
     {
         get
         {
-            var value = $"{AssemblyInfo.InformationalVersion} for {DeviceInfo2.OSName()} ({RuntimeInformation.ProcessArchitecture.ToString().ToLower()})";
+            var value = $"{AssemblyInfo.InformationalVersion} for {GetOSName()} ({RuntimeInformation.ProcessArchitecture.ToString().ToLower()})";
             value = Strings.About_Version_.Format(value);
             return value;
         }

@@ -198,4 +198,14 @@ public partial interface IUISettings
 
     #endregion
 
+    /// <summary>
+    /// 插件菜单排序
+    /// </summary>
+    HashSet<string>? SortPluginMenus { get; set; }
+
+    /// <summary>
+    /// 插件菜单排序的默认值
+    /// </summary>
+    const HashSet<string>? DefaultSortPluginMenus = null;
+
 }

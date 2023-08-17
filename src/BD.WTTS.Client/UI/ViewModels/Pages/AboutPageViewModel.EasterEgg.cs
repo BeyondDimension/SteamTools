@@ -74,10 +74,10 @@ partial class AboutPageViewModel
         }
 #elif MACCATALYST || IOS || MACOS
 #elif LINUX
-        var linuxIssue = platformService.GetLinuxEtcIssue();
-        if (!string.IsNullOrWhiteSpace(linuxIssue))
+        var linuxOSRelease = platformService.GetLinuxReleaseValue(IPlatformService.LinuxConstants.ReleaseKey_PRETTY_NAME);
+        if (!string.IsNullOrWhiteSpace(linuxOSRelease))
         {
-            b.Append(linuxIssue);
+            b.Append(linuxOSRelease);
         }
         else
         {

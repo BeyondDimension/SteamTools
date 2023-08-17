@@ -7,47 +7,66 @@ partial interface IPlatformService
 
 #if LINUX
 
-    private const string LinuxFilePath_EtcIssue = "/etc/issue";
-    private const string Deepin = "Deepin";
-    private const string Ubuntu = "Ubuntu";
+    private const string LinuxFilePath_EtcOSRelease = "/etc/os-release";
 
-    protected static readonly Lazy<string?> _LinuxEtcIssue = new(() =>
+    private static IEnumerable<KeyValuePair<string, string>> ReadEtcOSRelease()
     {
-        if (File.Exists(LinuxFilePath_EtcIssue))
-            return File.ReadAllText(LinuxFilePath_EtcIssue).TrimEnd(" \\n \\l\n\n").Trim();
-        return null;
+        var lines = File.ReadLines(LinuxFilePath_EtcOSRelease);
+        foreach (var line in lines)
+        {
+            var array = line.Split('=', StringSplitOptions.None);
+            if (array.Length >= 2)
+            {
+                var value = array[1].Trim().TrimStart('"').TrimEnd('"');
+                if (!string.IsNullOrWhiteSpace(value))
+                    yield return new KeyValuePair<string, string>(array[0], value);
+            }
+        }
+    }
+
+    protected static readonly Lazy<IEnumerable<KeyValuePair<string, string>>> EtcOSRelease = new(() =>
+    {
+        try
+        {
+            var r = ReadEtcOSRelease();
+            return r;
+        }
+        catch
+        {
+        }
+        return Array.Empty<KeyValuePair<string, string>>();
     });
 
-#endif
+#pragma warning disable IDE1006 // 命名样式
+#pragma warning disable SA1302 // Interface names should begin with I
+    interface LinuxConstants
+#pragma warning restore SA1302 // Interface names should begin with I
+#pragma warning restore IDE1006 // 命名样式
+    {
+        const string Deepin = "Deepin";
+        const string Ubuntu = "Ubuntu";
 
-    /// <summary>
-    /// 获取当前 Linux 系统发行版名称
-    /// </summary>
-    string? GetLinuxEtcIssue() =>
-#if LINUX
-        _LinuxEtcIssue.Value;
-#else
-        null;
-#endif
+        const string ReleaseKey_PRETTY_NAME = "PRETTY_NAME";
+        const string ReleaseKey_NAME = "NAME";
+        const string ReleaseKey_VERSION_ID = "VERSION_ID";
+        const string ReleaseKey_VERSION = "VERSION";
+        const string ReleaseKey_VERSION_CODENAME = "VERSION_CODENAME";
+        const string ReleaseKey_ID = "ID";
+        const string ReleaseKey_ID_LIKE = "ID_LIKE";
+        const string ReleaseKey_HOME_URL = "HOME_URL";
+        const string ReleaseKey_BUG_REPORT_URL = "BUG_REPORT_URL";
+    }
 
-    /// <summary>
-    /// 获取当前 Linux 系统发行版是否为 深度操作系统（deepin）
-    /// </summary>
-    bool IsDeepin() =>
-#if LINUX
-        GetLinuxEtcIssue()?.Contains(Deepin, StringComparison.OrdinalIgnoreCase) ?? false;
-#else
-        false;
-#endif
+    string? GetLinuxReleaseValue(string key)
+    {
+        foreach (var item in EtcOSRelease.Value)
+        {
+            if (string.Equals(item.Key, key, StringComparison.OrdinalIgnoreCase))
+                return item.Value;
+        }
+        return default;
+    }
 
-    /// <summary>
-    /// 获取当前 Linux 系统发行版是否为 Ubuntu
-    /// </summary>
-    bool IsUbuntu() =>
-#if LINUX
-        GetLinuxEtcIssue()?.Contains(Ubuntu, StringComparison.OrdinalIgnoreCase) ?? false;
-#else
-        false;
 #endif
 
     #endregion
