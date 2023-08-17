@@ -34,8 +34,13 @@ public sealed class BitmapAssetValueConverter : ImageValueConverter
             {
                 uri = GetResUri(rawUri);
             }
-            var asset = OpenAssets(uri);
+            using var asset = OpenAssets(uri);
             return GetDecodeBitmap(asset, width);
+        }
+        else if (value is byte[] b)
+        {
+            using var s = new MemoryStream(b);
+            return GetDecodeBitmap(s, width);
         }
         else if (value is Stream s)
         {

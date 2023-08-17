@@ -29,10 +29,12 @@
         </ui:SettingsExpander>
 
 
-        <TextBlock
-            Margin="0,10,0,5"
-            Text="{Binding Path=Res.Plugin_InstalledPlugins, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+        <TextBlock Margin="0,10,0,5" Theme="{StaticResource BodyStrongTextBlockStyle}">
+            <Run Text="{Binding Path=Res.Plugin_InstalledPlugins, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            <Run Text="(" />
+            <Run Text="{Binding MainWindow2.PluginCount, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}" />
+            <Run Text=")" />
+        </TextBlock>
 
         <ItemsControl Classes="DraggableOrder" ItemsSource="{Binding Plugins}">
             <ItemsControl.ItemsPanel>

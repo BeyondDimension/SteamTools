@@ -1,18 +1,18 @@
+using static BD.WTTS.Services.IMicroServiceClient;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-[Obsolete("更改为公告与文章业务服务")]
 public sealed class NotificationService : ReactiveObject
 {
     static NotificationService? mCurrent;
 
     public static NotificationService Current => mCurrent ?? new();
 
-    readonly INotificationRepository notificationRepo = Ioc.Get<INotificationRepository>();
+    //readonly INotificationRepository notificationRepo = Ioc.Get<INotificationRepository>();
 
-    //public SourceCache<NoticeDTO, Guid> NoticesSource { get; }
+    public ObservableCollection<OfficialMessageItemDTO> Notices { get; }
 
     [Reactive]
     public int UnreadNotificationsCount { get; set; }
@@ -25,8 +25,19 @@ public sealed class NotificationService : ReactiveObject
     public NotificationService()
     {
         mCurrent = this;
+        Notices = new ObservableCollection<OfficialMessageItemDTO>();
         //NoticesSource = new(x => x.Id);
         //NoticeTypes = new();
+    }
+
+    public async void GetNewsAsync()
+    {
+        var client = Instance.Message;
+        var result = await client.GetMessage(IApplication.ClientPlatform, OfficialMessageType.News);
+        if (result.IsSuccess && result.Content != null)
+        {
+            Notices.Add(result.Content.DataSource);
+        }
     }
 
     //    public async Task GetNewsAsync()
@@ -69,19 +80,19 @@ public sealed class NotificationService : ReactiveObject
     //        }
     //    }
 
-    public async Task LoadNoticeTypesAsync()
-    {
-        await Task.CompletedTask;
-        //var client = IMicroServiceClient.Instance.Notice;
-        //var result = await client.Types();
-        //if (result.IsSuccess)
-        //{
-        //    NoticeTypes.Clear();
-        //    NoticeTypes.Add(DefaultType);
-        //    foreach (var item in result.Content!.OrderBy(x => x.Order)) // 服务端排序后返回？
-        //        NoticeTypes.Add(item);
-        //}
-    }
+    //public async Task LoadNoticeTypesAsync()
+    //{
+    //    await Task.CompletedTask;
+    //    //var client = IMicroServiceClient.Instance.Notice;
+    //    //var result = await client.Types();
+    //    //if (result.IsSuccess)
+    //    //{
+    //    //    NoticeTypes.Clear();
+    //    //    NoticeTypes.Add(DefaultType);
+    //    //    foreach (var item in result.Content!.OrderBy(x => x.Order)) // 服务端排序后返回？
+    //    //        NoticeTypes.Add(item);
+    //    //}
+    //}
 
     //public async Task LoadNotificationAsync(NoticeGroupDTO? selectGroup)
     //{
@@ -138,16 +149,16 @@ public sealed class NotificationService : ReactiveObject
     //    }
     //}
 
-    public async Task MarkNotificationHasReadAsync(params Notification[] notice)
-    {
-        await notificationRepo.UpdateRangeAsync(notice);
-        UnreadNotificationsCount -= notice.Length;
-        UnreadNotificationsCount = UnreadNotificationsCount < 0 ? 0 : UnreadNotificationsCount;
-    }
+    //public async Task MarkNotificationHasReadAsync(params Notification[] notice)
+    //{
+    //    await notificationRepo.UpdateRangeAsync(notice);
+    //    UnreadNotificationsCount -= notice.Length;
+    //    UnreadNotificationsCount = UnreadNotificationsCount < 0 ? 0 : UnreadNotificationsCount;
+    //}
 
-    public async void DeleteExpiredRecord()
-    {
-        var data = await notificationRepo.GetAllAsync(w => w.ExpirationTime < DateTimeOffset.Now);
-        await notificationRepo.DeleteRangeAsync(data);
-    }
+    //public async void DeleteExpiredRecord()
+    //{
+    //    var data = await notificationRepo.GetAllAsync(w => w.ExpirationTime < DateTimeOffset.Now);
+    //    await notificationRepo.DeleteRangeAsync(data);
+    //}
 }

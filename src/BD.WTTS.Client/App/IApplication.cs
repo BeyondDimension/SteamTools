@@ -77,7 +77,7 @@ public partial interface IApplication
                         return ClientPlatform.AndroidPhoneArm;
                 }
                 break;
-#elif MACCATALYST || MACOS ||　IOS
+#elif MACCATALYST || MACOS || IOS
             case Platform.Apple:
                 switch (DeviceInfo2.Idiom())
                 {
@@ -105,7 +105,7 @@ public partial interface IApplication
                 }
                 break;
 #else
-                    case Platform.Linux:
+            case Platform.Linux:
                 switch (RuntimeInformation.ProcessArchitecture)
                 {
                     case Architecture.X64:

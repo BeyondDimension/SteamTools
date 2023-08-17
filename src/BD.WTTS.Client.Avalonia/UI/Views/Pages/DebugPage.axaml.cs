@@ -7,8 +7,7 @@ public partial class DebugPage : PageBase<DebugPageViewModel>
     public DebugPage()
     {
         InitializeComponent();
-
-        DataContext ??= new DebugPageViewModel();
+        this.SetViewModel<DebugPageViewModel>();
 
         CommandTextBox.KeyUp += (s, e) =>
         {

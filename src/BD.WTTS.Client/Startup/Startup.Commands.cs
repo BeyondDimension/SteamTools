@@ -68,6 +68,7 @@ partial class Startup // 自定义控制台命令参数
         rootCommand.AddCommand(devtools);
 
         // -clt c -silence
+        // -clt c -steamrun
         var common = new Command("c", "common");
         common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
         common.AddOption(new Option<bool>("-steamrun", "Steam 内启动"));

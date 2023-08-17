@@ -14,7 +14,7 @@ public class MenuTabItemViewModel : TabItemViewModel, IExplicitHasValue
 
     internal MenuTabItemViewModel(string resourceKeyOrName)
     {
-        Id = $"-{resourceKeyOrName}";
+        Id = $"{AssemblyInfo.Trademark}-{resourceKeyOrName}";
         ResourceKeyOrName = resourceKeyOrName;
     }
 

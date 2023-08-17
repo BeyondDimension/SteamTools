@@ -20,7 +20,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     protected sealed override string? AuthorOriginalString => null;
 
-    public sealed override object? Icon => new MemoryStream(Resources.accelerator); //"avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico";
+    public sealed override object? Icon => Resources.accelerator; //"avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico";
 
     public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {

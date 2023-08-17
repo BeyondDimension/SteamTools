@@ -68,8 +68,19 @@
         </StackPanel>
     </spp:PageBase.ActionContent>
     <spp:ContentLoader IsLoading="True">
-        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,*">
+            <spp:Snackbar
+                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Grid.ColumnSpan="2"
+                Margin="0,0,0,5"
+                VerticalAlignment="Top"
+                IsClosable="False"
+                IsOpen="True"
+                IsVisible="{Binding !!!MainWindow2.PluginCount, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}"
+                Message="检测到你没有安装插件，请去下载插件即可使用更多功能。"
+                Severity="Warning" />
             <spp:CarouselBanner
+                Grid.Row="1"
                 MaxWidth="616"
                 MaxHeight="353"
                 HorizontalContentAlignment="Stretch"
@@ -86,7 +97,7 @@
                 </spp:CarouselBanner.ItemTemplate>
             </spp:CarouselBanner>
 
-            <TabControl Grid.Column="1">
+            <TabControl Grid.Row="1" Grid.Column="1">
                 <TabItem Header="1111">
                     <StackPanel Spacing="5">
                         <spp:AppItem
@@ -156,18 +167,10 @@
             </TabControl>
 
             <StackPanel
-                Grid.Row="1"
+                Grid.Row="2"
                 Grid.ColumnSpan="2"
                 Margin="0,10"
                 Spacing="5">
-                <spp:Snackbar
-                    Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                    VerticalAlignment="Top"
-                    IsClosable="False"
-                    IsOpen="True"
-                    Message="检测到你没有安装插件，请去下载插件即可使用更多功能。"
-                    Severity="Warning" />
-
                 <TextBlock Margin="0,0,0,5" Text="常用功能" />
 
                 <StackPanel Orientation="Horizontal" Spacing="5">

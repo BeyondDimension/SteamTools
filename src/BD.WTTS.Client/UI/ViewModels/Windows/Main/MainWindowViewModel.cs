@@ -3,13 +3,12 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class MainWindowViewModel : WindowViewModel
 {
-
     #region 更改通知
     //[Reactive]
     //public TabItemViewModel? SelectedItem { get; set; }
 
     [Reactive]
-    public bool IsOpenUserMenu { get; set; }
+    public int PluginCount { get; set; }
 
     #endregion
 
@@ -91,68 +90,59 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         FooterTabItems = footerTabItems;
     }
 
-    public override Task Initialize()
+    public override async Task Initialize()
     {
-        var task = Task.Run(() =>
-         {
-             Thread.CurrentThread.IsBackground = true;
-             if (!IsInitialized)
-             {
+        if (!IsInitialized)
+        {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-                 Task.Run(async () =>
-                 {
-                     if (OperatingSystem.IsWindows())
-                     {
-                         // 等待 Ipc 管理员权限服务初始化完毕
-                         await IPlatformService.IPCRoot.Instance;
-                     }
-                     if (Startup.Instance.TryGetPlugins(out var plugins))
-                     {
-                         foreach (var plugin in plugins)
-                         {
-                             try
-                             {
-                                 await plugin.OnInitializeAsync();
-                             }
-                             catch (Exception ex)
-                             {
-                                 Log.Error(nameof(MainWindowViewModel), ex,
-                                     $"({plugin.UniqueEnglishName}) Plugin.OnInitializeAsync fail.");
-                             }
-                         }
-                     }
-                     //if (ASFSettings.AutoRunArchiSteamFarm.Value)
-                     //{
-                     //    if (platformService.UsePlatformForegroundService)
-                     //    {
-                     //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
-                     //    }
-                     //    else
-                     //    {
-                     //        await ASFService.Current.InitASF();
-                     //    }
-                     //}
-                 });
+            if (OperatingSystem.IsWindows())
+            {
+                // 等待 Ipc 管理员权限服务初始化完毕
+                await IPlatformService.IPCRoot.Instance;
+            }
+            if (Startup.Instance.TryGetPlugins(out var plugins))
+            {
+                PluginCount = plugins.Count;
+                foreach (var plugin in plugins)
+                {
+                    try
+                    {
+                        await plugin.OnInitializeAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(nameof(MainWindowViewModel), ex,
+                            $"({plugin.UniqueEnglishName}) Plugin.OnInitializeAsync fail.");
+                    }
+                }
+            }
+            //if (ASFSettings.AutoRunArchiSteamFarm.Value)
+            //{
+            //    if (platformService.UsePlatformForegroundService)
+            //    {
+            //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
+            //    }
+            //    else
+            //    {
+            //        await ASFService.Current.InitASF();
+            //    }
+            //}
 #endif
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-                 {
-                     SteamConnectService.Current.Initialize();
-                     //SteamConnectService.Current.RefreshSteamUsers();
-                 }
+            {
+                SteamConnectService.Current.Initialize();
+                //SteamConnectService.Current.RefreshSteamUsers();
+            }
 #endif
 
-                 //Parallel.ForEach(TabItems, item =>
-                 //{
-                 //    item.Initialize();
-                 //    //Task.Run(item.Initialize).ForgetAndDispose();
-                 //});
-                 IsInitialized = true;
-             }
-         });
-
-        task.ForgetAndDispose();
-        return task;
+            //Parallel.ForEach(TabItems, item =>
+            //{
+            //    item.Initialize();
+            //    //Task.Run(item.Initialize).ForgetAndDispose();
+            //});
+            IsInitialized = true;
+        }
     }
 
     //public async override void Activation()

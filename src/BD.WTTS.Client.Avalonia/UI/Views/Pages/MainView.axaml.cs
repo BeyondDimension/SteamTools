@@ -14,7 +14,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
 
 #if DEBUG
         if (Design.IsDesignMode)
-            Design.SetDataContext(this, MainWindow.GetMainWinodwViewModel());
+            Design.SetDataContext(this, IViewModelManager.Instance.MainWindow!);
 #endif
 
         NavView.ItemInvoked += NavView_ItemInvoked;
