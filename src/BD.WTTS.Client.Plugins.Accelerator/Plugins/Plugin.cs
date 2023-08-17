@@ -22,11 +22,10 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override object? Icon => new MemoryStream(Resources.accelerator); //"avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico";
 
-    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
-        yield return new MenuTabItemViewModel()
+        yield return new MenuTabItemViewModel(this, nameof(Strings.CommunityFix))
         {
-            ResourceKeyOrName = nameof(Strings.CommunityFix),
             PageType = typeof(MainFramePage),
             IsResourceGet = true,
             //IconKey = "SpeedHigh",

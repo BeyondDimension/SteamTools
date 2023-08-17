@@ -154,10 +154,10 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     #endregion
 
     /// <summary>
-    /// 插件菜单排序
+    /// 菜单排序
     /// </summary>
     [MPKey(17), MP2Key(17), JsonPropertyOrder(17)]
-    public HashSet<string>? SortPluginMenus { get; set; }
+    public HashSet<string>? SortMenuTabs { get; set; }
 
 }
 
@@ -274,9 +274,9 @@ public static partial class UISettings
     #endregion
 
     /// <summary>
-    /// 插件菜单排序
+    /// 菜单排序
     /// </summary>
-    public static SettingsProperty<string, HashSet<string>, UISettings_> SortPluginMenus { get; }
-        = new(DefaultSortPluginMenus);
+    public static SettingsProperty<string, HashSet<string>, UISettings_> SortMenuTabs { get; }
+        = new(DefaultSortMenuTabs);
 
 }

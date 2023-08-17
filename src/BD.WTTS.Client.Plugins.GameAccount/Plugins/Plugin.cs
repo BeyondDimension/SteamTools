@@ -23,11 +23,10 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override object? Icon => new MemoryStream(Resources.userswitcher); //"avares://BD.WTTS.Client.Plugins.GameAccount/UI/Assets/userswitcher.ico";
 
-    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
-        yield return new MenuTabItemViewModel()
+        yield return new MenuTabItemViewModel(this, nameof(Strings.UserFastChange))
         {
-            ResourceKeyOrName = nameof(Strings.UserFastChange),
             PageType = typeof(GameAccountPage),
             IsResourceGet = true,
             IconKey = Icon,

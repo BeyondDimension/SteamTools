@@ -23,7 +23,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         {
             var platformService = IPlatformService.Instance;
             var adminTag = platformService.IsAdministrator ? (OperatingSystem.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
-            var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.InformationalVersion} for {DeviceInfo2.OSName()}{adminTag}";
+            var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.InformationalVersion} for {AboutPageViewModel.GetOSName()}{adminTag}";
 #if DEBUG
             title = $"[Debug] {title}";
 #endif
@@ -61,8 +61,28 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                  })
                 .Where(static x => x != null)
                 .SelectMany(static x => x!);
-
-            tabItems = tabItems.Concat(tabs);
+            var sortTabSettings = UISettings.SortMenuTabs.Value;
+            int OrderBy(MenuTabItemViewModel m)
+            {
+                if (sortTabSettings != null)
+                {
+                    var i = 0;
+                    foreach (var item in sortTabSettings)
+                    {
+                        if (item == m.Id)
+                            return i;
+                        i++;
+                    }
+                }
+                return int.MaxValue;
+            }
+            var comparer = ComparerBuilder.For<MenuTabItemViewModel>()
+                .OrderBy(OrderBy)
+                .ThenBy(x => x.Id);
+            var sortTabs = new SortedSet<MenuTabItemViewModel>(comparer);
+            foreach (var item in tabs)
+                sortTabs.Add(item);
+            tabItems = tabItems.Concat(sortTabs);
         }
 
         TabItems = tabItems.ToList();

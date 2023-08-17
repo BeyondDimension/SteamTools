@@ -26,7 +26,7 @@ public sealed partial class AboutPageViewModel : TabItemViewModel
         }
     }
 
-    static string? GetOSName()
+    internal static string? GetOSName()
     {
         string? osName;
 #if LINUX

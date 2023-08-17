@@ -16,7 +16,7 @@ public partial interface IPlugin
     /// 获取当前插件需要加载的菜单项视图模型
     /// </summary>
     /// <returns></returns>
-    IEnumerable<TabItemViewModel>? GetMenuTabItems();
+    IEnumerable<MenuTabItemViewModel>? GetMenuTabItems();
 
     /// <summary>
     /// 获取插件的配置项

@@ -23,11 +23,10 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override object? Icon => new MemoryStream(Resources.game); //"avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/game.ico";
 
-    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
-        yield return new MenuTabItemViewModel()
+        yield return new MenuTabItemViewModel(this, nameof(Strings.GameList))
         {
-            ResourceKeyOrName = nameof(Strings.GameList),
             PageType = typeof(MainFramePage),
             IsResourceGet = true,
             IconKey = Icon,

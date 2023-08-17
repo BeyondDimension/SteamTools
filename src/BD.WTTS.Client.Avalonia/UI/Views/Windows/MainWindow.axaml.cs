@@ -1,3 +1,4 @@
+using BD.WTTS.Plugins.Abstractions;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using SkiaSharp;
@@ -36,33 +37,29 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
 #pragma warning disable SA1114 // Parameter list should follow declaration
         return new MainWindowViewModel(new TabItemViewModel[]
         {
-                 new MenuTabItemViewModel()
+                 new MenuTabItemViewModel("Welcome")
                  {
-                    ResourceKeyOrName = "Welcome",
                     PageType = typeof(HomePage),
                     IsResourceGet = true,
                     IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico",
                  },
         }, ImmutableArray.Create<TabItemViewModel>(
 #if DEBUG
-            new MenuTabItemViewModel()
+            new MenuTabItemViewModel("Debug")
             {
-                ResourceKeyOrName = "Debug",
                 PageType = typeof(DebugPage),
                 IsResourceGet = false,
                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/bug.ico",
             },
 #endif
-            new MenuTabItemViewModel()
+            new MenuTabItemViewModel("Plugin_Store")
             {
-                ResourceKeyOrName = "Plugin_Store",
                 PageType = null,
                 IsResourceGet = true,
                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/store.ico",
             },
-            new MenuTabItemViewModel()
+            new MenuTabItemViewModel("Settings")
             {
-                ResourceKeyOrName = "Settings",
                 PageType = typeof(SettingsPage),
                 IsResourceGet = true,
                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/settings.ico",

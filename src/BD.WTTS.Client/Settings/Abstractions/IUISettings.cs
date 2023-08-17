@@ -199,13 +199,13 @@ public partial interface IUISettings
     #endregion
 
     /// <summary>
-    /// 插件菜单排序
+    /// 菜单排序
     /// </summary>
-    HashSet<string>? SortPluginMenus { get; set; }
+    HashSet<string>? SortMenuTabs { get; set; }
 
     /// <summary>
-    /// 插件菜单排序的默认值
+    /// 菜单排序的默认值
     /// </summary>
-    const HashSet<string>? DefaultSortPluginMenus = null;
+    const HashSet<string>? DefaultSortMenuTabs = null;
 
 }

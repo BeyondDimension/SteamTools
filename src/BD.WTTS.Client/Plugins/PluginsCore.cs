@@ -129,7 +129,7 @@ public static class PluginsCore
             return default;
         }
 
-        public IEnumerable<TabItemViewModel>? GetMenuTabItems()
+        public IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
         {
             return default;
         }
@@ -356,7 +356,8 @@ public static class PluginsCore
             using CompositionHost container = configuration.CreateContainer();
             foreach (var plugin in container.GetExports<IPlugin>())
             {
-                if (string.Equals(plugin.UniqueEnglishName,
+                if (string.IsNullOrWhiteSpace(plugin.UniqueEnglishName) ||
+                    string.Equals(plugin.UniqueEnglishName,
                     IPlatformService.IPCRoot.moduleName,
                     StringComparison.OrdinalIgnoreCase))
                 {

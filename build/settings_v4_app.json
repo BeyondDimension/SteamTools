@@ -187,7 +187,7 @@
           "IsValueType": null
         },
         {
-          "TypeName": "XamlMediaStretch",appimg://C:/Users/liyu9/Documents/Tencent%20Files/971652764/nt_qq/nt_data/Pic/2023-08/Ori/44ecf8d6924064a6039809e8ca59a1f4.jpg
+          "TypeName": "XamlMediaStretch",
           "PropertyName": "WindowBackgroundCustomImageStretch",
           "DefaultValue": "XamlMediaStretch.UniformToFill",
           "DefaultValueIsConst": true,
@@ -206,10 +206,10 @@
         },
         {
           "TypeName": "HashSet<string>",
-          "PropertyName": "SortPluginMenus",
+          "PropertyName": "SortMenuTabs",
           "DefaultValue": "null",
           "DefaultValueIsConst": true,
-          "Summary": "插件菜单排序",
+          "Summary": "菜单排序",
           "IsRegionOrEndregion": null,
           "IsValueType": null
         }

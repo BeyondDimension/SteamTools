@@ -21,7 +21,7 @@ public sealed class PluginResult<TData>
     [property: Reactive]
     public bool IsDisable { get; set; }
 
-    required public TData Data { get; init; }
+    public required TData Data { get; init; }
 
     public override int GetHashCode() => Data.GetHashCode();
 

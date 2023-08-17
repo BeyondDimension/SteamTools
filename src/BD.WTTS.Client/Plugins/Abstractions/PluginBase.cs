@@ -16,7 +16,7 @@ public abstract partial class PluginBase : IPlugin
         mInstallTime = new(GetInstallTime);
     }
 
-    public virtual IEnumerable<TabItemViewModel>? GetMenuTabItems() => null;
+    public virtual IEnumerable<MenuTabItemViewModel>? GetMenuTabItems() => null;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected (Action<IServiceCollection>? @delegate, bool isInvalid, string name) GetConfiguration<TSettings>(bool directoryExists) where TSettings : class, ISettings<TSettings>, new()
