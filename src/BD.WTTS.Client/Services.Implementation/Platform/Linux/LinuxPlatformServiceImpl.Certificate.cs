@@ -19,24 +19,25 @@ namespace BD.WTTS.Services.Implementation
                 X509Certificate2? cert = certificate2;
                 if (cert == null)
                     return false;
-                var shellStr = $"""
-                    #!/bin/bash
+                var shellStr =
+$"""
+#!/bin/bash
 
-                    # 参数：证书名称
-                    CERT_NAME="{CertificateConstants.CertificateName}"
+# 参数：证书名称
+CERT_NAME="{CertificateConstants.CertificateName}"
 
-                    # 检查证书是否存在
-                    CERT_RESULT=$(certutil -L -d sql:$HOME/.pki/nssdb | grep "$CERT_NAME")
+# 检查证书是否存在
+CERT_RESULT=$(certutil -L -d sql:$HOME/.pki/nssdb | grep "$CERT_NAME")
 
-                    if [ -n "$CERT_RESULT" ]; then
-                        echo "证书 '$CERT_NAME' 存在。"
-                        exit 200
-                    else
-                        echo "证书 '$CERT_NAME' 不存在。"
-                        exit 404
-                    fi
-                    """;
-                var p = Process.Start("/bin/sh", new string[] { "-c", shellStr });
+if [ -n "$CERT_RESULT" ]; then
+    echo "证书 '$CERT_NAME' 存在。"
+    exit 200
+else
+    echo "证书 '$CERT_NAME' 不存在。"
+    exit 404
+fi
+""";
+                var p = Process.Start(Process2.BinBash, new string[] { "-c", shellStr });
                 p.WaitForExit();
                 return p.ExitCode == 200;
             }

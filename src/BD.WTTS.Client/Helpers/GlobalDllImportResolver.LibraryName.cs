@@ -1,4 +1,4 @@
-#if WINDOWS || TOOL_PUBLISH
+#if WINDOWS || LINUX || TOOL_PUBLISH
 //#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
@@ -20,12 +20,13 @@ static partial class GlobalDllImportResolver
     /// </summary>
     internal const string libHarfBuzzSharp = "libHarfBuzzSharp";
 
+#if WINDOWS || TOOL_PUBLISH
+
     /// <summary>
     /// av_libGLESv2.dll Avalonia.OpenGL
     /// </summary>
     internal const string av_libGLESv2 = "av_libGLESv2";
 
-#if WINDOWS || TOOL_PUBLISH
     /// <summary>
     /// WebView2Loader
     /// </summary>
@@ -57,8 +58,8 @@ static partial class GlobalDllImportResolver
         yield return e_sqlite3;
         yield return libSkiaSharp;
         yield return libHarfBuzzSharp;
-        yield return av_libGLESv2;
 #if WINDOWS || TOOL_PUBLISH
+        yield return av_libGLESv2;
         yield return WebView2Loader;
         yield return WinDivert;
         yield return _7z;

@@ -133,7 +133,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public void Exit()
     {
-        DisposeCore();
+        ipc.Dispose();
     }
 
     public async Task StopProxyAsync()

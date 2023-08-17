@@ -4,7 +4,7 @@ mkdir -p "$base_path"
 cd "$base_path" || exit 1
 appVer_path="$base_path/WattToolkit.AppVer"
 exec_name="Steam++"
-tar_name="WattToolkit.tar.gz"
+tar_name="WattToolkit.tgz"
 tar_path="$base_path/$tar_name"
 base_url="https://steampp.mossimo.net:8800"
 architecture=1
@@ -94,9 +94,17 @@ fi
 # 删除旧的文件
 rm -rf $tar_path
 
+title="安装"
+# 检查 o_sha384 是否为空
+if [ -z "$o_sha384" ]; then
+    title="安装"
+else
+    title="更新"
+fi
+
 for i in {1..3}; do
     #下载文件到目标目录
-    wget "$downloads_url" -O "$tar_path" 2>&1 | sed -u 's/.* \([0-9]\+%\)\ \+\([0-9.]\+.\) \(.*\)/\1\n# 下载中 \2\/s, 剩余时间： \3/' | zenity --progress --title="下载 Watt Toolkit" --auto-close --width=500
+    wget "$downloads_url" -O "$tar_path" 2>&1 | sed -u 's/.* \([0-9]\+%\)\ \+\([0-9.]\+.\) \(.*\)/\1\n# 下载中 \2\/s, 剩余时间： \3/' | zenity --progress --title="$title Watt Toolkit" --auto-close --width=500
 
     RUNNING=0
     while [ $RUNNING -eq 0 ]; do
@@ -152,19 +160,27 @@ for process_name in "${PROCESS_NAMES[@]}"; do
 done
 
 echo "开始解压更新。"
-# 解压文件
-tar -xzvf "$tar_name"
+
+# 使用 zenity 显示进度条对话框，并将解压命令输出重定向到文件
+tar -xzvf "$tar_name" 2>&1 | \
+zenity --progress \
+       --title="安装中" \
+       --text="正在解压 $tar_name..." \
+       --percentage=0  \
+       --auto-close  \
+       --width=500
+
 chmod +x "$exec_name"
 rm -f "$appVer_path" &>/dev/null
 
-xdg-icon-resource install Watt_Toolkit.png --size 128
+xdg-icon-resource install "./Watt-Toolkit.png" --size 128 Watt-Toolkit
 
 rm -rf "$HOME/Desktop/Watt Toolkit.desktop" 2>/dev/null
 echo "#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=Watt Toolkit
 Exec=$base_path/$exec_name
-Icon=Watt_Toolkit
+Icon=Watt-Toolkit
 Terminal=false
 Type=Application
 StartupNotify=false" >"$HOME/Desktop/Watt Toolkit.desktop"

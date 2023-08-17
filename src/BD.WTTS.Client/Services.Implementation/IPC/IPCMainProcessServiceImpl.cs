@@ -151,6 +151,20 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
 #else
             true;
 #endif
+
+#if LINUX 
+        // 构建要执行的 shell 命令
+        var shellStr =
+            $"if [ -x \"{fileName}\" ]; then echo \"文件具有执行权限。\"; else chmod +x \"{fileName}\"; echo \"文件没有执行权限。\"; fi";
+        //Linux 启动子模块前需要判断是否有 Exec 执行权限 
+        Process.Start(Process2.BinBash, new string[]
+        {
+            "-c",
+            shellStr
+        }).WaitForExit();
+
+#endif
+
         var psi = new ProcessStartInfo
         {
             FileName = fileName,

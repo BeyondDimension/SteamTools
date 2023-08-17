@@ -100,6 +100,12 @@ interface IDotNetPublishCommand : ICommand
 
                 var publishDir = Path.Combine(projRootPath, arg.PublishDir);
                 var rootPublishDir = Path.GetFullPath(Path.Combine(publishDir, ".."));
+                switch (info.Platform)
+                {
+                    case Platform.Linux:
+                        rootPublishDir = Path.GetFullPath(publishDir);
+                        break;
+                }
                 DirTryDelete(rootPublishDir);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.Write("已删除目录：");
@@ -119,14 +125,31 @@ interface IDotNetPublishCommand : ICommand
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.WriteLine("开始验证【Avalonia.Base.dll 版本号必须为 11+】");
                 ResetConsoleColor();
-                var avaloniaBaseDllPath = Path.Combine(publishDir, "Avalonia.Base.dll");
-                var avaloniaBaseDllVersion = Version.Parse(FileVersionInfo.GetVersionInfo(avaloniaBaseDllPath).FileVersion!);
-                if (avaloniaBaseDllVersion < new Version(11, 0))
+                if (arg.SingleFile.HasValue && !arg.SingleFile.Value)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(avaloniaBaseDllVersion),
-                        avaloniaBaseDllVersion, null);
+                    var avaloniaBaseDllPath = Path.Combine(publishDir, "Avalonia.Base.dll");
+                    var avaloniaBaseDllVersion = Version.Parse(FileVersionInfo.GetVersionInfo(avaloniaBaseDllPath).FileVersion!);
+                    if (avaloniaBaseDllVersion < new Version(11, 0))
+                    {
+                        throw new ArgumentOutOfRangeException(
+                            nameof(avaloniaBaseDllVersion),
+                            avaloniaBaseDllVersion, null);
+                    }
                 }
+
+                if (info.Platform == Platform.Linux)
+                {
+                    Console.WriteLine("Linux 需要 Ico 导入系统图标");
+                    var ico_path = Path.Combine(ProjectUtils.ProjPath, "res", "icons", "app", "v3", "Logo_512.png");
+                    var save_dir_path = Path.Combine(publishDir, "Icons");
+                    if (File.Exists(ico_path))
+                    {
+                        IOPath.DirCreateByNotExists(save_dir_path);
+                        // 不能使用下划线
+                        File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
+                    }
+                }
+
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.WriteLine("验证成功【Avalonia.Base.dll 版本号必须为 11+】");
                 ResetConsoleColor();
@@ -317,7 +340,7 @@ interface IDotNetPublishCommand : ICommand
                         ICompressedPackageCommand.CreateSevenZipPack(packPath = $"{rootPublishDir}{FileEx._7Z}", appPublish.Files);
                         break;
                     case Platform.Linux:
-                        ICompressedPackageCommand.CreateZstdPack(packPath = $"{rootPublishDir}{FileEx.TAR_ZST}", appPublish.Files);
+                        ICompressedPackageCommand.CreateGZipPack(packPath = $"{rootPublishDir}{FileEx.TAR_GZ}", appPublish.Files);
                         break;
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
@@ -478,6 +501,13 @@ interface IDotNetPublishCommand : ICommand
     {
         var nativeDir = Path.Combine(publishDir, "..", "native");
         var nativeWithRuntimeIdentifierDir = Path.Combine(nativeDir, runtimeIdentifier);
+        switch (platform)
+        {
+            case Platform.Linux:
+                nativeDir = Path.Combine(publishDir, "native");
+                nativeWithRuntimeIdentifierDir = Path.Combine(nativeDir, runtimeIdentifier);
+                break;
+        }
         IOPath.DirCreateByNotExists(nativeWithRuntimeIdentifierDir);
         foreach (var libraryName in libraryNames)
         {
@@ -499,6 +529,19 @@ interface IDotNetPublishCommand : ICommand
             var libPath = Path.Combine(publishDir, libFileName);
             if (File.Exists(libPath))
                 File.Move(libPath, Path.Combine(nativeWithRuntimeIdentifierDir, libFileName), true);
+            else if (!libFileName.StartsWith("lib", StringComparison.OrdinalIgnoreCase))
+            {
+                libPath = Path.Combine(publishDir, "lib" + libFileName);
+                if (File.Exists(libPath))
+                    File.Move(libPath, Path.Combine(nativeWithRuntimeIdentifierDir, libFileName), true);
+            }
+            else
+            {
+                libFileName = libFileName.TrimStart("lib", StringComparison.OrdinalIgnoreCase);
+                libPath = Path.Combine(publishDir, libFileName);
+                if (File.Exists(libPath))
+                    File.Move(libPath, Path.Combine(nativeWithRuntimeIdentifierDir, libFileName), true);
+            }
         }
     }
 
@@ -553,7 +596,7 @@ interface IDotNetPublishCommand : ICommand
                         arg.Framework = $"net{Environment.Version.Major}.{Environment.Version.Minor}";
                         arg.RuntimeIdentifier = $"linux-{ArchToString(architecture)}";
                         arg.UseAppHost = true;
-                        arg.SingleFile = false;
+                        arg.SingleFile = true;
                         arg.ReadyToRun = false;
                         arg.Trimmed = false;
                         arg.SelfContained = true;
@@ -625,7 +668,13 @@ interface IDotNetPublishCommand : ICommand
         {
             get
             {
-                _PublishDir ??= string.Join(Path.DirectorySeparatorChar, new[]
+                _PublishDir ??= RuntimeIdentifier.StartsWith("linux") ? string.Join(Path.DirectorySeparatorChar, new[]
+                {
+                    "bin",
+                    Configuration,
+                    "Publish",
+                    RuntimeIdentifier
+                }) : string.Join(Path.DirectorySeparatorChar, new[]
                 {
                     "bin",
                     Configuration,
@@ -867,8 +916,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                     throw new FileNotFoundException(null, dllPath);
                 }
             }
-
-            var pluginDir = Path.Combine(publishDir, "..", "modules", pluginName);
+            var pluginDir = platform != Platform.Linux ? Path.Combine(publishDir, "..", "modules", pluginName) : Path.Combine(publishDir, "modules", pluginName);
             IOPath.DirCreateByNotExists(pluginDir);
             var destFileName = Path.Combine(pluginDir, dllFileName);
             File.Copy(dllPath, destFileName, true);
@@ -904,6 +952,11 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 }
 
                 arg.Framework = $"net{Environment.Version.Major}.{Environment.Version.Minor}";
+                arg.UseAppHost = true;
+                arg.SingleFile = true;
+                arg.ReadyToRun = false;
+                arg.Trimmed = false;
+                arg.SelfContained = false;
                 if (isWindows)
                 {
                     //arg.Framework = $"net{Environment.Version.Major}.{Environment.Version.Minor}-windows{windowssdkver}";
@@ -915,6 +968,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                     switch (platform)
                     {
                         case Platform.Linux:
+                            arg.SelfContained = true;
                             arg.RuntimeIdentifier = $"linux-{ArchToString(architecture)}";
                             break;
                         case Platform.Apple:
@@ -922,12 +976,6 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                             break;
                     }
                 }
-                arg.UseAppHost = true;
-                arg.SingleFile = true;
-                arg.ReadyToRun = false;
-                arg.Trimmed = false;
-                arg.SelfContained = false;
-
                 var projRootPath = Path.Combine(ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy");
 
                 CleanProjDir(projRootPath);
