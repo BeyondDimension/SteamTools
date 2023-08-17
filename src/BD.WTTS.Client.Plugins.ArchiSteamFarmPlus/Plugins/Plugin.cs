@@ -18,11 +18,10 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override string Name => moduleName;
 
-    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
-        yield return new MenuTabItemViewModel()
+        yield return new MenuTabItemViewModel(this, "ArchiSteamFarmPlus")
         {
-            ResourceKeyOrName = "ArchiSteamFarmPlus",
             PageType = null,
             IsResourceGet = true,
             IconKey = "GameConsole",
