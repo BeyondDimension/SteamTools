@@ -1,7 +1,8 @@
 namespace BD.WTTS.Models;
 
-public partial class PlatformSettings : ReactiveObject
+[MP2Obj(SerializeLayout.Explicit)]
+public partial class PlatformSettings : BaseNotifyPropertyChanged
 {
-    [Reactive]
+    [Reactive, MP2Key(0)]
     public string? PlatformPath { get; set; }
 }

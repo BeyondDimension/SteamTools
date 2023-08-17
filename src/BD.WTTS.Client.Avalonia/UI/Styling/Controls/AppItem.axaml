@@ -128,17 +128,17 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="ImageMargin" Value="0,0,12,0" />
         <Setter Property="Padding" Value="{StaticResource ButtonPadding}" />
-        <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+        <Setter Property="CornerRadius" Value="{StaticResource OverlayCornerRadius}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <spp:RippleEffect>
-                    <Border
-                        Name="LayoutRoot"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        ClipToBounds="True"
-                        CornerRadius="{StaticResource OverlayCornerRadius}">
+                <Border
+                    Name="LayoutRoot"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    ClipToBounds="True"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <spp:RippleEffect>
                         <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,*,Auto">
                             <Viewbox
                                 Name="IconHost"
@@ -228,8 +228,8 @@
                                     Theme="{StaticResource TransparentButton}" />
                             </DockPanel>
                         </Grid>
-                    </Border>
-                </spp:RippleEffect>
+                    </spp:RippleEffect>
+                </Border>
             </ControlTemplate>
         </Setter>
     </Style>
@@ -298,7 +298,7 @@
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     ClipToBounds="True"
-                    CornerRadius="{StaticResource OverlayCornerRadius}">
+                    CornerRadius="{TemplateBinding CornerRadius}">
                     <spp:RippleEffect>
                         <Grid RowDefinitions="Auto,*,Auto">
                             <Border VerticalAlignment="Top" Background="Transparent">

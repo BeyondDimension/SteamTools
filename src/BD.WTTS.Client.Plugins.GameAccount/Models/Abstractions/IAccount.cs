@@ -1,6 +1,6 @@
 namespace BD.WTTS.Models;
 
-public interface IAccount
+public interface IAccount : IReactiveObject
 {
     string? DisplayName { get; }
 

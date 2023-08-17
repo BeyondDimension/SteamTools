@@ -233,7 +233,7 @@
                             <spp:AuthenticatorItem.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuItem
-                                        Command="{Binding $parent[Window].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexMoveUp}"
+                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexMoveUp}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.Up, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
@@ -241,7 +241,7 @@
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
-                                        Command="{Binding $parent[Window].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexMoveDown}"
+                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexMoveDown}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.MoveDown, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
@@ -249,7 +249,7 @@
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
-                                        Command="{Binding $parent[Window].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexSticky}"
+                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexSticky}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.FixedTop, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
@@ -257,7 +257,7 @@
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
-                                        Command="{Binding $parent[Window].((spp:AuthenticatorHomePageViewModel)DataContext).DefaultExport}"
+                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).DefaultExport}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.DefaultExport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
@@ -265,7 +265,7 @@
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
-                                        Command="{Binding $parent[Window].((spp:AuthenticatorHomePageViewModel)DataContext).ExportAuthWithSdaFile}"
+                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).ExportAuthWithSdaFile}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.Auth_ExportmaFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
@@ -273,7 +273,7 @@
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
-                                        Command="{Binding $parent[Window].((spp:AuthenticatorHomePageViewModel)DataContext).UnbindingSteamAuthAsync}"
+                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).UnbindingSteamAuthAsync}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.LocalAuth_RemoveAuth, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
@@ -281,7 +281,7 @@
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
-                                        Command="{Binding $parent[Window].((spp:AuthenticatorHomePageViewModel)DataContext).DeleteAuthAsync}"
+                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).DeleteAuthAsync}"
                                         CommandParameter="{Binding}"
                                         Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                                         Header="{Binding Path=Res.LocalAuth_Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">

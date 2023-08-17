@@ -34,7 +34,7 @@
             Text="{Binding Path=Res.Plugin_InstalledPlugins, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
-        <ItemsControl ItemsSource="{Binding Plugins}">
+        <ItemsControl Classes="DraggableOrder" ItemsSource="{Binding Plugins}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Spacing="{StaticResource SettingsSpacing}" />

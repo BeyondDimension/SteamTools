@@ -172,7 +172,6 @@
                                         IsVisible="False"
                                         Theme="{StaticResource TransparentButton}">
                                         <TextBlock
-                                            Margin="2,0,4,0"
                                             FontStyle="Italic"
                                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                                             Text="{TemplateBinding Subtitle}"

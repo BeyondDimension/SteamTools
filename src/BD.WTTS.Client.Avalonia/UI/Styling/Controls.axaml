@@ -46,6 +46,7 @@
     <StyleInclude Source="/UI/Styling/Controls/PageBase.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/OptionsDisplayItem.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/RippleEffect.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/Draggable.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/AppItem.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/ToggleSwitch.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/Separator.axaml" />
