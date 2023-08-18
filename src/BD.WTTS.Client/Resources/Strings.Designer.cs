@@ -6452,6 +6452,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Steam挂卡 的本地化字符串。
+        /// </summary>
+        public static string SteamIdleCard {
+            get {
+                return ResourceManager.GetString("SteamIdleCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam 登入导入 的本地化字符串。
         /// </summary>
         public static string SteamLoginImport {

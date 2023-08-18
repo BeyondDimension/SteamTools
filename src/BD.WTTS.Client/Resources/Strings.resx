@@ -2673,6 +2673,9 @@
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>家庭共享库为空</value>
   </data>
+  <data name="SteamIdleCard" xml:space="preserve">
+    <value>Steam挂卡</value>
+  </data>
   <data name="CommunityFix_DeleteCertificate_Fail" xml:space="preserve">
     <value>删除 CA 证书失败</value>
   </data>

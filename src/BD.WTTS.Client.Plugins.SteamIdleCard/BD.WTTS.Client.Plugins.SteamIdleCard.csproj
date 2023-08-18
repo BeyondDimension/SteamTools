@@ -71,6 +71,12 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Models\" />
+	  <Folder Include="UI\Assets\" />
+	  <Folder Include="UI\Views\Windows\" />
+	</ItemGroup>
+
 	<Import Project="..\TFM_NETX_WITH_ALL.props" />
 
 </Project>

@@ -104,6 +104,8 @@ false
 
     public const string GameList = "GameList";
 
+    public const string SteamIdleCard = "SteamIdleCard";
+
 #endif
 
     public const string ArchiSteamFarmPlus = "ArchiSteamFarmPlus";
