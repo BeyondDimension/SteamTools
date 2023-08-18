@@ -30,14 +30,16 @@ public interface IFontManager
 partial interface IPlatformService
 {
     /// <summary>
-    /// 由 GDI+ 实现的获取当前系统字体数组，仅在 Windows 平台上实现，其他平台将返回空数组
+    /// Windows GDI+ 实现其他平台 SkiaSharp 实现
     /// </summary>
     /// <returns></returns>
-    public IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByGdiPlus()
+    public IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
     {
-        // Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v1.0\Facades\System.Drawing.Common.dll
-        // System.Drawing.Text.InstalledFontCollection
-        // throw new PlatformNotSupportedException();
-        return Array.Empty<KeyValuePair<string, string>>();
+        // https://docs.microsoft.com/zh-cn/typography/font-list
+        var list = SkiaSharp.SKFontManager.Default.GetFontFamilies()
+            .Select(x => new KeyValuePair<string, string>(x, x))
+            .ToList();
+        list.Insert(0, IFontManager.Default);
+        return list;
     }
 }

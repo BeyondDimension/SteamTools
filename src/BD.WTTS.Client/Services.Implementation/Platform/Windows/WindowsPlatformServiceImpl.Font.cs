@@ -8,7 +8,7 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class WindowsPlatformServiceImpl
 {
-    public IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByGdiPlus()
+    public IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
     {
         // https://docs.microsoft.com/zh-cn/typography/font-list
         var culture = ResourceService.Culture;
