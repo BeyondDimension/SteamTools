@@ -25,7 +25,7 @@
         <Setter Property="(i:Interaction.Behaviors)">
             <i:BehaviorCollectionTemplate>
                 <i:BehaviorCollection>
-                    <spp:ItemDragBehavior
+                    <id:ItemDragBehavior
                         HorizontalDragThreshold="3"
                         Orientation="Vertical"
                         VerticalDragThreshold="3" />

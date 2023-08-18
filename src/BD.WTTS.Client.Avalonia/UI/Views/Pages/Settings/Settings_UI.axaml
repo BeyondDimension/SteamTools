@@ -448,25 +448,31 @@
             </ui:SettingsExpander.IconSource>
             <ui:SettingsExpanderItem IsClickEnabled="False" Theme="{StaticResource SettingsExpanderItem2}">
                 <ui:SettingsExpanderItem.Content>
-                    <ItemsControl Classes="DraggableOrder" ItemsSource="{Binding MainWindow2.TabItems, Mode=TwoWay, Source={x:Static s:IViewModelManager.Instance}}">
+                    <ItemsControl Classes="DraggableOrder" ItemsSource="{Binding MainWindow2.TabItems, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="spp:TabItemViewModel">
-                                <ui:NavigationViewItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                                    <ui:NavigationViewItem.Content>
-                                        <DockPanel>
-                                            <TextBlock Text="{Binding Name}" />
-                                            <Viewbox
-                                                Width="16"
-                                                Height="16"
-                                                HorizontalAlignment="Right">
-                                                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Move}" />
-                                            </Viewbox>
-                                        </DockPanel>
-                                    </ui:NavigationViewItem.Content>
-                                    <ui:NavigationViewItem.IconSource>
-                                        <ui:ImageIconSource Source="{Binding IconKey, Converter={StaticResource BitmapAssetValueConverter}}" />
-                                    </ui:NavigationViewItem.IconSource>
-                                </ui:NavigationViewItem>
+                                <ListBoxItem>
+                                    <Grid ColumnDefinitions="Auto,*,Auto">
+                                        <ui:ImageIcon
+                                            Width="24"
+                                            Height="24"
+                                            Margin="8"
+                                            VerticalAlignment="Center"
+                                            Source="{Binding IconKey, Converter={StaticResource BitmapAssetValueConverter}}" />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Name}" />
+                                        <Viewbox
+                                            Grid.Column="2"
+                                            Width="18"
+                                            Height="18"
+                                            Margin="8,0"
+                                            VerticalAlignment="Center">
+                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Move}" />
+                                        </Viewbox>
+                                    </Grid>
+                                </ListBoxItem>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
