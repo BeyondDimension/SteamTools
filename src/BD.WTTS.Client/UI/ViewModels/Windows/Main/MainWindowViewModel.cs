@@ -12,7 +12,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 
     #endregion
 
-    public List<TabItemViewModel> TabItems { get; }
+    public ObservableCollection<TabItemViewModel> TabItems { get; }
 
     public ImmutableArray<TabItemViewModel> FooterTabItems { get; }
 
@@ -84,7 +84,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
             tabItems = tabItems.Concat(sortTabs);
         }
 
-        TabItems = tabItems.ToList();
+        TabItems = new ObservableCollection<TabItemViewModel>(tabItems);
         //SelectedItem = TabItems.FirstOrDefault();
 
         FooterTabItems = footerTabItems;
@@ -158,4 +158,15 @@ public sealed partial class MainWindowViewModel : WindowViewModel
     //    }
     //    base.Activation();
     //}
+
+    public override void Deactivation()
+    {
+        SaveTabItemsSort();
+        base.Deactivation();
+    }
+
+    public void SaveTabItemsSort()
+    {
+        UISettings.SortMenuTabs.Value = TabItems.OfType<MenuTabItemViewModel>().Select(x => x.Id).ToHashSet();
+    }
 }

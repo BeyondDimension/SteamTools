@@ -179,6 +179,9 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 #endif
              s.OnStartup();
              await IViewModelManager.Instance.MainWindow.Initialize();
+
+             App.Instance.CompositeDisposable.Add(IViewModelManager.Instance.MainWindow);
+
              IsInitialized = true;
          }, cancellationToken: token);
     }

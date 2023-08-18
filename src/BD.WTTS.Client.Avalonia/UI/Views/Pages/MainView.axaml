@@ -30,6 +30,16 @@
             <Setter Property="Margin" Value="0 10 0 0" />
         </Style>
 
+        <Style Selector="ui|NavigationViewItem.AppNav">
+            <Setter Property="Transitions">
+                <Setter.Value>
+                    <Transitions>
+                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05" />
+                    </Transitions>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter">
             <Setter Property="Width" Value="72" />
             <Setter Property="MinHeight" Value="75" />
