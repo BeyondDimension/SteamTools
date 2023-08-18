@@ -1,15 +1,14 @@
-// ReSharper disable once CheckNamespace
 using System.Drawing;
 using ImageFormat = System.Drawing.Imaging.ImageFormat;
 
+// ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
-public partial class IconFactory
+public static partial class IconFactory
 {
     #region constants
 
     public const int MaxIconWidth = 256;
-
     public const int MaxIconHeight = 256;
 
     private const ushort HeaderReserved = 0;
@@ -34,54 +33,46 @@ public partial class IconFactory
     /// <exception cref="ArgumentNullException"></exception>
     public static void SavePngsAsIcon(IEnumerable<Bitmap> images, Stream stream)
     {
-        if (images == null)
-            throw new ArgumentNullException("images");
-        if (stream == null)
-            throw new ArgumentNullException("stream");
-
         Bitmap[] orderedImages = images.OrderBy(i => i.Width).ThenBy(i => i.Height).ToArray();
 
-        using (var writer = new BinaryWriter(stream))
+        using var writer = new BinaryWriter(stream);
+        writer.Write(HeaderReserved);
+        writer.Write(HeaderIconType);
+        writer.Write((ushort)orderedImages.Length);
+
+        Dictionary<uint, byte[]> buffers = new();
+
+        uint lengthSum = 0;
+        uint baseOffset = (uint)(HeaderLength + (EntryLength * orderedImages.Length));
+
+        for (int i = 0; i < orderedImages.Length; i++)
         {
-            writer.Write(HeaderReserved);
-            writer.Write(HeaderIconType);
-            writer.Write((ushort)orderedImages.Length);
+            Bitmap image = orderedImages[i];
 
-            Dictionary<uint, byte[]> buffers = new Dictionary<uint, byte[]>();
+            byte[] buffer = CreateImageBuffer(image);
+            uint offset = baseOffset + lengthSum;
 
-            uint lengthSum = 0;
-            uint baseOffset = (uint)(HeaderLength + (EntryLength * orderedImages.Length));
+            writer.Write(GetIconWidth(image));
+            writer.Write(GetIconHeight(image));
+            writer.Write(PngColorsInPalette);
+            writer.Write(EntryReserved);
+            writer.Write(PngColorPlanes);
+            writer.Write((ushort)Image.GetPixelFormatSize(image.PixelFormat));
+            writer.Write((uint)buffer.Length);
+            writer.Write(offset);
 
-            for (int i = 0; i < orderedImages.Length; i++)
-            {
-                Bitmap image = orderedImages[i];
+            lengthSum += (uint)buffer.Length;
 
-                byte[] buffer = CreateImageBuffer(image);
-                uint offset = baseOffset + lengthSum;
-
-                writer.Write(GetIconWidth(image));
-                writer.Write(GetIconHeight(image));
-                writer.Write(PngColorsInPalette);
-                writer.Write(EntryReserved);
-                writer.Write(PngColorPlanes);
-                writer.Write((ushort)Image.GetPixelFormatSize(image.PixelFormat));
-                writer.Write((uint)buffer.Length);
-                writer.Write(offset);
-
-                lengthSum += (uint)buffer.Length;
-
-                buffers.Add(offset, buffer);
-            }
-
-            foreach (var kvp in buffers)
-            {
-
-                writer.BaseStream.Seek(kvp.Key, SeekOrigin.Begin);
-
-                writer.Write(kvp.Value);
-            }
+            buffers.Add(offset, buffer);
         }
 
+        foreach (var kvp in buffers)
+        {
+
+            writer.BaseStream.Seek(kvp.Key, SeekOrigin.Begin);
+
+            writer.Write(kvp.Value);
+        }
     }
 
     private static byte GetIconHeight(Bitmap image)
@@ -117,12 +108,12 @@ public partial class IconFactory
     public static extern int SHGetImageList(IMAGELIST_SIZE_FLAG iImageList, ref Guid riid, ref IImageList ppv);
 
     [DllImport("Shell32.dll")]
-    public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbFileInfo, uint uFlags);
+    public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbFileInfo, SHGFI uFlags);
 
     /// <summary>
     /// 系统图标大小标识
     /// </summary>
-    public enum IMAGELIST_SIZE_FLAG : int
+    public enum IMAGELIST_SIZE_FLAG
     {
         /// <summary>
         /// Size(32,32)
@@ -253,9 +244,9 @@ public partial class IconFactory
         public RECT RcImage;
     }
 
-    [ComImportAttribute]
-    [GuidAttribute("192B9D83-50FC-457B-90A0-2B82A8B5DAE1")]
-    [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
+    [ComImport]
+    [Guid("192B9D83-50FC-457B-90A0-2B82A8B5DAE1")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IImageList
     {
         [PreserveSig]
@@ -353,8 +344,8 @@ public partial class IconFactory
     /// <returns>图标索引号</returns>
     public static int GetIconIndex(string fileName)
     {
-        SHFILEINFO info = new SHFILEINFO();
-        IntPtr iconIntPtr = SHGetFileInfo(fileName, 0, ref info, (uint)Marshal.SizeOf(info), (uint)(SHGFI.SysIconIndex | SHGFI.OpenIcon));
+        SHFILEINFO info = default;
+        IntPtr iconIntPtr = SHGetFileInfo(fileName, 0, ref info, (uint)Marshal.SizeOf(info), SHGFI.SysIconIndex | SHGFI.OpenIcon);
         if (iconIntPtr == IntPtr.Zero)
             return -1;
         return info.Iicon;
@@ -366,14 +357,13 @@ public partial class IconFactory
     /// <param name="iIcon">图标索引号</param>
     /// <param name="flag">图标尺寸标识</param>
     /// <returns></returns>
-    public static System.Drawing.Icon GetIcon(int iIcon, IMAGELIST_SIZE_FLAG flag)
+    public static Icon GetIcon(int iIcon, IMAGELIST_SIZE_FLAG flag)
     {
-
-        IImageList list = null;
+        IImageList? list = null;
         Guid theGuid = new Guid(IID_IImageList);
-        SHGetImageList(flag, ref theGuid, ref list);
+        _ = SHGetImageList(flag, ref theGuid, ref list);
         IntPtr hIcon = IntPtr.Zero;
-        int r = list.GetIcon(iIcon, ILD_TRANSPARENT | ILD_IMAGE, ref hIcon);
+        list.GetIcon(iIcon, ILD_TRANSPARENT | ILD_IMAGE, ref hIcon);
         return Icon.FromHandle(hIcon);
     }
 
@@ -383,7 +373,7 @@ public partial class IconFactory
     /// <param name="fileName">文件名称</param>
     /// <param name="flag">图标尺寸标识</param>
     /// <returns></returns>
-    public static System.Drawing.Icon GetIconFromFile(string fileName, IMAGELIST_SIZE_FLAG flag)
+    public static Icon GetIconFromFile(string fileName, IMAGELIST_SIZE_FLAG flag)
     {
         return GetIcon(GetIconIndex(fileName), flag);
     }

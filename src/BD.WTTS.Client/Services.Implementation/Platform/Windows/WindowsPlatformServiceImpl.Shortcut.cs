@@ -3,6 +3,8 @@ using System.Drawing;
 using IWshRuntimeLibrary;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using SkiaSharp;
+using Res = BD.WTTS.Properties.Resources;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
@@ -29,6 +31,7 @@ partial class WindowsPlatformServiceImpl
         string? hotkey = null,
         string? workingDirectory = null)
     {
+        //using var b = SKBitmap.Decode(Res.AppLogo_512);
         HttpClient http = new HttpClient();
         Stream stream = http.GetStreamAsync(iconLocation).Result;
         Bitmap imgBitMap = new Bitmap(stream);
@@ -36,8 +39,7 @@ partial class WindowsPlatformServiceImpl
         Icon[] icon = GetAppIcon();    //获取app.ico分辨率集合
         foreach (Icon iconSource in icon)
         {
-            Bitmap bgbitmap = ResizeImage(imgBitMap, iconSource.Width, iconSource.Height); //调整头像大小
-            Bitmap rmap = SuperpositionIcon(bgbitmap, iconSource); //叠加app.ico
+            Bitmap rmap = ResizeImage(imgBitMap, iconSource.Width, iconSource.Height, iconSource);  //调整头像大小叠加app.ico
             icoBitMap.Add(rmap);
         }
         iconLocation = CreateIcon(icoBitMap, iconLocation);
@@ -56,46 +58,33 @@ partial class WindowsPlatformServiceImpl
         CreateShortcut(pathLink, targetPath, iconLocation, arguments, description, hotkey, workingDirectory);
     }
 
-    private static Bitmap ResizeImage(Bitmap image, int width, int height)
+    private static Bitmap ResizeImage(Bitmap image, int width, int height, Icon icoIcon)
     {
+        int iconWidth = width / 2;
+        int iconHeight = height / 2;
+
+        int watermarkLeft = width - iconWidth;
+        int watermarkTop = height - iconHeight;
         Bitmap scaledImage = new Bitmap(width, height, PixelFormat.Format32bppArgb);
         using (Graphics graphics = Graphics.FromImage(scaledImage))
         {
             graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
-
             graphics.DrawImage(image, 0, 0, width, height);
+            graphics.DrawIcon(icoIcon, new Rectangle(watermarkLeft, watermarkTop, iconWidth, iconHeight));
         }
         return scaledImage;
     }
 
-    private static Bitmap SuperpositionIcon(Bitmap image, Icon icoIcon)
-    {
-        int iconWidth = icoIcon.Width / 2;
-        int iconHeight = icoIcon.Height / 2;
-
-        int watermarkLeft = icoIcon.Width - iconWidth;
-        int watermarkTop = icoIcon.Height - iconHeight;
-        icoIcon.ToBitmap().MakeTransparent();
-
-        using (Graphics graphics = Graphics.FromImage(image))
-        {
-            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.DrawIcon(icoIcon, new Rectangle(watermarkLeft, watermarkTop, iconWidth, iconHeight));
-        }
-        return image;
-    }
-
-    private static string CreateIcon(List<Bitmap> bitmapList, string iconName)
+    static string CreateIcon(List<Bitmap> bitmapList, string iconName)
     {
         iconName = Path.GetFileNameWithoutExtension(iconName);
-        string savepath = Path.Combine(ProjectUtils.GetProjectPath(), "cache");
+        string savepath = IOPath.CacheDirectory;
         if (!Directory.Exists(savepath))
         {
             Directory.CreateDirectory(savepath);
         }
-        var icopath = Path.Combine(savepath, string.Concat(iconName, ".ico"));
+        var icopath = Path.Combine(savepath, $"{iconName}.ico");
         using (var stream = new FileStream(icopath, FileMode.Create))
         {
             IconFactory.SavePngsAsIcon(bitmapList.ToArray(), stream);
@@ -129,9 +118,10 @@ partial class WindowsPlatformServiceImpl
 
     private static Icon[] GetAppIcon()
     {
-        string iconPath = Path.Combine(ProjectUtils.GetProjectPath(), "res\\icons\\app\\v3\\Icon.ico");
-        var iconSize = Enum.GetValues(typeof(IconFactory.IMAGELIST_SIZE_FLAG));
-        Icon[] icons = new Icon[iconSize.Length];
+        string iconPath = Path.Combine(IOPath.BaseDirectory, "res\\icons\\app\\v3\\Icon.ico");
+        var iconSize = Enum2.GetAll<IconFactory.IMAGELIST_SIZE_FLAG>();
+
+        var icons = new Icon[iconSize.Length];
         for (int i = 0; i < iconSize.Length; i++)
         {
             icons[i] = IconFactory.GetIconFromFile(iconPath, (IconFactory.IMAGELIST_SIZE_FLAG)iconSize.GetValue(i));
