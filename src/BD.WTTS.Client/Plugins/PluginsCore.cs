@@ -208,6 +208,7 @@ public static class PluginsCore
                 ArchiSteamFarmPlus,
                 Authenticator,
                 GameTools,
+                SteamIdleCard
             };
             foreach (var item in modules)
             {
@@ -466,6 +467,7 @@ public static class PluginsCore
             ArchiSteamFarmPlus => 5,
             Authenticator => 4,
             GameTools => 6,
+            SteamIdleCard => 7,
             _ => ushort.MaxValue,
         };
         var comparer = ComparerBuilder.For<PluginResult<IPlugin>>()

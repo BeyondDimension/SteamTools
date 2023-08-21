@@ -3142,6 +3142,87 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 挂卡完成 的本地化字符串。
+        /// </summary>
+        public static string Idle_Complete {
+            get {
+                return ResourceManager.GetString("Idle_Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 操作进行中请稍后再试 的本地化字符串。
+        /// </summary>
+        public static string Idle_LoaingTips {
+            get {
+                return ResourceManager.GetString("Idle_LoaingTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先登录 Steam 账号 的本地化字符串。
+        /// </summary>
+        public static string Idle_NeedLoginSteam {
+            get {
+                return ResourceManager.GetString("Idle_NeedLoginSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开自动切换游戏 的本地化字符串。
+        /// </summary>
+        public static string Idle_OpenAutoNext {
+            get {
+                return ResourceManager.GetString("Idle_OpenAutoNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 挂卡操作成功 的本地化字符串。
+        /// </summary>
+        public static string Idle_OperationSuccess {
+            get {
+                return ResourceManager.GetString("Idle_OperationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先启动 Steam 挂卡 的本地化字符串。
+        /// </summary>
+        public static string Idle_PleaseStartIdle {
+            get {
+                return ResourceManager.GetString("Idle_PleaseStartIdle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在运行 {0}/{1} 的本地化字符串。
+        /// </summary>
+        public static string Idle_RuningCount {
+            get {
+                return ResourceManager.GetString("Idle_RuningCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam 未启动 的本地化字符串。
+        /// </summary>
+        public static string Idle_SteamNotRuning {
+            get {
+                return ResourceManager.GetString("Idle_SteamNotRuning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 关闭自动切换游戏 的本地化字符串。
+        /// </summary>
+        public static string Idle_StopAutoNext {
+            get {
+                return ResourceManager.GetString("Idle_StopAutoNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 导入 的本地化字符串。
         /// </summary>
         public static string Import {
@@ -6452,7 +6533,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam挂卡 的本地化字符串。
+        ///   查找类似 Steam 挂卡 的本地化字符串。
         /// </summary>
         public static string SteamIdleCard {
             get {

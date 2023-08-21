@@ -17,8 +17,9 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
             .Subscribe(x =>
             {
                 RunOrStopAutoNext(x.Value);
-                //this.IsAutoNextOnTxt = x.Value ? Strings.Idle_OpenAutoNext : Strings.Idle_StopAutoNext;
+                this.IsAutoNextOnTxt = x.Value ? Strings.Idle_StopAutoNext : Strings.Idle_OpenAutoNext;
             });
+        IdleRunStartOrStop_Click();
     }
 
     [Reactive]
@@ -102,16 +103,16 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                         RunOrStopAutoNext(false);
                     }
                     RunLoaingState = false;
-                    //Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
+                    Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
                 }
-                //else
-                //    Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
+                else
+                    Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
             }
-            //else
-            //   await MessageBox.ShowAsync(Strings.Idle_SteamNotRuning, button: MessageBox.Button.OK);
+            else
+                await MessageBox.ShowAsync(Strings.Idle_SteamNotRuning, button: MessageBox.Button.OK);
         }
-        //else
-        //    await MessageBox.ShowAsync(Strings.Idle_NeedLoginSteam, button: MessageBox.Button.OK);
+        else
+            await MessageBox.ShowAsync(Strings.Idle_NeedLoginSteam, button: MessageBox.Button.OK);
     }
 
     /// <summary>
@@ -155,7 +156,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
     private void ChangeRunTxt()
     {
         var count = IdleGameList.Count(x => x.Process != null);
-        //RuningCountTxt = Strings.Idle_RuningCount.Format(count, IdleGameList.Count);
+        RuningCountTxt = Strings.Idle_RuningCount.Format(count, IdleGameList.Count);
         RunState = count > 0;
     }
 
@@ -202,27 +203,6 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
     {
         if (!IdleGameList.Any())
             IdleComplete();
-
-        foreach (var item in IdleGameList)
-        {
-            SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
-            if (runState == null)
-            {
-                item.StartSteamAppProcess();
-                SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item);
-            }
-            else
-            {
-                if (runState.Process == null || !runState.Process.HasExited)
-                {
-                    runState.StartSteamAppProcess();
-                }
-                else
-                {
-                    item.Process = runState.Process;
-                }
-            }
-        }
 
         if (IdleRule == IdleRule.OnlyOneGame)
         {
@@ -403,7 +383,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                     }
                 });
             }
-            //Toast.Show(ToastIcon.Info, Strings.Idle_PleaseStartIdle);
+            Toast.Show(ToastIcon.Info, Strings.Idle_PleaseStartIdle);
         }
         else
         {
@@ -449,7 +429,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
     /// </summary>
     private void IdleComplete()
     {
-        //MessageBox.Show(Strings.Idle_Complete, button: MessageBox.Button.OK);
+        MessageBox.Show(Strings.Idle_Complete, button: MessageBox.Button.OK);
     }
     #endregion
 

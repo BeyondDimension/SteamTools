@@ -125,7 +125,7 @@ false
     public const string ArchiSteamFarmPlusId = "00000000-0000-0000-0000-000000000004";
     public const string AuthenticatorId = "00000000-0000-0000-0000-000000000005";
     public const string GameToolsId = "00000000-0000-0000-0000-000000000006";
-
+    public const string SteamIdleCardId = "00000000-0000-0000-0000-000000000007";
 #endif
 
     #endregion

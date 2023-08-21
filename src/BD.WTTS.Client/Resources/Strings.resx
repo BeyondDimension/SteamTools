@@ -2674,7 +2674,7 @@
     <value>家庭共享库为空</value>
   </data>
   <data name="SteamIdleCard" xml:space="preserve">
-    <value>Steam挂卡</value>
+    <value>Steam 挂卡</value>
   </data>
   <data name="CommunityFix_DeleteCertificate_Fail" xml:space="preserve">
     <value>删除 CA 证书失败</value>
@@ -2687,5 +2687,32 @@
   </data>
   <data name="CommunityFix_SetupCertificate_Success" xml:space="preserve">
     <value>安装 CA 证书成功</value>
+  </data>
+  <data name="Idle_Complete" xml:space="preserve">
+    <value>挂卡完成</value>
+  </data>
+  <data name="Idle_LoaingTips" xml:space="preserve">
+    <value>操作进行中请稍后再试</value>
+  </data>
+  <data name="Idle_NeedLoginSteam" xml:space="preserve">
+    <value>请先登录 Steam 账号</value>
+  </data>
+  <data name="Idle_OpenAutoNext" xml:space="preserve">
+    <value>打开自动切换游戏</value>
+  </data>
+  <data name="Idle_OperationSuccess" xml:space="preserve">
+    <value>挂卡操作成功</value>
+  </data>
+  <data name="Idle_PleaseStartIdle" xml:space="preserve">
+    <value>请先启动 Steam 挂卡</value>
+  </data>
+  <data name="Idle_RuningCount" xml:space="preserve">
+    <value>正在运行 {0}/{1}</value>
+  </data>
+  <data name="Idle_SteamNotRuning" xml:space="preserve">
+    <value>Steam 未启动</value>
+  </data>
+  <data name="Idle_StopAutoNext" xml:space="preserve">
+    <value>关闭自动切换游戏</value>
   </data>
 </root>

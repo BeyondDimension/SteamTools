@@ -9,6 +9,7 @@ public partial class MainFramePage : UserControl
     public MainFramePage()
     {
         InitializeComponent();
+        DataContext ??= new IdleAppsPageViewModel();
     }
 
     protected override void OnLoaded(RoutedEventArgs e)

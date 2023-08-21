@@ -11,7 +11,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
     const string moduleName = AssemblyInfo.SteamIdleCard;
 
-    public override Guid Id => Guid.Parse(AssemblyInfo.SteamIdleCard);
+    public override Guid Id => Guid.Parse(AssemblyInfo.SteamIdleCardId);
 
     public override string Name => Strings.SteamIdleCard;
 
@@ -21,13 +21,12 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     protected sealed override string? AuthorOriginalString => null;
 
-    public sealed override object? Icon => new MemoryStream(new byte[1024]);
+    public sealed override object? Icon => new MemoryStream(Resources.game);
 
-    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
-        yield return new MenuTabItemViewModel()
+        yield return new MenuTabItemViewModel(this, nameof(Strings.SteamIdleCard))
         {
-            ResourceKeyOrName = nameof(Strings.GameList),
             PageType = typeof(MainFramePage),
             IsResourceGet = true,
             IconKey = Icon,
