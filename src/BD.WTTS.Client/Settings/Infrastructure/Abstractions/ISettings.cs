@@ -302,6 +302,17 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
             {
                 settings = new();
                 isInvalid = true;
+
+                // 尝试将错误的配置保存为 .json.i.bak 防止启动软件当前配置被覆盖
+                var settingsFilePath_i_bak = $"{settingsFilePath}.i.bak";
+                try
+                {
+                    File.Move(settingsFilePath, settingsFilePath_i_bak);
+                }
+                catch
+                {
+
+                }
             }
         }
 

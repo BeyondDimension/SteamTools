@@ -2718,4 +2718,7 @@
   <data name="SettingsModifiedRestartThisSoft" xml:space="preserve">
     <value>设置已修改，需重启软件后生效</value>
   </data>
+  <data name="Settings_InvalidConfigurationFile" xml:space="preserve">
+    <value>无效的配置文件</value>
+  </data>
 </root>

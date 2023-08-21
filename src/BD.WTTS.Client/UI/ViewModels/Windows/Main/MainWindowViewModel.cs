@@ -96,13 +96,15 @@ public sealed partial class MainWindowViewModel : WindowViewModel
     {
         if (!IsInitialized)
         {
+            var startup = Startup.Instance;
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             if (OperatingSystem.IsWindows())
             {
                 // 等待 Ipc 管理员权限服务初始化完毕
                 await IPlatformService.IPCRoot.Instance;
             }
-            if (Startup.Instance.TryGetPlugins(out var plugins))
+            if (startup.TryGetPlugins(out var plugins))
             {
                 PluginCount = plugins.Count;
                 foreach (var plugin in plugins)
@@ -143,6 +145,28 @@ public sealed partial class MainWindowViewModel : WindowViewModel
             //    item.Initialize();
             //    //Task.Run(item.Initialize).ForgetAndDispose();
             //});
+
+            #region 提示设置项配置文件，如果存在无效的文件时
+
+            if (startup.InvalidConfiguration)
+            {
+                MainThread2.BeginInvokeOnMainThread(() =>
+                {
+                    StringBuilder b = new(Strings.Settings_InvalidConfigurationFile);
+                    b.AppendLine(Environment.NewLine);
+                    foreach (var item in startup.InvalidConfigurationFileNames)
+                    {
+                        if (string.IsNullOrWhiteSpace(item))
+                            continue;
+                        b.Append(item);
+                        b.AppendLine(FileEx.JSON);
+                    }
+                    MessageBox.Show(b.ToString(), Strings.Error, icon: MessageBox.Image.Error);
+                });
+            }
+
+            #endregion
+
             IsInitialized = true;
         }
     }

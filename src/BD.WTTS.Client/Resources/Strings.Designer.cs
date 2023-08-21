@@ -5606,6 +5606,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 无效的配置文件 的本地化字符串。
+        /// </summary>
+        public static string Settings_InvalidConfigurationFile {
+            get {
+                return ResourceManager.GetString("Settings_InvalidConfigurationFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 语言 的本地化字符串。
         /// </summary>
         public static string Settings_Language {
