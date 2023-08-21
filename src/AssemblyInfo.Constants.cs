@@ -94,11 +94,11 @@ false
 
 #endif
 
+#if !APP_HOST
+
     #region Modules/Plugins
 
     public const string Accelerator = "Accelerator";
-
-#if !APP_HOST
 
     public const string GameAccount = "GameAccount";
 
@@ -106,11 +106,7 @@ false
 
     public const string SteamIdleCard = "SteamIdleCard";
 
-#endif
-
     public const string ArchiSteamFarmPlus = "ArchiSteamFarmPlus";
-
-#if !APP_HOST
 
     public const string Authenticator = "Authenticator";
 
@@ -126,8 +122,9 @@ false
     public const string AuthenticatorId = "00000000-0000-0000-0000-000000000005";
     public const string GameToolsId = "00000000-0000-0000-0000-000000000006";
     public const string SteamIdleCardId = "00000000-0000-0000-0000-000000000007";
-#endif
 
     #endregion
+
+#endif
 
 }

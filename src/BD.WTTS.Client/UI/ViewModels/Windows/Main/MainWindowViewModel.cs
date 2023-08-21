@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using dotnetCampus.Ipc.CompilerServices.Attributes;
+
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class MainWindowViewModel : WindowViewModel

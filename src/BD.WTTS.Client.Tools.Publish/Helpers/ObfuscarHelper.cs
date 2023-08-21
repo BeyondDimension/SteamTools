@@ -9,7 +9,7 @@ static class ObfuscarHelper
     static void WriteConfig(string dirPath)
     {
         var xml =
-"""
+$"""
 <?xml version='1.0'?>
 <Obfuscator>
   <!-- 输入的工作路径，采用如约定的 Windows 下的路径表示法，如以下表示当前工作路径 -->
@@ -42,14 +42,15 @@ static class ObfuscarHelper
   <Var name="RegenerateDebugInfo" value="false" />
   <Var name="OptimizeMethods" value="true" />
   <Var name="SuppressIldasm" value="true" />
+  <Var name="KeyFile" value="{Path.Combine(ProjectUtils.ProjPath, "WattToolkit.snk")}" />
   <!-- 需要进行混淆的程序集，可以传入很多个，如传入一排排 -->
   <!-- <Module file="$(InPath)\Lib1.dll" /> -->
   <!-- <Module file="$(InPath)\Lib2.dll" /> -->
   <Module file="$(InPath)\Steam++.exe" />
 </Obfuscator>
-"""u8;
+""";
 
-        File.WriteAllBytes(Path.Combine(dirPath, configFileName), xml.ToArray());
+        File.WriteAllBytes(Path.Combine(dirPath, configFileName), Encoding.UTF8.GetBytes(xml));
     }
 
     public static void Start(string dirPath)

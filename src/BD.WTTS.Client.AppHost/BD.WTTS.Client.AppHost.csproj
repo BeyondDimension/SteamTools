@@ -22,6 +22,15 @@
 		<ApplicationIcon Condition="'$(Configuration)'=='Debug'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
+	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net4')) OR $(TargetFramework.StartsWith('net3')) ">
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\..\WattToolkit.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) OR $(TargetFramework.StartsWith('net3')) ">
+		<Reference Include="System.Configuration" />
+	</ItemGroup>
+
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<AllowedReferenceRelatedFileExtensions>
 			<!-- Prevent default XML and PDB files copied to output in RELEASE. 

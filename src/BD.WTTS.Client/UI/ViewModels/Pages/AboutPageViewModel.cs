@@ -30,10 +30,9 @@ public sealed partial class AboutPageViewModel : TabItemViewModel
     {
         string? osName;
 #if LINUX
-        var platformService = IPlatformService.Instance;
-        osName = platformService.GetLinuxReleaseValue(IPlatformService.LinuxConstants.ReleaseKey_NAME);
+        osName = IPlatformService.GetLinuxReleaseValue(IPlatformService.LinuxConstants.ReleaseKey_NAME);
         if (!string.IsNullOrWhiteSpace(osName)) return osName;
-        osName = platformService.GetLinuxReleaseValue(IPlatformService.LinuxConstants.ReleaseKey_ID);
+        osName = IPlatformService.GetLinuxReleaseValue(IPlatformService.LinuxConstants.ReleaseKey_ID);
         if (!string.IsNullOrWhiteSpace(osName)) return osName;
 #endif
         osName = DeviceInfo2.OSName();
