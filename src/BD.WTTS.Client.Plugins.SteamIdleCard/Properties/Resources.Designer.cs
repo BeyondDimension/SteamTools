@@ -61,12 +61,12 @@ namespace BD.WTTS.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static byte[] game {
+        internal static System.Drawing.Icon card {
             get {
-                object obj = ResourceManager.GetObject("game", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("card", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

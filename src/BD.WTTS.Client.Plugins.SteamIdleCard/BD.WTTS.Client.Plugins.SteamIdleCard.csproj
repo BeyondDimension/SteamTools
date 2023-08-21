@@ -91,6 +91,6 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 
-	<Import Project="..\TFM_NETX_WITH_ALL.props" />
+	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>

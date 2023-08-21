@@ -24,7 +24,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         // Todo 通知主页菜单栏Tab显示或隐藏，以及程序集unload
         if (plugin.IsDisable)
         {
-
+            //IViewModelManager.Instance.MainWindow2?.TabItems.Remove(plugin.Data.UniqueEnglishName);
             GeneralSettings.DisablePlugins.Add(plugin.Data.UniqueEnglishName, true, false);
         }
         else

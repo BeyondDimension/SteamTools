@@ -21,7 +21,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     protected sealed override string? AuthorOriginalString => null;
 
-    public sealed override object? Icon => new MemoryStream(Resources.game);
+    public sealed override object? Icon => Resources.card;
 
     public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
