@@ -112,7 +112,7 @@ Get_NewVer() {
     #本地版本 Hash
     o_sha384=$(cat "AppVer")
     if [ -e "AppVer" ]; then
-        if [ "$o_sha384" = "$n_sha384" ]; then
+        if [ "${o_sha384,,}" = "${n_sha384,,}" ]; then
             Show_Run "已是最新版本，是否启动程序？"
         fi
     fi
@@ -144,9 +144,9 @@ Download_File() {
         sleep 1
         # 校验下载文件 Hash
         actual_hash=$(sha384sum "$tar_name" | awk '{ print $1 }')
-        if [ "$actual_hash" = "$n_sha384" ]; then
+        if [ "${actual_hash,,}" = "${n_sha384,,}" ]; then
             rm "AppVer"
-            echo "$actual_hash" >>"$base_path/AppVer"
+            echo "${actual_hash,,}" >>"$base_path/AppVer"
             break 2
         fi
 
@@ -168,7 +168,7 @@ Kill_Process() {
             pid=$(pgrep "$process_name")
             if [ -n "$pid" ]; then
                 echo "尝试 $retry: 进程 $process_name 正在运行中。正在终止..."
-                kill "$pid"
+                kill $pid
                 sleep 2
             else
                 break
@@ -210,7 +210,7 @@ Decompression() {
 #先安装依赖;
 Install_certutil
 # SteamDeck 可能出现升级系统 语言被重置成 c
-echo "如果出现 类似 \"Using the fallback 'C Locale.\" 的提示,请手动执行 LC_ALL=en_US.UTF-8"
+echo "如果出现 类似 \"Using the fallback 'C Locale.\" 的提示,请手动执行 export LC_ALL=en_US.UTF-8"
 #版本检查更新;
 Get_NewVer
 
@@ -218,12 +218,12 @@ Get_NewVer
 if [ -f "$tar_path" ]; then
     #如果本地存在文件与新版本计算 Hash 避免重复下载;
     temp_hash=$(sha384sum "$tar_path" | awk '{ print $1 }')
-    if [ "$temp_hash" != "$n_sha384" ]; then
+    if [ "${temp_hash,,}" != "${n_sha384,,}" ]; then
         #下载文件
         Download_File
     else
         #版本号是最新缓存 输出到文件
-        echo "$temp_hash" >>"$base_path/AppVer"
+        echo "${temp_hash,,}" >>"$base_path/AppVer"
         zenity --question --text="本地已有最新安装包是否继续解压?" --width=400
 
         # 获取上一个命令的退出码
@@ -244,18 +244,18 @@ fi
 Kill_Process
 #解压
 Decompression
+# xdg-icon-resource install "$base_path/Icons/Watt-Toolkit.png" --size 128 Watt-Toolkit
 #添加桌面文件
-xdg-icon-resource install "$base_path/Icons/Watt-Toolkit.png" --size 128 Watt-Toolkit
 rm -rf "$HOME/Desktop/Watt Toolkit.desktop" 2>/dev/null
 echo "#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=Watt Toolkit
 Exec=$base_path/$exec_name
-Icon=Watt-Toolkit
+Icon=$base_path/Icons/Watt-Toolkit.png
 Terminal=false
 Type=Application
 StartupNotify=false" >"$HOME/Desktop/Watt Toolkit.desktop"
 chmod +x "$HOME/Desktop/Watt Toolkit.desktop"
-update-desktop-database ~/.local/share/applications
+# update-desktop-database ~/.local/share/applications
 #运行程序
 Show_Run "下载安装完成，是否启动程序？"

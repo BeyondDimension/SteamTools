@@ -217,6 +217,10 @@ partial class ProxyService
         {
             if (startProxyResult.Code == StartProxyResultCode.BindPortError)
             {
+                if (!string.IsNullOrWhiteSpace(Plugin.Instance.SubProcessPath))
+                {
+                    Process.Start("pkexec", new string[] { "setcap", "cap_net_bind_service=+eip", Plugin.Instance.SubProcessPath }).WaitForExit();
+                }
                 //新线程等待 IPC 错误返回后 Kill 自己 Linux 修改权限需要重新启动
                 reverseProxyService.Exit();
                 return "StartProxyFail: BindPortError";

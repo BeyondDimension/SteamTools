@@ -158,10 +158,6 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
             var inUsePort = SocketHelper.IsUsePort(IPAddress.Parse(reverseProxySettings.ProxyIp!), 443);
             if (inUsePort)
             {
-                if (!string.IsNullOrWhiteSpace(Environment.ProcessPath))
-                {
-                    Process.Start("pkexec", new string[] { "setcap", "cap_net_bind_service=+eip", Environment.ProcessPath! }).WaitForExit();
-                }
                 return StartProxyResultCode.BindPortError;
             }
         }
