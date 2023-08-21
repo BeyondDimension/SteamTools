@@ -327,6 +327,15 @@
           "Summary": "禁用插件",
           "IsRegionOrEndregion": null,
           "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "PluginSafeMode",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "插件安全模式",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
         }
       ],
       "Usings": ""

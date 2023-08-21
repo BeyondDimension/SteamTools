@@ -164,7 +164,7 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
             }
         }));
         // 账号注销
-        yield return new HL(Strings.DelAccount, (ICommand)null!);
+        yield return new HL(Strings.DelAccount, Constants.Urls.OfficialWebsite_Account_Safe);
         // Bug 提交(GitHub) https://github.com/BeyondDimension/SteamTools/issues
         yield return new HL($"{Strings.BugReport}(GitHub)", Constants.Urls.GitHub_Issues);
         // Bug 提交(Gitee) https://gitee.com/rmbgame/SteamTools/issues

@@ -24,7 +24,7 @@
                 <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="{StaticResource DefenderApp}" />
             </ui:SettingsExpander.IconSource>
             <ui:SettingsExpander.Footer>
-                <ToggleSwitch Classes="LeftContent" />
+                <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:GeneralSettings.PluginSafeMode}, Path=Value, Mode=TwoWay}" />
             </ui:SettingsExpander.Footer>
         </ui:SettingsExpander>
 

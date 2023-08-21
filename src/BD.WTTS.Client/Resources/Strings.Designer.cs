@@ -6056,6 +6056,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 设置已修改，需重启软件后生效 的本地化字符串。
+        /// </summary>
+        public static string SettingsModifiedRestartThisSoft {
+            get {
+                return ResourceManager.GetString("SettingsModifiedRestartThisSoft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 显示/隐藏 的本地化字符串。
         /// </summary>
         public static string ShowHide {

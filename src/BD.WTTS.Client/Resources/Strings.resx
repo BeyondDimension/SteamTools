@@ -2715,4 +2715,7 @@
   <data name="Idle_StopAutoNext" xml:space="preserve">
     <value>关闭自动切换游戏</value>
   </data>
+  <data name="SettingsModifiedRestartThisSoft" xml:space="preserve">
+    <value>设置已修改，需重启软件后生效</value>
+  </data>
 </root>

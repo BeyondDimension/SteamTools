@@ -115,6 +115,12 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings, ISet
     [MPKey(11), MP2Key(11), JsonPropertyOrder(11)]
     public HashSet<string>? DisablePlugins { get; set; }
 
+    /// <summary>
+    /// 插件安全模式
+    /// </summary>
+    [MPKey(12), MP2Key(12), JsonPropertyOrder(12)]
+    public bool? PluginSafeMode { get; set; }
+
 }
 
 public static partial class GeneralSettings
@@ -190,5 +196,11 @@ public static partial class GeneralSettings
     /// </summary>
     public static SettingsProperty<string, HashSet<string>, GeneralSettings_> DisablePlugins { get; }
         = new(DefaultDisablePlugins);
+
+    /// <summary>
+    /// 插件安全模式
+    /// </summary>
+    public static SettingsStructProperty<bool, GeneralSettings_> PluginSafeMode { get; }
+        = new(DefaultPluginSafeMode);
 
 }
