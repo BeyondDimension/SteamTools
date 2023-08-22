@@ -145,7 +145,7 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
 #if DEBUG
             UseLocalhostApiBaseUrl ?
             Constants.Urls.BaseUrl_API_Debug :
-            "https://localhost:7124";
+            Constants.Urls.BaseUrl_API_Development;
 #else
             Constants.Urls.BaseUrl_API_Production;
 #endif
