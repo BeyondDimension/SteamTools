@@ -124,7 +124,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，也可以选择暂时禁用或启用指定账号的共享。调整后保存重启 Steam 生效！ 的本地化字符串。
+        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，拖拽操作从上到下的排序为共享库使用的优先级顺序，也可以选择暂时禁用或启用指定账号的共享。调整后保存重启 Steam 生效！ 的本地化字符串。
         /// </summary>
         public static string AccountChange_ShareManageAboutTips {
             get {
@@ -1080,6 +1080,24 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 删除 CA 证书失败 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificate_Fail {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificate_Fail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除 CA 证书成功 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificate_Success {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificate_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 DNS 解析遇到异常，请尝试在代理设置中修改其它 DNS 再次尝试 的本地化字符串。
         /// </summary>
         public static string CommunityFix_DNSErrorNotify {
@@ -1319,6 +1337,24 @@ namespace BD.WTTS.Client.Resources {
         public static string CommunityFix_SetupCertificate {
             get {
                 return ResourceManager.GetString("CommunityFix_SetupCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安装 CA 证书失败 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_SetupCertificate_Fail {
+            get {
+                return ResourceManager.GetString("CommunityFix_SetupCertificate_Fail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安装 CA 证书成功 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_SetupCertificate_Success {
+            get {
+                return ResourceManager.GetString("CommunityFix_SetupCertificate_Success", resourceCulture);
             }
         }
         
@@ -3102,6 +3138,87 @@ namespace BD.WTTS.Client.Resources {
         public static string Icon {
             get {
                 return ResourceManager.GetString("Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 挂卡完成 的本地化字符串。
+        /// </summary>
+        public static string Idle_Complete {
+            get {
+                return ResourceManager.GetString("Idle_Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 操作进行中请稍后再试 的本地化字符串。
+        /// </summary>
+        public static string Idle_LoaingTips {
+            get {
+                return ResourceManager.GetString("Idle_LoaingTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先登录 Steam 账号 的本地化字符串。
+        /// </summary>
+        public static string Idle_NeedLoginSteam {
+            get {
+                return ResourceManager.GetString("Idle_NeedLoginSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开自动切换游戏 的本地化字符串。
+        /// </summary>
+        public static string Idle_OpenAutoNext {
+            get {
+                return ResourceManager.GetString("Idle_OpenAutoNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 挂卡操作成功 的本地化字符串。
+        /// </summary>
+        public static string Idle_OperationSuccess {
+            get {
+                return ResourceManager.GetString("Idle_OperationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先启动 Steam 挂卡 的本地化字符串。
+        /// </summary>
+        public static string Idle_PleaseStartIdle {
+            get {
+                return ResourceManager.GetString("Idle_PleaseStartIdle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在运行 {0}/{1} 的本地化字符串。
+        /// </summary>
+        public static string Idle_RuningCount {
+            get {
+                return ResourceManager.GetString("Idle_RuningCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam 未启动 的本地化字符串。
+        /// </summary>
+        public static string Idle_SteamNotRuning {
+            get {
+                return ResourceManager.GetString("Idle_SteamNotRuning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 关闭自动切换游戏 的本地化字符串。
+        /// </summary>
+        public static string Idle_StopAutoNext {
+            get {
+                return ResourceManager.GetString("Idle_StopAutoNext", resourceCulture);
             }
         }
         
@@ -5489,6 +5606,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 无效的配置文件 的本地化字符串。
+        /// </summary>
+        public static string Settings_InvalidConfigurationFile {
+            get {
+                return ResourceManager.GetString("Settings_InvalidConfigurationFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 语言 的本地化字符串。
         /// </summary>
         public static string Settings_Language {
@@ -5935,6 +6061,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Settings_UI_WindowTransparencyMaterial {
             get {
                 return ResourceManager.GetString("Settings_UI_WindowTransparencyMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置已修改，需重启软件后生效 的本地化字符串。
+        /// </summary>
+        public static string SettingsModifiedRestartThisSoft {
+            get {
+                return ResourceManager.GetString("SettingsModifiedRestartThisSoft", resourceCulture);
             }
         }
         
@@ -6412,6 +6547,15 @@ namespace BD.WTTS.Client.Resources {
         public static string SteamGuardData {
             get {
                 return ResourceManager.GetString("SteamGuardData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam 挂卡 的本地化字符串。
+        /// </summary>
+        public static string SteamIdleCard {
+            get {
+                return ResourceManager.GetString("SteamIdleCard", resourceCulture);
             }
         }
         
@@ -7353,7 +7497,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 在 Steam++ 插件商店中查看 的本地化字符串。
+        ///   查找类似 在插件商店中查看 的本地化字符串。
         /// </summary>
         public static string ViewInStore {
             get {

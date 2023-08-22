@@ -1,3 +1,5 @@
+using Res = BD.WTTS.MicroServices.ClientSDK.Resources;
+
 namespace BD.WTTS.Models;
 
 /// <summary>
@@ -131,21 +133,23 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
     {
         var s = new AppSettings()
         {
-            AesSecret = MicroServices.ClientSDK.Resources.aes_key,
-            RSASecret = MicroServices.ClientSDK.Resources.
+            AesSecret = Res.aes_key,
+            RSASecret = Res.
 #if DEBUG
             rsa_public_key_debug,
 #else
             rsa_public_key_release,
 #endif
         };
+        var apiBaseUrl =
 #if DEBUG
-        s.ApiBaseUrl = UseLocalhostApiBaseUrl ?
+            UseLocalhostApiBaseUrl ?
             Constants.Urls.BaseUrl_API_Debug :
-            "https://steampp.mossimo.net:8800";
+            Constants.Urls.BaseUrl_API_Development;
 #else
-        s.ApiBaseUrl = Constants.Urls.BaseUrl_API_Production;
+            Constants.Urls.BaseUrl_API_Production;
 #endif
+        s.ApiBaseUrl = Constants.Urls.ApiBaseUrl = apiBaseUrl;
         return s;
     }
 }

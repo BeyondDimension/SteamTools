@@ -203,6 +203,15 @@
           "Summary": "",
           "IsRegionOrEndregion": false,
           "IsValueType": null
+        },
+        {
+          "TypeName": "HashSet<string>",
+          "PropertyName": "SortMenuTabs",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "菜单排序",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
         }
       ],
       "Usings": ""
@@ -316,6 +325,15 @@
           "DefaultValue": "null",
           "DefaultValueIsConst": true,
           "Summary": "禁用插件",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "PluginSafeMode",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "插件安全模式",
           "IsRegionOrEndregion": null,
           "IsValueType": null
         }

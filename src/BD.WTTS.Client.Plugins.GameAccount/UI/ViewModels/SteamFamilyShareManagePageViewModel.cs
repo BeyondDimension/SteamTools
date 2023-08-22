@@ -13,34 +13,39 @@ public sealed partial class SteamFamilyShareManagePageViewModel : WindowViewMode
     {
         Title = DisplayName;
 
-        _AuthorizedSourceList = new SourceCache<AuthorizedDevice, long>(t => t.SteamId3_Int);
-        _AuthorizedSourceList
-         .Connect()
-         .ObserveOn(RxApp.MainThreadScheduler)
-         .Sort(SortExpressionComparer<AuthorizedDevice>.Ascending(x => x.Index))
-         .Bind(out _AuthorizedList)
-         .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthorizedListEmpty)));
+        //_AuthorizedSourceList = new SourceCache<AuthorizedDevice, long>(t => t.SteamId3_Int);
+        //_AuthorizedSourceList
+        // .Connect()
+        // .ObserveOn(RxApp.MainThreadScheduler)
+        // .Sort(SortExpressionComparer<AuthorizedDevice>.Ascending(x => x.Index))
+        // .Bind(out _AuthorizedList)
+        // .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthorizedListEmpty)));
+
+        AuthorizedList = new ObservableCollection<AuthorizedDevice>();
+
+        this.WhenValueChanged(x => x.AuthorizedList)
+            .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthorizedListEmpty)));
 
         OpenUserProfileUrl_Click = ReactiveCommand.Create<AuthorizedDevice>(OpenUserProfileUrl);
 
-        SetFirstButton_Click = ReactiveCommand.Create<AuthorizedDevice>(SetFirstButton);
-
         RemoveButton_Click = ReactiveCommand.Create<AuthorizedDevice>(RemoveButton);
 
-        UpButton_Click = ReactiveCommand.Create<AuthorizedDevice>(UpButton);
+        //SetFirstButton_Click = ReactiveCommand.Create<AuthorizedDevice>(SetFirstButton);
 
-        DownButton_Click = ReactiveCommand.Create<AuthorizedDevice>(DownButton);
+        //UpButton_Click = ReactiveCommand.Create<AuthorizedDevice>(UpButton);
+
+        //DownButton_Click = ReactiveCommand.Create<AuthorizedDevice>(DownButton);
 
         Refresh_Click();
     }
 
     public bool IsAuthorizedListEmpty => !AuthorizedList.Any_Nullable();
 
-    readonly ReadOnlyObservableCollection<AuthorizedDevice> _AuthorizedList;
+    //readonly ReadOnlyObservableCollection<AuthorizedDevice> _AuthorizedList;
+    [Reactive]
+    public ObservableCollection<AuthorizedDevice> AuthorizedList { get; set; }
 
-    public ReadOnlyObservableCollection<AuthorizedDevice> AuthorizedList => _AuthorizedList;
-
-    readonly SourceCache<AuthorizedDevice, long> _AuthorizedSourceList;
+    //readonly SourceCache<AuthorizedDevice, long> _AuthorizedSourceList;
 
     public void Refresh_Click()
     {
@@ -62,39 +67,39 @@ public sealed partial class SteamFamilyShareManagePageViewModel : WindowViewMode
             item.SteamNickName = temp?.SteamNickName;
             item.ShowName = $"{item.SteamNickName}({item.SteamId64_Int})";
             item.AccountName = temp?.AccountName;
+            item.AvatarMedium = temp?.AvatarMedium;
             list.Add(item);
         }
-        _AuthorizedSourceList.Clear();
-        _AuthorizedSourceList.AddOrUpdate(list);
-        //_AuthorizedSourceList.Refresh();
+        AuthorizedList.Clear();
+        AuthorizedList.Add(list.OrderBy(x => x.Index));
 
-        Refresh_Cash().ConfigureAwait(false);
+        Refresh_Cash();
     }
 
-    public async Task Refresh_Cash()
+    public async void Refresh_Cash()
     {
         var accountRemarks = GameAccountSettings.AccountRemarks.Value;
 
-        foreach (var item in _AuthorizedSourceList.Items)
+        foreach (var item in AuthorizedList)
         {
             var temp = await webApiService.GetUserInfo(item.SteamId64_Int);
             item.SteamID = temp.SteamID;
-            item.SteamNickName = temp.SteamNickName ?? item.AccountName ?? item.SteamId3_Int.ToString();
+            //item.SteamNickName = temp.SteamNickName ?? item.AccountName ?? item.SteamId3_Int.ToString();
             item.AvatarIcon = temp.AvatarIcon;
             item.AvatarMedium = temp.AvatarMedium;
-            item.MiniProfile = temp.MiniProfile;
+            //item.MiniProfile = temp.MiniProfile;
 
-            if (item.MiniProfile != null && !string.IsNullOrEmpty(item.MiniProfile.AnimatedAvatar))
-            {
-                item.AvatarMedium = item.MiniProfile.AnimatedAvatar;
-            }
+            //if (item.MiniProfile != null && !string.IsNullOrEmpty(item.MiniProfile.AnimatedAvatar))
+            //{
+            //    item.AvatarMedium = item.MiniProfile.AnimatedAvatar;
+            //}
 
             if (accountRemarks?.TryGetValue("Steam-" + item.SteamId64_Int, out var remark) == true &&
                  !string.IsNullOrEmpty(remark))
                 item.Remark = remark;
         }
 
-        _AuthorizedSourceList.Refresh();
+        //AuthorizedList.Refresh();
     }
 
     public async void OpenUserProfileUrl(AuthorizedDevice user)
@@ -107,69 +112,77 @@ public sealed partial class SteamFamilyShareManagePageViewModel : WindowViewMode
         await MessageBox.ShowAsync(Strings.AccountChange_ShareManageAboutTips, button: MessageBox.Button.OK);
     }
 
-    public void SetFirstButton(AuthorizedDevice item)
-    {
-        if (item.Index != 0)
-        {
-            item.Index = -1;
-            _AuthorizedSourceList.Refresh(item);
-            for (var i = 0; i < AuthorizedList.Count; i++)
-            {
-                _AuthorizedSourceList.Lookup(AuthorizedList[i].SteamId3_Int).Value.Index = i;
-            }
-        }
-    }
+    //public void SetFirstButton(AuthorizedDevice item)
+    //{
+    //    if (item.Index != 0)
+    //    {
+    //        item.Index = -1;
+    //        _AuthorizedSourceList.Refresh(item);
+    //        for (var i = 0; i < AuthorizedList.Count; i++)
+    //        {
+    //            _AuthorizedSourceList.Lookup(AuthorizedList[i].SteamId3_Int).Value.Index = i;
+    //        }
+    //    }
+    //}
 
     public async void RemoveButton(AuthorizedDevice item)
     {
         var result = await MessageBox.ShowAsync(Strings.Steam_Share_RemoveShare, button: MessageBox.Button.OKCancel);
         if (result.IsOK())
         {
-            _AuthorizedSourceList.Remove(item);
+            AuthorizedList.Remove(item);
         }
     }
 
-    public void UpButton(AuthorizedDevice item)
-    {
-        Sort(item, true);
-    }
+    //public void UpButton(AuthorizedDevice item)
+    //{
+    //    Sort(item, true);
+    //}
 
-    public void DownButton(AuthorizedDevice item)
-    {
-        Sort(item, false);
-    }
+    //public void DownButton(AuthorizedDevice item)
+    //{
+    //    Sort(item, false);
+    //}
 
-    private void Sort(AuthorizedDevice item, bool up)
-    {
-        var index = item.Index;
-        if (up ? item.Index != 0 : item.Index != _AuthorizedSourceList.Count - 1)
-        {
-            var dest = AuthorizedList[up ? index - 1 : index + 1];
+    //private void Sort(AuthorizedDevice item, bool up)
+    //{
+    //    var index = item.Index;
+    //    if (up ? item.Index != 0 : item.Index != _AuthorizedSourceList.Count - 1)
+    //    {
+    //        var dest = AuthorizedList[up ? index - 1 : index + 1];
 
-            item.Index = dest.Index;
-            dest.Index = index;
+    //        item.Index = dest.Index;
+    //        dest.Index = index;
 
-            _AuthorizedSourceList.Refresh(item);
-            _AuthorizedSourceList.Refresh(dest);
-        }
-    }
+    //        _AuthorizedSourceList.Refresh(item);
+    //        _AuthorizedSourceList.Refresh(dest);
+    //    }
+    //}
 
     public async void SetActivity_Click()
     {
         if (AuthorizedList != null)
+        {
+            for (var i = 0; i < AuthorizedList.Count; i++)
+            {
+                AuthorizedList[i].Index = i;
+            }
             steamService.UpdateAuthorizedDeviceList(AuthorizedList.Where(x => !x.Disable));
-        GameAccountSettings.DisableAuthorizedDevice.Value = AuthorizedList!.Where(x => x.Disable).Select(x => new DisableAuthorizedDevice
-        {
-            Description = x.Description,
-            SteamId3_Int = x.SteamId3_Int,
-            Timeused = x.Timeused,
-            Tokenid = x.Tokenid,
-        }).ToArray();
-        var result = await MessageBox.ShowAsync(Strings.AccountChange_RestartSteam, button: MessageBox.Button.OKCancel);
-        if (result.IsOK())
-        {
-            steamService.TryKillSteamProcess();
-            steamService.StartSteamWithParameter();
+
+            GameAccountSettings.DisableAuthorizedDevice.Value = AuthorizedList!.Where(x => x.Disable).Select(x => new DisableAuthorizedDevice
+            {
+                Description = x.Description,
+                SteamId3_Int = x.SteamId3_Int,
+                Timeused = x.Timeused,
+                Tokenid = x.Tokenid,
+            }).ToArray();
+
+            var result = await MessageBox.ShowAsync(Strings.AccountChange_RestartSteam, button: MessageBox.Button.OKCancel);
+            if (result.IsOK())
+            {
+                steamService.TryKillSteamProcess();
+                steamService.StartSteamWithParameter();
+            }
         }
     }
 }

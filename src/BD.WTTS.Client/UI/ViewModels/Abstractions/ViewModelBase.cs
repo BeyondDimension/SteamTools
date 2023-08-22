@@ -22,8 +22,9 @@ public abstract partial class ViewModelBase : BaseNotifyPropertyChanged, IViewMo
         this.WhenActivated(disposables =>
         {
             Activation();
-            Disposable.Create(Deactivation)
-                .DisposeWith(disposables);
+
+            CompositeDisposable.Add(Disposable.Create(Deactivation)
+                                              .DisposeWith(disposables));
         });
     }
 

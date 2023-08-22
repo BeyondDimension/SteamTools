@@ -102,7 +102,7 @@ public sealed partial class PlatformAccount
                 });
 
                 if (users.Any_Nullable())
-                    Accounts = new ObservableCollection<IAccount>(users);
+                    Accounts = new ObservableCollection<IAccount>(users.OrderByDescending(x => x.LastLoginTime));
             }
             catch (Exception ex)
             {

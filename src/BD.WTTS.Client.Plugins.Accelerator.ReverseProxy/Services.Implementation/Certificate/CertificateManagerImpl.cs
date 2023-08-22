@@ -132,6 +132,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             validTo,
             Interface.PfxFilePath,
             GetPfxPassword());
+        RootCertificatePackable = X509CertificatePackable.CreateX509Certificate2(Interface.PfxFilePath, GetPfxPassword(), X509KeyStorageFlags.Exportable);
 
         return RootCertificate != null;
     }
@@ -149,8 +150,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         try
         {
             x509Store.Open(OpenFlags.ReadWrite);
-            var subjectName = RootCertificate.Subject[3..];
-            foreach (var item in x509Store.Certificates.Find(X509FindType.FindBySubjectName, subjectName, false))
+            foreach (var item in x509Store.Certificates.Find(X509FindType.FindBySubjectName, CertificateConstants.RootCertificateName, false))
             {
                 //if (item.Thumbprint == RootCertificate.Thumbprint)
                 //{
@@ -222,13 +222,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         }
     }
 
-    async ValueTask TrustRootCertificateAsync()
-    {
-        await PlatformTrustRootCertificateGuideAsync();
-    }
-
-    /// <inheritdoc cref="ICertificateManager.PlatformTrustRootCertificateGuideAsync"/>
-    public async ValueTask PlatformTrustRootCertificateGuideAsync()
+    public void TrustRootCertificate()
     {
         try
         {
@@ -249,7 +243,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             }
             else if (OperatingSystem.IsMacOS())
             {
-                await TrustRootCertificateMacOSAsync();
+                TrustRootCertificateMacOS();
             }
             else if (OperatingSystem.IsLinux() && !OperatingSystem.IsAndroid())
             {
@@ -267,14 +261,14 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     }
 
     [SupportedOSPlatform("macOS")]
-    async ValueTask TrustRootCertificateMacOSAsync()
+    void TrustRootCertificateMacOS()
     {
         var filePath = GetCerFilePathGeneratedWhenNoFileExists();
         if (filePath == null) return;
         var state = platformService.TrustRootCertificateAsync(filePath);
         //await platformService.RunShellAsync($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
         if (state.HasValue && !state.Value)
-            await TrustRootCertificateMacOSAsync();
+            TrustRootCertificateMacOS();
     }
 
     [SupportedOSPlatform("Linux")]
@@ -297,13 +291,16 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     }
 
     /// <inheritdoc cref="ICertificateManager.SetupRootCertificate"/>
-    public async ValueTask<bool> SetupRootCertificateAsync()
+    public bool SetupRootCertificate()
     {
-        if (!GenerateCertificate()) return false;
-        if (!IsRootCertificateInstalled)
+        if (!GenerateCertificate())
+            return false;
+        var isRootCertificateInstalled = IsRootCertificateInstalled;
+        if (!isRootCertificateInstalled)
         {
-            await TrustRootCertificateAsync();
-            return IsRootCertificateInstalled;
+            TrustRootCertificate();
+            isRootCertificateInstalled = IsRootCertificateInstalled;
+            return isRootCertificateInstalled;
         }
         return true;
     }
@@ -314,15 +311,17 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         //if (reverseProxyService.ProxyRunning)
         //    return false;
         if (RootCertificate == null)
+        {
             return true;
+        }
         try
         {
-            if (OperatingSystem2.IsMacOS())
+            if (OperatingSystem.IsMacOS())
             {
                 var cer = Serializable.SMP2(RootCertificatePackable);
                 platformService.RemoveCertificate(cer);
             }
-            else if (OperatingSystem2.IsLinux())
+            else if (OperatingSystem.IsLinux())
             {
                 DeleteRootCertificateLinux();
             }
@@ -330,13 +329,16 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             {
                 SharedRemoveTrustedRootCertificate();
             }
-            if (!IsRootCertificateInstalled)
+            var isRootCertificateInstalled = IsRootCertificateInstalled;
+            if (!isRootCertificateInstalled)
             {
-                RootCertificate = null;
+                RootCertificate = default;
+                RootCertificatePackable = default;
                 var pfxFilePath = Interface.PfxFilePath;
                 var cerFilePath = Interface.CerFilePath;
-                if (File.Exists(pfxFilePath)) File.Delete(pfxFilePath);
-                if (File.Exists(cerFilePath)) File.Delete(cerFilePath);
+                IOPath.FileTryDelete(pfxFilePath);
+                IOPath.FileTryDelete(cerFilePath);
+                return true;
             }
         }
         catch (CryptographicException)
@@ -349,7 +351,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             e.LogAndShowT(TAG, msg: "DeleteRootCertificate Error");
             return false;
         }
-        return true;
+        return false;
     }
 
     [SupportedOSPlatform("Linux")]
@@ -407,12 +409,12 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         if (certificate2.NotAfter <= DateTime.Now)
             return false;
 
-        if (!OperatingSystem.IsAndroid() && OperatingSystem.IsLinux())
+        if (!OperatingSystem.IsAndroid())
         {
             // Linux 目前没有实现检测
             return true;
         }
-        else if (OperatingSystem.IsAndroid() || OperatingSystem.IsMacOS())
+        else if (OperatingSystem.IsAndroid() || OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
         {
             return platformService.IsCertificateInstalled(packable);
         }

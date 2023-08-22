@@ -13,49 +13,46 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
     public void SwapToAccount(IAccount? account, PlatformAccount platform)
     {
-        if (account is SteamAccount steamAccount)
+        KillPlatformProcess(platform);
+        var users = platform.Accounts?.Cast<SteamAccount>().Select(s => s.SteamUser);
+        if (users.Any_Nullable())
         {
-            KillPlatformProcess(platform);
-            var users = platform.Accounts?.Cast<SteamAccount>().Select(s => s.SteamUser);
-            if (users.Any_Nullable())
+            if (account is SteamAccount steamAccount && !string.IsNullOrEmpty(steamAccount?.AccountName))
             {
-                if (!string.IsNullOrEmpty(account?.AccountName))
+                steamService.SetCurrentUser(steamAccount.AccountName);
+                foreach (var user in users)
                 {
-                    steamService.SetCurrentUser(account.AccountName);
-                    foreach (var user in users)
+                    if (user.AccountName == steamAccount.AccountName)
                     {
-                        if (user.AccountName == account.AccountName)
-                        {
-                            user.MostRecent = true;
-                            user.RememberPassword = true;
-                            user.WantsOfflineMode = steamAccount.WantsOfflineMode;
-                            user.SkipOfflineModeWarning = steamAccount.SkipOfflineModeWarning;
+                        user.MostRecent = true;
+                        user.RememberPassword = true;
+                        user.WantsOfflineMode = steamAccount.WantsOfflineMode;
+                        user.SkipOfflineModeWarning = steamAccount.SkipOfflineModeWarning;
 
-                            if (steamAccount.PersonaState != PersonaState.Default)
-                                ISteamService.Instance.SetPersonaState(steamAccount.SteamUser.SteamId32.ToString(), steamAccount.PersonaState);
-                        }
-                        else
-                        {
-                            user.MostRecent = false;
-                        }
+                        if (steamAccount.PersonaState != PersonaState.Default)
+                            ISteamService.Instance.SetPersonaState(steamAccount.SteamUser.SteamId32.ToString(), steamAccount.PersonaState);
                     }
-                }
-                else
-                {
-                    steamService.SetCurrentUser("");
-                    foreach (var user in users)
+                    else
                     {
                         user.MostRecent = false;
                     }
                 }
-                steamService.UpdateLocalUserData(users);
             }
             else
             {
-                Toast.Show(ToastIcon.Error, Strings.Error_SteamGetUserInfo);
+                steamService.SetCurrentUser("");
+                foreach (var user in users)
+                {
+                    user.MostRecent = false;
+                }
             }
-            RunPlatformProcess(platform, false);
+            steamService.UpdateLocalUserData(users);
         }
+        else
+        {
+            Toast.Show(ToastIcon.Error, Strings.Error_SteamGetUserInfo);
+        }
+        RunPlatformProcess(platform, false);
     }
 
     bool IPlatformSwitcher.ClearCurrentLoginUser(PlatformAccount platform)

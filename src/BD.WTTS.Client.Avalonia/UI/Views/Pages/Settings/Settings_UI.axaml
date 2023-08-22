@@ -441,5 +441,43 @@
                 </StackPanel>
             </spp:OptionsDisplayItem.Content>
         </spp:OptionsDisplayItem>
+
+        <ui:SettingsExpander Description="拖拽调整所有插件的菜单顺序" Header="功能菜单排序">
+            <ui:SettingsExpander.IconSource>
+                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Sort}" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpanderItem IsClickEnabled="False" Theme="{StaticResource SettingsExpanderItem2}">
+                <ui:SettingsExpanderItem.Content>
+                    <ItemsControl Classes="DraggableOrder" ItemsSource="{Binding MainWindow2.TabItems, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="spp:TabItemViewModel">
+                                <ListBoxItem>
+                                    <Grid ColumnDefinitions="Auto,*,Auto">
+                                        <ui:ImageIcon
+                                            Width="24"
+                                            Height="24"
+                                            Margin="8"
+                                            VerticalAlignment="Center"
+                                            Source="{Binding IconKey, Converter={StaticResource BitmapAssetValueConverter}}" />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Name}" />
+                                        <Viewbox
+                                            Grid.Column="2"
+                                            Width="18"
+                                            Height="18"
+                                            Margin="8,0"
+                                            VerticalAlignment="Center">
+                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Move}" />
+                                        </Viewbox>
+                                    </Grid>
+                                </ListBoxItem>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ui:SettingsExpanderItem.Content>
+            </ui:SettingsExpanderItem>
+        </ui:SettingsExpander>
     </StackPanel>
 </UserControl>

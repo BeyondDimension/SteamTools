@@ -141,12 +141,12 @@ partial class Startup // Properties
     /// <summary>
     /// 当前加载的插件集合
     /// </summary>
-    HashSet<IPlugin>? plugins;
+    IReadOnlyCollection<IPlugin>? plugins;
 
     /// <summary>
     /// 当前所有的插件集合，包含禁用的插件
     /// </summary>
-    SortedSet<PluginResult<IPlugin>>? pluginResults;
+    IReadOnlyCollection<PluginResult<IPlugin>>? pluginResults;
 #endif
 
     /// <summary>
@@ -155,7 +155,7 @@ partial class Startup // Properties
     /// <param name="plugins"></param>
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public bool TryGetPlugins([NotNullWhen(true)] out IReadOnlySet<IPlugin>? plugins)
+    public bool TryGetPlugins([NotNullWhen(true)] out IReadOnlyCollection<IPlugin>? plugins)
     {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         plugins = this.plugins;
@@ -172,7 +172,7 @@ partial class Startup // Properties
     /// <param name="plugins"></param>
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public bool TryGetPluginResults([NotNullWhen(true)] out IReadOnlySet<PluginResult<IPlugin>>? pluginResults)
+    public bool TryGetPluginResults([NotNullWhen(true)] out IReadOnlyCollection<PluginResult<IPlugin>>? pluginResults)
     {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         pluginResults = this.pluginResults;

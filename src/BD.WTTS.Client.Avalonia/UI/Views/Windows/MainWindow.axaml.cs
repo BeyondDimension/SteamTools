@@ -1,3 +1,4 @@
+using BD.WTTS.Plugins.Abstractions;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using SkiaSharp;
@@ -13,11 +14,11 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         if (!AppSplashScreen.IsInitialized)
             SplashScreen = new AppSplashScreen();
         else
-            DataContext ??= GetMainWinodwViewModel();
+            DataContext ??= IViewModelManager.Instance.MainWindow;
 
 #if DEBUG
         if (Design.IsDesignMode)
-            Design.SetDataContext(this, MainWindow.GetMainWinodwViewModel());
+            Design.SetDataContext(this, IViewModelManager.Instance.MainWindow!);
 #endif
     }
 
@@ -29,46 +30,6 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
             Hide();
         }
         base.OnClosing(e);
-    }
-
-    public static MainWindowViewModel GetMainWinodwViewModel()
-    {
-#pragma warning disable SA1114 // Parameter list should follow declaration
-        return new MainWindowViewModel(new TabItemViewModel[]
-        {
-                 new MenuTabItemViewModel()
-                 {
-                    ResourceKeyOrName = "Welcome",
-                    PageType = typeof(HomePage),
-                    IsResourceGet = true,
-                    IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico",
-                 },
-        }, ImmutableArray.Create<TabItemViewModel>(
-#if DEBUG
-            new MenuTabItemViewModel()
-            {
-                ResourceKeyOrName = "Debug",
-                PageType = typeof(DebugPage),
-                IsResourceGet = false,
-                IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/bug.ico",
-            },
-#endif
-            new MenuTabItemViewModel()
-            {
-                ResourceKeyOrName = "Plugin_Store",
-                PageType = null,
-                IsResourceGet = true,
-                IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/store.ico",
-            },
-            new MenuTabItemViewModel()
-            {
-                ResourceKeyOrName = "Settings",
-                PageType = typeof(SettingsPage),
-                IsResourceGet = true,
-                IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/settings.ico",
-            }
-        ));
-#pragma warning restore SA1114 // Parameter list should follow declaration
     }
 }
 
@@ -93,7 +54,8 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 
     Task IApplicationSplashScreen.RunTasks(CancellationToken token)
     {
-        return Task.Run(async () =>
+        return Task.Run(
+            async () =>
          {
 #if STARTUP_WATCH_TRACE || DEBUG
              WatchTrace.Start();
@@ -163,17 +125,50 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
              });
 
              AdvertiseService.Current.InitAdvertise();
+             NotificationService.Current.GetNewsAsync();
 
              var mainWindow = App.Instance.MainWindow;
              mainWindow.ThrowIsNull();
 
-             var mainWindowVM = MainWindow.GetMainWinodwViewModel();
-             Dispatcher.UIThread.Post(() =>
+#pragma warning disable SA1114 // Parameter list should follow declaration
+             IViewModelManager.Instance.InitViewModels(new TabItemViewModel[]
              {
-                 mainWindow.DataContext = mainWindowVM;
+                new MenuTabItemViewModel("Welcome")
+                {
+                   PageType = typeof(HomePage),
+                   IsResourceGet = true,
+                   IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico",
+                },
+             }, ImmutableArray.Create<TabItemViewModel>(
+#if DEBUG
+             new MenuTabItemViewModel("Debug")
+             {
+                 PageType = typeof(DebugPage),
+                 IsResourceGet = false,
+                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/bug.ico",
+             },
+#endif       
+             new MenuTabItemViewModel("Plugin_Store")
+             {
+                 PageType = null,
+                 IsResourceGet = true,
+                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/store.ico",
+             },
+             new MenuTabItemViewModel("Settings")
+             {
+                 PageType = typeof(SettingsPage),
+                 IsResourceGet = true,
+                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/settings.ico",
+             }));
+#pragma warning restore SA1114 // Parameter list should follow declaration
+             IViewModelManager.Instance.MainWindow.ThrowIsNull();
+
+             await Dispatcher.UIThread.InvokeAsync(() =>
+             {
+                 mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
                  s.InitSettingSubscribe();
 
-                 INavigationService.Instance.Navigate(mainWindowVM.TabItems.First().PageType!);
+                 INavigationService.Instance.Navigate(typeof(HomePage));
              });
 #if STARTUP_WATCH_TRACE || DEBUG
              WatchTrace.Record("InitMainWindowViewModel");
@@ -183,7 +178,10 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
              WatchTrace.Stop();
 #endif
              s.OnStartup();
-             await mainWindowVM!.Initialize();
+             await IViewModelManager.Instance.MainWindow.Initialize();
+
+             App.Instance.CompositeDisposable.Add(IViewModelManager.Instance.MainWindow);
+
              IsInitialized = true;
          }, cancellationToken: token);
     }

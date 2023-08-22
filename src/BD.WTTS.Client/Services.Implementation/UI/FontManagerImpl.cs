@@ -12,7 +12,7 @@ public class FontManagerImpl : IFontManager
 
     public virtual IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
     {
-        var fonts = platformService.GetFontsByGdiPlus();
+        var fonts = platformService.GetFonts();
         return fonts;
     }
 }

@@ -1,19 +1,20 @@
 // ReSharper disable once CheckNamespace
+using dotnetCampus.Ipc.CompilerServices.Attributes;
+
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class MainWindowViewModel : WindowViewModel
 {
-
     #region 更改通知
     //[Reactive]
     //public TabItemViewModel? SelectedItem { get; set; }
 
     [Reactive]
-    public bool IsOpenUserMenu { get; set; }
+    public int PluginCount { get; set; }
 
     #endregion
 
-    public List<TabItemViewModel> TabItems { get; }
+    public ObservableCollection<TabItemViewModel> TabItems { get; }
 
     public ImmutableArray<TabItemViewModel> FooterTabItems { get; }
 
@@ -23,7 +24,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         {
             var platformService = IPlatformService.Instance;
             var adminTag = platformService.IsAdministrator ? (OperatingSystem.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
-            var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.InformationalVersion} for {DeviceInfo2.OSName()}{adminTag}";
+            var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.InformationalVersion} for {AboutPageViewModel.GetOSName()}{adminTag}";
 #if DEBUG
             title = $"[Debug] {title}";
 #endif
@@ -61,78 +62,113 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                  })
                 .Where(static x => x != null)
                 .SelectMany(static x => x!);
-
-            tabItems = tabItems.Concat(tabs);
+            var sortTabSettings = UISettings.SortMenuTabs.Value;
+            int OrderBy(MenuTabItemViewModel m)
+            {
+                if (sortTabSettings != null)
+                {
+                    var i = 0;
+                    foreach (var item in sortTabSettings)
+                    {
+                        if (item == m.Id)
+                            return i;
+                        i++;
+                    }
+                }
+                return int.MaxValue;
+            }
+            var comparer = ComparerBuilder.For<MenuTabItemViewModel>()
+                .OrderBy(OrderBy)
+                .ThenBy(x => x.Id);
+            var sortTabs = new SortedSet<MenuTabItemViewModel>(comparer);
+            foreach (var item in tabs)
+                sortTabs.Add(item);
+            tabItems = tabItems.Concat(sortTabs);
         }
 
-        TabItems = tabItems.ToList();
+        TabItems = new ObservableCollection<TabItemViewModel>(tabItems);
         //SelectedItem = TabItems.FirstOrDefault();
 
         FooterTabItems = footerTabItems;
     }
 
-    public override Task Initialize()
+    public override async Task Initialize()
     {
-        var task = Task.Run(() =>
-         {
-             Thread.CurrentThread.IsBackground = true;
-             if (!IsInitialized)
-             {
+        if (!IsInitialized)
+        {
+            var startup = Startup.Instance;
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-                 Task.Run(async () =>
-                 {
-                     if (OperatingSystem.IsWindows())
-                     {
-                         // 等待 Ipc 管理员权限服务初始化完毕
-                         await IPlatformService.IPCRoot.Instance;
-                     }
-                     if (Startup.Instance.TryGetPlugins(out var plugins))
-                     {
-                         foreach (var plugin in plugins)
-                         {
-                             try
-                             {
-                                 await plugin.OnInitializeAsync();
-                             }
-                             catch (Exception ex)
-                             {
-                                 Log.Error(nameof(MainWindowViewModel), ex,
-                                     $"({plugin.UniqueEnglishName}) Plugin.OnInitializeAsync fail.");
-                             }
-                         }
-                     }
-                     //if (ASFSettings.AutoRunArchiSteamFarm.Value)
-                     //{
-                     //    if (platformService.UsePlatformForegroundService)
-                     //    {
-                     //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
-                     //    }
-                     //    else
-                     //    {
-                     //        await ASFService.Current.InitASF();
-                     //    }
-                     //}
-                 });
+            if (OperatingSystem.IsWindows())
+            {
+                // 等待 Ipc 管理员权限服务初始化完毕
+                await IPlatformService.IPCRoot.Instance;
+            }
+            if (startup.TryGetPlugins(out var plugins))
+            {
+                PluginCount = plugins.Count;
+                foreach (var plugin in plugins)
+                {
+                    try
+                    {
+                        await plugin.OnInitializeAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(nameof(MainWindowViewModel), ex,
+                            $"({plugin.UniqueEnglishName}) Plugin.OnInitializeAsync fail.");
+                    }
+                }
+            }
+            //if (ASFSettings.AutoRunArchiSteamFarm.Value)
+            //{
+            //    if (platformService.UsePlatformForegroundService)
+            //    {
+            //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
+            //    }
+            //    else
+            //    {
+            //        await ASFService.Current.InitASF();
+            //    }
+            //}
 #endif
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-                 {
-                     SteamConnectService.Current.Initialize();
-                     //SteamConnectService.Current.RefreshSteamUsers();
-                 }
+            {
+                SteamConnectService.Current.Initialize();
+                //SteamConnectService.Current.RefreshSteamUsers();
+            }
 #endif
 
-                 //Parallel.ForEach(TabItems, item =>
-                 //{
-                 //    item.Initialize();
-                 //    //Task.Run(item.Initialize).ForgetAndDispose();
-                 //});
-                 IsInitialized = true;
-             }
-         });
+            //Parallel.ForEach(TabItems, item =>
+            //{
+            //    item.Initialize();
+            //    //Task.Run(item.Initialize).ForgetAndDispose();
+            //});
 
-        task.ForgetAndDispose();
-        return task;
+            #region 提示设置项配置文件，如果存在无效的文件时
+
+            if (startup.InvalidConfiguration)
+            {
+                MainThread2.BeginInvokeOnMainThread(() =>
+                {
+                    StringBuilder b = new(Strings.Settings_InvalidConfigurationFile);
+                    b.AppendLine(Environment.NewLine);
+                    foreach (var item in startup.InvalidConfigurationFileNames)
+                    {
+                        if (string.IsNullOrWhiteSpace(item))
+                            continue;
+                        b.Append(item);
+                        b.AppendLine(FileEx.JSON);
+                    }
+                    MessageBox.Show(b.ToString(), Strings.Error, icon: MessageBox.Image.Error);
+                });
+            }
+
+            #endregion
+
+            IsInitialized = true;
+        }
     }
 
     //public async override void Activation()
@@ -148,4 +184,15 @@ public sealed partial class MainWindowViewModel : WindowViewModel
     //    }
     //    base.Activation();
     //}
+
+    public override void Deactivation()
+    {
+        SaveTabItemsSort();
+        base.Deactivation();
+    }
+
+    public void SaveTabItemsSort()
+    {
+        UISettings.SortMenuTabs.Value = TabItems.OfType<MenuTabItemViewModel>().Select(x => x.Id).ToHashSet();
+    }
 }

@@ -30,6 +30,16 @@
             <Setter Property="Margin" Value="0 10 0 0" />
         </Style>
 
+        <Style Selector="ui|NavigationViewItem.AppNav">
+            <Setter Property="Transitions">
+                <Setter.Value>
+                    <Transitions>
+                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05" />
+                    </Transitions>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter">
             <Setter Property="Width" Value="72" />
             <Setter Property="MinHeight" Value="75" />
@@ -141,9 +151,19 @@
                         </Panel>
 
                         <DropDownButton.Flyout>
-                            <MenuFlyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
-                                <MenuItem Header="Test" />
-                            </MenuFlyout>
+                            <ui:FAMenuFlyout
+                                FlyoutPresenterClasses="NoPadding"
+                                ItemsSource="{Binding Path=Notices, Mode=OneWay, Source={x:Static s:NotificationService.Current}}"
+                                Placement="BottomEdgeAlignedRight">
+                                <ui:FAMenuFlyout.ItemTemplate>
+                                    <DataTemplate DataType="spp:OfficialMessageItemDTO">
+                                        <ui:MenuFlyoutItem
+                                            Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                            CommandParameter="{Binding MessageLink}"
+                                            Text="{Binding Title}" />
+                                    </DataTemplate>
+                                </ui:FAMenuFlyout.ItemTemplate>
+                            </ui:FAMenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
 
@@ -232,11 +252,19 @@
                                     </MenuItem.Header>
                                 </MenuItem>
                                 <MenuItem Header="-" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <MenuItem Header="{Binding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem 
+                                    Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                    CommandParameter="https://steampp.net/account/center/info"
+																		Header="{Binding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" 
+																		IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <!--<MenuItem Header="{Binding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />-->
-                                <MenuItem Header="{Binding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                <MenuItem 
+                                    Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                    CommandParameter="https://steampp.net/account/center/bind"
+																		Header="{Binding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" 
+																		IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem
-                                    Command="{x:Static spp:App.OpenBrowserCommand}"
+                                    Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                     CommandParameter="https://steampp.net/account/center/safe"
                                     Header="{Binding Path=Res.ChangePassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                     IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />

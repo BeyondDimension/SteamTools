@@ -3,6 +3,9 @@
 // https://github.com/dotnet/runtime/blob/main/docs/design/features/host-error-codes.md
 // https://github.com/dotnet/samples/blob/91355ef22a10ec614a2e8daefd68785066860d57/core/hosting/src/NativeHost/nativehost.cpp
 
+#if NETFRAMEWORK
+using System.Configuration;
+#endif
 using static BD.WTTS.AssemblyInfo;
 using static BD.WTTS.Client.Resources.Strings;
 
@@ -11,10 +14,22 @@ namespace BD.WTTS;
 
 static unsafe partial class Program
 {
-    public const string dotnet_version_major = "7";
-    public const string dotnet_version_minor = "0";
-    public const string dotnet_version_build = "9";
-    public const string dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}";
+    static Program()
+    {
+        dotnet_version_major = "7";
+        dotnet_version_minor = "0";
+        dotnet_version_build = "10";
+        dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}";
+    }
+
+    //#if NETFRAMEWORK
+    public static string dotnet_version_major, dotnet_version_minor, dotnet_version_build, dotnet_version;
+    //#else
+    //    public const string dotnet_version_major = "7";
+    //    public const string dotnet_version_minor = "0";
+    //    public const string dotnet_version_build = "10";
+    //    public const string dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}";
+    //#endif
 
     const string dotnet_runtime = "Microsoft.NETCore.App";
     const string aspnetcore_runtime = "Microsoft.AspNetCore.App";
@@ -23,32 +38,32 @@ static unsafe partial class Program
     const string dotnet_type = "BD.WTTS.Program, Steam++";
     const string dotnet_type_method = "CustomEntryPoint";
 
-    /// <summary>
-    /// 是否依赖 AspNetCore
-    /// </summary>
-    /// <returns></returns>
-    static bool RequireAspNetCore(string baseDirectory)
-    {
-        foreach (var moduleName in new[] {
-            // 依赖 AspNetCore 的模块名
-            Accelerator,
-            ArchiSteamFarmPlus,
-        })
-        {
-            var module_path =
-#if NET35
-                PathCombine
-#else
-                Path.Combine
-#endif
-                (baseDirectory, "modules", moduleName);
-            if (Directory.Exists(module_path) && !PathIsDirectoryEmpty(module_path))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    //    /// <summary>
+    //    /// 是否依赖 AspNetCore
+    //    /// </summary>
+    //    /// <returns></returns>
+    //    static bool RequireAspNetCore(string baseDirectory)
+    //    {
+    //        foreach (var moduleName in new[] {
+    //            // 依赖 AspNetCore 的模块名
+    //            Accelerator,
+    //            ArchiSteamFarmPlus,
+    //        })
+    //        {
+    //            var module_path =
+    //#if NET35
+    //                PathCombine
+    //#else
+    //                Path.Combine
+    //#endif
+    //                (baseDirectory, "modules", moduleName);
+    //            if (Directory.Exists(module_path) && !PathIsDirectoryEmpty(module_path))
+    //            {
+    //                return true;
+    //            }
+    //        }
+    //        return false;
+    //    }
 
 #if NETFRAMEWORK
     [DllImport("shlwapi.dll", EntryPoint = "PathIsDirectoryEmptyW", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -68,7 +83,8 @@ static unsafe partial class Program
     {
         try
         {
-            return !Directory.EnumerateFiles(pszPath).Any();
+            //修复 Files 获取不到文件夹数量 被认为是空文件夹的问题
+            return !Directory.EnumerateFileSystemEntries(pszPath).Any();
         }
         catch (DirectoryNotFoundException)
         {
@@ -164,7 +180,7 @@ static unsafe partial class Program
 #endif
     static void DownloadDotNetRuntime()
     {
-        const string urlFormat1 = $"https://dotnet.microsoft.com/{{0}}/download/dotnet/{dotnet_version_major}.{dotnet_version_minor}";
+        string urlFormat1 = $"https://dotnet.microsoft.com/{{0}}/download/dotnet/{dotnet_version_major}.{dotnet_version_minor}";
         var url = string.Format(urlFormat1, GetLang());
         OpenCoreByProcess(url);
     }
@@ -195,7 +211,7 @@ static unsafe partial class Program
         {
             Console.WriteLine(ex);
             Console.ReadLine();
-            return 500;
+            return (int)ExitCode.InternalServerError;
         }
     }
 #endif
@@ -218,6 +234,50 @@ static unsafe partial class Program
         Console.WriteLine($"Environment.Version: {Environment.Version}");
 #endif
 
+#if NETFRAMEWORK
+        try
+        {
+            var dotnet_version_ = ConfigurationManager.AppSettings["d"];
+            if (!
+#if !NET35
+                string.
+#endif
+                IsNullOrWhiteSpace(dotnet_version_) &&
+                dotnet_version_.Length < sbyte.MaxValue)
+            {
+                var dotnet_version__ = dotnet_version_.Split('.');
+                int major, minor, build;
+                switch (dotnet_version__.Length)
+                {
+                    case 1:
+                        dotnet_version_major = (int.TryParse(dotnet_version__[0], out major) ? major : 0).ToString();
+                        dotnet_version_minor = dotnet_version_build = "0";
+                        dotnet_version = $"{dotnet_version_major}.0.0";
+                        break;
+                    case 2:
+                        dotnet_version_major = (int.TryParse(dotnet_version__[0], out major) ? major : 0).ToString();
+                        dotnet_version_minor = (int.TryParse(dotnet_version__[1], out minor) ? minor : 0).ToString();
+                        dotnet_version_build = "0";
+                        dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.0";
+                        break;
+                    case 3:
+                        dotnet_version_major = (int.TryParse(dotnet_version__[0], out major) ? major : 0).ToString();
+                        dotnet_version_minor = (int.TryParse(dotnet_version__[1], out minor) ? minor : 0).ToString();
+                        dotnet_version_build = (int.TryParse(dotnet_version__[2], out build) ? build : 0).ToString();
+                        dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}";
+                        break;
+                }
+            }
+        }
+        catch
+        {
+
+        }
+
+        if (dotnet_version == default)
+            return (int)ExitCode.Failure_read_dotnet_version;
+#endif
+
         var baseDirectory =
 #if NET46_OR_GREATER || NETCOREAPP
                 AppContext.BaseDirectory;
@@ -228,7 +288,8 @@ static unsafe partial class Program
         if (args.Length == 0 && !CompatibilityCheck(baseDirectory))
             return 0;
 
-        var requireAspNetCore = RequireAspNetCore(baseDirectory);
+        //var requireAspNetCore = RequireAspNetCore(baseDirectory);
+        const bool requireAspNetCore = true;
         string hostfxr_path, dotnet_runtime_path, aspnetcore_runtime_path, config_path, dotnetlib_path;
 
         // STEP 0: Search HostFxr
@@ -371,6 +432,16 @@ static unsafe partial class Program
 #endif
         }
 
+        var fvi = FileVersionInfo.GetVersionInfo(dotnetlib_path);
+        if (fvi.Comments != Description)
+            return (int)ExitCode.Failure_fvi_Description;
+        if (fvi.CompanyName != Company)
+            return (int)ExitCode.Failure_fvi_Company;
+        if (fvi.LegalCopyright != Copyright)
+            return (int)ExitCode.Failure_fvi_Copyright;
+        if (fvi.LegalTrademarks != Trademark)
+            return (int)ExitCode.Failure_fvi_Trademark;
+
         delegate* unmanaged[Cdecl]<nint, nint, out nint, int> init_fptr;
         delegate* unmanaged[Cdecl]<nint, hostfxr_delegate_type, out delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, out delegate* unmanaged[Cdecl]<nint, int, int>, int>, int> get_delegate_fptr;
         delegate* unmanaged[Cdecl]<nint, int> close_fptr;
@@ -506,11 +577,20 @@ static unsafe partial class Program
 
     enum ExitCode
     {
+        InternalServerError = 5500,
+
         Failure_load_hostfxr = 5701,
         Failure_get_dotnet_load_assembly,
         Failure_load_assembly_and_get_function_pointer,
         FrameworkMissingFailure,
         EntryPointFileNotFound,
+
+        Failure_read_dotnet_version,
+
+        Failure_fvi_Description,
+        Failure_fvi_Company,
+        Failure_fvi_Copyright,
+        Failure_fvi_Trademark,
     }
 
 #if NETFRAMEWORK

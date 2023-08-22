@@ -37,4 +37,89 @@ public partial interface IApplication
 
     /// <inheritdoc cref="IPlatformService.SetBootAutoStart(bool, string)"/>
     static void SetBootAutoStart(bool isAutoStart) => IPlatformService.Instance.SetBootAutoStart(isAutoStart, Constants.HARDCODED_APP_NAME);
+
+    private static readonly Lazy<ClientPlatform> clientPlatform = new(() =>
+    {
+        var platform = DeviceInfo2.Platform();
+        //var deviceIdiom = DeviceInfo2.Idiom();
+        switch (platform)
+        {
+#if WINDOWS
+#pragma warning disable CS0612 // 类型或成员已过时
+            case Platform.Windows:
+            case Platform.WinUI:
+            case Platform.UWP:
+#pragma warning restore CS0612 // 类型或成员已过时
+                switch (RuntimeInformation.ProcessArchitecture)
+                {
+                    case Architecture.X86:
+                        return DesktopBridge.IsRunningAsUwp ?
+                        ClientPlatform.Win32StoreX86 : ClientPlatform.Win32X86;
+                    case Architecture.X64:
+                        return DesktopBridge.IsRunningAsUwp ?
+                        ClientPlatform.Win32StoreX64 : ClientPlatform.Win32X64;
+                    case Architecture.Arm64:
+                        return DesktopBridge.IsRunningAsUwp ?
+                        ClientPlatform.Win32StoreArm64 : ClientPlatform.Win32Arm64;
+                }
+                break;
+#elif ANDROID
+            case Platform.Android:
+                switch (RuntimeInformation.ProcessArchitecture)
+                {
+                    case Architecture.X86:
+                        return ClientPlatform.AndroidPadX86;
+                    case Architecture.X64:
+                        return ClientPlatform.AndroidPhoneX64;
+                    case Architecture.Arm64:
+                        return ClientPlatform.AndroidPhoneArm64;
+                    case Architecture.Arm:
+                        return ClientPlatform.AndroidPhoneArm;
+                }
+                break;
+#elif MACCATALYST || MACOS || IOS
+            case Platform.Apple:
+                switch (DeviceInfo2.Idiom())
+                {
+#if !IOS
+                    case DeviceIdiom.Desktop:
+                        switch (RuntimeInformation.ProcessArchitecture)
+                        {
+                            case Architecture.X64:
+                                return ClientPlatform.macOSX64;
+                            case Architecture.Arm64:
+                                return ClientPlatform.macOSArm64;
+                        }
+                        break;
+#endif
+#if !MACOS
+                    case DeviceIdiom.Phone:
+                        return ClientPlatform.iOSArm64;
+                    case DeviceIdiom.Tablet:
+                        return ClientPlatform.iPadOSArm64;
+                    case DeviceIdiom.TV:
+                        return ClientPlatform.tvOSArm64;
+                    case DeviceIdiom.Watch:
+                        return ClientPlatform.watchOSArm64;
+#endif
+                }
+                break;
+#else
+            case Platform.Linux:
+                switch (RuntimeInformation.ProcessArchitecture)
+                {
+                    case Architecture.X64:
+                        return ClientPlatform.LinuxX64;
+                    case Architecture.Arm64:
+                        return ClientPlatform.LinuxArm64;
+                    case Architecture.Arm:
+                        return ClientPlatform.LinuxArm;
+                }
+                break;
+#endif
+        }
+        return default;
+    });
+
+    static ClientPlatform ClientPlatform => clientPlatform.Value;
 }

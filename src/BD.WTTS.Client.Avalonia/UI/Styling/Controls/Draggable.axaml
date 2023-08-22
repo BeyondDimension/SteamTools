@@ -1,0 +1,50 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:id="using:Avalonia.Xaml.Interactions.Draggable"
+    xmlns:spp="https://steampp.net/ui">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <ItemsControl Classes="DraggableOrder">
+                <ListBoxItem>
+                    <TextBlock Text="Item1" />
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="Item2" />
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="Item3" />
+                </ListBoxItem>
+            </ItemsControl>
+        </Border>
+    </Design.PreviewWith>
+    <!--  ItemsControl Item Drag Styles  -->
+
+    <Style Selector=":is(ItemsControl).DraggableOrder > :is(ContentPresenter)">
+        <Setter Property="(i:Interaction.Behaviors)">
+            <i:BehaviorCollectionTemplate>
+                <i:BehaviorCollection>
+                    <id:ItemDragBehavior
+                        HorizontalDragThreshold="3"
+                        Orientation="Vertical"
+                        VerticalDragThreshold="3" />
+                </i:BehaviorCollection>
+            </i:BehaviorCollectionTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector=":is(ItemsControl).DraggableOrder > :is(ContentPresenter):dragging">
+        <Setter Property="Cursor" Value="DragMove" />
+    </Style>
+
+    <Style Selector=":is(ItemsControl).DraggableOrder > :is(ContentPresenter):not(:dragging)">
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05" />
+                </Transitions>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</Styles>

@@ -182,14 +182,14 @@
                                             </Template>
                                         </Setter.Value>
                                     </Setter>
-                                    <Setter Property="Command" Value="{Binding $parent[spp:PageBase].$parent[spp:PageBase].((spp:GameAccountPageViewModel).AddPlatformCommand}" />
+                                    <Setter Property="Command" Value="{Binding $parent[spp:PageBase].((spp:GameAccountPageViewModel)DataContext).AddPlatformCommand}" />
                                     <Setter Property="CommandParameter" Value="{Binding}" />
                                 </Style>
                             </MenuItem.Styles>
                             <!--<MenuItem.DataTemplates>
                                 <DataTemplate DataType="{x:Type spp:PlatformAccount}">
                                     <MenuItem
-                                        Command="{Binding $parent[spp:PageBase].$parent[spp:PageBase].((spp:GameAccountPageViewModel).AddPlatformCommand}"
+                                        Command="{Binding $parent[spp:PageBase].((spp:GameAccountPageViewModel)DataContext).AddPlatformCommand}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding FullName}">
                                         <MenuItem.Icon>

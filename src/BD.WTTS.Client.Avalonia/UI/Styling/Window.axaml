@@ -160,11 +160,11 @@
                 <Panel>
                     <Panel Name="WindowBackground">
                         <Border Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Opacity="{Binding Value, Source={x:Static ms:UISettings.WindowBackgroundOpacity}, Mode=OneWay}" />
-                        <Image
+                        <spp:Image2
                             IsVisible="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=OneWay}"
                             Opacity="{Binding Value, Source={x:Static ms:UISettings.WindowBackgroundCustomImageOpacity}, Mode=OneWay}"
                             RenderOptions.BitmapInterpolationMode="HighQuality"
-                            Source="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImagePath}, Path=Value, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}"
+                            Source="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImagePath}, Path=Value, Mode=OneWay}"
                             Stretch="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImageStretch}, Path=Value, Mode=OneWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type Stretch}}" />
                     </Panel>
                     <Panel

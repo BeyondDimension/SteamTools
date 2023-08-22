@@ -21,13 +21,12 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     protected sealed override string? AuthorOriginalString => null;
 
-    public sealed override object? Icon => new MemoryStream(Resources.game); //"avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/game.ico";
+    public sealed override object? Icon => Resources.game; //"avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/game.ico";
 
-    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
-        yield return new MenuTabItemViewModel()
+        yield return new MenuTabItemViewModel(this, nameof(Strings.GameList))
         {
-            ResourceKeyOrName = nameof(Strings.GameList),
             PageType = typeof(MainFramePage),
             IsResourceGet = true,
             IconKey = Icon,

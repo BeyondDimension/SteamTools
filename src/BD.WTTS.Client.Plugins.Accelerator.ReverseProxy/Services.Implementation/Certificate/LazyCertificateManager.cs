@@ -23,14 +23,15 @@ sealed class LazyCertificateManager : ICertificateManager
         return impl().GetCerFilePathGeneratedWhenNoFileExists();
     }
 
-    public ValueTask PlatformTrustRootCertificateGuideAsync()
+    public void TrustRootCertificate()
     {
-        return impl().PlatformTrustRootCertificateGuideAsync();
+        impl().TrustRootCertificate();
     }
 
-    public ValueTask<bool> SetupRootCertificateAsync()
+    public bool SetupRootCertificate()
     {
-        return impl().SetupRootCertificateAsync();
+        var r = impl().SetupRootCertificate();
+        return r;
     }
 
     public bool DeleteRootCertificate()

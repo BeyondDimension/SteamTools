@@ -186,7 +186,7 @@ public abstract partial class Startup
 
             #region CustomAppDomain 自定义应用程序域
 
-#if WINDOWS
+#if WINDOWS || LINUX
 #if DEBUG
             // 调试时移动本机库到 native，通常指定了单个 RID(RuntimeIdentifier)
             // 后本机库将位于程序根目录上否则将位于 runtimes 文件夹中

@@ -5,11 +5,26 @@ namespace BD.WTTS.UI.ViewModels;
 
 public class MenuTabItemViewModel : TabItemViewModel, IExplicitHasValue
 {
-    public string ResourceKeyOrName { get; init; } = string.Empty;
+    public MenuTabItemViewModel(IPlugin plugin, string resourceKeyOrName)
+    {
+        var pluginUniqueEnglishName = plugin.UniqueEnglishName;
+        Id = $"{pluginUniqueEnglishName}-{resourceKeyOrName}";
+        ResourceKeyOrName = resourceKeyOrName;
+    }
+
+    internal MenuTabItemViewModel(string resourceKeyOrName)
+    {
+        Id = $"{AssemblyInfo.Trademark}-{resourceKeyOrName}";
+        ResourceKeyOrName = resourceKeyOrName;
+    }
+
+    public string Id { get; }
+
+    public string ResourceKeyOrName { get; }
 
     public override Type? PageType { get; init; }
 
-    public bool IsResourceGet { get; init; }
+    public required bool IsResourceGet { get; init; }
 
     public override string Name => IsResourceGet ? GetString(ResourceKeyOrName) : ResourceKeyOrName;
 

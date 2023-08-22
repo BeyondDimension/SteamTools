@@ -140,5 +140,14 @@ public partial interface IGeneralSettings
     /// </summary>
     const HashSet<string>? DefaultDisablePlugins = null;
 
-}
+    /// <summary>
+    /// 插件安全模式
+    /// </summary>
+    bool? PluginSafeMode { get; set; }
 
+    /// <summary>
+    /// 插件安全模式的默认值
+    /// </summary>
+    const bool DefaultPluginSafeMode = true;
+
+}

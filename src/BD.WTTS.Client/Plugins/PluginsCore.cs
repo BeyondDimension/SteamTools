@@ -129,7 +129,7 @@ public static class PluginsCore
             return default;
         }
 
-        public IEnumerable<TabItemViewModel>? GetMenuTabItems()
+        public IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
         {
             return default;
         }
@@ -208,6 +208,7 @@ public static class PluginsCore
                 ArchiSteamFarmPlus,
                 Authenticator,
                 GameTools,
+                SteamIdleCard
             };
             foreach (var item in modules)
             {
@@ -356,7 +357,8 @@ public static class PluginsCore
             using CompositionHost container = configuration.CreateContainer();
             foreach (var plugin in container.GetExports<IPlugin>())
             {
-                if (string.Equals(plugin.UniqueEnglishName,
+                if (string.IsNullOrWhiteSpace(plugin.UniqueEnglishName) ||
+                    string.Equals(plugin.UniqueEnglishName,
                     IPlatformService.IPCRoot.moduleName,
                     StringComparison.OrdinalIgnoreCase))
                 {
@@ -465,6 +467,7 @@ public static class PluginsCore
             ArchiSteamFarmPlus => 5,
             Authenticator => 4,
             GameTools => 6,
+            SteamIdleCard => 7,
             _ => ushort.MaxValue,
         };
         var comparer = ComparerBuilder.For<PluginResult<IPlugin>>()

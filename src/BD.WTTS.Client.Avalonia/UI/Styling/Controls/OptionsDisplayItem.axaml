@@ -107,9 +107,9 @@
                             <ui:SymbolIcon
                                 Name="Chevron"
                                 Grid.Column="3"
-                                Margin="8,4"
+                                Margin="24,4,0,4"
                                 VerticalAlignment="Center"
-                                FontSize="20" />
+                                FontSize="18" />
                         </Grid>
                     </ui:FABorder>
 

@@ -49,7 +49,7 @@ partial class Startup // 自定义控制台命令参数
         devtools.AddOption(new Option<bool>("-use_wgl", () => false, "使用 Native OpenGL（仅 Windows）"));
         devtools.AddOption(new Option<bool>("-use_localhost", () => false, "使用本机服务端"));
         devtools.AddOption(new Option<bool>("-steamrun", () => true, "Steam 内启动"));
-        devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_wgl, bool use_localhost,bool steamrun) =>
+        devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_wgl, bool use_localhost, bool steamrun) =>
         {
 #if DEBUG
             AppSettings.UseLocalhostApiBaseUrl = use_localhost;
@@ -68,6 +68,7 @@ partial class Startup // 自定义控制台命令参数
         rootCommand.AddCommand(devtools);
 
         // -clt c -silence
+        // -clt c -steamrun
         var common = new Command("c", "common");
         common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
         common.AddOption(new Option<bool>("-steamrun", "Steam 内启动"));

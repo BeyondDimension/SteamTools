@@ -147,7 +147,7 @@
         </Style>
         <Style Selector="^:iconPlaceholder">
             <Style Selector="^ /template/ StackPanel#HeaderRegion">
-                <Setter Property="Margin" Value="{DynamicResource SettingsExpanderItemContentMargin}" />
+                <Setter Property="Margin" Value="0" />
             </Style>
         </Style>
 

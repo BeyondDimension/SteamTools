@@ -28,14 +28,19 @@ public interface IViewModelManager : IDisposable
     /// <param name="viewModel"></param>
     void Dispose(ViewModelBase viewModel);
 
-    ///// <summary>
-    ///// 获取为当前主窗口提供的数据
-    ///// </summary>
-    //WindowViewModel? MainWindow { get; }
+    /// <summary>
+    /// 获取为当前主窗口提供的数据
+    /// </summary>
+    WindowViewModel? MainWindow { get; }
+
+    /// <summary>
+    /// 获取为当前主窗口提供的数据
+    /// </summary>
+    MainWindowViewModel? MainWindow2 => MainWindow as MainWindowViewModel;
 
     //TaskBarWindowViewModel? TaskBarWindow { get; }
 
-    //void InitViewModels();
+    void InitViewModels(IEnumerable<TabItemViewModel> tabItems, ImmutableArray<TabItemViewModel> footerTabItems);
 
     //void InitUnlockAchievement(int appid);
 

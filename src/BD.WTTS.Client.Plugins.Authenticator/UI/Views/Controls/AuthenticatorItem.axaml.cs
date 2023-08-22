@@ -11,16 +11,16 @@ public partial class AuthenticatorItem : UserControl
         InitializeComponent();
 
         ToggleEye.Tapped += AuthenticatorItem_Tapped;
-        //this.DoubleTapped += AuthenticatorItem_DoubleTapped;
+        this.DoubleTapped += AuthenticatorItem_DoubleTapped;
     }
 
-    //private void AuthenticatorItem_DoubleTapped(object? sender, TappedEventArgs e)
-    //{
-    //    if (DataContext is AuthenticatorItemModel authenticatorItemModel)
-    //    {
-    //        authenticatorItemModel.Tapped();
-    //    }
-    //}
+    private async void AuthenticatorItem_DoubleTapped(object? sender, TappedEventArgs e)
+    {
+        if (DataContext is AuthenticatorItemModel authenticatorItemModel)
+        {
+            await authenticatorItemModel.CopyCode();
+        }
+    }
 
     private void AuthenticatorItem_Tapped(object? sender, TappedEventArgs e)
     {

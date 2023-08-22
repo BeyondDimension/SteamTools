@@ -149,7 +149,7 @@ public sealed partial class GameAccountPageViewModel
         {
             Content = AppResources.ModelContent_LoginNewUser
         };
-        var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, AppResources.Title_LoginAccount_.Format(SelectedPlatform.FullName), isCancelButton: true);
+        var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, AppResources.Title_LoginAccount_.Format(SelectedPlatform!.FullName), isCancelButton: true);
         if (result)
             SelectedPlatform?.CurrnetUserAdd(null);
     }

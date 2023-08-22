@@ -1771,7 +1771,7 @@
   <data name="Enabled" xml:space="preserve">
     <value>已启用</value>
   </data>
-	<data name="Disabled" xml:space="preserve">
+  <data name="Disabled" xml:space="preserve">
     <value>已禁用</value>
   </data>
   <data name="Error_AnswerIncorrect" xml:space="preserve">
@@ -2138,7 +2138,7 @@
     <value>查看详细数据</value>
   </data>
   <data name="ViewInStore" xml:space="preserve">
-    <value>在 Steam++ 插件商店中查看</value>
+    <value>在插件商店中查看</value>
   </data>
   <data name="Warning_CodeNullPleaseLogin" xml:space="preserve">
     <value>验证码 URL 为空，请重新登录</value>
@@ -2204,7 +2204,7 @@
     <value>修改的数据生效需要重启 Steam 是否需要重启 Steam。</value>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，也可以选择暂时禁用或启用指定账号的共享。调整后保存重启 Steam 生效！</value>
+    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，拖拽操作从上到下的排序为共享库使用的优先级顺序，也可以选择暂时禁用或启用指定账号的共享。调整后保存重启 Steam 生效！</value>
   </data>
   <data name="CommunityFix_SubProcessFileNotExist" xml:space="preserve">
     <value>网络加速子进程文件不存在</value>
@@ -2667,10 +2667,58 @@
   <data name="YouNeedSignInToGetUID_" xml:space="preserve">
     <value>需要登录 {0} 账号才能获取 UID</value>
   </data>
-	<data name="Script_ImportLoading" xml:space="preserve">
+  <data name="Script_ImportLoading" xml:space="preserve">
     <value>处理导入脚本中</value>
   </data>
-	<data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
+  <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>家庭共享库为空</value>
+  </data>
+  <data name="SteamIdleCard" xml:space="preserve">
+    <value>Steam 挂卡</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificate_Fail" xml:space="preserve">
+    <value>删除 CA 证书失败</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificate_Success" xml:space="preserve">
+    <value>删除 CA 证书成功</value>
+  </data>
+  <data name="CommunityFix_SetupCertificate_Fail" xml:space="preserve">
+    <value>安装 CA 证书失败</value>
+  </data>
+  <data name="CommunityFix_SetupCertificate_Success" xml:space="preserve">
+    <value>安装 CA 证书成功</value>
+  </data>
+  <data name="Idle_Complete" xml:space="preserve">
+    <value>挂卡完成</value>
+  </data>
+  <data name="Idle_LoaingTips" xml:space="preserve">
+    <value>操作进行中请稍后再试</value>
+  </data>
+  <data name="Idle_NeedLoginSteam" xml:space="preserve">
+    <value>请先登录 Steam 账号</value>
+  </data>
+  <data name="Idle_OpenAutoNext" xml:space="preserve">
+    <value>打开自动切换游戏</value>
+  </data>
+  <data name="Idle_OperationSuccess" xml:space="preserve">
+    <value>挂卡操作成功</value>
+  </data>
+  <data name="Idle_PleaseStartIdle" xml:space="preserve">
+    <value>请先启动 Steam 挂卡</value>
+  </data>
+  <data name="Idle_RuningCount" xml:space="preserve">
+    <value>正在运行 {0}/{1}</value>
+  </data>
+  <data name="Idle_SteamNotRuning" xml:space="preserve">
+    <value>Steam 未启动</value>
+  </data>
+  <data name="Idle_StopAutoNext" xml:space="preserve">
+    <value>关闭自动切换游戏</value>
+  </data>
+  <data name="SettingsModifiedRestartThisSoft" xml:space="preserve">
+    <value>设置已修改，需重启软件后生效</value>
+  </data>
+  <data name="Settings_InvalidConfigurationFile" xml:space="preserve">
+    <value>无效的配置文件</value>
   </data>
 </root>

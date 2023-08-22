@@ -247,8 +247,24 @@ public static class ThirdPartyLoginHelper
         // &version={version}
         //var version = csc.Settings.AppVersionStr;
         var ver = AssemblyInfo.Version.Base64UrlEncode();
-        var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?port={port}&sKeyHex={skey_str}&sKeyPadding={padding.OaepHashAlgorithm}&ver={ver}&isBind={isBind}&access_token_expires_hex={access_token_expires}&access_token_hex={access_token}";
-        await Browser2.OpenAsync(url, BrowserLaunchMode.External);
+        var qs = HttpUtility.ParseQueryString("");
+        qs.Add("port", port.ToString());
+        qs.Add("sKeyHex", skey_str);
+        qs.Add("sKeyPadding", padding.OaepHashAlgorithm.ToString());
+        qs.Add("ver", ver);
+        qs.Add("isBind", isBind.ToString());
+        qs.Add("access_token_expires_hex", access_token_expires);
+        qs.Add("access_token_hex", access_token);
+        qs.Add("dg", DeviceIdHelper.DeviceIdG.ToStringN());
+        qs.Add("dr", DeviceIdHelper.DeviceIdR);
+        qs.Add("dn", DeviceIdHelper.DeviceIdN);
+        var ub = new UriBuilder(apiBaseUrl)
+        {
+            Path = $"/ExternalLoginDetection/{(int)channel}",
+            Query = qs.ToString(),
+        };
+
+        await Browser2.OpenAsync(ub.Uri, BrowserLaunchMode.External);
     }
 
     /// <summary>

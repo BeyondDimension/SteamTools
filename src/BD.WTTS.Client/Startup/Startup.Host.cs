@@ -57,8 +57,8 @@ partial class Startup // 配置 Host
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (IsMainProcess || loadModules.Any())
         {
-            pluginResults = PluginsCore.InitPlugins(generalSettings?.CurrentValue.DisablePlugins, loadModules);
-            plugins = pluginResults?.Where(x => !x.IsDisable).Select(x => x.Data).ToHashSet();
+            var pluginResults = PluginsCore.InitPlugins(generalSettings?.CurrentValue.DisablePlugins, loadModules);
+            var plugins = pluginResults?.Where(x => !x.IsDisable).Select(x => x.Data).ToHashSet();
             HasPlugins = plugins.Any_Nullable();
             if (HasPlugins)
             {
@@ -105,7 +105,9 @@ partial class Startup // 配置 Host
                     }
                 }
                 RepetitivePlugins = repetitivePlugins;
+                this.plugins = plugins;
             }
+            this.pluginResults = pluginResults;
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("InitPlugins");
 #endif

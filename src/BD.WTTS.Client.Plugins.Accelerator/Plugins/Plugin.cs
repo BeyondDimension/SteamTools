@@ -20,13 +20,12 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     protected sealed override string? AuthorOriginalString => null;
 
-    public sealed override object? Icon => new MemoryStream(Resources.accelerator); //"avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico";
+    public sealed override object? Icon => Resources.accelerator; //"avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico";
 
-    public override IEnumerable<TabItemViewModel>? GetMenuTabItems()
+    public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
-        yield return new MenuTabItemViewModel()
+        yield return new MenuTabItemViewModel(this, nameof(Strings.CommunityFix))
         {
-            ResourceKeyOrName = nameof(Strings.CommunityFix),
             PageType = typeof(MainFramePage),
             IsResourceGet = true,
             //IconKey = "SpeedHigh",
@@ -123,19 +122,24 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override async ValueTask OnExit()
     {
-        try
+        var task1 = Task.Factory.StartNew(async () =>
         {
-            var reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
+            IReverseProxyService? reverseProxyService = null;
+            try
+            {
+                reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
+            }
+            catch
+            {
+
+            }
             if (reverseProxyService != null)
             {
                 await reverseProxyService.StopProxyAsync();
             }
-            ProxyService.OnExitRestoreHosts();
-        }
-        catch (ObjectDisposedException)
-        {
-
-        }
+        });
+        var task2 = Task.Factory.StartNew(ProxyService.OnExitRestoreHosts);
+        await Task.WhenAll(task1, task2);
     }
 
     string? subProcessPath;

@@ -3,6 +3,7 @@ using BD.WTTS.Extensions;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using SkiaSharp;
+using System.Drawing.Drawing2D;
 
 namespace BD.WTTS.UI;
 
@@ -186,16 +187,28 @@ public sealed partial class App : Application
 
     public static FontFamily DefaultFontFamily => _DefaultFontFamily.Value;
 
-    public static ICommand OpenBrowserCommand { get; } = ReactiveCommand.Create((string url) =>
+    public void OpenBrowserCommand(object url)
     {
         try
         {
-            Browser2.Open(url);
+            Browser2.Open(url.ToString());
         }
         catch (Exception ex)
         {
             Toast.LogAndShowT(ex);
         }
+    }
 
-    });
+    public async void CopyToClipboardCommand(object text)
+    {
+        try
+        {
+            await Clipboard2.SetTextAsync(text.ToString());
+            Toast.Show(ToastIcon.Success, Strings.CopyToClipboard);
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex);
+        }
+    }
 }
