@@ -5,7 +5,8 @@ partial interface IPlatformService
 {
     void CreateShortcut(string pathLink,
         string targetPath,
-        string iconLocation,
+        string iconSavePath,
+        byte[] accountImage,
         string? arguments = null,
         string? description = null,
         string? hotkey = null,

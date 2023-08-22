@@ -118,6 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AppLogo_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\res\icons\app\v3\Logo_128.png;System.Byte[], mscorlib,  Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppLogo_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\res\icons\app\v3\Logo_16.png;System.Byte[], mscorlib,  Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppLogo_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\res\icons\app\v3\Logo_24.png;System.Byte[], mscorlib,  Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppLogo_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\res\icons\app\v3\Logo_256.png;System.Byte[], mscorlib,  Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppLogo_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\res\icons\app\v3\Logo_32.png;System.Byte[], mscorlib,  Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppLogo_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\res\icons\app\v3\Logo_48.png;System.Byte[], mscorlib,  Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppLogo_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\res\icons\app\v3\Logo_512.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="AppLogo_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\res\icons\app\v3\Logo_64.png;System.Byte[], mscorlib,  Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppLogo_96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\res\icons\app\v3\Logo_96.png;System.Byte[], mscorlib,  Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="open_source_library" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\doc\open-source-library.mpo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

@@ -63,6 +63,96 @@ namespace BD.WTTS.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
+        internal static byte[] AppLogo_128 {
+            get {
+                object obj = ResourceManager.GetObject("AppLogo_128", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] AppLogo_16 {
+            get {
+                object obj = ResourceManager.GetObject("AppLogo_16", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] AppLogo_24 {
+            get {
+                object obj = ResourceManager.GetObject("AppLogo_24", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] AppLogo_256 {
+            get {
+                object obj = ResourceManager.GetObject("AppLogo_256", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] AppLogo_32 {
+            get {
+                object obj = ResourceManager.GetObject("AppLogo_32", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] AppLogo_48 {
+            get {
+                object obj = ResourceManager.GetObject("AppLogo_48", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] AppLogo_512 {
+            get {
+                object obj = ResourceManager.GetObject("AppLogo_512", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] AppLogo_64 {
+            get {
+                object obj = ResourceManager.GetObject("AppLogo_64", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] AppLogo_96 {
+            get {
+                object obj = ResourceManager.GetObject("AppLogo_96", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
         internal static byte[] open_source_library {
             get {
                 object obj = ResourceManager.GetObject("open_source_library", resourceCulture);
