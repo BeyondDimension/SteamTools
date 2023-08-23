@@ -11,7 +11,7 @@ partial class Startup // 本应用程序单例管道
     initSingleInstancePipeline: singleInstancePipeline = new();
         if (!singleInstancePipeline.IsFirstSelfApp)
         {
-            if (SingleInstancePipeline.SendMessage(sendMessage?.Invoke() ?? ""))
+            if (SingleInstancePipeline.SendMessage(sendMessage?.Invoke() ?? (IsMainProcess ? key_show : "")))
             {
                 return false;
             }

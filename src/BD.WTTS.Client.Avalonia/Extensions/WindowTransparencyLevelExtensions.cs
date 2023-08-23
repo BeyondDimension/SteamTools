@@ -1,8 +1,11 @@
-namespace BD.WTTS.Extensions;
+// ReSharper disable once CheckNamespace
+namespace BD.WTTS;
 
 public static class WindowTransparencyLevelExtensions
 {
-    public static WindowTransparencyLevel ToWindowTransparencyLevel(this WindowBackgroundMaterial value)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static WindowTransparencyLevel ToWindowTransparencyLevel(
+        this WindowBackgroundMaterial value)
     {
         return value switch
         {

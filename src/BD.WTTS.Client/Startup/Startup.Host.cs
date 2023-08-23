@@ -207,6 +207,26 @@ partial class Startup // 配置 Host
                     var app = await UIApplicationTCS.Task;
                     app.Shutdown();
                     return;
+                case key_show:
+                    try
+                    {
+                        MainThread2.BeginInvokeOnMainThread(() =>
+                        {
+                            try
+                            {
+                                IApplication.Instance.RestoreMainWindow();
+                            }
+                            catch
+                            {
+
+                            }
+                        });
+                    }
+                    catch
+                    {
+
+                    }
+                    break;
                 default:
                     var args = value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (args.Length >= 1)

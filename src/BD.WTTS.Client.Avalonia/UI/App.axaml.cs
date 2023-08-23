@@ -1,5 +1,4 @@
 using BD.WTTS.Client.Resources;
-using BD.WTTS.Extensions;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using SkiaSharp;

@@ -67,6 +67,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Moq" />
 		<PackageReference Include="BD.Common.XmlnsDefinition.Avalonia">
 			<Aliases>BD_Common_XmlnsDefinition_Avalonia</Aliases>
 		</PackageReference>

@@ -1,5 +1,3 @@
-using BD.WTTS.Extensions;
-
 namespace BD.WTTS.UI.Views.Windows;
 
 /// <summary>

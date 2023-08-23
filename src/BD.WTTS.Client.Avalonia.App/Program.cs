@@ -1,3 +1,7 @@
+#if DESIGNER
+using Moq;
+#endif
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
@@ -7,6 +11,14 @@ partial class Program
     [STAThread]
     static int Main(string[] args) // Main 函数需要 STA 线程不可更改为 async Task
     {
+#if DESIGNER
+        static object? Fallback(Type serviceType, bool required)
+        {
+            var moq = (Mock)Activator.CreateInstance(typeof(Mock<>).MakeGenericType(serviceType))!;
+            return moq.Object;
+        }
+        Ioc.Fallback = Fallback;
+#endif
         instance = new(args);
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
         return exitCode;
