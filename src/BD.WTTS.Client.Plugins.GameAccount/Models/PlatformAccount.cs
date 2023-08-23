@@ -11,6 +11,7 @@ public sealed partial class PlatformAccount
 
     public PlatformAccount(ThirdpartyPlatform platform)
     {
+        Accounts = new ObservableCollection<IAccount>();
         var platformSwitchers = Ioc.Get<IEnumerable<IPlatformSwitcher>>();
 
         FullName = platform.ToString();
@@ -87,7 +88,7 @@ public sealed partial class PlatformAccount
             IsLoading = true;
             try
             {
-                Accounts = null;
+                Accounts.Clear();
                 var users = await platformSwitcher.GetUsers(this, () =>
                 {
                     if (Accounts.Any_Nullable())

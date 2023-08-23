@@ -135,13 +135,15 @@
                         Height="40"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
+                        Command="{Binding Path=MarkNotificationsHasRead, Mode=OneWay, Source={x:Static s:NotificationService.Current}}"
                         Theme="{DynamicResource TransparentButton}">
                         <Panel>
                             <ui:InfoBadge
                                 Margin="0,-3,-3,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
-                                Classes="Attention Dot" />
+                                Classes="Attention Dot"
+                                IsVisible="{Binding Path=!!UnreadNotificationsCount, Mode=OneWay, Source={x:Static s:NotificationService.Current}}" />
                             <Viewbox
                                 Width="22"
                                 Height="22"
@@ -151,7 +153,7 @@
                         </Panel>
 
                         <DropDownButton.Flyout>
-                            <ui:FAMenuFlyout
+                            <!--<ui:FAMenuFlyout
                                 FlyoutPresenterClasses="NoPadding"
                                 ItemsSource="{Binding Path=Notices, Mode=OneWay, Source={x:Static s:NotificationService.Current}}"
                                 Placement="BottomEdgeAlignedRight">
@@ -163,7 +165,10 @@
                                             Text="{Binding Title}" />
                                     </DataTemplate>
                                 </ui:FAMenuFlyout.ItemTemplate>
-                            </ui:FAMenuFlyout>
+                            </ui:FAMenuFlyout>-->
+                            <Flyout FlyoutPresenterClasses="NoPadding" Placement="BottomEdgeAlignedRight">
+                                <spp:NoticeFlyout Margin="5" />
+                            </Flyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
 
@@ -252,17 +257,17 @@
                                     </MenuItem.Header>
                                 </MenuItem>
                                 <MenuItem Header="-" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-                                <MenuItem 
+                                <MenuItem
                                     Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                     CommandParameter="https://steampp.net/account/center/info"
-																		Header="{Binding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" 
-																		IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                    Header="{Binding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                    IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <!--<MenuItem Header="{Binding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />-->
-                                <MenuItem 
+                                <MenuItem
                                     Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                     CommandParameter="https://steampp.net/account/center/bind"
-																		Header="{Binding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" 
-																		IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                                    Header="{Binding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                    IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem
                                     Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                     CommandParameter="https://steampp.net/account/center/safe"

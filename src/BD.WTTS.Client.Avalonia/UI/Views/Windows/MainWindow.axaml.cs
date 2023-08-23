@@ -31,6 +31,20 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         }
         base.OnClosing(e);
     }
+
+    protected override void OnOpened(EventArgs e)
+    {
+        base.OnOpened(e);
+
+        if (AppSplashScreen.IsInitialized)
+        {
+            Task2.InBackground(async () =>
+            {
+                await AdvertiseService.Current.RefrshAdvertiseAsync();
+                NotificationService.Current.GetNewsAsync();
+            });
+        }
+    }
 }
 
 public sealed class AppSplashScreen : IApplicationSplashScreen

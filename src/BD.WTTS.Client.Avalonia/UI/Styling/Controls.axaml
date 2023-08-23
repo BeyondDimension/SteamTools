@@ -65,6 +65,10 @@
     <StyleInclude Source="/UI/Styling/Controls/CustomFilePicker.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/NumericUpDown.axaml" />
 
+    <Style Selector="FlyoutPresenter.NoPadding">
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
     <!--<Style Selector=":is(Window):transparent">
 		<Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}">
 		</Setter>

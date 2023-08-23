@@ -150,4 +150,16 @@ public partial interface IGeneralSettings
     /// </summary>
     const bool DefaultPluginSafeMode = true;
 
+    /// <summary>
+    /// 最后查看通知时间
+    /// </summary>
+    DateTimeOffset? LastLookNoticeDateTime { get; set; }
+
+    /// <summary>
+    /// 最后查看通知时间的默认值
+    /// </summary>
+    static readonly DateTimeOffset DefaultLastLookNoticeDateTime = default;
+
 }
+
+

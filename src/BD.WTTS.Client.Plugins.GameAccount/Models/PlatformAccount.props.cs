@@ -3,7 +3,7 @@ namespace BD.WTTS.Models;
 public sealed partial class PlatformAccount : ReactiveObject
 {
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
-    public ObservableCollection<IAccount>? Accounts { get; set; }
+    public ObservableCollection<IAccount> Accounts { get; set; }
 
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public bool IsEnable { get; set; }

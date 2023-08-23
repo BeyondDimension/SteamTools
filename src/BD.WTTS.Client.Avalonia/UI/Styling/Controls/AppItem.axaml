@@ -275,8 +275,20 @@
         <Setter Property="MinWidth" Value="150" />
     </Style>
 
-    <Style Selector="spp|AppItem:pointerover">
+    <Style Selector="spp|AppItem.Vertical:pointerover">
         <Setter Property="RenderTransform" Value="translateY(-3px)" />
+    </Style>
+
+    <Style Selector="spp|AppItem.Scale:pointerover /template/ Viewbox#IconHost ContentPresenter">
+        <Setter Property="RenderTransform" Value="scale(1.1)" />
+    </Style>
+
+    <Style Selector="spp|AppItem.Scale /template/ Viewbox#IconHost ContentPresenter">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
     </Style>
 
     <Style Selector="spp|AppItem Border.Status">

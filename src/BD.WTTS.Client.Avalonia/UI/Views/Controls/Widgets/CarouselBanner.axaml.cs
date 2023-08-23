@@ -1,3 +1,4 @@
+using Avalonia.Controls.Shapes;
 using FluentAvalonia.Core;
 
 namespace BD.WTTS.UI.Views.Controls
@@ -76,7 +77,7 @@ namespace BD.WTTS.UI.Views.Controls
             Carousel[!Carousel.ItemsSourceProperty] = this[!ItemsSourceProperty];
             Carousel[!Carousel.ItemTemplateProperty] = this[!ItemTemplateProperty];
 
-            Carousel.GetObservable(Carousel.ItemsSourceProperty)
+            this.GetObservable(ItemsSourceProperty)
                     .Subscribe(_ => SwipersLoad());
 
             Carousel.GetObservable(Carousel.SelectedIndexProperty)
@@ -109,7 +110,10 @@ namespace BD.WTTS.UI.Views.Controls
         private void SwipersLoad()
         {
             if (Carousel.ItemCount <= 0)
+            {
+                Swiper.ItemsSource = null;
                 return;
+            }
             if (Carousel.ItemCount == 1)
             {
                 Left.IsVisible = Right.IsVisible = Swiper.IsVisible = false;

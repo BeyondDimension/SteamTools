@@ -1,0 +1,66 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.NoticeFlyout"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    MaxWidth="400"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <DockPanel>
+        <!--<Button
+            Margin="0,0,0,5"
+            Content="{Binding Path=Res.Notice_AllMarkHasRead,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+            Cursor="Hand"
+            DockPanel.Dock="Top"
+            Theme="{StaticResource HyperlinkButton}" />-->
+        <ItemsControl ItemsSource="{Binding Path=Notices, Mode=OneWay, Source={x:Static s:NotificationService.Current}}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Spacing="3" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="spp:OfficialMessageItemDTO">
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="{Binding MessageLink}"
+                        Theme="{StaticResource TransparentButton}">
+                        <Grid RowDefinitions="Auto,Auto,*">
+                            <DockPanel>
+                                <ui:InfoBadge
+                                    Margin="0,0,3,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Classes="Attention Dot"
+                                    DockPanel.Dock="Left"
+                                    IsVisible="{Binding Unread}" />
+                                <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
+                            </DockPanel>
+                            <TextBlock
+                                Grid.Row="1"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding PushTime, StringFormat={}{0:yyyy-MM-dd}}"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                MaxLines="2"
+                                Text="{Binding Content}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="Wrap"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DockPanel>
+</UserControl>

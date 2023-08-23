@@ -14,7 +14,7 @@
     mc:Ignorable="d">
     <Border ClipToBounds="True" CornerRadius="{DynamicResource ControlCornerRadius}">
         <Panel>
-            <spp:CarouselBanner x:Name="AdBanner">
+            <spp:CarouselBanner Name="AdBanner">
                 <spp:CarouselBanner.ItemTemplate>
                     <DataTemplate x:DataType="spp:AdvertisementDTO">
                         <Button

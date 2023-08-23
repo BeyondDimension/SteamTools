@@ -336,6 +336,15 @@
           "Summary": "插件安全模式",
           "IsRegionOrEndregion": null,
           "IsValueType": null
+        },
+        {
+          "TypeName": "DateTimeOffset",
+          "PropertyName": "LastLookNoticeDateTime",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": false,
+          "Summary": "最后查看通知时间",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
         }
       ],
       "Usings": ""

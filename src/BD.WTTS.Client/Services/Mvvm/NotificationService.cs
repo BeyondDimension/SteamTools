@@ -36,8 +36,33 @@ public sealed class NotificationService : ReactiveObject
         var result = await client.GetMessage(IApplication.ClientPlatform, OfficialMessageType.News);
         if (result.IsSuccess && result.Content != null)
         {
+            Notices.Clear();
             Notices.Add(result.Content.DataSource);
         }
+
+        VerifyNotificationsHasRead();
+    }
+
+    public void VerifyNotificationsHasRead()
+    {
+        if (Notices.Any())
+        {
+            UnreadNotificationsCount = 0;
+            foreach (var item in Notices)
+            {
+                if (item.PushTime > GeneralSettings.LastLookNoticeDateTime.Value)
+                {
+                    item.Unread = true;
+                    UnreadNotificationsCount++;
+                }
+            }
+        }
+    }
+
+    public void MarkNotificationsHasRead()
+    {
+        GeneralSettings.LastLookNoticeDateTime.Value = DateTimeOffset.Now;
+        VerifyNotificationsHasRead();
     }
 
     //    public async Task GetNewsAsync()

@@ -124,7 +124,7 @@
                                 MaxWidth="128"
                                 Classes="Vertical"
                                 ContextFlyout="{StaticResource SharedMenuFlyout}"
-                                Description="{Binding LastLoginTime}"
+                                Description="{Binding LastLoginTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                                 MoreFlyout="{StaticResource SharedMenuFlyout}"
                                 Status="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                 Tags="{Binding AliasName}">

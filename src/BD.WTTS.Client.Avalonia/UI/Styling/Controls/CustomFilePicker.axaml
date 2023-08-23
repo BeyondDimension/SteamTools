@@ -41,7 +41,7 @@
                             Name="FilePickerTipBorder"
                             MaxWidth="{ReflectionBinding $parent.Bounds.Width}"
                             MaxHeight="{ReflectionBinding $parent.Bounds.Height}">
-                            <Border Background="{DynamicResource ControlOnImageFillColorSecondaryBrush}">
+                            <Border Background="{DynamicResource ControlOnImageFillColorSecondaryBrush}" Opacity="0.8">
                                 <StackPanel
                                     Margin="10,5"
                                     HorizontalAlignment="Center"

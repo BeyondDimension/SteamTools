@@ -53,26 +53,25 @@ public partial class AdControl : UserControl
 
         if (AdBanner != null)
         {
-            //this.GetObservable(StandardProperty)
-            //    .Subscribe(x =>
-            //    {
-            //        var bind = new Binding()
-            //        {
-            //            Source = AdvertiseService.Current,
-            //            Mode = BindingMode.OneWay,
-            //        };
+            this.GetObservable(StandardProperty)
+                .Subscribe(x =>
+                {
+                    var bind = new Binding()
+                    {
+                        Source = AdvertiseService.Current,
+                        Mode = BindingMode.OneWay,
+                    };
 
-            //        if (Standard == AdvertisementOrientation.Vertical)
-            //        {
-            //            bind.Path = nameof(AdvertiseService.Current.VerticalBannerAdvertisements);
-            //            //AdBanner.Bind(CarouselBanner.ItemsSourceProperty, AdvertiseService.Current.VerticalBannerAdvertisements.ToObservable().ToBinding());
-            //        }
-            //        else
-            //        {
-            //            bind.Path = nameof(AdvertiseService.Current.HorizontalBannerAdvertisements);
-            //        }
-            //        AdBanner.Bind(CarouselBanner.ItemsSourceProperty, bind);
-            //    });
+                    if (Standard == AdvertisementOrientation.Vertical)
+                    {
+                        bind.Path = nameof(AdvertiseService.Current.VerticalBannerAdvertisements);
+                    }
+                    else
+                    {
+                        bind.Path = nameof(AdvertiseService.Current.HorizontalBannerAdvertisements);
+                    }
+                    AdBanner.Bind(CarouselBanner.ItemsSourceProperty, bind);
+                });
 
             //AdBanner.ItemsSource.WhenAnyValue(x => x)
             //    .Subscribe(x =>
@@ -80,10 +79,10 @@ public partial class AdControl : UserControl
             //        CheckItems(x);
             //    });
 
-            //AdBanner.PropertyChanged += AdBanner_PropertyChanged;
+            AdBanner.PropertyChanged += AdBanner_PropertyChanged;
 
-            AdBanner.GetObservable(CarouselBanner.ItemsSourceProperty)
-                .Subscribe(CheckItems);
+            //AdBanner.GetObservable(CarouselBanner.ItemsSourceProperty)
+            //    .Subscribe(CheckItems);
 
             //banner.GetObservable(CarouselBanner.IsVisibleProperty)
             //    .Subscribe(_ => CheckItems(banner.Items));
@@ -96,33 +95,33 @@ public partial class AdControl : UserControl
         }
     }
 
-    //private void AdBanner_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
-    //{
-    //    if (e.Property == Carousel.ItemsSourceProperty)
-    //    {
-    //        CheckItems(AdBanner.ItemsSource);
-    //    }
-    //}
-
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    private void AdBanner_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
-        base.OnApplyTemplate(e);
-
-        if (Standard == AdvertisementOrientation.Vertical)
+        if (e.Property == Carousel.ItemsSourceProperty)
         {
-            AdBanner.ItemsSource = AdvertiseService.Current.VerticalBannerAdvertisements;
-        }
-        else
-        {
-            AdBanner.ItemsSource = AdvertiseService.Current.HorizontalBannerAdvertisements;
+            CheckItems(AdBanner.ItemsSource);
         }
     }
+
+    //protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    //{
+    //    base.OnApplyTemplate(e);
+
+    //    if (Standard == AdvertisementOrientation.Vertical)
+    //    {
+    //        AdBanner.ItemsSource = AdvertiseService.Current.VerticalBannerAdvertisements;
+    //    }
+    //    else
+    //    {
+    //        AdBanner.ItemsSource = AdvertiseService.Current.HorizontalBannerAdvertisements;
+    //    }
+    //}
 
     void CheckItems(IEnumerable? x)
     {
         Dispatcher.UIThread.Post(() =>
         {
-            if (AdvertiseService.Current.IsInitialized && x?.Count() == 0)
+            if (AdvertiseService.Current.IsInitialized && (x?.Count() is 0 or null))
             {
                 this.IsVisible = false;
             }

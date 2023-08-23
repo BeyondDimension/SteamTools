@@ -121,6 +121,12 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings, ISet
     [MPKey(12), MP2Key(12), JsonPropertyOrder(12)]
     public bool? PluginSafeMode { get; set; }
 
+    /// <summary>
+    /// 最后查看通知时间
+    /// </summary>
+    [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
+    public DateTimeOffset? LastLookNoticeDateTime { get; set; }
+
 }
 
 public static partial class GeneralSettings
@@ -203,4 +209,11 @@ public static partial class GeneralSettings
     public static SettingsStructProperty<bool, GeneralSettings_> PluginSafeMode { get; }
         = new(DefaultPluginSafeMode);
 
+    /// <summary>
+    /// 最后查看通知时间
+    /// </summary>
+    public static SettingsStructProperty<DateTimeOffset, GeneralSettings_> LastLookNoticeDateTime { get; }
+        = new(DefaultLastLookNoticeDateTime);
+
 }
+

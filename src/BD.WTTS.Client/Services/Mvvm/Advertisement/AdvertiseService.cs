@@ -10,15 +10,11 @@ public sealed class AdvertiseService : ReactiveObject
 
     public static AdvertiseService Current => mCurrent ?? new();
 
-    public SourceCache<AdvertisementDTO, Guid> AdvertisementsSource { get; }
+    [Reactive]
+    public ObservableCollection<AdvertisementDTO>? HorizontalBannerAdvertisements { get; set; }
 
-    readonly ReadOnlyObservableCollection<AdvertisementDTO> _HorizontalBannerAdvertisements;
-
-    public ReadOnlyObservableCollection<AdvertisementDTO> HorizontalBannerAdvertisements => _HorizontalBannerAdvertisements;
-
-    readonly ReadOnlyObservableCollection<AdvertisementDTO> _VerticalBannerAdvertisements;
-
-    public ReadOnlyObservableCollection<AdvertisementDTO> VerticalBannerAdvertisements => _VerticalBannerAdvertisements;
+    [Reactive]
+    public ObservableCollection<AdvertisementDTO>? VerticalBannerAdvertisements { get; set; }
 
     [Reactive]
     public bool IsInitialized { get; set; }
@@ -32,31 +28,29 @@ public sealed class AdvertiseService : ReactiveObject
     {
         mCurrent = this;
 
-        AdvertisementsSource = new SourceCache<AdvertisementDTO, Guid>(x => x.Id);
+        //AdvertisementsSource
+        //    .Connect()
+        //    .ObserveOn(RxApp.MainThreadScheduler)
+        //    .Filter(x => x.Standard == AdvertisementOrientation.Horizontal)
+        //    .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
+        //    .Bind(out _HorizontalBannerAdvertisements)
+        //    .Subscribe(_ => this.RaisePropertyChanged(nameof(HorizontalBannerAdvertisements)));
 
-        AdvertisementsSource
-            .Connect()
-            .ObserveOn(RxApp.MainThreadScheduler)
-            .Filter(x => x.Standard == AdvertisementOrientation.Horizontal)
-            .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
-            .Bind(out _HorizontalBannerAdvertisements)
-            .Subscribe(_ => this.RaisePropertyChanged(nameof(HorizontalBannerAdvertisements)));
-
-        AdvertisementsSource
-            .Connect()
-            .ObserveOn(RxApp.MainThreadScheduler)
-            .Filter(x => x.Standard == AdvertisementOrientation.Vertical)
-            .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
-            .Bind(out _VerticalBannerAdvertisements)
-            .Subscribe(_ => this.RaisePropertyChanged(nameof(VerticalBannerAdvertisements)));
+        //AdvertisementsSource
+        //    .Connect()
+        //    .ObserveOn(RxApp.MainThreadScheduler)
+        //    .Filter(x => x.Standard == AdvertisementOrientation.Vertical)
+        //    .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
+        //    .Bind(out _VerticalBannerAdvertisements)
+        //    .Subscribe(_ => this.RaisePropertyChanged(nameof(VerticalBannerAdvertisements)));
 
         ClickAdvertisementCommand = ReactiveCommand.Create<AdvertisementDTO>(ClickAdvertisement);
 
         UserService.Current.WhenValueChanged(x => x.User, false)
                 .Subscribe(_ => CheckShow());
 
-        AdvertisementsSource.CountChanged
-                .Subscribe(_ => CheckShow());
+        //AdvertisementsSource.CountChanged
+        //        .Subscribe(_ => CheckShow());
 
         UISettings.IsShowAdvertisement.Subscribe(_ => CheckShow());
 
@@ -91,8 +85,11 @@ public sealed class AdvertiseService : ReactiveObject
 
         if (result.IsSuccess && result.Content != null)
         {
-            AdvertisementsSource.Clear();
-            AdvertisementsSource.AddOrUpdate(result.Content);
+            HorizontalBannerAdvertisements = null;
+            HorizontalBannerAdvertisements = new ObservableCollection<AdvertisementDTO>(result.Content.Where(x => x.Standard == AdvertisementOrientation.Horizontal).OrderBy(x => x.Order));
+
+            VerticalBannerAdvertisements = null;
+            VerticalBannerAdvertisements = new ObservableCollection<AdvertisementDTO>(result.Content.Where(x => x.Standard == AdvertisementOrientation.Vertical).OrderBy(x => x.Order));
         }
         else
         {
