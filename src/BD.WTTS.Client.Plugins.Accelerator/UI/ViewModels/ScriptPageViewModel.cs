@@ -47,13 +47,17 @@ public partial class ScriptPageViewModel : TabItemViewModel
 
         //var scriptFilter = this.WhenAnyValue(x => x.SearchText).Select(ScriptFilter);
 
-        EditScriptItemButton = ReactiveCommand.Create<ScriptDTO>(EditScriptItem);
+        EditScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(EditScriptItem);
 
-        RefreshScriptItemButton = ReactiveCommand.Create<ScriptDTO>(RefreshScriptItem);
+        RefreshScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(RefreshScriptItem);
 
-        OpenHomeScriptItemButton = ReactiveCommand.Create<ScriptDTO>(OpenHomeScriptItem);
+        OpenHomeScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(OpenHomeScriptItem);
 
         ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
+
+        DeleteScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(DeleteScriptItemButton);
+
+        DownloadScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(DownloadScriptItem);
 
         RefreshALLScriptCommand = ReactiveCommand.Create(() =>
         {
@@ -79,7 +83,7 @@ public partial class ScriptPageViewModel : TabItemViewModel
                        isOkButton: false);
     }
 
-    public void DownloadScriptItemButton(ScriptDTO model)
+    public void DownloadScriptItem(ScriptDTO model)
     {
         ProxyService.Current.DownloadScript(model);
     }

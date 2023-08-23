@@ -12,15 +12,19 @@ public partial class ScriptPageViewModel : TabItemViewModel
 
     public bool IsProxyScriptsEmpty => !ProxyScripts.Any_Nullable();
 
-    public ICommand EditScriptItemButton { get; }
+    public ICommand EditScriptItemCommand { get; }
 
-    public ICommand RefreshScriptItemButton { get; }
+    public ICommand RefreshScriptItemCommand { get; }
 
-    public ICommand OpenHomeScriptItemButton { get; }
+    public ICommand OpenHomeScriptItemCommand { get; }
 
     public ICommand ScriptStoreCommand { get; }
 
     public ICommand? AddNewScriptCommand { get; }
+
+    public ICommand? DownloadScriptItemCommand { get; }
+
+    public ICommand? DeleteScriptItemCommand { get; }
 
     public ICommand? RefreshALLScriptCommand { get; }
 }

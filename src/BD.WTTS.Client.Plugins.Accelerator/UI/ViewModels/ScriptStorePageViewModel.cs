@@ -50,6 +50,7 @@ public partial class ScriptStorePageViewModel : ViewModelBase
             var old = ProxyService.Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == item.Id);
             if (old != null)
             {
+                item.LocalId = old.LocalId;
                 item.IsExist = true;
                 if (old.Version != item.Version)
                 {

@@ -1,3 +1,4 @@
+using System.Linq;
 using KeyValuePair = System.Collections.Generic.KeyValuePair;
 
 // ReSharper disable once CheckNamespace
@@ -512,10 +513,10 @@ public sealed partial class ProxyService
                     model.IsExist = true;
                     build.Content.IsUpdate = false;
                     build.Content.IsExist = true;
-                    var basicsItem = Current.ProxyScripts.Items.IndexOf(model);
-                    if (basicsItem > -1)
+                    var basicsItem = Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == model.Id);
+                    if (basicsItem != null)
                     {
-                        ProxyScripts.ReplaceAt(basicsItem, build.Content);
+                        ProxyScripts.Replace(basicsItem, build.Content);
                     }
                     else
                     {

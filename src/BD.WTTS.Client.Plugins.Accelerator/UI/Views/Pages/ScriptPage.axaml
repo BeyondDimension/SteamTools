@@ -153,7 +153,7 @@
                         <spp:AppItem.ActionButton>
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <Button
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).EditScriptItemButton}"
+                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).EditScriptItemCommand}"
                                     CommandParameter="{Binding}"
                                     Theme="{DynamicResource TransparentButton}"
                                     ToolTip.Tip="{Binding Path=Res.Script_Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
@@ -162,7 +162,7 @@
                                     </Viewbox>
                                 </Button>
                                 <Button
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).RefreshScriptItemButton}"
+                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).RefreshScriptItemCommand}"
                                     CommandParameter="{Binding}"
                                     Theme="{DynamicResource TransparentButton}"
                                     ToolTip.Tip="{Binding Path=Res.Script_Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
@@ -187,11 +187,11 @@
                                                                  Mode=OneWay,
                                                                  Source={x:Static s:ResourceService.Current}}" />-->
                                 <ui:MenuFlyoutItem
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).OpenHomeScriptItemButton}"
+                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).OpenHomeScriptItemCommand}"
                                     CommandParameter="{Binding}"
                                     Text="{Binding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                 <ui:MenuFlyoutItem
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DownloadScriptItemButton}"
+                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DownloadScriptItemCommand}"
                                     CommandParameter="{Binding}"
                                     IsVisible="{Binding IsUpdate}">
                                     <ui:MenuFlyoutItem.Text>
@@ -205,7 +205,11 @@
                                     </ui:MenuFlyoutItem.Text>
                                 </ui:MenuFlyoutItem>
                                 <ui:MenuFlyoutSeparator />
-                                <ui:MenuFlyoutItem Foreground="{DynamicResource SystemFillColorCriticalBrush}" Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                <ui:MenuFlyoutItem 
+                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DeleteScriptItemCommand}"
+                                    CommandParameter="{Binding}"
+																		Foreground="{DynamicResource SystemFillColorCriticalBrush}" 
+																		Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                             </ui:FAMenuFlyout>
                         </spp:AppItem.MoreFlyout>
                         <spp:AppItem.Image>
