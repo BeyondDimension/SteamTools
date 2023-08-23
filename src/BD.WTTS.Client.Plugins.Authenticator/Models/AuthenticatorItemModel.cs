@@ -172,8 +172,13 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         var bytes_compress_br = bytes.CompressByteArrayByBrotli();
 
         var (result, stream, e) = QRCodeHelper.Create(bytes_compress_br);
+
         switch (result)
         {
+            case QRCodeHelper.QRCodeCreateResult.Success:
+                IWindowManager.Instance.ShowTaskDialogAsync(new QRCodePageViewModel(stream),
+                                       Strings.AuthLocal_ExportToQRCode, pageContent: new QRCodePage(), isOkButton: false);
+                break;
             case QRCodeHelper.QRCodeCreateResult.DataTooLong:
                 Toast.Show(ToastIcon.Error, Strings.AuthLocal_ExportToQRCodeTooLongErrorTip);
                 break;

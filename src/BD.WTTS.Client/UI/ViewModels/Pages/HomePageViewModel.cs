@@ -1,4 +1,5 @@
 using BD.WTTS.Client.Resources;
+using static BD.WTTS.Services.IMicroServiceClient;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -9,17 +10,33 @@ public sealed class HomePageViewModel : TabItemViewModel
     public override string IconKey => "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico";
 
     [Reactive]
-    public ObservableCollection<string> Navigations { get; set; }
+    public ObservableCollection<ArticleItemDTO> Articles { get; set; }
+
+    [Reactive]
+    public ObservableCollection<AdvertisementDTO> NavigationBanners { get; set; }
 
     public HomePageViewModel()
     {
-        Navigations = new ObservableCollection<string>()
+        Articles = new ObservableCollection<ArticleItemDTO>();
+        NavigationBanners = new ObservableCollection<AdvertisementDTO>();
+
+        GetServerContent();
+    }
+
+    public async void GetServerContent()
+    {
+        var result = await Instance.Article.Order(null, ArticleOrderBy.DateTime);
+        if (result.IsSuccess && result.Content != null)
         {
-            "https://media.st.dl.eccdnx.com/steam/apps/2239550/capsule_616x353.jpg?t=1674755684",
-            "https://media.st.dl.eccdnx.com/steam/apps/1938090/capsule_616x353_alt_assets_3_schinese.jpg?t=1684446457",
-            "https://media.st.dl.eccdnx.com/steam/apps/1868180/capsule_616x353_schinese.jpg?t=1685635527",
-            "https://media.st.dl.eccdnx.com/steam/apps/271590/capsule_616x353.jpg?t=1678296348",
-            "https://media.st.dl.eccdnx.com/steam/apps/1865680/capsule_616x353_schinese.jpg?t=1643602186",
-        };
+            Articles.Clear();
+            Articles.Add(result.Content.DataSource);
+        }
+
+        var result2 = await Instance.Advertisement.All(AdvertisementType.DeskTopHomeBanner);
+        if (result2.IsSuccess && result2.Content != null)
+        {
+            NavigationBanners.Clear();
+            NavigationBanners.Add(result2.Content);
+        }
     }
 }

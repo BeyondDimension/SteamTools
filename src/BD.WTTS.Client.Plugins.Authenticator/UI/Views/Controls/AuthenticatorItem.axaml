@@ -15,7 +15,7 @@
     mc:Ignorable="d">
     <spp:AppItem
         Title="{Binding AuthName}"
-        Description="{Binding AuthData.Created}"
+        Description="{Binding AuthData.Created, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
         ImageMargin="10"
         MoreFlyout="{Binding $parent.ContextFlyout}">
         <spp:AppItem.Tags>
@@ -58,14 +58,14 @@
                         <ui:SymbolIcon Symbol="Calendar" />
                     </Viewbox>
                 </Button>
-                <Button
+                <!--<Button
                     Command="{Binding ShowQrCode}"
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
                     </Viewbox>
-                </Button>
+                </Button>-->
             </StackPanel>
         </spp:AppItem.ActionButton>
         <spp:AppItem.Status>
@@ -140,7 +140,6 @@
                     Classes="Plain"
                     Command="{Binding CopyCode}"
                     Cursor="Hand"
-                    Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <!--<StackPanel Orientation="Horizontal">-->
                     <TextBlock

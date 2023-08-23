@@ -54,6 +54,8 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
 
     public ICommand NavAppToSteamViewCommand { get; }
 
+    public ICommand NavAppScreenshotToSteamViewCommand { get; }
+
     public ICommand OpenFolderCommand { get; }
 
     public ICommand OpenLinkUrlCommand { get; }

@@ -461,6 +461,9 @@
   <data name="GameList_NavToSteamView" xml:space="preserve">
     <value>在 Steam 客户端中查看</value>
   </data>
+	<data name="GameList_NavScreenshotToSteamView" xml:space="preserve">
+    <value>在 Steam 客户端中管理截图</value>
+  </data>
   <data name="GameList_RefreshGamesList" xml:space="preserve">
     <value>刷新游戏列表</value>
   </data>
@@ -628,7 +631,7 @@
     <value>自定义密码保护</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
-    <value>*注意：你的令牌将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌</value>
+    <value>令牌将使用你自定义的密码进行加密，你需要每次输入密码才能打开被加密的令牌。如果你忘记了密码，且没有备份导出过文件，你的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌！！</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
     <value>非常建议您使用密码保护您的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但您的令牌数据会有被盗取的风险！！！</value>
@@ -637,7 +640,7 @@
     <value>令牌仅在这台电脑上可解密</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>你也可以使用系统内置的账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装系统或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密</value>
+    <value>使用系统内置的账户加密来保护和加密你的数据。这将把你的令牌锁定在这台计算机上，即使令牌文件被复制，也无法解密出令牌数据。单如果你要格式化你的硬盘、重新安装系统或删除这个系统用户账户，你必须先关掉此功能，否则你的令牌会再也无法解密！！</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
     <value>自定义密码</value>
@@ -1697,10 +1700,10 @@
     <value>令牌导入</value>
   </data>
   <data name="Auth_AddMachineValidation" xml:space="preserve">
-    <value>添加机器验证</value>
+    <value>已启用系统内置加密验证</value>
   </data>
   <data name="Auth_AddPasswordProtect" xml:space="preserve">
-    <value>添加密码保护</value>
+    <value>启用自定义密码保护</value>
   </data>
   <data name="Auth_EditName" xml:space="preserve">
     <value>编辑令牌名字</value>
@@ -1712,7 +1715,7 @@
     <value>导出全部令牌</value>
   </data>
   <data name="Auth_ExportmaFile" xml:space="preserve">
-    <value>导出为 Mafile</value>
+    <value>导出此令牌为 Mafile 文件</value>
   </data>
   <data name="Auth_ExportUsingPassword" xml:space="preserve">
     <value>导出时携带密码</value>
@@ -1733,10 +1736,10 @@
     <value>您的令牌具有密码保护，请先进行密码验证</value>
   </data>
   <data name="Auth_RemoveMachineValidation" xml:space="preserve">
-    <value>移除机器验证</value>
+    <value>已禁用系统内置加密验证</value>
   </data>
   <data name="Auth_RemovePasswordProtect" xml:space="preserve">
-    <value>移除密码保护</value>
+    <value>移除自定义密码保护</value>
   </data>
   <data name="Auth_SteamLoginImport" xml:space="preserve">
     <value>Steam 登录导入</value>
@@ -1760,13 +1763,19 @@
     <value>确认交易</value>
   </data>
   <data name="DefaultExport" xml:space="preserve">
-    <value>默认导出</value>
+    <value>导出此令牌</value>
   </data>
   <data name="Depot" xml:space="preserve">
     <value>库</value>
   </data>
   <data name="DisplayQRCode" xml:space="preserve">
     <value>展示二维码</value>
+  </data>
+	<data name="Enable" xml:space="preserve">
+    <value>启用</value>
+  </data>
+	<data name="Disable" xml:space="preserve">
+    <value>禁用</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>已启用</value>
@@ -2720,5 +2729,8 @@
   </data>
   <data name="Settings_InvalidConfigurationFile" xml:space="preserve">
     <value>无效的配置文件</value>
+  </data>
+	<data name="Welcome_User_" xml:space="preserve">
+    <value>{0}，欢迎使用 Watt Toolkit</value>
   </data>
 </root>

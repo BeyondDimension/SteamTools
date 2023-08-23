@@ -26,10 +26,7 @@
                             CommandParameter="{Binding}"
                             Cursor="Hand"
                             ToolTip.Tip="{Binding Describe}">
-                            <spp:Image2
-                                FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/mona-loading-default.gif"
-                                Source="{Binding ImageUrl}"
-                                Stretch="UniformToFill" />
+                            <spp:Image2 Source="{Binding ImageUrl}" Stretch="UniformToFill" />
                         </Button>
                     </DataTemplate>
                 </spp:CarouselBanner.ItemTemplate>

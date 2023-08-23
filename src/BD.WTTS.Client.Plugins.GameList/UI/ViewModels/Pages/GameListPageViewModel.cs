@@ -82,6 +82,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         ManageCloudArchive_ClickCommand = ReactiveCommand.Create<SteamApp>(ManageCloudArchive_Click);
         UnlockAchievement_ClickCommand = ReactiveCommand.Create<SteamApp>(UnlockAchievement_Click);
         NavAppToSteamViewCommand = ReactiveCommand.Create<SteamApp>(NavAppToSteamView);
+        NavAppScreenshotToSteamViewCommand = ReactiveCommand.Create<SteamApp>(NavAppScreenshotToSteamView);
         OpenFolderCommand = ReactiveCommand.Create<SteamApp>(OpenFolder);
         OpenLinkUrlCommand = ReactiveCommand.Create<string>(async url => await Browser2.OpenAsync(url));
     }
@@ -311,6 +312,12 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     public static void NavAppToSteamView(SteamApp app)
     {
         var url = string.Format(SteamApiUrls.STEAM_NAVGAME_URL, app.AppId);
+        Process2.Start(url, useShellExecute: true);
+    }
+
+    public static void NavAppScreenshotToSteamView(SteamApp app)
+    {
+        var url = string.Format(SteamApiUrls.STEAM_NAVGAMESCREENSHOTS_URL, app.AppId);
         Process2.Start(url, useShellExecute: true);
     }
 

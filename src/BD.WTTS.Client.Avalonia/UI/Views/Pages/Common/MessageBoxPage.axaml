@@ -10,10 +10,22 @@
     x:CompileBindings="True"
     x:DataType="spp:MessageBoxWindowViewModel"
     mc:Ignorable="d">
-    <TextBox
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch"
-        Classes="readonlybox"
-        Text="{Binding Content}"
-        TextWrapping="Wrap" />
+    <ContentControl Content="{Binding Content}">
+        <ContentControl.DataTemplates>
+            <DataTemplate DataType="x:String">
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Classes="readonlybox"
+                    Text="{Binding}"
+                    TextWrapping="Wrap" />
+            </DataTemplate>
+            <DataTemplate DataType="x:Object">
+                <ContentPresenter
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Content="{Binding}" />
+            </DataTemplate>
+        </ContentControl.DataTemplates>
+    </ContentControl>
 </UserControl>

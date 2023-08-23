@@ -567,7 +567,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 添加机器验证 的本地化字符串。
+        ///   查找类似 已启用系统内置加密验证 的本地化字符串。
         /// </summary>
         public static string Auth_AddMachineValidation {
             get {
@@ -576,7 +576,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 添加密码保护 的本地化字符串。
+        ///   查找类似 启用自定义密码保护 的本地化字符串。
         /// </summary>
         public static string Auth_AddPasswordProtect {
             get {
@@ -612,7 +612,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 导出为 Mafile 的本地化字符串。
+        ///   查找类似 导出此令牌为 Mafile 文件 的本地化字符串。
         /// </summary>
         public static string Auth_ExportmaFile {
             get {
@@ -693,7 +693,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 移除机器验证 的本地化字符串。
+        ///   查找类似 已禁用系统内置加密验证 的本地化字符串。
         /// </summary>
         public static string Auth_RemoveMachineValidation {
             get {
@@ -702,7 +702,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 移除密码保护 的本地化字符串。
+        ///   查找类似 移除自定义密码保护 的本地化字符串。
         /// </summary>
         public static string Auth_RemovePasswordProtect {
             get {
@@ -1557,7 +1557,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 默认导出 的本地化字符串。
+        ///   查找类似 导出此令牌 的本地化字符串。
         /// </summary>
         public static string DefaultExport {
             get {
@@ -1607,6 +1607,15 @@ namespace BD.WTTS.Client.Resources {
         public static string DirPath {
             get {
                 return ResourceManager.GetString("DirPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 禁用 的本地化字符串。
+        /// </summary>
+        public static string Disable {
+            get {
+                return ResourceManager.GetString("Disable", resourceCulture);
             }
         }
         
@@ -1778,6 +1787,15 @@ namespace BD.WTTS.Client.Resources {
         public static string EmailCode {
             get {
                 return ResourceManager.GetString("EmailCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用 的本地化字符串。
+        /// </summary>
+        public static string Enable {
+            get {
+                return ResourceManager.GetString("Enable", resourceCulture);
             }
         }
         
@@ -2687,6 +2705,15 @@ namespace BD.WTTS.Client.Resources {
         public static string GameList_LoaingTips {
             get {
                 return ResourceManager.GetString("GameList_LoaingTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在 Steam 客户端中管理截图 的本地化字符串。
+        /// </summary>
+        public static string GameList_NavScreenshotToSteamView {
+            get {
+                return ResourceManager.GetString("GameList_NavScreenshotToSteamView", resourceCulture);
             }
         }
         
@@ -3774,7 +3801,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 *注意：你的令牌将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌 的本地化字符串。
+        ///   查找类似 令牌将使用你自定义的密码进行加密，你需要每次输入密码才能打开被加密的令牌。如果你忘记了密码，且没有备份导出过文件，你的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌！！ 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_EnablePasswordTip {
             get {
@@ -3801,7 +3828,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 你也可以使用系统内置的账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装系统或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密 的本地化字符串。
+        ///   查找类似 使用系统内置的账户加密来保护和加密你的数据。这将把你的令牌锁定在这台计算机上，即使令牌文件被复制，也无法解密出令牌数据。单如果你要格式化你的硬盘、重新安装系统或删除这个系统用户账户，你必须先关掉此功能，否则你的令牌会再也无法解密！！ 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip {
             get {
@@ -7691,6 +7718,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0}，欢迎使用 Watt Toolkit 的本地化字符串。
+        /// </summary>
+        public static string Welcome_User_ {
+            get {
+                return ResourceManager.GetString("Welcome_User_", resourceCulture);
             }
         }
         

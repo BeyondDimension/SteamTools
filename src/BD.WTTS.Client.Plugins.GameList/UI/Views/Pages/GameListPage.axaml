@@ -67,6 +67,14 @@
                 </ui:MenuFlyoutItem.IconSource>
             </ui:MenuFlyoutItem>
             <ui:MenuFlyoutItem
+                Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).NavAppScreenshotToSteamViewCommand}"
+                CommandParameter="{Binding}"
+                Text="{Binding Path=Res.GameList_NavScreenshotToSteamView, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <ui:MenuFlyoutItem.IconSource>
+                    <ui:SymbolIconSource Symbol="Image" />
+                </ui:MenuFlyoutItem.IconSource>
+            </ui:MenuFlyoutItem>
+            <ui:MenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).OpenFolderCommand}"
                 CommandParameter="{Binding}"
                 IconSource="OpenFolder"

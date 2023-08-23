@@ -186,16 +186,17 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
         bool newStatus = HasLocalPcEncrypt == false;
 
         if (await AuthenticatorHelper.SwitchEncryptionAuthenticators(newStatus, Auths.Select(i => i.AuthData), _currentPassword))
-            Toast.Show(ToastIcon.Success, AppResources.Success_AuthProtectSuccessfully_.Format(newStatus ? "开启" : "关闭"));
-        else Toast.Show(ToastIcon.Error, AppResources.Error_AuthProtectFailed_.Format(newStatus ? "开启" : "关闭"));
+            Toast.Show(ToastIcon.Success, AppResources.Success_AuthProtectSuccessfully_.Format(newStatus ? AppResources.Enable : AppResources.Disable));
+        else Toast.Show(ToastIcon.Error, AppResources.Error_AuthProtectFailed_.Format(newStatus ? AppResources.Enable : AppResources.Disable));
 
         HasLocalPcEncrypt = newStatus;
     }
 
     public async Task EncryptHelp()
     {
-        var messageViewmodel = new MessageBoxWindowViewModel();
-        messageViewmodel.Content = $"""
+        var messageViewmodel = new MessageBoxWindowViewModel
+        {
+            Content = $"""
                 {Strings.LocalAuth_ProtectionAuth_Info}
 
                 {Strings.LocalAuth_ProtectionAuth_EnablePassword}：
@@ -205,7 +206,8 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
                 {Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt}：
 
                 {Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip}
-        """;
+            """
+        };
         await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, AppResources.Title_AuthEncryption);
     }
 
@@ -612,7 +614,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
         }
 
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
-                new MessageBoxWindowViewModel() { Content = AppResources.ModelContent_ConfirmUnbinding },
+                new MessageBoxWindowViewModel() { Content = AppResources.ModelContent_ConfirmUnbinding, Title = AppResources.LocalAuth_RemoveAuth },
                 isDialog: false, isCancelButton: true))
         {
             if (authenticatorItemModel.AuthData.Value is SteamAuthenticator steamAuthenticator)

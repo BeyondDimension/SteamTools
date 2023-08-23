@@ -214,6 +214,9 @@
     <Style Selector="Button.Plain:pointerover">
         <Setter Property="Background" Value="Transparent" />
     </Style>
+    <Style Selector="Button.Plain:pointerover /template/ ui|FABorder#Root">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
     <Style Selector="Button.Plain:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
