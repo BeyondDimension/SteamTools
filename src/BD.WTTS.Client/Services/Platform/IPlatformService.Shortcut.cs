@@ -5,11 +5,10 @@ partial interface IPlatformService
 {
     void CreateShortcut(string pathLink,
         string targetPath,
-        string iconSavePath,
-        byte[] accountImage,
         string? arguments = null,
         string? description = null,
         string? hotkey = null,
+        string? iconLocation = null,
         string? workingDirectory = null)
     { }
 }
