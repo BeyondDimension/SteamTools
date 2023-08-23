@@ -27,6 +27,7 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Certificate\CertGenerator.cs">
 			<LinkBase>Services.Implementation\Certificate</LinkBase>
 		</Compile>
+		<Compile Condition="'$(Configuration)'!='Debug'" Include="..\Utils.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -7,6 +7,16 @@ namespace BD.WTTS.UnitTest;
 /// </summary>
 public sealed class IcoTest
 {
+    static readonly string assemblyDir;
+
+    static IcoTest()
+    {
+        var assemblyLocation = typeof(IcoTest).Assembly.Location;
+        assemblyLocation.ThrowIsNull();
+        assemblyDir = Path.GetDirectoryName(assemblyLocation)!;
+        assemblyDir.ThrowIsNull();
+    }
+
     /// <summary>
     /// Windows ICO 格式编码测试
     /// </summary>
@@ -23,23 +33,15 @@ public sealed class IcoTest
                 .Select(x => logo512Bitmap.Resize(new SKSizeI { Height = x, Width = x }, SKFilterQuality.High)))
                 .ToArray(); // 根据 512 大小生成所有挡位的位图数组
 
-            var savePath = $"{logo512Path}.ico";
-            try
-            {
-                // 创建 ico 文件内存流
-                using var fs = new FileStream(
-                    savePath,
-                    FileMode.Create,
-                    FileAccess.ReadWrite,
-                    FileShare.ReadWrite | FileShare.Delete);
-                IcoEncoder.Encode(fs, logoBitmaps);
-                TestContext.WriteLine(savePath);
-            }
-            finally
-            {
-                // 删除生成的文件，清理
-                IOPath.FileTryDelete(savePath);
-            }
+            var savePath = Path.Combine(assemblyDir, "EncodeTest.ico");
+            // 创建 ico 文件内存流
+            using var fs = new FileStream(
+                savePath,
+                FileMode.Create,
+                FileAccess.ReadWrite,
+                FileShare.ReadWrite | FileShare.Delete);
+            IcoEncoder.Encode(fs, logoBitmaps);
+            TestContext.WriteLine(savePath);
         }
         finally
         {
