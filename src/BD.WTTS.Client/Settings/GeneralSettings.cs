@@ -125,7 +125,7 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings, ISet
     /// 最后查看通知时间
     /// </summary>
     [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
-    public DateTimeOffset? LastLookNoticeDateTime { get; set; }
+    public DateTimeOffset LastLookNoticeDateTime { get; set; } = IGeneralSettings.DefaultLastLookNoticeDateTime;
 
 }
 
@@ -216,4 +216,3 @@ public static partial class GeneralSettings
         = new(DefaultLastLookNoticeDateTime);
 
 }
-
