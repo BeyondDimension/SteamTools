@@ -78,7 +78,7 @@ public abstract class SettingsPropertyBase<TValue> : SettingsPropertyBase, INoti
     /// </summary>
     protected abstract TValue? ActualValue { get; set; }
 
-    public abstract TValue? Default { get; }
+    public abstract TValue? Default { get; set; }
 
     protected virtual bool Equals(TValue? left, TValue? right)
     {

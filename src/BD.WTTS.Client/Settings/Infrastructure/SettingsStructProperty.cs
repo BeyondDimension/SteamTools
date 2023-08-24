@@ -10,7 +10,7 @@ public class SettingsStructProperty<TValue, [DynamicallyAccessedMembers(Dynamica
     where TValue : struct
     where TSettings : new()
 {
-    public SettingsStructProperty(TValue? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null) : base(@default, autoSave, propertyName)
+    public SettingsStructProperty(TValue @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null) : base(@default, autoSave, propertyName)
     {
     }
 
@@ -19,9 +19,10 @@ public class SettingsStructProperty<TValue, [DynamicallyAccessedMembers(Dynamica
         get
         {
             var value = ActualValue;
-            if (value.HasValue)
-                return value.Value;
-            return default;
+            return value;
+            //if (value.HasValue)
+            //    return value.Value;
+            //return default;
         }
 
         set => ActualValue = value;

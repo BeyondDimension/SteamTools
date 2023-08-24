@@ -23,14 +23,22 @@ partial class Startup // OnStartup
 
         GeneralSettings.GPU.Subscribe(x =>
         {
-            if (x.HasValue) // null 为默认值时不提示
-                ShowSettingsModifiedRestartThisSoft();
+            //if (x.HasValue) // null 为默认值时不提示
+            ShowSettingsModifiedRestartThisSoft();
         });
         GeneralSettings.PluginSafeMode.Subscribe(x =>
         {
-            if (x.HasValue) // null 为默认值时不提示
-                ShowSettingsModifiedRestartThisSoft();
+            //if (x.HasValue) // null 为默认值时不提示
+            ShowSettingsModifiedRestartThisSoft();
         });
+
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+        if (string.IsNullOrWhiteSpace(SteamSettings.SteamProgramPath.Value))
+        {
+            SteamSettings.SteamProgramPath.Default =
+                Ioc.Get<ISteamService>().SteamProgramPath;
+        }
+#endif
     }
 
     public virtual void OnStartup()

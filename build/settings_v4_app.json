@@ -481,7 +481,7 @@
         {
           "TypeName": "string",
           "PropertyName": "SteamProgramPath",
-          "DefaultValue": "Ioc.Get<ISteamService>().SteamProgramPath",
+          "DefaultValue": "null",
           "DefaultValueIsConst": false,
           "Summary": "Steam 默认程序路径",
           "IsRegionOrEndregion": null,
@@ -528,7 +528,7 @@
           "PropertyName": "IsRunSteamVGUI",
           "DefaultValue": "false",
           "DefaultValueIsConst": true,
-          "Summary": "Steam 以旧版VGUI启动",
+          "Summary": "Steam 以旧版 VGUI 启动",
           "IsRegionOrEndregion": null,
           "IsValueType": null
         },

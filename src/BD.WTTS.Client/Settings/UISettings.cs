@@ -49,19 +49,19 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     /// 主题
     /// </summary>
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
-    public AppTheme? Theme { get; set; }
+    public AppTheme Theme { get; set; } = IUISettings.DefaultTheme;
 
     /// <summary>
     /// 主题强调色（16 进制 RGB 字符串）
     /// </summary>
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
-    public string? ThemeAccent { get; set; }
+    public string? ThemeAccent { get; set; } = IUISettings.DefaultThemeAccent;
 
     /// <summary>
     /// 从系统中获取主题强调色
     /// </summary>
     [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
-    public bool? UseSystemThemeAccent { get; set; }
+    public bool UseSystemThemeAccent { get; set; } = IUISettings.DefaultUseSystemThemeAccent;
 
     #endregion
 
@@ -69,43 +69,43 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     /// 语言
     /// </summary>
     [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
-    public string? Language { get; set; }
+    public string? Language { get; set; } = IUISettings.DefaultLanguage;
 
     /// <summary>
     /// 不再提示的消息框
     /// </summary>
     [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
-    public HashSet<MessageBox.DontPromptType>? MessageBoxDontPrompts { get; set; }
+    public HashSet<MessageBox.DontPromptType>? MessageBoxDontPrompts { get; set; } = IUISettings.DefaultMessageBoxDontPrompts;
 
     /// <summary>
     /// 是否显示广告
     /// </summary>
     [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
-    public bool? IsShowAdvertisement { get; set; }
+    public bool IsShowAdvertisement { get; set; } = IUISettings.DefaultIsShowAdvertisement;
 
     /// <summary>
     /// 窗口位置大小
     /// </summary>
     [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
-    public ConcurrentDictionary<string, SizePosition>? WindowSizePositions { get; set; }
+    public ConcurrentDictionary<string, SizePosition>? WindowSizePositions { get; set; } = IUISettings.DefaultWindowSizePositions;
 
     /// <summary>
     /// 字体
     /// </summary>
     [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
-    public string? FontName { get; set; }
+    public string? FontName { get; set; } = IUISettings.DefaultFontName;
 
     /// <summary>
     /// 库存游戏网格布局大小
     /// </summary>
     [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
-    public int? GameListGridSize { get; set; }
+    public int GameListGridSize { get; set; } = IUISettings.DefaultGameListGridSize;
 
     /// <summary>
     /// 圆角
     /// </summary>
     [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
-    public bool? Fillet { get; set; }
+    public bool Fillet { get; set; } = IUISettings.DefaultFillet;
 
     #region WindowBackground 窗口背景
 
@@ -113,43 +113,43 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     /// 窗口背景不透明度
     /// </summary>
     [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
-    public double? WindowBackgroundOpacity { get; set; }
+    public double WindowBackgroundOpacity { get; set; } = IUISettings.DefaultWindowBackgroundOpacity;
 
     /// <summary>
     /// 窗口背景材质
     /// </summary>
     [MPKey(11), MP2Key(11), JsonPropertyOrder(11)]
-    public WindowBackgroundMaterial? WindowBackgroundMaterial { get; set; }
+    public WindowBackgroundMaterial WindowBackgroundMaterial { get; set; } = IUISettings.DefaultWindowBackgroundMaterial;
 
     /// <summary>
     /// 动态桌面背景
     /// </summary>
     [MPKey(12), MP2Key(12), JsonPropertyOrder(12)]
-    public bool? WindowBackgroundDynamic { get; set; }
+    public bool WindowBackgroundDynamic { get; set; } = IUISettings.DefaultWindowBackgroundDynamic;
 
     /// <summary>
     /// 是否打开自定义背景图像
     /// </summary>
     [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
-    public bool? WindowBackgroundCustomImage { get; set; }
+    public bool WindowBackgroundCustomImage { get; set; } = IUISettings.DefaultWindowBackgroundCustomImage;
 
     /// <summary>
     /// 自定义背景图像路径
     /// </summary>
     [MPKey(14), MP2Key(14), JsonPropertyOrder(14)]
-    public string? WindowBackgroundCustomImagePath { get; set; }
+    public string? WindowBackgroundCustomImagePath { get; set; } = IUISettings.DefaultWindowBackgroundCustomImagePath;
 
     /// <summary>
     /// 自定义背景图像不透明度
     /// </summary>
     [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
-    public double? WindowBackgroundCustomImageOpacity { get; set; }
+    public double WindowBackgroundCustomImageOpacity { get; set; } = IUISettings.DefaultWindowBackgroundCustomImageOpacity;
 
     /// <summary>
     /// 自定义背景图像缩放方式
     /// </summary>
     [MPKey(16), MP2Key(16), JsonPropertyOrder(16)]
-    public XamlMediaStretch? WindowBackgroundCustomImageStretch { get; set; }
+    public XamlMediaStretch WindowBackgroundCustomImageStretch { get; set; } = IUISettings.DefaultWindowBackgroundCustomImageStretch;
 
     #endregion
 
@@ -157,7 +157,7 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     /// 菜单排序
     /// </summary>
     [MPKey(17), MP2Key(17), JsonPropertyOrder(17)]
-    public HashSet<string>? SortMenuTabs { get; set; }
+    public HashSet<string>? SortMenuTabs { get; set; } = IUISettings.DefaultSortMenuTabs;
 
 }
 

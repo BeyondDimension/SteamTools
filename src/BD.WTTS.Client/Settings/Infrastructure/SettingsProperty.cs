@@ -92,7 +92,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
         set => ActualValue = value;
     }
 
-    public override TValue? Default { get; }
+    public override TValue? Default { get; set; }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void SetValue(TValue? value, bool save = true)

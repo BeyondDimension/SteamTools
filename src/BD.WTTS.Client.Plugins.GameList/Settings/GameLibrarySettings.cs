@@ -47,37 +47,37 @@ public sealed partial class GameLibrarySettings_ : IGameLibrarySettings, ISettin
     /// 已安装游戏筛选
     /// </summary>
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
-    public bool? GameInstalledFilter { get; set; }
+    public bool GameInstalledFilter { get; set; } = IGameLibrarySettings.DefaultGameInstalledFilter;
 
     /// <summary>
     /// 支持云存档游戏筛选状态
     /// </summary>
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
-    public bool? GameCloudArchiveFilter { get; set; }
+    public bool GameCloudArchiveFilter { get; set; } = IGameLibrarySettings.DefaultGameCloudArchiveFilter;
 
     /// <summary>
     /// 游戏类型筛选状态列表
     /// </summary>
     [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
-    public List<SteamAppType>? GameTypeFiltres { get; set; }
+    public List<SteamAppType>? GameTypeFiltres { get; set; } = IGameLibrarySettings.DefaultGameTypeFiltres;
 
     /// <summary>
     /// 隐藏的游戏列表
     /// </summary>
     [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
-    public Dictionary<uint, string?>? HideGameList { get; set; }
+    public Dictionary<uint, string?>? HideGameList { get; set; } = IGameLibrarySettings.DefaultHideGameList;
 
     /// <summary>
     /// 挂时长游戏列表
     /// </summary>
     [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
-    public Dictionary<uint, string?>? AFKAppList { get; set; }
+    public Dictionary<uint, string?>? AFKAppList { get; set; } = IGameLibrarySettings.DefaultAFKAppList;
 
     /// <summary>
     /// 启用自动挂机
     /// </summary>
     [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
-    public bool? IsAutoAFKApps { get; set; }
+    public bool IsAutoAFKApps { get; set; } = IGameLibrarySettings.DefaultIsAutoAFKApps;
 
 }
 

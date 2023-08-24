@@ -26,19 +26,9 @@ public partial interface IGameAccountSettings
     ConcurrentDictionary<string, string?>? AccountRemarks { get; set; }
 
     /// <summary>
-    /// 账号备注字典的默认值
-    /// </summary>
-    static readonly ConcurrentDictionary<string, string?> DefaultAccountRemarks = new();
-
-    /// <summary>
     /// Steam 家庭共享临时禁用
     /// </summary>
     IReadOnlyCollection<DisableAuthorizedDevice>? DisableAuthorizedDevice { get; set; }
-
-    /// <summary>
-    /// Steam 家庭共享临时禁用的默认值
-    /// </summary>
-    static readonly IReadOnlyCollection<DisableAuthorizedDevice> DefaultDisableAuthorizedDevice = Array.Empty<DisableAuthorizedDevice>();
 
     /// <summary>
     /// 启用的账号平台集合
@@ -46,14 +36,24 @@ public partial interface IGameAccountSettings
     HashSet<string>? EnablePlatforms { get; set; }
 
     /// <summary>
-    /// 启用的账号平台集合的默认值
-    /// </summary>
-    static readonly HashSet<string> DefaultEnablePlatforms = new();
-
-    /// <summary>
     /// 账号平台设置集合
     /// </summary>
     ConcurrentDictionary<string, PlatformSettings>? PlatformSettings { get; set; }
+
+    /// <summary>
+    /// 账号备注字典的默认值
+    /// </summary>
+    static readonly ConcurrentDictionary<string, string?> DefaultAccountRemarks = new();
+
+    /// <summary>
+    /// Steam 家庭共享临时禁用的默认值
+    /// </summary>
+    static readonly IReadOnlyCollection<DisableAuthorizedDevice> DefaultDisableAuthorizedDevice = Array.Empty<DisableAuthorizedDevice>();
+
+    /// <summary>
+    /// 启用的账号平台集合的默认值
+    /// </summary>
+    static readonly HashSet<string> DefaultEnablePlatforms = new();
 
     /// <summary>
     /// 账号平台设置集合的默认值

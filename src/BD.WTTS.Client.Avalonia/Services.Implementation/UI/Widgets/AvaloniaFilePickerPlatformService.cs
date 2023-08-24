@@ -117,8 +117,8 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     {
         foreach (var fileResult in fileResults)
         {
-            var filePath = fileResult?.Path?.AbsolutePath;
-            if (filePath != null)
+            var filePath = GetAbsoluteFilePath(fileResult);
+            if (!string.IsNullOrEmpty(filePath))
                 yield return new FileResult(filePath);
         }
     }
@@ -187,7 +187,20 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
         }
 
         var fileResult = await storageProvider.SaveFilePickerAsync(options_);
-        var filePath = fileResult?.Path?.AbsolutePath;
+        var filePath = GetAbsoluteFilePath(fileResult);
         return string.IsNullOrEmpty(filePath) ? null : new(filePath);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static string? GetAbsoluteFilePath(IStorageItem? storageItem)
+    {
+        const string trim_s =
+#if WINDOWS
+            "file:///";
+#else
+            "file://";
+#endif
+        var value = storageItem?.Path?.ToString()?.TrimStart(trim_s);
+        return value;
     }
 }

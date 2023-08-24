@@ -47,79 +47,79 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings, ISet
     /// 自动检查应用更新
     /// </summary>
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
-    public bool? AutoCheckAppUpdate { get; set; }
+    public bool AutoCheckAppUpdate { get; set; } = IGeneralSettings.DefaultAutoCheckAppUpdate;
 
     /// <summary>
     /// 选择下载更新渠道
     /// </summary>
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
-    public UpdateChannelType? UpdateChannel { get; set; }
+    public UpdateChannelType UpdateChannel { get; set; } = IGeneralSettings.DefaultUpdateChannel;
 
     /// <summary>
     /// 开机自启动
     /// </summary>
     [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
-    public bool? AutoRunOnStartup { get; set; }
+    public bool AutoRunOnStartup { get; set; } = IGeneralSettings.DefaultAutoRunOnStartup;
 
     /// <summary>
     /// 启动时最小化
     /// </summary>
     [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
-    public bool? MinimizeOnStartup { get; set; }
+    public bool MinimizeOnStartup { get; set; } = IGeneralSettings.DefaultMinimizeOnStartup;
 
     /// <summary>
     /// 启用托盘图标
     /// </summary>
     [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
-    public bool? TrayIcon { get; set; }
+    public bool TrayIcon { get; set; } = IGeneralSettings.DefaultTrayIcon;
 
     /// <summary>
     /// 游戏列表使用本地缓存
     /// </summary>
     [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
-    public bool? GameListUseLocalCache { get; set; }
+    public bool GameListUseLocalCache { get; set; } = IGeneralSettings.DefaultGameListUseLocalCache;
 
     /// <summary>
     /// 文本阅读器提供商，值为程序路径
     /// </summary>
     [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
-    public Dictionary<Platform, string>? TextReaderProvider { get; set; }
+    public Dictionary<Platform, string>? TextReaderProvider { get; set; } = IGeneralSettings.DefaultTextReaderProvider;
 
     /// <summary>
     /// Hosts 文件编码类型
     /// </summary>
     [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
-    public EncodingType? HostsFileEncodingType { get; set; }
+    public EncodingType HostsFileEncodingType { get; set; } = IGeneralSettings.DefaultHostsFileEncodingType;
 
     /// <summary>
     /// 是否使用硬件加速
     /// </summary>
     [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
-    public bool? GPU { get; set; }
+    public bool GPU { get; set; } = IGeneralSettings.DefaultGPU;
 
     /// <summary>
     /// 使用本机 OpenGL
     /// </summary>
     [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
-    public bool? NativeOpenGL { get; set; }
+    public bool NativeOpenGL { get; set; } = IGeneralSettings.DefaultNativeOpenGL;
 
     /// <summary>
     /// 屏幕捕获/允许截图，在一些含有机密的页面上是否允许截图，默认为 <see langword="false"/>
     /// </summary>
     [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
-    public bool? ScreenCapture { get; set; }
+    public bool ScreenCapture { get; set; } = IGeneralSettings.DefaultScreenCapture;
 
     /// <summary>
     /// 禁用插件
     /// </summary>
     [MPKey(11), MP2Key(11), JsonPropertyOrder(11)]
-    public HashSet<string>? DisablePlugins { get; set; }
+    public HashSet<string>? DisablePlugins { get; set; } = IGeneralSettings.DefaultDisablePlugins;
 
     /// <summary>
     /// 插件安全模式
     /// </summary>
     [MPKey(12), MP2Key(12), JsonPropertyOrder(12)]
-    public bool? PluginSafeMode { get; set; }
+    public bool PluginSafeMode { get; set; } = IGeneralSettings.DefaultPluginSafeMode;
 
     /// <summary>
     /// 最后查看通知时间

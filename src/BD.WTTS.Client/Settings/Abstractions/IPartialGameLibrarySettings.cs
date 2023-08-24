@@ -14,12 +14,12 @@ public interface IPartialGameLibrarySettings
     /// <summary>
     /// 已安装游戏筛选
     /// </summary>
-    bool? GameInstalledFilter { get; set; }
+    bool GameInstalledFilter { get; set; }
 
     /// <summary>
     /// 支持云存档游戏筛选状态
     /// </summary>
-    bool? GameCloudArchiveFilter { get; set; }
+    bool GameCloudArchiveFilter { get; set; }
 
     /// <summary>
     /// 游戏类型筛选状态列表
@@ -39,6 +39,6 @@ public interface IPartialGameLibrarySettings
     /// <summary>
     /// 启用自动挂机
     /// </summary>
-    bool? IsAutoAFKApps { get; set; }
+    bool IsAutoAFKApps { get; set; }
 
 }

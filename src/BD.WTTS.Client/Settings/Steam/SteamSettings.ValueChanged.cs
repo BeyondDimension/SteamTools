@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BD.WTTS.Settings;
 
 public static partial class SteamSettings
@@ -12,7 +6,9 @@ public static partial class SteamSettings
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     static SteamSettings()
     {
-        if (!IApplication.IsDesktop()) return;
+        if (!IApplication.IsDesktop())
+            return;
+
         IsRunSteamMinimized.ValueChanged += IsRunSteamMinimized_ValueChanged;
         IsRunSteamNoCheckUpdate.ValueChanged += IsRunSteamNoCheckUpdate_ValueChanged;
         IsRunSteamChina.ValueChanged += IsRunSteamChina_ValueChanged;
@@ -27,32 +23,24 @@ public static partial class SteamSettings
             SteamStratParameter.Value = SteamStratParameter.Value.Replace(parameter, "").Trim();
     }
 
-    private static void IsRunSteamVGUI_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool?> e)
+    private static void IsRunSteamVGUI_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool> e)
     {
-        if (!e.NewValue.HasValue)
-            return;
-        SetRunSteamParameter("-vgui", e.NewValue.Value);
+        SetRunSteamParameter("-vgui", e.NewValue);
     }
 
-    static void IsRunSteamNoCheckUpdate_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool?> e)
+    static void IsRunSteamNoCheckUpdate_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool> e)
     {
-        if (!e.NewValue.HasValue)
-            return;
-        SetRunSteamParameter("-noverifyfiles", e.NewValue.Value);
+        SetRunSteamParameter("-noverifyfiles", e.NewValue);
     }
 
-    static void IsRunSteamMinimized_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool?> e)
+    static void IsRunSteamMinimized_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool> e)
     {
-        if (!e.NewValue.HasValue)
-            return;
-        SetRunSteamParameter("-silent", e.NewValue.Value);
+        SetRunSteamParameter("-silent", e.NewValue);
     }
 
-    static void IsRunSteamChina_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool?> e)
+    static void IsRunSteamChina_ValueChanged(object? sender, SettingsPropertyValueChangedEventArgs<bool> e)
     {
-        if (!e.NewValue.HasValue)
-            return;
-        SetRunSteamParameter("-steamchina", e.NewValue.Value);
+        SetRunSteamParameter("-steamchina", e.NewValue);
     }
 #endif
 

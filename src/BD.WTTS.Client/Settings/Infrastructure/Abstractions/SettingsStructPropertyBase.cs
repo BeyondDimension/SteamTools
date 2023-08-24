@@ -1,19 +1,19 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
 
-public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsPropertyBase<TValue?>, IDisposable, INotifyPropertyChanged
+public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TSettings> : SettingsPropertyBase<TValue>, IDisposable, INotifyPropertyChanged
     where TValue : struct
     where TSettings : new()
 {
-    readonly Action<TSettings, TValue?> setter;
-    readonly Func<TSettings, TValue?> getter;
+    readonly Action<TSettings, TValue> setter;
+    readonly Func<TSettings, TValue> getter;
     IDisposable? disposable;
     readonly IOptionsMonitor<TSettings> monitor;
     bool disposedValue;
 
-    protected sealed override TValue? ModelValue => getter(monitor.CurrentValue);
+    protected sealed override TValue ModelValue => getter(monitor.CurrentValue);
 
-    public SettingsStructPropertyBase(TValue? @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null)
+    public SettingsStructPropertyBase(TValue @default = default, bool autoSave = true, [CallerMemberName] string? propertyName = null)
     {
         var settingsType = typeof(TSettings);
         PropertyName = propertyName.ThrowIsNull();
@@ -22,10 +22,10 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
         Default = @default;
         ParameterExpression parameter = Expression.Parameter(settingsType, "obj");
         MemberExpression property = Expression.Property(parameter, PropertyName);
-        ParameterExpression value = Expression.Parameter(typeof(TValue?), "value");
+        ParameterExpression value = Expression.Parameter(typeof(TValue), "value");
         BinaryExpression assign = Expression.Assign(property, value);
-        setter = Expression.Lambda<Action<TSettings, TValue?>>(assign, parameter, value).Compile();
-        getter = Expression.Lambda<Func<TSettings, TValue?>>(property, parameter).Compile();
+        setter = Expression.Lambda<Action<TSettings, TValue>>(assign, parameter, value).Compile();
+        getter = Expression.Lambda<Func<TSettings, TValue>>(property, parameter).Compile();
         monitor = Ioc.Get<IOptionsMonitor<TSettings>>();
         this.value = getter(monitor.CurrentValue);
         SetProperties(settingsType, propertyName);
@@ -45,19 +45,19 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
     /// <summary>
     /// 值
     /// </summary>
-    protected override TValue? ActualValue
+    protected override TValue ActualValue
     {
-        get => value ?? Default;
+        get => value;
         set
         {
             SetValue(value);
         }
     }
 
-    public override TValue? Default { get; }
+    public override TValue Default { get; set; }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    void SetValue(TValue? value, bool save = true)
+    void SetValue(TValue value, bool save = true)
     {
         if (Equals(value, this.value))
             return; // 值相同无变化
@@ -66,7 +66,7 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
         this.value = value; // 赋值当前字段
 
         var setter_value = value;
-        if (EqualityComparer<TValue?>.Default.Equals(value, Default))
+        if (EqualityComparer<TValue>.Default.Equals(value, Default))
         {
             setter_value = default;
         }
@@ -107,29 +107,7 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
         }
     }
 
-    public override string ToString() => value?.ToString() ?? string.Empty;
-
-    public IDisposable Subscribe(Action<TValue> listener, bool notifyOnInitialValue = true)
-    {
-        void listener_(TValue? value)
-        {
-            TValue value_;
-            if (value.HasValue)
-            {
-                value_ = value.Value;
-            }
-            else if (Default.HasValue)
-            {
-                value_ = Default.Value;
-            }
-            else
-            {
-                value_ = default;
-            }
-            listener?.Invoke(value_);
-        }
-        return Subscribe((Action<TValue?>)listener_, notifyOnInitialValue);
-    }
+    public override string ToString() => value.ToString() ?? string.Empty;
 
     protected virtual void Dispose(bool disposing)
     {
