@@ -81,6 +81,15 @@ partial interface IPlatformService
         // HOME_URL="https://www.deepin.org/"
         // BUG_REPORT_URL="https://bbs.deepin.org/"
 
+        // PRETTY_NAME="UnionTech OS Desktop 20 Home"
+        // NAME="uos"
+        // VERSION_ID="20"
+        // VERSION="20"
+        // ID=uos
+        // HOME_URL="https://www.chinauos.com/"
+        // BUG_REPORT_URL="https://club.uniontech.com"
+        // VERSION_CODENAME=eagle
+
         enum Distribution : ushort
         {
             SteamOS = 1,
@@ -88,6 +97,8 @@ partial interface IPlatformService
             Ubuntu,
 
             Deepin,
+
+            UOS,
         }
     }
 
@@ -123,6 +134,8 @@ partial interface IPlatformService
                 return LinuxConstants.Distribution.Ubuntu;
             else if ("Deepin"u8.SequenceEqual(bytes, comparer))
                 return LinuxConstants.Distribution.Deepin;
+            else if ("uos"u8.SequenceEqual(bytes, comparer))
+                return LinuxConstants.Distribution.UOS;
         }
         return default;
     });
@@ -130,7 +143,7 @@ partial interface IPlatformService
     /// <summary>
     /// 获取当前 Linux 发行版
     /// </summary>
-    LinuxConstants.Distribution LinuxDistribution => _LinuxDistribution.Value;
+    static LinuxConstants.Distribution LinuxDistribution => _LinuxDistribution.Value;
 
 #endif
 

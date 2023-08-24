@@ -136,6 +136,9 @@ public abstract partial class Startup
     /// <returns></returns>
     public virtual async Task<int> StartAsync()
     {
+#if DEBUG
+        Console.WriteLine("BaseDirectory: " + AppContext.BaseDirectory);
+#endif
 #if DEBUG && WINDOWS
         if (!IsDesignMode)
         {

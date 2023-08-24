@@ -5,7 +5,17 @@ sealed partial class Program : Startup
 {
     static Program? instance;
 
-    public Program(string[]? args = null) : base(args) { }
+    public Program(string[]? args = null) : base(args)
+    {
+#if DEBUG
+        Console.WriteLine("args: ");
+        if (args != null)
+            foreach (var item in args)
+            {
+                Console.WriteLine(item);
+            }
+#endif
+    }
 
     protected override void ConfigureRequiredServices(IServiceCollection services)
     {

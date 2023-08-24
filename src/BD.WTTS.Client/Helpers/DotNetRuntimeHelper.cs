@@ -15,9 +15,12 @@ static class DotNetRuntimeHelper
         try
         {
             var value = Environment.GetEnvironmentVariable(EnvName_DotNetRoot);
-            // C:\Program Files\dotnet\shared\Microsoft.NETCore.App\7.0.7\System.Private.CoreLib.dll
-            var location = typeof(object).Assembly.Location;
-            value = Path.GetFullPath(Path.Combine(location, "..", "..", "..", ".."));
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                // C:\Program Files\dotnet\shared\Microsoft.NETCore.App\7.0.7\System.Private.CoreLib.dll
+                var location = typeof(object).Assembly.Location;
+                value = Path.GetFullPath(Path.Combine(location, "..", "..", "..", ".."));
+            }
             return value;
         }
         catch

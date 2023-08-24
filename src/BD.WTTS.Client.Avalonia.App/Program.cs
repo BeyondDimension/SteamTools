@@ -11,6 +11,35 @@ partial class Program
     [STAThread]
     static int Main(string[] args) // Main 函数需要 STA 线程不可更改为 async Task
     {
+        #region 尝试修正 AppContext.BaseDirectory
+
+        try
+        {
+            var appCtxBaseDir = AppContext.BaseDirectory;
+            var parentDirInfo = Directory.GetParent(appCtxBaseDir);
+            if (parentDirInfo != null)
+            {
+                if (string.Equals(parentDirInfo.Name, "assemblies", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (parentDirInfo.FullName ==
+                        Directory.GetParent(typeof(Program).Assembly.Location)?.FullName)
+                    {
+                        parentDirInfo = parentDirInfo.Parent;
+                        if (parentDirInfo != null)
+                        {
+                            AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", parentDirInfo.FullName);
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+
+        #endregion
+
         instance = new(args);
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
         return exitCode;
