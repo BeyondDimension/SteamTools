@@ -114,6 +114,7 @@ Get_NewVer() {
     if [ -e "AppVer" ]; then
         if [ "${o_sha384,,}" = "${n_sha384,,}" ]; then
             Show_Run "已是最新版本，是否启动程序？"
+            exit 0
         fi
     fi
 }
@@ -206,7 +207,6 @@ Decompression() {
     rm -f "$appVer_path" &>/dev/null
 }
 
-
 #先安装依赖;
 Install_certutil
 # SteamDeck 可能出现升级系统 语言被重置成 c
@@ -259,3 +259,4 @@ chmod +x "$HOME/Desktop/Watt Toolkit.desktop"
 # update-desktop-database ~/.local/share/applications
 #运行程序
 Show_Run "下载安装完成，是否启动程序？"
+exit 0
