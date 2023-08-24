@@ -1638,7 +1638,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 展示二维码 的本地化字符串。
+        ///   查找类似 查看二维码 的本地化字符串。
         /// </summary>
         public static string DisplayQRCode {
             get {
@@ -3565,8 +3565,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 这将{0}您当前选中的所有交易报价
-        ///确定要继续吗? 的本地化字符串。
+        ///   查找类似 确定要一键{0}您当前选中的所有交易报价吗? 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_MessageBoxTip_ {
             get {
@@ -3575,7 +3574,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 当前没有任何交易 的本地化字符串。
+        ///   查找类似 当前没有任何交易需要确认，请尝试刷新获取最新数据 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_Null {
             get {
@@ -4251,6 +4250,15 @@ namespace BD.WTTS.Client.Resources {
         public static string ModelContent_ConfirmTrade___ {
             get {
                 return ResourceManager.GetString("ModelContent_ConfirmTrade___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您尚未让 {0} 选择任何物品以交换您的物品。如果 {0}  接受此交易，您将失去您提供的物品，但不会收到任何物品。 的本地化字符串。
+        /// </summary>
+        public static string ModelContent_ConfirmTrade2_ {
+            get {
+                return ResourceManager.GetString("ModelContent_ConfirmTrade2_", resourceCulture);
             }
         }
         
@@ -6596,15 +6604,6 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 您的报价 的本地化字符串。
-        /// </summary>
-        public static string SteamTrade_YourOffer {
-            get {
-                return ResourceManager.GetString("SteamTrade_YourOffer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Steam UUID 的本地化字符串。
         /// </summary>
         public static string SteamUUID {
@@ -7253,6 +7252,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 记住登录状态 的本地化字符串。
+        /// </summary>
+        public static string User_Rememberme {
+            get {
+                return ResourceManager.GetString("User_Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 签到成功 的本地化字符串。
         /// </summary>
         public static string User_SignIn_Ok {
@@ -7560,7 +7568,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 没有加密令牌可供操作 的本地化字符串。
+        ///   查找类似 请先设置令牌自定义密码 的本地化字符串。
         /// </summary>
         public static string Warning_NotAuthProvided {
             get {

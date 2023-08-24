@@ -34,15 +34,18 @@
                 PasswordChar="{StaticResource PasswordChar}"
                 Text="{Binding VerifyPassword}"
                 Watermark="{Binding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword, Source={x:Static s:ResourceService.Current}, Mode=OneWay}" />
-            <CheckBox
-                HorizontalAlignment="Center"
-                Content="{Binding Path=Res.Auth_ExportUsingPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                IsChecked="{Binding HasPasswordProtection}" />
+            <Grid ColumnDefinitions="*,*">
+                <CheckBox
+                    HorizontalAlignment="Center"
+                    Content="{Binding Path=Res.Auth_ExportUsingPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    IsChecked="{Binding HasPasswordProtection}" />
 
-            <CheckBox
-                HorizontalAlignment="Center"
-                Content="{Binding Path=Res.Auth_OnlylocalCanDecrypt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                IsChecked="{Binding HasLocalProtection}" />
+                <CheckBox
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Content="{Binding Path=Res.Auth_OnlylocalCanDecrypt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    IsChecked="{Binding HasLocalProtection}" />
+            </Grid>
 
             <Button
                 Width="280"

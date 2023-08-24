@@ -284,6 +284,14 @@
                                     </MenuItem>-->
                                     <MenuItem Header="-" />
                                     <MenuItem
+                                        Command="{Binding ShowQrCode}"
+                                        CommandParameter="{Binding}"
+                                        Header="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).DefaultExport}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.DefaultExport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">

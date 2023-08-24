@@ -142,7 +142,7 @@
 
                             <ScrollViewer
                                 Grid.Row="2"
-                                Margin="{StaticResource TaskDialogContentMargin}"
+                                Padding="{StaticResource TaskDialogContentMargin}"
                                 HorizontalScrollBarVisibility="Disabled"
                                 VerticalScrollBarVisibility="Auto">
                                 <StackPanel Spacing="18">

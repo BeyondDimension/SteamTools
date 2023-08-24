@@ -9,7 +9,7 @@ public static class AuthenticatorHelper
 {
     static IAccountPlatformAuthenticatorRepository repository = Ioc.Get<IAccountPlatformAuthenticatorRepository>();
 
-    public static async Task AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password, bool isLocal)
+    public static async Task<(bool isSuccess, bool isUpdate)> AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password, bool isLocal)
     {
         //var isLocal = await repository.HasLocalAsync();
         // var sourceList = await GetAllSourceAuthenticatorAsync();
@@ -26,7 +26,7 @@ public static class AuthenticatorHelper
         //     Toast.Show(ToastIcon.Error, "操作失败：令牌已存在重复数据");
         //     return false;
         // }
-        await repository.InsertOrUpdateAsync(authenticatorDto, isLocal, password);
+        return await repository.InsertOrUpdateAsync(authenticatorDto, isLocal, password);
     }
 
     // public static async Task<bool> AddOrUpdateSaveAndSyncAuthenticatorAsync(string? password,
@@ -127,7 +127,7 @@ public static class AuthenticatorHelper
     }
 
     /// <summary>
-    /// 默认方式导出令牌
+    /// 导出全部令牌
     /// </summary>
     /// <param name="fileName">保存文件名</param>
     /// <param name="isLocal">导出是否携带本机加密</param>
@@ -366,7 +366,7 @@ public static class AuthenticatorHelper
         return valueDto;
     }
 
-    //待完善
+    //TODO: 待完善
     public static async Task<string?> DecodePrivateKey(string secretCode)
     {
         if (AuthenticatorRegexHelper.SecretCodeHttpRegex().Match(secretCode) is { Success: true })
@@ -387,16 +387,16 @@ public static class AuthenticatorHelper
                 {
                     //response.Content.Headers.ContentType.;
 
-                    using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
-                    {
-                        //二维码解析
-                        // IBarcodeReader reader = new BarcodeReader();
-                        // var result = reader.Decode(bitmap);
-                        // if (result != null)
-                        // {
-                        //     privatekey = HttpUtility.UrlDecode(result.Text);
-                        // }
-                    }
+                    //using (var bitmap = System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
+                    //{
+                    //    //二维码解析
+                    //    //IBarcodeReader reader = new BarcodeReader();
+                    //    //var result = reader.Decode(bitmap);
+                    //    //if (result != null)
+                    //    //{
+                    //    //    privatekey = HttpUtility.UrlDecode(result.Text);
+                    //    //}
+                    //}
                 }
 
             }
@@ -570,18 +570,30 @@ public static class AuthenticatorHelper
         return false;
     }
 
-    public static async Task SaveAuthenticator(IAuthenticatorDTO authenticatorDto, string? password = null, bool? isLocalProtect = null)
+    public static async Task<bool> SaveAuthenticator(IAuthenticatorDTO authenticatorDto, string? password = null, bool? isLocalProtect = null)
     {
         if (!string.IsNullOrEmpty(password) && isLocalProtect != null)
         {
-            await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, password, isLocalProtect.Value);
+            var result = await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, password, isLocalProtect.Value);
+            if (result.isSuccess)
+            {
+                if (!result.isUpdate)
+                    Toast.Show(ToastIcon.Success, Strings.LocalAuth_SteamAppAddSuccess);
+            }
+            return result.isSuccess;
         }
         else
         {
             var r = await GetCurrentPassword();
-            await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, r.password, r.hasLocalPcEncrypt);
+            if (r.hasPasswordEncrypt && r.password == null) return false;
+            var result = await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, r.password, r.hasLocalPcEncrypt);
+            if (result.isSuccess)
+            {
+                if (!result.isUpdate)
+                    Toast.Show(ToastIcon.Success, Strings.LocalAuth_SteamAppAddSuccess);
+            }
+            return result.isSuccess;
         }
-        Toast.Show(ToastIcon.Success, Strings.LocalAuth_SteamAppAddSuccess);
     }
 
     public static async Task<(bool hasLocalPcEncrypt, bool hasPasswordEncrypt, string? password)> GetCurrentPassword()

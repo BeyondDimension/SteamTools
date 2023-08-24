@@ -1,3 +1,4 @@
+using Avalonia.Gif;
 using BD.WTTS.UI.Views.Pages;
 using System.Threading;
 
@@ -176,8 +177,10 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         switch (result)
         {
             case QRCodeHelper.QRCodeCreateResult.Success:
-                IWindowManager.Instance.ShowTaskDialogAsync(new QRCodePageViewModel(stream),
-                                       Strings.AuthLocal_ExportToQRCode, pageContent: new QRCodePage(), isOkButton: false);
+                IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel()
+                {
+                    Content = new Image2 { Source = stream!, Width = 400 }
+                }, Strings.DisplayQRCode, isOkButton: false);
                 break;
             case QRCodeHelper.QRCodeCreateResult.DataTooLong:
                 Toast.Show(ToastIcon.Error, Strings.AuthLocal_ExportToQRCodeTooLongErrorTip);

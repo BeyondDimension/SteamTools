@@ -103,8 +103,10 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                     Value = steamAuthenticator,
                     Created = DateTimeOffset.Now,
                 };
-            await AuthenticatorHelper.SaveAuthenticator(authDto);
-            Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(authDto.Name));
+            if (await AuthenticatorHelper.SaveAuthenticator(authDto))
+            {
+                Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(authDto.Name));
+            }
         }
         catch (Exception e)
         {

@@ -135,8 +135,9 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
         {
             newPassword = textViewmodel.Value;
             textViewmodel.Value = null;
-            if (!(await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_PasswordConfirm, isDialog: false) &&
-                  textViewmodel.Value == newPassword)) return;
+            if (!(await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_PasswordConfirm, isDialog: false, isCancelButton: true) &&
+                  textViewmodel.Value == newPassword))
+                return;
         }
         else return;
 
@@ -438,7 +439,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
     public async Task OpenExportWindow()
     {
-        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorExportViewModel(_currentPassword), AppResources.ExportAuth,
+        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorExportViewModel(), AppResources.ExportAuth,
             pageContent: new AuthenticatorExportPage(), isOkButton: false);
     }
 

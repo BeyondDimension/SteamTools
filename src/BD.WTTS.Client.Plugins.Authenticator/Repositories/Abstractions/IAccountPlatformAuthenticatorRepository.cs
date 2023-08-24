@@ -81,7 +81,7 @@ public interface IAccountPlatformAuthenticatorRepository
     /// <param name="isLocal"></param>
     /// <param name="secondaryPassword"></param>
     /// <returns></returns>
-    Task InsertOrUpdateAsync(IAuthenticatorDTO item, bool isLocal, string? secondaryPassword = null);
+    Task<(bool isSuccess, bool isUpdate)> InsertOrUpdateAsync(IAuthenticatorDTO item, bool isLocal, string? secondaryPassword = null);
 
     /// <inheritdoc cref="InsertOrUpdateAsync(IAuthenticatorDTO, bool, string?)"/>
     async Task InsertOrUpdateAsync(IEnumerable<IAuthenticatorDTO> items, bool isLocal, string? secondaryPassword = null)

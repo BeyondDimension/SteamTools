@@ -3,7 +3,7 @@ using BD.WTTS.Client.Resources;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed partial class SteamTradePageViewModel : ViewModelBase
+public sealed partial class SteamTradePageViewModel
 {
     [Reactive]
     public ObservableCollection<SteamTradeConfirmationModel> Confirmations { get; set; } = new();
@@ -15,13 +15,18 @@ public sealed partial class SteamTradePageViewModel : ViewModelBase
     public string? PasswordText { get; set; }
 
     [Reactive]
+    public bool RemenberLogin { get; set; } = true;
+
+    [Reactive]
     public bool IsLogged { get; set; }
 
     [Reactive]
     public bool IsLoading { get; set; }
 
     [Reactive]
-    public bool SelectedAll { get; set; }
+    public bool? SelectedAll { get; set; } = false;
 
-    public bool IsConfirmationsAny => Confirmations.Any_Nullable();
+    public ICommand ConfirmTradeCommand { get; }
+
+    public ICommand CancelTradeCommand { get; }
 }

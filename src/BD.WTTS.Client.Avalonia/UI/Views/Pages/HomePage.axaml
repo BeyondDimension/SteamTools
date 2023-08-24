@@ -12,8 +12,8 @@
     d:DesignWidth="1080"
     x:CompileBindings="True"
     x:DataType="spp:HomePageViewModel"
+    Description=""
     Subtitle="{Binding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Welcome_User_}"
-	Description=""
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="{Binding IconKey, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
@@ -69,7 +69,7 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>-->
-    <spp:ContentLoader IsLoading="True">
+    <spp:ContentLoader IsLoading="False">
         <StackPanel MaxWidth="1080" Spacing="5">
             <spp:Snackbar
                 Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"

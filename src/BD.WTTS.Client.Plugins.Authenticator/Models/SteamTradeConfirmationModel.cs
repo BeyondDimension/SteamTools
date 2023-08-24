@@ -7,25 +7,25 @@ public class SteamTradeConfirmationModel : ReactiveObject
 {
     public int Type { get; set; }
 
-    public string TypeName { get; set; } = string.Empty;
+    public string? TypeName { get; set; }
 
-    public string Id { get; set; } = string.Empty;
+    public string Id { get; set; }
 
-    public string CreatorId { get; set; } = string.Empty;
+    public string? CreatorId { get; set; }
 
-    public string Nonce { get; set; } = string.Empty;
+    public string Nonce { get; set; }
 
     long CreationTime { get; set; }
 
-    public string Cancel { get; set; } = string.Empty;
+    public string? Cancel { get; set; }
 
-    public string Accept { get; set; } = string.Empty;
+    public string? Accept { get; set; }
 
-    public string Icon { get; set; } = string.Empty;
+    public string? Icon { get; set; }
 
     public bool Multi { get; set; }
 
-    public string Headline { get; set; } = string.Empty;
+    public string? Headline { get; set; }
 
     string[]? Summary { get; set; }
 
@@ -33,15 +33,18 @@ public class SteamTradeConfirmationModel : ReactiveObject
 
     public string? SelfIcon { get; set; }
 
-    public string SendSummary => Summary![0];
+    public bool IsTrade => Type == 2;
 
-    public string ReceiveSummary => Summary![1];
+    public string? SendSummary => Summary.Any_Nullable() ? Summary[0] : null;
+
+    public string? ReceiveSummary => Summary?.Length >= 2 ? Summary[1] : null;
 
     public string TypeNameText => TypeName + $"({Headline})";
 
     public DateTime CreateTime => DateTimeOffset.FromUnixTimeSeconds(CreationTime).ToLocalTime().DateTime;
 
-    public bool ReceiveNoItems => ReceiveSummary.Contains("不会收到") && ReceiveItemImageUrls.Count < 1;
+    public bool ReceiveNoItems => (ReceiveSummary?.Contains("You will receive nothing") == true ||
+                                   ReceiveSummary?.Contains("不会收到任何物品") == true) && !ReceiveItemImageUrls.Any();
 
     [Reactive]
     public ObservableCollection<string> SendItemImageUrls { get; set; }
@@ -54,15 +57,16 @@ public class SteamTradeConfirmationModel : ReactiveObject
 
     WinAuth.SteamClient _steamClient;
 
-    public SteamTradeConfirmationModel(SteamAuthenticator steamAuthenticator)
-    {
-        SendItemImageUrls = new();
-        ReceiveItemImageUrls = new();
-        _steamClient = steamAuthenticator.GetClient();
-    }
+    //public SteamTradeConfirmationModel(SteamAuthenticator steamAuthenticator)
+    //{
+    //    SendItemImageUrls = new();
+    //    ReceiveItemImageUrls = new();
+    //    _steamClient = steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
+    //}
 
     public SteamTradeConfirmationModel(SteamAuthenticator steamAuthenticator, SteamMobileTradeConf conf)
     {
+        _steamClient = steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
         Type = conf.Type;
         TypeName = conf.TypeName;
         Id = conf.Id;
@@ -82,11 +86,12 @@ public class SteamTradeConfirmationModel : ReactiveObject
             }
         SendItemImageUrls = new();
         ReceiveItemImageUrls = new();
-        _steamClient = steamAuthenticator.GetClient();
-        GetItemImages();
+
+        if (IsTrade)
+            GetConfirmationDeatil();
     }
 
-    private async void GetItemImages()
+    private async void GetConfirmationDeatil()
     {
         var imageUrls = await _steamClient.GetConfirmationItemImageUrls(Id);
         SelfIcon = _steamClient.SteamUserImageUrl;
@@ -103,29 +108,14 @@ public class SteamTradeConfirmationModel : ReactiveObject
         }
     }
 
-    async Task<T?> RunTaskAndExceptionHandlingAsync<T>(Task<T> task)
-    {
-        try
-        {
-            task.Start();
-            var result = await task;
-            return result;
-        }
-        catch (Exception e)
-        {
-            ExceptionHandling(e);
-            return default;
-        }
-    }
-
-    void ExceptionHandling(Exception exception, bool allowRetry = true)
-    {
-        //可能是启用了家庭监护功能
-        if (exception is WinAuthUnauthorisedSteamRequestException unauthorisedSteamRequestException)
-        {
-            Toast.Show(ToastIcon.Error, Strings.LocalAuth_AuthTrade_GetError);
-            return;
-        }
-        exception.LogAndShowT();
-    }
+    //void ExceptionHandling(Exception exception, bool allowRetry = true)
+    //{
+    //    //可能是启用了家庭监护功能
+    //    if (exception is WinAuthUnauthorisedSteamRequestException unauthorisedSteamRequestException)
+    //    {
+    //        Toast.Show(ToastIcon.Error, Strings.LocalAuth_AuthTrade_GetError);
+    //        return;
+    //    }
+    //    exception.LogAndShowT();
+    //}
 }

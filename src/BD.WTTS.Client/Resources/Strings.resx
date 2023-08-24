@@ -583,8 +583,7 @@
     <value>正在获取最新的交易报价信息…</value>
   </data>
   <data name="LocalAuth_AuthTrade_MessageBoxTip_" xml:space="preserve">
-    <value>这将{0}您当前选中的所有交易报价
-确定要继续吗?</value>
+    <value>确定要一键{0}您当前选中的所有交易报价吗?</value>
     <comment>Comment=同意 or 取消;</comment>
   </data>
   <data name="LocalAuth_CloudSync" xml:space="preserve">
@@ -1769,7 +1768,7 @@
     <value>库</value>
   </data>
   <data name="DisplayQRCode" xml:space="preserve">
-    <value>展示二维码</value>
+    <value>查看二维码</value>
   </data>
 	<data name="Enable" xml:space="preserve">
     <value>启用</value>
@@ -1976,13 +1975,16 @@
 您将同意列表内全部的报价请求。
 交易一经确认无法撤销，请谨慎选择。</value>
   </data>
-  <data name="ModelContent_ConfirmTrade___" xml:space="preserve">
+	<data name="ModelContent_ConfirmTrade___" xml:space="preserve">
     <value>{0}
 {1}
 {2}
 
 {3}
 如果您没有创建此交易，请立即取消该交易。您的账户或电脑可能已遭盗用。</value>
+  </data>
+	<data name="ModelContent_ConfirmTrade2_" xml:space="preserve">
+    <value>您尚未让 {0} 选择任何物品以交换您的物品。如果 {0}  接受此交易，您将失去您提供的物品，但不会收到任何物品。</value>
   </data>
   <data name="ModelContent_ConfirmUnbinding" xml:space="preserve">
     <value>您确定要从您的 Steam 账号中解绑此令牌吗，解绑后此令牌将失效，您可以在解绑后删除此令牌。</value>
@@ -2016,9 +2018,6 @@
   </data>
   <data name="SteamLoginImport" xml:space="preserve">
     <value>Steam 登入导入</value>
-  </data>
-  <data name="SteamTrade_YourOffer" xml:space="preserve">
-    <value>您的报价</value>
   </data>
   <data name="Steam_AuthFileImportPath" xml:space="preserve">
     <value>令牌文件导入路径</value>
@@ -2156,7 +2155,7 @@
     <value>请勿频繁操作</value>
   </data>
   <data name="Warning_NotAuthProvided" xml:space="preserve">
-    <value>没有加密令牌可供操作</value>
+    <value>请先设置令牌自定义密码</value>
   </data>
   <data name="Warning_OnlySupportSteamAuth" xml:space="preserve">
     <value>解绑功能目前仅支持 Steam 令牌</value>
@@ -2219,7 +2218,7 @@
     <value>网络加速子进程文件不存在</value>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
-    <value>当前没有任何交易</value>
+    <value>当前没有任何交易需要确认，请尝试刷新获取最新数据</value>
   </data>
   <data name="Steam_Share_RemoveShare" xml:space="preserve">
     <value>是否删除此家庭库共享。</value>
@@ -2732,5 +2731,8 @@
   </data>
 	<data name="Welcome_User_" xml:space="preserve">
     <value>{0}，欢迎使用 Watt Toolkit</value>
+  </data>
+	<data name="User_Rememberme" xml:space="preserve">
+    <value>记住登录状态</value>
   </data>
 </root>

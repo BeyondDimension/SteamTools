@@ -15,6 +15,7 @@
             <ControlTemplate>
                 <Panel>
                     <StackPanel
+                        Name="LoadedContentPresenter"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         IsVisible="{TemplateBinding IsLoading}"
@@ -65,7 +66,8 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Content="{TemplateBinding Content}"
-                        Foreground="{TemplateBinding Foreground}" />
+                        Foreground="{TemplateBinding Foreground}"
+                        IsVisible="{Binding !#LoadedContentPresenter.IsVisible}" />
                 </Panel>
             </ControlTemplate>
         </Setter>
