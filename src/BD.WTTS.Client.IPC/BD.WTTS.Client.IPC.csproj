@@ -55,10 +55,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Properties\" />
-	</ItemGroup>
-
-	<Import Project="..\TFM_NETX_WITH_ALL.props" />
+	<!-- 此项目不使用平台 TFM ！！！ -->
+	<Import Project="..\TFM_NETX.props" />
 
 </Project>

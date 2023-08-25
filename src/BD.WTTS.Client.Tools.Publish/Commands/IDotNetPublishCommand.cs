@@ -27,7 +27,7 @@ interface IDotNetPublishCommand : ICommand
     {
         var debug = new Option<bool>("--debug", "Defines the build configuration");
         var rids = new Option<string[]>("--rids", "RID is short for runtime identifier");
-        var force_sign = new Option<bool>("--force-sign", GetDefForceSign, "Mandatory verification must be digitally signed"); ;
+        var force_sign = new Option<bool>("--force-sign", GetDefForceSign, "Mandatory verification must be digitally signed");
         var sha256 = new Option<bool>("--sha256", () => true, "Calculate file hash value");
         var sha384 = new Option<bool>("--sha384", () => true, "Calculate file hash value");
         var command = new Command(commandName, "DotNet publish app")
@@ -88,9 +88,20 @@ interface IDotNetPublishCommand : ICommand
                         break;
                 }
 
+                var isWinArm64 = isWindows && info.Architecture == Architecture.Arm64;
+
                 var projRootPath = ProjectPath_AvaloniaApp;
                 var psi = GetProcessStartInfo(projRootPath);
-                var arg = SetPublishCommandArgumentList(psi.ArgumentList, debug, info.Platform, info.DeviceIdiom, info.Architecture);
+                var arg = SetPublishCommandArgumentList(debug, info.Platform, info.DeviceIdiom, info.Architecture);
+                if (isWinArm64) // win-arm64
+                {
+                    // steamclient.dll 缺少 Arm64，以及 Arm64EC 在 dotnet 中目前不可用
+                    // 更改为 x64 兼容运行主进程
+                    arg.RuntimeIdentifier = "win-x64";
+                    arg.PublishDir = arg.PublishDir.Replace("win-x64", "win-arm64");
+                }
+                SetPublishCommandArgumentList(psi.ArgumentList, arg);
+
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.Write("[");
                 Console.Write(rid);
@@ -162,6 +173,15 @@ interface IDotNetPublishCommand : ICommand
 
                 // 移动本机库
                 MoveNativeLibrary(publishDir, arg.RuntimeIdentifier, info.Platform);
+                if (isWinArm64)
+                {
+                    // 删除相关文件来禁用 DNS 驱动模式，该驱动不支持 Arm64
+                    var nativeDir = Path.Combine(publishDir, "..", "native", "win-x64");
+                    foreach (var item in Directory.GetFiles(nativeDir, "WinDivert*"))
+                    {
+                        IOPath.FileTryDelete(item);
+                    }
+                }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.WriteLine("移动本机库");
                 ResetConsoleColor();
@@ -331,16 +351,22 @@ interface IDotNetPublishCommand : ICommand
                 Console.WriteLine("开始创建【压缩包】");
                 ResetConsoleColor();
                 string? packPath = null;
+                string GetPackPathWithTryDelete(string fileEx)
+                {
+                    var packPath = $"{rootPublishDir}{fileEx}";
+                    IOPath.FileTryDelete(packPath);
+                    return packPath;
+                }
                 switch (info.Platform)
                 {
                     case Platform.Windows:
                     case Platform.UWP:
                     case Platform.WinUI:
                     case Platform.Apple:
-                        ICompressedPackageCommand.CreateSevenZipPack(packPath = $"{rootPublishDir}{FileEx._7Z}", appPublish.Files);
+                        ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z), appPublish.Files);
                         break;
                     case Platform.Linux:
-                        ICompressedPackageCommand.CreateGZipPack(packPath = $"{rootPublishDir}{FileEx.TAR_GZ}", appPublish.Files);
+                        ICompressedPackageCommand.CreateGZipPack(packPath = GetPackPathWithTryDelete(FileEx.TAR_GZ), appPublish.Files);
                         break;
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
@@ -402,11 +428,12 @@ interface IDotNetPublishCommand : ICommand
     {
         if (OperatingSystem.IsWindows() && isWindows)
         {
-            if (architecture == Architecture.Arm64 &&
-                RuntimeInformation.OSArchitecture != Architecture.Arm64)
-            {
-                // TODO
-            }
+            //if (architecture == Architecture.Arm64 &&
+            //    RuntimeInformation.OSArchitecture != Architecture.Arm64)
+            //{
+            //    // TODO
+            //    return;
+            //}
 
             var programFiles = Environment.GetFolderPath(
                 architecture == Architecture.X86 ?
@@ -548,14 +575,14 @@ interface IDotNetPublishCommand : ICommand
     static string GetPublishCommandByMacOSArm64()
     {
         var list = new List<string>();
-        SetPublishCommandArgumentList(list, false, Platform.Apple, DeviceIdiom.Desktop, Architecture.Arm64);
+        var arg = SetPublishCommandArgumentList(false, Platform.Apple, DeviceIdiom.Desktop, Architecture.Arm64);
+        SetPublishCommandArgumentList(list, arg);
         return $"dotnet {string.Join(' ', list)}";
     }
 
     /// <summary>
     /// 根据枚举值设置发布命令行参数
     /// </summary>
-    /// <param name="argumentList"></param>
     /// <param name="isDebug"></param>
     /// <param name="platform"></param>
     /// <param name="deviceIdiom"></param>
@@ -563,7 +590,6 @@ interface IDotNetPublishCommand : ICommand
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     static PublishCommandArg SetPublishCommandArgumentList(
-        IList<string> argumentList,
         bool isDebug,
         Platform platform,
         DeviceIdiom deviceIdiom,
@@ -631,7 +657,6 @@ interface IDotNetPublishCommand : ICommand
             default:
                 throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
         }
-        SetPublishCommandArgumentList(argumentList, arg);
         return arg;
     }
 
@@ -664,17 +689,9 @@ interface IDotNetPublishCommand : ICommand
 
         string? _PublishDir;
 
-        public string PublishDir
+        public string GetPublishDirWithAssemblies()
         {
-            get
-            {
-                _PublishDir ??= RuntimeIdentifier.StartsWith("linux") ? string.Join(Path.DirectorySeparatorChar, new[]
-                {
-                    "bin",
-                    Configuration,
-                    "Publish",
-                    RuntimeIdentifier
-                }) : string.Join(Path.DirectorySeparatorChar, new[]
+            var value = string.Join(Path.DirectorySeparatorChar, new[]
                 {
                     "bin",
                     Configuration,
@@ -682,7 +699,32 @@ interface IDotNetPublishCommand : ICommand
                     RuntimeIdentifier,
                     "assemblies",
                 });
+            return value;
+        }
+
+        public string GetPublishDir()
+        {
+            var value = string.Join(Path.DirectorySeparatorChar, new[]
+                {
+                    "bin",
+                    Configuration,
+                    "Publish",
+                    RuntimeIdentifier,
+                });
+            return value;
+        }
+
+        public string PublishDir
+        {
+            get
+            {
+                _PublishDir ??= RuntimeIdentifier.StartsWith("linux") ? GetPublishDir() : GetPublishDirWithAssemblies();
                 return _PublishDir;
+            }
+
+            set
+            {
+                _PublishDir = value;
             }
         }
     }
@@ -955,6 +997,8 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 Platform platform,
                 Architecture architecture)
             {
+                var isWinArm64 = platform == Platform.Windows && architecture == Architecture.Arm64;
+
                 PublishCommandArg arg = default;
                 arg.IsDebug = isDebug;
 
@@ -995,6 +1039,14 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 }
                 var projRootPath = Path.Combine(ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy");
 
+                if (isWinArm64)
+                {
+                    arg.SingleFile = true;
+                    arg.SelfContained = true;
+                }
+
+                arg.PublishDir = arg.GetPublishDir();
+
                 CleanProjDir(projRootPath);
                 var psi = GetProcessStartInfo(projRootPath);
                 SetPublishCommandArgumentList(psi.ArgumentList, arg);
@@ -1009,6 +1061,10 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 ProcessHelper.StartAndWaitForExit(psi);
 
                 var publishDir = Path.Combine(projRootPath, arg.PublishDir);
+
+                var aspnetcorev2_inprocess = Path.Combine(publishDir, "aspnetcorev2_inprocess.dll");
+                IOPath.FileTryDelete(aspnetcorev2_inprocess);
+
                 CopyDirectory(publishDir, destinationDir, true);
             }
         }

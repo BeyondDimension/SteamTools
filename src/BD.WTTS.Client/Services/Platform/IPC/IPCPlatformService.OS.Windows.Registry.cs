@@ -1,5 +1,3 @@
-#if WINDOWS
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
@@ -11,7 +9,7 @@ partial interface IPCPlatformService
     [SupportedOSPlatform("windows")]
     void StartProcessRegeditCoreIPC(string path, int millisecondsDelay)
     {
-#if !LIB_CLIENT_IPC
+#if !LIB_CLIENT_IPC && WINDOWS
         WindowsPlatformServiceImpl.StartProcessRegeditCore(path, millisecondsDelay);
 #endif
     }
@@ -22,7 +20,7 @@ partial interface IPCPlatformService
     [SupportedOSPlatform("windows")]
     string? ReadRegistryKey(string encodedPath, RegistryView view = Registry2.DefaultRegistryView)
     {
-#if !LIB_CLIENT_IPC
+#if !LIB_CLIENT_IPC && WINDOWS
         var result = WindowsPlatformServiceImpl.ReadRegistryKeyCore(encodedPath, view);
         return result;
 #else
@@ -34,7 +32,7 @@ partial interface IPCPlatformService
     [SupportedOSPlatform("windows")]
     bool SetRegistryKey(string encodedPath, RegistryView view, string? value = null)
     {
-#if !LIB_CLIENT_IPC
+#if !LIB_CLIENT_IPC && WINDOWS
         var result = WindowsPlatformServiceImpl.SetRegistryKeyCore(encodedPath, view, value);
         return result;
 #else
@@ -46,7 +44,7 @@ partial interface IPCPlatformService
     [SupportedOSPlatform("windows")]
     bool DeleteRegistryKey(string encodedPath, RegistryView view = Registry2.DefaultRegistryView)
     {
-#if !LIB_CLIENT_IPC
+#if !LIB_CLIENT_IPC && WINDOWS
         var result = WindowsPlatformServiceImpl.DeleteRegistryKeyCore(encodedPath, view);
         return result;
 #else
@@ -100,5 +98,3 @@ public static partial class IPCPlatformServiceExtensions
 
     #endregion
 }
-
-#endif
