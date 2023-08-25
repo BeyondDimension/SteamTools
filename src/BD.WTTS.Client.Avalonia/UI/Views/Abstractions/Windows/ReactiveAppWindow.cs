@@ -117,7 +117,7 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
             {
                 var primaryScreenBounds = screen.Bounds;
 
-                if (CanResize)
+                if (CanResize && !IsVisible)
                 {
                     if (SizePosition.Width > 0 &&
                         primaryScreenBounds.Width >= SizePosition.Width)

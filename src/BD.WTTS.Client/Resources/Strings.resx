@@ -1599,6 +1599,9 @@
   <data name="User_LoginUnexpectedPrompt" xml:space="preserve">
     <value>如果登录过程出现意外，按照网页提示进行</value>
   </data>
+	<data name="NewFeatureDevelopment" xml:space="preserve">
+    <value>新功能正在开发中...</value>
+  </data>
   <data name="Error_PageFault" xml:space="preserve">
     <value>发生了一些错误，无法打开此页面</value>
   </data>

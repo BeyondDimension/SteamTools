@@ -10,11 +10,17 @@
     mc:Ignorable="d">
     <Panel>
         <Image Source="/UI/Assets/back.png" Stretch="UniformToFill" />
+        <!--<TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="16"
+            Foreground="White"
+            Text="{Binding Path=Res.Error_PageFault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
         <TextBlock
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="16"
             Foreground="White"
-            Text="{Binding Path=Res.Error_PageFault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            Text="{Binding Path=Res.NewFeatureDevelopment, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
     </Panel>
 </UserControl>

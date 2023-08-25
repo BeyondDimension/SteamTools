@@ -55,28 +55,60 @@
                     Text="想玩游戏" />
             </ui:MenuFlyoutSubItem>
             <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="复制">
+            <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <ui:MenuFlyoutSubItem Text="复制个人资料">
-                    <ui:MenuFlyoutItem Text="社区 URL" />
-                    <ui:MenuFlyoutItem Text="Steam 昵称" />
-                    <ui:MenuFlyoutItem Text="Steamn 用户名" />
+                    <ui:MenuFlyoutItem Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}" Text="社区 URL">
+                        <ui:MenuFlyoutItem.CommandParameter>
+                            <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                <CompiledBinding Path="." Source="{x:Static spp:SteamApiUrls.STEAM_PROFILES_URL}" />
+                                <CompiledBinding Path="AccountId" />
+                            </MultiBinding>
+                        </ui:MenuFlyoutItem.CommandParameter>
+                    </ui:MenuFlyoutItem>
+                    <ui:MenuFlyoutItem
+                        Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="{Binding DisplayName}"
+                        Text="Steam 昵称" />
+                    <ui:MenuFlyoutItem
+                        Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="{Binding AccountName}"
+                        Text="Steamn 用户名" />
                 </ui:MenuFlyoutSubItem>
                 <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="复制 SteamID">
-                    <ui:MenuFlyoutItem Text="SteamID [STEAM0:~]" />
-                    <ui:MenuFlyoutItem Text="SteamID3 [U:1:~]" />
-                    <ui:MenuFlyoutItem Text="SteamID32" />
-                    <ui:MenuFlyoutItem Text="SteamID64 7656~" />
+                    <ui:MenuFlyoutItem
+                        Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="{Binding AccountId}"
+                        Text="SteamID [STEAM0:~]" />
+                    <ui:MenuFlyoutItem
+                        Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="{Binding AccountId}"
+                        Text="SteamID3 [U:1:~]" />
+                    <ui:MenuFlyoutItem
+                        Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="{Binding AccountId}"
+                        Text="SteamID32" />
+                    <ui:MenuFlyoutItem
+                        Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="{Binding AccountId}"
+                        Text="SteamID64 7656~" />
                 </ui:MenuFlyoutSubItem>
             </ui:MenuFlyoutSubItem>
             <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{Binding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:MenuFlyoutItem Text="Steam 社区" />
-                <ui:MenuFlyoutItem Text="SteamRep" />
-                <ui:MenuFlyoutItem Text="SteamRepCN" />
-                <ui:MenuFlyoutItem Text="SteamDB" />
-                <ui:MenuFlyoutItem Text="SteamGifts" />
-                <ui:MenuFlyoutItem Text="SteamTrades" />
-                <ui:MenuFlyoutItem Text="Achievement Stats" />
-                <ui:MenuFlyoutItem Text="Backpack.tf" />
+                <ui:MenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="Steam 社区">
+                    <ui:MenuFlyoutItem.CommandParameter>
+                        <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                            <CompiledBinding Path="." Source="{x:Static spp:SteamApiUrls.STEAM_PROFILES_URL}" />
+                            <CompiledBinding Path="AccountId" />
+                        </MultiBinding>
+                    </ui:MenuFlyoutItem.CommandParameter>
+                </ui:MenuFlyoutItem>
+                <ui:MenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="SteamRep" />
+                <ui:MenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="SteamRepCN" />
+                <ui:MenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="SteamDB" />
+                <ui:MenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="SteamGifts" />
+                <ui:MenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="SteamTrades" />
+                <ui:MenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="Achievement Stats" />
+                <ui:MenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="Backpack.tf" />
             </ui:MenuFlyoutSubItem>
             <ui:MenuFlyoutSeparator IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" />
             <ui:MenuFlyoutItem
@@ -89,7 +121,7 @@
                 IsVisible="{Binding !$parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
                 Text="修改头像图片" />
             <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutItem Text="创建桌面快捷方式" />
+            <!--<ui:MenuFlyoutItem Text="创建桌面快捷方式" />-->
             <ui:MenuFlyoutItem
                 Click="OpenUserDataFolderMenuItem_Click"
                 IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"

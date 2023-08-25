@@ -145,8 +145,8 @@
                     <spp:CarouselBanner.ItemTemplate>
                         <DataTemplate DataType="spp:AdvertisementDTO">
                             <spp:AppItem
-                                Title="{Binding Describe}"
-                                MaxHeight="350"
+                                Title="{Binding Name}"
+                                Height="350"
                                 Description="{Binding Describe}"
                                 Tags="111">
                                 <spp:AppItem.ActionButton>
@@ -182,7 +182,7 @@
                 </spp:CarouselBanner>
             </Grid>
 
-            <Viewbox MaxHeight="150">
+            <Viewbox>
                 <spp:AdControl Standard="Horizontal" />
             </Viewbox>
 
@@ -198,6 +198,8 @@
                     <Button
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
+                        Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="https://shop.steampp.net/"
                         Content="访问 Watt Toolkit 商城"
                         DockPanel.Dock="Right"
                         Theme="{StaticResource HyperlinkButton}" />

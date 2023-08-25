@@ -4380,6 +4380,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 新功能正在开发中... 的本地化字符串。
+        /// </summary>
+        public static string NewFeatureDevelopment {
+            get {
+                return ResourceManager.GetString("NewFeatureDevelopment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 新版本更新 的本地化字符串。
         /// </summary>
         public static string NewVersionUpdate {
