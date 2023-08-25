@@ -50,33 +50,39 @@ public sealed partial class GameLibrarySettings_ : IGameLibrarySettings, ISettin
     public bool GameInstalledFilter { get; set; } = IGameLibrarySettings.DefaultGameInstalledFilter;
 
     /// <summary>
-    /// 支持云存档游戏筛选状态
+    /// 库存游戏展示布局
     /// </summary>
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
+    public GridLayoutType GameLibraryLayoutType { get; set; } = IGameLibrarySettings.DefaultGameLibraryLayoutType;
+
+    /// <summary>
+    /// 支持云存档游戏筛选状态
+    /// </summary>
+    [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
     public bool GameCloudArchiveFilter { get; set; } = IGameLibrarySettings.DefaultGameCloudArchiveFilter;
 
     /// <summary>
     /// 游戏类型筛选状态列表
     /// </summary>
-    [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
+    [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
     public List<SteamAppType>? GameTypeFiltres { get; set; } = IGameLibrarySettings.DefaultGameTypeFiltres;
 
     /// <summary>
     /// 隐藏的游戏列表
     /// </summary>
-    [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
+    [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
     public Dictionary<uint, string?>? HideGameList { get; set; } = IGameLibrarySettings.DefaultHideGameList;
 
     /// <summary>
     /// 挂时长游戏列表
     /// </summary>
-    [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
+    [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
     public Dictionary<uint, string?>? AFKAppList { get; set; } = IGameLibrarySettings.DefaultAFKAppList;
 
     /// <summary>
     /// 启用自动挂机
     /// </summary>
-    [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
+    [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
     public bool IsAutoAFKApps { get; set; } = IGameLibrarySettings.DefaultIsAutoAFKApps;
 
 }
@@ -88,6 +94,12 @@ public static partial class GameLibrarySettings
     /// </summary>
     public static SettingsStructProperty<bool, GameLibrarySettings_> GameInstalledFilter { get; }
         = new(DefaultGameInstalledFilter);
+
+    /// <summary>
+    /// 库存游戏展示布局
+    /// </summary>
+    public static SettingsStructProperty<GridLayoutType, GameLibrarySettings_> GameLibraryLayoutType { get; }
+        = new(DefaultGameLibraryLayoutType);
 
     /// <summary>
     /// 支持云存档游戏筛选状态

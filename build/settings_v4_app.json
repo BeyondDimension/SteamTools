@@ -496,6 +496,15 @@
           "IsValueType": null
         },
         {
+          "TypeName": "GridLayoutType",
+          "PropertyName": "GameLibraryLayoutType",
+          "DefaultValue": "GridLayoutType.Grid",
+          "DefaultValueIsConst": true,
+          "Summary": "库存游戏展示布局",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
           "TypeName": "bool",
           "PropertyName": "GameCloudArchiveFilter",
           "DefaultValue": "false",

@@ -75,22 +75,22 @@
                         Text="Steamn 用户名" />
                 </ui:MenuFlyoutSubItem>
                 <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="复制 SteamID">
-                    <ui:MenuFlyoutItem Click="SteamPersonaStateSwapMenuItem_Click" Text="SteamID [STEAM0:~]">
+                    <ui:MenuFlyoutItem Click="CopySteamIdMenuItem_Click" Text="SteamID [STEAM0:~]">
                         <ui:MenuFlyoutItem.Tag>
                             <x:Int32>1</x:Int32>
                         </ui:MenuFlyoutItem.Tag>
                     </ui:MenuFlyoutItem>
-                    <ui:MenuFlyoutItem Click="SteamPersonaStateSwapMenuItem_Click" Text="SteamID3 [U:1:~]">
+                    <ui:MenuFlyoutItem Click="CopySteamIdMenuItem_Click" Text="SteamID3 [U:1:~]">
                         <ui:MenuFlyoutItem.Tag>
                             <x:Int32>2</x:Int32>
                         </ui:MenuFlyoutItem.Tag>
                     </ui:MenuFlyoutItem>
-                    <ui:MenuFlyoutItem Click="SteamPersonaStateSwapMenuItem_Click" Text="SteamID32">
+                    <ui:MenuFlyoutItem Click="CopySteamIdMenuItem_Click" Text="SteamID32">
                         <ui:MenuFlyoutItem.Tag>
                             <x:Int32>3</x:Int32>
                         </ui:MenuFlyoutItem.Tag>
                     </ui:MenuFlyoutItem>
-                    <ui:MenuFlyoutItem Click="SteamPersonaStateSwapMenuItem_Click" Text="SteamID64 7656~">
+                    <ui:MenuFlyoutItem Click="CopySteamIdMenuItem_Click" Text="SteamID64 7656~">
                         <ui:MenuFlyoutItem.Tag>
                             <x:Int32>4</x:Int32>
                         </ui:MenuFlyoutItem.Tag>

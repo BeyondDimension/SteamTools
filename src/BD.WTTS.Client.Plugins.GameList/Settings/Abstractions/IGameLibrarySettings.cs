@@ -26,6 +26,11 @@ public partial interface IGameLibrarySettings
     bool GameInstalledFilter { get; set; }
 
     /// <summary>
+    /// 库存游戏展示布局
+    /// </summary>
+    GridLayoutType GameLibraryLayoutType { get; set; }
+
+    /// <summary>
     /// 支持云存档游戏筛选状态
     /// </summary>
     bool GameCloudArchiveFilter { get; set; }
@@ -54,6 +59,11 @@ public partial interface IGameLibrarySettings
     /// 已安装游戏筛选的默认值
     /// </summary>
     const bool DefaultGameInstalledFilter = true;
+
+    /// <summary>
+    /// 库存游戏展示布局的默认值
+    /// </summary>
+    const GridLayoutType DefaultGameLibraryLayoutType = GridLayoutType.Grid;
 
     /// <summary>
     /// 支持云存档游戏筛选状态的默认值

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -231,27 +232,27 @@
                 Theme="{StaticResource CaptionTextBlockStyle}" />
 
             <AutoCompleteBox
-                MinWidth="300"
+                MinWidth="280"
                 VerticalAlignment="Center"
                 Classes="Search"
                 Text="{Binding SearchText}" />
 
-            <TextBlock Text="{Binding Path=Res.Game_LayoutWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <!--<TextBlock Text="{Binding Path=Res.Game_LayoutWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <TabStrip
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
                 CornerRadius="{StaticResource ControlCornerRadius}"
                 ItemContainerTheme="{StaticResource TabItemStyle}"
+                SelectedIndex="{Binding Path=Value, Mode=TwoWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}}"
                 Theme="{StaticResource TabStripStyle}">
                 <TabStripItem Content="&#xE8E4;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
                 <TabStripItem Content="&#xF0E2;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
                 <TabStripItem Content="&#xE80A;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
-            </TabStrip>
+            </TabStrip>-->
 
             <TextBlock Text="{Binding Path=Res.FilterRequirement, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <DockPanel>
-
                 <DropDownButton
                     Width="200"
                     Height="36"
@@ -455,7 +456,50 @@
             <spp:ContentLoader.GestureRecognizers>
                 <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
             </spp:ContentLoader.GestureRecognizers>
-            <ItemsRepeater ItemsSource="{Binding SteamApps}">
+            <ItemsRepeater x:Name="GameListRepeater" ItemsSource="{Binding SteamApps}">
+                <!--
+                    Classes.Compact="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.CompactGrid}}"
+                    Classes.Grid="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"
+                    Classes.List="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.List}}"
+                -->
+                <!--<ItemsRepeater.Styles>
+                    <Style Selector="ItemsRepeater.Grid">
+                        <Setter Property="Layout">
+                            <Setter.Value>
+                                <UniformGridLayout
+                                    ItemsJustification="Start"
+                                    ItemsStretch="Uniform"
+                                    MinColumnSpacing="10"
+                                    MinItemHeight="310"
+                                    MinItemWidth="150"
+                                    MinRowSpacing="10" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style Selector="ItemsRepeater.List">
+                        <Setter Property="Layout">
+                            <Setter.Value>
+                                <StackLayout Orientation="Vertical" Spacing="10" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style Selector="ItemsRepeater.Compact">
+                        <Setter Property="Layout">
+                            <Setter.Value>
+                                <UniformGridLayout
+                                    ItemsJustification="Start"
+                                    ItemsStretch="Uniform"
+                                    MinColumnSpacing="5"
+                                    MinItemHeight="65"
+                                    MinItemWidth="230"
+                                    MinRowSpacing="5" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style Selector="spp|AppItem.List">
+                        <Setter Property="MaxHeight" Value="65" />
+                    </Style>
+                </ItemsRepeater.Styles>-->
                 <ItemsRepeater.Layout>
                     <UniformGridLayout
                         ItemsJustification="Start"
@@ -464,13 +508,10 @@
                         MinItemHeight="310"
                         MinItemWidth="150"
                         MinRowSpacing="10" />
-                    <!--<WrapLayout
-                        HorizontalSpacing="10"
-                        Orientation="Horizontal"
-                        VerticalSpacing="10" />-->
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="spp:SteamApp">
+                        <!--  Classes.Vertical="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"  -->
                         <spp:AppItem
                             Title="{Binding DisplayName}"
                             Classes="Vertical"
