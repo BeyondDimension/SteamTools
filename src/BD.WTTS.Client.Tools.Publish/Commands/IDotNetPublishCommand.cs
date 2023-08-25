@@ -622,10 +622,10 @@ interface IDotNetPublishCommand : ICommand
                         arg.Framework = $"net{Environment.Version.Major}.{Environment.Version.Minor}";
                         arg.RuntimeIdentifier = $"linux-{ArchToString(architecture)}";
                         arg.UseAppHost = true;
-                        arg.SingleFile = true;
+                        arg.SingleFile = false;
                         arg.ReadyToRun = false;
                         arg.Trimmed = false;
-                        arg.SelfContained = true;
+                        arg.SelfContained = false;
                         // https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet-run
                         // https://download.visualstudio.microsoft.com/download/pr/c1e2729e-ab96-4929-911d-bf0f24f06f47/1b2f39cbc4eb530e39cfe6f54ce78e45/aspnetcore-runtime-7.0.7-linux-x64.tar.gz
                         // dotnet "Steam++.dll" -clt devtools
