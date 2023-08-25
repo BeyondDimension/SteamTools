@@ -28,6 +28,16 @@ public static partial class AssemblyInfo
     //public const string InformationalVersion = $"{Version}-rc.{ver_for_rc}";
 
     /// <summary>
+    /// 当前应用程序是否为预览版本
+    /// </summary>
+    public static bool IsPreview => InformationalVersion.Contains("preview", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// 当前应用程序是否为候选版本
+    /// </summary>
+    public static bool IsReleaseCandidate => !IsPreview && InformationalVersion.Contains("rc", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
     /// 与应用程序关联的产品名称。
     /// </summary>
     public const string Trademark = "Watt Toolkit";

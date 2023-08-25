@@ -108,6 +108,7 @@ new /cf "{xmlPath}" /pr "{prPath}"
             GenerateAppxManifestXml(rootPublicPath, version4, processorArchitecture);
 
             var msixPath = $"{rootPublicPath}.msix";
+            //var msixPath = $"{rootPublicPath}.msixbundle";
             IOPath.FileIfExistsItDelete(msixPath);
 
             var psi = new ProcessStartInfo
@@ -118,6 +119,9 @@ new /cf "{xmlPath}" /pr "{prPath}"
 $"""
 pack /v /h SHA256 /d "{rootPublicPath}" /p "{msixPath}"
 """,
+                //$"""
+                //bundle /v /d "{rootPublicPath}" /p "{msixPath}"
+                //""",
             };
             ProcessHelper.StartAndWaitForExit(psi);
         }
