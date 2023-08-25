@@ -1,4 +1,5 @@
 using BD.WTTS.Client.Tools.Publish.Helpers;
+using System.Security.Policy;
 using static BD.WTTS.Client.Tools.Publish.Helpers.DotNetCLIHelper;
 using static BD.WTTS.GlobalDllImportResolver;
 
@@ -79,12 +80,17 @@ interface IDotNetPublishCommand : ICommand
                 if (info == default) continue;
 
                 bool isWindows = false;
+                bool isCopyRuntime = false;
                 switch (info.Platform)
                 {
                     case Platform.Windows:
                     case Platform.UWP:
                     case Platform.WinUI:
                         isWindows = true;
+                        isCopyRuntime = true;
+                        break;
+                    case Platform.Linux:
+                        isCopyRuntime = true;
                         break;
                 }
 
@@ -110,13 +116,14 @@ interface IDotNetPublishCommand : ICommand
                 ResetConsoleColor();
 
                 var publishDir = Path.Combine(projRootPath, arg.PublishDir);
+                Console.WriteLine(publishDir);
                 var rootPublishDir = Path.GetFullPath(Path.Combine(publishDir, ".."));
-                switch (info.Platform)
-                {
-                    case Platform.Linux:
-                        rootPublishDir = Path.GetFullPath(publishDir);
-                        break;
-                }
+                //switch (info.Platform)
+                //{
+                //    case Platform.Linux:
+                //        rootPublishDir = Path.GetFullPath(publishDir);
+                //        break;
+                //}
                 DirTryDelete(rootPublishDir);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.Write("已删除目录：");
@@ -152,13 +159,14 @@ interface IDotNetPublishCommand : ICommand
                 {
                     Console.WriteLine("Linux 需要 Ico 导入系统图标");
                     var ico_path = Path.Combine(ProjectUtils.ProjPath, "res", "icons", "app", "v3", "Logo_512.png");
-                    var save_dir_path = Path.Combine(publishDir, "Icons");
+                    var save_dir_path = Path.Combine(rootPublishDir, "Icons");
                     if (File.Exists(ico_path))
                     {
                         IOPath.DirCreateByNotExists(save_dir_path);
                         // 不能使用下划线
                         File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
                     }
+
                 }
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
@@ -218,7 +226,7 @@ interface IDotNetPublishCommand : ICommand
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.WriteLine("开始复制运行时");
                 ResetConsoleColor();
-                CopyRuntime(rootPublishDir, isWindows, info.Architecture);
+                CopyRuntime(rootPublishDir, info.Platform, isCopyRuntime, info.Architecture);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.WriteLine("完成复制运行时");
                 ResetConsoleColor();
@@ -424,61 +432,72 @@ interface IDotNetPublishCommand : ICommand
     /// <param name="rootPublishDir"></param>
     /// <param name="isWindows"></param>
     /// <param name="architecture"></param>
-    static void CopyRuntime(string rootPublishDir, bool isWindows, Architecture architecture)
+    static void CopyRuntime(string rootPublishDir, Platform platform, bool isCopyRuntime, Architecture architecture)
     {
-        if (OperatingSystem.IsWindows() && isWindows)
+        switch (platform)
         {
-            //if (architecture == Architecture.Arm64 &&
-            //    RuntimeInformation.OSArchitecture != Architecture.Arm64)
-            //{
-            //    // TODO
-            //    return;
-            //}
+            case Platform.UWP:
+            case Platform.WinUI:
+            case Platform.Windows:
+                if (isCopyRuntime)
+                {
+                    //if (architecture == Architecture.Arm64 &&
+                    //    RuntimeInformation.OSArchitecture != Architecture.Arm64)
+                    //{
+                    //    // TODO
+                    //    return;
+                    //}
 
-            var programFiles = Environment.GetFolderPath(
-                architecture == Architecture.X86 ?
-                Environment.SpecialFolder.ProgramFilesX86 :
-                Environment.SpecialFolder.ProgramFiles);
+                    var programFiles = Environment.GetFolderPath(
+                        architecture == Architecture.X86 ?
+                        Environment.SpecialFolder.ProgramFilesX86 :
+                        Environment.SpecialFolder.ProgramFiles);
 
-            static string get_hostfxr_path(string rootPath) => Path.Combine(rootPath,
-                "dotnet",
-                "host",
-                "fxr",
-                $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}",
-                "hostfxr.dll");
+                    static string get_hostfxr_path(string rootPath) => Path.Combine(rootPath,
+                        "dotnet",
+                        "host",
+                        "fxr",
+                        $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}",
+                        "hostfxr.dll");
 
-            var hostfxr_path = get_hostfxr_path(programFiles);
+                    var hostfxr_path = get_hostfxr_path(programFiles);
 
-            static string get_aspnetcore_path(string rootPath) => Path.Combine(rootPath,
-                "dotnet",
-                "shared",
-                "Microsoft.AspNetCore.App",
-                $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}");
+                    static string get_aspnetcore_path(string rootPath) => Path.Combine(rootPath,
+                        "dotnet",
+                        "shared",
+                        "Microsoft.AspNetCore.App",
+                        $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}");
 
-            var aspnetcore_path = get_aspnetcore_path(programFiles);
+                    var aspnetcore_path = get_aspnetcore_path(programFiles);
 
-            static string get_netcore_path(string rootPath) => Path.Combine(rootPath,
-                "dotnet",
-                "shared",
-                "Microsoft.NETCore.App",
-                $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}");
+                    static string get_netcore_path(string rootPath) => Path.Combine(rootPath,
+                        "dotnet",
+                        "shared",
+                        "Microsoft.NETCore.App",
+                        $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}");
 
-            var netcore_path = get_netcore_path(programFiles);
+                    var netcore_path = get_netcore_path(programFiles);
 
-            if (Directory.Exists(netcore_path) &&
-                Directory.Exists(aspnetcore_path) &&
-                File.Exists(hostfxr_path))
-            {
-                var dest_hostfxr_path = get_hostfxr_path(rootPublishDir);
-                IOPath.DirCreateByNotExists(Path.GetDirectoryName(dest_hostfxr_path)!);
-                File.Copy(hostfxr_path, dest_hostfxr_path);
-                CopyDirectory(netcore_path, get_netcore_path(rootPublishDir), true);
-                CopyDirectory(aspnetcore_path, get_aspnetcore_path(rootPublishDir), true);
-            }
-        }
-        else
-        {
-            // TODO
+                    if (Directory.Exists(netcore_path) &&
+                        Directory.Exists(aspnetcore_path) &&
+                        File.Exists(hostfxr_path))
+                    {
+                        var dest_hostfxr_path = get_hostfxr_path(rootPublishDir);
+                        IOPath.DirCreateByNotExists(Path.GetDirectoryName(dest_hostfxr_path)!);
+                        File.Copy(hostfxr_path, dest_hostfxr_path);
+                        CopyDirectory(netcore_path, get_netcore_path(rootPublishDir), true);
+                        CopyDirectory(aspnetcore_path, get_aspnetcore_path(rootPublishDir), true);
+                    }
+                }
+                break;
+            case Platform.Linux:
+                if (isCopyRuntime)
+                {
+                    var dotnet_path = Path.Combine(rootPublishDir, "..", "dotnet");
+                    CopyDirectory(dotnet_path, Path.Combine(rootPublishDir, "dotnet"), true);
+                    // TODO
+                }
+                break;
         }
     }
 
@@ -528,13 +547,13 @@ interface IDotNetPublishCommand : ICommand
     {
         var nativeDir = Path.Combine(publishDir, "..", "native");
         var nativeWithRuntimeIdentifierDir = Path.Combine(nativeDir, runtimeIdentifier);
-        switch (platform)
-        {
-            case Platform.Linux:
-                nativeDir = Path.Combine(publishDir, "native");
-                nativeWithRuntimeIdentifierDir = Path.Combine(nativeDir, runtimeIdentifier);
-                break;
-        }
+        //switch (platform)
+        //{
+        //    case Platform.Linux:
+        //        nativeDir = Path.Combine(publishDir, "native");
+        //        nativeWithRuntimeIdentifierDir = Path.Combine(nativeDir, runtimeIdentifier);
+        //        break;
+        //}
         IOPath.DirCreateByNotExists(nativeWithRuntimeIdentifierDir);
         foreach (var libraryName in libraryNames)
         {
@@ -621,7 +640,7 @@ interface IDotNetPublishCommand : ICommand
                     case DeviceIdiom.Desktop:
                         arg.Framework = $"net{Environment.Version.Major}.{Environment.Version.Minor}";
                         arg.RuntimeIdentifier = $"linux-{ArchToString(architecture)}";
-                        arg.UseAppHost = true;
+                        arg.UseAppHost = false;
                         arg.SingleFile = false;
                         arg.ReadyToRun = false;
                         arg.Trimmed = false;
@@ -702,6 +721,7 @@ interface IDotNetPublishCommand : ICommand
             return value;
         }
 
+        //后续Mac使用
         public string GetPublishDir()
         {
             var value = string.Join(Path.DirectorySeparatorChar, new[]
@@ -718,7 +738,7 @@ interface IDotNetPublishCommand : ICommand
         {
             get
             {
-                _PublishDir ??= RuntimeIdentifier.StartsWith("linux") ? GetPublishDir() : GetPublishDirWithAssemblies();
+                _PublishDir ??= /*RuntimeIdentifier.StartsWith("linux") ? GetPublishDir() :*/ GetPublishDirWithAssemblies();
                 return _PublishDir;
             }
 
@@ -975,7 +995,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                     throw new FileNotFoundException(null, dllPath);
                 }
             }
-            var pluginDir = platform != Platform.Linux ? Path.Combine(publishDir, "..", "modules", pluginName) : Path.Combine(publishDir, "modules", pluginName);
+            var pluginDir = Path.Combine(publishDir, "..", "modules", pluginName);
             IOPath.DirCreateByNotExists(pluginDir);
             var destFileName = Path.Combine(pluginDir, dllFileName);
             File.Copy(dllPath, destFileName, true);
@@ -987,11 +1007,12 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
             switch (pluginName)
             {
                 case AssemblyInfo.Accelerator:
-                    PublishAcceleratorReverseProxy(pluginDir, isDebug, platform, architecture);
+                    PublishAcceleratorReverseProxy(pluginName, pluginDir, isDebug, platform, architecture);
                     break;
             }
 
             static void PublishAcceleratorReverseProxy(
+                string pluginName,
                 string destinationDir,
                 bool isDebug,
                 Platform platform,
@@ -1029,7 +1050,9 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                     switch (platform)
                     {
                         case Platform.Linux:
-                            arg.SelfContained = true;
+                            arg.UseAppHost = true;
+                            arg.SingleFile = true;
+                            arg.SelfContained = false;
                             arg.RuntimeIdentifier = $"linux-{ArchToString(architecture)}";
                             break;
                         case Platform.Apple:
@@ -1064,8 +1087,15 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
 
                 var aspnetcorev2_inprocess = Path.Combine(publishDir, "aspnetcorev2_inprocess.dll");
                 IOPath.FileTryDelete(aspnetcorev2_inprocess);
-
-                CopyDirectory(publishDir, destinationDir, true);
+                if (isWindows)
+                {
+                    CopyDirectory(publishDir, destinationDir, true);
+                }
+                else
+                {
+                    var startName = $"Steam++.{pluginName}";
+                    File.Copy(Path.Combine(publishDir, startName), Path.Combine(destinationDir, startName));
+                }
             }
         }
     }

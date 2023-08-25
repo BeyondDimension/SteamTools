@@ -10,6 +10,7 @@ base_url="https://steampp.mossimo.net:8800"
 architecture=1
 app_name="Watt Toolkit"
 PROCESS_NAMES=("$exec_name" "$app_name")
+export LC_ALL=en_US.UTF-8
 Install_certutil() {
     # 判断发行版类型
     if command -v certutil &>/dev/null; then
@@ -80,8 +81,9 @@ Show_Run() {
 
     if [ $response -eq 0 ]; then
         # 用户点击了 "运行" 按钮，启动程序
-        /bin/sh -c "$base_path/$exec_name"
+        /bin/sh -c "$base_path/$exec_name.sh" &
         echo "程序已启动。"
+        exit 0
     else
         # 用户点击了 "关闭" 按钮，退出脚本
         exit 0
@@ -232,16 +234,38 @@ Decompression() {
             --auto-close \
             --width=500
 
-    chmod +x "$exec_name"
     # 删除本地版本缓存
     rm -f "$appVer_path" &>/dev/null
+    dotnet_path="$base_path/dotnet"
+    dotnet_exec="$dotnet_path/dotnet"
+    if [ -x "$dotnet_exec" ]; then
+        echo "文件具有执行权限。"
+    else
+        chmod +x "$dotnet_exec"
+    fi
+    rm "$base_path/start.sh"
+    rm "$base_path/Steam++"
+    echo "#!/bin/bash
+run_path=\$(dirname \"\$0\")
+dotnet_path=\"\$run_path/dotnet\"
+dotnet_exec=\"\$dotnet_path/dotnet\"
+export DOTNET_ROOT=\"\$dotnet_path\"
+link_exec=\"\$run_path/Steam++\"
+# 判断符号链接是否存在
+if [ ! -L \"\$link_exec\" ]; then
+    echo \"创建符号链接 \$dotnet_exec 到 \$link_exec\"
+    ln -s \"\$dotnet_exec\" \"\$link_exec\"
+else
+    echo \"符号链接 \$link_exec 已存在\"
+fi
+\"\$link_exec\"  \"\$run_path/assemblies/Steam++.dll\" \"\$@\"
+exit" >"$base_path/$exec_name.sh"
+    chmod +x "$base_path/$exec_name.sh"
 }
 
 #先安装依赖;
 Install_certutil
 Install_zenity
-# SteamDeck 可能出现升级系统 语言被重置成 c
-echo "如果出现 类似 \"Using the fallback 'C Locale.\" 的提示,请手动执行 export LC_ALL=en_US.UTF-8"
 #版本检查更新;
 Get_NewVer
 
@@ -282,7 +306,7 @@ rm -rf "$HOME/Desktop/Watt Toolkit.desktop" 2>/dev/null
 echo "#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=Watt Toolkit
-Exec=$base_path/$exec_name
+Exec=$base_path/$exec_name.sh
 Icon=$base_path/Icons/Watt-Toolkit.png
 Terminal=false
 Type=Application
