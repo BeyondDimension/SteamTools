@@ -90,6 +90,50 @@ public partial interface IGeneralSettings
     /// </summary>
     DateTimeOffset LastLookNoticeDateTime { get; set; }
 
+    #region 配置应用程序的 Web 代理
+
+    /// <summary>
+    /// Web 代理模式
+    /// </summary>
+    AppWebProxyMode WebProxyMode { get; set; }
+
+    /// <summary>
+    /// Web 自定义代理 Host
+    /// </summary>
+    string? CustomWebProxyModeHost { get; set; }
+
+    /// <summary>
+    /// Web 自定义代理 Port
+    /// </summary>
+    int CustomWebProxyModePort { get; set; }
+
+    /// <summary>
+    /// Web 自定义代理 Address
+    /// </summary>
+    string? CustomWebProxyModeAddress { get; set; }
+
+    /// <summary>
+    /// Web 自定义代理 BypassOnLocal
+    /// </summary>
+    bool CustomWebProxyModeBypassOnLocal { get; set; }
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.UserName
+    /// </summary>
+    string? CustomWebProxyModeCredentialUserName { get; set; }
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.Password
+    /// </summary>
+    string? CustomWebProxyModeCredentialPassword { get; set; }
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.Domain
+    /// </summary>
+    string? CustomWebProxyModeCredentialDomain { get; set; }
+
+    #endregion
+
     /// <summary>
     /// 自动检查应用更新的默认值
     /// </summary>
@@ -159,5 +203,45 @@ public partial interface IGeneralSettings
     /// 最后查看通知时间的默认值
     /// </summary>
     static readonly DateTimeOffset DefaultLastLookNoticeDateTime = default;
+
+    /// <summary>
+    /// Web 代理模式的默认值
+    /// </summary>
+    const AppWebProxyMode DefaultWebProxyMode = default;
+
+    /// <summary>
+    /// Web 自定义代理 Host的默认值
+    /// </summary>
+    const string DefaultCustomWebProxyModeHost = default;
+
+    /// <summary>
+    /// Web 自定义代理 Port的默认值
+    /// </summary>
+    const int DefaultCustomWebProxyModePort = default;
+
+    /// <summary>
+    /// Web 自定义代理 Address的默认值
+    /// </summary>
+    const string DefaultCustomWebProxyModeAddress = default;
+
+    /// <summary>
+    /// Web 自定义代理 BypassOnLocal的默认值
+    /// </summary>
+    const bool DefaultCustomWebProxyModeBypassOnLocal = default;
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.UserName的默认值
+    /// </summary>
+    const string DefaultCustomWebProxyModeCredentialUserName = default;
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.Password的默认值
+    /// </summary>
+    const string DefaultCustomWebProxyModeCredentialPassword = default;
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.Domain的默认值
+    /// </summary>
+    const string DefaultCustomWebProxyModeCredentialDomain = default;
 
 }

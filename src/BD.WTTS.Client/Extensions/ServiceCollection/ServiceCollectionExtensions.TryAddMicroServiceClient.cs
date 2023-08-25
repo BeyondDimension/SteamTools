@@ -20,6 +20,19 @@ public static partial class ServiceCollectionExtensions
         services.TryAddSingleton<MicroServiceClientBase>(s => s.GetRequiredService<MSC_IMPL>());
         services.TryAddSingleton<IApiConnectionPlatformHelper>(s => s.GetRequiredService<MSC_IMPL>());
         services.TryAddSingleton<IMicroServiceClient>(s => s.GetRequiredService<MSC_IMPL>());
+        //services.AddFusilladeHttpClient(MSC_IMPL.ClientName, _ => { }).ConfigurePrimaryHttpMessageHandler(static handler =>
+        //{
+        //    var handler_ = handler();
+        //    if (handler_ is SocketsHttpHandler s)
+        //    {
+        //        s.Proxy = HttpNoProxy.Instance;
+        //    }
+        //    else if (handler_ is HttpClientHandler h)
+        //    {
+        //        h.Proxy = HttpNoProxy.Instance;
+        //    }
+        //    return handler_;
+        //});
         return services;
     }
 }

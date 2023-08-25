@@ -127,6 +127,58 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings, ISet
     [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
     public DateTimeOffset LastLookNoticeDateTime { get; set; } = IGeneralSettings.DefaultLastLookNoticeDateTime;
 
+    #region 配置应用程序的 Web 代理
+
+    /// <summary>
+    /// Web 代理模式
+    /// </summary>
+    [MPKey(14), MP2Key(14), JsonPropertyOrder(14)]
+    public AppWebProxyMode WebProxyMode { get; set; } = IGeneralSettings.DefaultWebProxyMode;
+
+    /// <summary>
+    /// Web 自定义代理 Host
+    /// </summary>
+    [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
+    public string? CustomWebProxyModeHost { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeHost;
+
+    /// <summary>
+    /// Web 自定义代理 Port
+    /// </summary>
+    [MPKey(16), MP2Key(16), JsonPropertyOrder(16)]
+    public int CustomWebProxyModePort { get; set; } = IGeneralSettings.DefaultCustomWebProxyModePort;
+
+    /// <summary>
+    /// Web 自定义代理 Address
+    /// </summary>
+    [MPKey(17), MP2Key(17), JsonPropertyOrder(17)]
+    public string? CustomWebProxyModeAddress { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeAddress;
+
+    /// <summary>
+    /// Web 自定义代理 BypassOnLocal
+    /// </summary>
+    [MPKey(18), MP2Key(18), JsonPropertyOrder(18)]
+    public bool CustomWebProxyModeBypassOnLocal { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeBypassOnLocal;
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.UserName
+    /// </summary>
+    [MPKey(19), MP2Key(19), JsonPropertyOrder(19)]
+    public string? CustomWebProxyModeCredentialUserName { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeCredentialUserName;
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.Password
+    /// </summary>
+    [MPKey(20), MP2Key(20), JsonPropertyOrder(20)]
+    public string? CustomWebProxyModeCredentialPassword { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeCredentialPassword;
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.Domain
+    /// </summary>
+    [MPKey(21), MP2Key(21), JsonPropertyOrder(21)]
+    public string? CustomWebProxyModeCredentialDomain { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeCredentialDomain;
+
+    #endregion
+
 }
 
 public static partial class GeneralSettings
@@ -214,5 +266,57 @@ public static partial class GeneralSettings
     /// </summary>
     public static SettingsStructProperty<DateTimeOffset, GeneralSettings_> LastLookNoticeDateTime { get; }
         = new(DefaultLastLookNoticeDateTime);
+
+    #region 配置应用程序的 Web 代理
+
+    /// <summary>
+    /// Web 代理模式
+    /// </summary>
+    public static SettingsStructProperty<AppWebProxyMode, GeneralSettings_> WebProxyMode { get; }
+        = new(DefaultWebProxyMode);
+
+    /// <summary>
+    /// Web 自定义代理 Host
+    /// </summary>
+    public static SettingsProperty<string, GeneralSettings_> CustomWebProxyModeHost { get; }
+        = new(DefaultCustomWebProxyModeHost);
+
+    /// <summary>
+    /// Web 自定义代理 Port
+    /// </summary>
+    public static SettingsStructProperty<int, GeneralSettings_> CustomWebProxyModePort { get; }
+        = new(DefaultCustomWebProxyModePort);
+
+    /// <summary>
+    /// Web 自定义代理 Address
+    /// </summary>
+    public static SettingsProperty<string, GeneralSettings_> CustomWebProxyModeAddress { get; }
+        = new(DefaultCustomWebProxyModeAddress);
+
+    /// <summary>
+    /// Web 自定义代理 BypassOnLocal
+    /// </summary>
+    public static SettingsStructProperty<bool, GeneralSettings_> CustomWebProxyModeBypassOnLocal { get; }
+        = new(DefaultCustomWebProxyModeBypassOnLocal);
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.UserName
+    /// </summary>
+    public static SettingsProperty<string, GeneralSettings_> CustomWebProxyModeCredentialUserName { get; }
+        = new(DefaultCustomWebProxyModeCredentialUserName);
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.Password
+    /// </summary>
+    public static SettingsProperty<string, GeneralSettings_> CustomWebProxyModeCredentialPassword { get; }
+        = new(DefaultCustomWebProxyModeCredentialPassword);
+
+    /// <summary>
+    /// Web 自定义代理 NetworkCredential.Domain
+    /// </summary>
+    public static SettingsProperty<string, GeneralSettings_> CustomWebProxyModeCredentialDomain { get; }
+        = new(DefaultCustomWebProxyModeCredentialDomain);
+
+    #endregion
 
 }

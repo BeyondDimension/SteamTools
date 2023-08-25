@@ -345,6 +345,96 @@
           "Summary": "最后查看通知时间",
           "IsRegionOrEndregion": null,
           "IsValueType": true
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "配置应用程序的 Web 代理",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "AppWebProxyMode",
+          "PropertyName": "WebProxyMode",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 代理模式",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeHost",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 Host",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "CustomWebProxyModePort",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 Port",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeAddress",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 Address",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "CustomWebProxyModeBypassOnLocal",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 BypassOnLocal",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeCredentialUserName",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 NetworkCredential.UserName",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeCredentialPassword",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 NetworkCredential.Password",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeCredentialDomain",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 NetworkCredential.Domain",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
         }
       ],
       "Usings": ""

@@ -137,7 +137,7 @@ sealed partial class Program : Startup
 #endif
             // 通用 Http 服务
             Fusillade.NetCache.RequestCache = this;
-            services.AddSingleton<IHttpClientFactory>(new FusilladeHttpClientFactory());
+            services.AddFusilladeHttpClient();
             services.TryImageHttpClientService();
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("ConfigureDemandServices.HttpClientFactory");

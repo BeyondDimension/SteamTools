@@ -129,10 +129,50 @@ partial class Startup // 配置 Host
 
         if (HasHttpClientFactory || HasHttpProxy)
         {
+            static void SetWebProxyMode(AppWebProxyMode mode)
+            {
+                switch (mode)
+                {
+                    case AppWebProxyMode.NoProxy:
+                        HttpClient.DefaultProxy = HttpNoProxy.Instance;
+                        break;
+                    case AppWebProxyMode.Custom:
+                        WebProxy webProxy;
+                        if (!string.IsNullOrEmpty(GeneralSettings.CustomWebProxyModeHost.Value) && GeneralSettings.CustomWebProxyModePort.Value != default)
+                        {
+                            webProxy = new(GeneralSettings.CustomWebProxyModeHost.Value, GeneralSettings.CustomWebProxyModePort.Value)
+                            {
+                                BypassProxyOnLocal = GeneralSettings.CustomWebProxyModeBypassOnLocal.Value,
+                            };
+                        }
+                        else if (!string.IsNullOrEmpty(GeneralSettings.CustomWebProxyModeAddress.Value))
+                        {
+                            webProxy = new(GeneralSettings.CustomWebProxyModeAddress.Value, GeneralSettings.CustomWebProxyModeBypassOnLocal.Value);
+                        }
+                        else
+                        {
+                            SetWebProxyMode(AppWebProxyMode.FollowSystem);
+                            return;
+                        }
+                        if (!string.IsNullOrEmpty(GeneralSettings.CustomWebProxyModeCredentialUserName.Value))
+                        {
+                            NetworkCredential credential = new(GeneralSettings.CustomWebProxyModeCredentialUserName.Value,
+                                GeneralSettings.CustomWebProxyModeCredentialPassword.Value ?? "",
+                                GeneralSettings.CustomWebProxyModeCredentialDomain.Value ?? "");
+                            webProxy.Credentials = credential;
+                        }
+                        HttpClient.DefaultProxy = webProxy;
+                        break;
+                    default:
+                    case AppWebProxyMode.FollowSystem:
 #if WINDOWS
-            // 在 Windows 上还原 .NET Framework 中网络请求跟随系统网络代理变化而动态切换代理行为
-            HttpClient.DefaultProxy = DynamicHttpWindowsProxy.Instance;
+                        // 在 Windows 上还原 .NET Framework 中网络请求跟随系统网络代理变化而动态切换代理行为
+                        HttpClient.DefaultProxy = DynamicHttpWindowsProxy.Instance;
 #endif
+                        break;
+                }
+            }
+            SetWebProxyMode(GeneralSettings.WebProxyMode.Value);
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("DynamicHttpWindowsProxy");
 #endif

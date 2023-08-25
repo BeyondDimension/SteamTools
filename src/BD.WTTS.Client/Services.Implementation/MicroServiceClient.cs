@@ -6,6 +6,8 @@ sealed class MicroServiceClient : MicroServiceClientBase
 {
     readonly IUserManager userManager;
 
+    internal const string ClientName = ClientName_;
+
     public MicroServiceClient(
         ILoggerFactory loggerFactory,
         IHttpClientFactory clientFactory,
