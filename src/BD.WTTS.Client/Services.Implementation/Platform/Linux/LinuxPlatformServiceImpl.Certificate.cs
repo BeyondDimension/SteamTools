@@ -50,6 +50,18 @@ fi
 
         public bool? TrustRootCertificateAsync(string cerPath)
         {
+            // 使用  Certutil  NSS 工具 添加到 sql:$HOME/.pki/nssdb Chrome 信任此储存区
+            Process.Start(Certutil, new string[] {
+                        "-A",
+                        "-d",
+                        "sql:$HOME/.pki/nssdb",
+                        "-n",
+                        CertificateConstants.CertificateName,
+                        "-t",
+                        "C,,",
+                        "-i",
+                        cerPath
+                    }).WaitForExit();
             if (string.IsNullOrWhiteSpace(Environment.ProcessPath))
                 return false;
             return RunRootCommand(PkexecPath, new string[] { Environment.ProcessPath!, "-ceri", CertificateConstants.AppDataDirectory }) == 0;
@@ -57,8 +69,17 @@ fi
 
         public void RemoveCertificate(byte[] certificate2)
         {
+            // 使用  Certutil  NSS 工具 从 sql:$HOME/.pki/nssdb 中删除证书
+            Process.Start(Certutil, new string[] {
+                        "-D",
+                        "-d",
+                        "sql:$HOME/.pki/nssdb",
+                        "-n",
+                        CertificateConstants.CertificateName
+                    }).WaitForExit();
             if (string.IsNullOrWhiteSpace(Environment.ProcessPath))
                 return;
+
             RunRootCommand(PkexecPath, new string[] { Environment.ProcessPath!, "-cerd", CertificateConstants.AppDataDirectory });
         }
 
@@ -95,18 +116,6 @@ fi
                 return false;
             try
             {
-                // 使用  Certutil  NSS 工具 添加到 sql:$HOME/.pki/nssdb Chrome 信任此储存区
-                Process.Start(Certutil, new string[] {
-                        "-A",
-                        "-d",
-                        "sql:$HOME/.pki/nssdb",
-                        "-n",
-                        CertificateConstants.CertificateName,
-                        "-t",
-                        "C,,",
-                        "-i",
-                        cerPath
-                    }).WaitForExit();
                 // 如果存在 /bin/trust 则直接用该命令执行
                 if (File.Exists(TrustPath))
                 {
@@ -147,14 +156,6 @@ fi
                 return;
             try
             {
-                // 使用  Certutil  NSS 工具 从 sql:$HOME/.pki/nssdb 中删除证书
-                Process.Start(Certutil, new string[] {
-                        "-D",
-                        "-d",
-                        "sql:$HOME/.pki/nssdb",
-                        "-n",
-                        CertificateConstants.CertificateName
-                    }).WaitForExit();
                 // 如果存在 /bin/trust 则直接用该命令执行
                 if (File.Exists(TrustPath))
                 {
