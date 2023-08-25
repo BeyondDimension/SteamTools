@@ -26,7 +26,11 @@
                             CommandParameter="{Binding}"
                             Cursor="Hand"
                             ToolTip.Tip="{Binding Describe}">
-                            <spp:Image2 Source="{Binding ImageUrl}" Stretch="UniformToFill" />
+                            <spp:Image2
+                                Width="{Binding $parent[UserControl].Bounds.Width}"
+                                Height="{Binding $parent[UserControl].Bounds.Height}"
+                                Source="{Binding ImageUrl}"
+                                Stretch="UniformToFill" />
                         </Button>
                     </DataTemplate>
                 </spp:CarouselBanner.ItemTemplate>

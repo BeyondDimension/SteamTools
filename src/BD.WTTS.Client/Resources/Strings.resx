@@ -958,7 +958,7 @@
     <value>显示/隐藏用户名</value>
   </data>
   <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
-    <value>打开 Userdata 文件夹</value>
+    <value>打开 userdata 文件夹</value>
   </data>
   <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
     <value>确定要登录 Steam 新账户吗？
@@ -2733,7 +2733,8 @@
     <value>无效的配置文件</value>
   </data>
 	<data name="Welcome_User_" xml:space="preserve">
-    <value>{0}，欢迎使用 Watt Toolkit</value>
+    <!--<value>{0}，欢迎使用 Watt Toolkit</value>-->
+    <value>欢迎使用 Watt Toolkit</value>
   </data>
 	<data name="User_Rememberme" xml:space="preserve">
     <value>记住登录状态</value>

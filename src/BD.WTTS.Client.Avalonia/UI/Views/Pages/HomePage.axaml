@@ -1,4 +1,4 @@
-<spp:PageBase
+<UserControl
     x:Class="BD.WTTS.UI.Views.Pages.HomePage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,17 +7,14 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="{Binding Name}"
     d:DesignHeight="900"
     d:DesignWidth="1080"
     x:CompileBindings="True"
     x:DataType="spp:HomePageViewModel"
-    Description=""
-    Subtitle="{Binding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Welcome_User_}"
     mc:Ignorable="d">
-    <spp:PageBase.PreviewImage>
+    <!--<spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="{Binding IconKey, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
-    </spp:PageBase.PreviewImage>
+    </spp:PageBase.PreviewImage>-->
     <!--<spp:PageBase.TabContent>
         <TabStrip
             Margin="4"
@@ -69,314 +66,410 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>-->
-    <spp:ContentLoader IsLoading="False">
-        <StackPanel MaxWidth="1080" Spacing="5">
-            <spp:Snackbar
-                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                VerticalAlignment="Top"
-                IsClosable="False"
-                IsOpen="True"
-                IsVisible="{Binding !!!MainWindow2.PluginCount, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}"
-                Message="检测到你没有安装插件，请去下载插件即可使用更多功能。"
-                Severity="Warning" />
+    <ScrollViewer Padding="20">
+        <spp:ContentLoader IsLoading="False">
+            <StackPanel
+                x:Name="HomeRoot"
+                MaxWidth="1080"
+                Spacing="20">
+                <spp:Snackbar
+                    Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    VerticalAlignment="Top"
+                    IsClosable="False"
+                    IsOpen="True"
+                    IsVisible="{spp:OnPlatform Preview}"
+                    Message="当前使用的程序版本为预览版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。"
+                    Severity="Warning" />
+                <spp:Snackbar
+                    Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    VerticalAlignment="Top"
+                    IsClosable="False"
+                    IsOpen="True"
+                    IsVisible="{Binding !!!MainWindow2.PluginCount, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}"
+                    Message="检测到你没有安装插件，请去下载插件即可使用更多功能。"
+                    Severity="Warning" />
 
-            <StackPanel Margin="0,15,0,0" Spacing="8">
-                <TextBlock VerticalAlignment="Top" Classes="TitleTextBlockStyle">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0}，欢迎使用 Watt Toolkit">
-                            <Binding
-                                Mode="OneWay"
-                                Path="User.NickName"
-                                Source="{x:Static s:UserService.Current}" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
+                <WrapPanel Margin="5,0">
+                    <WrapPanel IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                        <spp:Image2
+                            Width="36"
+                            Height="36"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            DecodeWidth="36"
+                            Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
+                            Stretch="Uniform">
+                            <spp:Image2.Clip>
+                                <EllipseGeometry Rect="0,0,36,36" />
+                            </spp:Image2.Clip>
+                        </spp:Image2>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}"
+                            Theme="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                            Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, StringFormat={}({0})}"
+                            Theme="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            Text=","
+                            Theme="{StaticResource SubtitleTextBlockStyle}" />
+                    </WrapPanel>
+                    <TextBlock VerticalAlignment="Center" Theme="{StaticResource SubtitleTextBlockStyle}">
+                        <Run Text="{Binding Path=Res.Welcome_User_, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    </TextBlock>
+                </WrapPanel>
+
+                <Grid Margin="0,-10,0,0" RowDefinitions="Auto,*">
+                    <spp:CarouselBanner
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        ItemsSource="{Binding NavigationBanners}">
+                        <spp:CarouselBanner.ItemTemplate>
+                            <DataTemplate DataType="spp:AdvertisementDTO">
+                                <spp:AppItem
+                                    Title="{Binding Describe}"
+                                    Height="350"
+                                    Classes="Banner Scale"
+                                    ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                    ClickCommandParameter="{Binding Url}"
+                                    Description="{Binding Name}">
+                                    <spp:AppItem.Status>
+                                        <Border
+                                            Padding="20,10"
+                                            Background="{DynamicResource AccentFillColorSelectedTextBackgroundBrush}"
+                                            ClipToBounds="True"
+                                            CornerRadius="{StaticResource ControlCornerRadius}">
+                                            <TextBlock FontSize="16" Text="阅读更多" />
+                                        </Border>
+                                    </spp:AppItem.Status>
+                                    <spp:AppItem.Image>
+                                        <spp:Image2 Source="{Binding ImageUrl}" />
+                                    </spp:AppItem.Image>
+                                </spp:AppItem>
+                            </DataTemplate>
+                        </spp:CarouselBanner.ItemTemplate>
+                    </spp:CarouselBanner>
+                </Grid>
+
+                <!--<Viewbox Stretch="UniformToFill">
+                    <spp:AdControl
+                        MaxWidth="{Binding #HomeRoot.MaxWidth}"
+                        MaxHeight="200"
+                        Standard="Horizontal" />
+                </Viewbox>-->
+
                 <StackPanel
-                    IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                    Orientation="Horizontal"
-                    Spacing="8">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Classes="SubtitleTextBlockStyle"
-                        Text="Steam 当前登录账号:" />
-                    <spp:Image2
-                        Width="32"
-                        Height="32"
-                        Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
-                        Stretch="Uniform">
-                        <spp:Image2.Clip>
-                            <EllipseGeometry Rect="0,0,32,32" />
-                        </spp:Image2.Clip>
-                    </spp:Image2>
+                    Grid.Row="2"
+                    Margin="0,10"
+                    Spacing="10">
+                    <DockPanel>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Text="最新消息"
+                            Theme="{StaticResource TitleTextBlockStyle}" />
+                        <Button
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                            CommandParameter="{x:Static spp:HomePageViewModel.OfficialWebsite_Article}"
+                            Content="查看更多"
+                            DockPanel.Dock="Right"
+                            Theme="{StaticResource HyperlinkButton}" />
+                    </DockPanel>
 
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Classes="SubtitleTextBlockStyle"
-                        Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Classes="SubtitleTextBlockStyle"
-                        IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                        Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, StringFormat={}({0})}" />
+                    <Grid Margin="0,0,0,20" ColumnDefinitions="*,10,*,10,*">
+                        <Grid.Styles>
+                            <Style x:DataType="spp:ArticleItemDTO" Selector="spp|AppItem">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="Title" Value="{Binding Title}" />
+                                <Setter Property="Description" Value="{Binding Introduction}" />
+                                <Setter Property="Tags" Value="{Binding AuthorName}" />
+                                <Setter Property="ClickCommand" Value="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" />
+                                <Setter Property="ClickCommandParameter">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                            <CompiledBinding Path="." Source="{x:Static spp:HomePageViewModel.OfficialWebsite_Article_Detail_}" />
+                                            <CompiledBinding Path="Id" />
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Image">
+                                    <Setter.Value>
+                                        <Template>
+                                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding CoverUrl}" />
+                                        </Template>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Status">
+                                    <Setter.Value>
+                                        <Template>
+                                            <Border Classes="Status">
+                                                <TextBlock Text="{Binding CreationTime, StringFormat={}{0:yyyy-MM-dd}}" />
+                                            </Border>
+                                        </Template>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Grid.Styles>
+                        <spp:AppItem Classes="Vertical Scale" DataContext="{Binding Articles[0]}" />
+                        <spp:AppItem
+                            Grid.Column="2"
+                            Classes="Vertical Scale"
+                            DataContext="{Binding Articles[1]}" />
+                        <spp:AppItem
+                            Grid.Column="4"
+                            Classes="Vertical Scale"
+                            DataContext="{Binding Articles[2]}" />
+                    </Grid>
 
-                    <!--<TextBlock VerticalAlignment="Center" Classes="SubtitleTextBlockStyle">
-                        <TextBlock.Text>
-                            <MultiBinding FallbackValue="{x:Null}" StringFormat="{}{0} ({1})">
-                                <Binding
-                                    Mode="OneWay"
-                                    Path="CurrentSteamUser.SteamNickName"
-                                    Source="{x:Static s:SteamConnectService.Current}" />
-                                <Binding
-                                    Mode="OneWay"
-                                    Path="CurrentSteamUser.IPCountry"
-                                    Source="{x:Static s:SteamConnectService.Current}" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>-->
+                    <!--<ItemsControl ItemsSource="{Binding Articles}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid ColumnDefinitions="*,*,*" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="spp:ArticleItemDTO">
+                                <spp:AppItem
+                                    Title="{Binding Title}"
+                                    Classes="Vertical Scale"
+                                    Description="{Binding Introduction}"
+                                    Tags="{Binding AuthorName}">
+                                    <spp:AppItem.Image>
+                                        <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding CoverUrl}" />
+                                    </spp:AppItem.Image>
+                                    <spp:AppItem.Status>
+                                        <Border Classes="Status">
+                                            <TextBlock Text="{Binding CreationTime, StringFormat={}{yyyy-MM-dd}}" />
+                                        </Border>
+                                    </spp:AppItem.Status>
+                                </spp:AppItem>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>-->
+
+                    <DockPanel>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Text="精选"
+                            Theme="{StaticResource TitleTextBlockStyle}" />
+                        <Button
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                            CommandParameter="{x:Static spp:HomePageViewModel.WattGameUrl}"
+                            Content="访问 WattGame 商城"
+                            DockPanel.Dock="Right"
+                            Theme="{StaticResource HyperlinkButton}" />
+                    </DockPanel>
+
+                    <ScrollViewer
+                        Margin="0,3,0,20"
+                        Padding="0,0,0,15"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Disabled">
+                        <ItemsControl ItemsSource="{Binding Shops}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="10" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="spp:ShopRecommendGoodItem">
+                                    <spp:AppItem
+                                        Title="{Binding Name}"
+                                        MaxWidth="260"
+                                        Classes="Vertical Scale"
+                                        ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                        Cursor="Hand"
+                                        Tags="{Binding GoodsAllCategorysText}"
+                                        ToolTip.Tip="{Binding Brief}">
+                                        <spp:AppItem.ClickCommandParameter>
+                                            <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                                <CompiledBinding Path="." Source="{x:Static spp:HomePageViewModel.WattGame_Goods_Detail_}" />
+                                                <CompiledBinding Path="Id" />
+                                            </MultiBinding>
+                                        </spp:AppItem.ClickCommandParameter>
+                                        <spp:AppItem.Image>
+                                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding Image}" />
+                                        </spp:AppItem.Image>
+                                        <spp:AppItem.Status>
+                                            <Border Classes="Status">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontSize="12"
+                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                        IsVisible="{Binding !!DiscountValue}"
+                                                        Text="{Binding Mktprice, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}"
+                                                        TextDecorations="Strikethrough" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontSize="14"
+                                                        Text="{Binding Price, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}" />
+                                                </StackPanel>
+                                            </Border>
+                                        </spp:AppItem.Status>
+                                        <spp:AppItem.ActionButton>
+                                            <Border
+                                                Height="24"
+                                                Padding="8,0"
+                                                Background="#4c6b22"
+                                                ClipToBounds="True"
+                                                CornerRadius="4"
+                                                IsVisible="{Binding !!DiscountValue}">
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Foreground="#beee11"
+                                                    Text="{Binding DiscountValue, StringFormat={}-{0}%}" />
+                                            </Border>
+                                        </spp:AppItem.ActionButton>
+                                    </spp:AppItem>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <TextBlock Text="联系我们" Theme="{StaticResource TitleTextBlockStyle}" />
+
+                    <Grid Margin="0,0,0,20" ColumnDefinitions="*,10,*,10,*,10,*,10,*">
+                        <spp:AppItem
+                            Title="软妹币玩家"
+                            Classes="Vertical Scale"
+                            Description="Bug 反馈建议直接 Github 提交，联系我邮箱请详细说明问题，QQ申请人数过多不在接受"
+                            Tags="开发者">
+                            <spp:AppItem.Image>
+                                <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://steampp.net/avatar/rmbplayer.jpg" />
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
+                        <spp:AppItem
+                            Title="AigioL"
+                            Grid.Column="2"
+                            Classes="Vertical Scale"
+                            Description="11111111111111111111111"
+                            Tags="开发者">
+                            <spp:AppItem.Image>
+                                <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
+                        <spp:AppItem
+                            Title="Mossimo"
+                            Grid.Column="4"
+                            Classes="Vertical Scale"
+                            Description="11111111111111111111111"
+                            Tags="开发者">
+                            <spp:AppItem.Image>
+                                <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
+                        <spp:AppItem
+                            Title="虎子"
+                            Grid.Column="6"
+                            Classes="Vertical Scale"
+                            Description="手机、微信(18952233778)"
+                            Tags="商务联系">
+                            <spp:AppItem.Image>
+                                <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://steampp.net/avatar/hu.jpg" />
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
+                        <spp:AppItem
+                            Title="Github 反馈"
+                            Grid.Column="8"
+                            Classes="Vertical Scale"
+                            Description="主要接受 Bug 反馈的渠道，也可以点个 Star 关注一下~">
+                            <spp:AppItem.Image>
+                                <Border Background="Black">
+                                    <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://steampp.net/avatar/GitHub-Mark-120px-dark-plus.png" />
+                                </Border>
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
+                    </Grid>
+
                 </StackPanel>
 
-            </StackPanel>
-
-            <Grid RowDefinitions="Auto,*">
-                <spp:CarouselBanner
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Stretch"
-                    ItemsSource="{Binding NavigationBanners}">
-                    <spp:CarouselBanner.ItemTemplate>
-                        <DataTemplate DataType="spp:AdvertisementDTO">
+                <!--<TabControl Grid.Row="3" Padding="0">
+                    <TabItem Header="1111">
+                        <StackPanel Spacing="5">
                             <spp:AppItem
-                                Title="{Binding Name}"
-                                Height="350"
-                                Description="{Binding Describe}"
-                                Tags="111">
-                                <spp:AppItem.ActionButton>
-                                    <StackPanel Orientation="Horizontal" Spacing="8">
-                                        <Button Content="delete" />
-                                        <Button Content="delete" />
-                                        <Button Content="delete" />
-                                    </StackPanel>
-                                </spp:AppItem.ActionButton>
-                                <spp:AppItem.Status>
-                                    <Border Classes="Status">
-                                        <TextBlock Text="广告" />
-                                    </Border>
-                                </spp:AppItem.Status>
+                                Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
+                                MaxHeight="100"
+                                Classes="Scale"
+                                Description="1111111111121312312123">
                                 <spp:AppItem.Image>
-                                    <spp:Image2 Source="{Binding ImageUrl}" />
+                                    <spp:Image2 Source="https://api.steampp.net/api/image/f4e4423e-f36b-1410-886e-00e23e1d515d" Stretch="UniformToFill" />
                                 </spp:AppItem.Image>
                             </spp:AppItem>
-                            <!--<spp:RippleEffect>
-                                <Panel ToolTip.Tip="{Binding}">
-                                    <spp:Image2 Source="{Binding}" Stretch="UniformToFill" />
-                                    <Border
-                                        Padding="10"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Bottom"
-                                        Background="{DynamicResource ControlOnImageFillColorDefaultBrush}">
-                                        <TextBlock Text="{Binding}" />
-                                    </Border>
-                                </Panel>
-                            </spp:RippleEffect>-->
-                        </DataTemplate>
-                    </spp:CarouselBanner.ItemTemplate>
-                </spp:CarouselBanner>
-            </Grid>
-
-            <Viewbox>
-                <spp:AdControl Standard="Horizontal" />
-            </Viewbox>
-
-            <StackPanel
-                Grid.Row="2"
-                Margin="0,10"
-                Spacing="5">
-                <DockPanel Margin="0,0,0,5">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Text="精选"
-                        Theme="{StaticResource TitleTextBlockStyle}" />
-                    <Button
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
-                        CommandParameter="https://shop.steampp.net/"
-                        Content="访问 Watt Toolkit 商城"
-                        DockPanel.Dock="Right"
-                        Theme="{StaticResource HyperlinkButton}" />
-                </DockPanel>
-
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <spp:AppItem
-                        Title="测试功能1"
-                        Classes="Vertical Scale"
-                        Description="11111111111111111111111">
-                        <spp:AppItem.Image>
-                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
-                    <spp:AppItem
-                        Title="测试功能1"
-                        Classes="Vertical Scale"
-                        Description="11111111111111111111111">
-                        <spp:AppItem.Image>
-                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
-                    <spp:AppItem
-                        Title="测试功能1"
-                        Classes="Vertical Scale"
-                        Description="11111111111111111111111">
-                        <spp:AppItem.Image>
-                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
-                </StackPanel>
-
-                <DockPanel Margin="0,0,0,5">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Text="免费游戏"
-                        Theme="{StaticResource TitleTextBlockStyle}" />
-                    <Button
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Content="查看更多"
-                        DockPanel.Dock="Right"
-                        Theme="{StaticResource HyperlinkButton}" />
-                </DockPanel>
-
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <spp:AppItem
-                        Title="测试功能1"
-                        Classes="Vertical Scale"
-                        Description="11111111111111111111111">
-                        <spp:AppItem.Image>
-                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
-                    <spp:AppItem
-                        Title="测试功能1"
-                        Classes="Vertical Scale"
-                        Description="11111111111111111111111">
-                        <spp:AppItem.Image>
-                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
-                    <spp:AppItem
-                        Title="测试功能1"
-                        Classes="Vertical Scale"
-                        Description="11111111111111111111111">
-                        <spp:AppItem.Image>
-                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
-                </StackPanel>
+                            <spp:AppItem
+                                Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
+                                MaxHeight="100"
+                                Classes="Scale"
+                                Description="1111111111121312312123">
+                                <spp:AppItem.Image>
+                                    <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
+                                </spp:AppItem.Image>
+                            </spp:AppItem>
+                            <spp:AppItem
+                                Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
+                                MaxHeight="100"
+                                Classes="Scale"
+                                Description="1111111111121312312123">
+                                <spp:AppItem.Image>
+                                    <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
+                                </spp:AppItem.Image>
+                            </spp:AppItem>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="2222">
+                        <StackPanel Spacing="5">
+                            <DockPanel>
+                                <Image
+                                    Width="100"
+                                    DockPanel.Dock="Left"
+                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+                                    Stretch="UniformToFill" />
+                                <Border DockPanel.Dock="Right">
+                                    <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
+                                </Border>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image
+                                    Width="100"
+                                    DockPanel.Dock="Left"
+                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+                                    Stretch="UniformToFill" />
+                                <Border DockPanel.Dock="Right">
+                                    <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
+                                </Border>
+                            </DockPanel>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="3333">
+                        <StackPanel Spacing="5">
+                            <DockPanel>
+                                <Image
+                                    Width="100"
+                                    DockPanel.Dock="Left"
+                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
+                                    Stretch="UniformToFill" />
+                                <Border DockPanel.Dock="Right">
+                                    <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
+                                </Border>
+                            </DockPanel>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>-->
 
                 <TextBlock
-                    Margin="0,5"
-                    Text="常用功能"
-                    Theme="{StaticResource TitleTextBlockStyle}" />
-
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <spp:AppItem
-                        Title="测试功能1"
-                        Classes="Vertical Scale"
-                        Description="11111111111111111111111">
-                        <spp:AppItem.Image>
-                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
-                    <spp:AppItem
-                        Title="测试功能1"
-                        Classes="Vertical Scale"
-                        Description="11111111111111111111111">
-                        <spp:AppItem.Image>
-                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
-                    <spp:AppItem
-                        Title="测试功能1"
-                        Classes="Vertical Scale"
-                        Description="11111111111111111111111">
-                        <spp:AppItem.Image>
-                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="https://media.st.dl.eccdnx.com/steamcommunity/public/images/items/1629910/045c57ebb6946fdf7e57a53d5768117dd8543862.gif" />
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
-                </StackPanel>
-
+                    Margin="0,30"
+                    HorizontalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="不忘初心，方得始终。"
+                    Theme="{StaticResource SubtitleTextBlockStyle}" />
             </StackPanel>
-
-            <TabControl Grid.Row="3" Padding="0">
-                <TabItem Header="1111">
-                    <StackPanel Spacing="5">
-                        <spp:AppItem
-                            Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
-                            MaxHeight="100"
-                            Classes="Scale"
-                            Description="1111111111121312312123">
-                            <spp:AppItem.Image>
-                                <spp:Image2 Source="https://api.steampp.net/api/image/f4e4423e-f36b-1410-886e-00e23e1d515d" Stretch="UniformToFill" />
-                            </spp:AppItem.Image>
-                        </spp:AppItem>
-                        <spp:AppItem
-                            Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
-                            MaxHeight="100"
-                            Classes="Scale"
-                            Description="1111111111121312312123">
-                            <spp:AppItem.Image>
-                                <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
-                            </spp:AppItem.Image>
-                        </spp:AppItem>
-                        <spp:AppItem
-                            Title="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价"
-                            MaxHeight="100"
-                            Classes="Scale"
-                            Description="1111111111121312312123">
-                            <spp:AppItem.Image>
-                                <Image Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png" Stretch="UniformToFill" />
-                            </spp:AppItem.Image>
-                        </spp:AppItem>
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="2222">
-                    <StackPanel Spacing="5">
-                        <DockPanel>
-                            <Image
-                                Width="100"
-                                DockPanel.Dock="Left"
-                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
-                                Stretch="UniformToFill" />
-                            <Border DockPanel.Dock="Right">
-                                <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
-                            </Border>
-                        </DockPanel>
-                        <DockPanel>
-                            <Image
-                                Width="100"
-                                DockPanel.Dock="Left"
-                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
-                                Stretch="UniformToFill" />
-                            <Border DockPanel.Dock="Right">
-                                <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
-                            </Border>
-                        </DockPanel>
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="3333">
-                    <StackPanel Spacing="5">
-                        <DockPanel>
-                            <Image
-                                Width="100"
-                                DockPanel.Dock="Left"
-                                Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png"
-                                Stretch="UniformToFill" />
-                            <Border DockPanel.Dock="Right">
-                                <TextBlock Text="公开透明：欧盟立法要求 Steam 页面显示 30 天内游戏最低价" />
-                            </Border>
-                        </DockPanel>
-                    </StackPanel>
-                </TabItem>
-            </TabControl>
-        </StackPanel>
-    </spp:ContentLoader>
-</spp:PageBase>
+        </spp:ContentLoader>
+    </ScrollViewer>
+</UserControl>

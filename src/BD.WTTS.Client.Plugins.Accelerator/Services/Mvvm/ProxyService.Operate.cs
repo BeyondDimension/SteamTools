@@ -40,6 +40,7 @@ partial class ProxyService
         string? twoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
         string? twoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
         string? proxyDNS = ProxySettings.ProxyMasterDns.Value;
+        bool isSupportIpv6 = await RefreshIpv6Support();
 
         Lazy<IPAddress> proxyIp_ = new(() => ReverseProxySettings.GetProxyIp(proxyIp));
         void SetProxyIp(IPAddress proxyIPAddress)
@@ -165,7 +166,7 @@ partial class ProxyService
             proxyIp, proxyMode, isProxyGOG, onlyEnableProxyScript,
             enableHttpProxyToHttps, socks5ProxyEnable, socks5ProxyPortId,
             twoLevelAgentEnable, twoLevelAgentProxyType, twoLevelAgentIp,
-            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS);
+            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6);
         byte[] reverseProxySettings_ = Serializable.SMP2(reverseProxySettings);
         var startProxyResult = await reverseProxyService.StartProxyAsync(reverseProxySettings_);
         if (startProxyResult)

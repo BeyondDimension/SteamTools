@@ -216,9 +216,7 @@
                                                     </StackPanel>
                                                 </Panel>
                                             </DockPanel>
-                                            <WrapPanel HorizontalAlignment="Center" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-
-
+                                            <!--<WrapPanel HorizontalAlignment="Center" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
                                                 <Button Margin="5,0" FontSize="10">
                                                     <ToolTip.Tip>
                                                         <MultiBinding StringFormat="{}{0} : {1} / {2}">
@@ -252,7 +250,7 @@
                                                         </MultiBinding>
                                                     </Button.Content>
                                                 </Button>
-                                            </WrapPanel>
+                                            </WrapPanel>-->
                                         </DockPanel>
                                     </MenuItem.Header>
                                 </MenuItem>

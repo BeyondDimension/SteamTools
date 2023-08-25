@@ -144,13 +144,11 @@ public sealed partial class ProxyService
 
     private DateTimeOffset _StartAccelerateTime;
 
-    private TimeSpan _AccelerateTime;
+    [Reactive]
+    public string? IPv6AddresString { get; set; }
 
-    public TimeSpan AccelerateTime
-    {
-        get => _AccelerateTime;
-        set => this.RaiseAndSetIfChanged(ref _AccelerateTime, value);
-    }
+    [Reactive]
+    public TimeSpan AccelerateTime { get; set; }
 
     public bool IsEnableScript
     {
@@ -225,6 +223,7 @@ public sealed partial class ProxyService
         //reverseProxyService.StopProxy();
         await InitializeAccelerateAsync();
         await InitializeScriptAsync();
+        await RefreshIpv6Support();
 
         if (IsProgramStartupRunProxy())
         {
@@ -592,6 +591,14 @@ public sealed partial class ProxyService
 #endif
 
         Toast.Show(ToastIcon.Success, Strings.FixNetworkComplete);
+    }
+
+    public async Task<bool> RefreshIpv6Support()
+    {
+        var result = await IMicroServiceClient.Instance.Accelerate.GetMyIP(ipV6: true);
+        if (!result.IsSuccess) return false;
+        IPv6AddresString = result.Content;
+        return !string.IsNullOrEmpty(IPv6AddresString);
     }
 
     public void Dispose()

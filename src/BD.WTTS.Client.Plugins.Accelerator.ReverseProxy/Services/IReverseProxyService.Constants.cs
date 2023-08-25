@@ -158,6 +158,11 @@ public partial interface IReverseProxySettings
     #endregion
 
     IPAddress? ProxyDNS { get; set; }
+
+    /// <summary>
+    /// 是否支持 IPv6
+    /// </summary>
+    bool IsSupportIpv6 { get; set; }
 }
 
 [MP2Obj(SerializeLayout.Explicit)]
@@ -199,7 +204,9 @@ public readonly partial record struct ReverseProxySettings(
     [property:MP2Key(17)]
     string? TwoLevelAgentPassword,
     [property:MP2Key(18)]
-    string? ProxyDNS)
+    string? ProxyDNS,
+    [property:MP2Key(19)]
+    bool IsSupportIpv6)
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal IPAddress GetProxyIp() => GetProxyIp(ProxyIp);
@@ -249,6 +256,7 @@ public readonly partial record struct ReverseProxySettings(
         settings.TwoLevelAgentUserName = TwoLevelAgentUserName;
         settings.TwoLevelAgentPassword = TwoLevelAgentPassword;
         settings.ProxyDNS = GetProxyDNS();
+        settings.IsSupportIpv6 = IsSupportIpv6;
     }
 #endif
 }

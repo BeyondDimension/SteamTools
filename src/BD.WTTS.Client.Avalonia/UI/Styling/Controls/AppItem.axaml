@@ -6,11 +6,12 @@
     x:CompileBindings="True">
     <Design.PreviewWith>
         <Border Padding="20">
-            <StackPanel Spacing="10">
+            <StackPanel MaxWidth="600" Spacing="10">
                 <spp:AppItem
-                    Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
-                    MaxHeight="90"
-                    Tags="111">
+                    Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
+                    MaxHeight="120"
+                    Classes="Banner Scale"
+                    Description="111">
                     <spp:AppItem.ActionButton>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <Button Content="delete" />
@@ -352,6 +353,9 @@
                                         Classes="CaptionTextBlockStyle"
                                         FontSize="12"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        IsVisible="{TemplateBinding Description,
+                                                                    Converter={StaticResource IsNullConverter},
+                                                                    ConverterParameter=invert}"
                                         Text="{TemplateBinding Description}"
                                         TextWrapping="Wrap" />
                                 </StackPanel>
@@ -377,7 +381,6 @@
 
                                     <DockPanel HorizontalAlignment="Right" DockPanel.Dock="Right">
                                         <ContentPresenter
-                                            Margin="8,0"
                                             Content="{TemplateBinding ActionButton}"
                                             DockPanel.Dock="Left"
                                             IsVisible="{TemplateBinding ActionButton,
@@ -385,6 +388,7 @@
                                                                         ConverterParameter=invert}" />
 
                                         <DropDownButton
+                                            Margin="8,0,0,0"
                                             Padding="6"
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center"
@@ -400,6 +404,67 @@
                                     </DockPanel>
                                 </DockPanel>
                             </Border>
+                        </Grid>
+                    </spp:RippleEffect>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="spp|AppItem.Banner">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="LayoutRoot"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    ClipToBounds="True"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <spp:RippleEffect>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <Viewbox
+                                Name="IconHost"
+                                Margin="{TemplateBinding ImageMargin}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <ContentPresenter Content="{TemplateBinding Image}" />
+                            </Viewbox>
+
+                            <StackPanel
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Spacing="3">
+                                <TextBlock
+                                    VerticalAlignment="Bottom"
+                                    Classes="CaptionTextBlockStyle"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    IsVisible="{TemplateBinding Description,
+                                                                Converter={StaticResource IsNullConverter},
+                                                                ConverterParameter=invert}"
+                                    Text="{TemplateBinding Description}"
+                                    TextWrapping="Wrap" />
+
+                                <TextBlock
+                                    Name="HeaderText"
+                                    Classes="BaseTextBlockStyle"
+                                    FontSize="24"
+                                    FontWeight="SemiBold"
+                                    MaxLines="2"
+                                    Text="{TemplateBinding Title}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap" />
+
+                                <WrapPanel IsVisible="{TemplateBinding Status, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                                    <ContentPresenter
+                                        VerticalAlignment="Center"
+                                        Content="{TemplateBinding Status}"
+                                        FontSize="12"
+                                        TextWrapping="Wrap" />
+                                </WrapPanel>
+
+                            </StackPanel>
                         </Grid>
                     </spp:RippleEffect>
                 </Border>

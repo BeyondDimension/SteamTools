@@ -5,6 +5,11 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed class HomePageViewModel : TabItemViewModel
 {
+    public const string OfficialWebsite_Article = Constants.Urls.OfficialWebsite_Article;
+    public const string OfficialWebsite_Article_Detail_ = Constants.Urls.OfficialWebsite_Article_Detail_;
+    public const string WattGameUrl = Constants.Urls.WattGame;
+    public const string WattGame_Goods_Detail_ = Constants.Urls.WattGame_Goods_Detail_;
+
     public override string Name => Strings.Welcome;
 
     public override string IconKey => "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico";
@@ -15,10 +20,14 @@ public sealed class HomePageViewModel : TabItemViewModel
     [Reactive]
     public ObservableCollection<AdvertisementDTO> NavigationBanners { get; set; }
 
+    [Reactive]
+    public ObservableCollection<ShopRecommendGoodItem> Shops { get; set; }
+
     public HomePageViewModel()
     {
         Articles = new ObservableCollection<ArticleItemDTO>();
         NavigationBanners = new ObservableCollection<AdvertisementDTO>();
+        Shops = new ObservableCollection<ShopRecommendGoodItem>();
 
         GetServerContent();
     }
@@ -32,11 +41,18 @@ public sealed class HomePageViewModel : TabItemViewModel
             Articles.Add(result.Content.DataSource);
         }
 
-        var result2 = await Instance.Advertisement.All(AdvertisementType.DeskTopHomeBanner);
+        var result2 = await Instance.Shop.RecommendGoods();
         if (result2.IsSuccess && result2.Content != null)
         {
+            Shops.Clear();
+            Shops.Add(result2.Content);
+        }
+
+        var result3 = await Instance.Advertisement.All(AdvertisementType.DeskTopHomeBanner);
+        if (result3.IsSuccess && result3.Content != null)
+        {
             NavigationBanners.Clear();
-            NavigationBanners.Add(result2.Content);
+            NavigationBanners.Add(result3.Content);
         }
     }
 }

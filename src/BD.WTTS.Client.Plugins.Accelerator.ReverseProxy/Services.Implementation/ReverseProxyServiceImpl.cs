@@ -82,6 +82,8 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
 
     public IPAddress? ProxyDNS { get; set; }
 
+    public bool IsSupportIpv6 { get; set; }
+
     /// <summary>
     /// 获取一个随机的未使用的端口
     /// </summary>

@@ -214,13 +214,42 @@
             </TabStrip>
 
             <TextBlock Text="{Binding Path=Res.CommunityFix_MenuName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <DockPanel>
+                <ToggleSwitch
+                    VerticalAlignment="Center"
+                    Classes="NoContent"
+                    IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}"
+                    OffContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    OnContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
-            <ToggleSwitch
-                VerticalAlignment="Center"
-                Classes="NoContent"
-                IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}"
-                OffContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                OnContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <!--<WrapPanel>-->
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Classes.NotSupport="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay, Converter={StaticResource IsNullConverter}}"
+                    Classes.Support="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                    Theme="{StaticResource CaptionTextBlockStyle}"
+                    ToolTip.Tip="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay}">
+                    <TextBlock.Styles>
+                        <Style Selector="TextBlock.Support">
+                            <Setter Property="Text" Value="已支持 Ipv6 访问" />
+                            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                        </Style>
+                        <Style Selector="TextBlock.NotSupport">
+                            <Setter Property="Text" Value="不支持 Ipv6 访问" />
+                            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                        </Style>
+                    </TextBlock.Styles>
+                </TextBlock>
+                <!--<Button
+						VerticalAlignment="Center"
+						Command="{Binding Source={x:Static s:ProxyService.Current}, Path=RefreshIpv6Support, Mode=OneWay}"
+						Theme="{StaticResource TransparentButton}"
+						ToolTip.Tip="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+						<ui:SymbolIcon Symbol="Refresh" />
+					</Button>
+				</WrapPanel>-->
+            </DockPanel>
 
             <!--<StackPanel Orientation="Horizontal" Spacing="4">
                 <ToggleButton

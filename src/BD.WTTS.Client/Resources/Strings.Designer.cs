@@ -7487,7 +7487,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 打开 Userdata 文件夹 的本地化字符串。
+        ///   查找类似 打开 userdata 文件夹 的本地化字符串。
         /// </summary>
         public static string UserChange_ShowUserDataFolder {
             get {
@@ -7739,7 +7739,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 {0}，欢迎使用 Watt Toolkit 的本地化字符串。
+        ///   查找类似 欢迎使用 Watt Toolkit 的本地化字符串。
         /// </summary>
         public static string Welcome_User_ {
             get {

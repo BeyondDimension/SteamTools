@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.ReactiveUI;
+using BD.SteamClient.Helpers;
 using FluentAvalonia.UI.Controls;
 
 namespace BD.WTTS.UI.Views.Controls;
@@ -31,6 +32,22 @@ public partial class AccountItems : ReactiveUserControl<PlatformAccount>
         {
             account.PersonaState = state;
             ViewModel?.SwapToAccountCommand.Execute(account);
+        }
+    }
+
+    private void CopySteamIdMenuItem_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (sender is MenuFlyoutItem item && item.DataContext is SteamAccount account && item.Tag is int idType)
+        {
+            var idConvert = new SteamIdConvert(account.AccountId);
+            var id = idType switch
+            {
+                1 => idConvert.Id,
+                2 => idConvert.Id3,
+                3 => idConvert.Id32,
+                _ => idConvert.Id64,
+            };
+            App.Instance.CopyToClipboardCommand(id);
         }
     }
 

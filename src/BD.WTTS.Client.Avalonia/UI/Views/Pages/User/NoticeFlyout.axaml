@@ -11,56 +11,64 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <DockPanel>
-        <!--<Button
+    <Panel>
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsVisible="{Binding Path=!!!Notices.Count, Mode=OneWay, Source={x:Static s:NotificationService.Current}}"
+            Text="当前没有通知消息"
+            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+        <DockPanel>
+            <!--<Button
             Margin="0,0,0,5"
             Content="{Binding Path=Res.Notice_AllMarkHasRead,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
             Cursor="Hand"
             DockPanel.Dock="Top"
             Theme="{StaticResource HyperlinkButton}" />-->
-        <ItemsControl ItemsSource="{Binding Path=Notices, Mode=OneWay, Source={x:Static s:NotificationService.Current}}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Spacing="3" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="spp:OfficialMessageItemDTO">
-                    <Button
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
-                        CommandParameter="{Binding MessageLink}"
-                        Theme="{StaticResource TransparentButton}">
-                        <Grid RowDefinitions="Auto,Auto,*">
-                            <DockPanel>
-                                <ui:InfoBadge
-                                    Margin="0,0,3,0"
-                                    HorizontalAlignment="Left"
+            <ItemsControl ItemsSource="{Binding Path=Notices, Mode=OneWay, Source={x:Static s:NotificationService.Current}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Spacing="3" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="spp:OfficialMessageItemDTO">
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                            CommandParameter="{Binding MessageLink}"
+                            Theme="{StaticResource TransparentButton}">
+                            <Grid RowDefinitions="Auto,Auto,*">
+                                <DockPanel>
+                                    <ui:InfoBadge
+                                        Margin="0,0,3,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Classes="Attention Dot"
+                                        DockPanel.Dock="Left"
+                                        IsVisible="{Binding Unread}" />
+                                    <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
+                                </DockPanel>
+                                <TextBlock
+                                    Grid.Row="1"
                                     VerticalAlignment="Center"
-                                    Classes="Attention Dot"
-                                    DockPanel.Dock="Left"
-                                    IsVisible="{Binding Unread}" />
-                                <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
-                            </DockPanel>
-                            <TextBlock
-                                Grid.Row="1"
-                                VerticalAlignment="Center"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{Binding PushTime, StringFormat={}{0:yyyy-MM-dd}}"
-                                Theme="{StaticResource CaptionTextBlockStyle}" />
-                            <TextBlock
-                                Grid.Row="2"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                MaxLines="2"
-                                Text="{Binding Content}"
-                                TextTrimming="CharacterEllipsis"
-                                TextWrapping="Wrap"
-                                Theme="{StaticResource CaptionTextBlockStyle}" />
-                        </Grid>
-                    </Button>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </DockPanel>
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{Binding PushTime, StringFormat={}{0:yyyy-MM-dd}}"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    MaxLines="2"
+                                    Text="{Binding Content}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DockPanel>
+    </Panel>
 </UserControl>

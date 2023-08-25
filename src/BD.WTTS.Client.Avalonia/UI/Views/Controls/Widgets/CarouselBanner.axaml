@@ -10,6 +10,11 @@
     d:DesignWidth="800"
     Background="{x:Null}"
     mc:Ignorable="d">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <spp:CarouselBanner />
+        </Border>
+    </Design.PreviewWith>
     <UserControl.Styles>
         <Style Selector="Button.action">
             <Setter Property="Margin" Value="4" />
