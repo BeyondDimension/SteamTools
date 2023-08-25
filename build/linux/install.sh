@@ -39,6 +39,36 @@ Install_certutil() {
         echo "certutil 工具已安装。"
     fi
 }
+#精简版系统可能没有该工具
+Install_zenity() {
+    # 判断发行版类型
+    if command -v zenity &>/dev/null; then
+        echo "zenity 工具已安装。"
+    else
+        echo "安装过程需要 zenity 工具。"
+        # 判断包管理器
+        if command -v apt &>/dev/null; then
+            # 使用 apt (Debian/Ubuntu)
+            sudo apt update
+            sudo apt install -y zenity
+        elif command -v dnf &>/dev/null; then
+            # 使用 dnf (Fedora)
+            sudo dnf install -y zenity
+        elif command -v yum &>/dev/null; then
+            # 使用 yum (CentOS/Red Hat)
+            sudo yum install -y zenity
+        elif command -v pacman &>/dev/null; then
+            # 使用 pacman (Arch Linux)
+            # sudo pacman -S zenity
+            echo "请手动安装 zenity 工具。"
+            exit 1
+        else
+            echo "请手动安装 zenity 工具。"
+            exit 1
+        fi
+        echo "zenity 工具已安装。"
+    fi
+}
 
 Show_Run() {
     local param1=$1
@@ -160,21 +190,21 @@ Download_File() {
 
 Kill_Process() {
     # 尝试的次数
-    MAX_RETRIES=3
+    Kill_MAX_RETRIES=3
 
     # 循环尝试终止进程
     for process_name in "${PROCESS_NAMES[@]}"; do
-        retry=1
-        while [ $retry -le $MAX_RETRIES ]; do
+        kill_retry=1
+        while [ $kill_retry -le $Kill_MAX_RETRIES ]; do
             pid=$(pgrep "$process_name")
             if [ -n "$pid" ]; then
-                echo "尝试 $retry: 进程 $process_name 正在运行中。正在终止..."
+                echo "尝试 $kill_retry: 进程 $process_name 正在运行中。正在终止..."
                 kill $pid
                 sleep 2
             else
                 break
             fi
-            retry=$((retry + 1))
+            kill_retry=$((kill_retry + 1))
         done
     done
 
@@ -209,6 +239,7 @@ Decompression() {
 
 #先安装依赖;
 Install_certutil
+Install_zenity
 # SteamDeck 可能出现升级系统 语言被重置成 c
 echo "如果出现 类似 \"Using the fallback 'C Locale.\" 的提示,请手动执行 export LC_ALL=en_US.UTF-8"
 #版本检查更新;
@@ -222,6 +253,7 @@ if [ -f "$tar_path" ]; then
         #下载文件
         Download_File
     else
+        rm "$base_path/AppVer"
         #版本号是最新缓存 输出到文件
         echo "${temp_hash,,}" >>"$base_path/AppVer"
         zenity --question --text="本地已有最新安装包是否继续解压?" --width=400
