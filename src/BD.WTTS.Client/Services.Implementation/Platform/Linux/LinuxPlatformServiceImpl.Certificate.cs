@@ -19,24 +19,8 @@ namespace BD.WTTS.Services.Implementation
                 X509Certificate2? cert = certificate2;
                 if (cert == null)
                     return false;
-                var shellStr =
-$"""
-#!/bin/bash
-
-# 参数：证书名称
-CERT_NAME="{CertificateConstants.CertificateName}"
-
-# 检查证书是否存在
-CERT_RESULT=$(certutil -L -d sql:$HOME/.pki/nssdb | grep "$CERT_NAME")
-
-if [ -n "$CERT_RESULT" ]; then
-    echo "证书 '$CERT_NAME' 存在。"
-    exit 200
-else
-    echo "证书 '$CERT_NAME' 不存在。"
-    exit 404
-fi
-""";
+                //退出码 404 500 被使用
+                var shellStr = $"CERT_NAME=\"{CertificateConstants.CertificateName}\"; CERT_RESULT=$(certutil -L -d sql:$HOME/.pki/nssdb | grep \"$CERT_NAME\"); if [ -n \"$CERT_RESULT\" ]; then echo \"证书 '$CERT_NAME' 存在。\"; exit 200; else echo \"证书 '$CERT_NAME' 不存在。\"; exit 10; fi";
                 var p = Process.Start(Process2.BinBash, new string[] { "-c", shellStr });
                 p.WaitForExit();
                 return p.ExitCode == 200;
@@ -51,16 +35,9 @@ fi
         public bool? TrustRootCertificateAsync(string cerPath)
         {
             // 使用  Certutil  NSS 工具 添加到 sql:$HOME/.pki/nssdb Chrome 信任此储存区
-            Process.Start(Certutil, new string[] {
-                        "-A",
-                        "-d",
-                        "sql:$HOME/.pki/nssdb",
-                        "-n",
-                        CertificateConstants.CertificateName,
-                        "-t",
-                        "C,,",
-                        "-i",
-                        cerPath
+            Process.Start(Process2.BinBash, new string[] {
+                        "-c",
+                        $"{Certutil} -A -d sql:$HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\" -t C,, -i \"{cerPath}\""
                     }).WaitForExit();
             if (string.IsNullOrWhiteSpace(Environment.ProcessPath))
                 return false;
@@ -70,16 +47,12 @@ fi
         public void RemoveCertificate(byte[] certificate2)
         {
             // 使用  Certutil  NSS 工具 从 sql:$HOME/.pki/nssdb 中删除证书
-            Process.Start(Certutil, new string[] {
-                        "-D",
-                        "-d",
-                        "sql:$HOME/.pki/nssdb",
-                        "-n",
-                        CertificateConstants.CertificateName
+            Process.Start(Process2.BinBash, new string[] {
+                        "-c",
+                        $"{Certutil} -D -d sql:$HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\""
                     }).WaitForExit();
             if (string.IsNullOrWhiteSpace(Environment.ProcessPath))
                 return;
-
             RunRootCommand(PkexecPath, new string[] { Environment.ProcessPath!, "-cerd", CertificateConstants.AppDataDirectory });
         }
 

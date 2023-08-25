@@ -409,12 +409,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         if (certificate2.NotAfter <= DateTime.Now)
             return false;
 
-        if (!OperatingSystem.IsAndroid())
-        {
-            // Linux 目前没有实现检测
-            return true;
-        }
-        else if (OperatingSystem.IsAndroid() || OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
+        if (OperatingSystem.IsAndroid() || OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
         {
             return platformService.IsCertificateInstalled(packable);
         }
