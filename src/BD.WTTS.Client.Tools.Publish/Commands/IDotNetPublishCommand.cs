@@ -493,7 +493,7 @@ interface IDotNetPublishCommand : ICommand
             case Platform.Linux:
                 if (isCopyRuntime)
                 {
-                    var dotnet_path = Path.Combine(rootPublishDir, "..", "dotnet");
+                    var dotnet_path = Path.Combine(rootPublishDir, "..", "dotnet-Runtime", $"{Platform.Linux}-{architecture}");
                     CopyDirectory(dotnet_path, Path.Combine(rootPublishDir, "dotnet"), true);
                     // TODO
                 }
