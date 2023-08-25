@@ -27,6 +27,7 @@ public static partial class AssemblyInfo
     public const string InformationalVersion = $"{Version}-preview.{ver_for_preview}";
     //public const string InformationalVersion = $"{Version}-rc.{ver_for_rc}";
 
+#if !APP_HOST
     /// <summary>
     /// 当前应用程序是否为预览版本
     /// </summary>
@@ -36,6 +37,7 @@ public static partial class AssemblyInfo
     /// 当前应用程序是否为候选版本
     /// </summary>
     public static bool IsReleaseCandidate => !IsPreview && InformationalVersion.Contains("rc", StringComparison.OrdinalIgnoreCase);
+#endif
 
     /// <summary>
     /// 与应用程序关联的产品名称。
