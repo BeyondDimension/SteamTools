@@ -127,7 +127,6 @@ public sealed partial class App : Application
         {
             MainThread2.BeginInvokeOnMainThread(() =>
             {
-                IPCMainProcessService.Instance.DisposeAsync();
                 desktop.Shutdown(exitCode);
             });
             return true;

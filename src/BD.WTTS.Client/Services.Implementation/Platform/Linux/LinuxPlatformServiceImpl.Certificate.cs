@@ -1,6 +1,9 @@
 #if LINUX
 
 // ReSharper disable once CheckNamespace
+
+using System.Collections;
+
 namespace BD.WTTS.Services.Implementation
 {
     partial class LinuxPlatformServiceImpl
@@ -58,7 +61,15 @@ namespace BD.WTTS.Services.Implementation
 
         public static int RunRootCommand(string path, string[] args)
         {
-            var p = Process.Start(path, args);
+            var psi = new ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = false,
+                CreateNoWindow = false
+            };
+            args.ForEach(psi.ArgumentList.Add);
+            DotNetRuntimeHelper.AddEnvironment(psi);
+            var p = Process.Start(psi);
             p.WaitForExit();
             return p.ExitCode;
         }

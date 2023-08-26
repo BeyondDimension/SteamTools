@@ -175,20 +175,20 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
             if (!string.IsNullOrEmpty(authString))
             {
                 var reader = XmlReader.Create(new StringReader(authString));
-                await reader.ReadAsync();
+                reader.Read();
                 while (reader is { EOF: false, IsEmptyElement: true })
                 {
                     await reader.ReadAsync();
                 }
 
-                await reader.MoveToContentAsync();
+                reader.MoveToContent();
                 while (reader.EOF == false)
                 {
                     if (reader.IsStartElement())
                     {
                         if (reader.Name == "Auth")
                         {
-                            await reader.ReadAsync();
+                            reader.Read();
                         }
 
                         if (reader.Name != "WinAuthAuthenticator") continue;
@@ -198,7 +198,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                     }
                     else
                     {
-                        await reader.ReadAsync();
+                        reader.Read();
                         break;
                     }
                 }

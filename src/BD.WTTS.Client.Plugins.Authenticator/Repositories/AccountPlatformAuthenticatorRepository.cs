@@ -216,7 +216,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
     public async Task<(bool isSuccess, bool isUpdate)> InsertOrUpdateAsync(IAuthenticatorDTO item, bool isLocal,
         string? secondaryPassword = null)
     {
-        var isUpdate = item.Id == default;
+        var isUpdate = item.Id != default;
 
         var entity = await ConvertAsync(item, isLocal, secondaryPassword);
 
