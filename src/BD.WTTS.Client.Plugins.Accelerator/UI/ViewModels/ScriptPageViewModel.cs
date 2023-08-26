@@ -76,6 +76,11 @@ public partial class ScriptPageViewModel : TabItemViewModel
 
     public async void OpenScriptStoreWindow()
     {
+        if (UserService.Current.IsAuthenticated == false)
+        {
+            Toast.Show(ToastIcon.Error, "脚本商店需要登录账号才可访问");
+            return;
+        }
         var model = new ScriptStorePageViewModel();
         await IWindowManager.Instance.ShowTaskDialogAsync(model,
                        Strings.ScriptStore,

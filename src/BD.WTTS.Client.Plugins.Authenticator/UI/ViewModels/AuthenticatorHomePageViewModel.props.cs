@@ -21,7 +21,4 @@ public partial class AuthenticatorHomePageViewModel
 
     [Reactive]
     public bool IsVerificationPass { get; set; }
-
-    [Reactive]
-    public bool AuthenticatorIsEmpty { get; set; } = true;
 }

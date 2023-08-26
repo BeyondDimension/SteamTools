@@ -194,7 +194,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     public static async void EditAppInfoClick(SteamApp app)
     {
         if (app == null) return;
-        var vm = new EditAppInfoPageViewModel(app);
+        var vm = new EditAppInfoPageViewModel(ref app);
         var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.GameList_EditAppInfo,
             pageContent: new EditAppInfoPage(), okButtonText: Strings.Save, isCancelButton: true);
 

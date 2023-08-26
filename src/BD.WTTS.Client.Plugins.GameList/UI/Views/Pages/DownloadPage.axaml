@@ -32,7 +32,7 @@
                                               Mode=OneWay,
                                               Source={x:Static s:ResourceService.Current}}" />-->
 
-            <ToggleSplitButton IsChecked="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsWatchSteamDownloading, Mode=TwoWay}">
+            <ToggleSplitButton IsChecked="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsWatchSteamDownloading, Mode=TwoWay}" ToolTip.Tip="启用此按钮才会启动监听 Steam 下载数据并在下载完时执行对应操作！">
                 <ToggleSplitButton.Content>
                     <TextBlock>
                         <TextBlock.Text>

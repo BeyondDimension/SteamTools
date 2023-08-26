@@ -13,8 +13,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
     public ReadOnlyObservableCollection<SteamGridItem>? SteamGridItems => _SteamGridItems;
 
-    [Reactive]
-    public SteamApp App { get; set; }
+    public SteamApp App { get; }
 
     [Reactive]
     public SteamGridItem? SelectGrid { get; set; }
@@ -36,7 +35,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
     public ICommand OpenSteamGridDBAuthorUrlCommand { get; }
 
-    public EditAppInfoPageViewModel(SteamApp app)
+    public EditAppInfoPageViewModel(ref SteamApp app)
     {
         App = app;
 
@@ -122,7 +121,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
     {
         #region 自定义图片保存
         var mostRecentUser = ISteamService.Instance.GetRememberUserList().Where(s => s.MostRecent).FirstOrDefault();
-        if (!(App.EditHeaderLogoStream is FileStream fs3))
+        if (!(App.EditHeaderLogoStream is FileStream fs3 && fs3.Name == (await App.HeaderLogoStream)?.Name))
         {
             if (!CheckCurrentSteamUserStats(mostRecentUser))
                 return;
@@ -130,10 +129,12 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
             if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditHeaderLogoStream,
              mostRecentUser!, App.AppId, SteamGridItemType.Header) == false)
             {
-                Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Logo)));
+                Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Header)));
             }
+            else
+                this.RaisePropertyChanged(nameof(App.HeaderLogoStream));
         }
-        if (!(App.EditLibraryLogoStream is FileStream fs))
+        if (!(App.EditLibraryLogoStream is FileStream fs && fs.Name == (await App.LibraryLogoStream)?.Name))
         {
             if (!CheckCurrentSteamUserStats(mostRecentUser))
                 return;
@@ -143,8 +144,10 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
             {
                 Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Logo)));
             }
+            else
+                this.RaisePropertyChanged(nameof(App.LibraryLogoStream));
         }
-        if (!(App.EditLibraryHeroStream is FileStream fs1))
+        if (!(App.EditLibraryHeroStream is FileStream fs1 && fs1.Name == (await App.LibraryHeroStream)?.Name))
         {
             if (!CheckCurrentSteamUserStats(mostRecentUser))
                 return;
@@ -154,8 +157,10 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
             {
                 Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Hero)));
             }
+            else
+                this.RaisePropertyChanged(nameof(App.LibraryHeroStream));
         }
-        if (!(App.EditLibraryGridStream is FileStream fs2))
+        if (!(App.EditLibraryGridStream is FileStream fs2 && fs2.Name == (await App.LibraryGridStream)?.Name))
         {
             if (!CheckCurrentSteamUserStats(mostRecentUser))
                 return;
@@ -165,6 +170,8 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
             {
                 Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Grid)));
             }
+            else
+                this.RaisePropertyChanged(nameof(App.LibraryGridStream));
         }
         #endregion
 
@@ -266,14 +273,6 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
     public override void OnClosing(object? sender, CancelEventArgs e)
     {
-        if (App != null && !App.IsEdited)
-        {
-            App.EditLibraryGridStream = null;
-            App.EditLibraryHeroStream = null;
-            App.EditLibraryLogoStream = null;
-            App.EditHeaderLogoStream = null;
-        }
-
         _SteamGridItemSourceList.Dispose();
     }
 

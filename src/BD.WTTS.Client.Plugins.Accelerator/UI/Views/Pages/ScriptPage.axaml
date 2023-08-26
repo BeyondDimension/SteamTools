@@ -96,10 +96,10 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.Script_Settings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.Script_AutoUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.CommunityFix_OnlySteamBrowser, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Script_Settings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutSeparator />-->
+                        <ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:ProxySettings.IsAutoCheckScriptUpdate}, Path=Value, Mode=TwoWay}" Text="{Binding Path=Res.Script_AutoUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:ProxySettings.IsOnlyWorkSteamBrowser}, Path=Value, Mode=TwoWay}" Text="{Binding Path=Res.CommunityFix_OnlySteamBrowser, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
@@ -115,9 +115,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -205,11 +205,11 @@
                                     </ui:MenuFlyoutItem.Text>
                                 </ui:MenuFlyoutItem>
                                 <ui:MenuFlyoutSeparator />
-                                <ui:MenuFlyoutItem 
+                                <ui:MenuFlyoutItem
                                     Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DeleteScriptItemCommand}"
                                     CommandParameter="{Binding}"
-																		Foreground="{DynamicResource SystemFillColorCriticalBrush}" 
-																		Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                             </ui:FAMenuFlyout>
                         </spp:AppItem.MoreFlyout>
                         <spp:AppItem.Image>

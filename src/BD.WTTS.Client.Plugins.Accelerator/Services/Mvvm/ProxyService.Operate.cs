@@ -14,6 +14,12 @@ partial class ProxyService
     async Task<OperateProxyServiceResult> StartProxyServiceAsync()
     {
         IReadOnlyCollection<AccelerateProjectDTO>? proxyDomains = EnableProxyDomains;
+
+        if (!proxyDomains.Any_Nullable())
+        {
+            Toast.Show(ToastIcon.Warning, "你没有启用任何加速项哦！！");
+        }
+
         IReadOnlyCollection<ScriptIPCDTO>? scripts = default;
         bool isEnableScript = ProxySettings.IsEnableScript.Value;
         bool isOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;

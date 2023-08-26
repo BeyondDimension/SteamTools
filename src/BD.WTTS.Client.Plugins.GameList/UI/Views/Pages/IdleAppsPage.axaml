@@ -210,7 +210,7 @@
                                             DecodeWidth="120"
                                             FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
                                             RenderOptions.BitmapInterpolationMode="HighQuality"
-                                            Source="{Binding LibraryGridUrl}"
+                                            Source="{Binding LibraryGridStream^}"
                                             Stretch="UniformToFill" />
                                         <TextBlock
                                             Margin="8,0"

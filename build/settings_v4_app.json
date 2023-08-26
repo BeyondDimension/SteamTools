@@ -171,7 +171,7 @@
         {
           "TypeName": "string",
           "PropertyName": "WindowBackgroundCustomImagePath",
-          "DefaultValue": "\"/UI/Assets/back.png\"",
+          "DefaultValue": "\"avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png\"",
           "DefaultValueIsConst": true,
           "Summary": "自定义背景图像路径",
           "IsRegionOrEndregion": null,

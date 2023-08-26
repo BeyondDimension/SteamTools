@@ -55,8 +55,6 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
         var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
         if (sourceList.Any_Nullable())
         {
-            AuthenticatorIsEmpty = false;
-
             (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
 
             if (HasPasswordEncrypt && IsVerificationPass == false)
@@ -439,6 +437,12 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
     public async Task OpenExportWindow()
     {
+        if (!Auths.Any_Nullable())
+        {
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_RefuseOperate);
+            return;
+        }
+
         await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorExportViewModel(), AppResources.ExportAuth,
             pageContent: new AuthenticatorExportPage(), isOkButton: false);
     }

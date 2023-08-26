@@ -113,33 +113,13 @@
                             Title="{Binding DisplayName}"
                             Height="270"
                             MaxWidth="120"
-                            Classes="Vertical">
+                            Classes="Vertical"
+                            ClickCommand="{Binding $parent[spp:PageBase].((spp:EditAppsPageViewModel)DataContext).EditAppInfoClickCommand}"
+                            ClickCommandParameter="{Binding}"
+                            Cursor="Hand">
                             <spp:AppItem.Status>
                                 <Border Classes="Status">
-                                    <Panel>
-                                        <WrapPanel IsVisible="{Binding !Process, Converter={StaticResource IsNullConverter}}">
-                                            <Ellipse
-                                                Width="6"
-                                                Height="6"
-                                                Margin="0,0,5,0"
-                                                Fill="#47A42B" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                FontSize="12"
-                                                Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                        </WrapPanel>
-                                        <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}}">
-                                            <Ellipse
-                                                Width="6"
-                                                Height="6"
-                                                Margin="0,0,5,0"
-                                                Fill="#FF4F58" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                FontSize="12"
-                                                Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                        </WrapPanel>
-                                    </Panel>
+                                    <TextBlock Text="{Binding Path=Res.Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                 </Border>
                             </spp:AppItem.Status>
                             <!--<spp:AppItem.ActionButton>
@@ -147,9 +127,7 @@
                                     Command="{Binding $parent[spp:PageBase].((spp:EditAppsPageViewModel)DataContext).DeleteButtonCommand}"
                                     CommandParameter="{Binding}"
                                     Cursor="Hand"
-                                    ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn,
-                                                                    Mode=OneWay,
-                                                                    Source={x:Static s:ResourceService.Current}}">
+                                    ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                     <Viewbox>
                                         <ui:SymbolIcon Symbol="Delete" />
                                     </Viewbox>

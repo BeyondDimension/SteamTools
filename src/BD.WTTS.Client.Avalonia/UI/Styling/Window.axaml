@@ -225,7 +225,7 @@
             <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
             <Panel Name="WindowBackground" IsHitTestVisible="False">
                 <Border Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Opacity="{Binding Value, Source={x:Static ms:UISettings.WindowBackgroundOpacity}, Mode=OneWay}" />
-                <Image
+                <spp:Image2
                     IsVisible="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=OneWay}"
                     Opacity="{Binding Value, Source={x:Static ms:UISettings.WindowBackgroundCustomImageOpacity}, Mode=OneWay}"
                     RenderOptions.BitmapInterpolationMode="HighQuality"

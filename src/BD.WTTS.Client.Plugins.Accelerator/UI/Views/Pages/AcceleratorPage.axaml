@@ -163,8 +163,8 @@
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
                         </ui:MenuFlyoutSubItem>-->
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutSeparator />
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutSeparator />-->
                         <!--<ui:MenuFlyoutItem Text="安装证书" />
                         <ui:MenuFlyoutItem Text="移除证书" />
                         <ui:MenuFlyoutItem Text="打开证书文件夹" />
@@ -187,9 +187,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -202,6 +202,7 @@
             <TabStrip
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
                 CornerRadius="{StaticResource ControlCornerRadius}"
+                IsEnabled="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
                 ItemContainerTheme="{StaticResource TabItemStyle}"
                 ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}"
                 SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}"

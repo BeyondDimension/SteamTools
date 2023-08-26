@@ -7,9 +7,6 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     public override string Name => Strings.GameList;
 
     [Reactive]
-    public bool IsOpenFilter { get; set; }
-
-    [Reactive]
     public bool IsInstalledFilter { get; set; }
 
     [Reactive]

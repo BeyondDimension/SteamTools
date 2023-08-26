@@ -48,7 +48,7 @@ partial class Startup // 自定义控制台命令参数
         devtools.AddOption(new Option<bool>("-disable_gpu", () => false, "禁用 GPU 硬件加速"));
         devtools.AddOption(new Option<bool>("-use_wgl", () => false, "使用 Native OpenGL（仅 Windows）"));
         devtools.AddOption(new Option<bool>("-use_localhost", () => false, "使用本机服务端"));
-        devtools.AddOption(new Option<bool>("-steamrun", () => true, "Steam 内启动"));
+        devtools.AddOption(new Option<bool>("-steamrun", () => false, "Steam 内启动"));
         devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_wgl, bool use_localhost, bool steamrun) =>
         {
 #if DEBUG

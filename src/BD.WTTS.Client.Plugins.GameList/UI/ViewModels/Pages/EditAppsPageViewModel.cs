@@ -16,6 +16,8 @@ public sealed class EditAppsPageViewModel : ViewModelBase
 
     public bool IsSteamEditedAppsEmpty => !SteamEditedApps.Any_Nullable();
 
+    public ICommand EditAppInfoClickCommand { get; }
+
     public EditAppsPageViewModel()
     {
         SteamConnectService.Current.SteamApps
@@ -25,6 +27,8 @@ public sealed class EditAppsPageViewModel : ViewModelBase
           .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.AppId))
           .Bind(out _SteamEditedApps)
           .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamEditedAppsEmpty)));
+
+        EditAppInfoClickCommand = ReactiveCommand.Create<SteamApp>(GameListPageViewModel.EditAppInfoClick);
 
         LoadSteamEditedApps();
     }

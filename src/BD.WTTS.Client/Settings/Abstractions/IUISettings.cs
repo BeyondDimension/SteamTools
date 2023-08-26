@@ -191,7 +191,7 @@ public partial interface IUISettings
     /// <summary>
     /// 自定义背景图像路径的默认值
     /// </summary>
-    const string DefaultWindowBackgroundCustomImagePath = "/UI/Assets/back.png";
+    const string DefaultWindowBackgroundCustomImagePath = "avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png";
 
     /// <summary>
     /// 自定义背景图像不透明度的默认值
