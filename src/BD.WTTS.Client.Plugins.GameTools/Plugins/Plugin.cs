@@ -1,4 +1,5 @@
 using BD.WTTS.Properties;
+using BD.WTTS.UI.Views.Pages;
 
 namespace BD.WTTS.Plugins;
 
@@ -15,7 +16,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string UniqueEnglishName => moduleName;
 
-    public sealed override string Description => "游戏工具";
+    public sealed override string Description => "通用游戏工具";
 
     protected sealed override string? AuthorOriginalString => null;
 
@@ -25,7 +26,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     {
         yield return new MenuTabItemViewModel(this, nameof(Strings.GameRelated))
         {
-            PageType = null,
+            PageType = typeof(BorderlessGamePage),
             IsResourceGet = true,
             IconKey = Icon,
         };

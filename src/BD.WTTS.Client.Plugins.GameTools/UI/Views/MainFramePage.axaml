@@ -1,0 +1,41 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.MainFramePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Panel>
+        <TabStrip
+            Name="Tabs"
+            Margin="9"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            ItemContainerTheme="{StaticResource TabItemStyle}"
+            Theme="{StaticResource TabStripStyle}"
+            ZIndex="100">
+            <TabStrip.ItemsPanel>
+                <OnFormFactor Default="{StaticResource DefaultPanel}">
+                    <On Options="Mobile">
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </On>
+                </OnFormFactor>
+            </TabStrip.ItemsPanel>
+            <TabStripItem Content="{Binding Path=Res.Library, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <TabStripItem.Tag>
+                    <x:Type TypeName="spp:BorderlessGamePage" />
+                </TabStripItem.Tag>
+            </TabStripItem>
+        </TabStrip>
+        <ui:Frame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
+    </Panel>
+</UserControl>

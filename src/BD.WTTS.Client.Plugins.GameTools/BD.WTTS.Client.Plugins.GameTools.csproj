@@ -76,11 +76,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="UI\ViewModels\" />
-		<Folder Include="UI\Views\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="Properties\Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -95,6 +90,6 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 
-	<Import Project="..\TFM_NETX_WITH_ALL.props" />
+	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>

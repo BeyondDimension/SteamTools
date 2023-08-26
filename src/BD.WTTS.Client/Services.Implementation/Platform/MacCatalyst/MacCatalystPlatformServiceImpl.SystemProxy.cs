@@ -26,7 +26,7 @@ partial class MacCatalystPlatformServiceImpl
                     }
                     else
                     {
-                        return false;
+                        return Task.FromResult(false);
                     }
                 }
                 else
