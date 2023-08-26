@@ -1,7 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-public interface IProxyService
+public interface IProxyService : IDisposable, IAsyncDisposable
 {
     bool ProxyStatus { get; set; }
 }

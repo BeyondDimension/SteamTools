@@ -16,6 +16,22 @@ partial class WindowsPlatformServiceImpl : IDisposable
                 isLightOrDarkThemeWatch?.Dispose();
 
                 IOPath.TryDeleteCacheSubDir(CacheTempDirName);
+
+                if (IsPrivilegedProcess)
+                {
+                    IEnumerable<Task> ProxyDispose()
+                    {
+                        if (SetAsSystemProxyStatus)
+                        {
+                            yield return SetAsSystemProxyAsync(false, default, default);
+                        }
+                        if (SetAsSystemPACProxyStatus)
+                        {
+                            yield return SetAsSystemPACProxyAsync(false, default);
+                        }
+                    }
+                    Task.WaitAll(ProxyDispose().ToArray());
+                }
             }
 
             isLightOrDarkThemeWatch = null;

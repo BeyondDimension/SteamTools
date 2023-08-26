@@ -6,7 +6,7 @@ namespace BD.WTTS.Services;
 
 public sealed partial class ProxyService
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-    : ReactiveObject, IDisposable, IAsyncDisposable, IProxyService
+    : ReactiveObject, IProxyService
 #endif
 {
     static ProxyService? mCurrent;
@@ -571,8 +571,8 @@ public sealed partial class ProxyService
 
 #if WINDOWS
         {
-            platformService.SetAsSystemProxy(false);
-            platformService.SetAsSystemPACProxy(false);
+            await platformService.SetAsSystemProxyAsync(false);
+            await platformService.SetAsSystemPACProxyAsync(false);
             await reverseProxyService.StopProxyAsync();
             try
             {

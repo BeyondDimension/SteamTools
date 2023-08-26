@@ -7,17 +7,13 @@ partial class WindowsPlatformServiceImpl
 {
     const string ProxyOverride = "\"ProxyOverride\"=\"localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*\"";
 
-    /// <summary>
-    /// 设置启用或关闭系统代理
-    /// </summary>
-    /// <param name="state"></param>
-    /// <param name="ip"></param>
-    /// <param name="port"></param>
-    /// <returns></returns>
-    public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
+    internal static bool SetAsSystemProxyStatus;
+
+    public async Task<bool> SetAsSystemProxyAsync(bool state, IPAddress? ip, int port)
     {
         try
         {
+            SetAsSystemProxyStatus = state;
             var proxyEnable = $"\"ProxyEnable\"=dword:{(state ? "00000001" : "00000000")}";
             var hasIpAndProt = ip != null && port >= 0;
             var proxyServer = hasIpAndProt ? $"\"proxyServer\"=\"{ip}:{port}\"" : "";
@@ -30,8 +26,8 @@ Windows Registry Editor Version 5.00
 {(state ? $"{ProxyOverride}{Environment.NewLine}" : "")}{proxyServer}
 """;
             var path = IOPath.GetCacheFilePath(CacheTempDirName, "SwitchProxy", FileEx.Reg);
-            StartProcessRegedit(path, contents);
-            return true;
+            var r = await StartProcessRegeditAsync(path, contents, markKey: nameof(SetAsSystemProxyAsync), markValue: state.ToString());
+            return r == 200;
         }
         catch (Exception ex)
         {
@@ -40,16 +36,13 @@ Windows Registry Editor Version 5.00
         }
     }
 
-    /// <summary>
-    /// 设置启用或关闭 PAC 代理
-    /// </summary>
-    /// <param name="state"></param>
-    /// <param name="url"></param>
-    /// <returns></returns>
-    public bool SetAsSystemPACProxy(bool state, string? url = null)
+    internal static bool SetAsSystemPACProxyStatus;
+
+    public async Task<bool> SetAsSystemPACProxyAsync(bool state, string? url = null)
     {
         try
         {
+            SetAsSystemPACProxyStatus = state;
             var regAutoConfigUrl = state ? $"\"AutoConfigURL\"=\"{url}\"" : "\"AutoConfigURL\"=\"\"";
             string contents =
 $"""
@@ -59,8 +52,8 @@ Windows Registry Editor Version 5.00
 {regAutoConfigUrl}
 """;
             var path = IOPath.GetCacheFilePath(CacheTempDirName, "SwitchPacProxy", FileEx.Reg);
-            StartProcessRegedit(path, contents);
-            return true;
+            var r = await StartProcessRegeditAsync(path, contents, markKey: nameof(SetAsSystemPACProxyAsync), markValue: state.ToString());
+            return r == 200;
         }
         catch (Exception ex)
         {

@@ -146,9 +146,10 @@ partial class ProxyService
                 {
                     SetProxyIp(IPAddress.Loopback);
                 }
-                if (!platformService.SetAsSystemProxy(true,
+                var resultSetSystemProxy = await platformService.SetAsSystemProxyAsync(true,
                     proxyIp_.Value,
-                    proxyPort))
+                    proxyPort);
+                if (!resultSetSystemProxy)
                 {
                     return Strings.CommunityFix_SetAsSystemProxyFail;
                 }
@@ -160,7 +161,8 @@ partial class ProxyService
                     SetProxyIp(IPAddress.Loopback);
                 }
                 var pacUrl = $"http://{proxyIp_.Value}:{proxyPort}/pac";
-                if (!platformService.SetAsSystemPACProxy(true, pacUrl))
+                var resultSetSystemPACProxy = await platformService.SetAsSystemPACProxyAsync(true, pacUrl);
+                if (!resultSetSystemPACProxy)
                 {
                     return Strings.CommunityFix_SetAsSystemPACProxyFail;
                 }
@@ -274,10 +276,10 @@ partial class ProxyService
                 }
                 break;
             case ProxyMode.System:
-                platformService.SetAsSystemProxy(false);
+                await platformService.SetAsSystemProxyAsync(false);
                 break;
             case ProxyMode.PAC:
-                platformService.SetAsSystemPACProxy(false);
+                await platformService.SetAsSystemPACProxyAsync(false);
                 break;
         }
         StopTimer(); // 停止 UI 计时器

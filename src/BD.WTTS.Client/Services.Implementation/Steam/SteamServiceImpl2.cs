@@ -49,7 +49,7 @@ sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
         return platform.StartAsInvoker(fileName, arguments);
     }
 
-    protected sealed override void SetSteamCurrentUser(string userName)
+    protected sealed override async void SetSteamCurrentUser(string userName)
     {
 #if WINDOWS
         if (DesktopBridge.IsRunningAsUwp)
@@ -63,7 +63,7 @@ Windows Registry Editor Version 5.00
 "RememberPassword"=dword:00000001
 """;
             var path = IOPath.GetCacheFilePath(WindowsPlatformServiceImpl.CacheTempDirName, "SwitchSteamUser", FileEx.Reg);
-            WindowsPlatformServiceImpl.StartProcessRegedit(path, contents);
+            await WindowsPlatformServiceImpl.StartProcessRegeditAsync(path, contents);
             return;
         }
 #endif

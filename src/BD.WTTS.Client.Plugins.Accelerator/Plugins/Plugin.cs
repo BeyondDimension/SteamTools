@@ -122,24 +122,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override async ValueTask OnExit()
     {
-        var task1 = Task.Factory.StartNew(async () =>
-        {
-            IReverseProxyService? reverseProxyService = null;
-            try
-            {
-                reverseProxyService = Ioc.Get_Nullable<IReverseProxyService>();
-            }
-            catch
-            {
-
-            }
-            if (reverseProxyService != null)
-            {
-                await reverseProxyService.StopProxyAsync();
-            }
-        });
-        var task2 = Task.Factory.StartNew(ProxyService.OnExitRestoreHosts);
-        await Task.WhenAll(task1, task2);
+        await ProxyService.Current.ExitAsync();
     }
 
     string? subProcessPath;

@@ -4,7 +4,7 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class LinuxPlatformServiceImpl
 {
-    public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
+    public Task<bool> SetAsSystemProxyAsync(bool state, IPAddress? ip, int port)
     {
         var shellContent = new StringBuilder();
         if (state)
@@ -25,7 +25,7 @@ partial class LinuxPlatformServiceImpl
         }
         IPlatformService @this = this;
         @this.RunShell(shellContent.ToString(), false);
-        return true;
+        return Task.FromResult(true);
     }
 }
 #endif

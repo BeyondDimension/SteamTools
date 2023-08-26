@@ -27,41 +27,44 @@ partial class WindowsPlatformServiceImpl : IRegistryService
     /// <summary>
     /// 带参数(可选/null)启动 %windir%\regedit.exe 并等待退出后删除文件
     /// </summary>
-    /// <param name="path"></param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void StartProcessRegedit(
+    public static async Task<byte> StartProcessRegeditAsync(
         string path,
         string contents,
-        int millisecondsDelay = 3700)
+        int millisecondsDelay = 3700,
+        string? markKey = null,
+        string? markValue = null)
     {
         File.WriteAllText(path, contents, Encoding.UTF8);
         if (IsPrivilegedProcess)
         {
             // 管理员权限则直接执行
-            StartProcessRegeditCore(path, millisecondsDelay);
+            await StartProcessRegeditCoreAsync(path, millisecondsDelay);
+            return 200;
         }
         else
         {
             // 通过 IPC 调用管理员服务进程执行
             var ipcPlatformService = IPlatformService.IPCRoot.Instance.GetAwaiter().GetResult();
-            ipcPlatformService.StartProcessRegeditCoreIPC(path, millisecondsDelay);
+            var r = await ipcPlatformService.StartProcessRegeditCoreIPCAsync(markKey, markValue, path, millisecondsDelay);
+            return r;
         }
     }
 
-    void IRegistryService.StartProcessRegedit(
+    Task<byte> IRegistryService.StartProcessRegeditAsync(
         string path,
         string contents,
-        int millisecondsDelay) => StartProcessRegedit(path, contents, millisecondsDelay);
+        int millisecondsDelay) => StartProcessRegeditAsync(path, contents, millisecondsDelay);
 
     /// <inheritdoc cref="StartProcessRegedit(string, string, int)"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void StartProcessRegeditCore(
+    internal static async Task StartProcessRegeditCoreAsync(
         string path,
         int millisecondsDelay = 3700)
     {
         var args = $"/s \"{path}\"";
         var p = Process2.Start(Regedit, args, workingDirectory: _windir.Value);
-        IOPath.TryDeleteInDelay(p, path, millisecondsDelay, millisecondsDelay);
+        await IOPath.TryDeleteInDelayAsync(p, path, millisecondsDelay, millisecondsDelay);
     }
 
     #region Registry2

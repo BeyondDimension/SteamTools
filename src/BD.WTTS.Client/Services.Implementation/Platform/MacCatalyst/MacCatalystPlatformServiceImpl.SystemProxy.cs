@@ -4,7 +4,7 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
-    public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
+    public Task<bool> SetAsSystemProxyAsync(bool state, IPAddress? ip, int port)
     {
 #if MACOS || MACCATALYST
         IPlatformService @this = this;
@@ -37,7 +37,7 @@ partial class MacCatalystPlatformServiceImpl
             }
         }
         @this.RunShell(shellContent.ToString(), false);
-        return true;
+        return Task.FromResult(true);
 #else
         throw new PlatformNotSupportedException();
 #endif
