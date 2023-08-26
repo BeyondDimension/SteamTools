@@ -538,6 +538,8 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
     {
         if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
         var index = Auths.IndexOf(authenticatorItemModel);
+        if (index == 0)
+            return;
         if (authenticatorItemModel.AuthData.ServerId != null)
         {
             if (string.IsNullOrEmpty(_currentAnswer))
@@ -557,6 +559,8 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
     {
         if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
         var index = Auths.IndexOf(authenticatorItemModel);
+        if (index == Auths.Count)
+            return;
         if (authenticatorItemModel.AuthData.ServerId != null)
         {
             if (string.IsNullOrEmpty(_currentAnswer))
