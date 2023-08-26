@@ -169,7 +169,7 @@
                                     Width="250"
                                     Height="116"
                                     DecodeWidth="250"
-                                    Source="{Binding HeaderLogoUrl}"
+                                    Source="{Binding HeaderLogoStream^}"
                                     Stretch="UniformToFill" />
 
                                 <Border

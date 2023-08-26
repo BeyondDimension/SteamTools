@@ -2739,4 +2739,7 @@
 	<data name="User_Rememberme" xml:space="preserve">
     <value>记住登录状态</value>
   </data>
+	<data name="GameList_RunOtherAppCount_" xml:space="preserve">
+    <value>挂时长列表存在不属于当前 Steam 账号的 {0} 个游戏</value>
+  </data>
 </root>

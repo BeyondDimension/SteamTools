@@ -210,6 +210,8 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
     {
         var list = new ObservableCollection<SteamApp>();
         if (GameLibrarySettings.AFKAppList.Any_Nullable())
+        {
+            int runOtherAppCount = 0;
             foreach (var item in GameLibrarySettings.AFKAppList.Value!)
             {
                 var appInfo = SteamConnectService.Current.SteamApps.Items.FirstOrDefault(x => x.AppId == item.Key);
@@ -239,6 +241,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                 }
                 else
                 {
+                    runOtherAppCount++;
                     SteamConnectService.Current.RuningSteamApps.TryGetValue(item.Key, out var runState);
                     runState?.Process?.KillEntireProcessTree();
                     list.Add(new SteamApp
@@ -249,6 +252,11 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                 }
             }
 
+            if (runOtherAppCount > 0)
+            {
+                Toast.Show(ToastIcon.Warning, Strings.GameList_RunOtherAppCount_.Format(runOtherAppCount));
+            }
+        }
         IdleGameList = list;
         ChangeRunTxt(true);
     }

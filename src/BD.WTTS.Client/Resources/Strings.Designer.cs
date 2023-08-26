@@ -2889,6 +2889,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 挂时长列表存在不属于当前 Steam 账号的 {0} 个游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_RunOtherAppCount_ {
+            get {
+                return ResourceManager.GetString("GameList_RunOtherAppCount_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 运行中 的本地化字符串。
         /// </summary>
         public static string GameList_RunState {

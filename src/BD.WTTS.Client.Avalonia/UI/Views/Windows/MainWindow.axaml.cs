@@ -195,6 +195,7 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
              await IViewModelManager.Instance.MainWindow.Initialize();
 
              App.Instance.CompositeDisposable.Add(IViewModelManager.Instance.MainWindow);
+             App.Instance.CompositeDisposable.Add(SteamConnectService.Current);
 
              IsInitialized = true;
          }, cancellationToken: token);

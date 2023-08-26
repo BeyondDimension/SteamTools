@@ -17,7 +17,7 @@ partial class ProxyService
 
         if (!proxyDomains.Any_Nullable())
         {
-            Toast.Show(ToastIcon.Warning, "你没有启用任何加速项哦！！");
+            Toast.Show(ToastIcon.Warning, "你没有启用任何加速项！！");
         }
 
         IReadOnlyCollection<ScriptIPCDTO>? scripts = default;

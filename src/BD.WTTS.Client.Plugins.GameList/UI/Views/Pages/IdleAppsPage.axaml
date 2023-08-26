@@ -121,9 +121,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -150,7 +150,7 @@
                             <spp:AppItem.Status>
                                 <Border Classes="Status">
                                     <Panel>
-                                        <WrapPanel IsVisible="{Binding !Process, Converter={StaticResource IsNullConverter}}">
+                                        <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, Mode=OneWay}">
                                             <Ellipse
                                                 Width="6"
                                                 Height="6"
@@ -161,7 +161,7 @@
                                                 FontSize="12"
                                                 Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                         </WrapPanel>
-                                        <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}}">
+                                        <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}, Mode=OneWay}">
                                             <Ellipse
                                                 Width="6"
                                                 Height="6"

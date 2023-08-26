@@ -152,8 +152,10 @@ partial class Startup // 自定义控制台命令参数
                 RunUIApplication(AppServicesLevel.Steam);
                 await WaitConfiguredServices;
 
-                SteamConnectService.Current.Initialize(id);
-                await new TaskCompletionSource().Task;
+                if (SteamConnectService.Current.Initialize(id))
+                {
+                    await new TaskCompletionSource().Task;
+                }
             }
 
             return exitCode;
