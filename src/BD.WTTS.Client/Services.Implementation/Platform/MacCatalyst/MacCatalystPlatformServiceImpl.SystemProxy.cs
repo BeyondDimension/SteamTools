@@ -7,16 +7,16 @@ partial class MacCatalystPlatformServiceImpl
     public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
     {
 #if MACOS || MACCATALYST
-        if (ip != null)
+        IPlatformService @this = this;
+        var stringList = @this.GetMacOSNetworkSetup();
+        var shellContent = new StringBuilder();
+        foreach (var item in stringList)
         {
-            IPlatformService @this = this;
-            var stringList = @this.GetMacOSNetworkSetup();
-            var shellContent = new StringBuilder();
-            foreach (var item in stringList)
+            if (item.Trim().Length > 0)
             {
-                if (item.Trim().Length > 0)
+                if (state)
                 {
-                    if (state)
+                    if (ip != null)
                     {
                         var bindIP = ip?.ToString() == IPAddress.Any.ToString() ? IPAddress.Loopback : ip;
                         shellContent.AppendLine($"networksetup -setwebproxy '{item}' '{bindIP}' {port}");
@@ -26,15 +26,18 @@ partial class MacCatalystPlatformServiceImpl
                     }
                     else
                     {
-                        shellContent.AppendLine($"networksetup -setwebproxystate '{item}' off");
-                        shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' off");
+                        return false;
                     }
                 }
+                else
+                {
+                    shellContent.AppendLine($"networksetup -setwebproxystate '{item}' off");
+                    shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' off");
+                }
             }
-            @this.RunShell(shellContent.ToString(), false);
-            return true;
         }
-        return false;
+        @this.RunShell(shellContent.ToString(), false);
+        return true;
 #else
         throw new PlatformNotSupportedException();
 #endif
