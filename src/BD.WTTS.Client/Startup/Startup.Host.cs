@@ -129,7 +129,7 @@ partial class Startup // 配置 Host
 
         if (HasHttpClientFactory || HasHttpProxy)
         {
-            static void SetWebProxyMode(AppWebProxyMode mode)
+            void SetWebProxyMode(AppWebProxyMode mode)
             {
                 switch (mode)
                 {
@@ -138,27 +138,27 @@ partial class Startup // 配置 Host
                         break;
                     case AppWebProxyMode.Custom:
                         WebProxy webProxy;
-                        if (!string.IsNullOrEmpty(GeneralSettings.CustomWebProxyModeHost.Value) && GeneralSettings.CustomWebProxyModePort.Value != default)
+                        if (!string.IsNullOrEmpty(generalSettings.CurrentValue.CustomWebProxyModeHost) && generalSettings.CurrentValue.CustomWebProxyModePort != default)
                         {
-                            webProxy = new(GeneralSettings.CustomWebProxyModeHost.Value, GeneralSettings.CustomWebProxyModePort.Value)
+                            webProxy = new(generalSettings.CurrentValue.CustomWebProxyModeHost, generalSettings.CurrentValue.CustomWebProxyModePort)
                             {
-                                BypassProxyOnLocal = GeneralSettings.CustomWebProxyModeBypassOnLocal.Value,
+                                BypassProxyOnLocal = generalSettings.CurrentValue.CustomWebProxyModeBypassOnLocal,
                             };
                         }
-                        else if (!string.IsNullOrEmpty(GeneralSettings.CustomWebProxyModeAddress.Value))
+                        else if (!string.IsNullOrEmpty(generalSettings.CurrentValue.CustomWebProxyModeAddress))
                         {
-                            webProxy = new(GeneralSettings.CustomWebProxyModeAddress.Value, GeneralSettings.CustomWebProxyModeBypassOnLocal.Value);
+                            webProxy = new(generalSettings.CurrentValue.CustomWebProxyModeAddress, generalSettings.CurrentValue.CustomWebProxyModeBypassOnLocal);
                         }
                         else
                         {
                             SetWebProxyMode(AppWebProxyMode.FollowSystem);
                             return;
                         }
-                        if (!string.IsNullOrEmpty(GeneralSettings.CustomWebProxyModeCredentialUserName.Value))
+                        if (!string.IsNullOrEmpty(generalSettings.CurrentValue.CustomWebProxyModeCredentialUserName))
                         {
-                            NetworkCredential credential = new(GeneralSettings.CustomWebProxyModeCredentialUserName.Value,
-                                GeneralSettings.CustomWebProxyModeCredentialPassword.Value ?? "",
-                                GeneralSettings.CustomWebProxyModeCredentialDomain.Value ?? "");
+                            NetworkCredential credential = new(generalSettings.CurrentValue.CustomWebProxyModeCredentialUserName,
+                                generalSettings.CurrentValue.CustomWebProxyModeCredentialPassword ?? "",
+                                generalSettings.CurrentValue.CustomWebProxyModeCredentialDomain ?? "");
                             webProxy.Credentials = credential;
                         }
                         HttpClient.DefaultProxy = webProxy;
@@ -172,7 +172,8 @@ partial class Startup // 配置 Host
                         break;
                 }
             }
-            SetWebProxyMode(GeneralSettings.WebProxyMode.Value);
+            if (generalSettings != null)
+                SetWebProxyMode(generalSettings.CurrentValue.WebProxyMode);
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("DynamicHttpWindowsProxy");
 #endif
