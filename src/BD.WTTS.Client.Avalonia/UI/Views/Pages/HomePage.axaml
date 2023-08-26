@@ -267,7 +267,7 @@
                             Theme="{StaticResource HyperlinkButton}" />
                     </DockPanel>
 
-                    <ScrollViewer
+                    <ScrollViewer Name="ShopsScrollViewer"
                         Margin="0,3,0,20"
                         Padding="0,0,0,15"
                         HorizontalScrollBarVisibility="Auto"
@@ -334,7 +334,7 @@
                         </ItemsControl>
                     </ScrollViewer>
 
-                    <TextBlock Text="联系我们" Theme="{StaticResource TitleTextBlockStyle}" />
+                    <!--<TextBlock Text="联系我们" Theme="{StaticResource TitleTextBlockStyle}" />
 
                     <Grid Margin="0,0,0,20" ColumnDefinitions="*,10,*,10,*,10,*,10,*">
                         <spp:AppItem
@@ -387,7 +387,7 @@
                                 </Border>
                             </spp:AppItem.Image>
                         </spp:AppItem>
-                    </Grid>
+                    </Grid>-->
 
                 </StackPanel>
 

@@ -92,7 +92,8 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         string? okButtonText = null,
         string? retryButtonText = null,
         string? moreInfoText = null,
-        Func<bool>? cancelCloseAction = null)
+        Func<bool>? cancelCloseAction = null,
+        bool disableScroll = false)
         where TPageViewModel : ViewModelBase
     {
         var td = new TaskDialogEx
@@ -142,6 +143,10 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         if (isCancelButton)
         {
             td.Buttons.Add(new TaskDialogButton(Strings.Cancel, TaskDialogStandardResult.Cancel));
+        }
+        if (disableScroll)
+        {
+            td.Classes.Add("disableScroll");
         }
         //td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
 

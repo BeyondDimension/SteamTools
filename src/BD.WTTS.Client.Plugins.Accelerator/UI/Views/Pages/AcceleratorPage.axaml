@@ -17,6 +17,7 @@
     x:DataType="spp:AcceleratorPageViewModel"
     Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
     OpenPaneLength="335"
+    ScrollViewer.VerticalScrollBarVisibility="Disabled"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
@@ -322,80 +323,84 @@
         </StackPanel>
     </spp:PageBase.PaneContent>
     <Grid ColumnDefinitions="*,Auto">
-        <Carousel
-            Name="AcceleratorCarousel"
-            Classes="AnimeSlide"
-            SelectedIndex="0">
-            <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior
-                    Binding="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
-                    ComparisonCondition="Equal"
-                    Value="True">
-                    <ia:ChangePropertyAction
-                        PropertyName="SelectedIndex"
-                        TargetObject="{Binding #AcceleratorCarousel}"
-                        Value="0" />
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior
-                    Binding="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
-                    ComparisonCondition="Equal"
-                    Value="False">
-                    <ia:ChangePropertyAction
-                        PropertyName="SelectedIndex"
-                        TargetObject="{Binding #AcceleratorCarousel}"
-                        Value="1" />
-                </ia:DataTriggerBehavior>
-            </i:Interaction.Behaviors>
+        <ScrollViewer
+            Padding="0,0,10,0"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <Carousel
+                Name="AcceleratorCarousel"
+                Classes="AnimeSlide"
+                SelectedIndex="0">
+                <i:Interaction.Behaviors>
+                    <ia:DataTriggerBehavior
+                        Binding="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
+                        ComparisonCondition="Equal"
+                        Value="True">
+                        <ia:ChangePropertyAction
+                            PropertyName="SelectedIndex"
+                            TargetObject="{Binding #AcceleratorCarousel}"
+                            Value="0" />
+                    </ia:DataTriggerBehavior>
+                    <ia:DataTriggerBehavior
+                        Binding="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
+                        ComparisonCondition="Equal"
+                        Value="False">
+                        <ia:ChangePropertyAction
+                            PropertyName="SelectedIndex"
+                            TargetObject="{Binding #AcceleratorCarousel}"
+                            Value="1" />
+                    </ia:DataTriggerBehavior>
+                </i:Interaction.Behaviors>
 
-            <spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{Binding Path=Res.CommunityFix_ItemsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <Grid ColumnDefinitions="*,Auto">
-                    <ItemsControl ItemsSource="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
+                <spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{Binding Path=Res.CommunityFix_ItemsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <ItemsControl ItemsSource="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="spp:AccelerateProjectGroupDTO">
-                                <Border>
-                                    <!--<ui:SettingsExpander ItemsSource="{Binding Items}">-->
-                                    <ui:SettingsExpander IsClickEnabled="False">
-                                        <ui:SettingsExpander.Header>
-                                            <StackPanel Orientation="Horizontal" Spacing="10">
-                                                <CheckBox IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}" />
-                                                <spp:Image2
-                                                    Width="30"
-                                                    Height="30"
-                                                    VerticalAlignment="Center"
-                                                    RenderOptions.BitmapInterpolationMode="HighQuality"
-                                                    Source="{Binding IconUrl}"
-                                                    Stretch="UniformToFill" />
-                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-                                            </StackPanel>
-                                        </ui:SettingsExpander.Header>
-                                        <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
-                                            <TreeView ItemsSource="{Binding ObservableItems}" SelectionMode="Single">
-                                                <TreeView.ItemTemplate>
-                                                    <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding ObservableItems}">
-                                                        <DockPanel Margin="8,0">
-                                                            <CheckBox
-                                                                HorizontalAlignment="Left"
-                                                                DockPanel.Dock="Left"
-                                                                IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}">
-                                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-                                                            </CheckBox>
-                                                            <TextBlock
-                                                                HorizontalAlignment="Right"
-                                                                VerticalAlignment="Center"
-                                                                DockPanel.Dock="Right"
-                                                                Text="{Binding DomainNamesArray[0]}" />
-                                                        </DockPanel>
-                                                    </TreeDataTemplate>
-                                                </TreeView.ItemTemplate>
-                                            </TreeView>
-                                        </ui:SettingsExpanderItem>
-                                        <!--<ui:SettingsExpander.ItemTemplate>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="spp:AccelerateProjectGroupDTO">
+                                    <Border>
+                                        <!--<ui:SettingsExpander ItemsSource="{Binding Items}">-->
+                                        <ui:SettingsExpander IsClickEnabled="False">
+                                            <ui:SettingsExpander.Header>
+                                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                                    <CheckBox IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}" />
+                                                    <spp:Image2
+                                                        Width="30"
+                                                        Height="30"
+                                                        VerticalAlignment="Center"
+                                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                                        Source="{Binding IconUrl}"
+                                                        Stretch="UniformToFill" />
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                </StackPanel>
+                                            </ui:SettingsExpander.Header>
+                                            <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+                                                <TreeView ItemsSource="{Binding ObservableItems}" SelectionMode="Single">
+                                                    <TreeView.ItemTemplate>
+                                                        <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding ObservableItems}">
+                                                            <DockPanel Margin="8,0">
+                                                                <CheckBox
+                                                                    HorizontalAlignment="Left"
+                                                                    DockPanel.Dock="Left"
+                                                                    IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}">
+                                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                                </CheckBox>
+                                                                <TextBlock
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Center"
+                                                                    DockPanel.Dock="Right"
+                                                                    Text="{Binding DomainNamesArray[0]}" />
+                                                            </DockPanel>
+                                                        </TreeDataTemplate>
+                                                    </TreeView.ItemTemplate>
+                                                </TreeView>
+                                            </ui:SettingsExpanderItem>
+                                            <!--<ui:SettingsExpander.ItemTemplate>
                                         <DataTemplate DataType="spp:AccelerateProjectDTO">
                                             <ui:SettingsExpanderItem IsClickEnabled="True">
                                                 <ui:SettingsExpanderItem.Content>
@@ -410,35 +415,35 @@
                                             </ui:SettingsExpanderItem>
                                         </DataTemplate>
                                     </ui:SettingsExpander.ItemTemplate>-->
-                                    </ui:SettingsExpander>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
+                                        </ui:SettingsExpander>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
 
-                    </ItemsControl>
-                </Grid>
-            </spp:ContentLoader>
+                        </ItemsControl>
+                    </Grid>
+                </spp:ContentLoader>
 
-            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*,Auto">
-                <TabStrip
-                    x:Name="Tabs"
-                    ItemContainerTheme="{StaticResource TabItemStyle}"
-                    Theme="{StaticResource TabStripStyle}">
-                    <TabStripItem Content="{Binding Path=Res.CommunityFix_FlowStatistics, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                    <TabStripItem Content="{Binding Path=Res.CommunityFix_Services, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                </TabStrip>
-                <StackPanel
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Spacing="8">
-                    <StackPanel.Styles>
-                        <Style Selector="TextBlock">
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                        </Style>
-                    </StackPanel.Styles>
-                    <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*,Auto">
+                    <TabStrip
+                        x:Name="Tabs"
+                        ItemContainerTheme="{StaticResource TabItemStyle}"
+                        Theme="{StaticResource TabStripStyle}">
+                        <TabStripItem Content="{Binding Path=Res.CommunityFix_FlowStatistics, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TabStripItem Content="{Binding Path=Res.CommunityFix_Services, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    </TabStrip>
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Spacing="8">
+                        <StackPanel.Styles>
+                            <Style Selector="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </StackPanel.Styles>
+                        <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <TextBlock FontSize="26" Text="{Binding Path=Res.CommunityFix_AlreadyProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBlock
                             Margin="5,0,0,0"
@@ -447,97 +452,97 @@
                                                      Source={x:Static s:ProxyService.Current},
                                                      StringFormat={}{0:hh\\:mm\\:ss}}" />
                     </StackPanel>-->
-                    <TextBlock>
-                        <Run Text="{Binding Path=Res.CommunityFix_ProxyMode, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <Run Text="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
+                        <TextBlock>
+                            <Run Text="{Binding Path=Res.CommunityFix_ProxyMode, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <Run Text="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
 
-                        <Run Text="  " />
+                            <Run Text="  " />
 
-                        <Run Text="{Binding Path=Res.CommunityFix_EnableScriptService, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <Run Text="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
-                    </TextBlock>
-                </StackPanel>
+                            <Run Text="{Binding Path=Res.CommunityFix_EnableScriptService, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <Run Text="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
+                        </TextBlock>
+                    </StackPanel>
 
-                <Carousel
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    Classes="AnimeSlide"
-                    SelectedIndex="{Binding #Tabs.SelectedIndex}">
+                    <Carousel
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Classes="AnimeSlide"
+                        SelectedIndex="{Binding #Tabs.SelectedIndex}">
 
-                    <spp:ProxyChartView Margin="5,0" />
+                        <spp:ProxyChartView Margin="5,0" />
 
-                    <Grid ColumnDefinitions="*,20,*">
-                        <Border
-                            Grid.Column="0"
-                            Padding="10"
-                            Classes="paper">
-                            <DockPanel>
-                                <TextBlock
-                                    Margin="0,0,0,10"
-                                    DockPanel.Dock="Top"
-                                    FontSize="16"
-                                    Text="{Binding Path=Res.CommunityFix_AccelerationsEnable, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                <ScrollViewer>
-                                    <ItemsControl ItemsSource="{Binding EnableProxyDomains, Source={x:Static s:ProxyService.Current}}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type spp:AccelerateProjectDTO}">
-                                                <StackPanel Margin="10">
-                                                    <DockPanel>
-                                                        <TextBlock Text="{Binding Name}" />
-                                                    </DockPanel>
-                                                    <Separator Classes="Separator" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </ScrollViewer>
-                            </DockPanel>
-                        </Border>
+                        <Grid ColumnDefinitions="*,20,*">
+                            <Border
+                                Grid.Column="0"
+                                Padding="10"
+                                Classes="paper">
+                                <DockPanel>
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        DockPanel.Dock="Top"
+                                        FontSize="16"
+                                        Text="{Binding Path=Res.CommunityFix_AccelerationsEnable, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <ScrollViewer>
+                                        <ItemsControl ItemsSource="{Binding EnableProxyDomains, Source={x:Static s:ProxyService.Current}}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type spp:AccelerateProjectDTO}">
+                                                    <StackPanel Margin="10">
+                                                        <DockPanel>
+                                                            <TextBlock Text="{Binding Name}" />
+                                                        </DockPanel>
+                                                        <Separator Classes="Separator" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </DockPanel>
+                            </Border>
 
-                        <Border
-                            Grid.Column="2"
-                            Padding="10"
-                            Classes="paper">
-                            <DockPanel>
-                                <TextBlock
-                                    Margin="0,0,0,10"
-                                    DockPanel.Dock="Top"
-                                    FontSize="16"
-                                    Text="{Binding Path=Res.CommunityFix_ScriptsEnable, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                <ScrollViewer>
-                                    <ItemsControl ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type spp:ScriptDTO}">
-                                                <StackPanel Margin="10">
-                                                    <DockPanel>
-                                                        <TextBlock Text="{Binding Name}" />
-                                                    </DockPanel>
-                                                    <Separator Classes="Separator" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </ScrollViewer>
-                            </DockPanel>
-                        </Border>
-                    </Grid>
+                            <Border
+                                Grid.Column="2"
+                                Padding="10"
+                                Classes="paper">
+                                <DockPanel>
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        DockPanel.Dock="Top"
+                                        FontSize="16"
+                                        Text="{Binding Path=Res.CommunityFix_ScriptsEnable, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <ScrollViewer>
+                                        <ItemsControl ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type spp:ScriptDTO}">
+                                                    <StackPanel Margin="10">
+                                                        <DockPanel>
+                                                            <TextBlock Text="{Binding Name}" />
+                                                        </DockPanel>
+                                                        <Separator Classes="Separator" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </DockPanel>
+                            </Border>
+                        </Grid>
 
 
-                    <!--<TabItem Header="加速日志">
+                        <!--<TabItem Header="加速日志">
 
 					    </TabItem>-->
-                    <!--<TabItem Header="AD">
+                        <!--<TabItem Header="AD">
 					
 						</TabItem>-->
-                </Carousel>
-            </Grid>
-        </Carousel>
+                    </Carousel>
+                </Grid>
+            </Carousel>
+        </ScrollViewer>
 
         <spp:AdControl
             Grid.Column="1"
             Width="165"
             MaxHeight="390"
-            Margin="10,0,0,0"
             VerticalAlignment="Top"
             DockPanel.Dock="Right"
             Standard="Vertical" />

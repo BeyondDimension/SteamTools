@@ -250,7 +250,7 @@
                         ItemsJustification="Start"
                         ItemsStretch="Uniform"
                         MinColumnSpacing="10"
-                        MinItemHeight="150"
+                        MinItemWidth="362"
                         MinRowSpacing="10" />
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>

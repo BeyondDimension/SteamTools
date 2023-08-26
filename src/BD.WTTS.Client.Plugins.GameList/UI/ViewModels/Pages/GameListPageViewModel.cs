@@ -196,7 +196,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         if (app == null) return;
         var vm = new EditAppInfoPageViewModel(ref app);
         var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.GameList_EditAppInfo,
-            pageContent: new EditAppInfoPage(), okButtonText: Strings.Save, isCancelButton: true);
+            pageContent: new EditAppInfoPage(), okButtonText: Strings.Save, isCancelButton: true, disableScroll: true);
 
         if (result)
         {

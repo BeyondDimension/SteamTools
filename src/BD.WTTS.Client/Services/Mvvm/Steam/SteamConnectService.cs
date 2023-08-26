@@ -312,10 +312,10 @@ public sealed class SteamConnectService
                                     InitializeDownloadGameList();
                                 }
 
-                                //if (!SteamUsers.Lookup(id).HasValue)
-                                //{
-                                //    RefreshSteamUsers();
-                                //}
+                                if (!SteamUsers.Lookup(id).HasValue)
+                                {
+                                    _ = RefreshSteamUsers();
+                                }
 
                                 //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                 //await mainViewModel.SteamAppPage.Initialize();
@@ -489,7 +489,7 @@ public sealed class SteamConnectService
         }
     }
 
-    public async void RefreshSteamUsers()
+    public async Task RefreshSteamUsers()
     {
         var list = stmService.GetRememberUserList();
 

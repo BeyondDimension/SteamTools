@@ -34,7 +34,8 @@ public interface IWindowManager
         string? okButtonText = null,
         string? retryButtonText = null,
         string? moreInfoText = null,
-        Func<bool>? cancelCloseAction = null)
+        Func<bool>? cancelCloseAction = null,
+        bool disableScroll = false)
         where TPageViewModel : ViewModelBase;
 
     /// <summary>

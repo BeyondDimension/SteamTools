@@ -1,7 +1,10 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.ReactiveUI;
+using Avalonia.VisualTree;
 using BD.SteamClient.Enums.SteamGridDB;
 using BD.SteamClient.Models.SteamGridDB;
+using BD.WTTS.UI.Views.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -22,6 +25,12 @@ public partial class EditAppInfoPage : ReactiveUserControl<EditAppInfoPageViewMo
             ViewModel.SelectGrid = null;
             ViewModel.ApplyCustomImageToApp(gridItemType);
         }
+    }
+
+    public void HideGridDialog_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        SteamGridDBContent.IsVisible = false;
+        MediaContent.IsVisible = true;
     }
 
     public void ShowGridDialog_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

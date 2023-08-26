@@ -1512,7 +1512,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 选择文件 的本地化字符串。
+        ///   查找类似 选择或拖拽文件到此 的本地化字符串。
         /// </summary>
         public static string CustomFilePicker_Tip {
             get {
