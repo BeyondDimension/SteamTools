@@ -108,17 +108,13 @@
 
                 <!--  绑定手机  -->
                 <Panel>
-                    <!--<spp:Snackbar
-                        Title="{Binding Path=Res.Notice_Tray_Title,
-                                                  Mode=OneWay,
-                                                  Source={x:Static s:ResourceService.Current}}"
+                    <spp:Snackbar
+                        Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                         VerticalAlignment="Top"
                         IsClosable="False"
                         IsOpen="True"
-                        Message="{Binding Path=Res.Steam_EmailConfirmation,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}"
-                        Severity="Warning" />-->
+                        Message="{Binding Path=Res.Warning_SteamAuthPhoneBind, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                        Severity="Warning" />
                     <StackPanel
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"

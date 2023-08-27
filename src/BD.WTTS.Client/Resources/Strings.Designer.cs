@@ -7829,6 +7829,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 目前导入时绑定手机会有收不到验证码的问题，建议先去账号中心绑定手机号之后再进行导入 的本地化字符串。
+        /// </summary>
+        public static string Warning_SteamAuthPhoneBind {
+            get {
+                return ResourceManager.GetString("Warning_SteamAuthPhoneBind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 UUID 及 SteamGuard 不可为空 的本地化字符串。
         /// </summary>
         public static string Warning_SteamGuardNotEmpty {

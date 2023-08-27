@@ -2160,6 +2160,9 @@
   <data name="Warning_NotAuthProvided" xml:space="preserve">
     <value>请先设置令牌自定义密码</value>
   </data>
+  <data name="Warning_SteamAuthPhoneBind" xml:space="preserve">
+    <value>目前导入时绑定手机会有收不到验证码的问题，建议先去账号中心绑定手机号之后再进行导入</value>
+  </data>
   <data name="Warning_OnlySupportSteamAuth" xml:space="preserve">
     <value>解绑功能目前仅支持 Steam 令牌</value>
   </data>
