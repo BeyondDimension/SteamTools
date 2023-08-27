@@ -9,8 +9,14 @@ partial class Startup // OnStartup
 
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ShowSettingsModifiedRestartThisSoft()
     {
+        if (Ioc.Get_Nullable<IToastIntercept>() is StartupToastIntercept intercept
+            && !intercept.IsStartuped)
+        {
+            return;
+        }
         Toast.Show(ToastIcon.Info, Strings.SettingsModifiedRestartThisSoft);
     }
 

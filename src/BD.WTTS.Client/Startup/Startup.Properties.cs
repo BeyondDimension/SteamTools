@@ -190,5 +190,8 @@ partial class Startup // Properties
     /// <summary>
     /// 自定义本机库加载路径
     /// </summary>
-    internal static string? NativeLibraryPath { get; set; }
+    public static string? NativeLibraryPath { get; }
+#if WINDOWS || LINUX
+        = GlobalDllImportResolver.GetLibraryPath(null);
+#endif
 }

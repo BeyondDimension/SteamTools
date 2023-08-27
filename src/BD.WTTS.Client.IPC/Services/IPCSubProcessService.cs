@@ -120,7 +120,6 @@ public interface IPCSubProcessService : IDisposable
                         }
                         var libraryFileName = GetLibraryFileName(libraryName);
                         var libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
-                        Log.Error("NativeLibrary", $"libraryName: {libraryName}, assembly: {assembly}, searchPath:{searchPath}, libraryFileName: {libraryFileName}, libraryPath:{libraryPath}");
                         if (File.Exists(libraryPath) &&
                             NativeLibrary.TryLoad(libraryPath, out var handle))
                         {

@@ -156,11 +156,11 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         // 构建要执行的 shell 命令
         var shellStr =
             $"if [ -x \"{fileName}\" ]; then echo \"文件具有执行权限。\"; else chmod +x \"{fileName}\"; echo \"文件没有执行权限。\"; fi";
-        //Linux 启动子模块前需要判断是否有 Exec 执行权限 
+        // Linux 启动子模块前需要判断是否有 Exec 执行权限 
         Process.Start(Process2.BinBash, new string[]
         {
             "-c",
-            shellStr
+            shellStr,
         }).WaitForExit();
 
 #endif
@@ -176,8 +176,13 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         psi.ArgumentList.Add(mSubProcessArgumentIndex2Model.Value);
         configure?.Invoke(psi);
         DotNetRuntimeHelper.AddEnvironment(psi);
-        if (!string.IsNullOrWhiteSpace(Startup.NativeLibraryPath))
-            psi.Environment.TryAdd(IPCSubProcessService.EnvKey_NativeLibraryPath, Startup.NativeLibraryPath);
+        var nativeLibraryPath = Startup.NativeLibraryPath;
+        if (!string.IsNullOrWhiteSpace(nativeLibraryPath))
+        {
+            psi.Environment.TryAdd(
+                IPCSubProcessService.EnvKey_NativeLibraryPath,
+                nativeLibraryPath);
+        }
         if (isAdministrator
 #if WINDOWS
             && !WindowsPlatformServiceImpl.IsPrivilegedProcess

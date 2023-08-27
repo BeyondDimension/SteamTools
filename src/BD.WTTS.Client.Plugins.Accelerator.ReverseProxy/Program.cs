@@ -23,7 +23,7 @@ static void SetConsoleTitle(string title)
 [MethodImpl(MethodImplOptions.AggressiveInlining)]
 static bool IsProcessElevated_DEBUG_Only()
 {
-    if (!OperatingSystem2.IsWindows())
+    if (!OperatingSystem.IsWindows())
     {
         return false;
     }
