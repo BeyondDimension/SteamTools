@@ -216,7 +216,6 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
     public async Task<(bool isSuccess, bool isUpdate)> InsertOrUpdateAsync(IAuthenticatorDTO item, bool isLocal,
         string? secondaryPassword = null)
     {
-        var isUpdate = item.Id != default;
 
         var entity = await ConvertAsync(item, isLocal, secondaryPassword);
 
@@ -224,7 +223,7 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
 
         item.Id = entity.Id;
 
-        return (r.rowCount > 0, isUpdate);
+        return (r.rowCount > 0, r.result == DbRowExecResult.Update);
     }
 
     public async Task DeleteAsync(ushort id) => await base.DeleteAsync(id);
