@@ -6,12 +6,12 @@ public interface IWindowViewModel : IPageViewModel
     /// <summary>
     /// 关闭当前 ViewModel 绑定的窗口
     /// </summary>
-    Action? Close { get; set; }
+    Action Close { get; set; }
 
     /// <summary>
     /// 显示当前 ViewModel 绑定的窗口
     /// </summary>
-    Action? Show { get; set; }
+    Action Show { get; set; }
 
     abstract void OnClosing(object? sender, CancelEventArgs e);
 }

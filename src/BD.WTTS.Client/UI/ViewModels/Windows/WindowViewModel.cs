@@ -18,12 +18,12 @@ public partial class WindowViewModel : PageViewModel, IWindowViewModel
     /// <summary>
     /// 关闭当前 ViewModel 绑定的窗口
     /// </summary>
-    public virtual Action? Close { get; set; }
+    public virtual Action Close { get; set; }
 
     /// <summary>
     /// 显示当前 ViewModel 绑定的窗口
     /// </summary>
-    public virtual Action? Show { get; set; }
+    public virtual Action Show { get; set; }
 
     /// <summary>
     /// 隐藏当前 ViewModel 绑定的窗口

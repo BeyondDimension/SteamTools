@@ -10,6 +10,8 @@ public partial class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUI
     {
         Title = DisplayName;
 
+        Close = INavigationService.Instance.GoBack;
+
         ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel_ =>
         {
             if (Enum.TryParse<ExternalLoginChannel>(channel_, out var channel))

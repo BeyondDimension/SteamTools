@@ -45,10 +45,16 @@ public sealed class UserService : ReactiveObject
     {
         var cUser = await userManager.GetCurrentUserAsync();
         if (cUser.HasValue()) return;
-        var vm = new LoginOrRegisterWindowViewModel();
-        await windowManager.ShowTaskDialogAsync(vm, vm.Title, isOkButton: false);
 
-        //INavigationService.Instance.Navigate(typeof(LoginOrRegisterWindowViewModel), NavigationTransitionEffect.DrillIn);
+        if (Random2.Next(2) == 1)
+        {
+            var vm = new LoginOrRegisterWindowViewModel();
+            await windowManager.ShowTaskDialogAsync(vm, vm.Title, isOkButton: false);
+        }
+        else
+        {
+            INavigationService.Instance.Navigate(typeof(LoginOrRegisterWindowViewModel), NavigationTransitionEffect.DrillIn);
+        }
     }
 
     public void NavigateUserCenterPage()

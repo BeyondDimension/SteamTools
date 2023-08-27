@@ -5,7 +5,6 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
     public LoginOrRegisterPage()
     {
         InitializeComponent();
-        this.SetViewModel<LoginOrRegisterWindowViewModel>();
 
         TbPhoneNumber.KeyUp += (_, e) =>
         {
@@ -30,6 +29,12 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
                 }
             }
         };
+    }
+
+    protected override void OnLoaded(RoutedEventArgs e)
+    {
+        base.OnLoaded(e);
+        this.SetViewModel<LoginOrRegisterWindowViewModel>();
     }
 
     protected override void OnDataContextChanged(EventArgs e)
