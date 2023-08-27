@@ -23,11 +23,15 @@ public sealed class HomePageViewModel : TabItemViewModel
     [Reactive]
     public ObservableCollection<ShopRecommendGoodItem> Shops { get; set; }
 
+    public ICommand NavgationToMenuPageCommand { get; }
+
     public HomePageViewModel()
     {
         Articles = new ObservableCollection<ArticleItemDTO>();
         NavigationBanners = new ObservableCollection<AdvertisementDTO>();
         Shops = new ObservableCollection<ShopRecommendGoodItem>();
+
+        NavgationToMenuPageCommand = ReactiveCommand.Create<TabItemViewModel>(NavgationToMenuPage);
 
         GetServerContent();
     }
@@ -54,5 +58,11 @@ public sealed class HomePageViewModel : TabItemViewModel
             NavigationBanners.Clear();
             NavigationBanners.Add(result3.Content);
         }
+    }
+
+    public void NavgationToMenuPage(TabItemViewModel tabItem)
+    {
+        if (tabItem.PageType != null)
+            INavigationService.Instance.Navigate(tabItem.PageType, NavigationTransitionEffect.FromBottom);
     }
 }

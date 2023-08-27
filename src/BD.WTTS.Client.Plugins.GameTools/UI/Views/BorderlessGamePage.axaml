@@ -18,7 +18,7 @@
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/toolbox.ico" />
+        <ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">

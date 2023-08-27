@@ -100,33 +100,35 @@
             </ControlTheme>
         </ScrollViewer.Resources>
         <WrapPanel>
-            <Button
-                Click="GameToolsPage_Click"
-                IsEnabled="{spp:OnPlatform Windows}"
-                Theme="{StaticResource NavButtonStyle}">
-                <Button.Tag>
-                    <x:Type TypeName="spp:BorderlessGamePage" />
-                </Button.Tag>
-                <Grid RowDefinitions="3*,*">
-                    <Border
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        CornerRadius="4 4 0 0"
-                        RenderOptions.BitmapInterpolationMode="HighQuality">
-                        <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" Stretch="Uniform" />
-                    </Border>
-                    <StackPanel
-                        Grid.Row="1"
-                        Margin="12"
-                        Spacing="5">
-                        <TextBlock FontWeight="SemiBold" Text="游戏无边框窗口化" />
-                        <TextBlock
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="仅 Windows 可用"
-                            Theme="{StaticResource CaptionTextBlockStyle}" />
-                    </StackPanel>
-                </Grid>
-            </Button>
+            <Border spp:Animations.EnableAnimations="True">
+                <Button
+                    Click="GameToolsPage_Click"
+                    IsEnabled="{spp:OnPlatform Windows}"
+                    Theme="{StaticResource NavButtonStyle}">
+                    <Button.Tag>
+                        <x:Type TypeName="spp:BorderlessGamePage" />
+                    </Button.Tag>
+                    <Grid RowDefinitions="3*,*">
+                        <Border
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            CornerRadius="4 4 0 0"
+                            RenderOptions.BitmapInterpolationMode="HighQuality">
+                            <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" Stretch="Uniform" />
+                        </Border>
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="12"
+                            Spacing="5">
+                            <TextBlock FontWeight="SemiBold" Text="游戏无边框窗口化" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="仅 Windows 可用"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Button>
+            </Border>
         </WrapPanel>
     </ScrollViewer>
 </spp:PageBase>
