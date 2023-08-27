@@ -330,8 +330,8 @@
             <Carousel
                 Name="AcceleratorCarousel"
                 Classes="AnimeSlide"
-                SelectedIndex="0">
-                <i:Interaction.Behaviors>
+                SelectedIndex="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}">
+                <!--<i:Interaction.Behaviors>
                     <ia:DataTriggerBehavior
                         Binding="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
                         ComparisonCondition="Equal"
@@ -350,7 +350,7 @@
                             TargetObject="{Binding #AcceleratorCarousel}"
                             Value="1" />
                     </ia:DataTriggerBehavior>
-                </i:Interaction.Behaviors>
+                </i:Interaction.Behaviors>-->
 
                 <spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{Binding Path=Res.CommunityFix_ItemsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Grid ColumnDefinitions="*,Auto">
