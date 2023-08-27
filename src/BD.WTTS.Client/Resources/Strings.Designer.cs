@@ -3178,7 +3178,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 输入您的令牌 Key 或二维码图片 url 链接 的本地化字符串。
+        ///   查找类似 输入网站提示的令牌导入二维码识别后的 Key 值 的本地化字符串。
         /// </summary>
         public static string GeneralAuth_EnterkeyOrLink {
             get {

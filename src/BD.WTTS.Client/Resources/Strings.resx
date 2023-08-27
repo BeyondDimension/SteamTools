@@ -1924,7 +1924,7 @@
     <value>生成 Code</value>
   </data>
   <data name="GeneralAuth_EnterkeyOrLink" xml:space="preserve">
-    <value>输入您的令牌 Key 或二维码图片 url 链接</value>
+    <value>输入网站提示的令牌导入二维码识别后的 Key 值</value>
   </data>
   <data name="GeneralAuth_ImportText" xml:space="preserve">
     <value>导入文本</value>

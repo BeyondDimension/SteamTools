@@ -369,56 +369,56 @@ public static class AuthenticatorHelper
     //TODO: 待完善
     public static async Task<string?> DecodePrivateKey(string secretCode)
     {
-        if (AuthenticatorRegexHelper.SecretCodeHttpRegex().Match(secretCode) is { Success: true })
-        {
-            //url图片二维码解码
-            var handler = new HttpClientHandler
-            {
-                AllowAutoRedirect = true,
-                MaxAutomaticRedirections = 1000,
-            };
-            using var httpClient = new HttpClient(handler);
-            httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Default);
-            httpClient.Timeout = new TimeSpan(0, 0, 20);
-            try
-            {
-                var response = await httpClient.GetAsync(secretCode);
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    //response.Content.Headers.ContentType.;
+        //if (AuthenticatorRegexHelper.SecretCodeHttpRegex().Match(secretCode) is { Success: true })
+        //{
+        //    ////url图片二维码解码
+        //    //var handler = new HttpClientHandler
+        //    //{
+        //    //    AllowAutoRedirect = true,
+        //    //    MaxAutomaticRedirections = 1000,
+        //    //};
+        //    //using var httpClient = new HttpClient(handler);
+        //    //httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Default);
+        //    //httpClient.Timeout = new TimeSpan(0, 0, 20);
+        //    //try
+        //    //{
+        //    //    var response = await httpClient.GetAsync(secretCode);
+        //    //    if (response.StatusCode == HttpStatusCode.OK)
+        //    //    {
+        //    //        response.Content.Headers.ContentType.;
 
-                    //using (var bitmap = System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
-                    //{
-                    //    //二维码解析
-                    //    //IBarcodeReader reader = new BarcodeReader();
-                    //    //var result = reader.Decode(bitmap);
-                    //    //if (result != null)
-                    //    //{
-                    //    //    privatekey = HttpUtility.UrlDecode(result.Text);
-                    //    //}
-                    //}
-                }
+        //    //        using (var bitmap = System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
+        //    //        {
+        //    //            //二维码解析
+        //    //            //IBarcodeReader reader = new BarcodeReader();
+        //    //            //var result = reader.Decode(bitmap);
+        //    //            //if (result != null)
+        //    //            //{
+        //    //            //    privatekey = HttpUtility.UrlDecode(result.Text);
+        //    //            //}
+        //    //        }
+        //    //    }
 
-            }
-            catch (Exception e)
-            {
-                Toast.Show(ToastIcon.Error, AppResources.Error_ScanQRCodeFailed_.Format(e.Message));
-                Log.Error(nameof(AuthenticatorHelper), e, nameof(DecodePrivateKey));
-            }
+        //    //}
+        //    //catch (Exception e)
+        //    //{
+        //    //    Toast.Show(ToastIcon.Error, AppResources.Error_ScanQRCodeFailed_.Format(e.Message));
+        //    //    Log.Error(nameof(AuthenticatorHelper), e, nameof(DecodePrivateKey));
+        //    //}
 
-        }
-        else if (AuthenticatorRegexHelper.SecretCodeDataImageRegex().Match(secretCode) is { Success: true } dataImageMatch)
-        {
-            var imageData = Convert.FromBase64String(dataImageMatch.Groups[2].Value);
-            using var ms = new MemoryStream(imageData);
-#if WINDOWS
-            using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(ms))
-            {
-                //二维码解析
-                    
-            }
-#endif
-        }
+        //}
+        //        else if (AuthenticatorRegexHelper.SecretCodeDataImageRegex().Match(secretCode) is { Success: true } dataImageMatch)
+        //        {
+        //            var imageData = Convert.FromBase64String(dataImageMatch.Groups[2].Value);
+        //            using var ms = new MemoryStream(imageData);
+        //#if WINDOWS
+        //            using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(ms))
+        //            {
+        //                //二维码解析
+
+        //            }
+        //#endif
+        //        }
         // else if (SecretCodeOptAuthRegex().Match(secretCode) is { Success: true } optMatch)
         // {
         //     var authType = optMatch.Groups[1].Value;
@@ -449,13 +449,13 @@ public static class AuthenticatorHelper
         //             return null;
         //     }
         // }
-        else
-        {
-            var privateKey = AuthenticatorRegexHelper.SecretHexCodeAuthRegex().Replace(secretCode, "");
-            return privateKey.Length < 1 ? null : privateKey;
-        }
+        //else
+        //{
+        var privateKey = AuthenticatorRegexHelper.SecretHexCodeAuthRegex().Replace(secretCode, "");
+        return privateKey.Length < 1 ? null : privateKey;
+        //}
 
-        return null;
+        //return null;
     }
 
     public static bool ReadXml(ref AuthenticatorDTO authenticatorDto, XmlReader reader, string? password)
