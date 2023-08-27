@@ -29,14 +29,19 @@ public static partial class AssemblyInfo
 
 #if !APP_HOST
     /// <summary>
-    /// 当前应用程序是否为预览版本
+    /// 当前应用程序是否为预览版本(Preview)
     /// </summary>
-    public static bool IsPreview => InformationalVersion.Contains("preview", StringComparison.OrdinalIgnoreCase);
+    public static bool IsPreview { get; } = InformationalVersion.Contains("preview", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
-    /// 当前应用程序是否为候选版本
+    /// 当前应用程序是否为候选版本(RC)
     /// </summary>
-    public static bool IsReleaseCandidate => !IsPreview && InformationalVersion.Contains("rc", StringComparison.OrdinalIgnoreCase);
+    public static bool IsReleaseCandidate { get; } = !IsPreview && InformationalVersion.Contains("rc", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// 当前应用程序是否为正式版本(GA)
+    /// </summary>
+    public static bool IsGeneralAvailability { get; } = !IsPreview && !IsReleaseCandidate;
 #endif
 
     /// <summary>

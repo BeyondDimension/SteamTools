@@ -77,8 +77,8 @@
                     VerticalAlignment="Top"
                     IsClosable="False"
                     IsOpen="True"
-                    IsVisible="{spp:OnPlatform Preview}"
-                    Message="当前使用的程序版本为预览版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。"
+                    IsVisible="{spp:OnPlatform !GA}"
+                    Message="当前使用的程序版本为测试版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。"
                     Severity="Warning" />
                 <spp:Snackbar
                     Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"

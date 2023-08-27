@@ -234,11 +234,11 @@
                     ToolTip.Tip="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay}">
                     <TextBlock.Styles>
                         <Style Selector="TextBlock.Support">
-                            <Setter Property="Text" Value="已支持 Ipv6 访问" />
+                            <Setter Property="Text" Value="已支持 IPv6 访问" />
                             <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
                         </Style>
                         <Style Selector="TextBlock.NotSupport">
-                            <Setter Property="Text" Value="不支持 Ipv6 访问" />
+                            <Setter Property="Text" Value="不支持 IPv6 访问" />
                             <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
                         </Style>
                     </TextBlock.Styles>

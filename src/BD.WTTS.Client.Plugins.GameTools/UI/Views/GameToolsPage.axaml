@@ -148,7 +148,7 @@
                             Grid.Row="1"
                             Margin="12"
                             Spacing="5">
-                            <TextBlock FontWeight="SemiBold" Text="CS:GO VAC修复" />
+                            <TextBlock FontWeight="SemiBold" Text="CS:GO VAC 修复" />
                             <TextBlock
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Text="仅 Windows 可用"

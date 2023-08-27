@@ -36,7 +36,10 @@ public sealed class OnPlatformExtension : MarkupExtension<bool>
             "DesktopBridge" => DesktopBridge.IsRunningAsUwp,
             "SteamApp" => Startup.Instance.IsSteamRun,
             "OfficialRelease" => !(Startup.Instance.IsSteamRun || DesktopBridge.IsRunningAsUwp),
-            "Preview" => AssemblyInfo.InformationalVersion.Contains("preview", StringComparison.OrdinalIgnoreCase),
+            "Preview" => AssemblyInfo.IsPreview,
+            "RC" => AssemblyInfo.IsReleaseCandidate,
+            "GA" => AssemblyInfo.IsGeneralAvailability,
+            "!GA" => !AssemblyInfo.IsGeneralAvailability,
             _ => false,
         };
 }
