@@ -8,6 +8,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <AvaloniaXaml Remove="UI\Views\Windows\**" />
+	  <Compile Remove="UI\Views\Windows\**" />
+	  <EmbeddedResource Remove="UI\Views\Windows\**" />
+	  <None Remove="UI\Views\Windows\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Xaml.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -73,7 +80,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Models\" />
-	  <Folder Include="UI\Views\Windows\" />
 	</ItemGroup>
 
 	<ItemGroup>

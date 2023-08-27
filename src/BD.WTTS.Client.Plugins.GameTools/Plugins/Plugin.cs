@@ -26,7 +26,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     {
         yield return new MenuTabItemViewModel(this, nameof(Strings.GameRelated))
         {
-            PageType = typeof(BorderlessGamePage),
+            PageType = typeof(GameToolsPage),
             IsResourceGet = true,
             IconKey = Icon,
         };

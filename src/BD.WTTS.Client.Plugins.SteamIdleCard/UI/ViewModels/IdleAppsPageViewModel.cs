@@ -19,7 +19,6 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                 RunOrStopAutoNext(x.Value);
                 this.IsAutoNextOnTxt = x.Value ? Strings.Idle_StopAutoNext : Strings.Idle_OpenAutoNext;
             });
-        IdleRunStartOrStop_Click();
     }
 
     [Reactive]
@@ -78,6 +77,13 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
     [Reactive]
     private double SwitchTime { get; set; } = 500;
     #endregion
+
+    public override void Activation()
+    {
+        base.Activation();
+
+        IdleRunStartOrStop_Click();
+    }
 
     /// <summary>
     /// 启动或停止挂卡

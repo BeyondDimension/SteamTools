@@ -69,7 +69,14 @@ static partial class MouseHook
                 MouseUp?.Invoke(null, new PointDouble(mouseHookStruct.pt.X, mouseHookStruct.pt.Y));
             }
         }
-        return PInvoke.User32.CallNextHookEx(_mouseHookHandle.ThrowIsNull().DangerousGetHandle(), nCode, wParam, lParam);
+        if (_mouseHookHandle != null)
+        {
+            return PInvoke.User32.CallNextHookEx(_mouseHookHandle.DangerousGetHandle(), nCode, wParam, lParam);
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     const int WM_LBUTTONUP = 0x0202;

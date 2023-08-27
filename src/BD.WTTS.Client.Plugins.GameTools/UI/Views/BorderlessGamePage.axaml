@@ -3,53 +3,44 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Title="游戏无边框窗口化"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:BorderlessGamePageViewModel"
-    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Description="该功能可以获取游戏窗口句柄执行一些对应操作"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/toolbox.ico" />
     </spp:PageBase.PreviewImage>
-    <spp:PageBase.TabContent>
-        <!--<TabStrip
-            Margin="4"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
-            CornerRadius="{StaticResource ControlCornerRadius}"
-            ItemContainerTheme="{StaticResource TabItemStyle}">
-            <TabStripItem Content="多平台账号切换" />
-            <TabStripItem Content="Steam 家庭共享库管理" />
-        </TabStrip>-->
-    </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
-            <Button
+            <ToggleButton
                 Padding="8,4"
                 DockPanel.Dock="Right"
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Refresh" />
+                        <ui:FontIcon Glyph="&#xE81C;" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="查看捕获窗口记录" />
                 </Panel>
-            </Button>
+            </ToggleButton>
             <DropDownButton
                 Padding="8"
                 HorizontalContentAlignment="Center"
@@ -84,5 +75,99 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>
-    <TextBlock Text="ssss" />
+    <spp:PageBase.PaneContent>
+        <StackPanel Margin="15,20" Spacing="10">
+            <TextBlock
+                VerticalAlignment="Center"
+                Text="历史记录"
+                Theme="{StaticResource CaptionTextBlockStyle}" />
+            <ListBox ItemsSource="{ReflectionBinding WindowList, Mode=OneWay}" SelectedItem="{ReflectionBinding SelectWindow}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel VerticalAlignment="Center">
+                            <TextBlock>
+                                <Run Text="{ReflectionBinding Name, Mode=OneWay}" />
+                                <Run Text="(" />
+                                <Run Text="{ReflectionBinding Title, Mode=OneWay}" />
+                                <Run Text=")" />
+                            </TextBlock>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </spp:PageBase.PaneContent>
+
+    <ScrollViewer Padding="10">
+        <StackPanel Spacing="20">
+            <WrapPanel HorizontalAlignment="Center">
+                <Image
+                    x:Name="move"
+                    Width="64"
+                    HorizontalAlignment="Left"
+                    Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/movecross.png">
+                    <i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{Binding #move}">
+                            <ia:InvokeCommandAction Command="{ReflectionBinding $parent[spp:PageBase].((spp:BorderlessGamePageViewModel)DataContext).Cross_MouseDown}" />
+                        </ia:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </Image>
+                <TextBlock
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding Path=Res.GameRelated_Borderless_MoveMouseTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </WrapPanel>
+
+            <StackPanel
+                HorizontalAlignment="Center"
+                IsVisible="{ReflectionBinding !!SelectWindow}"
+                Orientation="Vertical"
+                Spacing="10">
+                <TextBlock TextWrapping="WrapWithOverflow">
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}：}" />
+                    <Run Text="{ReflectionBinding SelectWindow.Title, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock TextWrapping="WrapWithOverflow">
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_ClassName, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}：}" />
+                    <Run Text="{ReflectionBinding SelectWindow.ClassName, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock TextWrapping="WrapWithOverflow">
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Process, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}：}" />
+                    <Run Text="{ReflectionBinding SelectWindow.Name, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock TextWrapping="WrapWithOverflow">
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}：}" />
+                    <Run Text="{ReflectionBinding SelectWindow.Path, Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
+
+            <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <WrapPanel.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="Margin" Value="3" />
+                    </Style>
+                </WrapPanel.Styles>
+                <Button Command="{ReflectionBinding WindowKill_Click}" Content="{Binding Path=Res.GameRelated_Borderless_KillProcess, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button Command="{ReflectionBinding BorderlessWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_BorderlessWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button Command="{ReflectionBinding MaximizeWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Maximize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button Command="{ReflectionBinding NormalWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Normal, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button Command="{ReflectionBinding HideWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Hide, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button Command="{ReflectionBinding ShowWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Show, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button
+                    Command="{ReflectionBinding ToWallerpaperWindow_Click}"
+                    Content="{Binding Path=Res.GameRelated_Borderless_ToWallerpaper, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    ToolTip.Tip="{Binding Path=Res.GameRelated_Borderless_ToWallerpaperTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button Command="{ReflectionBinding ResetWallerpaper_Click}" Content="{Binding Path=Res.GameRelated_Borderless_ResetWallerpaper, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </WrapPanel>
+
+            <!--<TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat=*{0}}" TextWrapping="WrapWithOverflow" />-->
+
+        </StackPanel>
+    </ScrollViewer>
 </spp:PageBase>

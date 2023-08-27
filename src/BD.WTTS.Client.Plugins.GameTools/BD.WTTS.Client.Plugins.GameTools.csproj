@@ -8,6 +8,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="UI\Assets\BorderlessWindow.png" />
+	  <None Remove="UI\Assets\movecross.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="UI\Assets\BorderlessWindow.png" />
+	  <AvaloniaResource Include="UI\Assets\movecross.png" />
 	  <AvaloniaResource Include="UI\Assets\toolbox.ico" />
 	</ItemGroup>
 
@@ -80,6 +87,9 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\Views\GameToolsPage.axaml.cs">
+	    <DependentUpon>GameToolsPage.axaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
