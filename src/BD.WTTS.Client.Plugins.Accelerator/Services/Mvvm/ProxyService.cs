@@ -22,7 +22,7 @@ public sealed partial class ProxyService
     {
         mCurrent = this;
 
-        ProxyDomains = new SourceList<AccelerateProjectGroupDTO>();
+        ProxyDomains = new SourceCache<AccelerateProjectGroupDTO, string>(s => s.Name);
         ProxyScripts = new SourceList<ScriptDTO>();
 
         ProxyDomains
@@ -85,7 +85,7 @@ public sealed partial class ProxyService
               }));
     }
 
-    public SourceList<AccelerateProjectGroupDTO> ProxyDomains { get; }
+    public SourceCache<AccelerateProjectGroupDTO, string> ProxyDomains { get; }
 
     private readonly ReadOnlyObservableCollection<AccelerateProjectGroupDTO> _ProxyDomainsList;
 
@@ -278,7 +278,7 @@ public sealed partial class ProxyService
                 }
             }
 
-            ProxyDomains.AddRange(result.Content!);
+            ProxyDomains.AddOrUpdate(result.Content!);
         }
 
         LoadOrSaveLocalAccelerate();
@@ -321,7 +321,7 @@ public sealed partial class ProxyService
                     Log.Error(nameof(ProxyService), ex, nameof(LoadOrSaveLocalAccelerate));
                 }
                 if (accelerates.Any_Nullable())
-                    ProxyDomains.AddRange(accelerates!);
+                    ProxyDomains.AddOrUpdate(accelerates!);
             }
         }
     }

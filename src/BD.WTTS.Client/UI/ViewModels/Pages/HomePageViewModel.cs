@@ -62,7 +62,6 @@ public sealed class HomePageViewModel : TabItemViewModel
 
     public void NavgationToMenuPage(TabItemViewModel tabItem)
     {
-        if (tabItem.PageType != null)
-            INavigationService.Instance.Navigate(tabItem.PageType, NavigationTransitionEffect.FromBottom);
+        INavigationService.Instance.Navigate(tabItem.PageType, NavigationTransitionEffect.FromBottom);
     }
 }

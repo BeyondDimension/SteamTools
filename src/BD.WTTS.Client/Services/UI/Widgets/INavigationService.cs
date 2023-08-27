@@ -6,7 +6,7 @@ public interface INavigationService
 
     public object? GetViewModelToPageContent(object viewModel, bool isCreateInstance = true);
 
-    public void Navigate(Type t, NavigationTransitionEffect effect = NavigationTransitionEffect.None);
+    public void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None);
 
     public void GoBack();
 

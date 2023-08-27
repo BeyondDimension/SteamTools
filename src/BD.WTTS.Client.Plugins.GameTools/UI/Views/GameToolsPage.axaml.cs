@@ -15,5 +15,9 @@ public partial class GameToolsPage : PageBase
         {
             NavigationService.Instance.Navigate(t, NavigationTransitionEffect.FromRight);
         }
+        else
+        {
+            NavigationService.Instance.Navigate(null, NavigationTransitionEffect.FromRight);
+        }
     }
 }

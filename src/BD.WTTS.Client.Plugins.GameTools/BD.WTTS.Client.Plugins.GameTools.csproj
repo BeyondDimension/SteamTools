@@ -9,11 +9,15 @@
 
 	<ItemGroup>
 	  <None Remove="UI\Assets\BorderlessWindow.png" />
+	  <None Remove="UI\Assets\CounterStrike.png" />
+	  <None Remove="UI\Assets\CPU.png" />
 	  <None Remove="UI\Assets\movecross.png" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <AvaloniaResource Include="UI\Assets\BorderlessWindow.png" />
+	  <AvaloniaResource Include="UI\Assets\CounterStrike.png" />
+	  <AvaloniaResource Include="UI\Assets\CPU.png" />
 	  <AvaloniaResource Include="UI\Assets\movecross.png" />
 	  <AvaloniaResource Include="UI\Assets\toolbox.ico" />
 	</ItemGroup>

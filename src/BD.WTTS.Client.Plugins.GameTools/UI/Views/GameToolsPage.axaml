@@ -129,6 +129,62 @@
                     </Grid>
                 </Button>
             </Border>
+
+            <Border spp:Animations.EnableAnimations="True">
+                <Button
+                    Click="GameToolsPage_Click"
+                    IsEnabled="{spp:OnPlatform Windows}"
+                    Tag="{x:Null}"
+                    Theme="{StaticResource NavButtonStyle}">
+                    <Grid RowDefinitions="3*,*">
+                        <Border
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            CornerRadius="4 4 0 0"
+                            RenderOptions.BitmapInterpolationMode="HighQuality">
+                            <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CounterStrike.png" Stretch="Uniform" />
+                        </Border>
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="12"
+                            Spacing="5">
+                            <TextBlock FontWeight="SemiBold" Text="CS:GO VAC修复" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="仅 Windows 可用"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Button>
+            </Border>
+
+            <Border spp:Animations.EnableAnimations="True">
+                <Button
+                    Click="GameToolsPage_Click"
+                    IsEnabled="{spp:OnPlatform Windows}"
+                    Tag="{x:Null}"
+                    Theme="{StaticResource NavButtonStyle}">
+                    <Grid RowDefinitions="3*,*">
+                        <Border
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            CornerRadius="4 4 0 0"
+                            RenderOptions.BitmapInterpolationMode="HighQuality">
+                            <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CPU.png" Stretch="Uniform" />
+                        </Border>
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="12"
+                            Spacing="5">
+                            <TextBlock FontWeight="SemiBold" Text="CPU 游戏调度优化" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="仅 Windows 可用"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Button>
+            </Border>
         </WrapPanel>
     </ScrollViewer>
 </spp:PageBase>

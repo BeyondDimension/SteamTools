@@ -50,13 +50,24 @@ public sealed class NavigationService : INavigationService
         _overlayHost = p;
     }
 
-    public void Navigate(Type t, NavigationTransitionEffect effect = NavigationTransitionEffect.None)
+    public void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None)
     {
+        if (t == null)
+        {
+            _frame?.Navigate(typeof(ErrorPage), null, GetNavigationTransitionInfo(effect));
+            return;
+        }
+
         if (t.IsSubclassOf(typeof(ViewModelBase)))
         {
             var pageType = GetViewModelToPageContent(t, false);
-            if (pageType == null) return;
-            t = (Type)pageType;
+            t = pageType as Type;
+        }
+
+        if (t == null)
+        {
+            _frame?.Navigate(typeof(ErrorPage), null, GetNavigationTransitionInfo(effect));
+            return;
         }
 
         if (_frame?.Content?.GetType() != t)
