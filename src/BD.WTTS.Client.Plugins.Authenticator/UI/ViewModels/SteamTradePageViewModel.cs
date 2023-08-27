@@ -147,7 +147,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         else
         {
             Toast.Show(ToastIcon.Error, AppResources.Error_UnknownLogin_.Format(loginstate.Message));
-            await Logout();
+            _steamClient.Logout();
         }
 
         IsLoading = false;
@@ -181,7 +181,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
     {
         if (_steamClient == null) return;
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
-                new MessageBoxWindowViewModel() { Content = Strings.LocalAuth_LogoutTip, }, isCancelButton: true,
+                new MessageBoxWindowViewModel() { Content = Strings.LocalAuth_LogoutTip, }, AppResources.Logout, isCancelButton: true,
                 isDialog: false))
         {
             _steamClient.Logout();
