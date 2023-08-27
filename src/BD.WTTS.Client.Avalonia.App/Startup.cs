@@ -104,6 +104,9 @@ sealed partial class Program : Startup
             services.AddSingleton<IApplication>(s => s.GetRequiredService<App>());
 
             services.TryAddAvaloniaFilePickerPlatformService();
+#if LINUX
+            services.AddSingleton<IClipboardPlatformService, AvaloniaClipboardPlatformService>();
+#endif
 
             #region WindowManager
 

@@ -1,0 +1,36 @@
+#if LINUX
+namespace BD.WTTS.Services.Implementation;
+
+public sealed class AvaloniaClipboardPlatformService : IClipboardPlatformService
+{
+    public bool PlatformHasText => !string.IsNullOrEmpty(PlatformGetTextAsync().GetAwaiter().GetResult());
+
+    public async Task<string> PlatformGetTextAsync()
+    {
+        TopLevel? topLevel = App.Instance.MainWindow;
+        if (topLevel != null)
+        {
+            var clipboard = topLevel.Clipboard;
+            if (clipboard != null)
+            {
+                var result = await clipboard.GetTextAsync();
+                return result ?? string.Empty;
+            }
+        }
+        return string.Empty;
+    }
+
+    public async Task PlatformSetTextAsync(string text)
+    {
+        TopLevel? topLevel = App.Instance.MainWindow;
+        if (topLevel != null)
+        {
+            var clipboard = topLevel.Clipboard;
+            if (clipboard != null)
+            {
+                await clipboard.SetTextAsync(text);
+            }
+        }
+    }
+}
+#endif
