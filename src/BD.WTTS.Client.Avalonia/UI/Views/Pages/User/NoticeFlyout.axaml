@@ -15,7 +15,7 @@
         <TextBlock
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            IsVisible="{Binding Path=!!!Notices.Count, Mode=OneWay, Source={x:Static s:NotificationService.Current}}"
+            IsVisible="{Binding Path=!!!Notices.Count, Mode=OneWay, Source={x:Static s:NoticeService.Current}}"
             Text="当前没有通知消息"
             Theme="{StaticResource BodyStrongTextBlockStyle}" />
         <DockPanel>
@@ -25,7 +25,7 @@
             Cursor="Hand"
             DockPanel.Dock="Top"
             Theme="{StaticResource HyperlinkButton}" />-->
-            <ItemsControl ItemsSource="{Binding Path=Notices, Mode=OneWay, Source={x:Static s:NotificationService.Current}}">
+            <ItemsControl ItemsSource="{Binding Path=Notices, Mode=OneWay, Source={x:Static s:NoticeService.Current}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Spacing="3" />

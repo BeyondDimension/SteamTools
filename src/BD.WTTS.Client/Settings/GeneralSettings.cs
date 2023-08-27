@@ -74,57 +74,63 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings, ISet
     public bool TrayIcon { get; set; } = IGeneralSettings.DefaultTrayIcon;
 
     /// <summary>
-    /// 游戏列表使用本地缓存
+    /// 启用消息推送通知
     /// </summary>
     [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
+    public bool MessagePopupNotification { get; set; } = IGeneralSettings.DefaultMessagePopupNotification;
+
+    /// <summary>
+    /// 游戏列表使用本地缓存
+    /// </summary>
+    [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
     public bool GameListUseLocalCache { get; set; } = IGeneralSettings.DefaultGameListUseLocalCache;
 
     /// <summary>
     /// 文本阅读器提供商，值为程序路径
     /// </summary>
-    [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
+    [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
     public Dictionary<Platform, string>? TextReaderProvider { get; set; } = IGeneralSettings.DefaultTextReaderProvider;
 
     /// <summary>
     /// Hosts 文件编码类型
     /// </summary>
-    [MPKey(7), MP2Key(7), JsonPropertyOrder(7)]
+    [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
     public EncodingType HostsFileEncodingType { get; set; } = IGeneralSettings.DefaultHostsFileEncodingType;
 
     /// <summary>
     /// 是否使用硬件加速
     /// </summary>
-    [MPKey(8), MP2Key(8), JsonPropertyOrder(8)]
+    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
     public bool GPU { get; set; } = IGeneralSettings.DefaultGPU;
 
     /// <summary>
     /// 使用本机 OpenGL
     /// </summary>
-    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
+    [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
     public bool NativeOpenGL { get; set; } = IGeneralSettings.DefaultNativeOpenGL;
 
     /// <summary>
     /// 屏幕捕获/允许截图，在一些含有机密的页面上是否允许截图，默认为 <see langword="false"/>
     /// </summary>
-    [MPKey(10), MP2Key(10), JsonPropertyOrder(10)]
+    [MPKey(11), MP2Key(11), JsonPropertyOrder(11)]
     public bool ScreenCapture { get; set; } = IGeneralSettings.DefaultScreenCapture;
 
     /// <summary>
     /// 禁用插件
     /// </summary>
-    [MPKey(11), MP2Key(11), JsonPropertyOrder(11)]
+    [MPKey(12), MP2Key(12), JsonPropertyOrder(12)]
     public HashSet<string>? DisablePlugins { get; set; } = IGeneralSettings.DefaultDisablePlugins;
 
     /// <summary>
     /// 插件安全模式
     /// </summary>
-    [MPKey(12), MP2Key(12), JsonPropertyOrder(12)]
+    [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
     public bool PluginSafeMode { get; set; } = IGeneralSettings.DefaultPluginSafeMode;
 
     /// <summary>
     /// 最后查看通知时间
     /// </summary>
-    [MPKey(13), MP2Key(13), JsonPropertyOrder(13)]
+    [MPKey(14), MP2Key(14), JsonPropertyOrder(14)]
     public DateTimeOffset LastLookNoticeDateTime { get; set; } = IGeneralSettings.DefaultLastLookNoticeDateTime;
 
     #region 配置应用程序的 Web 代理
@@ -132,49 +138,49 @@ public sealed partial class GeneralSettings_ : IGeneralSettings, ISettings, ISet
     /// <summary>
     /// Web 代理模式
     /// </summary>
-    [MPKey(14), MP2Key(14), JsonPropertyOrder(14)]
+    [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
     public AppWebProxyMode WebProxyMode { get; set; } = IGeneralSettings.DefaultWebProxyMode;
 
     /// <summary>
     /// Web 自定义代理 Host
     /// </summary>
-    [MPKey(15), MP2Key(15), JsonPropertyOrder(15)]
+    [MPKey(16), MP2Key(16), JsonPropertyOrder(16)]
     public string? CustomWebProxyModeHost { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeHost;
 
     /// <summary>
     /// Web 自定义代理 Port
     /// </summary>
-    [MPKey(16), MP2Key(16), JsonPropertyOrder(16)]
+    [MPKey(17), MP2Key(17), JsonPropertyOrder(17)]
     public int CustomWebProxyModePort { get; set; } = IGeneralSettings.DefaultCustomWebProxyModePort;
 
     /// <summary>
     /// Web 自定义代理 Address
     /// </summary>
-    [MPKey(17), MP2Key(17), JsonPropertyOrder(17)]
+    [MPKey(18), MP2Key(18), JsonPropertyOrder(18)]
     public string? CustomWebProxyModeAddress { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeAddress;
 
     /// <summary>
     /// Web 自定义代理 BypassOnLocal
     /// </summary>
-    [MPKey(18), MP2Key(18), JsonPropertyOrder(18)]
+    [MPKey(19), MP2Key(19), JsonPropertyOrder(19)]
     public bool CustomWebProxyModeBypassOnLocal { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeBypassOnLocal;
 
     /// <summary>
     /// Web 自定义代理 NetworkCredential.UserName
     /// </summary>
-    [MPKey(19), MP2Key(19), JsonPropertyOrder(19)]
+    [MPKey(20), MP2Key(20), JsonPropertyOrder(20)]
     public string? CustomWebProxyModeCredentialUserName { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeCredentialUserName;
 
     /// <summary>
     /// Web 自定义代理 NetworkCredential.Password
     /// </summary>
-    [MPKey(20), MP2Key(20), JsonPropertyOrder(20)]
+    [MPKey(21), MP2Key(21), JsonPropertyOrder(21)]
     public string? CustomWebProxyModeCredentialPassword { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeCredentialPassword;
 
     /// <summary>
     /// Web 自定义代理 NetworkCredential.Domain
     /// </summary>
-    [MPKey(21), MP2Key(21), JsonPropertyOrder(21)]
+    [MPKey(22), MP2Key(22), JsonPropertyOrder(22)]
     public string? CustomWebProxyModeCredentialDomain { get; set; } = IGeneralSettings.DefaultCustomWebProxyModeCredentialDomain;
 
     #endregion
@@ -212,6 +218,12 @@ public static partial class GeneralSettings
     /// </summary>
     public static SettingsStructProperty<bool, GeneralSettings_> TrayIcon { get; }
         = new(DefaultTrayIcon);
+
+    /// <summary>
+    /// 启用消息推送通知
+    /// </summary>
+    public static SettingsStructProperty<bool, GeneralSettings_> MessagePopupNotification { get; }
+        = new(DefaultMessagePopupNotification);
 
     /// <summary>
     /// 游戏列表使用本地缓存

@@ -267,6 +267,15 @@
         },
         {
           "TypeName": "bool",
+          "PropertyName": "MessagePopupNotification",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "启用消息推送通知",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
           "PropertyName": "GameListUseLocalCache",
           "DefaultValue": "false",
           "DefaultValueIsConst": true,

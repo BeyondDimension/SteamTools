@@ -167,6 +167,12 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
                 Confirmations.Add(result.Select(item => new SteamTradeConfirmationModel(_steamAuthenticator!, item)));
             }
         }
+        catch (WinAuthUnauthorisedSteamRequestException)
+        {
+            Toast.Show(ToastIcon.Error, AppResources.LocalAuth_AuthTrade_GetError3);
+            _steamClient?.Logout();
+            IsLogged = false;
+        }
         catch (Exception ex)
         {
             ex.LogAndShowT();
@@ -185,6 +191,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
                 isDialog: false))
         {
             _steamClient.Logout();
+            IsLogged = false;
         }
     }
 

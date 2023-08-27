@@ -66,6 +66,11 @@
                         DockPanel.Dock="Right"
                         IsSticky="False">
                         <ui:CommandBar.PrimaryCommands>
+                            <ui:CommandBarButton Command="{Binding Logout}" Label="{Binding Path=Res.Logout, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                <ui:CommandBarButton.IconSource>
+                                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
+                                </ui:CommandBarButton.IconSource>
+                            </ui:CommandBarButton>
                             <ui:CommandBarButton
                                 Command="{Binding Refresh}"
                                 IconSource="Refresh"

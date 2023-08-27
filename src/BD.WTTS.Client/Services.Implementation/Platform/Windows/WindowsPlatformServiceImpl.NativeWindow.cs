@@ -80,7 +80,7 @@ partial class WindowsPlatformServiceImpl
             var windowStyle = User32.GetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE);
 
             // 移除最大化、关闭和最小化按钮
-            windowStyle = windowStyle & ~WS_SYSMENU & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX & ~WS_CAPTION & ~WS_BORDER;
+            windowStyle = windowStyle & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX & ~WS_CAPTION;
 
             User32.SetWindowLongPtr(hWnd, User32.WindowLongIndexFlags.GWL_STYLE, windowStyle);
         }

@@ -22,9 +22,18 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
 #if WINDOWS
         if (OperatingSystem2.IsWindows() && !Design.IsDesignMode)
         {
-            var hWND = this.TryGetPlatformHandle()?.Handle;
-            if (hWND != null)
-                IPlatformService.Instance.BeautifyTheWindow(hWND.Value);
+            if (!GeneralSettings.GPU.Value)
+            {
+                var hWND = this.TryGetPlatformHandle()?.Handle;
+                if (hWND != null)
+                    IPlatformService.Instance.BeautifyTheWindow(hWND.Value);
+            }
+            else if (UISettings.WindowBackgroundMaterial.Value is WindowBackgroundMaterial.None or WindowBackgroundMaterial.Blur)
+            {
+                var hWND = this.TryGetPlatformHandle()?.Handle;
+                if (hWND != null)
+                    IPlatformService.Instance.BeautifyTheWindow(hWND.Value);
+            }
         }
 #endif
 
@@ -54,14 +63,6 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
                 SizePosition = sizePosition;
             }
         }
-
-        //this.GetObservable(TransparencyLevelHintProperty)
-        //    .Subscribe(x =>
-        //    {
-        //        PseudoClasses.Set(":transparent", TransparencyLevelHint == WindowTransparencyLevel.Mica ||
-        //            TransparencyLevelHint == WindowTransparencyLevel.Blur ||
-        //            TransparencyLevelHint == WindowTransparencyLevel.AcrylicBlur);
-        //    });
 
         //UISettings.EnableCustomBackgroundImage.ValueChanged += (sender, e) =>
         //{

@@ -120,7 +120,8 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
     public async void SaveEditAppInfo()
     {
         #region 自定义图片保存
-        var mostRecentUser = ISteamService.Instance.GetRememberUserList().Where(s => s.MostRecent).FirstOrDefault();
+        //var mostRecentUser = ISteamService.Instance.GetRememberUserList().Where(s => s.MostRecent).FirstOrDefault();
+        var mostRecentUser = SteamConnectService.Current.SteamUsers.Items.Where(s => s.MostRecent).FirstOrDefault();
         if (!(App.EditHeaderLogoStream is FileStream fs3 && fs3.Name == (await App.HeaderLogoStream)?.Name))
         {
             if (!CheckCurrentSteamUserStats(mostRecentUser))
@@ -235,6 +236,11 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         if (SelectGrid == null)
         {
             //Toast.Show(ToastIcon.Warning, Strings.SaveEditedAppInfo_SelectImageFailed);
+            var mostRecentUser = SteamConnectService.Current.SteamUsers.Items.Where(s => s.MostRecent).FirstOrDefault();
+            if (!CheckCurrentSteamUserStats(mostRecentUser))
+                return;
+            await ISteamService.Instance.SaveAppImageToSteamFile(null, mostRecentUser!, App.AppId, type);
+
             switch (type)
             {
                 case SteamGridItemType.Header:

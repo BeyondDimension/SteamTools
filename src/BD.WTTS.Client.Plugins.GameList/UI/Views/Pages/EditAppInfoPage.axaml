@@ -245,7 +245,7 @@
                                             Padding="5"
                                             Click="ResetGridImage_Click"
                                             Cursor="Hand"
-                                            Tag="{x:Static spp:SteamGridItemType.Header}"
+                                            Tag="{x:Static spp:SteamGridItemType.Grid}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <ui:SymbolIcon FontSize="18" Symbol="Redo" />
@@ -299,7 +299,7 @@
                                             Padding="5"
                                             Click="ResetGridImage_Click"
                                             Cursor="Hand"
-                                            Tag="{x:Static spp:SteamGridItemType.Header}"
+                                            Tag="{x:Static spp:SteamGridItemType.Hero}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <ui:SymbolIcon FontSize="18" Symbol="Redo" />
@@ -353,7 +353,7 @@
                                             Padding="5"
                                             Click="ResetGridImage_Click"
                                             Cursor="Hand"
-                                            Tag="{x:Static spp:SteamGridItemType.Header}"
+                                            Tag="{x:Static spp:SteamGridItemType.Logo}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <ui:SymbolIcon FontSize="18" Symbol="Redo" />

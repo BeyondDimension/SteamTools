@@ -41,7 +41,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
             Task2.InBackground(async () =>
             {
                 await AdvertiseService.Current.RefrshAdvertiseAsync();
-                NotificationService.Current.GetNewsAsync();
+                NoticeService.Current.GetNewsAsync();
             });
         }
     }
@@ -139,7 +139,7 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
              });
 
              AdvertiseService.Current.InitAdvertise();
-             NotificationService.Current.GetNewsAsync();
+             NoticeService.Current.GetNewsAsync();
 
              var mainWindow = App.Instance.MainWindow;
              mainWindow.ThrowIsNull();
@@ -195,7 +195,7 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
              await IViewModelManager.Instance.MainWindow.Initialize();
 
              App.Instance.CompositeDisposable.Add(IViewModelManager.Instance.MainWindow);
-             App.Instance.CompositeDisposable.Add(SteamConnectService.Current);
+             App.Instance.CompositeDisposable.Add(SteamConnectService.Current.Dispose);
 
              IsInitialized = true;
          }, cancellationToken: token);

@@ -72,6 +72,15 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
+        <spp:OptionsDisplayItem Header="启用消息推送通知">
+            <spp:OptionsDisplayItem.Icon>
+                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7E7;" />
+            </spp:OptionsDisplayItem.Icon>
+            <spp:OptionsDisplayItem.ActionButton>
+                <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:GeneralSettings.MessagePopupNotification}, Path=Value, Mode=TwoWay}" />
+            </spp:OptionsDisplayItem.ActionButton>
+        </spp:OptionsDisplayItem>
+
         <ui:SettingsExpander
             Header="{Binding Path=Res.Settings_General_StorageSpace, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             IconSource="Globe"

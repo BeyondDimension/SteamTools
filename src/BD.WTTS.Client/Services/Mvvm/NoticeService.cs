@@ -4,11 +4,11 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-public sealed class NotificationService : ReactiveObject
+public sealed class NoticeService : ReactiveObject
 {
-    static NotificationService? mCurrent;
+    static NoticeService? mCurrent;
 
-    public static NotificationService Current => mCurrent ?? new();
+    public static NoticeService Current => mCurrent ?? new();
 
     //readonly INotificationRepository notificationRepo = Ioc.Get<INotificationRepository>();
 
@@ -22,7 +22,7 @@ public sealed class NotificationService : ReactiveObject
 
     //public NoticeGroupDTO DefaultType { get; } = new NoticeGroupDTO() { Name = AppResources.AllTyoe };
 
-    public NotificationService()
+    public NoticeService()
     {
         mCurrent = this;
         Notices = new ObservableCollection<OfficialMessageItemDTO>();
@@ -53,6 +53,11 @@ public sealed class NotificationService : ReactiveObject
                 if (item.PushTime > GeneralSettings.LastLookNoticeDateTime.Value)
                 {
                     item.Unread = true;
+
+                    //只弹最新的一条通知
+                    if (UnreadNotificationsCount == 0 && GeneralSettings.MessagePopupNotification)
+                        INotificationService.Instance.Notify(item.Content, NotificationType.Announcement, title: item.Title);
+
                     UnreadNotificationsCount++;
                 }
             }

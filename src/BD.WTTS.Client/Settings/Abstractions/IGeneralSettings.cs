@@ -46,6 +46,11 @@ public partial interface IGeneralSettings
     bool TrayIcon { get; set; }
 
     /// <summary>
+    /// 启用消息推送通知
+    /// </summary>
+    bool MessagePopupNotification { get; set; }
+
+    /// <summary>
     /// 游戏列表使用本地缓存
     /// </summary>
     bool GameListUseLocalCache { get; set; }
@@ -158,6 +163,11 @@ public partial interface IGeneralSettings
     /// 启用托盘图标的默认值
     /// </summary>
     const bool DefaultTrayIcon = true;
+
+    /// <summary>
+    /// 启用消息推送通知的默认值
+    /// </summary>
+    const bool DefaultMessagePopupNotification = true;
 
     /// <summary>
     /// 游戏列表使用本地缓存的默认值
