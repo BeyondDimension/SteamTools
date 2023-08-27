@@ -31,6 +31,8 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         {
             GeneralSettings.DisablePlugins.Remove(plugin.Data.UniqueEnglishName, true, false);
         }
+
+        Startup.ShowSettingsModifiedRestartThisSoft();
     }
 
     public void OpenPluginDirectory(string assemblyLocation)

@@ -129,19 +129,19 @@
                 Orientation="Vertical"
                 Spacing="10">
                 <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}：}" />
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
                     <Run Text="{ReflectionBinding SelectWindow.Title, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_ClassName, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}：}" />
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_ClassName, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
                     <Run Text="{ReflectionBinding SelectWindow.ClassName, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Process, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}：}" />
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Process, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
                     <Run Text="{ReflectionBinding SelectWindow.Name, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}：}" />
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
                     <Run Text="{ReflectionBinding SelectWindow.Path, Mode=OneWay}" />
                 </TextBlock>
             </StackPanel>

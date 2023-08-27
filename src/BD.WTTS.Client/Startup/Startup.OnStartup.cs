@@ -9,7 +9,7 @@ partial class Startup // OnStartup
 
     }
 
-    protected static void ShowSettingsModifiedRestartThisSoft()
+    public static void ShowSettingsModifiedRestartThisSoft()
     {
         Toast.Show(ToastIcon.Info, Strings.SettingsModifiedRestartThisSoft);
     }
