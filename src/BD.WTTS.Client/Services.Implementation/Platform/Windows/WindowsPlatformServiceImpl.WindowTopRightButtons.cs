@@ -37,7 +37,8 @@ partial class WindowsPlatformServiceImpl
 
     public const int WS_MAXIMIZEBOX = 0x10000;
     public const int WS_MINIMIZEBOX = 0x20000;
-
+    public const int WS_CAPTION = 0x00C00000;
+    public const int WS_BORDER = 0x00800000;
     public const int WS_SYSMENU = 0x80000;
 
     public static void EnableMinimizeButton(IntPtr hWnd)

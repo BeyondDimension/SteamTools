@@ -1,6 +1,7 @@
 #if WINDOWS
 using PInvoke;
 using System.Windows;
+using Vanara.PInvoke;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
@@ -66,6 +67,23 @@ partial class WindowsPlatformServiceImpl
         }
         MouseHook.SetSystemCursor(User32.LoadCursor(IntPtr.Zero, MouseHook.OCR_CROSS).DangerousGetHandle(), MouseHook.OCR_NORMAL);
         MouseHook.OnMouseUp += MouseHook_OnMouseUp;
+    }
+
+    /// <summary>
+    /// 将传入句柄窗口设置无标题栏和标题栏区域按钮
+    /// </summary>
+    /// <param name="window"></param>
+    public void BeautifyTheWindow(nint hWnd)
+    {
+        if (hWnd != nint.Zero)
+        {
+            var windowStyle = User32.GetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE);
+
+            // 移除最大化、关闭和最小化按钮
+            windowStyle = windowStyle & ~WS_SYSMENU & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX & ~WS_CAPTION & ~WS_BORDER;
+
+            User32.SetWindowLongPtr(hWnd, User32.WindowLongIndexFlags.GWL_STYLE, windowStyle);
+        }
     }
 
     /// <summary>

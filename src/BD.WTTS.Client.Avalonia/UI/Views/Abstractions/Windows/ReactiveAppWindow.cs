@@ -19,6 +19,15 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
     /// </summary>
     public ReactiveAppWindow() : base()
     {
+#if WINDOWS
+        if (OperatingSystem2.IsWindows() && !Design.IsDesignMode)
+        {
+            var hWND = this.TryGetPlatformHandle()?.Handle;
+            if (hWND != null)
+                IPlatformService.Instance.BeautifyTheWindow(hWND.Value);
+        }
+#endif
+
         // This WhenActivated block calls ViewModel's WhenActivated
         // block if the ViewModel implements IActivatableViewModel.
         this.WhenActivated(disposables => { });

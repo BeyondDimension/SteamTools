@@ -14,6 +14,12 @@ partial interface IPlatformService
     void GetMoveMouseDownWindow(Action<NativeWindowModel> action);
 
     /// <summary>
+    /// 将传入句柄窗口设置无标题栏和标题栏区域按钮
+    /// </summary>
+    /// <param name="window"></param>
+    void BeautifyTheWindow(nint hWnd);
+
+    /// <summary>
     /// 将传入窗口设置为无边框窗口化
     /// </summary>
     /// <param name="window"></param>
