@@ -42,9 +42,7 @@ namespace BD.WTTS.Services.Implementation
                         "-c",
                         $"{Certutil} -A -d sql:$HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\" -t C,, -i \"{cerPath}\""
                     }).WaitForExit();
-            if (string.IsNullOrWhiteSpace(Environment.ProcessPath))
-                return false;
-            return RunRootCommand(PkexecPath, new string[] { Environment.ProcessPath!, "-ceri", CertificateConstants.AppDataDirectory }) == 0;
+            return RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "-ceri", CertificateConstants.AppDataDirectory }) == 0;
         }
 
         public void RemoveCertificate(byte[] certificate2)
@@ -54,9 +52,7 @@ namespace BD.WTTS.Services.Implementation
                         "-c",
                         $"{Certutil} -D -d sql:$HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\""
                     }).WaitForExit();
-            if (string.IsNullOrWhiteSpace(Environment.ProcessPath))
-                return;
-            RunRootCommand(PkexecPath, new string[] { Environment.ProcessPath!, "-cerd", CertificateConstants.AppDataDirectory });
+            RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "-cerd", CertificateConstants.AppDataDirectory });
         }
 
         public static int RunRootCommand(string path, string[] args)
