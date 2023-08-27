@@ -66,10 +66,6 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
         this.value = value; // 赋值当前字段
 
         var setter_value = value;
-        if (EqualityComparer<TValue>.Default.Equals(value, Default))
-        {
-            setter_value = default;
-        }
         setter(monitor.CurrentValue, setter_value); // 赋值模型类属性
 
         OnValueChanged(oldValue, value); // 调用变更事件
