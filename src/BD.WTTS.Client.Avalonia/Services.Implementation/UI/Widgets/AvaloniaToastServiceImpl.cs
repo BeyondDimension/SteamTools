@@ -9,6 +9,8 @@ namespace BD.WTTS.Services.Implementation;
 [PseudoClasses(":topleft", ":topright", ":bottomleft", ":bottomright")]
 sealed class AvaloniaToastServiceImpl : IToastService
 {
+    public static AvaloniaToastServiceImpl Instance { get; } = (AvaloniaToastServiceImpl)Ioc.Get<IToastService>();
+
     public SnackbarManager? NotificationManager { get; set; }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -21,6 +23,17 @@ sealed class AvaloniaToastServiceImpl : IToastService
         _ => AvaNotificationType.Information,
     };
 
+    public void SetSnackbarManager(TopLevel host)
+    {
+        NotificationManager ??= new SnackbarManager(host)
+        {
+            Position = NotificationPosition.BottomRight,
+            MaxItems = 5,
+        };
+
+        //NotificationManager.ApplyTemplate();
+    }
+
     /// <summary>
     /// 显示Toast
     /// </summary>
@@ -28,13 +41,16 @@ sealed class AvaloniaToastServiceImpl : IToastService
     /// <param name="duration"></param>
     public void Show(ToastIcon icon, string text, int? duration = null)
     {
-        var host = AvaloniaWindowManagerImpl.GetWindowTopLevel();
-
-        NotificationManager ??= new SnackbarManager(host)
+        if (NotificationManager == null)
         {
-            Position = NotificationPosition.BottomRight,
-            MaxItems = 5,
-        };
+            var host = AvaloniaWindowManagerImpl.GetWindowTopLevel();
+
+            NotificationManager = new SnackbarManager(host)
+            {
+                Position = NotificationPosition.BottomRight,
+                MaxItems = 5,
+            };
+        }
 
         var notificationType = GetNotificationType(icon);
         NotificationManager.Show(text, notificationType: notificationType);

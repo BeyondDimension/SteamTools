@@ -109,6 +109,9 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
     {
         base.OnAttachedToVisualTree(e);
 
+        var top = TopLevel.GetTopLevel(this);
+        if (top != null)
+            AvaloniaToastServiceImpl.Instance.SetSnackbarManager(top);
         NavigationService.Instance.SetFrame(FrameView);
     }
 
