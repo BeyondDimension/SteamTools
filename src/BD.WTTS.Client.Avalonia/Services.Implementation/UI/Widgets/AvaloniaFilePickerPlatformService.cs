@@ -79,17 +79,30 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
 #endif
     });
 
+#if IOS || MACOS || MACCATALYST
+    static readonly Lazy<string?[]> _UTTypes = new(() =>
+    {
+        var fields = typeof(UTType).GetFields(BindingFlags.Public | BindingFlags.Static);
+        if (fields == null)
+            return Array.Empty<string>();
+        var result = fields.Where(x => x.FieldType == typeof(string) || x.FieldType == typeof(NSString)).Select(x => x.GetValue(null)?.ToString()).ToArray();
+        return result;
+    });
+#endif
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static bool IsAppleUniformTypeIdentifier(string s)
     {
-        if (s == "jpeg"
-#if IOS || MACOS || MACCATALYST
-            || s == UTType.JPEG || s == UTType.PNG
-#endif
-            )
+        if (s == "jpeg")
         {
             return true;
         }
+#if IOS || MACOS || MACCATALYST
+        if (_UTTypes.Value.Contains(s))
+        {
+            return true;
+        }
+#endif
         return false;
     }
 
