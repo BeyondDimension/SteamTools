@@ -398,7 +398,7 @@ public sealed partial class ProxyService
             var jspath = await scriptManager.DownloadScriptAsync(basicsInfo.Content.UpdateLink);
             if (jspath.IsSuccess)
             {
-                var build = await scriptManager.AddScriptAsync(jspath.Content!,, isCompile: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
+                var build = await scriptManager.AddScriptAsync(jspath.Content!, basicsInfo.Content, isCompile: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
                 if (build.IsSuccess)
                 {
                     if (build.Content != null)
