@@ -140,18 +140,38 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                     {
                         fileInfo.CopyTo(jsSavePath);
                     }
-                    if (oldInfo != null && oldInfo.LocalId > 0)
+                    if (oldInfo != null)
                     {
-                        info.LocalId = oldInfo.LocalId;
-                        info.Id = oldInfo.Id;
-                        info.Order = oldInfo.Order;
-                        if (isNoRepeat)
+                        //本地DTO
+                        if (oldInfo.LocalId > 0)
                         {
-                            var state = await DeleteScriptAsync(oldInfo, false);
-                            if (!state.IsSuccess)
+                            info.LocalId = oldInfo.LocalId;
+                            info.Id = oldInfo.Id;
+                            info.Order = oldInfo.Order;
+                            if (isNoRepeat)
                             {
-                                return ApiRspHelper.Fail<ScriptDTO?>(AppResources.Script_FileDeleteError_.Format(oldInfo.FilePath));
+                                var state = await DeleteScriptAsync(oldInfo, false);
+                                if (!state.IsSuccess)
+                                {
+                                    return ApiRspHelper.Fail<ScriptDTO?>(AppResources.Script_FileDeleteError_.Format(oldInfo.FilePath));
+                                }
                             }
+                        }
+                        else
+                        {
+                            //在线 DTO 返回值
+                            info.SourceLink = oldInfo.SourceLink;
+                            info.UpdateLink = oldInfo.UpdateLink;
+                            info.DownloadLink = oldInfo.DownloadLink;
+                            info.IconUrl = oldInfo.IconUrl;
+                            info.AuthorName = oldInfo.AuthorName;
+                            info.Describe = oldInfo.Describe;
+                            info.UpdateTime = oldInfo.UpdateTime;
+                            info.AccelerateProjects = oldInfo.AccelerateProjects;
+                            info.Version = oldInfo.Version;
+                            info.ExcludeDomainNames = oldInfo.ExcludeDomainNames;
+                            info.MatchDomainNames = oldInfo.MatchDomainNames;
+                            info.Name = oldInfo.Name;
                         }
                     }
                     if (pid.HasValue)
