@@ -80,32 +80,72 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     });
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static bool IsAppleUniformTypeIdentifier(string s)
+    {
+        if (s == "jpeg"
+#if IOS || MACOS || MACCATALYST
+            || s == UTType.JPEG || s == UTType.PNG
+#endif
+            )
+        {
+            return true;
+        }
+        return false;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static AvaloniaFilePickerFileType Convert(string name, IEnumerable<string>? extensions)
     {
-        var result = new AvaloniaFilePickerFileType(name)
+        // https://docs.avaloniaui.net/docs/next/concepts/services/storage-provider/file-picker-options
+
+        var result = new AvaloniaFilePickerFileType(name);
+        if (extensions != null)
         {
-#if IOS || MACOS || MACCATALYST
-            AppleUniformTypeIdentifiers = extensions?.ToArray(),
-#elif WINDOWS
-            Patterns = extensions?.Select(x =>
+            HashSet<string> appleUniformTypeIdentifiers = new();
+            HashSet<string> patterns = new();
+            HashSet<string> mimeTypes = new();
+            foreach (var x in extensions)
             {
-                if (x.StartsWith('.'))
+                if (IsAppleUniformTypeIdentifier(x))
                 {
-                    return $"*{x}";
+                    appleUniformTypeIdentifiers.Add(x);
+                    continue;
+                }
+                else if (x.Contains('/'))
+                {
+                    mimeTypes.Add(x);
+                    continue;
+                }
+                else if (x.StartsWith('.'))
+                {
+                    patterns.Add($"*{x}");
+                    continue;
                 }
                 else if (x.StartsWith('*'))
                 {
-                    return x;
+                    patterns.Add(x);
+                    continue;
                 }
                 else
                 {
-                    return $"*.{x}";
+                    patterns.Add($"*.{x}");
+                    continue;
                 }
-            }).ToArray(),
-#else
-            Patterns = IServiceBase.FormatExtensions(extensions, trimLeadingPeriod: true).ToArray(),
-#endif
-        };
+            }
+            if (appleUniformTypeIdentifiers.Any())
+            {
+                result.AppleUniformTypeIdentifiers = appleUniformTypeIdentifiers.ToArray();
+            }
+            if (patterns.Any())
+            {
+                result.Patterns = patterns.ToArray();
+            }
+            if (mimeTypes.Any())
+            {
+                result.MimeTypes = mimeTypes.ToArray();
+            }
+        }
+
         return result;
     }
 
