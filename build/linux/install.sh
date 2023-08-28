@@ -40,6 +40,33 @@ Install_certutil() {
         echo "certutil 工具已安装。"
     fi
 }
+Install_jq() {
+    # Check if jq is already installed
+    if command -v jq &>/dev/null; then
+        echo "jq 工具已安装。"
+    else
+        echo "jq 用来解析版本更新。"
+        # Check the package manager
+        if command -v apt &>/dev/null; then
+            # Using apt (Debian/Ubuntu)
+            sudo apt update
+            sudo apt install -y jq
+        elif command -v dnf &>/dev/null; then
+            # Using dnf (Fedora)
+            sudo dnf install -y jq
+        elif command -v yum &>/dev/null; then
+            # Using yum (CentOS/Red Hat)
+            sudo yum install -y jq
+        elif command -v pacman &>/dev/null; then
+            # Using pacman (Arch Linux)
+            sudo pacman -S jq
+        else
+            echo "请手动安装 jq 工具。"
+            exit 1
+        fi
+        echo "请手动安装 jq 工具。"
+    fi
+}
 #精简版系统可能没有该工具
 Install_zenity() {
     # 判断发行版类型
@@ -266,6 +293,7 @@ exit" >"$base_path/$exec_name.sh"
 #先安装依赖;
 Install_certutil
 Install_zenity
+Install_jq
 #版本检查更新;
 Get_NewVer
 

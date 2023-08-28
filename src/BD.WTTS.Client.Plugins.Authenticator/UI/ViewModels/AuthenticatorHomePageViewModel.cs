@@ -563,7 +563,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
     {
         if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
         var index = Auths.IndexOf(authenticatorItemModel);
-        if (index == Auths.Count)
+        if (index > Auths.Count)
             return;
         if (authenticatorItemModel.AuthData.ServerId != null)
         {
