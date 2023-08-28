@@ -15,7 +15,6 @@
             <ControlTemplate>
                 <Panel>
                     <StackPanel
-                        Name="LoadedContentPresenter"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         IsVisible="{TemplateBinding IsLoading}"
@@ -46,19 +45,6 @@
                         </Border>
                     </StackPanel>
 
-                    <ContentPresenter
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Content="{TemplateBinding NoResultMessage}"
-                        Foreground="{TemplateBinding Foreground}"
-                        Theme="{StaticResource SubtitleTextBlockStyle}">
-                        <ContentPresenter.IsVisible>
-                            <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                <Binding Path="IsShowNoResultText" RelativeSource="{RelativeSource TemplatedParent}" />
-                                <CompiledBinding Path="!#LoadedContentPresenter.IsVisible" />
-                            </MultiBinding>
-                        </ContentPresenter.IsVisible>
-                    </ContentPresenter>
                     <!--<TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -72,12 +58,25 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Content="{TemplateBinding Content}"
-                        Foreground="{TemplateBinding Foreground}"
-                        IsVisible="{Binding !#LoadedContentPresenter.IsVisible}">
-                        <ContentPresenter.IsVisible>
+                        Foreground="{TemplateBinding Foreground}">
+                        <!--<ContentPresenter.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.And}">
                                 <Binding Path="!IsShowNoResultText" RelativeSource="{RelativeSource TemplatedParent}" />
-                                <CompiledBinding Path="!#LoadedContentPresenter.IsVisible" />
+                                <Binding Path="!IsLoading" RelativeSource="{RelativeSource TemplatedParent}" />
+                            </MultiBinding>
+                        </ContentPresenter.IsVisible>-->
+                    </ContentPresenter>
+
+                    <ContentPresenter
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding NoResultMessage}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Theme="{StaticResource SubtitleTextBlockStyle}">
+                        <ContentPresenter.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="IsShowNoResultText" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="!IsLoading" RelativeSource="{RelativeSource TemplatedParent}" />
                             </MultiBinding>
                         </ContentPresenter.IsVisible>
                     </ContentPresenter>

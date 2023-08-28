@@ -5,7 +5,7 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class GameListPageViewModel : TabItemViewModel
 {
-    bool firstLoadGameList = true;
+    //bool firstLoadGameList = true;
     readonly Dictionary<string, string[]> dictPinYinArray = new();
 
     public GameListPageViewModel()
@@ -26,8 +26,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         }
 
         IsInstalledFilter = GameLibrarySettings.GameInstalledFilter.Value;
-
-        //IsCloudArchiveFilter = GameLibrarySettings.GameInstalledFilter.Value;
+        IsCloudArchiveFilter = GameLibrarySettings.GameCloudArchiveFilter.Value;
 
         this.WhenValueChanged(x => x.IsInstalledFilter, false)
             .Subscribe(s => GameLibrarySettings.GameInstalledFilter.Value = s);
@@ -62,22 +61,18 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
             .Bind(out _SteamApps)
             .Subscribe(_ =>
             {
-                //无已安装游戏时，显示提示
-                if (firstLoadGameList && IsInstalledFilter && !SteamApps.Any_Nullable())
-                {
-                    GameLibrarySettings.GameInstalledFilter.Value = false;
-                    Toast.Show(ToastIcon.Info, "没有检测到已安装游戏");
-                }
-                if (firstLoadGameList)
-                {
-                    firstLoadGameList = false;
-                }
-                this.RaisePropertyChanged(nameof(IsSteamAppsEmpty));
+                ////无已安装游戏时，显示提示
+                //if (firstLoadGameList && SteamConnectService.Current.IsConnectToSteam && IsInstalledFilter && !_SteamApps.Any_Nullable())
+                //{
+                //    GameLibrarySettings.GameInstalledFilter.Value = false;
+                //    Toast.Show(ToastIcon.Info, "没有检测到已安装游戏");
+                //}
+                //if (firstLoadGameList)
+                //{
+                //    firstLoadGameList = false;
+                //}
                 CalcTypeCount();
             });
-
-        SteamConnectService.Current.WhenAnyValue(x => x.IsLoadingGameList)
-            .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamAppsEmpty)));
 
         ShowHideAppCommand = ReactiveCommand.Create(() =>
         {

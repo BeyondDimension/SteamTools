@@ -342,21 +342,20 @@
             </DockPanel>
         </StackPanel>
     </spp:PageBase.PaneContent>
-    <DockPanel>
-        <spp:ContentLoader
-            IsLoading="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsLoadingGameList, Mode=OneWay}"
-            IsShowNoResultText="{Binding IsSteamAppsEmpty}"
-            NoResultMessage="{Binding Path=Res.GameList_IsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-            <spp:ContentLoader.GestureRecognizers>
-                <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
-            </spp:ContentLoader.GestureRecognizers>
-            <ItemsRepeater x:Name="GameListRepeater" ItemsSource="{Binding SteamApps}">
-                <!--
-                    Classes.Compact="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.CompactGrid}}"
-                    Classes.Grid="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"
-                    Classes.List="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.List}}"
-                -->
-                <!--<ItemsRepeater.Styles>
+    <spp:ContentLoader
+        IsLoading="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsLoadingGameList, Mode=OneWay}"
+        IsShowNoResultText="{Binding !!!SteamApps.Count}"
+        NoResultMessage="{Binding Path=Res.GameList_IsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:ContentLoader.GestureRecognizers>
+            <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
+        </spp:ContentLoader.GestureRecognizers>
+        <ItemsRepeater x:Name="GameListRepeater" ItemsSource="{Binding SteamApps}">
+            <!--
+                Classes.Compact="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.CompactGrid}}"
+                Classes.Grid="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"
+                Classes.List="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.List}}"
+            -->
+            <!--<ItemsRepeater.Styles>
                     <Style Selector="ItemsRepeater.Grid">
                         <Setter Property="Layout">
                             <Setter.Value>
@@ -394,78 +393,77 @@
                         <Setter Property="MaxHeight" Value="65" />
                     </Style>
                 </ItemsRepeater.Styles>-->
-                <ItemsRepeater.Layout>
-                    <UniformGridLayout
-                        ItemsJustification="Start"
-                        ItemsStretch="Uniform"
-                        MinColumnSpacing="10"
-                        MinItemHeight="310"
-                        MinItemWidth="150"
-                        MinRowSpacing="10" />
-                </ItemsRepeater.Layout>
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate DataType="spp:SteamApp">
-                        <!--  Classes.Vertical="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"  -->
-                        <spp:AppItem
-                            Title="{Binding DisplayName}"
-                            Classes="Vertical"
-                            ContextFlyout="{StaticResource SharedMenuFlyout}"
-                            MoreFlyout="{StaticResource SharedMenuFlyout}">
-                            <spp:AppItem.Status>
-                                <Border Classes="Status">
-                                    <TextBlock Text="{Binding AppId}" />
+            <ItemsRepeater.Layout>
+                <UniformGridLayout
+                    ItemsJustification="Start"
+                    ItemsStretch="Uniform"
+                    MinColumnSpacing="10"
+                    MinItemHeight="310"
+                    MinItemWidth="150"
+                    MinRowSpacing="10" />
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate DataType="spp:SteamApp">
+                    <!--  Classes.Vertical="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"  -->
+                    <spp:AppItem
+                        Title="{Binding DisplayName}"
+                        Classes="Vertical"
+                        ContextFlyout="{StaticResource SharedMenuFlyout}"
+                        MoreFlyout="{StaticResource SharedMenuFlyout}">
+                        <spp:AppItem.Status>
+                            <Border Classes="Status">
+                                <TextBlock Text="{Binding AppId}" />
+                            </Border>
+                        </spp:AppItem.Status>
+                        <spp:AppItem.Image>
+                            <Panel Width="{Binding $parent[spp:AppItem].Bounds.Width}">
+                                <spp:Image2
+                                    Name="AppImage"
+                                    DecodeWidth="169"
+                                    FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
+                                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                                    Source="{Binding LibraryGridStream^}"
+                                    Stretch="UniformToFill" />
+                                <TextBlock
+                                    Margin="8,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    IsVisible="{Binding #AppImage.IsFailed}"
+                                    Text="{Binding DisplayName}"
+                                    TextAlignment="Center"
+                                    TextWrapping="WrapWithOverflow"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+                                <Border
+                                    Margin="10,0,10,-3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+                                    CornerRadius="3"
+                                    IsVisible="{Binding IsInstalled}">
+                                    <DockPanel Margin="10,3" HorizontalAlignment="Center">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="11"
+                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                            IsVisible="{Binding InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                            Text="{Binding InstalledDrive}" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="11"
+                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                            Text="{Binding SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
+                                            TextWrapping="Wrap" />
+                                    </DockPanel>
                                 </Border>
-                            </spp:AppItem.Status>
-                            <spp:AppItem.Image>
-                                <Panel Width="{Binding $parent[spp:AppItem].Bounds.Width}">
-                                    <spp:Image2
-                                        Name="AppImage"
-                                        DecodeWidth="169"
-                                        FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
-                                        RenderOptions.BitmapInterpolationMode="HighQuality"
-                                        Source="{Binding LibraryGridStream^}"
-                                        Stretch="UniformToFill" />
-                                    <TextBlock
-                                        Margin="8,0"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                        IsVisible="{Binding #AppImage.IsFailed}"
-                                        Text="{Binding DisplayName}"
-                                        TextAlignment="Center"
-                                        TextWrapping="WrapWithOverflow"
-                                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                            </Panel>
+                        </spp:AppItem.Image>
+                    </spp:AppItem>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
 
-                                    <Border
-                                        Margin="10,0,10,-3"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Bottom"
-                                        Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
-                                        CornerRadius="3"
-                                        IsVisible="{Binding IsInstalled}">
-                                        <DockPanel Margin="10,3" HorizontalAlignment="Center">
-                                            <TextBlock
-                                                Margin="0,0,5,0"
-                                                VerticalAlignment="Center"
-                                                FontSize="11"
-                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                IsVisible="{Binding InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                                                Text="{Binding InstalledDrive}" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                FontSize="11"
-                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                Text="{Binding SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
-                                                TextWrapping="Wrap" />
-                                        </DockPanel>
-                                    </Border>
-                                </Panel>
-                            </spp:AppItem.Image>
-                        </spp:AppItem>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
-
-        </spp:ContentLoader>
-    </DockPanel>
+    </spp:ContentLoader>
 </spp:PageBase>

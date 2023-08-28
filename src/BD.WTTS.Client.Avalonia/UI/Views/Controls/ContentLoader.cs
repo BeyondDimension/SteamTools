@@ -99,30 +99,40 @@ public class ContentLoader : ContentControl
         set => SetValue(MaximumProperty, value);
     }
 
+    //ContentPresenter? contentPresenter;
+
+    //protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    //{
+    //    base.OnApplyTemplate(e);
+    //    contentPresenter = e.NameScope.Find<ContentPresenter>("ContentPresenter");
+    //}
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
 
-        if (e.Property == ProgressValueProperty)
-        {
-            if (e.NewValue is double value)
-            {
-                if (value > 0)
-                {
-                    IsIndeterminate = false;
-                    IsLoading = true;
-                }
-                else if (value == Maximum)
-                {
-                    IsLoading = false;
-                }
-            }
-        }
-        //else if (e.Property == IsLoadingProperty || e.Property == IsShowNoResultTextProperty)
+        //if (e.Property == IsLoadingProperty || e.Property == IsShowNoResultTextProperty)
         //{
-        //    if (IsLoading && IsShowNoResultText)
+        //    if (!IsLoading && !IsShowNoResultText && contentPresenter != null && contentPresenter.Content is ItemsPresenter itemsPresenter)
         //    {
-        //        IsShowNoResultText = false;
+        //        itemsPresenter.InvalidateMeasure();
+        //        itemsPresenter.InvalidateArrange();
+        //        itemsPresenter.UpdateLayout();
+        //    }
+        //}
+        //if (e.Property == ProgressValueProperty)
+        //{
+        //    if (e.NewValue is double value)
+        //    {
+        //        if (value > 0)
+        //        {
+        //            IsIndeterminate = false;
+        //            IsLoading = true;
+        //        }
+        //        else if (value == Maximum)
+        //        {
+        //            IsLoading = false;
+        //        }
         //    }
         //}
     }

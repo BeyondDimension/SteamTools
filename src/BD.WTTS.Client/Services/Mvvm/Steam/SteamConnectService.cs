@@ -237,14 +237,14 @@ public sealed class SteamConnectService
                         Name = item.Value,
                     });
             }
-            //Task2.InBackground(() =>
-            //{
-            foreach (var item in RuningSteamApps.Values)
+            Task2.InBackground(() =>
             {
-                if (item.Process == null || item.Process.HasExited)
-                    item.StartSteamAppProcess();
-            }
-            //});
+                foreach (var item in RuningSteamApps.Values)
+                {
+                    if (item.Process == null || item.Process.HasExited)
+                        item.StartSteamAppProcess();
+                }
+            });
         }
     }
 

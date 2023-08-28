@@ -18,8 +18,13 @@
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                IsVisible="{Binding !IsLogged}"
                 Spacing="10">
+                <StackPanel.IsVisible>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <CompiledBinding Path="!IsLogged" />
+                        <CompiledBinding Path="!IsLoading" />
+                    </MultiBinding>
+                </StackPanel.IsVisible>
                 <PathIcon
                     Width="88"
                     Height="88"
