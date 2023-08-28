@@ -1,7 +1,7 @@
 #if IOS || MACOS || MACCATALYST
 using MobileCoreServices;
 #endif
-using AvaloniaFilePickerFileType = Avalonia.Platform.Storage.FilePickerFileType;
+using APS_FilePickerFileType = Avalonia.Platform.Storage.FilePickerFileType;
 using BaseService = BD.Common.Services.IFilePickerPlatformService;
 using FilePickerFileType = BD.Common.Models.FilePickerFileType;
 using IOpenFileDialogService = BD.Common.Services.IFilePickerPlatformService.IOpenFileDialogService;
@@ -19,31 +19,86 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     // https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/FilePicker/FilePicker.uwp.cs
     // https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/FileSystem/FileSystem.shared.cs
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Images { get; } = FilePickerFileType.Parse(new string[] {
-           "*.webp", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp", "public.image", "image/*",
-        });
+    sealed class FilePickerFileTypeWrapper : IFilePickerFileType
+    {
+        public required IReadOnlyList<APS_FilePickerFileType> Values { get; init; }
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Png { get; } = FilePickerFileType.Parse(new string[] {
-           "*.png", "public.png", "image/png",
-        });
+        public IEnumerable<string>? GetPlatformFileType(Platform platform)
+        {
+            foreach (var value in Values)
+            {
+                if (value.Patterns != null)
+                    foreach (var item in value.Patterns)
+                        yield return item;
+                if (value.MimeTypes != null)
+                    foreach (var item in value.MimeTypes)
+                        yield return item;
+                if (value.AppleUniformTypeIdentifiers != null)
+                    foreach (var item in value.AppleUniformTypeIdentifiers)
+                        yield return item;
+            }
+        }
+    }
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Jpeg { get; } = FilePickerFileType.Parse(new string[] {
-           "*.jpg", "*.jpeg",  "public.jpeg", "image/jpeg",
-        });
+    IFilePickerFileType IInternalFilePickerPlatformService.Images { get; } = new FilePickerFileTypeWrapper
+    {
+        Values = new[]
+        {
+            new APS_FilePickerFileType("All Images")
+            {
+                Patterns = new[] { "*.webp", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp" },
+                AppleUniformTypeIdentifiers = new[] { "public.png", "public.jpeg", "public.jpeg-2000", "com.compuserve.gif", "com.microsoft.bmp", },
+                MimeTypes = new[] { "image/webp", "image/png", "image/jpeg", "image/gif", "image/bmp", },
+            },
+        },
+    };
+
+    IFilePickerFileType IInternalFilePickerPlatformService.Png { get; } = new FilePickerFileTypeWrapper
+    {
+        Values = new[]
+        {
+            new APS_FilePickerFileType("PNG image")
+            {
+                Patterns = new[] { "*.png", },
+                AppleUniformTypeIdentifiers = new[] { "public.png", },
+                MimeTypes = new[] { "image/png", },
+            },
+        },
+    };
+
+    IFilePickerFileType IInternalFilePickerPlatformService.Jpeg { get; } = new FilePickerFileTypeWrapper
+    {
+        Values = new[]
+        {
+            new APS_FilePickerFileType("JPEG image")
+            {
+                Patterns = new[] { "*.jpg", "*.jpeg", },
+                AppleUniformTypeIdentifiers = new[] { "public.jpeg", "public.jpeg-2000", },
+                MimeTypes = new[] { "image/jpeg", },
+            },
+        },
+    };
 
     IFilePickerFileType IInternalFilePickerPlatformService.Videos => throw new NotImplementedException();
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Pdf { get; } = FilePickerFileType.Parse(new string[] {
-           "*.pdf", "application/pdf", "com.adobe.pdf",
-        });
+    IFilePickerFileType IInternalFilePickerPlatformService.Pdf { get; } = new FilePickerFileTypeWrapper
+    {
+        Values = new[]
+        {
+            new APS_FilePickerFileType("JPEG image")
+            {
+                Patterns = new[] { "*.pdf", },
+                AppleUniformTypeIdentifiers = new[] { "com.adobe.pdf", },
+                MimeTypes = new[] { "application/pdf", },
+            },
+        },
+    };
 
     //#if IOS || MACOS || MACCATALYST
     //    static readonly Lazy<string?[]> _UTTypes = new(() =>
     //    {
-    //        var fields = typeof(UTType).GetFields(BindingFlags.Public | BindingFlags.Static);
-    //        if (fields == null)
-    //            return Array.Empty<string>();
-    //        var result = fields.Where(x => x.FieldType == typeof(string) || x.FieldType == typeof(NSString)).Select(x => x.GetValue(null)?.ToString()).ToArray();
+    //        var fields = typeof(UTType).GetProperties(BindingFlags.Public | BindingFlags.Static);
+    //        var result = fields.Where(x => x.PropertyType == typeof(string) || x.PropertyType == typeof(NSString)).Select(x => x.GetValue(null)?.ToString()).ToArray();
     //        return result;
     //    });
     //#endif
@@ -65,10 +120,10 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static AvaloniaFilePickerFileType Convert(string name, IEnumerable<string>? extensions)
+    static APS_FilePickerFileType Convert(string name, IEnumerable<string>? extensions)
     {
         // https://docs.avaloniaui.net/docs/next/concepts/services/storage-provider/file-picker-options
-        var result = new AvaloniaFilePickerFileType(name);
+        var result = new APS_FilePickerFileType(name);
         if (extensions != null)
         {
 #if IOS || MACOS || MACCATALYST
@@ -140,8 +195,12 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static List<AvaloniaFilePickerFileType>? Convert(IFilePickerFileType? fileTypes)
+    static IReadOnlyList<APS_FilePickerFileType>? Convert(IFilePickerFileType? fileTypes)
     {
+        if (fileTypes is FilePickerFileTypeWrapper impl)
+        {
+            return impl.Values;
+        }
         if (fileTypes is FilePickerFileType.IFilePickerFileTypeWithName @interface)
         {
             var values = @interface.GetFileTypes();
@@ -155,7 +214,7 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
             var extensions = fileTypes?.GetPlatformFileType(DeviceInfo2.Platform());
             if (extensions.Any_Nullable())
             {
-                return new()
+                return new APS_FilePickerFileType[]
                 {
                     Convert(string.Empty, extensions),
                 };
