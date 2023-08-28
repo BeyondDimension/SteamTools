@@ -251,6 +251,14 @@ partial class ProxyService
     /// </summary>
     async Task<OperateProxyServiceResult> StopProxyServiceAsync(bool isExit = false)
     {
+        bool callSet = true;
+#if WINDOWS
+        if (isExit && !platformService.IsAdministrator)
+        {
+            // Windows 平台非管理员权限进程退出时候忽略，由管理员进程退出时执行清空系统代理配置
+            callSet = false;
+        }
+#endif
         switch (proxyMode) // 先停止接入代理流量
         {
             case ProxyMode.Hosts:
@@ -276,10 +284,16 @@ partial class ProxyService
                 }
                 break;
             case ProxyMode.System:
-                await platformService.SetAsSystemProxyAsync(false);
+                if (callSet)
+                {
+                    await platformService.SetAsSystemProxyAsync(false);
+                }
                 break;
             case ProxyMode.PAC:
-                await platformService.SetAsSystemPACProxyAsync(false);
+                if (callSet)
+                {
+                    await platformService.SetAsSystemPACProxyAsync(false);
+                }
                 break;
         }
         StopTimer(); // 停止 UI 计时器
