@@ -12,14 +12,20 @@ public partial class AuthenticatorGeneralImportPageViewModel : ViewModelBase
     public string? CurrentCode { get; set; } = "------";
 
     [Reactive]
-    public AuthType AuthType { get; set; }
+    public AuthType AuthType { get; set; } = AuthType.TOTP;
 
     [Reactive]
     public HMACTypes HMACType { get; set; }
 
+    /// <summary>
+    /// 刷新间隔时间
+    /// </summary>
     [Reactive]
-    public int CodeDigits { get; set; } = 30;
+    public int Period { get; set; } = 30;
 
+    /// <summary>
+    /// 令牌位数
+    /// </summary>
     [Reactive]
-    public int Period { get; set; } = 6;
+    public int CodeDigits { get; set; } = 6;
 }

@@ -6,17 +6,14 @@ public static class ControlExtensions
     {
         if (c.DataContext == null || c.DataContext.GetType() != typeof(T))
         {
-            Task2.InBackground(() =>
-            {
-                T cx;
+            T cx;
 
-                if (useCache)
-                    cx = IViewModelManager.Instance.Get<T>();
-                else
-                    cx = Activator.CreateInstance<T>();
+            if (useCache)
+                cx = IViewModelManager.Instance.Get<T>();
+            else
+                cx = Activator.CreateInstance<T>();
 
-                Dispatcher.UIThread.Post(() => c.DataContext = cx);
-            });
+            c.DataContext = cx;
         }
     }
 }

@@ -4812,6 +4812,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 安全设置 的本地化字符串。
+        /// </summary>
+        public static string PersonalSafe {
+            get {
+                return ResourceManager.GetString("PersonalSafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 选择图片缩放方式 的本地化字符串。
         /// </summary>
         public static string PictureZoom {

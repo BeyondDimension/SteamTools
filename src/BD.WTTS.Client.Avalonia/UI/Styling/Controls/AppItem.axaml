@@ -428,7 +428,8 @@
                                 Name="IconHost"
                                 Margin="{TemplateBinding ImageMargin}"
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
+                                VerticalAlignment="Center"
+                                Stretch="{TemplateBinding ImageStretch}">
                                 <ContentPresenter Content="{TemplateBinding Image}" />
                             </Viewbox>
 

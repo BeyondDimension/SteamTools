@@ -2790,4 +2790,7 @@
 	<data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
     <value>置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与 Wallpaper Engine 和其它动态桌面软件不兼容，使用时注意关掉 Wallpaper Engine 等软件。</value>
   </data>
+	<data name="PersonalSafe" xml:space="preserve">
+    <value>安全设置</value>
+  </data>
 </root>

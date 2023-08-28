@@ -37,8 +37,8 @@
                     SelectedValue="{Binding AuthType}"
                     Theme="{StaticResource TabStripStyle}">
                     <TabStrip.Items>
-                        <spp:AuthType>HOTP</spp:AuthType>
                         <spp:AuthType>TOTP</spp:AuthType>
+                        <spp:AuthType>HOTP</spp:AuthType>
                     </TabStrip.Items>
                     <TabStrip.ItemTemplate>
                         <DataTemplate DataType="spp:AuthType">
@@ -78,13 +78,13 @@
         <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
             <DockPanel>
                 <TextBlock Text="令牌刷新间隔时间" />
-                <NumericUpDown Value="{Binding CodeDigits}" />
+                <NumericUpDown Value="{Binding Period}" />
             </DockPanel>
         </Border>
         <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
             <DockPanel>
                 <TextBlock Text="令牌位数" />
-                <NumericUpDown Value="{Binding Period}" />
+                <NumericUpDown Value="{Binding CodeDigits}" />
             </DockPanel>
         </Border>
         <Border Classes="Item">
@@ -96,18 +96,18 @@
                     Content="{Binding Path=Res.GeneralAuth_Code, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <TextBlock
                     HorizontalAlignment="Center"
-                    IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.HOTP}}"
+                    IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.TOTP}}"
                     Text="{Binding Path=Res.GeneralAuth_VerifySuccessfulImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <TextBlock
                     HorizontalAlignment="Center"
-                    IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.TOTP}}"
+                    IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.HOTP}}"
                     Text="如果有初始值，请输入到下面Code框内，单击“验证”按钮后会生成上次使用的代码。" />
 
                 <TextBox
                     HorizontalContentAlignment="Center"
                     FontSize="24"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    IsReadOnly="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.HOTP}}"
+                    IsReadOnly="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.TOTP}}"
                     Text="{Binding CurrentCode}" />
             </StackPanel>
         </Border>

@@ -140,7 +140,8 @@
                         Title="{Binding Name}"
                         MaxHeight="200"
                         Description="{Binding Describe}"
-                        ImageMargin="25">
+                        ImageMargin="30"
+                        ImageStretch="None">
                         <spp:AppItem.Status>
                             <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !Disable, Mode=TwoWay}" />
                         </spp:AppItem.Status>
@@ -213,10 +214,8 @@
                             </ui:FAMenuFlyout>
                         </spp:AppItem.MoreFlyout>
                         <spp:AppItem.Image>
-                            <Panel>
+                            <Panel Width="64">
                                 <spp:Image2
-                                    Width="64"
-                                    DecodeWidth="64"
                                     FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
                                     IsVisible="{Binding !IsLoading}"
                                     RenderOptions.BitmapInterpolationMode="HighQuality"

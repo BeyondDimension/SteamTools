@@ -51,8 +51,14 @@
                         VerticalAlignment="Center"
                         Content="{TemplateBinding NoResultMessage}"
                         Foreground="{TemplateBinding Foreground}"
-                        IsVisible="{TemplateBinding IsShowNoResultText}"
-                        Theme="{StaticResource SubtitleTextBlockStyle}" />
+                        Theme="{StaticResource SubtitleTextBlockStyle}">
+                        <ContentPresenter.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="IsShowNoResultText" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <CompiledBinding Path="!#LoadedContentPresenter.IsVisible" />
+                            </MultiBinding>
+                        </ContentPresenter.IsVisible>
+                    </ContentPresenter>
                     <!--<TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -67,7 +73,14 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Content="{TemplateBinding Content}"
                         Foreground="{TemplateBinding Foreground}"
-                        IsVisible="{Binding !#LoadedContentPresenter.IsVisible}" />
+                        IsVisible="{Binding !#LoadedContentPresenter.IsVisible}">
+                        <ContentPresenter.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="!IsShowNoResultText" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <CompiledBinding Path="!#LoadedContentPresenter.IsVisible" />
+                            </MultiBinding>
+                        </ContentPresenter.IsVisible>
+                    </ContentPresenter>
                 </Panel>
             </ControlTemplate>
         </Setter>

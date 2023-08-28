@@ -118,12 +118,12 @@ public class ContentLoader : ContentControl
                 }
             }
         }
-        else if (e.Property == IsLoadingProperty || e.Property == IsShowNoResultTextProperty)
-        {
-            if (IsLoading && IsShowNoResultText)
-            {
-                IsShowNoResultText = false;
-            }
-        }
+        //else if (e.Property == IsLoadingProperty || e.Property == IsShowNoResultTextProperty)
+        //{
+        //    if (IsLoading && IsShowNoResultText)
+        //    {
+        //        IsShowNoResultText = false;
+        //    }
+        //}
     }
 }

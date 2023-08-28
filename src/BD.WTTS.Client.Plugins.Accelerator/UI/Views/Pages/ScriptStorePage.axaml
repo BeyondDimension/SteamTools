@@ -38,6 +38,7 @@
                                 Classes="Vertical"
                                 Description="{Binding AuthorName}"
                                 ImageMargin="20"
+                                ImageStretch="None"
                                 ToolTip.Tip="{Binding Describe}">
                                 <spp:AppItem.Status>
                                     <Panel>
@@ -73,8 +74,6 @@
                                 </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>
                                     <spp:Image2
-                                        Width="80"
-                                        Height="80"
                                         FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
                                         RenderOptions.BitmapInterpolationMode="HighQuality"
                                         Source="{Binding IconUrl}"

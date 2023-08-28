@@ -21,6 +21,9 @@ public class AppItem : TemplatedControl
     public static readonly StyledProperty<Thickness> ImageMarginProperty =
         AvaloniaProperty.Register<AppItem, Thickness>(nameof(ImageMargin));
 
+    public static readonly StyledProperty<Stretch> ImageStretchProperty =
+        AvaloniaProperty.Register<AppItem, Stretch>(nameof(ImageStretch), Stretch.UniformToFill);
+
     public static readonly StyledProperty<bool> ExpandsProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, bool>(nameof(Expands));
 
@@ -70,6 +73,12 @@ public class AppItem : TemplatedControl
     {
         get => GetValue(ImageMarginProperty);
         set => SetValue(ImageMarginProperty, value);
+    }
+
+    public Stretch ImageStretch
+    {
+        get => GetValue(ImageStretchProperty);
+        set => SetValue(ImageStretchProperty, value);
     }
 
     public bool Expands

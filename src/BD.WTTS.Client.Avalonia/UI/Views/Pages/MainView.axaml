@@ -277,7 +277,7 @@
                                 <MenuItem
                                     Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                     CommandParameter="https://steampp.net/account/center/safe"
-                                    Header="{Binding Path=Res.ChangePassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                    Header="{Binding Path=Res.PersonalSafe, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                     IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem Header="-" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
                                 <MenuItem

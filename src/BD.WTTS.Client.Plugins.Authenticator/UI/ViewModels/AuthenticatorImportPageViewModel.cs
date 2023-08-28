@@ -193,7 +193,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
 
                         if (reader.Name != "WinAuthAuthenticator") continue;
                         var authDto = new AuthenticatorDTO();
-                        AuthenticatorHelper.ReadXml(ref authDto, reader, null);
+                        AuthenticatorHelper.ReadXml(authDto, reader, null);
                         await AuthenticatorHelper.SaveAuthenticator(authDto, password, isLocalProtect);
                     }
                     else

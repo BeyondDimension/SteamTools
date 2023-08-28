@@ -1,4 +1,5 @@
 using BD.WTTS.Enums;
+using BD.WTTS.Helper;
 using System.Diagnostics.Metrics;
 using WinAuth;
 
@@ -22,6 +23,119 @@ public partial class AuthenticatorGeneralImportPageViewModel
         Platform = platform;
     }
 
+    //TODO: 待完善
+    public async Task<string?> DecodePrivateKey(string secretCode)
+    {
+        //if (AuthenticatorRegexHelper.SecretCodeHttpRegex().Match(secretCode) is { Success: true })
+        //{
+        //    ////url图片二维码解码
+        //    //var handler = new HttpClientHandler
+        //    //{
+        //    //    AllowAutoRedirect = true,
+        //    //    MaxAutomaticRedirections = 1000,
+        //    //};
+        //    //using var httpClient = new HttpClient(handler);
+        //    //httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Default);
+        //    //httpClient.Timeout = new TimeSpan(0, 0, 20);
+        //    //try
+        //    //{
+        //    //    var response = await httpClient.GetAsync(secretCode);
+        //    //    if (response.StatusCode == HttpStatusCode.OK)
+        //    //    {
+        //    //        response.Content.Headers.ContentType.;
+
+        //    //        using (var bitmap = System.Drawing.Image.FromStream(await response.Content.ReadAsStreamAsync()))
+        //    //        {
+        //    //            //二维码解析
+        //    //            //IBarcodeReader reader = new BarcodeReader();
+        //    //            //var result = reader.Decode(bitmap);
+        //    //            //if (result != null)
+        //    //            //{
+        //    //            //    privatekey = HttpUtility.UrlDecode(result.Text);
+        //    //            //}
+        //    //        }
+        //    //    }
+
+        //    //}
+        //    //catch (Exception e)
+        //    //{
+        //    //    Toast.Show(ToastIcon.Error, AppResources.Error_ScanQRCodeFailed_.Format(e.Message));
+        //    //    Log.Error(nameof(AuthenticatorHelper), e, nameof(DecodePrivateKey));
+        //    //}
+
+        //}
+        //        else if (AuthenticatorRegexHelper.SecretCodeDataImageRegex().Match(secretCode) is { Success: true } dataImageMatch)
+        //        {
+        //            var imageData = Convert.FromBase64String(dataImageMatch.Groups[2].Value);
+        //            using var ms = new MemoryStream(imageData);
+        //#if WINDOWS
+        //            using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(ms))
+        //            {
+        //                //二维码解析
+
+        //            }
+        //#endif
+        //        }
+        if (AuthenticatorRegexHelper.SecretCodeOptAuthRegex().Match(secretCode) is { Success: true } optMatch)
+        {
+            var authType = optMatch.Groups[1].Value;
+            var label = optMatch.Groups[2].Value;
+
+            switch (authType)
+            {
+                case "totp":
+                    AuthType = AuthType.TOTP;
+                    break;
+                case "hotp":
+                    AuthType = AuthType.HOTP;
+                    break;
+                default:
+                    return null;
+            }
+
+            var qs = HttpUtility.ParseQueryString(optMatch.Groups[3].Value);
+            var privatekey = qs["secret"];
+            if (qs != null)
+            {
+                if (long.TryParse(qs["counter"], out var counter) == true)
+                {
+                    CurrentCode = counter.ToString();
+                }
+
+                var issuer = qs["issuer"];
+                if (string.IsNullOrEmpty(issuer) == false)
+                {
+                    label = issuer + (string.IsNullOrEmpty(label) == false ? " (" + label + ")" : string.Empty);
+                }
+                AuthenticatorName = label;
+
+                if (int.TryParse(qs["period"], out var period) == true && period > 0)
+                {
+                    Period = period;
+                }
+
+                if (int.TryParse(qs["digits"], out var digits) == true && digits > 0)
+                {
+                    CodeDigits = digits;
+                }
+
+                if (Enum.TryParse<HMACTypes>(qs["algorithm"], true, out var hmac) == true)
+                {
+                    HMACType = hmac;
+                }
+
+                return privatekey;
+            }
+        }
+        else
+        {
+            var privateKey = AuthenticatorRegexHelper.SecretHexCodeAuthRegex().Replace(secretCode, "");
+            return privateKey.Length < 1 ? null : privateKey;
+        }
+
+        return null;
+    }
+
     public async Task GenerateCode()
     {
         if (string.IsNullOrEmpty(SecretCode))
@@ -32,7 +146,7 @@ public partial class AuthenticatorGeneralImportPageViewModel
 
         try
         {
-            var privateKey = await AuthenticatorHelper.DecodePrivateKey(SecretCode);
+            var privateKey = await DecodePrivateKey(SecretCode);
 
             if (string.IsNullOrEmpty(privateKey))
             {
