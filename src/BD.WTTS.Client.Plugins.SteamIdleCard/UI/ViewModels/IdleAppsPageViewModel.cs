@@ -6,10 +6,12 @@ using System.Linq;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class IdleAppsPageViewModel : ViewModelBase
+public sealed partial class IdleAppsPageViewModel : ViewModelBase
 {
     readonly ISteamService SteamTool = ISteamService.Instance;
     readonly ISteamIdleCardService IdleCard = ISteamIdleCardService.Instance;
+
+    readonly SteamLoginState steamLoginState = new SteamLoginState();
 
     public IdleAppsPageViewModel()
     {
@@ -19,64 +21,10 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                 RunOrStopAutoNext(x.Value);
                 this.IsAutoNextOnTxt = x.Value ? Strings.Idle_StopAutoNext : Strings.Idle_OpenAutoNext;
             });
+
+        this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
+        this.IdleManualRunNext = ReactiveCommand.Create(ManualRunNext);
     }
-
-    [Reactive]
-    public bool RunLoaingState { get; set; }
-
-    [Reactive]
-    public bool RunState { get; set; }
-
-    [Reactive]
-    public string? RuningCountTxt { get; set; }
-
-    [Reactive]
-    public ObservableCollection<SteamApp> IdleGameList { get; set; } = new();
-
-    /// <summary>
-    /// 当前挂卡游戏 
-    /// </summary>
-    [Reactive]
-    public SteamApp? CurrentIdle { get; set; }
-
-    /// <summary>
-    /// 挂卡规则
-    /// </summary>
-    [Reactive]
-    public IdleRule IdleRule { get; set; }
-
-    /// <summary>
-    /// 挂卡顺序
-    /// </summary>
-    [Reactive]
-    public IdleSequentital IdleSequentital { get; set; }
-
-    /// <summary>
-    /// 自动运行下一个游戏
-    /// </summary>
-    [Reactive]
-    public bool IsAutoNextOn { get; set; }
-
-    /// <summary>
-    /// 自动运行下一个游戏文本展示
-    /// </summary>
-    [Reactive]
-    public string? IsAutoNextOnTxt { get; set; }
-
-    #region 魔改
-
-    /// <summary>
-    /// 最少游戏时间 hours
-    /// </summary>
-    [Reactive]
-    private double MinRunTime { get; set; } = 2;
-
-    /// <summary>
-    /// 自动切换游戏时间间隔 ms
-    /// </summary>
-    [Reactive]
-    private double SwitchTime { get; set; } = 500;
-    #endregion
 
     public override void Activation()
     {
@@ -101,6 +49,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
 
                     if (RunState)
                     {
+                        await SteamConnectService.Current.RefreshGamesListAsync();
                         await ReadyToGoIdle();
                     }
                     else
@@ -168,13 +117,17 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
 
     private async Task SteamAppsSort()
     {
+        if (IdleSequentital == IdleSequentital.Mostvalue)
+            Badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
+        else
+            Badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
+        Badges = Badges.Where(x => x.CardsRemaining != 0); // 过滤可掉落卡片的游戏
+
+        var appid_sorts = Enumerable.Empty<int>();
         if (IdleSequentital == IdleSequentital.Default)
-            IdleGameList.Add(SteamConnectService.Current.SteamApps.Items);
+            appid_sorts = Badges.Select(s => s.AppId);
         else
         {
-            Badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
-            Badges = Badges.Where(x => x.CardsRemaining != 0); // 过滤可掉落卡片的游戏
-            var appid_sorts = Enumerable.Empty<int>();
             switch (IdleSequentital)
             {
                 case IdleSequentital.LeastCards:
@@ -189,10 +142,12 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                 default:
                     break;
             }
-            var apps = SteamConnectService.Current.SteamApps.Items.OrderBy(o => appid_sorts.ToList().FindIndex(x => x == o.AppId)).ToList();
-            IdleGameList.Add(apps);
         }
-
+        var apps = SteamConnectService.Current.SteamApps.Items
+            .Where(x => appid_sorts.Contains((int)x.AppId))
+            .OrderBy(o => appid_sorts.ToList().FindIndex(x => x == o.AppId))
+            .ToList();
+        IdleGameList.Add(apps);
     }
 
     private async Task ReadyToGoIdle()
@@ -238,13 +193,13 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                 var multi = IdleGameList.Where(x => canIdles.Contains((int)x.AppId));
                 if (multi.Count() >= 2)
                 {
-                    PauseAutoNext(false);
-                    StartSoloIdle(multi.First());
+                    PauseAutoNext(true);
+                    StartMultipleIdle();
                 }
                 else
                 {
-                    PauseAutoNext(true);
-                    StartMultipleIdle();
+                    PauseAutoNext(false);
+                    StartSoloIdle(multi.First());
                 }
             }
         }
@@ -259,7 +214,6 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                 IdleGameList.Remove(CurrentIdle);
             StartIdle();
         }
-
     }
 
     /// <summary>
@@ -381,6 +335,9 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                         {
                             await AutoNextTask();
                             await Task.Delay(TimeSpan.FromSeconds(SwitchTime), CancellationTokenSource.Token);
+                        }
+                        catch (OperationCanceledException)
+                        {
                         }
                         catch (Exception ex)
                         {
