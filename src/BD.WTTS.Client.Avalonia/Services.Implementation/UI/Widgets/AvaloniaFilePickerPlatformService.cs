@@ -19,90 +19,48 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     // https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/FilePicker/FilePicker.uwp.cs
     // https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/FileSystem/FileSystem.shared.cs
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Images =>
-#if IOS || MACOS || MACCATALYST
-        FilePickerFileType.Parse(new string[] {
-            UTType.PNG, UTType.JPEG, "jpeg",
+    IFilePickerFileType IInternalFilePickerPlatformService.Images { get; } = FilePickerFileType.Parse(new string[] {
+           "*.webp", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp", "public.image", "image/*",
         });
-#else
-        FilePickerFileType.Parse(new[] {
-            FileEx.WebP,
-            FileEx.Png,
-            FileEx.JPG,
-            FileEx.JPEG,
-            //FileEx.Gif,
+
+    IFilePickerFileType IInternalFilePickerPlatformService.Png { get; } = FilePickerFileType.Parse(new string[] {
+           "*.png", "public.png", "image/png",
         });
-#endif
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Png => FilePickerFileType.Parse(new string[] {
-#if IOS || MACOS || MACCATALYST
-        UTType.PNG,
-#else
-        FileEx.PNG,
-#endif
-    });
+    IFilePickerFileType IInternalFilePickerPlatformService.Jpeg { get; } = FilePickerFileType.Parse(new string[] {
+           "*.jpg", "*.jpeg",  "public.jpeg", "image/jpeg",
+        });
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Jpeg => FilePickerFileType.Parse(new string[] {
-#if IOS || MACOS || MACCATALYST
-        UTType.JPEG,
-        "jpeg",
-#else
-        FileEx.JPG,
-        FileEx.JPEG,
-#endif
-    });
+    IFilePickerFileType IInternalFilePickerPlatformService.Videos => throw new NotImplementedException();
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Videos => FilePickerFileType.Parse(new string[] {
-#if IOS || MACOS || MACCATALYST
-        UTType.MPEG4, UTType.Video, UTType.AVIMovie, UTType.AppleProtectedMPEG4Video, "mp4", "m4v", "mpg", "mpeg", "mp2", "mov", "avi", "mkv", "flv", "gifv", "qt",
-#else
-        FileEx.Mp4,
-        FileEx.Mov,
-        FileEx.Avi,
-        FileEx.Wmv,
-        FileEx.M4v,
-        FileEx.Mpg,
-        FileEx.Mpeg,
-        FileEx.Mp2,
-        FileEx.Mkv,
-        FileEx.Flv,
-        FileEx.Gifv,
-        FileEx.Qt,
-#endif
-    });
+    IFilePickerFileType IInternalFilePickerPlatformService.Pdf { get; } = FilePickerFileType.Parse(new string[] {
+           "*.pdf", "application/pdf", "com.adobe.pdf",
+        });
 
-    IFilePickerFileType IInternalFilePickerPlatformService.Pdf => FilePickerFileType.Parse(new string[] {
-#if IOS || MACOS || MACCATALYST
-        UTType.PDF,
-#else
-        FileEx.PDF,
-#endif
-    });
-
-#if IOS || MACOS || MACCATALYST
-    static readonly Lazy<string?[]> _UTTypes = new(() =>
-    {
-        var fields = typeof(UTType).GetFields(BindingFlags.Public | BindingFlags.Static);
-        if (fields == null)
-            return Array.Empty<string>();
-        var result = fields.Where(x => x.FieldType == typeof(string) || x.FieldType == typeof(NSString)).Select(x => x.GetValue(null)?.ToString()).ToArray();
-        return result;
-    });
-#endif
+    //#if IOS || MACOS || MACCATALYST
+    //    static readonly Lazy<string?[]> _UTTypes = new(() =>
+    //    {
+    //        var fields = typeof(UTType).GetFields(BindingFlags.Public | BindingFlags.Static);
+    //        if (fields == null)
+    //            return Array.Empty<string>();
+    //        var result = fields.Where(x => x.FieldType == typeof(string) || x.FieldType == typeof(NSString)).Select(x => x.GetValue(null)?.ToString()).ToArray();
+    //        return result;
+    //    });
+    //#endif
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static bool IsAppleUniformTypeIdentifier(string s)
     {
-        if (s == "jpeg")
+        if (s == "jpeg" || s.StartsWith("public.") || s.StartsWith("com."))
         {
             return true;
         }
-#if IOS || MACOS || MACCATALYST
-        if (_UTTypes.Value.Contains(s))
-        {
-            return true;
-        }
-#endif
+        //#if IOS || MACOS || MACCATALYST
+        //        if (_UTTypes.Value.Contains(s))
+        //        {
+        //            return true;
+        //        }
+        //#endif
         return false;
     }
 
@@ -110,53 +68,72 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     static AvaloniaFilePickerFileType Convert(string name, IEnumerable<string>? extensions)
     {
         // https://docs.avaloniaui.net/docs/next/concepts/services/storage-provider/file-picker-options
-
         var result = new AvaloniaFilePickerFileType(name);
         if (extensions != null)
         {
+#if IOS || MACOS || MACCATALYST
             HashSet<string> appleUniformTypeIdentifiers = new();
-            HashSet<string> patterns = new();
+#else
+#if !WINDOWS
             HashSet<string> mimeTypes = new();
+#endif
+            HashSet<string> patterns = new();
+#endif
             foreach (var x in extensions)
             {
-                if (IsAppleUniformTypeIdentifier(x))
+                if (x.Contains('/'))
                 {
-                    appleUniformTypeIdentifiers.Add(x);
+#if !WINDOWS && !(IOS || MACOS || MACCATALYST)
+                    mimeTypes.Add(x);
+#endif
                     continue;
                 }
-                else if (x.Contains('/'))
+                else if (IsAppleUniformTypeIdentifier(x))
                 {
-                    mimeTypes.Add(x);
+#if IOS || MACOS || MACCATALYST
+                    appleUniformTypeIdentifiers.Add(x);
+#endif
                     continue;
                 }
                 else if (x.StartsWith('.'))
                 {
+#if !(IOS || MACOS || MACCATALYST)
                     patterns.Add($"*{x}");
+#endif
                     continue;
                 }
                 else if (x.StartsWith('*'))
                 {
+#if !(IOS || MACOS || MACCATALYST)
                     patterns.Add(x);
+#endif
                     continue;
                 }
                 else
                 {
+#if !(IOS || MACOS || MACCATALYST)
                     patterns.Add($"*.{x}");
+#endif
                     continue;
                 }
             }
+#if IOS || MACOS || MACCATALYST
             if (appleUniformTypeIdentifiers.Any())
             {
                 result.AppleUniformTypeIdentifiers = appleUniformTypeIdentifiers.ToArray();
             }
-            if (patterns.Any())
-            {
-                result.Patterns = patterns.ToArray();
-            }
+#else
+#if !WINDOWS
             if (mimeTypes.Any())
             {
                 result.MimeTypes = mimeTypes.ToArray();
             }
+#endif
+            if (patterns.Any())
+            {
+                result.Patterns = patterns.ToArray();
+            }
+#endif
         }
 
         return result;
