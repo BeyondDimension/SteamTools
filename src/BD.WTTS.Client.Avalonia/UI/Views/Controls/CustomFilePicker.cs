@@ -74,7 +74,7 @@ public sealed class CustomFilePicker : ContentControl
         this.Tapped += CustomFilePicker_Tapped;
     }
 
-    private async void CustomFilePicker_Tapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void CustomFilePicker_Tapped(object? sender, RoutedEventArgs e)
     {
         //if (string.IsNullOrEmpty(FileExtensions) || FileExtensions == "*")
         //{

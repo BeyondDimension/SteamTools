@@ -41,11 +41,6 @@ public sealed partial class PlatformAccount
 
         SetAccountAvatarCommand = ReactiveCommand.Create<IAccount>(async acc =>
         {
-            FilePickerFileType fileTypes = new ValueTuple<string, string[]>[]
-            {
-                ("Image Files", FileEx.Images.Select(s => $"*{s}").ToArray()),
-            };
-
             await FilePicker2.PickAsync((path) =>
             {
                 if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(acc.AccountName))
@@ -54,7 +49,7 @@ public sealed partial class PlatformAccount
                     File.Copy(path, imagePath, true);
                     acc.ImagePath = imagePath;
                 }
-            }, fileTypes);
+            }, IFilePickerFileType.Images());
         });
         EditRemarkCommand = ReactiveCommand.Create<IAccount>(async acc =>
         {

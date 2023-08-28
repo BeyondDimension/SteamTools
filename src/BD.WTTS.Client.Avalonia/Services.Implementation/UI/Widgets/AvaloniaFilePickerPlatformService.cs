@@ -25,7 +25,13 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
             UTType.PNG, UTType.JPEG, "jpeg",
         });
 #else
-        FilePickerFileType.Parse(FileEx.Images);
+        FilePickerFileType.Parse(new[] {
+            FileEx.WebP,
+            FileEx.Png,
+            FileEx.JPG,
+            FileEx.JPEG,
+            //FileEx.Gif,
+        });
 #endif
 
     IFilePickerFileType IInternalFilePickerPlatformService.Png => FilePickerFileType.Parse(new string[] {
@@ -80,6 +86,22 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
         {
 #if IOS || MACOS || MACCATALYST
             AppleUniformTypeIdentifiers = extensions?.ToArray(),
+#elif WINDOWS
+            Patterns = extensions?.Select(x =>
+            {
+                if (x.StartsWith('.'))
+                {
+                    return $"*{x}";
+                }
+                else if (x.StartsWith('*'))
+                {
+                    return x;
+                }
+                else
+                {
+                    return $"*.{x}";
+                }
+            }).ToArray(),
 #else
             Patterns = IServiceBase.FormatExtensions(extensions, trimLeadingPeriod: true).ToArray(),
 #endif

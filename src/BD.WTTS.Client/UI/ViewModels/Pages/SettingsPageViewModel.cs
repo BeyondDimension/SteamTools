@@ -41,12 +41,13 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 
             SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                FilePickerFileType fileTypes = new ValueTuple<string, string[]>[]
-                {
-                        ("Image Files", FileEx.Images.Select(s => $"*{s}").ToArray()),
-                    //("All Files", new[] { "*", }),
-                };
-                await FilePicker2.PickAsync(SetBackgroundImagePath, fileTypes);
+                //FilePickerFileType fileTypes = new ValueTuple<string, string[]>[]
+                //{
+                //        ("Image Files", FileEx.Images.Select(s => $"*{s}").ToArray()),
+                //    //("All Files", new[] { "*", }),
+                //};
+                //await FilePicker2.PickAsync(SetBackgroundImagePath, fileTypes);
+                await FilePicker2.PickAsync(SetBackgroundImagePath, IFilePickerFileType.Images());
             });
 
             ResetImage_Click = ReactiveCommand.Create(() => SetBackgroundImagePath(null));
