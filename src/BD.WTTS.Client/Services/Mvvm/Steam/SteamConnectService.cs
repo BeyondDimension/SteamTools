@@ -237,15 +237,14 @@ public sealed class SteamConnectService
                         Name = item.Value,
                     });
             }
-            var t = new Task(() =>
+            //Task2.InBackground(() =>
+            //{
+            foreach (var item in RuningSteamApps.Values)
             {
-                foreach (var item in RuningSteamApps.Values)
-                {
-                    if (item.Process == null)
-                        item.StartSteamAppProcess();
-                }
-            });
-            t.Start();
+                if (item.Process == null || item.Process.HasExited)
+                    item.StartSteamAppProcess();
+            }
+            //});
         }
     }
 
@@ -617,9 +616,8 @@ public sealed class SteamConnectService
                 // 释放托管状态(托管对象)
                 foreach (var app in Current.RuningSteamApps.Values)
                 {
-                    if (app.Process != null)
-                        if (!app.Process.HasExited)
-                            app.Process.KillEntireProcessTree();
+                    if (app.Process != null && !app.Process.HasExited)
+                        app.Process.KillEntireProcessTree();
                 }
                 DisposeSteamClient();
             }
