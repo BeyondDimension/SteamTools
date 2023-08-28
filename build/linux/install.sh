@@ -80,10 +80,10 @@ Show_Run() {
     response=$?
 
     if [ $response -eq 0 ]; then
-        # 用户点击了 "运行" 按钮，启动程序
-        /bin/sh -c "$base_path/$exec_name.sh" &
         echo "程序已启动。"
-        exit 0
+        exit 0 &
+        # 用户点击了 "运行" 按钮，启动程序
+        /bin/sh -c "$base_path/$exec_name.sh"
     else
         # 用户点击了 "关闭" 按钮，退出脚本
         exit 0
