@@ -5,8 +5,6 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class WindowsPlatformServiceImpl
 {
-    const string ProxyOverride = "\"ProxyOverride\"=\"localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*;*.steampp.net;\"";
-
     internal static bool SetAsSystemProxyStatus;
 
     public async Task<bool> SetAsSystemProxyAsync(bool state, IPAddress? ip, int port)
@@ -17,13 +15,14 @@ partial class WindowsPlatformServiceImpl
             var proxyEnable = $"\"ProxyEnable\"=dword:{(state ? "00000001" : "00000000")}";
             var hasIpAndProt = ip != null && port >= 0;
             var proxyServer = hasIpAndProt ? $"\"proxyServer\"=\"{ip}:{port}\"" : "";
+            var noProxyHostName = state ? $"\"ProxyOverride\"=\"{string.Join(";", IPlatformService.GetNoProxyHostName)}\"" : "";
             string contents =
 $"""
 Windows Registry Editor Version 5.00
 ; {AssemblyInfo.Trademark} BD.WTTS.Services.Implementation.WindowsPlatformServiceImpl.SetAsSystemProxy
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings]
 {proxyEnable}
-{(state ? $"{ProxyOverride}{Environment.NewLine}" : "")}{proxyServer}
+{(state ? $"{noProxyHostName}{Environment.NewLine}" : "")}{proxyServer}
 """;
             var path = IOPath.GetCacheFilePath(CacheTempDirName, "SwitchProxy", FileEx.Reg);
             var r = await StartProcessRegeditAsync(path, contents, markKey: nameof(SetAsSystemProxyAsync), markValue: state.ToString());
