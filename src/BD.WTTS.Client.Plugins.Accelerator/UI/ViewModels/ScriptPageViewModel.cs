@@ -51,8 +51,6 @@ public partial class ScriptPageViewModel : TabItemViewModel
 
         RefreshScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(RefreshScriptItem);
 
-        OpenHomeScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(OpenHomeScriptItem);
-
         ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
 
         DeleteScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(DeleteScriptItemButton);
@@ -159,11 +157,6 @@ public partial class ScriptPageViewModel : TabItemViewModel
             DeleteNoFileScriptItemButton(script);
         }
 
-    }
-
-    public async void OpenHomeScriptItem(ScriptDTO script)
-    {
-        await Browser2.OpenAsync(script.SourceLink);
     }
 
     public async void RefreshScriptItem(ScriptDTO script)

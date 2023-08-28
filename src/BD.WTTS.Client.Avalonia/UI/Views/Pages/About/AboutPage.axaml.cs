@@ -8,7 +8,7 @@ public partial class AboutPage : ReactiveUserControl<AboutPageViewModel>
     public AboutPage()
     {
         InitializeComponent();
-        this.SetViewModel<AboutPageViewModel>();
+        this.SetViewModel<AboutPageViewModel>(false);
     }
 
     /// <summary>

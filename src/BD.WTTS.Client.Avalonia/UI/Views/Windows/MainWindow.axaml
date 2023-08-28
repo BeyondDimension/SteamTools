@@ -9,6 +9,8 @@
     Title="{Binding Title}"
     Width="960"
     Height="680"
+    MinWidth="528"
+    MinHeight="508"
     d:DesignHight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"

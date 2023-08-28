@@ -7,7 +7,7 @@ public partial class DebugPage : PageBase<DebugPageViewModel>
     public DebugPage()
     {
         InitializeComponent();
-        this.SetViewModel<DebugPageViewModel>();
+        this.SetViewModel<DebugPageViewModel>(false);
 
         CommandTextBox.KeyUp += (s, e) =>
         {

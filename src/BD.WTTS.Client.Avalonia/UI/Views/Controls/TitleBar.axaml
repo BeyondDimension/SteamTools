@@ -14,7 +14,7 @@
     <Grid
         Height="{StaticResource TitleBarHeight}"
         Background="Transparent"
-        ColumnDefinitions="Auto,Auto,*,Auto">
+        ColumnDefinitions="Auto,*,Auto,Auto">
         <Grid.Margin>
             <OnPlatform Default="0,0,22,0">
                 <On Content="0,0,140,0" Options="Windows" />
@@ -39,7 +39,8 @@
             IsHitTestVisible="False"
             Text="{ReflectionBinding Title,
                                      RelativeSource={RelativeSource FindAncestor,
-                                                                    AncestorType=Window}}" />
+                                                                    AncestorType=Window}}"
+            TextWrapping="Wrap" />
 
         <Border
             Grid.Column="2"

@@ -25,7 +25,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     [Reactive]
     public string? SearchText { get; set; }
 
-    public bool IsSteamAppsEmpty => !SteamConnectService.Current.SteamApps.Items.Any_Nullable() && !SteamConnectService.Current.IsLoadingGameList;
+    public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable() && !SteamConnectService.Current.IsLoadingGameList;
 
     [Reactive]
     public ObservableCollection<EnumModel<SteamAppType>>? AppTypeFiltres { get; set; }

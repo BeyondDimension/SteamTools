@@ -19,6 +19,4 @@ public partial class ScriptStorePageViewModel : ViewModelBase
     public bool IsScriptsEmpty => !Scripts.Any_Nullable();
 
     public ICommand? DownloadScriptItemCommand { get; }
-
-    public ICommand? OpenHomeScriptItemCommand { get; }
 }

@@ -187,8 +187,8 @@
                                                                  Mode=OneWay,
                                                                  Source={x:Static s:ResourceService.Current}}" />-->
                                 <ui:MenuFlyoutItem
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).OpenHomeScriptItemCommand}"
-                                    CommandParameter="{Binding}"
+                                    Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                    CommandParameter="{Binding SourceLink}"
                                     Text="{Binding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                                 <ui:MenuFlyoutItem
                                     Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DownloadScriptItemCommand}"

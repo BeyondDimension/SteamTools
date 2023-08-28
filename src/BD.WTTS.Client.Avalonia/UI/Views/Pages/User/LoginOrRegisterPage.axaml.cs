@@ -34,7 +34,7 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        this.SetViewModel<LoginOrRegisterWindowViewModel>();
+        this.SetViewModel<LoginOrRegisterWindowViewModel>(false);
     }
 
     protected override void OnDataContextChanged(EventArgs e)

@@ -16,8 +16,6 @@ public partial class ScriptPageViewModel : TabItemViewModel
 
     public ICommand RefreshScriptItemCommand { get; }
 
-    public ICommand OpenHomeScriptItemCommand { get; }
-
     public ICommand ScriptStoreCommand { get; }
 
     public ICommand? AddNewScriptCommand { get; }

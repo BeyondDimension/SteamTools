@@ -75,7 +75,6 @@ public sealed partial class ProxyService
                   //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                   if (reverseProxyService.ProxyRunning)
                   {
-
                       //await EnableProxyScripts.ContinueWith(e =>
                       //{
                       //    reverseProxyService.Scripts = e.Result?.ToImmutableArray();

@@ -72,7 +72,7 @@
                     <ui:MenuFlyoutItem
                         Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
                         CommandParameter="{Binding AccountName}"
-                        Text="Steamn 用户名" />
+                        Text="Steam 用户名" />
                 </ui:MenuFlyoutSubItem>
                 <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="复制 SteamID">
                     <ui:MenuFlyoutItem Click="CopySteamIdMenuItem_Click" Text="SteamID [STEAM0:~]">

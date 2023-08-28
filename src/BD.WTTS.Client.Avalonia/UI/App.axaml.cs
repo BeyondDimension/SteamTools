@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BD.WTTS.Client.Resources;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
@@ -189,6 +190,11 @@ public sealed partial class App : Application
     {
         try
         {
+            if (url == null || string.IsNullOrEmpty(url.ToString()))
+            {
+                Toast.Show(ToastIcon.Warning, "打开链接失败");
+                return;
+            }
             Browser2.Open(url.ToString());
         }
         catch (Exception ex)
@@ -201,6 +207,11 @@ public sealed partial class App : Application
     {
         try
         {
+            if (text == null || string.IsNullOrEmpty(text.ToString()))
+            {
+                Toast.Show(ToastIcon.Warning, "复制内容失败");
+                return;
+            }
             await Clipboard2.SetTextAsync(text.ToString());
             Toast.Show(ToastIcon.Success, Strings.CopyToClipboard);
         }
