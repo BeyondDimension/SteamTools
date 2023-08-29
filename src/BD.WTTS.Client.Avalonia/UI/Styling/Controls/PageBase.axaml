@@ -157,6 +157,7 @@
                                     <TextBlock
                                         Name="ControlNameTextBlock"
                                         FontSize="36"
+                                        MaxLines="2"
                                         Text="{TemplateBinding Title}"
                                         Theme="{StaticResource TitleTextBlockStyle}">
                                         <TextBlock.Transitions>
@@ -174,6 +175,7 @@
                                         <TextBlock
                                             FontStyle="Italic"
                                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                                            MaxLines="2"
                                             Text="{TemplateBinding Subtitle}"
                                             Theme="{StaticResource CaptionTextBlockStyle}" />
                                     </Button>
@@ -182,6 +184,7 @@
                                         FontStyle="Italic"
                                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                         IsVisible="False"
+                                        MaxLines="4"
                                         Text="{Binding Path=Description, RelativeSource={RelativeSource TemplatedParent}}"
                                         Theme="{StaticResource CaptionTextBlockStyle}" />
                                 </StackPanel>
@@ -268,6 +271,11 @@
                 </DockPanel>
             </ControlTemplate>
         </Setter>
+    </Style>
+
+    <Style Selector="spp|PageBase:namespace /template/ Panel#OptionsRegion Button">
+        <Setter Property="MaxWidth" Value="200" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
     </Style>
 
     <Style Selector="spp|PageBase:namespace /template/ Button#NamespaceText">

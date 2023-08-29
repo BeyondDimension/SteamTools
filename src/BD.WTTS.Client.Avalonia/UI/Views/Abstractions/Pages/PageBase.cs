@@ -163,9 +163,9 @@ public class PageBase : UserControl
     {
         var sz = e.NewSize.Width;
 
-        bool isSmallWidth2 = sz < 580;
+        bool isSmallWidth2 = sz < 640;
 
-        PseudoClasses.Set(":smallWidth", sz < 710);
+        PseudoClasses.Set(":smallWidth", sz < 800);
         PseudoClasses.Set(":smallWidth2", isSmallWidth2);
 
         if (isSmallWidth2 && !_isSmallWidth2)

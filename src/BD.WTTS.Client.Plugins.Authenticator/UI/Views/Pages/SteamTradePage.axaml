@@ -12,7 +12,7 @@
     x:CompileBindings="True"
     x:DataType="spp:SteamTradePageViewModel"
     mc:Ignorable="d">
-    <spp:ContentLoader CustomLoadingText="不要忘了先开加速昂~" IsLoading="{Binding IsLoading}">
+    <spp:ContentLoader CustomLoadingText="提示：不要忘了先开加速" IsLoading="{Binding IsLoading}">
         <Panel>
             <!--  登录  -->
             <StackPanel

@@ -1053,6 +1053,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 没有启用任何加速项！！ 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_AccEmpty {
+            get {
+                return ResourceManager.GetString("CommunityFix_AccEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已加速   的本地化字符串。
         /// </summary>
         public static string CommunityFix_AlreadyProxy {
