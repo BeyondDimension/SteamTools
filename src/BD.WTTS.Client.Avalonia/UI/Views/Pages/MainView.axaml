@@ -180,7 +180,7 @@
                             ClipToBounds="True"
                             CornerRadius="30">
                             <spp:Image2
-                                DecodeWidth="32"
+                                DecodeWidth="36"
                                 FallbackSource="{StaticResource DefaultAvatar}"
                                 RenderOptions.BitmapInterpolationMode="HighQuality"
                                 Source="{Binding Path=AvatarPath, Mode=OneWay, Source={x:Static s:UserService.Current}}" />

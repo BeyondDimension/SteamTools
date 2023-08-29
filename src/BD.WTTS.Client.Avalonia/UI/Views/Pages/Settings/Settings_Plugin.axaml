@@ -30,10 +30,22 @@
 
 
         <TextBlock Margin="0,10,0,5" Theme="{StaticResource BodyStrongTextBlockStyle}">
-            <Run Text="{Binding Path=Res.Plugin_InstalledPlugins, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0}({1})">
+                    <CompiledBinding
+                        Mode="OneWay"
+                        Path="Res.Plugin_InstalledPlugins"
+                        Source="{x:Static s:ResourceService.Current}" />
+                    <CompiledBinding
+                        Mode="OneWay"
+                        Path="MainWindow2.PluginCount"
+                        Source="{x:Static s:IViewModelManager.Instance}" />
+                </MultiBinding>
+            </TextBlock.Text>
+            <!--<Run Text="{Binding Path=Res.Plugin_InstalledPlugins, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <Run Text="(" />
             <Run Text="{Binding MainWindow2.PluginCount, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}" />
-            <Run Text=")" />
+            <Run Text=")" />-->
         </TextBlock>
 
         <ItemsControl Classes="DraggableOrder" ItemsSource="{Binding Plugins}">

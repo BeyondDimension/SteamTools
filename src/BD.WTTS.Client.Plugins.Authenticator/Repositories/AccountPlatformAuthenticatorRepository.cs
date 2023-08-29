@@ -207,8 +207,8 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
             IsNotLocal = !isLocal,
             IsNeedSecondaryPassword = !notSecondaryPassword,
             Index = item.Index,
-            Created = item.Created,
-            LastUpdate = item.LastUpdate,
+            Created = item.Created == default ? DateTimeOffset.Now : item.Created,
+            LastUpdate = DateTimeOffset.Now,
         };
         return entity;
     }

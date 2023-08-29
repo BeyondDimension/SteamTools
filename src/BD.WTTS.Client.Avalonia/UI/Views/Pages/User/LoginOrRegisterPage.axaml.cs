@@ -35,6 +35,16 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
     {
         base.OnLoaded(e);
         this.SetViewModel<LoginOrRegisterWindowViewModel>(false);
+
+        if (this.ViewModel != null)
+        {
+            this.ViewModel.LoginState = 0;
+            if (UserService.Current.IsAuthenticated)
+            {
+                Toast.Show(ToastIcon.Info, "当前已是登录状态");
+                this.ViewModel.Close();
+            }
+        }
     }
 
     protected override void OnDataContextChanged(EventArgs e)

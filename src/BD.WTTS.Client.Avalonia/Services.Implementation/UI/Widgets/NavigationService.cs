@@ -1,6 +1,8 @@
 using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
+using FluentAvalonia.UI.Navigation;
+using System.Xml.Linq;
 
 namespace BD.WTTS.Services.Implementation;
 
@@ -50,11 +52,20 @@ public sealed class NavigationService : INavigationService
         _overlayHost = p;
     }
 
-    public void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None)
+    public void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None, bool useCache = true)
     {
+        _frame.ThrowIsNull();
+
+        var navOptions = new FrameNavigationOptions
+        {
+            IsNavigationStackEnabled = useCache,
+            TransitionInfoOverride = GetNavigationTransitionInfo(effect)
+        };
+
         if (t == null)
         {
-            _frame?.Navigate(typeof(ErrorPage), null, GetNavigationTransitionInfo(effect));
+            navOptions.IsNavigationStackEnabled = false;
+            _frame.NavigateToType(typeof(ErrorPage), null, navOptions);
             return;
         }
 
@@ -66,19 +77,45 @@ public sealed class NavigationService : INavigationService
 
         if (t == null)
         {
-            _frame?.Navigate(typeof(ErrorPage), null, GetNavigationTransitionInfo(effect));
+            navOptions.IsNavigationStackEnabled = false;
+            _frame.NavigateToType(typeof(ErrorPage), null, navOptions);
             return;
         }
 
-        if (_frame?.Content?.GetType() != t)
+        if (_frame.Content?.GetType() != t)
         {
-            _frame?.Navigate(t, null, GetNavigationTransitionInfo(effect));
+            _frame.NavigateToType(t, null, navOptions);
+            //if (!useCache && navOptions.IsNavigationStackEnabled)
+            //{
+            //    _frame.BackStack.Remove(_frame.BackStack.Last());
+            //}
         }
     }
 
-    public void GoBack()
+    public void GoBack(Type? t = null)
     {
-        _frame?.GoBack();
+        if (t == null)
+        {
+            _frame?.GoBack();
+            return;
+        }
+
+        if (t.IsSubclassOf(typeof(ViewModelBase)))
+        {
+            var pageType = GetViewModelToPageContent(t, false);
+            t = pageType as Type;
+        }
+
+        if (t == null)
+        {
+            _frame?.GoBack();
+            return;
+        }
+
+        if (_frame?.CurrentSourcePageType == t)
+        {
+            _frame?.GoBack();
+        }
     }
 
     public void NavigateFromContext(object dataContext, NavigationTransitionEffect effect = NavigationTransitionEffect.None)
@@ -105,7 +142,6 @@ public sealed class NavigationService : INavigationService
     public void ClearOverlay()
     {
         _overlayHost?.Children.Clear();
-
     }
 
     private static NavigationTransitionInfo GetNavigationTransitionInfo(NavigationTransitionEffect effect)

@@ -10,7 +10,7 @@ public partial class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUI
     {
         Title = DisplayName;
 
-        Close = INavigationService.Instance.GoBack;
+        Close = () => INavigationService.Instance.GoBack(typeof(LoginOrRegisterWindowViewModel));
 
         ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel_ =>
         {

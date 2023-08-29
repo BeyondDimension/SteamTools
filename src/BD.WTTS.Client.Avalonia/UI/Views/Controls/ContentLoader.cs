@@ -49,6 +49,12 @@ public class ContentLoader : ContentControl
         AvaloniaProperty.Register<ContentLoader, bool>(nameof(IsShowNoResultText), false);
 
     /// <summary>
+    /// Defines the <see cref="CustomLoadingText"/> property
+    /// </summary>
+    public static readonly StyledProperty<string?> CustomLoadingTextProperty =
+        AvaloniaProperty.Register<ContentLoader, string?>(nameof(CustomLoadingText), null);
+
+    /// <summary>
     /// 是否正在加载中
     /// </summary>
     public bool IsLoading
@@ -67,6 +73,15 @@ public class ContentLoader : ContentControl
     {
         get => GetValue(IsShowNoResultTextProperty);
         set => SetValue(IsShowNoResultTextProperty, value);
+    }
+
+    /// <summary>
+    /// 自定义加载提示
+    /// </summary>
+    public string? CustomLoadingText
+    {
+        get => GetValue(CustomLoadingTextProperty);
+        set => SetValue(CustomLoadingTextProperty, value);
     }
 
     /// <summary>

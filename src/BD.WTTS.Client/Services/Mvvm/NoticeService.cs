@@ -55,7 +55,7 @@ public sealed class NoticeService : ReactiveObject
                     item.Unread = true;
 
                     //只弹最新的一条通知
-                    if (UnreadNotificationsCount == 0 && GeneralSettings.MessagePopupNotification)
+                    if (UnreadNotificationsCount == 0 && GeneralSettings.MessagePopupNotification.Value)
                         INotificationService.Instance.Notify(item.Content, NotificationType.Announcement, title: item.Title);
 
                     UnreadNotificationsCount++;

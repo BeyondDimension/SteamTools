@@ -2,17 +2,17 @@ namespace BD.WTTS.Services;
 
 public interface INavigationService
 {
-    public static INavigationService Instance { get; } = Ioc.Get<INavigationService>();
+    static INavigationService Instance { get; } = Ioc.Get<INavigationService>();
 
-    public object? GetViewModelToPageContent(object viewModel, bool isCreateInstance = true);
+    object? GetViewModelToPageContent(object viewModel, bool isCreateInstance = true);
 
-    public void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None);
+    void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None, bool useCache = true);
 
-    public void GoBack();
+    void GoBack(Type? t = null);
 
-    public void NavigateFromContext(object dataContext, NavigationTransitionEffect transitionInfo = NavigationTransitionEffect.None);
+    void NavigateFromContext(object dataContext, NavigationTransitionEffect transitionInfo = NavigationTransitionEffect.None);
 
-    public void ShowControlDefinitionOverlay(Type targetType);
+    void ShowControlDefinitionOverlay(Type targetType);
 
-    public void ClearOverlay();
+    void ClearOverlay();
 }

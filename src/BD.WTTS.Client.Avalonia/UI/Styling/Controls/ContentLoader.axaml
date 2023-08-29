@@ -20,8 +20,8 @@
                         IsVisible="{TemplateBinding IsLoading}"
                         Spacing="8">
                         <spp:Image2
-                            Width="150"
-                            Height="150"
+                            Width="100"
+                            Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
                             RenderOptions.BitmapInterpolationMode="HighQuality"
@@ -31,6 +31,14 @@
                             HorizontalAlignment="Center"
                             Text="{Binding Path=Res.GameList_IsLoading, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                             Theme="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            IsVisible="{TemplateBinding CustomLoadingText,
+                                                        Converter={StaticResource IsNullConverter},
+                                                        ConverterParameter=invert}"
+                            Text="{TemplateBinding CustomLoadingText}"
+                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
                         <Border
                             Width="35"
                             Height="35"
