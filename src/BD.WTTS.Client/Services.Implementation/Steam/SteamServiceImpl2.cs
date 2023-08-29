@@ -26,6 +26,8 @@ sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
         set => SteamConnectService.Current.IsConnectToSteam = value;
     }
 
+    string? ISteamConnectService.SteamLanguageString => ResourceService.GetCurrentCultureSteamLanguageName();
+
     SourceCache<SteamApp, uint> ISteamConnectService.SteamApps => SteamConnectService.Current.SteamApps;
 
     SourceCache<SteamApp, uint> ISteamConnectService.DownloadApps => SteamConnectService.Current.DownloadApps;
