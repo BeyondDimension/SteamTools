@@ -64,9 +64,9 @@
 - Windows 11
 - Windows 10 版本 1809（OS 内部版本 17763）或更高版本
 - macOS 10.15 或更高版本
-- Ubuntu 18.04 或更高版本
-- Debian 10 或更高版本
-- CentOS 7 或更高版本
+- Ubuntu 20.04 或更高版本
+- Debian 11 或更高版本
+- Fedora 37 或更高版本
 - Deepin(UOS) 20 或更高版本
 - ~~iOS 11 或更高版本~~（开发中…）
 - Android 5.0(API 21) 或更高版本

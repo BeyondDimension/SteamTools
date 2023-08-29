@@ -54,9 +54,9 @@ See details [./doc/download-guide.en.md](./doc/download-guide.en.md)
 - Windows 11
 - Windows 10 version 1809(OS internal version 17763) or higher is required
 - macOS 10.15 or higher is required
-- Ubuntu 18.04 or higher is required
-- Debian 10 or higher is required
-- CentOS 7 or higher is required
+- Ubuntu 20.04 or higher is required
+- Debian 11 or higher is required
+- Fedora 37 or higher is required
 - Deepin(UOS) 20 or higher is required
 - ~~iOS 11 or higher is required~~(In development…)
 - Android 5.0(API 21) or higher is required
