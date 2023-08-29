@@ -292,6 +292,14 @@
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
+                                        Command="{Binding ShowDetailData}"
+                                        CommandParameter="{Binding}"
+                                        Header="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:SymbolIcon Symbol="Calendar" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).DefaultExport}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.DefaultExport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">

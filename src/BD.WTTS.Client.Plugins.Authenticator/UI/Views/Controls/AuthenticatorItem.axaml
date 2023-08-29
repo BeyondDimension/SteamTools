@@ -50,14 +50,14 @@
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9D5;" />
                     </Viewbox>
                 </Button>
-                <Button
+                <!--<Button
                     Command="{Binding ShowDetailData}"
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
                         <ui:SymbolIcon Symbol="Calendar" />
                     </Viewbox>
-                </Button>
+                </Button>-->
                 <!--<Button
                     Command="{Binding ShowQrCode}"
                     Theme="{StaticResource TransparentButton}"

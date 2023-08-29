@@ -19,9 +19,7 @@
                     <TextBlock
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Source={x:Static s:ResourceService.Current},
-                                                 Path=Res.LocalAuth_ShowAuthInfo,
-                                                 Mode=OneWay}"
+                        Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ShowAuthInfo, Mode=OneWay}"
                         TextTrimming="CharacterEllipsis" />
                     <ToggleButton x:Name="ShowDetail" VerticalAlignment="Center">
                         <ToggleButton.Content>
@@ -40,8 +38,7 @@
                     VerticalAlignment="Center"
                     FontSize="12"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding Source={x:Static s:ResourceService.Current},
-                                             Path=Res.LocalAuth_ShowSteamAuthTip2}"
+                    Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ShowSteamAuthTip2}"
                     TextWrapping="Wrap" />
             </StackPanel>
         </Border>
@@ -73,7 +70,6 @@
                 <TextBlock Text="{Binding Path=Res.LocalAuth_ShowSteamAuthTip1, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <TextBox
                     Height="250"
-                    AcceptsReturn="True"
                     IsReadOnly="True"
                     PasswordChar="{StaticResource PasswordChar}"
                     RevealPassword="{Binding #ShowDetail.IsChecked}"

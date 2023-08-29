@@ -3,6 +3,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -67,16 +69,40 @@
                             Spacing="8" />
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
-                        <DataTemplate>
-                            <Button Padding="0" Classes="Plain">
+                        <DataTemplate x:DataType="x:Int32">
+                            <Button
+                                Padding="0"
+                                Classes="Plain"
+                                Click="CarouselBannerIndexButton_Click"
+                                Tag="{Binding}">
                                 <Ellipse
+                                    Name="IndexEllipse"
                                     Width="10"
                                     Height="10"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Fill="{ReflectionBinding}"
                                     Opacity="0.6"
                                     StrokeThickness="0" />
+                                <i:Interaction.Behaviors>
+                                    <ia:DataTriggerBehavior
+                                        Binding="{Binding}"
+                                        ComparisonCondition="Equal"
+                                        Value="{Binding #Carousel.SelectedIndex}">
+                                        <ia:ChangePropertyAction
+                                            PropertyName="Fill"
+                                            TargetObject="IndexEllipse"
+                                            Value="#FFFFFF" />
+                                    </ia:DataTriggerBehavior>
+                                    <ia:DataTriggerBehavior
+                                        Binding="{Binding}"
+                                        ComparisonCondition="NotEqual"
+                                        Value="{Binding #Carousel.SelectedIndex}">
+                                        <ia:ChangePropertyAction
+                                            PropertyName="Fill"
+                                            TargetObject="IndexEllipse"
+                                            Value="#ADADAD" />
+                                    </ia:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>
                             </Button>
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>

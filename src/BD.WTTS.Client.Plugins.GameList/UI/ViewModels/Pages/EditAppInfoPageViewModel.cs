@@ -258,6 +258,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
             }
             return;
         }
+        Toast.Show(ToastIcon.Info, "图片下载需要一些时间，请稍后");
         var imageHttpClientService = Ioc.Get<IImageHttpClientService>();
         var stream = await imageHttpClientService.GetImageMemoryStreamAsync(SelectGrid.Url, default);
         switch (type)

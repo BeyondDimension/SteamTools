@@ -107,6 +107,14 @@ namespace BD.WTTS.UI.Views.Controls
                 });
         }
 
+        private void CarouselBannerIndexButton_Click(object? sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is int index)
+            {
+                Carousel.SelectedIndex = index;
+            }
+        }
+
         private void SwipersLoad()
         {
             if (Carousel.ItemCount <= 0)
@@ -122,13 +130,13 @@ namespace BD.WTTS.UI.Views.Controls
             else
             {
                 Left.IsVisible = Right.IsVisible = Swiper.IsVisible = true;
-                var arr = new string[Carousel.ItemCount];
+                var arr = new int[Carousel.ItemCount];
                 for (var i = 0; i < arr.Length; i++)
                 {
-                    arr[i] = "#ADADAD";
+                    arr[i] = i;
                 }
-                var index = Carousel.SelectedIndex < 0 ? 0 : Carousel.SelectedIndex;
-                arr[index] = "#FFFFFF";
+                //var index = Carousel.SelectedIndex < 0 ? 0 : Carousel.SelectedIndex;
+                //arr[index] = "#FFFFFF";
 
                 Swiper.ItemsSource = arr;
             }

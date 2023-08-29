@@ -101,22 +101,22 @@
 
         <TabItem Header="{Binding Path=Res.Media, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <Panel>
-                <spp:ContentLoader
+                <DockPanel
                     x:Name="SteamGridDBContent"
                     MinWidth="300"
-                    IsLoading="{Binding IsLoadingSteamGrid}"
-                    IsShowNoResultText="{Binding IsSteamGridEmpty}"
-                    IsVisible="False"
-                    NoResultMessage="{Binding Path=Res.FailedGetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                    <DockPanel>
-                        <Button
-                            Height="30"
-                            Margin="5,5,5,10"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Center"
-                            Click="HideGridDialog_Click"
-                            Content="{Binding Path=Res.Back, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                            DockPanel.Dock="Top" />
+                    IsVisible="False">
+                    <Button
+                        Height="30"
+                        Margin="5,5,5,10"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Click="HideGridDialog_Click"
+                        Content="{Binding Path=Res.Back, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                        DockPanel.Dock="Top" />
+                    <spp:ContentLoader
+                        IsLoading="{Binding IsLoadingSteamGrid}"
+                        IsShowNoResultText="{Binding IsSteamGridEmpty}"
+                        NoResultMessage="{Binding Path=Res.FailedGetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                         <ScrollViewer DockPanel.Dock="Bottom">
                             <ItemsControl
                                 ItemsSource="{Binding SteamGridItems}"
@@ -166,8 +166,8 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
-                    </DockPanel>
-                </spp:ContentLoader>
+                    </spp:ContentLoader>
+                </DockPanel>
 
                 <ScrollViewer x:Name="MediaContent">
                     <StackPanel Classes="InfoBox">
