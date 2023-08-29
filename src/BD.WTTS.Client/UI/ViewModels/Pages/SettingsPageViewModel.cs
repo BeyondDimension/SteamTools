@@ -13,13 +13,6 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         this.WhenValueChanged(x => x.SelectLanguage, false)
               .Subscribe(x => UISettings.Language.Value = x.Key);
 
-        UpdateChannels = new[]
-        {
-            UpdateChannelType.Auto,
-            UpdateChannelType.GitHub,
-            UpdateChannelType.Official,
-        };
-
         OpenFolder_Click = ReactiveCommand.Create<string>(OpenFolder);
 
         CheckUpdate_Click = ReactiveCommand.Create(CheckUpdate);

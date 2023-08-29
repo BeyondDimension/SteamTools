@@ -470,6 +470,7 @@ public static class PluginsCore
             GameTools => 85,
             _ => ushort.MaxValue,
         };
+
         var comparer = ComparerBuilder.For<PluginResult<IPlugin>>()
             .OrderBy(x => x.IsDisable)
             .ThenBy(x => x.Data.IsOfficial, descending: true)

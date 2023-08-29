@@ -7,6 +7,7 @@
     xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
+    xmlns:spp_enums="using:BD.WTTS.Enums"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="680"
     d:DesignWidth="1080"
@@ -59,7 +60,18 @@
                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE71D;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <ComboBox ItemsSource="{Binding UpdateChannels}" SelectedValue="{Binding Source={x:Static ms:GeneralSettings.UpdateChannel}, Path=Value, Mode=TwoWay}" />
+                <ComboBox SelectedItem="{Binding Source={x:Static ms:GeneralSettings.UpdateChannel}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp_enums:UpdateChannelType}}">
+                    <ComboBox.Items>
+                        <spp_enums:UpdateChannelType>Auto</spp_enums:UpdateChannelType>
+                        <spp_enums:UpdateChannelType>GitHub</spp_enums:UpdateChannelType>
+                        <spp_enums:UpdateChannelType>Official</spp_enums:UpdateChannelType>
+                    </ComboBox.Items>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="spp_enums:UpdateChannelType">
+                            <TextBlock Text="{Binding ., Converter={StaticResource EnumLocalizationNameConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
