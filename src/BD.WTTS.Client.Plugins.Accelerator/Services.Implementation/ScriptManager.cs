@@ -148,6 +148,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                             info.LocalId = oldInfo.LocalId;
                             info.Id = oldInfo.Id;
                             info.Order = oldInfo.Order;
+                            info.IconUrl = oldInfo.IconUrl;
                             if (isNoRepeat)
                             {
                                 var state = await DeleteScriptAsync(oldInfo, false);
@@ -164,13 +165,10 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                             info.UpdateLink = oldInfo.UpdateLink;
                             info.DownloadLink = oldInfo.DownloadLink;
                             info.IconUrl = oldInfo.IconUrl;
-                            info.AuthorName = oldInfo.AuthorName;
                             info.Describe = oldInfo.Describe;
                             info.UpdateTime = oldInfo.UpdateTime;
                             info.AccelerateProjects = oldInfo.AccelerateProjects;
                             info.Version = oldInfo.Version;
-                            info.ExcludeDomainNames = oldInfo.ExcludeDomainNames;
-                            info.MatchDomainNames = oldInfo.MatchDomainNames;
                             info.Name = oldInfo.Name;
                         }
                     }
