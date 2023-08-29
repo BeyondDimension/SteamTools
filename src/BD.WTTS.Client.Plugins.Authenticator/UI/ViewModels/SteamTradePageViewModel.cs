@@ -142,6 +142,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
             Toast.Show(ToastIcon.Success, string.Format(Strings.Success_, Strings.User_Login));
             _steamAuthenticator.SessionData = RemenberLogin ? _steamClient.Session.ToString() : null;
             await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto!);
+            _steamClient = _steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
             await GetConfirmations(_steamClient);
         }
         else
@@ -185,12 +186,14 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
 
     public async Task Logout()
     {
-        if (_steamClient == null) return;
+        if (_steamClient == null || _steamAuthenticator == null) return;
         if (await IWindowManager.Instance.ShowTaskDialogAsync(
                 new MessageBoxWindowViewModel() { Content = Strings.LocalAuth_LogoutTip, }, AppResources.Logout, isCancelButton: true,
                 isDialog: false))
         {
             _steamClient.Logout();
+            _steamAuthenticator.SessionData = null;
+            await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto!);
             IsLogged = false;
         }
     }

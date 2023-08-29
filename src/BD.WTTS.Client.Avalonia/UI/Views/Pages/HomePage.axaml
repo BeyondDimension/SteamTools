@@ -336,7 +336,7 @@
                     </ScrollViewer>
 
                     <TextBlock
-                        Margin="-2,0,0,0"
+                        Margin="-3,0,0,0"
                         Text="已安装功能"
                         Theme="{StaticResource TitleTextBlockStyle}" />
 
