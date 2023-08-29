@@ -477,13 +477,13 @@ public sealed partial class ProxyService
             }
         }
         Toast.Show(item.IsSuccess ? ToastIcon.Success : ToastIcon.Error, item.Message);
-        RefreshScript();
+        await RefreshScript();
     }
 
     /// <summary>
     /// 刷新脚本列表
     /// </summary>
-    public async void RefreshScript()
+    public async Task RefreshScript()
     {
         var scriptList = await scriptManager.GetAllScriptAsync();
         ProxyScripts.Clear();

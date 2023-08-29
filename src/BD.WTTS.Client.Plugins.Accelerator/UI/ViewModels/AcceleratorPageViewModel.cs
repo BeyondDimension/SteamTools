@@ -7,6 +7,7 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class AcceleratorPageViewModel
 {
+    DateTime _initializeTime;
     readonly IHostsFileService? hostsFileService;
     readonly IPlatformService platformService = IPlatformService.Instance;
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
@@ -21,6 +22,14 @@ public sealed partial class AcceleratorPageViewModel
 
         RefreshCommand = ReactiveCommand.Create(async () =>
         {
+            if (_initializeTime > DateTime.Now.AddSeconds(-2))
+            {
+                Toast.Show(ToastIcon.Warning, Strings.Warning_DoNotOperateFrequently);
+                return;
+            }
+
+            _initializeTime = DateTime.Now;
+
             if (ProxyService.Current.ProxyStatus == false)
                 await ProxyService.Current.InitializeAccelerateAsync();
             else

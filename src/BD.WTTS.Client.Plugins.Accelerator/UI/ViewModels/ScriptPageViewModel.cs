@@ -6,18 +6,9 @@ namespace BD.WTTS.UI.ViewModels;
 
 public partial class ScriptPageViewModel : TabItemViewModel
 {
+    DateTime _initializeTime;
 
     public ReactiveCommand<Unit, Unit>? EnableScriptAutoUpdateCommand { get; }
-
-    //public MenuItemViewModel? ScriptAutoUpdate { get; }
-
-    //public MenuItemViewModel? OnlySteamBrowser { get; }
-
-    //public ReactiveCommand<Unit, Unit>? OnlySteamBrowserCommand { get; }
-
-    //public ReactiveCommand<Unit, Unit>? ScriptStoreCommand { get; }
-
-    //public ReactiveCommand<Unit, Unit>? AllEnableScriptCommand { get; }
 
     public ScriptPageViewModel()
     {
@@ -57,9 +48,17 @@ public partial class ScriptPageViewModel : TabItemViewModel
 
         DownloadScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(DownloadScriptItem);
 
-        RefreshALLScriptCommand = ReactiveCommand.Create(() =>
+        RefreshALLScriptCommand = ReactiveCommand.Create(async () =>
         {
-            ProxyService.Current.RefreshScript();
+            if (_initializeTime > DateTime.Now.AddSeconds(-2))
+            {
+                Toast.Show(ToastIcon.Warning, Strings.Warning_DoNotOperateFrequently);
+                return;
+            }
+
+            _initializeTime = DateTime.Now;
+
+            await ProxyService.Current.RefreshScript();
             Toast.Show(ToastIcon.Success, Strings.RefreshOK);
         });
 
