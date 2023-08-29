@@ -119,8 +119,29 @@ partial class ScheduledTaskServiceImpl
         {
             if (process != null)
             {
-                process.KillEntireProcessTree();
-                process.Dispose();
+                try
+                {
+                    process.KillEntireProcessTree();
+                }
+                catch
+                {
+                    try
+                    {
+                        process.Kill();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                try
+                {
+                    process.Dispose();
+                }
+                catch
+                {
+
+                }
             }
             cts_runPowerShellSinglePipe = null;
         }

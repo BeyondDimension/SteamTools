@@ -85,7 +85,7 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     {
         Values = new[]
         {
-            new APS_FilePickerFileType("JPEG image")
+            new APS_FilePickerFileType("PDF document")
             {
                 Patterns = new[] { "*.pdf", },
                 AppleUniformTypeIdentifiers = new[] { "com.adobe.pdf", },

@@ -63,27 +63,30 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                 .Where(static x => x != null)
                 .SelectMany(static x => x!);
             var sortTabSettings = UISettings.SortMenuTabs.Value;
-            int OrderBy(MenuTabItemViewModel m)
+            int OrderBy(KeyValuePair<int, MenuTabItemViewModel> m)
             {
                 if (sortTabSettings != null)
                 {
-                    var i = 0;
+                    int i = byte.MaxValue;
                     foreach (var item in sortTabSettings)
                     {
-                        if (item == m.Id)
-                            return i;
-                        i++;
+                        if (item == m.Value.Id)
+                            return i++;
                     }
                 }
-                return int.MaxValue;
+                return m.Key;
             }
-            var comparer = ComparerBuilder.For<MenuTabItemViewModel>()
+            var comparer = ComparerBuilder.For<KeyValuePair<int, MenuTabItemViewModel>>()
                 .OrderBy(OrderBy)
-                .ThenBy(x => x.Id);
-            var sortTabs = new SortedSet<MenuTabItemViewModel>(comparer);
+                .ThenBy(x => x.Value.Id);
+            var sortTabs = new SortedSet<KeyValuePair<int, MenuTabItemViewModel>>(comparer);
+            int i = 0;
             foreach (var item in tabs)
-                sortTabs.Add(item);
-            tabItems = tabItems.Concat(sortTabs);
+            {
+                sortTabs.Add(new(i, item));
+                i++;
+            }
+            tabItems = tabItems.Concat(sortTabs.Select(x => x.Value));
         }
 
         TabItems = new ObservableCollection<TabItemViewModel>(tabItems);

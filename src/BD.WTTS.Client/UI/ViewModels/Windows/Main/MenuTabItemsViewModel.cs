@@ -3,8 +3,11 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels;
 
+[DebuggerDisplay("{DebuggerDisplay,nq}")]
 public class MenuTabItemViewModel : TabItemViewModel, IExplicitHasValue
 {
+    string DebuggerDisplay => $"{Id} - {Name}";
+
     public MenuTabItemViewModel(IPlugin plugin, string resourceKeyOrName)
     {
         var pluginUniqueEnglishName = plugin.UniqueEnglishName;

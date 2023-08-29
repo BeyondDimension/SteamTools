@@ -461,13 +461,13 @@ public static class PluginsCore
 
         static int OrderPlugin(IPlugin plugin) => plugin.UniqueEnglishName switch
         {
-            Accelerator => 1,
-            GameAccount => 2,
-            GameList => 3,
-            ArchiSteamFarmPlus => 5,
-            Authenticator => 4,
-            GameTools => 6,
-            SteamIdleCard => 7,
+            Accelerator => 25,
+            GameAccount => 35,
+            GameList => 45,
+            Authenticator => 55,
+            ArchiSteamFarmPlus => 65,
+            SteamIdleCard => 75,
+            GameTools => 85,
             _ => ushort.MaxValue,
         };
         var comparer = ComparerBuilder.For<PluginResult<IPlugin>>()
