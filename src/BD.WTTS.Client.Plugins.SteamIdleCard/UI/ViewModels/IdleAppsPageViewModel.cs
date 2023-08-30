@@ -117,11 +117,19 @@ public sealed partial class IdleAppsPageViewModel : ViewModelBase
 
     private async Task SteamAppsSort()
     {
-        if (IdleSequentital == IdleSequentital.Mostvalue)
-            Badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
-        else
-            Badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
-        Badges = Badges.Where(x => x.CardsRemaining != 0); // 过滤可掉落卡片的游戏
+        try
+        {
+            if (IdleSequentital == IdleSequentital.Mostvalue)
+                Badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
+            else
+                Badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
+            Badges = Badges.Where(x => x.CardsRemaining != 0); // 过滤可掉落卡片的游戏
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex);
+            return;
+        }
 
         var appid_sorts = Enumerable.Empty<int>();
         if (IdleSequentital == IdleSequentital.Default)
@@ -163,7 +171,10 @@ public sealed partial class IdleAppsPageViewModel : ViewModelBase
     private void StartIdle()
     {
         if (!IdleGameList.Any())
+        {
             IdleComplete();
+            return;
+        }
 
         if (IdleRule == IdleRule.OnlyOneGame)
         {
@@ -392,7 +403,7 @@ public sealed partial class IdleAppsPageViewModel : ViewModelBase
     /// </summary>
     private void IdleComplete()
     {
-        MessageBox.Show(Strings.Idle_Complete, button: MessageBox.Button.OK);
+        Toast.Show(ToastIcon.Success, Strings.Idle_Complete);
     }
     #endregion
 
