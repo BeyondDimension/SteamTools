@@ -28,7 +28,8 @@ public sealed class AvaloniaClipboardPlatformService : IClipboardPlatformService
             var clipboard = topLevel.Clipboard;
             if (clipboard != null)
             {
-                await clipboard.SetTextAsync(text);
+                //不能用 await 等待 Linux 上不知啥原因导致卡死
+                clipboard.SetTextAsync(text).GetAwaiter();
             }
         }
     }
