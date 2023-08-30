@@ -472,7 +472,7 @@ public static class AuthenticatorHelper
         }
         var filePath = (await FilePicker2.PickAsync(options))?.FullPath;
 
-        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+        if (!File.Exists(filePath))
             Toast.Show(ToastIcon.Warning, Strings.FilePathNotExist);
         return filePath;
     }

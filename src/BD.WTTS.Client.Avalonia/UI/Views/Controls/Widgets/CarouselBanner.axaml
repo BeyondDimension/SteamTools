@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:generic="using:System.Collections.Generic"
     xmlns:i="using:Avalonia.Xaml.Interactivity"
     xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -34,7 +35,7 @@
         ClipToBounds="True"
         CornerRadius="8">
         <Panel>
-            <Carousel Name="Carousel" Grid.Column="1">
+            <Carousel Name="CarouselControl" Grid.Column="1">
                 <Carousel.PageTransition>
                     <PageSlide Orientation="Horizontal" Duration="0.25" />
                 </Carousel.PageTransition>
@@ -69,22 +70,25 @@
                             Spacing="8" />
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="x:Int32">
+                        <DataTemplate>
+                            <DataTemplate.DataType>
+                                <x:Type x:TypeArguments="x:Int32, x:String" TypeName="generic:KeyValuePair" />
+                            </DataTemplate.DataType>
                             <Button
                                 Padding="0"
                                 Classes="Plain"
                                 Click="CarouselBannerIndexButton_Click"
-                                Tag="{Binding}">
+                                Tag="{Binding Key}">
                                 <Ellipse
                                     Name="IndexEllipse"
                                     Width="10"
                                     Height="10"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Fill="Gray"
+                                    Fill="{Binding Value}"
                                     Opacity="0.6"
                                     StrokeThickness="0" />
-                                <i:Interaction.Behaviors>
+                                <!--<i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior
                                         Binding="{Binding}"
                                         ComparisonCondition="Equal"
@@ -103,7 +107,7 @@
                                             TargetObject="IndexEllipse"
                                             Value="Gray" />
                                     </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
+                                </i:Interaction.Behaviors>-->
                             </Button>
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
