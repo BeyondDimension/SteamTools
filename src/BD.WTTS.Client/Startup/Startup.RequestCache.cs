@@ -46,6 +46,7 @@ partial class Startup : IRequestCache
             s.Write(Encoding.UTF8.GetBytes(request.Headers.Authorization.Scheme));
             s.Write("\r\n"u8);
         }
+        s.Position = 0;
         var bytes = SHA384.HashData(s);
         var str = bytes.ToHexString();
         return str;
