@@ -1,4 +1,6 @@
 #if LINUX
+using static System.Net.Mime.MediaTypeNames;
+
 namespace BD.WTTS.Services.Implementation;
 
 public sealed class AvaloniaClipboardPlatformService : IClipboardPlatformService
@@ -30,6 +32,7 @@ public sealed class AvaloniaClipboardPlatformService : IClipboardPlatformService
             {
                 //不能用 await 等待 Linux 上不知啥原因导致卡死
                 clipboard.SetTextAsync(text).GetAwaiter();
+                await Task.CompletedTask;
             }
         }
     }

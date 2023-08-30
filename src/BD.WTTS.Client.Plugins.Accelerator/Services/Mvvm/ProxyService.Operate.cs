@@ -297,7 +297,11 @@ partial class ProxyService
                 break;
         }
         StopTimer(); // 停止 UI 计时器
+#if MACOS
+        reverseProxyService.StopProxyAsync().GetAwaiter(); // 停止代理服务
+#else
         await reverseProxyService.StopProxyAsync(); // 停止代理服务
+#endif
         return default;
     }
 
