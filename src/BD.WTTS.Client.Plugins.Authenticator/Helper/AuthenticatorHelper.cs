@@ -140,19 +140,18 @@ public static class AuthenticatorHelper
         SaveFileResult? exportFile = null;
         if (Essentials.IsSupportedSaveFileDialog)
         {
-            FilePickerFileType? fileTypes;
-            if (IApplication.IsDesktop())
-            {
-                fileTypes = new ValueTuple<string, string[]>[]
-                {
-                    ("MsgPack Files", new[] { $"*{FileEx.MPO}", }), ("Data Files", new[] { $"*{FileEx.DAT}", }),
-                    //("All Files", new[] { "*", }),
-                };
-            }
-            else
-            {
-                fileTypes = null;
-            }
+            AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
+                new("MsgPack Files") {
+                    Patterns = new[] { $"*.{FileEx.MPO}", },
+                    //MimeTypes
+                    //AppleUniformTypeIdentifiers = 
+                },
+                new("Data Files") {
+                    Patterns = new[] { $"*.{FileEx.DAT}", },
+                    //MimeTypes
+                    //AppleUniformTypeIdentifiers = 
+                },
+            };
             exportFile = await FilePicker2.SaveAsync(new PickOptions
             {
                 FileTypes = fileTypes,
@@ -462,7 +461,13 @@ public static class AuthenticatorHelper
         var options = new PickOptions();
         if (!string.IsNullOrEmpty(fileExtension))
         {
-            FilePickerFileType fileTypes = new[] { ($"{fileExtension} Files", new[] { "*" + fileExtension, }), };
+            AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
+                new($"{fileExtension} Files") {
+                    Patterns = new[] { $"*.{fileExtension}", },
+                    //MimeTypes
+                    //AppleUniformTypeIdentifiers = 
+                },
+            };
             options.FileTypes = fileTypes;
         }
         var filePath = (await FilePicker2.PickAsync(options))?.FullPath;

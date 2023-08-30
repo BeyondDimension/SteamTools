@@ -17,9 +17,12 @@ public class PlatformSettingsPageViewModel : ViewModelBase
         if (Platform is null)
             return;
 
-        FilePickerFileType fileTypes = new ValueTuple<string, string[]>[]
-        {
-              (Platform.FullName, new[] { Platform.ExeName ?? "*" }),
+        AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
+            new(Platform.FullName) {
+                Patterns = new[] { Platform.ExeName ?? "*", },
+                //MimeTypes =
+                //AppleUniformTypeIdentifiers =
+                },
         };
 
         await FilePicker2.PickAsync((path) =>

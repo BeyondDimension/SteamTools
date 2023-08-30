@@ -76,18 +76,6 @@ public sealed class CustomFilePicker : ContentControl
 
     private async void CustomFilePicker_Tapped(object? sender, RoutedEventArgs e)
     {
-        //if (string.IsNullOrEmpty(FileExtensions) || FileExtensions == "*")
-        //{
-        //    fileTypes = new ValueTuple<string, string[]>[] { ("All Files", new[] { "*" }) };
-        //}
-        //else
-        //{
-        //    fileTypes = new ValueTuple<string, string[]>[] {
-        //            ("Required Files", FileExtensions.Split(",")),
-        //            ("All Files", new[] { "*" }),
-        //           };
-        //}
-
         var result = await FilePicker2.PickAsync(PickOptions.Images);
         if (result != null)
         {

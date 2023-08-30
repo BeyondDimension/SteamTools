@@ -197,11 +197,27 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static IReadOnlyList<APS_FilePickerFileType>? Convert(IFilePickerFileType? fileTypes)
     {
-        if (fileTypes is FilePickerFileTypeWrapper impl)
+        if (fileTypes is AvaloniaFilePickerFileTypeFilter ava)
+        {
+            var items = ava.Values;
+            if (items != null)
+            {
+                var query = from m in items
+                            select new APS_FilePickerFileType(m.Name)
+                            {
+                                Patterns = m.Patterns,
+                                AppleUniformTypeIdentifiers = m.AppleUniformTypeIdentifiers,
+                                MimeTypes = m.MimeTypes,
+                            };
+                return query.ToArray();
+            }
+            return null;
+        }
+        else if (fileTypes is FilePickerFileTypeWrapper impl)
         {
             return impl.Values;
         }
-        if (fileTypes is FilePickerFileType.IFilePickerFileTypeWithName @interface)
+        else if (fileTypes is FilePickerFileType.IFilePickerFileTypeWithName @interface)
         {
             var values = @interface.GetFileTypes();
             if (values.Any())

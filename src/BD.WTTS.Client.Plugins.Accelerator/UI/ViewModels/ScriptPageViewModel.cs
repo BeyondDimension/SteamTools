@@ -15,24 +15,18 @@ public partial class ScriptPageViewModel : TabItemViewModel
         //AllEnableScriptCommand = ReactiveCommand.Create(AllEnableScript);
         AddNewScriptCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            FilePickerFileType? fileTypes;
-            if (IApplication.IsDesktop())
-            {
-                fileTypes = new ValueTuple<string, string[]>[]
-                {
-                        ("JavaScript Files", new[] { $"*{FileEx.JS}", }),
-                        ("Text Files", new[] { $"*{FileEx.TXT}", }),
-                    //("All Files", new[] { "*", }),
-                };
-            }
-            else if (OperatingSystem2.IsAndroid())
-            {
-                fileTypes = new[] { MediaTypeNames.TXT, MediaTypeNames.JS };
-            }
-            else
-            {
-                fileTypes = null;
-            }
+            AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
+                new("JavaScript Files") {
+                    Patterns = new[] { "*.js", },
+                    MimeTypes = new[] { MediaTypeNames.JS, },
+                    //AppleUniformTypeIdentifiers = 
+                },
+                new("Text Files") {
+                    Patterns = new[] { "*.txt", },
+                    MimeTypes = new[] { MediaTypeNames.TXT, },
+                    //AppleUniformTypeIdentifiers = 
+                },
+            };
             await FilePicker2.PickAsync(ProxyService.Current.AddNewScriptAsync, fileTypes);
         });
 

@@ -500,16 +500,13 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
             if (Essentials.IsSupportedSaveFileDialog)
             {
-                FilePickerFileType? fileTypes;
-                if (IApplication.IsDesktop())
-                {
-                    fileTypes = new[] { ("maFile Files", new[] { FileEx.maFile, }), };
-                }
-                else
-                {
-                    fileTypes = null;
-                }
-
+                AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
+                    new("maFile Files") {
+                        Patterns = new[] { $"*.{FileEx.maFile}", },
+                        //MimeTypes
+                        //AppleUniformTypeIdentifiers = 
+                    },
+                };
                 var exportFile = await FilePicker2.SaveAsync(new PickOptions
                 {
                     FileTypes = fileTypes,
