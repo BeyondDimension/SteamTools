@@ -9,8 +9,6 @@ partial interface IPlatformService
     /// 获取 排除代理地址
     /// </summary>
     protected static string[] GetNoProxyHostName => new string[] {
-        "localhost",
-        "127.*",
         "10.*",
         "172.16.*",
         "172.17.*",
