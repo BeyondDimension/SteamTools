@@ -58,6 +58,7 @@ sealed partial class Program : Startup
         // Essentials
 #if LINUX
         services.TryAddSingleton<IApplicationVersionService, Essentials_AppVerS>();
+        services.AddSingleton<IDeviceInfoPlatformService, LinuxDeviceInfoPlatformServiceImpl>();
 #else
 #if WINDOWS
 #if AVALONIA
@@ -251,6 +252,30 @@ sealed partial class Program : Startup
 
         string IApplicationVersionService.AssemblyTrademark => AssemblyInfo.Trademark;
     }
+
+#if LINUX
+    sealed class LinuxDeviceInfoPlatformServiceImpl : IDeviceInfoPlatformService
+    {
+        public string Model => "";
+
+        public string Manufacturer => "";
+
+        public string Name => "";
+
+        public string VersionString => Environment.OSVersion.VersionString;
+
+        public DeviceType DeviceType => DeviceType.Physical;
+
+        public bool IsChromeOS => false;
+
+        public bool IsWinUI => false;
+
+        public bool IsUWP => false;
+
+        public bool DeviceIdiom => DeviceIdiom.Desktop;
+    }
+
+#endif
 
 #if AVALONIA && WINDOWS
     sealed class AvaWinDeviceInfoPlatformServiceImpl :
