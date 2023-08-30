@@ -272,7 +272,7 @@ sealed partial class Program : Startup
 
         public bool IsUWP => false;
 
-        public bool DeviceIdiom => DeviceIdiom.Desktop;
+        public bool Idiom => DeviceIdiom.Desktop;
     }
 
 #endif
