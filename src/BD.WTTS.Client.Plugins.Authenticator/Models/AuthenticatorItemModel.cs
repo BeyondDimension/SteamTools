@@ -17,9 +17,11 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
 
     public async Task CopyCode()
     {
-        //if (!IsShowCode) return;
-        await Clipboard2.SetTextAsync(AuthData.Value?.CurrentCode);
-        Toast.Show(ToastIcon.Success, Strings.LocalAuth_CopyAuthTip + AuthName);
+        if (AuthData.Value?.CurrentCode != null)
+        {
+            await Clipboard2.SetTextAsync(AuthData.Value?.CurrentCode);
+            Toast.Show(ToastIcon.Success, Strings.LocalAuth_CopyAuthTip + AuthName);
+        }
     }
 
     public AuthenticatorItemModel(IAuthenticatorDTO authenticatorDto)

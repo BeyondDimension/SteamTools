@@ -81,9 +81,9 @@ public sealed class CustomFilePicker : ContentControl
         {
             FileName = result.FullPath;
         }
-        else
-        {
-            Toast.Show(ToastIcon.Warning, Strings.PleaseSelect);
-        }
+        //else
+        //{
+        //    Toast.Show(ToastIcon.Warning, Strings.PleaseSelect);
+        //}
     }
 }

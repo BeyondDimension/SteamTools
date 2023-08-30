@@ -9,7 +9,7 @@ public record AuthenticatorImportMethod(string Name, string Description, string?
 
 public class AuthenticatorImportPageViewModel : ViewModelBase
 {
-    public static string Name => Strings.PleaseSelect + Strings.AuthImport;
+    public static string Name => Strings.AuthImport;
 
     public IReadOnlyCollection<AuthenticatorImportMethod> AuthenticatorImportMethods { get; }
 

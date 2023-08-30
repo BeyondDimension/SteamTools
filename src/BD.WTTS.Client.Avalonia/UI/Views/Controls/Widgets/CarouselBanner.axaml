@@ -81,6 +81,7 @@
                                     Height="10"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
+                                    Fill="Gray"
                                     Opacity="0.6"
                                     StrokeThickness="0" />
                                 <i:Interaction.Behaviors>
@@ -91,7 +92,7 @@
                                         <ia:ChangePropertyAction
                                             PropertyName="Fill"
                                             TargetObject="IndexEllipse"
-                                            Value="#FFFFFF" />
+                                            Value="White" />
                                     </ia:DataTriggerBehavior>
                                     <ia:DataTriggerBehavior
                                         Binding="{Binding}"
@@ -100,7 +101,7 @@
                                         <ia:ChangePropertyAction
                                             PropertyName="Fill"
                                             TargetObject="IndexEllipse"
-                                            Value="#ADADAD" />
+                                            Value="Gray" />
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                             </Button>
