@@ -11,8 +11,18 @@ partial class Startup : IRequestCache
     {
         // https://github.com/reactiveui/Fusillade/blob/2.4.67/src/Fusillade/RateLimitedHttpMessageHandler.cs#L54-L89
 
+        string originalRequestUri;
+        if (request is ImageHttpClientService.ImageHttpRequestMessage request2)
+        {
+            // 对于一些重定向的 Url 使用原始 Url 进行唯一性的计算
+            originalRequestUri = request2.OriginalRequestUri;
+        }
+        else
+        {
+            originalRequestUri = request.RequestUri?.ToString() ?? "";
+        }
         using var s = new MemoryStream();
-        s.Write(Encoding.UTF8.GetBytes(request.RequestUri!.ToString()));
+        s.Write(Encoding.UTF8.GetBytes(originalRequestUri));
         s.Write("\r\n"u8);
         s.Write(Encoding.UTF8.GetBytes(request.Method.Method));
         s.Write("\r\n"u8);
