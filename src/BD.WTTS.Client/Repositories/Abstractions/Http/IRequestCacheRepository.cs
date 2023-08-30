@@ -24,4 +24,24 @@ public interface IRequestCacheRepository : IRequestCache
     /// </summary>
     /// <returns></returns>
     Task<int> DeleteAllAsync(DateTimeOffset dateTimeOffset);
+
+    const string DefaultRequestUri = "/";
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static string GetOriginalRequestUri(HttpRequestMessage request)
+    {
+        string? originalRequestUri;
+        if (request is ImageHttpClientService.ImageHttpRequestMessage request2)
+        {
+            // 对于一些重定向的 Url 使用原始 Url 进行唯一性的计算
+            originalRequestUri = request2.OriginalRequestUri;
+        }
+        else
+        {
+            originalRequestUri = request.RequestUri?.ToString()!;
+        }
+        if (string.IsNullOrEmpty(originalRequestUri))
+            originalRequestUri = DefaultRequestUri;
+        return originalRequestUri;
+    }
 }

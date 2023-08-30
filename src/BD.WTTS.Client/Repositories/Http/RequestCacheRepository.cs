@@ -6,7 +6,6 @@ namespace BD.WTTS.Repositories;
 
 internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposable
 {
-    const string DefaultRequestUri = "/";
     const string CacheDirName = "Http";
     const string TableName = "Fusillade_RequestCache";
     const string DbFileName = "RequestCache.LiteDB";
@@ -49,17 +48,7 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
         if (!bytes.Any_Nullable())
             return;
 
-        var requestUri = response.RequestMessage?.RequestUri ?? request.RequestUri;
-        string requestUriString;
-        if (requestUri == null)
-        {
-            requestUriString = DefaultRequestUri;
-        }
-        else
-        {
-            requestUriString = requestUri.ToString();
-        }
-
+        var requestUriString = IRequestCacheRepository.GetOriginalRequestUri(request);
         var fileTypeResult = FileFormat.AnalyzeFileType(bytes);
         var hashKey = Hashs.String.SHA384(bytes, false);
         var fileEx = fileTypeResult.FileEx;
@@ -116,6 +105,7 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
         if (cancellationToken.IsCancellationRequested)
             return;
 
+        key = UniqueKeyForRequest(requestUriString, request);
         var entity = table.FindById(key);
         bool isInsertOrUpdate;
         if (entity == null)
@@ -158,17 +148,8 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
         string key,
         CancellationToken cancellationToken)
     {
-        var requestUri = request.RequestUri;
-        string requestUriString;
-        if (requestUri == null)
-        {
-            requestUriString = DefaultRequestUri;
-        }
-        else
-        {
-            requestUriString = requestUri.ToString();
-        }
-
+        var requestUriString = IRequestCacheRepository.GetOriginalRequestUri(request);
+        key = UniqueKeyForRequest(requestUriString, request);
         var entity = table.Query().Where(x => x.Id == key &&
             x.HttpMethod == request.Method.Method &&
             x.RequestUri == requestUriString).FirstOrDefault();
@@ -248,5 +229,50 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
         // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
+    }
+
+    static string UniqueKeyForRequest(string originalRequestUri, HttpRequestMessage request)
+    {
+        // https://github.com/reactiveui/Fusillade/blob/2.4.67/src/Fusillade/RateLimitedHttpMessageHandler.cs#L54-L89
+
+        using var s = new MemoryStream();
+        s.Write(Encoding.UTF8.GetBytes(originalRequestUri));
+        s.Write("\r\n"u8);
+        s.Write(Encoding.UTF8.GetBytes(request.Method.Method));
+        s.Write("\r\n"u8);
+        static void Write(Stream s, IEnumerable<object> items)
+        {
+            foreach (var item in items)
+            {
+                var str = item.ToString();
+                if (!string.IsNullOrEmpty(str))
+                    s.Write(Encoding.UTF8.GetBytes(str));
+                s.Write("|"u8);
+            }
+        }
+        Write(s, request.Headers.Accept);
+        s.Write("\r\n"u8);
+        Write(s, request.Headers.AcceptEncoding);
+        s.Write("\r\n"u8);
+        var referrer = request.Headers.Referrer;
+        if (referrer == default)
+            s.Write("http://example"u8);
+        else
+            s.Write(Encoding.UTF8.GetBytes(referrer.ToString()));
+        s.Write("\r\n"u8);
+        Write(s, request.Headers.UserAgent);
+        s.Write("\r\n"u8);
+        if (request.Headers.Authorization != null)
+        {
+            var parameter = request.Headers.Authorization.Parameter;
+            if (!string.IsNullOrEmpty(parameter))
+                s.Write(Encoding.UTF8.GetBytes(parameter));
+            s.Write(Encoding.UTF8.GetBytes(request.Headers.Authorization.Scheme));
+            s.Write("\r\n"u8);
+        }
+        s.Position = 0;
+        var bytes = SHA384.HashData(s);
+        var str = bytes.ToHexString();
+        return str;
     }
 }
