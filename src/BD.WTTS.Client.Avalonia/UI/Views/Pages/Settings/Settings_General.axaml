@@ -97,8 +97,7 @@
             Header="{Binding Path=Res.Settings_General_StorageSpace, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             IconSource="Globe"
             IsClickEnabled="False"
-            IsExpanded="True"
-            IsVisible="{spp:OnPlatform Windows}">
+            IsExpanded="True">
             <ui:SettingsExpander.IconSource>
                 <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE7F1;" />
             </ui:SettingsExpander.IconSource>
