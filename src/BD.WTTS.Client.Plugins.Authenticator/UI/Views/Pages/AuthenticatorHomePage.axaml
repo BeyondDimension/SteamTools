@@ -134,12 +134,12 @@
                                                      Source={x:Static s:ResourceService.Current}}" />-->
                         <!--<ui:MenuFlyoutItem Command="{Binding ShowRecoverWindow}" Text="{Binding Path=Res.Auth_Sync_Recover, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem Command="{Binding ResetIndependentPassword}" Text="{Binding Path=Res.Auth_Sync_ResetPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False" Text="{Binding Path=Res.Auth_Version, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
