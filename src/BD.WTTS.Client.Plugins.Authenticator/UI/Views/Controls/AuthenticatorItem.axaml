@@ -34,19 +34,21 @@
                     </Viewbox>
                 </Button>-->
                 <Button
+                    Padding="8"
                     Command="{Binding EditAuthNameAsync}"
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.Auth_EditName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                    <Viewbox Width="20">
+                    <Viewbox Width="16">
                         <ui:SymbolIcon Symbol="Edit" />
                     </Viewbox>
                 </Button>
                 <Button
+                    Padding="8"
                     Command="{Binding ShowSteamTradeWindow}"
                     IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}"
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                    <Viewbox Width="20">
+                    <Viewbox Width="16">
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9D5;" />
                     </Viewbox>
                 </Button>

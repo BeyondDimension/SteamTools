@@ -73,14 +73,14 @@ namespace BD.WTTS.UI.Views.Controls
             Left.Click += (s, e) => SwiperPrevious();
             Right.Click += (s, e) => SwiperNext();
 
-            //Carousel[!Carousel.Items] = this[!Items];
-            Carousel[!Carousel.ItemsSourceProperty] = this[!ItemsSourceProperty];
-            Carousel[!Carousel.ItemTemplateProperty] = this[!ItemTemplateProperty];
+            //CarouselControl[!Carousel.Items] = this[!Items];
+            CarouselControl[!Carousel.ItemsSourceProperty] = this[!ItemsSourceProperty];
+            CarouselControl[!Carousel.ItemTemplateProperty] = this[!ItemTemplateProperty];
 
             this.GetObservable(ItemsSourceProperty)
                     .Subscribe(_ => SwipersLoad());
 
-            Carousel.GetObservable(Carousel.SelectedIndexProperty)
+            CarouselControl.GetObservable(Carousel.SelectedIndexProperty)
                     .Subscribe(x => SwipersLoad());
 
             this.GetObservable(AutoScrollProperty)
@@ -111,18 +111,18 @@ namespace BD.WTTS.UI.Views.Controls
         {
             if (sender is Button button && button.Tag is int index)
             {
-                Carousel.SelectedIndex = index;
+                CarouselControl.SelectedIndex = index;
             }
         }
 
         private void SwipersLoad()
         {
-            if (Carousel.ItemCount <= 0)
+            if (CarouselControl.ItemCount <= 0)
             {
                 Swiper.ItemsSource = null;
                 return;
             }
-            if (Carousel.ItemCount == 1)
+            if (CarouselControl.ItemCount == 1)
             {
                 Left.IsVisible = Right.IsVisible = Swiper.IsVisible = false;
                 return;
@@ -130,13 +130,13 @@ namespace BD.WTTS.UI.Views.Controls
             else
             {
                 Left.IsVisible = Right.IsVisible = Swiper.IsVisible = true;
-                var arr = new int[Carousel.ItemCount];
-                for (var i = 0; i < arr.Length; i++)
+                var arr = new Dictionary<int, string>();
+                for (var i = 0; i < CarouselControl.ItemCount; i++)
                 {
-                    arr[i] = i;
+                    arr.Add(i, "#ADADAD");
                 }
-                //var index = Carousel.SelectedIndex < 0 ? 0 : Carousel.SelectedIndex;
-                //arr[index] = "#FFFFFF";
+                var index = CarouselControl.SelectedIndex < 0 ? 0 : CarouselControl.SelectedIndex;
+                arr[index] = "#FFFFFF";
 
                 Swiper.ItemsSource = arr;
             }
@@ -144,29 +144,29 @@ namespace BD.WTTS.UI.Views.Controls
 
         private void SwiperNext()
         {
-            if (Carousel.ItemCount < 1)
+            if (CarouselControl.ItemCount < 1)
                 return;
-            if (Carousel.SelectedIndex < Carousel.ItemCount - 1)
+            if (CarouselControl.SelectedIndex < CarouselControl.ItemCount - 1)
             {
-                Carousel.Next();
+                CarouselControl.Next();
             }
             else
             {
-                Carousel.SelectedIndex = 0;
+                CarouselControl.SelectedIndex = 0;
             }
         }
 
         private void SwiperPrevious()
         {
-            if (Carousel.ItemCount < 1)
+            if (CarouselControl.ItemCount < 1)
                 return;
-            if (Carousel.SelectedIndex > 0)
+            if (CarouselControl.SelectedIndex > 0)
             {
-                Carousel.Previous();
+                CarouselControl.Previous();
             }
             else
             {
-                Carousel.SelectedIndex = Carousel.ItemCount - 1;
+                CarouselControl.SelectedIndex = CarouselControl.ItemCount - 1;
             }
         }
     }

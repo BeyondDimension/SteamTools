@@ -27,7 +27,9 @@ public sealed class HomePageViewModel : TabItemViewModel
 
     public HomePageViewModel()
     {
-        Articles = new ObservableCollection<ArticleItemDTO>();
+#pragma warning disable CS8625 // 初始化3个null 为解决调试报错中断
+        Articles = new ObservableCollection<ArticleItemDTO>() { null, null, null };
+#pragma warning restore CS8625 // 无法将 null 字面量转换为非 null 的引用类型。
         NavigationBanners = new ObservableCollection<AdvertisementDTO>();
         Shops = new ObservableCollection<ShopRecommendGoodItem>();
 
@@ -41,8 +43,7 @@ public sealed class HomePageViewModel : TabItemViewModel
         var result = await Instance.Article.Order(null, ArticleOrderBy.DateTime);
         if (result.IsSuccess && result.Content != null)
         {
-            Articles.Clear();
-            Articles.Add(result.Content.DataSource);
+            Articles = new ObservableCollection<ArticleItemDTO>(result.Content.DataSource);
         }
 
         var result2 = await Instance.Shop.RecommendGoods();

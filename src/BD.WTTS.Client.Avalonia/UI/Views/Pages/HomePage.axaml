@@ -67,166 +67,166 @@
         </StackPanel>
     </spp:PageBase.ActionContent>-->
     <ScrollViewer Padding="20">
-        <spp:ContentLoader IsLoading="False">
-            <StackPanel
-                x:Name="HomeRoot"
-                MaxWidth="1080"
-                Spacing="20">
-                <spp:Snackbar
-                    Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                    VerticalAlignment="Top"
-                    IsClosable="False"
-                    IsOpen="True"
-                    IsVisible="{spp:OnPlatform !GA}"
-                    Message="当前使用的程序版本为测试版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。"
-                    Severity="Warning" />
-                <spp:Snackbar
-                    Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                    VerticalAlignment="Top"
-                    IsClosable="False"
-                    IsOpen="True"
-                    IsVisible="{Binding !!!MainWindow2.PluginCount, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}"
-                    Message="检测到你没有安装插件，请去下载插件即可使用更多功能。"
-                    Severity="Warning" />
+        <!--<spp:ContentLoader IsLoading="False">-->
+        <StackPanel
+            x:Name="HomeRoot"
+            MaxWidth="1080"
+            Spacing="20">
+            <spp:Snackbar
+                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                VerticalAlignment="Top"
+                IsClosable="False"
+                IsOpen="True"
+                IsVisible="{spp:OnPlatform !GA}"
+                Message="当前使用的程序版本为测试版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。"
+                Severity="Warning" />
+            <spp:Snackbar
+                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                VerticalAlignment="Top"
+                IsClosable="False"
+                IsOpen="True"
+                IsVisible="{Binding !!!MainWindow2.PluginCount, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}"
+                Message="检测到你没有安装插件，请去下载插件即可使用更多功能。"
+                Severity="Warning" />
 
-                <WrapPanel Margin="5,0">
-                    <WrapPanel IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-                        <spp:Image2
-                            Width="36"
-                            Height="36"
-                            Margin="0,0,5,0"
-                            VerticalAlignment="Center"
-                            DecodeWidth="36"
-                            Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
-                            Stretch="Uniform">
-                            <spp:Image2.Clip>
-                                <EllipseGeometry Rect="0,0,36,36" />
-                            </spp:Image2.Clip>
-                        </spp:Image2>
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}"
-                            Theme="{StaticResource SubtitleTextBlockStyle}" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                            Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, StringFormat={}({0})}"
-                            Theme="{StaticResource SubtitleTextBlockStyle}" />
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Center"
-                            Text=","
-                            Theme="{StaticResource SubtitleTextBlockStyle}" />
-                    </WrapPanel>
-                    <TextBlock VerticalAlignment="Center" Theme="{StaticResource SubtitleTextBlockStyle}">
-                        <Run Text="{Binding Path=Res.Welcome_User_, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                    </TextBlock>
+            <WrapPanel Margin="5,0">
+                <WrapPanel IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                    <spp:Image2
+                        Width="36"
+                        Height="36"
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        DecodeWidth="36"
+                        Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
+                        Stretch="Uniform">
+                        <spp:Image2.Clip>
+                            <EllipseGeometry Rect="0,0,36,36" />
+                        </spp:Image2.Clip>
+                    </spp:Image2>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}"
+                        Theme="{StaticResource SubtitleTextBlockStyle}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                        Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, StringFormat={}({0})}"
+                        Theme="{StaticResource SubtitleTextBlockStyle}" />
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        Text=","
+                        Theme="{StaticResource SubtitleTextBlockStyle}" />
                 </WrapPanel>
+                <TextBlock VerticalAlignment="Center" Theme="{StaticResource SubtitleTextBlockStyle}">
+                    <Run Text="{Binding Path=Res.Welcome_User_, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                </TextBlock>
+            </WrapPanel>
 
-                <Grid Margin="0,-10,0,0" RowDefinitions="Auto,*">
-                    <spp:CarouselBanner
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        ItemsSource="{Binding NavigationBanners}">
-                        <spp:CarouselBanner.ItemTemplate>
-                            <DataTemplate DataType="spp:AdvertisementDTO">
-                                <spp:AppItem
-                                    Title="{Binding Describe}"
-                                    Height="350"
-                                    Classes="Banner Scale"
-                                    ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
-                                    ClickCommandParameter="{Binding Url}"
-                                    Description="{Binding Name}">
-                                    <spp:AppItem.Status>
-                                        <Border
-                                            Padding="20,10"
-                                            Background="{DynamicResource AccentFillColorSelectedTextBackgroundBrush}"
-                                            ClipToBounds="True"
-                                            CornerRadius="{StaticResource ControlCornerRadius}">
-                                            <TextBlock FontSize="16" Text="阅读更多" />
-                                        </Border>
-                                    </spp:AppItem.Status>
-                                    <spp:AppItem.Image>
-                                        <spp:Image2 Source="{Binding ImageUrl}" />
-                                    </spp:AppItem.Image>
-                                </spp:AppItem>
-                            </DataTemplate>
-                        </spp:CarouselBanner.ItemTemplate>
-                    </spp:CarouselBanner>
-                </Grid>
+            <Grid Margin="0,-10,0,0" RowDefinitions="Auto,*">
+                <spp:CarouselBanner
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    ItemsSource="{Binding NavigationBanners}">
+                    <spp:CarouselBanner.ItemTemplate>
+                        <DataTemplate DataType="spp:AdvertisementDTO">
+                            <spp:AppItem
+                                Title="{Binding Describe}"
+                                Height="350"
+                                Classes="Banner Scale"
+                                ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                ClickCommandParameter="{Binding Url}"
+                                Description="{Binding Name}">
+                                <spp:AppItem.Status>
+                                    <Border
+                                        Padding="20,10"
+                                        Background="{DynamicResource AccentFillColorSelectedTextBackgroundBrush}"
+                                        ClipToBounds="True"
+                                        CornerRadius="{StaticResource ControlCornerRadius}">
+                                        <TextBlock FontSize="16" Text="阅读更多" />
+                                    </Border>
+                                </spp:AppItem.Status>
+                                <spp:AppItem.Image>
+                                    <spp:Image2 Source="{Binding ImageUrl}" />
+                                </spp:AppItem.Image>
+                            </spp:AppItem>
+                        </DataTemplate>
+                    </spp:CarouselBanner.ItemTemplate>
+                </spp:CarouselBanner>
+            </Grid>
 
-                <!--<Viewbox Stretch="UniformToFill">
+            <!--<Viewbox Stretch="UniformToFill">
                     <spp:AdControl
                         MaxWidth="{Binding #HomeRoot.MaxWidth}"
                         MaxHeight="200"
                         Standard="Horizontal" />
                 </Viewbox>-->
 
-                <StackPanel
-                    Grid.Row="2"
-                    Margin="0,10"
-                    Spacing="10">
-                    <DockPanel>
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Text="最新消息"
-                            Theme="{StaticResource TitleTextBlockStyle}" />
-                        <Button
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
-                            CommandParameter="{x:Static spp:HomePageViewModel.OfficialWebsite_Article}"
-                            Content="查看更多"
-                            DockPanel.Dock="Right"
-                            Theme="{StaticResource HyperlinkButton}" />
-                    </DockPanel>
+            <StackPanel
+                Grid.Row="2"
+                Margin="0,10"
+                Spacing="10">
+                <DockPanel>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Text="最新消息"
+                        Theme="{StaticResource TitleTextBlockStyle}" />
+                    <Button
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="{x:Static spp:HomePageViewModel.OfficialWebsite_Article}"
+                        Content="查看更多"
+                        DockPanel.Dock="Right"
+                        Theme="{StaticResource HyperlinkButton}" />
+                </DockPanel>
 
-                    <Grid Margin="0,0,0,20" ColumnDefinitions="*,10,*,10,*">
-                        <Grid.Styles>
-                            <Style x:DataType="spp:ArticleItemDTO" Selector="spp|AppItem">
-                                <Setter Property="Cursor" Value="Hand" />
-                                <Setter Property="Title" Value="{Binding Title}" />
-                                <Setter Property="Description" Value="{Binding Introduction}" />
-                                <Setter Property="Tags" Value="{Binding AuthorName}" />
-                                <Setter Property="ClickCommand" Value="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" />
-                                <Setter Property="ClickCommandParameter">
-                                    <Setter.Value>
-                                        <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                            <CompiledBinding Path="." Source="{x:Static spp:HomePageViewModel.OfficialWebsite_Article_Detail_}" />
-                                            <CompiledBinding Path="Id" />
-                                        </MultiBinding>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="Image">
-                                    <Setter.Value>
-                                        <Template>
-                                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding CoverUrl}" />
-                                        </Template>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="Status">
-                                    <Setter.Value>
-                                        <Template>
-                                            <Border Classes="Status">
-                                                <TextBlock Text="{Binding CreationTime, StringFormat={}{0:yyyy-MM-dd}}" />
-                                            </Border>
-                                        </Template>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Grid.Styles>
-                        <spp:AppItem Classes="Vertical Scale" DataContext="{Binding Articles[0]}" />
-                        <spp:AppItem
-                            Grid.Column="2"
-                            Classes="Vertical Scale"
-                            DataContext="{Binding Articles[1]}" />
-                        <spp:AppItem
-                            Grid.Column="4"
-                            Classes="Vertical Scale"
-                            DataContext="{Binding Articles[2]}" />
-                    </Grid>
+                <Grid Margin="0,0,0,20" ColumnDefinitions="*,10,*,10,*">
+                    <Grid.Styles>
+                        <Style x:DataType="spp:ArticleItemDTO" Selector="spp|AppItem">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter Property="Title" Value="{Binding Title}" />
+                            <Setter Property="Description" Value="{Binding Introduction}" />
+                            <Setter Property="Tags" Value="{Binding AuthorName}" />
+                            <Setter Property="ClickCommand" Value="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" />
+                            <Setter Property="ClickCommandParameter">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                        <CompiledBinding Path="." Source="{x:Static spp:HomePageViewModel.OfficialWebsite_Article_Detail_}" />
+                                        <CompiledBinding Path="Id" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Image">
+                                <Setter.Value>
+                                    <Template>
+                                        <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding CoverUrl}" />
+                                    </Template>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Status">
+                                <Setter.Value>
+                                    <Template>
+                                        <Border Classes="Status">
+                                            <TextBlock Text="{Binding CreationTime, StringFormat={}{0:yyyy-MM-dd}}" />
+                                        </Border>
+                                    </Template>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Styles>
+                    <spp:AppItem Classes="Vertical Scale" DataContext="{Binding Articles[0]}" />
+                    <spp:AppItem
+                        Grid.Column="2"
+                        Classes="Vertical Scale"
+                        DataContext="{Binding Articles[1]}" />
+                    <spp:AppItem
+                        Grid.Column="4"
+                        Classes="Vertical Scale"
+                        DataContext="{Binding Articles[2]}" />
+                </Grid>
 
-                    <!--<ItemsControl ItemsSource="{Binding Articles}">
+                <!--<ItemsControl ItemsSource="{Binding Articles}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <Grid ColumnDefinitions="*,*,*" />
@@ -252,149 +252,149 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>-->
 
-                    <DockPanel>
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Text="精选"
-                            Theme="{StaticResource TitleTextBlockStyle}" />
-                        <Button
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
-                            CommandParameter="{x:Static spp:HomePageViewModel.WattGameUrl}"
-                            Content="访问 WattGame 商城"
-                            DockPanel.Dock="Right"
-                            Theme="{StaticResource HyperlinkButton}" />
-                    </DockPanel>
-
-                    <ScrollViewer
-                        Name="ShopsScrollViewer"
-                        Margin="0,3,0,20"
-                        Padding="0,0,0,15"
-                        HorizontalScrollBarVisibility="Auto"
-                        VerticalScrollBarVisibility="Disabled">
-                        <ItemsControl ItemsSource="{Binding Shops}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" Spacing="10" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="spp:ShopRecommendGoodItem">
-                                    <spp:AppItem
-                                        Title="{Binding Name}"
-                                        MaxWidth="260"
-                                        Classes="Vertical Scale"
-                                        ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
-                                        Cursor="Hand"
-                                        Tags="{Binding GoodsAllCategorysText}"
-                                        ToolTip.Tip="{Binding Brief}">
-                                        <spp:AppItem.ClickCommandParameter>
-                                            <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                                <CompiledBinding Path="." Source="{x:Static spp:HomePageViewModel.WattGame_Goods_Detail_}" />
-                                                <CompiledBinding Path="Id" />
-                                            </MultiBinding>
-                                        </spp:AppItem.ClickCommandParameter>
-                                        <spp:AppItem.Image>
-                                            <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding Image}" />
-                                        </spp:AppItem.Image>
-                                        <spp:AppItem.Status>
-                                            <Border Classes="Status">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock
-                                                        VerticalAlignment="Center"
-                                                        FontSize="12"
-                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                        IsVisible="{Binding !!DiscountValue}"
-                                                        Text="{Binding Mktprice, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}"
-                                                        TextDecorations="Strikethrough" />
-                                                    <TextBlock
-                                                        VerticalAlignment="Center"
-                                                        FontSize="14"
-                                                        Text="{Binding Price, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}" />
-                                                </StackPanel>
-                                            </Border>
-                                        </spp:AppItem.Status>
-                                        <spp:AppItem.ActionButton>
-                                            <Border
-                                                Height="24"
-                                                Padding="8,0"
-                                                Background="#4c6b22"
-                                                ClipToBounds="True"
-                                                CornerRadius="4"
-                                                IsVisible="{Binding !!DiscountValue}">
-                                                <TextBlock
-                                                    VerticalAlignment="Center"
-                                                    Foreground="#beee11"
-                                                    Text="{Binding DiscountValue, StringFormat={}-{0}%}" />
-                                            </Border>
-                                        </spp:AppItem.ActionButton>
-                                    </spp:AppItem>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-
+                <DockPanel>
                     <TextBlock
-                        Margin="-3,0,0,0"
-                        Text="已安装功能"
+                        VerticalAlignment="Center"
+                        Text="精选"
                         Theme="{StaticResource TitleTextBlockStyle}" />
+                    <Button
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                        CommandParameter="{x:Static spp:HomePageViewModel.WattGameUrl}"
+                        Content="访问 WattGame 商城"
+                        DockPanel.Dock="Right"
+                        Theme="{StaticResource HyperlinkButton}" />
+                </DockPanel>
 
-                    <ItemsControl ItemsSource="{Binding MainWindow2.TabItems, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}">
-                        <ItemsControl.Resources>
-                            <ControlTheme
-                                x:Key="NavButtonStyle"
-                                BasedOn="{StaticResource {x:Type Button}}"
-                                TargetType="Button">
-                                <Setter Property="Width" Value="120" />
-                                <Setter Property="Padding" Value="0" />
-                                <Setter Property="Margin" Value="6" />
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                <Setter Property="VerticalContentAlignment" Value="Stretch" />
-
-                                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
-                                    <Setter Property="ClipToBounds" Value="True" />
-                                </Style>
-                            </ControlTheme>
-                        </ItemsControl.Resources>
+                <ScrollViewer
+                    Name="ShopsScrollViewer"
+                    Margin="0,3,0,20"
+                    Padding="0,0,0,15"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding Shops}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
+                                <StackPanel Orientation="Horizontal" Spacing="10" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="spp:TabItemViewModel">
-                                <Border spp:Animations.EnableAnimations="True">
-                                    <Button
-                                        Command="{Binding $parent[spp:HomePage].((spp:HomePageViewModel)DataContext).NavgationToMenuPageCommand}"
-                                        CommandParameter="{Binding}"
-                                        Theme="{StaticResource NavButtonStyle}">
-                                        <Grid RowDefinitions="3*,*">
-                                            <Border
-                                                HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Stretch"
-                                                CornerRadius="4 4 0 0"
-                                                RenderOptions.BitmapInterpolationMode="HighQuality">
-                                                <spp:Image2
-                                                    Width="96"
-                                                    Height="96"
-                                                    Margin="0,10,0,0"
-                                                    Source="{Binding IconKey}"
-                                                    Stretch="Uniform" />
-                                            </Border>
+                            <DataTemplate DataType="spp:ShopRecommendGoodItem">
+                                <spp:AppItem
+                                    Title="{Binding Name}"
+                                    MaxWidth="260"
+                                    Classes="Vertical Scale"
+                                    ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                    Cursor="Hand"
+                                    Tags="{Binding GoodsAllCategorysText}"
+                                    ToolTip.Tip="{Binding Brief}">
+                                    <spp:AppItem.ClickCommandParameter>
+                                        <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                            <CompiledBinding Path="." Source="{x:Static spp:HomePageViewModel.WattGame_Goods_Detail_}" />
+                                            <CompiledBinding Path="Id" />
+                                        </MultiBinding>
+                                    </spp:AppItem.ClickCommandParameter>
+                                    <spp:AppItem.Image>
+                                        <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding Image}" />
+                                    </spp:AppItem.Image>
+                                    <spp:AppItem.Status>
+                                        <Border Classes="Status">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                    IsVisible="{Binding !!DiscountValue}"
+                                                    Text="{Binding Mktprice, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}"
+                                                    TextDecorations="Strikethrough" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="14"
+                                                    Text="{Binding Price, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </spp:AppItem.Status>
+                                    <spp:AppItem.ActionButton>
+                                        <Border
+                                            Height="24"
+                                            Padding="8,0"
+                                            Background="#4c6b22"
+                                            ClipToBounds="True"
+                                            CornerRadius="4"
+                                            IsVisible="{Binding !!DiscountValue}">
                                             <TextBlock
-                                                Grid.Row="1"
-                                                Margin="12"
-                                                FontWeight="SemiBold"
-                                                Text="{Binding Name}" />
-                                        </Grid>
-                                    </Button>
-                                </Border>
+                                                VerticalAlignment="Center"
+                                                Foreground="#beee11"
+                                                Text="{Binding DiscountValue, StringFormat={}-{0}%}" />
+                                        </Border>
+                                    </spp:AppItem.ActionButton>
+                                </spp:AppItem>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+                </ScrollViewer>
 
-                    <!--<TextBlock Text="联系我们" Theme="{StaticResource TitleTextBlockStyle}" />
+                <TextBlock
+                    Margin="-3,0,0,0"
+                    Text="已安装功能"
+                    Theme="{StaticResource TitleTextBlockStyle}" />
+
+                <ItemsControl ItemsSource="{Binding MainWindow2.TabItems, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}">
+                    <ItemsControl.Resources>
+                        <ControlTheme
+                            x:Key="NavButtonStyle"
+                            BasedOn="{StaticResource {x:Type Button}}"
+                            TargetType="Button">
+                            <Setter Property="Width" Value="120" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="6" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+
+                            <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="ClipToBounds" Value="True" />
+                            </Style>
+                        </ControlTheme>
+                    </ItemsControl.Resources>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="spp:TabItemViewModel">
+                            <Border spp:Animations.EnableAnimations="True">
+                                <Button
+                                    Command="{Binding $parent[spp:HomePage].((spp:HomePageViewModel)DataContext).NavgationToMenuPageCommand}"
+                                    CommandParameter="{Binding}"
+                                    Theme="{StaticResource NavButtonStyle}">
+                                    <Grid RowDefinitions="3*,*">
+                                        <Border
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            CornerRadius="4 4 0 0"
+                                            RenderOptions.BitmapInterpolationMode="HighQuality">
+                                            <spp:Image2
+                                                Width="96"
+                                                Height="96"
+                                                Margin="0,10,0,0"
+                                                Source="{Binding IconKey}"
+                                                Stretch="Uniform" />
+                                        </Border>
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="12"
+                                            FontWeight="SemiBold"
+                                            Text="{Binding Name}" />
+                                    </Grid>
+                                </Button>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!--<TextBlock Text="联系我们" Theme="{StaticResource TitleTextBlockStyle}" />
 
                     <Grid Margin="0,0,0,20" ColumnDefinitions="*,10,*,10,*,10,*,10,*">
                         <spp:AppItem
@@ -449,9 +449,9 @@
                         </spp:AppItem>
                     </Grid>-->
 
-                </StackPanel>
+            </StackPanel>
 
-                <!--<TabControl Grid.Row="3" Padding="0">
+            <!--<TabControl Grid.Row="3" Padding="0">
                     <TabItem Header="1111">
                         <StackPanel Spacing="5">
                             <spp:AppItem
@@ -523,13 +523,13 @@
                     </TabItem>
                 </TabControl>-->
 
-                <TextBlock
-                    Margin="0,30"
-                    HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="不忘初心，方得始终。"
-                    Theme="{StaticResource SubtitleTextBlockStyle}" />
-            </StackPanel>
-        </spp:ContentLoader>
+            <TextBlock
+                Margin="0,30"
+                HorizontalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="不忘初心，方得始终。"
+                Theme="{StaticResource SubtitleTextBlockStyle}" />
+        </StackPanel>
+        <!--</spp:ContentLoader>-->
     </ScrollViewer>
 </UserControl>
