@@ -175,7 +175,9 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         psi.ArgumentList.Add(pid.ToString());
         psi.ArgumentList.Add(mSubProcessArgumentIndex2Model.Value);
         configure?.Invoke(psi);
+#if !MACOS
         DotNetRuntimeHelper.AddEnvironment(psi);
+#endif
         var nativeLibraryPath = Startup.NativeLibraryPath;
         if (!string.IsNullOrWhiteSpace(nativeLibraryPath))
         {
