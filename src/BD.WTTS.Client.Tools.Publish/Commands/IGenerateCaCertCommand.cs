@@ -3,7 +3,7 @@ namespace BD.WTTS.Client.Tools.Publish.Commands;
 interface IGenerateCaCertCommand : ICommand
 {
     const string commandName = "gcert";
-    const string X500DistinguishedNameValue = $"C=CN, S=Hunan, L=Changsha, O=\u6C5F\u82CF\u84B8\u6C7D\u51E1\u661F\u79D1\u6280\u6709\u9650\u516C\u53F8, OU=\u6280\u672F\u90E8, CN=\u6C5F\u82CF\u84B8\u6C7D\u51E1\u661F\u79D1\u6280\u6709\u9650\u516C\u53F8";
+    const string X500DistinguishedNameValue = $"C=CN, S=Hunan, L=Changsha, O=\u5F90\u5DDE\u7E41\u661F\u7F51\u7EDC\u79D1\u6280\u6709\u9650\u516C\u53F8, OU=\u6280\u672F\u90E8, CN=\u5F90\u5DDE\u7E41\u661F\u7F51\u7EDC\u79D1\u6280\u6709\u9650\u516C\u53F8";
 
     public const int CertificateValidDays = 3650;
 
@@ -12,7 +12,7 @@ interface IGenerateCaCertCommand : ICommand
     static Command ICommand.GetCommand()
     {
         var type = new Option<int>("--type",
-            "Generate certificate type(1 code, 2 store-code)");
+            "Generate certificate type(1 code, 2 store-code, 3 csr)");
         var path = new Option<string>("--path",
             "Directory where certificate files need to be saved");
         var cn = new Option<string>("--cn", "X500DistinguishedNameValue");
@@ -39,9 +39,10 @@ interface IGenerateCaCertCommand : ICommand
     /// </summary>
     const string _13Oid = "1.3.6.1.4.1.311.10.3.13";
 
-    static (byte[] pfx, byte[] cer) GenerateCodeSigningCert(string x500DistinguishedNameValue, string password)
+    static (byte[] pfx, byte[] cer, string? csr) GenerateCodeSigningCert(string x500DistinguishedNameValue, string password, bool isCSR = false)
     {
-        if (string.IsNullOrWhiteSpace(password))
+        string? csr = default;
+        if (!isCSR && string.IsNullOrWhiteSpace(password))
             throw new ArgumentOutOfRangeException(nameof(password), password, null);
 
         // https://learn.microsoft.com/zh-cn/windows/win32/appxpkg/how-to-create-a-package-signing-certificate
@@ -50,6 +51,12 @@ interface IGenerateCaCertCommand : ICommand
         X500DistinguishedName subjectName = new(x500DistinguishedNameValue);
         CertificateRequest request = new(subjectName, rsa,
             HashAlgorithmName.SHA384, RSASignaturePadding.Pkcs1);
+
+        if (isCSR)
+        {
+            var signingRequestPem = request.CreateSigningRequestPem();
+            return (null!, null!, signingRequestPem);
+        }
 
         // 基本约束：此扩展指示证书是否为证书颁发机构 (CA) 。 对于自签名证书，
         // 此参数应包含扩展字符串 “2.5.29.19={text}”，指示证书是最终实体 (不是 CA) 。
@@ -73,19 +80,25 @@ interface IGenerateCaCertCommand : ICommand
         using var cert = request.CreateSelfSigned(notBefore, notAfter);
         var pfx = cert.Export(X509ContentType.Pfx, password); // 私钥
         var cer = cert.Export(X509ContentType.Cert); // 公钥
-        return (pfx, cer);
+        return (pfx, cer, csr);
     }
 
     internal static void Handler(int type, string path, string cn, string password)
     {
-        (var pfx, var cer) = type switch
+        (var pfx, var cer, var csr) = type switch
         {
             // 生成 BeyondDimension 代码签名证书
             1 => GenerateCodeSigningCert(X500DistinguishedNameValue, password),
             // 生成 上传应用商店的 代码签名证书
             2 => GenerateCodeSigningCert($"CN={cn}", password),
+            3 => GenerateCodeSigningCert(X500DistinguishedNameValue, password, true),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
         };
+        if (csr != default)
+        {
+            Console.WriteLine(csr);
+            return;
+        }
         File.WriteAllBytes(path, pfx);
         File.WriteAllBytes(path.TrimEnd(".pfx", StringComparison.OrdinalIgnoreCase) + ".cer", cer);
     }
