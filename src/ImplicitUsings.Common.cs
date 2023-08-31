@@ -8,7 +8,7 @@
 #if !APP_HOST
 #if !NETFRAMEWORK
 
-#if !__NOT_IMPORT_COMMON_PRIMITIVES__
+#if !__NOT_IMPORT_COMMON_PRIMITIVES__ && !__NOT_IMPORT_COMMON__
 global using Polly;
 global using BD.Common;
 global using BD.Common.Columns;
@@ -22,7 +22,7 @@ global using BD.Common.Identity;
 global using BD.Common.Identity.Abstractions;
 #endif
 
-#if !__NOT_IMPORT_COMMON_SERVICES__
+#if !__NOT_IMPORT_COMMON_SERVICES__ && !__NOT_IMPORT_COMMON__
 global using BD.Common.Services;
 global using BD.Common.Services.Implementation;
 #endif

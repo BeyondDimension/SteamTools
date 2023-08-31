@@ -27,20 +27,20 @@ global using System.IO;
 global using System.Buffers;
 global using System.IO.Pipes;
 global using PipeOptions = System.IO.Pipes.PipeOptions;
-#if !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ
+#if !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ && !__NOT_IMPORT_COMMON__
 global using System.IO.Pipelines;
 global using PipelineOptions = System.IO.Pipelines.PipeOptions;
 #endif
 #endif
 global using System.IO.Compression;
-#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ && !__NOT_IMPORT_COMMON__
 global using System.IO.FileFormats;
 #endif
 global using System.Linq;
 global using System.Linq.Expressions;
 global using System.Net;
 global using System.Net.Security;
-#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ && !__NOT_IMPORT_COMMON__
 global using System.Net.Http.Headers;
 global using System.Net.Http.Json;
 global using System.Net.Http.Client;
@@ -66,7 +66,7 @@ global using System.Text.Unicode;
 #endif
 global using System.Text.RegularExpressions;
 global using System.Runtime;
-#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ && !__NOT_IMPORT_COMMON__
 global using DeploymentMode = System.Runtime.DeploymentMode;
 global using System.Runtime.Devices;
 #endif
@@ -74,16 +74,16 @@ global using System.Runtime.InteropServices;
 global using System.Runtime.Versioning;
 global using System.Runtime.Serialization.Formatters;
 
-#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ && !__NOT_IMPORT_COMMON__
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 #endif
 
-#if WINDOWS && !APP_HOST && !APP_REVERSE_PROXY && !LIB_CLIENT_IPC
+#if WINDOWS && !APP_HOST && !APP_REVERSE_PROXY && !LIB_CLIENT_IPC && !__NOT_IMPORT_COMMON__
 global using System.Management;
 #endif
 
-#if !NONE_UI && (WINDOWS || APP_HOST)
+#if !NONE_UI && (WINDOWS || APP_HOST) && !__NOT_IMPORT_COMMON__
 global using WPFMessageBox = MS.Win32.MessageBox;
 global using WPFMessageBoxButton = MS.Win32.MessageBoxButton;
 global using WPFMessageBoxImage = MS.Win32.MessageBoxImage;
@@ -94,14 +94,14 @@ global using System.Xml;
 global using System.Xml.Serialization;
 global using System.Security.Cryptography.X509Certificates;
 global using IPAddress = System.Net.IPAddress;
-#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ && !__NOT_IMPORT_COMMON__
 global using Ioc = System.Ioc;
 global using DateTimeFormat = System.DateTimeFormat;
 global using SerializationDateTimeFormat = System.Runtime.Serialization.DateTimeFormat;
 global using HttpMethod = System.Net.Http.HttpMethod;
 #endif
 
-#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ
+#if !NETFRAMEWORK && !APP_HOST && !NETFRAMEWORK_SINGLE_FILE && !RES_PROJ && !__NOT_IMPORT_COMMON__
 global using HttpHandlerCategory = System.Net.Http.Client.HttpHandlerCategory;
 global using IHttpClientFactory = System.Net.Http.Client.IHttpClientFactory;
 #endif
