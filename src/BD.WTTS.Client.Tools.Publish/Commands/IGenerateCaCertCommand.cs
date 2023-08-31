@@ -52,12 +52,6 @@ interface IGenerateCaCertCommand : ICommand
         CertificateRequest request = new(subjectName, rsa,
             HashAlgorithmName.SHA384, RSASignaturePadding.Pkcs1);
 
-        if (isCSR)
-        {
-            var signingRequestPem = request.CreateSigningRequestPem();
-            return (null!, null!, signingRequestPem);
-        }
-
         // 基本约束：此扩展指示证书是否为证书颁发机构 (CA) 。 对于自签名证书，
         // 此参数应包含扩展字符串 “2.5.29.19={text}”，指示证书是最终实体 (不是 CA) 。
         X509BasicConstraintsExtension basicConstraints = new(false, false, 0, true);
@@ -74,6 +68,12 @@ interface IGenerateCaCertCommand : ICommand
 
         subjectKeyId = new(request.PublicKey, false);
         request.CertificateExtensions.Add(subjectKeyId);
+
+        if (isCSR)
+        {
+            var signingRequestPem = request.CreateSigningRequestPem();
+            return (null!, null!, signingRequestPem);
+        }
 
         var notBefore = DateTimeOffset.UtcNow;
         var notAfter = notBefore.AddDays(CertificateValidDays);
