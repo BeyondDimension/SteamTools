@@ -40,6 +40,19 @@ Install_certutil() {
         echo "certutil 工具已安装。"
     fi
 }
+certutil_Init() {
+    certutil -d sql:$HOME/.pki/nssdb -L
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        echo "即将初始化 certutil sql:\$HOME/.pki/nssdb"
+        mkdir -p sql:$HOME/.pki
+        mkdir -p sql:$HOME/.pki/nssdb
+        chmod 700 sql:$HOME/.pki/nssdb
+        certutil -d sql:$HOME/.pki/nssdb -N --empty-password
+    else
+        echo "certutil nssdb 正常"
+    fi
+}
 Install_jq() {
     # Check if jq is already installed
     if command -v jq &>/dev/null; then
@@ -294,6 +307,7 @@ exit" >"$base_path/$exec_name.sh"
 Install_certutil
 Install_zenity
 Install_jq
+certutil_Init
 #版本检查更新;
 Get_NewVer
 
