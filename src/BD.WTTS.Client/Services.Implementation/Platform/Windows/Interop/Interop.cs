@@ -12,14 +12,21 @@ static partial class Interop
 
         const uint QueryLimitedInformation = 0x00001000;
 
-        public static string QueryFullProcessImageName(Process process)
+        public static string? QueryFullProcessImageName(Process process)
         {
-            int capacity = 1024;
-            StringBuilder sb = new(capacity);
-            var handle = Kernel32_.OpenProcess(new(QueryLimitedInformation), false, process.Id);
-            Kernel32_.QueryFullProcessImageName(handle, 0, sb, ref capacity);
-            string fullPath = sb.ToString(0, capacity);
-            return fullPath;
+            try
+            {
+                int capacity = 1024;
+                StringBuilder sb = new(capacity);
+                var handle = Kernel32_.OpenProcess(new(QueryLimitedInformation), false, process.Id);
+                Kernel32_.QueryFullProcessImageName(handle, 0, sb, ref capacity);
+                string fullPath = sb.ToString(0, capacity);
+                return fullPath;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 

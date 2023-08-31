@@ -1,3 +1,7 @@
+#if WINDOWS
+using System.Security.AccessControl;
+#endif
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
@@ -82,14 +86,31 @@ partial class Startup // 本应用程序单例管道
             }
 #endif
             var currentMainModule = current.TryGetMainModule();
+            bool IsThisProgram(Process p, ProcessModule? pMainModule)
+            {
+                if (currentMainModule != null)
+                {
+                    if (pMainModule != null)
+                    {
+                        return pMainModule.FileName == currentMainModule.FileName &&
+                            pMainModule.ModuleName == currentMainModule.ModuleName;
+                    }
+                    else
+                    {
+#if WINDOWS
+                        var path = Interop.Kernel32.QueryFullProcessImageName(p);
+                        return path == currentMainModule.FileName;
+#else
+                        return false;
+#endif
+                    }
+                }
+                return true;
+            }
             var query = from p in Process.GetProcessesByName(current.ProcessName)
                         let pMainModule = p.TryGetMainModule()
                         where p.Id != current.Id &&
-                            p.ProcessName == current.ProcessName &&
-                            (currentMainModule == null ||
-                                (pMainModule != null &&
-                                    pMainModule.FileName == currentMainModule.FileName &&
-                                        pMainModule.ModuleName == currentMainModule.ModuleName))
+                            p.ProcessName == current.ProcessName && IsThisProgram(p, pMainModule)
                         select p;
             return query;
         }
@@ -121,7 +142,7 @@ partial class Startup // 本应用程序单例管道
         static string GetPipeName()
         {
             var processPath = Environment.ProcessPath ?? string.Empty;
-            return AssemblyInfo.APPLICATION_ID + "_v3_" + Hashs.String.Crc32(processPath);
+            return AssemblyInfo.APPLICATION_ID + "_v" + AssemblyInfo.InformationalVersion + "_" + Hashs.String.Crc32(processPath);
         }
 
         CancellationTokenSource? cts;
@@ -131,9 +152,35 @@ partial class Startup // 本应用程序单例管道
         {
             cts = new CancellationTokenSource();
             var name = GetPipeName();
+
+            NamedPipeServerStream GetNamedPipeServerStream()
+            {
+                const PipeDirection direction = PipeDirection.In;
+                const int maxNumberOfServerInstances = 5;
+                const PipeTransmissionMode transmissionMode = PipeTransmissionMode.Byte;
+                const PipeOptions options = PipeOptions.None;
+                const int inBufferSize = 0;
+                const int outBufferSize = 0;
+#if WINDOWS
+                if (WindowsPlatformServiceImpl.IsPrivilegedProcess)
+                {
+                    // https://github.com/dotnet-campus/dotnetCampus.Ipc/blob/2.0.0-alpha403/src/dotnetCampus.Ipc/Internals/IpcPipeServerMessageProvider.cs#L99
+                    SecurityIdentifier securityIdentifier = new(WellKnownSidType.AuthenticatedUserSid, null);
+                    PipeSecurity pipeSecurity = new();
+                    pipeSecurity.AddAccessRule(new PipeAccessRule(securityIdentifier,
+                        PipeAccessRights.ReadWrite | PipeAccessRights.CreateNewInstance,
+                        AccessControlType.Allow));
+
+                    var result = NamedPipeServerStreamAcl.Create(name, direction, maxNumberOfServerInstances, transmissionMode, options, inBufferSize, outBufferSize, pipeSecurity);
+                    return result;
+                }
+#endif
+                return new NamedPipeServerStream(name, direction, maxNumberOfServerInstances, transmissionMode, options);
+            }
+
             while (true)
             {
-                using var pipeServer = new NamedPipeServerStream(name, PipeDirection.In, 1);
+                using var pipeServer = GetNamedPipeServerStream();
                 try
                 {
                     pipeServer.WaitForConnection();
@@ -177,7 +224,7 @@ partial class Startup // 本应用程序单例管道
                 using var pipeClient = new NamedPipeClientStream(".", name,
                     PipeDirection.Out, PipeOptions.None,
                     TokenImpersonationLevel.Impersonation);
-                pipeClient.Connect(TimeSpan.FromSeconds(25));
+                pipeClient.Connect(TimeSpan.FromSeconds(7.7D));
                 using StreamWriter sw = new StreamWriter(pipeClient);
                 sw.WriteLine(value);
                 return true;
