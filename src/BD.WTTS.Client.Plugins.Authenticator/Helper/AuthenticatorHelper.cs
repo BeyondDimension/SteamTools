@@ -463,7 +463,7 @@ public static class AuthenticatorHelper
         {
             AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
                 new($"{fileExtension} Files") {
-                    Patterns = new[] { $"*.{fileExtension}", },
+                    Patterns = new[] { $"*{fileExtension}", },
                     //MimeTypes
                     //AppleUniformTypeIdentifiers = 
                 },
