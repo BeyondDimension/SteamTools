@@ -224,7 +224,7 @@ public sealed class SteamConnectService
 
     public void RunAFKApps()
     {
-        var aFKAppList = Ioc.Get<IPartialGameLibrarySettings>()?.AFKAppList;
+        var aFKAppList = Ioc.Get_Nullable<IPartialGameLibrarySettings>()?.AFKAppList;
         if (aFKAppList?.Count > 0)
         {
             foreach (var item in aFKAppList)
@@ -291,7 +291,7 @@ public sealed class SteamConnectService
                                     INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}{Environment.NewLine}{AppResources.Steam_ServerTime}{steamServerTime:yyyy-MM-dd HH:mm:ss}", NotificationType.Message);
                                 }
 
-                                var isAutoAFKApps = Ioc.Get<IPartialGameLibrarySettings>()?.IsAutoAFKApps ?? default;
+                                var isAutoAFKApps = Ioc.Get_Nullable<IPartialGameLibrarySettings>()?.IsAutoAFKApps ?? default;
                                 if (isAutoAFKApps)
                                 {
                                     RunAFKApps();

@@ -406,7 +406,7 @@ interface IDotNetPublishCommand : ICommand
                         if (string.IsNullOrWhiteSpace(item.Key))
                             continue;
                         var files = item.ToArray();
-                        ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete($"{item.Key}.stmupload.zip"), files);
+                        ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete($"_{item.Key}.stmupload.zip"), files);
                     }
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
