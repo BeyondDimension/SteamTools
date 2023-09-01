@@ -17,6 +17,38 @@ public static class PluginsCore
         {
 
         }
+
+        protected override Assembly? Load(AssemblyName assemblyName)
+        {
+            var assemblyLoadContext = DefaultAssemblyLoadContext;
+            if (assemblyLoadContext != this)
+            {
+                try
+                {
+                    var assembly = assemblyLoadContext.LoadFromAssemblyName(assemblyName);
+                    if (assembly != null)
+                    {
+                        return assembly;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            return base.Load(assemblyName);
+        }
+    }
+
+    static AssemblyLoadContext DefaultAssemblyLoadContext
+    {
+        get
+        {
+            // 在 Windows 上通过自定义 AppHost 程序集加载上下文为 IsolatedComponentLoadContext 而不是 Default
+            var assemblyLoadContext = AssemblyLoadContext.GetLoadContext(typeof(PluginsCore).Assembly);
+            assemblyLoadContext ??= AssemblyLoadContext.Default;
+            return assemblyLoadContext;
+        }
     }
 
     static DisablePluginsAssemblyLoadContext disablePluginsAssemblyLoadContext = new();
@@ -183,9 +215,7 @@ public static class PluginsCore
         }
         else
         {
-            // 在 Windows 上通过自定义 AppHost 程序集加载上下文为 IsolatedComponentLoadContext 而不是 Default
-            assemblyLoadContext = AssemblyLoadContext.GetLoadContext(typeof(PluginsCore).Assembly);
-            assemblyLoadContext ??= AssemblyLoadContext.Default;
+            assemblyLoadContext = DefaultAssemblyLoadContext;
         }
         var assembly = assemblyLoadContext.LoadFromAssemblyPath(assemblyPath);
         return assembly;
@@ -208,7 +238,7 @@ public static class PluginsCore
                 ArchiSteamFarmPlus,
                 Authenticator,
                 GameTools,
-                SteamIdleCard
+                SteamIdleCard,
             };
             foreach (var item in modules)
             {
@@ -355,7 +385,8 @@ public static class PluginsCore
         try
         {
             using CompositionHost container = configuration.CreateContainer();
-            foreach (var plugin in container.GetExports<IPlugin>())
+            var exports = container.GetExports<IPlugin>().ToArray();
+            foreach (var plugin in exports)
             {
                 if (string.IsNullOrWhiteSpace(plugin.UniqueEnglishName) ||
                     string.Equals(plugin.UniqueEnglishName,

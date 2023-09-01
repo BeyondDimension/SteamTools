@@ -32,7 +32,7 @@ partial interface IPlatformService
     /// </summary>
     void WriteDefaultHostsContent()
     {
-        var fileStream = new FileStream(HostsFilePath,
+        using var fileStream = new FileStream(HostsFilePath,
             FileMode.OpenOrCreate,
             FileAccess.Write,
             FileShare.ReadWrite | FileShare.Delete);
