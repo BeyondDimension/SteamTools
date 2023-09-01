@@ -12,7 +12,8 @@ public sealed class NoticeService : ReactiveObject
 
     //readonly INotificationRepository notificationRepo = Ioc.Get<INotificationRepository>();
 
-    public ObservableCollection<OfficialMessageItemDTO> Notices { get; }
+    [Reactive]
+    public ObservableCollection<OfficialMessageItemDTO> Notices { get; set; }
 
     [Reactive]
     public int UnreadNotificationsCount { get; set; }
@@ -54,12 +55,20 @@ public sealed class NoticeService : ReactiveObject
                 {
                     item.Unread = true;
 
-                    //只弹最新的一条通知
-                    if (UnreadNotificationsCount == 0 && GeneralSettings.MessagePopupNotification.Value)
-                        INotificationService.Instance.Notify(item.Content, NotificationType.Announcement, title: item.Title);
-
                     UnreadNotificationsCount++;
                 }
+            }
+
+            //只弹最新的一条通知
+            if (UnreadNotificationsCount != 0 && GeneralSettings.MessagePopupNotification.Value)
+            {
+                //if (UnreadNotificationsCount > 1)
+                //{
+                //    INotificationService.Instance.Notify($"{UnreadNotificationsCount}条通知未读", NotificationType.Announcement);
+                //    return;
+                //}
+                var notice = Notices.First(x => x.Unread == true);
+                INotificationService.Instance.Notify(notice.Content, NotificationType.Announcement, title: notice.Title);
             }
         }
     }
