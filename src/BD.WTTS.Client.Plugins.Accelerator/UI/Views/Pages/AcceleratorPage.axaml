@@ -542,9 +542,8 @@
         <spp:AdControl
             Grid.Column="1"
             Width="165"
-            MaxHeight="390"
+            Height="390"
             VerticalAlignment="Top"
-            DockPanel.Dock="Right"
             Standard="Vertical" />
     </Grid>
 </spp:PageBase>

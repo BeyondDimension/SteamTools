@@ -2314,7 +2314,7 @@
     <value>Mafile 文件</value>
   </data>
   <data name="LocalAuth_Import" xml:space="preserve">
-    <value>{0}导入</value>
+    <value>{0} 导入</value>
   </data>
   <data name="LocalAuth_SDAImport" xml:space="preserve">
     <value>从 Mafile 文件导入令牌</value>
@@ -2347,7 +2347,7 @@
     <value>{0}密钥导入</value>
   </data>
   <data name="HOTP" xml:space="preserve">
-    <value>HOTP、TOTP通用令牌</value>
+    <value>HOTP、TOTP 通用令牌</value>
   </data>
   <data name="LocalAuth_HOTPImport" xml:space="preserve">
     <value>添加 HOTP、TOTP 令牌时生成的通用密钥导入令牌</value>

@@ -189,7 +189,7 @@ public partial class AuthenticatorGeneralImportPageViewModel
 
                         if (AuthType == AuthType.TOTP)
                         {
-                            var auth = new GoogleAuthenticator();
+                            var auth = new TOTPAuthenticator();
                             auth.Enroll(privateKey);
 
                             auth.HMACType = HMACType;

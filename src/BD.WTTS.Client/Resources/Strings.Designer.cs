@@ -3304,7 +3304,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 HOTP、TOTP通用令牌 的本地化字符串。
+        ///   查找类似 HOTP、TOTP 通用令牌 的本地化字符串。
         /// </summary>
         public static string HOTP {
             get {
@@ -3863,7 +3863,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 {0}导入 的本地化字符串。
+        ///   查找类似 {0} 导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_Import {
             get {
