@@ -80,7 +80,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 script.MatchDomainNames = string.IsNullOrEmpty(matchs) ? includes : matchs;
                 // 忽略脚本 Enable 启动标签默认启动
                 //var enable = Regex.Match(userScript, string.Format(DescRegex, "@Enable"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true);
-                script.Disable = true;
+                script.Disable = false;
                 //script.Enable = bool.TryParse(enable, out var e) && e;
                 return script;
             }
