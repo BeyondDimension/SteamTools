@@ -262,4 +262,19 @@ interface ICompressedPackageCommand : ICommand
         {
         }
     }
+
+    static void CreateZipPack(string packPath, IEnumerable<AppPublishFileInfo> files)
+    {
+        using var archive = ZipFile.Open(packPath, ZipArchiveMode.Create);
+        foreach (var file in files)
+        {
+#if DEBUG
+            Console.WriteLine($"正在压缩：{file.FilePath}");
+#endif
+            var name = file.RelativePath;
+            if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                name = name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
+            archive.CreateEntryFromFile(file.FilePath, name);
+        }
+    }
 }

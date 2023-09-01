@@ -31,11 +31,12 @@ interface IDotNetPublishCommand : ICommand
         var force_sign = new Option<bool>("--force-sign", GetDefForceSign, "Mandatory verification must be digitally signed");
         var sha256 = new Option<bool>("--sha256", () => true, "Calculate file hash value");
         var sha384 = new Option<bool>("--sha384", () => true, "Calculate file hash value");
+        var stm_upload = new Option<bool>("--stm-upload", "Steam upload zip file");
         var command = new Command(commandName, "DotNet publish app")
         {
-           debug, rids, force_sign, sha256, sha384,
+           debug, rids, force_sign, sha256, sha384, stm_upload,
         };
-        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384);
+        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384, stm_upload);
         return command;
     }
 
@@ -56,7 +57,7 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384)
+    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload)
     {
         var bgOriginalColor = Console.BackgroundColor;
         var fgOriginalColor = Console.ForegroundColor;
@@ -376,6 +377,37 @@ interface IDotNetPublishCommand : ICommand
                     case Platform.Linux:
                         ICompressedPackageCommand.CreateGZipPack(packPath = GetPackPathWithTryDelete(FileEx.TAR_GZ), appPublish.Files);
                         break;
+                }
+                if (stm_upload)
+                {
+                    List<AppPublishFileInfo> mainFiles = new();
+                    List<AppPublishFileInfo> modulesFiles = new();
+                    foreach (var item in appPublish.Files)
+                    {
+                        if (item.RelativePath.Contains("modules"))
+                        {
+                            modulesFiles.Add(item);
+                        }
+                        else
+                        {
+                            mainFiles.Add(item);
+                        }
+                    }
+                    ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete("_main.stmupload.zip"), mainFiles);
+
+                    var query = from module in modulesFiles
+                                let split = module.RelativePath.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries)
+                                let name = split.Length >= 2 ? split[1] : null
+                                where name != null
+                                group module by name;
+                    var items = query.ToArray();
+                    foreach (var item in items)
+                    {
+                        if (string.IsNullOrWhiteSpace(item.Key))
+                            continue;
+                        var files = item.ToArray();
+                        ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete($"{item.Key}.stmupload.zip"), files);
+                    }
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.Write("创建成功【压缩包】，文件大小：");
