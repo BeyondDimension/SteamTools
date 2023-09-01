@@ -460,6 +460,11 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
     void ConfigureServices()
     {
         RegisterService<IPCPlatformService, IPlatformService>();
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+        IHostsFileService? hostsFileService = Ioc.Get_Nullable<IHostsFileService>();
+        if (hostsFileService != null)
+            RegisterService(hostsFileService);
+#endif
         RegisterService<IPCToastService>(this);
     }
 

@@ -200,7 +200,7 @@ sealed partial class Program : Startup
         WatchTrace.Record("ConfigureDemandServices.Notification");
 #endif
 
-        if (HasHosts)
+        if (HasHosts || HasIPCRoot)
         {
             // hosts 文件助手服务
             services.AddHostsFileService();

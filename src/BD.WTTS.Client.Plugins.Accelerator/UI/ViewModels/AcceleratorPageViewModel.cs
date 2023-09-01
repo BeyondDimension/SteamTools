@@ -49,7 +49,7 @@ public sealed partial class AcceleratorPageViewModel
             DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
             EditHostsFileCommand = ReactiveCommand.Create(hostsFileService.OpenFile);
             OpenHostsDirCommand = ReactiveCommand.Create(hostsFileService.OpenFileDir);
-            ResetHostsFileCommand = ReactiveCommand.Create(hostsFileService.ResetFile);
+            ResetHostsFileCommand = ReactiveCommand.CreateFromTask(hostsFileService.ResetFile);
             NetworkFixCommand = ReactiveCommand.Create(ProxyService.Current.FixNetwork);
             TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
             OpenCertificateDirCommand = ReactiveCommand.Create(() =>

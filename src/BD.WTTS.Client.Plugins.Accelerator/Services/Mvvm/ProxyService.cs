@@ -344,7 +344,7 @@ public sealed partial class ProxyService
         }
     }
 
-    public static void OnExitRestoreHosts()
+    public static async ValueTask OnExitRestoreHosts()
     {
         var s = Ioc.Get_Nullable<IHostsFileService>();
         if (s != null)
@@ -352,7 +352,7 @@ public sealed partial class ProxyService
             var needClear = s.ContainsHostsByTag();
             if (needClear)
             {
-                s.OnExitRestoreHosts();
+                await s.OnExitRestoreHosts();
             }
         }
     }
@@ -560,13 +560,9 @@ public sealed partial class ProxyService
     }
     #endregion
 
-    public
-#if WINDOWS
-        async
-#endif
-        void FixNetwork()
+    public async void FixNetwork()
     {
-        OnExitRestoreHosts();
+        await OnExitRestoreHosts();
 
 #if WINDOWS
         {

@@ -204,7 +204,7 @@ partial class ProxyService
                         {
                             hosts.TryAdd(IReverseProxyService.Constants.LocalDomain, localhost);
                         }
-                        var updateHostsResult = hostsFileService.UpdateHosts(hosts);
+                        var updateHostsResult = await hostsFileService.UpdateHosts(hosts);
                         if (updateHostsResult.ResultType != OperationResultType.Success)
                         {
                             if (OperatingSystem2.IsMacOS() || OperatingSystem2.IsLinux())
@@ -265,7 +265,7 @@ partial class ProxyService
                 var needClear = hostsFileService.ContainsHostsByTag();
                 if (needClear)
                 {
-                    var removeHostsResult = hostsFileService.RemoveHostsByTag();
+                    var removeHostsResult = await hostsFileService.RemoveHostsByTag();
                     if (removeHostsResult.ResultType != OperationResultType.Success)
                     {
                         // 退出时候不打开浏览器
