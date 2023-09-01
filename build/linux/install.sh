@@ -152,7 +152,7 @@ Get_NewVer() {
     esac
 
     # 获取发行版信息
-    read -r os_version <<<"$(cat /etc/os-release | grep -E 'VERSION=' | awk -F'=' '{ print $2 }' | tr -d '"')"
+    read -r os_version <<<"$(cat /etc/os-release | grep -E 'VERSION_ID=' | awk -F'=' '{ print $2 }' | tr -d '"')"
 
     # 如果 VERSION 为空，则使用 BUILD_ID 填充
     if [ -z "$os_version" ]; then
