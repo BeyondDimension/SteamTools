@@ -299,7 +299,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         try
         {
             GameLibrarySettings.HideGameList.Add(app.AppId, app.DisplayName);
-            SteamConnectService.Current.SteamApps.Remove(app);
+            SteamConnectService.Current.SteamApps.RemoveKey(app.AppId);
 
             Toast.Show(ToastIcon.Success, Strings.GameList_HideAppsSuccess);
         }
