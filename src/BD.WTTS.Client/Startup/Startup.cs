@@ -434,12 +434,6 @@ public abstract partial class Startup
         catch (Exception ex)
         {
             GlobalExceptionHandler.Handler(ex, nameof(StartAsync));
-#if WINDOWS
-            WPFMessageBox.Show(ex.ToString(),
-                AssemblyInfo.Trademark,
-                WPFMessageBoxButton.OK,
-                WPFMessageBoxImage.Error);
-#endif
             throw;
         }
         finally

@@ -89,6 +89,21 @@ partial class Startup // 全局异常处理
 #endif
             Logger.Error(ex, message, args);
 
+#if WINDOWS
+            Task2.InBackground(() =>
+            {
+                var mbText =
+$"""
+{string.Format(message, args)}
+{ex}
+""";
+                const string mbTitle = $"Application Crash - {AssemblyInfo.Trademark}";
+                WPFMessageBox.Show(mbText, mbTitle,
+                    WPFMessageBoxButton.OK,
+                    WPFMessageBoxImage.Error);
+            });
+#endif
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 
             Startup? s;
