@@ -153,7 +153,7 @@ static class Strings
     public static string Error_IncompatibleOS => GetString(l => l switch
     {
         Language.ChineseSimplified => "此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本",
-        Language.ChineseTraditional => "此應用程序僅相容 Windows 11 與 Windows 10 版本 1809（OS 內部版本17763）或更高版本",
+        Language.ChineseTraditional => "此應用程序僅相容 Windows 11 與 Windows 10 版本 1809（OS 內部版本 17763）或更高版本",
         Language.Spanish => "Esta aplicación solo es compatible con Windows 11 y Windows 10 versión 1809 (versión interna del sistema operativo 17763) o superior",
         Language.Italian => "Questa applicazione è compatibile solo con Windows 11 e Windows 10 versione 1809 (versione interna del sistema operativo 17763) o superiore",
         Language.Japanese => "このアプリケーションは、Windows 11およびWindows 10 バージョン1809（OS内部バージョン17763）以降にのみ対応しています",
