@@ -12,20 +12,20 @@ public static partial class AssemblyInfo
     public const string Version = "3.0.0";
 
     /// <summary>
-    /// 预览版本号，范围 1~9
+    /// 预览版本号，范围 1~9，只增不减
     /// </summary>
     const string ver_for_preview = "7";
 
     /// <summary>
-    /// RC 版本号，范围 0~9
+    /// RC 版本号，范围 0~9，只增不减
     /// </summary>
-    const string ver_for_rc = "0";
+    const string ver_for_rc = "1";
 
     public const string FileVersion = $"{Version}.{ver_for_rc}0{ver_for_preview}";
 
     //public const string InformationalVersion = Version;
-    public const string InformationalVersion = $"{Version}-preview.{ver_for_preview}";
-    //public const string InformationalVersion = $"{Version}-rc.{ver_for_rc}";
+    //public const string InformationalVersion = $"{Version}-preview.{ver_for_preview}";
+    public const string InformationalVersion = $"{Version}-rc.{ver_for_rc}";
 
 #if !APP_HOST
     /// <summary>
