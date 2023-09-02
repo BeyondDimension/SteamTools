@@ -4,7 +4,6 @@ namespace BD.WTTS.Services;
 
 partial interface IPlatformService
 {
-
     /// <summary>
     /// 获取 排除代理地址
     /// </summary>
@@ -28,7 +27,7 @@ partial interface IPlatformService
         "172.31.*",
         "192.168.*",
         Constants.Urls.OfficialApiHostName,
-        Constants.Urls.OfficialShopApiHostName
+        Constants.Urls.OfficialShopApiHostName,
     };
 
     /// <summary>

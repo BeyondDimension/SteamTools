@@ -5,14 +5,14 @@ interface IGenerateCaCertCommand : ICommand
     const string commandName = "gcert";
     const string X500DistinguishedNameValue = $"C=CN, S=Hunan, L=Changsha, O=\u5F90\u5DDE\u7E41\u661F\u7F51\u7EDC\u79D1\u6280\u6709\u9650\u516C\u53F8, OU=\u6280\u672F\u90E8, CN=\u5F90\u5DDE\u7E41\u661F\u7F51\u7EDC\u79D1\u6280\u6709\u9650\u516C\u53F8";
 
-    public const int CertificateValidDays = 3650;
+    public const int CertificateValidDays = 365;
 
     public const int KEY_SIZE_BITS = 4096;
 
     static Command ICommand.GetCommand()
     {
         var type = new Option<int>("--type",
-            "Generate certificate type(1 code, 2 store-code, 3 csr)");
+            "Generate certificate type(1 code, 2 store-code)");
         var path = new Option<string>("--path",
             "Directory where certificate files need to be saved");
         var cn = new Option<string>("--cn", "X500DistinguishedNameValue");
@@ -69,37 +69,38 @@ interface IGenerateCaCertCommand : ICommand
         subjectKeyId = new(request.PublicKey, false);
         request.CertificateExtensions.Add(subjectKeyId);
 
-        if (isCSR)
-        {
-            var signingRequestPem = request.CreateSigningRequestPem();
-            return (null!, null!, signingRequestPem);
-        }
-
         var notBefore = DateTimeOffset.UtcNow;
         var notAfter = notBefore.AddDays(CertificateValidDays);
         using var cert = request.CreateSelfSigned(notBefore, notAfter);
         var pfx = cert.Export(X509ContentType.Pfx, password); // 私钥
         var cer = cert.Export(X509ContentType.Cert); // 公钥
+
+        if (isCSR)
+        {
+            csr = request.CreateSigningRequestPem();
+        }
+
         return (pfx, cer, csr);
     }
 
     internal static void Handler(int type, string path, string cn, string password)
     {
+        if (string.IsNullOrWhiteSpace(path))
+            throw new ArgumentOutOfRangeException(nameof(path), path, null);
+
         (var pfx, var cer, var csr) = type switch
         {
             // 生成 BeyondDimension 代码签名证书
-            1 => GenerateCodeSigningCert(X500DistinguishedNameValue, password),
+            1 => GenerateCodeSigningCert(X500DistinguishedNameValue, password, true),
             // 生成 上传应用商店的 代码签名证书
             2 => GenerateCodeSigningCert($"CN={cn}", password),
-            3 => GenerateCodeSigningCert(X500DistinguishedNameValue, password, true),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
         };
-        if (csr != default)
-        {
-            Console.WriteLine(csr);
-            return;
-        }
         File.WriteAllBytes(path, pfx);
         File.WriteAllBytes(path.TrimEnd(".pfx", StringComparison.OrdinalIgnoreCase) + ".cer", cer);
+        if (csr != default)
+        {
+            File.WriteAllText(path.TrimEnd(".pfx", StringComparison.OrdinalIgnoreCase) + ".txt", csr);
+        }
     }
 }

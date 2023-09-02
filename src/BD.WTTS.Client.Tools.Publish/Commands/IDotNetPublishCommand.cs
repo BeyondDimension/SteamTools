@@ -794,21 +794,21 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
         const string appconfigFileName = "Steam++.exe.config";
 
         var rootPublishDir = Path.Combine(publishDir, "..");
-        var cacheFilePath = Path.Combine(ProjectUtils.ProjPath,
-            "res", "windows", "Steam++.apphost");
-        // 使用缓存文件
-        if (File.Exists(cacheFilePath))
-        {
-            File.Copy(cacheFilePath, Path.Combine(rootPublishDir, "Steam++.exe"));
-            var sourceFileName = Path.Combine(ProjectUtils.ProjPath, "src", "BD.WTTS.Client.AppHost", "App.config");
-            var appconfigContent = File.ReadAllText(sourceFileName);
+        //var cacheFilePath = Path.Combine(ProjectUtils.ProjPath,
+        //    "res", "windows", "Steam++.apphost");
+        //// 使用缓存文件
+        //if (File.Exists(cacheFilePath))
+        //{
+        //    File.Copy(cacheFilePath, Path.Combine(rootPublishDir, "Steam++.exe"));
+        //    var sourceFileName = Path.Combine(ProjectUtils.ProjPath, "src", "BD.WTTS.Client.AppHost", "App.config");
+        //    var appconfigContent = File.ReadAllText(sourceFileName);
 
-            var xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(appconfigContent);
-            appconfigContent = xmlDoc.InnerXml;
-            File.WriteAllText(Path.Combine(rootPublishDir, appconfigFileName), appconfigContent);
-            return;
-        }
+        //    var xmlDoc = new XmlDocument();
+        //    xmlDoc.LoadXml(appconfigContent);
+        //    appconfigContent = xmlDoc.InnerXml;
+        //    File.WriteAllText(Path.Combine(rootPublishDir, appconfigFileName), appconfigContent);
+        //    return;
+        //}
 
         const string app_host_tfm = "net40"/*"net35"*/; // net35 在 Windows 10 LTSC 上即使 app.config 中配置了 4.x 兼容但依旧会打开设置窗口并且定位在可选功能
         var configuration = PublishCommandArg.GetConfiguration(debug);
