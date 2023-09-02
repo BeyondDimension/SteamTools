@@ -120,6 +120,7 @@
                                                         Grid.Column="0"
                                                         Width="128"
                                                         Height="128"
+                                                        EnableCancelToken="False"
                                                         Source="{Binding Icon}"
                                                         Stretch="Uniform" />
                                                     <TextBlock
@@ -156,6 +157,7 @@
                                                                 <spp:Image2
                                                                     Width="96"
                                                                     Height="96"
+                                                                    EnableCancelToken="False"
                                                                     Source="{Binding}"
                                                                     Stretch="Uniform" />
                                                             </DataTemplate>
@@ -178,6 +180,7 @@
                                                                 <spp:Image2
                                                                     Width="96"
                                                                     Height="96"
+                                                                    EnableCancelToken="False"
                                                                     Source="{Binding}"
                                                                     Stretch="Uniform" />
                                                             </DataTemplate>
