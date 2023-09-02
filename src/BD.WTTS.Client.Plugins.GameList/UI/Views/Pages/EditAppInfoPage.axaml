@@ -504,7 +504,7 @@
 
                     <ItemsRepeater ItemsSource="{Binding App.SaveFiles}">
                         <ItemsRepeater.Layout>
-                            <StackLayout Orientation="Vertical" Spacing="10" />
+                            <StackLayout Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
                         </ItemsRepeater.Layout>
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate DataType="{x:Type spp:SteamAppSaveFile}">

@@ -80,8 +80,6 @@ partial class Startup // OnStartup
                 {
                     Steamworks.Dispatch.OnException = (e) =>
                     {
-                        Console.Error.WriteLine(e.Message);
-                        Console.Error.WriteLine(e.StackTrace);
                         Log.Error(nameof(Steamworks), e, "Steamworks.SteamClient OnException.");
                     };
 
