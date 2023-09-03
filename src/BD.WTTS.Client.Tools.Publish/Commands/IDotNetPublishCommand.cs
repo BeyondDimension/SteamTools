@@ -1,4 +1,6 @@
 using BD.WTTS.Client.Tools.Publish.Helpers;
+using System.Reflection;
+using System;
 using System.Security.Policy;
 using static BD.WTTS.Client.Tools.Publish.Helpers.DotNetCLIHelper;
 using static BD.WTTS.GlobalDllImportResolver;
@@ -335,6 +337,8 @@ interface IDotNetPublishCommand : ICommand
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                     Console.WriteLine("开始生成【MSIX 包】");
                     ResetConsoleColor();
+                    // 生成清单文件
+                    MSIXHelper.MakeAppx.GenerateAppxManifestXml(rootPublishDir, AppVersion4, info.Architecture);
 
                     // 打包资源 images
                     MSIXHelper.MakePri.Start(rootPublishDir);

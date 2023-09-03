@@ -40,6 +40,7 @@ static class MSIXHelper
             // https://learn.microsoft.com/en-us/windows/uwp/app-resources/makepri-exe-command-options
 
             var xmlPath = @$"{rootPublicPath}\priconfig.xml";
+            var mnPath = @$"{rootPublicPath}\AppXManifest.xml";
 
             IOPath.FileIfExistsItDelete(xmlPath);
 
@@ -50,11 +51,16 @@ static class MSIXHelper
                 UseShellExecute = false,
                 Arguments =
 $"""
-createconfig /cf "{xmlPath}" /dq lang-en-US /o /pv 10.0.0
+createconfig /cf "{xmlPath}" /dq zh-CN /o /pv 10.0.0
 """,
                 WorkingDirectory = rootPublicPath,
             };
             ProcessHelper.StartAndWaitForExit(psi);
+
+            var prixml = File.ReadAllText(xmlPath);
+            prixml = prixml.Replace("<packaging>\r\n\t\t<autoResourcePackage qualifier=\"Language\"/>\r\n\t\t<autoResourcePackage qualifier=\"Scale\"/>\r\n\t\t<autoResourcePackage qualifier=\"DXFeatureLevel\"/>\r\n\t</packaging>", "");
+            File.WriteAllText(xmlPath, prixml);
+
             var prPath = $@"{ProjectUtils.ProjPath}\res\windows\makepri";
             CopyDirectory(prPath, rootPublicPath, true);
             psi = new ProcessStartInfo
@@ -63,7 +69,7 @@ createconfig /cf "{xmlPath}" /dq lang-en-US /o /pv 10.0.0
                 UseShellExecute = false,
                 Arguments =
 $"""
-new /cf "{xmlPath}" /pr "{prPath}"
+new /cf "{xmlPath}" /pr "{prPath}" /mn "{mnPath}"
 """,
                 WorkingDirectory = rootPublicPath,
             };
@@ -106,7 +112,7 @@ new /cf "{xmlPath}" /pr "{prPath}"
             string version4,
             Architecture processorArchitecture)
         {
-            GenerateAppxManifestXml(rootPublicPath, version4, processorArchitecture);
+            //GenerateAppxManifestXml(rootPublicPath, version4, processorArchitecture);
 
             //var msixPath = $"{rootPublicPath}.msixbundle";
             IOPath.FileIfExistsItDelete(msixPath);
@@ -158,7 +164,7 @@ bundle /v /bv {version4} /d "{dirPath}" /p "{msixPath}"
         /// <param name="rootPublicPath"></param>
         /// <param name="version4"></param>
         /// <param name="processorArchitecture"></param>
-        static void GenerateAppxManifestXml(
+        public static void GenerateAppxManifestXml(
             string rootPublicPath,
             string version4,
             Architecture processorArchitecture)
@@ -181,7 +187,7 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0"/>
   </Dependencies>
   <Resources>
-    <Resource Language="ZH-CN"/>
+    <Resource Language="zh-CN"/>
     <Resource uap:Scale="200"/>
   </Resources>
   <Applications>
