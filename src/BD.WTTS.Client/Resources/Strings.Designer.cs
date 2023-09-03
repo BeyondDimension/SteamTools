@@ -1008,6 +1008,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 关闭 Steam 的本地化字符串。
+        /// </summary>
+        public static string CloseSteam {
+            get {
+                return ResourceManager.GetString("CloseSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 最大支持云存档数 的本地化字符串。
         /// </summary>
         public static string CloudMaxnumFiles {
@@ -4722,6 +4731,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 打开主面板 的本地化字符串。
+        /// </summary>
+        public static string OpenMainWindow {
+            get {
+                return ResourceManager.GetString("OpenMainWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 打开官网 的本地化字符串。
         /// </summary>
         public static string OpenOfficialWebsite {
@@ -6330,6 +6348,15 @@ namespace BD.WTTS.Client.Resources {
         public static string SponsorUs {
             get {
                 return ResourceManager.GetString("SponsorUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动 Steam 的本地化字符串。
+        /// </summary>
+        public static string StartSteam {
+            get {
+                return ResourceManager.GetString("StartSteam", resourceCulture);
             }
         }
         

@@ -2793,4 +2793,13 @@
 	<data name="PersonalSafe" xml:space="preserve">
     <value>安全设置</value>
   </data>
+	<data name="OpenMainWindow" xml:space="preserve">
+    <value>打开主面板</value>
+  </data>
+	<data name="CloseSteam" xml:space="preserve">
+    <value>关闭 Steam</value>
+  </data>
+	<data name="StartSteam" xml:space="preserve">
+    <value>启动 Steam</value>
+  </data>
 </root>

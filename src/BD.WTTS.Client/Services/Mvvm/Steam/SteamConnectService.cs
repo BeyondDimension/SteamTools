@@ -165,6 +165,21 @@ public sealed class SteamConnectService
         }
     }
 
+    bool _IsRunningSteamProcess;
+
+    public bool IsRunningSteamProcess
+    {
+        get => _IsRunningSteamProcess;
+        set
+        {
+            if (_IsRunningSteamProcess != value)
+            {
+                _IsRunningSteamProcess = value;
+                this.RaisePropertyChanged();
+            }
+        }
+    }
+
     bool _IsSteamChinaLauncher;
 
     public bool IsSteamChinaLauncher
@@ -259,7 +274,8 @@ public sealed class SteamConnectService
             {
                 try
                 {
-                    if (stmService.IsRunningSteamProcess)
+                    IsRunningSteamProcess = stmService.IsRunningSteamProcess;
+                    if (IsRunningSteamProcess)
                     {
                         if (!IsConnectToSteam && IsDisposedClient)
                         {

@@ -2,7 +2,7 @@
   "profiles": {
     "BD.WTTS.Client.Avalonia.App": {
       "commandName": "Project",
-      "commandLineArgs": "-clt devtools"
+      "commandLineArgs": "-clt devtools -steamrun"
     }
   }
 }

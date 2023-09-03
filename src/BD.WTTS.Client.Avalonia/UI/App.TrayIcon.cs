@@ -1,4 +1,6 @@
+using BD.SteamClient.Services;
 using BD.WTTS.Client.Resources;
+using BD.WTTS.Converters;
 using static BD.WTTS.Services.INotificationService;
 
 namespace BD.WTTS.UI;
@@ -39,7 +41,31 @@ partial class App
                         //new NativeMenuItemSeparator(),
                         new NativeMenuItem
                         {
-                            Header = "打开主面板",
+                            [!NativeMenuItem.HeaderProperty] = new MultiBinding {
+                                Bindings = new List<Avalonia.Data.IBinding>()
+                                {
+                                    new Binding { Path = "IsRunningSteamProcess", Source = SteamConnectService.Current, Mode = BindingMode.OneWay },
+                                    new Binding { Path = "Res.CloseSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
+                                    new Binding { Path = "Res.StartSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
+                                },
+                                Converter = (VisbleStringConverter)App.Instance.FindResource("VisbleStringConverter")!,
+                            },
+                            Command = ReactiveCommand.Create(() =>
+                            {
+                                if(ISteamService.Instance.IsRunningSteamProcess)
+                                {
+                                    ISteamService.Instance.TryKillSteamProcess();
+                                }
+                                else
+                                {
+                                    ISteamService.Instance.StartSteamWithParameter();
+                                }
+                            })
+                        },
+                        new NativeMenuItemSeparator(),
+                        new NativeMenuItem
+                        {
+                            [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.OpenMainWindow", Source = ResourceService.Current, Mode = BindingMode.OneWay },
                             Command = ReactiveCommand.Create(RestoreMainWindow)
                         },
                         new NativeMenuItemSeparator(),
