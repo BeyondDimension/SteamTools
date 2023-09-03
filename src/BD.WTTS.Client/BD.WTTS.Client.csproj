@@ -155,6 +155,7 @@
 		<Reference Include="Interop.IWshRuntimeLibrary">
 			<HintPath>..\..\ref\Interop.IWshRuntimeLibrary.dll</HintPath>
 		</Reference>
+		<ProjectReference Include="..\..\ref\Facepunch.Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Win64.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -170,7 +171,7 @@
 		<PackageReference Include="BD.Common.XmlnsDefinition.Avalonia">
 			<Aliases>BD_Common_XmlnsDefinition_Avalonia</Aliases>
 		</PackageReference>
-		<PackageReference Include="Facepunch.Steamworks" />
+		<!--<PackageReference Include="Facepunch.Steamworks" />-->
 		<!--<PackageReference Include="Avalonia.Desktop" />
 		<PackageReference Include="Avalonia.ReactiveUI" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
@@ -182,6 +183,7 @@
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Linux Only -->
 		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
+		<ProjectReference Include="..\..\ref\Facepunch.Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Posix.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
@@ -197,6 +199,11 @@
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
 		<!-- iOS/macOS/MacCatalyst Only -->
 		<PackageReference Include="BD.Common.Pinyin.CFStringTransform" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
+		<!-- macOS/MacCatalyst Only -->
+		<ProjectReference Include="..\..\ref\Facepunch.Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Posix.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -12,6 +12,12 @@ interface IDotNetPublishCommand : ICommand
 {
     const string commandName = "run";
 
+    static string GetPublishFileName(string rid, string fileEx = "")
+    {
+        var value = $"Steam++_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}{fileEx}";
+        return value;
+    }
+
     static bool GetDefForceSign()
     {
         var machineName = Hashs.String.SHA256(Environment.MachineName, false);
@@ -332,24 +338,37 @@ interface IDotNetPublishCommand : ICommand
 
                     // 打包资源 images
                     MSIXHelper.MakePri.Start(rootPublishDir);
+
+                    var msixDir = $"{rootPublishDir}_MSIX";
+                    IOPath.DirCreateByNotExists(msixDir);
+                    var msixFilePath = Path.Combine(msixDir, GetPublishFileName(rid, ".msix"));
+
                     // 生成 msix 包
-                    MSIXHelper.MakeAppx.Start(rootPublishDir, GetVersion(), info.Architecture);
-                    Thread.Sleep(TimeSpan.FromSeconds(1.2d));
+                    MSIXHelper.MakeAppx.Start(msixFilePath, rootPublishDir, AppVersion4, info.Architecture);
+                    Thread.Sleep(TimeSpan.FromSeconds(1.15d));
+
                     // 签名 msix 包
-                    var msixFilePath = $"{rootPublishDir}.msix";
                     // msix 签名证书名必须与包名一致
                     MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
 
-                    using var msixFileStream = File.OpenRead(msixFilePath);
+                    var msixBundleFilePath = $"{rootPublishDir}.msixbundle";
+                    MSIXHelper.MakeAppx.StartBundle(msixBundleFilePath, msixDir, AppVersion4);
+                    Thread.Sleep(TimeSpan.FromSeconds(1.15d));
+
+                    // 签名 msix 包
+                    // msix 签名证书名必须与包名一致
+                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixBundleFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+
+                    using var msixFileStream = File.OpenRead(msixBundleFilePath);
 
                     var msixInfo = new AppPublishFileInfo
                     {
-                        FileEx = ".msix",
-                        FilePath = msixFilePath,
+                        FileEx = ".msixbundle",
+                        FilePath = msixBundleFilePath,
                         Length = msixFileStream.Length,
                         SignatureSHA384 = Hashs.String.SHA384(msixFileStream),
                     };
-                    appPublish.SingleFile.Add(CloudFileType.Msix, msixInfo);
+                    appPublish.SingleFile.Add(CloudFileType.MsixBundle, msixInfo);
 
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                     Console.Write("已生成【MSIX 包】，文件大小：");
@@ -385,6 +404,7 @@ interface IDotNetPublishCommand : ICommand
                 {
                     List<AppPublishFileInfo> mainFiles = new();
                     List<AppPublishFileInfo> modulesFiles = new();
+                    List<AppPublishFileInfo> stmUploads = new();
                     foreach (var item in appPublish.Files)
                     {
                         if (item.RelativePath.Contains("modules"))
@@ -396,7 +416,13 @@ interface IDotNetPublishCommand : ICommand
                             mainFiles.Add(item);
                         }
                     }
-                    ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete("_main.stmupload.zip"), mainFiles);
+                    var stmupload_main_zip_path = GetPackPathWithTryDelete("_Main.stmupload.zip");
+                    stmUploads.Add(new()
+                    {
+                        FilePath = stmupload_main_zip_path,
+                        RelativePath = Path.GetFileName(stmupload_main_zip_path),
+                    });
+                    ICompressedPackageCommand.CreateZipPack(stmupload_main_zip_path, mainFiles);
 
                     var query = from module in modulesFiles
                                 let split = module.RelativePath.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries)
@@ -409,8 +435,15 @@ interface IDotNetPublishCommand : ICommand
                         if (string.IsNullOrWhiteSpace(item.Key))
                             continue;
                         var files = item.ToArray();
-                        ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete($"_{item.Key}.stmupload.zip"), files);
+                        var stmupload_item_zip_path = GetPackPathWithTryDelete($"_{item.Key}.stmupload.zip");
+                        stmUploads.Add(new()
+                        {
+                            FilePath = stmupload_item_zip_path,
+                            RelativePath = Path.GetFileName(stmupload_item_zip_path),
+                        });
+                        ICompressedPackageCommand.CreateZipPack(stmupload_item_zip_path, files);
                     }
+                    ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete(".stmupload.zip"), stmUploads);
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.Write("创建成功【压缩包】，文件大小：");
@@ -454,12 +487,14 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    static string GetVersion()
+    private static readonly Lazy<string> _AppVersion4 = new(() =>
     {
         var v = new Version(AssemblyInfo.Version);
         static int GetInt32(int value) => value < 0 ? 0 : value;
         return $"{GetInt32(v.Major)}.{GetInt32(v.Minor)}.{GetInt32(v.Build)}.{GetInt32(v.Revision)}";
-    }
+    });
+
+    static string AppVersion4 => _AppVersion4.Value;
 
     /// <summary>
     /// 将运行时复制到发布根目录下
@@ -750,13 +785,12 @@ interface IDotNetPublishCommand : ICommand
                     "bin",
                     Configuration,
                     "Publish",
-                    RuntimeIdentifier,
+                    GetPublishFileName(RuntimeIdentifier),
                     "assemblies",
                 });
             return value;
         }
 
-        //后续Mac使用
         public string GetPublishDir()
         {
             var value = string.Join(Path.DirectorySeparatorChar, new[]
@@ -764,7 +798,7 @@ interface IDotNetPublishCommand : ICommand
                     "bin",
                     Configuration,
                     "Publish",
-                    RuntimeIdentifier,
+                    GetPublishFileName(RuntimeIdentifier),
                 });
             return value;
         }

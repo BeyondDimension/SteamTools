@@ -50,4 +50,5 @@ public enum CloudFileType
 
     Msix = 901,
     MsixUpload,
+    MsixBundle,
 }

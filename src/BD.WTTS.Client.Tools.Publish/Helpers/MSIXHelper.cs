@@ -101,13 +101,13 @@ new /cf "{xmlPath}" /pr "{prPath}"
         }
 
         public static void Start(
+            string msixPath,
             string rootPublicPath,
             string version4,
             Architecture processorArchitecture)
         {
             GenerateAppxManifestXml(rootPublicPath, version4, processorArchitecture);
 
-            var msixPath = $"{rootPublicPath}.msix";
             //var msixPath = $"{rootPublicPath}.msixbundle";
             IOPath.FileIfExistsItDelete(msixPath);
 
@@ -126,6 +126,32 @@ pack /v /h SHA256 /d "{rootPublicPath}" /p "{msixPath}"
             ProcessHelper.StartAndWaitForExit(psi);
         }
 
+        public static void StartBundle(
+            string msixPath,
+            string dirPath,
+            string version4)
+        {
+            //GenerateBundleManifestXml(dirPath, version4);
+
+            IOPath.FileIfExistsItDelete(msixPath);
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = GetMakeAppxPath(),
+                UseShellExecute = false,
+                Arguments =
+$"""
+bundle /v /bv {version4} /d "{dirPath}" /p "{msixPath}"
+""",
+            };
+            ProcessHelper.StartAndWaitForExit(psi);
+        }
+
+        const string IdentityName = "4651ED44255E.47979655102CE";
+        const string Publisher = "CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66";
+        const string DisplayName = "Watt Toolkit";
+        const string PublisherDisplayName = "软妹币玩家";
+
         /// <summary>
         /// 生成位于根目录的 AppxManifest.xml
         /// </summary>
@@ -143,11 +169,11 @@ pack /v /h SHA256 /d "{rootPublicPath}" /p "{msixPath}"
 $"""
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Package IgnorableNamespaces="uap rescap desktop desktop2 build" xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:desktop2="http://schemas.microsoft.com/appx/manifest/desktop/windows10/2" xmlns:build="http://schemas.microsoft.com/developer/appx/2015/build">
-  <Identity Name="4651ED44255E.47979655102CE" Publisher="CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66" 
+  <Identity Name="{IdentityName}" Publisher="{Publisher}" 
 Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().ToLowerInvariant()}"/>
   <Properties>
-    <DisplayName>Watt Toolkit</DisplayName>
-    <PublisherDisplayName>软妹币玩家</PublisherDisplayName>
+    <DisplayName>{DisplayName}</DisplayName>
+    <PublisherDisplayName>{PublisherDisplayName}</PublisherDisplayName>
     <Logo>images\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -201,6 +227,29 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
             xmlDoc.LoadXml(xmlString);
             var xmlStringMini = xmlDoc.InnerXml;
             var xmlFilePath = Path.Combine(rootPublicPath, "AppxManifest.xml");
+            File.WriteAllText(xmlFilePath, xmlStringMini);
+        }
+
+        [Obsolete]
+        public static void GenerateBundleManifestXml(
+            string dirPath,
+            string version4)
+        {
+            const string fileName = "BundleManifest.xml";
+
+            // https://learn.microsoft.com/zh-cn/uwp/schemas/bundlemanifestschema/bundle-manifest
+
+            var xmlString =
+$"""
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Bundle SchemaVersion="5.0" IgnorableNamespaces="b4 b5" xmlns="http://schemas.microsoft.com/appx/2013/bundle" xmlns:b4="http://schemas.microsoft.com/appx/2018/bundle" xmlns:b5="http://schemas.microsoft.com/appx/2019/bundle">
+	<Identity Name="{IdentityName}" Publisher="{Publisher}" Version="{version4}"/>
+</Bundle>
+""";
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xmlString);
+            var xmlStringMini = xmlDoc.InnerXml;
+            var xmlFilePath = Path.Combine(dirPath, fileName);
             File.WriteAllText(xmlFilePath, xmlStringMini);
         }
 
