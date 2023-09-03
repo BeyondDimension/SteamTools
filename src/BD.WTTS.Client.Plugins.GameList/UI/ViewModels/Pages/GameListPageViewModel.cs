@@ -60,14 +60,13 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
             .Bind(out _SteamApps)
             .Subscribe(_ =>
             {
-                //无已安装游戏时，显示提示
-                if (SteamConnectService.Current.SteamApps.Keys.Any() &&
-                    SteamConnectService.Current.IsConnectToSteam &&
-                    IsInstalledFilter && !_SteamApps.Any_Nullable())
-                {
-                    GameLibrarySettings.GameInstalledFilter.Value = false;
-                    Toast.Show(ToastIcon.Info, "没有检测到已安装游戏，自动切换全部游戏");
-                }
+                ////无已安装游戏时，显示提示
+                //if (SteamConnectService.Current.SteamApps.Keys.Any() &&
+                //    IsInstalledFilter && !_SteamApps.Any_Nullable())
+                //{
+                //    IsInstalledFilter = false;
+                //    Toast.Show(ToastIcon.Info, "没有检测到已安装游戏，自动切换全部游戏");
+                //}
                 CalcTypeCount();
             });
 

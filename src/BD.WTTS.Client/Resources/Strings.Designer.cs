@@ -2682,7 +2682,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 没有获取到游戏数据 的本地化字符串。
+        ///   查找类似 没有获取到游戏数据，请检查筛选条件 的本地化字符串。
         /// </summary>
         public static string GameList_IsEmpty {
             get {

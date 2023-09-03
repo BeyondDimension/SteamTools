@@ -423,7 +423,7 @@
     <value>安装</value>
   </data>
   <data name="GameList_IsEmpty" xml:space="preserve">
-    <value>没有获取到游戏数据</value>
+    <value>没有获取到游戏数据，请检查筛选条件</value>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
     <value>正在加载...</value>
