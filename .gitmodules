@@ -34,3 +34,6 @@
 [submodule "ref/WinAuth"]
 	path = ref/WinAuth
 	url = https://github.com/BeyondDimension/WinAuth.git
+[submodule "ref/Facepunch.Steamworks"]
+	path = ref/Facepunch.Steamworks
+	url = https://github.com/BeyondDimension/Facepunch.Steamworks.git
