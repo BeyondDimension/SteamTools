@@ -136,7 +136,8 @@
                                 Classes="Banner Scale"
                                 ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                 ClickCommandParameter="{Binding Url}"
-                                Description="{Binding Name}">
+                                Description="{Binding Name}"
+                                ToolTip.Tip="{Binding Describe}">
                                 <spp:AppItem.Status>
                                     <Border
                                         Padding="20,10"
