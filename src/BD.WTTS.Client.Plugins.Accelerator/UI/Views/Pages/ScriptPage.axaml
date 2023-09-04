@@ -123,7 +123,10 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>
-    <spp:ContentLoader IsLoading="{Binding !!!ProxyScripts.Count, Mode=OneWay}">
+    <spp:ContentLoader
+        IsLoading="False"
+        IsShowNoResultText="{Binding !!!ProxyScripts.Count, Mode=OneWay}"
+        NoResultMessage="未检测到脚本文件，请先脚本工坊添加">
         <ItemsRepeater Grid.Row="1" ItemsSource="{Binding ProxyScripts}">
             <ItemsRepeater.Layout>
                 <UniformGridLayout
