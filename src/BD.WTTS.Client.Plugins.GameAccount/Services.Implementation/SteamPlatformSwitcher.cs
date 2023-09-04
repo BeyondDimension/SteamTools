@@ -207,7 +207,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         return false;
     }
 
-    public async Task DeleteAccountInfo(IAccount account, PlatformAccount platform)
+    public async Task<bool> DeleteAccountInfo(IAccount account, PlatformAccount platform)
     {
         if (account is SteamAccount steamAccount)
         {
@@ -225,7 +225,9 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                 }
 
                 platform.Accounts?.Remove(account);
+                return true;
             }
         }
+        return false;
     }
 }

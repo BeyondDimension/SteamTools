@@ -28,7 +28,7 @@ public interface IPlatformSwitcher
 
     bool SetPlatformPath(PlatformAccount platform);
 
-    Task DeleteAccountInfo(IAccount account, PlatformAccount platform);
+    Task<bool> DeleteAccountInfo(IAccount account, PlatformAccount platform);
 
     Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform, Action? refreshUsers = null);
 }

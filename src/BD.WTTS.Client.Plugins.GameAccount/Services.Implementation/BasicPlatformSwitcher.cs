@@ -591,7 +591,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return false;
     }
 
-    public async Task DeleteAccountInfo(IAccount account, PlatformAccount platform)
+    public async Task<bool> DeleteAccountInfo(IAccount account, PlatformAccount platform)
     {
         var result = await MessageBox.ShowAsync(Strings.UserChange_DeleteUserTip, button: MessageBox.Button.OKCancel);
         if (result == MessageBox.Result.OK)
@@ -621,6 +621,8 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             }
 
             platform.Accounts?.Remove(account);
+            return true;
         }
+        return false;
     }
 }
