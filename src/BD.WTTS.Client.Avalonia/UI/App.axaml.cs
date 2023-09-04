@@ -42,6 +42,32 @@ public sealed partial class App : Application
         try
         {
             AvaloniaXamlLoader.Load(this);
+
+#if WINDOWS || LINUX || MACOS
+            if (Startup.Instance.IsSteamRun)
+            {
+                try
+                {
+                    Steamworks.Dispatch.OnException = (e) =>
+                    {
+                        Log.Error(nameof(Steamworks), e, "Steamworks.SteamClient OnException.");
+                    };
+
+                    // Init Client
+                    Steamworks.SteamClient.Init(2425030);
+
+                    //if (Steamworks.SteamClient.IsValid)
+                    //{
+                    //    Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_AtMainMenu");
+                    //    //var r = Steamworks.SteamFriends.GetRichPresence("steam_display");
+                    //}
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(Steamworks), ex, "Steamworks.SteamClient Init");
+                }
+            }
+#endif 
         }
         catch (Exception ex)
         {

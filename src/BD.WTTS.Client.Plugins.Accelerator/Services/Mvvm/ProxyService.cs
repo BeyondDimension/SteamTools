@@ -47,7 +47,16 @@ public sealed partial class ProxyService
                     proxyStatusRight = reuslt.OnStopedShowToastReturnProxyStatus();
                 }
                 if (proxyStatusLeft != proxyStatusRight)
+                {
                     ProxyStatus = proxyStatusRight;
+                    //if (Steamworks.SteamClient.IsValid)
+                    //{
+                    //    if (ProxyStatus)
+                    //        Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_Accelerator");
+                    //    else
+                    //        Steamworks.SteamFriends.ClearRichPresence();
+                    //}
+                }
             });
 
         this.WhenAnyValue(v => v.ProxyDomainsList)

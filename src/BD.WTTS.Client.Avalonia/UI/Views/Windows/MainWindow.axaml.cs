@@ -30,12 +30,20 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
             Hide();
         }
         base.OnClosing(e);
+
+        if (Steamworks.SteamClient.IsValid)
+        {
+            Steamworks.SteamFriends.ClearRichPresence();
+        }
     }
 
     protected override void OnOpened(EventArgs e)
     {
         base.OnOpened(e);
-
+        if (Steamworks.SteamClient.IsValid)
+        {
+            Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_AtMainMenu");
+        }
         if (AppSplashScreen.IsInitialized)
         {
             Task2.InBackground(async () =>
