@@ -17,6 +17,9 @@ public sealed partial class AcceleratorPageViewModel
     {
         StartProxyCommand = ReactiveCommand.Create(() =>
         {
+#if LINUX
+            if (!EnvironmentCheck()) return;
+#endif
             ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
         });
 
@@ -60,6 +63,29 @@ public sealed partial class AcceleratorPageViewModel
         }
     }
 
+#if LINUX
+    public bool EnvironmentCheck()
+    {
+        try
+        {
+            var path = Path.Combine(IOPath.BaseDirectory!, "script", "environment_check.sh");
+            var shellStr = $"if [ -x \"{path}\" ]; then '{path}' -c; else chmod +x '{path}'; '{path}' -c; fi";
+            var p = Process.Start(Process2.BinBash, new string[] { "-c", shellStr });
+            p.WaitForExit();
+            if (p.ExitCode == 200)
+                return true;
+            platformService.OpenFolder(Path.Combine(IOPath.BaseDirectory, "script"));
+            MessageBox.Show($"请在终端手动运行:environment_check.sh 安装依赖环境");
+            return false;
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show($"环境检查错误:{e}");
+            return false;
+        }
+    }
+#endif
+
     public void TrustCer_OnClick()
     {
         certificateManager.GetCerFilePathGeneratedWhenNoFileExists();
@@ -68,6 +94,9 @@ public sealed partial class AcceleratorPageViewModel
 
     public void SetupCertificate_OnClick()
     {
+#if LINUX
+        if (!EnvironmentCheck()) return;
+#endif
         var r = certificateManager.SetupRootCertificate();
         if (r)
         {
@@ -81,6 +110,9 @@ public sealed partial class AcceleratorPageViewModel
 
     public void DeleteCertificate_OnClick()
     {
+#if LINUX
+        if (!EnvironmentCheck()) return;
+#endif
         var r = certificateManager.DeleteRootCertificate();
         if (r)
         {

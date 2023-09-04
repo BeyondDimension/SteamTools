@@ -8,8 +8,9 @@ link_exec="$run_path/Steam++"
 if [ ! -L "$link_exec" ]; then
     echo "创建符号链接 $dotnet_exec 到 $link_exec"
     ln -s "$dotnet_exec" "$link_exec"
+    chmod +x "$link_exec"
 else
     echo "符号链接 $link_exec 已存在"
 fi
-"$link_exec"  "$run_path/assemblies/Steam++.dll" "$@"
+"$link_exec" "$run_path/assemblies/Steam++.dll" "$@"
 exit
