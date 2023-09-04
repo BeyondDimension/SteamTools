@@ -141,12 +141,4 @@ partial class App : IApplication
     void IApplication.Shutdown() => Shutdown();
 
     object IApplication.CurrentPlatformUIHost => MainWindow!;
-
-    DeploymentMode IApplication.DeploymentMode => DeploymentMode.
-#if FRAMEWORK_DEPENDENT || !PUBLISH
-           FDE
-#else
-           SCD
-#endif
-         ;
 }

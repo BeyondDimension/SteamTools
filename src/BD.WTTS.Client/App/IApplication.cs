@@ -33,7 +33,31 @@ public partial interface IApplication
     /// </summary>
     object CurrentPlatformUIHost { get; }
 
-    DeploymentMode DeploymentMode => DeploymentMode.SCD;
+#if WINDOWS
+    private static readonly Lazy<DeploymentMode> _DeploymentMode = new(() =>
+    {
+        try
+        {
+            var path = typeof(object).Assembly.Location;
+            var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            if (path.StartsWith(programFiles, StringComparison.OrdinalIgnoreCase))
+            {
+                return DeploymentMode.FDE;
+            }
+        }
+        catch
+        {
+        }
+        return DeploymentMode.SCD;
+    });
+#endif
+
+    DeploymentMode DeploymentMode =>
+#if WINDOWS
+        _DeploymentMode.Value;
+#else
+        DeploymentMode.SCD;
+#endif
 
     /// <inheritdoc cref="IPlatformService.SetBootAutoStart(bool, string)"/>
     static void SetBootAutoStart(bool isAutoStart) => IPlatformService.Instance.SetBootAutoStart(isAutoStart, Constants.HARDCODED_APP_NAME);
