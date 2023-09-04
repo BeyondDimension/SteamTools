@@ -34,6 +34,8 @@ sealed class AvaloniaApplicationUpdateServiceImpl : AppUpdateServiceBaseImpl
 
     protected override async void OnExistNewVersion()
     {
+        base.OnExistNewVersion();
+
         var hasActiveWindow = App.Instance.HasActiveWindow();
         if (hasActiveWindow)
         {

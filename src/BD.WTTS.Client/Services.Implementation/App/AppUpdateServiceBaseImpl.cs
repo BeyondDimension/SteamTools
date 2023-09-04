@@ -96,11 +96,14 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
     /// </summary>
     protected virtual async void OnExistNewVersion()
     {
-        var result = await MessageBox.ShowAsync(NewVersionInfoDesc, NewVersionInfoTitle, MessageBox.Button.OKCancel);
-        if (result.IsOK())
+        await MainThread2.InvokeOnMainThreadAsync(async () =>
         {
-            StartUpdateCommand.Invoke();
-        }
+            var result = await MessageBox.ShowAsync(NewVersionInfoDesc, NewVersionInfoTitle, MessageBox.Button.OKCancel);
+            if (result.IsOK())
+            {
+                StartUpdateCommand.Invoke();
+            }
+        });
     }
 
     static bool isCheckUpdateing;
@@ -283,7 +286,7 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
                 goto end;
             }
 
-            var isAndroid = OperatingSystem2.IsAndroid();
+            var isAndroid = OperatingSystem.IsAndroid();
             var isDesktop = IApplication.IsDesktop();
             if (!isAndroid && !isDesktop)
             {
