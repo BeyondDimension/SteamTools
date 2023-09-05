@@ -126,8 +126,12 @@ static partial class VisualStudioAppCenterSDK
 
         public System.Drawing.Size? GetScreenSize()
         {
+#if !APP_REVERSE_PROXY
             var result = IApplication.Instance.GetScreenSize();
             return result;
+#else
+            return default;
+#endif
         }
 
         #endregion
