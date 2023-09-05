@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<AssemblyName>Steam++</AssemblyName>
-		<TargetFrameworks>net461</TargetFrameworks>
+		<TargetFramework>net461</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<IsTrimmable>false</IsTrimmable>
 		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
@@ -14,6 +14,7 @@
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<ServerGarbageCollection>false</ServerGarbageCollection>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup>
