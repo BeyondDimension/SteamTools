@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Checkout repository
 #        if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive

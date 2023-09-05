@@ -23,7 +23,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         submodules: recursive
@@ -63,7 +63,7 @@ jobs:
 
     - name: Checkout Credentials repository
       if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: SteamTools-Team/Credentials
         token: ${{ secrets.REPO_TOKEN }}
