@@ -194,4 +194,7 @@ partial class Startup // Properties
 #if WINDOWS || LINUX
         = GlobalDllImportResolver.GetLibraryPath(null);
 #endif
+#if MACOS
+        = AppContext.BaseDirectory;
+#endif
 }

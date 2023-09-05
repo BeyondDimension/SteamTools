@@ -176,7 +176,7 @@ interface IDotNetPublishCommand : ICommand
                         File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
                     }
                     Console.WriteLine("Linux 复制启动 环境检查 卸载脚本");
-                    var script_path = Path.Combine(ProjectUtils.ProjPath, "build", "linux");
+                    var script_path = Path.Combine(rootPublishDir, "..", "ShellScript", "Linux");//Path.Combine(ProjectUtils.ProjPath, "build", "linux");
                     CopyDirectory(script_path, Path.Combine(rootPublishDir, "script"), true);
                     File.Move(Path.Combine(rootPublishDir, "script", "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
                 }
