@@ -125,6 +125,16 @@ public interface IPCSubProcessService : IDisposable
                         {
                             return handle;
                         }
+                        else if (!OperatingSystem.IsWindows() && !libraryFileName.StartsWith("lib", StringComparison.OrdinalIgnoreCase))
+                        {
+                            libraryFileName = $"lib{libraryFileName}";
+                            libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
+                            if (File.Exists(libraryPath) &&
+                           NativeLibrary.TryLoad(libraryPath, out handle))
+                            {
+                                return handle;
+                            }
+                        }
                         return NativeLibrary.Load(libraryName, assembly, searchPath);
                     }
                     NativeLibrary.SetDllImportResolver(loadedAssembly, Delegate);
