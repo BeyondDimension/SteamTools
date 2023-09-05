@@ -165,4 +165,2344 @@
 	<ItemGroup>
 		<ProjectReference Include="..\BD.WTTS.Client.AppHost.Bridge\Steam++.csproj" />
 	</ItemGroup>
+	<!--[Start] BD.WTTS.Client.Tools.Publish(Release-win-x64) -->
+	<ItemGroup>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\AngleSharp.dll">
+			<Link>Steam++\assemblies\AngleSharp.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\AutoMapper.dll">
+			<Link>Steam++\assemblies\AutoMapper.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\AutoMapper.Extensions.Microsoft.DependencyInjection.dll">
+			<Link>Steam++\assemblies\AutoMapper.Extensions.Microsoft.DependencyInjection.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Base.dll">
+			<Link>Steam++\assemblies\Avalonia.Base.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Base.UnitTests.dll">
+			<Link>Steam++\assemblies\Avalonia.Base.UnitTests.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Controls.ColorPicker.dll">
+			<Link>Steam++\assemblies\Avalonia.Controls.ColorPicker.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Controls.DataGrid.dll">
+			<Link>Steam++\assemblies\Avalonia.Controls.DataGrid.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Controls.dll">
+			<Link>Steam++\assemblies\Avalonia.Controls.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Controls.ItemsRepeater.dll">
+			<Link>Steam++\assemblies\Avalonia.Controls.ItemsRepeater.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Controls.UnitTests.dll">
+			<Link>Steam++\assemblies\Avalonia.Controls.UnitTests.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.DesignerSupport.dll">
+			<Link>Steam++\assemblies\Avalonia.DesignerSupport.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Desktop.dll">
+			<Link>Steam++\assemblies\Avalonia.Desktop.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Dialogs.dll">
+			<Link>Steam++\assemblies\Avalonia.Dialogs.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.dll">
+			<Link>Steam++\assemblies\Avalonia.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Gif.dll">
+			<Link>Steam++\assemblies\Avalonia.Gif.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Markup.dll">
+			<Link>Steam++\assemblies\Avalonia.Markup.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Markup.Xaml.dll">
+			<Link>Steam++\assemblies\Avalonia.Markup.Xaml.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Metal.dll">
+			<Link>Steam++\assemblies\Avalonia.Metal.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.MicroCom.dll">
+			<Link>Steam++\assemblies\Avalonia.MicroCom.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Native.dll">
+			<Link>Steam++\assemblies\Avalonia.Native.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.OpenGL.dll">
+			<Link>Steam++\assemblies\Avalonia.OpenGL.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.ReactiveUI.dll">
+			<Link>Steam++\assemblies\Avalonia.ReactiveUI.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Remote.Protocol.dll">
+			<Link>Steam++\assemblies\Avalonia.Remote.Protocol.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Skia.dll">
+			<Link>Steam++\assemblies\Avalonia.Skia.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Skia.UnitTests.dll">
+			<Link>Steam++\assemblies\Avalonia.Skia.UnitTests.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Win32.dll">
+			<Link>Steam++\assemblies\Avalonia.Win32.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.X11.dll">
+			<Link>Steam++\assemblies\Avalonia.X11.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Xaml.Interactions.Custom.dll">
+			<Link>Steam++\assemblies\Avalonia.Xaml.Interactions.Custom.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Xaml.Interactions.dll">
+			<Link>Steam++\assemblies\Avalonia.Xaml.Interactions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Xaml.Interactions.DragAndDrop.dll">
+			<Link>Steam++\assemblies\Avalonia.Xaml.Interactions.DragAndDrop.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Xaml.Interactions.Draggable.dll">
+			<Link>Steam++\assemblies\Avalonia.Xaml.Interactions.Draggable.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Xaml.Interactions.Events.dll">
+			<Link>Steam++\assemblies\Avalonia.Xaml.Interactions.Events.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Xaml.Interactions.Reactive.dll">
+			<Link>Steam++\assemblies\Avalonia.Xaml.Interactions.Reactive.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Xaml.Interactions.Responsive.dll">
+			<Link>Steam++\assemblies\Avalonia.Xaml.Interactions.Responsive.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Avalonia.Xaml.Interactivity.dll">
+			<Link>Steam++\assemblies\Avalonia.Xaml.Interactivity.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Area.dll">
+			<Link>Steam++\assemblies\BD.Common.Area.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.BirthDate.dll">
+			<Link>Steam++\assemblies\BD.Common.BirthDate.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.dll">
+			<Link>Steam++\assemblies\BD.Common.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Essentials.dll">
+			<Link>Steam++\assemblies\BD.Common.Essentials.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Essentials.Maui.Runtime.dll">
+			<Link>Steam++\assemblies\BD.Common.Essentials.Maui.Runtime.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Essentials.Preferences.SQLite.dll">
+			<Link>Steam++\assemblies\BD.Common.Essentials.Preferences.SQLite.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Essentials.Primitives.dll">
+			<Link>Steam++\assemblies\BD.Common.Essentials.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Essentials.Utils.dll">
+			<Link>Steam++\assemblies\BD.Common.Essentials.Utils.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.ModelValidator.dll">
+			<Link>Steam++\assemblies\BD.Common.ModelValidator.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Mvvm.dll">
+			<Link>Steam++\assemblies\BD.Common.Mvvm.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.PhoneNumber.dll">
+			<Link>Steam++\assemblies\BD.Common.PhoneNumber.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Pinyin.dll">
+			<Link>Steam++\assemblies\BD.Common.Pinyin.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Pinyin.TinyPinyin.dll">
+			<Link>Steam++\assemblies\BD.Common.Pinyin.TinyPinyin.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Primitives.ApiResponse.dll">
+			<Link>Steam++\assemblies\BD.Common.Primitives.ApiResponse.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Primitives.dll">
+			<Link>Steam++\assemblies\BD.Common.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Repositories.dll">
+			<Link>Steam++\assemblies\BD.Common.Repositories.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Repositories.SQLitePCL.dll">
+			<Link>Steam++\assemblies\BD.Common.Repositories.SQLitePCL.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Security.dll">
+			<Link>Steam++\assemblies\BD.Common.Security.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Settings.dll">
+			<Link>Steam++\assemblies\BD.Common.Settings.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.Common.Toast.dll">
+			<Link>Steam++\assemblies\BD.Common.Toast.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.SteamClient.dll">
+			<Link>Steam++\assemblies\BD.SteamClient.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.SteamClient.Models.Protobuf.dll">
+			<Link>Steam++\assemblies\BD.SteamClient.Models.Protobuf.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.WTTS.Client.Avalonia.dll">
+			<Link>Steam++\assemblies\BD.WTTS.Client.Avalonia.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.WTTS.Client.dll">
+			<Link>Steam++\assemblies\BD.WTTS.Client.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.WTTS.MicroServices.ClientSDK.dll">
+			<Link>Steam++\assemblies\BD.WTTS.MicroServices.ClientSDK.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.WTTS.MicroServices.Primitives.dll">
+			<Link>Steam++\assemblies\BD.WTTS.MicroServices.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.WTTS.MicroServices.Primitives.Resources.dll">
+			<Link>Steam++\assemblies\BD.WTTS.MicroServices.Primitives.Resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.WTTS.MicroServices.Primitives.ViewModels.dll">
+			<Link>Steam++\assemblies\BD.WTTS.MicroServices.Primitives.ViewModels.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.WTTS.Primitives.dll">
+			<Link>Steam++\assemblies\BD.WTTS.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.WTTS.Primitives.Resources.dll">
+			<Link>Steam++\assemblies\BD.WTTS.Primitives.Resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BD.WTTS.Primitives.ViewModels.dll">
+			<Link>Steam++\assemblies\BD.WTTS.Primitives.ViewModels.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\BouncyCastle.Crypto.dll">
+			<Link>Steam++\assemblies\BouncyCastle.Crypto.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Crc32.NET.dll">
+			<Link>Steam++\assemblies\Crc32.NET.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\dotnetCampus.Ipc.dll">
+			<Link>Steam++\assemblies\dotnetCampus.Ipc.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\DynamicData.dll">
+			<Link>Steam++\assemblies\DynamicData.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Facepunch.Steamworks.Win64.dll">
+			<Link>Steam++\assemblies\Facepunch.Steamworks.Win64.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Fleck.dll">
+			<Link>Steam++\assemblies\Fleck.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\FluentAvalonia.dll">
+			<Link>Steam++\assemblies\FluentAvalonia.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Fusillade.dll">
+			<Link>Steam++\assemblies\Fusillade.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\gfoidl.Base64.dll">
+			<Link>Steam++\assemblies\gfoidl.Base64.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Google.Protobuf.dll">
+			<Link>Steam++\assemblies\Google.Protobuf.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\HarfBuzzSharp.dll">
+			<Link>Steam++\assemblies\HarfBuzzSharp.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ICSharpCode.SharpZipLib.dll">
+			<Link>Steam++\assemblies\ICSharpCode.SharpZipLib.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Interop.IWshRuntimeLibrary.dll">
+			<Link>Steam++\assemblies\Interop.IWshRuntimeLibrary.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\JumpLists.Win32.Avalonia.dll">
+			<Link>Steam++\assemblies\JumpLists.Win32.Avalonia.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\LibAPNG.dll">
+			<Link>Steam++\assemblies\LibAPNG.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\LiveChartsCore.dll">
+			<Link>Steam++\assemblies\LiveChartsCore.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\LiveChartsCore.SkiaSharpView.Avalonia.dll">
+			<Link>Steam++\assemblies\LiveChartsCore.SkiaSharpView.Avalonia.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\LiveChartsCore.SkiaSharpView.dll">
+			<Link>Steam++\assemblies\LiveChartsCore.SkiaSharpView.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\MemoryPack.Core.dll">
+			<Link>Steam++\assemblies\MemoryPack.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\MessagePack.Annotations.dll">
+			<Link>Steam++\assemblies\MessagePack.Annotations.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\MessagePack.dll">
+			<Link>Steam++\assemblies\MessagePack.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\MicroCom.Runtime.dll">
+			<Link>Steam++\assemblies\MicroCom.Runtime.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.AppCenter.Analytics.dll">
+			<Link>Steam++\assemblies\Microsoft.AppCenter.Analytics.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.AppCenter.Crashes.dll">
+			<Link>Steam++\assemblies\Microsoft.AppCenter.Crashes.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.AppCenter.dll">
+			<Link>Steam++\assemblies\Microsoft.AppCenter.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Bcl.AsyncInterfaces.dll">
+			<Link>Steam++\assemblies\Microsoft.Bcl.AsyncInterfaces.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Configuration.Abstractions.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Configuration.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Configuration.Binder.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Configuration.Binder.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Configuration.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Configuration.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.DependencyInjection.Abstractions.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.DependencyInjection.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.DependencyInjection.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.DependencyInjection.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.FileProviders.Abstractions.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.FileProviders.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.FileProviders.Physical.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.FileProviders.Physical.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.FileSystemGlobbing.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.FileSystemGlobbing.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Logging.Abstractions.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Logging.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Logging.Configuration.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Logging.Configuration.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Logging.Console.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Logging.Console.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Logging.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Logging.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Logging.EventLog.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Logging.EventLog.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Options.ConfigurationExtensions.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Options.ConfigurationExtensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Options.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Options.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Extensions.Primitives.dll">
+			<Link>Steam++\assemblies\Microsoft.Extensions.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.NET.StringTools.dll">
+			<Link>Steam++\assemblies\Microsoft.NET.StringTools.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Toolkit.Uwp.Notifications.dll">
+			<Link>Steam++\assemblies\Microsoft.Toolkit.Uwp.Notifications.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Microsoft.Windows.SDK.NET.dll">
+			<Link>Steam++\assemblies\Microsoft.Windows.SDK.NET.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Newtonsoft.Json.dll">
+			<Link>Steam++\assemblies\Newtonsoft.Json.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Nito.AsyncEx.Coordination.dll">
+			<Link>Steam++\assemblies\Nito.AsyncEx.Coordination.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Nito.AsyncEx.Tasks.dll">
+			<Link>Steam++\assemblies\Nito.AsyncEx.Tasks.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Nito.Collections.Deque.dll">
+			<Link>Steam++\assemblies\Nito.Collections.Deque.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Nito.Comparers.Core.dll">
+			<Link>Steam++\assemblies\Nito.Comparers.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Nito.Comparers.Linq.dll">
+			<Link>Steam++\assemblies\Nito.Comparers.Linq.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Nito.Disposables.dll">
+			<Link>Steam++\assemblies\Nito.Disposables.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\NLog.dll">
+			<Link>Steam++\assemblies\NLog.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\NLog.Extensions.Logging.dll">
+			<Link>Steam++\assemblies\NLog.Extensions.Logging.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\PInvoke.AdvApi32.dll">
+			<Link>Steam++\assemblies\PInvoke.AdvApi32.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\PInvoke.IPHlpApi.dll">
+			<Link>Steam++\assemblies\PInvoke.IPHlpApi.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\PInvoke.Kernel32.dll">
+			<Link>Steam++\assemblies\PInvoke.Kernel32.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\PInvoke.User32.dll">
+			<Link>Steam++\assemblies\PInvoke.User32.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\PInvoke.Windows.Core.dll">
+			<Link>Steam++\assemblies\PInvoke.Windows.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\PInvoke.Windows.ShellScalingApi.dll">
+			<Link>Steam++\assemblies\PInvoke.Windows.ShellScalingApi.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Polly.dll">
+			<Link>Steam++\assemblies\Polly.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\protobuf-net.Core.dll">
+			<Link>Steam++\assemblies\protobuf-net.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\protobuf-net.dll">
+			<Link>Steam++\assemblies\protobuf-net.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Punchclock.dll">
+			<Link>Steam++\assemblies\Punchclock.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\QrCodeGenerator.dll">
+			<Link>Steam++\assemblies\QrCodeGenerator.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ReactiveUI.dll">
+			<Link>Steam++\assemblies\ReactiveUI.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ReactiveUI.Fody.Helpers.dll">
+			<Link>Steam++\assemblies\ReactiveUI.Fody.Helpers.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ReactiveUI.Tests.dll">
+			<Link>Steam++\assemblies\ReactiveUI.Tests.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\SevenZipSharp.dll">
+			<Link>Steam++\assemblies\SevenZipSharp.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\SkiaSharp.dll">
+			<Link>Steam++\assemblies\SkiaSharp.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\SkiaSharp.HarfBuzz.dll">
+			<Link>Steam++\assemblies\SkiaSharp.HarfBuzz.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Splat.dll">
+			<Link>Steam++\assemblies\Splat.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Splat.Drawing.dll">
+			<Link>Steam++\assemblies\Splat.Drawing.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\SQLite-net.dll">
+			<Link>Steam++\assemblies\SQLite-net.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\SQLitePCLRaw.batteries_v2.dll">
+			<Link>Steam++\assemblies\SQLitePCLRaw.batteries_v2.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\SQLitePCLRaw.core.dll">
+			<Link>Steam++\assemblies\SQLitePCLRaw.core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\SQLitePCLRaw.provider.e_sqlite3.dll">
+			<Link>Steam++\assemblies\SQLitePCLRaw.provider.e_sqlite3.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Steam++.deps.json">
+			<Link>Steam++\assemblies\Steam++.deps.json</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Steam++.dll">
+			<Link>Steam++\assemblies\Steam++.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Steam++.runtimeconfig.json">
+			<Link>Steam++\assemblies\Steam++.runtimeconfig.json</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\SteamKit2.dll">
+			<Link>Steam++\assemblies\SteamKit2.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\steam_api64.dll">
+			<Link>Steam++\assemblies\steam_api64.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.CommandLine.dll">
+			<Link>Steam++\assemblies\System.CommandLine.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.CommandLine.NamingConventionBinder.dll">
+			<Link>Steam++\assemblies\System.CommandLine.NamingConventionBinder.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Composition.AttributedModel.dll">
+			<Link>Steam++\assemblies\System.Composition.AttributedModel.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Composition.Convention.dll">
+			<Link>Steam++\assemblies\System.Composition.Convention.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Composition.Hosting.dll">
+			<Link>Steam++\assemblies\System.Composition.Hosting.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Composition.Runtime.dll">
+			<Link>Steam++\assemblies\System.Composition.Runtime.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Composition.TypedParts.dll">
+			<Link>Steam++\assemblies\System.Composition.TypedParts.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Drawing.Common.dll">
+			<Link>Steam++\assemblies\System.Drawing.Common.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.IO.Pipelines.dll">
+			<Link>Steam++\assemblies\System.IO.Pipelines.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Linq.Async.dll">
+			<Link>Steam++\assemblies\System.Linq.Async.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Management.dll">
+			<Link>Steam++\assemblies\System.Management.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.OperatingSystem2.dll">
+			<Link>Steam++\assemblies\System.OperatingSystem2.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Reactive.dll">
+			<Link>Steam++\assemblies\System.Reactive.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\System.Security.Cryptography.ProtectedData.dll">
+			<Link>Steam++\assemblies\System.Security.Cryptography.ProtectedData.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\TinyPinyin.dll">
+			<Link>Steam++\assemblies\TinyPinyin.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Validation.dll">
+			<Link>Steam++\assemblies\Validation.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ValveKeyValue.dll">
+			<Link>Steam++\assemblies\ValveKeyValue.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Vanara.Core.dll">
+			<Link>Steam++\assemblies\Vanara.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Vanara.PInvoke.Cryptography.dll">
+			<Link>Steam++\assemblies\Vanara.PInvoke.Cryptography.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Vanara.PInvoke.Kernel32.dll">
+			<Link>Steam++\assemblies\Vanara.PInvoke.Kernel32.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Vanara.PInvoke.PowrProf.dll">
+			<Link>Steam++\assemblies\Vanara.PInvoke.PowrProf.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Vanara.PInvoke.Security.dll">
+			<Link>Steam++\assemblies\Vanara.PInvoke.Security.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Vanara.PInvoke.Shared.dll">
+			<Link>Steam++\assemblies\Vanara.PInvoke.Shared.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Vanara.PInvoke.WinHTTP.dll">
+			<Link>Steam++\assemblies\Vanara.PInvoke.WinHTTP.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\Vanara.PInvoke.Ws2_32.dll">
+			<Link>Steam++\assemblies\Vanara.PInvoke.Ws2_32.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\WinAuth.dll">
+			<Link>Steam++\assemblies\WinAuth.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\WinRT.Runtime.dll">
+			<Link>Steam++\assemblies\WinRT.Runtime.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\cs\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\cs\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\de\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\de\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\en\BD.Common.BirthDate.resources.dll">
+			<Link>Steam++\assemblies\en\BD.Common.BirthDate.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\en\BD.Common.ModelValidator.resources.dll">
+			<Link>Steam++\assemblies\en\BD.Common.ModelValidator.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\en\BD.Common.PhoneNumber.resources.dll">
+			<Link>Steam++\assemblies\en\BD.Common.PhoneNumber.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\en\BD.Common.Primitives.resources.dll">
+			<Link>Steam++\assemblies\en\BD.Common.Primitives.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\en\BD.Common.resources.dll">
+			<Link>Steam++\assemblies\en\BD.Common.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\en\BD.WTTS.Client.resources.dll">
+			<Link>Steam++\assemblies\en\BD.WTTS.Client.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\en\BD.WTTS.MicroServices.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\en\BD.WTTS.MicroServices.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\en\BD.WTTS.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\en\BD.WTTS.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\en\WinAuth.resources.dll">
+			<Link>Steam++\assemblies\en\WinAuth.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\es\BD.Common.BirthDate.resources.dll">
+			<Link>Steam++\assemblies\es\BD.Common.BirthDate.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\es\BD.Common.ModelValidator.resources.dll">
+			<Link>Steam++\assemblies\es\BD.Common.ModelValidator.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\es\BD.Common.PhoneNumber.resources.dll">
+			<Link>Steam++\assemblies\es\BD.Common.PhoneNumber.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\es\BD.Common.Primitives.resources.dll">
+			<Link>Steam++\assemblies\es\BD.Common.Primitives.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\es\BD.Common.resources.dll">
+			<Link>Steam++\assemblies\es\BD.Common.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\es\BD.WTTS.Client.resources.dll">
+			<Link>Steam++\assemblies\es\BD.WTTS.Client.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\es\BD.WTTS.MicroServices.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\es\BD.WTTS.MicroServices.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\es\BD.WTTS.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\es\BD.WTTS.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\es\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\es\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\fr\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\fr\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\fr\Vanara.Core.resources.dll">
+			<Link>Steam++\assemblies\fr\Vanara.Core.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\it\BD.Common.BirthDate.resources.dll">
+			<Link>Steam++\assemblies\it\BD.Common.BirthDate.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\it\BD.Common.ModelValidator.resources.dll">
+			<Link>Steam++\assemblies\it\BD.Common.ModelValidator.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\it\BD.Common.PhoneNumber.resources.dll">
+			<Link>Steam++\assemblies\it\BD.Common.PhoneNumber.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\it\BD.Common.Primitives.resources.dll">
+			<Link>Steam++\assemblies\it\BD.Common.Primitives.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\it\BD.Common.resources.dll">
+			<Link>Steam++\assemblies\it\BD.Common.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\it\BD.WTTS.Client.resources.dll">
+			<Link>Steam++\assemblies\it\BD.WTTS.Client.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\it\BD.WTTS.MicroServices.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\it\BD.WTTS.MicroServices.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\it\BD.WTTS.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\it\BD.WTTS.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\it\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\it\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ja\BD.Common.BirthDate.resources.dll">
+			<Link>Steam++\assemblies\ja\BD.Common.BirthDate.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ja\BD.Common.ModelValidator.resources.dll">
+			<Link>Steam++\assemblies\ja\BD.Common.ModelValidator.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ja\BD.Common.PhoneNumber.resources.dll">
+			<Link>Steam++\assemblies\ja\BD.Common.PhoneNumber.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ja\BD.Common.Primitives.resources.dll">
+			<Link>Steam++\assemblies\ja\BD.Common.Primitives.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ja\BD.Common.resources.dll">
+			<Link>Steam++\assemblies\ja\BD.Common.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ja\BD.WTTS.Client.resources.dll">
+			<Link>Steam++\assemblies\ja\BD.WTTS.Client.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ja\BD.WTTS.MicroServices.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\ja\BD.WTTS.MicroServices.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ja\BD.WTTS.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\ja\BD.WTTS.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ja\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\ja\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ko\BD.Common.BirthDate.resources.dll">
+			<Link>Steam++\assemblies\ko\BD.Common.BirthDate.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ko\BD.Common.ModelValidator.resources.dll">
+			<Link>Steam++\assemblies\ko\BD.Common.ModelValidator.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ko\BD.Common.PhoneNumber.resources.dll">
+			<Link>Steam++\assemblies\ko\BD.Common.PhoneNumber.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ko\BD.Common.Primitives.resources.dll">
+			<Link>Steam++\assemblies\ko\BD.Common.Primitives.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ko\BD.Common.resources.dll">
+			<Link>Steam++\assemblies\ko\BD.Common.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ko\BD.WTTS.Client.resources.dll">
+			<Link>Steam++\assemblies\ko\BD.WTTS.Client.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ko\BD.WTTS.MicroServices.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\ko\BD.WTTS.MicroServices.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ko\BD.WTTS.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\ko\BD.WTTS.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ko\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\ko\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\pl\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\pl\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\pt-BR\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\pt-BR\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ru\BD.Common.BirthDate.resources.dll">
+			<Link>Steam++\assemblies\ru\BD.Common.BirthDate.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ru\BD.Common.ModelValidator.resources.dll">
+			<Link>Steam++\assemblies\ru\BD.Common.ModelValidator.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ru\BD.Common.PhoneNumber.resources.dll">
+			<Link>Steam++\assemblies\ru\BD.Common.PhoneNumber.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ru\BD.Common.Primitives.resources.dll">
+			<Link>Steam++\assemblies\ru\BD.Common.Primitives.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ru\BD.Common.resources.dll">
+			<Link>Steam++\assemblies\ru\BD.Common.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ru\BD.WTTS.Client.resources.dll">
+			<Link>Steam++\assemblies\ru\BD.WTTS.Client.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ru\BD.WTTS.MicroServices.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\ru\BD.WTTS.MicroServices.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ru\BD.WTTS.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\ru\BD.WTTS.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\ru\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\ru\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\tr\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\tr\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hans\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\zh-Hans\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hant\BD.Common.BirthDate.resources.dll">
+			<Link>Steam++\assemblies\zh-Hant\BD.Common.BirthDate.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hant\BD.Common.ModelValidator.resources.dll">
+			<Link>Steam++\assemblies\zh-Hant\BD.Common.ModelValidator.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hant\BD.Common.PhoneNumber.resources.dll">
+			<Link>Steam++\assemblies\zh-Hant\BD.Common.PhoneNumber.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hant\BD.Common.Primitives.resources.dll">
+			<Link>Steam++\assemblies\zh-Hant\BD.Common.Primitives.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hant\BD.Common.resources.dll">
+			<Link>Steam++\assemblies\zh-Hant\BD.Common.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hant\BD.WTTS.Client.resources.dll">
+			<Link>Steam++\assemblies\zh-Hant\BD.WTTS.Client.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hant\BD.WTTS.MicroServices.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\zh-Hant\BD.WTTS.MicroServices.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hant\BD.WTTS.Primitives.Resources.resources.dll">
+			<Link>Steam++\assemblies\zh-Hant\BD.WTTS.Primitives.Resources.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\assemblies\zh-Hant\System.CommandLine.resources.dll">
+			<Link>Steam++\assemblies\zh-Hant\System.CommandLine.resources.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\host\fxr\7.0.10\hostfxr.dll">
+			<Link>Steam++\dotnet\host\fxr\7.0.10\hostfxr.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\.version">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\.version</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\aspnetcorev2_inprocess.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\aspnetcorev2_inprocess.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Antiforgery.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Antiforgery.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.App.deps.json">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.App.deps.json</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.App.runtimeconfig.json">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.App.runtimeconfig.json</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.Cookies.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.Cookies.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.Core.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.OAuth.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authentication.OAuth.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authorization.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authorization.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authorization.Policy.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Authorization.Policy.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.Authorization.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.Authorization.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.Forms.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.Forms.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.Server.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.Server.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.Web.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Components.Web.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Connections.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Connections.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.CookiePolicy.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.CookiePolicy.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Cors.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Cors.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Cryptography.Internal.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Cryptography.Internal.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.DataProtection.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.DataProtection.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.DataProtection.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.DataProtection.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.DataProtection.Extensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.DataProtection.Extensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Diagnostics.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Diagnostics.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Diagnostics.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Diagnostics.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Diagnostics.HealthChecks.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Diagnostics.HealthChecks.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.HostFiltering.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.HostFiltering.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Hosting.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Hosting.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Hosting.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Hosting.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Html.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Html.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Connections.Common.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Connections.Common.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Connections.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Connections.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Extensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Extensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Features.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Features.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Results.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Http.Results.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.HttpLogging.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.HttpLogging.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.HttpOverrides.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.HttpOverrides.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.HttpsPolicy.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.HttpsPolicy.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Identity.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Identity.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Localization.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Localization.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Localization.Routing.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Localization.Routing.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Metadata.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Metadata.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.ApiExplorer.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.ApiExplorer.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Core.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Cors.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Cors.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.DataAnnotations.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.DataAnnotations.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Formatters.Json.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Formatters.Json.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Formatters.Xml.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Formatters.Xml.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Localization.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Localization.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Razor.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.Razor.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.RazorPages.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.RazorPages.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.TagHelpers.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.TagHelpers.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.ViewFeatures.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Mvc.ViewFeatures.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.OutputCaching.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.OutputCaching.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.RateLimiting.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.RateLimiting.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Razor.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Razor.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Razor.Runtime.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Razor.Runtime.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.RequestDecompression.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.RequestDecompression.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.ResponseCaching.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.ResponseCaching.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.ResponseCompression.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.ResponseCompression.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Rewrite.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Rewrite.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Routing.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Routing.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Routing.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Routing.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.HttpSys.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.HttpSys.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.IIS.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.IIS.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.IISIntegration.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.IISIntegration.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.Kestrel.Core.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.Kestrel.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.Kestrel.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.Kestrel.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.Kestrel.Transport.Quic.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.Kestrel.Transport.Quic.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Session.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.Session.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.SignalR.Common.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.SignalR.Common.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.SignalR.Core.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.SignalR.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.SignalR.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.SignalR.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.SignalR.Protocols.Json.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.SignalR.Protocols.Json.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.StaticFiles.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.StaticFiles.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.WebSockets.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.WebSockets.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.WebUtilities.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.AspNetCore.WebUtilities.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Caching.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Caching.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Caching.Memory.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Caching.Memory.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Binder.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Binder.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.CommandLine.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.CommandLine.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.EnvironmentVariables.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.EnvironmentVariables.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.FileExtensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.FileExtensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Ini.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Ini.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Json.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Json.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.KeyPerFile.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.KeyPerFile.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.UserSecrets.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.UserSecrets.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Xml.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Configuration.Xml.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.DependencyInjection.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.DependencyInjection.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.DependencyInjection.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.DependencyInjection.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Diagnostics.HealthChecks.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Diagnostics.HealthChecks.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Features.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Features.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileProviders.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileProviders.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileProviders.Composite.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileProviders.Composite.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileProviders.Embedded.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileProviders.Embedded.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileProviders.Physical.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileProviders.Physical.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileSystemGlobbing.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.FileSystemGlobbing.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Hosting.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Hosting.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Hosting.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Hosting.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Http.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Http.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Identity.Core.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Identity.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Identity.Stores.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Identity.Stores.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Localization.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Localization.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Localization.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Localization.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.Abstractions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.Abstractions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.Configuration.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.Configuration.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.Console.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.Console.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.Debug.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.Debug.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.EventLog.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.EventLog.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.EventSource.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.EventSource.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.TraceSource.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Logging.TraceSource.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.ObjectPool.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.ObjectPool.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Options.ConfigurationExtensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Options.ConfigurationExtensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Options.DataAnnotations.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Options.DataAnnotations.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Options.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Options.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Primitives.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.WebEncoders.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Extensions.WebEncoders.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.JSInterop.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.JSInterop.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Net.Http.Headers.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\Microsoft.Net.Http.Headers.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Diagnostics.EventLog.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Diagnostics.EventLog.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Diagnostics.EventLog.Messages.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Diagnostics.EventLog.Messages.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.IO.Pipelines.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.IO.Pipelines.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Security.Cryptography.Pkcs.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Security.Cryptography.Pkcs.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Security.Cryptography.Xml.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Security.Cryptography.Xml.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Threading.RateLimiting.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\System.Threading.RateLimiting.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\THIRD-PARTY-NOTICES.txt">
+			<Link>Steam++\dotnet\shared\Microsoft.AspNetCore.App\7.0.10\THIRD-PARTY-NOTICES.txt</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\.version">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\.version</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\clretwrc.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\clretwrc.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\clrgc.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\clrgc.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\clrjit.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\clrjit.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\coreclr.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\coreclr.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\createdump.exe">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\createdump.exe</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\hostpolicy.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\hostpolicy.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.CSharp.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.CSharp.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.DiaSymReader.Native.amd64.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.DiaSymReader.Native.amd64.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.NETCore.App.deps.json">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.NETCore.App.deps.json</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.NETCore.App.runtimeconfig.json">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.NETCore.App.runtimeconfig.json</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.VisualBasic.Core.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.VisualBasic.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.VisualBasic.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.VisualBasic.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.Win32.Primitives.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.Win32.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.Win32.Registry.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\Microsoft.Win32.Registry.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscordaccore.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscordaccore.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscordaccore_amd64_amd64_7.0.1023.36312.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscordaccore_amd64_amd64_7.0.1023.36312.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscordbi.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscordbi.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscorlib.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscorlib.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscorrc.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\mscorrc.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\msquic.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\msquic.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\netstandard.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\netstandard.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.AppContext.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.AppContext.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Buffers.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Buffers.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.Concurrent.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.Concurrent.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.Immutable.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.Immutable.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.NonGeneric.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.NonGeneric.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.Specialized.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Collections.Specialized.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.Annotations.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.Annotations.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.DataAnnotations.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.DataAnnotations.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.EventBasedAsync.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.EventBasedAsync.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.Primitives.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.TypeConverter.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ComponentModel.TypeConverter.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Configuration.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Configuration.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Console.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Console.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Core.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Core.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Data.Common.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Data.Common.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Data.DataSetExtensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Data.DataSetExtensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Data.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Data.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Contracts.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Contracts.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Debug.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Debug.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.DiagnosticSource.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.DiagnosticSource.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.FileVersionInfo.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.FileVersionInfo.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Process.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Process.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.StackTrace.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.StackTrace.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.TextWriterTraceListener.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.TextWriterTraceListener.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Tools.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Tools.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.TraceSource.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.TraceSource.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Tracing.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Diagnostics.Tracing.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Drawing.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Drawing.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Drawing.Primitives.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Drawing.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Dynamic.Runtime.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Dynamic.Runtime.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Formats.Asn1.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Formats.Asn1.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Formats.Tar.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Formats.Tar.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Globalization.Calendars.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Globalization.Calendars.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Globalization.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Globalization.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Globalization.Extensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Globalization.Extensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.Brotli.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.Brotli.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.FileSystem.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.FileSystem.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.Native.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.Native.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.ZipFile.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Compression.ZipFile.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.AccessControl.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.AccessControl.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.DriveInfo.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.DriveInfo.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.Primitives.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.Watcher.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.FileSystem.Watcher.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.IsolatedStorage.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.IsolatedStorage.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.MemoryMappedFiles.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.MemoryMappedFiles.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Pipes.AccessControl.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Pipes.AccessControl.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Pipes.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.Pipes.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.UnmanagedMemoryStream.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.IO.UnmanagedMemoryStream.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Linq.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Linq.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Linq.Expressions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Linq.Expressions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Linq.Parallel.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Linq.Parallel.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Linq.Queryable.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Linq.Queryable.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Memory.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Memory.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Http.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Http.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Http.Json.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Http.Json.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.HttpListener.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.HttpListener.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Mail.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Mail.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.NameResolution.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.NameResolution.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.NetworkInformation.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.NetworkInformation.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Ping.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Ping.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Primitives.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Quic.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Quic.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Requests.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Requests.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Security.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Security.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.ServicePoint.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.ServicePoint.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Sockets.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.Sockets.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebClient.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebClient.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebHeaderCollection.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebHeaderCollection.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebProxy.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebProxy.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebSockets.Client.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebSockets.Client.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebSockets.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Net.WebSockets.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Numerics.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Numerics.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Numerics.Vectors.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Numerics.Vectors.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ObjectModel.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ObjectModel.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.CoreLib.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.CoreLib.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.DataContractSerialization.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.DataContractSerialization.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.Uri.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.Uri.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.Xml.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.Xml.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.Xml.Linq.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Private.Xml.Linq.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.DispatchProxy.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.DispatchProxy.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Emit.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Emit.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Emit.ILGeneration.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Emit.ILGeneration.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Emit.Lightweight.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Emit.Lightweight.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Extensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Extensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Metadata.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Metadata.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Primitives.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.TypeExtensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Reflection.TypeExtensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Resources.Reader.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Resources.Reader.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Resources.ResourceManager.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Resources.ResourceManager.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Resources.Writer.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Resources.Writer.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.CompilerServices.Unsafe.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.CompilerServices.Unsafe.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.CompilerServices.VisualC.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.CompilerServices.VisualC.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Extensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Extensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Handles.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Handles.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.InteropServices.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.InteropServices.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.InteropServices.JavaScript.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.InteropServices.JavaScript.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.InteropServices.RuntimeInformation.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.InteropServices.RuntimeInformation.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Intrinsics.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Intrinsics.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Loader.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Loader.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Numerics.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Numerics.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.Formatters.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.Formatters.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.Json.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.Json.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.Primitives.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.Xml.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Runtime.Serialization.Xml.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.AccessControl.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.AccessControl.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Claims.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Claims.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Algorithms.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Algorithms.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Cng.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Cng.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Csp.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Csp.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Encoding.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Encoding.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.OpenSsl.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.OpenSsl.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Primitives.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.Primitives.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.X509Certificates.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Cryptography.X509Certificates.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Principal.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Principal.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Principal.Windows.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.Principal.Windows.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.SecureString.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Security.SecureString.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ServiceModel.Web.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ServiceModel.Web.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ServiceProcess.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ServiceProcess.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Encoding.CodePages.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Encoding.CodePages.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Encoding.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Encoding.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Encoding.Extensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Encoding.Extensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Encodings.Web.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Encodings.Web.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Json.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.Json.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.RegularExpressions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Text.RegularExpressions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Channels.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Channels.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Overlapped.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Overlapped.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Tasks.Dataflow.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Tasks.Dataflow.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Tasks.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Tasks.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Tasks.Extensions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Tasks.Extensions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Tasks.Parallel.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Tasks.Parallel.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Thread.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Thread.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.ThreadPool.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.ThreadPool.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Timer.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Threading.Timer.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Transactions.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Transactions.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Transactions.Local.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Transactions.Local.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ValueTuple.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.ValueTuple.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Web.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Web.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Web.HttpUtility.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Web.HttpUtility.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Windows.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Windows.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.Linq.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.Linq.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.ReaderWriter.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.ReaderWriter.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.Serialization.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.Serialization.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XDocument.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XDocument.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XmlDocument.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XmlDocument.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XmlSerializer.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XmlSerializer.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XPath.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XPath.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XPath.XDocument.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\System.Xml.XPath.XDocument.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\dotnet\shared\Microsoft.NETCore.App\7.0.10\WindowsBase.dll">
+			<Link>Steam++\dotnet\shared\Microsoft.NETCore.App\7.0.10\WindowsBase.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\modules\Accelerator\BD.WTTS.Client.Plugins.Accelerator.dll">
+			<Link>Steam++\modules\Accelerator\BD.WTTS.Client.Plugins.Accelerator.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\modules\Accelerator\Steam++.Accelerator.exe">
+			<Link>Steam++\modules\Accelerator\Steam++.Accelerator.exe</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\modules\Authenticator\BD.WTTS.Client.Plugins.Authenticator.dll">
+			<Link>Steam++\modules\Authenticator\BD.WTTS.Client.Plugins.Authenticator.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\modules\GameAccount\BD.WTTS.Client.Plugins.GameAccount.dll">
+			<Link>Steam++\modules\GameAccount\BD.WTTS.Client.Plugins.GameAccount.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\modules\GameList\BD.WTTS.Client.Plugins.GameList.dll">
+			<Link>Steam++\modules\GameList\BD.WTTS.Client.Plugins.GameList.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\modules\GameTools\BD.WTTS.Client.Plugins.GameTools.dll">
+			<Link>Steam++\modules\GameTools\BD.WTTS.Client.Plugins.GameTools.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\native\win-x64\7z.dll">
+			<Link>Steam++\native\win-x64\7z.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\native\win-x64\av_libGLESv2.dll">
+			<Link>Steam++\native\win-x64\av_libGLESv2.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\native\win-x64\e_sqlite3.dll">
+			<Link>Steam++\native\win-x64\e_sqlite3.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\native\win-x64\libHarfBuzzSharp.dll">
+			<Link>Steam++\native\win-x64\libHarfBuzzSharp.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\native\win-x64\libSkiaSharp.dll">
+			<Link>Steam++\native\win-x64\libSkiaSharp.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\native\win-x64\WinDivert.dll">
+			<Link>Steam++\native\win-x64\WinDivert.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\BD.WTTS.Client.Avalonia.App\bin\Release\Publish\Steam++_v3.0.0-rc.1_win_x64\native\win-x64\WinDivert64.sys">
+			<Link>Steam++\native\win-x64\WinDivert64.sys</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<!--[End] BD.WTTS.Client.Tools.Publish(Release-win-x64) -->
 </Project>

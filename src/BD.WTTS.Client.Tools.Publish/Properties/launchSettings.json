@@ -2,7 +2,8 @@
   "profiles": {
     "BD.WTTS.Client.Tools.Publish": {
       "commandName": "Project",
-      "commandLineArgs": "run --rids win-x64 --stm-upload"
+      "commandLineArgs": "run --rids win-x64 --stm-upload",
+      "commandLineArgs_GenerateBridgeContentXml": "csproj --rids win-x64"
     }
   }
 }
