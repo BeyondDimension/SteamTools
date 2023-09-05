@@ -1,4 +1,6 @@
+using BD.Common.Repositories.Abstractions;
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
+using KeyValuePair = BD.Common.Entities.KeyValuePair;
 
 const string moduleName = AssemblyInfo.Accelerator;
 const string pluginName = AssemblyInfo.Accelerator;
@@ -81,6 +83,10 @@ static void ConfigureServices(IServiceCollection services)
 #endif
     });
 
+    // 设置仓储层数据库文件存放路径
+    Repository.DataBaseDirectory = IOPath.AppDataDirectory;
+    services.TryAddSingleton<ISecureStorage, RepositorySecureStorage>();
+
     services.AddHttpClient();
     services.AddCommonHttpClientFactory();
 
@@ -88,4 +94,57 @@ static void ConfigureServices(IServiceCollection services)
     // 添加反向代理服务（子进程实现）
     services.AddReverseProxyService();
     services.AddSingleton<ICertificateManager, CertificateManagerImpl>();
+}
+
+sealed class RepositorySecureStorage : Repository<KeyValuePair, string>, ISecureStorage
+{
+    bool ISecureStorage.IsNativeSupportedBytes => true;
+
+    static string GetKey(string key) => Hashs.String.SHA256(key);
+
+    async Task<byte[]?> ISecureStorage.GetBytesAsync(string key)
+    {
+        key = GetKey(key);
+        var item = await FirstOrDefaultAsync(x => x.Id == key);
+        var value = item?.Value;
+        var value2 = value;
+        return value2;
+    }
+
+    async Task InsertOrUpdateAsync(string key, byte[] value)
+    {
+        var value2 = value;
+        await InsertOrUpdateAsync(new KeyValuePair
+        {
+            Id = key,
+            Value = value2.ThrowIsNull(nameof(value2)),
+        });
+    }
+
+    Task ISecureStorage.SetAsync(string key, byte[]? value)
+    {
+        key = GetKey(key);
+        if (value == null || value.Length <= 0)
+        {
+            return DeleteAsync(key);
+        }
+        else
+        {
+            return InsertOrUpdateAsync(key, value);
+        }
+    }
+
+    async Task<bool> ISecureStorage.RemoveAsync(string key)
+    {
+        key = GetKey(key);
+        var result = await DeleteAsync(key);
+        return result > 0;
+    }
+
+    async Task<bool> ISecureStorage.ContainsKeyAsync(string key)
+    {
+        key = GetKey(key);
+        var item = await FirstOrDefaultAsync(x => x.Id == key);
+        return item != null;
+    }
 }

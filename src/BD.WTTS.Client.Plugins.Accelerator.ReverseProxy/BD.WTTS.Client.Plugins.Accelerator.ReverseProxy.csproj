@@ -90,6 +90,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="BD.Common" />
+		<PackageReference Include="BD.Common.Repositories.SQLitePCL" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="System.Linq.Async" />
 		<PackageReference Include="Ae.DNS.Client" />
