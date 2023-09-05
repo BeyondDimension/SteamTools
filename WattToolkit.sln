@@ -220,7 +220,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Facepunch.Steamworks.Win64"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Facepunch.Steamworks.Posix", "ref\Facepunch.Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Posix.csproj", "{35676E23-8E54-4785-A75B-98EB0650596B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD.WTTS.Client.AppHost.Bridge", "src\BD.WTTS.Client.AppHost.Bridge\BD.WTTS.Client.AppHost.Bridge.csproj", "{26D8AA24-2ACE-4167-BC2B-117B9BB76AA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steam++", "src\BD.WTTS.Client.AppHost.Bridge\Steam++.csproj", "{26D8AA24-2ACE-4167-BC2B-117B9BB76AA4}"
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "BD.WTTS.Client.AppHost.Bridge.Package", "src\BD.WTTS.Client.AppHost.Bridge.Package\BD.WTTS.Client.AppHost.Bridge.Package.wapproj", "{27795C79-2994-4514-8656-BA34FCEE8901}"
 EndProject
