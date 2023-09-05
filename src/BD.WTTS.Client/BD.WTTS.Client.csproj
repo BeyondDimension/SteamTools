@@ -76,6 +76,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- AppCenter -->
+		<Compile Include="..\VisualStudioAppCenterSDK.cs">
+			<LinkBase>Helpers</LinkBase>
+		</Compile>
+		<Compile Include="..\VisualStudioAppCenterSDK.AppSecret.cs">
+			<LinkBase>Helpers</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 		<!-- PackageReference -->
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.Common.Area" />
@@ -156,6 +166,9 @@
 			<HintPath>..\..\ref\Interop.IWshRuntimeLibrary.dll</HintPath>
 		</Reference>
 		<ProjectReference Include="..\..\ref\Facepunch.Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Win64.csproj" />
+		<PackageReference Include="Aigio.Any.AppCenter" />
+		<PackageReference Include="Aigio.Any.AppCenter.Analytics" />
+		<PackageReference Include="Aigio.Any.AppCenter.Crashes" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -184,11 +197,17 @@
 		<!-- Linux Only -->
 		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
 		<ProjectReference Include="..\..\ref\Facepunch.Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Posix.csproj" />
+		<PackageReference Include="Aigio.Any.AppCenter" />
+		<PackageReference Include="Aigio.Any.AppCenter.Analytics" />
+		<PackageReference Include="Aigio.Any.AppCenter.Crashes" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
 		<!-- Android Only -->
 		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
+		<PackageReference Include="Microsoft.AppCenter" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
@@ -199,6 +218,9 @@
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
 		<!-- iOS/macOS/MacCatalyst Only -->
 		<PackageReference Include="BD.Common.Pinyin.CFStringTransform" />
+		<PackageReference Include="Microsoft.AppCenter" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">

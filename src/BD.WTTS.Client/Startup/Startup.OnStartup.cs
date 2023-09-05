@@ -6,7 +6,7 @@ partial class Startup // OnStartup
     [MethodImpl(MethodImplOptions.NoInlining)]
     static void InitVisualStudioAppCenterSDK()
     {
-
+        VisualStudioAppCenterSDK.Init();
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

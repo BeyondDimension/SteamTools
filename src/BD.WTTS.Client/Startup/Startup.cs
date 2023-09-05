@@ -468,6 +468,17 @@ public abstract partial class Startup
 
                 }
 
+#if WINDOWS || LINUX || APP_REVERSE_PROXY
+                try
+                {
+                    VisualStudioAppCenterSDK.UtilsImpl.Instance.OnExit(null, EventArgs.Empty);
+                }
+                catch
+                {
+
+                }
+#endif
+
                 switch (ModuleName)
                 {
                     case IPlatformService.IPCRoot.moduleName:

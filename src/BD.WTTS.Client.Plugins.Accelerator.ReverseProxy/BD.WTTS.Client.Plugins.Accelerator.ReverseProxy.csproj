@@ -60,8 +60,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- AppCenter -->
+		<Compile Include="..\VisualStudioAppCenterSDK.cs">
+			<LinkBase>Helpers</LinkBase>
+		</Compile>
+		<Compile Include="..\VisualStudioAppCenterSDK.AppSecret.cs">
+			<LinkBase>Helpers</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 		<Compile Include="..\BD.WTTS.Client\Constants\CertificateConstants.cs">
 			<LinkBase>Constants</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Services\Platform\IPlatformService.OS.Linux.Etc.Os_Release.cs">
+			<LinkBase>Services\Platform</LinkBase>
 		</Compile>
 	</ItemGroup>
 
@@ -84,6 +97,9 @@
 		<PackageReference Include="DnsClient" />
 		<PackageReference Include="Yarp.ReverseProxy" />
 		<PackageReference Include="NLog.Web.AspNetCore" />
+		<PackageReference Include="Aigio.Any.AppCenter" />
+		<PackageReference Include="Aigio.Any.AppCenter.Analytics" />
+		<PackageReference Include="Aigio.Any.AppCenter.Crashes" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::IsOSPlatform('windows')) AND ($(RuntimeIdentifier.StartsWith('win-')) OR $(RuntimeIdentifier) == '')">

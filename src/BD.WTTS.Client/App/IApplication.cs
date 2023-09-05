@@ -146,4 +146,8 @@ public partial interface IApplication
     });
 
     static ClientPlatform ClientPlatform => clientPlatform.Value;
+
+    System.Drawing.Size? GetScreenSize() => null;
+
+    bool? IsAnyWindowNotMinimized() => null;
 }

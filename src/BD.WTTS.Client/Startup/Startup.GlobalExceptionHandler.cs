@@ -89,19 +89,15 @@ partial class Startup // 全局异常处理
 #endif
             Logger.Error(ex, message, args);
 
-#if WINDOWS
-            Task2.InBackground(() =>
+#if WINDOWS || LINUX || APP_REVERSE_PROXY
+            try
             {
-                var mbText =
-$"""
-{string.Format(message, args)}
-{ex}
-""";
-                const string mbTitle = $"Application Crash - {AssemblyInfo.Trademark}";
-                WPFMessageBox.Show(mbText, mbTitle,
-                    WPFMessageBoxButton.OK,
-                    WPFMessageBoxImage.Error);
-            });
+                VisualStudioAppCenterSDK.UtilsImpl.Instance.InvokeUnhandledExceptionOccurred?.Invoke(null, ex);
+            }
+            catch
+            {
+
+            }
 #endif
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
@@ -137,6 +133,25 @@ $"""
                         }
                     }
                 }
+            }
+#endif
+
+#if WINDOWS
+            var mbText =
+$"""
+{string.Format(message, args)}
+{ex}
+""";
+            const string mbTitle = $"Application Crash - {AssemblyInfo.Trademark}";
+            try
+            {
+                WPFMessageBox.Show(mbText, mbTitle,
+                    WPFMessageBoxButton.OK,
+                    WPFMessageBoxImage.Error);
+            }
+            catch
+            {
+
             }
 #endif
         }
