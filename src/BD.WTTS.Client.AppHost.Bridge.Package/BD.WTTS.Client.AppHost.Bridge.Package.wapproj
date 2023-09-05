@@ -59,10 +59,11 @@
 		<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
 		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
 		<AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-		<GenerateTestArtifacts>False</GenerateTestArtifacts>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
 		<AppxBundlePlatforms>x64</AppxBundlePlatforms>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
 		<EntryPointProjectUniqueName>..\BD.WTTS.Client.AppHost.Bridge\Steam++.csproj</EntryPointProjectUniqueName>
+		<DefineConstants>PROJ_DESKTOP_BRIDGE;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
 		<AppxBundle>Always</AppxBundle>

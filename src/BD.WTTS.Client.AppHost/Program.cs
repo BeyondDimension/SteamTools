@@ -143,7 +143,9 @@ static unsafe partial class Program
         Architecture.X64 => "x64",
         Architecture.Arm => "Arm32",
         Architecture.Arm64 => "Arm64",
+#if !NETFRAMEWORK
         Architecture.Armv6 => "Armv6",
+#endif
         _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, null),
     };
 

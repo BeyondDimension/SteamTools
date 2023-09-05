@@ -1162,6 +1162,8 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 IOPath.FileTryDelete(aspnetcorev2_inprocess);
                 if (isWindows)
                 {
+                    var e_sqlite3 = Path.Combine(publishDir, "e_sqlite3.dll");
+                    IOPath.FileTryDelete(e_sqlite3);
                     CopyDirectory(publishDir, destinationDir, true);
                 }
                 else
