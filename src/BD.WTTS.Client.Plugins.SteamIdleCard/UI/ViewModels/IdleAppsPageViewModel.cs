@@ -2,6 +2,7 @@ using Avalonia.Automation;
 using BD.SteamClient.Models;
 using BD.SteamClient.Models.Idle;
 using BD.SteamClient.Services;
+using BD.WTTS.UI.Views.Pages;
 using System.Linq;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -11,7 +12,7 @@ public sealed partial class IdleAppsPageViewModel : ViewModelBase
     readonly ISteamService SteamTool = ISteamService.Instance;
     readonly ISteamIdleCardService IdleCard = ISteamIdleCardService.Instance;
 
-    readonly SteamLoginState steamLoginState = new SteamLoginState();
+    private SteamLoginState SteamLoginState = new();
 
     public IdleAppsPageViewModel()
     {
@@ -38,8 +39,11 @@ public sealed partial class IdleAppsPageViewModel : ViewModelBase
     /// </summary>
     public async void IdleRunStartOrStop_Click()
     {
-        if (SteamConnectService.Current.IsConnectToSteam) // 是否登录
+        if (SteamConnectService.Current.IsConnectToSteam) // 是否登录 Steam 客户端
         {
+            if (!await LoginSteam()) // 登录 Steam Web
+                return;
+
             if (SteamTool.IsRunningSteamProcess)
             {
                 if (!RunLoaingState)
@@ -108,6 +112,20 @@ public sealed partial class IdleAppsPageViewModel : ViewModelBase
     #endregion
 
     #region Private Method
+
+    private async Task<bool> LoginSteam()
+    {
+        if (!SteamLoginState.Success)
+        {
+            var vm = new IdleSteamLoginViewModel(ref SteamLoginState);
+            var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.Steam_Login,
+                pageContent: new IdleSteamLogin(), okButtonText: Strings.Confirm, isCancelButton: true, disableScroll: true);
+
+            return result;
+        }
+        return true;
+    }
+
     private void ChangeRunTxt()
     {
         var count = IdleGameList.Count(x => x.Process != null);
