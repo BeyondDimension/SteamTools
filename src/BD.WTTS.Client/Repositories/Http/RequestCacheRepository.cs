@@ -1,28 +1,11 @@
 using Fusillade;
-using LiteDB;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Repositories;
 
-internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposable
+internal sealed class RequestCacheRepository : CacheRepository<RequestCache, string>, IRequestCacheRepository
 {
     const string CacheDirName = "Http";
-    const string TableName = "Fusillade_RequestCache";
-    const string DbFileName = "RequestCache.LiteDB";
-
-    readonly LiteDatabase db;
-    readonly ILiteCollection<RequestCache> table;
-    bool disposedValue;
-
-    public RequestCacheRepository()
-    {
-        var dbPath = Path.Combine(IOPath.CacheDirectory, CacheDirName);
-        IOPath.DirCreateByNotExists(dbPath);
-        dbPath = Path.Combine(dbPath, DbFileName);
-        db = new LiteDatabase(dbPath);
-        BsonMapper.Global.Entity<RequestCache>().Id(x => x.Id, autoId: false);
-        table = db.GetCollection<RequestCache>(TableName);
-    }
 
     async Task IRequestCache.Save(
         HttpRequestMessage request,
@@ -106,42 +89,31 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
             return;
 
         key = UniqueKeyForRequest(requestUriString, request);
-        var entity = table.FindById(key);
-        bool isInsertOrUpdate;
-        if (entity == null)
-        {
-            isInsertOrUpdate = true;
-            entity = new()
-            {
-                Id = key,
-            };
-        }
-        else
-        {
-            isInsertOrUpdate = false;
-        }
-        entity.HttpMethod = request.Method.Method;
-        entity.RequestUri = requestUriString;
-        entity.RelativePath = relativePath;
 
-        if (cancellationToken.IsCancellationRequested)
-            return;
-
-        if (isInsertOrUpdate)
-            table.Insert(entity);
-        else
-            table.Update(entity);
+        var entity = new RequestCache
+        {
+            Id = key,
+            HttpMethod = request.Method.Method,
+            RequestUri = requestUriString,
+            RelativePath = relativePath,
+        };
+        await InsertOrUpdateAsync(entity, cancellationToken);
     }
 
-    public Task UpdateUsageTimeByIdAsync(string id, CancellationToken cancellationToken) => Task.Run(() =>
+    public async Task UpdateUsageTimeByIdAsync(string id, CancellationToken cancellationToken)
     {
-        var entity = table.FindById(id);
-        if (!cancellationToken.IsCancellationRequested && entity != null)
+        var dbConnection = await GetDbConnection().ConfigureAwait(false);
+        await AttemptAndRetry(async t =>
         {
-            var now = DateTimeOffset.Now.Ticks;
-            table.UpdateMany(x => new() { UsageTime = now, }, x => x.Id == id);
-        }
-    }, cancellationToken);
+            t.ThrowIfCancellationRequested();
+            const string sql_ = $"{SQLStrings.Update}[{RequestCache.TableName}] " +
+               $"set [{RequestCache.ColumnName_UsageTime}] = {{0}} " +
+               $"where [{RequestCache.ColumnName_Id}] = {{1}}";
+            var sql = string.Format(sql_, DateTimeOffset.Now.Ticks, id);
+            var r = await dbConnection.ExecuteAsync(sql);
+            return r;
+        }, cancellationToken: cancellationToken).ConfigureAwait(false);
+    }
 
     async Task<byte[]> IRequestCache.Fetch(
         HttpRequestMessage request,
@@ -150,12 +122,25 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
     {
         var requestUriString = IRequestCacheRepository.GetOriginalRequestUri(request);
         key = UniqueKeyForRequest(requestUriString, request);
-        var entity = table.Query().Where(x => x.Id == key &&
+
+        var entity = await FirstOrDefaultAsync(x => x.Id == key &&
             x.HttpMethod == request.Method.Method &&
-            x.RequestUri == requestUriString).FirstOrDefault();
+            x.RequestUri == requestUriString,
+            cancellationToken);
 
         if (!cancellationToken.IsCancellationRequested && entity != null)
         {
+            Task2.InBackground(async () =>
+            {
+                try
+                {
+                    await UpdateUsageTimeByIdAsync(entity.Id, cancellationToken);
+                }
+                catch
+                {
+
+                }
+            });
             try
             {
                 var filePath = Path.Combine(IOPath.CacheDirectory, entity.RelativePath);
@@ -169,66 +154,25 @@ internal sealed class RequestCacheRepository : IRequestCacheRepository, IDisposa
             {
                 goto reZero;
             }
-            await UpdateUsageTimeByIdAsync(entity.Id, cancellationToken);
         }
 
     reZero: return Array.Empty<byte>();
     }
 
-    public Task<int> DeleteAllAsync() => Task.Run(() =>
+    public async Task<int> DeleteAllAsync()
     {
-        var r = table.DeleteAll();
-        var dirPath = Path.Combine(IOPath.CacheDirectory, CacheDirName);
-        var items = Directory.EnumerateDirectories(dirPath);
-        foreach (var item in items)
-        {
-            IOPath.DirTryDelete(item, true);
-        }
+        var dbConnection = await GetDbConnection().ConfigureAwait(false);
+        var r = await dbConnection.DeleteAllAsync<RequestCache>();
         return r;
-    });
-
-    public Task<int> DeleteAllAsync(DateTimeOffset usageTime)
-    {
-        var usageTime_ = usageTime.Ticks;
-        return Task.Run(() =>
-        {
-            Expression<Func<RequestCache, bool>> predicate = x => x.UsageTime < usageTime_;
-            var items = table.Query().Where(predicate).ToArray();
-            int r = items.Length;
-            if (r > 0)
-            {
-                r = table.DeleteMany(predicate);
-                foreach (var item in items)
-                {
-                    var filePath = Path.Combine(IOPath.CacheDirectory, item.RelativePath);
-                    IOPath.FileTryDelete(filePath);
-                }
-            }
-            return r;
-        });
     }
 
-    void Dispose(bool disposing)
+    public async Task<int> DeleteAllAsync(DateTimeOffset dateTimeOffset)
     {
-        if (!disposedValue)
-        {
-            if (disposing)
-            {
-                // 释放托管状态(托管对象)
-                db.Dispose();
-            }
-
-            // 释放未托管的资源(未托管的对象)并重写终结器
-            // 将大型字段设置为 null
-            disposedValue = true;
-        }
-    }
-
-    public void Dispose()
-    {
-        // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        var dbConnection = await GetDbConnection().ConfigureAwait(false);
+        const string sql = $"{SQLStrings.DeleteFrom}[{RequestCache.TableName}] " +
+               $"where [{RequestCache.ColumnName_UsageTime}] < ?";
+        var r = await dbConnection.ExecuteAsync(sql, dateTimeOffset.UtcTicks);
+        return r;
     }
 
     static string UniqueKeyForRequest(string originalRequestUri, HttpRequestMessage request)
