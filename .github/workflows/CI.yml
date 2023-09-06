@@ -62,7 +62,7 @@ jobs:
 #        run: dotnet workload install wasm-tools
 
       - name: Restore Workload
-        run: dotnet workload restore
+        run: dotnet workload restore src\BD.WTTS.Client.Avalonia.App\BD.WTTS.Client.Avalonia.App.csproj
 
       - name: Verify dotnet info
         run: dotnet --info
