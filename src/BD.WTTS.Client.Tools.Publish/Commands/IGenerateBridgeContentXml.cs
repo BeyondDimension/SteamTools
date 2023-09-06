@@ -1,6 +1,6 @@
+using static BD.WTTS.Client.Tools.Publish.Commands.IDotNetPublishCommand;
 using static BD.WTTS.Client.Tools.Publish.Helpers.DotNetCLIHelper;
 using static BD.WTTS.GlobalDllImportResolver;
-using static BD.WTTS.Client.Tools.Publish.Commands.IDotNetPublishCommand;
 
 namespace BD.WTTS.Client.Tools.Publish.Commands;
 
