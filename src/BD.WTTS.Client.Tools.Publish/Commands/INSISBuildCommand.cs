@@ -51,6 +51,7 @@ interface INSISBuildCommand : ICommand
             var install7zFileName = Path.GetFileName(install7zFilePath);
             var outputFileName = Path.GetFileNameWithoutExtension(install7zFilePath) + FileEx.EXE;
             var outputFilePath = Path.Combine(new FileInfo(install7zFilePath).DirectoryName!, outputFileName);
+            IOPath.FileTryDelete(outputFilePath);
             var exeName = "Steam++.exe";
 
             var nsiFileContent2 = nsiFileContent
@@ -64,6 +65,7 @@ interface INSISBuildCommand : ICommand
                      .Replace("${{ Steam++_7zFilePath }}", install7zFilePath)
                      .Replace("${{ Steam++_7zFileName }}", install7zFileName)
                      .Replace("${{ Steam++_OutPutFilePath }}", outputFilePath)
+                     .Replace("${{ Steam++_UninstFileName }}", Path.Combine(appFileDirPath, "app", "uninst.exe"))
                      ;
             File.WriteAllText(nsiFilePath, nsiFileContent2);
 
