@@ -155,6 +155,7 @@ bundle /v /bv {version4} /d "{dirPath}" /p "{msixPath}"
 
         const string IdentityName = "4651ED44255E.47979655102CE";
         const string Publisher = "CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66";
+        //const string Publisher = "CN=徐州繁星网络科技有限公司";
         const string DisplayName = "Watt Toolkit";
         const string PublisherDisplayName = "软妹币玩家";
 
@@ -327,35 +328,44 @@ $"""
             string fileName,
             string? pfxFilePath = null)
         {
-            pfxFilePath ??= pfxFilePath_BeyondDimension_CodeSigning;
-            var pwdTxtPath = $"{pfxFilePath}.txt";
+            //            pfxFilePath ??= pfxFilePath_BeyondDimension_CodeSigning;
+            //            var pwdTxtPath = $"{pfxFilePath}.txt";
 
-            if (!File.Exists(pwdTxtPath))
-            {
-                if (force_sign) throw new FileNotFoundException(null, pwdTxtPath);
-                return; // 文件不存在则跳过代码签名
-            }
+            //            if (!File.Exists(pwdTxtPath))
+            //            {
+            //                if (force_sign) throw new FileNotFoundException(null, pwdTxtPath);
+            //                return; // 文件不存在则跳过代码签名
+            //            }
 
-            var parentDirPath = Path.GetDirectoryName(pfxFilePath);
-            parentDirPath.ThrowIsNull();
+            //            var parentDirPath = Path.GetDirectoryName(pfxFilePath);
+            //            parentDirPath.ThrowIsNull();
 
-            var optionalEntropy = File.ReadAllBytes(Path.Combine(parentDirPath, "optionalEntropy.txt"));
-            optionalEntropy.ThrowIsNull();
+            //            var optionalEntropy = File.ReadAllBytes(Path.Combine(parentDirPath, "optionalEntropy.txt"));
+            //            optionalEntropy.ThrowIsNull();
 
-            var pwd = File.ReadAllBytes(pwdTxtPath);
-#pragma warning disable CA1416 // 验证平台兼容性
-            pwd = ProtectedData.Unprotect(pwd,
-                optionalEntropy,
-                DataProtectionScope.LocalMachine);
-#pragma warning restore CA1416 // 验证平台兼容性
-            var pwdS = Encoding.UTF8.GetString(pwd);
+            //            var pwd = File.ReadAllBytes(pwdTxtPath);
+            //#pragma warning disable CA1416 // 验证平台兼容性
+            //            pwd = ProtectedData.Unprotect(pwd,
+            //                optionalEntropy,
+            //                DataProtectionScope.LocalMachine);
+            //#pragma warning restore CA1416 // 验证平台兼容性
+            //            var pwdS = Encoding.UTF8.GetString(pwd);
+            //            var psi = new ProcessStartInfo
+            //            {
+            //                FileName = GetSignToolPath(),
+            //                UseShellExecute = false,
+            //                Arguments =
+            //$"""
+            //sign /a /fd SHA256 /f "{pfxFilePath}" /p "{pwdS}" /tr {timestamp_url} /td SHA256 {fileName}
+            //""",
+            //            };
             var psi = new ProcessStartInfo
             {
                 FileName = GetSignToolPath(),
                 UseShellExecute = false,
                 Arguments =
 $"""
-sign /a /fd SHA256 /f "{pfxFilePath}" /p "{pwdS}" /tr {timestamp_url} /td SHA256 {fileName}
+sign /fd SHA256 /sha1 DBE4005A4E9371BB8621CD481CD124F8865621C9 /tr {timestamp_url} /td SHA256 {fileName}
 """,
             };
             ProcessHelper.StartAndWaitForExit(psi);

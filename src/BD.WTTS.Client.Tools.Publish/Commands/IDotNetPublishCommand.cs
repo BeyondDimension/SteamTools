@@ -353,7 +353,7 @@ interface IDotNetPublishCommand : ICommand
 
                     // 签名 msix 包
                     // msix 签名证书名必须与包名一致
-                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+                    //MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
 
                     var msixBundleFilePath = $"{rootPublishDir}.msixbundle";
                     MSIXHelper.MakeAppx.StartBundle(msixBundleFilePath, msixDir, AppVersion4);
@@ -361,7 +361,7 @@ interface IDotNetPublishCommand : ICommand
 
                     // 签名 msix 包
                     // msix 签名证书名必须与包名一致
-                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixBundleFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+                    //MSIXHelper.SignTool.Start(force_sign, $"\"{msixBundleFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
 
                     using var msixFileStream = File.OpenRead(msixBundleFilePath);
 
