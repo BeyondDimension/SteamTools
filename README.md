@@ -30,7 +30,7 @@
 </div>
 
 ## 🚀 下载渠道
-- <iframe src="https://store.steampowered.com/widget/2425030/" frameborder="0" width="646" height="190"></iframe>
+- [![Steam 商店](./res/brands/steam.jpg)](https://store.steampowered.com/app/2425030)
 - [![Microsoft 应用商店](./res/brands/msstore.en.png)](https://apps.microsoft.com/store/detail/watt-toolkit/9MTCFHS560NG?hl=zh-cn&gl=cn)
 - [软件官网](https://steampp.net)
 - [GitHub 发行版](https://github.com/BeyondDimension/SteamTools/releases)
