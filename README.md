@@ -30,6 +30,7 @@
 </div>
 
 ## 🚀 下载渠道
+- <iframe src="https://store.steampowered.com/widget/2425030/" frameborder="0" width="646" height="190"></iframe>
 - [![Microsoft 应用商店](./res/brands/msstore.en.png)](https://apps.microsoft.com/store/detail/watt-toolkit/9MTCFHS560NG?hl=zh-cn&gl=cn)
 - [软件官网](https://steampp.net)
 - [GitHub 发行版](https://github.com/BeyondDimension/SteamTools/releases)
@@ -75,8 +76,12 @@
 ## 🧩 截图
 <img src="./res/screenshots/screenshot-windows-accelerator.webp" width="800" />
 <br/>
+<img src="./res/screenshots/screenshot-windows-gameaccount.webp" width="800" />
 <br/>
-<img src="./res/screenshots/screenshot-android-authenticator.png" width="800" />
+<img src="./res/screenshots/screenshot-windows-gamelist.webp" width="800" />
+<br/>
+<br/>
+<!--<img src="./res/screenshots/screenshot-android-authenticator.png" width="800" />-->
 
 ## 从移动端 Steam App 导入令牌指南
 - [Android 添加本地令牌（Xposed）](https://github.com/BeyondDimension/SteamTools/issues/2276)
