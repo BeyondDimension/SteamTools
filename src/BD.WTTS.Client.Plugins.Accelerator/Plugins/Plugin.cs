@@ -122,7 +122,14 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override async ValueTask OnExit()
     {
-        await ProxyService.Current.ExitAsync();
+        try
+        {
+            await ProxyService.Current.ExitAsync();
+        }
+        catch
+        {
+
+        }
     }
 
     string? subProcessPath;
