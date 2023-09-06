@@ -17,6 +17,10 @@ internal sealed class WindowsClientHttpPlatformHelperServiceImpl : ClientHttpPla
         return value;
     });
 
+    protected override bool IsConnected => true;
+
+    public override Task<bool> IsConnectedAsync() => Task.FromResult(true);
+
     public override string UserAgent => mUserAgent.Value;
 }
 #endif
