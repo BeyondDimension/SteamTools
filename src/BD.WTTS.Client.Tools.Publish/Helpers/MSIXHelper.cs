@@ -322,52 +322,65 @@ $"""
 
         public const string pfxFilePath_MSStore_CodeSigning = @"C:\MSStore_CodeSigning.pfx";
         public const string pfxFilePath_BeyondDimension_CodeSigning = @"C:\BeyondDimension_CodeSigning.pfx";
+        public const string pfxFilePath_HSM_CodeSigning = "DBE4005A4E9371BB8621CD481CD124F8865621C9";
 
         public static void Start(
             bool force_sign,
             string fileName,
             string? pfxFilePath = null)
         {
-            //            pfxFilePath ??= pfxFilePath_BeyondDimension_CodeSigning;
-            //            var pwdTxtPath = $"{pfxFilePath}.txt";
-
-            //            if (!File.Exists(pwdTxtPath))
-            //            {
-            //                if (force_sign) throw new FileNotFoundException(null, pwdTxtPath);
-            //                return; // 文件不存在则跳过代码签名
-            //            }
-
-            //            var parentDirPath = Path.GetDirectoryName(pfxFilePath);
-            //            parentDirPath.ThrowIsNull();
-
-            //            var optionalEntropy = File.ReadAllBytes(Path.Combine(parentDirPath, "optionalEntropy.txt"));
-            //            optionalEntropy.ThrowIsNull();
-
-            //            var pwd = File.ReadAllBytes(pwdTxtPath);
-            //#pragma warning disable CA1416 // 验证平台兼容性
-            //            pwd = ProtectedData.Unprotect(pwd,
-            //                optionalEntropy,
-            //                DataProtectionScope.LocalMachine);
-            //#pragma warning restore CA1416 // 验证平台兼容性
-            //            var pwdS = Encoding.UTF8.GetString(pwd);
-            //            var psi = new ProcessStartInfo
-            //            {
-            //                FileName = GetSignToolPath(),
-            //                UseShellExecute = false,
-            //                Arguments =
-            //$"""
-            //sign /a /fd SHA256 /f "{pfxFilePath}" /p "{pwdS}" /tr {timestamp_url} /td SHA256 {fileName}
-            //""",
-            //            };
-            var psi = new ProcessStartInfo
+            ProcessStartInfo psi;
+            switch (pfxFilePath)
             {
-                FileName = GetSignToolPath(),
-                UseShellExecute = false,
-                Arguments =
+                case pfxFilePath_HSM_CodeSigning:
+                    {
+                        psi = new ProcessStartInfo
+                        {
+                            FileName = GetSignToolPath(),
+                            UseShellExecute = false,
+                            Arguments =
 $"""
-sign /fd SHA256 /sha1 DBE4005A4E9371BB8621CD481CD124F8865621C9 /tr {timestamp_url} /td SHA256 {fileName}
+sign /fd SHA256 /sha1 {pfxFilePath_HSM_CodeSigning} /tr {timestamp_url} /td SHA256 {fileName}
 """,
-            };
+                        };
+                    }
+                    break;
+                default:
+                    {
+                        pfxFilePath ??= pfxFilePath_BeyondDimension_CodeSigning;
+                        var pwdTxtPath = $"{pfxFilePath}.txt";
+
+                        if (!File.Exists(pwdTxtPath))
+                        {
+                            if (force_sign) throw new FileNotFoundException(null, pwdTxtPath);
+                            return; // 文件不存在则跳过代码签名
+                        }
+
+                        var parentDirPath = Path.GetDirectoryName(pfxFilePath);
+                        parentDirPath.ThrowIsNull();
+
+                        var optionalEntropy = File.ReadAllBytes(Path.Combine(parentDirPath, "optionalEntropy.txt"));
+                        optionalEntropy.ThrowIsNull();
+
+                        var pwd = File.ReadAllBytes(pwdTxtPath);
+#pragma warning disable CA1416 // 验证平台兼容性
+                        pwd = ProtectedData.Unprotect(pwd,
+                            optionalEntropy,
+                            DataProtectionScope.LocalMachine);
+#pragma warning restore CA1416 // 验证平台兼容性
+                        var pwdS = Encoding.UTF8.GetString(pwd);
+                        psi = new ProcessStartInfo
+                        {
+                            FileName = GetSignToolPath(),
+                            UseShellExecute = false,
+                            Arguments =
+           $"""
+            sign /a /fd SHA256 /f "{pfxFilePath}" /p "{pwdS}" /tr {timestamp_url} /td SHA256 {fileName}
+            """,
+                        };
+                    }
+                    break;
+            }
             ProcessHelper.StartAndWaitForExit(psi);
         }
     }

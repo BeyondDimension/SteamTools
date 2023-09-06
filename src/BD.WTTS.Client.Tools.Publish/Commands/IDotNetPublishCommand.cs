@@ -37,14 +37,15 @@ interface IDotNetPublishCommand : ICommand
         var debug = new Option<bool>("--debug", "Defines the build configuration");
         var rids = new Option<string[]>("--rids", "RID is short for runtime identifier");
         var force_sign = new Option<bool>("--force-sign", GetDefForceSign, "Mandatory verification must be digitally signed");
+        var hsm_sign = new Option<bool>("--hsm-sign", "");
         var sha256 = new Option<bool>("--sha256", () => true, "Calculate file hash value");
         var sha384 = new Option<bool>("--sha384", () => true, "Calculate file hash value");
         var stm_upload = new Option<bool>("--stm-upload", "Steam upload zip file");
         var command = new Command(commandName, "DotNet publish app")
         {
-           debug, rids, force_sign, sha256, sha384, stm_upload,
+           debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign,
         };
-        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384, stm_upload);
+        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign);
         return command;
     }
 
@@ -65,7 +66,7 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload)
+    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign)
     {
         var bgOriginalColor = Console.BackgroundColor;
         var fgOriginalColor = Console.ForegroundColor;
@@ -318,7 +319,8 @@ interface IDotNetPublishCommand : ICommand
     $"""
 "{x}"
 """));
-                        MSIXHelper.SignTool.Start(force_sign, fileNames);
+                        var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
+                        MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath);
                         foreach (var item in toBeSignedFiles)
                         {
                             if (sha256)
@@ -353,7 +355,7 @@ interface IDotNetPublishCommand : ICommand
 
                     // 签名 msix 包
                     // msix 签名证书名必须与包名一致
-                    //MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
 
                     var msixBundleFilePath = $"{rootPublishDir}.msixbundle";
                     MSIXHelper.MakeAppx.StartBundle(msixBundleFilePath, msixDir, AppVersion4);
@@ -361,7 +363,7 @@ interface IDotNetPublishCommand : ICommand
 
                     // 签名 msix 包
                     // msix 签名证书名必须与包名一致
-                    //MSIXHelper.SignTool.Start(force_sign, $"\"{msixBundleFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixBundleFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
 
                     using var msixFileStream = File.OpenRead(msixBundleFilePath);
 
