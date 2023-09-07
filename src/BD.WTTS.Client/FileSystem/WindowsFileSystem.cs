@@ -73,6 +73,8 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
                 string[] dbFiles,
                 bool isCopyOrDelete)
             {
+                IOPath.DirCreateByNotExists(newAppData);
+
                 var item = dbFiles[0];
                 var dbFilePath = Path.Combine(oldAppData, item);
                 if (File.Exists(dbFilePath))
