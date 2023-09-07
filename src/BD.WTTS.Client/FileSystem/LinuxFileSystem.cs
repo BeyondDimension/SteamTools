@@ -20,9 +20,14 @@ sealed class LinuxFileSystem : IOPath.FileSystemBase
     /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
     public static void InitFileSystem()
     {
+        var appDataDirectory = AppDataDirectory;
+        var cacheDirectory = CacheDirectory;
+        IOPath.DirCreateByNotExists(appDataDirectory);
+        IOPath.DirCreateByNotExists(cacheDirectory);
+
         InitFileSystemWithMigrations(
-            AppDataDirectory,
-            CacheDirectory,
+            appDataDirectory,
+            cacheDirectory,
             FileSystem2.BaseDirectory.AppDataDirectory,
             FileSystem2.BaseDirectory.CacheDirectory);
     }

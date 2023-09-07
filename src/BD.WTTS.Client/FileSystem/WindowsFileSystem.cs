@@ -63,6 +63,8 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
     {
         var appDataDirectory = AppDataDirectory;
         var cacheDirectory = CacheDirectory;
+        IOPath.DirCreateByNotExists(appDataDirectory);
+        IOPath.DirCreateByNotExists(cacheDirectory);
 
         DirectoryInfo oldAppDataDirectoryInfo = new(FileSystem2.BaseDirectory.AppDataDirectory);
         if (oldAppDataDirectoryInfo.Exists)
@@ -70,31 +72,21 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
             static void EnumerateDbFiles(
                 string oldAppData,
                 string newAppData,
-                string[] dbFiles,
-                bool isCopyOrDelete)
+                string[] dbFiles)
             {
-                IOPath.DirCreateByNotExists(newAppData);
-
                 var item = dbFiles[0];
                 var dbFilePath = Path.Combine(oldAppData, item);
                 if (File.Exists(dbFilePath))
                 {
                     var destFilePath = Path.Combine(newAppData, item);
                     var hashFilePath = destFilePath + "_hash.tmp";
-                    if (isCopyOrDelete)
+
+                    // 主进程将数据库文件复制到当前存储目录，并标记
+                    if (!File.Exists(destFilePath))
                     {
-                        if (File.Exists(destFilePath))
+                        // 复制文件并记录 Hash
+                        if (!File.Exists(hashFilePath))
                         {
-                            return; // 数据库文件存在时，忽略
-                        }
-                        else
-                        {
-                            // 复制文件并记录 Hash
-                            if (File.Exists(hashFilePath))
-                            {
-                                // Hash 文件存在，也忽略
-                                return;
-                            }
                             var hash = CalcHashData(dbFilePath);
                             File.WriteAllBytes(hashFilePath, hash);
                             File.Copy(dbFilePath, destFilePath, true);
@@ -105,8 +97,11 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
                                 File.Copy(dbFilePath, destFilePath, true);
                             }
                         }
+                        // Hash 文件存在，也忽略
                     }
-                    else
+
+                    var isPrivilegedProcess = WindowsPlatformServiceImpl.IsPrivilegedProcess;
+                    if (isPrivilegedProcess)
                     {
                         if (File.Exists(hashFilePath))
                         {
@@ -114,13 +109,13 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
                             var hash2 = File.ReadAllBytes(hashFilePath);
                             if (hash.SequenceEqual(hash2))
                             {
-                                IOPath.FileTryDelete(dbFilePath);
+                                var delResult = IOPath.FileTryDelete(dbFilePath);
                                 foreach (var item2 in dbFiles.Skip(1))
                                 {
                                     dbFilePath = Path.Combine(oldAppData, item2);
-                                    IOPath.FileTryDelete(dbFilePath);
+                                    delResult = IOPath.FileTryDelete(dbFilePath);
                                 }
-                                IOPath.FileTryDelete(hashFilePath);
+                                delResult = IOPath.FileTryDelete(hashFilePath);
                             }
                         }
                     }
@@ -134,38 +129,20 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
                 }
             }
 
-            bool? isCopyOrDelete = null;
-            var isMainProcess = Startup.Instance.IsMainProcess;
-            var isPrivilegedProcess = WindowsPlatformServiceImpl.IsPrivilegedProcess;
-            if (isMainProcess)
+            string[] db1Files = new[]
             {
-                // 主进程将数据库文件复制到当前存储目录，并标记
-                isCopyOrDelete = true;
-
-            }
-            else if (isPrivilegedProcess)
+                "application.dbf",
+                "application.dbf-shm",
+                "application.dbf-wal",
+            };
+            EnumerateDbFiles(oldAppDataDirectoryInfo.FullName, appDataDirectory, db1Files);
+            string[] db2Files = new[]
             {
-                // 有标记的情况则删除
-                isCopyOrDelete = false;
-            }
-
-            if (isCopyOrDelete.HasValue)
-            {
-                string[] db1Files = new[]
-                {
-                    "application2.dbf",
-                    "application2.dbf-shm",
-                    "application2.dbf-wal",
-                };
-                EnumerateDbFiles(oldAppDataDirectoryInfo.FullName, appDataDirectory, db1Files, isCopyOrDelete.Value);
-                string[] db2Files = new[]
-                {
-                    "application2.dbf",
-                    "application2.dbf-shm",
-                    "application2.dbf-wal",
-                };
-                EnumerateDbFiles(oldAppDataDirectoryInfo.FullName, appDataDirectory, db2Files, isCopyOrDelete.Value);
-            }
+                "application2.dbf",
+                "application2.dbf-shm",
+                "application2.dbf-wal",
+            };
+            EnumerateDbFiles(oldAppDataDirectoryInfo.FullName, appDataDirectory, db2Files);
         }
 
         InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
