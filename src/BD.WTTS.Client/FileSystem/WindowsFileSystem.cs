@@ -14,30 +14,42 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
 {
     private WindowsFileSystem() => throw new NotSupportedException();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static void TryDeleteRootPathObsoleteFiles()
+    {
+        // 删除早期版本在根目录下的本机库，避免因旧版本文件存在，可能从根目录上加载了旧的本机库
+        var rootDeleteFiles = new[]
+        {
+            "7z.dll",
+            "aspnetcorev2_inprocess.dll",
+            "av_libglesv2.dll",
+            "e_sqlite3.dll",
+            "libHarfBuzzSharp.dll",
+            "libSkiaSharp.dll",
+            "WebView2Loader.dll",
+            "WinDivert.dll",
+            "WinDivert64.sys",
+            "Steam++.VisualElementsManifest.xml",
+            "Steam++.Launcher.exe",
+            "Steam++.Launcher.exe.config",
+        };
+        string path;
+        foreach (var item in rootDeleteFiles)
+        {
+            path = Path.Combine(IOPath.BaseDirectory, item);
+            IOPath.FileTryDelete(path);
+        }
+        path = Path.Combine(IOPath.BaseDirectory, "Assets");
+        IOPath.DirTryDelete(path);
+    }
+
     /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
     public static void InitFileSystem()
     {
         var isPrivilegedProcess = WindowsPlatformServiceImpl.IsPrivilegedProcess;
         if (isPrivilegedProcess)
         {
-            // 删除早期版本在根目录下的本机库，避免因旧版本文件存在，可能从根目录上加载了旧的本机库
-            var rootDeleteFiles = new[]
-            {
-                "7z.dll",
-                "aspnetcorev2_inprocess.dll",
-                "av_libglesv2.dll",
-                "e_sqlite3.dll",
-                "libHarfBuzzSharp.dll",
-                "libSkiaSharp.dll",
-                "WebView2Loader.dll",
-                "WinDivert.dll",
-                "WinDivert64.sys",
-            };
-            foreach (var item in rootDeleteFiles)
-            {
-                var path = Path.Combine(IOPath.BaseDirectory, item);
-                IOPath.FileTryDelete(path);
-            }
+            TryDeleteRootPathObsoleteFiles();
         }
 
         if (WindowsPlatformServiceImpl.CurrentAppIsInstallVersion)
@@ -59,6 +71,7 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
     /// <param name="destCachePath">新的 Cache 文件夹路径</param>
     /// <param name="sourceAppDataPath">旧的 AppData 文件夹路径</param>
     /// <param name="sourceCachePath">旧的 Cache 文件夹路径</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void InitFileSystemByInstallVersion()
     {
         var appDataDirectory = AppDataDirectory;
