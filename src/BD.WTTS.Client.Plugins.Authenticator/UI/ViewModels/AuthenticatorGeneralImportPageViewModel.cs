@@ -7,7 +7,7 @@ namespace BD.WTTS.UI.ViewModels;
 
 public partial class AuthenticatorGeneralImportPageViewModel
 {
-    public string Name => Strings.LocalAuth_Import.Format(Platform.ToString());
+    public string Name => Strings.LocalAuth_Import.Format(Strings.HOTP);
 
     IAuthenticatorValueDTO? importAuthenticatorValueDto;
 
@@ -248,7 +248,8 @@ public partial class AuthenticatorGeneralImportPageViewModel
             Value = importAuthenticatorValueDto,
             Created = DateTimeOffset.Now,
         };
-        await AuthenticatorHelper.SaveAuthenticator(iAuthenticatorDtoDto, password);
-        Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(iAuthenticatorDtoDto.Name));
+
+        if (await AuthenticatorHelper.SaveAuthenticator(iAuthenticatorDtoDto, password))
+            Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(iAuthenticatorDtoDto.Name));
     }
 }

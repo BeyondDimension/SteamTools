@@ -70,8 +70,7 @@ public class AuthenticatorExportViewModel : ViewModelBase
             return;
         }
 
-        var exportFile = await AuthenticatorHelper.ExportAsync(string.Format($"WattToolkit Authenticators {{0}}{FileEx.MPO}",
-            DateTime.Now.ToString(DateTimeFormat.File)), HasLocalProtection, auths, VerifyPassword);
+        var exportFile = await AuthenticatorHelper.ExportAsync($"WattToolkit Authenticators {DateTime.Now.ToString(DateTimeFormat.File)}", HasLocalProtection, auths, VerifyPassword);
         if (exportFile == null) return;
         Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile?.ToString()));
 

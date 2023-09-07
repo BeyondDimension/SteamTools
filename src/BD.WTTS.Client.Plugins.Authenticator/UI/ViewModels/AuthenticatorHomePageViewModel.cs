@@ -502,7 +502,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
             {
                 AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
                     new("maFile Files") {
-                        Patterns = new[] { $"*.{FileEx.maFile}", },
+                        Patterns = new[] { $"*{FileEx.maFile}", },
                         //MimeTypes
                         //AppleUniformTypeIdentifiers = 
                     },

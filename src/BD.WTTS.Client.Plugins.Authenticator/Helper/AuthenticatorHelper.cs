@@ -142,12 +142,12 @@ public static class AuthenticatorHelper
         {
             AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
                 new("MsgPack Files") {
-                    Patterns = new[] { $"*.{FileEx.MPO}", },
+                    Patterns = new[] { $"*{FileEx.MPO}", },
                     //MimeTypes
                     //AppleUniformTypeIdentifiers = 
                 },
                 new("Data Files") {
-                    Patterns = new[] { $"*.{FileEx.DAT}", },
+                    Patterns = new[] { $"*{FileEx.DAT}", },
                     //MimeTypes
                     //AppleUniformTypeIdentifiers = 
                 },
