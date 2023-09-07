@@ -850,7 +850,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
         //    return;
         //}
 
-        const string app_host_tfm = "net40"/*"net35"*/; // net35 在 Windows 10 LTSC 上即使 app.config 中配置了 4.x 兼容但依旧会打开设置窗口并且定位在可选功能
+        const string app_host_tfm = "net35";
         var configuration = PublishCommandArg.GetConfiguration(debug);
         string? arguments = null;
         bool isWindows = false;
