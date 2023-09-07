@@ -113,7 +113,6 @@ partial class Startup // 配置 Host
 #endif
         }
 #endif
-        instance = this;
 
         if (IsMainProcess)
         {

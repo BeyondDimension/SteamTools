@@ -35,7 +35,7 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
             };
             foreach (var item in rootDeleteFiles)
             {
-                var path = Path.Combine(IOPath.AppDataDirectory, item);
+                var path = Path.Combine(IOPath.BaseDirectory, item);
                 IOPath.FileTryDelete(path);
             }
         }

@@ -34,6 +34,7 @@ public abstract partial class Startup
     {
         // 从 Main 函数中启动传递 string[] args，从其他地方启动传递 null
         this.args = args;
+        instance = this;
     }
 
 #if WINDOWS
