@@ -70,8 +70,9 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                     int i = byte.MaxValue;
                     foreach (var item in sortTabSettings)
                     {
+                        i++;
                         if (item == m.Value.Id)
-                            return i++;
+                            return i;
                     }
                 }
                 return m.Key;
@@ -86,6 +87,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                 sortTabs.Add(new(i, item));
                 i++;
             }
+
             tabItems = tabItems.Concat(sortTabs.Select(x => x.Value));
         }
 
