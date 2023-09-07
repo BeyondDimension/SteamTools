@@ -1749,9 +1749,6 @@
   <data name="Auth_UniversalImport" xml:space="preserve">
     <value>2FA 通用导入</value>
   </data>
-  <data name="Auth_Version" xml:space="preserve">
-    <value>版本号: 0.1</value>
-  </data>
   <data name="BindThirdPartyAccount" xml:space="preserve">
     <value>绑定第三方账户</value>
   </data>

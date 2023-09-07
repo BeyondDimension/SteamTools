@@ -819,15 +819,6 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 版本号: 0.1 的本地化字符串。
-        /// </summary>
-        public static string Auth_Version {
-            get {
-                return ResourceManager.GetString("Auth_Version", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 令牌导入 的本地化字符串。
         /// </summary>
         public static string AuthImport {
