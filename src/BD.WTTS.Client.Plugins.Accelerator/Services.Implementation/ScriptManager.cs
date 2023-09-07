@@ -366,6 +366,35 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         static IApiRsp OK_Script_DeleteSuccess() => ApiRspHelper.Ok(AppResources.Script_DeleteSuccess);
     }
 
+    public async Task<IEnumerable<ScriptDTO>> CheckFiles(IEnumerable<ScriptDTO> list)
+    {
+        var scripts = list.ToList();
+        foreach (var item in list)
+        {
+            if (!CheckFile(item))
+            {
+                var temp = await DeleteScriptAsync(item);
+                scripts.Remove(item);
+                if (temp.IsSuccess)
+                {
+                    //$"脚本:{item.Name}_文件丢失已删除"
+                    Toast.Show(ToastIcon.Warning, Strings.Script_NoFile_.Format(item.Name));
+                }
+                else
+                {
+                    //toast.Show($"脚本:{item.Name}_文件丢失，删除失败去尝试手动删除");
+                    Toast.Show(ToastIcon.Error, Strings.Script_NoFileDeleteError_.Format(item.Name));
+                }
+            }
+        }
+        return scripts;
+    }
+
+    public bool CheckFile(ScriptDTO item)
+    {
+        return File.Exists(Path.Combine(Plugin.Instance.AppDataDirectory, item.FilePath));
+    }
+
     /// <summary>
     /// 修改为仅尝试判断文件是否存在
     /// </summary>

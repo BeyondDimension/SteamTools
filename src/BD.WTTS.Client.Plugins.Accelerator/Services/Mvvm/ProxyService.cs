@@ -1,3 +1,4 @@
+using BD.Common;
 using System.Linq;
 using KeyValuePair = System.Collections.Generic.KeyValuePair;
 
@@ -377,8 +378,7 @@ public sealed partial class ProxyService
         // 加载脚本数据
 
         var scriptList = await scriptManager.GetAllScriptAsync();
-
-        ProxyScripts.AddRange(scriptList);
+        ProxyScripts.AddRange(await scriptManager.CheckFiles(scriptList));
 
         //拉取 GM.js
         await BasicsInfoAsync();

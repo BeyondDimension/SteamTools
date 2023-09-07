@@ -82,4 +82,11 @@ public interface IScriptManager
     /// <param name="item"></param>
     /// <returns></returns>
     Task SaveEnableScriptAsync(ScriptDTO item);
+
+    /// <summary>
+    /// 检查脚本文件是否存在
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    Task<IEnumerable<ScriptDTO>> CheckFiles(IEnumerable<ScriptDTO> list);
 }

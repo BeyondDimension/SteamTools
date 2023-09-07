@@ -56,8 +56,8 @@ public static class Migrations
                 Version v_3_0_0 = new(3, 0, 0);
                 if (IApplication.IsDesktop() && PreviousVersion < v_3_0_0)
                 {
-                    MoveDirByScripts(IOPath.CacheDirectory);
-                    MoveDirByScripts(IOPath.AppDataDirectory, DirName_BuildScripts);
+                    MoveDirByScripts(IOPath.AppDataDirectory);
+                    MoveDirByScripts(IOPath.CacheDirectory, DirName_BuildScripts);
                 }
             }
         }
