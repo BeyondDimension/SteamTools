@@ -79,7 +79,8 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
             {
                 using var timeoutTokenSource = new CancellationTokenSource(connectTimeout);
                 using var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutTokenSource.Token, cancellationToken);
-                return await ConnectAsync(context, ipEndPoint, linkedTokenSource.Token);
+                var r = await ConnectAsync(context, ipEndPoint, linkedTokenSource.Token);
+                return r;
             }
             catch (OperationCanceledException)
             {

@@ -87,7 +87,12 @@ sealed partial class HttpReverseProxyMiddleware
                 context.Request.Headers.UserAgent = domainConfig.UserAgent.Replace("${origin}", context.Request.Headers.UserAgent, StringComparison.OrdinalIgnoreCase);
             }
 
-            var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, ForwarderRequestConfig.Empty, HttpTransformer.Empty);
+            var forwarderRequestConfig = new ForwarderRequestConfig()
+            {
+                Version = context.Request.Protocol.StartsWith("HTTP/2.0") ? System.Net.HttpVersion.Version20 : System.Net.HttpVersion.Version11,
+            };
+
+            var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, forwarderRequestConfig, HttpTransformer.Empty);
 
             if (error != ForwarderError.None)
             {

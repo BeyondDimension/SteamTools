@@ -13,6 +13,7 @@
     mc:Ignorable="d">
     <Panel>
         <TextBlock
+            Margin="20"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             IsVisible="{Binding Path=!!!Notices.Count, Mode=OneWay, Source={x:Static s:NoticeService.Current}}"
