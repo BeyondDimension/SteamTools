@@ -9,9 +9,17 @@ public partial interface IDnsAnalysisService // 公共常量定义
     #region DNS 常量
 
     const string DNS_Ali_DohAddres = "https://dns.alidns.com";
+    const string DNS_Ali_DohAddres2 = "https://223.6.6.6/dns-query";
+    const string DNS_Ali_DohAddres3 = "https://223.5.5.5/dns-query";
+
     const string Dnspod_DohAddres = "https://1.12.12.12";
+    const string Dnspod_DohAddres2 = "https://doh.pub";
+    const string Dnspod_DohAddres3 = "https://120.53.53.53/dns-query";
+
     const string Google_DohAddres = "https://dns.google";
     const string Cloudflare_DohAddres = "https://cloudflare-dns.com";
+    const string DohAddres_360 = "https://doh.360.cn/dns-query";
+    const string TUNA_DohAddres = "https://101.6.6.6:8443/dns-query";
 
     protected const string PrimaryDNS_IPV6_Ali = "2400:3200::1";
 
@@ -37,6 +45,9 @@ public partial interface IDnsAnalysisService // 公共常量定义
     static readonly IPAddress[] DNS_114s = new[] { IPAddress.Parse(PrimaryDNS_114), IPAddress.Parse(SecondaryDNS_114) };
     static readonly IPAddress[] DNS_Googles = new[] { NameServer.GooglePublicDns.Address, NameServer.GooglePublicDns2.Address };
     static readonly IPAddress[] DNS_Cloudflares = new[] { NameServer.Cloudflare.Address, NameServer.Cloudflare2.Address };
+
+    static readonly Uri[] DoH_Alis = new[] { new Uri(DNS_Ali_DohAddres), new Uri(DNS_Ali_DohAddres2), new Uri(DNS_Ali_DohAddres3) };
+    static readonly Uri[] DoH_Dnspods = new[] { new Uri(Dnspod_DohAddres), new Uri(Dnspod_DohAddres2), new Uri(Dnspod_DohAddres3) };
 
     private static class NameServer
     {

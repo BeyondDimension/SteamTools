@@ -13,6 +13,8 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
 
     protected override string? DefaultClientName => TAG;
 
+    private readonly ConcurrentDictionary<string, List<DnsResourceRecord>> Cache = new ConcurrentDictionary<string, List<DnsResourceRecord>>();
+
     public DnsDohAnalysisService(
             ILoggerFactory loggerFactory,
             IHttpPlatformHelperService http_helper,
@@ -46,8 +48,8 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
     /// <param name="isIPv6"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, bool isIPv6, CancellationToken cancellationToken = default)
-        => DohAnalysisDomainIpAsync(hostNameOrAddress, default, isIPv6, cancellationToken);
+    public IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, bool isIPv6, bool useCache = true, CancellationToken cancellationToken = default)
+        => DohAnalysisDomainIpAsync(hostNameOrAddress, default, isIPv6, useCache, cancellationToken);
 
     /// <summary>
     /// 解析域名 IP 地址
@@ -55,8 +57,8 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
     /// <param name="hostNameOrAddress">要解析的主机名或 IP 地址</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
-        => DohAnalysisDomainIpAsync(hostNameOrAddress, default, default, cancellationToken);
+    public IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, bool useCache = true, CancellationToken cancellationToken = default)
+        => DohAnalysisDomainIpAsync(hostNameOrAddress, default, default, useCache, cancellationToken);
 
     /// <summary>
     /// 解析域名 IP 地址
@@ -65,8 +67,8 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
     /// <param name="dnsServers">自定义 DNS 服务器，可选的值有 <see cref="DNS_Alis"/>, <see cref="DNS_114s"/>, <see cref="DNS_Cloudflares"/>, <see cref="DNS_Dnspods"/>, <see cref="DNS_Googles"/></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, string? dnsServers, CancellationToken cancellationToken = default)
-        => DohAnalysisDomainIpAsync(hostNameOrAddress, dnsServers, default, cancellationToken);
+    public IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, Uri[]? dnsServers, bool useCache = true, CancellationToken cancellationToken = default)
+        => DohAnalysisDomainIpAsync(hostNameOrAddress, dnsServers, default, useCache, cancellationToken);
 
     /// <summary>
     /// DOH 解析域名 IP 地址
@@ -76,22 +78,66 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
     /// <param name="isIPv6"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async IAsyncEnumerable<IPAddress> DohAnalysisDomainIpAsync(string hostNameOrAddress, string? dnsServers, bool isIPv6, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<IPAddress> DohAnalysisDomainIpAsync(string hostNameOrAddress, Uri[]? dotServers, bool isIPv6, bool useCache = true, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var client = CreateClient();
-        client.BaseAddress = new Uri(string.IsNullOrEmpty(dnsServers) ? Dnspod_DohAddres : dnsServers);
-        IDnsClient dnsClient = new DnsHttpClient(client);
-
         var queryType = isIPv6 ? DnsQueryType.AAAA : DnsQueryType.A;
-        var query = DnsQueryFactory.CreateQuery(hostNameOrAddress, queryType);
 
-        var answer = await dnsClient.Query(query, cancellationToken);
-
-        foreach (var x in answer.Answers)
+        var current_dns_list = Enumerable.Empty<DnsResourceRecord>();
+        if (useCache)
         {
-            if (x.Resource is DnsIpAddressResource ipAddressResource)
+            var cacheKey = string.Concat(hostNameOrAddress, ":", (short)queryType);
+            if (Cache.TryGetValue(cacheKey, out var dns_list))
             {
-                yield return ipAddressResource.IPAddress;
+                current_dns_list = dns_list.Where(x => x.TimeToLive > DateTime.Now.ToUnixTimeSeconds()).ToList();
+                Cache[cacheKey] = current_dns_list.ToList();
+                foreach (var x in current_dns_list)
+                {
+                    if (x.Resource is DnsIpAddressResource ipAddressResource)
+                    {
+                        yield return ipAddressResource.IPAddress;
+                    }
+                }
+            }
+        }
+
+        if (current_dns_list.Count() <= 0)
+        {
+            if (dotServers == null || dotServers.Length <= 0)
+                dotServers = new Uri[] { new Uri(DNS_Ali_DohAddres) };
+            try
+            {
+                var query = DnsQueryFactory.CreateQuery(hostNameOrAddress, queryType);
+
+                IDnsClient dnsClient;
+                HttpClient httpClient;
+                foreach (var dot_server in dotServers)
+                {
+                    httpClient = CreateClient(TAG, HttpHandlerCategory.Default);
+                    httpClient.BaseAddress = dot_server;
+                    dnsClient = new DnsHttpClient(httpClient);
+
+                    var answer = await dnsClient.Query(query, cancellationToken);
+                    if (useCache)
+                        current_dns_list = current_dns_list.Concat(answer.Answers);
+                    foreach (var x in answer.Answers)
+                    {
+                        if (x.Resource is DnsIpAddressResource ipAddressResource)
+                        {
+                            yield return ipAddressResource.IPAddress;
+                        }
+                    }
+                    dnsClient.Dispose();
+                }
+            }
+            finally
+            {
+                if (useCache)
+                {
+                    var cacheKey = string.Concat(hostNameOrAddress, ":", (short)queryType);
+                    Cache[cacheKey] = current_dns_list
+                        .Select(item => { item.TimeToLive += (uint)DateTime.Now.ToUnixTimeSeconds(); return item; })
+                        .ToList();
+                }
             }
         }
     }
