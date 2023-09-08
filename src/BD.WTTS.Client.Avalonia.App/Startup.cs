@@ -248,7 +248,7 @@ sealed partial class Program : Startup
 
     sealed class Essentials_AppVerS : IApplicationVersionService
     {
-        string IApplicationVersionService.ApplicationVersion => AssemblyInfo.Version;
+        string IApplicationVersionService.ApplicationVersion => AssemblyInfo.FileVersion;
 
         string IApplicationVersionService.AssemblyTrademark => AssemblyInfo.Trademark;
     }
