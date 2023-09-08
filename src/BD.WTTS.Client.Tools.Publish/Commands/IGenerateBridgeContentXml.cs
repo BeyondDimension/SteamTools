@@ -83,7 +83,6 @@ $"""
             stream.Write("  </ItemGroup>"u8);
             stream.WriteNewLine();
             stream.Write($"  <!--[End] BD.WTTS.Client.Tools.Publish({(debug ? "Debug" : "Release")}-{rid}) -->");
-            stream.WriteNewLine();
 
             stream.Position = 0;
 
