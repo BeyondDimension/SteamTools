@@ -44,6 +44,8 @@ public sealed partial class App : Application
             AvaloniaXamlLoader.Load(this);
 
 #if WINDOWS || LINUX || MACOS
+            if (GeneralSettings.MinimizeOnStartup.Value)
+                Startup.Instance.IsMinimize = true;
             if (Startup.Instance.IsSteamRun)
             {
                 try
@@ -90,8 +92,17 @@ public sealed partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            MainWindow = InitializeMainWindow?.Invoke(this);
-            desktop.MainWindow = MainWindow ??= new MainWindow();
+            MainWindow = InitializeMainWindow?.Invoke(this) ?? new MainWindow();
+            desktop.MainWindow =
+#if !UI_DEMO
+                Startup.Instance.IsMinimize ? null :
+#endif
+                MainWindow;
+
+            if (Startup.Instance.IsMinimize && MainWindow is AppWindow appWindow)
+            {
+                Task2.InBackground(() => appWindow.SplashScreen.RunTasks(CancellationToken.None));
+            }
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
         {

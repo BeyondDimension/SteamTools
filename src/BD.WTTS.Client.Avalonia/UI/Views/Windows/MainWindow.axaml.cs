@@ -46,6 +46,10 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         }
         if (AppSplashScreen.IsInitialized)
         {
+            if (NavigationService.Instance.CurrnetPage == null)
+            {
+                INavigationService.Instance.Navigate(typeof(HomePage));
+            }
             Task2.InBackground(async () =>
             {
                 await AdvertiseService.Current.RefrshAdvertiseAsync();
@@ -78,134 +82,137 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
     {
         return Task.Run(
             async () =>
-         {
+            {
+                if (!AppSplashScreen.IsInitialized)
+                {
 #if STARTUP_WATCH_TRACE || DEBUG
-             WatchTrace.Start();
+                    WatchTrace.Start();
 #endif
 
-             var s = Instance;
-             if (s.IsMainProcess)
-             {
-                 VersionTracking2.Track();
+                    var s = Instance;
+                    if (s.IsMainProcess)
+                    {
+                        VersionTracking2.Track();
 #if STARTUP_WATCH_TRACE || DEBUG
-                 WatchTrace.Record("VersionTracking2.Track");
+                        WatchTrace.Record("VersionTracking2.Track");
 #endif
 
-                 Migrations.Up();
+                        Migrations.Up();
 #if STARTUP_WATCH_TRACE || DEBUG
-                 WatchTrace.Record("Migrations.Up");
+                        WatchTrace.Record("Migrations.Up");
 #endif
 
-                 // 仅在主进程中启动 IPC 服务端
-                 IPCMainProcessService.Instance.Run();
+                        // 仅在主进程中启动 IPC 服务端
+                        IPCMainProcessService.Instance.Run();
 #if STARTUP_WATCH_TRACE || DEBUG
-                 WatchTrace.Record("IPC.StartServer");
+                        WatchTrace.Record("IPC.StartServer");
 #endif
-             }
+                    }
 
-             LiveCharts.Configure(config =>
-             {
-                 config
-                     // registers SkiaSharp as the library backend
-                     // REQUIRED unless you build your own
-                     .AddSkiaSharp();
-                 // adds the default supported types
-                 // OPTIONAL but highly recommend
-                 //.AddDefaultMappers()
+                    LiveCharts.Configure(config =>
+                    {
+                        config
+                            // registers SkiaSharp as the library backend
+                            // REQUIRED unless you build your own
+                            .AddSkiaSharp();
+                        // adds the default supported types
+                        // OPTIONAL but highly recommend
+                        //.AddDefaultMappers()
 
-                 // select a theme, default is Light
-                 // OPTIONAL
-                 //.AddDarkTheme()
+                        // select a theme, default is Light
+                        // OPTIONAL
+                        //.AddDarkTheme()
 
-                 // In case you need a non-Latin based font, you must register a typeface for SkiaSharp
-                 config.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('汉')); // <- Chinese // mark
-                                                                                        //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('أ'))  // <- Arabic // mark
-                                                                                        //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('あ')) // <- Japanese // mark
-                                                                                        //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('헬')) // <- Korean // mark
-                                                                                        //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('Ж'))  // <- Russian // mark
+                        // In case you need a non-Latin based font, you must register a typeface for SkiaSharp
+                        config.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('汉')); // <- Chinese // mark
+                                                                                               //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('أ'))  // <- Arabic // mark
+                                                                                               //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('あ')) // <- Japanese // mark
+                                                                                               //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('헬')) // <- Korean // mark
+                                                                                               //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('Ж'))  // <- Russian // mark
 
-                 if (App.Instance.Theme != AppTheme.FollowingSystem)
-                 {
-                     if (App.Instance.Theme == AppTheme.Light)
-                         config.AddLightTheme();
-                     else
-                         config.AddDarkTheme();
-                 }
-                 else
-                 {
-                     var dps = IPlatformService.Instance;
-                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
-                     if (isLightOrDarkTheme.HasValue)
-                     {
-                         var mThemeFS = IApplication.GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
-                         if (mThemeFS == AppTheme.Light)
-                             config.AddLightTheme();
-                         else
-                             config.AddDarkTheme();
-                     }
-                 }
-             });
+                        if (App.Instance.Theme != AppTheme.FollowingSystem)
+                        {
+                            if (App.Instance.Theme == AppTheme.Light)
+                                config.AddLightTheme();
+                            else
+                                config.AddDarkTheme();
+                        }
+                        else
+                        {
+                            var dps = IPlatformService.Instance;
+                            var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
+                            if (isLightOrDarkTheme.HasValue)
+                            {
+                                var mThemeFS = IApplication.GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+                                if (mThemeFS == AppTheme.Light)
+                                    config.AddLightTheme();
+                                else
+                                    config.AddDarkTheme();
+                            }
+                        }
+                    });
 
-             AdvertiseService.Current.InitAdvertise();
-             NoticeService.Current.GetNewsAsync();
+                    AdvertiseService.Current.InitAdvertise();
+                    NoticeService.Current.GetNewsAsync();
 
-             var mainWindow = App.Instance.MainWindow;
-             mainWindow.ThrowIsNull();
+                    var mainWindow = App.Instance.MainWindow;
+                    mainWindow.ThrowIsNull();
 
 #pragma warning disable SA1114 // Parameter list should follow declaration
-             IViewModelManager.Instance.InitViewModels(new TabItemViewModel[]
-             {
+                    IViewModelManager.Instance.InitViewModels(new TabItemViewModel[]
+                    {
                 new MenuTabItemViewModel("Welcome")
                 {
                    PageType = typeof(HomePage),
                    IsResourceGet = true,
                    IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico",
                 },
-             }, ImmutableArray.Create<TabItemViewModel>(
+                    }, ImmutableArray.Create<TabItemViewModel>(
 #if DEBUG
-             new MenuTabItemViewModel("Debug")
-             {
-                 PageType = typeof(DebugPage),
-                 IsResourceGet = false,
-                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/bug.ico",
-             },
-#endif       
-             new MenuTabItemViewModel("Plugin_Store")
-             {
-                 PageType = null,
-                 IsResourceGet = true,
-                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/store.ico",
-             },
-             new MenuTabItemViewModel("Settings")
-             {
-                 PageType = typeof(SettingsPage),
-                 IsResourceGet = true,
-                 IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/settings.ico",
-             }));
+                    new MenuTabItemViewModel("Debug")
+                    {
+                        PageType = typeof(DebugPage),
+                        IsResourceGet = false,
+                        IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/bug.ico",
+                    },
+#endif
+                    new MenuTabItemViewModel("Plugin_Store")
+                    {
+                        PageType = null,
+                        IsResourceGet = true,
+                        IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/store.ico",
+                    },
+                    new MenuTabItemViewModel("Settings")
+                    {
+                        PageType = typeof(SettingsPage),
+                        IsResourceGet = true,
+                        IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/settings.ico",
+                    }));
 #pragma warning restore SA1114 // Parameter list should follow declaration
-             IViewModelManager.Instance.MainWindow.ThrowIsNull();
+                    IViewModelManager.Instance.MainWindow.ThrowIsNull();
 
-             await Dispatcher.UIThread.InvokeAsync(() =>
-             {
-                 mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
-                 s.InitSettingSubscribe();
+                    await Dispatcher.UIThread.InvokeAsync(() =>
+                    {
+                        mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
+                        s.InitSettingSubscribe();
 
-                 INavigationService.Instance.Navigate(typeof(HomePage));
-             });
+                        INavigationService.Instance.Navigate(typeof(HomePage));
+                    });
 #if STARTUP_WATCH_TRACE || DEBUG
-             WatchTrace.Record("InitMainWindowViewModel");
+                    WatchTrace.Record("InitMainWindowViewModel");
 #endif
 
 #if STARTUP_WATCH_TRACE || DEBUG
-             WatchTrace.Stop();
+                    WatchTrace.Stop();
 #endif
-             s.OnStartup();
-             await IViewModelManager.Instance.MainWindow.Initialize();
+                    s.OnStartup();
+                    await IViewModelManager.Instance.MainWindow.Initialize();
 
-             App.Instance.CompositeDisposable.Add(IViewModelManager.Instance.MainWindow);
-             App.Instance.CompositeDisposable.Add(SteamConnectService.Current.Dispose);
+                    App.Instance.CompositeDisposable.Add(IViewModelManager.Instance.MainWindow);
+                    App.Instance.CompositeDisposable.Add(SteamConnectService.Current.Dispose);
 
-             IsInitialized = true;
-         }, cancellationToken: token);
+                    IsInitialized = true;
+                }
+            }, cancellationToken: token);
     }
 }

@@ -10,7 +10,9 @@ public sealed class NavigationService : INavigationService
 {
     public static NavigationService Instance { get; } = (NavigationService)Ioc.Get<INavigationService>();
 
-    public Control? PreviousPage { get; set; }
+    //public Type? PreviousPage { get; set; }
+
+    public Type? CurrnetPage => _frame?.CurrentSourcePageType;
 
     public object? GetViewModelToPageContent(object viewModel, bool isCreateInstance = true)
     {
@@ -54,7 +56,8 @@ public sealed class NavigationService : INavigationService
 
     public void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None, bool useCache = true)
     {
-        _frame.ThrowIsNull();
+        if (_frame == null)
+            return;
 
         var navOptions = new FrameNavigationOptions
         {

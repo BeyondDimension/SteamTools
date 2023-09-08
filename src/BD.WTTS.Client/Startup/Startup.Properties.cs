@@ -50,7 +50,7 @@ partial class Startup // Properties
     /// <summary>
     /// 是否最小化启动
     /// </summary>
-    public bool IsMinimize { get; private set; }
+    public bool IsMinimize { get; set; }
 
     /// <summary>
     /// 是否为代理服务
