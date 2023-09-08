@@ -18,15 +18,37 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
 
     public bool ShowNewVersionWindowOnMainOpen { get; protected set; }
 
-    protected virtual Task ShowNewVersionWindowAsync()
+    protected virtual async Task ShowNewVersionWindowAsync()
     {
-        return Task.CompletedTask;
+        await MainThread2.InvokeOnMainThreadAsync(async () =>
+        {
+            var result = await MessageBox.ShowAsync(NewVersionInfoDesc,
+                NewVersionInfoTitle,
+                MessageBox.Button.OKCancel);
+            if (result.IsOK())
+            {
+                StartUpdateCommand.Invoke();
+            }
+        });
     }
 
-    public virtual void OnMainOpenTryShowNewVersionWindow()
+    protected virtual void ShowNewVersionNotifyAsync()
     {
-
+        notification.Notify(
+            AppResources.NewVersionUpdateNotifyText_.Format(NewVersionInfo?.Version),
+            NotificationType.NewVersion);
     }
+
+    public virtual async void OnMainOpenTryShowNewVersionWindow()
+    {
+        if (ShowNewVersionWindowOnMainOpen)
+        {
+            ShowNewVersionWindowOnMainOpen = false;
+            await ShowNewVersionWindowAsync();
+        }
+    }
+
+    protected abstract bool HasActiveWindow();
 
     public AppUpdateServiceBaseImpl(
         IApplication application,
@@ -96,14 +118,16 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
     /// </summary>
     protected virtual async void OnExistNewVersion()
     {
-        await MainThread2.InvokeOnMainThreadAsync(async () =>
+        var hasActiveWindow = HasActiveWindow();
+        if (hasActiveWindow)
         {
-            var result = await MessageBox.ShowAsync(NewVersionInfoDesc, NewVersionInfoTitle, MessageBox.Button.OKCancel);
-            if (result.IsOK())
-            {
-                StartUpdateCommand.Invoke();
-            }
-        });
+            await ShowNewVersionWindowAsync();
+        }
+        else
+        {
+            ShowNewVersionWindowOnMainOpen = true;
+        }
+        ShowNewVersionNotifyAsync();
     }
 
     static bool isCheckUpdateing;
