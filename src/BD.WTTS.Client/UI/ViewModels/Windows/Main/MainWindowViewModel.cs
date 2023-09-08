@@ -62,6 +62,8 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                  })
                 .Where(static x => x != null)
                 .SelectMany(static x => x!);
+            IReadOnlyList<MenuTabItemViewModel> tabItems2 =
+                tabItems.OfType<MenuTabItemViewModel>().ToArray();
             var sortTabSettings = UISettings.SortMenuTabs.Value;
             int OrderBy(KeyValuePair<int, MenuTabItemViewModel> m)
             {
@@ -82,13 +84,18 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                 .ThenBy(x => x.Value.Id);
             var sortTabs = new SortedSet<KeyValuePair<int, MenuTabItemViewModel>>(comparer);
             int i = 0;
+            foreach (var item in tabItems2)
+            {
+                sortTabs.Add(new(i, item));
+                i++;
+            }
             foreach (var item in tabs)
             {
                 sortTabs.Add(new(i, item));
                 i++;
             }
 
-            tabItems = tabItems.Concat(sortTabs.Select(x => x.Value));
+            tabItems = sortTabs.Select(x => x.Value).ToArray();
         }
 
         TabItems = new ObservableCollection<TabItemViewModel>(tabItems);
