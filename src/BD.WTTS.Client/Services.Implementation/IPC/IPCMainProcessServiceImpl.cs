@@ -36,12 +36,9 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
 
         static MSEXLogLevel Convert(IPCLogLevel logLevel)
         {
-#if DEBUG
-            return MSEXLogLevel.Critical;
-#else
-            if (logLevel <= IPCLogLevel.Debug) return MSEXLogLevel.Debug;
+            if (logLevel <= IPCLogLevel.Debug)
+                return MSEXLogLevel.Debug;
             return (MSEXLogLevel)logLevel;
-#endif
         }
 
         protected override void Log<TState>(
