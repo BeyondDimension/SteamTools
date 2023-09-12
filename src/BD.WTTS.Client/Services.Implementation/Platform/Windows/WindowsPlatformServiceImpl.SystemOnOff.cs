@@ -50,9 +50,17 @@ partial class WindowsPlatformServiceImpl
         }
         else
         {
-            var scheduledTaskService = IScheduledTaskService.Instance;
-            scheduledTaskService.ThrowIsNull();
-            scheduledTaskService.SetBootAutoStart(isAutoStart, name);
+            if (IsPrivilegedProcess)
+            {
+                var scheduledTaskService = IScheduledTaskService.Instance;
+                scheduledTaskService.ThrowIsNull();
+                scheduledTaskService.SetBootAutoStart(isAutoStart, name);
+            }
+            else
+            {
+                var ipc = await IPlatformService.IPCRoot.Instance;
+                ipc.SetBootAutoStart(isAutoStart, name);
+            }
         }
     }
 
