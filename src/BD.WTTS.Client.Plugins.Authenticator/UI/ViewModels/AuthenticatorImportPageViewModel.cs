@@ -73,17 +73,6 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
 
             var text = await File.ReadAllTextAsync(filePath);
 
-            var index = text.IndexOf("\"server_time\":", StringComparison.Ordinal) + 14;
-            if (index != -1)
-            {
-                var temp = text.Substring(index, text[index..].IndexOf(",", StringComparison.Ordinal));
-                if (!temp.Contains('"'))
-                {
-                    var temp2 = "\"" + temp + "\"";
-                    text = text.Replace(temp, temp2);
-                }
-            }
-
             var sdaFileModel = JsonSerializer.Deserialize(text, ImportFileModelJsonContext.Default.SdaFileModel);
             sdaFileModel.ThrowIsNull();
             var steamDataModel = new SdaFileConvertToSteamDataModel(sdaFileModel);

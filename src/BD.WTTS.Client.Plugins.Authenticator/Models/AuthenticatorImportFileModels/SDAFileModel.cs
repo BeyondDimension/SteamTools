@@ -1,3 +1,5 @@
+using Converter;
+
 namespace BD.WTTS.Models;
 
 public class SdaFileModel
@@ -14,8 +16,9 @@ public class SdaFileModel
     [JsonPropertyName("uri")]
     public string Uri { get; set; } = string.Empty;
 
+    [JsonConverter(typeof(SteamDataConverter))]
     [JsonPropertyName("server_time")]
-    public string ServerTime { get; set; } = string.Empty;
+    public long ServerTime { get; set; }
 
     [JsonPropertyName("account_name")]
     public string AccountName { get; set; } = string.Empty;
@@ -56,8 +59,9 @@ public class SdaFileConvertToSteamDataModel
     [JsonPropertyName("uri")]
     public string Uri { get; set; } = string.Empty;
 
+    [JsonConverter(typeof(SteamDataConverter))]
     [JsonPropertyName("server_time")]
-    public string ServerTime { get; set; } = string.Empty;
+    public long ServerTime { get; set; }
 
     [JsonPropertyName("account_name")]
     public string AccountName { get; set; } = string.Empty;
