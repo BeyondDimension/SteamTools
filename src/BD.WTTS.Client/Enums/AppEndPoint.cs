@@ -22,6 +22,7 @@ public enum AppEndPoint : byte
     [Obsolete]
     ChangeBindPhoneNumber,
     UserProfile,
+    [Obsolete("not impl", true)]
     NewVersion,
     [Obsolete]
     BindPhoneNumber,
