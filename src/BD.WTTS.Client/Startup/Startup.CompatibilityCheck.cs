@@ -30,15 +30,29 @@ partial class
         {
 
         }
-
         if (baseDirectory.Contains(
             $"AppData{Path.DirectorySeparatorChar}Local{Path.DirectorySeparatorChar}Temp", StringComparison.OrdinalIgnoreCase))
         {
             return true;
         }
-
         if (baseDirectory.Contains("Rar$", StringComparison.OrdinalIgnoreCase))
         {
+            // WinRAR
+            return true;
+        }
+        if (baseDirectory.Contains($"{Path.DirectorySeparatorChar}BNZ", StringComparison.OrdinalIgnoreCase))
+        {
+            // Bandizip
+            return true;
+        }
+        if (baseDirectory.Contains($"{Path.DirectorySeparatorChar}7z", StringComparison.OrdinalIgnoreCase))
+        {
+            // 7-Zip
+            return true;
+        }
+        if (baseDirectory.Contains("360zip", StringComparison.OrdinalIgnoreCase))
+        {
+            // 360zip
             return true;
         }
 
