@@ -148,3 +148,19 @@ partial class
 }
 
 #endif
+
+#if NETFRAMEWORK
+public static partial class StringEx
+{
+#if NET35 || NET40
+    [MethodImpl((MethodImplOptions)0x100)]
+#else
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+    public static bool Contains(this string l, string r, StringComparison comparison)
+    {
+        var i = l.IndexOf(r, comparison);
+        return i >= 0;
+    }
+}
+#endif
