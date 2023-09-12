@@ -11,6 +11,40 @@ partial class
     Startup // 平台兼容性检查
 #endif
 {
+    static bool IsInTempPath(string baseDirectory)
+    {
+        // 检测当前目录 Temp\Rar$ 这类目录，可能是在压缩包中直接启动程序导致的，还有一堆 文件找不到/加载失败的异常
+        //  System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\USER\AppData\Local\Temp\Rar$EXa15528.13350\Cache\switchproxy.reg'.
+        //  System.IO.FileLoadException ...
+        //  System.IO.FileNotFoundException: Could not load file or assembly ...
+
+        try
+        {
+            if (baseDirectory.StartsWith(Path.GetTempPath().TrimEnd(Path.DirectorySeparatorChar), StringComparison.OrdinalIgnoreCase))
+            {
+                // C:\Users\UserName\AppData\Local\Temp\
+                return true;
+            }
+        }
+        catch
+        {
+
+        }
+
+        if (baseDirectory.Contains(
+            $"AppData{Path.DirectorySeparatorChar}Local{Path.DirectorySeparatorChar}Temp", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        if (baseDirectory.Contains("Rar$", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     /// <summary>
     /// 兼容性检查
     /// <para>此应用程序仅兼容 Windows 11 与 Windows 10 版本 1809（OS 内部版本 17763）或更高版本</para>
@@ -36,12 +70,8 @@ partial class
             return false;
         }
 #endif
-        if (baseDirectory.StartsWith(Path.GetTempPath(), StringComparison.OrdinalIgnoreCase))
+        if (IsInTempPath(baseDirectory))
         {
-            // 检测当前目录 Temp\Rar$ 这类目录，可能是在压缩包中直接启动程序导致的，还有一堆 文件找不到/加载失败的异常
-            //  System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\USER\AppData\Local\Temp\Rar$EXa15528.13350\Cache\switchproxy.reg'.
-            //  System.IO.FileLoadException ...
-            //  System.IO.FileNotFoundException: Could not load file or assembly ...
             ShowErrMessageBox(Error_BaseDir_StartsWith_Temp);
             return false;
         }

@@ -327,24 +327,79 @@ public abstract partial class Startup
             #region InitFileSystem 初始化文件系统
 
             // 设置 IOPath.AppDataDirectory 与 IOPath.CacheDirectory 的路径
+            try
+            {
 #if MACOS || MACCATALYST || IOS
-            MacCatalystFileSystem.InitFileSystem();
+                MacCatalystFileSystem.InitFileSystem();
 #elif LINUX
-            LinuxFileSystem.InitFileSystem();
+                LinuxFileSystem.InitFileSystem();
 #elif WINDOWS
-            if (isRunningAsUwp)
-            {
-                WindowsRuntimeFileSystem.InitFileSystem();
-            }
-            else
-            {
-                WindowsFileSystem.InitFileSystem();
-            }
+                if (isRunningAsUwp)
+                {
+                    WindowsRuntimeFileSystem.InitFileSystem();
+                }
+                else
+                {
+                    WindowsFileSystem.InitFileSystem();
+                }
 #elif ANDROID
-            FileSystemEssentials.InitFileSystem();
+                FileSystemEssentials.InitFileSystem();
 #else
-            FileSystem2.InitFileSystem();
+                FileSystem2.InitFileSystem();
 #endif
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+#if WINDOWS
+                var mbText =
+$"""
+Failed to initialize FileSystem, access denied.
+{ex}
+""";
+                GlobalExceptionHandler.ShowApplicationCrash(mbText);
+#endif
+                return 401;
+            }
+
+#if WINDOWS
+            try
+            {
+                // 测试目录的读写是否正常
+                var ioTests = new[]
+                {
+                     Path.Combine(IOPath.AppDataDirectory, $"{Environment.TickCount64}.iotest.tmp"),
+                     Path.Combine(IOPath.CacheDirectory, $"{Environment.TickCount64}.iotest.tmp"),
+                };
+
+                foreach (var item in ioTests)
+                {
+                    try
+                    {
+                        using var fs = new FileStream(item,
+                            FileMode.OpenOrCreate,
+                            FileAccess.ReadWrite,
+                            FileShare.ReadWrite | FileShare.Delete);
+                    }
+                    finally
+                    {
+                        IOPath.FileTryDelete(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+#if WINDOWS
+                var mbText =
+$"""
+Failed to initialize FileSystem.
+{ex}
+""";
+                GlobalExceptionHandler.ShowApplicationCrash(mbText);
+#endif
+                return 401;
+            }
+#endif
+
             // 设置仓储层数据库文件存放路径
             Repository.DataBaseDirectory = IOPath.AppDataDirectory;
 #if STARTUP_WATCH_TRACE || DEBUG

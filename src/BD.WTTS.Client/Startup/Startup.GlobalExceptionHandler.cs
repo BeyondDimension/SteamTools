@@ -142,18 +142,26 @@ $"""
 {string.Format(message, args)}
 {ex}
 """;
+            ShowApplicationCrash(mbText);
+#endif
+        }
+
+#if WINDOWS
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static WPFMessageBoxResult? ShowApplicationCrash(string content)
+        {
             const string mbTitle = $"Application Crash - {AssemblyInfo.Trademark}";
             try
             {
-                WPFMessageBox.Show(mbText, mbTitle,
+                return WPFMessageBox.Show(content, mbTitle,
                     WPFMessageBoxButton.OK,
                     WPFMessageBoxImage.Error);
             }
             catch
             {
-
+                return null;
             }
-#endif
         }
+#endif
     }
 }

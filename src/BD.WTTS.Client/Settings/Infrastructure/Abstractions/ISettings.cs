@@ -432,6 +432,8 @@ internal static class SettingsExtensions
 
                 Policy.Handle<Exception>().Retry(3).Execute(() =>
                 {
+                    var dirPath = Path.GetDirectoryName(settingsFilePath);
+                    if (dirPath != null) IOPath.DirCreateByNotExists(dirPath);
                     using var writeStream = OpenOrCreate(settingsFilePath);
                     if (writeStream == null)
                     {
