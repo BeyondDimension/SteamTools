@@ -214,17 +214,24 @@
 		<Compile Remove="Services\Mvvm\Steam\SteamConnectService.cs" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
-		<!-- iOS/macOS/MacCatalyst Only -->
-		<PackageReference Include="BD.Common.Pinyin.CFStringTransform" />
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+		<!-- iOS Only -->
 		<PackageReference Include="Microsoft.AppCenter" />
 		<PackageReference Include="Microsoft.AppCenter.Analytics" />
 		<PackageReference Include="Microsoft.AppCenter.Crashes" />
 	</ItemGroup>
 
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
+		<!-- iOS/macOS/MacCatalyst Only -->
+		<PackageReference Include="BD.Common.Pinyin.CFStringTransform" />
+	</ItemGroup>
+
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
 		<!-- macOS/MacCatalyst Only -->
 		<ProjectReference Include="..\..\ref\Facepunch.Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Posix.csproj" />
+		<PackageReference Include="Aigio.Any.AppCenter" />
+		<PackageReference Include="Aigio.Any.AppCenter.Analytics" />
+		<PackageReference Include="Aigio.Any.AppCenter.Crashes" />
 	</ItemGroup>
 
 	<ItemGroup>

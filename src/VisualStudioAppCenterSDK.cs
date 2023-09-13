@@ -18,7 +18,7 @@ static partial class VisualStudioAppCenterSDK
         var appSecret = AppSecret;
         if (string.IsNullOrWhiteSpace(appSecret))
             return;
-#if WINDOWS || LINUX || APP_REVERSE_PROXY
+#if WINDOWS || LINUX || MACCATALYST || MACOS || APP_REVERSE_PROXY
         var utils = UtilsImpl.Instance;
         AppCenter.SetDeviceInformationHelper(utils);
         AppCenter.SetPlatformHelper(utils);
@@ -29,7 +29,7 @@ static partial class VisualStudioAppCenterSDK
         AppCenter.Start(appSecret, typeof(Analytics), typeof(Crashes));
     }
 
-#if WINDOWS || LINUX || APP_REVERSE_PROXY
+#if WINDOWS || LINUX || MACCATALYST || MACOS || APP_REVERSE_PROXY
     internal sealed class UtilsImpl :
         Microsoft.AppCenter.Utils.IAbstractDeviceInformationHelper,
         Microsoft.AppCenter.Utils.IPlatformHelper,
@@ -81,9 +81,9 @@ static partial class VisualStudioAppCenterSDK
 
         public string? GetOsName()
         {
-#if !WINDOWS
             if (OperatingSystem.IsLinux())
             {
+#if LINUX || APP_REVERSE_PROXY
                 var d = IPlatformService.LinuxDistribution;
                 if (d.IsDefined())
                     return d.ToString().ToUpperInvariant();
@@ -93,13 +93,13 @@ static partial class VisualStudioAppCenterSDK
                 osName = IPlatformService.GetLinuxReleaseValue(IPlatformService.LinuxConstants.ReleaseKey_ID);
                 if (!string.IsNullOrWhiteSpace(osName))
                     return osName.ToUpperInvariant();
+#endif
                 return "LINUX";
             }
             else if (OperatingSystem.IsMacOS())
             {
                 return "MACOS";
             }
-#endif
             return null;
         }
 
