@@ -371,6 +371,12 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         var scripts = list.ToList();
         foreach (var item in list)
         {
+            //检查缓存文件夹如果不是  IScriptManager.DirName_Build 替换成 IScriptManager.DirName_Build 开头
+            if (!item.CachePath.StartsWith($"{IScriptManager.DirName_Build}/"))
+            {
+                item.CachePath = Path.Combine(IScriptManager.DirName_Build, item.FileName!);
+                await scriptRepository.SaveScriptCachePathAsync(item, default);
+            }
             if (!CheckFile(item))
             {
                 var temp = await DeleteScriptAsync(item);

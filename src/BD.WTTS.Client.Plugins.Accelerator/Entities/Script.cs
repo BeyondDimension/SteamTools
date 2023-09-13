@@ -11,6 +11,7 @@ public sealed class Script : IEntity<int>
     public const string TableName = "1B2D820C";
     public const string ColumnName_Id = "E386BC36";
     public const string ColumnName_Enable = "6DB11594";
+    public const string ColumnName_CachePath = "997C6B59";
 
     string DebuggerDisplay() => $"{Name}, {Id}";
 
@@ -58,7 +59,7 @@ public sealed class Script : IEntity<int>
     /// <summary>
     /// 缓存文件地址
     /// </summary>
-    [Column("997C6B59")]
+    [Column(ColumnName_CachePath)]
     [SQLiteNotNull]
     public string CachePath { get; set; } = string.Empty;
 

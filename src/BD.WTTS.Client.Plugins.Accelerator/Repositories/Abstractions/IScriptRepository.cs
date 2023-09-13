@@ -15,4 +15,6 @@ public interface IScriptRepository : IRepository<Script, int>
     Task<IList<Script>> GetAllAsync(CancellationToken cancellationToken = default);
 
     Task SaveScriptEnableAsync(ScriptDTO item, CancellationToken cancellationToken = default);
+
+    Task SaveScriptCachePathAsync(ScriptDTO item, CancellationToken cancellationToken);
 }
