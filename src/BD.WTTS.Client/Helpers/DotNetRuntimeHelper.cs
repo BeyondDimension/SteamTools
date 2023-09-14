@@ -31,6 +31,9 @@ static class DotNetRuntimeHelper
 
     public static void AddEnvironment(ProcessStartInfo psi)
     {
+        psi.Environment.TryAdd("DOTNET_gcServer", "0");
+        psi.Environment.TryAdd("DOTNET_GCConserveMemory", "9");
+
         var rootValue = dotnetRoot.Value;
         if (rootValue != null)
         {
