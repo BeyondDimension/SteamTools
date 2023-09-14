@@ -4,116 +4,6 @@ namespace BD.WTTS;
 
 public static partial class PathHelper
 {
-    /// <summary>
-    /// 删除路径中的非法字符
-    /// </summary>
-    [Obsolete("use IOPath", true)]
-    public static string? CleanPathIlegalCharacter(string? f)
-    {
-        if (string.IsNullOrEmpty(f))
-            return f;
-        var regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-        var r = new Regex($"[{Regex.Escape(regexSearch)}]");
-        return r.Replace(f, "");
-    }
-
-    [Obsolete("use IOPath", true)]
-    public static string ExpandEnvironmentVariables(string? path, string? platform_Folder = null)
-    {
-        if (string.IsNullOrEmpty(path))
-            return string.Empty;
-
-        var variables = new Dictionary<string, string>
-            {
-                //{ "%SPP_UserData%", IOPath.CacheDirectory },
-                { "%SPP_AppData%", IOPath.AppDataDirectory },
-                { "%Documents%", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) },
-                { "%Music%", Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) },
-                { "%Pictures%", Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) },
-                { "%Videos%", Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) },
-                { "%StartMenu%", Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) },
-                { "%StartMenuProgramData%", Environment.ExpandEnvironmentVariables(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu), "Programs")) },
-                { "%StartMenuAppData%", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "Programs") }
-            };
-
-        foreach (var (k, v) in variables)
-            path = path.Replace(k, v);
-
-        if (!string.IsNullOrEmpty(platform_Folder))
-            path = path.Replace("%Platform_Folder%", platform_Folder);
-
-        return Environment.ExpandEnvironmentVariables(path);
-    }
-
-    [Obsolete("use IPlatformService.Instance.RegexSearchFile")]
-    public static string RegexSearchFile(string file, string pattern)
-    {
-        var m = Regex.Match(File.ReadAllText(file), pattern);
-        return m.Success ? m.Value : "";
-    }
-
-    [Obsolete("use IPlatformService.Instance.RegexSearchFolder")]
-    public static string RegexSearchFolder(string folder, string pattern, string wildcard = "")
-    {
-        // Foreach file in folder (until match):
-        foreach (var f in Directory.GetFiles(folder, wildcard))
-        {
-            var result = RegexSearchFile(f, pattern);
-            if (result == "") continue;
-            return result;
-        }
-
-        return "";
-    }
-
-    [Obsolete("use IPlatformService.Instance.CopyFile")]
-    public static bool CopyFile(string source, string dest, bool overwrite = true)
-    {
-        if (string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(dest))
-        {
-            Log.Error(nameof(CopyFile), "Failed to copy file! Either path is empty or invalid! From: " + source + ", To: " + dest);
-            return false;
-        }
-
-        if (!File.Exists(source)) return false;
-        if (File.Exists(dest) && !overwrite) return false;
-
-        // Try copy the file normally - This will fail if in use
-        var dirName = Path.GetDirectoryName(dest);
-        if (!string.IsNullOrWhiteSpace(dirName)) // This could be a file in the working directory, instead of a file in a folder -> No need to create folder if exists.
-            Directory.CreateDirectory(dirName);
-
-        try
-        {
-            File.Copy(source, dest, overwrite);
-            return true;
-        }
-        catch (Exception e)
-        {
-            // Try another method to copy.
-            if (e.HResult == -2147024864) // File in use
-            {
-                try
-                {
-                    if (File.Exists(dest)) File.Delete(dest);
-                    using var inputFile = new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using var outputFile = new FileStream(dest, FileMode.Create);
-                    var buffer = new byte[0x10000];
-                    int bytes;
-
-                    while ((bytes = inputFile.Read(buffer, 0, buffer.Length)) > 0)
-                        outputFile.Write(buffer, 0, bytes);
-                    return true;
-                }
-                catch (Exception exception)
-                {
-                    Log.Error(nameof(CopyFile), "Failed to copy file! From: " + source + ", To: " + dest, exception);
-                }
-            }
-        }
-        return false;
-    }
-
     public static bool RecursiveDelete(string baseDir, bool keepFolders, bool throwOnError = false) =>
     RecursiveDelete(new DirectoryInfo(baseDir), keepFolders, throwOnError);
 
@@ -168,45 +58,6 @@ public static partial class PathHelper
     }
 
     /// <summary>
-    /// Recursively copy files and directories
-    /// </summary>
-    /// <param name="inputFolder">Folder to copy files recursively from</param>
-    /// <param name="outputFolder">Destination folder</param>
-    /// <param name="overwrite">Whether to overwrite files or not</param>
-    /// <param name="throwOnError">When false, error is only logged (default)</param>
-    [Obsolete("use IPlatformService.Instance.CopyFilesRecursive")]
-    public static bool CopyFilesRecursive(string? inputFolder, string outputFolder, bool overwrite = true, bool throwOnError = false)
-    {
-        try
-        {
-            if (string.IsNullOrEmpty(inputFolder)) return false;
-
-            _ = Directory.CreateDirectory(outputFolder);
-            outputFolder = outputFolder.EndsWith("\\") ? outputFolder : outputFolder + "\\";
-            //Now Create all of the directories
-            foreach (var dirPath in Directory.GetDirectories(inputFolder, "*", SearchOption.AllDirectories))
-                _ = Directory.CreateDirectory(dirPath.Replace(inputFolder, outputFolder));
-
-            //Copy all the files & Replaces any files with the same name
-            foreach (var newPath in Directory.GetFiles(inputFolder, "*.*", SearchOption.AllDirectories))
-            {
-                var dest = newPath.Replace(inputFolder, outputFolder);
-                if (!overwrite && File.Exists(dest)) continue;
-
-                File.Copy(newPath, dest, true);
-            }
-        }
-        catch (Exception e)
-        {
-            Log.Error(nameof(CopyFilesRecursive), e, $"Failed to CopyFilesRecursive: {inputFolder} -> {outputFolder} (Overwrite {overwrite})");
-            if (throwOnError) throw;
-            return false;
-        }
-
-        return true;
-    }
-
-    /// <summary>
     /// 处理复制的文件或文件夹
     /// </summary>
     /// <param name="fromPath"></param>
@@ -233,6 +84,8 @@ public static partial class PathHelper
             toFullPath = toPath;
         }
 
+        var platformService = IPlatformService.Instance;
+
         // Handle wildcards
         if (fromPath.Contains('*'))
         {
@@ -242,8 +95,10 @@ public static partial class PathHelper
             // Handle "...\\*" folder.
             if (file == "*")
             {
-                if (!Directory.Exists(Path.GetDirectoryName(fromPath))) return false;
-                if (CopyFilesRecursive(Path.GetDirectoryName(fromPath), toFullPath)) return true;
+                if (!Directory.Exists(Path.GetDirectoryName(fromPath)))
+                    return false;
+                if (platformService.CopyFilesRecursive(Path.GetDirectoryName(fromPath), toFullPath))
+                    return true;
 
                 Toast.Show(ToastIcon.Error, AppResources.Error_CopyFileFailed);
                 return false;
@@ -254,10 +109,11 @@ public static partial class PathHelper
             _ = Directory.CreateDirectory(folder);
             foreach (var f in Directory.GetFiles(folder, file))
             {
-                if (toFullPath == null) return false;
+                if (toFullPath == null)
+                    return false;
                 if (toFullPath.Contains('*')) toFullPath = Path.GetDirectoryName(toFullPath);
                 var fullOutputPath = Path.Combine(toFullPath!, Path.GetFileName(f));
-                CopyFile(f, fullOutputPath);
+                platformService.CopyFile(f, fullOutputPath);
             }
 
             return true;
@@ -273,7 +129,8 @@ public static partial class PathHelper
         if (Directory.Exists(fullPath))
         {
             _ = Directory.CreateDirectory(toFullPath);
-            if (CopyFilesRecursive(fullPath, toFullPath)) return true;
+            if (platformService.CopyFilesRecursive(fullPath, toFullPath))
+                return true;
 
             Toast.Show(ToastIcon.Error, AppResources.Error_CopyFileFailed);
             return false;
@@ -283,39 +140,8 @@ public static partial class PathHelper
         if (!File.Exists(fullPath)) return false;
         _ = Directory.CreateDirectory(Path.GetDirectoryName(toFullPath) ?? string.Empty);
         var dest = Path.Combine(Path.GetDirectoryName(toFullPath)!, Path.GetFileName(fullPath));
-        CopyFile(fullPath, dest);
+        platformService.CopyFile(fullPath, dest);
         return true;
 
-    }
-
-    /// <summary>
-    /// A replacement for File.ReadAllText() that doesn't crash if a file is in use.
-    /// </summary>
-    /// <param name="f">File to be read</param>
-    /// <returns>string of content</returns>
-    [Obsolete("use IPlatformService.Instance.ReadAllText/ReadAllTextAsync", true)]
-    public static string ReadAllText(string f)
-    {
-        using var fs = new FileStream(f, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-        using var tr = new StreamReader(fs);
-        return tr.ReadToEnd();
-    }
-
-    [Obsolete("use IPlatformService.Instance.FileTryDelete", true)]
-    public static bool DeleteFile(string path, bool throwErr = false)
-    {
-        try
-        {
-            if (File.Exists(path))
-                File.Delete(path);
-            return true;
-        }
-        catch (Exception e)
-        {
-            Log.Error(nameof(DeleteFile), $"Could not delete ({Marshal.GetExceptionForHR(e.HResult)?.Message}): {path}");
-            if (throwErr)
-                throw;
-            return false;
-        }
     }
 }

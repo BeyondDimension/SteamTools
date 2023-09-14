@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Formatting = Newtonsoft.Json.Formatting;
 using AppResources = BD.WTTS.Client.Resources.Strings;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace BD.WTTS;
 

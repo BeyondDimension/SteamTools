@@ -1,7 +1,4 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
-using System.Linq;
-using System.Drawing.Drawing2D;
-using AngleSharp.Dom;
 
 namespace BD.WTTS.Models;
 

@@ -34,12 +34,13 @@ partial interface IPlatformService
         }
     }
 
-    void IPCPlatformService.CopyFilesRecursive(string? inputFolder, string outputFolder, bool overwrite)
+    bool IPCPlatformService.CopyFilesRecursive(string? inputFolder, string outputFolder, bool overwrite)
     {
         try
         {
             // 先尝试直接执行
             IOPath.CopyFilesRecursive(inputFolder, outputFolder, overwrite);
+            return true;
         }
         catch (Exception ex)
         {
@@ -50,6 +51,7 @@ partial interface IPlatformService
                 {
                     var ipcPlatformService = IPCRoot.Instance.GetAwaiter().GetResult();
                     ipcPlatformService.CopyFilesRecursive(inputFolder, outputFolder, overwrite);
+                    return true;
                 }
                 catch (Exception ipcEx)
                 {
@@ -63,6 +65,8 @@ partial interface IPlatformService
                     $"Failed to CopyFilesRecursive l63: {inputFolder} -> {outputFolder} (Overwrite {overwrite})");
             }
         }
+
+        return false;
     }
 
     string IPCPlatformService.ReadAllText(string path, int? encoding)

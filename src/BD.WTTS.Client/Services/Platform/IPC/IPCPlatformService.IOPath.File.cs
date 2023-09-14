@@ -7,7 +7,7 @@ partial interface IPCPlatformService
     void CopyFile(string source, string dest, bool overwrite = true);
 
     /// <inheritdoc cref="IOPath.CopyFilesRecursive(string?, string, bool)"/>
-    void CopyFilesRecursive(string? inputFolder, string outputFolder, bool overwrite = true);
+    bool CopyFilesRecursive(string? inputFolder, string outputFolder, bool overwrite = true);
 
     /// <inheritdoc cref="IOPath.ReadAllText(string, Encoding?)"/>
     string ReadAllText(string path, int? encoding = null);

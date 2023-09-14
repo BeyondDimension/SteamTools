@@ -46,6 +46,8 @@ public static class RegexHelper
         }
 #endif
 
+        var platformService = IPlatformService.Instance;
+
         // Handle wildcards
         if (accFile.Contains('*'))
         {
@@ -55,13 +57,13 @@ public static class RegexHelper
             // Handle "...\\*" folder.
             // as well as "...\\*.log" or "...\\file_*", etc.
             // This is NOT recursive - Specify folders manually in JSON
-            return Directory.Exists(folder) ? PathHelper.RegexSearchFolder(folder, regex, file) : "";
+            return Directory.Exists(folder) ? platformService.RegexSearchFolder(folder, regex, file) : "";
         }
 
         var fullPath = IOPath.ExpandEnvironmentVariables(accFile);
         // Is folder? Search folder.
         if (Directory.Exists(fullPath))
-            return PathHelper.RegexSearchFolder(fullPath, regex);
+            return platformService.RegexSearchFolder(fullPath, regex);
 
         // Is file? Search file
         var m = Regex.Match(File.ReadAllText(fullPath!), regex);

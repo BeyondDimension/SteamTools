@@ -1,7 +1,6 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.Services.Implementation;
 
@@ -14,7 +13,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         this.platformService = platformService;
     }
 
-    private bool BasicCopyInAccount(string accId, PlatformAccount platform)
+    bool BasicCopyInAccount(string accId, PlatformAccount platform)
     {
         var allIds = JTokenHelper.ReadDict(platform.IdsJsonPath);
         var accName = allIds[accId];
