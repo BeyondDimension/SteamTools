@@ -118,6 +118,7 @@
 		<PackageReference Include="Splat.Drawing" />
 		<PackageReference Include="System.Drawing.Common" />
 		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">

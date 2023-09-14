@@ -101,6 +101,9 @@
 		<PackageReference Include="Aigio.Any.AppCenter" />
 		<PackageReference Include="Aigio.Any.AppCenter.Analytics" />
 		<PackageReference Include="Aigio.Any.AppCenter.Crashes" />
+		<PackageReference Include="System.Drawing.Common" />
+		<PackageReference Include="System.Runtime.Caching" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::IsOSPlatform('windows')) AND ($(RuntimeIdentifier.StartsWith('win-')) OR $(RuntimeIdentifier) == '')">
