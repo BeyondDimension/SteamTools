@@ -181,6 +181,8 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 
             IsInitialized = true;
         }
+
+        await Task.CompletedTask;
     }
 
     //public async override void Activation()

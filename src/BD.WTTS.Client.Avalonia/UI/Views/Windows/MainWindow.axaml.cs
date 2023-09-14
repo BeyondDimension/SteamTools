@@ -55,6 +55,14 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                 await AdvertiseService.Current.RefrshAdvertiseAsync();
                 NoticeService.Current.GetNewsAsync();
             });
+            try // 在主窗口显示时调用此函数检查是否需要显示新版本通知窗口
+            {
+                Ioc.Get_Nullable<IAppUpdateService>()?.OnMainOpenTryShowNewVersionWindow();
+            }
+            catch
+            {
+
+            }
         }
     }
 }

@@ -126,8 +126,8 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
         else
         {
             ShowNewVersionWindowOnMainOpen = true;
+            ShowNewVersionNotifyAsync();
         }
-        ShowNewVersionNotifyAsync();
     }
 
     static bool isCheckUpdateing;
