@@ -73,15 +73,19 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
 
         NavView.SelectedItem = null;
 
-        foreach (var nvi in NavView.MenuItemsSource)
-        {
-            SetSelectedItem(nvi);
-        }
+        var menuItemsSource = NavView.MenuItemsSource;
+        if (menuItemsSource != null)
+            foreach (var nvi in menuItemsSource)
+            {
+                SetSelectedItem(nvi);
+            }
 
-        foreach (var nvi in NavView.FooterMenuItemsSource)
-        {
-            SetSelectedItem(nvi);
-        }
+        var footerMenuItemsSource = NavView.FooterMenuItemsSource;
+        if (footerMenuItemsSource != null)
+            foreach (var nvi in footerMenuItemsSource)
+            {
+                SetSelectedItem(nvi);
+            }
 
         if (FrameView.BackStackDepth > 0 && !NavView.IsBackButtonVisible)
         {
