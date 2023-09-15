@@ -163,6 +163,10 @@ public partial interface IReverseProxySettings
     /// 是否支持 IPv6
     /// </summary>
     bool IsSupportIpv6 { get; set; }
+
+    bool UseDoh { get; set; }
+
+    string? CustomDohAddres { get; set; }
 }
 
 [MP2Obj(SerializeLayout.Explicit)]
@@ -206,7 +210,11 @@ public readonly partial record struct ReverseProxySettings(
     [property:MP2Key(18)]
     string? ProxyDNS,
     [property:MP2Key(19)]
-    bool IsSupportIpv6)
+    bool IsSupportIpv6,
+    [property:MP2Key(20)]
+    bool UseDoh,
+    [property:MP2Key(21)]
+    string? CustomDohAddres)
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal IPAddress GetProxyIp() => GetProxyIp(ProxyIp);
@@ -257,6 +265,8 @@ public readonly partial record struct ReverseProxySettings(
         settings.TwoLevelAgentPassword = TwoLevelAgentPassword;
         settings.ProxyDNS = GetProxyDNS();
         settings.IsSupportIpv6 = IsSupportIpv6;
+        settings.UseDoh = UseDoh;
+        settings.CustomDohAddres = CustomDohAddres;
     }
 #endif
 }
@@ -294,7 +304,7 @@ public enum StartProxyResultCode : byte
     /// <summary>
     /// 绑定端口错误
     /// </summary>
-    BindPortError
+    BindPortError,
 }
 
 /// <summary>

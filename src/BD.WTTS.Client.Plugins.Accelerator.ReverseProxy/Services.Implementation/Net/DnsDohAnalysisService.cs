@@ -7,13 +7,13 @@ using DnsQueryType = Ae.Dns.Protocol.Enums.DnsQueryType;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
-public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalysisService
+sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalysisService
 {
     const string TAG = "DnsDohAnalysisS";
 
     protected override string? DefaultClientName => TAG;
 
-    private readonly ConcurrentDictionary<string, List<DnsResourceRecord>> Cache = new ConcurrentDictionary<string, List<DnsResourceRecord>>();
+    private readonly ConcurrentDictionary<string, List<DnsResourceRecord>> Cache = new();
 
     public DnsDohAnalysisService(
             ILoggerFactory loggerFactory,
@@ -25,10 +25,18 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
 
     public async Task<int> AnalysisHostnameTimeAsync(string url, CancellationToken cancellationToken = default)
     {
+        const string dohAddres = Dnspod_DohAddres;
+        var r = await AnalysisHostnameTimeByDohAddresAsync(dohAddres, url, cancellationToken);
+        return r;
+    }
+
+    public async Task<int> AnalysisHostnameTimeByDohAddresAsync(string dohAddres, string url, CancellationToken cancellationToken = default)
+    {
         if (!string.IsNullOrEmpty(url))
         {
-            var client = CreateClient(null, HttpHandlerCategory.Default);
-            client.BaseAddress = new Uri(Dnspod_DohAddres);
+            const string clientName = TAG + "_" + nameof(AnalysisHostnameTimeAsync);
+            var client = CreateClient(clientName, HttpHandlerCategory.Default);
+            client.BaseAddress = new Uri(dohAddres);
             IDnsClient dnsClient = new DnsHttpClient(client);
 
             var queryType = DnsQueryType.A;
@@ -100,7 +108,7 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
             }
         }
 
-        if (current_dns_list.Count() <= 0)
+        if (!current_dns_list.Any())
         {
             if (dotServers == null || dotServers.Length <= 0)
                 dotServers = new Uri[] { new Uri(DNS_Ali_DohAddres) };
@@ -112,7 +120,8 @@ public sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalys
                 HttpClient httpClient;
                 foreach (var dot_server in dotServers)
                 {
-                    httpClient = CreateClient(TAG, HttpHandlerCategory.Default);
+                    const string clientName = TAG + "_" + nameof(DohAnalysisDomainIpAsync);
+                    httpClient = CreateClient(clientName, HttpHandlerCategory.Default);
                     httpClient.BaseAddress = dot_server;
                     dnsClient = new DnsHttpClient(httpClient);
 

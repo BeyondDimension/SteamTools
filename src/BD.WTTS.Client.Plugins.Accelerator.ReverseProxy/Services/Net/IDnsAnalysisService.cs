@@ -7,8 +7,6 @@ partial interface IDnsAnalysisService // 服务函数与 protected 定义
 {
     protected const string TAG = "DnsAnalysisS";
 
-    static IDnsAnalysisService Instance => Ioc.Get<IDnsAnalysisService>();
-
     protected const string IPV6_TESTDOMAIN = "ipv6.rmbgame.net";
     protected const string IPV6_TESTDOMAIN_SUCCESS = PrimaryDNS_IPV6_Ali;
 
@@ -24,6 +22,8 @@ partial interface IDnsAnalysisService // 服务函数与 protected 定义
     }
 
     Task<int> AnalysisHostnameTimeAsync(string url, CancellationToken cancellationToken = default);
+
+    Task<int> AnalysisHostnameTimeByDohAddresAsync(string dohAddres, string url, CancellationToken cancellationToken = default) => AnalysisHostnameTimeAsync(url, cancellationToken);
 
     /// <summary>
     /// 解析域名 IP 地址

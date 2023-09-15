@@ -6,9 +6,10 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
     protected const string TAG = "ReverseProxyS";
 
     public ReverseProxyServiceImpl(
-        IDnsAnalysisService dnsAnalyses)
+        DnsAnalysisServiceImpl dnsAnalysisServiceImpl,
+        DnsDohAnalysisService dnsDohAnalysisService)
     {
-        DnsAnalysis = dnsAnalyses;
+        DnsAnalysis = new DnsAnalysisServiceSwitchImpl(this, dnsAnalysisServiceImpl, dnsDohAnalysisService);
     }
 
     public IDnsAnalysisService DnsAnalysis { get; }
@@ -83,6 +84,10 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
     public IPAddress? ProxyDNS { get; set; }
 
     public bool IsSupportIpv6 { get; set; }
+
+    public bool UseDoh { get; set; }
+
+    public string? CustomDohAddres { get; set; }
 
     /// <summary>
     /// 获取一个随机的未使用的端口

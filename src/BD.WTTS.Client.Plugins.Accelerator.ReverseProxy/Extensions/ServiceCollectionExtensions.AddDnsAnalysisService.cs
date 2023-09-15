@@ -6,8 +6,8 @@ public static partial class ServiceCollectionExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddDnsAnalysisService(this IServiceCollection services)
     {
-        //services.AddSingleton<IDnsAnalysisService, DnsDohAnalysisService>();
-        services.AddSingleton<IDnsAnalysisService, DnsAnalysisServiceImpl>();
+        services.AddSingleton<DnsDohAnalysisService>();
+        services.AddSingleton<DnsAnalysisServiceImpl>();
         return services;
     }
 }

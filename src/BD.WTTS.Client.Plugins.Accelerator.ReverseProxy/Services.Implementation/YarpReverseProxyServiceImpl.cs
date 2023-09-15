@@ -15,8 +15,9 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public YarpReverseProxyServiceImpl(
         IPCSubProcessService ipc,
-        IDnsAnalysisService dnsAnalysis,
-        ICertificateManager certificateManager) : base(dnsAnalysis)
+        DnsAnalysisServiceImpl dnsAnalysisServiceImpl,
+        DnsDohAnalysisService dnsDohAnalysisService,
+        ICertificateManager certificateManager) : base(dnsAnalysisServiceImpl, dnsDohAnalysisService)
     {
         this.ipc = ipc;
         platformService = GetIPCService<IPCPlatformService>(nameof(platformService));

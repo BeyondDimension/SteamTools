@@ -146,6 +146,16 @@ public partial interface IProxySettings
 #endif
 
     /// <summary>
+    /// 启用 DNS over HTTPS
+    /// </summary>
+    bool UseDoh { get; set; }
+
+    /// <summary>
+    /// 自定义 DNS over HTTPS 地址
+    /// </summary>
+    string? CustomDohAddres { get; set; }
+
+    /// <summary>
     /// 启用脚本自动检查更新的默认值
     /// </summary>
     const bool DefaultIsAutoCheckScriptUpdate = true;
@@ -249,5 +259,15 @@ public partial interface IProxySettings
     /// 是否只针对 Steam 内置浏览器启用脚本的默认值
     /// </summary>
     const bool DefaultIsOnlyWorkSteamBrowser = false;
+
+    /// <summary>
+    /// 启用 DNS over HTTPS的默认值
+    /// </summary>
+    const bool DefaultUseDoh = true;
+
+    /// <summary>
+    /// 自定义 DNS over HTTPS 地址的默认值
+    /// </summary>
+    const string? DefaultCustomDohAddres = null;
 
 }

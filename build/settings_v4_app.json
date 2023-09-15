@@ -943,6 +943,24 @@
         },
         {
           "Sharp": "endif"
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "UseDoh",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "启用 DNS over HTTPS",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomDohAddres",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "自定义 DNS over HTTPS 地址",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
         }
       ],
       "Usings": ""

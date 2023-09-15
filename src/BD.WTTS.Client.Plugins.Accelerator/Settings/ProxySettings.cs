@@ -185,6 +185,18 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     [MPKey(20), MP2Key(20), JsonPropertyOrder(20)]
     public bool IsOnlyWorkSteamBrowser { get; set; } = IProxySettings.DefaultIsOnlyWorkSteamBrowser;
 
+    /// <summary>
+    /// 启用 DNS over HTTPS
+    /// </summary>
+    [MPKey(21), MP2Key(21), JsonPropertyOrder(21)]
+    public bool UseDoh { get; set; } = IProxySettings.DefaultUseDoh;
+
+    /// <summary>
+    /// 自定义 DNS over HTTPS 地址
+    /// </summary>
+    [MPKey(22), MP2Key(22), JsonPropertyOrder(22)]
+    public string? CustomDohAddres { get; set; } = IProxySettings.DefaultCustomDohAddres;
+
 }
 
 public static partial class ProxySettings
@@ -334,5 +346,17 @@ public static partial class ProxySettings
         = new(DefaultIsOnlyWorkSteamBrowser);
 
 #endif
+
+    /// <summary>
+    /// 启用 DNS over HTTPS
+    /// </summary>
+    public static SettingsStructProperty<bool, ProxySettings_> UseDoh { get; }
+        = new(DefaultUseDoh);
+
+    /// <summary>
+    /// 自定义 DNS over HTTPS 地址
+    /// </summary>
+    public static SettingsProperty<string, ProxySettings_> CustomDohAddres { get; }
+        = new(DefaultCustomDohAddres);
 
 }
