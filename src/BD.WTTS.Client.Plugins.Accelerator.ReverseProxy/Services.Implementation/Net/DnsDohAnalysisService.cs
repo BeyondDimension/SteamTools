@@ -83,10 +83,10 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
         return 0;
     }
 
-    /// <summary>
-    /// DNS 解析查询最大递归查询次数
-    /// </summary>
-    const byte max_recursion_dns_query = 20;
+    ///// <summary>
+    ///// DNS 解析查询最大递归查询次数
+    ///// </summary>
+    //const byte max_recursion_dns_query = 20;
 
     static readonly TimeSpan TTL = TimeSpan.FromMinutes(9.9D);
 
@@ -104,37 +104,37 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
         Uri dohAddresUri,
         string hostNameOrAddress,
         DnsQueryType queryType = DnsQueryType.A,
-        byte count = 1,
-        HashSet<string>? domainHistory = null,
+        //byte count = 1,
+        //HashSet<string>? domainHistory = null,
         CancellationToken cancellationToken = default)
     {
-        if (count <= max_recursion_dns_query)
-        {
-            domainHistory ??= new();
-            var query = DnsQueryFactory.CreateQuery(hostNameOrAddress, queryType);
-            var dnsClient = GetDnsHttpClient(dohAddresUri);
-            var answer = await dnsClient.Query(query, cancellationToken);
+        //if (count <= max_recursion_dns_query)
+        //{
+        //    domainHistory ??= new();
+        var query = DnsQueryFactory.CreateQuery(hostNameOrAddress, queryType);
+        var dnsClient = GetDnsHttpClient(dohAddresUri);
+        var answer = await dnsClient.Query(query, cancellationToken);
 
-            var dnsResources = answer.Answers.Select(x => x.Resource);
+        var dnsResources = answer.Answers.Select(x => x.Resource);
 
-            var iPAddresses = dnsResources.OfType<DnsIpAddressResource>().Select(x => x.IPAddress).ToArray();
-            if (iPAddresses.Any())
-                return iPAddresses;
+        var iPAddresses = dnsResources.OfType<DnsIpAddressResource>().Select(x => x.IPAddress).ToArray();
+        if (iPAddresses.Any())
+            return iPAddresses;
 
-            var domainRes = dnsResources.OfType<DnsDomainResource>().FirstOrDefault();
-            if (domainRes != null)
-            {
-                var domain = domainRes.Domain;
-                if (!string.IsNullOrWhiteSpace(domain))
-                {
-                    if (domainHistory.Add(domain))
-                    {
-                        // CNAME 递归解析
-                        iPAddresses = await Query(dohAddresUri, domain, queryType, ++count, domainHistory, cancellationToken);
-                    }
-                }
-            }
-        }
+        //var domainRes = dnsResources.OfType<DnsDomainResource>().FirstOrDefault();
+        //if (domainRes != null)
+        //{
+        //    var domain = domainRes.Domain;
+        //    if (!string.IsNullOrWhiteSpace(domain))
+        //    {
+        //        //if (domainHistory.Add(domain))
+        //        //{
+        //        // CNAME 递归解析
+        //        iPAddresses = await Query(dohAddresUri, domain, queryType,/* ++count, domainHistory,*/ cancellationToken);
+        //        //}
+        //    }
+        //}
+        ////}
 
         return Array.Empty<IPAddress>();
     }
@@ -181,6 +181,13 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
         }
 
         var result = await Query(dohAddresUri, hostNameOrAddress, queryType, cancellationToken: cancellationToken);
+
+        if (isIPv6 && !result.Any())
+        {
+            // IPv6 返回空时使用 IPv4 解析
+            result = await Query(dohAddresUri, hostNameOrAddress, DnsQueryType.A, cancellationToken: cancellationToken);
+        }
+
         if (useCache)
         {
             Cache[cacheKey] = new()

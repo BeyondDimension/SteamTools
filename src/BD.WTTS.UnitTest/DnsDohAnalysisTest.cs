@@ -11,7 +11,8 @@ public sealed class DnsDohAnalysisTest
         {
             s.AddLogging(s => s.AddConsole());
             s.TryAddClientHttpPlatformHelperService();
-            s.AddFusilladeHttpClient();
+            FusilladeHttpClientFactory2 factory = new();
+            s.AddSingleton<IHttpClientFactory>(factory);
             s.AddSingleton<DnsDohAnalysisService>();
         });
 
@@ -23,8 +24,8 @@ public sealed class DnsDohAnalysisTest
             DNS_Ali_DohAddres,
             DNS_Ali_DohAddres2,
             DNS_Ali_DohAddres3,
-            Google_DohAddres,
-            Cloudflare_DohAddres,
+            //Google_DohAddres,
+            //Cloudflare_DohAddres,
             DohAddres_360,
             TUNA_DohAddres,
         };
@@ -61,5 +62,24 @@ public sealed class DnsDohAnalysisTest
             Console.WriteLine(str);
             Console.WriteLine("--------------------");
         }
+    }
+}
+
+sealed class FusilladeHttpClientFactory2 : FusilladeHttpClientFactory
+{
+    protected override HttpClient CreateClient(HttpMessageHandler handler)
+    {
+        var client = new HttpClient(handler);
+
+        try
+        {
+            client.Timeout = TimeSpan.FromSeconds(14.5D);
+        }
+        catch
+        {
+
+        }
+
+        return client;
     }
 }
