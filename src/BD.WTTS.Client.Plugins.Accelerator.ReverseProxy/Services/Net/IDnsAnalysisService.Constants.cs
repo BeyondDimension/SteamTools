@@ -21,7 +21,7 @@ public partial interface IDnsAnalysisService // 公共常量定义
     const string DohAddres_360 = "https://doh.360.cn/dns-query";
     const string TUNA_DohAddres = "https://101.6.6.6:8443/dns-query";
 
-    protected const string PrimaryDNS_IPV6_Ali = "2400:3200::1";
+    const string PrimaryDNS_IPV6_Ali = "2400:3200::1";
 
     const string PrimaryDNS_Ali = "223.5.5.5";
     const string SecondaryDNS_Ali = "223.6.6.6";

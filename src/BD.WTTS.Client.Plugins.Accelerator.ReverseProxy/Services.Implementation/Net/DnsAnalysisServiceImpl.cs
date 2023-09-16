@@ -5,9 +5,9 @@ using static BD.WTTS.Services.IDnsAnalysisService;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
-sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
+sealed class DnsAnalysisServiceImpl
 {
-    static readonly LookupClient lookupClient = new();
+    readonly LookupClient lookupClient = new();
 
     public async Task<int> AnalysisHostnameTimeAsync(string url, CancellationToken cancellationToken = default)
     {
@@ -24,7 +24,7 @@ sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
         return 0;
     }
 
-    public static IEnumerable<ARecord>? GetPingHostNameData(string url)
+    public IEnumerable<ARecord>? GetPingHostNameData(string url)
     {
         if (!string.IsNullOrEmpty(url))
         {
@@ -119,11 +119,18 @@ sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
             {
                 Retries = 1,
                 Timeout = TimeSpan.FromSeconds(1),
-                UseCache = false
+                UseCache = false,
             };
             var client = new LookupClient(options);
-            var response = await client.QueryServerAsync(new[] { IPAddress.Parse(PrimaryDNS_IPV6_Ali) }, IPV6_TESTDOMAIN, QueryType.AAAA, QueryClass.IN);
-            if (response.Answers.AaaaRecords().Any(s => s.Address.Equals(IPAddress.Parse(IPV6_TESTDOMAIN_SUCCESS))))
+            var response = await client.QueryServerAsync(
+                new[] {
+                    IPAddress.Parse(PrimaryDNS_IPV6_Ali),
+                },
+                IPV6_TESTDOMAIN,
+                QueryType.AAAA,
+                QueryClass.IN);
+            if (response.Answers.AaaaRecords().Any(s =>
+                s.Address.Equals(IPAddress.Parse(IPV6_TESTDOMAIN_SUCCESS))))
             {
                 return true;
             }
@@ -132,10 +139,5 @@ sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
         {
         }
         return false;
-    }
-
-    public Task<IPAddress?> GetHostIpv6AddresAsync()
-    {
-        return Task.FromResult<IPAddress?>(null);
     }
 }
