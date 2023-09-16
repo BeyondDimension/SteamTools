@@ -28,6 +28,15 @@
 			<LinkBase>Services.Implementation\Certificate</LinkBase>
 		</Compile>
 		<Compile Condition="'$(Configuration)'!='Debug'" Include="..\Utils.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Net\DnsDohAnalysisService.cs">
+			<LinkBase>Services.Implementation\Net</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Net\IDnsAnalysisService.cs">
+			<LinkBase>Services\Net</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Net\IDnsAnalysisService.Constants.cs">
+			<LinkBase>Services\Net</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
