@@ -1080,6 +1080,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 自定义 DoH 地址 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_CustomDohAddres {
+            get {
+                return ResourceManager.GetString("CommunityFix_CustomDohAddres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 移除证书 的本地化字符串。
         /// </summary>
         public static string CommunityFix_DeleteCertificate {
@@ -1139,6 +1148,15 @@ namespace BD.WTTS.Client.Resources {
         public static string CommunityFix_EnableScriptService {
             get {
                 return ResourceManager.GetString("CommunityFix_EnableScriptService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用 DoH 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_EnableUseDoh {
+            get {
+                return ResourceManager.GetString("CommunityFix_EnableUseDoh", resourceCulture);
             }
         }
         

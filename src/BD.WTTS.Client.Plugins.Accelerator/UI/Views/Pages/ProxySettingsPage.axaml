@@ -15,26 +15,24 @@
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
         <ui:SettingsExpander Header="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsExpanded="True">
+
             <ui:SettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_SystemProxyIp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
                         ItemsSource="{Binding SystemProxyIps}"
-                        Text="{Binding Source={x:Static ms:ProxySettings.SystemProxyIp},
-                                                 Path=Value,
-                                                 Mode=TwoWay}" />
+                        Text="{Binding Source={x:Static ms:ProxySettings.SystemProxyIp}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
+
             <ui:SettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
                         ItemsSource="{Binding ProxyDNSs}"
-                        Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns},
-                                                 Path=Value,
-                                                 Mode=TwoWay}" />
+                        Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
             <!--<DockPanel>
@@ -67,6 +65,24 @@
                 <TextBlock Text="{Binding Path=Res.CommunityFix_EnableHttpProxyToHttps, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableHttpProxyToHttps}, Path=Value, Mode=TwoWay}" />
+                </ui:SettingsExpanderItem.Footer>
+            </ui:SettingsExpanderItem>
+
+            <ui:SettingsExpanderItem>
+                <TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <ui:SettingsExpanderItem.Footer>
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value, Mode=TwoWay}" />
+                </ui:SettingsExpanderItem.Footer>
+            </ui:SettingsExpanderItem>
+
+            <ui:SettingsExpanderItem>
+                <TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <ui:SettingsExpanderItem.Footer>
+                    <ui:FAComboBox
+                        IsEditable="True"
+                        ItemsSource="{Binding DohAddress}"
+                        PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres}, Mode=OneWay}"
+                        Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
 

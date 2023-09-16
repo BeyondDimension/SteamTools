@@ -23,10 +23,11 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalysisServi
     {
     }
 
+    const string DefaultDohAddres = Dnspod_DohAddres;
+
     public async Task<int> AnalysisHostnameTimeAsync(string url, CancellationToken cancellationToken = default)
     {
-        const string dohAddres = Dnspod_DohAddres;
-        var r = await AnalysisHostnameTimeByDohAddresAsync(dohAddres, url, cancellationToken);
+        var r = await AnalysisHostnameTimeByDohAddresAsync(DefaultDohAddres, url, cancellationToken);
         return r;
     }
 
@@ -36,7 +37,14 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDnsAnalysisServi
         {
             const string clientName = TAG + "_" + nameof(AnalysisHostnameTimeAsync);
             var client = CreateClient(clientName, HttpHandlerCategory.Default);
-            client.BaseAddress = new Uri(dohAddres);
+            try
+            {
+                client.BaseAddress = new Uri(dohAddres);
+            }
+            catch
+            {
+                client.BaseAddress = new Uri(DefaultDohAddres);
+            }
             IDnsClient dnsClient = new DnsHttpClient(client);
 
             var queryType = DnsQueryType.A;

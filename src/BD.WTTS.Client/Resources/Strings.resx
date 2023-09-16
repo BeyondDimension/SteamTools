@@ -242,7 +242,7 @@
   <data name="CommunityFix_ItemsEmpty" xml:space="preserve">
     <value>获取加速信息失败，请检查程序是否能正常联网</value>
   </data>
-	<data name="CommunityFix_AccEmpty" xml:space="preserve">
+  <data name="CommunityFix_AccEmpty" xml:space="preserve">
     <value>没有启用任何加速项！！</value>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
@@ -464,7 +464,7 @@
   <data name="GameList_NavToSteamView" xml:space="preserve">
     <value>在 Steam 客户端中查看</value>
   </data>
-	<data name="GameList_NavScreenshotToSteamView" xml:space="preserve">
+  <data name="GameList_NavScreenshotToSteamView" xml:space="preserve">
     <value>在 Steam 客户端中管理截图</value>
   </data>
   <data name="GameList_RefreshGamesList" xml:space="preserve">
@@ -1599,7 +1599,7 @@
   <data name="User_LoginUnexpectedPrompt" xml:space="preserve">
     <value>如果登录过程出现意外，按照网页提示进行</value>
   </data>
-	<data name="NewFeatureDevelopment" xml:space="preserve">
+  <data name="NewFeatureDevelopment" xml:space="preserve">
     <value>新功能正在开发中...</value>
   </data>
   <data name="Error_PageFault" xml:space="preserve">
@@ -1770,10 +1770,10 @@
   <data name="DisplayQRCode" xml:space="preserve">
     <value>查看二维码</value>
   </data>
-	<data name="Enable" xml:space="preserve">
+  <data name="Enable" xml:space="preserve">
     <value>启用</value>
   </data>
-	<data name="Disable" xml:space="preserve">
+  <data name="Disable" xml:space="preserve">
     <value>禁用</value>
   </data>
   <data name="Enabled" xml:space="preserve">
@@ -1975,7 +1975,7 @@
 您将同意列表内全部的报价请求。
 交易一经确认无法撤销，请谨慎选择。</value>
   </data>
-	<data name="ModelContent_ConfirmTrade___" xml:space="preserve">
+  <data name="ModelContent_ConfirmTrade___" xml:space="preserve">
     <value>{0}
 {1}
 {2}
@@ -1983,7 +1983,7 @@
 {3}
 如果您没有创建此交易，请立即取消该交易。您的账户或电脑可能已遭盗用。</value>
   </data>
-	<data name="ModelContent_ConfirmTrade2_" xml:space="preserve">
+  <data name="ModelContent_ConfirmTrade2_" xml:space="preserve">
     <value>您尚未让 {0} 选择任何物品以交换您的物品。如果 {0}  接受此交易，您将失去您提供的物品，但不会收到任何物品。</value>
   </data>
   <data name="ModelContent_ConfirmUnbinding" xml:space="preserve">
@@ -2732,71 +2732,76 @@
   <data name="Settings_InvalidConfigurationFile" xml:space="preserve">
     <value>无效的配置文件</value>
   </data>
-	<data name="Welcome_User_" xml:space="preserve">
-    <!--<value>{0}，欢迎使用 Watt Toolkit</value>-->
+  <data name="Welcome_User_" xml:space="preserve">
     <value>欢迎使用 Watt Toolkit</value>
   </data>
-	<data name="User_Rememberme" xml:space="preserve">
+  <data name="User_Rememberme" xml:space="preserve">
     <value>记住登录状态</value>
   </data>
-	<data name="GameList_RunOtherAppCount_" xml:space="preserve">
+  <data name="GameList_RunOtherAppCount_" xml:space="preserve">
     <value>挂时长列表存在不属于当前 Steam 账号的 {0} 个游戏</value>
   </data>
-	<data name="GameRelated_Borderless" xml:space="preserve">
+  <data name="GameRelated_Borderless" xml:space="preserve">
     <value>无边框窗口化</value>
   </data>
-	<data name="GameRelated_Borderless_BorderlessWindow" xml:space="preserve">
+  <data name="GameRelated_Borderless_BorderlessWindow" xml:space="preserve">
     <value>无边框窗口化</value>
   </data>
-	<data name="GameRelated_Borderless_ClassName" xml:space="preserve">
+  <data name="GameRelated_Borderless_ClassName" xml:space="preserve">
     <value>类名</value>
   </data>
-	<data name="GameRelated_Borderless_Hide" xml:space="preserve">
+  <data name="GameRelated_Borderless_Hide" xml:space="preserve">
     <value>隐藏</value>
   </data>
-	<data name="GameRelated_Borderless_KillProcess" xml:space="preserve">
+  <data name="GameRelated_Borderless_KillProcess" xml:space="preserve">
     <value>结束进程</value>
   </data>
-	<data name="GameRelated_Borderless_Maximize" xml:space="preserve">
+  <data name="GameRelated_Borderless_Maximize" xml:space="preserve">
     <value>最大化</value>
   </data>
-	<data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
+  <data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
     <value>拖拽十字到游戏窗口，即可获取游戏信息执行对应操作。</value>
   </data>
-	<data name="GameRelated_Borderless_Normal" xml:space="preserve">
+  <data name="GameRelated_Borderless_Normal" xml:space="preserve">
     <value>默认大小</value>
   </data>
-	<data name="GameRelated_Borderless_Path" xml:space="preserve">
+  <data name="GameRelated_Borderless_Path" xml:space="preserve">
     <value>程序路径</value>
   </data>
-	<data name="GameRelated_Borderless_Process" xml:space="preserve">
+  <data name="GameRelated_Borderless_Process" xml:space="preserve">
     <value>进程</value>
   </data>
-	<data name="GameRelated_Borderless_ResetWallerpaper" xml:space="preserve">
+  <data name="GameRelated_Borderless_ResetWallerpaper" xml:space="preserve">
     <value>刷新壁纸</value>
   </data>
-	<data name="GameRelated_Borderless_Show" xml:space="preserve">
+  <data name="GameRelated_Borderless_Show" xml:space="preserve">
     <value>显示</value>
   </data>
-	<data name="GameRelated_Borderless_Title" xml:space="preserve">
+  <data name="GameRelated_Borderless_Title" xml:space="preserve">
     <value>标题</value>
   </data>
-	<data name="GameRelated_Borderless_ToWallerpaper" xml:space="preserve">
+  <data name="GameRelated_Borderless_ToWallerpaper" xml:space="preserve">
     <value>置于壁纸层</value>
   </data>
-	<data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
+  <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
     <value>置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与 Wallpaper Engine 和其它动态桌面软件不兼容，使用时注意关掉 Wallpaper Engine 等软件。</value>
   </data>
-	<data name="PersonalSafe" xml:space="preserve">
+  <data name="PersonalSafe" xml:space="preserve">
     <value>安全设置</value>
   </data>
-	<data name="OpenMainWindow" xml:space="preserve">
+  <data name="OpenMainWindow" xml:space="preserve">
     <value>打开主面板</value>
   </data>
-	<data name="CloseSteam" xml:space="preserve">
+  <data name="CloseSteam" xml:space="preserve">
     <value>关闭 Steam</value>
   </data>
-	<data name="StartSteam" xml:space="preserve">
+  <data name="StartSteam" xml:space="preserve">
     <value>启动 Steam</value>
+  </data>
+  <data name="CommunityFix_CustomDohAddres" xml:space="preserve">
+    <value>自定义 DoH 地址</value>
+  </data>
+  <data name="CommunityFix_EnableUseDoh" xml:space="preserve">
+    <value>启用 DoH</value>
   </data>
 </root>
