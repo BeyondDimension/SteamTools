@@ -13,7 +13,8 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
 
     protected override string? DefaultClientName => TAG;
 
-    private readonly ConcurrentDictionary<(Uri dohAddresUri, string hostNameOrAddressWithQueryType), List<DnsResourceRecord>> Cache = new();
+    readonly ConcurrentDictionary<(Uri dohAddresUri, string hostNameOrAddressWithQueryType), List<DnsResourceRecord>> Cache = new();
+    readonly ConcurrentDictionary<Uri, DnsHttpClient> dnsClients = new();
 
     public DnsDohAnalysisService(
             ILoggerFactory loggerFactory,
@@ -42,14 +43,35 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
         return dohAddresUri;
     }
 
+    DnsHttpClient GetDnsHttpClient(string? dohAddres)
+    {
+        var dohAddresUri = GetDohAddres(dohAddres);
+        return GetDnsHttpClient(dohAddresUri);
+    }
+
+    DnsHttpClient GetDnsHttpClient(Uri dohAddresUri)
+    {
+        if (dnsClients.TryGetValue(dohAddresUri, out var value))
+            return value;
+        var client = CreateClient($"{TAG}_{dohAddresUri}", HttpHandlerCategory.Default);
+        //var handler = new HttpClientHandler
+        //{
+        //    UseCookies = false,
+        //    UseProxy = false,
+        //    Proxy = HttpNoProxy.Instance,
+        //};
+        //var client = new HttpClient(handler);
+        client.BaseAddress = dohAddresUri;
+        var dnsClient = new DnsHttpClient(client);
+        dnsClients.TryAdd(dohAddresUri, dnsClient);
+        return dnsClient;
+    }
+
     public async Task<int> DohAnalysisHostnameTimeAsync(string? dohAddres, string url, CancellationToken cancellationToken = default)
     {
         if (!string.IsNullOrEmpty(url))
         {
-            const string clientName = TAG + "_" + nameof(DohAnalysisHostnameTimeAsync);
-            var client = CreateClient(clientName, HttpHandlerCategory.Default);
-            client.BaseAddress = GetDohAddres(dohAddres);
-            IDnsClient dnsClient = new DnsHttpClient(client);
+            var dnsClient = GetDnsHttpClient(dohAddres);
 
             var queryType = DnsQueryType.A;
             var query = DnsQueryFactory.CreateQuery(url, queryType);
@@ -103,11 +125,7 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
             try
             {
                 var query = DnsQueryFactory.CreateQuery(hostNameOrAddress, queryType);
-                HttpClient httpClient;
-                const string clientName = TAG + "_" + nameof(DohAnalysisDomainIpAsync);
-                httpClient = CreateClient(clientName, HttpHandlerCategory.Default);
-                httpClient.BaseAddress = dohAddresUri;
-                using var dnsClient = new DnsHttpClient(httpClient);
+                var dnsClient = GetDnsHttpClient(dohAddresUri);
 
                 var answer = await dnsClient.Query(query, cancellationToken);
                 if (useCache)
@@ -126,13 +144,11 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
             {
                 if (useCache)
                 {
-                    Cache[cacheKey] = current_dns_list
-                        .Select(item =>
-                        {
-                            item.TimeToLive += (uint)DateTime.Now.ToUnixTimeSeconds();
-                            return item;
-                        })
-                        .ToList();
+                    current_dns_list.ForEach(item =>
+                    {
+                        item.TimeToLive += (uint)DateTime.Now.ToUnixTimeSeconds();
+                    });
+                    Cache[cacheKey] = current_dns_list;
                 }
             }
         }

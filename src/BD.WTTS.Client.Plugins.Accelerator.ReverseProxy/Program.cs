@@ -89,6 +89,7 @@ static void ConfigureServices(IServiceCollection services)
 
     services.AddHttpClient();
     services.AddCommonHttpClientFactory();
+    services.AddSingleton<IHttpPlatformHelperService, HttpPlatformHelperConsoleService>();
 
     services.AddDnsAnalysisService();
     // 添加反向代理服务（子进程实现）
@@ -147,4 +148,11 @@ sealed class RepositorySecureStorage : Repository<KeyValuePair, string>, ISecure
         var item = await FirstOrDefaultAsync(x => x.Id == key);
         return item != null;
     }
+}
+
+sealed class HttpPlatformHelperConsoleService : HttpPlatformHelperService
+{
+    new const string DefaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36 Edg/90.0.818.51";
+
+    public override string UserAgent => DefaultUserAgent;
 }
