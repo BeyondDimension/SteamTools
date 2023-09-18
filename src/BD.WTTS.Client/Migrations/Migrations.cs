@@ -67,16 +67,23 @@ public static class Migrations
     {
         try
         {
-            var oldPath = Path.Combine(rootPath, DirName_Scripts);
-            if (Directory.Exists(oldPath))
+            var newPath = Path.Combine(rootPath,
+                AssemblyInfo.Plugins,
+                AssemblyInfo.Accelerator,
+                newDirName ?? DirName_Scripts);
+            if (!Directory.Exists(newPath))
             {
-                var newPath = Path.Combine(rootPath, AssemblyInfo.Plugins, AssemblyInfo.Accelerator, newDirName ?? DirName_Scripts);
-                Directory.Move(oldPath, newPath);
+                var oldPath = Path.Combine(rootPath, DirName_Scripts);
+                if (Directory.Exists(oldPath))
+                {
+                    Directory.Move(oldPath, newPath);
+                }
             }
         }
         catch (Exception e)
         {
-            Log.Error(nameof(Migrations), e, "MoveDirByScriptsFail, rootPath: {rootPath}", rootPath);
+            Log.Error(nameof(Migrations), e,
+                "MoveDirByScriptsFail, rootPath: {rootPath}", rootPath);
         }
     }
 }
