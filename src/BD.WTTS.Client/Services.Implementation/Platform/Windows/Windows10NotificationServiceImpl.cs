@@ -94,24 +94,31 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
 
     void INotificationService.Notify(string text, NotificationType notificationType, bool autoCancel, string? title, Entrance entrance, string? requestUri)
     {
-        var builder = new ToastContentBuilder()
-            .AddToastActivationInfo(null, ToastActivationType.Foreground)
-            .AddText(title, hintStyle: AdaptiveTextStyle.Header)
-            .AddText(text, hintStyle: AdaptiveTextStyle.Body);
-
-        builder.Show(t =>
+        try
         {
-            (var tag, var group) = GetTagAndGroup(notificationType);
-            t.Tag = tag;
-            t.Group = group;
-            t.Activated += (_, _) =>
+            var builder = new ToastContentBuilder()
+                .AddToastActivationInfo(null, ToastActivationType.Foreground)
+                .AddText(title, hintStyle: AdaptiveTextStyle.Header)
+                .AddText(text, hintStyle: AdaptiveTextStyle.Body);
+
+            builder.Show(t =>
             {
-                if (autoCancel)
+                (var tag, var group) = GetTagAndGroup(notificationType);
+                t.Tag = tag;
+                t.Group = group;
+                t.Activated += (_, _) =>
                 {
-                    ToastNotificationManagerCompat.History.Remove(tag, group);
-                }
-            };
-        });
+                    if (autoCancel)
+                    {
+                        ToastNotificationManagerCompat.History.Remove(tag, group);
+                    }
+                };
+            });
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT();
+        }
     }
 
     bool INotificationService.IsSupportNotifyDownload => true;

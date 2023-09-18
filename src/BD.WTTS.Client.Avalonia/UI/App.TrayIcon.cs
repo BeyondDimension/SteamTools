@@ -1,12 +1,16 @@
+using Avalonia.Controls;
 using BD.SteamClient.Services;
 using BD.WTTS.Client.Resources;
 using BD.WTTS.Converters;
+using System.Collections.Specialized;
 using static BD.WTTS.Services.INotificationService;
 
 namespace BD.WTTS.UI;
 
 partial class App
 {
+    public Dictionary<string, TrayMenuItem> TrayMenus { get; } = new Dictionary<string, TrayMenuItem>();
+
     public TrayIcons TrayIcons { get; init; } = new TrayIcons();
 
     readonly Dictionary<string, ICommand> trayIconMenus = new();
@@ -32,50 +36,10 @@ partial class App
                     ToolTipText = AssemblyInfo.Trademark,
                     Command = ReactiveCommand.Create(RestoreMainWindow),
                     //[!TrayIcon.IsVisibleProperty] = new Binding { Path = "Value", Source = GeneralSettings.IsEnableTrayIcon, Mode = BindingMode.OneWay },
-                    Menu = new NativeMenu
-                    {
-                        //new NativeMenuItem
-                        //{
-                        //    Header = "Test",
-                        //},
-                        //new NativeMenuItemSeparator(),
-                        new NativeMenuItem
-                        {
-                            [!NativeMenuItem.HeaderProperty] = new MultiBinding {
-                                Bindings = new List<Avalonia.Data.IBinding>()
-                                {
-                                    new Binding { Path = "IsRunningSteamProcess", Source = SteamConnectService.Current, Mode = BindingMode.OneWay },
-                                    new Binding { Path = "Res.CloseSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
-                                    new Binding { Path = "Res.StartSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
-                                },
-                                Converter = (VisbleStringConverter)App.Instance.FindResource("VisbleStringConverter")!,
-                            },
-                            Command = ReactiveCommand.Create(() =>
-                            {
-                                if(ISteamService.Instance.IsRunningSteamProcess)
-                                {
-                                    ISteamService.Instance.TryKillSteamProcess();
-                                }
-                                else
-                                {
-                                    ISteamService.Instance.StartSteamWithParameter();
-                                }
-                            })
-                        },
-                        new NativeMenuItemSeparator(),
-                        new NativeMenuItem
-                        {
-                            [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.OpenMainWindow", Source = ResourceService.Current, Mode = BindingMode.OneWay },
-                            Command = ReactiveCommand.Create(RestoreMainWindow)
-                        },
-                        new NativeMenuItemSeparator(),
-                        new NativeMenuItem
-                        {
-                            [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.Exit", Source = ResourceService.Current, Mode = BindingMode.OneWay },
-                            Command = ReactiveCommand.Create(() => { Shutdown(); })
-                        }
-                    }
+                    Menu = new NativeMenu(),
                 });
+
+                UpdateMenuItems();
 
                 //IViewModelManager.Instance.InitTaskBarWindowViewModel();
                 //NotifyIconHelper.Init(this,
@@ -100,6 +64,101 @@ partial class App
                 s.HasTrayIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
 #endif
 
+        }
+    }
+
+    public void UpdateMenuItems()
+    {
+        MainThread2.BeginInvokeOnMainThread(() =>
+        {
+            var menus = TrayIcons.FirstOrDefault()?.Menu;
+
+            if (menus != null)
+            {
+                menus.Items.Clear();
+
+                var defaultTrayMenus = new List<NativeMenuItemBase>()
+                    {
+                        new NativeMenuItem
+                        {
+                            [!NativeMenuItem.HeaderProperty] = new MultiBinding {
+                                Bindings = new List<Avalonia.Data.IBinding>()
+                                {
+                                    new Binding { Path = "IsRunningSteamProcess", Source = SteamConnectService.Current, Mode = BindingMode.OneWay },
+                                    new Binding { Path = "Res.CloseSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
+                                    new Binding { Path = "Res.StartSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
+                                },
+                                Converter = (VisbleStringConverter)App.Instance.FindResource("VisbleStringConverter")!,
+                            },
+                            Command = ReactiveCommand.Create(() =>
+                            {
+                                if(ISteamService.Instance.IsRunningSteamProcess)
+                                {
+                                    ISteamService.Instance.TryKillSteamProcess();
+                                }
+                                else
+                                {
+                                    ISteamService.Instance.StartSteamWithParameter();
+                                }
+                            })
+                        },
+                        //new NativeMenuItemSeparator(),
+                        new NativeMenuItem
+                        {
+                            [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.OpenMainWindow", Source = ResourceService.Current, Mode = BindingMode.OneWay },
+                            Command = ReactiveCommand.Create(RestoreMainWindow)
+                        },
+                        new NativeMenuItemSeparator(),
+                        new NativeMenuItem
+                        {
+                            [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.Exit", Source = ResourceService.Current, Mode = BindingMode.OneWay },
+                            Command = ReactiveCommand.Create(() => { Shutdown(); })
+                        }
+                    };
+
+                if (TrayMenus.Any_Nullable())
+                {
+                    foreach (var item in TrayMenus)
+                    {
+                        NativeMenu? subMenu = null;
+                        if (item.Value.Items.Any_Nullable())
+                        {
+                            subMenu = new NativeMenu();
+                            foreach (var sub in item.Value.Items)
+                                subMenu.Add(new NativeMenuItem
+                                {
+                                    Header = sub.Name,
+                                    Command = sub.Command,
+                                });
+                        }
+                        menus.Add(new NativeMenuItem
+                        {
+                            Header = item.Value.Name,
+                            Command = item.Value.Command,
+                            Menu = subMenu,
+                        });
+                    }
+                    menus.Add(new NativeMenuItemSeparator());
+                }
+
+                foreach (var item in defaultTrayMenus)
+                {
+                    menus.Add(item);
+                }
+            }
+        });
+    }
+
+    public void UpdateMenuItems(string menuKey, TrayMenuItem trayMenuItem)
+    {
+        if (TrayMenus != null)
+        {
+            if (TrayMenus.ContainsKey(menuKey))
+                TrayMenus[menuKey] = trayMenuItem;
+            else
+                TrayMenus.Add(menuKey, trayMenuItem);
+
+            UpdateMenuItems();
         }
     }
 }

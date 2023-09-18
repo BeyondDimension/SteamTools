@@ -86,6 +86,9 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                     DebugString = ex.ToString();
                 }
                 break;
+            case "updatetray":
+
+                break;
             case "login":
                 if (cmds.Length > 1)
                 {

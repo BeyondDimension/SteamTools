@@ -94,10 +94,31 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         //var users = steamService.GetRememberUserList();
         await SteamConnectService.Current.RefreshSteamUsers();
         var users = SteamConnectService.Current.SteamUsers.Items;
+
         if (!users.Any_Nullable())
         {
             return null;
         }
+
+        var trayMenus = users.Select(user =>
+        {
+            var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
+            if (!string.IsNullOrEmpty(user.Remark))
+            {
+                title = user.SteamNickName + "(" + user.Remark + ")";
+            }
+            return new TrayMenuItem
+            {
+                Name = title,
+                Command = platform.SwapToAccountCommand,
+            };
+        }).ToList();
+
+        IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName, new TrayMenuItem
+        {
+            Name = Plugin.Instance.Name,
+            Items = trayMenus,
+        });
 
         //        #region 加载备注信息和 JumpList
 

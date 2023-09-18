@@ -428,7 +428,7 @@
                                     Margin="8,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Foreground="White"
                                     IsVisible="{Binding #AppImage.IsFailed}"
                                     Text="{Binding DisplayName}"
                                     TextAlignment="Center"
