@@ -171,6 +171,8 @@ partial class ProxyService
                 break;
         }
 
+        CheckRootCertificate(ICertificateManager.Constants.Instance);
+
         ReverseProxySettings reverseProxySettings = new(proxyDomains, scripts,
             isEnableScript, isOnlyWorkSteamBrowser, proxyPort,
             proxyIp, proxyMode, isProxyGOG, onlyEnableProxyScript,

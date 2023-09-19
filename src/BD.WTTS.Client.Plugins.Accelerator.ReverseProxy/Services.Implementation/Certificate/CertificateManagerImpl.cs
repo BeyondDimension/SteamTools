@@ -74,6 +74,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         }
     }
 
+    [Obsolete("use ICertificateManager.Constants.TrustRootCertificate")]
     void SharedTrustRootCertificate()
     {
         if (RootCertificate == null)
@@ -180,7 +181,8 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         {
             if (!File.Exists(filePath))
             {
-                if (!GenerateCertificateUnlock(filePath)) return null;
+                if (!GenerateCertificateUnlock(filePath))
+                    return null;
             }
             return filePath;
         }
@@ -222,44 +224,66 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         }
     }
 
-    public void TrustRootCertificate()
+    bool? ICertificateManager.GenerateCertificate()
     {
-        try
-        {
-            if (OperatingSystem.IsWindows())
-            {
-                try
-                {
-                    SharedTrustRootCertificate();
-                }
-#if DEBUG
-                catch (Exception e)
-                {
-                    Log.Error(TAG, e, "SharedTrustRootCertificate Error");
-                }
-#else
-        catch { }
-#endif
-            }
-            else if (OperatingSystem.IsMacOS())
-            {
-                TrustRootCertificateMacOS();
-            }
-            else if (OperatingSystem.IsLinux() && !OperatingSystem.IsAndroid())
-            {
-                TrustRootCertificateLinux();
-            }
-        }
-#if DEBUG
-        catch (Exception e)
-        {
-            e.LogAndShowT(TAG, msg: "PlatformTrustRootCertificateGuide Error");
-        }
-#else
-        catch { }
-#endif
+        return GenerateCertificate(null);
     }
 
+    //    public void TrustRootCertificate()
+    //    {
+    //        try
+    //        {
+    //            if (OperatingSystem.IsWindows())
+    //            {
+    //                try
+    //                {
+    //                    SharedTrustRootCertificate();
+    //                }
+    //#if DEBUG
+    //                catch (Exception e)
+    //                {
+    //                    Log.Error(TAG, e, "SharedTrustRootCertificate Error");
+    //                }
+    //#else
+    //        catch { }
+    //#endif
+    //            }
+    //            else if (OperatingSystem.IsMacOS())
+    //            {
+    //                TrustRootCertificateMacOS();
+    //            }
+    //            else if (OperatingSystem.IsLinux() && !OperatingSystem.IsAndroid())
+    //            {
+    //                TrustRootCertificateLinux();
+    //            }
+    //        }
+    //#if DEBUG
+    //        catch (Exception e)
+    //        {
+    //            e.LogAndShowT(TAG, msg: "PlatformTrustRootCertificateGuide Error");
+    //        }
+    //#else
+    //        catch { }
+    //#endif
+    //    }
+
+    public void TrustRootCertificate()
+    {
+        if (RootCertificate == null)
+        {
+            GenerateCertificate();
+        }
+
+        if (RootCertificate == null)
+        {
+            throw new ApplicationException(
+                "Could not install certificate as it is null or empty.");
+        }
+
+        ICertificateManager.Constants.TrustRootCertificate(GetCerFilePathGeneratedWhenNoFileExists, platformService, RootCertificate);
+    }
+
+    [Obsolete("use ICertificateManager.Constants.TrustRootCertificate")]
     [SupportedOSPlatform("macOS")]
     void TrustRootCertificateMacOS()
     {
@@ -271,6 +295,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             TrustRootCertificateMacOS();
     }
 
+    [Obsolete("use ICertificateManager.Constants.TrustRootCertificate")]
     [SupportedOSPlatform("Linux")]
     void TrustRootCertificateLinux()
     {
@@ -390,11 +415,12 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     {
         get
         {
-            if (RootCertificate == null)
-                if (GetCerFilePathGeneratedWhenNoFileExists() == null) return false;
-            return IsCertificateInstalled(RootCertificatePackable);
+            var result = ICertificateManager.Constants.IsRootCertificateInstalled(this, platformService, RootCertificatePackable);
+            return result;
         }
     }
+
+    bool? ICertificateManager.IsRootCertificateInstalled2 => IsRootCertificateInstalled;
 
     /// <summary>
     /// 检查证书是否已安装并信任
@@ -403,21 +429,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     /// <returns></returns>
     bool IsCertificateInstalled(X509CertificatePackable packable)
     {
-        X509Certificate2? certificate2 = packable;
-        if (certificate2 == null)
-            return false;
-        if (certificate2.NotAfter <= DateTime.Now)
-            return false;
-
-        if (OperatingSystem.IsAndroid() || OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
-        {
-            return platformService.IsCertificateInstalled(packable);
-        }
-        else
-        {
-            using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
-            store.Open(OpenFlags.ReadOnly);
-            return store.Certificates.Contains(certificate2);
-        }
+        var result = ICertificateManager.Constants.IsCertificateInstalled(platformService, packable);
+        return result;
     }
 }

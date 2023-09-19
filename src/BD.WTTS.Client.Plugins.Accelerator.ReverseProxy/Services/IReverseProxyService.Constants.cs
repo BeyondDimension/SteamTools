@@ -282,13 +282,36 @@ public enum StartProxyResultCode : byte
     IpcCallFailOrDefault = default,
 
     /// <summary>
+    /// 生成证书失败
+    /// </summary>
+    GenerateCertificateFail,
+
+    /// <summary>
+    /// 生成 Cer 文件路径失败
+    /// </summary>
+    GenerateCerFilePathFail,
+
+    /// <summary>
+    /// 获取证书数据失败
+    /// </summary>
+    GetCertificatePackableFail,
+
+    /// <summary>
+    /// 信任证书失败
+    /// </summary>
+    TrustRootCertificateFail,
+
+    GetX509Certificate2Fail,
+
+    /// <summary>
     /// 成功
     /// </summary>
     Ok = 121,
 
     /// <summary>
-    /// 证书安装失败，或未信任
+    /// 证书安装或生成失败，或未信任
     /// </summary>
+    [Obsolete("use GenerateCertificateFail/TrustRootCertificateFail")]
     SetupRootCertificateFail,
 
     /// <summary>

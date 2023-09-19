@@ -16,7 +16,15 @@ sealed class LazyCertificateManager : ICertificateManager
 
     public X509CertificatePackable RootCertificatePackable { get => impl().RootCertificatePackable; set => impl().RootCertificatePackable = value; }
 
+    [Obsolete]
     public bool IsRootCertificateInstalled => impl().IsRootCertificateInstalled;
+
+    public bool? IsRootCertificateInstalled2 => impl().IsRootCertificateInstalled2;
+
+    public bool? GenerateCertificate()
+    {
+        return impl().GenerateCertificate();
+    }
 
     public string? GetCerFilePathGeneratedWhenNoFileExists()
     {

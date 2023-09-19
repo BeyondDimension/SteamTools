@@ -1,6 +1,7 @@
-// ReSharper disable once CheckNamespace
 using dotnetCampus.Ipc.CompilerServices.Attributes;
+using Const = BD.WTTS.Constants;
 
+// ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
 /// <summary>
@@ -12,6 +13,111 @@ public interface ICertificateManager
     static class Constants
     {
         public static ICertificateManager Instance => Ioc.Get<ICertificateManager>(); // 因为 Ipc 服务接口的原因，不能将此属性放在非嵌套类上
+
+        internal static bool IsCertificateInstalled(
+            IPCPlatformService platformService,
+            X509CertificatePackable packable)
+        {
+            X509Certificate2? certificate2 = packable;
+            if (certificate2 == null)
+                return false;
+            if (certificate2.NotAfter <= DateTime.Now)
+                return false;
+
+            if (OperatingSystem.IsAndroid() ||
+                OperatingSystem.IsLinux() ||
+                OperatingSystem.IsMacOS())
+            {
+                return platformService.IsCertificateInstalled(packable);
+            }
+            else
+            {
+                using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
+                store.Open(OpenFlags.ReadOnly);
+                return store.Certificates.Contains(certificate2);
+            }
+        }
+
+        internal static bool IsRootCertificateInstalled(
+            ICertificateManager certificateManager,
+            IPCPlatformService platformService,
+            X509CertificatePackable packable)
+        {
+            if (EqualityComparer<X509CertificatePackable>.Default.Equals(packable, default))
+            {
+                var filePath = certificateManager.GetCerFilePathGeneratedWhenNoFileExists();
+                if (filePath == null)
+                    return false;
+            }
+
+            var isInstalled = IsCertificateInstalled(platformService, packable);
+            return isInstalled;
+        }
+
+        internal static void TrustRootCertificate(
+            Func<string?> getCerFilePath,
+            IPCPlatformService platformService,
+            X509Certificate2 certificate2)
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                using var store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
+                try
+                {
+                    store.Open(OpenFlags.ReadWrite);
+
+                    var findCerts = store.Certificates.Find(X509FindType.FindByThumbprint, certificate2.Thumbprint, true);
+                    if (!findCerts.Any())
+                    {
+                        store.Add(certificate2);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Log.Error(nameof(ICertificateManager), e,
+                        "Please manually install the CA certificate to a trusted root certificate authority.");
+                }
+            }
+            else if (OperatingSystem.IsMacOS())
+            {
+                var cerFilePath = getCerFilePath();
+                if (cerFilePath == null)
+                    return;
+
+                void TrustRootCertificateMacOS()
+                {
+                    var result = platformService.TrustRootCertificateAsync(cerFilePath);
+                    if (result.HasValue && !result.Value)
+                    {
+                        TrustRootCertificateMacOS();
+                    }
+                }
+                TrustRootCertificateMacOS();
+            }
+            else if (OperatingSystem.IsLinux())
+            {
+                var cerFilePath = getCerFilePath();
+                if (cerFilePath == null)
+                    return;
+
+                void TrustRootCertificateLinux()
+                {
+                    var result = platformService.TrustRootCertificateAsync(cerFilePath);
+                    try
+                    {
+                        // 部分系统还是只能手动导入浏览器
+                        Browser2.Open(Const.Urls.OfficialWebsite_LiunxSetupCer);
+                    }
+                    catch
+                    {
+
+                    }
+                    if (result.HasValue && !result.Value)
+                        getCerFilePath();
+                }
+                TrustRootCertificateLinux();
+            }
+        }
     }
 
     /// <summary>
@@ -64,5 +170,18 @@ public interface ICertificateManager
     /// <summary>
     /// 当前根证书是否已安装并信任
     /// </summary>
+    [Obsolete("use IsRootCertificateInstalled2")]
     bool IsRootCertificateInstalled { get; }
+
+    /// <summary>
+    /// 当前根证书是否已安装并信任
+    /// </summary>
+    bool? IsRootCertificateInstalled2 { get; }
+
+    /// <summary>
+    /// (✔️🔒)生成 Root 证书
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    bool? GenerateCertificate();
 }

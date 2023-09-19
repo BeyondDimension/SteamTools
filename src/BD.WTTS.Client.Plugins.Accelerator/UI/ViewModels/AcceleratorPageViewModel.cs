@@ -88,7 +88,6 @@ public sealed partial class AcceleratorPageViewModel
 
     public void TrustCer_OnClick()
     {
-        certificateManager.GetCerFilePathGeneratedWhenNoFileExists();
         certificateManager.TrustRootCertificate();
     }
 
