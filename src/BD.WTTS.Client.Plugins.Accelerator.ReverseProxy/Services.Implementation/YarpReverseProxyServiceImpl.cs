@@ -40,6 +40,16 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public override bool ProxyRunning => app != null;
 
+    protected override void CheckRootCertificate()
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            ICertificateManager.Constants.CheckRootCertificate(
+                platformService,
+                CertificateManager);
+        }
+    }
+
     protected override Task<StartProxyResult> StartProxyImpl() => Task.FromResult(StartProxyCore());
 
     StartProxyResult StartProxyCore()

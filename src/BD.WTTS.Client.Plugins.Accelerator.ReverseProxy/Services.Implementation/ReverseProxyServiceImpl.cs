@@ -169,9 +169,16 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
             }
         }
 
+        CheckRootCertificate();
+
         reverseProxySettings.SetValue(this);
 
         return await StartProxyImpl();
+    }
+
+    protected virtual void CheckRootCertificate()
+    {
+
     }
 
     protected abstract Task<StartProxyResult> StartProxyImpl();
