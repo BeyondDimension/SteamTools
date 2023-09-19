@@ -129,14 +129,23 @@ partial class App
                                 {
                                     Header = sub.Name,
                                     Command = sub.Command,
+                                    CommandParameter = sub.CommandParameter,
                                 });
+                            menus.Add(new NativeMenuItem
+                            {
+                                Header = item.Value.Name,
+                                Menu = subMenu,
+                            });
                         }
-                        menus.Add(new NativeMenuItem
+                        else
                         {
-                            Header = item.Value.Name,
-                            Command = item.Value.Command,
-                            Menu = subMenu,
-                        });
+                            menus.Add(new NativeMenuItem
+                            {
+                                Header = item.Value.Name,
+                                Command = item.Value.Command,
+                                CommandParameter = item.Value.CommandParameter,
+                            });
+                        }
                     }
                     menus.Add(new NativeMenuItemSeparator());
                 }

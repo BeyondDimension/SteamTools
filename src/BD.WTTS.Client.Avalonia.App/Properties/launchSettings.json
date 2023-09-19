@@ -1,8 +1,7 @@
 {
   "profiles": {
     "BD.WTTS.Client.Avalonia.App": {
-      "commandName": "Project",
-      "commandLineArgs": "-clt c -silence"
+      "commandName": "Project"
     }
   }
 }

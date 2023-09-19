@@ -80,6 +80,22 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
             {
                 Auths.Add(new AuthenticatorItemModel(item));
             }
+
+            var trayMenus = Auths.Select(s => new TrayMenuItem
+            {
+                Name = s.AuthName,
+                Command = ReactiveCommand.Create(async () =>
+                {
+                    await s.CopyCode();
+                    INotificationService.Instance.Notify(Strings.LocalAuth_CopyAuthTip + s.AuthName, NotificationType.Message);
+                })
+            }).ToList();
+
+            IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName, new TrayMenuItem
+            {
+                Name = Plugin.Instance.Name,
+                Items = trayMenus,
+            });
             //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
         }
 

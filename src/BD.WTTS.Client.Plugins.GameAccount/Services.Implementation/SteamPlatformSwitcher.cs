@@ -100,17 +100,20 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
             return null;
         }
 
-        var trayMenus = users.Select(user =>
+        var accounts = users.Select(s => new SteamAccount(s));
+
+        var trayMenus = accounts.Select(user =>
         {
-            var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
-            if (!string.IsNullOrEmpty(user.Remark))
+            var title = user.DisplayName ?? user.AccountId;
+            if (!string.IsNullOrEmpty(user.AliasName))
             {
-                title = user.SteamNickName + "(" + user.Remark + ")";
+                title = user.DisplayName + "(" + user.AliasName + ")";
             }
             return new TrayMenuItem
             {
                 Name = title,
                 Command = platform.SwapToAccountCommand,
+                CommandParameter = user,
             };
         }).ToList();
 
@@ -220,7 +223,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         //        //}
         //        #endregion
 
-        return users.Select(s => new SteamAccount(s));
+        return accounts;
     }
 
     public bool SetPlatformPath(PlatformAccount platform)

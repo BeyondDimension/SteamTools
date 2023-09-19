@@ -8,5 +8,7 @@ public partial class TrayMenuItem
 
     public ICommand? Command { get; set; }
 
+    public object? CommandParameter { get; set; }
+
     public List<TrayMenuItem>? Items { get; set; }
 }
