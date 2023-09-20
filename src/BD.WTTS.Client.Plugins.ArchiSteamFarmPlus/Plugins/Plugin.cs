@@ -39,7 +39,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
-        ArchiSteamFarm.Web.WebBrowser.CreateHttpHandlerDelegate = CreateHttpHandler;
+        //ArchiSteamFarm.Web.WebBrowser.CreateHttpHandlerDelegate = CreateHttpHandler;
     }
 
     /// <summary>

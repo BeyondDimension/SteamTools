@@ -12,9 +12,24 @@ global using ArchiSteamFarm;
 //global using ArchiSteamFarm.Storage;
 //global using ArchiSteamFarm.Library;
 //global using ArchiSteamFarm.Helpers;
+global using ArchiSteamFarm.NLog;
 //global using ArchiSteamFarm.NLog.Targets;
 //global using ArchiSteamFarm.Steam.Storage;
 global using ArchiSteamFarm.IPC.Requests;
 global using ArchiSteamFarm.IPC.Responses;
 
+global using Strings = ArchiSteamFarm.Localization.Strings;
+global using BDStrings = BD.WTTS.Client.Resources.Strings;
+
+global using SteamKit2;
+
+global using MaxLengthAttribute = System.ComponentModel.DataAnnotations.MaxLengthAttribute;
+
 global using JsonConstructorAttribute = Newtonsoft.Json.JsonConstructorAttribute;
+global using JsonExtensionDataAttribute = Newtonsoft.Json.JsonExtensionDataAttribute;
+global using JsonPropertyAttribute = Newtonsoft.Json.JsonPropertyAttribute;
+global using JsonConverter = Newtonsoft.Json.JsonConverter;
+global using JsonSerializer = Newtonsoft.Json.JsonSerializer;
+global using Formatting = Newtonsoft.Json.Formatting;
+global using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
+global using DefaultContractResolver = Newtonsoft.Json.Serialization.DefaultContractResolver;

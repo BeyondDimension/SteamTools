@@ -73,19 +73,32 @@
 	<ItemGroup>
 		<!-- ArchiSteamFarm WebAPI Models -->
 		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\IPC\Requests\*.cs">
-			<LinkBase>Models\ArchiSteamFarm\IPC\Requests</LinkBase>
+			<LinkBase>_\ArchiSteamFarm\IPC\Requests</LinkBase>
 		</Compile>
-		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\IPC\Responses\*.cs">
-			<LinkBase>Models\ArchiSteamFarm\IPC\Responses</LinkBase>
-		</Compile>
-		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Steam\Storage\BotConfig.cs">
-			<LinkBase>Models\ArchiSteamFarm\Steam\Storage</LinkBase>
-		</Compile>
-		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\IPC\Integration\SwaggerItemsMinMaxAttribute.cs">
-			<LinkBase>Attributes\ArchiSteamFarm\IPC.Integration</LinkBase>
-		</Compile>
-		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\IPC\Integration\CustomSwaggerAttribute.cs">
-			<LinkBase>Attributes\ArchiSteamFarm\IPC.Integration</LinkBase>
+		<EmbeddedResource Update="_\ArchiSteamFarm\Localization\Strings.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Strings.Designer.cs</LastGenOutput>
+			<CustomToolNamespace>ArchiSteamFarm.Localization</CustomToolNamespace>
+		</EmbeddedResource>
+		<!--new global::System.Resources.ResourceManager("BD.WTTS._.ArchiSteamFarm.Localization.Strings", typeof(Strings).Assembly);-->
+		<!--<EmbeddedResource Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Localization\Strings.resx">
+			<LinkBase>_\ArchiSteamFarm\Localization</LinkBase>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<CustomToolNamespace>ArchiSteamFarm.Localization2</CustomToolNamespace>
+			<LastGenOutput>Strings.Designer.cs</LastGenOutput>
+		</EmbeddedResource>-->
+		<!--<EmbeddedResource Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Localization\Strings.*.resx">
+			<LinkBase>_\ArchiSteamFarm\Localization</LinkBase>
+		</EmbeddedResource>-->
+		<!--<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Localization\Strings.Designer.cs">
+			<LinkBase>_\ArchiSteamFarm\Localization</LinkBase>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Strings.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+		</Compile>-->
+		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Steam\Data\Confirmation.cs">
+			<LinkBase>_\ArchiSteamFarm\Steam\Data</LinkBase>
 		</Compile>
 	</ItemGroup>
 
@@ -109,6 +122,14 @@
 		</PackageReference>
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="_\ArchiSteamFarm\Localization\Strings.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Strings.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />

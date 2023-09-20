@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Newtonsoft.Json;
-using DefaultContractResolver = Newtonsoft.Json.Serialization.DefaultContractResolver;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace BD.WTTS.Services.Implementation;
 
@@ -35,13 +33,15 @@ partial class ArchiSteamFarmWebApiServiceImpl // JsonSerializer(Newtonsoft.Json)
         return content;
     }
 
-    async Task<T?> DeserializeAsync<T>(HttpContent content,
+    async Task<object?> DeserializeAsync(
+        HttpContent content,
+        Type? objectType,
         CancellationToken cancellationToken = default)
     {
         using var stream = await content.ReadAsStreamAsync(cancellationToken);
         using var streamReader = new StreamReader(stream, Encoding.UTF8);
         using var jsonReader = new JsonTextReader(streamReader);
-        var value = serializer.Deserialize<T>(jsonReader);
+        var value = serializer.Deserialize(jsonReader, objectType);
         return value;
     }
 }

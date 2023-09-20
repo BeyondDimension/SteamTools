@@ -8,4 +8,6 @@
 global using BD.WTTS;
 global using BD.WTTS.Diagnostics;
 global using MessageBox = BD.WTTS.UI.MessageBox;
+#if !WTTS_PLUGIN_ASFPLUS
 global using Strings = BD.WTTS.Client.Resources.Strings;
+#endif

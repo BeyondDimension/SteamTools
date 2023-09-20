@@ -32,7 +32,6 @@ partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
         string requestUrl,
         HttpMethod method,
         TRequestBody? reqBody,
-        bool responseContentMaybeNull = false,
         bool isShowResponseErrorMessage = true,
         string? errorAppendText = null,
         CancellationToken cancellationToken = default)
@@ -76,19 +75,31 @@ partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
             using var rsp = await client.SendAsync(req, cancellationToken);
             try
             {
-                var result = await DeserializeAsync<TResponseBody?>(rsp.Content, cancellationToken);
-                if (!responseContentMaybeNull && result == null)
+                var typeResponseBody = typeof(TResponseBody);
+                var isVoidResponseBody = typeResponseBody == typeVoid;
+                var typeResponseBodyDeserialize = isVoidResponseBody ? typeof(GenericResponse) : typeof(GenericResponse<TResponseBody?>);
+                var result = await DeserializeAsync(rsp.Content,
+                    typeResponseBodyDeserialize, cancellationToken);
+                if (result is GenericResponse resultGR)
+                {
+                    var code = resultGR.Success ? ApiRspCode.OK : (ApiRspCode)rsp.StatusCode;
+                    var msg = resultGR.Message;
+                    var content = resultGR is GenericResponse<TResponseBody?> resultGRT ? resultGRT.Result : default;
+                    return ApiRspHelper.Code<TResponseBody?>(
+                        code,
+                        msg,
+                        content);
+                }
+                else
                 {
                     return ApiRspHelper.Code<TResponseBody?>(ApiRspCode.NoResponseContent);
                 }
-                return ApiRspHelper.Code<TResponseBody?>(
-                    (ApiRspCode)rsp.StatusCode, null, result);
             }
             catch (Exception ex)
             {
                 return ApiRspHelper.Code<TResponseBody?>(
                     ApiRspCode.ClientException,
-                    "Serialize request fail",
+                    "Serialize response fail",
                     default,
                     ex);
             }

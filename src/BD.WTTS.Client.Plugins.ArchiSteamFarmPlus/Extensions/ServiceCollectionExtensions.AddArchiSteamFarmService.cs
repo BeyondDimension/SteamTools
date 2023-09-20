@@ -16,6 +16,7 @@ public static partial class ServiceCollectionExtensions
     {
         //services.AddSingleton<IArchiSteamFarmService, ArchiSteamFarmServiceImpl>();
         //services.AddSingleton<IArchiSteamFarmHelperService>(s => s.GetRequiredService<IArchiSteamFarmService>());
+        services.AddSingleton<IArchiSteamFarmWebApiService, ArchiSteamFarmWebApiServiceImpl>();
         return services;
     }
 

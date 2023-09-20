@@ -3,9 +3,6 @@
 // https://github.com/dotnet/aspnetcore/blob/v7.0.11/src/Mvc/Mvc.NewtonsoftJson/src/ValidationProblemDetailsConverter.cs
 
 using Newtonsoft.Json;
-using JsonConverter = Newtonsoft.Json.JsonConverter;
-using JsonPropertyAttribute = Newtonsoft.Json.JsonPropertyAttribute;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.AspNetCore.Mvc.NewtonsoftJson;

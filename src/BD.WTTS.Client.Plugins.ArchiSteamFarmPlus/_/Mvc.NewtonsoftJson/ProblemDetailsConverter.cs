@@ -2,8 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using Newtonsoft.Json;
-using JsonConverter = Newtonsoft.Json.JsonConverter;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.AspNetCore.Mvc.NewtonsoftJson;

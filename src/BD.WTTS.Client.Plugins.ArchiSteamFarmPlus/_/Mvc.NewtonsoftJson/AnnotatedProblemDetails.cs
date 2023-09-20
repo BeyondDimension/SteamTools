@@ -3,8 +3,6 @@
 // https://github.com/dotnet/aspnetcore/blob/v7.0.11/src/Mvc/Mvc.NewtonsoftJson/src/AnnotatedProblemDetails.cs
 
 using Newtonsoft.Json;
-using JsonExtensionDataAttribute = Newtonsoft.Json.JsonExtensionDataAttribute;
-using JsonPropertyAttribute = Newtonsoft.Json.JsonPropertyAttribute;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.AspNetCore.Mvc.NewtonsoftJson;
