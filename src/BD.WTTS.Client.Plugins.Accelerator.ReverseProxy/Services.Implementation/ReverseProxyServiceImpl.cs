@@ -14,7 +14,7 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
 
     public IDnsAnalysisService DnsAnalysis { get; }
 
-    public abstract ICertificateManager CertificateManager { get; }
+    public abstract CertificateManagerImpl CertificateManager { get; }
 
     /// <summary>
     /// 获取或设置当前根证书

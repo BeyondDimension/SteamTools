@@ -22,7 +22,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         this.ipc = ipc;
         platformService = GetIPCService<IPCPlatformService>(nameof(platformService));
         toast = GetIPCService<IPCToastService>(nameof(toast));
-        CertificateManager = certificateManager;
+        CertificateManager = (CertificateManagerImpl)certificateManager;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -36,7 +36,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         return ipcService;
     }
 
-    public override ICertificateManager CertificateManager { get; }
+    public override CertificateManagerImpl CertificateManager { get; }
 
     public override bool ProxyRunning => app != null;
 

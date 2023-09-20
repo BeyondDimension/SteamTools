@@ -23,6 +23,11 @@ sealed partial class CertificateManagerImpl : ICertificateManager
 
     public X509CertificatePackable RootCertificatePackable { get; set; }
 
+    byte[]? ICertificateManager.RootCertificatePackable
+    {
+        get => RootCertificate == default ? default : Serializable.SMP2(RootCertificatePackable);
+    }
+
     /// <inheritdoc cref="ICertificateManager.PfxPassword"/>
     public byte[]? PfxPassword { get; set; }
 

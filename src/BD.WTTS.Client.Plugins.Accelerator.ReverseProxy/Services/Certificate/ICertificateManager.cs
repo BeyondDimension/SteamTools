@@ -137,8 +137,30 @@ public interface ICertificateManager
                 return cerFilePathLazy;
             }
 
+            X509CertificatePackable GetRootCertificatePackable()
+            {
+#if APP_REVERSE_PROXY
+                return ((CertificateManagerImpl)certificateManager).RootCertificatePackable;
+#else
+                try
+                {
+                    var packableBytes = certificateManager.RootCertificatePackable;
+                    if (packableBytes.Any_Nullable())
+                    {
+                        var result = Serializable.DMP2<X509CertificatePackable>(packableBytes);
+                        return result;
+                    }
+                }
+                catch
+                {
+
+                }
+                return default;
+#endif
+            }
+
             // 获取证书数据
-            var packable = certificateManager.RootCertificatePackable;
+            var packable = GetRootCertificatePackable();
             var packable_eq = EqualityComparer<X509CertificatePackable>.Default;
             if (packable_eq.Equals(packable, default)) // 证书为默认值时
             {
@@ -148,7 +170,7 @@ public interface ICertificateManager
                     return StartProxyResultCode.GenerateCerFilePathFail; // 生成证书 Cer 文件路径失败
 
                 // 再次获取证书检查是否为默认值
-                packable = certificateManager.RootCertificatePackable;
+                packable = GetRootCertificatePackable();
                 if (packable_eq.Equals(packable, default))
                 {
                     return StartProxyResultCode.GetCertificatePackableFail; // 获取证书数据失败
@@ -207,7 +229,7 @@ public interface ICertificateManager
     /// <summary>
     /// 获取当前 Root 证书，<see cref="X509CertificatePackable"/> 类型可隐式转换为 <see cref="X509Certificate2"/>
     /// </summary>
-    X509CertificatePackable RootCertificatePackable { get; set; }
+    byte[]? RootCertificatePackable { get; }
 
     /// <summary>
     /// 获取 Cer 证书路径，当不存在时生成文件后返回路径

@@ -54,9 +54,21 @@ partial class Startup
 
         public override object? ReadJson(NJsonReader reader, Type objectType, object? existingValue, NJsonSerializer serializer)
         {
-            var bytes = reader.ReadAsBytes();
-            if (bytes == null) return existingValue;
-            return Serializable.DMP2(objectType, bytes);
+            try
+            {
+                var bytes = reader.ReadAsBytes();
+                if (bytes == null)
+                    return existingValue;
+                return Serializable.DMP2(objectType, bytes);
+            }
+            catch
+            {
+                if (objectType?.IsValueType ?? false)
+                {
+                    return Activator.CreateInstance(objectType);
+                }
+                return null;
+            }
         }
 
         public override void WriteJson(NJsonWriter writer, object? value, NJsonSerializer serializer)

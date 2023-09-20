@@ -14,7 +14,7 @@ sealed class LazyCertificateManager : ICertificateManager
 
     public byte[]? PfxPassword => impl().PfxPassword;
 
-    public X509CertificatePackable RootCertificatePackable { get => impl().RootCertificatePackable; set => impl().RootCertificatePackable = value; }
+    public byte[]? RootCertificatePackable { get => impl().RootCertificatePackable; }
 
     [Obsolete]
     public bool IsRootCertificateInstalled => impl().IsRootCertificateInstalled;
