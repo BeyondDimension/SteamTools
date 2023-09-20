@@ -23,9 +23,18 @@ sealed partial class CertificateManagerImpl : ICertificateManager
 
     public X509CertificatePackable RootCertificatePackable { get; set; }
 
+    readonly object lock_RootCertificatePackable = new();
+
     byte[]? ICertificateManager.RootCertificatePackable
     {
-        get => RootCertificate == default ? default : Serializable.SMP2(RootCertificatePackable);
+        get
+        {
+            lock (lock_RootCertificatePackable)
+            {
+                RootCertificate ??= LoadRootCertificate();
+            }
+            return RootCertificate == default ? default : Serializable.SMP2(RootCertificatePackable);
+        }
     }
 
     /// <inheritdoc cref="ICertificateManager.PfxPassword"/>
@@ -188,6 +197,10 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             {
                 if (!GenerateCertificateUnlock(filePath))
                     return null;
+            }
+            else if (RootCertificate == null)
+            {
+                RootCertificate = LoadRootCertificate();
             }
             return filePath;
         }

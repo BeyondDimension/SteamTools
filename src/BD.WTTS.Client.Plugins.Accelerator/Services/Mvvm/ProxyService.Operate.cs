@@ -173,9 +173,13 @@ partial class ProxyService
 
         if (!OperatingSystem.IsWindows())
         {
-            ICertificateManager.Constants.CheckRootCertificate(
-                platformService,
-                ICertificateManager.Constants.Instance);
+            var checkRootCertificateCode = ICertificateManager.Constants.CheckRootCertificate(
+                  platformService,
+                  ICertificateManager.Constants.Instance);
+            if (checkRootCertificateCode != StartProxyResultCode.Ok)
+            {
+                return $"CheckRootCertificate, ErrCode: {checkRootCertificateCode}";
+            }
         }
 
         ReverseProxySettings reverseProxySettings = new(proxyDomains, scripts,
