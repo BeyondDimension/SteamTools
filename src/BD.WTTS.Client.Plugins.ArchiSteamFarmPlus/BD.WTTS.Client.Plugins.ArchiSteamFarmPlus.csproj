@@ -8,11 +8,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="UI\Assets\asf.ico" />
+		<None Remove="UI\Assets\asf.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AvaloniaResource Include="UI\Assets\asf.ico" />
+		<AvaloniaResource Include="UI\Assets\asf.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -71,12 +71,30 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- ArchiSteamFarm WebAPI Models -->
+		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\IPC\Requests\*.cs">
+			<LinkBase>Models\ArchiSteamFarm\IPC\Requests</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\IPC\Responses\*.cs">
+			<LinkBase>Models\ArchiSteamFarm\IPC\Responses</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Steam\Storage\BotConfig.cs">
+			<LinkBase>Models\ArchiSteamFarm\Steam\Storage</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\IPC\Integration\SwaggerItemsMinMaxAttribute.cs">
+			<LinkBase>Attributes\ArchiSteamFarm\IPC.Integration</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\IPC\Integration\CustomSwaggerAttribute.cs">
+			<LinkBase>Attributes\ArchiSteamFarm\IPC.Integration</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
-		<ProjectReference Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj" />
 		<Compile Include="..\ImplicitUsings.ArchiSteamFarm.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -91,11 +109,6 @@
 		</PackageReference>
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="UI\ViewModels\" />
-		<Folder Include="UI\Views\" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />

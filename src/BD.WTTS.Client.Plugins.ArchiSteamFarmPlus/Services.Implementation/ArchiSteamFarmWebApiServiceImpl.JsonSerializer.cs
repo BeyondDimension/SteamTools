@@ -1,0 +1,47 @@
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Newtonsoft.Json;
+using DefaultContractResolver = Newtonsoft.Json.Serialization.DefaultContractResolver;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
+
+namespace BD.WTTS.Services.Implementation;
+
+partial class ArchiSteamFarmWebApiServiceImpl // JsonSerializer(Newtonsoft.Json)
+{
+    readonly JsonSerializer serializer = GetJsonSerializer();
+
+    static JsonSerializer GetJsonSerializer()
+    {
+        // https://github.com/BeyondDimension/ArchiSteamFarm/blob/v5.4.9.3/ArchiSteamFarm/IPC/Startup.cs#L350-L364
+        // https://github.com/dotnet/aspnetcore/blob/v7.0.11/src/Mvc/Mvc.NewtonsoftJson/src/JsonSerializerSettingsProvider.cs
+
+        var settings = JsonSerializerSettingsProvider.CreateSerializerSettings();
+        // Fix default contract resolver to use original names and not a camel case
+        settings.ContractResolver = new DefaultContractResolver();
+
+        var serializer = JsonSerializer.Create(settings);
+        return serializer;
+    }
+
+    HttpContent Serialize(object? value, Type? objectType = null)
+    {
+        var stream = new MemoryStream();
+        using var streamWriter = new StreamWriter(stream, Encoding.UTF8, leaveOpen: true);
+        using var jsonWriter = new JsonTextWriter(streamWriter);
+        serializer.Serialize(jsonWriter, value, objectType);
+        var content = new StreamContent(stream);
+        content.Headers.TryAddWithoutValidation(
+            "Content-Type",
+            "application/json;charset=utf-8");
+        return content;
+    }
+
+    async Task<T?> DeserializeAsync<T>(HttpContent content,
+        CancellationToken cancellationToken = default)
+    {
+        using var stream = await content.ReadAsStreamAsync(cancellationToken);
+        using var streamReader = new StreamReader(stream, Encoding.UTF8);
+        using var jsonReader = new JsonTextReader(streamReader);
+        var value = serializer.Deserialize<T>(jsonReader);
+        return value;
+    }
+}

@@ -1,199 +1,199 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-using AppResources = BD.WTTS.Client.Resources.Strings;
+//#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+//using AppResources = BD.WTTS.Client.Resources.Strings;
 
-// ReSharper disable once CheckNamespace
-namespace BD.WTTS.Services;
+//// ReSharper disable once CheckNamespace
+//namespace BD.WTTS.Services;
 
-public sealed class ASFService : ReactiveObject
-{
-    static ASFService? mCurrent;
+//public sealed class ASFService : ReactiveObject
+//{
+//    static ASFService? mCurrent;
 
-    public static ASFService Current => mCurrent ?? new();
+//    public static ASFService Current => mCurrent ?? new();
 
-    readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
+//    readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
 
-    string? _IPCUrl;
+//    string? _IPCUrl;
 
-    public string? IPCUrl
-    {
-        get => _IPCUrl;
-        set => this.RaiseAndSetIfChanged(ref _IPCUrl, value);
-    }
+//    public string? IPCUrl
+//    {
+//        get => _IPCUrl;
+//        set => this.RaiseAndSetIfChanged(ref _IPCUrl, value);
+//    }
 
-    string? _ConsoleLogText;
+//    string? _ConsoleLogText;
 
-    public string? ConsoleLogText
-    {
-        get => _ConsoleLogText;
-        set => this.RaiseAndSetIfChanged(ref _ConsoleLogText, value);
-    }
+//    public string? ConsoleLogText
+//    {
+//        get => _ConsoleLogText;
+//        set => this.RaiseAndSetIfChanged(ref _ConsoleLogText, value);
+//    }
 
-    public IConsoleBuilder ConsoleLogBuilder { get; } = new ConsoleBuilder();
+//    public IConsoleBuilder ConsoleLogBuilder { get; } = new ConsoleBuilder();
 
-    public SourceCache<Bot, string> SteamBotsSourceList;
+//    public SourceCache<Bot, string> SteamBotsSourceList;
 
-    public bool IsASFRuning => archiSteamFarmService.StartTime != null;
+//    public bool IsASFRuning => archiSteamFarmService.StartTime != null;
 
-    GlobalConfig? _GlobalConfig;
+//    GlobalConfig? _GlobalConfig;
 
-    public GlobalConfig? GlobalConfig
-    {
-        get => _GlobalConfig;
-        set => this.RaiseAndSetIfChanged(ref _GlobalConfig, value);
-    }
+//    public GlobalConfig? GlobalConfig
+//    {
+//        get => _GlobalConfig;
+//        set => this.RaiseAndSetIfChanged(ref _GlobalConfig, value);
+//    }
 
-    private ASFService()
-    {
-        mCurrent = this;
+//    private ASFService()
+//    {
+//        mCurrent = this;
 
-        SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
+//        SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
 
-        archiSteamFarmService.OnConsoleWirteLine += OnConsoleWirteLine;
+//        archiSteamFarmService.OnConsoleWirteLine += OnConsoleWirteLine;
 
-        ASFSettings.ConsoleMaxLine.Subscribe(x =>
-        {
-            var line = x;
-            if (x < ASFSettings.MinRangeConsoleMaxLine) line = ASFSettings.MinRangeConsoleMaxLine;
-            if (x > ASFSettings.MaxRangeConsoleMaxLine) line = ASFSettings.MaxRangeConsoleMaxLine;
-            ConsoleLogBuilder.MaxLine = line;
-        });
-    }
+//        ASFSettings.ConsoleMaxLine.Subscribe(x =>
+//        {
+//            var line = x;
+//            if (x < ASFSettings.MinRangeConsoleMaxLine) line = ASFSettings.MinRangeConsoleMaxLine;
+//            if (x > ASFSettings.MaxRangeConsoleMaxLine) line = ASFSettings.MaxRangeConsoleMaxLine;
+//            ConsoleLogBuilder.MaxLine = line;
+//        });
+//    }
 
-    void OnConsoleWirteLine(string message)
-    {
-        MainThread2.InvokeOnMainThreadAsync(() =>
-        {
-            ConsoleLogBuilder.AppendLine(message);
-            var text = ConsoleLogBuilder.ToString();
-            ConsoleLogText = text;
-        });
-    }
+//    void OnConsoleWirteLine(string message)
+//    {
+//        MainThread2.InvokeOnMainThreadAsync(() =>
+//        {
+//            ConsoleLogBuilder.AppendLine(message);
+//            var text = ConsoleLogBuilder.ToString();
+//            ConsoleLogText = text;
+//        });
+//    }
 
-    /// <summary>
-    /// 是否正在启动或停止中
-    /// </summary>
-    public bool IsASFRunOrStoping { get; private set; }
+//    /// <summary>
+//    /// 是否正在启动或停止中
+//    /// </summary>
+//    public bool IsASFRunOrStoping { get; private set; }
 
-    public Task InitASFAsync() => InitASFCoreAsync(true);
+//    public Task InitASFAsync() => InitASFCoreAsync(true);
 
-    public async Task InitASFCoreAsync(bool showToast)
-    {
-        if (IsASFRunOrStoping) return;
+//    public async Task InitASFCoreAsync(bool showToast)
+//    {
+//        if (IsASFRunOrStoping) return;
 
-        if (showToast) Toast.Show(AppResources.ASF_Starting, ToastLength.Short);
+//        if (showToast) Toast.Show(AppResources.ASF_Starting, ToastLength.Short);
 
-        IsASFRunOrStoping = true;
+//        IsASFRunOrStoping = true;
 
-        //if (ASF.GlobalConfig?.SteamOwnerID is null or 0)
-        //{
-        //    Toast.Show(AppResources.ASF_Starting, ToastLength.Long);
-        //    return;
-        //}
+//        //if (ASF.GlobalConfig?.SteamOwnerID is null or 0)
+//        //{
+//        //    Toast.Show(AppResources.ASF_Starting, ToastLength.Long);
+//        //    return;
+//        //}
 
-        var isOk = await archiSteamFarmService.StartAsync();
-        if (!isOk)
-        {
-            if (showToast) Toast.Show(AppResources.ASF_Stoped, ToastLength.Short);
-            return;
-        }
+//        var isOk = await archiSteamFarmService.StartAsync();
+//        if (!isOk)
+//        {
+//            if (showToast) Toast.Show(AppResources.ASF_Stoped, ToastLength.Short);
+//            return;
+//        }
 
-        RefreshBots();
+//        RefreshBots();
 
-        IPCUrl = archiSteamFarmService.GetIPCUrl();
+//        IPCUrl = archiSteamFarmService.GetIPCUrl();
 
-        MainThread2.BeginInvokeOnMainThread(() =>
-        {
-            this.RaisePropertyChanged(nameof(IsASFRuning));
-        });
+//        MainThread2.BeginInvokeOnMainThread(() =>
+//        {
+//            this.RaisePropertyChanged(nameof(IsASFRuning));
+//        });
 
-        IsASFRunOrStoping = false;
+//        IsASFRunOrStoping = false;
 
-        if (showToast) Toast.Show(AppResources.ASF_Started, ToastLength.Short);
-    }
+//        if (showToast) Toast.Show(AppResources.ASF_Started, ToastLength.Short);
+//    }
 
-    public Task StopASFAsync() => StopASFCoreAsync(true);
+//    public Task StopASFAsync() => StopASFCoreAsync(true);
 
-    public async Task StopASFCoreAsync(bool showToast)
-    {
-        if (IsASFRunOrStoping) return;
+//    public async Task StopASFCoreAsync(bool showToast)
+//    {
+//        if (IsASFRunOrStoping) return;
 
-        if (showToast) Toast.Show(AppResources.ASF_Stoping, ToastLength.Short);
+//        if (showToast) Toast.Show(AppResources.ASF_Stoping, ToastLength.Short);
 
-        IsASFRunOrStoping = true;
+//        IsASFRunOrStoping = true;
 
-        await archiSteamFarmService.StopAsync();
+//        await archiSteamFarmService.StopAsync();
 
-        MainThread2.BeginInvokeOnMainThread(() =>
-        {
-            this.RaisePropertyChanged(nameof(IsASFRuning));
-        });
+//        MainThread2.BeginInvokeOnMainThread(() =>
+//        {
+//            this.RaisePropertyChanged(nameof(IsASFRuning));
+//        });
 
-        IsASFRunOrStoping = false;
+//        IsASFRunOrStoping = false;
 
-        if (showToast) Toast.Show(AppResources.ASF_Stoped, ToastLength.Short);
-    }
+//        if (showToast) Toast.Show(AppResources.ASF_Stoped, ToastLength.Short);
+//    }
 
-    public void RefreshBots()
-    {
-        var bots = archiSteamFarmService.GetReadOnlyAllBots();
-        if (bots.Any_Nullable())
-        {
-            SteamBotsSourceList.AddOrUpdate(bots!.Values);
-        }
-    }
+//    public void RefreshBots()
+//    {
+//        var bots = archiSteamFarmService.GetReadOnlyAllBots();
+//        if (bots.Any_Nullable())
+//        {
+//            SteamBotsSourceList.AddOrUpdate(bots!.Values);
+//        }
+//    }
 
-    public void RefreshConfig()
-    {
-        GlobalConfig = archiSteamFarmService.GetGlobalConfig();
-    }
+//    public void RefreshConfig()
+//    {
+//        GlobalConfig = archiSteamFarmService.GetGlobalConfig();
+//    }
 
-    public async void ImportBotFiles(IEnumerable<string>? files) => await ImportJsonFileAsync(files, allowBot: true, allowGlobal: false);
+//    public async void ImportBotFiles(IEnumerable<string>? files) => await ImportJsonFileAsync(files, allowBot: true, allowGlobal: false);
 
-    public async void ImportGlobalFiles(string? file) => await ImportJsonFileAsync(new[] { file }, allowBot: false, allowGlobal: true);
+//    public async void ImportGlobalFiles(string? file) => await ImportJsonFileAsync(new[] { file }, allowBot: false, allowGlobal: true);
 
-    async Task ImportJsonFileAsync(IEnumerable<string?>? files, bool allowBot, bool allowGlobal)
-    {
-        if (files == null) return;
-        var num = 0;
-        foreach (var filename in files)
-        {
-            if (string.IsNullOrWhiteSpace(filename)) continue;
-            var file = new FileInfo(filename);
-            if (file.Exists && string.Equals(file.Extension, SharedInfo.JsonConfigExtension, StringComparison.OrdinalIgnoreCase))
-            {
-                object? config;
-                if (file.Name != SharedInfo.GlobalConfigFileName)
-                {
-                    if (!allowBot) continue;
-                    var bot = await BotConfig.Load(file.FullName).ConfigureAwait(false);
-                    config = bot.BotConfig;
-                }
-                else
-                {
-                    if (!allowGlobal) continue;
-                    var g = await GlobalConfig.Load(file.FullName).ConfigureAwait(false);
-                    config = g.GlobalConfig;
-                }
-                if (config != null)
-                {
-                    try
-                    {
-                        file.CopyTo(Path.Combine(SharedInfo.ConfigDirectory, file.Name), true);
-                        num++;
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(nameof(ASFService), ex, nameof(ImportBotFiles));
-                        continue;
-                    }
-                    if (allowGlobal && config is GlobalConfig g)
-                    {
-                        GlobalConfig = ASF.GlobalConfig = g;
-                    }
-                }
-            }
-        }
-        Toast.Show(string.Format(AppResources.LocalAuth_ImportSuccessTip_, num));
-    }
-}
-#endif
+//    async Task ImportJsonFileAsync(IEnumerable<string?>? files, bool allowBot, bool allowGlobal)
+//    {
+//        if (files == null) return;
+//        var num = 0;
+//        foreach (var filename in files)
+//        {
+//            if (string.IsNullOrWhiteSpace(filename)) continue;
+//            var file = new FileInfo(filename);
+//            if (file.Exists && string.Equals(file.Extension, SharedInfo.JsonConfigExtension, StringComparison.OrdinalIgnoreCase))
+//            {
+//                object? config;
+//                if (file.Name != SharedInfo.GlobalConfigFileName)
+//                {
+//                    if (!allowBot) continue;
+//                    var bot = await BotConfig.Load(file.FullName).ConfigureAwait(false);
+//                    config = bot.BotConfig;
+//                }
+//                else
+//                {
+//                    if (!allowGlobal) continue;
+//                    var g = await GlobalConfig.Load(file.FullName).ConfigureAwait(false);
+//                    config = g.GlobalConfig;
+//                }
+//                if (config != null)
+//                {
+//                    try
+//                    {
+//                        file.CopyTo(Path.Combine(SharedInfo.ConfigDirectory, file.Name), true);
+//                        num++;
+//                    }
+//                    catch (Exception ex)
+//                    {
+//                        Log.Error(nameof(ASFService), ex, nameof(ImportBotFiles));
+//                        continue;
+//                    }
+//                    if (allowGlobal && config is GlobalConfig g)
+//                    {
+//                        GlobalConfig = ASF.GlobalConfig = g;
+//                    }
+//                }
+//            }
+//        }
+//        Toast.Show(string.Format(AppResources.LocalAuth_ImportSuccessTip_, num));
+//    }
+//}
+//#endif
