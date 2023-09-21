@@ -91,6 +91,15 @@ partial class Startup // 自定义控制台命令参数
         {
             if (!string.IsNullOrEmpty(account))
             {
+#if WINDOWS
+                if (!WindowsPlatformServiceImpl.IsPrivilegedProcess)
+                {
+                    // 必须使用管理员权限进行操作
+                    await RunSelfAsAdministrator($"-clt steam -account {account}");
+                    return;
+                }
+#endif
+
                 RunUIApplication(AppServicesLevel.Steam);
 
                 await WaitConfiguredServices;
@@ -107,7 +116,7 @@ partial class Startup // 自定义控制台命令参数
                 {
                     currentuser.MostRecent = true;
                     steamService.UpdateLocalUserData(users);
-                    steamService.SetCurrentUser(account);
+                    await steamService.SetSteamCurrentUserAsync(account);
                 }
 
                 steamService.StartSteamWithParameter();
@@ -505,6 +514,17 @@ partial class Startup // 自定义控制台命令参数
             }),
         };
         rootCommand.AddCommand(types);
+    }
+#endif
+
+#if WINDOWS
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    async ValueTask<Process?> RunSelfAsAdministrator(string arguments)
+    {
+        var processPath = Environment.ProcessPath;
+        processPath.ThrowIsNull();
+        var process = await WindowsPlatformServiceImpl.StartAsAdministrator(processPath, arguments);
+        return process;
     }
 #endif
 }

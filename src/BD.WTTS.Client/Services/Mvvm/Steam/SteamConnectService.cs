@@ -537,12 +537,15 @@ public sealed class SteamConnectService
 
                 var processPath = Environment.ProcessPath;
                 processPath.ThrowIsNull();
-                if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((title,
-                    applicationPath: processPath,
-                    iconResourcePath: processPath,
-                    arguments: $"-clt steam -account {user.AccountName}",
-                    description: AppResources.UserChange_BtnTootlip,
-                    customCategory: AppResources.UserFastChange));
+                if (!string.IsNullOrEmpty(user.AccountName))
+                {
+                    jumplistData!.Add((title,
+                        applicationPath: processPath,
+                        iconResourcePath: processPath,
+                        arguments: $"-clt steam -account {user.AccountName}",
+                        description: AppResources.UserChange_BtnTootlip,
+                        customCategory: AppResources.UserFastChange));
+                }
             }
 #endif
         }
