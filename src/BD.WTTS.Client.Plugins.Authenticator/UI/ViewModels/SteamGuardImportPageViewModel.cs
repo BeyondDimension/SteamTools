@@ -2,7 +2,7 @@ using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class SteamGuardImportPageViewModel : ViewModelBase
+public sealed partial class SteamGuardImportPageViewModel : ViewModelBase
 {
     public static string Name => Strings.LocalAuth_Import.Format(Strings.SteamGuard);
 
@@ -13,11 +13,10 @@ public sealed class SteamGuardImportPageViewModel : ViewModelBase
         get => _phoneImportUuid;
         set
         {
-            if (value == _phoneImportUuid) return;
+            if (value == _phoneImportUuid)
+                return;
             if (value?.StartsWith("android:", StringComparison.Ordinal) == false)
-            {
-                value = $"android:{value}";
-            }
+                value = $"android:{value.TrimStart("android:", StringComparison.OrdinalIgnoreCase)}";
             _phoneImportUuid = value;
             this.RaisePropertyChanged();
         }
@@ -40,9 +39,7 @@ public sealed class SteamGuardImportPageViewModel : ViewModelBase
         {
             if (value == _importAuthNewName) return;
             if (value != null && value.Length > IAuthenticatorDTO.MaxLength_Name)
-            {
                 value = value.Substring(0, IAuthenticatorDTO.MaxLength_Name);
-            }
             _importAuthNewName = value;
             this.RaisePropertyChanged();
         }
@@ -64,17 +61,14 @@ public sealed class SteamGuardImportPageViewModel : ViewModelBase
             // check the deviceid
             string deviceId;
             if (PhoneImportUuid.IndexOf("?xml", StringComparison.Ordinal) != -1)
-            {
                 try
                 {
-                    XmlDocument doc = new XmlDocument();
+                    var doc = new XmlDocument();
                     doc.LoadXml(PhoneImportUuid);
                     var node = doc.SelectSingleNode("//string[@name='uuidKey']");
                     if (node == null)
-                    {
                         //WinAuthForm.ErrorDialog(this, "Cannot find uuidKey in xml");
                         return;
-                    }
 
                     deviceId = node.InnerText;
                 }
@@ -85,18 +79,12 @@ public sealed class SteamGuardImportPageViewModel : ViewModelBase
                     ex.LogAndShowT();
                     return;
                 }
-            }
             else
-            {
                 deviceId = PhoneImportUuid;
-            }
 
-            if (string.IsNullOrEmpty(deviceId) || Regex.IsMatch(deviceId, @"android:[0-9abcdef-]+",
-                    RegexOptions.Singleline | RegexOptions.IgnoreCase) == false)
-            {
+            if (string.IsNullOrEmpty(deviceId) || DeviceIdRegex().IsMatch(deviceId) == false)
                 //WinAuthForm.ErrorDialog(this, "Invalid deviceid, expecting \"android:NNNN...\"");
                 return;
-            }
 
             // check the steamguard
             byte[] secret;
@@ -107,16 +95,12 @@ public sealed class SteamGuardImportPageViewModel : ViewModelBase
             if (steamGuardModel == null) return;
 
             if (string.IsNullOrEmpty(steamGuardModel.SharedSecret))
-            {
                 throw new ApplicationException("no shared_secret");
-            }
 
             secret = Convert.FromBase64String(steamGuardModel.SharedSecret);
 
             if (string.IsNullOrEmpty(steamGuardModel.SerialNumber))
-            {
                 throw new ApplicationException("no serial_number");
-            }
 
             serial = steamGuardModel.SerialNumber;
 
@@ -125,7 +109,7 @@ public sealed class SteamGuardImportPageViewModel : ViewModelBase
                 SecretKey = secret,
                 Serial = serial,
                 SteamData = PhoneImportSteamGuard,
-                DeviceId = deviceId
+                DeviceId = deviceId,
             };
 
             await AuthenticatorHelper.SaveAuthenticator(new AuthenticatorDTO()
@@ -142,4 +126,7 @@ public sealed class SteamGuardImportPageViewModel : ViewModelBase
             ex.LogAndShowT();
         }
     }
+
+    [GeneratedRegex("android:[0-9abcdef-]+", RegexOptions.IgnoreCase | RegexOptions.Singleline)]
+    private static partial Regex DeviceIdRegex();
 }
