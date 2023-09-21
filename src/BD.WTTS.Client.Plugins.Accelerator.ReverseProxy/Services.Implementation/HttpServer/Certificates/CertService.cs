@@ -20,12 +20,12 @@ sealed class CertService
     /// <summary>
     /// 获取 CER 证书文件路径
     /// </summary>
-    public string CaCerFilePath => ReverseProxyService.CertificateManager.CerFilePath;
+    public string CaCerFilePath => ((ICertificateManager)ReverseProxyService.CertificateManager).CerFilePath;
 
     /// <summary>
     /// 获取 PFX 证书文件路径
     /// </summary>
-    public string CaPfxFilePath => ReverseProxyService.CertificateManager.PfxFilePath;
+    public string CaPfxFilePath => ((ICertificateManager)ReverseProxyService.CertificateManager).PfxFilePath;
 
     public CertService(
         IMemoryCache serverCertCache,
@@ -69,10 +69,7 @@ sealed class CertService
     /// <returns></returns>
     public X509Certificate2? GetOrCreateServerCert(string? domain)
     {
-        if (this.caCert == null)
-        {
-            this.caCert = new X509Certificate2(fileName: this.CaPfxFilePath, password: default(string));
-        }
+        caCert ??= new X509Certificate2(fileName: CaPfxFilePath, password: default(string));
 
         var key = $"{nameof(CertService)}:{domain}";
         return serverCertCache.GetOrCreate(key, GetOrCreateCert);
@@ -86,7 +83,7 @@ sealed class CertService
             entry.SetAbsoluteExpiration(notAfter);
 
             var subjectName = new X500DistinguishedName($"CN={domain}");
-            using var serverCert = CertGenerator.CreateEndCertificate(this.caCert, subjectName, GetDomains(), notBefore, notAfter);
+            using var serverCert = CertGenerator.CreateEndCertificate(caCert, subjectName, GetDomains(), notBefore, notAfter);
             var serverCertPfx = serverCert.Export(X509ContentType.Pfx);
             // 将生成的证书导出后重新创建一个
             return new X509Certificate2(serverCertPfx);

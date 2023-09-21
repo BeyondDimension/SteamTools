@@ -11,6 +11,12 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         this.swWebService = swWebService;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    async void SetCurrentUser(string userName = "")
+    {
+        await steamService.SetSteamCurrentUserAsync(userName);
+    }
+
     public void SwapToAccount(IAccount? account, PlatformAccount platform)
     {
         KillPlatformProcess(platform);
@@ -19,7 +25,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         {
             if (account is SteamAccount steamAccount && !string.IsNullOrEmpty(steamAccount?.AccountName))
             {
-                steamService.SetCurrentUser(steamAccount.AccountName);
+                SetCurrentUser(steamAccount.AccountName);
                 foreach (var user in users)
                 {
                     if (user.AccountName == steamAccount.AccountName)
@@ -40,7 +46,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
             }
             else
             {
-                steamService.SetCurrentUser("");
+                SetCurrentUser();
                 foreach (var user in users)
                 {
                     user.MostRecent = false;
@@ -57,7 +63,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
     bool IPlatformSwitcher.ClearCurrentLoginUser(PlatformAccount platform)
     {
-        steamService.SetCurrentUser("");
+        SetCurrentUser();
         return true;
     }
 

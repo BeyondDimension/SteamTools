@@ -287,8 +287,8 @@ sealed partial class HttpReverseProxyMiddleware
                         //                        var html_start_string = encoding.GetString(html_start.Span);
                         //#endif
                         await bodyCoreWriter.WriteAsync(html_start);
-                        var script_xml_start = "<script type=\"text/javascript\" src=\"https://local.steampp.net/"u8.ToArray();
-                        var script_xml_end = "\"></script>"u8.ToArray();
+                        ReadOnlyMemory<byte> script_xml_start = "<script type=\"text/javascript\" src=\"https://local.steampp.net/"u8.ToArray();
+                        ReadOnlyMemory<byte> script_xml_end = "\"></script>"u8.ToArray();
                         foreach (var script in scripts)
                         {
                             await bodyCoreWriter.WriteAsync(script_xml_start);

@@ -14,7 +14,7 @@ sealed class RequestContext
     public bool IsHttps { get; }
 
     /// <summary>
-    /// 获取或设置Sni值
+    /// 获取或设置 Sni 值
     /// </summary>
     public TlsSniPattern TlsSniValue { get; }
 

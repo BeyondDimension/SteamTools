@@ -20,7 +20,7 @@ sealed class LifetimeHttpHandlerCleaner
 
     /// <summary>
     /// 获取或设置清理的时间间隔
-    /// 默认10s
+    /// 默认 10s
     /// </summary>
     public TimeSpan CleanupInterval { get; set; } = TimeSpan.FromSeconds(10d);
 

@@ -51,7 +51,7 @@ sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
         return platform.StartAsInvoker(fileName, arguments);
     }
 
-    protected sealed override async void SetSteamCurrentUser(string userName)
+    public sealed override async ValueTask SetSteamCurrentUserAsync(string userName)
     {
 #if WINDOWS
         if (DesktopBridge.IsRunningAsUwp)
@@ -59,7 +59,7 @@ sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
             string contents =
 $"""
 Windows Registry Editor Version 5.00
-; {AssemblyInfo.Trademark} BD.WTTS.Services.Implementation.SteamServiceImpl2.SetSteamCurrentUser
+; {AssemblyInfo.Trademark} BD.WTTS.Services.Implementation.SteamServiceImpl2.SetSteamCurrentUserAsync
 [HKEY_CURRENT_USER\Software\Valve\Steam]
 "AutoLoginUser"="{userName}"
 "RememberPassword"=dword:00000001
@@ -69,7 +69,22 @@ Windows Registry Editor Version 5.00
             return;
         }
 #endif
-        base.SetSteamCurrentUser(userName);
+        await base.SetSteamCurrentUserAsync(userName);
     }
+
+#if WINDOWS
+    public sealed override async void KillSteamProcess()
+    {
+        if (WindowsPlatformServiceImpl.IsPrivilegedProcess)
+        {
+            base.KillSteamProcess();
+        }
+        else
+        {
+            var platformService = await IPlatformService.IPCRoot.Instance;
+            platformService.KillProcesses(steamProcess);
+        }
+    }
+#endif
 }
 #endif

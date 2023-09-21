@@ -8,9 +8,7 @@ namespace BD.WTTS.Services.Implementation;
 /// </summary>
 sealed class HttpProxyMiddleware
 {
-    private readonly HttpParser<HttpRequestHandler> httpParser = new();
-    private static readonly byte[] http200 = Encoding.ASCII.GetBytes("HTTP/1.1 200 Connection Established\r\n\r\n");
-    private static readonly byte[] http400 = Encoding.ASCII.GetBytes("HTTP/1.1 400 Bad Request\r\n\r\n");
+    readonly HttpParser<HttpRequestHandler> httpParser = new();
 
     /// <summary>
     /// 执行中间件
@@ -39,6 +37,7 @@ sealed class HttpProxyMiddleware
                     if (request.ProxyProtocol == ProxyProtocol.TunnelProxy)
                     {
                         input.AdvanceTo(consumed);
+                        ReadOnlyMemory<byte> http200 = "HTTP/1.1 200 Connection Established\r\n\r\n"u8.ToArray();
                         await output.WriteAsync(http200, context.ConnectionClosed);
                     }
                     else
@@ -63,6 +62,7 @@ sealed class HttpProxyMiddleware
             }
             catch (Exception)
             {
+                ReadOnlyMemory<byte> http400 = "HTTP/1.1 400 Bad Request\r\n\r\n"u8.ToArray();
                 await output.WriteAsync(http400, context.ConnectionClosed);
                 break;
             }
@@ -120,7 +120,7 @@ sealed class HttpProxyMiddleware
         void IHttpRequestLineHandler.OnStartLine(HttpVersionAndMethod versionAndMethod, TargetOffsetPathLength targetPath, Span<byte> startLine)
         {
             method = versionAndMethod.Method;
-            var host = Encoding.ASCII.GetString(startLine.Slice(targetPath.Offset, targetPath.Length));
+            var host = Encoding.UTF8.GetString(startLine.Slice(targetPath.Offset, targetPath.Length));
             if (versionAndMethod.Method == AspNetCoreHttpMethod.Connect)
             {
                 ProxyHost = HostString.FromUriComponent(host);
