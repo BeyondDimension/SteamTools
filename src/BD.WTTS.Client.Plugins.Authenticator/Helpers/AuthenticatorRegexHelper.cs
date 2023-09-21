@@ -1,4 +1,4 @@
-namespace BD.WTTS.Helper;
+namespace BD.WTTS.Helpers;
 
 internal sealed partial class AuthenticatorRegexHelper
 {

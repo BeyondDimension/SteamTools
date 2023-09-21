@@ -120,7 +120,6 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                 {
                     await AuthenticatorHelper.SaveAuthenticator(item, password, isLocalProtect);
                 }
-
                 Toast.Show(ToastIcon.Success, result.resultCode == IAccountPlatformAuthenticatorRepository.ImportResultCode.Success
                     ? Strings.LocalAuth_AddAuthSuccess
                     : Strings.LocalAuth_AddAuth_PartSuccess);
@@ -132,9 +131,10 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                 if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, Strings.ModelContent_ExportPassword, isDialog: false,
                         isCancelButton: true))
                 {
+                    if (textViewModel.Value == null)
+                        return; // 弹窗点击了取消跳出
                     exportPassword = textViewModel.Value;
                 }
-
                 await ImportFromWattToolKitV2(exportPassword, password, isLocalProtect, filePath);
                 break;
             default:

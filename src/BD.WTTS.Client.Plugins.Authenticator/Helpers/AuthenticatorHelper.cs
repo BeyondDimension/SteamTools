@@ -1,7 +1,5 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
-
 using WinAuth;
-using BD.WTTS.Helper;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.Services;
 
