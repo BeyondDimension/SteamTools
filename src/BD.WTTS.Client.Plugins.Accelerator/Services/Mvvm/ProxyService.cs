@@ -229,21 +229,58 @@ public sealed partial class ProxyService
 
     public async Task InitializeAsync()
     {
-        //reverseProxyService.StopProxy();
-        await InitializeAccelerateAsync();
-        await InitializeScriptAsync();
-        await RefreshIpv6Support();
-
-        if (IsProgramStartupRunProxy())
+        try
         {
-            if (platformService.UsePlatformForegroundService)
+            await InitializeAccelerateAsync();
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex, nameof(ProxyService),
+                msg: "Accelerate init fail.");
+            return; // 加速项目初始化失败时，中止初始化
+        }
+
+        try
+        {
+            await InitializeScriptAsync();
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex, nameof(ProxyService),
+                msg: "Script init fail.");
+            return; // 脚本数据初始化失败时，中止初始化
+        }
+
+        try
+        {
+            await RefreshIpv6Support();
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex, nameof(ProxyService),
+                msg: "IPv6 refresh fail.");
+            // Ipv6 支持刷新失败时，可忽略
+        }
+
+        try
+        {
+            if (IsProgramStartupRunProxy())
             {
-                await platformService.StartOrStopForegroundServiceAsync(nameof(ProxyService), true);
+                if (platformService.UsePlatformForegroundService)
+                {
+                    await platformService.StartOrStopForegroundServiceAsync(nameof(ProxyService), true);
+                }
+                else
+                {
+                    ProxyStatus = true;
+                }
             }
-            else
-            {
-                ProxyStatus = true;
-            }
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex, nameof(ProxyService),
+                msg: "Program startup run proxy fail.");
+            // 程序启动时启动加速服务失败，可忽略
         }
     }
 
@@ -378,7 +415,8 @@ public sealed partial class ProxyService
         // 加载脚本数据
 
         var scriptList = await scriptManager.GetAllScriptAsync();
-        ProxyScripts.AddRange(await scriptManager.CheckFiles(scriptList));
+        var scriptList2 = await scriptManager.CheckFiles(scriptList);
+        ProxyScripts.AddRange(scriptList2);
 
         //拉取 GM.js
         await BasicsInfoAsync();

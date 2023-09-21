@@ -46,7 +46,7 @@ internal sealed class ScriptRepository : Repository<Script, int>, IScriptReposit
             t.ThrowIfCancellationRequested();
             const string sql_ =
             $"{SQLStrings.Update}[{Script.TableName}] " +
-                $"set [{Script.ColumnName_CachePath}] = {{0}} " +
+                $"set [{Script.ColumnName_CachePath}] = '{{0}}' " +
                 $"where [{Script.ColumnName_CachePath}] = {{1}}";
             var sql = string.Format(sql_, item.CachePath, item.LocalId);
             //var sql =

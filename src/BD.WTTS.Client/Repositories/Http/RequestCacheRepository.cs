@@ -108,7 +108,7 @@ internal sealed class RequestCacheRepository : CacheRepository<RequestCache, str
             t.ThrowIfCancellationRequested();
             const string sql_ = $"{SQLStrings.Update}[{RequestCache.TableName}] " +
                $"set [{RequestCache.ColumnName_UsageTime}] = {{0}} " +
-               $"where [{RequestCache.ColumnName_Id}] = {{1}}";
+               $"where [{RequestCache.ColumnName_Id}] = '{{1}}'";
             var sql = string.Format(sql_, DateTimeOffset.Now.Ticks, id);
             var r = await dbConnection.ExecuteAsync(sql);
             return r;
