@@ -51,7 +51,7 @@ public sealed partial class ProxyService
                 {
                     ProxyStatus = proxyStatusRight;
 
-                    UpdateProxyTrayMenuItems();
+                    //UpdateProxyTrayMenuItems();
                     //if (Steamworks.SteamClient.IsValid)
                     //{
                     //    if (ProxyStatus)
@@ -297,16 +297,9 @@ public sealed partial class ProxyService
                 Name = Plugin.Instance.Name,
                 Items = new List<TrayMenuItem>
                 {
-                    ProxyStatus ? new TrayMenuItem
+                    new TrayMenuItem
                     {
-                        Name = Strings.CommunityFix_StopProxy,
-                        Command = ReactiveCommand.Create(() =>
-                        {
-                            ProxyStatus = !ProxyStatus;
-                        }),
-                    } : new TrayMenuItem
-                    {
-                        Name = Strings.CommunityFix_StartProxy,
+                        Name = "启动/停止",
                         Command = ReactiveCommand.Create(() =>
                         {
                             ProxyStatus = !ProxyStatus;
