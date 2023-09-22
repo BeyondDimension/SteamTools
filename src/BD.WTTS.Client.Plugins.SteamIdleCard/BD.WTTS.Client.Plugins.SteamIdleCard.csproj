@@ -88,6 +88,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="UI\Views\Pages\IdleCardPage.axaml.cs">
+	    <DependentUpon>IdleCardPage.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

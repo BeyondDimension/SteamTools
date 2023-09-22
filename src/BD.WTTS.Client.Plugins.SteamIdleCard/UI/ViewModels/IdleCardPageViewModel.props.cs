@@ -4,7 +4,7 @@ using BD.SteamClient.Services;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed partial class IdleAppsPageViewModel
+public sealed partial class IdleCardPageViewModel
 {
 
     public ICommand IdleRunStartOrStop { get; }

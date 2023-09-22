@@ -27,7 +27,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     {
         yield return new MenuTabItemViewModel(this, nameof(Strings.SteamIdleCard))
         {
-            PageType = typeof(MainFramePage),
+            PageType = typeof(IdleCardPage),
             IsResourceGet = true,
             IconKey = Icon,
         };

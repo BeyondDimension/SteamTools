@@ -58,7 +58,7 @@ public partial interface IGameLibrarySettings
     /// <summary>
     /// 已安装游戏筛选的默认值
     /// </summary>
-    const bool DefaultGameInstalledFilter = true;
+    const bool DefaultGameInstalledFilter = false;
 
     /// <summary>
     /// 库存游戏展示布局的默认值

@@ -11,4 +11,8 @@ public partial class TrayMenuItem
     public object? CommandParameter { get; set; }
 
     public List<TrayMenuItem>? Items { get; set; }
+
+    public bool IsVisible { get; set; }
+
+    public int Order { get; set; }
 }

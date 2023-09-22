@@ -1,0 +1,33 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.IdleCardPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:IdleCardPageViewModel"
+    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+    <spp:PageBase.ActionContent>
+        <StackPanel>
+            <Button Content="Test" />
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+
+    <spp:ContentLoader>
+        <ItemsRepeater>
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate>
+                    <spp:AppItem Title="Test" />
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+    </spp:ContentLoader>
+</spp:PageBase>

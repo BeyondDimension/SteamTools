@@ -7,14 +7,14 @@ using System.Linq;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed partial class IdleAppsPageViewModel : ViewModelBase
+public sealed partial class IdleCardPageViewModel : ViewModelBase
 {
     readonly ISteamService SteamTool = ISteamService.Instance;
     readonly ISteamIdleCardService IdleCard = ISteamIdleCardService.Instance;
 
     private SteamLoginState SteamLoginState = new();
 
-    public IdleAppsPageViewModel()
+    public IdleCardPageViewModel()
     {
         this.WhenPropertyChanged(x => x.IsAutoNextOn)
             .Subscribe(x =>

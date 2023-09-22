@@ -50,6 +50,8 @@ public sealed partial class ProxyService
                 if (proxyStatusLeft != proxyStatusRight)
                 {
                     ProxyStatus = proxyStatusRight;
+
+                    UpdateProxyTrayMenuItems();
                     //if (Steamworks.SteamClient.IsValid)
                     //{
                     //    if (ProxyStatus)
@@ -282,18 +284,41 @@ public sealed partial class ProxyService
                 msg: "Program startup run proxy fail.");
             // 程序启动时启动加速服务失败，可忽略
         }
+
+        UpdateProxyTrayMenuItems();
     }
 
-    /// <summary>
-    /// 是否使用 <see cref="IHttpService"/> 加载确认物品图片 <see cref="Stream"/>
-    /// </summary>
-    static bool IsLoadImage
+    private void UpdateProxyTrayMenuItems()
     {
-        get
+        try
         {
-            // 此页面当前使用 Square.Picasso 库加载图片
-            if (OperatingSystem.IsAndroid()) return false;
-            return true;
+            IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName, new TrayMenuItem
+            {
+                Name = Plugin.Instance.Name,
+                Items = new List<TrayMenuItem>
+                {
+                    ProxyStatus ? new TrayMenuItem
+                    {
+                        Name = Strings.CommunityFix_StopProxy,
+                        Command = ReactiveCommand.Create(() =>
+                        {
+                            ProxyStatus = !ProxyStatus;
+                        }),
+                    } : new TrayMenuItem
+                    {
+                        Name = Strings.CommunityFix_StartProxy,
+                        Command = ReactiveCommand.Create(() =>
+                        {
+                            ProxyStatus = !ProxyStatus;
+                        }),
+                    },
+                },
+            });
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT();
+            //托盘菜单添加异常
         }
     }
 

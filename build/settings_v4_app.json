@@ -498,7 +498,7 @@
         {
           "TypeName": "bool",
           "PropertyName": "GameInstalledFilter",
-          "DefaultValue": "true",
+          "DefaultValue": "false",
           "DefaultValueIsConst": true,
           "Summary": "已安装游戏筛选",
           "IsRegionOrEndregion": null,
