@@ -110,7 +110,7 @@ partial class Startup // 自定义控制台命令参数
 
                 var currentuser = users.Where(s => s.AccountName == account).FirstOrDefault();
 
-                steamService.TryKillSteamProcess();
+                await steamService.TryKillSteamProcess();
 
                 if (currentuser != null)
                 {

@@ -73,17 +73,31 @@ Windows Registry Editor Version 5.00
     }
 
 #if WINDOWS
-    public sealed override async void KillSteamProcess()
+    protected sealed override async ValueTask<bool> KillSteamProcess()
     {
         if (WindowsPlatformServiceImpl.IsPrivilegedProcess)
         {
-            base.KillSteamProcess();
+            return await base.KillSteamProcess();
         }
         else
         {
-            var platformService = await IPlatformService.IPCRoot.Instance;
-            platformService.KillProcesses(steamProcess);
+            try
+            {
+                var processNames = steamProcess;
+                if (processNames.Any_Nullable())
+                {
+                    var platformService = await IPlatformService.IPCRoot.Instance;
+                    var r = platformService.KillProcesses(processNames);
+                    return r ?? false;
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "KillSteamProcess fail.");
+                return false;
+            }
         }
+        return true;
     }
 #endif
 }

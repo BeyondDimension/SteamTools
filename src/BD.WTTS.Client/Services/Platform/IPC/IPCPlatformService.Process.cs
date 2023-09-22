@@ -25,33 +25,69 @@ partial interface IPCPlatformService
     /// 根据多个进程名结束进程
     /// </summary>
     /// <param name="processNames"></param>
-    bool KillProcesses(params string[] processNames)
+    bool? KillProcesses(params string[] processNames)
     {
-        // IPC 调用不等待直接返回
-        Task2.InBackground(() =>
+        var processes = processNames.Select(static x =>
         {
-            foreach (var p in processNames)
+            try
             {
-                try
+                var process = Process.GetProcessesByName(x);
+                return process;
+            }
+            catch
+            {
+                return Array.Empty<Process>();
+            }
+        }).SelectMany(static x => x).ToArray();
+
+        static ApplicationException? KillProcess(Process? process)
+        {
+            if (process == null)
+                return default;
+            try
+            {
+                if (!process.HasExited)
                 {
-                    var process = Process.GetProcessesByName(p);
-                    foreach (var item in process)
-                    {
-                        if (!item.HasExited)
-                        {
-                            item.Kill();
-                            item.WaitForExit();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(nameof(IPCPlatformService), ex,
-                        "KillProcesses fail, name: {name}", p);
+                    process.Kill();
+                    process.WaitForExit();
                 }
             }
-        });
-        // 返回 false 必定为 IPC 调用失败
+            catch (Exception ex)
+            {
+                return new ApplicationException(
+                    $"KillProcesses fail, name: {process?.ProcessName}", ex);
+            }
+            return default;
+        }
+
+        try
+        {
+            if (processes.Any())
+            {
+                var tasks = processes.Select(x =>
+                {
+                    return Task.Run(() =>
+                    {
+                        return KillProcess(x);
+                    });
+                }).ToArray();
+                Task.WaitAll(tasks);
+
+                var innerExceptions = tasks.Select(x => x.Result!)
+                    .Where(x => x != null).ToArray();
+                if (innerExceptions.Any())
+                {
+                    throw new AggregateException(
+                        "KillProcess fail", innerExceptions);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(IPCPlatformService), ex, "KillSteamProcess fail");
+            return false;
+        }
+
         return true;
     }
 }

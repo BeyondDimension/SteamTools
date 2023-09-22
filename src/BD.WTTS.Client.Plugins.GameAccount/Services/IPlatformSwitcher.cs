@@ -4,17 +4,17 @@ namespace BD.WTTS.Services;
 
 public interface IPlatformSwitcher
 {
-    void SwapToAccount(IAccount? account, PlatformAccount platform);
+    ValueTask SwapToAccount(IAccount? account, PlatformAccount platform);
 
-    bool ClearCurrentLoginUser(PlatformAccount platform);
+    ValueTask<bool> ClearCurrentLoginUser(PlatformAccount platform);
 
-    bool KillPlatformProcess(PlatformAccount platform);
+    ValueTask<bool> KillPlatformProcess(PlatformAccount platform);
 
     bool RunPlatformProcess(PlatformAccount platform, bool isAdmin);
 
-    void NewUserLogin(PlatformAccount platform);
+    ValueTask NewUserLogin(PlatformAccount platform);
 
-    bool CurrnetUserAdd(string name, PlatformAccount platform);
+    ValueTask<bool> CurrnetUserAdd(string name, PlatformAccount platform);
 
     string GetCurrentAccountId(PlatformAccount platform);
 

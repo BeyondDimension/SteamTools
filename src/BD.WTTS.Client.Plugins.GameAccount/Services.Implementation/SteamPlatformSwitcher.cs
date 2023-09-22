@@ -11,21 +11,15 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         this.swWebService = swWebService;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    async void SetCurrentUser(string userName = "")
+    public async ValueTask SwapToAccount(IAccount? account, PlatformAccount platform)
     {
-        await steamService.SetSteamCurrentUserAsync(userName);
-    }
-
-    public void SwapToAccount(IAccount? account, PlatformAccount platform)
-    {
-        KillPlatformProcess(platform);
-        var users = platform.Accounts?.Cast<SteamAccount>().Select(s => s.SteamUser);
+        await KillPlatformProcess(platform);
+        var users = platform.Accounts?.Cast<SteamAccount>().Select(s => s.SteamUser).ToArray();
         if (users.Any_Nullable())
         {
             if (account is SteamAccount steamAccount && !string.IsNullOrEmpty(steamAccount?.AccountName))
             {
-                SetCurrentUser(steamAccount.AccountName);
+                await steamService.SetSteamCurrentUserAsync(steamAccount.AccountName);
                 foreach (var user in users)
                 {
                     if (user.AccountName == steamAccount.AccountName)
@@ -46,7 +40,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
             }
             else
             {
-                SetCurrentUser();
+                await steamService.SetSteamCurrentUserAsync(string.Empty);
                 foreach (var user in users)
                 {
                     user.MostRecent = false;
@@ -61,15 +55,16 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         RunPlatformProcess(platform, false);
     }
 
-    bool IPlatformSwitcher.ClearCurrentLoginUser(PlatformAccount platform)
+    async ValueTask<bool> IPlatformSwitcher.ClearCurrentLoginUser(PlatformAccount platform)
     {
-        SetCurrentUser();
+        await steamService.SetSteamCurrentUserAsync(string.Empty);
         return true;
     }
 
-    public bool KillPlatformProcess(PlatformAccount platform)
+    public async ValueTask<bool> KillPlatformProcess(PlatformAccount platform)
     {
-        return steamService.TryKillSteamProcess();
+        var r = await steamService.TryKillSteamProcess();
+        return r;
     }
 
     public bool RunPlatformProcess(PlatformAccount platform, bool isAdmin)
@@ -78,12 +73,12 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    public void NewUserLogin(PlatformAccount platform)
+    public async ValueTask NewUserLogin(PlatformAccount platform)
     {
-        SwapToAccount(null, platform);
+        await SwapToAccount(null, platform);
     }
 
-    public bool CurrnetUserAdd(string name, PlatformAccount platform) => false;
+    public ValueTask<bool> CurrnetUserAdd(string name, PlatformAccount platform) => ValueTask.FromResult(false);
 
     public string GetCurrentAccountId(PlatformAccount platform)
     {

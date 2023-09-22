@@ -95,11 +95,12 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    public void SwapToAccount(IAccount? account, PlatformAccount platform)
+    public async ValueTask SwapToAccount(IAccount? account, PlatformAccount platform)
     {
         //LoadAccountIds();
 
-        if (!KillPlatformProcess(platform))
+        var killResult = await KillPlatformProcess(platform);
+        if (!killResult)
             return;
 
         // Add currently logged in account if there is a way of checking unique ID.
@@ -119,13 +120,13 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                         Toast.Show(ToastIcon.Info, AppResources.Info_AlreadyTheCurrentAccount);
                         return;
                     }
-                    CurrnetUserAdd(platform.Accounts.First(acc => acc.AccountId == uniqueId).AccountName ?? "Unknown", platform);
+                    await CurrnetUserAdd(platform.Accounts.First(acc => acc.AccountId == uniqueId).AccountName ?? "Unknown", platform);
                 }
             }
         }
 
         // Clear current login
-        ClearCurrentLoginUser(platform);
+        await ClearCurrentLoginUser(platform);
 
         // Copy saved files in
         if (!string.IsNullOrEmpty(account?.AccountId))
@@ -155,7 +156,13 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         //}
     }
 
-    public bool ClearCurrentLoginUser(PlatformAccount platform)
+    public ValueTask<bool> ClearCurrentLoginUser(PlatformAccount platform)
+    {
+        var result = ClearCurrentLoginUserCore(platform);
+        return ValueTask.FromResult(result);
+    }
+
+    bool ClearCurrentLoginUserCore(PlatformAccount platform)
     {
         // Foreach file/folder/reg in Platform.PathListToClear
         if (platform.ClearPaths.Any_Nullable(accFile => !DeleteFileOrFolder(accFile, platform)))
@@ -178,7 +185,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    private bool DeleteFileOrFolder(string accFile, PlatformAccount platform)
+    bool DeleteFileOrFolder(string accFile, PlatformAccount platform)
     {
         // The "file" is a registry key
 #if WINDOWS
@@ -252,34 +259,137 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    public bool KillPlatformProcess(PlatformAccount platform)
+    bool KillPlatformProcessCore(PlatformAccount platform)
     {
-        try
+        var processNames = GetProcessNames(platform);
+        if (processNames != null)
         {
-            if (platform.ExesToEnd.Any_Nullable())
+            var processes = processNames.Select(static x =>
             {
-                foreach (var procName in platform.ExesToEnd)
+                try
                 {
-                    var process = Process.GetProcessesByName(procName.Split(".exe")[0]);
-                    foreach (var item in process)
+                    var process = Process.GetProcessesByName(x);
+                    return process;
+                }
+                catch
+                {
+                    return Array.Empty<Process>();
+                }
+            }).SelectMany(static x => x).ToArray();
+
+            static ApplicationException? KillProcess(Process? process)
+            {
+                if (process == null)
+                    return default;
+                try
+                {
+                    if (!process.HasExited)
                     {
-                        if (!item.HasExited)
+                        process.Kill();
+                        process.WaitForExit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ApplicationException(
+                        $"KillProcesses fail, name: {process?.ProcessName}", ex);
+                }
+                return default;
+            }
+
+            try
+            {
+                if (processes.Any())
+                {
+                    var tasks = processes.Select(x =>
+                    {
+                        return Task.Run(() =>
                         {
-                            item.Kill();
-                        }
+                            return KillProcess(x);
+                        });
+                    }).ToArray();
+                    Task.WaitAll(tasks);
+
+                    var innerExceptions = tasks.Select(x => x.Result!)
+                        .Where(x => x != null).ToArray();
+                    if (innerExceptions.Any())
+                    {
+                        throw new AggregateException(
+                            "KillProcess fail", innerExceptions);
                     }
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            Log.Error(nameof(BasicPlatformSwitcher), ex, nameof(KillPlatformProcess));
-            Toast.Show(ToastIcon.Error, AppResources.Error_EndProcessFailed_.Format(platform.FullName));
-            return false;
+            catch (Exception ex)
+            {
+                Log.Error(nameof(BasicPlatformSwitcher), ex, nameof(KillPlatformProcess));
+                Toast.Show(ToastIcon.Error,
+                    AppResources.Error_EndProcessFailed_.Format(platform.FullName));
+                return false;
+            }
         }
 
         return true;
     }
+
+    static string[]? GetProcessNames(PlatformAccount platform)
+    {
+        IEnumerable<string>? processNames_ = platform.ExesToEnd;
+        if (processNames_ != null)
+        {
+            processNames_ = processNames_.Select(x =>
+            {
+                try
+                {
+                    return x.Split(FileEx.EXE, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()!;
+                }
+                catch
+                {
+
+                }
+                return default!;
+            }).Where(x => !string.IsNullOrWhiteSpace(x));
+
+            var processNames = processNames_.ToArray();
+            return processNames;
+        }
+
+        return null;
+    }
+
+#if WINDOWS
+    public async ValueTask<bool> KillPlatformProcess(PlatformAccount platform)
+    {
+        if (WindowsPlatformServiceImpl.IsPrivilegedProcess)
+        {
+            return KillPlatformProcessCore(platform);
+        }
+        else
+        {
+            try
+            {
+                var processNames = GetProcessNames(platform);
+                if (processNames.Any_Nullable())
+                {
+                    var platformService = await IPlatformService.IPCRoot.Instance;
+                    var r = platformService.KillProcesses(processNames);
+                    return r ?? false;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(BasicPlatformSwitcher), e, "KillPlatformProcess fail.");
+                return false;
+            }
+        }
+        return true;
+    }
+#else
+    public ValueTask<bool> KillPlatformProcess(PlatformAccount platform)
+    {
+        var result = KillPlatformProcessCore(platform);
+        return ValueTask.FromResult(result);
+    }
+#endif
 
     public bool RunPlatformProcess(PlatformAccount platform, bool isAdmin)
     {
@@ -297,9 +407,9 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    public void NewUserLogin(PlatformAccount platform)
+    public async ValueTask NewUserLogin(PlatformAccount platform)
     {
-        SwapToAccount(null, platform);
+        await SwapToAccount(null, platform);
     }
 
     public string GetCurrentAccountId(PlatformAccount platform)
@@ -316,14 +426,17 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return "";
     }
 
-    public bool CurrnetUserAdd(string name, PlatformAccount platform)
+    public async ValueTask<bool> CurrnetUserAdd(string name, PlatformAccount platform)
     {
         if (string.IsNullOrEmpty(platform.UniqueIdPath))
             return false;
 
         if (platform.IsExitBeforeInteract)
-            if (!KillPlatformProcess(platform))
+        {
+            var killResult = await KillPlatformProcess(platform);
+            if (!killResult)
                 return false;
+        }
 
         var localCachePath = Path.Combine(platform.PlatformLoginCache, name);
 

@@ -180,7 +180,7 @@ public sealed partial class SteamFamilyShareManagePageViewModel : WindowViewMode
             var result = await MessageBox.ShowAsync(Strings.AccountChange_RestartSteam, button: MessageBox.Button.OKCancel);
             if (result.IsOK())
             {
-                steamService.TryKillSteamProcess();
+                await steamService.TryKillSteamProcess();
                 steamService.StartSteamWithParameter();
             }
         }

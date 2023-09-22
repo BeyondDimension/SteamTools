@@ -109,13 +109,13 @@ public sealed partial class PlatformAccount
         });
     }
 
-    public bool CurrnetUserAdd(string? name)
+    public async ValueTask<bool> CurrnetUserAdd(string? name)
     {
         if (string.IsNullOrEmpty(name))
         {
-            platformSwitcher.NewUserLogin(this);
+            await platformSwitcher.NewUserLogin(this);
             return true;
         }
-        return platformSwitcher.CurrnetUserAdd(name, this);
+        return await platformSwitcher.CurrnetUserAdd(name, this);
     }
 }

@@ -90,30 +90,30 @@ partial class App
                                 },
                                 Converter = (VisbleStringConverter)App.Instance.FindResource("VisbleStringConverter")!,
                             },
-                            Command = ReactiveCommand.Create(() =>
+                            Command = ReactiveCommand.Create(async () =>
                             {
                                 if(ISteamService.Instance.IsRunningSteamProcess)
                                 {
-                                    ISteamService.Instance.TryKillSteamProcess();
+                                   await ISteamService.Instance.TryKillSteamProcess();
                                 }
                                 else
                                 {
                                     ISteamService.Instance.StartSteamWithParameter();
                                 }
-                            })
+                            }),
                         },
                         //new NativeMenuItemSeparator(),
                         new NativeMenuItem
                         {
                             [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.OpenMainWindow", Source = ResourceService.Current, Mode = BindingMode.OneWay },
-                            Command = ReactiveCommand.Create(RestoreMainWindow)
+                            Command = ReactiveCommand.Create(RestoreMainWindow),
                         },
                         new NativeMenuItemSeparator(),
                         new NativeMenuItem
                         {
                             [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.Exit", Source = ResourceService.Current, Mode = BindingMode.OneWay },
                             Command = ReactiveCommand.Create(() => { Shutdown(); })
-                        }
+                        },
                     };
 
                 if (TrayMenus.Any_Nullable())
