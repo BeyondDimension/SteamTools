@@ -360,10 +360,13 @@ public sealed partial class ProxyService
 
     private void LoadOrSaveLocalAccelerate()
     {
-        var filepath = Path.Combine(IOPath.AppDataDirectory, "LOCAL_ACCELERATE.json");
+        var localAccelerateFilePath = Path.Combine(Plugin.Instance.AppDataDirectory,
+            "LOCAL_ACCELERATE.json");
         if (ProxyDomains.Items.Any_Nullable())
         {
-            if (IOPath.TryOpen(filepath, FileMode.Create, FileAccess.Write, FileShare.Read, out var fileStream, out var _))
+            if (IOPath.TryOpen(localAccelerateFilePath,
+                FileMode.Create, FileAccess.Write, FileShare.Read,
+                out var fileStream, out var _))
             {
                 using var stream = fileStream;
                 MessagePackSerializer.Serialize(stream, ProxyDomains.Items, options: Serializable.lz4Options);
@@ -371,7 +374,9 @@ public sealed partial class ProxyService
         }
         else
         {
-            if (File.Exists(filepath) && IOPath.TryOpenRead(filepath, out var fileStream, out var _))
+            if (File.Exists(localAccelerateFilePath) &&
+                IOPath.TryOpenRead(localAccelerateFilePath,
+                out var fileStream, out var _))
             {
                 using var stream = fileStream;
                 ProxyDomains.Clear();
@@ -385,19 +390,19 @@ public sealed partial class ProxyService
                     Log.Error(nameof(ProxyService), ex, nameof(LoadOrSaveLocalAccelerate));
                 }
                 if (accelerates.Any_Nullable())
+                {
                     ProxyDomains.AddOrUpdate(accelerates!);
+                }
             }
         }
     }
 
-    private Timer? timer;
+    Timer? timer;
 
     public void StartTimer()
     {
-        if (timer == null)
-        {
-            timer = new Timer(_ => AccelerateTime = DateTimeOffset.Now - _StartAccelerateTime, nameof(AccelerateTime), 0, 1000);
-        }
+        timer ??= new Timer(_ => AccelerateTime = DateTimeOffset.Now - _StartAccelerateTime,
+            nameof(AccelerateTime), 0, 1000);
     }
 
     public void StopTimer()

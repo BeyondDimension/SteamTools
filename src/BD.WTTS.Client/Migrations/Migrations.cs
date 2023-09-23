@@ -59,6 +59,12 @@ public static class Migrations
                     MoveDirByScripts(IOPath.AppDataDirectory);
                     MoveDirByScripts(IOPath.CacheDirectory, DirName_BuildScripts);
                 }
+
+                Version v_3_0_rc2 = new(3, 0, 207);
+                if (IApplication.IsDesktop() && PreviousVersion < v_3_0_rc2)
+                {
+                    MoveAccelerator();
+                }
             }
         }
     }
@@ -84,6 +90,69 @@ public static class Migrations
         {
             Log.Error(nameof(Migrations), e,
                 "MoveDirByScriptsFail, rootPath: {rootPath}", rootPath);
+        }
+    }
+
+    static void MoveAccelerator()
+    {
+        try
+        {
+            var certFileNames = new[]
+            {
+                "SteamTools.Certificate.cer",
+                "SteamTools.Certificate.pfx",
+            };
+            var certFiles = certFileNames.Select(x =>
+                Path.Combine(IOPath.AppDataDirectory, x)).ToArray();
+            if (certFiles.All(File.Exists))
+            {
+                var certNewFiles = certFileNames.Select(x =>
+                    Path.Combine(IOPath.AppDataDirectory, "Plugins", "Accelerator", x)).ToArray();
+                if (!certNewFiles.All(File.Exists))
+                {
+                    var baseDir = Path.GetDirectoryName(certNewFiles[0]);
+                    if (baseDir != null)
+                        IOPath.DirCreateByNotExists(baseDir);
+                    for (int i = 0; i < certNewFiles.Length; i++)
+                    {
+                        try
+                        {
+                            File.Move(certFiles[i], certNewFiles[i]);
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+            }
+
+            foreach (var item in certFiles)
+            {
+                try
+                {
+                    File.Delete(item);
+                }
+                catch
+                {
+
+                }
+            }
+
+            var localAccelerateFilePath = Path.Combine(IOPath.AppDataDirectory, "LOCAL_ACCELERATE.json");
+
+            try
+            {
+                File.Delete(localAccelerateFilePath);
+            }
+            catch
+            {
+
+            }
+        }
+        catch (Exception e)
+        {
+            Log.Error(nameof(Migrations), e, "MoveAcceleratorFail");
         }
     }
 }
