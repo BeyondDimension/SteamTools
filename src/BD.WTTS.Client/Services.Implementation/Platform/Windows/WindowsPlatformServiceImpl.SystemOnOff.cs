@@ -54,12 +54,12 @@ partial class WindowsPlatformServiceImpl
             {
                 var scheduledTaskService = IScheduledTaskService.Instance;
                 scheduledTaskService.ThrowIsNull();
-                scheduledTaskService.SetBootAutoStart(isAutoStart, name);
+                scheduledTaskService.SetBootAutoStart(isAutoStart, name, isPrivilegedProcess: false);
             }
             else
             {
                 var ipc = await IPlatformService.IPCRoot.Instance;
-                ipc.SetBootAutoStart(isAutoStart, name);
+                ipc.SetBootAutoStart(isAutoStart, name, isPrivilegedProcess: false);
             }
         }
     }

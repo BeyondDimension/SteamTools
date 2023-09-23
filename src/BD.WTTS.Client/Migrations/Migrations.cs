@@ -53,14 +53,14 @@ public static class Migrations
                 }
 
                 // 上一次运行的版本小于 3.0.0 时将执行以下迁移
-                Version v_3_0_0 = new(3, 0, 0);
-                if (IApplication.IsDesktop() && PreviousVersion < v_3_0_0)
+                var v_3_0_rc1 = new Version(3, 0, 0);
+                if (IApplication.IsDesktop() && PreviousVersion < v_3_0_rc1)
                 {
                     MoveDirByScripts(IOPath.AppDataDirectory);
                     MoveDirByScripts(IOPath.CacheDirectory, DirName_BuildScripts);
                 }
 
-                Version v_3_0_rc2 = new(3, 0, 207);
+                var v_3_0_rc2 = new Version(3, 0, 207);
                 if (IApplication.IsDesktop() && PreviousVersion < v_3_0_rc2)
                 {
                     MoveAccelerator();

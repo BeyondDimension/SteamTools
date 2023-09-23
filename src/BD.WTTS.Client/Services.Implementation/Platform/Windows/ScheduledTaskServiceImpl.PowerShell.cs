@@ -54,7 +54,7 @@ partial class ScheduledTaskServiceImpl
     /// <param name="userName"></param>
     /// <param name="taskName"></param>
     /// <param name="programName"></param>
-    static async void SetBootAutoStartByPowerShell(bool isAutoStart, string name, string userId, string userName, string taskName, string programName)
+    static async void SetBootAutoStartByPowerShell(bool isAutoStart, string name, string userId, string userName, string taskName, string programName, bool? isPrivilegedProcess = null)
     {
         if (isAutoStart)
         {
@@ -66,7 +66,8 @@ partial class ScheduledTaskServiceImpl
             if (string.IsNullOrWhiteSpace(userName)) userName = userId;
             else userName = SecurityElement.Escape(userName);
             var description = SecurityElement.Escape(GetDescription(name));
-            var xml = GetScheduledTaskXml(nameof(SetBootAutoStartByPowerShell), description, userName, userId, WindowsPlatformServiceImpl.IsPrivilegedProcess, programName, arguments, workingDirectory);
+            isPrivilegedProcess ??= WindowsPlatformServiceImpl.IsPrivilegedProcess;
+            var xml = GetScheduledTaskXml(nameof(SetBootAutoStartByPowerShell), description, userName, userId, isPrivilegedProcess.Value, programName, arguments, workingDirectory);
             await RegisterScheduledTask(taskName, xml);
         }
         else
