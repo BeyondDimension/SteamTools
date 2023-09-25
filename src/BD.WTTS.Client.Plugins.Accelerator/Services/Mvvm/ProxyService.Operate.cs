@@ -11,7 +11,21 @@ partial class ProxyService
     /// 启动代理服务
     /// </summary>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     async Task<OperateProxyServiceResult> StartProxyServiceAsync()
+    {
+        try
+        {
+            var result = await StartProxyServiceCoreAsync();
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return ex;
+        }
+    }
+
+    async Task<OperateProxyServiceResult> StartProxyServiceCoreAsync()
     {
         IReadOnlyCollection<AccelerateProjectDTO>? proxyDomains = EnableProxyDomains;
 
@@ -262,7 +276,21 @@ partial class ProxyService
     /// <summary>
     /// 停止代理服务
     /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     async Task<OperateProxyServiceResult> StopProxyServiceAsync(bool isExit = false)
+    {
+        try
+        {
+            var result = await StopProxyServiceCoreAsync(isExit);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return ex;
+        }
+    }
+
+    async Task<OperateProxyServiceResult> StopProxyServiceCoreAsync(bool isExit)
     {
         bool callSet = true;
 #if WINDOWS
@@ -322,9 +350,11 @@ partial class ProxyService
     /// 操作代理服务返回结果
     /// </summary>
     /// <param name="Error"></param>
-    readonly record struct OperateProxyServiceResult(string? Error)
+    readonly record struct OperateProxyServiceResult(string? Error, Exception? Exception = null)
     {
         public static implicit operator OperateProxyServiceResult(string error) => new(error);
+
+        public static implicit operator OperateProxyServiceResult(Exception exception) => new(null, exception);
 
         /// <summary>
         /// 将返回结果使用 Toast 显示并且返回当前应设置的代理状态
@@ -338,6 +368,11 @@ partial class ProxyService
             {
                 Toast.Show(ToastIcon.Success, Strings.CommunityFix_StartProxySuccess);
                 proxyStatus = true;
+            }
+            else if (Exception != null)
+            {
+                Exception.LogAndShowT(nameof(ProxyService));
+                proxyStatus = false;
             }
             else
             {
@@ -354,6 +389,11 @@ partial class ProxyService
             if (!string.IsNullOrWhiteSpace(Error))
             {
                 Toast.Show(ToastIcon.Error, Error);
+                proxyStatus = true;
+            }
+            else if (Exception != null)
+            {
+                Exception.LogAndShowT(nameof(ProxyService));
                 proxyStatus = true;
             }
             return proxyStatus;

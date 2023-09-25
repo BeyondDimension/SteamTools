@@ -59,70 +59,83 @@ public static class ThirdPartyLoginHelper
     public static async Task OnMessageAsync(string msg, IWebSocketConnection? socket = null)
     {
         if (tempAes == null) return;
-        var byteArray = msg.Base64UrlDecodeToByteArray();
+        if (string.IsNullOrWhiteSpace(msg)) return;
+        var conn_helper = Ioc.Get<IApiConnectionPlatformHelper>();
         try
         {
-            byteArray = tempAes.Decrypt(byteArray);
-        }
-        catch
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Login_WebSocketOnMessage);
-            return;
-        }
-        var rsp = ApiRspHelper.Deserialize<LoginOrRegisterResponse>(byteArray);
-        var webRsp = new WebResponseDTO();
-        if (rsp.IsSuccess && rsp.Content == null)
-        {
-            webRsp.Msg = ApiRspExtensions.GetMessage(ApiRspCode.NoResponseContent);
+            var byteArray = msg.Base64UrlDecodeToByteArray();
+            try
+            {
+                byteArray = tempAes.Decrypt(byteArray);
+            }
+            catch
+            {
+                Toast.Show(ToastIcon.Error, AppResources.Login_WebSocketOnMessage);
+                return;
+            }
+            var rsp = ApiRspHelper.Deserialize<LoginOrRegisterResponse>(byteArray);
+            var webRsp = new WebResponseDTO();
+            if (rsp.IsSuccess && rsp.Content == null)
+            {
+                webRsp.Msg = ApiRspExtensions.GetMessage(ApiRspCode.NoResponseContent);
+                if (socket != null)
+                    await socket.Send(JsonSerializer.Serialize(webRsp));
+                else
+                    Toast.Show(ToastIcon.None, webRsp.Msg);
+                return;
+            }
+            webRsp.State = rsp.IsSuccess;
             if (socket != null)
-                await socket.Send(JsonSerializer.Serialize(webRsp));
+                await socket.Send(JsonSerializer.Serialize(webRsp)); // 仅可在 close 之前传递消息
             else
                 Toast.Show(ToastIcon.None, webRsp.Msg);
-            return;
-        }
-        var conn_helper = Ioc.Get<IApiConnectionPlatformHelper>();
-        webRsp.State = rsp.IsSuccess;
-        if (socket != null)
-            await socket.Send(JsonSerializer.Serialize(webRsp)); // 仅可在 close 之前传递消息
-        else
-            Toast.Show(ToastIcon.None, webRsp.Msg);
-        if (rsp.IsSuccess)
-        {
-            if (isBind)
+            if (rsp.IsSuccess)
             {
-                var chan = rsp.Content?.ExternalLoginChannel;
-                if (!chan.HasValue) return;
-                await MainThread2.InvokeOnMainThreadAsync(async () =>
+                if (isBind)
                 {
-                    string msg;
-                    if (chan.HasValue)
+                    var chan = rsp.Content?.ExternalLoginChannel;
+                    if (!chan.HasValue) return;
+                    await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
-                        msg = AppResources.Success_.Format(AppResources.User_AccountBind);
-                        await UserService.Current.
-                            BindAccountAfterUpdateAsync(chan.Value, rsp.Content!);
-                        if (vm is IBindWindowViewModel vm2)
+                        string msg;
+                        if (chan.HasValue)
                         {
-                            vm2.OnBindSuccessed();
+                            msg = AppResources.Success_.Format(AppResources.User_AccountBind);
+                            await UserService.Current.
+                                BindAccountAfterUpdateAsync(chan.Value, rsp.Content!);
+                            if (vm is IBindWindowViewModel vm2)
+                            {
+                                vm2.OnBindSuccessed();
+                            }
                         }
-                    }
-                    else
+                        else
+                        {
+                            msg = "Account bind fail, unknown channel.";
+                        }
+                        Toast.Show(ToastIcon.None, msg);
+                    });
+                }
+                else
+                {
+                    await conn_helper.OnLoginedAsync(rsp.Content!, rsp.Content!);
+                    await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
-                        msg = "Account bind fail, unknown channel.";
-                    }
-                    Toast.Show(ToastIcon.None, msg);
-                });
+                        await LoginOrRegisterSuccessAsync(rsp.Content!, () => vm?.Close());
+                    });
+                }
             }
             else
             {
-                await conn_helper.OnLoginedAsync(rsp.Content!, rsp.Content!);
-                await MainThread2.InvokeOnMainThreadAsync(async () =>
+                await MainThread2.InvokeOnMainThreadAsync(() =>
                 {
-                    await LoginOrRegisterSuccessAsync(rsp.Content!, () => vm?.Close());
+                    vm?.Close();
+                    conn_helper.ShowResponseErrorMessage(null, rsp);
                 });
             }
         }
-        else
+        catch (Exception ex)
         {
+            var rsp = ApiRspHelper.Exception(ex);
             await MainThread2.InvokeOnMainThreadAsync(() =>
             {
                 vm?.Close();
