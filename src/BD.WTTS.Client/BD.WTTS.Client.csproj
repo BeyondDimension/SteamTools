@@ -119,6 +119,9 @@
 		<PackageReference Include="System.Drawing.Common" />
 		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" />
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+		<PackageReference Include="SkiaSharp" />
+		<PackageReference Include="SkiaSharp.HarfBuzz" />
+		<PackageReference Include="HarfBuzzSharp" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
@@ -200,6 +203,8 @@
 		<PackageReference Include="Aigio.Any.AppCenter" />
 		<PackageReference Include="Aigio.Any.AppCenter.Analytics" />
 		<PackageReference Include="Aigio.Any.AppCenter.Crashes" />
+		<PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
