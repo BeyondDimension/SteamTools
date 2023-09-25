@@ -6,4 +6,4 @@
       "commandLineArgs_GenerateBridgeContentXml": "csproj --rids win-x64"
     }
   }
-}
+}  
