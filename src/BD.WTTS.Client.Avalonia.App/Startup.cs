@@ -38,19 +38,19 @@ sealed partial class Program : Startup
         services.AddGeneralLogging();
 #if ANDROID || IOS
         // 添加运行时权限
-        services.AddPlatformPermissions();
+        //services.AddPlatformPermissions();
 #endif
         // 添加 app 配置项
         services.TryAddSingleton(Options.Create(AppSettings.Instance));
-#if MAUI || ANDROID || IOS
-        // 键值对存储 - 由 Essentials 提供
-        services.TryAddEssentialsSecureStorage();
-#else
+        //#if MAUI || ANDROID || IOS
+        //        // 键值对存储 - 由 Essentials 提供
+        //        services.TryAddEssentialsSecureStorage();
+        //#else
         // 键值对存储 - 由 Repository 提供
         services.TryAddRepositorySecureStorage();
         // 首选项(Preferences) - 由 Repository 提供
         services.AddRepositoryPreferences();
-#endif
+        //#endif
 
         // 添加主线程助手(MainThreadDesktop)
         services.AddMainThreadPlatformService();
@@ -65,7 +65,11 @@ sealed partial class Program : Startup
         services.AddSingleton<IDeviceInfoPlatformService, AvaWinDeviceInfoPlatformServiceImpl>();
 #endif
 #endif
+#if ANDROID || IOS
+        services.TryAddSingleton<IApplicationVersionService, Essentials_AppVerS>();
+#else
         services.TryAddEssentials<Essentials_AppVerS>();
+#endif
 #endif
 
         // 添加安全服务
@@ -73,11 +77,15 @@ sealed partial class Program : Startup
 
         if (IsMainProcess)
         {
+#if !ANDROID && !IOS
             services.AddSingleton<IPCMainProcessService, IPCMainProcessServiceImpl>();
+#endif
         }
         else if (HasIPCRoot)
         {
+#if !ANDROID && !IOS
             services.AddSingleton(_ => IPCSubProcessService.Instance);
+#endif
         }
     }
 
@@ -135,10 +143,6 @@ sealed partial class Program : Startup
 
         if (HasHttpClientFactory)
         {
-#if ANDROID || IOS
-            // 添加 HttpClientFactory 平台原生实现
-            services.AddNativeHttpClient();
-#endif
             // 通用 Http 服务
             Fusillade.NetCache.RequestCache = this;
             services.AddFusilladeHttpClient();
@@ -202,8 +206,10 @@ sealed partial class Program : Startup
 
         if (HasHosts || HasIPCRoot)
         {
+#if !ANDROID && !IOS
             // hosts 文件助手服务
             services.AddHostsFileService();
+#endif
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("ConfigureDemandServices.Hosts");
 #endif
@@ -299,6 +305,10 @@ sealed partial class Program : Startup
         var app = UI.App.Instance;
         var window = app.GetFirstOrDefaultWindow();
         var screens = window?.Screens;
+#elif ANDROID || IOS
+        int mainDisplayInfoW = 0;
+        int mainDisplayInfoH = 0;
+        var mainDisplayInfo = new { Density = 0, };
 #else
         var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
         var mainDisplayInfoH = mainDisplayInfo.Height.ToInt32(NumberToInt32Format.Ceiling);

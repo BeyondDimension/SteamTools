@@ -1,3 +1,4 @@
+#if !ANDROID && !IOS
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 using dotnetCampus.Ipc.Context;
 using dotnetCampus.Ipc.Pipes;
@@ -120,3 +121,4 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
         GC.SuppressFinalize(this);
     }
 }
+#endif

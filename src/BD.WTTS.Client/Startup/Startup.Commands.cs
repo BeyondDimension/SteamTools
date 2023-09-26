@@ -1,7 +1,6 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
-using BD.WTTS.Services;
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 #endif
 

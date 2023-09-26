@@ -1,70 +1,62 @@
 # Steam++ v3.X Source Code
 
 ### 🏗️ 项目结构
-TODO
+- Launch Project
+    - Desktop
+        - BD.WTTS.Client.Avalonia.App
+    - Android
+        - BD.WTTS.Client.Avalonia.App.Android
+    - iOS
+        - BD.WTTS.Client.Avalonia.App.iOS
+- AppHost
+    - Windows AppHost(.NET Framework/.NET X)
+        - BD.WTTS.Client.AppHost
+    - Windows Application Packaging Project(Deprecated, use Publish Tool)
+        - BD.WTTS.Client.AppHost.Bridge(Steam++)
+        - BD.WTTS.Client.AppHost.Bridge.Package
+- Reference Library
+    - APNG/GIF Support
+        - Avalonia.Gif
+        - LibAPNG
+    - Steam Library
+        - BD.SteamClient
+        - Facepunch.Steamworks
+        - Gameloop.Vdf
+        - SAM.API
+        - Steam4NET
+        - ValveKeyValue
+    - Authenticator
+        - WinAuth
+- Shared Library
+    - Avalonia(Internal Function Call/Trimmable Assembly)
+        - Avalonia.Base
+        - Avalonia.Base.Internals
+        - Avalonia.Controls.Internals
+        - Avalonia.Desktop
+        - Avalonia.Diagnostics
+        - Avalonia.Native
+        - Avalonia.Skia.Internals
+        - Avalonia.WebView2
+        - Avalonia.Win32
+        - Avalonia.X11
+    - Watt Toolkit WebApi Client SDK
+        - BD.WTTS.MicroServices.*
+        - BD.WTTS.Primitives.*
+    - Watt Toolkit Client
+        - BD.WTTS.Client
+        - BD.WTTS.Client.Avalonia
+        - BD.WTTS.Client.IPC
+- Plugin Library
+    - BD.WTTS.Client.Plugins.*
+- Program Tool
+    - Settings SourceGenerator
+        - BD.Common.Settings.V4.SourceGenerator.Tools
+    - Avalonia Designer Host
+        - BD.WTTS.Client.Avalonia.Designer.HostApp
+    - Console Tool
+        - BD.WTTS.Client.Tools.*    
+
 <!-- TODO
-- Common **通用基础类库**
-    - Common.AreaLib **地区数据**
-    - Common.ClientLib **适用于客户端的通用基础类库**
-    - Common.ClientLib.Droid **适用于 Android 的通用基础类库**
-    - Common.ClientLib.iOS **适用于 iOS 的通用基础类库**
-    - Common.CoreLib **全局通用基础类库**
-    - Common.ServerLib **适用于服务端(AspNetCore)的通用基础类库**
-    - Common.PinyinLib **汉字转拼音库**
-    - Common.PinyinLib.CFStringTransform **仅适用于 iOS 平台，由 [CFStringTransform](https://developer.apple.com/documentation/corefoundation/1542411-cfstringtransform) 实现**
-    - Common.PinyinLib.ChnCharInfo **由 Microsoft Visual Studio International Pack 1.0 中的 Simplified Chinese Pin-Yin Conversion Library（简体中文拼音转换类库）实现，多音字将返回首个拼音**
-    - Common.PinyinLib.TinyPinyin **在 Android 上由 [TinyPinyin](https://github.com/promeG/TinyPinyin) 实现，其他平台由 [TinyPinyin.Net](https://github.com/hueifeng/TinyPinyin.Net) 实现**
-    - Repositories.EFCore **EF Core 仓储层实现**
-    - Repositories.sqlite-net-pcl **SQLite 仓储层实现**
-    - Services.SmsSender **统一短信发送服务**
-- Test **单元测试**
-    - Common.UnitTest **通用基础类库的单元测试**
-    - Common.UnitTest.Droid **适用于 Android 通用基础类库的单元测试**
-        - Common.UnitTest.Droid.App **启动项**
-- Lib **类库**
-    - ST **业务通用类库**
-    - ST.Client **客户端通用类库**
-    - Bindings **平台原生绑定库**
-    - Platforms
-        - ST.Client.Windows **用于 Windows 的实现**
-        - ST.Client.Mac **用于 macOS 的实现**
-        - ST.Client.Linux **用于 GNU/Linux 的实现**
-        - ST.Client.Android **用于 Android 的实现**
-        - ST.Client.iOS **用于 iOS 的实现**
-    - ResSecrets **使用资源存储的密钥**
-    - UI Framework
-        - ST.Client.Avalonia **使用 Avalonia 实现的 View 层**            
-            - Avalonia.Ref **通过友元程序集调用内部函数或空程序集实现手动裁剪**
-        - ~~ST.Client.WPF~~ **使用 Avalonia 实现的 WPF 层**
-        - ~~ST.Client.WinUI~~ **使用 Avalonia 实现的 WinUI 层**
-        - ST.Client.XamarinForms **使用 Xamarin.Forms/MAUI 实现的 View 层**
-    - Web API
-        - ST.Services.CloudService **客户端调用服务端 API 定义**
-        - ST.Services.CloudService.Models **服务端 API 数据传输对象(DTO)定义**
-        - ST.Services.CloudService.ViewModels **客户端视图模型**
-- Tool **工具**
-    - ST.Tools.AndroidResourceLink **将 Android Studio Project 中的 res 资源 Link 到 csproj 中(生成 XML)**
-    - ST.Tools.AreaImport **从高德城市编码表 Excel 文件中导入地区数据**
-    - ~~ST.Tools.DesktopBridgeLink~~ **Link DesktopBridge 打包中的内容，例如 CEF**
-    - ~~ST.Tools.MinifyStaticSites~~ **用于将静态 html 删除空行缩小体积的命令行工具**
-    - ST.Tools.OpenSourceLibraryList **开源许可协议清单生成工具**
-        - 需要 [GitHub API Token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
-    - ST.Tools.Packager **带进度的压缩与解压演示**
-    - ~~ST.Tools.Packager.InstallerSetup~~ **安装程序**
-    - ST.Tools.Publish **用于发布的控制台工具**
-    - ST.Tools.Translate **Resx自动翻译工具**
-        - 需要 [Azure Translation Key](https://azure.microsoft.com/zh-cn/services/cognitive-services/translator)
-    - ~~ST.Tools.Win7Troubleshoot~~ **适用于 Windwos 7 OS 的 疑难解答助手**
-        - 目标框架使用 .NET FX 3.5 并通过 App.config 配置 [supportedRuntime](https://docs.microsoft.com/zh-cn/dotnet/framework/configure-apps/file-schema/startup/supportedruntime-element) 允许在 4.X 中运行 实现在 Windows 上兼容所有的运行库环境
-- Launch **启动项**
-    - FDELauncher FDE(框架依赖) 启动器，判断运行时是否安装与提示，使用 .NET FX 3.5
-    - ST.Client.Android.App **Android 客户端(Xamarin.Android)**
-    - ST.Client.Android.App.Modern **Android 客户端(.NET 6+)**
-    - ST.Client.Desktop.Avalonia.App **桌面客户端**
-    - 5_DesktopBridge\ST.Client.Avalonia.App.Bridge.Package **[Desktop Bridge](https://docs.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-packaging-dot-net)**
-    - ST.Client.Avalonia.App.MsixPackage **桌面客户端[单项目 MSIX 打包](https://docs.microsoft.com/zh-cn/windows/apps/windows-app-sdk/single-project-msix?tabs=csharp)**
-    - ~~ST.Client.Desktop.Avalonia.Demo.App~~ **桌面客户端(UI演示)**
-    - ST.Client.Maui.App **MAUI 客户端**
 
 ### 🗂️ 命名空间/文件夹
 - ~~中划线~~ 表示此文件夹下的命名空间使用上一级的值

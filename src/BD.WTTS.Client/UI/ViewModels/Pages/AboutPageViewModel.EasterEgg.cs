@@ -4,7 +4,6 @@ using Android.OS;
 using Android.Util;
 using Android.Webkit;
 using BuildVersionCodes = Android.OS.BuildVersionCodes;
-using Context = Android.Content.Context;
 #endif
 
 namespace BD.WTTS.UI.ViewModels;

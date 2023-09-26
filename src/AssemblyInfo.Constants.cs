@@ -146,4 +146,15 @@ false
 
 #endif
 
+#if ANDROID
+    internal static class JavaPkgNames
+    {
+        public const string APPLICATION_ID = "net.steampp.app";
+        public const string Root = APPLICATION_ID + ".";
+        public const string UI = Root + "ui.";
+        public const string Activities = UI + "activities.";
+        public const string Fragments = UI + "fragments.";
+        public const string Services = Root + "services.";
+    }
+#endif
 }

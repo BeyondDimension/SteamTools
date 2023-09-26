@@ -216,6 +216,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steam++", "src\BD.WTTS.Clie
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "BD.WTTS.Client.AppHost.Bridge.Package", "src\BD.WTTS.Client.AppHost.Bridge.Package\BD.WTTS.Client.AppHost.Bridge.Package.wapproj", "{27795C79-2994-4514-8656-BA34FCEE8901}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Avalonia.App.Android", "src\BD.WTTS.Client.Avalonia.App.Android\BD.WTTS.Client.Avalonia.App.Android.csproj", "{C008E17A-1E9D-4695-9FF8-86E5939140B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1260,6 +1262,36 @@ Global
 		{27795C79-2994-4514-8656-BA34FCEE8901}.Release|x86.ActiveCfg = Release|x86
 		{27795C79-2994-4514-8656-BA34FCEE8901}.Release|x86.Build.0 = Release|x86
 		{27795C79-2994-4514-8656-BA34FCEE8901}.Release|x86.Deploy.0 = Release|x86
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|ARM.Deploy.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|ARM64.Deploy.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|x64.Build.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|x86.Build.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|ARM.Build.0 = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|ARM.Deploy.0 = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|ARM64.Build.0 = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|ARM64.Deploy.0 = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|x64.ActiveCfg = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|x64.Build.0 = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|x64.Deploy.0 = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|x86.ActiveCfg = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|x86.Build.0 = Release|Any CPU
+		{C008E17A-1E9D-4695-9FF8-86E5939140B1}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

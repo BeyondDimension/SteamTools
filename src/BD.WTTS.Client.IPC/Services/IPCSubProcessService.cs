@@ -1,8 +1,11 @@
+#if !ANDROID && !IOS
 using dotnetCampus.Ipc.Pipes;
+#endif
 using static BD.WTTS.Services.IPCSubProcessModuleService.Constants;
 
 namespace BD.WTTS.Services;
 
+#if !ANDROID && !IOS
 /// <summary>
 /// 子进程的 IPC 服务实现
 /// </summary>
@@ -248,10 +251,8 @@ sealed partial record class SubProcessArgumentIndex2Model
     public string CacheDirectory { get; init; } = null!;
 }
 
-sealed class IPCSubProcessFileSystem : IOPath.FileSystemBase
+partial class IPCSubProcessFileSystem
 {
-    private IPCSubProcessFileSystem() { }
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void InitFileSystem(SubProcessArgumentIndex2Model model, string pluginName)
     {
@@ -259,6 +260,12 @@ sealed class IPCSubProcessFileSystem : IOPath.FileSystemBase
         var cacheDirectory = GetPluginsDirectory(pluginName, model.CacheDirectory);
         InitFileSystem(() => appDataDirectory, () => cacheDirectory);
     }
+}
+#endif
+
+sealed partial class IPCSubProcessFileSystem : IOPath.FileSystemBase
+{
+    private IPCSubProcessFileSystem() { }
 
     public const LogLevel DefaultLoggerMinLevel = AssemblyInfo.Debuggable ? LogLevel.Debug : LogLevel.Error;
 

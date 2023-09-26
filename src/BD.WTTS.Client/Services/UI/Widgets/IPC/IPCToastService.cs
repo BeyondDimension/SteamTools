@@ -1,3 +1,4 @@
+#if !ANDROID && !IOS
 using dotnetCampus.Ipc.CompilerServices.Attributes;
 
 // ReSharper disable once CheckNamespace
@@ -65,3 +66,4 @@ public interface IPCToastService
 
     void ShowAppend(ToastIcon icon, ToastText text, string? appendText);
 }
+#endif

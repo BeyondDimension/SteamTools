@@ -1,3 +1,4 @@
+#if !ANDROID && !IOS
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 using dotnetCampus.Ipc.Context;
 using dotnetCampus.Ipc.Pipes;
@@ -148,7 +149,6 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
 #else
             true;
 #endif
-
 #if LINUX 
         // 构建要执行的 shell 命令
         var shellStr =
@@ -529,3 +529,4 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         }
     }
 }
+#endif

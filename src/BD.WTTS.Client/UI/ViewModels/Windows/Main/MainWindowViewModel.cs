@@ -1,5 +1,3 @@
-using dotnetCampus.Ipc.CompilerServices.Attributes;
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels;
 

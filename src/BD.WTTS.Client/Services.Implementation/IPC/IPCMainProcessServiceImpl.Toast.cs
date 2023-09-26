@@ -1,3 +1,4 @@
+#if !ANDROID && !IOS
 using static BD.WTTS.Services.IPCToastService;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 using BDToastIcon = BD.Common.Enums.ToastIcon;
@@ -72,3 +73,4 @@ partial class IPCMainProcessServiceImpl : IPCToastService
         Toast.Show(icon_, text_);
     }
 }
+#endif

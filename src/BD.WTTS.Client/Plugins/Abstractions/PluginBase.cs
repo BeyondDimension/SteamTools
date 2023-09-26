@@ -1,4 +1,6 @@
+#if !ANDROID && !IOS
 using dotnetCampus.Ipc.Pipes;
+#endif
 using static BD.WTTS.Services.IPCSubProcessModuleService.Constants;
 
 namespace BD.WTTS.Plugins.Abstractions;
@@ -88,6 +90,7 @@ public abstract partial class PluginBase : IPlugin
         string processId,
         string encodedArgs)
     {
+#if !ANDROID && !IOS
         var subProcessBootConfiguration = GetSubProcessBootConfiguration(encodedArgs ?? string.Empty);
         if (subProcessBootConfiguration == default)
             return (int)CommandExitCode.GetSubProcessBootConfigurationFail;
@@ -98,8 +101,13 @@ public abstract partial class PluginBase : IPlugin
             subProcessBootConfiguration.configureIpcProvider,
             new[] { pipeName, processId });
         return exitCode;
+#else
+        await Task.CompletedTask;
+        throw new PlatformNotSupportedException();
+#endif
     }
 
+#if !ANDROID && !IOS
     /// <summary>
     /// 获取子进程 IPC 程序启动配置
     /// </summary>
@@ -109,6 +117,7 @@ public abstract partial class PluginBase : IPlugin
     {
         return default;
     }
+#endif
 
     public virtual ValueTask OnPeerConnected(bool isReconnected)
     {

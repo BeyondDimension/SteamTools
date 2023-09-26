@@ -10,3 +10,6 @@
 [assembly: InternalsVisibleTo("BD.WTTS.Client.Plugins.GameList")]
 [assembly: InternalsVisibleTo("BD.WTTS.Client.Plugins.GameTools")]
 [assembly: InternalsVisibleTo("BD.WTTS.Client.Plugins.SteamIdleCard")]
+#if ANDROID
+[assembly: InternalsVisibleTo("Assembly-CSharp")]
+#endif

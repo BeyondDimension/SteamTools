@@ -9,8 +9,10 @@ namespace BD.WTTS;
 partial class Program
 {
     [STAThread]
-    static int Main(string[] args) // Main 函数需要 STA 线程不可更改为 async Task
+    internal static int Main(string[] args) // Main 函数需要 STA 线程不可更改为 async Task
     {
+
+#if WINDOWS || LINUX
         #region 尝试修正 AppContext.BaseDirectory
 
         try
@@ -39,12 +41,14 @@ partial class Program
         }
 
         #endregion
+#endif
 
         instance = new(args);
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
         return exitCode;
     }
 
+#if !ANDROID && !IOS
     /// <summary>
     /// 自定义 .NET Host 入口点
     /// <para>https://github.com/dotnet/runtime/blob/v7.0.3/docs/design/features/native-hosting.md#loading-and-calling-managed-components</para>
@@ -70,7 +74,9 @@ partial class Program
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
         return exitCode;
     }
+#endif
 
+#if !ANDROID && !IOS
     // Avalonia configuration, don't remove; also used by visual designer.
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static AppBuilder BuildAvaloniaApp()
@@ -247,9 +253,11 @@ partial class Program
             throw;
         }
     }
+#endif
 
     protected override void StartUIApplication()
     {
+#if !ANDROID && !IOS
         if (!Environment.UserInteractive)
             return;
 
@@ -257,5 +265,7 @@ partial class Program
         builder.StartWithClassicDesktopLifetime2(
             Array.Empty<string>(),
             ShutdownMode.OnLastWindowClose);
+#else
+#endif
     }
 }

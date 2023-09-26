@@ -18,6 +18,17 @@ global using System.Collections.Immutable;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 #endif
+#if ANDROID
+global using Context = Android.Content.Context;
+global using Activity = Android.App.Activity;
+global using AndroidApplication = Android.App.Application;
+global using AndroidProcess = Android.OS.Process;
+global using Android;
+global using Android.Runtime;
+global using Android.Graphics.Drawables;
+global using AndroidX.Annotations;
+global using AndroidX.Core.Content;
+#endif
 global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Globalization;

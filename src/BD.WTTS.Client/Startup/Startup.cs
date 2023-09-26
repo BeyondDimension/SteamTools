@@ -27,7 +27,6 @@ public abstract partial class Startup
         }
     }
 
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     readonly string[]? args;
 
     public Startup(string[]? args = null)
@@ -554,5 +553,4 @@ Failed to initialize FileSystem.
             }
         }
     }
-#endif
 }

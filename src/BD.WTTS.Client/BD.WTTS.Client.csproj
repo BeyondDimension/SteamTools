@@ -107,13 +107,11 @@
 		<PackageReference Include="SharpZipLib" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="NLog.Extensions.Logging" />
-		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="System.Linq.Async" />
 		<!--<PackageReference Include="Portable.BouncyCastle" />-->
 		<PackageReference Include="ReactiveUI.Fody" />
-		<PackageReference Include="dotnetCampus.Ipc" />
 		<PackageReference Include="fusillade" />
 		<PackageReference Include="Splat.Drawing" />
 		<PackageReference Include="System.Drawing.Common" />
@@ -194,6 +192,7 @@
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<PackageReference Include="FluentAvaloniaUI" />-->
+		<PackageReference Include="dotnetCampus.Ipc" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -213,6 +212,7 @@
 		<PackageReference Include="Microsoft.AppCenter" />
 		<PackageReference Include="Microsoft.AppCenter.Analytics" />
 		<PackageReference Include="Microsoft.AppCenter.Crashes" />
+		<PackageReference Include="Xamarin.AndroidX.AppCompat" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
