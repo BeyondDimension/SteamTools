@@ -16,6 +16,7 @@
 		<!--<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>-->
 		<RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<UseMauiEssentials>true</UseMauiEssentials>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -83,8 +84,7 @@
 	<ItemGroup>
 		<!-- PackageReference -->
 		<PackageReference Include="Avalonia.Android" />
-		<!--<PackageReference Include="Microsoft.Maui.Essentials" />-->
-		<!--<PackageReference Include="BD.Common.Essentials.Maui" />-->
+		<PackageReference Include="BD.Common.Essentials.Maui" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,6 +1,4 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using System.CommandLine;
-#endif
 #if WINDOWS
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -342,7 +340,7 @@ public abstract partial class Startup
                     WindowsFileSystem.InitFileSystem();
                 }
 #elif ANDROID
-                FileSystemEssentials.InitFileSystem();
+                EssentialsFileSystem.InitFileSystem();
 #else
                 FileSystem2.InitFileSystem();
 #endif

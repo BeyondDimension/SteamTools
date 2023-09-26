@@ -5,6 +5,12 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<UseMauiEssentials>true</UseMauiEssentials>
+		<!--<DisableMauiImplicitPackageReferences>true</DisableMauiImplicitPackageReferences>
+		<DisableMauiImplicitFrameworkReferences>true</DisableMauiImplicitFrameworkReferences>-->
+	</PropertyGroup>
+
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Constants.cs">
 			<LinkBase>Properties</LinkBase>
@@ -120,6 +126,8 @@
 		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="SkiaSharp.HarfBuzz" />
 		<PackageReference Include="HarfBuzzSharp" />
+		<PackageReference Include="System.CommandLine" />
+		<PackageReference Include="System.CommandLine.NamingConventionBinder" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
@@ -175,8 +183,6 @@
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Desktop Only -->
 		<PackageReference Include="System.Composition" />
-		<PackageReference Include="System.CommandLine" />
-		<PackageReference Include="System.CommandLine.NamingConventionBinder" />
 		<PackageReference Include="SteamKit2" />
 		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
 		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
@@ -212,7 +218,7 @@
 		<PackageReference Include="Microsoft.AppCenter" />
 		<PackageReference Include="Microsoft.AppCenter.Analytics" />
 		<PackageReference Include="Microsoft.AppCenter.Crashes" />
-		<PackageReference Include="Xamarin.AndroidX.AppCompat" />
+		<!--<PackageReference Include="Xamarin.AndroidX.AppCompat" />-->
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">

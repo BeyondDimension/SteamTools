@@ -1,6 +1,6 @@
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
 #endif
 
@@ -9,7 +9,6 @@ namespace BD.WTTS;
 
 partial class Startup // 自定义控制台命令参数
 {
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void ConfigureCommands(RootCommand rootCommand)
     {
@@ -40,6 +39,7 @@ partial class Startup // 自定义控制台命令参数
         };
         rootCommand.AddCommand(main);
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         // -clt devtools
         // -clt devtools -disable_gpu
         // -clt devtools -use_wgl
@@ -513,8 +513,8 @@ partial class Startup // 自定义控制台命令参数
             }),
         };
         rootCommand.AddCommand(types);
-    }
 #endif
+    }
 
 #if WINDOWS
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
