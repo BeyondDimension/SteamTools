@@ -126,8 +126,21 @@
 		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="SkiaSharp.HarfBuzz" />
 		<PackageReference Include="HarfBuzzSharp" />
-		<PackageReference Include="System.CommandLine" />
-		<PackageReference Include="System.CommandLine.NamingConventionBinder" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="dotnetCampus.Ipc" />
+		<!--25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028: System.IO.FileNotFoundException: Could not load assembly 'dotnetCampus.Ipc, Version=2.0.0.0, Culture=neutral, PublicKeyToken='. Perhaps it doesn't exist in the Mono for Android profile?
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028: 文件名:“dotnetCampus.Ipc.dll”
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028:    在 Java.Interop.Tools.Cecil.DirectoryAssemblyResolver.Resolve(AssemblyNameReference reference, ReaderParameters parameters) 位置 /Users/runner/work/1/s/xamarin-android/external/Java.Interop/src/Java.Interop.Tools.Cecil/Java.Interop.Tools.Cecil/DirectoryAssemblyResolver.cs:行号 245
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028:    在 Mono.Cecil.MetadataResolver.Resolve(TypeReference type) 位置 /Users/builder/jenkins/workspace/archive-mono/2020-02/android/release/external/cecil/Mono.Cecil/MetadataResolver.cs:行号 111
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028:    在 Mono.Cecil.TypeReference.Resolve() 位置 /Users/builder/jenkins/workspace/archive-mono/2020-02/android/release/external/cecil/Mono.Cecil/TypeReference.cs:行号 278
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028:    在 Java.Interop.Tools.Cecil.TypeDefinitionCache.Resolve(TypeReference typeReference) 位置 /Users/runner/work/1/s/xamarin-android/external/Java.Interop/src/Java.Interop.Tools.Cecil/Java.Interop.Tools.Cecil/TypeDefinitionCache.cs:行号 20
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028:    在 Java.Interop.Tools.Cecil.TypeDefinitionRocks.<GetTypeAndBaseTypes>d__5.MoveNext() 位置 /Users/runner/work/1/s/xamarin-android/external/Java.Interop/src/Java.Interop.Tools.Cecil/Java.Interop.Tools.Cecil/TypeDefinitionRocks.cs:行号 40
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028:    在 Java.Interop.Tools.Cecil.TypeDefinitionRocks.IsSubclassOf(TypeDefinition type, String typeName, IMetadataResolver resolver) 位置 /Users/runner/work/1/s/xamarin-android/external/Java.Interop/src/Java.Interop.Tools.Cecil/Java.Interop.Tools.Cecil/TypeDefinitionRocks.cs:行号 94
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028:    在 MonoDroid.Tuner.FixAbstractMethodsStep.FixAbstractMethods(AssemblyDefinition assembly)
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028:    在 Xamarin.Android.Tasks.LinkAssembliesNoShrink.RunTask()
+25>C:\Program Files\dotnet\packs\Microsoft.Android.Sdk.Windows\33.0.68\tools\Xamarin.Android.Common.targets(1426,3): error XALNS7028:    在 Microsoft.Android.Build.Tasks.AndroidTask.Execute() 位置 /Users/runner/work/1/s/xamarin-android/external/xamarin-android-tools/src/Microsoft.Android.Build.BaseTasks/AndroidTask.cs:行号 17-->
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
@@ -198,7 +211,8 @@
 		<PackageReference Include="Avalonia.Xaml.Behaviors" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<PackageReference Include="FluentAvaloniaUI" />-->
-		<PackageReference Include="dotnetCampus.Ipc" />
+		<PackageReference Include="System.CommandLine" />
+		<PackageReference Include="System.CommandLine.NamingConventionBinder" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">

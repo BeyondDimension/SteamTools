@@ -1,4 +1,6 @@
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using System.CommandLine;
+#endif
 #if WINDOWS
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -460,11 +462,16 @@ Failed to initialize FileSystem.
             if (IsDesignMode)
                 return 0;
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             // https://docs.microsoft.com/zh-cn/archive/msdn-magazine/2019/march/net-parse-the-command-line-with-system-commandline
             var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
             ConfigureCommands(rootCommand);
 
             var exitCode = rootCommand.InvokeAsync(args).GetAwaiter().GetResult();
+#else
+            const int exitCode = default;
+            RunUIApplication();
+#endif
 
             if (TryGetPlugins(out var plugins))
             {

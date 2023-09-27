@@ -31,19 +31,23 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         }
         base.OnClosing(e);
 
+#if WINDOWS || LINUX || MACOS
         if (Steamworks.SteamClient.IsValid)
         {
             Steamworks.SteamFriends.ClearRichPresence();
         }
+#endif
     }
 
     protected override void OnOpened(EventArgs e)
     {
         base.OnOpened(e);
+#if WINDOWS || LINUX || MACOS
         if (Steamworks.SteamClient.IsValid)
         {
             Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_AtMainMenu");
         }
+#endif
         if (AppSplashScreen.IsInitialized)
         {
             if (NavigationService.Instance.CurrnetPage == null)
@@ -217,7 +221,9 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
                     await IViewModelManager.Instance.MainWindow.Initialize();
 
                     App.Instance.CompositeDisposable.Add(IViewModelManager.Instance.MainWindow);
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
                     App.Instance.CompositeDisposable.Add(SteamConnectService.Current.Dispose);
+#endif
 
                     IsInitialized = true;
                 }

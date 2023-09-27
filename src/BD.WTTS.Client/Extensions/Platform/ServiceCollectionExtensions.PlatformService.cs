@@ -40,6 +40,7 @@ public static partial class ServiceCollectionExtensions
         {
             services.AddSingleton<INotificationService, WindowsNotificationServiceImpl>();
         }
+#elif ANDROID
 #else
         throw new PlatformNotSupportedException();
 #endif

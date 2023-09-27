@@ -533,7 +533,7 @@ partial class AboutPageViewModel
         b.AppendLine();
 
         b.Append("[essentials.supported] ");
-        b.Append(Essentials.IsSupported.ToLowerString());
+        b.Append(CommonEssentials.IsSupported.ToLowerString());
         b.AppendLine();
 
         //#if ANDROID

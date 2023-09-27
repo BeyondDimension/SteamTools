@@ -85,6 +85,9 @@
 		<!-- PackageReference -->
 		<PackageReference Include="Avalonia.Android" />
 		<PackageReference Include="BD.Common.Essentials.Maui" />
+		<PackageReference Include="Xamarin.Kotlin.StdLib" />
+		<PackageReference Include="Xamarin.Kotlin.StdLib.Jdk8" />
+		<PackageReference Include="Xamarin.Kotlin.StdLib.Jdk7" />
 	</ItemGroup>
 
 	<ItemGroup>

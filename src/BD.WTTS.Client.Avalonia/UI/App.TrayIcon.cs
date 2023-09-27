@@ -19,6 +19,7 @@ partial class App
 
     void InitTrayIcon()
     {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (ApplicationLifetime is not
             IClassicDesktopStyleApplicationLifetime classicDesktopStyleApplicationLifetime)
             return;
@@ -65,10 +66,12 @@ partial class App
 #endif
 
         }
+#endif
     }
 
     public void UpdateMenuItems()
     {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         MainThread2.BeginInvokeOnMainThread(() =>
         {
             var menus = TrayIcons.FirstOrDefault()?.Menu;
@@ -156,10 +159,12 @@ partial class App
                 }
             }
         });
+#endif
     }
 
     public void UpdateMenuItems(string menuKey, TrayMenuItem trayMenuItem)
     {
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (TrayMenus != null)
         {
             if (TrayMenus.ContainsKey(menuKey))
@@ -169,5 +174,6 @@ partial class App
 
             UpdateMenuItems();
         }
+#endif
     }
 }

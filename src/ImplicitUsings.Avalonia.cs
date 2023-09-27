@@ -46,6 +46,13 @@ global using Avalonia.Platform.Storage;
 global using Cursor = Avalonia.Input.Cursor;
 global using KeyboardNavigation = Avalonia.Input.KeyboardNavigation;
 global using Key = Avalonia.Input.Key;
+#if ANDROID
+global using ProgressBar = Avalonia.Controls.ProgressBar;
+global using Orientation = Avalonia.Layout.Orientation;
+global using Application = Avalonia.Application;
+global using Button = Avalonia.Controls.Button;
+global using CheckBox = Avalonia.Controls.CheckBox;
+#endif
 
 // FluentAvaloniaUI
 global using FluentAvalonia.Interop;

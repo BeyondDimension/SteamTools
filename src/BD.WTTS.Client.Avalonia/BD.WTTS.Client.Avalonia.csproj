@@ -6,12 +6,18 @@
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<UseMauiEssentials>true</UseMauiEssentials>
+		<!--<DisableMauiImplicitPackageReferences>true</DisableMauiImplicitPackageReferences>
+		<DisableMauiImplicitFrameworkReferences>true</DisableMauiImplicitFrameworkReferences>-->
+	</PropertyGroup>
+
 	<ItemGroup>
 		<AvaloniaResource Include="UI\Assets\**\*" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="UI\Assets\Fonts\HarmonyOS_Sans_SC_Regular.ttf" />
+		<None Remove="UI\Assets\Fonts\HarmonyOS_Sans_SC_Regular.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -106,12 +112,16 @@
 		<PackageReference Include="JumpLists.Win32.Avalonia" />
 	</ItemGroup>
 
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
+		<!-- macOS/MacCatalyst Only -->
+		<PackageReference Include="BD.Common.Essentials.Maui.Runtime" />
+	</ItemGroup>
+
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
 		<!-- iOS/macOS/MacCatalyst Only -->
 		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
 		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
 		<PackageReference Include="Avalonia.Native" />
-		<PackageReference Include="BD.Common.Essentials.Maui.Runtime" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
@@ -124,9 +134,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+		<ProjectReference Include="..\..\ref\SteamClient\src\BD.SteamClient\BD.SteamClient.csproj" />
 	</ItemGroup>
 
-	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
+	<Import Project="..\TFM_NETX_WITH_ALL.props" />
 
 </Project>
 
