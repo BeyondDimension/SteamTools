@@ -31,6 +31,17 @@ public partial class AccountItems : ReactiveUserControl<PlatformAccount>
         if (sender is MenuFlyoutItem item && item.DataContext is SteamAccount account && item.Tag is PersonaState state)
         {
             account.PersonaState = state;
+            account.WantsOfflineMode = false;
+            ViewModel?.SwapToAccountCommand.Execute(account);
+        }
+    }
+
+    private void SteamOfflineModeStartMenuItem_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (sender is MenuFlyoutItem item && item.DataContext is SteamAccount account)
+        {
+            account.WantsOfflineMode = true;
+            account.SkipOfflineModeWarning = true;
             ViewModel?.SwapToAccountCommand.Execute(account);
         }
     }
