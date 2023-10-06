@@ -32,9 +32,9 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
         var tlsSniValue = domainConfig.GetTlsSniPattern().WithDomain(uri.Host).WithRandom();
         request.SetRequestContext(new RequestContext(isHttps, tlsSniValue));
 
-        //// 设置请求头 host，修改协议为 http
-        //request.Headers.Host = uri.Host;
-        //request.RequestUri = new UriBuilder(uri) { Scheme = Uri.UriSchemeHttp }.Uri;
+        // 设置请求头 host，修改协议为 http
+        request.Headers.Host = uri.Host;
+        request.RequestUri = new UriBuilder(uri) { Scheme = Uri.UriSchemeHttp }.Uri;
 
         if (domainConfig.Timeout != null)
         {

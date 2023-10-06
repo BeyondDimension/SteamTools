@@ -89,7 +89,7 @@ sealed partial class HttpReverseProxyMiddleware
 
             var forwarderRequestConfig = new ForwarderRequestConfig()
             {
-                Version = context.Request.Protocol.StartsWith("HTTP/2.0") ? System.Net.HttpVersion.Version20 : System.Net.HttpVersion.Version11,
+                Version = context.Request.Protocol.StartsWith("HTTP/2") ? System.Net.HttpVersion.Version20 : System.Net.HttpVersion.Version11,
             };
 
             var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, forwarderRequestConfig, HttpTransformer.Empty);
