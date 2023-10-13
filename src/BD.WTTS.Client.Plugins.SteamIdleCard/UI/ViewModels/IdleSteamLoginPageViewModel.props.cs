@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed partial class IdleSteamLoginViewModel
+public sealed partial class IdleSteamLoginPageViewModel
 {
     /// <summary>
     /// 用户名
@@ -19,12 +19,6 @@ public sealed partial class IdleSteamLoginViewModel
     /// </summary>
     [Reactive]
     public string? PasswordText { get; set; }
-
-    /// <summary>
-    /// 邮箱验证码
-    /// </summary>
-    [Reactive]
-    public string? EmailAuthText { get; set; }
 
     /// <summary>
     /// 2FA 验证码
@@ -43,6 +37,15 @@ public sealed partial class IdleSteamLoginViewModel
     /// </summary>
     [Reactive]
     public bool RequiresEmailAuth { get; set; }
+
+    /// <summary>
+    /// 是否记住登录状态
+    /// </summary>
+    [Reactive]
+    public bool RemenberLogin { get; set; } = true;
+
+    [Reactive]
+    public bool IsLoading { get; set; }
 
     public ICommand Login { get; set; }
 }

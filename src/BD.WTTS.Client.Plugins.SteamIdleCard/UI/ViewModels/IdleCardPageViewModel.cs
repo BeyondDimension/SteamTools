@@ -31,7 +31,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         base.Activation();
 
-        IdleRunStartOrStop_Click();
+        //IdleRunStartOrStop_Click();
     }
 
     /// <summary>
@@ -39,39 +39,41 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// </summary>
     public async void IdleRunStartOrStop_Click()
     {
-        if (SteamConnectService.Current.IsConnectToSteam) // 是否登录 Steam 客户端
+        if (!SteamTool.IsRunningSteamProcess)
         {
-            if (!await LoginSteam()) // 登录 Steam Web
-                return;
+            await MessageBox.ShowAsync(Strings.Idle_SteamNotRuning, button: MessageBox.Button.OK);
+            return;
+        }
 
-            if (SteamTool.IsRunningSteamProcess)
+        if (!SteamConnectService.Current.IsConnectToSteam) // 是否登录 Steam 客户端
+        {
+            await MessageBox.ShowAsync(Strings.Idle_NeedLoginSteam, button: MessageBox.Button.OK);
+            return;
+        }
+
+        if (!await LoginSteam()) // 登录 Steam Web
+            return;
+
+        if (!RunLoaingState)
+        {
+            RunLoaingState = true;
+            RunState = !RunState;
+
+            if (RunState)
             {
-                if (!RunLoaingState)
-                {
-                    RunLoaingState = true;
-                    RunState = !RunState;
-
-                    if (RunState)
-                    {
-                        await SteamConnectService.Current.RefreshGamesListAsync();
-                        await ReadyToGoIdle();
-                    }
-                    else
-                    {
-                        StopIdle();
-                        RunOrStopAutoNext(false);
-                    }
-                    RunLoaingState = false;
-                    Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
-                }
-                else
-                    Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
+                await SteamConnectService.Current.RefreshGamesListAsync();
+                await ReadyToGoIdle();
             }
             else
-                await MessageBox.ShowAsync(Strings.Idle_SteamNotRuning, button: MessageBox.Button.OK);
+            {
+                StopIdle();
+                RunOrStopAutoNext(false);
+            }
+            RunLoaingState = false;
+            Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
         }
         else
-            await MessageBox.ShowAsync(Strings.Idle_NeedLoginSteam, button: MessageBox.Button.OK);
+            Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
     }
 
     /// <summary>
@@ -117,11 +119,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         if (!SteamLoginState.Success)
         {
-            var vm = new IdleSteamLoginViewModel(ref SteamLoginState);
-            var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.Steam_Login,
-                pageContent: new IdleSteamLogin(), okButtonText: Strings.Confirm, isCancelButton: true, disableScroll: true);
+            var vm = new IdleSteamLoginPageViewModel(ref SteamLoginState);
+            await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.Steam_Login,
+                pageContent: new IdleSteamLoginPage(), okButtonText: Strings.Confirm, isOkButton: false);
 
-            return result;
+            return SteamLoginState.Success;
         }
         return true;
     }
