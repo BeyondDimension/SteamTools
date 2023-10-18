@@ -6,6 +6,7 @@ namespace BD.WTTS.UI.ViewModels;
 public sealed partial class IdleSteamLoginPageViewModel : WindowViewModel
 {
     readonly ISteamAccountService Account = Ioc.Get<ISteamAccountService>();
+    readonly ISteamSessionService SteamSession = Ioc.Get<ISteamSessionService>();
 
     public SteamLoginState SteamLoginState { get; set; }
 
@@ -49,7 +50,10 @@ public sealed partial class IdleSteamLoginPageViewModel : WindowViewModel
             {
                 if (RemenberLogin)
                 {
+                    var session = SteamSession.RentSession(SteamLoginState.SteamId.ToString());
 
+                    if (session != null)
+                        await SteamSession.SaveSession(session);
                 }
                 Toast.Show(ToastIcon.Success, Strings.Success_.Format(Strings.User_Login));
                 IsLoading = false;

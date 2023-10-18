@@ -117,6 +117,18 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
     private async Task<bool> LoginSteam()
     {
+        var seesion = await Ioc.Get<ISteamSessionService>()
+            .LoadSession(Path.Combine(Plugin.Instance.CacheDirectory));
+
+        if (seesion != null && ulong.TryParse(seesion.SteamId, out var steamid))
+        {
+            SteamLoginState.Success = true;
+            SteamLoginState.SteamId = steamid;
+            SteamLoginState.AccessToken = seesion.AccessToken;
+            SteamLoginState.RefreshToken = seesion.RefreshToken;
+            SteamLoginState.Cookies = seesion.CookieContainer.GetAllCookies();
+        }
+
         if (!SteamLoginState.Success)
         {
             var vm = new IdleSteamLoginPageViewModel(ref SteamLoginState);

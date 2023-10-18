@@ -13,20 +13,27 @@ public class SteamDetailPageViewModel : ViewModelBase
 
     public SteamDetailPageViewModel(IAuthenticatorDTO authenticatorDto)
     {
-        if (authenticatorDto.Value is SteamAuthenticator steamAuthenticator)
+        try
         {
-            SteamData =
-                Serializable.GetIndented(steamAuthenticator.SteamData, Serializable.JsonImplType.SystemTextJson);
-            RecoverCode = steamAuthenticator.RecoveryCode;
-            DeviceId = steamAuthenticator.DeviceId;
+            if (authenticatorDto.Value is SteamAuthenticator steamAuthenticator)
+            {
+                SteamData =
+                    Serializable.GetIndented(steamAuthenticator.SteamData, Serializable.JsonImplType.SystemTextJson);
+                RecoverCode = steamAuthenticator.RecoveryCode;
+                DeviceId = steamAuthenticator.DeviceId;
 
-            // var viewModel = new TextBoxWindowViewModel()
-            // {
-            //     InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText,
-            //     Value = steamData, 
-            //         
-            // };
-            //await IWindowManager.Instance.ShowTaskDialogAsync(viewModel, Strings.LocalAuth_ShowAuthInfo);
+                // var viewModel = new TextBoxWindowViewModel()
+                // {
+                //     InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText,
+                //     Value = steamData, 
+                //         
+                // };
+                //await IWindowManager.Instance.ShowTaskDialogAsync(viewModel, Strings.LocalAuth_ShowAuthInfo);
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT();
         }
     }
 }

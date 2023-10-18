@@ -21,37 +21,44 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         ConfirmTradeCommand = ReactiveCommand.Create<SteamTradeConfirmationModel>(ConfirmTrade);
         CancelTradeCommand = ReactiveCommand.Create<SteamTradeConfirmationModel>(CancelTrade);
 
-        if (authenticatorDto.Value is SteamAuthenticator steamAuthenticator)
+        try
         {
-            _steamAuthenticator = steamAuthenticator;
-            _steamClient = _steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
-            UserNameText = _steamAuthenticator.AccountName ?? "";
-            authenticatorDto.Value = _steamAuthenticator;
-            _ = Initialize();
+            if (authenticatorDto.Value is SteamAuthenticator steamAuthenticator)
+            {
+                _steamAuthenticator = steamAuthenticator;
+                _steamClient = _steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
+                UserNameText = _steamAuthenticator.AccountName ?? "";
+                authenticatorDto.Value = _steamAuthenticator;
+                _ = Initialize();
 
-            this.WhenAnyValue(v => v.Confirmations)
-                .Subscribe(items => items?
-                .ToObservableChangeSet()
-                .AutoRefresh(x => x.IsSelected)
-                .WhenValueChanged(x => x.IsSelected)
-                .Subscribe(_ =>
-                {
-                    bool? b = null;
-                    var count = items.Count(s => s.IsSelected);
-                    if (!items.Any_Nullable() || count == 0)
-                        b = false;
-                    else if (count == items.Count)
-                        b = true;
-
-                    if (SelectedAll != b)
+                this.WhenAnyValue(v => v.Confirmations)
+                    .Subscribe(items => items?
+                    .ToObservableChangeSet()
+                    .AutoRefresh(x => x.IsSelected)
+                    .WhenValueChanged(x => x.IsSelected)
+                    .Subscribe(_ =>
                     {
-                        SelectedAll = b;
-                    }
-                }));
+                        bool? b = null;
+                        var count = items.Count(s => s.IsSelected);
+                        if (!items.Any_Nullable() || count == 0)
+                            b = false;
+                        else if (count == items.Count)
+                            b = true;
+
+                        if (SelectedAll != b)
+                        {
+                            SelectedAll = b;
+                        }
+                    }));
+            }
+            else
+            {
+                Close?.Invoke();
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Close?.Invoke();
+            ex.LogAndShowT();
         }
     }
 
