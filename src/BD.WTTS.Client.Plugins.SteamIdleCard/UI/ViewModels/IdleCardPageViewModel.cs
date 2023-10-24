@@ -1,9 +1,7 @@
-using Avalonia.Automation;
 using BD.SteamClient.Models;
 using BD.SteamClient.Models.Idle;
 using BD.SteamClient.Services;
 using BD.WTTS.UI.Views.Pages;
-using System.Linq;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -87,11 +85,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     #region PrivateFields
 
     /// <summary>
-    /// 用户徽章和卡片数据
-    /// </summary>
-    private IEnumerable<Badge> Badges = Enumerable.Empty<Badge>();
-
-    /// <summary>
     /// 最大并行运行游戏数量
     /// </summary>
     private int MaxIdleCount = 32;
@@ -122,11 +115,14 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
         if (seesion != null && ulong.TryParse(seesion.SteamId, out var steamid))
         {
-            SteamLoginState.Success = true;
             SteamLoginState.SteamId = steamid;
             SteamLoginState.AccessToken = seesion.AccessToken;
             SteamLoginState.RefreshToken = seesion.RefreshToken;
             SteamLoginState.Cookies = seesion.CookieContainer.GetAllCookies();
+
+            //var success = await Ioc.Get<ISteamAccountService>().CheckAccessTokenValidation(SteamLoginState.AccessToken);
+            SteamLoginState.Success = true;
+            //SteamLoginState.SteamId = success ? steamid : 0;
         }
 
         if (!SteamLoginState.Success)
@@ -151,11 +147,25 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         try
         {
+            IEnumerable<Badge> badges;
             if (IdleSequentital == IdleSequentital.Mostvalue)
-                Badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
+            {
+                badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
+            }
             else
-                Badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
-            Badges = Badges.Where(x => x.CardsRemaining != 0); // 过滤可掉落卡片的游戏
+            {
+                badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
+            }
+
+            Badges.Clear();
+
+            foreach (var b in badges)
+            {
+                if (b.CardsRemaining != 0)// 过滤可掉落卡片的游戏
+                {
+                    Badges.Add(b);
+                }
+            }
         }
         catch (Exception ex)
         {

@@ -23,6 +23,12 @@ public sealed partial class IdleCardPageViewModel
     public ObservableCollection<SteamApp> IdleGameList { get; set; } = new();
 
     /// <summary>
+    /// 用户徽章和卡片数据
+    /// </summary>
+    [Reactive]
+    private ObservableCollection<Badge> Badges { get; set; } = new ObservableCollection<Badge>();
+
+    /// <summary>
     /// 当前挂卡游戏 
     /// </summary>
     [Reactive]

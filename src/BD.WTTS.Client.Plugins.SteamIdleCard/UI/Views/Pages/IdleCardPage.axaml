@@ -27,53 +27,113 @@
     <spp:ContentLoader IsLoading="False">
 
         <Grid RowDefinitions="Auto,*">
-            <Border>
-                <TextBlock Text="test" />
-            </Border>
-
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding IdleGameList}">
+            <ItemsControl>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel />
+                        <Grid ColumnDefinitions="*,*,*" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="spp:SteamApp">
-                        <Border Margin="5" spp:Animations.EnableAnimations="True">
-                            <spp:AppItem
-                                Title="{Binding DisplayName}"
-                                Height="270"
-                                MaxWidth="120"
-                                Classes="Vertical">
-                                <spp:AppItem.Status>
-                                    <Border Classes="Status">
-                                        <Panel>
-                                            <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, Mode=OneWay}">
-                                                <Ellipse
-                                                    Width="6"
-                                                    Height="6"
-                                                    Margin="0,0,5,0"
-                                                    Fill="#47A42B" />
-                                                <TextBlock
-                                                    VerticalAlignment="Center"
-                                                    FontSize="12"
-                                                    Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                            </WrapPanel>
-                                            <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}, Mode=OneWay}">
-                                                <Ellipse
-                                                    Width="6"
-                                                    Height="6"
-                                                    Margin="0,0,5,0"
-                                                    Fill="#FF4F58" />
-                                                <TextBlock
-                                                    VerticalAlignment="Center"
-                                                    FontSize="12"
-                                                    Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                            </WrapPanel>
-                                        </Panel>
-                                    </Border>
-                                </spp:AppItem.Status>
-                                <!--<spp:AppItem.ActionButton>
+                <Border
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    spp:Animations.EnableAnimations="True">
+                    <Button>
+                        <Grid RowDefinitions="3*,*">
+                            <TextBlock
+                                Margin="12"
+                                FontWeight="SemiBold"
+                                Text="Steam 正在运行" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="12"
+                                FontWeight="SemiBold"
+                                Text="挂卡账号已登录" />
+                        </Grid>
+                    </Button>
+                </Border>
+                <Border
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    spp:Animations.EnableAnimations="True">
+                    <Button>
+                        <Grid RowDefinitions="3*,*">
+                            <TextBlock
+                                Margin="12"
+                                FontWeight="SemiBold"
+                                Text="剩余游戏" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="12"
+                                FontWeight="SemiBold"
+                                Text="剩余卡片" />
+                        </Grid>
+                    </Button>
+                </Border>
+                <Border
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    spp:Animations.EnableAnimations="True">
+                    <Button>
+                        <Grid RowDefinitions="3*,*">
+                            <TextBlock
+                                Margin="12"
+                                FontWeight="SemiBold"
+                                Text="{Binding Badges^.Count}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="12"
+                                FontWeight="SemiBold"
+                                Text="当前游戏剩余卡片" />
+                        </Grid>
+                    </Button>
+                </Border>
+            </ItemsControl>
+
+            <DockPanel Grid.Row="1">
+                <TextBlock DockPanel.Dock="Top" Text="正在挂卡的游戏" />
+                <ItemsControl DockPanel.Dock="Bottom" ItemsSource="{Binding IdleGameList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="spp:SteamApp">
+                            <Border Margin="5" spp:Animations.EnableAnimations="True">
+                                <spp:AppItem
+                                    Title="{Binding DisplayName}"
+                                    Height="270"
+                                    MaxWidth="120"
+                                    Classes="Vertical">
+                                    <spp:AppItem.Status>
+                                        <Border Classes="Status">
+                                            <Panel>
+                                                <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, Mode=OneWay}">
+                                                    <Ellipse
+                                                        Width="6"
+                                                        Height="6"
+                                                        Margin="0,0,5,0"
+                                                        Fill="#47A42B" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontSize="12"
+                                                        Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                </WrapPanel>
+                                                <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}, Mode=OneWay}">
+                                                    <Ellipse
+                                                        Width="6"
+                                                        Height="6"
+                                                        Margin="0,0,5,0"
+                                                        Fill="#FF4F58" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontSize="12"
+                                                        Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                </WrapPanel>
+                                            </Panel>
+                                        </Border>
+                                    </spp:AppItem.Status>
+                                    <!--<spp:AppItem.ActionButton>
                                 <Button
                                     Command="{Binding $parent[spp:PageBase].((spp:IdleAppsPageViewModel)DataContext).DeleteButtonCommand}"
                                     CommandParameter="{Binding}"
@@ -86,9 +146,9 @@
                                     </Viewbox>
                                 </Button>
                             </spp:AppItem.ActionButton>-->
-                                <spp:AppItem.Image>
-                                    <Panel x:Name="ItemImage">
-                                        <!--<i:Interaction.Behaviors>
+                                    <spp:AppItem.Image>
+                                        <Panel x:Name="ItemImage">
+                                            <!--<i:Interaction.Behaviors>
 										<ia:EventTriggerBehavior EventName="PointerEntered" SourceObject="{Binding #ItemImage}">
 											<ia:ChangePropertyAction
                                                 PropertyName="IsVisible"
@@ -102,50 +162,50 @@
                                                 Value="False" />
 										</ia:EventTriggerBehavior>
 									</i:Interaction.Behaviors>-->
-                                        <Panel MinWidth="{Binding $parent[spp:AppItem].MinWidth}" MaxWidth="{Binding $parent[spp:AppItem].MaxWidth}">
-                                            <spp:Image2
-                                                Name="AppImage"
-                                                DecodeWidth="120"
-                                                FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
-                                                RenderOptions.BitmapInterpolationMode="HighQuality"
-                                                Source="{Binding LibraryGridStream^}"
-                                                Stretch="UniformToFill" />
-                                            <TextBlock
-                                                Margin="8,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                IsVisible="{Binding #AppImage.IsFailed}"
-                                                Text="{Binding DisplayName}"
-                                                TextAlignment="Center"
-                                                TextWrapping="WrapWithOverflow"
-                                                Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                            <Panel MinWidth="{Binding $parent[spp:AppItem].MinWidth}" MaxWidth="{Binding $parent[spp:AppItem].MaxWidth}">
+                                                <spp:Image2
+                                                    Name="AppImage"
+                                                    DecodeWidth="120"
+                                                    FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
+                                                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                                                    Source="{Binding LibraryGridStream^}"
+                                                    Stretch="UniformToFill" />
+                                                <TextBlock
+                                                    Margin="8,0"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                    IsVisible="{Binding #AppImage.IsFailed}"
+                                                    Text="{Binding DisplayName}"
+                                                    TextAlignment="Center"
+                                                    TextWrapping="WrapWithOverflow"
+                                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
-                                            <Border
-                                                Margin="10,0,10,-3"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Bottom"
-                                                Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
-                                                CornerRadius="3"
-                                                IsVisible="{Binding IsInstalled}">
-                                                <DockPanel Margin="10,3" HorizontalAlignment="Center">
-                                                    <TextBlock
-                                                        Margin="0,0,5,0"
-                                                        VerticalAlignment="Center"
-                                                        FontSize="11"
-                                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                        IsVisible="{Binding InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                                                        Text="{Binding InstalledDrive}" />
-                                                    <TextBlock
-                                                        VerticalAlignment="Center"
-                                                        FontSize="11"
-                                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                        Text="{Binding SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
-                                                        TextWrapping="Wrap" />
-                                                </DockPanel>
-                                            </Border>
-                                        </Panel>
-                                        <!--<Panel
+                                                <Border
+                                                    Margin="10,0,10,-3"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Bottom"
+                                                    Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+                                                    CornerRadius="3"
+                                                    IsVisible="{Binding IsInstalled}">
+                                                    <DockPanel Margin="10,3" HorizontalAlignment="Center">
+                                                        <TextBlock
+                                                            Margin="0,0,5,0"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="11"
+                                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                            IsVisible="{Binding InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                            Text="{Binding InstalledDrive}" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontSize="11"
+                                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                            Text="{Binding SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
+                                                            TextWrapping="Wrap" />
+                                                    </DockPanel>
+                                                </Border>
+                                            </Panel>
+                                            <!--<Panel
                                         x:Name="ItemBox"
                                         Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
                                         IsVisible="False"
@@ -192,13 +252,14 @@
                                             </Viewbox>
                                         </Button>
                                     </Panel>-->
-                                    </Panel>
-                                </spp:AppItem.Image>
-                            </spp:AppItem>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                                        </Panel>
+                                    </spp:AppItem.Image>
+                                </spp:AppItem>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </DockPanel>
         </Grid>
     </spp:ContentLoader>
 </spp:PageBase>

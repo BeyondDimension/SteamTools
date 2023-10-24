@@ -2804,4 +2804,7 @@
   <data name="CommunityFix_EnableUseDoh" xml:space="preserve">
     <value>启用 DoH</value>
   </data>
+	<data name="EnableAccelerationPrompt" xml:space="preserve">
+    <value>提示：不要忘了先开加速</value>
+  </data>
 </root>

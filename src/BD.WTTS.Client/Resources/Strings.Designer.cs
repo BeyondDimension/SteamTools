@@ -1827,6 +1827,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 提示：不要忘了先开加速 的本地化字符串。
+        /// </summary>
+        public static string EnableAccelerationPrompt {
+            get {
+                return ResourceManager.GetString("EnableAccelerationPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已启用 的本地化字符串。
         /// </summary>
         public static string Enabled {

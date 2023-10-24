@@ -268,7 +268,7 @@ public sealed class SteamConnectService
         if (!stmService.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
             stmService.StartSteamWithParameter();
 
-        Task2.InBackground(async () =>
+        Task2.InBackground(() =>
         {
             while (true)
             {
@@ -291,7 +291,9 @@ public sealed class SteamConnectService
                                 }
                                 IsConnectToSteam = true;
 
-                                CurrentSteamUser = await swWebService.GetUserInfo(id);
+                                var taskUser = swWebService.GetUserInfo(id);
+                                taskUser.Wait();
+                                CurrentSteamUser = taskUser.Result;
                                 //CurrentSteamUser.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(CurrentSteamUser.AvatarFull);
                                 //AvatarPath = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
                                 CurrentSteamUser.IPCountry = swLocalService.GetIPCountry();
@@ -316,7 +318,9 @@ public sealed class SteamConnectService
                                 // 仅在有游戏数据情况下加载登录用户的游戏
                                 if (SteamApps.Items.Any())
                                 {
-                                    var applist = swLocalService.OwnsApps(await ISteamService.Instance.GetAppInfos());
+                                    var taskAppinfo = ISteamService.Instance.GetAppInfos();
+                                    taskAppinfo.Wait();
+                                    var applist = swLocalService.OwnsApps(taskAppinfo.Result);
                                     if (!applist.Any_Nullable())
                                     {
                                         if (!IsDisposedClient)
@@ -355,10 +359,10 @@ public sealed class SteamConnectService
                 }
                 finally
                 {
-                    await Task.Delay(3000);
+                    Thread.Sleep(3000);
                 }
             }
-        });
+        }, true);
     }
 
     public bool Initialize(int appid)
