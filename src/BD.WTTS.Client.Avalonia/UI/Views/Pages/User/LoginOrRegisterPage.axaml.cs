@@ -45,6 +45,17 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
                 this.ViewModel.Close();
             }
         }
+        Application.Current!.UrlsOpened += Current_UrlsOpened;
+    }
+
+    private async void Current_UrlsOpened(object? sender, UrlOpenedEventArgs e)
+    {
+        var loginUrl = e.Urls.Where(x => x.StartsWith(Constants.UrlSchemes.Login)).FirstOrDefault();
+        if (loginUrl != null)
+        {
+            var token = loginUrl.Substring(Constants.UrlSchemes.Login.Length, loginUrl.Length - 1);
+            await ThirdPartyLoginHelper.OnMessageAsync(token);
+        }
     }
 
     protected override void OnDataContextChanged(EventArgs e)
@@ -64,5 +75,6 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
         {
             vm.RemoveAllDelegate();
         }
+        Application.Current!.UrlsOpened -= Current_UrlsOpened;
     }
 }
