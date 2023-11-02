@@ -25,9 +25,91 @@
     </spp:PageBase.ActionContent>
 
     <spp:ContentLoader IsLoading="False">
+        <Grid RowDefinitions="Auto,Auto,*">
+            <StackPanel Spacing="8">
+                <TextBlock Text="账号信息" />
 
-        <Grid RowDefinitions="Auto,*">
-            <ItemsControl>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <Border
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        spp:Animations.EnableAnimations="True">
+                        <Button Padding="20">
+                            <Grid ColumnDefinitions="60,*" RowDefinitions="3*,*,Auto">
+                                <WrapPanel Grid.RowSpan="3">
+                                    <spp:Image2
+                                        Width="36"
+                                        Height="36"
+                                        Margin="0,0,5,0"
+                                        VerticalAlignment="Center"
+                                        DecodeWidth="36"
+                                        Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
+                                        Stretch="Uniform">
+                                        <spp:Image2.Clip>
+                                            <EllipseGeometry Rect="0,0,36,36" />
+                                        </spp:Image2.Clip>
+                                    </spp:Image2>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}"
+                                        Theme="{StaticResource SubtitleTextBlockStyle}" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                        Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, StringFormat={}({0})}"
+                                        Theme="{StaticResource SubtitleTextBlockStyle}" />
+                                </WrapPanel>
+                                <ProgressBar
+                                    Grid.Column="1"
+                                    Width="30"
+                                    Height="30"
+                                    Classes="Circle"
+                                    Value="50" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    FontWeight="SemiBold"
+                                    Text="Steam 已运行" />
+                            </Grid>
+                        </Button>
+                    </Border>
+                    <Border
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        spp:Animations.EnableAnimations="True">
+                        <Button Padding="20">
+                            <Grid RowDefinitions="3*,*,Auto">
+                                <spp:Image2 Width="50" Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png " />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    FontWeight="SemiBold"
+                                    Text="Steam 已运行" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    FontWeight="SemiBold"
+                                    Text="Steam 账号已登录" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <Border
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        spp:Animations.EnableAnimations="True">
+                        <Button Padding="20">
+                            <Grid RowDefinitions="3*,*">
+                                <spp:Image2 Width="50" Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png " />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    FontWeight="SemiBold"
+                                    Text="Steam 账号已登录" />
+                            </Grid>
+                        </Button>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+
+            <ItemsControl Grid.Row="1">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid ColumnDefinitions="*,*,*" />
@@ -78,7 +160,7 @@
                             <TextBlock
                                 Margin="12"
                                 FontWeight="SemiBold"
-                                Text="{Binding Badges^.Count}" />
+                                Text="{Binding Badges.Count}" />
                             <TextBlock
                                 Grid.Row="1"
                                 Margin="12"
@@ -89,7 +171,7 @@
                 </Border>
             </ItemsControl>
 
-            <DockPanel Grid.Row="1">
+            <DockPanel Grid.Row="2">
                 <TextBlock DockPanel.Dock="Top" Text="正在挂卡的游戏" />
                 <ItemsControl DockPanel.Dock="Bottom" ItemsSource="{Binding IdleGameList}">
                     <ItemsControl.ItemsPanel>

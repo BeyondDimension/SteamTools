@@ -514,7 +514,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
             //...导出至文件目录
 
-            if (Essentials.IsSupportedSaveFileDialog)
+            if (CommonEssentials.IsSupportedSaveFileDialog)
             {
                 AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
                     new("maFile Files") {

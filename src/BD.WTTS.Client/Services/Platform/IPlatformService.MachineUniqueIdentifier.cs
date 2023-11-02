@@ -31,7 +31,7 @@ partial interface IPlatformService
 
     protected static (byte[] key, byte[] iv) GetMachineSecretKeyBySecureStorage()
     {
-        if (!Essentials.IsSupported) throw new PlatformNotSupportedException();
+        if (!CommonEssentials.IsSupported) throw new PlatformNotSupportedException();
         const string KEY_MACHINE_SECRET = "KEY_MACHINE_SECRET_2105";
         var guid = GetMachineSecretKeyGuid();
         static Guid GetMachineSecretKeyGuid()

@@ -17,10 +17,7 @@
                     Classes="Circle"
                     Value="60" />
                 <ProgressBar Width="150" IsIndeterminate="True" />
-                <ProgressBar
-                    Width="150"
-                    Classes="notransitions"
-                    Value="50" />
+                <ProgressBar Width="150" Value="50" />
 
                 <TextBlock Text="Material Progress" />
                 <ProgressBar
@@ -31,7 +28,6 @@
                 <ProgressBar
                     Width="150"
                     Height="5"
-                    Classes="Material notransitions"
                     Value="50" />
             </StackPanel>
         </Border>
@@ -58,7 +54,7 @@
         <Setter Property="Width" Value="{DynamicResource ProgressBarMinHeight}" />
     </Style>
 
-    <Style Selector="ProgressBar:not(.notransitions) /template/ Border#PART_Indicator">
+    <Style Selector="ProgressBar[IsIndeterminate=False] /template/ Border#PART_Indicator">
         <Setter Property="Transitions">
             <Transitions>
                 <DoubleTransition

@@ -136,7 +136,7 @@ public static class AuthenticatorHelper
         IEnumerable<IAuthenticatorDTO> items, string? password = null)
     {
         SaveFileResult? exportFile = null;
-        if (Essentials.IsSupportedSaveFileDialog)
+        if (CommonEssentials.IsSupportedSaveFileDialog)
         {
             AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
                 new("MsgPack Files") {

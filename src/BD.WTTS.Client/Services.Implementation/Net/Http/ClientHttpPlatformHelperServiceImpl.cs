@@ -12,7 +12,7 @@ public class ClientHttpPlatformHelperServiceImpl : HttpPlatformHelperService
     {
         get
         {
-            if (Essentials.IsSupported)
+            if (CommonEssentials.IsSupported)
             {
                 var networkAccess = Connectivity2.NetworkAccess();
                 return networkAccess == NetworkAccess.Internet;

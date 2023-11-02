@@ -19,6 +19,9 @@ public sealed partial class IdleCardPageViewModel
     [Reactive]
     public string? RuningCountTxt { get; set; }
 
+    /// <summary>
+    /// 正在挂卡游戏
+    /// </summary>
     [Reactive]
     public ObservableCollection<SteamApp> IdleGameList { get; set; } = new();
 
@@ -26,7 +29,7 @@ public sealed partial class IdleCardPageViewModel
     /// 用户徽章和卡片数据
     /// </summary>
     [Reactive]
-    private ObservableCollection<Badge> Badges { get; set; } = new ObservableCollection<Badge>();
+    private ObservableCollection<Badge> Badges { get; set; } = new();
 
     /// <summary>
     /// 当前挂卡游戏 
