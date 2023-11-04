@@ -29,150 +29,88 @@
             <StackPanel Spacing="8">
                 <TextBlock Text="账号信息" />
 
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <Border
-                        Grid.Column="0"
-                        HorizontalAlignment="Center"
-                        spp:Animations.EnableAnimations="True">
-                        <Button Padding="20">
-                            <Grid ColumnDefinitions="60,*" RowDefinitions="3*,*,Auto">
-                                <WrapPanel Grid.RowSpan="3">
+                <Grid ColumnDefinitions="*,10,Auto">
+                    <Border spp:Animations.EnableAnimations="True">
+                        <Button
+                            Padding="20"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch">
+                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="3*,*,Auto">
+                                <DockPanel Grid.RowSpan="3">
                                     <spp:Image2
-                                        Width="36"
-                                        Height="36"
+                                        Width="64"
+                                        Height="64"
                                         Margin="0,0,5,0"
                                         VerticalAlignment="Center"
-                                        DecodeWidth="36"
+                                        DecodeWidth="64"
+                                        DockPanel.Dock="Top"
                                         Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
                                         Stretch="Uniform">
-                                        <spp:Image2.Clip>
-                                            <EllipseGeometry Rect="0,0,36,36" />
-                                        </spp:Image2.Clip>
+                                        <!--<spp:Image2.Clip>
+                                            <EllipseGeometry Rect="0,0,64,64" />
+                                        </spp:Image2.Clip>-->
                                     </spp:Image2>
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}"
-                                        Theme="{StaticResource SubtitleTextBlockStyle}" />
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                                        Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, StringFormat={}({0})}"
-                                        Theme="{StaticResource SubtitleTextBlockStyle}" />
-                                </WrapPanel>
-                                <ProgressBar
-                                    Grid.Column="1"
-                                    Width="30"
-                                    Height="30"
-                                    Classes="Circle"
-                                    Value="50" />
+                                    <WrapPanel DockPanel.Dock="Bottom">
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}"
+                                            Theme="{StaticResource SubtitleTextBlockStyle}" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                            Text="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.IPCountry, Mode=OneWay, StringFormat={}({0})}"
+                                            Theme="{StaticResource SubtitleTextBlockStyle}" />
+                                    </WrapPanel>
+                                </DockPanel>
                                 <TextBlock
-                                    Grid.Row="1"
+                                    Grid.Row="0"
                                     Grid.Column="1"
                                     FontWeight="SemiBold"
                                     Text="Steam 已运行" />
-                            </Grid>
-                        </Button>
-                    </Border>
-                    <Border
-                        Grid.Column="0"
-                        HorizontalAlignment="Center"
-                        spp:Animations.EnableAnimations="True">
-                        <Button Padding="20">
-                            <Grid RowDefinitions="3*,*,Auto">
-                                <spp:Image2 Width="50" Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png " />
-                                <TextBlock
-                                    Grid.Row="1"
-                                    FontWeight="SemiBold"
-                                    Text="Steam 已运行" />
-                                <TextBlock
-                                    Grid.Row="1"
-                                    FontWeight="SemiBold"
-                                    Text="Steam 账号已登录" />
+                                <StackPanel Grid.Row="1" Grid.Column="1">
+                                    <TextBlock FontWeight="SemiBold" Text="升到 108 级还需 777 点经验值" />
+                                    <ProgressBar
+                                        Height="10"
+                                        Classes="Material"
+                                        Value="50" />
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="2" Grid.Column="1">
+                                    <Run Text="84 张剩余卡牌掉落" />
+                                    <LineBreak />
+                                    <Run Text="25 个游戏可掉落卡牌" />
+                                    <LineBreak />
+                                    <Run Text="398 个游戏有资格获得补充包" />
+                                    <LineBreak />
+                                    <Run Text="估算价值 ¥ 25.61" />
+                                </TextBlock>
                             </Grid>
                         </Button>
                     </Border>
 
-                    <Border
-                        Grid.Column="0"
-                        HorizontalAlignment="Center"
-                        spp:Animations.EnableAnimations="True">
-                        <Button Padding="20">
-                            <Grid RowDefinitions="3*,*">
-                                <spp:Image2 Width="50" Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png " />
+                    <Border Grid.Column="2" spp:Animations.EnableAnimations="True">
+                        <Button
+                            Padding="20"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch">
+                            <Grid RowDefinitions="3*,10,*">
+                                <ProgressBar
+                                    Width="100"
+                                    Height="100"
+                                    Classes="Circle"
+                                    Value="60" />
                                 <TextBlock
-                                    Grid.Row="1"
+                                    Grid.Row="2"
                                     FontWeight="SemiBold"
-                                    Text="Steam 账号已登录" />
+                                    Text="挂卡未启动" />
                             </Grid>
                         </Button>
                     </Border>
-                </StackPanel>
+                </Grid>
             </StackPanel>
 
-            <ItemsControl Grid.Row="1">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid ColumnDefinitions="*,*,*" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <Border
-                    Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    spp:Animations.EnableAnimations="True">
-                    <Button>
-                        <Grid RowDefinitions="3*,*">
-                            <TextBlock
-                                Margin="12"
-                                FontWeight="SemiBold"
-                                Text="Steam 正在运行" />
-                            <TextBlock
-                                Grid.Row="1"
-                                Margin="12"
-                                FontWeight="SemiBold"
-                                Text="挂卡账号已登录" />
-                        </Grid>
-                    </Button>
-                </Border>
-                <Border
-                    Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    spp:Animations.EnableAnimations="True">
-                    <Button>
-                        <Grid RowDefinitions="3*,*">
-                            <TextBlock
-                                Margin="12"
-                                FontWeight="SemiBold"
-                                Text="剩余游戏" />
-                            <TextBlock
-                                Grid.Row="1"
-                                Margin="12"
-                                FontWeight="SemiBold"
-                                Text="剩余卡片" />
-                        </Grid>
-                    </Button>
-                </Border>
-                <Border
-                    Grid.Column="2"
-                    HorizontalAlignment="Center"
-                    spp:Animations.EnableAnimations="True">
-                    <Button>
-                        <Grid RowDefinitions="3*,*">
-                            <TextBlock
-                                Margin="12"
-                                FontWeight="SemiBold"
-                                Text="{Binding Badges.Count}" />
-                            <TextBlock
-                                Grid.Row="1"
-                                Margin="12"
-                                FontWeight="SemiBold"
-                                Text="当前游戏剩余卡片" />
-                        </Grid>
-                    </Button>
-                </Border>
-            </ItemsControl>
-
             <DockPanel Grid.Row="2">
-                <TextBlock DockPanel.Dock="Top" Text="正在挂卡的游戏" />
+                <TextBlock DockPanel.Dock="Top" Text="挂卡游戏列表" />
                 <ItemsControl DockPanel.Dock="Bottom" ItemsSource="{Binding IdleGameList}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
