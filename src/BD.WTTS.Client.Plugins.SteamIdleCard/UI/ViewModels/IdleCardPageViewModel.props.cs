@@ -6,6 +6,8 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class IdleCardPageViewModel
 {
+    public ICommand LoginSteamCommand { get; }
+
     public ICommand IdleRunStartOrStop { get; }
 
     public ICommand IdleManualRunNext { get; }

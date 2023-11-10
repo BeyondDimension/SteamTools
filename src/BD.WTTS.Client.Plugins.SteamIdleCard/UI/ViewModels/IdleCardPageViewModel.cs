@@ -23,13 +23,14 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
         this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
         this.IdleManualRunNext = ReactiveCommand.Create(ManualRunNext);
+        this.LoginSteamCommand = ReactiveCommand.Create(LoginSteam);
     }
 
     public override void Activation()
     {
         base.Activation();
 
-        //IdleRunStartOrStop_Click();
+        LoginSteamCommand.Execute(null);
     }
 
     /// <summary>
@@ -71,7 +72,9 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
         }
         else
+        {
             Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
+        }
     }
 
     /// <summary>

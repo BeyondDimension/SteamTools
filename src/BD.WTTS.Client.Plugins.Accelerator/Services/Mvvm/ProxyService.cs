@@ -338,9 +338,10 @@ public sealed partial class ProxyService
         if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Items.Any_Nullable())
         {
             var items = ProxyDomains.Items!.SelectMany(s => s.Items!);
+            var enableItems = ProxySettings.SupportProxyServicesStatus.Value;
             foreach (var item in items)
             {
-                if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
+                if (enableItems.Contains(item.Id.ToString()))
                 {
                     item.ThreeStateEnable = true;
                 }

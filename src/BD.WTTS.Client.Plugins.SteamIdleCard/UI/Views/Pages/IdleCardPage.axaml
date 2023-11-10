@@ -27,6 +27,106 @@
     <spp:ContentLoader IsLoading="False">
         <Grid RowDefinitions="Auto,Auto,*">
             <StackPanel Spacing="8">
+                <Grid ColumnDefinitions="*,Auto">
+                    <spp:OptionsDisplayItem
+                        Description="107 级 , 63,023 点经验值"
+                        Expands="True"
+                        Header="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}"
+                        IsExpanded="True">
+                        <spp:OptionsDisplayItem.Icon>
+                            <spp:Image2
+                                Width="64"
+                                Height="64"
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                DecodeWidth="64"
+                                DockPanel.Dock="Top"
+                                Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
+                                Stretch="Uniform">
+                                <spp:Image2.Clip>
+                                    <EllipseGeometry Rect="0,0,64,64" />
+                                </spp:Image2.Clip>
+                            </spp:Image2>
+                        </spp:OptionsDisplayItem.Icon>
+                        <spp:OptionsDisplayItem.ActionButton>
+                            <Button VerticalAlignment="Center" Content="登录" />
+                        </spp:OptionsDisplayItem.ActionButton>
+                        <spp:OptionsDisplayItem.Content>
+                            <StackPanel
+                                Margin="24,0"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical"
+                                Spacing="6">
+                                <TextBlock FontWeight="SemiBold" Text="升到 108 级还需 777 点经验值" />
+                                <ProgressBar
+                                    Height="10"
+                                    Classes="Material"
+                                    Value="50" />
+
+                                <Border
+                                    Height="1"
+                                    Margin="-50,0"
+                                    Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+
+                                <TextBlock Grid.Row="2" Grid.Column="1">
+                                    <Run Text="84 张剩余卡牌掉落" />
+                                    <LineBreak />
+                                    <Run Text="25 个游戏可掉落卡牌" />
+                                    <LineBreak />
+                                    <Run Text="398 个游戏有资格获得补充包" />
+                                    <LineBreak />
+                                    <Run Text="估算价值 ¥ 25.61" />
+                                </TextBlock>
+                            </StackPanel>
+                        </spp:OptionsDisplayItem.Content>
+                    </spp:OptionsDisplayItem>
+
+                    <spp:OptionsDisplayItem
+                        Grid.Column="1"
+                        Description="剩余 99 个游戏"
+                        Expands="True"
+                        Header="正在挂卡"
+                        IsExpanded="True">
+                        <spp:OptionsDisplayItem.Icon>
+                            <spp:Image2
+                                Width="64"
+                                Height="64"
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                DecodeWidth="64"
+                                DockPanel.Dock="Top"
+                                Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
+                                Stretch="Uniform">
+                                <spp:Image2.Clip>
+                                    <EllipseGeometry Rect="0,0,64,64" />
+                                </spp:Image2.Clip>
+                            </spp:Image2>
+                        </spp:OptionsDisplayItem.Icon>
+                        <spp:OptionsDisplayItem.ActionButton>
+                            <Button
+                                VerticalAlignment="Center"
+                                Command="{Binding IdleRunStartOrStop}"
+                                Content="启动" />
+                        </spp:OptionsDisplayItem.ActionButton>
+                        <spp:OptionsDisplayItem.Content>
+                            <StackPanel
+                                Margin="24,0"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical"
+                                Spacing="6">
+                                <TextBlock FontWeight="SemiBold" Text="当前正在运行" />
+
+                                <TextBlock FontWeight="SemiBold" Text="当前正在运行" />
+                                <Border
+                                    Height="1"
+                                    Margin="-50,0"
+                                    Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+
+                            </StackPanel>
+                        </spp:OptionsDisplayItem.Content>
+                    </spp:OptionsDisplayItem>
+                </Grid>
+
                 <TextBlock Text="账号信息" />
 
                 <Grid ColumnDefinitions="*,10,Auto">

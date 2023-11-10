@@ -8,8 +8,8 @@ public class OptionsDisplayItem : TemplatedControl
     public static readonly StyledProperty<string> DescriptionProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, string>(nameof(Description));
 
-    public static readonly StyledProperty<FAIconElement> IconProperty =
-        AvaloniaProperty.Register<OptionsDisplayItem, FAIconElement>(nameof(Icon));
+    public static readonly StyledProperty<object?> IconProperty =
+        AvaloniaProperty.Register<OptionsDisplayItem, object?>(nameof(Icon));
 
     public static readonly StyledProperty<bool> NavigatesProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, bool>(nameof(Navigates));
@@ -41,7 +41,7 @@ public class OptionsDisplayItem : TemplatedControl
         set => SetValue(DescriptionProperty, value);
     }
 
-    public FAIconElement Icon
+    public object? Icon
     {
         get => GetValue(IconProperty);
         set => SetValue(IconProperty, value);
