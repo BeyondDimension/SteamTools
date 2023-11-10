@@ -2804,6 +2804,33 @@
   <data name="CommunityFix_EnableUseDoh" xml:space="preserve">
     <value>启用 DoH</value>
   </data>
+  <data name="ASF_DeleteBotSuccess" xml:space="preserve">
+    <value>Bot 删除成功</value>
+  </data>
+  <data name="ASF_DeleteBotTip" xml:space="preserve">
+    <value>确定要删除这个 Bot 吗？</value>
+  </data>
+  <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
+    <value>已将 {0} 个 Key 添加到激活队列，队列中的 Key 会自动排队激活。</value>
+  </data>
+  <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
+    <value>请等待 IPC 启动中...</value>
+  </data>
+  <data name="ASF_RequirRunASF" xml:space="preserve">
+    <value>请先运行 ASF 功能</value>
+  </data>
+  <data name="ASF_Start" xml:space="preserve">
+    <value>启动 ASF</value>
+  </data>
+  <data name="ASF_Stop" xml:space="preserve">
+    <value>停止 ASF</value>
+  </data>
+  <data name="ASF_SelectASFExePath" xml:space="preserve">
+    <value>请选择 或 选择正确的 ASF 执行程序路径</value>
+  </data>
+  <data name="ASF_ExecuteFileUnsafe" xml:space="preserve">
+    <value>ArchiSteamFarm.exe 文件不安全</value>
+  </data>
 	<data name="EnableAccelerationPrompt" xml:space="preserve">
     <value>提示：不要忘了先开加速</value>
   </data>

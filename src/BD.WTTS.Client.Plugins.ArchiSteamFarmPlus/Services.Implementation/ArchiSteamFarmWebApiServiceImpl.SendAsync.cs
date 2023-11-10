@@ -3,11 +3,11 @@ namespace BD.WTTS.Services.Implementation;
 partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
     : GeneralHttpClientFactory
 {
-    [Obsolete("TODO: 更改为设置项的默认值")]
     const string DefaultBaseAddress = "http://localhost:1242";
 
-    [Obsolete("TODO: 更改为从设置项中读取")]
-    string BaseAddress => "";
+    string BaseAddress = string.Empty;
+
+    public void SetIPCUrl(string ipcUrl) => BaseAddress = ipcUrl;
 
     HttpClient CreateClient()
     {
@@ -24,7 +24,8 @@ partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
         }
 
         var client = CreateClient($"{TAG}_{baseAddressStr}", HttpHandlerCategory.Default);
-        client.BaseAddress = baseAddress;
+        if (client.BaseAddress == null || !client.BaseAddress.Equals(baseAddress))
+            client.BaseAddress = baseAddress;
         return client;
     }
 
@@ -35,11 +36,11 @@ partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
         bool isShowResponseErrorMessage = true,
         string? errorAppendText = null,
         CancellationToken cancellationToken = default)
-        where TRequestBody : notnull
-        where TResponseBody : notnull
+        where TRequestBody : class
+        where TResponseBody : class
     {
         var result = await SendCoreAsync();
-        if (isShowResponseErrorMessage)
+        if (!result.IsSuccess && isShowResponseErrorMessage)
         {
             conn_helper.ShowResponseErrorMessage(requestUrl, result, errorAppendText);
         }
@@ -57,9 +58,6 @@ partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
                 try
                 {
                     var reqContent = Serialize(reqBody, typeRequestBody);
-#if DEBUG
-                    var reqContentJsonStr = await reqContent.ReadAsStringAsync(cancellationToken);
-#endif
                     req.Content = reqContent;
                 }
                 catch (Exception ex)
@@ -106,7 +104,7 @@ partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
         }
     }
 
-    struct Void
+    class Void
     {
         // https://github.com/dotnet/runtime/blob/v7.0.11/src/libraries/System.Private.CoreLib/src/System/Void.cs
     }

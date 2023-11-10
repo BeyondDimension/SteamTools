@@ -72,9 +72,10 @@
 
 	<ItemGroup>
 		<!-- ArchiSteamFarm WebAPI Models -->
-		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\IPC\Requests\*.cs">
-			<LinkBase>_\ArchiSteamFarm\IPC\Requests</LinkBase>
-		</Compile>
+		<EmbeddedResource Update="Properties\Resources.resx">
+		  <Generator>ResXFileCodeGenerator</Generator>
+		  <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 		<EmbeddedResource Update="_\ArchiSteamFarm\Localization\Strings.resx">
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>Strings.Designer.cs</LastGenOutput>
@@ -99,6 +100,9 @@
 		</Compile>-->
 		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Steam\Data\Confirmation.cs">
 			<LinkBase>_\ArchiSteamFarm\Steam\Data</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Steam\Cards\Game.cs">
+			<LinkBase>_\ArchiSteamFarm\Steam\Cards</LinkBase>
 		</Compile>
 	</ItemGroup>
 
@@ -125,6 +129,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="UI\Views\Pages\ArchiSteamFarmPage.axaml.cs">
+		  <DependentUpon>ArchiSteamFarmPage.axaml</DependentUpon>
+		</Compile>
 		<Compile Update="_\ArchiSteamFarm\Localization\Strings.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>

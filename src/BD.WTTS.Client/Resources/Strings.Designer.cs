@@ -495,6 +495,60 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Bot 删除成功 的本地化字符串。
+        /// </summary>
+        public static string ASF_DeleteBotSuccess {
+            get {
+                return ResourceManager.GetString("ASF_DeleteBotSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要删除这个 Bot 吗？ 的本地化字符串。
+        /// </summary>
+        public static string ASF_DeleteBotTip {
+            get {
+                return ResourceManager.GetString("ASF_DeleteBotTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ArchiSteamFarm.exe 文件不安全 的本地化字符串。
+        /// </summary>
+        public static string ASF_ExecuteFileUnsafe {
+            get {
+                return ResourceManager.GetString("ASF_ExecuteFileUnsafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请等待 IPC 启动中... 的本地化字符串。
+        /// </summary>
+        public static string ASF_IPCIsReadyFalse {
+            get {
+                return ResourceManager.GetString("ASF_IPCIsReadyFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已将 {0} 个 Key 添加到激活队列，队列中的 Key 会自动排队激活。 的本地化字符串。
+        /// </summary>
+        public static string ASF_RedeemKeyBotSuccessTip {
+            get {
+                return ResourceManager.GetString("ASF_RedeemKeyBotSuccessTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先运行 ASF 功能 的本地化字符串。
+        /// </summary>
+        public static string ASF_RequirRunASF {
+            get {
+                return ResourceManager.GetString("ASF_RequirRunASF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ASF 服务已重启 的本地化字符串。
         /// </summary>
         public static string ASF_Restarted {
@@ -513,11 +567,29 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 请选择 或 选择正确的 ASF 执行程序路径 的本地化字符串。
+        /// </summary>
+        public static string ASF_SelectASFExePath {
+            get {
+                return ResourceManager.GetString("ASF_SelectASFExePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 设置自定义密钥 的本地化字符串。
         /// </summary>
         public static string ASF_SetCryptKey {
             get {
                 return ResourceManager.GetString("ASF_SetCryptKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动 ASF 的本地化字符串。
+        /// </summary>
+        public static string ASF_Start {
+            get {
+                return ResourceManager.GetString("ASF_Start", resourceCulture);
             }
         }
         
@@ -536,6 +608,15 @@ namespace BD.WTTS.Client.Resources {
         public static string ASF_Starting {
             get {
                 return ResourceManager.GetString("ASF_Starting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止 ASF 的本地化字符串。
+        /// </summary>
+        public static string ASF_Stop {
+            get {
+                return ResourceManager.GetString("ASF_Stop", resourceCulture);
             }
         }
         

@@ -1,3 +1,5 @@
+using BD.WTTS.Properties;
+using BD.WTTS.UI.Views.Pages;
 using CreateHttpHandlerArgs = System.ValueTuple<
     bool,
     System.Net.DecompressionMethods,
@@ -18,13 +20,16 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override string Name => moduleName;
 
+    public sealed override object? Icon => Resources.asf;
+
     public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
         yield return new MenuTabItemViewModel(this, "ArchiSteamFarmPlus")
         {
-            PageType = null,
+            PageType = typeof(ArchiSteamFarmPage),
             IsResourceGet = true,
-            IconKey = "GameConsole",
+            //IconKey = "GameConsole",
+            IconKey = Icon
         };
     }
 
@@ -96,5 +101,10 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
     {
 
+    }
+
+    public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
+    {
+        yield return GetConfiguration<ASFSettings_>(directoryExists);
     }
 }
