@@ -15,24 +15,25 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 {
     const string TAG = "ArchiSteamFarmS";
 
+    private readonly AsyncLock @lock = new AsyncLock();
+
+    private bool isFirstStart = true;
+
+    private bool _IsReadPasswordLine;
+
+    private HttpClient _httpClient = new();
+
     protected readonly IArchiSteamFarmWebApiService webApiService = IArchiSteamFarmWebApiService.Instance;
 
     public ArchiSteamFarmServiceImpl()
     {
-
     }
 
     public Process? ASFProcess { get; set; }
 
-    private Process? MainProcess;
-
     public event Action<string>? OnConsoleWirteLine;
 
     public TaskCompletionSource<string>? ReadLineTask { get; set; }
-
-    private readonly AsyncLock @lock = new AsyncLock();
-
-    bool _IsReadPasswordLine;
 
     public bool IsReadPasswordLine
     {
@@ -43,8 +44,6 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
     public DateTimeOffset? StartTime { get; set; }
 
     public Version CurrentVersion => SharedInfo.Version;
-
-    private bool isFirstStart = true;
 
     public async Task<bool> StartAsync(string[]? args = null)
     {
@@ -194,24 +193,21 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
         async Task<bool> DownloadASFRelease(string downloadUrl, string savePath)
         {
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-                try
-                {
-                    HttpResponseMessage response = await httpClient.GetAsync(downloadUrl);
+                HttpResponseMessage response = await _httpClient.GetAsync(downloadUrl);
 
-                    // Ensure a successful response before proceeding
-                    response.EnsureSuccessStatusCode();
+                // Ensure a successful response before proceeding
+                response.EnsureSuccessStatusCode();
 
-                    using (var fileStream = new FileStream(savePath, FileMode.Create, FileAccess.Write, FileShare.None))
-                    {
-                        await response.Content.CopyToAsync(fileStream);
-                    }
-                }
-                catch (Exception ex)
+                using (var fileStream = new FileStream(savePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    return false;
+                    await response.Content.CopyToAsync(fileStream);
                 }
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
             return true;
         }
