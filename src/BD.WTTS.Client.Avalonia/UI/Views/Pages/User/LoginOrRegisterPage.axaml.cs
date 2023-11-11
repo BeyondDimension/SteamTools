@@ -53,7 +53,7 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
         var loginUrl = e.Urls.Where(x => x.StartsWith(Constants.UrlSchemes.Login)).FirstOrDefault();
         if (loginUrl != null)
         {
-            var token = loginUrl.Substring(Constants.UrlSchemes.Login.Length, loginUrl.Length - 1);
+            var token = loginUrl.TrimStart(Constants.UrlSchemes.Login);
             await ThirdPartyLoginHelper.OnMessageAsync(token);
         }
     }
@@ -70,11 +70,11 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
 
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
+        Application.Current!.UrlsOpened -= Current_UrlsOpened;
         base.OnDetachedFromVisualTree(e);
         if (DataContext is LoginOrRegisterWindowViewModel vm)
         {
             vm.RemoveAllDelegate();
         }
-        Application.Current!.UrlsOpened -= Current_UrlsOpened;
     }
 }
