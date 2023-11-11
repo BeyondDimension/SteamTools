@@ -53,7 +53,8 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
         var loginUrl = e.Urls.Where(x => x.StartsWith(Constants.UrlSchemes.Login)).FirstOrDefault();
         if (loginUrl != null)
         {
-            var token = loginUrl.TrimStart(Constants.UrlSchemes.Login);
+            //var token = loginUrl.TrimStart(Constants.UrlSchemes.Login);
+            var token = loginUrl.Substring(Constants.UrlSchemes.Login.Length, loginUrl.Length - Constants.UrlSchemes.Login.Length);
             await ThirdPartyLoginHelper.OnMessageAsync(token);
         }
     }
