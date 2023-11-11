@@ -21,6 +21,9 @@ public sealed partial class IdleCardPageViewModel
     [Reactive]
     public string? RuningCountTxt { get; set; }
 
+    /// <summary>
+    /// 用户等级信息
+    /// </summary>
     [Reactive]
     public UserIdleInfo? UserIdleInfo { get; set; }
 
