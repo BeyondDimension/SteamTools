@@ -153,11 +153,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             IEnumerable<Badge> badges;
             if (IdleSequentital == IdleSequentital.Mostvalue)
             {
-                badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
+                (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
             }
             else
             {
-                badges = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
+                (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
             }
 
             Badges.Clear();
