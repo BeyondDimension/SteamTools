@@ -2834,7 +2834,10 @@
 	<data name="EnableAccelerationPrompt" xml:space="preserve">
     <value>提示：不要忘了先开加速</value>
   </data>
-	<data name="SteamIdle_UserExpString" xml:space="preserve">
+	<data name="SteamIdle_UserExpString_" xml:space="preserve">
     <value>{0} 级 , {1} 点经验值</value>
+  </data>
+	<data name="SteamIdle_UserNextExpString_" xml:space="preserve">
+    <value>升到 {0} 级还需 {1} 点经验值</value>
   </data>
 </root>

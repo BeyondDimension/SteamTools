@@ -23,7 +23,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
         this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
         this.IdleManualRunNext = ReactiveCommand.Create(ManualRunNext);
-        this.LoginSteamCommand = ReactiveCommand.Create(LoginSteam);
+        this.LoginSteamCommand = ReactiveCommand.Create(async () =>
+        {
+            await LoginSteam();
+            await SteamAppsSort();
+        });
     }
 
     public override void Activation()

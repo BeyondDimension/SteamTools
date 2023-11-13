@@ -6876,9 +6876,18 @@ namespace BD.WTTS.Client.Resources {
         /// <summary>
         ///   查找类似 {0} 级 , {1} 点经验值 的本地化字符串。
         /// </summary>
-        public static string SteamIdle_UserExpString {
+        public static string SteamIdle_UserExpString_ {
             get {
-                return ResourceManager.GetString("SteamIdle_UserExpString", resourceCulture);
+                return ResourceManager.GetString("SteamIdle_UserExpString_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 升到 {0} 级还需 {1} 点经验值 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_UserNextExpString_ {
+            get {
+                return ResourceManager.GetString("SteamIdle_UserNextExpString_", resourceCulture);
             }
         }
         
