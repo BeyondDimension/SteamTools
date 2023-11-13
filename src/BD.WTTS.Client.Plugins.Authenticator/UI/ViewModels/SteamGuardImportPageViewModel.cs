@@ -112,7 +112,7 @@ public sealed partial class SteamGuardImportPageViewModel : ViewModelBase
                 DeviceId = deviceId,
             };
 
-            await AuthenticatorHelper.SaveAuthenticator(new AuthenticatorDTO()
+            await AuthenticatorHelper.SaveAuthenticator(new AuthenticatorDTO
             {
                 Name = $"(Steam){ImportAuthNewName}",
                 Value = auth,

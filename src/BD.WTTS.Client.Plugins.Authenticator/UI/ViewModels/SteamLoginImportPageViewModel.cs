@@ -219,7 +219,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
             {
                 _enrollState.AccessToken = _steamLoginState.AccessToken;
                 _enrollState.RefreshToken = _steamLoginState.RefreshToken;
-                _enrollState.SteamId = _steamLoginState.SteamId.ToString();
+                _enrollState.SteamId = (long)_steamLoginState.SteamId;
 
                 //已有令牌情况下执行替换令牌逻辑
                 if (_enrollState.ReplaceAuth)

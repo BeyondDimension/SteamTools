@@ -15,9 +15,7 @@
     <StackPanel Spacing="{StaticResource SettingsSpacing}">
         <TextBlock
             Margin="0,0,0,5"
-            Text="{ReflectionBinding Path=Res.About,
-                                     Mode=OneWay,
-                                     Source={x:Static s:ResourceService.Current}}"
+            Text="{Binding Path=Res.About, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
 
         <spp:OptionsDisplayItem
@@ -140,9 +138,7 @@
                         Margin="12,4,0,0"
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                        Text="{ReflectionBinding Path=Res.Link,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Link, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <ItemsRepeater Margin="0,0,6,6" ItemsSource="{Binding Hyperlinks, Mode=OneTime}">
                         <ItemsRepeater.Layout>
                             <UniformGridLayout MinItemWidth="166" />
@@ -165,9 +161,7 @@
                         Margin="12,4,0,0"
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                        Text="{ReflectionBinding Path=Res.OpenSourceLibrary,
-                                                 Mode=OneWay,
-                                                 Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.OpenSourceLibrary, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <ItemsRepeater Margin="0,0,6,6" ItemsSource="{Binding OSL, Mode=OneTime}">
                         <ItemsRepeater.Layout>
                             <UniformGridLayout MinItemWidth="290" />

@@ -6874,6 +6874,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 {0} 级 , {1} 点经验值 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_UserExpString {
+            get {
+                return ResourceManager.GetString("SteamIdle_UserExpString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam 挂卡 的本地化字符串。
         /// </summary>
         public static string SteamIdleCard {
