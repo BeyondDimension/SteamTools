@@ -276,6 +276,19 @@
                     CommandParameter="www"
                     Content="WEBUI 文件夹" />
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="2">
+                <Label
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="控制台输入" />
+                <TextBox Width="200" Text="{Binding Source={x:Static s:ASFService.Current}, Path=ConsoleLogInput, Mode=TwoWay}" />
+                <Button
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Command="{Binding ShellMessageInput}"
+                    Content="发送" />
+            </StackPanel>
+
             <TextBlock Text="{Binding Source={x:Static s:ASFService.Current}, Path=ConsoleLogText, Mode=TwoWay}" />
         </StackPanel>
     </spp:ContentLoader>

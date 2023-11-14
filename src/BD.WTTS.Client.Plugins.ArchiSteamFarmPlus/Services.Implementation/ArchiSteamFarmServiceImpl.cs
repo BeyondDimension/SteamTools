@@ -45,6 +45,15 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
     public Version CurrentVersion => SharedInfo.Version;
 
+    public void ShellMessageInput(string data)
+    {
+        using (var sw = ASFProcess.StandardInput)
+        {
+            sw.WriteLine(data);
+            sw.Flush();
+        }
+    }
+
     public async Task<bool> StartAsync(string[]? args = null)
     {
         try
@@ -111,16 +120,10 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
                 options.ArgumentList.Add(EncryptionKey);
             }
             ASFProcess = Process.Start(options);
+            ThreadPool.QueueUserWorkItem(ReadOutPutData);
             AppDomain.CurrentDomain.ProcessExit += ExitHandler;
             AppDomain.CurrentDomain.UnhandledException += ExitHandler;
             ASFProcess!.ErrorDataReceived += new DataReceivedEventHandler(ExitHandler);
-            ASFProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-            {
-                if (!string.IsNullOrEmpty(e.Data))
-                    OnConsoleWirteLine?.Invoke(e.Data);
-            });
-
-            ASFProcess.BeginOutputReadLine();
             ASFProcess.BeginErrorReadLine();
             while (!SocketHelper.IsUsePort(CurrentIPCPortValue))
             {
@@ -216,6 +219,64 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
     private void ExitHandler(object? sender, EventArgs eventArgs)
     {
         ASFService.Current.StopASFAsync().GetAwaiter().GetResult();
+    }
+
+    private async void ReadOutPutData(object? obj)
+    {
+        using (StreamReader sr = ASFProcess.StandardOutput)
+        {
+            int readResult;
+            char ch;
+            var len = string.Empty;
+            StringBuilder sb = new();
+            while (true)
+            {
+                Task<int> readAsync = Task.Run(sr.Read);
+
+                await Task.WhenAny(readAsync, Task.Delay(TimeSpan.FromSeconds(3)));
+
+                if (!readAsync.IsCompleted)
+                {
+                    if (sb.Length > 0)
+                    {
+                        len = sb.ToString();
+                        OnConsoleWirteLine?.Invoke(len);
+                        sb.Clear();
+                    }
+                }
+
+                if ((readResult = await readAsync) != -1)
+                {
+                    ch = (char)readResult;
+                    sb.Append(ch);
+
+                    // Note the following common line feed chars:
+                    // \n - UNIX   \r\n - DOS   \r - Mac
+                    if (ch == '\r' || ch == '\n')
+                    {
+                        readResult = sr.Read();
+                        if (readResult != -1)
+                        {
+                            ch = (char)readResult;
+                            if (ch == '\n')
+                            {
+                                sb.Append(ch);
+                                len = sb.ToString();
+                                OnConsoleWirteLine?.Invoke(len);
+                                sb.Clear();
+                            }
+                            else
+                            {
+                                len = sb.ToString();
+                                OnConsoleWirteLine?.Invoke(len);
+                                sb.Clear();
+                                sb.Append(ch);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     #endregion
 

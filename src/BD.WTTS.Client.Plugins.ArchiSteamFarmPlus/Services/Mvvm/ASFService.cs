@@ -33,6 +33,14 @@ public sealed class ASFService : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _ConsoleLogText, value);
     }
 
+    string? _ConsoleLogInput;
+
+    public string? ConsoleLogInput
+    {
+        get => _ConsoleLogInput;
+        set => this.RaiseAndSetIfChanged(ref _ConsoleLogInput, value);
+    }
+
     public IConsoleBuilder ConsoleLogBuilder { get; } = new ConsoleBuilder();
 
     public SourceCache<Bot, string> SteamBotsSourceList;
@@ -72,6 +80,15 @@ public sealed class ASFService : ReactiveObject
             var text = ConsoleLogBuilder.ToString();
             ConsoleLogText = text;
         });
+    }
+
+    public void ShellMessageInput()
+    {
+        if (string.IsNullOrEmpty(ConsoleLogInput))
+        {
+            return;
+        }
+        archiSteamFarmService.ShellMessageInput(ConsoleLogInput);
     }
 
     /// <summary>

@@ -70,6 +70,8 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel
     /// </summary>
     public ICommand OpenASFBrowser { get; }
 
+    public ICommand ShellMessageInput { get; }
+
     private bool _IsRedeemKeyDialogOpen;
 
     public bool IsRedeemKeyDialogOpen

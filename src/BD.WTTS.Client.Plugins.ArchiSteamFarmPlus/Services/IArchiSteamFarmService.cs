@@ -27,6 +27,12 @@ public partial interface IArchiSteamFarmService
     Version CurrentVersion { get; }
 
     /// <summary>
+    /// 控制台输入
+    /// </summary>
+    /// <param name="data"></param>
+    void ShellMessageInput(string data);
+
+    /// <summary>
     /// 启动 ArchiSteamFarm
     /// </summary>
     /// <param name="args"></param>

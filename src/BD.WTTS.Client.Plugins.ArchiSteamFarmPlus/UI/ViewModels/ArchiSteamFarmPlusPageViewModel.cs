@@ -30,6 +30,8 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel : ViewModelBase
 
         OpenASFBrowser = ReactiveCommand.Create<string>(OpenBrowser);
 
+        ShellMessageInput = ReactiveCommand.Create(ShellMessageInput_Click);
+
         RunOrStop = ReactiveCommand.Create(RunOrStopASF);
 
         AddBot = ReactiveCommand.Create(ShowAddBotWindow);
@@ -283,6 +285,8 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel : ViewModelBase
     }
 
     public async void SetEncryptionKey_Click() => await asfService.SetEncryptionKeyAsync();
+
+    public void ShellMessageInput_Click() => ASFService.Current.ShellMessageInput();
 
     public string IPCUrl => asfService.GetIPCUrl();
 }
