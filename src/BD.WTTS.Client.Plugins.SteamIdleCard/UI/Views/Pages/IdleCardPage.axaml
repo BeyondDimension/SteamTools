@@ -91,7 +91,6 @@
                         Spacing="6">
                         <TextBlock FontWeight="SemiBold">
                             <TextBlock.Text>
-
                                 <MultiBinding Converter="{StaticResource StringFormatConverter}">
                                     <CompiledBinding
                                         Mode="OneWay"
@@ -106,7 +105,8 @@
                         <ProgressBar
                             Height="10"
                             Classes="Material"
-                            Value="50" />
+                            Maximum="100"
+                            Value="{Binding UserIdleInfo.NextLevelExpPercentage}" />
 
                         <Border
                             Height="1"
@@ -162,8 +162,8 @@
                         Spacing="6">
                         <Panel>
                             <ProgressBar
-                                Width="100"
-                                Height="100"
+                                Width="80"
+                                Height="80"
                                 Classes="Circle"
                                 Value="60" />
                             <TextBlock
@@ -176,7 +176,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             TextAlignment="Center">
-                            <Run FontSize="36" Text="{Binding IdleGameList.Count}" />
+                            <Run FontSize="24" Text="{Binding IdleGameList.Count}" />
                             <Run Text=" 个游戏可掉落卡牌" />
                         </TextBlock>
                     </StackPanel>
@@ -202,7 +202,10 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="spp:SteamApp">
                                 <Border Margin="5" spp:Animations.EnableAnimations="True">
-                                    <spp:AppItem Title="{Binding DisplayName}" MaxHeight="150">
+                                    <spp:AppItem
+                                        Title="{Binding DisplayName}"
+                                        Width="280"
+                                        MaxHeight="150">
                                         <spp:AppItem.Status>
                                             <Border Classes="Status">
                                                 <Panel>

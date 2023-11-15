@@ -1,6 +1,5 @@
 using BD.WTTS.Properties;
 using BD.WTTS.UI.Views.Pages;
-using BD.WTTS.UI.Views.Windows;
 
 namespace BD.WTTS.Plugins;
 

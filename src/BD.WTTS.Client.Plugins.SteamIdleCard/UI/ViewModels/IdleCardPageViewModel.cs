@@ -2,6 +2,7 @@ using BD.SteamClient.Models;
 using BD.SteamClient.Models.Idle;
 using BD.SteamClient.Services;
 using BD.WTTS.UI.Views.Pages;
+using System.Linq;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -183,28 +184,20 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        var appid_sorts = Enumerable.Empty<int>();
-        switch (IdleSequentital)
+        var apps = Enumerable.Empty<SteamApp>();
+        apps = IdleSequentital switch
         {
-            case IdleSequentital.LeastCards:
-                appid_sorts = Badges.OrderBy(o => o.CardsRemaining).Select(s => s.AppId);
-                break;
-            case IdleSequentital.Mostcards:
-                appid_sorts = Badges.OrderByDescending(o => o.CardsRemaining).Select(s => s.AppId);
-                break;
-            case IdleSequentital.Mostvalue:
-                appid_sorts = Badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => s.AppId);
-                break;
-            default:
-                appid_sorts = Badges.Select(s => s.AppId);
-                break;
-        }
+            IdleSequentital.LeastCards => Badges.OrderBy(o => o.CardsRemaining).Select(s => new SteamApp(s.AppId) { Name = s.AppName }),
+            IdleSequentital.Mostcards => Badges.OrderByDescending(o => o.CardsRemaining).Select(s => new SteamApp(s.AppId) { Name = s.AppName }),
+            IdleSequentital.Mostvalue => Badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => new SteamApp(s.AppId) { Name = s.AppName }),
+            _ => Badges.Select(s => new SteamApp(s.AppId) { Name = s.AppName }),
+        };
 
         //不应该使用 SteamConnectService 的 apps
-        var apps = SteamConnectService.Current.SteamApps.Items
-            .Where(x => appid_sorts.Contains((int)x.AppId))
-            .OrderBy(o => appid_sorts.ToList().FindIndex(x => x == o.AppId))
-            .ToList();
+        //var apps = SteamConnectService.Current.SteamApps.Items
+        //    .Where(x => appid_sorts.Contains((int)x.AppId))
+        //    .OrderBy(o => appid_sorts.ToList().FindIndex(x => x == o.AppId))
+        //    .ToList();
         IdleGameList.Add(apps);
     }
 
@@ -236,7 +229,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             if (IdleRule == IdleRule.OneThenMany)
             {
                 var canIdles = Badges.Where(z => z.MinutesPlayed / 60 >= MinRunTime).Select(s => s.AppId);
-                var multi = IdleGameList.Where(x => canIdles.Contains((int)x.AppId));
+                var multi = IdleGameList.Where(x => canIdles.Contains(x.AppId));
                 if (multi.Count() >= 1)
                 {
                     PauseAutoNext(false);
@@ -251,7 +244,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             else
             {
                 var canIdles = Badges.Where(z => z.MinutesPlayed / 60 < MinRunTime).Select(s => s.AppId);
-                var multi = IdleGameList.Where(x => canIdles.Contains((int)x.AppId));
+                var multi = IdleGameList.Where(x => canIdles.Contains(x.AppId));
                 if (multi.Count() >= 2)
                 {
                     PauseAutoNext(true);
@@ -426,7 +419,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             CancellationTokenSource.Cancel();
             return;
         }
-        if (Badges.Where(x => IdleGameList.Select(s => (int)s.AppId).Contains(x.AppId)).Sum(s => s.CardsRemaining) == 0)
+        if (Badges.Where(x => IdleGameList.Select(s => s.AppId).Contains(x.AppId)).Sum(s => s.CardsRemaining) == 0)
         {
             CancellationTokenSource.Cancel();
             if (IsReloaded == false)
