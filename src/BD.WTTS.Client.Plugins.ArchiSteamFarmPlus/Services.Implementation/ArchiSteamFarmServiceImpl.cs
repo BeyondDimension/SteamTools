@@ -120,9 +120,12 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
                 options.ArgumentList.Add(EncryptionKey);
             }
             ASFProcess = Process.Start(options);
+
+            ASFService.Current.ConsoleLogText = string.Empty;
             ThreadPool.QueueUserWorkItem(ReadOutPutData);
             AppDomain.CurrentDomain.ProcessExit += ExitHandler;
             AppDomain.CurrentDomain.UnhandledException += ExitHandler;
+
             ASFProcess!.ErrorDataReceived += new DataReceivedEventHandler(ExitHandler);
             ASFProcess.BeginErrorReadLine();
             while (!SocketHelper.IsUsePort(CurrentIPCPortValue))
@@ -227,11 +230,12 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         {
             int readResult;
             char ch;
-            var len = string.Empty;
             StringBuilder sb = new();
+            var len = string.Empty;
+
             while (true)
             {
-                Task<int> readAsync = Task.Run(sr.Read);
+                var readAsync = Task.Run(sr.Read);
 
                 await Task.WhenAny(readAsync, Task.Delay(TimeSpan.FromSeconds(3)));
 
@@ -287,7 +291,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         ReadLineTask?.TrySetResult("");
         if (ASFProcess != null)
         {
-            await webApiService.ASF.Exit();
+            await Task.WhenAny(webApiService.ASF.Exit(), Task.Delay(TimeSpan.FromSeconds(3)));
             ASFProcess.Kill();
             ASFProcess.Dispose();
             ASFProcess = null;
@@ -407,9 +411,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         {
             if (_currentIpcPortValue == default)
             {
-                _currentIpcPortValue = ASFSettings.IPCPortId.Value != default(int)
-                    ? ASFSettings.IPCPortId.Value
-                    : ASFSettings.DefaultIPCPortIdValue;
+                _currentIpcPortValue = ASFSettings.IPCPortId.Value;
 
                 if (ASFSettings.IPCPortOccupiedRandom.Value)
                 {

@@ -13,16 +13,16 @@ static class SharedInfo
         return dirPath;
     }
 
-    private static string _ASFExecuteFilePath = ASFSettings.ArchiSteamFarmExePath.Value ?? string.Empty;
+    private static string ASFSettingsExecuteFilePath { get { return ASFSettings.ArchiSteamFarmExePath.Value ?? string.Empty; } }
 
     internal static string ASFExecuteFilePath
     {
         get
         {
-            if (!string.IsNullOrEmpty(_ASFExecuteFilePath) && File.Exists(_ASFExecuteFilePath))
+            if (!string.IsNullOrEmpty(ASFSettingsExecuteFilePath) && File.Exists(ASFSettingsExecuteFilePath))
             {
-                Version = new Version(FileVersionInfo.GetVersionInfo(_ASFExecuteFilePath)?.FileVersion ?? string.Empty);
-                return _ASFExecuteFilePath;
+                Version = new Version(FileVersionInfo.GetVersionInfo(ASFSettingsExecuteFilePath)?.FileVersion ?? string.Empty);
+                return ASFSettingsExecuteFilePath;
             }
             return string.Empty;
         }
@@ -32,7 +32,7 @@ static class SharedInfo
     {
         get
         {
-            return Path.GetDirectoryName(_ASFExecuteFilePath);
+            return Path.GetDirectoryName(ASFSettingsExecuteFilePath) ?? string.Empty;
         }
     }
 

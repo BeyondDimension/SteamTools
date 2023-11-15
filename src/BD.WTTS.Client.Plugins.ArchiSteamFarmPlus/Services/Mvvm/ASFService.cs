@@ -110,6 +110,7 @@ public sealed class ASFService : ReactiveObject
         if (!isOk)
         {
             if (showToast) Toast.Show(ToastIcon.Error, AppResources.ASF_Stoped, ToastLength.Short);
+            IsASFRunOrStoping = false;
             return;
         }
 
