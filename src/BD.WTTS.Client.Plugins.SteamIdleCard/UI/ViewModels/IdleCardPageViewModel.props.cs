@@ -37,7 +37,13 @@ public sealed partial class IdleCardPageViewModel
     /// 用户徽章和卡片数据
     /// </summary>
     [Reactive]
-    private ObservableCollection<Badge> Badges { get; set; } = new();
+    public ObservableCollection<Badge> Badges { get; set; } = new();
+
+    [Reactive]
+    public int TotalCardsRemaining { get; set; }
+
+    [Reactive]
+    public decimal TotalCardsAvgPrice { get; set; }
 
     /// <summary>
     /// 当前挂卡游戏 

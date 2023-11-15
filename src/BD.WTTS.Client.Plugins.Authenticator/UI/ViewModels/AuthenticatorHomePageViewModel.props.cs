@@ -7,11 +7,17 @@ public partial class AuthenticatorHomePageViewModel
     [Reactive]
     public bool IsLoading { get; set; }
 
-    [Reactive]
-    public ObservableCollection<AuthenticatorItemModel> Auths { get; set; }
+    private SourceCache<AuthenticatorItemModel, ushort> AuthSource;
 
-    [Reactive]
-    public AuthenticatorItemModel? SelectedAuth { get; set; }
+    private readonly ReadOnlyObservableCollection<AuthenticatorItemModel>? _Auths;
+
+    public ReadOnlyObservableCollection<AuthenticatorItemModel>? Auths => _Auths;
+
+    //[Reactive]
+    //public ObservableCollection<AuthenticatorItemModel> Auths { get; set; } = [];
+
+    //[Reactive]
+    //public AuthenticatorItemModel? SelectedAuth { get; set; }
 
     [Reactive]
     public bool HasPasswordEncrypt { get; set; } = false;
@@ -21,4 +27,7 @@ public partial class AuthenticatorHomePageViewModel
 
     [Reactive]
     public bool IsVerificationPass { get; set; }
+
+    [Reactive]
+    public string? SearchText { get; set; }
 }

@@ -165,11 +165,14 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             }
 
             Badges.Clear();
-
+            TotalCardsRemaining = 0;
+            TotalCardsAvgPrice = 0;
             foreach (var b in badges)
             {
                 if (b.CardsRemaining != 0)// 过滤可掉落卡片的游戏
                 {
+                    TotalCardsAvgPrice += b.RegularAvgPrice * b.CardsRemaining;
+                    TotalCardsRemaining += b.CardsRemaining;
                     Badges.Add(b);
                 }
             }
@@ -181,25 +184,23 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         }
 
         var appid_sorts = Enumerable.Empty<int>();
-        if (IdleSequentital == IdleSequentital.Default)
-            appid_sorts = Badges.Select(s => s.AppId);
-        else
+        switch (IdleSequentital)
         {
-            switch (IdleSequentital)
-            {
-                case IdleSequentital.LeastCards:
-                    appid_sorts = Badges.OrderBy(o => o.CardsRemaining).Select(s => s.AppId);
-                    break;
-                case IdleSequentital.Mostcards:
-                    appid_sorts = Badges.OrderByDescending(o => o.CardsRemaining).Select(s => s.AppId);
-                    break;
-                case IdleSequentital.Mostvalue:
-                    appid_sorts = Badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => s.AppId);
-                    break;
-                default:
-                    break;
-            }
+            case IdleSequentital.LeastCards:
+                appid_sorts = Badges.OrderBy(o => o.CardsRemaining).Select(s => s.AppId);
+                break;
+            case IdleSequentital.Mostcards:
+                appid_sorts = Badges.OrderByDescending(o => o.CardsRemaining).Select(s => s.AppId);
+                break;
+            case IdleSequentital.Mostvalue:
+                appid_sorts = Badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => s.AppId);
+                break;
+            default:
+                appid_sorts = Badges.Select(s => s.AppId);
+                break;
         }
+
+        //不应该使用 SteamConnectService 的 apps
         var apps = SteamConnectService.Current.SteamApps.Items
             .Where(x => appid_sorts.Contains((int)x.AppId))
             .OrderBy(o => appid_sorts.ToList().FindIndex(x => x == o.AppId))

@@ -5,6 +5,9 @@ using BD.SteamClient.Services;
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
 using AngleSharp.Text;
+using Avalonia.Controls;
+using SteamKit2.Authentication;
+using BD.WTTS.UI.Views.Controls;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -17,23 +20,56 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
     string? _currentPassword;
 
     //DateTime _initializeTime;
+    readonly Dictionary<string, string[]> dictPinYinArray = new();
+
+    Func<AuthenticatorItemModel, bool> PredicateName(string? serachText)
+    {
+        return s =>
+        {
+            if (s == null)
+                return false;
+            if (string.IsNullOrEmpty(serachText))
+                return true;
+            if (s.AuthName.Contains(serachText, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+            var pinyinArray = Pinyin.GetPinyin(s.AuthName, dictPinYinArray);
+            if (Pinyin.SearchCompare(serachText, s.AuthName, pinyinArray))
+            {
+                return true;
+            }
+
+            return false;
+        };
+    }
 
     public AuthenticatorHomePageViewModel()
     {
-        Auths = new();
+        AuthSource = new(t => t.AuthData.Id);
 
-        this.WhenAnyValue(v => v.Auths)
-            .Subscribe(items => items?
-                .ToObservableChangeSet()
-                .AutoRefresh(x => x.IsSelected)
-                .WhenPropertyChanged(x => x.IsSelected, false)
-                .Subscribe(s =>
-                {
-                    if (s.Value)
-                        SelectedAuth = s.Sender;
-                    else
-                        SelectedAuth = null;
-                }));
+        //this.WhenAnyValue(v => v.Auths)
+        //    .Subscribe(items => items?
+        //        .ToObservableChangeSet()
+        //        .AutoRefresh(x => x.IsSelected)
+        //        .WhenPropertyChanged(x => x.IsSelected, false)
+        //        .Subscribe(s =>
+        //        {
+        //            if (s.Value)
+        //                SelectedAuth = s.Sender;
+        //            else
+        //                SelectedAuth = null;
+        //        }));
+
+        var textFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
+
+        this.AuthSource
+                .Connect()
+                .Filter(textFilter)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Sort(SortExpressionComparer<AuthenticatorItemModel>.Ascending(x => x.AuthData.Index).ThenBy(x => x.AuthName))
+                .Bind(out _Auths)
+                .Subscribe();
     }
 
     public async void Initialize()
@@ -50,7 +86,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
         //_initializeTime = DateTime.Now;
 
-        Auths.Clear();
+        AuthSource.Clear();
 
         var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
         if (sourceList.Any_Nullable())
@@ -78,10 +114,10 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
             foreach (var item in list)
             {
-                Auths.Add(new AuthenticatorItemModel(item));
+                AuthSource.AddOrUpdate(new AuthenticatorItemModel(item));
             }
 
-            var trayMenus = Auths.Select(s => new TrayMenuItem
+            var trayMenus = AuthSource.Items.Select(s => new TrayMenuItem
             {
                 Name = s.AuthName,
                 Command = ReactiveCommand.Create(async () =>
@@ -234,7 +270,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
             return;
         }
 
-        Auths.Clear();
+        AuthSource.Clear();
         IsVerificationPass = false;
     }
 
@@ -446,7 +482,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
                     Toast.Show(ToastIcon.Warning, AppResources.Error_DelCloudData);
             }
             AuthenticatorHelper.DeleteAuth(authenticatorItemModel.AuthData);
-            Auths.Remove(authenticatorItemModel);
+            AuthSource.Remove(authenticatorItemModel);
             Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthDelSuccessful);
         }
     }
@@ -569,7 +605,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
             Toast.Show(ToastIcon.Error, AppResources.Auth_Sync_MoveError);
             return;
         }
-        Auths.Move(index, index - 1);
+        //Auths.Move(index, index - 1);
     }
 
     public async Task AuthenticatorIndexMoveDown(object sender)
@@ -590,7 +626,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
             Toast.Show(ToastIcon.Error, AppResources.Auth_Sync_MoveError);
             return;
         }
-        Auths.Move(index, index + 1);
+        //Auths.Move(index, index + 1);
     }
 
     public async Task AuthenticatorIndexSticky(object sender)
@@ -611,9 +647,8 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
             return;
         }
         var tmp = Auths.OrderBy(a => a.AuthData.Index).ToList();
-        Auths.Clear();
-        foreach (var item in tmp)
-            Auths.Add(item);
+        AuthSource.Clear();
+        AuthSource.AddOrUpdate(tmp);
     }
 
     public async Task DefaultExport(object sender)

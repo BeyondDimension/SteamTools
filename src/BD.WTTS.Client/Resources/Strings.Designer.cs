@@ -6874,6 +6874,24 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 剩余 {0} 个游戏 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_RemainingGames_ {
+            get {
+                return ResourceManager.GetString("SteamIdle_RemainingGames_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 挂卡设置 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_Settings {
+            get {
+                return ResourceManager.GetString("SteamIdle_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0} 级 , {1} 点经验值 的本地化字符串。
         /// </summary>
         public static string SteamIdle_UserExpString_ {

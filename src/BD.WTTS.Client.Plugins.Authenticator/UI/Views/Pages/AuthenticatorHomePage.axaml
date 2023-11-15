@@ -162,6 +162,18 @@
     <spp:PageBase.PaneContent>
         <StackPanel Margin="15,20" Spacing="10">
             <TextBlock
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                Text="{Binding Path=Res.Filter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Theme="{StaticResource CaptionTextBlockStyle}" />
+
+            <AutoCompleteBox
+                MinWidth="280"
+                VerticalAlignment="Center"
+                Classes="Search"
+                Text="{Binding SearchText}" />
+
+            <TextBlock
                 Text="{Binding Path=Res.EncryptSettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 Theme="{StaticResource BodyStrongTextBlockStyle}"
                 ToolTip.Tip="{Binding Path=Res.LocalAuth_ProtectionAuth_Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
