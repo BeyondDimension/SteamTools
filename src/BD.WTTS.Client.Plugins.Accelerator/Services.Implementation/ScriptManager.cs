@@ -366,6 +366,11 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         static IApiRsp OK_Script_DeleteSuccess() => ApiRspHelper.Ok(AppResources.Script_DeleteSuccess);
     }
 
+    /// <summary>
+    /// 版本升级 检查数据库 数据 是否正确 不正确删除重新打包缓存文件
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<ScriptDTO>> CheckFiles(IEnumerable<ScriptDTO> list)
     {
         var scripts = list.ToList();
@@ -381,6 +386,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                     File.Delete(cachePath);
                 }
                 await TryReadFileAsync(item, true);
+                //清理 脚本内容 后续 IPC 传递 插件进程读取。
                 item.Content = string.Empty;
                 await scriptRepository.SaveScriptCachePathAsync(item, default);
             }

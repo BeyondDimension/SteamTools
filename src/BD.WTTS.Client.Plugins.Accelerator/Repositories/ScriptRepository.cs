@@ -41,43 +41,17 @@ internal sealed class ScriptRepository : Repository<Script, int>, IScriptReposit
     public async Task SaveScriptCachePathAsync(ScriptDTO item, CancellationToken cancellationToken)
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        const string sql_ =
+        await AttemptAndRetry(async t =>
+        {
+            t.ThrowIfCancellationRequested();
+            const string sql_ =
             $"{SQLStrings.Update}[{Script.TableName}] " +
                 $"set [{Script.ColumnName_CachePath}] = '{{0}}' " +
                 $"where [{Script.ColumnName_Id}] = {{1}}";
-        var sql = string.Format(sql_, item.CachePath, item.LocalId);
-        //var sql =
-        //    SQLStrings.Update +
-        //    "[" + Script.TableName + "]" +
-        //    " set " +
-        //    "[" + Script.ColumnName_Enable + "]" +
-        //    $" = {item.Enable}" +
-        //    " where " +
-        //    "[" + Script.ColumnName_Id + "]" +
-        //    $" = {item.LocalId}";
-        var r = await dbConnection.ExecuteAsync(sql);
-        Console.WriteLine(r);
-        //return r;
-        //await AttemptAndRetry(async t =>
-        //{
-        //    t.ThrowIfCancellationRequested();
-        //    const string sql_ =
-        //    $"{SQLStrings.Update}[{Script.TableName}] " +
-        //        $"set [{Script.ColumnName_CachePath}] = '{{0}}' " +
-        //        $"where [{Script.ColumnName_Id}] = {{1}}";
-        //    var sql = string.Format(sql_, item.CachePath, item.LocalId);
-        //    //var sql =
-        //    //    SQLStrings.Update +
-        //    //    "[" + Script.TableName + "]" +
-        //    //    " set " +
-        //    //    "[" + Script.ColumnName_Enable + "]" +
-        //    //    $" = {item.Enable}" +
-        //    //    " where " +
-        //    //    "[" + Script.ColumnName_Id + "]" +
-        //    //    $" = {item.LocalId}";
-        //    var r = await dbConnection.ExecuteAsync(sql);
-        //    return r;
-        //}, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var sql = string.Format(sql_, item.CachePath, item.LocalId);
+            var r = await dbConnection.ExecuteAsync(sql);
+            return r;
+        }, cancellationToken: cancellationToken).ConfigureAwait(false);
     }
 
     public async Task<IList<Script>> GetAllAsync(CancellationToken cancellationToken)
