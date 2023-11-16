@@ -2,6 +2,7 @@ using BD.SteamClient.Models;
 using BD.SteamClient.Models.Idle;
 using BD.SteamClient.Services;
 using BD.WTTS.UI.Views.Pages;
+using System;
 using System.Linq;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -151,7 +152,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
     private void ChangeRunTxt()
     {
-        var count = IdleGameList.Count(x => x.Process != null);
+        var count = IdleGameList.Count(x => x.App.Process != null);
         RuningCountTxt = Strings.Idle_RuningCount.Format(count, IdleGameList.Count);
         RunState = count > 0;
     }
@@ -161,14 +162,14 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         try
         {
             IEnumerable<Badge> badges;
-            if (IdleSequentital == IdleSequentital.Mostvalue)
-            {
-                (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
-            }
-            else
-            {
-                (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
-            }
+            //if (IdleSequentital == IdleSequentital.Mostvalue)
+            //{
+            (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
+            //}
+            //else
+            //{
+            //    (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
+            //}
 
             Badges.Clear();
             TotalCardsRemaining = 0;
@@ -189,13 +190,13 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        var apps = Enumerable.Empty<SteamApp>();
+        var apps = Enumerable.Empty<IdleApp>();
         apps = IdleSequentital switch
         {
-            IdleSequentital.LeastCards => Badges.OrderBy(o => o.CardsRemaining).Select(s => new SteamApp(s.AppId) { Name = s.AppName }),
-            IdleSequentital.Mostcards => Badges.OrderByDescending(o => o.CardsRemaining).Select(s => new SteamApp(s.AppId) { Name = s.AppName }),
-            IdleSequentital.Mostvalue => Badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => new SteamApp(s.AppId) { Name = s.AppName }),
-            _ => Badges.Select(s => new SteamApp(s.AppId) { Name = s.AppName }),
+            IdleSequentital.LeastCards => Badges.OrderBy(o => o.CardsRemaining).Select(s => new IdleApp(s)),
+            IdleSequentital.Mostcards => Badges.OrderByDescending(o => o.CardsRemaining).Select(s => new IdleApp(s)),
+            IdleSequentital.Mostvalue => Badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => new IdleApp(s)),
+            _ => Badges.Select(s => new IdleApp(s)),
         };
 
         //不应该使用 SteamConnectService 的 apps
@@ -233,7 +234,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         {
             if (IdleRule == IdleRule.OneThenMany)
             {
-                var canIdles = Badges.Where(z => z.MinutesPlayed / 60 >= MinRunTime).Select(s => s.AppId);
+                var canIdles = Badges.Where(z => z.HoursPlayed >= MinRunTime).Select(s => s.AppId);
                 var multi = IdleGameList.Where(x => canIdles.Contains(x.AppId));
                 if (multi.Count() >= 1)
                 {
@@ -248,7 +249,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             }
             else
             {
-                var canIdles = Badges.Where(z => z.MinutesPlayed / 60 < MinRunTime).Select(s => s.AppId);
+                var canIdles = Badges.Where(z => z.HoursPlayed < MinRunTime).Select(s => s.AppId);
                 var multi = IdleGameList.Where(x => canIdles.Contains(x.AppId));
                 if (multi.Count() >= 2)
                 {
@@ -279,13 +280,13 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// 单独运行游戏
     /// </summary>
     /// <param name="item"></param>
-    private void StartSoloIdle(SteamApp item)
+    private void StartSoloIdle(IdleApp item)
     {
         SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
         if (runState == null)
         {
-            item.StartSteamAppProcess();
-            SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item);
+            item.App.StartSteamAppProcess();
+            SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item.App);
         }
         else
         {
@@ -295,7 +296,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             }
             else
             {
-                item.Process = runState.Process;
+                item.App.Process = runState.Process;
             }
         }
     }
@@ -309,14 +310,14 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             if (badge == null)
                 continue;
 
-            if (badge.MinutesPlayed / 60 >= MinRunTime)
-                StopSoloIdle(item);
+            if (badge.HoursPlayed >= MinRunTime)
+                StopSoloIdle(item.App);
 
-            if (badge.MinutesPlayed / 60 < MinRunTime && IdleGameList.Count(x => x.Process != null) < MaxIdleCount)
+            if (badge.HoursPlayed < MinRunTime && IdleGameList.Count(x => x.App.Process != null) < MaxIdleCount)
                 StartSoloIdle(item);
         }
 
-        if (!IdleGameList.Any(x => x.Process != null))
+        if (!IdleGameList.Any(x => x.App.Process != null))
             StartIdle();
 
     }
@@ -333,12 +334,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             {
                 runState.Process?.KillEntireProcessTree();
                 SteamConnectService.Current.RuningSteamApps.TryRemove(item.AppId, out var remove);
-                item.Process = null;
+                item.App.Process = null;
             }
             else
             {
-                item.Process = null;
-                SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item);
+                item.App.Process = null;
+                SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item.App);
             }
         }
     }

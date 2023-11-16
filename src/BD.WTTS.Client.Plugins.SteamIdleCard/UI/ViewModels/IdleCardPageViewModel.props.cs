@@ -34,13 +34,16 @@ public sealed partial class IdleCardPageViewModel
     /// 正在挂卡游戏
     /// </summary>
     [Reactive]
-    public ObservableCollection<SteamApp> IdleGameList { get; set; } = new();
+    public ObservableCollection<IdleApp> IdleGameList { get; set; } = new();
 
     /// <summary>
     /// 用户徽章和卡片数据
     /// </summary>
     [Reactive]
     public ObservableCollection<Badge> Badges { get; set; } = new();
+
+    [Reactive]
+    public TimeSpan IdleTime { get; set; }
 
     [Reactive]
     public int TotalCardsRemaining { get; set; }
@@ -52,7 +55,7 @@ public sealed partial class IdleCardPageViewModel
     /// 当前挂卡游戏 
     /// </summary>
     [Reactive]
-    public SteamApp? CurrentIdle { get; set; }
+    public IdleApp? CurrentIdle { get; set; }
 
     /// <summary>
     /// 挂卡规则
