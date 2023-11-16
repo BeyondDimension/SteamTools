@@ -205,7 +205,8 @@
                                     <spp:AppItem
                                         Title="{Binding DisplayName}"
                                         Width="280"
-                                        MaxHeight="150">
+                                        MaxHeight="150"
+                                        Description="{Binding AppId}">
                                         <spp:AppItem.Status>
                                             <Border Classes="Status">
                                                 <Panel>

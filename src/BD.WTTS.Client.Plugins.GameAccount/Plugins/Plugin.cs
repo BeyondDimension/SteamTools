@@ -50,4 +50,10 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     {
         yield return GetConfiguration<GameAccountSettings_>(directoryExists);
     }
+
+    public override ValueTask OnInitializeAsync()
+    {
+        IViewModelManager.Instance.Get<GameAccountPageViewModel>();
+        return default;
+    }
 }

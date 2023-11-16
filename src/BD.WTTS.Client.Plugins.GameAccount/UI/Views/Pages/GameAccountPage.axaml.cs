@@ -11,7 +11,8 @@ public partial class GameAccountPage : PageBase<GameAccountPageViewModel>
     public GameAccountPage()
     {
         InitializeComponent();
-        DataContext ??= new GameAccountPageViewModel();
+        this.SetViewModel<GameAccountPageViewModel>(true);
+        //DataContext ??= new GameAccountPageViewModel();
 
         //this.WhenActivated(disposable =>
         //{

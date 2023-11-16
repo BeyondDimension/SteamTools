@@ -82,7 +82,7 @@ public partial interface IPlugin
     ValueTask OnPeerConnected(bool isReconnected);
 
     /// <summary>
-    /// 带参数启动时执行
+    /// 解析程序带参数启动时执行指令
     /// </summary>
     /// <returns></returns>
     ValueTask OnCommandRun(params string[] commandParams);
