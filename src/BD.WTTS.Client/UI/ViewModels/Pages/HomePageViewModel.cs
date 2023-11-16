@@ -35,6 +35,12 @@ public sealed class HomePageViewModel : TabItemViewModel
 
         NavgationToMenuPageCommand = ReactiveCommand.Create<TabItemViewModel>(NavgationToMenuPage);
 
+        //GetServerContent();
+    }
+
+    public override void Activation()
+    {
+        base.Activation();
         GetServerContent();
     }
 

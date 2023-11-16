@@ -46,7 +46,7 @@
         <StackPanel />
     </spp:PageBase.PaneContent>
 
-    <spp:ContentLoader IsLoading="False">
+    <spp:ContentLoader IsLoading="{Binding IsLoaing}">
         <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,*">
             <spp:OptionsDisplayItem
                 Expands="True"
@@ -89,7 +89,7 @@
                         VerticalAlignment="Center"
                         Orientation="Vertical"
                         Spacing="6">
-                        <TextBlock FontWeight="SemiBold">
+                        <TextBlock Margin="0,6,0,0" FontWeight="SemiBold">
                             <TextBlock.Text>
                                 <MultiBinding Converter="{StaticResource StringFormatConverter}">
                                     <CompiledBinding
@@ -104,6 +104,7 @@
                         </TextBlock>
                         <ProgressBar
                             Height="10"
+                            Margin="0,0,0,6"
                             Classes="Material"
                             Maximum="100"
                             Value="{Binding UserIdleInfo.NextLevelExpPercentage}" />

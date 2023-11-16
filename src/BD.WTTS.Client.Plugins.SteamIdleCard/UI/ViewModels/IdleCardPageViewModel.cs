@@ -26,8 +26,13 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         this.IdleManualRunNext = ReactiveCommand.Create(ManualRunNext);
         this.LoginSteamCommand = ReactiveCommand.Create(async () =>
         {
-            await LoginSteam();
-            await SteamAppsSort();
+            if (!IsLoaing)
+            {
+                IsLoaing = true;
+                await LoginSteam();
+                await SteamAppsSort();
+                IsLoaing = false;
+            }
         });
     }
 

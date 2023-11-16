@@ -187,15 +187,16 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 
     //public async override void Activation()
     //{
-    //    if (IsFirstActivation)
-    //    {
-    //        if (UISettings.DoNotShowMessageBoxs.Value?.Contains(MessageBox.DontPromptType.Donate) == false)
-    //        {
-    //            //INotificationService.Instance.Notify("如果你觉得 Watt Toolkit 好用，你可以考虑给我们一些捐助以支持我们继续开发，谢谢！", NotificationType.Message);
-    //            await MessageBox.ShowAsync("如果你觉得 Watt Toolkit 好用，你可以考虑给我们一些捐助以支持我们继续开发，谢谢！", button: MessageBox.Button.OK,
-    //                rememberChooseKey: MessageBox.DontPromptType.Donate);
-    //        }
-    //    }
+    //    //if (IsFirstActivation)
+    //    //{
+    //    //    if (UISettings.DoNotShowMessageBoxs.Value?.Contains(MessageBox.DontPromptType.Donate) == false)
+    //    //    {
+    //    //        //INotificationService.Instance.Notify("如果你觉得 Watt Toolkit 好用，你可以考虑给我们一些捐助以支持我们继续开发，谢谢！", NotificationType.Message);
+    //    //        await MessageBox.ShowAsync("如果你觉得 Watt Toolkit 好用，你可以考虑给我们一些捐助以支持我们继续开发，谢谢！", button: MessageBox.Button.OK,
+    //    //            rememberChooseKey: MessageBox.DontPromptType.Donate);
+    //    //    }
+    //    //}
+
     //    base.Activation();
     //}
 

@@ -52,6 +52,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
             }
             Task2.InBackground(async () =>
             {
+                IViewModelManager.Instance.Get<HomePageViewModel>().GetServerContent();
                 await AdvertiseService.Current.RefrshAdvertiseAsync();
                 NoticeService.Current.GetNewsAsync();
             });
