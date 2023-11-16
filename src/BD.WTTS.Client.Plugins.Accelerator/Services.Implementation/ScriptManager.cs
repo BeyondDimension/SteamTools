@@ -372,9 +372,16 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         foreach (var item in list)
         {
             //检查缓存文件夹如果不是  IScriptManager.DirName_Build 替换成 IScriptManager.DirName_Build 开头
-            if (!item.CachePath.StartsWith($"{IScriptManager.DirName_Build}/"))
+            if (!item.CachePath.StartsWith($"{IScriptManager.DirName_Build}{Path.DirectorySeparatorChar}"))
             {
                 item.CachePath = Path.Combine(IScriptManager.DirName_Build, item.FileName!);
+                var cachePath = Path.Combine(Plugin.Instance.CacheDirectory, item.CachePath);
+                if (File.Exists(cachePath))
+                {
+                    File.Delete(cachePath);
+                }
+                await TryReadFileAsync(item, true);
+                item.Content = string.Empty;
                 await scriptRepository.SaveScriptCachePathAsync(item, default);
             }
             if (!CheckFile(item))
@@ -405,8 +412,9 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
     /// 修改为仅尝试判断文件是否存在
     /// </summary>
     /// <param name="item"></param>
+    /// <param name="isReadContent"></param>
     /// <returns></returns>
-    public async Task<ScriptDTO> TryReadFileAsync(ScriptDTO item)
+    public async Task<ScriptDTO> TryReadFileAsync(ScriptDTO item, bool isReadContent = false)
     {
         var cachePath = Path.Combine(Plugin.Instance.CacheDirectory, item.CachePath);
         if (File.Exists(cachePath))
@@ -419,7 +427,10 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             var infoPath = Path.Combine(Plugin.Instance.AppDataDirectory, item.FilePath);
             if (File.Exists(infoPath))
             {
-                //item.Content = File.ReadAllText(infoPath);
+                if (isReadContent)
+                {
+                    item.Content = File.ReadAllText(infoPath);
+                }
                 if (!await BuildScriptAsync(item, fileInfo, item.IsCompile))
                 {
                     toast.Show(ToastIcon.Error, AppResources.Script_ReadFileError_.Format(item.Name));
