@@ -40,14 +40,14 @@ else
         fi
     }
     certutil_Init() {
-        certutil -d sql:$HOME/.pki/nssdb -L
+        certutil -d $HOME/.pki/nssdb -L
         ret=$?
         if [ $ret -ne 0 ]; then
-            echo "即将初始化 certutil sql:\$HOME/.pki/nssdb"
-            mkdir -p sql:$HOME/.pki
-            mkdir -p sql:$HOME/.pki/nssdb
-            chmod 700 sql:$HOME/.pki/nssdb
-            certutil -d sql:$HOME/.pki/nssdb -N --empty-password
+            echo "即将初始化 certutil \$HOME/.pki/nssdb"
+            mkdir -p $HOME/.pki
+            mkdir -p $HOME/.pki/nssdb
+            chmod 700 $HOME/.pki/nssdb
+            certutil -d $HOME/.pki/nssdb -N --empty-password
         else
             echo "certutil nssdb 正常"
         fi

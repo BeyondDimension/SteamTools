@@ -23,7 +23,7 @@ namespace BD.WTTS.Services.Implementation
                 if (cert == null)
                     return false;
                 //退出码 404 500 被使用
-                var shellStr = $"CERT_NAME=\"{CertificateConstants.CertificateName}\"; CERT_RESULT=$(certutil -L -d sql:$HOME/.pki/nssdb | grep \"$CERT_NAME\"); if [ -n \"$CERT_RESULT\" ]; then echo \"证书 '$CERT_NAME' 存在。\"; exit 200; else echo \"证书 '$CERT_NAME' 不存在。\"; exit 10; fi";
+                var shellStr = $"CERT_NAME=\"{CertificateConstants.CertificateName}\"; CERT_RESULT=$(certutil -L -d $HOME/.pki/nssdb | grep \"$CERT_NAME\"); if [ -n \"$CERT_RESULT\" ]; then echo \"证书 '$CERT_NAME' 存在。\"; exit 200; else echo \"证书 '$CERT_NAME' 不存在。\"; exit 10; fi";
                 var p = Process.Start(Process2.BinBash, new string[] { "-c", shellStr });
                 p.WaitForExit();
                 return p.ExitCode == 200;
@@ -37,20 +37,20 @@ namespace BD.WTTS.Services.Implementation
 
         public bool? TrustRootCertificateAsync(string cerPath)
         {
-            // 使用  Certutil  NSS 工具 添加到 sql:$HOME/.pki/nssdb Chrome 信任此储存区
+            // 使用  Certutil  NSS 工具 添加到 $HOME/.pki/nssdb Chrome 信任此储存区
             Process.Start(Process2.BinBash, new string[] {
                         "-c",
-                        $"{Certutil} -A -d sql:$HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\" -t C,, -i \"{cerPath}\""
+                        $"{Certutil} -A -d $HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\" -t C,, -i \"{cerPath}\""
                     }).WaitForExit();
             return RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "-ceri", CertificateConstants.AppDataDirectory }) == 0;
         }
 
         public void RemoveCertificate(byte[] certificate2)
         {
-            // 使用  Certutil  NSS 工具 从 sql:$HOME/.pki/nssdb 中删除证书
+            // 使用  Certutil  NSS 工具 从 $HOME/.pki/nssdb 中删除证书
             Process.Start(Process2.BinBash, new string[] {
                         "-c",
-                        $"{Certutil} -D -d sql:$HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\""
+                        $"{Certutil} -D -d $HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\""
                     }).WaitForExit();
             RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "-cerd", CertificateConstants.AppDataDirectory });
         }
