@@ -42,19 +42,28 @@ Kill_Process() {
 }
 Kill_Process
 
-zenity --question --text="是否删除用户数据" --width=400
+zenity --question --text="是否删除证书?" --width=400
 # 获取上一个命令的退出码
-response=$?
+delCer=$?
 
-if [ $response -eq 0 ]; then
-    rm -rfq "$AppData" 2>/dev/null
-    rm -rfq "$AppData_t" 2>/dev/null
+if [ $delCer -eq 0 ]; then
+    certutil -D -d $HOME/.pki/nssdb -n "SteamTools"
+fi
+
+zenity --question --text="是否删除用户数据?" --width=400
+# 获取上一个命令的退出码
+delUserData=$?
+
+if [ $delUserData -eq 0 ]; then
+    rm -rf $AppData 2>/dev/null
+    rm -rf $AppData_t 2>/dev/null
+    certutil -D -d $HOME/.pki/nssdb -n "SteamTools"
 else
     echo "保留用户数据方便下次安装。"
     echo "如需删除可手动删除该目录:$AppData 或者 $AppData_t"
 fi
-rm -rfq "$Cache" 2>/dev/null
-rm -rfq "$Cache_t" 2>/dev/null
-rm -rfq "$base_path" 2>/dev/null
-rm -rfq "$HOME/Desktop/Watt Toolkit.desktop" 2>/dev/null
+rm -rf $Cache 2>/dev/null
+rm -rf $Cache_t 2>/dev/null
+rm -rf $base_path 2>/dev/null
+rm -rf "$HOME/Desktop/Watt Toolkit.desktop" 2>/dev/null
 zenity --info --text="卸载完成!" --width=300
