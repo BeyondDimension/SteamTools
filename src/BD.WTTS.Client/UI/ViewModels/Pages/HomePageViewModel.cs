@@ -21,7 +21,7 @@ public sealed class HomePageViewModel : TabItemViewModel
     public ObservableCollection<AdvertisementDTO> NavigationBanners { get; set; }
 
     [Reactive]
-    public ObservableCollection<ShopRecommendGoodItem> Shops { get; set; }
+    public ObservableCollection<List<ShopRecommendGoodItem>> Shops { get; set; }
 
     public ICommand NavgationToMenuPageCommand { get; }
 
@@ -31,7 +31,7 @@ public sealed class HomePageViewModel : TabItemViewModel
         Articles = new ObservableCollection<ArticleItemDTO>() { null, null, null };
 #pragma warning restore CS8625 // 无法将 null 字面量转换为非 null 的引用类型。
         NavigationBanners = new ObservableCollection<AdvertisementDTO>();
-        Shops = new ObservableCollection<ShopRecommendGoodItem>();
+        Shops = new ObservableCollection<List<ShopRecommendGoodItem>>();
 
         NavgationToMenuPageCommand = ReactiveCommand.Create<TabItemViewModel>(NavgationToMenuPage);
 
@@ -56,7 +56,11 @@ public sealed class HomePageViewModel : TabItemViewModel
         if (result2.IsSuccess && result2.Content != null)
         {
             Shops.Clear();
-            Shops.Add(result2.Content);
+            var data = result2.Content
+                .Select((v, i) => new { v, i })
+                .GroupBy(x => x.i / 4)
+                .Select(g => g.Select(x => x.v).ToList());
+            Shops.Add(data);
         }
 
         var result3 = await Instance.Advertisement.All(AdvertisementType.DeskTopHomeBanner);

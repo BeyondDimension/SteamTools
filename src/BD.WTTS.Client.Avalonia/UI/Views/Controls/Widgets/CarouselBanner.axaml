@@ -31,7 +31,7 @@
     </UserControl.Styles>
     <Border
         BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-        BorderThickness="1"
+        BorderThickness="0"
         ClipToBounds="True"
         CornerRadius="8">
         <Panel>

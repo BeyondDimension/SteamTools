@@ -29,6 +29,12 @@ namespace BD.WTTS.UI.Views.Controls
         public static readonly StyledProperty<IDataTemplate?> ItemTemplateProperty =
             Carousel.ItemTemplateProperty.AddOwner<CarouselBanner>();
 
+        ///// <summary>
+        ///// Defines the <see cref="GroupView"/> property.
+        ///// </summary>
+        //public static readonly StyledProperty<bool> GroupViewProperty =
+        //    AvaloniaProperty.Register<CarouselBanner, bool>(nameof(GroupView), true);
+
         /// <summary>
         ///  Gets or sets the items to display.
         /// </summary>
@@ -64,6 +70,15 @@ namespace BD.WTTS.UI.Views.Controls
             get => GetValue(AutoScrollIntervalProperty);
             set => SetValue(AutoScrollIntervalProperty, value);
         }
+
+        ///// <summary>
+        ///// GroupView
+        ///// </summary>
+        //public bool GroupView
+        //{
+        //    get => GetValue(GroupViewProperty);
+        //    set => SetValue(GroupViewProperty, value);
+        //}
 
         private Timer? _timer;
 
