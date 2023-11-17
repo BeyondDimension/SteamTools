@@ -18,6 +18,8 @@ public sealed class EnumLocalizationNameConverter : IValueConverter
             else
             {
                 text = Strings.ResourceManager.GetString(desc, Strings.Culture);
+                if (string.IsNullOrEmpty(text))
+                    return desc;
             }
 
             if (!string.IsNullOrEmpty(text))

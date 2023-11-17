@@ -2841,9 +2841,13 @@
     <value>升到 {0} 级还需 {1} 点经验值</value>
   </data>
 	<data name="SteamIdle_RemainingGames_" xml:space="preserve">
-    <value>剩余 {0} 个游戏</value>
+    <value>{0} 个游戏可掉落卡牌</value>
   </data>
 	<data name="SteamIdle_Settings" xml:space="preserve">
     <value>挂卡设置</value>
+  </data>
+	<data name="SteamIdle_IdleAppTags_" xml:space="preserve">
+    <value>已游玩 {0} 小时 
+{1} 张剩余卡牌掉落</value>
   </data>
 </root>

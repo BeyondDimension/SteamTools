@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
+    xmlns:spp_enums="using:BD.WTTS.Enums"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
     d:DesignHeight="450"
@@ -18,6 +19,47 @@
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
+    <spp:PageBase.Resources>
+        <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="spp:IdleApp">
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding $parent[spp:PageBase].((spp:IdleCardPageViewModel)DataContext).InstallOrStartAppCommand}"
+                CommandParameter="{Binding App}"
+                IconSource="Play"
+                Text="优先运行此游戏" />
+            <ui:MenuFlyoutSeparator />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding $parent[spp:PageBase].((spp:IdleCardPageViewModel)DataContext).NavAppToSteamViewCommand}"
+                CommandParameter="{Binding App}"
+                Text="{Binding Path=Res.GameList_NavToSteamView, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <ui:MenuFlyoutItem.IconSource>
+                    <ui:PathIconSource Data="{StaticResource Steam}" />
+                </ui:MenuFlyoutItem.IconSource>
+            </ui:MenuFlyoutItem>
+            <ui:MenuFlyoutSubItem Text="{Binding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <ui:MenuFlyoutItem IconSource="Link" Text="{Binding Path=Res.GameList_OpenStoreUrl, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <ui:MenuFlyoutItem
+                    IconSource="Link"
+                    Tag="steamdb"
+                    Text="{Binding Path=Res.GameList_OpenSteamDBUrl, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <ui:MenuFlyoutItem
+                    IconSource="Link"
+                    Tag="steamcardexchange"
+                    Text="{Binding Path=Res.GameList_OpenSteamCardUrl, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </ui:MenuFlyoutSubItem>
+            <ui:MenuFlyoutSeparator />
+            <ui:MenuFlyoutItem
+                Command="{ReflectionBinding $parent[spp:PageBase].((spp:IdleCardPageViewModel)DataContext).AddHideAppListCommand}"
+                CommandParameter="{Binding App}"
+                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                IconSource="Hide"
+                Text="移入挂卡黑名单">
+                <ui:MenuFlyoutItem.IconSource>
+                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Hide}" />
+                </ui:MenuFlyoutItem.IconSource>
+            </ui:MenuFlyoutItem>
+
+        </ui:FAMenuFlyout>
+    </spp:PageBase.Resources>
     <spp:PageBase.ActionContent>
         <StackPanel>
             <!--<Button Command="{Binding IdleRunStartOrStop}" Content="挂卡设置" />-->
@@ -43,7 +85,49 @@
         </StackPanel>
     </spp:PageBase.ActionContent>
     <spp:PageBase.PaneContent>
-        <StackPanel />
+        <StackPanel Margin="15,20" Spacing="10">
+            <TextBlock
+                VerticalAlignment="Center"
+                Text="挂卡规则"
+                Theme="{StaticResource CaptionTextBlockStyle}" />
+            <ComboBox SelectedItem="{Binding Path=IdleRule, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp_enums:IdleRule}}">
+                <ComboBox.Items>
+                    <spp_enums:IdleRule>OnlyOneGame</spp_enums:IdleRule>
+                    <spp_enums:IdleRule>OneThenMany</spp_enums:IdleRule>
+                    <spp_enums:IdleRule>ManyThenOne</spp_enums:IdleRule>
+                </ComboBox.Items>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="spp_enums:IdleRule">
+                        <TextBlock Text="{Binding ., Converter={StaticResource EnumLocalizationNameConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="挂卡顺序" Theme="{StaticResource CaptionTextBlockStyle}" />
+            <ComboBox SelectedItem="{Binding Path=IdleSequentital, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp_enums:IdleSequentital}}">
+                <ComboBox.Items>
+                    <spp_enums:IdleSequentital>Default</spp_enums:IdleSequentital>
+                    <spp_enums:IdleSequentital>LeastCards</spp_enums:IdleSequentital>
+                    <spp_enums:IdleSequentital>Mostcards</spp_enums:IdleSequentital>
+                    <spp_enums:IdleSequentital>Mostvalue</spp_enums:IdleSequentital>
+                </ComboBox.Items>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="spp_enums:IdleSequentital">
+                        <TextBlock Text="{Binding ., Converter={StaticResource EnumLocalizationNameConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ToggleSwitch
+                VerticalAlignment="Center"
+                Classes="NoContent"
+                IsChecked="{Binding IsAutoNextOn, Mode=TwoWay}"
+                OffContent="{Binding Path=Res.Idle_StopAutoNext, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                OnContent="{Binding Path=Res.Idle_OpenAutoNext, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+
+            <TextBlock Text="游戏最小运行时间(小时)" Theme="{StaticResource CaptionTextBlockStyle}" />
+            <ui:NumberBox Value="{Binding MinRunTime, Mode=TwoWay}" />
+            <TextBlock Text="快速切换游戏间隔时间(毫秒)" Theme="{StaticResource CaptionTextBlockStyle}" />
+            <ui:NumberBox Value="{Binding SwitchTime, Mode=TwoWay}" />
+        </StackPanel>
     </spp:PageBase.PaneContent>
 
     <spp:ContentLoader IsLoading="{Binding IsLoaing}">
@@ -129,26 +213,15 @@
                 </spp:OptionsDisplayItem.Content>
             </spp:OptionsDisplayItem>
 
+            <!--  Description="{Binding CurrentIdle.AppName}"  -->
             <spp:OptionsDisplayItem
                 Grid.Column="1"
-                Description="{Binding IdleGameList.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter=SteamIdle_RemainingGames_}"
+                Description="Steam 已启动"
                 Expands="True"
                 Header="正在挂卡"
                 IsExpanded="True">
                 <spp:OptionsDisplayItem.Icon>
-                    <spp:Image2
-                        Width="64"
-                        Height="64"
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        DecodeWidth="64"
-                        DockPanel.Dock="Top"
-                        Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
-                        Stretch="Uniform">
-                        <spp:Image2.Clip>
-                            <EllipseGeometry Rect="0,0,64,64" />
-                        </spp:Image2.Clip>
-                    </spp:Image2>
+                    <ui:SymbolIcon Symbol="Page" />
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
                     <Button
@@ -178,16 +251,16 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             TextAlignment="Center">
-                            <Run FontSize="22.6" Text="{Binding IdleGameList.Count}" />
-                            <Run Text=" 个游戏可掉落卡牌" />
+                            <Run FontSize="22.6" Text="{Binding RuningCount}" />
+                            <Run Text=" 个游戏正在运行" />
                         </TextBlock>
-                        <TextBlock
+                        <!--<TextBlock
                             Grid.Row="2"
                             Grid.Column="1"
                             TextAlignment="Center">
                             <Run FontSize="22.6" Text="{Binding Badges.Count}" />
                             <Run Text=" 个徽章" />
-                        </TextBlock>
+                        </TextBlock>-->
                     </StackPanel>
                 </spp:OptionsDisplayItem.Content>
             </spp:OptionsDisplayItem>
@@ -195,6 +268,7 @@
             <spp:OptionsDisplayItem
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
+                Description="{Binding IdleGameList.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter=SteamIdle_RemainingGames_}"
                 Expands="True"
                 Header="挂卡游戏列表"
                 IsExpanded="True">
@@ -214,50 +288,53 @@
                                 IsVisible="{Binding !IdleGameList.Count}"
                                 Text="未获取到挂卡游戏数据" />
                         </StackPanel>
-                        <ItemsControl DockPanel.Dock="Bottom" ItemsSource="{Binding IdleGameList}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
+                        <ItemsRepeater DockPanel.Dock="Bottom" ItemsSource="{Binding IdleGameList}">
+                            <ItemsRepeater.Layout>
+                                <UniformGridLayout
+                                    ItemsJustification="Start"
+                                    ItemsStretch="Uniform"
+                                    MinColumnSpacing="5"
+                                    MinItemHeight="150"
+                                    MinItemWidth="280"
+                                    MinRowSpacing="5" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
                                 <DataTemplate DataType="spp:IdleApp">
-                                    <Border Margin="5" spp:Animations.EnableAnimations="True">
-                                        <spp:AppItem
-                                            Title="{Binding App.DisplayName}"
-                                            Width="280"
-                                            MaxHeight="150"
-                                            Description="{Binding Tags}"
-                                            Tags="{Binding AppId}">
-                                            <spp:AppItem.Status>
-                                                <Border Classes="Status">
-                                                    <Panel>
-                                                        <WrapPanel IsVisible="{Binding App.Process, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, Mode=OneWay}">
-                                                            <Ellipse
-                                                                Width="6"
-                                                                Height="6"
-                                                                Margin="0,0,5,0"
-                                                                Fill="#47A42B" />
-                                                            <TextBlock
-                                                                VerticalAlignment="Center"
-                                                                FontSize="12"
-                                                                Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                                        </WrapPanel>
-                                                        <WrapPanel IsVisible="{Binding App.Process, Converter={StaticResource IsNullConverter}, Mode=OneWay}">
-                                                            <Ellipse
-                                                                Width="6"
-                                                                Height="6"
-                                                                Margin="0,0,5,0"
-                                                                Fill="#FF4F58" />
-                                                            <TextBlock
-                                                                VerticalAlignment="Center"
-                                                                FontSize="12"
-                                                                Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                                        </WrapPanel>
-                                                    </Panel>
-                                                </Border>
-                                            </spp:AppItem.Status>
-                                            <!--<spp:AppItem.ActionButton>
+                                    <spp:AppItem
+                                        Title="{Binding App.DisplayName}"
+                                        ContextFlyout="{StaticResource SharedMenuFlyout}"
+                                        Description="{Binding Tags}"
+                                        MoreFlyout="{StaticResource SharedMenuFlyout}"
+                                        Tags="{Binding AppId}">
+                                        <spp:AppItem.Status>
+                                            <Border Classes="Status">
+                                                <Panel>
+                                                    <WrapPanel IsVisible="{Binding App.Process, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, Mode=OneWay}">
+                                                        <Ellipse
+                                                            Width="6"
+                                                            Height="6"
+                                                            Margin="0,0,5,0"
+                                                            Fill="#47A42B" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontSize="12"
+                                                            Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                    </WrapPanel>
+                                                    <WrapPanel IsVisible="{Binding App.Process, Converter={StaticResource IsNullConverter}, Mode=OneWay}">
+                                                        <Ellipse
+                                                            Width="6"
+                                                            Height="6"
+                                                            Margin="0,0,5,0"
+                                                            Fill="#FF4F58" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontSize="12"
+                                                            Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                    </WrapPanel>
+                                                </Panel>
+                                            </Border>
+                                        </spp:AppItem.Status>
+                                        <!--<spp:AppItem.ActionButton>
                                 <Button
                                     Command="{Binding $parent[spp:PageBase].((spp:IdleAppsPageViewModel)DataContext).DeleteButtonCommand}"
                                     CommandParameter="{Binding}"
@@ -270,9 +347,9 @@
                                     </Viewbox>
                                 </Button>
                             </spp:AppItem.ActionButton>-->
-                                            <spp:AppItem.Image>
-                                                <Panel x:Name="ItemImage">
-                                                    <!--<i:Interaction.Behaviors>
+                                        <spp:AppItem.Image>
+                                            <Panel x:Name="ItemImage">
+                                                <!--<i:Interaction.Behaviors>
 										<ia:EventTriggerBehavior EventName="PointerEntered" SourceObject="{Binding #ItemImage}">
 											<ia:ChangePropertyAction
                                                 PropertyName="IsVisible"
@@ -286,50 +363,50 @@
                                                 Value="False" />
 										</ia:EventTriggerBehavior>
 									</i:Interaction.Behaviors>-->
-                                                    <Panel MinWidth="{Binding $parent[spp:AppItem].MinWidth}" MaxWidth="{Binding $parent[spp:AppItem].MaxWidth}">
-                                                        <spp:Image2
-                                                            Name="AppImage"
-                                                            DecodeWidth="120"
-                                                            FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
-                                                            RenderOptions.BitmapInterpolationMode="HighQuality"
-                                                            Source="{Binding App.LibraryGridStream^}"
-                                                            Stretch="UniformToFill" />
-                                                        <TextBlock
-                                                            Margin="8,0"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                            IsVisible="{Binding #AppImage.IsFailed}"
-                                                            Text="{Binding App.DisplayName}"
-                                                            TextAlignment="Center"
-                                                            TextWrapping="WrapWithOverflow"
-                                                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                                <Panel MinWidth="{Binding $parent[spp:AppItem].MinWidth}" MaxWidth="{Binding $parent[spp:AppItem].MaxWidth}">
+                                                    <spp:Image2
+                                                        Name="AppImage"
+                                                        DecodeWidth="120"
+                                                        FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
+                                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                                        Source="{Binding App.LibraryGridStream^}"
+                                                        Stretch="UniformToFill" />
+                                                    <TextBlock
+                                                        Margin="8,0"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                        IsVisible="{Binding #AppImage.IsFailed}"
+                                                        Text="{Binding App.DisplayName}"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="WrapWithOverflow"
+                                                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
-                                                        <Border
-                                                            Margin="10,0,10,-3"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Bottom"
-                                                            Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
-                                                            CornerRadius="3"
-                                                            IsVisible="{Binding App.IsInstalled}">
-                                                            <DockPanel Margin="10,3" HorizontalAlignment="Center">
-                                                                <TextBlock
-                                                                    Margin="0,0,5,0"
-                                                                    VerticalAlignment="Center"
-                                                                    FontSize="11"
-                                                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                                    IsVisible="{Binding App.InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                                                                    Text="{Binding App.InstalledDrive}" />
-                                                                <TextBlock
-                                                                    VerticalAlignment="Center"
-                                                                    FontSize="11"
-                                                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                                                    Text="{Binding App.SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
-                                                                    TextWrapping="Wrap" />
-                                                            </DockPanel>
-                                                        </Border>
-                                                    </Panel>
-                                                    <!--<Panel
+                                                    <Border
+                                                        Margin="10,0,10,-3"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Bottom"
+                                                        Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+                                                        CornerRadius="3"
+                                                        IsVisible="{Binding App.IsInstalled}">
+                                                        <DockPanel Margin="10,3" HorizontalAlignment="Center">
+                                                            <TextBlock
+                                                                Margin="0,0,5,0"
+                                                                VerticalAlignment="Center"
+                                                                FontSize="11"
+                                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                                IsVisible="{Binding App.InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                                Text="{Binding App.InstalledDrive}" />
+                                                            <TextBlock
+                                                                VerticalAlignment="Center"
+                                                                FontSize="11"
+                                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                                Text="{Binding App.SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
+                                                                TextWrapping="Wrap" />
+                                                        </DockPanel>
+                                                    </Border>
+                                                </Panel>
+                                                <!--<Panel
                                         x:Name="ItemBox"
                                         Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
                                         IsVisible="False"
@@ -376,13 +453,12 @@
                                             </Viewbox>
                                         </Button>
                                     </Panel>-->
-                                                </Panel>
-                                            </spp:AppItem.Image>
-                                        </spp:AppItem>
-                                    </Border>
+                                            </Panel>
+                                        </spp:AppItem.Image>
+                                    </spp:AppItem>
                                 </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
                     </Panel>
                 </spp:OptionsDisplayItem.Content>
             </spp:OptionsDisplayItem>

@@ -41,7 +41,7 @@ public class IdleApp : ReactiveObject
     {
         get
         {
-            return $"剩余掉落卡片:{Badge.CardsRemaining} | 游玩时间:{Badge.HoursPlayed}";
+            return Strings.SteamIdle_IdleAppTags_.Format(Badge.HoursPlayed, Badge.CardsRemaining);
         }
     }
 

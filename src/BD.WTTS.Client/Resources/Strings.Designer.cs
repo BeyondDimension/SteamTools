@@ -6874,7 +6874,17 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 剩余 {0} 个游戏 的本地化字符串。
+        ///   查找类似 已游玩 {0} 小时 
+        ///{1} 张剩余卡牌掉落 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_IdleAppTags_ {
+            get {
+                return ResourceManager.GetString("SteamIdle_IdleAppTags_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} 个游戏可掉落卡牌 的本地化字符串。
         /// </summary>
         public static string SteamIdle_RemainingGames_ {
             get {

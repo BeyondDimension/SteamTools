@@ -22,7 +22,7 @@ public sealed partial class IdleCardPageViewModel
     public bool RunState { get; set; }
 
     [Reactive]
-    public string? RuningCountTxt { get; set; }
+    public int RuningCount { get; set; }
 
     /// <summary>
     /// 用户等级信息
@@ -75,12 +75,6 @@ public sealed partial class IdleCardPageViewModel
     [Reactive]
     public bool IsAutoNextOn { get; set; }
 
-    /// <summary>
-    /// 自动运行下一个游戏文本展示
-    /// </summary>
-    [Reactive]
-    public string? IsAutoNextOnTxt { get; set; }
-
     #region 魔改
 
     /// <summary>
@@ -94,5 +88,6 @@ public sealed partial class IdleCardPageViewModel
     /// </summary>
     [Reactive]
     private double SwitchTime { get; set; } = 500;
+
     #endregion
 }

@@ -180,6 +180,7 @@
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="1"
+                                Grid.ColumnSpan="2"
                                 Margin="0,5"
                                 VerticalAlignment="Top"
                                 Classes="CaptionTextBlockStyle"

@@ -8,7 +8,7 @@ public enum IdleRule : byte
     /// <summary>
     /// 顺序运行
     /// </summary>
-    [Description("顺序运行")]
+    [Description("按顺序运行")]
     OnlyOneGame = 0,
 
     /// <summary>
