@@ -59,12 +59,10 @@
                                 <BrushTransition Property="BorderBrush" Duration="00:00:00.083" />
                             </Transitions>
                         </ui:FABorder.Transitions>
-                        <Grid
-                            MinHeight="{TemplateBinding MinHeight}"
-                            ColumnDefinitions="Auto,*,Auto,Auto"
-                            RowDefinitions="*,Auto">
+                        <Grid MinHeight="{TemplateBinding MinHeight}" ColumnDefinitions="Auto,*,Auto,Auto">
                             <Viewbox
                                 Name="IconHost"
+                                Grid.RowSpan="2"
                                 Width="{DynamicResource SettingsExpanderItemIconSize}"
                                 Height="{DynamicResource SettingsExpanderItemIconSize}"
                                 HorizontalAlignment="Left"
@@ -76,28 +74,31 @@
                                 Margin="{DynamicResource SettingsExpanderItemContentMargin}"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
-                                <TextBlock
+                                <ContentPresenter
                                     Name="HeaderText"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Classes="BaseTextBlockStyle"
-                                    Text="{TemplateBinding Header}"
+                                    Content="{TemplateBinding Header}"
                                     TextTrimming="CharacterEllipsis" />
 
-                                <TextBlock
+                                <ContentPresenter
+                                    HorizontalAlignment="Stretch"
                                     VerticalAlignment="Top"
+                                    HorizontalContentAlignment="Stretch"
                                     Classes="CaptionTextBlockStyle"
+                                    Content="{TemplateBinding Description}"
                                     FontSize="12"
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     IsVisible="{TemplateBinding Description,
                                                                 Converter={StaticResource IsNullConverter},
                                                                 ConverterParameter=invert}"
-                                    Text="{TemplateBinding Description}"
                                     TextWrapping="Wrap" />
                             </StackPanel>
 
                             <ContentPresenter
                                 Name="ActionButton"
+                                Grid.RowSpan="2"
                                 Grid.Column="2"
                                 Margin="{DynamicResource SettingsExpanderItemFooterMargin}"
                                 HorizontalAlignment="Right"
@@ -106,6 +107,7 @@
 
                             <ui:SymbolIcon
                                 Name="Chevron"
+                                Grid.RowSpan="2"
                                 Grid.Column="3"
                                 Margin="24,4,0,4"
                                 VerticalAlignment="Center"

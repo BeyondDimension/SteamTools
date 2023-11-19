@@ -1,6 +1,6 @@
 namespace BD.WTTS.Converters;
 
-public sealed class VisbleStringConverter : IMultiValueConverter
+public sealed class VisibleStringConverter : IMultiValueConverter
 {
     public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
     {

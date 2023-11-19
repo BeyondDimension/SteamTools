@@ -1,12 +1,14 @@
+using Avalonia.Controls;
+
 namespace BD.WTTS.UI.Views.Controls;
 
 public class OptionsDisplayItem : TemplatedControl
 {
-    public static readonly StyledProperty<string> HeaderProperty =
-        AvaloniaProperty.Register<OptionsDisplayItem, string>(nameof(Header));
+    public static readonly StyledProperty<object?> HeaderProperty =
+        AvaloniaProperty.Register<OptionsDisplayItem, object?>(nameof(Header));
 
-    public static readonly StyledProperty<string> DescriptionProperty =
-        AvaloniaProperty.Register<OptionsDisplayItem, string>(nameof(Description));
+    public static readonly StyledProperty<object?> DescriptionProperty =
+        AvaloniaProperty.Register<OptionsDisplayItem, object?>(nameof(Description));
 
     public static readonly StyledProperty<object?> IconProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, object?>(nameof(Icon));
@@ -29,13 +31,13 @@ public class OptionsDisplayItem : TemplatedControl
     public static readonly StyledProperty<ICommand> NavigationCommandProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, ICommand>(nameof(NavigationCommand));
 
-    public string Header
+    public object? Header
     {
         get => GetValue(HeaderProperty);
         set => SetValue(HeaderProperty, value);
     }
 
-    public string Description
+    public object? Description
     {
         get => GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);
@@ -112,7 +114,7 @@ public class OptionsDisplayItem : TemplatedControl
         }
         else if (change.Property == DescriptionProperty)
         {
-            PseudoClasses.Set(":desc", !string.IsNullOrEmpty(change.GetNewValue<string>()));
+            PseudoClasses.Set(":desc", change.GetNewValue<object?>() != null);
         }
         else if (change.Property == IsExpandedProperty)
             PseudoClasses.Set(":expanded", change.GetNewValue<bool>());

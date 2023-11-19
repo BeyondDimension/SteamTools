@@ -17,8 +17,7 @@
         <spp:EnumEqualValueConverter x:Key="EnumEqualValueConverter" />
         <spp:StringEqualsConverter x:Key="StringEqualsConverter" />
         <spp:EnumLocalizationNameConverter x:Key="EnumLocalizationNameConverter" />
-        <spp:VisbleStringConverter x:Key="VisbleStringConverter" />
-        <spp:StringOmitConverter x:Key="StringOmitConverter" />
+        <spp:VisibleStringConverter x:Key="VisibleStringConverter" />
     </Application.Resources>
     <Application.Styles>
         <sty:FluentAvaloniaTheme PreferSystemTheme="False" PreferUserAccentColor="True" />

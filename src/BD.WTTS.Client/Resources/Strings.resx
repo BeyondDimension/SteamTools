@@ -2850,4 +2850,10 @@
     <value>已游玩 {0} 小时 
 {1} 张剩余卡牌掉落</value>
   </data>
+	<data name="SteamRuning" xml:space="preserve">
+    <value>Steam 已启动</value> 
+  </data>
+	<data name="SteamNoRuning" xml:space="preserve">
+    <value>Steam 未启动</value>
+  </data>
 </root>

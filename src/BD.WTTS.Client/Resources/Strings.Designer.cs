@@ -6938,6 +6938,24 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Steam 未启动 的本地化字符串。
+        /// </summary>
+        public static string SteamNoRuning {
+            get {
+                return ResourceManager.GetString("SteamNoRuning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam 已启动 的本地化字符串。
+        /// </summary>
+        public static string SteamRuning {
+            get {
+                return ResourceManager.GetString("SteamRuning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam UUID 的本地化字符串。
         /// </summary>
         public static string SteamUUID {

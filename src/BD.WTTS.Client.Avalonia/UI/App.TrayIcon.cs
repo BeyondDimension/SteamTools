@@ -88,7 +88,7 @@ partial class App
                                     new Binding { Path = "Res.CloseSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
                                     new Binding { Path = "Res.StartSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
                                 },
-                                Converter = (VisbleStringConverter)App.Instance.FindResource("VisbleStringConverter")!,
+                                Converter = (VisibleStringConverter)App.Instance.FindResource(nameof(VisibleStringConverter))!,
                             },
                             Command = ReactiveCommand.Create(async () =>
                             {

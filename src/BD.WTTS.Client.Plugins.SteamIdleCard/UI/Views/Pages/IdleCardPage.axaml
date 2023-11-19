@@ -216,10 +216,45 @@
             <!--  Description="{Binding CurrentIdle.AppName}"  -->
             <spp:OptionsDisplayItem
                 Grid.Column="1"
-                Description="Steam 已启动"
                 Expands="True"
-                Header="正在挂卡"
                 IsExpanded="True">
+                <spp:OptionsDisplayItem.Header>
+                    <TextBlock Foreground="Green">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                <CompiledBinding Mode="OneWay" Path="RunState" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.SteamRuning"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.SteamNoRuning"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </spp:OptionsDisplayItem.Header>
+                <spp:OptionsDisplayItem.Description>
+                    <TextBlock Foreground="Green">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="IsConnectToSteam"
+                                    Source="{x:Static s:SteamConnectService.Current}" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.SteamRuning"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.SteamNoRuning"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </spp:OptionsDisplayItem.Description>
                 <spp:OptionsDisplayItem.Icon>
                     <ui:SymbolIcon Symbol="Page" />
                 </spp:OptionsDisplayItem.Icon>
@@ -294,7 +329,7 @@
                                     ItemsJustification="Start"
                                     ItemsStretch="Uniform"
                                     MinColumnSpacing="5"
-                                    MinItemHeight="150"
+                                    MinItemHeight="160"
                                     MinItemWidth="280"
                                     MinRowSpacing="5" />
                             </ItemsRepeater.Layout>
