@@ -6894,6 +6894,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 登录的账号与当前 Steam 客户端账号不一致，无法挂卡！ 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_LoginSteamUserError {
+            get {
+                return ResourceManager.GetString("SteamIdle_LoginSteamUserError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0} 个游戏可掉落卡牌 的本地化字符串。
         /// </summary>
         public static string SteamIdle_RemainingGames_ {

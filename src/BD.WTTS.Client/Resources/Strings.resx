@@ -2863,4 +2863,8 @@
 	<data name="Stop" xml:space="preserve">
     <value>停止</value>
   </data>
+	<data name="SteamIdle_LoginSteamUserError" xml:space="preserve">
+    <!--<value>登录的账号 {0} 与当前 Steam 客户端账号 {1} 不一致，无法挂卡！</value>-->
+    <value>登录的账号与当前 Steam 客户端账号不一致，无法挂卡！</value>
+  </data>
 </root>

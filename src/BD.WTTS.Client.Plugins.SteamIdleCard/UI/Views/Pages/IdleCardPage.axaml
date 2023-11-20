@@ -67,12 +67,22 @@
             <Button
                 Padding="8,4"
                 VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
                 Command="{Binding IdleRunStartOrStop}"
                 Theme="{StaticResource TransparentButton}">
                 <Button.Content>
-                    <WrapPanel>
-                        <ui:SymbolIcon Margin="0,0,5,0" Symbol="Play" />
-                        <TextBlock>
+                    <Panel>
+                        <Viewbox
+                            Width="16"
+                            Height="16"
+                            HorizontalAlignment="Left">
+                            <ui:SymbolIcon Symbol="Play" />
+                        </Viewbox>
+                        <TextBlock
+                            Margin="28,4,0,4"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                     <CompiledBinding Mode="OneWay" Path="RunState" />
@@ -87,7 +97,7 @@
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
-                    </WrapPanel>
+                    </Panel>
                 </Button.Content>
             </Button>
 
@@ -167,22 +177,29 @@
         </StackPanel>
     </spp:PageBase.PaneContent>
 
-    <spp:ContentLoader IsLoading="{Binding IsLoaing}">
+    <spp:ContentLoader CustomLoadingText="{Binding Path=Res.EnableAccelerationPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsLoading="{Binding IsLoaing}">
         <!--  IsVisible="{Binding !IsLoaing}"  -->
-        <Grid ColumnDefinitions="*,240" RowDefinitions="Auto,Auto,*">
+        <Grid
+            ColumnDefinitions="*,240"
+            IsVisible="{Binding !IsLoaing}"
+            RowDefinitions="Auto,Auto,*">
             <spp:OptionsDisplayItem
                 Expands="True"
                 Header="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}"
                 IsExpanded="True">
                 <spp:OptionsDisplayItem.Description>
-                    <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                        <CompiledBinding
-                            Mode="OneWay"
-                            Path="Res.SteamIdle_UserExpString_"
-                            Source="{x:Static s:ResourceService.Current}" />
-                        <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UserLevel" />
-                        <CompiledBinding Mode="OneWay" Path="UserIdleInfo.CurrentExp" />
-                    </MultiBinding>
+                    <TextBlock IsVisible="{Binding IsLogin}">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.SteamIdle_UserExpString_"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                                <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UserLevel" />
+                                <CompiledBinding Mode="OneWay" Path="UserIdleInfo.CurrentExp" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </spp:OptionsDisplayItem.Description>
                 <spp:OptionsDisplayItem.Icon>
                     <spp:Image2
@@ -227,7 +244,10 @@
                         VerticalAlignment="Center"
                         Orientation="Vertical"
                         Spacing="6">
-                        <TextBlock Margin="0,6,0,0" FontWeight="SemiBold">
+                        <TextBlock
+                            Margin="0,6,0,0"
+                            FontWeight="SemiBold"
+                            IsVisible="{Binding IsLogin}">
                             <TextBlock.Text>
                                 <MultiBinding Converter="{StaticResource StringFormatConverter}">
                                     <CompiledBinding
@@ -238,8 +258,12 @@
                                     <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UpExp" />
                                 </MultiBinding>
                             </TextBlock.Text>
-
                         </TextBlock>
+                        <TextBlock
+                            Margin="0,6,0,0"
+                            FontWeight="SemiBold"
+                            IsVisible="{Binding !IsLogin}"
+                            Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.Idle_NeedLoginSteam, Mode=OneWay}" />
                         <ProgressBar
                             Height="10"
                             Margin="0,0,0,6"

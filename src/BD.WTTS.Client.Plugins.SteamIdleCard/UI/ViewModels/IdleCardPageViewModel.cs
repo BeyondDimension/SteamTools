@@ -1,3 +1,4 @@
+using BD.SteamClient.Helpers;
 using BD.SteamClient.Models;
 using BD.SteamClient.Models.Idle;
 using BD.SteamClient.Services;
@@ -31,8 +32,14 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 if (!IsLoaing)
                 {
                     IsLoaing = true;
-                    await LoginSteam();
-                    await SteamAppsSort();
+                    if (await LoginSteam())
+                    {
+                        await SteamAppsSort();
+                    }
+                    else
+                    {
+                        Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
+                    }
                     IsLoaing = false;
                 }
             }
@@ -53,7 +60,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// <summary>
     /// 启动或停止挂卡
     /// </summary>
-    public async void IdleRunStartOrStop_Click()
+    public async Task IdleRunStartOrStop_Click()
     {
         if (!SteamTool.IsRunningSteamProcess)
         {
@@ -67,31 +74,41 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        if (!await LoginSteam()) // 登录 Steam Web
-            return;
-
-        if (!RunLoaingState)
+        if (!IsLoaing)
         {
-            RunLoaingState = true;
-            RunState = !RunState;
-
-            if (RunState)
+            IsLoaing = true;
+            if (!await LoginSteam()) // 登录 Steam Web
             {
-                //await SteamConnectService.Current.RefreshGamesListAsync();
-                await ReadyToGoIdle();
+                IsLoaing = false;
+                Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
+                return;
             }
             else
-            {
-                StopIdle();
-                RunOrStopAutoNext(false);
-            }
-            RunLoaingState = false;
-            Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
+                IsLoaing = false;
+        }
+
+        //if (!RunLoaingState)
+        //{
+        //    RunLoaingState = true;
+        RunState = !RunState;
+
+        if (RunState)
+        {
+            //await SteamConnectService.Current.RefreshGamesListAsync();
+            await ReadyToGoIdle();
         }
         else
         {
-            Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
+            StopIdle();
+            RunOrStopAutoNext(false);
         }
+        //RunLoaingState = false;
+        Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
+        //}
+        //else
+        //{
+        //    Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
+        //}
     }
 
     /// <summary>
@@ -156,7 +173,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
         if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
         {
-            Toast.Show(ToastIcon.Error, "登录的账号必须与当前 Steam 客户端账号一致！");
+            Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
         }
 
         return IsLogin;
@@ -225,6 +242,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
     private async Task ReadyToGoIdle()
     {
+        if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
+        {
+            Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+            return;
+        }
         await SteamAppsSort();
         StartIdle();
         ChangeRunTxt();

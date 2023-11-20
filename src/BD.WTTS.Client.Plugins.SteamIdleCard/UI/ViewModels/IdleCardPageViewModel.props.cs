@@ -18,8 +18,8 @@ public sealed partial class IdleCardPageViewModel
     [Reactive]
     public bool IsLoaing { get; set; }
 
-    [Reactive]
-    public bool RunLoaingState { get; set; }
+    //[Reactive]
+    //public bool RunLoaingState { get; set; }
 
     [Reactive]
     public bool RunState { get; set; }
