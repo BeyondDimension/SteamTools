@@ -191,7 +191,7 @@ sealed class HttpLocalRequestMiddleware
                 }
                 if (hasReqContent)
                 {
-                    req.Content!.Headers.ContentType = MediaTypeHeaderValue.Parse(context.Request.ContentType);
+                    req.Content!.Headers.ContentType = MediaTypeHeaderValue.Parse(context.Request.ContentType.ThrowIsNull());
                     req.Content.Headers.ContentLength = context.Request.ContentLength;
                 }
                 var rsp = await HttpClient.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, context.RequestAborted).ConfigureAwait(false);
