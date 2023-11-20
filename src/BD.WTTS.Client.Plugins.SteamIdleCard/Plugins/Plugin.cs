@@ -16,7 +16,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string UniqueEnglishName => moduleName;
 
-    public sealed override string Description => "Steam 游戏空闲挂卡，支持多种算法逻辑和卡片价格展示";
+    public sealed override string Description => "Steam 游戏快速挂卡，需要启动 Steam 并登录对应账号，支持多种算法逻辑挂卡。";
 
     protected sealed override string? AuthorOriginalString => null;
 

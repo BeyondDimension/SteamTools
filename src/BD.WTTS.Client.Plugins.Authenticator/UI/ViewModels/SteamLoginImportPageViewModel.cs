@@ -71,9 +71,9 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
     {
         if (string.IsNullOrEmpty(EmailAuthText))
         {
-            Toast.Show(ToastIcon.Error, _steamLoginState.Requires2FA ? AppResources.Error_PleaseEnterEmailCode
-                : AppResources.Error_PleaseEnterCode);
-            return;
+            //Toast.Show(ToastIcon.Error, _steamLoginState.Requires2FA ? AppResources.Error_PleaseEnterCode
+            //    : AppResources.Error_PleaseEnterEmailCode);
+            //return;
         }
         else if (_steamLoginState.Requires2FA)
         {

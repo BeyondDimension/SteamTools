@@ -284,6 +284,15 @@
                             <spp:AuthenticatorItem.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuItem
+                                        Command="{Binding CopyCode}"
+                                        Header="{Binding Path=Res.Up, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        ToolTip.Tip="{Binding Path=Res.LocalAuth_Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:SymbolIcon Symbol="Copy" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="-" />
+                                    <MenuItem
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexMoveUp}"
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.Up, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">

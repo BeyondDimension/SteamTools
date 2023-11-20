@@ -26,12 +26,19 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         this.IdleManualRunNext = ReactiveCommand.Create(ManualRunNext);
         this.LoginSteamCommand = ReactiveCommand.Create(async () =>
         {
-            if (!IsLoaing)
+            if (!IsLogin)
             {
-                IsLoaing = true;
-                await LoginSteam();
-                await SteamAppsSort();
-                IsLoaing = false;
+                if (!IsLoaing)
+                {
+                    IsLoaing = true;
+                    await LoginSteam();
+                    await SteamAppsSort();
+                    IsLoaing = false;
+                }
+            }
+            else
+            {
+
             }
         });
     }
@@ -134,7 +141,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             SteamLoginState.Cookies = seesion.CookieContainer.GetAllCookies();
 
             //var success = await Ioc.Get<ISteamAccountService>().CheckAccessTokenValidation(SteamLoginState.AccessToken);
-            SteamLoginState.Success = true;
+            IsLogin = SteamLoginState.Success = true;
             //SteamLoginState.SteamId = success ? steamid : 0;
         }
 
@@ -144,9 +151,15 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.Steam_Login,
                 pageContent: new IdleSteamLoginPage(), okButtonText: Strings.Confirm, isOkButton: false);
 
-            return SteamLoginState.Success;
+            IsLogin = SteamLoginState.Success;
         }
-        return true;
+
+        if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
+        {
+            Toast.Show(ToastIcon.Error, "登录的账号必须与当前 Steam 客户端账号一致！");
+        }
+
+        return IsLogin;
     }
 
     private void ChangeRunTxt()
@@ -199,6 +212,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         catch (Exception ex)
         {
             Toast.LogAndShowT(ex);
+            IsLogin = false;
             return;
         }
 

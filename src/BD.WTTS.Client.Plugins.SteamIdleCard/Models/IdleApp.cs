@@ -41,7 +41,7 @@ public class IdleApp : ReactiveObject
     {
         get
         {
-            return Strings.SteamIdle_IdleAppTags_.Format(Badge.HoursPlayed, Badge.CardsRemaining);
+            return Strings.SteamIdle_IdleAppTags_.Format(Badge.HoursPlayed, Badge.CardsRemaining, Badge.RegularAvgPrice.ToString("0.00"));
         }
     }
 

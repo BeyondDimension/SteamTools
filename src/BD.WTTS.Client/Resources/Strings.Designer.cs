@@ -3646,6 +3646,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 启动 的本地化字符串。
+        /// </summary>
+        public static string Launch {
+            get {
+                return ResourceManager.GetString("Launch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启动项 的本地化字符串。
         /// </summary>
         public static string LaunchItem {
@@ -6857,7 +6866,8 @@ namespace BD.WTTS.Client.Resources {
         
         /// <summary>
         ///   查找类似 已游玩 {0} 小时 
-        ///{1} 张剩余卡牌掉落 的本地化字符串。
+        ///{1} 张剩余卡牌掉落
+        ///卡牌均价 ￥{2} 的本地化字符串。
         /// </summary>
         public static string SteamIdle_IdleAppTags_ {
             get {
@@ -6961,6 +6971,15 @@ namespace BD.WTTS.Client.Resources {
         public static string SteamUUID {
             get {
                 return ResourceManager.GetString("SteamUUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止 的本地化字符串。
+        /// </summary>
+        public static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
             }
         }
         

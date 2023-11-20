@@ -63,8 +63,43 @@
         </ui:FAMenuFlyout>
     </spp:PageBase.Resources>
     <spp:PageBase.ActionContent>
-        <StackPanel>
-            <!--<Button Command="{Binding IdleRunStartOrStop}" Content="挂卡设置" />-->
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button
+                Padding="8,4"
+                VerticalAlignment="Center"
+                Command="{Binding IdleRunStartOrStop}"
+                Theme="{StaticResource TransparentButton}">
+                <Button.Content>
+                    <WrapPanel>
+                        <ui:SymbolIcon Margin="0,0,5,0" Symbol="Play" />
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                    <CompiledBinding Mode="OneWay" Path="RunState" />
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Res.Stop"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Res.Launch"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </WrapPanel>
+                </Button.Content>
+            </Button>
+
+            <Separator
+                Height="18"
+                Margin="5,0"
+                VerticalAlignment="Center"
+                Background="{DynamicResource ButtonBorderBrush}"
+                Classes="Vertical"
+                DockPanel.Dock="Right"
+                IsHitTestVisible="False" />
+
             <ToggleButton
                 Padding="8,4"
                 DockPanel.Dock="Right"
@@ -134,7 +169,7 @@
 
     <spp:ContentLoader IsLoading="{Binding IsLoaing}">
         <!--  IsVisible="{Binding !IsLoaing}"  -->
-        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,*">
+        <Grid ColumnDefinitions="*,240" RowDefinitions="Auto,Auto,*">
             <spp:OptionsDisplayItem
                 Expands="True"
                 Header="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.SteamNickName, Mode=OneWay}"
@@ -165,10 +200,26 @@
                     </spp:Image2>
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
-                    <Button
-                        VerticalAlignment="Center"
-                        Command="{Binding LoginSteamCommand}"
-                        Content="登录" />
+                    <Button VerticalAlignment="Center" Command="{Binding LoginSteamCommand}">
+                        <WrapPanel>
+                            <ui:SymbolIcon Margin="0,0,5,0" Symbol="AddFriend" />
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                        <CompiledBinding Mode="OneWay" Path="IsLogin" />
+                                        <CompiledBinding
+                                            Mode="OneWay"
+                                            Path="Res.Logout"
+                                            Source="{x:Static s:ResourceService.Current}" />
+                                        <CompiledBinding
+                                            Mode="OneWay"
+                                            Path="Res.User_Login"
+                                            Source="{x:Static s:ResourceService.Current}" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </WrapPanel>
+                    </Button>
                 </spp:OptionsDisplayItem.ActionButton>
                 <spp:OptionsDisplayItem.Content>
                     <StackPanel
@@ -221,31 +272,6 @@
                 Expands="True"
                 IsExpanded="True">
                 <spp:OptionsDisplayItem.Header>
-                    <!--<Ellipse
-                            Width="6"
-                            Height="6"
-                            Margin="0,0,5,0">
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior
-                                    Binding="{Binding RunState}"
-                                    ComparisonCondition="Equal"
-                                    Value="True">
-                                    <ia:ChangePropertyAction
-                                        PropertyName="Fill"
-                                        TargetObject="ChangePropertyRectangle"
-                                        Value="#47A42B" />
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior
-                                    Binding="{Binding RunState}"
-                                    ComparisonCondition="NotEqual"
-                                    Value="True">
-                                    <ia:ChangePropertyAction
-                                        PropertyName="Fill"
-                                        TargetObject="ChangePropertyRectangle"
-                                        Value="#FF4F58" />
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </Ellipse>-->
                     <TextBlock>
                         <TextBlock.Text>
                             <MultiBinding Converter="{StaticResource VisibleStringConverter}">
@@ -263,7 +289,27 @@
                     </TextBlock>
                 </spp:OptionsDisplayItem.Header>
                 <spp:OptionsDisplayItem.Description>
-                    <TextBlock Foreground="{DynamicResource SystemFillColorSuccessBrush}">
+                    <TextBlock Name="Description">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior
+                                Binding="{Binding IsConnectToSteam, Source={x:Static s:SteamConnectService.Current}}"
+                                ComparisonCondition="Equal"
+                                Value="True">
+                                <ia:ChangePropertyAction
+                                    PropertyName="Foreground"
+                                    TargetObject="Description"
+                                    Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior
+                                Binding="{Binding IsConnectToSteam, Source={x:Static s:SteamConnectService.Current}}"
+                                ComparisonCondition="NotEqual"
+                                Value="True">
+                                <ia:ChangePropertyAction
+                                    PropertyName="Foreground"
+                                    TargetObject="Description"
+                                    Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
                         <TextBlock.Text>
                             <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                 <CompiledBinding
@@ -285,6 +331,7 @@
                 <spp:OptionsDisplayItem.Icon>
                     <!--<ui:SymbolIcon Symbol="Page" />-->
                     <Ellipse
+                        Name="EllipseC"
                         Width="6"
                         Height="6"
                         Margin="5,0,5,0">
@@ -295,7 +342,7 @@
                                 Value="True">
                                 <ia:ChangePropertyAction
                                     PropertyName="Fill"
-                                    TargetObject="ChangePropertyRectangle"
+                                    TargetObject="EllipseC"
                                     Value="#47A42B" />
                             </ia:DataTriggerBehavior>
                             <ia:DataTriggerBehavior
@@ -304,32 +351,36 @@
                                 Value="True">
                                 <ia:ChangePropertyAction
                                     PropertyName="Fill"
-                                    TargetObject="ChangePropertyRectangle"
+                                    TargetObject="EllipseC"
                                     Value="#FF4F58" />
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </Ellipse>
                 </spp:OptionsDisplayItem.Icon>
-                <spp:OptionsDisplayItem.ActionButton>
-                    <Button
-                        VerticalAlignment="Center"
-                        Command="{Binding IdleRunStartOrStop}"
-                        Content="启动">
+                <!--<spp:OptionsDisplayItem.ActionButton>
+                    <Button VerticalAlignment="Center" Command="{Binding IdleRunStartOrStop}">
                         <Button.Content>
-                            <MultiBinding Converter="{StaticResource VisibleStringConverter}">
-                                <CompiledBinding Mode="OneWay" Path="RunState" />
-                                <CompiledBinding
-                                    Mode="OneWay"
-                                    Path="Res.SteamIdle_IdleRuning"
-                                    Source="{x:Static s:ResourceService.Current}" />
-                                <CompiledBinding
-                                    Mode="OneWay"
-                                    Path="Res.SteamIdle_IdleNotRuning"
-                                    Source="{x:Static s:ResourceService.Current}" />
-                            </MultiBinding>
+                            <WrapPanel>
+                                <ui:SymbolIcon Margin="0,0,5,0" Symbol="Play" />
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                            <CompiledBinding Mode="OneWay" Path="RunState" />
+                                            <CompiledBinding
+                                                Mode="OneWay"
+                                                Path="Res.Stop"
+                                                Source="{x:Static s:ResourceService.Current}" />
+                                            <CompiledBinding
+                                                Mode="OneWay"
+                                                Path="Res.Launch"
+                                                Source="{x:Static s:ResourceService.Current}" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </WrapPanel>
                         </Button.Content>
                     </Button>
-                </spp:OptionsDisplayItem.ActionButton>
+                </spp:OptionsDisplayItem.ActionButton>-->
                 <spp:OptionsDisplayItem.Content>
                     <StackPanel
                         Margin="24,0"

@@ -2842,7 +2842,8 @@
   </data>
 	<data name="SteamIdle_IdleAppTags_" xml:space="preserve">
     <value>已游玩 {0} 小时 
-{1} 张剩余卡牌掉落</value>
+{1} 张剩余卡牌掉落
+卡牌均价 ￥{2}</value>
   </data>
 	<data name="SteamRuning" xml:space="preserve">
     <value>Steam 已启动</value> 
@@ -2855,5 +2856,11 @@
   </data>
 	<data name="SteamIdle_IdleNotRuning" xml:space="preserve">
     <value>未启动挂卡</value> 
+  </data>
+	<data name="Launch" xml:space="preserve">
+    <value>启动</value>
+  </data>
+	<data name="Stop" xml:space="preserve">
+    <value>停止</value>
   </data>
 </root>
