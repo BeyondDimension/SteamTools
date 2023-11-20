@@ -22,6 +22,11 @@ public sealed partial class CurrentUser : IExplicitHasValue, IPhoneNumber
     [S_JsonProperty("2")]
     public string? PhoneNumber { get; set; }
 
+    [MPKey(3), MP2Key(3)]
+    [N_JsonProperty("3")]
+    [S_JsonProperty("3")]
+    public JWTEntity? ShopAuthToken { get; set; }
+
     bool IExplicitHasValue.ExplicitHasValue()
     {
         if (!AuthToken.HasValue()) return false;
@@ -34,5 +39,6 @@ public sealed partial class CurrentUser : IExplicitHasValue, IPhoneNumber
             UserId = UserId,
             AuthToken = AuthToken,
             PhoneNumber = PhoneNumber,
+            ShopAuthToken = ShopAuthToken,
         } : null;
 }

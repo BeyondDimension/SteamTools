@@ -265,6 +265,11 @@ public sealed class UserService : ReactiveObject
         AvatarPath = null;
     }
 
+    //public async Task LoginShop()
+    //{
+    //    var temp = await csc.Shop.GetShopUserTokenAsync();
+    //}
+
     /// <summary>
     /// 更新当前登录用户的手机号码
     /// </summary>

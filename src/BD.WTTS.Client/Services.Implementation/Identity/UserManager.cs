@@ -4,7 +4,7 @@ using static BD.WTTS.Services.IUserManager;
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="IUserManager"/>
-public class UserManager : IUserManager
+partial class UserManager : IUserManager
 {
     protected const string TAG = "UserManager";
 
@@ -123,6 +123,12 @@ public class UserManager : IUserManager
     {
         var value = await GetCurrentUserAsync(false);
         return value?.AuthToken;
+    }
+
+    public async ValueTask<JWTEntity?> GetShopAuthTokenAsync()
+    {
+        var value = await GetCurrentUserAsync(false);
+        return value?.ShopAuthToken;
     }
 
     public event Action? OnSignOut;
