@@ -246,7 +246,7 @@
     <value>没有启用任何加速项！！</value>
   </data>
 	<data name="CommunityFix_AutoRunProxy" xml:space="preserve">
-    <value>启动时自动启动加速</value>
+    <value>启动时自动开启加速</value>
   </data>
 	<data name="CommunityFix_DeleteCertificate" xml:space="preserve">
     <value>移除证书</value>
@@ -499,9 +499,6 @@
   </data>
 	<data name="GameList_SetCustomImage" xml:space="preserve">
     <value>设置自定义封面</value>
-  </data>
-	<data name="GameList_SteamNotRuning" xml:space="preserve">
-    <value>Steam 未启动</value>
   </data>
 	<data name="GameList_StopBtn" xml:space="preserve">
     <value>全部暂停</value>
@@ -2720,9 +2717,6 @@
 	<data name="Idle_RuningCount" xml:space="preserve">
     <value>正在运行 {0}/{1}</value>
   </data>
-	<data name="Idle_SteamNotRuning" xml:space="preserve">
-    <value>Steam 未启动</value>
-  </data>
 	<data name="Idle_StopAutoNext" xml:space="preserve">
     <value>关闭自动切换游戏</value>
   </data>
@@ -2853,7 +2847,13 @@
 	<data name="SteamRuning" xml:space="preserve">
     <value>Steam 已启动</value> 
   </data>
-	<data name="SteamNoRuning" xml:space="preserve">
+	<data name="SteamNotRuning" xml:space="preserve">
     <value>Steam 未启动</value>
+  </data>
+	<data name="SteamIdle_IdleRuning" xml:space="preserve">
+    <value>正在挂卡</value> 
+  </data>
+	<data name="SteamIdle_IdleNotRuning" xml:space="preserve">
+    <value>未启动挂卡</value> 
   </data>
 </root>

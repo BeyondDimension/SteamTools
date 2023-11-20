@@ -177,7 +177,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
         }
         else
         {
-            await MessageBox.ShowAsync(Strings.GameList_SteamNotRuning, button: MessageBox.Button.OK);
+            await MessageBox.ShowAsync(Strings.SteamNotRuning, button: MessageBox.Button.OK);
         }
     }
 
@@ -202,7 +202,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
         }
         else
         {
-            await MessageBox.ShowAsync(Strings.GameList_SteamNotRuning, button: MessageBox.Button.OK);
+            await MessageBox.ShowAsync(Strings.SteamNotRuning, button: MessageBox.Button.OK);
         }
     }
 

@@ -92,7 +92,7 @@ namespace BD.WTTS.UI.Views.Controls
             CarouselControl[!Carousel.ItemsSourceProperty] = this[!ItemsSourceProperty];
             CarouselControl[!Carousel.ItemTemplateProperty] = this[!ItemTemplateProperty];
 
-            this.GetObservable(ItemsSourceProperty)
+            CarouselControl.GetObservable(Carousel.ItemCountProperty)
                     .Subscribe(_ => SwipersLoad());
 
             CarouselControl.GetObservable(Carousel.SelectedIndexProperty)
@@ -121,6 +121,40 @@ namespace BD.WTTS.UI.Views.Controls
                     }
                 });
         }
+
+        //protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        //{
+        //    if (change.Property == ItemsSourceProperty)
+        //    {
+        //        SwipersLoad();
+        //    }
+        //    else if (change.Property == AutoScrollProperty)
+        //    {
+        //        if (change.NewValue is bool x)
+        //        {
+        //            if (x && _timer == null)
+        //            {
+        //                _timer = new Timer(_ =>
+        //                {
+        //                    if (!this.IsPointerOver)
+        //                    {
+        //                        Dispatcher.UIThread.Post(SwiperNext, DispatcherPriority.Background);
+        //                    }
+        //                }, nameof(AutoScroll), AutoScrollInterval, AutoScrollInterval);
+        //            }
+        //            else
+        //            {
+        //                if (_timer != null)
+        //                {
+        //                    _timer.Dispose();
+        //                    _timer = null;
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    base.OnPropertyChanged(change);
+        //}
 
         private void CarouselBannerIndexButton_Click(object? sender, RoutedEventArgs e)
         {

@@ -50,7 +50,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         if (!SteamTool.IsRunningSteamProcess)
         {
-            await MessageBox.ShowAsync(Strings.Idle_SteamNotRuning, button: MessageBox.Button.OK);
+            await MessageBox.ShowAsync(Strings.SteamNotRuning, button: MessageBox.Button.OK);
             return;
         }
 

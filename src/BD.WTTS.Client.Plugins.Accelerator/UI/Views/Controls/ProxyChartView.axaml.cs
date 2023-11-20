@@ -24,7 +24,7 @@ public partial class ProxyChartView : UserControl
         YToolTipLabelFormatter = (e) => $"{IOPath.GetDisplayFileSizeString(e.Coordinate.PrimaryValue)}/s",
         Mapping = (rate, point) =>
         {
-            point.Coordinate = new(rate.Timestamp, rate.Rate);
+            return new(rate.Timestamp, rate.Rate);
             //point.PrimaryValue = rate.Rate;
             //point.SecondaryValue = rate.Timestamp;
         }
@@ -43,7 +43,7 @@ public partial class ProxyChartView : UserControl
         YToolTipLabelFormatter = (e) => $"{IOPath.GetDisplayFileSizeString(e.Coordinate.PrimaryValue)}/s",
         Mapping = (rate, point) =>
         {
-            point.Coordinate = new(rate.Timestamp, rate.Rate);
+            return new(rate.Timestamp, rate.Rate);
             //point.PrimaryValue = rate.Rate;
             //point.SecondaryValue = rate.Timestamp;
         }

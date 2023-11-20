@@ -1152,7 +1152,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 启动时自动启动加速 的本地化字符串。
+        ///   查找类似 启动时自动开启加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix_AutoRunProxy {
             get {
@@ -3033,15 +3033,6 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Steam 未启动 的本地化字符串。
-        /// </summary>
-        public static string GameList_SteamNotRuning {
-            get {
-                return ResourceManager.GetString("GameList_SteamNotRuning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Steam 下载完成定时关机 的本地化字符串。
         /// </summary>
         public static string GameList_SteamShutdown {
@@ -3489,15 +3480,6 @@ namespace BD.WTTS.Client.Resources {
         public static string Idle_RuningCount {
             get {
                 return ResourceManager.GetString("Idle_RuningCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Steam 未启动 的本地化字符串。
-        /// </summary>
-        public static string Idle_SteamNotRuning {
-            get {
-                return ResourceManager.GetString("Idle_SteamNotRuning", resourceCulture);
             }
         }
         
@@ -6884,6 +6866,24 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 未启动挂卡 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_IdleNotRuning {
+            get {
+                return ResourceManager.GetString("SteamIdle_IdleNotRuning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在挂卡 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_IdleRuning {
+            get {
+                return ResourceManager.GetString("SteamIdle_IdleRuning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0} 个游戏可掉落卡牌 的本地化字符串。
         /// </summary>
         public static string SteamIdle_RemainingGames_ {
@@ -6940,9 +6940,9 @@ namespace BD.WTTS.Client.Resources {
         /// <summary>
         ///   查找类似 Steam 未启动 的本地化字符串。
         /// </summary>
-        public static string SteamNoRuning {
+        public static string SteamNotRuning {
             get {
-                return ResourceManager.GetString("SteamNoRuning", resourceCulture);
+                return ResourceManager.GetString("SteamNotRuning", resourceCulture);
             }
         }
         

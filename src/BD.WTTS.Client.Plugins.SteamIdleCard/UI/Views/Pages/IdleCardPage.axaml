@@ -3,6 +3,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
@@ -219,24 +221,49 @@
                 Expands="True"
                 IsExpanded="True">
                 <spp:OptionsDisplayItem.Header>
-                    <TextBlock Foreground="Green">
+                    <!--<Ellipse
+                            Width="6"
+                            Height="6"
+                            Margin="0,0,5,0">
+                            <i:Interaction.Behaviors>
+                                <ia:DataTriggerBehavior
+                                    Binding="{Binding RunState}"
+                                    ComparisonCondition="Equal"
+                                    Value="True">
+                                    <ia:ChangePropertyAction
+                                        PropertyName="Fill"
+                                        TargetObject="ChangePropertyRectangle"
+                                        Value="#47A42B" />
+                                </ia:DataTriggerBehavior>
+                                <ia:DataTriggerBehavior
+                                    Binding="{Binding RunState}"
+                                    ComparisonCondition="NotEqual"
+                                    Value="True">
+                                    <ia:ChangePropertyAction
+                                        PropertyName="Fill"
+                                        TargetObject="ChangePropertyRectangle"
+                                        Value="#FF4F58" />
+                                </ia:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </Ellipse>-->
+                    <TextBlock>
                         <TextBlock.Text>
                             <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                 <CompiledBinding Mode="OneWay" Path="RunState" />
                                 <CompiledBinding
                                     Mode="OneWay"
-                                    Path="Res.SteamRuning"
+                                    Path="Res.SteamIdle_IdleRuning"
                                     Source="{x:Static s:ResourceService.Current}" />
                                 <CompiledBinding
                                     Mode="OneWay"
-                                    Path="Res.SteamNoRuning"
+                                    Path="Res.SteamIdle_IdleNotRuning"
                                     Source="{x:Static s:ResourceService.Current}" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
                 </spp:OptionsDisplayItem.Header>
                 <spp:OptionsDisplayItem.Description>
-                    <TextBlock Foreground="Green">
+                    <TextBlock Foreground="{DynamicResource SystemFillColorSuccessBrush}">
                         <TextBlock.Text>
                             <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                 <CompiledBinding
@@ -249,20 +276,59 @@
                                     Source="{x:Static s:ResourceService.Current}" />
                                 <CompiledBinding
                                     Mode="OneWay"
-                                    Path="Res.SteamNoRuning"
+                                    Path="Res.SteamNotRuning"
                                     Source="{x:Static s:ResourceService.Current}" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
                 </spp:OptionsDisplayItem.Description>
                 <spp:OptionsDisplayItem.Icon>
-                    <ui:SymbolIcon Symbol="Page" />
+                    <!--<ui:SymbolIcon Symbol="Page" />-->
+                    <Ellipse
+                        Width="6"
+                        Height="6"
+                        Margin="5,0,5,0">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior
+                                Binding="{Binding RunState}"
+                                ComparisonCondition="Equal"
+                                Value="True">
+                                <ia:ChangePropertyAction
+                                    PropertyName="Fill"
+                                    TargetObject="ChangePropertyRectangle"
+                                    Value="#47A42B" />
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior
+                                Binding="{Binding RunState}"
+                                ComparisonCondition="NotEqual"
+                                Value="True">
+                                <ia:ChangePropertyAction
+                                    PropertyName="Fill"
+                                    TargetObject="ChangePropertyRectangle"
+                                    Value="#FF4F58" />
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </Ellipse>
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
                     <Button
                         VerticalAlignment="Center"
                         Command="{Binding IdleRunStartOrStop}"
-                        Content="启动" />
+                        Content="启动">
+                        <Button.Content>
+                            <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                <CompiledBinding Mode="OneWay" Path="RunState" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.SteamIdle_IdleRuning"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.SteamIdle_IdleNotRuning"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                            </MultiBinding>
+                        </Button.Content>
+                    </Button>
                 </spp:OptionsDisplayItem.ActionButton>
                 <spp:OptionsDisplayItem.Content>
                     <StackPanel

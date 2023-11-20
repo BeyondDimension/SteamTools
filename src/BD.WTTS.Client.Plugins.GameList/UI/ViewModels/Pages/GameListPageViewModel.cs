@@ -208,7 +208,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     {
         if (!ISteamService.Instance.IsRunningSteamProcess)
         {
-            Toast.Show(ToastIcon.Warning, Strings.GameList_SteamNotRuning);
+            Toast.Show(ToastIcon.Warning, Strings.SteamNotRuning);
             return;
         }
 
@@ -221,7 +221,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     {
         if (!ISteamService.Instance.IsRunningSteamProcess)
         {
-            Toast.Show(ToastIcon.Warning, Strings.GameList_SteamNotRuning);
+            Toast.Show(ToastIcon.Warning, Strings.SteamNotRuning);
             return;
         }
         switch (app.Type)
