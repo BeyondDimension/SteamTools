@@ -6,6 +6,7 @@
     xmlns:i="using:Avalonia.Xaml.Interactivity"
     xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:spp_enums="using:BD.WTTS.Enums"
@@ -158,7 +159,7 @@
                 VerticalAlignment="Center"
                 Text="挂卡规则"
                 Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ComboBox SelectedItem="{Binding Path=IdleRule, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp_enums:IdleRule}}">
+            <ComboBox SelectedItem="{Binding Source={x:Static ms:SteamIdleSettings.IdleRule}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp_enums:IdleRule}}">
                 <ComboBox.Items>
                     <spp_enums:IdleRule>OnlyOneGame</spp_enums:IdleRule>
                     <spp_enums:IdleRule>OneThenMany</spp_enums:IdleRule>
@@ -171,7 +172,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBlock Text="挂卡顺序" Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ComboBox SelectedItem="{Binding Path=IdleSequentital, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp_enums:IdleSequentital}}">
+            <ComboBox SelectedItem="{Binding Source={x:Static ms:SteamIdleSettings.IdleSequentital}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp_enums:IdleSequentital}}">
                 <ComboBox.Items>
                     <spp_enums:IdleSequentital>Default</spp_enums:IdleSequentital>
                     <spp_enums:IdleSequentital>LeastCards</spp_enums:IdleSequentital>
@@ -187,14 +188,14 @@
             <ToggleSwitch
                 VerticalAlignment="Center"
                 Classes="NoContent"
-                IsChecked="{Binding IsAutoNextOn, Mode=TwoWay}"
+                IsChecked="{Binding Source={x:Static ms:SteamIdleSettings.IsAutoNextOn}, Path=Value, Mode=TwoWay}"
                 OffContent="{Binding Path=Res.Idle_StopAutoNext, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 OnContent="{Binding Path=Res.Idle_OpenAutoNext, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
             <TextBlock Text="游戏最小运行时间(小时)" Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ui:NumberBox Value="{Binding MinRunTime, Mode=TwoWay}" />
+            <ui:NumberBox Value="{Binding Source={x:Static ms:SteamIdleSettings.MinRunTime}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="快速切换游戏间隔时间(毫秒)" Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ui:NumberBox Value="{Binding SwitchTime, Mode=TwoWay}" />
+            <ui:NumberBox Value="{Binding Source={x:Static ms:SteamIdleSettings.SwitchTime}, Path=Value, Mode=TwoWay}" />
         </StackPanel>
     </spp:PageBase.PaneContent>
 

@@ -42,4 +42,9 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
         services.AddSteamAccountService(c => new SocketsHttpHandler() { CookieContainer = c });
         services.AddSteamIdleCardService(c => new SocketsHttpHandler() { CookieContainer = c });
     }
+
+    public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
+    {
+        yield return GetConfiguration<SteamIdleSettings_>(directoryExists);
+    }
 }

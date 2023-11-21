@@ -44,55 +44,79 @@ public sealed partial class SteamIdleSettings_ : ISteamIdleSettings, ISettings, 
         => SteamIdleSettingsContext.Instance.SteamIdleSettings_;
 
     /// <summary>
-    /// 账号备注字典
+    /// 挂卡状态更新时间
     /// </summary>
     [MPKey(0), MP2Key(0), JsonPropertyOrder(0)]
-    public ConcurrentDictionary<string, string?>? AccountRemarks { get; set; } = ISteamIdleSettings.DefaultAccountRemarks;
+    public TimeSpan IdleTime { get; set; } = ISteamIdleSettings.DefaultIdleTime;
 
     /// <summary>
-    /// Steam 家庭共享临时禁用
+    /// 运行规则
     /// </summary>
     [MPKey(1), MP2Key(1), JsonPropertyOrder(1)]
-    public IReadOnlyCollection<DisableAuthorizedDevice>? DisableAuthorizedDevice { get; set; } = ISteamIdleSettings.DefaultDisableAuthorizedDevice;
+    public IdleRule IdleRule { get; set; } = ISteamIdleSettings.DefaultIdleRule;
 
     /// <summary>
-    /// 启用的账号平台集合
+    /// 运行顺序
     /// </summary>
     [MPKey(2), MP2Key(2), JsonPropertyOrder(2)]
-    public HashSet<string>? EnablePlatforms { get; set; } = ISteamIdleSettings.DefaultEnablePlatforms;
+    public IdleSequentital IdleSequentital { get; set; } = ISteamIdleSettings.DefaultIdleSequentital;
 
     /// <summary>
-    /// 账号平台设置集合
+    /// 自动运行下一个游戏
     /// </summary>
     [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
-    public ConcurrentDictionary<string, PlatformSettings>? PlatformSettings { get; set; } = ISteamIdleSettings.DefaultPlatformSettings;
+    public bool IsAutoNextOn { get; set; } = ISteamIdleSettings.DefaultIsAutoNextOn;
+
+    /// <summary>
+    /// 最少游戏时间 hours
+    /// </summary>
+    [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
+    public double MinRunTime { get; set; } = ISteamIdleSettings.DefaultMinRunTime;
+
+    /// <summary>
+    /// 自动切换游戏时间间隔 ms
+    /// </summary>
+    [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
+    public double SwitchTime { get; set; } = ISteamIdleSettings.DefaultSwitchTime;
 
 }
 
 public static partial class SteamIdleSettings
 {
     /// <summary>
-    /// 账号备注字典
+    /// 挂卡状态更新时间
     /// </summary>
-    public static SettingsProperty<string, string?, ConcurrentDictionary<string, string?>, SteamIdleSettings_> AccountRemarks { get; }
-        = new(DefaultAccountRemarks);
+    public static SettingsStructProperty<TimeSpan, SteamIdleSettings_> IdleTime { get; }
+        = new(DefaultIdleTime);
 
     /// <summary>
-    /// Steam 家庭共享临时禁用
+    /// 运行规则
     /// </summary>
-    public static SettingsProperty<IReadOnlyCollection<DisableAuthorizedDevice>, SteamIdleSettings_> DisableAuthorizedDevice { get; }
-        = new(DefaultDisableAuthorizedDevice);
+    public static SettingsStructProperty<IdleRule, SteamIdleSettings_> IdleRule { get; }
+        = new(DefaultIdleRule);
 
     /// <summary>
-    /// 启用的账号平台集合
+    /// 运行顺序
     /// </summary>
-    public static SettingsProperty<string, HashSet<string>, SteamIdleSettings_> EnablePlatforms { get; }
-        = new(DefaultEnablePlatforms);
+    public static SettingsStructProperty<IdleSequentital, SteamIdleSettings_> IdleSequentital { get; }
+        = new(DefaultIdleSequentital);
 
     /// <summary>
-    /// 账号平台设置集合
+    /// 自动运行下一个游戏
     /// </summary>
-    public static SettingsProperty<string, PlatformSettings, ConcurrentDictionary<string, PlatformSettings>, SteamIdleSettings_> PlatformSettings { get; }
-        = new(DefaultPlatformSettings);
+    public static SettingsStructProperty<bool, SteamIdleSettings_> IsAutoNextOn { get; }
+        = new(DefaultIsAutoNextOn);
+
+    /// <summary>
+    /// 最少游戏时间 hours
+    /// </summary>
+    public static SettingsStructProperty<double, SteamIdleSettings_> MinRunTime { get; }
+        = new(DefaultMinRunTime);
+
+    /// <summary>
+    /// 自动切换游戏时间间隔 ms
+    /// </summary>
+    public static SettingsStructProperty<double, SteamIdleSettings_> SwitchTime { get; }
+        = new(DefaultSwitchTime);
 
 }

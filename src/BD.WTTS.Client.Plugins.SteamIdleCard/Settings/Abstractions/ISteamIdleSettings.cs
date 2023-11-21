@@ -21,43 +21,63 @@ public partial interface ISteamIdleSettings
         => Ioc.Get_Nullable<IOptionsMonitor<ISteamIdleSettings>>()?.CurrentValue;
 
     /// <summary>
-    /// 账号备注字典
+    /// 挂卡状态更新时间
     /// </summary>
-    ConcurrentDictionary<string, string?>? AccountRemarks { get; set; }
+    TimeSpan IdleTime { get; set; }
 
     /// <summary>
-    /// Steam 家庭共享临时禁用
+    /// 运行规则
     /// </summary>
-    IReadOnlyCollection<DisableAuthorizedDevice>? DisableAuthorizedDevice { get; set; }
+    IdleRule IdleRule { get; set; }
 
     /// <summary>
-    /// 启用的账号平台集合
+    /// 运行顺序
     /// </summary>
-    HashSet<string>? EnablePlatforms { get; set; }
+    IdleSequentital IdleSequentital { get; set; }
 
     /// <summary>
-    /// 账号平台设置集合
+    /// 自动运行下一个游戏
     /// </summary>
-    ConcurrentDictionary<string, PlatformSettings>? PlatformSettings { get; set; }
+    bool IsAutoNextOn { get; set; }
 
     /// <summary>
-    /// 账号备注字典的默认值
+    /// 最少游戏时间 hours
     /// </summary>
-    static readonly ConcurrentDictionary<string, string?> DefaultAccountRemarks = new();
+    double MinRunTime { get; set; }
 
     /// <summary>
-    /// Steam 家庭共享临时禁用的默认值
+    /// 自动切换游戏时间间隔 ms
     /// </summary>
-    static readonly IReadOnlyCollection<DisableAuthorizedDevice> DefaultDisableAuthorizedDevice = Array.Empty<DisableAuthorizedDevice>();
+    double SwitchTime { get; set; }
 
     /// <summary>
-    /// 启用的账号平台集合的默认值
+    /// 挂卡状态更新时间的默认值
     /// </summary>
-    static readonly HashSet<string> DefaultEnablePlatforms = new();
+    static readonly TimeSpan DefaultIdleTime = TimeSpan.FromMinutes(6);
 
     /// <summary>
-    /// 账号平台设置集合的默认值
+    /// 运行规则的默认值
     /// </summary>
-    static readonly ConcurrentDictionary<string, PlatformSettings> DefaultPlatformSettings = new();
+    static readonly IdleRule DefaultIdleRule = IdleRule.OnlyOneGame;
+
+    /// <summary>
+    /// 运行顺序的默认值
+    /// </summary>
+    static readonly IdleSequentital DefaultIdleSequentital = IdleSequentital.Default;
+
+    /// <summary>
+    /// 自动运行下一个游戏的默认值
+    /// </summary>
+    static readonly bool DefaultIsAutoNextOn = true;
+
+    /// <summary>
+    /// 最少游戏时间 hours的默认值
+    /// </summary>
+    static readonly double DefaultMinRunTime = 2;
+
+    /// <summary>
+    /// 自动切换游戏时间间隔 ms的默认值
+    /// </summary>
+    static readonly double DefaultSwitchTime = 500;
 
 }

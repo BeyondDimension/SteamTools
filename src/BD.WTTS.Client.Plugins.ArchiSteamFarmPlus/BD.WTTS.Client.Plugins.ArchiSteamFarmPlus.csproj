@@ -144,6 +144,10 @@
 		</Compile>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Settings\" />
+	</ItemGroup>
+
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>

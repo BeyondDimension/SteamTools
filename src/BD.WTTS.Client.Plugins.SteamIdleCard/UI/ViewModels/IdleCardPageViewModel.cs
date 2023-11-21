@@ -19,11 +19,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
     public IdleCardPageViewModel()
     {
-        this.WhenPropertyChanged(x => x.IsAutoNextOn)
-            .Subscribe(x =>
-            {
-                RunOrStopAutoNext(x.Value);
-            });
+        SteamIdleSettings.IsAutoNextOn.WhenValueChanged(x => x.Value).Subscribe(RunOrStopAutoNext);
 
         this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
         this.IdleManualRunNext = ReactiveCommand.Create(ManualRunNext);
@@ -209,7 +205,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             IdleTime = default;
 
             badges = badges.Where(w => w.CardsRemaining != 0);
-            var apps = IdleSequentital switch
+            var apps = SteamIdleSettings.IdleSequentital.Value switch
             {
                 IdleSequentital.LeastCards => badges.OrderBy(o => o.CardsRemaining).Select(s => new IdleApp(s)),
                 IdleSequentital.Mostcards => badges.OrderByDescending(o => o.CardsRemaining).Select(s => new IdleApp(s)),
@@ -268,16 +264,16 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         _StartIdleTime = DateTimeOffset.Now;
         DroppedCardsCount = TotalCardsRemaining;
 
-        if (IdleRule == IdleRule.OnlyOneGame)
+        if (SteamIdleSettings.IdleRule.Value == IdleRule.OnlyOneGame)
         {
             CurrentIdle = IdleGameList.First();
             StartSoloIdle(CurrentIdle);
         }
         else
         {
-            if (IdleRule == IdleRule.OneThenMany)
+            if (SteamIdleSettings.IdleRule.Value == IdleRule.OneThenMany)
             {
-                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed >= MinRunTime);
+                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed >= SteamIdleSettings.MinRunTime.Value);
                 if (multi.Count() >= 1)
                 {
                     PauseAutoNext(false);
@@ -291,7 +287,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             }
             else
             {
-                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed < MinRunTime);
+                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed < SteamIdleSettings.MinRunTime.Value);
                 if (multi.Count() >= 2)
                 {
                     PauseAutoNext(true);
@@ -346,10 +342,10 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         foreach (var item in IdleGameList)
         {
-            if (item.Badge.HoursPlayed >= MinRunTime)
+            if (item.Badge.HoursPlayed >= SteamIdleSettings.MinRunTime.Value)
                 StopSoloIdle(item.App);
 
-            if (item.Badge.HoursPlayed < MinRunTime && IdleGameList.Count(x => x.App.Process != null) < MaxIdleCount)
+            if (item.Badge.HoursPlayed < SteamIdleSettings.MinRunTime.Value && IdleGameList.Count(x => x.App.Process != null) < MaxIdleCount)
                 StartSoloIdle(item);
         }
 
@@ -402,12 +398,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// <param name="b"></param>
     private void PauseAutoNext(bool b)
     {
-        if (IsAutoNextOn && b && !IsAutoNextPaused)
+        if (SteamIdleSettings.IsAutoNextOn.Value && b && !IsAutoNextPaused)
         {
-            IsAutoNextOn = false;
+            SteamIdleSettings.IsAutoNextOn.Value = false;
             IsAutoNextPaused = true;
         }
-        else if (!IsAutoNextOn && !b && IsAutoNextPaused)
+        else if (!SteamIdleSettings.IsAutoNextOn.Value && !b && IsAutoNextPaused)
         {
             IsAutoNextPaused = false;
         }
@@ -431,7 +427,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                         {
                             AutoNextTask().Wait();
                             IdleTime = DateTimeOffset.Now - _StartIdleTime;
-                            Task.Delay(TimeSpan.FromSeconds(SwitchTime), CancellationTokenSource.Token).Wait();
+                            Task.Delay(TimeSpan.FromSeconds(SteamIdleSettings.SwitchTime.Value), CancellationTokenSource.Token).Wait();
                         }
                         catch (OperationCanceledException)
                         {
@@ -457,7 +453,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// </summary>
     private async Task AutoNextTask()
     {
-        if (IsAutoNextOn == false || IsAutoNextPaused == true)
+        if (SteamIdleSettings.IsAutoNextOn.Value == false || IsAutoNextPaused == true)
         {
             CancellationTokenSource.Cancel();
             return;
@@ -472,7 +468,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             }
             else
             {
-                IsAutoNextOn = false;
+                SteamIdleSettings.IsAutoNextOn.Value = false;
                 IdleComplete();
             }
             return;
