@@ -94,28 +94,29 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 IsLoaing = false;
         }
 
-        //if (!RunLoaingState)
-        //{
-        //    RunLoaingState = true;
-
-        if (!RunState)
+        if (!RunLoaingState)
         {
-            //await SteamConnectService.Current.RefreshGamesListAsync();
-            RunState = await ReadyToGoIdle();
+            RunLoaingState = true;
+
+            if (!RunState)
+            {
+                //await SteamConnectService.Current.RefreshGamesListAsync();
+                RunState = await ReadyToGoIdle();
+            }
+            else
+            {
+                RunState = false;
+                StopIdle();
+                RunOrStopAutoNext(false);
+            }
+
+            RunLoaingState = false;
+            //Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
         }
         else
         {
-            RunState = false;
-            StopIdle();
-            RunOrStopAutoNext(false);
+            Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
         }
-        //RunLoaingState = false;
-        //Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
-        //}
-        //else
-        //{
-        //    Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
-        //}
     }
 
     /// <summary>

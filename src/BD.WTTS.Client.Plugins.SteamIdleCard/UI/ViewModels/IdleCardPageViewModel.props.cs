@@ -18,8 +18,8 @@ public sealed partial class IdleCardPageViewModel
     [Reactive]
     public bool IsLoaing { get; set; }
 
-    //[Reactive]
-    //public bool RunLoaingState { get; set; }
+    [Reactive]
+    public bool RunLoaingState { get; set; }
 
     [Reactive]
     public bool RunState { get; set; }
@@ -87,13 +87,13 @@ public sealed partial class IdleCardPageViewModel
     /// 最少游戏时间 hours
     /// </summary>
     [Reactive]
-    private double MinRunTime { get; set; } = 2;
+    public double MinRunTime { get; set; } = 2;
 
     /// <summary>
     /// 自动切换游戏时间间隔 ms
     /// </summary>
     [Reactive]
-    private double SwitchTime { get; set; } = 500;
+    public double SwitchTime { get; set; } = 500;
 
     #endregion
 }

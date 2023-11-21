@@ -433,6 +433,9 @@
                         Orientation="Vertical"
                         Spacing="6">
                         <Panel>
+                            <ToolTip.Tip>
+                                123
+                            </ToolTip.Tip>
                             <ProgressBar
                                 Width="80"
                                 Height="80"
