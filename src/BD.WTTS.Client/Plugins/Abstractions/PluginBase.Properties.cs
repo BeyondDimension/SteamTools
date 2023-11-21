@@ -173,6 +173,9 @@ partial class PluginBase
                     AssemblyInfo.GameTools => // IsEmbeddedPlugin() &&
                         UniqueEnglishName == AssemblyInfo.GameTools &&
                         Id.ToString() == AssemblyInfo.GameToolsId,
+                    AssemblyInfo.SteamIdleCard => // IsEmbeddedPlugin() &&
+                        UniqueEnglishName == AssemblyInfo.SteamIdleCard &&
+                        Id.ToString() == AssemblyInfo.SteamIdleCardId,
                     _ => false,
                 };
             return value;

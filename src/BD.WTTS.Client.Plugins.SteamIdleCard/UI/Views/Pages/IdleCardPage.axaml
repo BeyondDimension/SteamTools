@@ -77,7 +77,28 @@
                             Width="16"
                             Height="16"
                             HorizontalAlignment="Left">
-                            <ui:SymbolIcon Symbol="Play" />
+                            <ui:SymbolIcon Name="LaunchIcon">
+                                <i:Interaction.Behaviors>
+                                    <ia:DataTriggerBehavior
+                                        Binding="{Binding RunState}"
+                                        ComparisonCondition="Equal"
+                                        Value="True">
+                                        <ia:ChangePropertyAction
+                                            PropertyName="Symbol"
+                                            TargetObject="LaunchIcon"
+                                            Value="StopFilled" />
+                                    </ia:DataTriggerBehavior>
+                                    <ia:DataTriggerBehavior
+                                        Binding="{Binding RunState}"
+                                        ComparisonCondition="NotEqual"
+                                        Value="True">
+                                        <ia:ChangePropertyAction
+                                            PropertyName="Symbol"
+                                            TargetObject="LaunchIcon"
+                                            Value="PlayFilled" />
+                                    </ia:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                            </ui:SymbolIcon>
                         </Viewbox>
                         <TextBlock
                             Margin="28,4,0,4"
@@ -416,7 +437,8 @@
                                 Width="80"
                                 Height="80"
                                 Classes="Circle"
-                                Value="60" />
+                                Maximum="{Binding DroppedCardsCount}"
+                                Value="{Binding TotalCardsRemaining}" />
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"

@@ -5,6 +5,7 @@ using BD.SteamClient.Services;
 using BD.WTTS.UI.Views.Pages;
 using System;
 using System.Linq;
+using static SteamKit2.Internal.CChatUsability_ClientUsabilityMetrics_Notification;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -13,6 +14,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     readonly ISteamService SteamTool = ISteamService.Instance;
     readonly ISteamIdleCardService IdleCard = ISteamIdleCardService.Instance;
 
+    private DateTimeOffset _StartIdleTime;
     private SteamLoginState SteamLoginState = new();
 
     public IdleCardPageViewModel()
@@ -43,9 +45,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     IsLoaing = false;
                 }
             }
-            else
+            else //注销登录
             {
 
+                await ISecureStorage.Instance.RemoveAsync(ISteamSessionService.CurrentSteamUserKey);
+                SteamLoginState = new();
+                IsLogin = false;
             }
         });
     }
@@ -64,13 +69,15 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         if (!SteamTool.IsRunningSteamProcess)
         {
-            await MessageBox.ShowAsync(Strings.SteamNotRuning, button: MessageBox.Button.OK);
+            Toast.Show(ToastIcon.Warning, Strings.SteamNotRuning);
+            //await MessageBox.ShowAsync(Strings.SteamNotRuning, button: MessageBox.Button.OK);
             return;
         }
 
         if (!SteamConnectService.Current.IsConnectToSteam) // 是否登录 Steam 客户端
         {
-            await MessageBox.ShowAsync(Strings.Idle_NeedLoginSteam, button: MessageBox.Button.OK);
+            Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
+            //await MessageBox.ShowAsync(Strings.Idle_NeedLoginSteam, button: MessageBox.Button.OK);
             return;
         }
 
@@ -90,20 +97,20 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         //if (!RunLoaingState)
         //{
         //    RunLoaingState = true;
-        RunState = !RunState;
 
-        if (RunState)
+        if (!RunState)
         {
             //await SteamConnectService.Current.RefreshGamesListAsync();
-            await ReadyToGoIdle();
+            RunState = await ReadyToGoIdle();
         }
         else
         {
+            RunState = false;
             StopIdle();
             RunOrStopAutoNext(false);
         }
         //RunLoaingState = false;
-        Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
+        //Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
         //}
         //else
         //{
@@ -147,8 +154,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
     private async Task<bool> LoginSteam()
     {
-        var seesion = await Ioc.Get<ISteamSessionService>()
-            .LoadSession(Path.Combine(Plugin.Instance.CacheDirectory));
+        var seesion = await Ioc.Get<ISteamSessionService>().LoadSession();
 
         if (seesion != null && ulong.TryParse(seesion.SteamId, out var steamid))
         {
@@ -171,10 +177,10 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             IsLogin = SteamLoginState.Success;
         }
 
-        if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
-        {
-            Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
-        }
+        //if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
+        //{
+        //    Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+        //}
 
         return IsLogin;
     }
@@ -187,33 +193,19 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         RunState = RuningCount > 0;
     }
 
-    private async Task SteamAppsSort()
+    private async Task<bool> SteamAppsSort()
     {
         try
         {
             IEnumerable<Badge> badges;
-            //if (IdleSequentital == IdleSequentital.Mostvalue)
-            //{
-            (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString(), true);
-            //}
-            //else
-            //{
-            //    (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamConnectService.Current.CurrentSteamUser!.SteamId64.ToString());
-            //}
+
+            (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamLoginState.SteamId.ToString(), true);
 
             Badges.Clear();
+            Badges.Add(badges);
             TotalCardsRemaining = 0;
             TotalCardsAvgPrice = 0;
-
-            foreach (var b in badges)
-            {
-                if (b.CardsRemaining != 0)// 过滤可掉落卡片的游戏
-                {
-                    TotalCardsAvgPrice += b.RegularAvgPrice * b.CardsRemaining;
-                    TotalCardsRemaining += b.CardsRemaining;
-                }
-                Badges.Add(b);
-            }
+            IdleTime = default;
 
             badges = badges.Where(w => w.CardsRemaining != 0);
             var apps = IdleSequentital switch
@@ -224,32 +216,35 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 _ => badges.Select(s => new IdleApp(s)),
             };
 
+            foreach (var app in apps)
+            {
+                if (app.Badge.CardsRemaining != 0)// 过滤可掉落卡片的游戏
+                {
+                    TotalCardsAvgPrice += app.Badge.RegularAvgPrice * app.Badge.CardsRemaining;
+                    TotalCardsRemaining += app.Badge.CardsRemaining;
+                }
+            }
+
             IdleGameList = new ObservableCollection<IdleApp>(apps);
+            return true;
         }
         catch (Exception ex)
         {
             Toast.LogAndShowT(ex);
             IsLogin = false;
-            return;
+            return false;
         }
-
-        //不应该使用 SteamConnectService 的 apps
-        //var apps = SteamConnectService.Current.SteamApps.Items
-        //    .Where(x => appid_sorts.Contains((int)x.AppId))
-        //    .OrderBy(o => appid_sorts.ToList().FindIndex(x => x == o.AppId))
-        //    .ToList();
     }
 
-    private async Task ReadyToGoIdle()
+    private async Task<bool> ReadyToGoIdle()
     {
-        if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
+        if (await SteamAppsSort())
         {
-            Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
-            return;
+            StartIdle();
+            ChangeRunTxt();
+            return true;
         }
-        await SteamAppsSort();
-        StartIdle();
-        ChangeRunTxt();
+        return false;
     }
 
     /// <summary>
@@ -257,11 +252,20 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// </summary>
     private void StartIdle()
     {
+        if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
+        {
+            Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+            return;
+        }
+
         if (!IdleGameList.Any())
         {
             IdleComplete();
             return;
         }
+
+        _StartIdleTime = DateTimeOffset.Now;
+        DroppedCardsCount = TotalCardsRemaining;
 
         if (IdleRule == IdleRule.OnlyOneGame)
         {
@@ -418,14 +422,15 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         {
             if (RunState)
             {
-                Task.Run(async () =>
+                Task2.InBackground(() =>
                 {
                     while (!CancellationTokenSource.Token.IsCancellationRequested)
                     {
                         try
                         {
-                            await AutoNextTask();
-                            await Task.Delay(TimeSpan.FromSeconds(SwitchTime), CancellationTokenSource.Token);
+                            AutoNextTask().Wait();
+                            IdleTime = DateTimeOffset.Now - _StartIdleTime;
+                            Task.Delay(TimeSpan.FromSeconds(SwitchTime), CancellationTokenSource.Token).Wait();
                         }
                         catch (OperationCanceledException)
                         {
@@ -435,7 +440,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                             Toast.LogAndShowT(ex);
                         }
                     }
-                });
+                }, true);
             }
             Toast.Show(ToastIcon.Info, Strings.Idle_PleaseStartIdle);
         }
@@ -483,6 +488,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// </summary>
     private void IdleComplete()
     {
+        RunState = false;
         Toast.Show(ToastIcon.Success, Strings.Idle_Complete);
         INotificationService.Instance.Notify(Strings.Idle_Complete, NotificationType.Message);
     }

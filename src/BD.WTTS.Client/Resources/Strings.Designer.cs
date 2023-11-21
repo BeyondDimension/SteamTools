@@ -3421,7 +3421,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 挂卡完成 的本地化字符串。
+        ///   查找类似 挂卡完成，已经没有剩余卡牌可挂卡。 的本地化字符串。
         /// </summary>
         public static string Idle_Complete {
             get {
@@ -6894,7 +6894,9 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登录的账号与当前 Steam 客户端账号不一致，无法挂卡！ 的本地化字符串。
+        ///   查找类似 登录的账号与当前 Steam 客户端账号不一致，无法挂卡。
+        ///请注销切换登录账号与 Steam 客户端账号一致，
+        ///或切换 Steam 客户端登录账号与挂卡账号一致！ 的本地化字符串。
         /// </summary>
         public static string SteamIdle_LoginSteamUserError {
             get {

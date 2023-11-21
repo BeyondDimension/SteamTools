@@ -2697,7 +2697,7 @@
     <value>安装 CA 证书成功</value>
   </data>
 	<data name="Idle_Complete" xml:space="preserve">
-    <value>挂卡完成</value>
+    <value>挂卡完成，已经没有剩余卡牌可挂卡。</value>
   </data>
 	<data name="Idle_LoaingTips" xml:space="preserve">
     <value>操作进行中请稍后再试</value>
@@ -2865,6 +2865,8 @@
   </data>
 	<data name="SteamIdle_LoginSteamUserError" xml:space="preserve">
     <!--<value>登录的账号 {0} 与当前 Steam 客户端账号 {1} 不一致，无法挂卡！</value>-->
-    <value>登录的账号与当前 Steam 客户端账号不一致，无法挂卡！</value>
+    <value>登录的账号与当前 Steam 客户端账号不一致，无法挂卡。
+请注销切换登录账号与 Steam 客户端账号一致，
+或切换 Steam 客户端登录账号与挂卡账号一致！</value>
   </data>
 </root>

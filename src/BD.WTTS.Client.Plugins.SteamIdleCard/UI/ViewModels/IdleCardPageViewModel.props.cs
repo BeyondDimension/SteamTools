@@ -49,6 +49,9 @@ public sealed partial class IdleCardPageViewModel
     public TimeSpan IdleTime { get; set; }
 
     [Reactive]
+    public int DroppedCardsCount { get; set; }
+
+    [Reactive]
     public int TotalCardsRemaining { get; set; }
 
     [Reactive]

@@ -48,6 +48,13 @@ public class IdleApp : ReactiveObject
     public IdleApp(Badge badge)
     {
         Badge = badge;
-        App = new SteamApp(badge.AppId) { Name = badge.AppName };
+        if (SteamConnectService.Current.RuningSteamApps.TryGetValue(badge.AppId, out var app))
+        {
+            App = app;
+        }
+        else
+        {
+            App = new SteamApp(badge.AppId) { Name = badge.AppName };
+        }
     }
 }
