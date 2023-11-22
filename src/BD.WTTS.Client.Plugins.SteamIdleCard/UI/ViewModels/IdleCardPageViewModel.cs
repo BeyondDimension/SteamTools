@@ -49,6 +49,10 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 IsLogin = false;
             }
         });
+
+        //this.ChangeState = ReactiveCommand.Create<int>(i =>
+        //{
+        //});
     }
 
     public override void Activation()

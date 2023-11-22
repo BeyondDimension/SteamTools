@@ -8,6 +8,10 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class IdleSteamLoginPageViewModel
 {
+    public ICommand Login { get; set; }
+
+    public ICommand CookieLogin { get; set; }
+
     /// <summary>
     /// 用户名
     /// </summary>
@@ -47,5 +51,15 @@ public sealed partial class IdleSteamLoginPageViewModel
     [Reactive]
     public bool IsLoading { get; set; }
 
-    public ICommand Login { get; set; }
+    /// <summary>
+    /// SeesionId
+    /// </summary>
+    [Reactive]
+    public string? SeesionId { get; set; }
+
+    /// <summary>
+    /// SteamLoginSecure
+    /// </summary>
+    [Reactive]
+    public string? SteamLoginSecure { get; set; }
 }

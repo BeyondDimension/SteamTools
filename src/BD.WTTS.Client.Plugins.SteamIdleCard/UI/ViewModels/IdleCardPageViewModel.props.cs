@@ -12,6 +12,8 @@ public sealed partial class IdleCardPageViewModel
 
     public ICommand IdleManualRunNext { get; }
 
+    //public ICommand ChangeState { get; }
+
     [Reactive]
     public bool IsLogin { get; set; }
 

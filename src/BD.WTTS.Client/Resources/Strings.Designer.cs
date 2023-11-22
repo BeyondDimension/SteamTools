@@ -142,6 +142,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 账密登录 的本地化字符串。
+        /// </summary>
+        public static string AccountLogin {
+            get {
+                return ResourceManager.GetString("AccountLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 描述 的本地化字符串。
         /// </summary>
         public static string Achievement_Description {
@@ -1571,6 +1580,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Continue {
             get {
                 return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Cookie 登录 的本地化字符串。
+        /// </summary>
+        public static string CookieLogin {
+            get {
+                return ResourceManager.GetString("CookieLogin", resourceCulture);
             }
         }
         

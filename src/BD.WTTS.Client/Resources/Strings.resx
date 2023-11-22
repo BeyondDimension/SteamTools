@@ -2869,4 +2869,10 @@
 请注销切换登录账号与 Steam 客户端账号一致，
 或切换 Steam 客户端登录账号与挂卡账号一致！</value>
   </data>
+	<data name="AccountLogin" xml:space="preserve">
+    <value>账密登录</value>
+  </data>
+	<data name="CookieLogin" xml:space="preserve">
+    <value>Cookie 登录</value>
+  </data>
 </root>
