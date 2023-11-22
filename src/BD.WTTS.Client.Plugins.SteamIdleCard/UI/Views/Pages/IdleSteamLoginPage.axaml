@@ -11,6 +11,7 @@
     x:CompileBindings="True"
     x:DataType="spp:IdleSteamLoginPageViewModel"
     mc:Ignorable="d">
+
     <spp:ContentLoader CustomLoadingText="{Binding Path=Res.EnableAccelerationPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsLoading="{Binding IsLoading}">
         <Panel IsVisible="{Binding !IsLoading}">
             <!--  登录  -->
@@ -49,7 +50,6 @@
                     Command="{Binding Login}"
                     Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </StackPanel>
-
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -74,6 +74,8 @@
                     Command="{Binding Login}"
                     Content="{Binding Path=Res.Btn_Text_Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </StackPanel>
+
         </Panel>
+
     </spp:ContentLoader>
 </UserControl>
