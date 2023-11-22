@@ -3,9 +3,7 @@ using BD.SteamClient.Models;
 using BD.SteamClient.Models.Idle;
 using BD.SteamClient.Services;
 using BD.WTTS.UI.Views.Pages;
-using System;
-using System.Linq;
-using static SteamKit2.Internal.CChatUsability_ClientUsabilityMetrics_Notification;
+using Newtonsoft.Json.Linq;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -14,8 +12,9 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     readonly ISteamService SteamTool = ISteamService.Instance;
     readonly ISteamIdleCardService IdleCard = ISteamIdleCardService.Instance;
 
-    private DateTimeOffset _StartIdleTime;
     private SteamLoginState SteamLoginState = new();
+
+    private readonly AsyncLock asyncLock = new AsyncLock();
 
     public IdleCardPageViewModel()
     {
@@ -32,7 +31,8 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     IsLoaing = true;
                     if (await LoginSteam())
                     {
-                        await SteamAppsSort();
+                        await LoadBadges();
+                        SteamAppsSort();
                     }
                     else
                     {
@@ -77,7 +77,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        if (!IsLoaing)
+        if (!IsLogin)
         {
             IsLoaing = true;
             if (!await LoginSteam()) // 登录 Steam Web
@@ -98,12 +98,15 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             {
                 //await SteamConnectService.Current.RefreshGamesListAsync();
                 RunState = await ReadyToGoIdle();
+                RunOrStopAutoNext(SteamIdleSettings.IsAutoNextOn);
+                RunOrStopAutoCardDropCheck(true);
             }
             else
             {
                 RunState = false;
                 StopIdle();
                 RunOrStopAutoNext(false);
+                RunOrStopAutoCardDropCheck(false);
             }
 
             RunLoaingState = false;
@@ -138,7 +141,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// <summary>
     /// 定时自动切换 CancelToken
     /// </summary>
-    private CancellationTokenSource CancellationTokenSource = new();
+    private CancellationTokenSource AutoNextCancellationTokenSource = new();
+
+    /// <summary>
+    /// 定时刷新检查徽章卡片掉落 CancelToken
+    /// </summary>
+    private CancellationTokenSource DropCardCancellationTokenSource = new();
 
     /// <summary>
     /// 重新加载
@@ -190,7 +198,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         RunState = RuningCount > 0;
     }
 
-    private async Task<bool> SteamAppsSort()
+    /// <summary>
+    /// 加载徽章数据
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> LoadBadges()
     {
         try
         {
@@ -205,24 +217,13 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             IdleTime = default;
 
             badges = badges.Where(w => w.CardsRemaining != 0);
-            var apps = SteamIdleSettings.IdleSequentital.Value switch
-            {
-                IdleSequentital.LeastCards => badges.OrderBy(o => o.CardsRemaining).Select(s => new IdleApp(s)),
-                IdleSequentital.Mostcards => badges.OrderByDescending(o => o.CardsRemaining).Select(s => new IdleApp(s)),
-                IdleSequentital.Mostvalue => badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => new IdleApp(s)),
-                _ => badges.Select(s => new IdleApp(s)),
-            };
 
-            foreach (var app in apps)
+            foreach (var badge in badges)
             {
-                if (app.Badge.CardsRemaining != 0)// 过滤可掉落卡片的游戏
-                {
-                    TotalCardsAvgPrice += app.Badge.RegularAvgPrice * app.Badge.CardsRemaining;
-                    TotalCardsRemaining += app.Badge.CardsRemaining;
-                }
+
+                TotalCardsAvgPrice += badge.RegularAvgPrice * badge.CardsRemaining;
+                TotalCardsRemaining += badge.CardsRemaining;
             }
-
-            IdleGameList = new ObservableCollection<IdleApp>(apps);
             return true;
         }
         catch (Exception ex)
@@ -233,9 +234,37 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// 排序并加载挂卡列表
+    /// </summary>
+    /// <returns></returns>
+    private bool SteamAppsSort()
+    {
+        try
+        {
+            var badges = Badges.Where(w => w.CardsRemaining != 0);
+            var apps = SteamIdleSettings.IdleSequentital.Value switch
+            {
+                IdleSequentital.LeastCards => badges.OrderBy(o => o.CardsRemaining).Select(s => new IdleApp(s)),
+                IdleSequentital.Mostcards => badges.OrderByDescending(o => o.CardsRemaining).Select(s => new IdleApp(s)),
+                IdleSequentital.Mostvalue => badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => new IdleApp(s)),
+                _ => badges.Select(s => new IdleApp(s)),
+            };
+
+            IdleGameList = new ObservableCollection<IdleApp>(apps);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex);
+            return false;
+        }
+    }
+
     private async Task<bool> ReadyToGoIdle()
     {
-        if (await SteamAppsSort())
+        if (await LoadBadges() && SteamAppsSort())
         {
             StartIdle();
             ChangeRunTxt();
@@ -261,7 +290,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        _StartIdleTime = DateTimeOffset.Now;
         DroppedCardsCount = TotalCardsRemaining;
 
         if (SteamIdleSettings.IdleRule.Value == IdleRule.OnlyOneGame)
@@ -392,6 +420,8 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         }
     }
 
+    #region AutoNext
+
     /// <summary>
     /// 暂停自动切换下一个游戏
     /// </summary>
@@ -419,15 +449,17 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         {
             if (RunState)
             {
+                if (AutoNextCancellationTokenSource.Token.IsCancellationRequested)
+                    AutoNextCancellationTokenSource.TryReset();
+
                 Task2.InBackground(() =>
                 {
-                    while (!CancellationTokenSource.Token.IsCancellationRequested)
+                    while (!AutoNextCancellationTokenSource.Token.IsCancellationRequested)
                     {
                         try
                         {
+                            Task.Delay(TimeSpan.FromMilliseconds(SteamIdleSettings.SwitchTime.Value), AutoNextCancellationTokenSource.Token).Wait();
                             AutoNextTask().Wait();
-                            IdleTime = DateTimeOffset.Now - _StartIdleTime;
-                            Task.Delay(TimeSpan.FromSeconds(SteamIdleSettings.SwitchTime.Value), CancellationTokenSource.Token).Wait();
                         }
                         catch (OperationCanceledException)
                         {
@@ -439,7 +471,8 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     }
                 }, true);
             }
-            Toast.Show(ToastIcon.Info, Strings.Idle_PleaseStartIdle);
+            else
+                Toast.Show(ToastIcon.Info, Strings.Idle_PleaseStartIdle);
         }
         else
         {
@@ -453,32 +486,108 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// </summary>
     private async Task AutoNextTask()
     {
-        if (SteamIdleSettings.IsAutoNextOn.Value == false || IsAutoNextPaused == true)
+        using (await asyncLock.LockAsync())
         {
-            CancellationTokenSource.Cancel();
-            return;
-        }
-        if (IdleGameList.Sum(s => s.Badge.CardsRemaining) == 0)
-        {
-            CancellationTokenSource.Cancel();
-            if (IsReloaded == false)
+            if (SteamIdleSettings.IsAutoNextOn.Value == false || IsAutoNextPaused == true)
             {
-                IsReloaded = true;
-                await ReadyToGoIdle();
+                AutoNextCancellationTokenSource.Cancel();
+                return;
+            }
+            if (IdleGameList.Sum(s => s.Badge.CardsRemaining) == 0) // 如果挂卡列表可挂卡数量为0，重新获取徽章数据挂卡
+            {
+                if (IsReloaded == false)
+                {
+                    IsReloaded = true;
+                    await ReadyToGoIdle();
+                }
+                else
+                {
+                    SteamIdleSettings.IsAutoNextOn.Value = false;
+                    IdleComplete();
+                }
+                return;
+            }
+            else // 开始下一个挂卡
+            {
+                IsReloaded = false;
+                RunNextIdle();
+            }
+        }
+    }
+    #endregion
+
+    #region AutoCardDropCheck
+    private void RunOrStopAutoCardDropCheck(bool b)
+    {
+        if (b)
+        {
+            if (RunState)
+            {
+                if (DropCardCancellationTokenSource.Token.IsCancellationRequested)
+                    DropCardCancellationTokenSource.TryReset();
+
+                Task2.InBackground(() =>
+                {
+                    while (!DropCardCancellationTokenSource.Token.IsCancellationRequested)
+                    {
+                        try
+                        {
+                            Task.Delay(TimeSpan.FromMilliseconds(100), DropCardCancellationTokenSource.Token).Wait();
+                            AutoCardDropCheck().Wait();
+                        }
+                        catch (OperationCanceledException)
+                        {
+                        }
+                        catch (Exception ex)
+                        {
+                            Toast.LogAndShowT(ex);
+                        }
+                    }
+                }, true);
             }
             else
-            {
-                SteamIdleSettings.IsAutoNextOn.Value = false;
-                IdleComplete();
-            }
-            return;
+                Toast.Show(ToastIcon.Info, Strings.Idle_PleaseStartIdle);
         }
         else
         {
-            IsReloaded = false;
-            RunNextIdle();
+            DropCardCancellationTokenSource.Cancel();
         }
     }
+
+    private async Task AutoCardDropCheck()
+    {
+        if (IdleTime.TotalMinutes != 0 && IdleTime.TotalMinutes % 6 == 0) // 每六分钟刷新徽章信息
+        {
+            using (await asyncLock.LockAsync())
+            {
+                if (RunState)
+                {
+                    await LoadBadges();
+                    if (CurrentIdle != null) // 存在单独运行的游戏 检查是否挂卡完成，完成则切换下一个游戏
+                    {
+                        StopSoloIdle(CurrentIdle.App);
+                        if (!Badges.Any(x => x.AppId == CurrentIdle.AppId && x.CardsRemaining > 0))
+                            RunNextIdle();
+                        else
+                            StartSoloIdle(CurrentIdle);
+
+                    }
+
+                    var isMultipleIdle = IdleGameList.Count(x => x.App.Process != null) > 1; // 存在多个挂卡游戏 刷新挂卡列表重新批量挂卡
+                    if (isMultipleIdle)
+                    {
+                        StopIdle();
+                        SteamAppsSort();
+                        StartIdle();
+                    }
+                    ChangeRunTxt();
+                }
+            }
+        }
+        else
+            IdleTime += TimeSpan.FromMilliseconds(100);
+    }
+    #endregion
 
     /// <summary>
     /// 挂卡完毕，没有需要挂卡的游戏
