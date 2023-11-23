@@ -68,6 +68,11 @@ interface IDotNetPublishCommand : ICommand
 
     internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign)
     {
+        if (ProjectUtils.ProjPath.Contains("actions-runner"))
+        {
+            hsm_sign = false; // hsm 目前无法映射到 CI VM 中
+        }
+
         var bgOriginalColor = Console.BackgroundColor;
         var fgOriginalColor = Console.ForegroundColor;
 
@@ -1031,6 +1036,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
         //yield return AssemblyInfo.ArchiSteamFarmPlus;
         yield return AssemblyInfo.Authenticator;
         yield return AssemblyInfo.GameTools;
+        yield return AssemblyInfo.SteamIdleCard;
     }
 
     /// <summary>
