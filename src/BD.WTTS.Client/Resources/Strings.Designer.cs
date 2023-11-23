@@ -6883,6 +6883,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 已掉落 {0} 张卡牌 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_DroppedCardsCountTip_ {
+            get {
+                return ResourceManager.GetString("SteamIdle_DroppedCardsCountTip_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已游玩 {0} 小时 
         ///{1} 张剩余卡牌掉落
         ///卡牌均价 ￥{2} 的本地化字符串。

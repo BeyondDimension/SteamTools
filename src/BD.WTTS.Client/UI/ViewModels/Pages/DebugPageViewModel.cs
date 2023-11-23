@@ -24,8 +24,6 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
         set => this.RaiseAndSetIfChanged(ref _DebugString, value);
     }
 
-    string? phonenumber;
-
     sealed class D : Repository<Common.Entities.KeyValuePair, string>
     {
 
@@ -107,7 +105,7 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                     // catch (Exception ex)
                     // {
                     // }
-
+                    string phonenumber = cmds[0];
                     if (phonenumber == null) phonenumber = "180" + Random2.GenerateRandomNum(8);
                     if (cmds[1] == "sms")
                     {

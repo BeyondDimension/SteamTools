@@ -3,7 +3,7 @@ using BD.SteamClient.Models;
 using BD.SteamClient.Models.Idle;
 using BD.SteamClient.Services;
 using BD.WTTS.UI.Views.Pages;
-using Newtonsoft.Json.Linq;
+using BD.SteamClient.Constants;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -50,9 +50,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             }
         });
 
-        //this.ChangeState = ReactiveCommand.Create<int>(i =>
-        //{
-        //});
+        NavAppToSteamViewCommand = ReactiveCommand.Create<uint>((appid) =>
+        {
+            var url = string.Format(SteamApiUrls.STEAM_NAVGAME_URL, appid);
+            Process2.Start(url, useShellExecute: true);
+        });
+        OpenLinkUrlCommand = ReactiveCommand.Create<string>(async url => await Browser2.OpenAsync(url));
     }
 
     public override void Activation()
@@ -102,7 +105,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             {
                 //await SteamConnectService.Current.RefreshGamesListAsync();
                 RunState = await ReadyToGoIdle();
-                RunOrStopAutoNext(SteamIdleSettings.IsAutoNextOn);
+                RunOrStopAutoNext(SteamIdleSettings.IsAutoNextOn.Value);
                 RunOrStopAutoCardDropCheck(true);
             }
             else
@@ -224,7 +227,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
             foreach (var badge in badges)
             {
-
                 TotalCardsAvgPrice += badge.RegularAvgPrice * badge.CardsRemaining;
                 TotalCardsRemaining += badge.CardsRemaining;
             }

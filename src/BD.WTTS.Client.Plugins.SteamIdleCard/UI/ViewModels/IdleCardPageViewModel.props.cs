@@ -14,6 +14,10 @@ public sealed partial class IdleCardPageViewModel
 
     //public ICommand ChangeState { get; }
 
+    public ICommand NavAppToSteamViewCommand { get; }
+
+    public ICommand OpenLinkUrlCommand { get; }
+
     [Reactive]
     public bool IsLogin { get; set; }
 
@@ -55,6 +59,8 @@ public sealed partial class IdleCardPageViewModel
 
     [Reactive]
     public int TotalCardsRemaining { get; set; }
+
+    public int DropCardsCount => DroppedCardsCount - TotalCardsRemaining;
 
     [Reactive]
     public decimal TotalCardsAvgPrice { get; set; }

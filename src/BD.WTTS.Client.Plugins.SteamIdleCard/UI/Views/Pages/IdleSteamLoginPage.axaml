@@ -45,6 +45,7 @@
                             MaxWidth="280"
                             Classes="revealPasswordButton"
                             PasswordChar="{StaticResource PasswordChar}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                             Text="{Binding PasswordText}"
                             Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
@@ -96,7 +97,7 @@
                 <TextBox
                     Height="90"
                     AcceptsReturn="True"
-                    MaxLines="6"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     Text="{Binding SteamLoginSecure}" />
                 <!--<TextBlock Text="家庭监护代码" />-->
                 <!--<TextBox Text="{Binding 家庭监护代码}" />-->

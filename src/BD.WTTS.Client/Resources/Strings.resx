@@ -2875,4 +2875,7 @@
 	<data name="CookieLogin" xml:space="preserve">
     <value>Cookie 登录</value>
   </data>
+	<data name="SteamIdle_DroppedCardsCountTip_" xml:space="preserve">
+    <value>已掉落 {0} 张卡牌</value>
+  </data>
 </root>

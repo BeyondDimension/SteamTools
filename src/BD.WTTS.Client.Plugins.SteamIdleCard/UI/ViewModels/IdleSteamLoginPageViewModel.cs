@@ -77,10 +77,10 @@ public sealed partial class IdleSteamLoginPageViewModel : WindowViewModel
             if (!string.IsNullOrEmpty(SeesionId) && !string.IsNullOrEmpty(SteamLoginSecure))
             {
                 var temps = SteamLoginSecure.Split(SteamLoginSecure.Contains("||") ? "||" : "%7C%7C");
-                if (temps.Length == 2)
+                if (temps.Length == 2 && ulong.TryParse(temps[0], out var steamid))
                 {
-                    var steamid = temps[0];
-                    var accecstoken = temps[1];
+                    SteamLoginState.SteamId = steamid;
+                    SteamLoginState.AccessToken = temps[1];
                     var cookieContainer = new CookieContainer();
                     cookieContainer.Add(new Cookie("steamLoginSecure", SteamLoginSecure, "/", "steamcommunity.com"));
                     cookieContainer.Add(new Cookie("sessionid", SeesionId, "/", "steamcommunity.com"));
@@ -88,8 +88,8 @@ public sealed partial class IdleSteamLoginPageViewModel : WindowViewModel
                     cookieContainer.Add(new Cookie("sessionid", SeesionId, "/", "steampowered.com"));
                     SteamSession session = new SteamSession()
                     {
-                        SteamId = steamid,
-                        AccessToken = accecstoken,
+                        SteamId = steamid.ToString(),
+                        AccessToken = SteamLoginState.AccessToken,
                         RefreshToken = string.Empty,
                         CookieContainer = cookieContainer,
                     };
