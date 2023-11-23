@@ -392,7 +392,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             if (isNext && idles.Count >= CurrentIdleIndex + 1)
                 return idles[CurrentIdleIndex++];
             else
+            {
+                CurrentIdleIndex = 0;
                 return idles.First();
+            }
+
         }
     }
 

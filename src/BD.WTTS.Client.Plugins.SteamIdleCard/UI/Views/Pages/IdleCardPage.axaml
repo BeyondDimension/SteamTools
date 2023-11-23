@@ -25,7 +25,7 @@
     <spp:PageBase.Resources>
         <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="spp:IdleApp">
             <ui:MenuFlyoutItem
-                Command="{ReflectionBinding $parent[spp:PageBase].((spp:IdleCardPageViewModel)DataContext).PriorityRunIdleGame}"
+                Command="{ReflectionBinding $parent[spp:PageBase].((spp:IdleCardPageViewModel)DataContext).PriorityRunIdle}"
                 CommandParameter="{Binding}"
                 IconSource="Play"
                 Text="优先运行此游戏" />
