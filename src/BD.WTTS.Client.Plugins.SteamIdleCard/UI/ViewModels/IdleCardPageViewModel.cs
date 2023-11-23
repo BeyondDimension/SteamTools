@@ -105,6 +105,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
             if (!RunState)
             {
+                if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
+                {
+                    Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+                    RunState = false;
+                    return;
+                }
                 //await SteamConnectService.Current.RefreshGamesListAsync();
                 RunState = await ReadyToGoIdle(true);
                 RunOrStopAutoNext(SteamIdleSettings.IsAutoNextOn.Value);
@@ -333,12 +339,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     private void StartIdle(bool isNext = false)
     {
         IdleApp idleApp;
-        if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
-        {
-            Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
-            RunState = false;
-            return;
-        }
 
         if (!IdleGameList.Any())
         {
