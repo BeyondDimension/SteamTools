@@ -208,9 +208,9 @@
                 OnContent="{Binding Path=Res.Idle_OpenAutoNext, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
             <TextBlock Text="游戏最小运行时间(小时)" Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ui:NumberBox SpinButtonPlacementMode="Inline" Value="{Binding Source={x:Static ms:SteamIdleSettings.MinRunTime}, Path=Value, Mode=TwoWay}" />
+            <NumericUpDown Value="{Binding Source={x:Static ms:SteamIdleSettings.MinRunTime}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="快速切换游戏间隔时间(毫秒)" Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ui:NumberBox SpinButtonPlacementMode="Inline" Value="{Binding Source={x:Static ms:SteamIdleSettings.SwitchTime}, Path=Value, Mode=TwoWay}" />
+            <NumericUpDown Value="{Binding Source={x:Static ms:SteamIdleSettings.SwitchTime}, Path=Value, Mode=TwoWay}" />
         </StackPanel>
     </spp:PageBase.PaneContent>
 
