@@ -287,6 +287,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
         {
             Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+            RunState = false;
             return;
         }
 

@@ -2706,7 +2706,7 @@
     <value>请先登录 Steam 账号</value>
   </data>
 	<data name="Idle_OpenAutoNext" xml:space="preserve">
-    <value>打开自动切换游戏</value>
+    <value>启用快速掉卡模式</value>
   </data>
 	<data name="Idle_OperationSuccess" xml:space="preserve">
     <value>挂卡操作成功</value>
