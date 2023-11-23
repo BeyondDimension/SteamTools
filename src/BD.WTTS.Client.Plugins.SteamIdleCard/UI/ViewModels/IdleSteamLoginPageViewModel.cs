@@ -76,7 +76,7 @@ public sealed partial class IdleSteamLoginPageViewModel : WindowViewModel
             IsLoading = true;
             if (!string.IsNullOrEmpty(SeesionId) && !string.IsNullOrEmpty(SteamLoginSecure))
             {
-                var temps = SteamLoginSecure.Split("%7C%7C");
+                var temps = SteamLoginSecure.Split(SteamLoginSecure.Contains("||") ? "||" : "%7C%7C");
                 if (temps.Length == 2)
                 {
                     var steamid = temps[0];

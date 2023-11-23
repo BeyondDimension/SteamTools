@@ -298,8 +298,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
         if (SteamIdleSettings.IdleRule.Value == IdleRule.OnlyOneGame)
         {
-            CurrentIdle = IdleGameList.First();
-            StartSoloIdle(CurrentIdle);
+            StartSoloIdle(IdleGameList.First());
         }
         else
         {
@@ -351,6 +350,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// <param name="item"></param>
     private void StartSoloIdle(IdleApp item)
     {
+        CurrentIdle = item;
         SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
         if (runState == null)
         {
@@ -432,12 +432,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// <param name="b"></param>
     private void PauseAutoNext(bool b)
     {
-        if (SteamIdleSettings.IsAutoNextOn.Value && b && !IsAutoNextPaused)
+        if (b && !IsAutoNextPaused)
         {
-            SteamIdleSettings.IsAutoNextOn.Value = false;
             IsAutoNextPaused = true;
         }
-        else if (!SteamIdleSettings.IsAutoNextOn.Value && !b && IsAutoNextPaused)
+        else if (!b && IsAutoNextPaused)
         {
             IsAutoNextPaused = false;
         }
@@ -454,7 +453,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             if (RunState)
             {
                 if (AutoNextCancellationTokenSource.Token.IsCancellationRequested)
-                    AutoNextCancellationTokenSource.TryReset();
+                    AutoNextCancellationTokenSource = new();
 
                 Task2.InBackground(() =>
                 {
@@ -482,6 +481,8 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         {
             if (IsAutoNextPaused)
                 IsAutoNextPaused = false;
+
+            AutoNextCancellationTokenSource.Cancel();
         }
     }
 
@@ -492,9 +493,10 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         using (await asyncLock.LockAsync())
         {
-            if (SteamIdleSettings.IsAutoNextOn.Value == false || IsAutoNextPaused == true)
+            if (!SteamIdleSettings.IsAutoNextOn.Value || IsAutoNextPaused)
             {
-                AutoNextCancellationTokenSource.Cancel();
+                if (!SteamIdleSettings.IsAutoNextOn.Value)
+                    AutoNextCancellationTokenSource.Cancel();
                 return;
             }
             if (IdleGameList.Sum(s => s.Badge.CardsRemaining) == 0) // 如果挂卡列表可挂卡数量为0，重新获取徽章数据挂卡
@@ -515,6 +517,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             {
                 IsReloaded = false;
                 RunNextIdle();
+                ChangeRunTxt();
             }
         }
     }
@@ -528,7 +531,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             if (RunState)
             {
                 if (DropCardCancellationTokenSource.Token.IsCancellationRequested)
-                    DropCardCancellationTokenSource.TryReset();
+                    DropCardCancellationTokenSource = new();
 
                 Task2.InBackground(() =>
                 {
