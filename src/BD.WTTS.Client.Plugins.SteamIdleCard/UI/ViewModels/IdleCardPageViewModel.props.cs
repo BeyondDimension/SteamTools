@@ -6,6 +6,11 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class IdleCardPageViewModel
 {
+    /// <summary>
+    /// 有限运行此游戏
+    /// </summary>
+    public ICommand PriorityRunIdle { get; }
+
     public ICommand LoginSteamCommand { get; }
 
     public ICommand IdleRunStartOrStop { get; }
@@ -70,38 +75,4 @@ public sealed partial class IdleCardPageViewModel
     /// </summary>
     [Reactive]
     public IdleApp? CurrentIdle { get; set; }
-
-    ///// <summary>
-    ///// 挂卡规则
-    ///// </summary>
-    //[Reactive]
-    //public IdleRule IdleRule { get; set; }
-
-    ///// <summary>
-    ///// 挂卡顺序
-    ///// </summary>
-    //[Reactive]
-    //public IdleSequentital IdleSequentital { get; set; }
-
-    ///// <summary>
-    ///// 自动运行下一个游戏
-    ///// </summary>
-    //[Reactive]
-    //public bool IsAutoNextOn { get; set; }
-
-    //#region 魔改
-
-    ///// <summary>
-    ///// 最少游戏时间 hours
-    ///// </summary>
-    //[Reactive]
-    //public double MinRunTime { get; set; } = 2;
-
-    ///// <summary>
-    ///// 自动切换游戏时间间隔 ms
-    ///// </summary>
-    //[Reactive]
-    //public double SwitchTime { get; set; } = 500;
-
-    //#endregion
 }

@@ -19,9 +19,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     public IdleCardPageViewModel()
     {
         SteamIdleSettings.IsAutoNextOn.WhenValueChanged(x => x.Value).Subscribe(RunOrStopAutoNext);
+        SteamIdleSettings.IdleRule.WhenValueChanged(x => x.Value).Subscribe(x => { IdleRuleChange().Wait(); });
 
+        this.PriorityRunIdle = ReactiveCommand.CreateFromTask<IdleApp>(PriorityRunIdleGame);
         this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
-        this.IdleManualRunNext = ReactiveCommand.Create(ManualRunNext);
+        this.IdleManualRunNext = ReactiveCommand.CreateFromTask(ManualRunNext);
         this.LoginSteamCommand = ReactiveCommand.Create(async () =>
         {
             if (!IsLogin)
@@ -104,7 +106,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             if (!RunState)
             {
                 //await SteamConnectService.Current.RefreshGamesListAsync();
-                RunState = await ReadyToGoIdle();
+                RunState = await ReadyToGoIdle(true);
                 RunOrStopAutoNext(SteamIdleSettings.IsAutoNextOn.Value);
                 RunOrStopAutoCardDropCheck(true);
             }
@@ -114,6 +116,10 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 StopIdle();
                 RunOrStopAutoNext(false);
                 RunOrStopAutoCardDropCheck(false);
+                IdleTime = default;
+                CurrentIdle = null;
+                CurrentIdleIndex = 0;
+                ChangeRunTxt();
             }
 
             RunLoaingState = false;
@@ -128,9 +134,29 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// <summary>
     /// 手动切换下一个游戏
     /// </summary>
-    public void ManualRunNext()
+    public async Task ManualRunNext()
     {
-        RunNextIdle();
+        using (await asyncLock.LockAsync())
+        {
+            RunNextIdle();
+        }
+    }
+
+    /// <summary>
+    /// 优先运行当前游戏
+    /// </summary>
+    /// <param name="idleApp"></param>
+    /// <returns></returns>
+    public async Task PriorityRunIdleGame(IdleApp idleApp)
+    {
+        using (await asyncLock.LockAsync())
+        {
+            StopIdle();
+            PauseAutoNext(true);
+            StartSoloIdle(idleApp);
+            CurrentIdleIndex = IdleGameList.IndexOf(idleApp);
+            ChangeRunTxt();
+        }
     }
 
     #region PrivateFields
@@ -139,6 +165,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// 最大并行运行游戏数量
     /// </summary>
     private int MaxIdleCount = 32;
+
+    /// <summary>
+    /// 当前运行游戏索引
+    /// </summary>
+    private int CurrentIdleIndex = 0;
 
     /// <summary>
     /// 暂停游戏自动切换
@@ -206,6 +237,22 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     }
 
     /// <summary>
+    /// 挂卡规则变动
+    /// </summary>
+    /// <returns></returns>
+    private async Task IdleRuleChange()
+    {
+        using (await asyncLock.LockAsync())
+        {
+            StopIdle();
+            CurrentIdle = null;
+            CurrentIdleIndex = 0;
+            StartIdle();
+            ChangeRunTxt();
+        }
+    }
+
+    /// <summary>
     /// 加载徽章数据
     /// </summary>
     /// <returns></returns>
@@ -221,7 +268,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             Badges.Add(badges);
             TotalCardsRemaining = 0;
             TotalCardsAvgPrice = 0;
-            IdleTime = default;
 
             badges = badges.Where(w => w.CardsRemaining != 0);
 
@@ -268,10 +314,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         }
     }
 
-    private async Task<bool> ReadyToGoIdle()
+    private async Task<bool> ReadyToGoIdle(bool isFirstStart = false)
     {
         if (await LoadBadges() && SteamAppsSort())
         {
+            if (isFirstStart)
+                DroppedCardsCount = TotalCardsRemaining;
             StartIdle();
             ChangeRunTxt();
             return true;
@@ -282,8 +330,9 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     /// <summary>
     /// 开始挂卡
     /// </summary>
-    private void StartIdle()
+    private void StartIdle(bool isNext = false)
     {
+        IdleApp idleApp;
         if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
         {
             Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
@@ -297,21 +346,23 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        DroppedCardsCount = TotalCardsRemaining;
-
         if (SteamIdleSettings.IdleRule.Value == IdleRule.OnlyOneGame)
         {
-            StartSoloIdle(IdleGameList.First());
+            PauseAutoNext(false);
+            idleApp = VerifyIsNext(IdleGameList, isNext);
+            StartSoloIdle(idleApp);
         }
         else
         {
             if (SteamIdleSettings.IdleRule.Value == IdleRule.OneThenMany)
             {
-                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed >= SteamIdleSettings.MinRunTime.Value);
-                if (multi.Count() >= 1)
+                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed >= SteamIdleSettings.MinRunTime.Value).ToList();
+
+                if (multi.Count >= 1)
                 {
+                    idleApp = VerifyIsNext(multi, isNext);
                     PauseAutoNext(false);
-                    StartSoloIdle(multi.First());
+                    StartSoloIdle(idleApp);
                 }
                 else
                 {
@@ -321,29 +372,39 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             }
             else
             {
-                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed < SteamIdleSettings.MinRunTime.Value);
-                if (multi.Count() >= 2)
+                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed < SteamIdleSettings.MinRunTime.Value).ToList();
+                if (multi.Count >= 2)
                 {
                     PauseAutoNext(true);
                     StartMultipleIdle();
                 }
                 else
                 {
+                    idleApp = VerifyIsNext(multi, isNext);
                     PauseAutoNext(false);
-                    StartSoloIdle(multi.First());
+                    StartSoloIdle(idleApp);
                 }
             }
         }
+
+        IdleApp VerifyIsNext(IList<IdleApp> idles, bool isNext)
+        {
+            if (isNext && idles.Count >= CurrentIdleIndex + 1)
+                return idles[CurrentIdleIndex++];
+            else
+                return idles.First();
+        }
     }
 
+    /// <summary>
+    /// 运行下一个挂卡
+    /// </summary>
     private void RunNextIdle()
     {
         if (RunState)
         {
             StopIdle();
-            if (CurrentIdle != null)
-                IdleGameList.Remove(CurrentIdle);
-            StartIdle();
+            StartIdle(true);
         }
     }
 
@@ -467,12 +528,10 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                             Task.Delay(TimeSpan.FromMilliseconds(SteamIdleSettings.SwitchTime.Value), AutoNextCancellationTokenSource.Token).Wait();
                             AutoNextTask().Wait();
                         }
-                        catch (OperationCanceledException)
+                        catch (AggregateException ae)
                         {
-                        }
-                        catch (Exception ex)
-                        {
-                            Toast.LogAndShowT(ex);
+                            if (!ae.InnerExceptions.Any(x => x is TaskCanceledException || x is InvalidOperationException))
+                                ae.LogAndShowT();
                         }
                     }
                 }, true);
@@ -543,14 +602,13 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                         try
                         {
                             Task.Delay(TimeSpan.FromMilliseconds(100), DropCardCancellationTokenSource.Token).Wait();
+                            IdleTime += TimeSpan.FromMilliseconds(100);
                             AutoCardDropCheck().Wait();
                         }
-                        catch (OperationCanceledException)
+                        catch (AggregateException ae)
                         {
-                        }
-                        catch (Exception ex)
-                        {
-                            Toast.LogAndShowT(ex);
+                            if (!ae.InnerExceptions.Any(x => x is TaskCanceledException || x is InvalidOperationException))
+                                ae.LogAndShowT();
                         }
                     }
                 }, true);
@@ -594,8 +652,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 }
             }
         }
-        else
-            IdleTime += TimeSpan.FromMilliseconds(100);
     }
     #endregion
 
