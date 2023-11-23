@@ -3502,7 +3502,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 关闭自动切换游戏 的本地化字符串。
+        ///   查找类似 禁用快速掉卡模式 的本地化字符串。
         /// </summary>
         public static string Idle_StopAutoNext {
             get {

@@ -2718,7 +2718,7 @@
     <value>正在运行 {0}/{1}</value>
   </data>
 	<data name="Idle_StopAutoNext" xml:space="preserve">
-    <value>关闭自动切换游戏</value>
+    <value>禁用快速掉卡模式</value>
   </data>
 	<data name="SettingsModifiedRestartThisSoft" xml:space="preserve">
     <value>设置已修改，需重启软件后生效</value>
