@@ -96,9 +96,10 @@
                 <TextBlock Text="steamLoginSecure" />
                 <TextBox
                     Height="90"
+                    MaxWidth="300"
                     AcceptsReturn="True"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    Text="{Binding SteamLoginSecure}" />
+                    Text="{Binding SteamLoginSecure}"
+                    TextWrapping="WrapWithOverflow" />
                 <!--<TextBlock Text="家庭监护代码" />-->
                 <!--<TextBox Text="{Binding 家庭监护代码}" />-->
                 <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
