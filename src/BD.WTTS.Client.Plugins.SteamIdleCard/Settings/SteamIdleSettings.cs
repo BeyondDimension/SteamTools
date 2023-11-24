@@ -79,6 +79,12 @@ public sealed partial class SteamIdleSettings_ : ISteamIdleSettings, ISettings, 
     [MPKey(5), MP2Key(5), JsonPropertyOrder(5)]
     public double SwitchTime { get; set; } = ISteamIdleSettings.DefaultSwitchTime;
 
+    /// <summary>
+    /// 自动刷新徽章数据时间间隔 min
+    /// </summary>
+    [MPKey(6), MP2Key(6), JsonPropertyOrder(6)]
+    public double RefreshBadgesTime { get; set; } = ISteamIdleSettings.DefaultRefreshBadgesTime;
+
 }
 
 public static partial class SteamIdleSettings
@@ -118,5 +124,11 @@ public static partial class SteamIdleSettings
     /// </summary>
     public static SettingsStructProperty<double, SteamIdleSettings_> SwitchTime { get; }
         = new(DefaultSwitchTime);
+
+    /// <summary>
+    /// 自动刷新徽章数据时间间隔 min
+    /// </summary>
+    public static SettingsStructProperty<double, SteamIdleSettings_> RefreshBadgesTime { get; }
+        = new(DefaultRefreshBadgesTime);
 
 }

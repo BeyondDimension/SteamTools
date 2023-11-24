@@ -51,6 +51,11 @@ public partial interface ISteamIdleSettings
     double SwitchTime { get; set; }
 
     /// <summary>
+    /// 自动刷新徽章数据时间间隔 min
+    /// </summary>
+    double RefreshBadgesTime { get; set; }
+
+    /// <summary>
     /// 挂卡状态更新时间的默认值
     /// </summary>
     static readonly TimeSpan DefaultIdleTime = TimeSpan.FromMinutes(6);
@@ -78,6 +83,11 @@ public partial interface ISteamIdleSettings
     /// <summary>
     /// 自动切换游戏时间间隔 ms的默认值
     /// </summary>
-    static readonly double DefaultSwitchTime = 500;
+    static readonly double DefaultSwitchTime = 1000;
+
+    /// <summary>
+    /// 自动刷新徽章数据时间间隔 min的默认值
+    /// </summary>
+    static readonly double DefaultRefreshBadgesTime = 6;
 
 }

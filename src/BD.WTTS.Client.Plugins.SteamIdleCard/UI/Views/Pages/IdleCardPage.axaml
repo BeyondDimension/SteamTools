@@ -211,6 +211,8 @@
             <NumericUpDown Minimum="0.1" Value="{Binding Source={x:Static ms:SteamIdleSettings.MinRunTime}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="快速切换游戏间隔时间(毫秒)" Theme="{StaticResource CaptionTextBlockStyle}" />
             <NumericUpDown Minimum="1000" Value="{Binding Source={x:Static ms:SteamIdleSettings.SwitchTime}, Path=Value, Mode=TwoWay}" />
+            <TextBlock Text="自动刷新徽章数据时间间隔(分钟)" Theme="{StaticResource CaptionTextBlockStyle}" />
+            <NumericUpDown Minimum="1" Value="{Binding Source={x:Static ms:SteamIdleSettings.RefreshBadgesTime}, Path=Value, Mode=TwoWay}" />
         </StackPanel>
     </spp:PageBase.PaneContent>
 

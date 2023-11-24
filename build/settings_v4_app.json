@@ -1017,9 +1017,18 @@
         {
           "TypeName": "double",
           "PropertyName": "SwitchTime",
-          "DefaultValue": "500",
+          "DefaultValue": "1000",
           "DefaultValueIsConst": false,
           "Summary": "自动切换游戏时间间隔 ms",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "double",
+          "PropertyName": "RefreshBadgesTime",
+          "DefaultValue": "6",
+          "DefaultValueIsConst": false,
+          "Summary": "自动刷新徽章数据时间间隔 min",
           "IsRegionOrEndregion": null,
           "IsValueType": true
         }
