@@ -81,6 +81,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
+        //MAC、Linux无法获取到当前steam客户端登录用户所以改用进程判断
         if (OperatingSystem2.IsMacOS() || OperatingSystem2.IsLinux())
         {
             if (!ISteamService.Instance.IsRunningSteamProcess)
@@ -115,8 +116,8 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
             if (!RunState)
             {
-                //MAC无法获取到当前steam客户端登录用户所以忽略判断
-                if (!OperatingSystem2.IsMacOS())
+                //MAC、Linux无法获取到当前steam客户端登录用户所以忽略判断
+                if (OperatingSystem2.IsWindows())
                 {
                     if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
                     {
