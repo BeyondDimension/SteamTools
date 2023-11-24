@@ -1017,7 +1017,7 @@
         {
           "TypeName": "double",
           "PropertyName": "SwitchTime",
-          "DefaultValue": "1000",
+          "DefaultValue": "OperatingSystem2.IsWindows() ? 2000 : 4000",
           "DefaultValueIsConst": false,
           "Summary": "自动切换游戏时间间隔 ms",
           "IsRegionOrEndregion": null,
