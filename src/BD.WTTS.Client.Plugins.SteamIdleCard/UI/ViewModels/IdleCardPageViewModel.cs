@@ -122,6 +122,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     {
                         Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
                         RunState = false;
+                        RunLoaingState = false;
                         return;
                     }
                 }
