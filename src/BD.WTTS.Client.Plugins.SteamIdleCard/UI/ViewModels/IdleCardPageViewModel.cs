@@ -63,9 +63,9 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
     public override void Activation()
     {
+        if (IsFirstActivation)
+            LoginSteamCommand.Execute(null);
         base.Activation();
-
-        LoginSteamCommand.Execute(null);
     }
 
     /// <summary>
@@ -80,7 +80,15 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        if (!SteamConnectService.Current.IsConnectToSteam) // 是否登录 Steam 客户端
+        if (OperatingSystem2.IsMacOS())
+        {
+            if (!ISteamService.Instance.IsRunningSteamProcess)
+            {
+                Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
+                return;
+            }
+        }
+        else if (!SteamConnectService.Current.IsConnectToSteam) // 是否登录 Steam 客户端
         {
             Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
             //await MessageBox.ShowAsync(Strings.Idle_NeedLoginSteam, button: MessageBox.Button.OK);
