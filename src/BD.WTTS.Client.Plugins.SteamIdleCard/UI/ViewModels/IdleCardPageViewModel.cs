@@ -81,7 +81,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        if (OperatingSystem2.IsMacOS())
+        if (OperatingSystem2.IsMacOS() || OperatingSystem2.IsLinux())
         {
             if (!ISteamService.Instance.IsRunningSteamProcess)
             {

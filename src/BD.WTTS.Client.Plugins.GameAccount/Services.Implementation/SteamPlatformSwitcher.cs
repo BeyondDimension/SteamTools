@@ -36,6 +36,12 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                     {
                         user.MostRecent = false;
                     }
+
+                    var optional = SteamConnectService.Current.SteamUsers.Lookup(user.SteamId64);
+                    if (optional.HasValue)
+                    {
+                        optional.Value.MostRecent = user.MostRecent;
+                    }
                 }
             }
             else
