@@ -52,7 +52,7 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
 
         //SystemDecorations = SystemDecorations.BorderOnly;
         Background = null;
-        TransparencyBackgroundFallback = Brushes.Transparent;
+        TransparencyBackgroundFallback = OperatingSystem2.IsMacOS() ? Brushes.Black : Brushes.Transparent;
         TransparencyLevelHint = new WindowTransparencyLevel[] { UISettings.WindowBackgroundMaterial.Value.ToWindowTransparencyLevel() };
 
         if (IsSaveWindowSize)

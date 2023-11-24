@@ -6950,6 +6950,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 请登录 Steam 客户端并保证账号与当前登录的挂卡账号一致 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_SteamClientUserTips {
+            get {
+                return ResourceManager.GetString("SteamIdle_SteamClientUserTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0} 级 , {1} 点经验值 的本地化字符串。
         /// </summary>
         public static string SteamIdle_UserExpString_ {

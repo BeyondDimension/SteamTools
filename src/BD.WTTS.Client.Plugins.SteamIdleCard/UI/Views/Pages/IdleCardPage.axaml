@@ -236,7 +236,7 @@
                                     Source="{x:Static s:SteamConnectService.Current}" />
                                 <CompiledBinding
                                     Mode="OneWay"
-                                    Path="Res.SteamNotRuning"
+                                    Path="Res.SteamIdle_SteamClientUserTips"
                                     Source="{x:Static s:ResourceService.Current}" />
                             </MultiBinding>
                         </TextBlock.Text>
