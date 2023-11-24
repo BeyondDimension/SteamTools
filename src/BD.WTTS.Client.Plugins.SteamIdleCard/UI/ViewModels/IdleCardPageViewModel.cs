@@ -18,9 +18,9 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
     public IdleCardPageViewModel()
     {
-        SteamIdleSettings.IsAutoNextOn.WhenValueChanged(x => x.Value).Subscribe(RunOrStopAutoNext);
-        SteamIdleSettings.IdleRule.WhenValueChanged(x => x.Value).Subscribe(x => { IdleRuleChange().Wait(); });
-        SteamIdleSettings.IdleSequentital.WhenValueChanged(x => x.Value).Subscribe(x => { IdleSequentitalChance().Wait(); });
+        SteamIdleSettings.IsAutoNextOn.Subscribe(RunOrStopAutoNext, false);
+        SteamIdleSettings.IdleRule.Subscribe(async _ => { await IdleRuleChange(); }, false);
+        SteamIdleSettings.IdleSequentital.Subscribe(async _ => { await IdleSequentitalChance(); }, false);
 
         this.PriorityRunIdle = ReactiveCommand.CreateFromTask<IdleApp>(PriorityRunIdleGame);
         this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
@@ -106,12 +106,17 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
             if (!RunState)
             {
-                if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
+                //MAC无法获取到当前steam客户端登录用户所以忽略判断
+                if (!OperatingSystem2.IsMacOS())
                 {
-                    Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
-                    RunState = false;
-                    return;
+                    if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
+                    {
+                        Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+                        RunState = false;
+                        return;
+                    }
                 }
+
                 //await SteamConnectService.Current.RefreshGamesListAsync();
                 RunState = await ReadyToGoIdle(true);
                 RunOrStopAutoNext(SteamIdleSettings.IsAutoNextOn.Value);
@@ -662,6 +667,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 if (RunState)
                 {
                     await LoadBadges();
+                    SteamAppsSort();
                     if (CurrentIdle != null) // 存在单独运行的游戏 检查是否挂卡完成，完成则切换下一个游戏
                     {
                         StopSoloIdle(CurrentIdle.App);
@@ -680,7 +686,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     {
                         StopIdle();
                         ResetCurrentIdle();
-                        SteamAppsSort();
                         StartIdle();
                     }
                     ChangeRunTxt();
