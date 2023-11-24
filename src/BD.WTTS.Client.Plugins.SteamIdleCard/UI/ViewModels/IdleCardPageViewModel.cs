@@ -20,6 +20,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         SteamIdleSettings.IsAutoNextOn.WhenValueChanged(x => x.Value).Subscribe(RunOrStopAutoNext);
         SteamIdleSettings.IdleRule.WhenValueChanged(x => x.Value).Subscribe(x => { IdleRuleChange().Wait(); });
+        SteamIdleSettings.IdleSequentital.WhenValueChanged(x => x.Value).Subscribe(x => { IdleSequentitalChance().Wait(); });
 
         this.PriorityRunIdle = ReactiveCommand.CreateFromTask<IdleApp>(PriorityRunIdleGame);
         this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
@@ -123,8 +124,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 RunOrStopAutoNext(false);
                 RunOrStopAutoCardDropCheck(false);
                 IdleTime = default;
-                CurrentIdle = null;
-                CurrentIdleIndex = 0;
+                ResetCurrentIdle();
                 ChangeRunTxt();
             }
 
@@ -242,20 +242,46 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         RunState = RuningCount > 0;
     }
 
+    private void ResetCurrentIdle() { CurrentIdle = null; CurrentIdleIndex = 0; }
+
     /// <summary>
     /// 挂卡规则变动
     /// </summary>
     /// <returns></returns>
     private async Task IdleRuleChange()
     {
-        using (await asyncLock.LockAsync())
+        if (RunState)
         {
-            StopIdle();
-            CurrentIdle = null;
-            CurrentIdleIndex = 0;
-            StartIdle();
-            ChangeRunTxt();
+            using (await asyncLock.LockAsync())
+            {
+                StopIdle();
+                ResetCurrentIdle();
+                StartIdle();
+                ChangeRunTxt();
+            }
+
         }
+
+    }
+
+    /// <summary>
+    /// 挂卡顺序变动
+    /// </summary>
+    /// <returns></returns>
+    private async Task IdleSequentitalChance()
+    {
+        if (RunState)
+        {
+            using (await asyncLock.LockAsync())
+            {
+                StopIdle();
+                ResetCurrentIdle();
+                SteamAppsSort();
+                StartIdle();
+                ChangeRunTxt();
+            }
+        }
+
     }
 
     /// <summary>
@@ -322,6 +348,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
     private async Task<bool> ReadyToGoIdle(bool isFirstStart = false)
     {
+        ResetCurrentIdle();
         if (await LoadBadges() && SteamAppsSort())
         {
             if (isFirstStart)
@@ -389,11 +416,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
         IdleApp VerifyIsNext(IList<IdleApp> idles, bool isNext)
         {
-            if (isNext && idles.Count >= CurrentIdleIndex + 1)
-                return idles[CurrentIdleIndex++];
+            if (isNext && (idles.Count - 1) >= (CurrentIdleIndex + 1))
+                return idles[++CurrentIdleIndex];
             else
             {
-                CurrentIdleIndex = 0;
+                ResetCurrentIdle();
                 return idles.First();
             }
 
@@ -639,16 +666,20 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     {
                         StopSoloIdle(CurrentIdle.App);
                         if (!Badges.Any(x => x.AppId == CurrentIdle.AppId && x.CardsRemaining > 0))
+                        {
+                            IdleGameList.Remove(CurrentIdle);
+                            CurrentIdleIndex--;
                             RunNextIdle();
+                        }
                         else
                             StartSoloIdle(CurrentIdle);
-
                     }
 
                     var isMultipleIdle = IdleGameList.Count(x => x.App.Process != null) > 1; // 存在多个挂卡游戏 刷新挂卡列表重新批量挂卡
                     if (isMultipleIdle)
                     {
                         StopIdle();
+                        ResetCurrentIdle();
                         SteamAppsSort();
                         StartIdle();
                     }
