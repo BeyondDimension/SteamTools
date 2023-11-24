@@ -699,25 +699,25 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     }
 
                     StopIdle();
-                    await LoadBadges();
-                    SteamAppsSort();
+                    if (await LoadBadges())
+                        SteamAppsSort();
                     ResetCurrentIdle();
 
                     IdleApp? idleApp = null;
-                    if (currentIdleAppId.HasValue) // 存在单独运行的游戏 检查是否挂卡完成，完成则切换下一个游戏
+                    if (currentIdleAppId.HasValue)
                     {
 
-                        if (!Badges.Any(x => x.AppId == currentIdleAppId && x.CardsRemaining > 0))
+                        if (!Badges.Any(x => x.AppId == currentIdleAppId && x.CardsRemaining > 0)) // 当前休息挂卡完成
                         {
-                            if (nextIdleAppId.HasValue)
-                                idleApp = IdleGameList.Where(x => x.AppId == nextIdleAppId).First();
+                            if (nextIdleAppId.HasValue) // 挂卡下一个游戏
+                                idleApp = IdleGameList.Where(x => x.AppId == nextIdleAppId).FirstOrDefault();
                         }
-                        else
+                        else // 继续挂卡当前游戏
                             idleApp = IdleGameList.Where(x => x.AppId == currentIdleAppId).First();
                     }
 
-                    var isMultipleIdle = IdleGameList.Count(x => x.App.Process != null) > 1; // 存在多个挂卡游戏 刷新挂卡列表重新批量挂卡
-                    if (isMultipleIdle || idleApp == null)
+                    var isMultipleIdle = IdleGameList.Count(x => x.App.Process != null) > 1;
+                    if (isMultipleIdle || idleApp == null) // 重头开始挂卡
                         StartIdle();
                     else
                     {
