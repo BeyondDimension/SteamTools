@@ -42,7 +42,7 @@ namespace BD.WTTS.Services.Implementation
                         "-c",
                         $"{Certutil} -A -d $HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\" -t C,, -i \"{cerPath}\""
                     }).WaitForExit();
-            return RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "-ceri", CertificateConstants.AppDataDirectory }) == 0;
+            return RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-ceri", CertificateConstants.AppDataDirectory }) == 0;
         }
 
         public void RemoveCertificate(byte[] certificate2)
@@ -52,7 +52,7 @@ namespace BD.WTTS.Services.Implementation
                         "-c",
                         $"{Certutil} -D -d $HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\""
                     }).WaitForExit();
-            RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "-cerd", CertificateConstants.AppDataDirectory });
+            RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-cerd", CertificateConstants.AppDataDirectory });
         }
 
         public static int RunRootCommand(string path, string[] args)
@@ -96,6 +96,21 @@ namespace BD.WTTS.Services.Implementation
                 return false;
             try
             {
+                var path = GetCertStore();
+                var destCertFilePath = Path.Combine(path.CaCertStorePath, CertificateConstants.CerFileName);
+                if (File.Exists(destCertFilePath) && File.ReadAllBytes(cerPath).SequenceEqual(File.ReadAllBytes(destCertFilePath)))
+                {
+                    return true;
+                }
+                var sslCertFilePath = Path.Combine("/etc/ssl/certs", CertificateConstants.CerFileName);
+                if (!Directory.Exists(sslCertFilePath))
+                    File.Copy(cerPath, sslCertFilePath, overwrite: true);
+                if (!Directory.Exists(path.CaCertStorePath))
+                    return null;
+                File.Copy(cerPath, destCertFilePath, overwrite: true);
+                // 刷新系统证书
+                Process.Start(path.CaCertUpdatePath).WaitForExit();
+
                 // 如果存在 /bin/trust 则直接用该命令执行
                 if (File.Exists(TrustPath))
                 {
@@ -104,23 +119,8 @@ namespace BD.WTTS.Services.Implementation
                         "--store",
                         cerPath
                     }).WaitForExit();
-                    return true;
                 }
-                else
-                {
-                    var path = GetCertStore();
-                    var destCertFilePath = Path.Combine(path.CaCertStorePath, CertificateConstants.CerFileName);
-                    if (File.Exists(destCertFilePath) && File.ReadAllBytes(cerPath).SequenceEqual(File.ReadAllBytes(destCertFilePath)))
-                    {
-                        return true;
-                    }
-                    if (!Directory.Exists(path.CaCertStorePath))
-                        return null;
-                    File.Copy(cerPath, destCertFilePath, overwrite: true);
-                    // 刷新系统证书
-                    Process.Start(path.CaCertUpdatePath).WaitForExit();
-                    return true;
-                }
+                return true;
             }
             catch (Exception e)
             {
@@ -136,6 +136,20 @@ namespace BD.WTTS.Services.Implementation
                 return;
             try
             {
+                var path = GetCertStore();
+                var destCertFilePath = Path.Combine(path.CaCertStorePath, CertificateConstants.CerFileName);
+                if (File.Exists(destCertFilePath) && File.ReadAllBytes(cerPath).SequenceEqual(File.ReadAllBytes(destCertFilePath)))
+                {
+                    File.Delete(destCertFilePath);
+                }
+                var sslCertFilePath = Path.Combine("/etc/ssl/certs", CertificateConstants.CerFileName);
+                if (File.Exists(sslCertFilePath) && File.ReadAllBytes(cerPath).SequenceEqual(File.ReadAllBytes(sslCertFilePath)))
+                {
+                    File.Delete(sslCertFilePath);
+                }
+
+                // 刷新系统证书
+                Process.Start(path.CaCertUpdatePath).WaitForExit();
                 // 如果存在 /bin/trust 则直接用该命令执行
                 if (File.Exists(TrustPath))
                 {
@@ -144,20 +158,8 @@ namespace BD.WTTS.Services.Implementation
                         "--remove",
                         cerPath
                     }).WaitForExit();
-                    return;
                 }
-                else
-                {
-                    var path = GetCertStore();
-                    var destCertFilePath = Path.Combine(path.CaCertStorePath, CertificateConstants.CerFileName);
-                    if (File.Exists(destCertFilePath) && File.ReadAllBytes(cerPath).SequenceEqual(File.ReadAllBytes(destCertFilePath)))
-                    {
-                        File.Delete(destCertFilePath);
-                    }
-                    // 刷新系统证书
-                    Process.Start(path.CaCertUpdatePath).WaitForExit();
-                    return;
-                }
+                return;
             }
             catch (Exception e)
             {

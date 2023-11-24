@@ -269,18 +269,18 @@ partial class Startup // 自定义控制台命令参数
         linux.AddOption(new Option<string>("-ceri", "安装证书 参数为 AppDataDirectory"));
         linux.AddOption(new Option<string>("-cerd", "删除证书 参数为 AppDataDirectory"));
         //linux.AddOption(new Option<bool>("-bindProt", "执行允许绑定 443"));
-        linux.Handler = CommandHandler.Create((string i, string d) =>
+        linux.Handler = CommandHandler.Create((string ceri, string cerd) =>
         {
-            if (string.IsNullOrWhiteSpace(i) || string.IsNullOrWhiteSpace(i))
+            if (string.IsNullOrWhiteSpace(ceri) || string.IsNullOrWhiteSpace(ceri))
                 return (int)CommandExitCode.HttpStatusBadRequest;
-            if (!string.IsNullOrWhiteSpace(i))
+            if (!string.IsNullOrWhiteSpace(ceri))
             {
-                LinuxPlatformServiceImpl.TrustRootCertificateCore(Path.Combine(i, CertificateConstants.CerFileName));
+                LinuxPlatformServiceImpl.TrustRootCertificateCore(Path.Combine(ceri, CertificateConstants.CerFileName));
                 return (int)CommandExitCode.HttpStatusCodeOk;
             }
-            if (!string.IsNullOrWhiteSpace(d))
+            if (!string.IsNullOrWhiteSpace(cerd))
             {
-                LinuxPlatformServiceImpl.RemoveCertificate(Path.Combine(d, CertificateConstants.CerFileName));
+                LinuxPlatformServiceImpl.RemoveCertificate(Path.Combine(cerd, CertificateConstants.CerFileName));
                 return (int)CommandExitCode.HttpStatusCodeOk;
             }
             return (int)CommandExitCode.HttpStatusBadRequest;
