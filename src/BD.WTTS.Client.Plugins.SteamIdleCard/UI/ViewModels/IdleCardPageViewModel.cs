@@ -695,7 +695,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     if (CurrentIdle != null)
                     {
                         currentIdleAppId = CurrentIdle.AppId;
-                        nextIdleAppId = (IdleGameList.Count - 1) > (++CurrentIdleIndex) ? IdleGameList[CurrentIdleIndex].AppId : null;
+                        nextIdleAppId = (IdleGameList.Count - 1) >= (++CurrentIdleIndex) ? IdleGameList[CurrentIdleIndex].AppId : null;
                     }
 
                     StopIdle();
