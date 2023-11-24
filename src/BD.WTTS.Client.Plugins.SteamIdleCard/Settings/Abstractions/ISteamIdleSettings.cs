@@ -73,7 +73,7 @@ public partial interface ISteamIdleSettings
     /// <summary>
     /// 自动运行下一个游戏的默认值
     /// </summary>
-    static readonly bool DefaultIsAutoNextOn = true;
+    static readonly bool DefaultIsAutoNextOn = false;
 
     /// <summary>
     /// 最少游戏时间 hours的默认值

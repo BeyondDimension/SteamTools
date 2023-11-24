@@ -999,7 +999,7 @@
         {
           "TypeName": "bool",
           "PropertyName": "IsAutoNextOn",
-          "DefaultValue": "true",
+          "DefaultValue": "false",
           "DefaultValueIsConst": false,
           "Summary": "自动运行下一个游戏",
           "IsRegionOrEndregion": null,

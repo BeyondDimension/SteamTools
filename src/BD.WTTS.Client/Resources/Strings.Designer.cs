@@ -6941,6 +6941,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 最好将 Steam 状态改为隐身或离线，避免频繁弹窗 的本地化字符串。
+        /// </summary>
+        public static string SteamIdle_OpenAutoNextWarning {
+            get {
+                return ResourceManager.GetString("SteamIdle_OpenAutoNextWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0} 个游戏可掉落卡牌 的本地化字符串。
         /// </summary>
         public static string SteamIdle_RemainingGames_ {

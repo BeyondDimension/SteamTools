@@ -574,6 +574,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         if (b)
         {
+            ShowSettingsOpenAutoNextWarning();
             if (RunState)
             {
                 if (AutoNextCancellationTokenSource.Token.IsCancellationRequested)
@@ -742,4 +743,14 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     }
     #endregion
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void ShowSettingsOpenAutoNextWarning()
+    {
+        if (Ioc.Get_Nullable<IToastIntercept>() is StartupToastIntercept intercept
+            && !intercept.IsStartuped)
+        {
+            return;
+        }
+        Toast.Show(ToastIcon.Info, Strings.SteamIdle_OpenAutoNextWarning);
+    }
 }

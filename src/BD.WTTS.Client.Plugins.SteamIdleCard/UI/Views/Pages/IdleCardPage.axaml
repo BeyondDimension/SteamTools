@@ -336,10 +336,10 @@
                         <Panel>
                             <WrapPanel HorizontalAlignment="Left">
                                 <TextBlock FontSize="36" Text="{Binding TotalCardsRemaining}" />
-                                <TextBlock VerticalAlignment="Center" Text=" 张剩余卡牌掉落" />
+                                <TextBlock VerticalAlignment="Bottom" Text=" 张剩余卡牌掉落" />
                             </WrapPanel>
                             <WrapPanel HorizontalAlignment="Right">
-                                <TextBlock VerticalAlignment="Center" Text="估算价值 ¥ " />
+                                <TextBlock VerticalAlignment="Bottom" Text="估算价值 ¥ " />
                                 <TextBlock FontSize="36" Text="{Binding TotalCardsAvgPrice, StringFormat={}{0:0.00}}" />
                             </WrapPanel>
                         </Panel>
