@@ -16,7 +16,7 @@
 
     <!--  AutoCompleteBox  -->
     <Style Selector="AutoCompleteBox.Search /template/ TextBox#PART_TextBox">
-        <Setter Property="Watermark" Value="{ReflectionBinding Path=Res.Search, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="Watermark" Value="{Binding Path=Res.Search, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
         <Setter Property="InnerRightContent">
             <Template>
                 <StackPanel Orientation="Horizontal">

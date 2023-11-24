@@ -30,7 +30,7 @@
                 <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
             </ui:SettingsExpander.IconSource>
             <ui:SettingsExpander.Footer>
-                <Button Command="{ReflectionBinding SelectProgramPath}" Content="选择路径" />
+                <Button Command="{Binding SelectProgramPath}" Content="选择路径" />
             </ui:SettingsExpander.Footer>
         </ui:SettingsExpander>
     </StackPanel>

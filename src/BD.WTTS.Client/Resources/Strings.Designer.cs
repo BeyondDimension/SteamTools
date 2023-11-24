@@ -387,6 +387,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 关闭广告 的本地化字符串。
+        /// </summary>
+        public static string Advertisement_Close {
+            get {
+                return ResourceManager.GetString("Advertisement_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 关闭程序内所有广告 的本地化字符串。
         /// </summary>
         public static string Advertisement_NoShow {

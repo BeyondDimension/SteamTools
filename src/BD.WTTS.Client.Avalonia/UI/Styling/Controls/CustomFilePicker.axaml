@@ -39,8 +39,8 @@
                             ContentTemplate="{TemplateBinding ContentTemplate}" />
                         <Panel
                             Name="FilePickerTipBorder"
-                            MaxWidth="{ReflectionBinding $parent.Bounds.Width}"
-                            MaxHeight="{ReflectionBinding $parent.Bounds.Height}">
+                            MaxWidth="{Binding $parent.Bounds.Width}"
+                            MaxHeight="{Binding $parent.Bounds.Height}">
                             <Border Background="{DynamicResource ControlOnImageFillColorSecondaryBrush}" Opacity="0.8">
                                 <StackPanel
                                     Margin="10,5"
@@ -49,9 +49,7 @@
                                     <ui:SymbolIcon FontSize="30" Symbol="Download" />
                                     <TextBlock
                                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                        Text="{ReflectionBinding Path=Res.CustomFilePicker_Tip,
-                                                                 Mode=OneWay,
-                                                                 Source={x:Static s:ResourceService.Current}}"
+                                        Text="{Binding Path=Res.CustomFilePicker_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                         TextAlignment="Center"
                                         Theme="{StaticResource BodyStrongTextBlockStyle}" />
                                 </StackPanel>

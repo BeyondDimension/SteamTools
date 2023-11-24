@@ -66,7 +66,7 @@
                                 Margin="0,5"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
-                                Command="{ReflectionBinding $parent[UserControl].DataContext.ChooseChannel}"
+                                Command="{Binding $parent[UserControl].((spp:LoginOrRegisterWindowViewModel)DataContext).ChooseChannel}"
                                 CommandParameter="{Binding Id, Mode=OneWay}">
                                 <DockPanel>
                                     <Panel Margin="5,0,0,0" DockPanel.Dock="Left">

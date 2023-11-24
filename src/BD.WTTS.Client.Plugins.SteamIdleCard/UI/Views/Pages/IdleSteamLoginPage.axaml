@@ -48,7 +48,7 @@
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                             Text="{Binding PasswordText}"
                             Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
+                        <CheckBox Content="{Binding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
 
                         <Button
                             MinWidth="280"
@@ -88,6 +88,7 @@
             </spp:ContentLoader>
 
             <StackPanel
+                MaxWidth="300"
                 Margin="20,0"
                 VerticalAlignment="Center"
                 Spacing="10">
@@ -96,13 +97,12 @@
                 <TextBlock Text="steamLoginSecure" />
                 <TextBox
                     Height="90"
-                    MaxWidth="300"
                     AcceptsReturn="True"
                     Text="{Binding SteamLoginSecure}"
                     TextWrapping="WrapWithOverflow" />
                 <!--<TextBlock Text="家庭监护代码" />-->
                 <!--<TextBox Text="{Binding 家庭监护代码}" />-->
-                <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
+                <CheckBox Content="{Binding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
                 <Button
                     MinWidth="280"
                     HorizontalAlignment="Center"

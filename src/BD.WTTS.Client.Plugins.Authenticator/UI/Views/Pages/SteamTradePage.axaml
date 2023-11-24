@@ -40,7 +40,7 @@
                     PasswordChar="{StaticResource PasswordChar}"
                     Text="{Binding PasswordText}"
                     Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
+                <CheckBox Content="{Binding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
                 <Button
                     MinWidth="280"
                     HorizontalAlignment="Center"

@@ -2881,4 +2881,7 @@
 	<data name="SteamIdle_SteamClientUserTips" xml:space="preserve">
     <value>请登录 Steam 客户端并保证账号与当前登录的挂卡账号一致</value>
   </data>
+	<data name="Advertisement_Close" xml:space="preserve">
+    <value>关闭广告</value>
+  </data>
 </root>

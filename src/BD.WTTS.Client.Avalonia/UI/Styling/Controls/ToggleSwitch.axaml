@@ -296,8 +296,8 @@
     </Styles.Resources>
 
     <Style Selector="ToggleSwitch">
-        <Setter Property="OffContent" Value="{ReflectionBinding Path=Res.Off, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-        <Setter Property="OnContent" Value="{ReflectionBinding Path=Res.On, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="OffContent" Value="{Binding Path=Res.Off, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="OnContent" Value="{Binding Path=Res.On, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
         <Setter Property="MinWidth" Value="0" />
     </Style>
 
