@@ -2884,6 +2884,6 @@
     <value>关闭广告</value>
   </data>
   <data name="SteamIdle_OpenAutoNextWarning" xml:space="preserve">
-    <value>最好将 Steam 状态改为隐身或离线，避免频繁弹窗</value>
+    <value>快速掉卡模式会频繁切换挂卡游戏，为了您的好友不被通知消息轰炸，注意将 Steam 在线状态改为隐身或离线！</value>
   </data>
 </root>

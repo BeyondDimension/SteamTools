@@ -6941,7 +6941,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 最好将 Steam 状态改为隐身或离线，避免频繁弹窗 的本地化字符串。
+        ///   查找类似 快速掉卡模式会频繁切换挂卡游戏，为了您的好友不被通知消息轰炸，注意将 Steam 在线状态改为隐身或离线！ 的本地化字符串。
         /// </summary>
         public static string SteamIdle_OpenAutoNextWarning {
             get {
