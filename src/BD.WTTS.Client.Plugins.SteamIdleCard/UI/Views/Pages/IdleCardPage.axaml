@@ -200,6 +200,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+
             <ToggleSwitch
                 VerticalAlignment="Center"
                 Classes="NoContent"
@@ -207,10 +208,10 @@
                 OffContent="{Binding Path=Res.Idle_StopAutoNext, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 OnContent="{Binding Path=Res.Idle_OpenAutoNext, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 
-            <TextBlock Text="游戏最小运行时间(小时)" Theme="{StaticResource CaptionTextBlockStyle}" />
-            <NumericUpDown Minimum="0.1" Value="{Binding Source={x:Static ms:SteamIdleSettings.MinRunTime}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="快速切换游戏间隔时间(毫秒)" Theme="{StaticResource CaptionTextBlockStyle}" />
             <NumericUpDown Minimum="1000" Value="{Binding Source={x:Static ms:SteamIdleSettings.SwitchTime}, Path=Value, Mode=TwoWay}" />
+            <TextBlock Text="游戏最小运行时间(小时)" Theme="{StaticResource CaptionTextBlockStyle}" />
+            <NumericUpDown Minimum="0.1" Value="{Binding Source={x:Static ms:SteamIdleSettings.MinRunTime}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="自动刷新徽章数据时间间隔(分钟)" Theme="{StaticResource CaptionTextBlockStyle}" />
             <NumericUpDown Minimum="1" Value="{Binding Source={x:Static ms:SteamIdleSettings.RefreshBadgesTime}, Path=Value, Mode=TwoWay}" />
         </StackPanel>
@@ -238,25 +239,28 @@
                                     Source="{x:Static s:SteamConnectService.Current}" />
                                 <CompiledBinding
                                     Mode="OneWay"
-                                    Path="Res.SteamIdle_SteamClientUserTips"
+                                    Path="Res.SteamNotRuning"
                                     Source="{x:Static s:ResourceService.Current}" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
                 </spp:OptionsDisplayItem.Header>
                 <spp:OptionsDisplayItem.Description>
-                    <TextBlock IsVisible="{Binding IsLogin}">
-                        <TextBlock.Text>
-                            <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                <CompiledBinding
-                                    Mode="OneWay"
-                                    Path="Res.SteamIdle_UserExpString_"
-                                    Source="{x:Static s:ResourceService.Current}" />
-                                <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UserLevel" />
-                                <CompiledBinding Mode="OneWay" Path="UserIdleInfo.CurrentExp" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
+                    <Panel>
+                        <TextBlock IsVisible="{Binding IsLogin}">
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Res.SteamIdle_UserExpString_"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UserLevel" />
+                                    <CompiledBinding Mode="OneWay" Path="UserIdleInfo.CurrentExp" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock IsVisible="{Binding !IsLogin}" Text="{Binding Path=Res.SteamIdle_SteamClientUserTips, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    </Panel>
                 </spp:OptionsDisplayItem.Description>
                 <spp:OptionsDisplayItem.Icon>
                     <spp:Image2

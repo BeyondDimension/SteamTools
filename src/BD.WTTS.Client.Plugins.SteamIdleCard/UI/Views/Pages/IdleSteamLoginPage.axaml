@@ -98,8 +98,7 @@
                 <TextBox
                     Height="90"
                     AcceptsReturn="True"
-                    Text="{Binding SteamLoginSecure}"
-                    TextWrapping="WrapWithOverflow" />
+                    Text="{Binding SteamLoginSecure}" />
                 <!--<TextBlock Text="家庭监护代码" />-->
                 <!--<TextBox Text="{Binding 家庭监护代码}" />-->
                 <CheckBox Content="{Binding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />

@@ -2878,7 +2878,7 @@
     <value>已掉落 {0} 张卡牌</value>
   </data>
   <data name="SteamIdle_SteamClientUserTips" xml:space="preserve">
-    <value>请登录 Steam 客户端并保证账号与当前登录的挂卡账号一致</value>
+    <value>登录的挂卡账号需要与当前 Steam 客户端登录账号保持一致</value>
   </data>
   <data name="Advertisement_Close" xml:space="preserve">
     <value>关闭广告</value>

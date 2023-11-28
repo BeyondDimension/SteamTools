@@ -23,6 +23,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         SteamIdleSettings.IdleRule.Subscribe(async _ => { await IdleRuleChange(); }, false);
         SteamIdleSettings.IdleSequentital.Subscribe(async _ => { await IdleSequentitalChance(); }, false);
 
+        this.WhenAnyValue(x => x.TotalCardsRemaining, y => y.DroppedCardsCount)
+            .Subscribe(_ =>
+            {
+                this.RaisePropertyChanged(nameof(DropCardsCount));
+            });
+
         this.PriorityRunIdle = ReactiveCommand.CreateFromTask<IdleApp>(PriorityRunIdleGame);
         this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
         this.IdleManualRunNext = ReactiveCommand.CreateFromTask(ManualRunNext);
@@ -242,10 +248,16 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             IsLogin = SteamLoginState.Success;
         }
 
-        //if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
-        //{
-        //    Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
-        //}
+        //MAC、Linux无法获取到当前steam客户端登录用户所以忽略判断
+        if (OperatingSystem2.IsWindows())
+        {
+            var sid = SteamConnectService.Current.CurrentSteamUser?.SteamId64;
+            if (SteamLoginState.Success && sid.HasValue && SteamLoginState.SteamId != (ulong)sid.Value)
+            {
+                Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+                return IsLogin = false;
+            }
+        }
 
         return IsLogin;
     }

@@ -6968,7 +6968,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 请登录 Steam 客户端并保证账号与当前登录的挂卡账号一致 的本地化字符串。
+        ///   查找类似 登录的挂卡账号需要与当前 Steam 客户端登录账号保持一致 的本地化字符串。
         /// </summary>
         public static string SteamIdle_SteamClientUserTips {
             get {

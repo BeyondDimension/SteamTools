@@ -23,6 +23,9 @@ public sealed partial class IdleCardPageViewModel
 
     public ICommand OpenLinkUrlCommand { get; }
 
+    //[Reactive]
+    //public SteamUser CurrentUser { get; set; }
+
     [Reactive]
     public bool IsLogin { get; set; }
 
@@ -65,7 +68,7 @@ public sealed partial class IdleCardPageViewModel
     [Reactive]
     public int TotalCardsRemaining { get; set; }
 
-    public int DropCardsCount => DroppedCardsCount - TotalCardsRemaining;
+    public int DropCardsCount => Math.Max(DroppedCardsCount - TotalCardsRemaining, 0);
 
     [Reactive]
     public decimal TotalCardsAvgPrice { get; set; }
