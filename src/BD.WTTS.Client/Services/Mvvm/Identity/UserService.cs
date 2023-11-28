@@ -149,7 +149,8 @@ public sealed class UserService : ReactiveObject
             CurrentSteamUser = null;
             AvatarPath = null;
         };
-
+        OpenAuthWattGameCommand = ReactiveCommand.Create<string>(url => OpenAuthUrl(url, FastLoginWebChannel.WattGame));
+        OpenAuthOfficialCommand = ReactiveCommand.Create<string>(url => OpenAuthUrl(url, FastLoginWebChannel.OfficialWebsite));
         Task.Run(Initialize).ForgetAndDispose();
     }
 
@@ -270,12 +271,16 @@ public sealed class UserService : ReactiveObject
     //    var temp = await csc.Shop.GetShopUserTokenAsync();
     //}
 
+    public ICommand OpenAuthWattGameCommand { get; }
+
+    public ICommand OpenAuthOfficialCommand { get; }
+
     /// <summary>
     /// 带登录状态跳转 Url
     /// </summary>
     /// <param name="url">跳转地址</param>
-    /// <returns></returns>
-    public async Task OpenAuthUrl(string url, FastLoginWebChannel channel = FastLoginWebChannel.OfficialWebsite)
+    /// <param name="channel">Web 跳转渠道</param>
+    public async void OpenAuthUrl(string url, FastLoginWebChannel channel = FastLoginWebChannel.OfficialWebsite)
     {
         switch (channel)
         {
