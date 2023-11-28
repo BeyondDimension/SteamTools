@@ -477,7 +477,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 自动挂卡 的本地化字符串。
+        ///   查找类似 ASF 挂卡 的本地化字符串。
         /// </summary>
         public static string ArchiSteamFarmPlus {
             get {
