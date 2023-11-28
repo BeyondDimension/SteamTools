@@ -271,6 +271,45 @@ public sealed class UserService : ReactiveObject
     //}
 
     /// <summary>
+    /// 带登录状态跳转 Url
+    /// </summary>
+    /// <param name="url">跳转地址</param>
+    /// <returns></returns>
+    public async Task OpenAuthUrl(string url, FastLoginWebChannel channel = FastLoginWebChannel.OfficialWebsite)
+    {
+        switch (channel)
+        {
+
+            case FastLoginWebChannel.OfficialWebsite:
+                var token = await userManager.GetAuthTokenAsync();
+                if (token == null)
+                {
+                    Browser2.Open(url.ToString());
+                }
+                else
+                {
+                    Browser2.Open(string.Format(Constants.Urls.OfficialWebsite_Fast_Login_, token.AccessToken, HttpUtility.UrlEncode(token.ExpiresIn.ToString()), HttpUtility.UrlEncode(url)));
+                }
+                break;
+            case FastLoginWebChannel.WattGame:
+                var shopToken = await userManager.GetShopAuthTokenAsync();
+                if (shopToken == null)
+                {
+                    Browser2.Open(url.ToString());
+                }
+                else
+                {
+                    var cookieMaxAge = (shopToken.ExpiresIn - DateTimeOffset.Now).TotalSeconds;
+                    Browser2.Open(string.Format(Constants.Urls.WattGame_Fast_Login_, shopToken.AccessToken, HttpUtility.UrlEncode(cookieMaxAge.ToString()), HttpUtility.UrlEncode(url)));
+                }
+                break;
+            default:
+                Browser2.Open(url.ToString());
+                break;
+        }
+    }
+
+    /// <summary>
     /// 更新当前登录用户的手机号码
     /// </summary>
     /// <param name="phoneNumber"></param>
