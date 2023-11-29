@@ -87,16 +87,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        //MAC、Linux无法获取到当前steam客户端登录用户所以改用进程判断
-        if (OperatingSystem2.IsMacOS() || OperatingSystem2.IsLinux())
-        {
-            if (!ISteamService.Instance.IsRunningSteamProcess)
-            {
-                Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
-                return;
-            }
-        }
-        else if (!SteamConnectService.Current.IsConnectToSteam) // 是否登录 Steam 客户端
+        if (!SteamConnectService.Current.IsConnectToSteam) // 是否登录 Steam 客户端
         {
             Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
             //await MessageBox.ShowAsync(Strings.Idle_NeedLoginSteam, button: MessageBox.Button.OK);
@@ -122,16 +113,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
             if (!RunState)
             {
-                //MAC、Linux无法获取到当前steam客户端登录用户所以忽略判断
-                if (OperatingSystem2.IsWindows())
+                if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
                 {
-                    if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
-                    {
-                        Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
-                        //RunState = false;
-                        //RunLoaingState = false;
-                        //return;
-                    }
+                    Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+                    //RunState = false;
+                    //RunLoaingState = false;
+                    //return;
                 }
 
                 //await SteamConnectService.Current.RefreshGamesListAsync();
@@ -248,14 +235,10 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             IsLogin = SteamLoginState.Success;
         }
 
-        //MAC、Linux无法获取到当前steam客户端登录用户所以忽略判断
-        if (OperatingSystem2.IsWindows())
+        var sid = SteamConnectService.Current.CurrentSteamUser?.SteamId64;
+        if (SteamLoginState.Success && sid.HasValue && SteamLoginState.SteamId != (ulong)sid.Value)
         {
-            var sid = SteamConnectService.Current.CurrentSteamUser?.SteamId64;
-            if (SteamLoginState.Success && sid.HasValue && SteamLoginState.SteamId != (ulong)sid.Value)
-            {
-                Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
-            }
+            Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
         }
 
         return IsLogin;
