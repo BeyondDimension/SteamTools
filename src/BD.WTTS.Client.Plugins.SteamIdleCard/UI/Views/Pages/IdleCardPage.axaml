@@ -226,7 +226,7 @@
             RowDefinitions="Auto,Auto,*">
             <spp:OptionsDisplayItem Expands="True" IsExpanded="True">
                 <spp:OptionsDisplayItem.Header>
-                    <TextBlock>
+                    <!--<TextBlock>
                         <TextBlock.Text>
                             <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                 <CompiledBinding
@@ -243,7 +243,8 @@
                                     Source="{x:Static s:ResourceService.Current}" />
                             </MultiBinding>
                         </TextBlock.Text>
-                    </TextBlock>
+                    </TextBlock>-->
+                    <TextBlock Text="{Binding UserIdleInfo.UserName, Mode=OneWay}" />
                 </spp:OptionsDisplayItem.Header>
                 <spp:OptionsDisplayItem.Description>
                     <Panel>
@@ -270,7 +271,7 @@
                         VerticalAlignment="Center"
                         DecodeWidth="64"
                         DockPanel.Dock="Top"
-                        Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
+                        Source="{Binding UserIdleInfo.AvatarUrl, Mode=OneWay}"
                         Stretch="Uniform">
                         <spp:Image2.Clip>
                             <EllipseGeometry Rect="0,0,64,64" />
