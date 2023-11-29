@@ -426,11 +426,11 @@
                     <Panel>
                         <TextBlock
                             Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                            IsVisible="{Binding !IsConnectToSteam, Source={x:Static s:SteamConnectService.Current}, Mode=OneWay}"
+                            IsVisible="{Binding !IsRunningSteamProcess, Source={x:Static s:SteamConnectService.Current}, Mode=OneWay}"
                             Text="{Binding Path=Res.SteamNotRuning, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBlock
                             Foreground="{DynamicResource SystemFillColorSuccessBrush}"
-                            IsVisible="{Binding IsConnectToSteam, Source={x:Static s:SteamConnectService.Current}, Mode=OneWay}"
+                            IsVisible="{Binding IsRunningSteamProcess, Source={x:Static s:SteamConnectService.Current}, Mode=OneWay}"
                             Text="{Binding Path=Res.SteamRuning, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     </Panel>
                 </spp:OptionsDisplayItem.Description>
