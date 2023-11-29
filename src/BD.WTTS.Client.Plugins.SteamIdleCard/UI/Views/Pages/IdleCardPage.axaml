@@ -267,12 +267,11 @@
                     <spp:Image2
                         Width="64"
                         Height="64"
-                        Margin="0,0,5,0"
                         VerticalAlignment="Center"
                         DecodeWidth="64"
                         DockPanel.Dock="Top"
                         Source="{Binding UserIdleInfo.AvatarUrl, Mode=OneWay}"
-                        Stretch="Uniform">
+                        Stretch="UniformToFill">
                         <spp:Image2.Clip>
                             <EllipseGeometry Rect="0,0,64,64" />
                         </spp:Image2.Clip>
@@ -387,19 +386,12 @@
                     </Panel>
                 </spp:OptionsDisplayItem.Description>
                 <spp:OptionsDisplayItem.Icon>
-                    <Panel>
-                        <Ellipse
-                            Width="6"
-                            Height="6"
-                            Margin="5,0"
-                            Fill="#47A42B"
-                            IsVisible="{Binding RunState}" />
-                        <Ellipse
-                            Width="6"
-                            Height="6"
-                            Margin="5,0"
-                            Fill="#FF4F58"
-                            IsVisible="{Binding !RunState}" />
+                    <Panel
+                        Width="6"
+                        Height="6"
+                        Margin="5,0,3,0">
+                        <Ellipse Fill="#47A42B" IsVisible="{Binding RunState}" />
+                        <Ellipse Fill="#FF4F58" IsVisible="{Binding !RunState}" />
                     </Panel>
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.Content>
