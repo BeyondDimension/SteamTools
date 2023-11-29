@@ -12,7 +12,7 @@
     xmlns:spp_enums="using:BD.WTTS.Enums"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
-    d:DesignHeight="450"
+    d:DesignHeight="600"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:IdleCardPageViewModel"
@@ -244,7 +244,18 @@
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>-->
-                    <TextBlock Text="{Binding UserIdleInfo.UserName, Mode=OneWay}" />
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                <CompiledBinding Mode="OneWay" Path="IsLogin" />
+                                <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UserName" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.Idle_NeedLoginSteam"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </spp:OptionsDisplayItem.Header>
                 <spp:OptionsDisplayItem.Description>
                     <Panel>
@@ -270,6 +281,7 @@
                         VerticalAlignment="Center"
                         DecodeWidth="64"
                         DockPanel.Dock="Top"
+                        FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
                         Source="{Binding UserIdleInfo.AvatarUrl, Mode=OneWay}"
                         Stretch="UniformToFill">
                         <spp:Image2.Clip>
@@ -332,11 +344,48 @@
                             Maximum="100"
                             Value="{Binding UserIdleInfo.NextLevelExpPercentage}" />
 
+                        <StackPanel
+                            Margin="0,6,0,0"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <TextBlock VerticalAlignment="Center" Text="当前 Steam 客户端登录账号：" />
+                            <spp:Image2
+                                Width="24"
+                                Height="24"
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                DecodeWidth="36"
+                                FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"
+                                Source="{Binding Source={x:Static s:SteamConnectService.Current}, Path=CurrentSteamUser.AvatarMedium, Mode=OneWay}"
+                                Stretch="Uniform">
+                                <spp:Image2.Clip>
+                                    <EllipseGeometry Rect="0,0,24,24" />
+                                </spp:Image2.Clip>
+                            </spp:Image2>
+                            <TextBlock VerticalAlignment="Center">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                        <CompiledBinding
+                                            Mode="OneWay"
+                                            Path="IsConnectToSteam"
+                                            Source="{x:Static s:SteamConnectService.Current}" />
+                                        <CompiledBinding
+                                            Mode="OneWay"
+                                            Path="CurrentSteamUser.SteamNickName"
+                                            Source="{x:Static s:SteamConnectService.Current}" />
+                                        <CompiledBinding
+                                            Mode="OneWay"
+                                            Path="Res.SteamAppType_Unknown"
+                                            Source="{x:Static s:ResourceService.Current}" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
+
                         <Border
                             Height="1"
                             Margin="-50,6"
                             Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
-
                         <Panel>
                             <WrapPanel HorizontalAlignment="Left">
                                 <TextBlock FontSize="36" Text="{Binding TotalCardsRemaining}" />
@@ -421,13 +470,23 @@
                                 Text="{Binding Path=IdleTime, Mode=OneWay, Converter={StaticResource StringFormatConverter}}" />
                         </Panel>
 
-                        <WrapPanel
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            HorizontalAlignment="Center">
-                            <TextBlock FontSize="22.6" Text="{Binding RuningCount, Mode=OneWay}" />
+                        <WrapPanel HorizontalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" Text="挂卡进度 " />
+                            <TextBlock FontSize="22.6">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} / {1}">
+                                        <CompiledBinding Path="DropCardsCount" />
+                                        <CompiledBinding Path="DroppedCardsCount" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </WrapPanel>
+
+                        <WrapPanel HorizontalAlignment="Center">
+                            <TextBlock FontSize="24.6" Text="{Binding RuningCount, Mode=OneWay}" />
                             <TextBlock VerticalAlignment="Center" Text=" 个游戏正在运行" />
                         </WrapPanel>
+
                         <!--<TextBlock
                             Grid.Row="2"
                             Grid.Column="1"

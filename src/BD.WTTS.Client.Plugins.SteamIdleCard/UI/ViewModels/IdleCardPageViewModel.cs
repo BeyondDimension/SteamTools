@@ -128,9 +128,9 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
                     {
                         Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
-                        RunState = false;
-                        RunLoaingState = false;
-                        return;
+                        //RunState = false;
+                        //RunLoaingState = false;
+                        //return;
                     }
                 }
 
@@ -255,7 +255,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             if (SteamLoginState.Success && sid.HasValue && SteamLoginState.SteamId != (ulong)sid.Value)
             {
                 Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
-                return IsLogin = false;
             }
         }
 
