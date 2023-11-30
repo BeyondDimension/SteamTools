@@ -36,9 +36,9 @@ public partial interface ISteamIdleSettings
     IdleSequentital IdleSequentital { get; set; }
 
     /// <summary>
-    /// 自动运行下一个游戏
+    /// 最大并行运行游戏数量
     /// </summary>
-    bool IsAutoNextOn { get; set; }
+    int MaxIdleCount { get; set; }
 
     /// <summary>
     /// 最少游戏时间 hours
@@ -71,9 +71,9 @@ public partial interface ISteamIdleSettings
     static readonly IdleSequentital DefaultIdleSequentital = IdleSequentital.Default;
 
     /// <summary>
-    /// 自动运行下一个游戏的默认值
+    /// 最大并行运行游戏数量的默认值
     /// </summary>
-    static readonly bool DefaultIsAutoNextOn = false;
+    static readonly int DefaultMaxIdleCount = 30;
 
     /// <summary>
     /// 最少游戏时间 hours的默认值

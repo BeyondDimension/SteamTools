@@ -997,11 +997,11 @@
           "IsValueType": true
         },
         {
-          "TypeName": "bool",
-          "PropertyName": "IsAutoNextOn",
-          "DefaultValue": "false",
+          "TypeName": "int",
+          "PropertyName": "MaxIdleCount",
+          "DefaultValue": "30",
           "DefaultValueIsConst": false,
-          "Summary": "自动运行下一个游戏",
+          "Summary": "最大并行运行游戏数量",
           "IsRegionOrEndregion": null,
           "IsValueType": true
         },

@@ -176,6 +176,7 @@
                 Theme="{StaticResource CaptionTextBlockStyle}" />
             <ComboBox SelectedItem="{Binding Source={x:Static ms:SteamIdleSettings.IdleRule}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp_enums:IdleRule}}">
                 <ComboBox.Items>
+                    <spp_enums:IdleRule>FastMode</spp_enums:IdleRule>
                     <spp_enums:IdleRule>OnlyOneGame</spp_enums:IdleRule>
                     <spp_enums:IdleRule>OneThenMany</spp_enums:IdleRule>
                     <spp_enums:IdleRule>ManyThenOne</spp_enums:IdleRule>
@@ -201,13 +202,8 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ToggleSwitch
-                VerticalAlignment="Center"
-                Classes="NoContent"
-                IsChecked="{Binding Source={x:Static ms:SteamIdleSettings.IsAutoNextOn}, Path=Value, Mode=TwoWay}"
-                OffContent="{Binding Path=Res.Idle_StopAutoNext, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                OnContent="{Binding Path=Res.Idle_OpenAutoNext, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-
+            <TextBlock Text="最大并行挂时长游戏数量" Theme="{StaticResource CaptionTextBlockStyle}" />
+            <NumericUpDown Minimum="2" Value="{Binding Source={x:Static ms:SteamIdleSettings.MaxIdleCount}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="快速切换游戏间隔时间(毫秒)" Theme="{StaticResource CaptionTextBlockStyle}" />
             <NumericUpDown Minimum="1000" Value="{Binding Source={x:Static ms:SteamIdleSettings.SwitchTime}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="游戏最小运行时间(小时)" Theme="{StaticResource CaptionTextBlockStyle}" />

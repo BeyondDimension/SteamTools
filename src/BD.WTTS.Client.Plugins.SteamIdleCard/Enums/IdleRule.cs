@@ -6,20 +6,26 @@ namespace BD.WTTS.Enums;
 public enum IdleRule : byte
 {
     /// <summary>
+    /// 快速掉卡模式
+    /// </summary>
+    [Description("快速掉卡模式（推荐）")]
+    FastMode = 0,
+
+    /// <summary>
     /// 顺序运行
     /// </summary>
     [Description("按顺序运行")]
-    OnlyOneGame = 0,
+    OnlyOneGame = 1,
 
     /// <summary>
-    /// 优先单独运行已满（游戏最小运行时间）的游戏，然后再同时挂卡
+    /// 先挂卡已满（游戏最小运行时间）的游戏，然后再并行挂时长
     /// </summary>
-    [Description("优先单独运行已满（游戏最小运行时间）的游戏，然后再同时挂卡")]
-    OneThenMany = 1,
+    [Description("先挂卡已满（游戏最小运行时间）的游戏，然后再并行挂时长")]
+    OneThenMany = 2,
 
     /// <summary>
-    /// 将所有游戏运行满（游戏最小运行时间）后再按顺序运行
+    /// 先并行挂时长满（游戏最小运行时间）后再挂卡
     /// </summary>
-    [Description("将所有游戏运行满（游戏最小运行时间）后再按顺序运行")]
-    ManyThenOne = 2,
+    [Description("先并行挂时长满（游戏最小运行时间）后再挂卡")]
+    ManyThenOne = 3,
 }

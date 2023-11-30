@@ -62,10 +62,10 @@ public sealed partial class SteamIdleSettings_ : ISteamIdleSettings, ISettings, 
     public IdleSequentital IdleSequentital { get; set; } = ISteamIdleSettings.DefaultIdleSequentital;
 
     /// <summary>
-    /// 自动运行下一个游戏
+    /// 最大并行运行游戏数量
     /// </summary>
     [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
-    public bool IsAutoNextOn { get; set; } = ISteamIdleSettings.DefaultIsAutoNextOn;
+    public int MaxIdleCount { get; set; } = ISteamIdleSettings.DefaultMaxIdleCount;
 
     /// <summary>
     /// 最少游戏时间 hours
@@ -108,10 +108,10 @@ public static partial class SteamIdleSettings
         = new(DefaultIdleSequentital);
 
     /// <summary>
-    /// 自动运行下一个游戏
+    /// 最大并行运行游戏数量
     /// </summary>
-    public static SettingsStructProperty<bool, SteamIdleSettings_> IsAutoNextOn { get; }
-        = new(DefaultIsAutoNextOn);
+    public static SettingsStructProperty<int, SteamIdleSettings_> MaxIdleCount { get; }
+        = new(DefaultMaxIdleCount);
 
     /// <summary>
     /// 最少游戏时间 hours
