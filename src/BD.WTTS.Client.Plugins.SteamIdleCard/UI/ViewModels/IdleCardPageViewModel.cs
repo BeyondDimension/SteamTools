@@ -262,6 +262,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             using (await asyncLock.LockAsync())
             {
                 StopIdle();
+                PauseAutoNext(true);
                 ResetCurrentIdle();
                 StartIdle();
                 ChangeRunTxt();
