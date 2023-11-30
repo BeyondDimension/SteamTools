@@ -63,7 +63,7 @@ public partial interface ISteamIdleSettings
     /// <summary>
     /// 运行规则的默认值
     /// </summary>
-    static readonly IdleRule DefaultIdleRule = IdleRule.OnlyOneGame;
+    static readonly IdleRule DefaultIdleRule = IdleRule.FastMode;
 
     /// <summary>
     /// 运行顺序的默认值

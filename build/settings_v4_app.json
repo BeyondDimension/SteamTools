@@ -981,7 +981,7 @@
         {
           "TypeName": "IdleRule",
           "PropertyName": "IdleRule",
-          "DefaultValue": "IdleRule.OnlyOneGame",
+          "DefaultValue": "IdleRule.FastMode",
           "DefaultValueIsConst": false,
           "Summary": "运行规则",
           "IsRegionOrEndregion": null,
