@@ -8103,7 +8103,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 拒绝操作 的本地化字符串。
+        ///   查找类似 请求的操作被拒绝 的本地化字符串。
         /// </summary>
         public static string Warning_RefuseOperate {
             get {

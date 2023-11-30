@@ -233,7 +233,7 @@
             <StackPanel.IsVisible>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
                     <CompiledBinding Path="!IsVerificationPass" />
-                    <CompiledBinding Path="!!Auths.Count" />
+                    <CompiledBinding Path="!!!Auths.Count" />
                 </MultiBinding>
             </StackPanel.IsVisible>
             <TextBlock
@@ -249,7 +249,10 @@
                 IsEnabled="True" />
         </StackPanel>
 
-        <spp:ContentLoader IsLoading="{Binding IsLoading}" IsShowNoResultText="{Binding !!!Auths.Count}">
+        <spp:ContentLoader
+            IsLoading="{Binding IsLoading}"
+            IsShowNoResultText="{Binding !!!Auths.Count}"
+            IsVisible="{Binding IsVerificationPass}">
             <!--<spp:ContentLoader.IsVisible>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
                     <CompiledBinding Path="!IsVerificationPass" />

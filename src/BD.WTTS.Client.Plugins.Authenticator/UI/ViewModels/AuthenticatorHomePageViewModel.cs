@@ -64,12 +64,12 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
         var textFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
 
         this.AuthSource
-                .Connect()
-                .Filter(textFilter)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Sort(SortExpressionComparer<AuthenticatorItemModel>.Ascending(x => x.AuthData.Index).ThenBy(x => x.AuthName))
-                .Bind(out _Auths)
-                .Subscribe();
+            .Connect()
+            .Filter(textFilter)
+            .ObserveOn(RxApp.MainThreadScheduler)
+            .Sort(SortExpressionComparer<AuthenticatorItemModel>.Ascending(x => x.AuthData.Index).ThenBy(x => x.AuthName))
+            .Bind(out _Auths)
+            .Subscribe();
     }
 
     public async void Initialize()
@@ -175,7 +175,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
     public async Task SetPasswordProtection()
     {
-        if (Auths.Count < 1 || IsVerificationPass == false)
+        if (!Auths.Any() || IsVerificationPass == false)
         {
             Toast.Show(ToastIcon.Warning, AppResources.Warning_RefuseOperate);
             return;
@@ -212,9 +212,9 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
     public async Task RemovePasswordProtection()
     {
-        if (Auths.Count < 1 || IsVerificationPass == false)
+        if (!Auths.Any() || IsVerificationPass == false)
         {
-            Toast.Show(ToastIcon.Error, AppResources.Warning_RefuseOperate);
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_RefuseOperate);
             return;
         }
 
@@ -235,9 +235,9 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
 
     public async Task ToggleLocalProtection()
     {
-        if (Auths.Count < 1 || IsVerificationPass == false)
+        if (!Auths.Any() || IsVerificationPass == false)
         {
-            Toast.Show(ToastIcon.Error, AppResources.Warning_RefuseOperate);
+            Toast.Show(ToastIcon.Warning, AppResources.Warning_RefuseOperate);
             return;
         }
 

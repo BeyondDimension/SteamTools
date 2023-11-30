@@ -9,9 +9,9 @@ public partial class AuthenticatorHomePageViewModel
 
     private SourceCache<AuthenticatorItemModel, ushort> AuthSource;
 
-    private readonly ReadOnlyObservableCollection<AuthenticatorItemModel>? _Auths;
+    private readonly ReadOnlyObservableCollection<AuthenticatorItemModel> _Auths;
 
-    public ReadOnlyObservableCollection<AuthenticatorItemModel>? Auths => _Auths;
+    public ReadOnlyObservableCollection<AuthenticatorItemModel> Auths => _Auths;
 
     //[Reactive]
     //public ObservableCollection<AuthenticatorItemModel> Auths { get; set; } = [];

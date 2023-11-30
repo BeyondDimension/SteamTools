@@ -2188,7 +2188,7 @@
     <value>已有一项操作正在进行中，请等待执行结束</value>
   </data>
   <data name="Warning_RefuseOperate" xml:space="preserve">
-    <value>拒绝操作</value>
+    <value>请求的操作被拒绝</value>
   </data>
   <data name="Warning_SteamGuardNotEmpty" xml:space="preserve">
     <value>UUID 及 SteamGuard 不可为空</value>
