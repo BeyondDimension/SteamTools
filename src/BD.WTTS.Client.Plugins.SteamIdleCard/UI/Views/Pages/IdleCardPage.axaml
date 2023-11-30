@@ -318,6 +318,54 @@
                         Orientation="Vertical"
                         Spacing="6">
 
+                        <TextBlock
+                            Margin="0,6,0,0"
+                            FontWeight="SemiBold"
+                            IsVisible="{Binding IsLogin}">
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Res.SteamIdle_UserNextExpString_"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <CompiledBinding Mode="OneWay" Path="UserIdleInfo.NextLevel" />
+                                    <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UpExp" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock
+                            Margin="0,6,0,0"
+                            FontWeight="SemiBold"
+                            IsVisible="{Binding !IsLogin}"
+                            Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.Idle_NeedLoginSteam, Mode=OneWay}" />
+                        <ProgressBar
+                            Height="10"
+                            Margin="0,0,0,6"
+                            Classes="Material"
+                            Maximum="100"
+                            Value="{Binding UserIdleInfo.NextLevelExpPercentage}" />
+
+                        <!--<Border
+                            Height="1"
+                            Margin="-50,6"
+                            Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />-->
+
+                        <Panel>
+                            <WrapPanel HorizontalAlignment="Left">
+                                <TextBlock FontSize="36" Text="{Binding TotalCardsRemaining}" />
+                                <TextBlock VerticalAlignment="Center" Text=" 张剩余卡牌掉落" />
+                            </WrapPanel>
+                            <WrapPanel HorizontalAlignment="Right">
+                                <TextBlock VerticalAlignment="Center" Text="估算价值 ¥ " />
+                                <TextBlock FontSize="36" Text="{Binding TotalCardsAvgPrice, StringFormat={}{0:0.00}}" />
+                            </WrapPanel>
+                        </Panel>
+
+                        <Border
+                            Height="1"
+                            Margin="-50,6"
+                            Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+
                         <StackPanel
                             Margin="0,6,0,0"
                             Orientation="Horizontal"
@@ -355,47 +403,6 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </StackPanel>
-
-                        <TextBlock
-                            Margin="0,6,0,0"
-                            FontWeight="SemiBold"
-                            IsVisible="{Binding IsLogin}">
-                            <TextBlock.Text>
-                                <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                    <CompiledBinding
-                                        Mode="OneWay"
-                                        Path="Res.SteamIdle_UserNextExpString_"
-                                        Source="{x:Static s:ResourceService.Current}" />
-                                    <CompiledBinding Mode="OneWay" Path="UserIdleInfo.NextLevel" />
-                                    <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UpExp" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                        <TextBlock
-                            Margin="0,6,0,0"
-                            FontWeight="SemiBold"
-                            IsVisible="{Binding !IsLogin}"
-                            Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.Idle_NeedLoginSteam, Mode=OneWay}" />
-                        <ProgressBar
-                            Height="10"
-                            Margin="0,0,0,6"
-                            Classes="Material"
-                            Maximum="100"
-                            Value="{Binding UserIdleInfo.NextLevelExpPercentage}" />
-                        <Border
-                            Height="1"
-                            Margin="-50,6"
-                            Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
-                        <Panel>
-                            <WrapPanel HorizontalAlignment="Left">
-                                <TextBlock FontSize="36" Text="{Binding TotalCardsRemaining}" />
-                                <TextBlock VerticalAlignment="Center" Text=" 张剩余卡牌掉落" />
-                            </WrapPanel>
-                            <WrapPanel HorizontalAlignment="Right">
-                                <TextBlock VerticalAlignment="Center" Text="估算价值 ¥ " />
-                                <TextBlock FontSize="36" Text="{Binding TotalCardsAvgPrice, StringFormat={}{0:0.00}}" />
-                            </WrapPanel>
-                        </Panel>
                     </StackPanel>
                 </spp:OptionsDisplayItem.Content>
             </spp:OptionsDisplayItem>
@@ -483,7 +490,7 @@
                         </WrapPanel>
 
                         <WrapPanel HorizontalAlignment="Center">
-                            <TextBlock FontSize="24.6" Text="{Binding RuningCount, Mode=OneWay}" />
+                            <TextBlock FontSize="24.8" Text="{Binding RuningCount, Mode=OneWay}" />
                             <TextBlock VerticalAlignment="Center" Text=" 个游戏正在运行" />
                         </WrapPanel>
 
