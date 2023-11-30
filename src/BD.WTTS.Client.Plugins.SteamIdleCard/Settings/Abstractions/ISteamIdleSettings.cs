@@ -83,7 +83,7 @@ public partial interface ISteamIdleSettings
     /// <summary>
     /// 自动切换游戏时间间隔 ms的默认值
     /// </summary>
-    static readonly double DefaultSwitchTime = OperatingSystem2.IsWindows() ? 2000 : 4000;
+    static readonly double DefaultSwitchTime = 5000;
 
     /// <summary>
     /// 自动刷新徽章数据时间间隔 min的默认值
