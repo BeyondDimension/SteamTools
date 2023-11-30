@@ -122,8 +122,15 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
                 Name = s.AuthName,
                 Command = ReactiveCommand.Create(async () =>
                 {
-                    await s.CopyCode();
-                    INotificationService.Instance.Notify(Strings.LocalAuth_CopyAuthTip + s.AuthName, NotificationType.Message);
+                    if (IsVerificationPass)
+                    {
+                        await s.CopyCode();
+                        INotificationService.Instance.Notify(Strings.LocalAuth_CopyAuthTip + s.AuthName, NotificationType.Message);
+                    }
+                    else
+                    {
+                        INotificationService.Instance.Notify(Strings.Auth_PasswordProtectedVerifyFirst, NotificationType.Message);
+                    }
                 })
             }).ToList();
 
