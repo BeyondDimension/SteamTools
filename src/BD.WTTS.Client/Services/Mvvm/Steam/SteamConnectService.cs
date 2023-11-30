@@ -462,7 +462,7 @@ public sealed class SteamConnectService
         if (IsLoadingGameList == false)
         {
             IsLoadingGameList = true;
-            if (stmService.IsRunningSteamProcess && OperatingSystem.IsWindows())
+            if (stmService.IsRunningSteamProcess)
             {
                 await Task.Factory.StartNew(async () =>
                 {

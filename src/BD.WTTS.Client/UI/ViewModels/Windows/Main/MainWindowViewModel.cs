@@ -69,7 +69,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
             {
                 if (sortTabSettings != null)
                 {
-                    int i = byte.MaxValue;
+                    int i = 0;
                     foreach (var item in sortTabSettings)
                     {
                         i++;
@@ -83,7 +83,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                 .OrderBy(OrderBy)
                 .ThenBy(x => x.Value.Id);
             var sortTabs = new SortedSet<KeyValuePair<int, MenuTabItemViewModel>>(comparer);
-            int i = 0;
+            int i = byte.MaxValue;
             foreach (var item in tabItems2)
             {
                 sortTabs.Add(new(i, item));
