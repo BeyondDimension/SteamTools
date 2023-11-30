@@ -205,7 +205,7 @@
             <TextBlock Text="最大并行挂时长游戏数量" Theme="{StaticResource CaptionTextBlockStyle}" />
             <NumericUpDown Minimum="2" Value="{Binding Source={x:Static ms:SteamIdleSettings.MaxIdleCount}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="快速切换游戏间隔时间(毫秒)" Theme="{StaticResource CaptionTextBlockStyle}" />
-            <NumericUpDown Minimum="1000" Value="{Binding Source={x:Static ms:SteamIdleSettings.SwitchTime}, Path=Value, Mode=TwoWay}" />
+            <NumericUpDown Minimum="5000" Value="{Binding Source={x:Static ms:SteamIdleSettings.SwitchTime}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="游戏最小运行时间(小时)" Theme="{StaticResource CaptionTextBlockStyle}" />
             <NumericUpDown Minimum="0.1" Value="{Binding Source={x:Static ms:SteamIdleSettings.MinRunTime}, Path=Value, Mode=TwoWay}" />
             <TextBlock Text="自动刷新徽章数据时间间隔(分钟)" Theme="{StaticResource CaptionTextBlockStyle}" />
