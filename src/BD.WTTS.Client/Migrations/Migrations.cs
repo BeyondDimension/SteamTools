@@ -65,8 +65,22 @@ public static class Migrations
                 {
                     MoveAccelerator();
                 }
+
+                var v_3_0_rc4 = new Version(3, 0, 407);
+                if (IApplication.IsDesktop() && PreviousVersion < v_3_0_rc4)
+                {
+                    ClearScriptFile();
+                }
             }
         }
+    }
+
+    static void ClearScriptFile()
+    {
+        var scriptDirectory = Path.Combine(IOPath.AppDataDirectory, AssemblyInfo.Plugins, AssemblyInfo.Accelerator, DirName_Scripts);
+        Directory.Delete(scriptDirectory, true);
+        var scriptCacheDirectory = Path.Combine(IOPath.CacheDirectory, AssemblyInfo.Plugins, AssemblyInfo.Accelerator, DirName_BuildScripts);
+        Directory.Delete(scriptCacheDirectory, true);
     }
 
     static void MoveDirByScripts(string rootPath, string? newDirName = null)

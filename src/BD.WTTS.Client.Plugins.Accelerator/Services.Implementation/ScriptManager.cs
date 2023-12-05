@@ -376,20 +376,6 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         var scripts = list.ToList();
         foreach (var item in list)
         {
-            //检查缓存文件夹如果不是  IScriptManager.DirName_Build 替换成 IScriptManager.DirName_Build 开头
-            if (!item.CachePath.StartsWith($"{IScriptManager.DirName_Build}{Path.DirectorySeparatorChar}"))
-            {
-                item.CachePath = Path.Combine(IScriptManager.DirName_Build, item.FileName!);
-                var cachePath = Path.Combine(Plugin.Instance.CacheDirectory, item.CachePath);
-                if (File.Exists(cachePath))
-                {
-                    File.Delete(cachePath);
-                }
-                await TryReadFileAsync(item, true);
-                //清理 脚本内容 后续 IPC 传递 插件进程读取。
-                item.Content = string.Empty;
-                await scriptRepository.SaveScriptCachePathAsync(item, default);
-            }
             if (!CheckFile(item))
             {
                 var temp = await DeleteScriptAsync(item);
@@ -403,6 +389,38 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 {
                     //toast.Show($"脚本:{item.Name}_文件丢失，删除失败去尝试手动删除");
                     Toast.Show(ToastIcon.Error, Strings.Script_NoFileDeleteError_.Format(item.Name));
+                }
+                continue;
+            }
+
+            //检查缓存文件夹如果不是  IScriptManager.DirName_Build 替换成 IScriptManager.DirName_Build 开头
+            if (!item.CachePath.StartsWith($"{IScriptManager.DirName_Build}{Path.DirectorySeparatorChar}"))
+            {
+                var oldCachePath = Path.Combine(Plugin.Instance.CacheDirectory, item.CachePath);
+                item.CachePath = Path.Combine(IScriptManager.DirName_Build, item.FileName!);
+                if (File.Exists(oldCachePath))
+                {
+                    File.Delete(oldCachePath);
+                }
+                await TryReadFileAsync(item, true);
+                //清理 脚本内容 后续 IPC 传递 插件进程读取。
+                item.Content = string.Empty;
+                await scriptRepository.SaveScriptCachePathAsync(item, default);
+            }
+            else
+            {
+                var cachePath = Path.Combine(Plugin.Instance.CacheDirectory, item.CachePath);
+                var file = new FileInfo(cachePath);
+                //检查缓存文件是否为空 为空则 刷新
+                if (file.Exists)
+                {
+                    if (file.Length == 0)
+                    {
+                        file.Delete();
+                        await TryReadFileAsync(item, true);
+                        //清理 脚本内容 后续 IPC 传递 插件进程读取。
+                        item.Content = string.Empty;
+                    }
                 }
             }
         }
