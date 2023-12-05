@@ -45,6 +45,7 @@ public partial class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUI
         var msg = Strings.Success_.Format((rsp?.IsLoginOrRegister ?? false) ? Strings.User_Login : Strings.User_Register);
         close?.Invoke();
         Toast.Show(ToastIcon.Success, msg);
+        await UserService.Current.RefreshShopTokenAsync();
     }
 
     async Task SendSmsAsync() => await this.SendSmsAsync(() => new()

@@ -61,6 +61,16 @@ sealed class MicroServiceClient : MicroServiceClientBase
         }
     }
 
+    public sealed override async Task SaveShopAuthTokenAsync(JWTEntity authToken)
+    {
+        var user = await userManager.GetCurrentUserAsync();
+        if (user != null)
+        {
+            user.ShopAuthToken = authToken;
+            await userManager.SetCurrentUserAsync(user);
+        }
+    }
+
     public sealed override async Task OnLoginedAsync(
         IReadOnlyPhoneNumber? phoneNumber,
         ILoginResponse response)

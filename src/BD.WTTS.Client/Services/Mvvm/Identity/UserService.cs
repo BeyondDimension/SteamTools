@@ -199,6 +199,39 @@ public sealed class UserService : ReactiveObject
         await RefreshUserAsync(user, refreshCurrentUser);
     }
 
+    public async Task RefreshShopTokenAsync(bool refreshToken = true)
+    {
+        var currentUser = await userManager.GetCurrentUserAsync();
+
+        if (refreshToken && currentUser != null)
+        {
+            var token = await csc.Shop.GetShopUserTokenAsync();
+            if (token.IsSuccess)
+            {
+                currentUser.ShopAuthToken = token.Content;
+                await userManager.SetCurrentUserAsync(currentUser);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 带登录状态跳转 Url
+    /// </summary>
+    /// <param name="url">跳转地址</param>
+    /// <returns></returns>
+    public async Task OpenAuthUrl(string url)
+    {
+        var token = await userManager.GetAuthTokenAsync();
+        if (token == null)
+        {
+            Browser2.Open(url.ToString());
+        }
+        else
+        {
+            Browser2.Open(string.Format(Constants.Urls.OfficialWebsite_Fast_Login_, token.AccessToken, HttpUtility.UrlEncode(token.ExpiresIn.ToString()), HttpUtility.UrlEncode(url)));
+        }
+    }
+
     public async Task RefreshUserAvatarAsync()
     {
         if (User != null)

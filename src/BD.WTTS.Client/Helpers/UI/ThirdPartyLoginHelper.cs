@@ -154,6 +154,7 @@ public static class ThirdPartyLoginHelper
             AppResources.User_Register);
         close?.Invoke();
         Toast.Show(ToastIcon.Success, msg);
+        await UserService.Current.RefreshShopTokenAsync();
     }
 
     static IDisposable? serverDisposable;
