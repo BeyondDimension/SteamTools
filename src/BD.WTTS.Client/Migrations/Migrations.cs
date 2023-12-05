@@ -66,11 +66,11 @@ public static class Migrations
                     MoveAccelerator();
                 }
 
-                var v_3_0_rc4 = new Version(3, 0, 407);
-                if (IApplication.IsDesktop() && PreviousVersion < v_3_0_rc4)
-                {
-                    ClearScriptFile();
-                }
+                //var v_3_0_rc4 = new Version(3, 0, 407);
+                //if (IApplication.IsDesktop() && PreviousVersion < v_3_0_rc4)
+                //{
+                //    ClearScriptFile();
+                //}
             }
         }
     }
@@ -91,11 +91,14 @@ public static class Migrations
                 AssemblyInfo.Plugins,
                 AssemblyInfo.Accelerator,
                 newDirName ?? DirName_Scripts);
-            if (!Directory.Exists(newPath))
+            var dir = new DirectoryInfo(newPath);
+            if (!dir.Exists)
             {
                 var oldPath = Path.Combine(rootPath, DirName_Scripts);
                 if (Directory.Exists(oldPath))
                 {
+                    //创建至父级目录
+                    dir.Parent?.Create();
                     Directory.Move(oldPath, newPath);
                 }
             }
