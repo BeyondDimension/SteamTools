@@ -8,7 +8,7 @@ AppData_t="$HOME/.local/share/Steam++"
 Cache="$XDG_CACHE_HOME/Steam++"
 Cache_t="$HOME/.cache/Steam+"
 PROCESS_NAMES=("$exec_name" "$app_name")
-export LC_ALL=zn_CN.UTF-8
+export LC_ALL=en_US.UTF-8
 #检查是否存在 Steam++.sh 避免卸载错误
 file_to_check="$base_path/Steam++.sh"
 folders_to_check=("dotnet" "modules" "native" "script" "assemblies")
