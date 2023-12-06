@@ -1,6 +1,6 @@
 #!/bin/bash
-base_path="$HOME/WattToolkit"
-export LC_ALL=en_US.UTF-8
+run_path=$(dirname "$0")
+base_path="$(dirname "$run_path")"
 exec_name="Steam++"
 app_name="Watt Toolkit"
 AppData="$XDG_DATA_HOME/Steam++"
@@ -8,7 +8,37 @@ AppData_t="$HOME/.local/share/Steam++"
 Cache="$XDG_CACHE_HOME/Steam++"
 Cache_t="$HOME/.cache/Steam+"
 PROCESS_NAMES=("$exec_name" "$app_name")
+export LC_ALL=zn_CN.UTF-8
+#检查是否存在 Steam++.sh 避免卸载错误
+file_to_check="$base_path/Steam++.sh"
+folders_to_check=("dotnet" "modules" "native" "script" "assemblies")
+if [ -e "$file_to_check" ]; then
+    echo "文件 $file_to_check 存在"
+else
+    echo "文件 $file_to_check 不存在"
+    exit 1
+fi
 
+for folder in "${folders_to_check[@]}"; do
+    folder_path="$base_path/$folder"
+    if [ -d "$folder_path" ]; then
+        echo "文件夹 $folder_path 存在"
+    else
+        echo "文件夹 $folder_path 不存在"
+        exit 1
+    fi
+done
+echo "验证该文件夹是 $app_name 安装目录，请确认是否卸载。"
+
+read -p "所有文件和文件夹都存在，确认卸载吗？ (输入 'y' 确认): " confirmation
+
+if [ "${confirmation,,}" == "y" ]; then
+    echo "开始执行卸载操作"
+    # 在这里添加您的卸载操作
+else
+    echo "用户取消卸载操作"
+    exit 0
+fi
 Kill_Process() {
     # 尝试的次数
     Kill_MAX_RETRIES=3
