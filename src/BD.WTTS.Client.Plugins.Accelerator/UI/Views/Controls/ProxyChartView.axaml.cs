@@ -1,9 +1,12 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using LiveChartsCore;
 using LiveChartsCore.Motion;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Avalonia;
 using LiveChartsCore.SkiaSharpView.Drawing;
 using SkiaSharp;
 
@@ -49,14 +52,30 @@ public partial class ProxyChartView : UserControl
         }
     };
 
-    //public ISeries[] Series { get; set; }
-
-    private readonly List<RateTick> writes = new();
-    private readonly List<RateTick> reads = new();
+    private readonly ObservableCollection<RateTick> writes = new();
+    private readonly ObservableCollection<RateTick> reads = new();
 
     public Func<double, string> XFormatter { get; } = timestamp => ((long)timestamp).ToDateTimeS().ToString("HH:mm:ss");
 
     public Func<double, string> YFormatter { get; } = value => $"{IOPath.GetDisplayFileSizeString(value)}/s";
+
+    CancellationTokenSource cancellation = new();
+
+    public static readonly AvaloniaProperty<IEnumerable<ISeries>> SeriesProperty =
+        AvaloniaProperty.Register<CartesianChart, IEnumerable<ISeries>>("Series", Enumerable.Empty<ISeries>(), inherits: true);
+
+    public ObservableCollection<ISeries> Series
+    {
+        get
+        {
+            return (ObservableCollection<ISeries>)GetValue(SeriesProperty);
+        }
+
+        set
+        {
+            SetValue(SeriesProperty, value);
+        }
+    }
 
     public ProxyChartView()
     {
@@ -64,16 +83,16 @@ public partial class ProxyChartView : UserControl
 
         this.readSeries.Values = reads;
         this.writeSeries.Values = writes;
+        Series = [readSeries, writeSeries];
 
         if (Chart != null)
         {
             //Chart.UpdateFinished += Chart_UpdateFinished;
-            Chart.Series = new ISeries[] { readSeries, writeSeries };
+            //Chart.Series = new ISeries[] { readSeries, writeSeries };
+            Chart[!CartesianChart.SeriesProperty] = this[!SeriesProperty];
             Chart.XAxes = new Axis[] { new Axis { Labeler = XFormatter } };
             Chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter, MinLimit = 0 } };
         }
-
-        CancellationTokenSource? cancellation = null;
 
         ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
             .Subscribe(x =>
@@ -81,7 +100,7 @@ public partial class ProxyChartView : UserControl
                 if (x)
                 {
                     cancellation = new CancellationTokenSource();
-                    FlushFlowChartAsync(cancellation.Token);
+                    Task2.InBackground(FlushFlowChartAsync, true);
                 }
                 else
                 {
@@ -96,9 +115,7 @@ public partial class ProxyChartView : UserControl
             });
     }
 
-    private static double GetTimestamp(DateTime dateTime) => dateTime.ToUnixTimeSeconds();
-
-    private class RateTick
+    private struct RateTick
     {
         public double Rate { get; }
 
@@ -111,15 +128,18 @@ public partial class ProxyChartView : UserControl
         }
     }
 
-    private async void FlushFlowChartAsync(CancellationToken token)
+    private void FlushFlowChartAsync()
     {
-        while (!token.IsCancellationRequested)
+        while (!cancellation.IsCancellationRequested)
         {
             try
             {
                 var flowStatistics = IReverseProxyService.Constants.Instance.GetFlowStatistics();
                 if (flowStatistics == null)
+                {
+                    Thread.Sleep(1000);
                     continue;
+                }
 
                 var isAttachedToVisualTree = this.IsAttachedToVisualTree();
 
@@ -132,7 +152,7 @@ public partial class ProxyChartView : UserControl
                     });
                 }
 
-                var timestamp = GetTimestamp(DateTime.Now);
+                var timestamp = DateTime.Now.ToUnixTimeSeconds();
 
                 reads.Add(new RateTick(flowStatistics.ReadRate, timestamp));
                 writes.Add(new RateTick(flowStatistics.WriteRate, timestamp));
@@ -143,24 +163,26 @@ public partial class ProxyChartView : UserControl
                     this.writes.RemoveAt(0);
                 }
 
-                if (Chart != null && isAttachedToVisualTree)
-                    Dispatcher.UIThread.Post(() =>
-                    {
-                        Chart.Series = new ISeries[] { readSeries, writeSeries };
-                    });
+                //if (Chart != null && isAttachedToVisualTree)
+                //{
+                //    Dispatcher.UIThread.Post(() =>
+                //    {
+                //        Chart.Series = new ISeries[] { readSeries, writeSeries };
+                //    });
+                //}
             }
             catch
             {
             }
             finally
             {
-                await Task.Delay(TimeSpan.FromSeconds(1d), CancellationToken.None);
+                Thread.Sleep(1000);
             }
         }
     }
 
-    //解决内存泄露问题
-    //https://github.com/beto-rodriguez/LiveCharts2/issues/1080#issuecomment-1601536016
+    ////解决内存泄露问题
+    ////https://github.com/beto-rodriguez/LiveCharts2/issues/1080#issuecomment-1601536016
     //private static void Chart_UpdateFinished(LiveChartsCore.Kernel.Sketches.IChartView<SkiaSharpDrawingContext> chart)
     //{
     //    // Chart library leaks PaintTasks
@@ -169,7 +191,7 @@ public partial class ProxyChartView : UserControl
     //        // Periodically clean up drawables, this may cause the chart to blip if the user mouses over it during this time
     //        if (chart.CoreCanvas.DrawablesCount > 50)
     //        {
-    //            chart.CoreCanvas.SetPaintTasks(new HashSet<LiveChartsCore.Drawing.IPaint<SkiaSharpDrawingContext>>());
+    //            chart.CoreCanvas.SetPaintTasks([]);
     //        }
     //    }
     //}

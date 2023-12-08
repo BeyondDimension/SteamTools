@@ -170,13 +170,14 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 #pragma warning disable SA1114 // Parameter list should follow declaration
                     IViewModelManager.Instance.InitViewModels(new TabItemViewModel[]
                     {
-                new MenuTabItemViewModel("Welcome")
-                {
-                   PageType = typeof(HomePage),
-                   IsResourceGet = true,
-                   IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico",
-                },
-                    }, ImmutableArray.Create<TabItemViewModel>(
+                        new MenuTabItemViewModel("Welcome")
+                        {
+                           PageType = typeof(HomePage),
+                           IsResourceGet = true,
+                           IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico",
+                        },
+                    },
+                    ImmutableArray.Create<TabItemViewModel>(
 #if DEBUG
                     new MenuTabItemViewModel("Debug")
                     {

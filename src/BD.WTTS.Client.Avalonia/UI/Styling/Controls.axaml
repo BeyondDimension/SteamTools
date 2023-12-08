@@ -13,8 +13,9 @@
             <Thickness x:Key="PageMargin">10</Thickness>
             <sys:Double x:Key="SettingsSpacing">3</sys:Double>
 
-            <!--<sys:Char x:Key="PasswordChar">&#x25CF;</sys:Char>-->
-            <sys:Char x:Key="PasswordChar">•</sys:Char>
+            <sys:Char x:Key="PasswordChar">&#x25CF;</sys:Char>
+            <!--<sys:Char x:Key="PasswordChar">•</sys:Char>
+            <sys:Char x:Key="PasswordChar">·</sys:Char>-->
             <FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>
             <BoxShadows x:Key="InfoBoxShadow">4 4 32 0 #66000000</BoxShadows>
 

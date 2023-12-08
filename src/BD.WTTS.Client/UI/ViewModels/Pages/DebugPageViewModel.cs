@@ -87,6 +87,9 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
             case "updatetray":
 
                 break;
+            case "gc":
+                GC.Collect();
+                break;
             case "login":
                 if (cmds.Length > 1)
                 {

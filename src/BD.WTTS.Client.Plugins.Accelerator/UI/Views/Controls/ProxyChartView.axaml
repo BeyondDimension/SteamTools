@@ -13,8 +13,6 @@
     <Panel>
         <lvc:CartesianChart
             x:Name="Chart"
-            MinWidth="400"
-            MinHeight="160"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Background="Transparent" />
