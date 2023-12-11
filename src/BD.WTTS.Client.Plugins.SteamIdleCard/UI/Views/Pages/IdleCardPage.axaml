@@ -37,7 +37,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.SteamIdle_Settings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.SteamIdle_Settings, Mode=OneWay, Source={x:Static spp:Strings.SteamIdle_Settings}}" />
                 </Panel>
             </ToggleButton>
         </StackPanel>
@@ -58,7 +58,7 @@
                         <CompiledBinding
                             Mode="OneWay"
                             Path="Res.SteamIdle_UserExpString_"
-                            Source="{x:Static s:ResourceService.Current}" />
+                            Source="{x:Static spp:Strings.SteamIdle_UserExpString_}" />
                         <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UserLevel" />
                         <CompiledBinding Mode="OneWay" Path="UserIdleInfo.CurrentExp" />
                     </MultiBinding>
@@ -96,7 +96,7 @@
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.SteamIdle_UserNextExpString_"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                        Source="{x:Static spp:Strings.SteamIdle_UserNextExpString_}" />
                                     <CompiledBinding Mode="OneWay" Path="UserIdleInfo.NextLevel" />
                                     <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UpExp" />
                                 </MultiBinding>
@@ -241,7 +241,7 @@
                                                             <TextBlock
                                                                 VerticalAlignment="Center"
                                                                 FontSize="12"
-                                                                Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                                Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static spp:Strings.GameList_RunState}}" />
                                                         </WrapPanel>
                                                         <WrapPanel IsVisible="{Binding App.Process, Converter={StaticResource IsNullConverter}, Mode=OneWay}">
                                                             <Ellipse
@@ -252,7 +252,7 @@
                                                             <TextBlock
                                                                 VerticalAlignment="Center"
                                                                 FontSize="12"
-                                                                Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                                Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static spp:Strings.GameList_StopState}}" />
                                                         </WrapPanel>
                                                     </Panel>
                                                 </Border>
@@ -264,7 +264,7 @@
                                     Cursor="Hand"
                                     ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn,
                                                                     Mode=OneWay,
-                                                                    Source={x:Static s:ResourceService.Current}}">
+                                                                    Source={x:Static spp:Strings.GameList_RemoveItemBtn}}">
                                     <Viewbox>
                                         <ui:SymbolIcon Symbol="Delete" />
                                     </Viewbox>
@@ -343,7 +343,7 @@
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
                                             IsVisible="{Binding !Process, Converter={StaticResource IsNullConverter}}"
-                                            ToolTip.Tip="{Binding Path=Res.GameList_StopItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                            ToolTip.Tip="{Binding Path=Res.GameList_StopItemBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_StopItemBtn}}">
                                             <Viewbox Width="60" Height="60">
                                                 <ui:SymbolIcon Symbol="Pause" />
                                             </Viewbox>
@@ -357,7 +357,7 @@
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
                                             IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}}"
-                                            ToolTip.Tip="{Binding Path=Res.GameList_RuningItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                            ToolTip.Tip="{Binding Path=Res.GameList_RuningItemBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_RuningItemBtn}}">
                                             <Viewbox Width="60" Height="60">
                                                 <ui:SymbolIcon Symbol="Play" />
                                             </Viewbox>
@@ -370,7 +370,7 @@
                                             Command="{Binding $parent[spp:PageBase].((spp:IdleAppsPageViewModel)DataContext).DeleteButtonCommand}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                            ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_RemoveItemBtn}}">
                                             <Viewbox Width="20" Height="20">
                                                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Close}" />
                                             </Viewbox>

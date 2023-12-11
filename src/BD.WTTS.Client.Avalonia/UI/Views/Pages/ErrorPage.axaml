@@ -1,5 +1,6 @@
 <UserControl
     x:Class="BD.WTTS.UI.Views.Pages.ErrorPage"
+    xmlns:spp="https://steampp.net/ui"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,12 +16,12 @@
             VerticalAlignment="Center"
             FontSize="16"
             Foreground="White"
-            Text="{Binding Path=Res.Error_PageFault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+            Text="{Binding Path=Res.Error_PageFault, Mode=OneWay, Source={x:Static spp:Strings.Error_PageFault}}" />-->
         <TextBlock
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="16"
             Foreground="White"
-            Text="{Binding Path=Res.NewFeatureDevelopment, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            Text="{Binding Path=Res.NewFeatureDevelopment, Mode=OneWay, Source={x:Static spp:Strings.NewFeatureDevelopment}}" />
     </Panel>
 </UserControl>

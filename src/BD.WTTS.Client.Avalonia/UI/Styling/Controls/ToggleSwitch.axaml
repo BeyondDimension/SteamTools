@@ -1,5 +1,6 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
+    xmlns:spp="https://steampp.net/ui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="https://steampp.net/services"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -296,8 +297,8 @@
     </Styles.Resources>
 
     <Style Selector="ToggleSwitch">
-        <Setter Property="OffContent" Value="{ReflectionBinding Path=Res.Off, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-        <Setter Property="OnContent" Value="{ReflectionBinding Path=Res.On, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="OffContent" Value="{ReflectionBinding Path=Res.Off, Mode=OneWay, Source={x:Static spp:Strings.Off}}" />
+        <Setter Property="OnContent" Value="{ReflectionBinding Path=Res.On, Mode=OneWay, Source={x:Static spp:Strings.On}}" />
         <Setter Property="MinWidth" Value="0" />
     </Style>
 

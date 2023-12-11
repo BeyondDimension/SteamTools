@@ -43,7 +43,7 @@
                                 <spp:AppItem.Status>
                                     <Panel>
                                         <Border Classes="Status" IsVisible="{Binding IsExist}">
-                                            <TextBlock Text="{Binding Path=Res.Installed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                            <TextBlock Text="{Binding Path=Res.Installed, Mode=OneWay, Source={x:Static spp:Strings.Installed}}" />
                                         </Border>
                                         <Button
                                             Classes="accent"
@@ -69,7 +69,7 @@
                                         <ui:MenuFlyoutItem
                                             Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                             CommandParameter="{Binding SourceLink}"
-                                            Text="{Binding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                            Text="{Binding Path=Res.Script_Home, Mode=OneWay, Source={x:Static spp:Strings.Script_Home}}" />
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>

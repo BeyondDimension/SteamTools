@@ -48,7 +48,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static spp:Strings.UserChange_LoginNewAccount}}" />
                 </Panel>
             </Button>
             <Button
@@ -68,7 +68,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.GameAccount_SaveCurrentAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.GameAccount_SaveCurrentAccount, Mode=OneWay, Source={x:Static spp:Strings.GameAccount_SaveCurrentAccount}}" />
                 </Panel>
             </Button>
             <Button
@@ -88,7 +88,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.AccountChange_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.AccountChange_Title, Mode=OneWay, Source={x:Static spp:Strings.AccountChange_Title}}" />
                 </Panel>
             </Button>
             <Button
@@ -107,7 +107,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static spp:Strings.Refresh}}" />
                 </Panel>
             </Button>
             <DropDownButton
@@ -124,7 +124,7 @@
                             x:Name="PlatformSettingButton"
                             IsVisible="{Binding !IsSelectedSteam}"
                             Text="平台设置" />
-                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static spp:Strings.Settings_Plugin}}" />-->
                         <ui:MenuFlyoutSeparator IsVisible="{Binding !IsSelectedSteam}" />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
@@ -132,7 +132,7 @@
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                        Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
@@ -140,9 +140,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static spp:Strings.ViewInStore}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static spp:Strings.UseHelp}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static spp:Strings.AboutThisPlugin}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -169,7 +169,7 @@
                 <Button.Flyout>
                     <MenuFlyout Placement="BottomEdgeAlignedLeft">
                         <MenuItem
-                            Header="{Binding Path=Res.AddPlatform, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Header="{Binding Path=Res.AddPlatform, Mode=OneWay, Source={x:Static spp:Strings.AddPlatform}}"
                             IsVisible="{Binding !!AddGamePlatforms.Count}"
                             ItemsSource="{Binding AddGamePlatforms}">
                             <MenuItem.Styles>
@@ -200,13 +200,13 @@
                             </MenuItem.DataTemplates>-->
                         </MenuItem>
                         <MenuItem Header="-" />
-                        <MenuItem Command="{Binding LoginNewCommand}" Header="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <MenuItem Command="{Binding LoginNewCommand}" Header="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static spp:Strings.UserChange_LoginNewAccount}}">
                             <MenuItem.Icon>
                                 <ui:SymbolIcon Symbol="Add" />
                             </MenuItem.Icon>
                         </MenuItem>
                         <!--<ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static spp:Strings.GameAccount_EndProcessWay}}">
                             <ui:RadioMenuFlyoutItem
                                 GroupName="KillMethond"
                                 IconSource="Games"
@@ -217,7 +217,7 @@
                                 IconSource="Icons"
                                 Text="Direct" />
                         </ui:MenuFlyoutSubItem>
-                        <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_StartProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_StartProcessWay, Mode=OneWay, Source={x:Static spp:Strings.GameAccount_StartProcessWay}}">
                             <ui:RadioMenuFlyoutItem
                                 GroupName="StartMethond"
                                 IconSource="Games"
@@ -228,7 +228,7 @@
                                 Text="Direct" />
                         </ui:MenuFlyoutSubItem>
                         <ui:MenuFlyoutSeparator />
-                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{Binding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{Binding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static spp:Strings.AdministratorStartup}}" />-->
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>

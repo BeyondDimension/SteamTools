@@ -31,7 +31,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding RefreshStats_Click}"
                         Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{Binding Path=Res.Achievement_RefreshTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        ToolTip.Tip="{Binding Path=Res.Achievement_RefreshTip, Mode=OneWay, Source={x:Static spp:Strings.Achievement_RefreshTip}}">
                         <Viewbox
                             Width="22"
                             Height="22"
@@ -46,7 +46,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding ResetAllStats_Click}"
                         Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{Binding Path=Res.Achievement_ResetTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        ToolTip.Tip="{Binding Path=Res.Achievement_ResetTip, Mode=OneWay, Source={x:Static spp:Strings.Achievement_ResetTip}}">
                         <Viewbox
                             Width="22"
                             Height="22"
@@ -61,7 +61,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding SaveChange_Click}"
                         Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{Binding Path=Res.Achievement_StoreTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        ToolTip.Tip="{Binding Path=Res.Achievement_StoreTip, Mode=OneWay, Source={x:Static spp:Strings.Achievement_StoreTip}}">
                         <Viewbox
                             Width="22"
                             Height="22"
@@ -75,7 +75,7 @@
 
         <spp:ContentLoader Grid.Row="1" IsLoading="{Binding !!!Achievements.Count, Mode=OneWay}">
             <TabControl Padding="0">
-                <TabItem Header="{Binding Path=Res.Achievement_Unlock, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <TabItem Header="{Binding Path=Res.Achievement_Unlock, Mode=OneWay, Source={x:Static spp:Strings.Achievement_Unlock}}">
                     <DataGrid IsReadOnly="True" ItemsSource="{Binding Achievements}">
                         <DataGrid.Columns>
                             <!--  CheckBox  -->
@@ -105,7 +105,7 @@
                                 CanUserSort="True"
                                 SortMemberPath="IsChecked">
                                 <DataGridTemplateColumn.Header>
-                                    <TextBlock Text="{Binding Path=Res.Achievement_Icon, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <TextBlock Text="{Binding Path=Res.Achievement_Icon, Mode=OneWay, Source={x:Static spp:Strings.Achievement_Icon}}" />
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate x:DataType="spp:AchievementInfo">
@@ -127,7 +127,7 @@
                                 CanUserSort="True"
                                 SortMemberPath="Name">
                                 <DataGridTemplateColumn.Header>
-                                    <TextBlock Text="{Binding Path=Res.Achievement_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <TextBlock Text="{Binding Path=Res.Achievement_Name, Mode=OneWay, Source={x:Static spp:Strings.Achievement_Name}}" />
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate x:DataType="spp:AchievementInfo">
@@ -135,7 +135,7 @@
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 IsVisible="{Binding IsProtection}"
-                                                Text="{Binding Path=Res.Achievement_IsProtection, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                Text="{Binding Path=Res.Achievement_IsProtection, Mode=OneWay, Source={x:Static spp:Strings.Achievement_IsProtection}}" />
                                             <StackPanel
                                                 VerticalAlignment="Center"
                                                 Orientation="Vertical"
@@ -157,7 +157,7 @@
                                 CanUserSort="True"
                                 SortMemberPath="Description">
                                 <DataGridTemplateColumn.Header>
-                                    <TextBlock Text="{Binding Path=Res.Achievement_Description, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <TextBlock Text="{Binding Path=Res.Achievement_Description, Mode=OneWay, Source={x:Static spp:Strings.Achievement_Description}}" />
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate x:DataType="spp:AchievementInfo">
@@ -172,7 +172,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
-                <TabItem Header="{Binding Path=Res.Achievement_StatsEdit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <TabItem Header="{Binding Path=Res.Achievement_StatsEdit, Mode=OneWay, Source={x:Static spp:Strings.Achievement_StatsEdit}}">
                     <DataGrid IsReadOnly="False" ItemsSource="{Binding Statistics}">
                         <DataGrid.Columns>
                             <DataGridTextColumn

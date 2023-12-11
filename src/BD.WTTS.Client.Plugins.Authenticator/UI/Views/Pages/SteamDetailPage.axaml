@@ -19,7 +19,7 @@
                     <TextBlock
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ShowAuthInfo, Mode=OneWay}"
+                        Text="{Binding Source={x:Static spp:Strings.LocalAuth_ShowAuthInfo}, Path=Res.LocalAuth_ShowAuthInfo, Mode=OneWay}"
                         TextTrimming="CharacterEllipsis" />
                     <ToggleButton x:Name="ShowDetail" VerticalAlignment="Center">
                         <ToggleButton.Content>
@@ -29,7 +29,7 @@
                                     FontFamily="{StaticResource SymbolThemeFontFamily}"
                                     FontSize="16"
                                     Glyph="&#xE18B;" />
-                                <TextBlock Text="{Binding Path=Res.ShowHide, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                <TextBlock Text="{Binding Path=Res.ShowHide, Mode=OneWay, Source={x:Static spp:Strings.ShowHide}}" />
                             </StackPanel>
                         </ToggleButton.Content>
                     </ToggleButton>
@@ -38,13 +38,13 @@
                     VerticalAlignment="Center"
                     FontSize="12"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ShowSteamAuthTip2}"
+                    Text="{Binding Source={x:Static spp:Strings.LocalAuth_ShowSteamAuthTip2}, Path=Res.LocalAuth_ShowSteamAuthTip2}"
                     TextWrapping="Wrap" />
             </StackPanel>
         </Border>
         <Border Classes="Item">
             <DockPanel>
-                <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_SteamUUID}" />
+                <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static spp:Strings.LocalAuth_SteamUUID}, Path=Res.LocalAuth_SteamUUID}" />
                 <TextBox
                     Margin="5,0,0,0"
                     IsReadOnly="True"
@@ -55,7 +55,7 @@
         </Border>
         <Border Classes="Item">
             <DockPanel>
-                <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.RecoveryCode}" />
+                <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static spp:Strings.RecoveryCode}, Path=Res.RecoveryCode}" />
                 <TextBox
                     Margin="5,0,0,0"
                     IsReadOnly="True"
@@ -67,7 +67,7 @@
         <Border Classes="Item">
             <StackPanel Spacing="10">
                 <TextBlock Text="SteamGuard" />
-                <TextBlock Text="{Binding Path=Res.LocalAuth_ShowSteamAuthTip1, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.LocalAuth_ShowSteamAuthTip1, Mode=OneWay, Source={x:Static spp:Strings.LocalAuth_ShowSteamAuthTip1}}" />
                 <TextBox
                     Height="250"
                     IsReadOnly="True"

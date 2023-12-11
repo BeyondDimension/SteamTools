@@ -26,11 +26,11 @@
             CornerRadius="{StaticResource ControlCornerRadius}"
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
-            <TabStripItem Content="{Binding Path=Res.Settings_General, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Tag="Settings_General" />
-            <TabStripItem Content="{Binding Path=Res.Settings_UI, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Tag="Settings_UI" />
-            <TabStripItem Content="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Tag="Settings_Plugin" />
-            <TabStripItem Content="{Binding Path=Res.Settings_Steam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Tag="Settings_Steam" />
-            <TabStripItem Content="{Binding Path=Res.About, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Tag="AboutPage" />
+            <TabStripItem Content="{Binding Path=Res.Settings_General, Mode=OneWay, Source={x:Static spp:Strings.Settings_General}}" Tag="Settings_General" />
+            <TabStripItem Content="{Binding Path=Res.Settings_UI, Mode=OneWay, Source={x:Static spp:Strings.Settings_UI}}" Tag="Settings_UI" />
+            <TabStripItem Content="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static spp:Strings.Settings_Plugin}}" Tag="Settings_Plugin" />
+            <TabStripItem Content="{Binding Path=Res.Settings_Steam, Mode=OneWay, Source={x:Static spp:Strings.Settings_Steam}}" Tag="Settings_Steam" />
+            <TabStripItem Content="{Binding Path=Res.About, Mode=OneWay, Source={x:Static spp:Strings.About}}" Tag="AboutPage" />
         </TabStrip>
     </spp:PageBase.TabContent>
     <!--<spp:PageBase.ActionContent>

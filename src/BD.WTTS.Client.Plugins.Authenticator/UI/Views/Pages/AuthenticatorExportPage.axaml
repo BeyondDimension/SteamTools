@@ -13,12 +13,12 @@
     mc:Ignorable="d">
     <Grid RowDefinitions="Auto,*">
         <spp:Snackbar
-            Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static spp:Strings.Notice_Tray_Title}}"
             Margin="0,0,0,20"
             VerticalAlignment="Top"
             IsClosable="False"
             IsOpen="True"
-            Message="{Binding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
+            Message="{Binding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip, Source={x:Static spp:Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip}, Mode=OneWay}"
             Severity="Warning" />
 
         <StackPanel Grid.Row="1" Spacing="10">
@@ -27,23 +27,23 @@
                 IsEnabled="{Binding HasPasswordProtection}"
                 PasswordChar="{StaticResource PasswordChar}"
                 Text="{Binding Password}"
-                Watermark="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ProtectionAuth_Password, Mode=OneWay}" />
+                Watermark="{Binding Source={x:Static spp:Strings.LocalAuth_ProtectionAuth_Password}, Path=Res.LocalAuth_ProtectionAuth_Password, Mode=OneWay}" />
             <TextBox
                 Classes="revealPasswordButton"
                 IsEnabled="{Binding HasPasswordProtection}"
                 PasswordChar="{StaticResource PasswordChar}"
                 Text="{Binding VerifyPassword}"
-                Watermark="{Binding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword, Source={x:Static s:ResourceService.Current}, Mode=OneWay}" />
+                Watermark="{Binding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword, Source={x:Static spp:Strings.LocalAuth_ProtectionAuth_VerifyPassword}, Mode=OneWay}" />
             <Grid ColumnDefinitions="*,*">
                 <CheckBox
                     HorizontalAlignment="Center"
-                    Content="{Binding Path=Res.Auth_ExportUsingPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    Content="{Binding Path=Res.Auth_ExportUsingPassword, Mode=OneWay, Source={x:Static spp:Strings.Auth_ExportUsingPassword}}"
                     IsChecked="{Binding HasPasswordProtection}" />
 
                 <CheckBox
                     Grid.Column="1"
                     HorizontalAlignment="Center"
-                    Content="{Binding Path=Res.Auth_OnlylocalCanDecrypt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    Content="{Binding Path=Res.Auth_OnlylocalCanDecrypt, Mode=OneWay, Source={x:Static spp:Strings.Auth_OnlylocalCanDecrypt}}"
                     IsChecked="{Binding HasLocalProtection}" />
             </Grid>
 
@@ -51,7 +51,7 @@
                 Width="280"
                 HorizontalAlignment="Center"
                 Command="{Binding Export}"
-                Content="{Binding Path=Res.Auth_ExportAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.Auth_ExportAll, Mode=OneWay, Source={x:Static spp:Strings.Auth_ExportAll}}" />
         </StackPanel>
     </Grid>
 </UserControl>

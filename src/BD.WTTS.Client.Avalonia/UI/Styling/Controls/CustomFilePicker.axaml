@@ -51,7 +51,7 @@
                                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                         Text="{ReflectionBinding Path=Res.CustomFilePicker_Tip,
                                                                  Mode=OneWay,
-                                                                 Source={x:Static s:ResourceService.Current}}"
+                                                                 Source={x:Static spp:Strings.CustomFilePicker_Tip}}"
                                         TextAlignment="Center"
                                         Theme="{StaticResource BodyStrongTextBlockStyle}" />
                                 </StackPanel>

@@ -1,5 +1,6 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
+    xmlns:spp="https://steampp.net/ui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="https://steampp.net/services"
     x:CompileBindings="True">
@@ -16,7 +17,7 @@
 
     <!--  AutoCompleteBox  -->
     <Style Selector="AutoCompleteBox.Search /template/ TextBox#PART_TextBox">
-        <Setter Property="Watermark" Value="{ReflectionBinding Path=Res.Search, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="Watermark" Value="{ReflectionBinding Path=Res.Search, Mode=OneWay, Source={x:Static spp:Strings.Search}}" />
         <Setter Property="InnerRightContent">
             <Template>
                 <StackPanel Orientation="Horizontal">

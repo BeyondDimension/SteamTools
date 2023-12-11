@@ -36,7 +36,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Settings_Auth, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Settings_Auth, Mode=OneWay, Source={x:Static spp:Strings.Settings_Auth}}" />
                 </Panel>
             </ToggleButton>
             <DropDownButton
@@ -55,7 +55,7 @@
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                        Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
@@ -64,9 +64,9 @@
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
                         <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static spp:Strings.ViewInStore}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static spp:Strings.UseHelp}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static spp:Strings.AboutThisPlugin}}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>

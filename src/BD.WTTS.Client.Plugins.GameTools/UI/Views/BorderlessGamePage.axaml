@@ -51,7 +51,7 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static spp:Strings.Settings_Plugin}}" />-->
                         <!--<ui:MenuFlyoutSeparator  />-->
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
@@ -59,7 +59,7 @@
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                        Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
@@ -67,9 +67,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static spp:Strings.ViewInStore}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static spp:Strings.UseHelp}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static spp:Strings.AboutThisPlugin}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -120,7 +120,7 @@
                 <TextBlock
                     Margin="10,0"
                     VerticalAlignment="Center"
-                    Text="{Binding Path=Res.GameRelated_Borderless_MoveMouseTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    Text="{Binding Path=Res.GameRelated_Borderless_MoveMouseTip, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_MoveMouseTip}}" />
             </WrapPanel>
 
             <StackPanel
@@ -129,19 +129,19 @@
                 Orientation="Vertical"
                 Spacing="10">
                 <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Title, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_Title}, StringFormat={}{0}:}" />
                     <Run Text="{ReflectionBinding SelectWindow.Title, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_ClassName, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_ClassName, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_ClassName}, StringFormat={}{0}:}" />
                     <Run Text="{ReflectionBinding SelectWindow.ClassName, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Process, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Process, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_Process}, StringFormat={}{0}:}" />
                     <Run Text="{ReflectionBinding SelectWindow.Name, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Path, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_Path}, StringFormat={}{0}:}" />
                     <Run Text="{ReflectionBinding SelectWindow.Path, Mode=OneWay}" />
                 </TextBlock>
             </StackPanel>
@@ -153,20 +153,20 @@
                         <Setter Property="Margin" Value="3" />
                     </Style>
                 </WrapPanel.Styles>
-                <Button Command="{ReflectionBinding WindowKill_Click}" Content="{Binding Path=Res.GameRelated_Borderless_KillProcess, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <Button Command="{ReflectionBinding BorderlessWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_BorderlessWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <Button Command="{ReflectionBinding MaximizeWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Maximize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <Button Command="{ReflectionBinding NormalWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Normal, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <Button Command="{ReflectionBinding HideWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Hide, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <Button Command="{ReflectionBinding ShowWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Show, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button Command="{ReflectionBinding WindowKill_Click}" Content="{Binding Path=Res.GameRelated_Borderless_KillProcess, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_KillProcess}}" />
+                <Button Command="{ReflectionBinding BorderlessWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_BorderlessWindow, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_BorderlessWindow}}" />
+                <Button Command="{ReflectionBinding MaximizeWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Maximize, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_Maximize}}" />
+                <Button Command="{ReflectionBinding NormalWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Normal, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_Normal}}" />
+                <Button Command="{ReflectionBinding HideWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Hide, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_Hide}}" />
+                <Button Command="{ReflectionBinding ShowWindow_Click}" Content="{Binding Path=Res.GameRelated_Borderless_Show, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_Show}}" />
                 <Button
                     Command="{ReflectionBinding ToWallerpaperWindow_Click}"
-                    Content="{Binding Path=Res.GameRelated_Borderless_ToWallerpaper, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                    ToolTip.Tip="{Binding Path=Res.GameRelated_Borderless_ToWallerpaperTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <Button Command="{ReflectionBinding ResetWallerpaper_Click}" Content="{Binding Path=Res.GameRelated_Borderless_ResetWallerpaper, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    Content="{Binding Path=Res.GameRelated_Borderless_ToWallerpaper, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_ToWallerpaper}}"
+                    ToolTip.Tip="{Binding Path=Res.GameRelated_Borderless_ToWallerpaperTip, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_ToWallerpaperTip}}" />
+                <Button Command="{ReflectionBinding ResetWallerpaper_Click}" Content="{Binding Path=Res.GameRelated_Borderless_ResetWallerpaper, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_ResetWallerpaper}}" />
             </WrapPanel>
 
-            <!--<TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat=*{0}}" TextWrapping="WrapWithOverflow" />-->
+            <!--<TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip, Mode=OneWay, Source={x:Static spp:Strings.GameRelated_Borderless_ToWallerpaperTip}, StringFormat=*{0}}" TextWrapping="WrapWithOverflow" />-->
 
         </StackPanel>
     </ScrollViewer>

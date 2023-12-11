@@ -30,7 +30,7 @@
                 IsIndeterminate="True"
                 IsVisible="{Binding RunLoaingState}"
                 Orientation="Vertical"
-                ToolTip.Tip="{Binding Path=Res.GameList_RuningWait, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                ToolTip.Tip="{Binding Path=Res.GameList_RuningWait, Mode=OneWay, Source={x:Static spp:Strings.GameList_RuningWait}}" />
             <Button
                 Padding="8,4"
                 Command="{Binding RunOrStopAllButton_Click}"
@@ -48,7 +48,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.GameList_RuningBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.GameList_RuningBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_RuningBtn}}" />
                 </Panel>
             </Button>
             <Button
@@ -68,7 +68,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.GameList_StopBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.GameList_StopBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_StopBtn}}" />
                 </Panel>
             </Button>
             <Button
@@ -87,7 +87,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static spp:Strings.Refresh}}" />
                 </Panel>
             </Button>
             <DropDownButton
@@ -100,12 +100,12 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps}, Path=Value}" Text="{Binding Path=Res.GameList_AutoAFK, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps}, Path=Value}" Text="{Binding Path=Res.GameList_AutoAFK, Mode=OneWay, Source={x:Static spp:Strings.GameList_AutoAFK}}" />
                         <ui:MenuFlyoutItem
                             Command="{Binding DeleteAllButton_Click}"
                             Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                             IconSource="Delete"
-                            Text="{Binding Path=Res.GameList_RemoveBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            Text="{Binding Path=Res.GameList_RemoveBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_RemoveBtn}}" />
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
@@ -113,7 +113,7 @@
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                        Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
@@ -121,9 +121,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static spp:Strings.ViewInStore}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static spp:Strings.UseHelp}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static spp:Strings.AboutThisPlugin}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -132,7 +132,7 @@
     <spp:ContentLoader
         IsLoading="false"
         IsShowNoResultText="{Binding !!!IdleGameList.Count, Mode=OneWay}"
-        NoResultMessage="{Binding Path=Res.GameList_AddIdeaAppEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{Binding Path=Res.GameList_AddIdeaAppEmpty, Mode=OneWay, Source={x:Static spp:Strings.GameList_AddIdeaAppEmpty}}">
         <ItemsControl ItemsSource="{Binding IdleGameList}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -159,7 +159,7 @@
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
-                                                Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                Text="{Binding Path=Res.GameList_RunState, Mode=OneWay, Source={x:Static spp:Strings.GameList_RunState}}" />
                                         </WrapPanel>
                                         <WrapPanel IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}, Mode=OneWay}">
                                             <Ellipse
@@ -170,7 +170,7 @@
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
-                                                Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                Text="{Binding Path=Res.GameList_StopState, Mode=OneWay, Source={x:Static spp:Strings.GameList_StopState}}" />
                                         </WrapPanel>
                                     </Panel>
                                 </Border>
@@ -182,7 +182,7 @@
                                     Cursor="Hand"
                                     ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn,
                                                                     Mode=OneWay,
-                                                                    Source={x:Static s:ResourceService.Current}}">
+                                                                    Source={x:Static spp:Strings.Current}}">
                                     <Viewbox>
                                         <ui:SymbolIcon Symbol="Delete" />
                                     </Viewbox>
@@ -261,7 +261,7 @@
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
                                             IsVisible="{Binding !Process, Converter={StaticResource IsNullConverter}}"
-                                            ToolTip.Tip="{Binding Path=Res.GameList_StopItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                            ToolTip.Tip="{Binding Path=Res.GameList_StopItemBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_StopItemBtn}}">
                                             <Viewbox Width="60" Height="60">
                                                 <ui:SymbolIcon Symbol="Pause" />
                                             </Viewbox>
@@ -275,7 +275,7 @@
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
                                             IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}}"
-                                            ToolTip.Tip="{Binding Path=Res.GameList_RuningItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                            ToolTip.Tip="{Binding Path=Res.GameList_RuningItemBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_RuningItemBtn}}">
                                             <Viewbox Width="60" Height="60">
                                                 <ui:SymbolIcon Symbol="Play" />
                                             </Viewbox>
@@ -288,7 +288,7 @@
                                             Command="{Binding $parent[spp:PageBase].((spp:IdleAppsPageViewModel)DataContext).DeleteButtonCommand}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                            ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_RemoveItemBtn}}">
                                             <Viewbox Width="20" Height="20">
                                                 <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Close}" />
                                             </Viewbox>

@@ -59,7 +59,7 @@
                     Text="想玩游戏" />
             </ui:MenuFlyoutSubItem>
             <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static spp:Strings.Copy}}">
                 <ui:MenuFlyoutSubItem Text="复制个人资料">
                     <ui:MenuFlyoutItem Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}" Text="社区 URL">
                         <ui:MenuFlyoutItem.CommandParameter>
@@ -101,7 +101,7 @@
                     </ui:MenuFlyoutItem>
                 </ui:MenuFlyoutSubItem>
             </ui:MenuFlyoutSubItem>
-            <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{Binding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <ui:MenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{Binding Path=Res.OpenLink, Mode=OneWay, Source={x:Static spp:Strings.OpenLink}}">
                 <ui:MenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="Steam 社区">
                     <ui:MenuFlyoutItem.CommandParameter>
                         <MultiBinding Converter="{StaticResource StringFormatConverter}">
@@ -182,12 +182,12 @@
             <ui:MenuFlyoutItem
                 Click="OpenUserDataFolderMenuItem_Click"
                 IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
-                Text="{Binding Path=Res.UserChange_ShowUserDataFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Text="{Binding Path=Res.UserChange_ShowUserDataFolder, Mode=OneWay, Source={x:Static spp:Strings.UserChange_ShowUserDataFolder}}" />
             <ui:MenuFlyoutItem
                 Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).DeleteAccountCommand}"
                 CommandParameter="{Binding}"
                 Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static spp:Strings.Delete}}" />
         </ui:FAMenuFlyout>
     </UserControl.Resources>
     <ScrollViewer>
@@ -197,7 +197,7 @@
         <spp:ContentLoader
             IsLoading="{Binding IsLoading}"
             IsShowNoResultText="{Binding !!!Accounts.Count, Mode=OneWay}"
-            NoResultMessage="{Binding Path=Res.UserChange_NoUserTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            NoResultMessage="{Binding Path=Res.UserChange_NoUserTip, Mode=OneWay, Source={x:Static spp:Strings.UserChange_NoUserTip}}">
             <ItemsControl Grid.Row="1" ItemsSource="{Binding Accounts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -215,11 +215,11 @@
                                 ContextFlyout="{StaticResource SharedMenuFlyout}"
                                 Description="{Binding LastLoginTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                                 MoreFlyout="{StaticResource SharedMenuFlyout}"
-                                Status="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                Status="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static spp:Strings.UserChange_RecentLogin}}"
                                 Tags="{Binding AliasName}">
                                 <spp:AppItem.Status>
                                     <Border Classes="Status" IsVisible="{Binding MostRecent}">
-                                        <TextBlock Text="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <TextBlock Text="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static spp:Strings.UserChange_RecentLogin}}" />
                                     </Border>
                                 </spp:AppItem.Status>
                                 <i:Interaction.Behaviors>

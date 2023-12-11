@@ -36,7 +36,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Add, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Add, Mode=OneWay, Source={x:Static spp:Strings.Add}}" />
                 </Panel>
             </Button>
             <!--<Button
@@ -55,7 +55,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.LocalAuth_CloudSync, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.LocalAuth_CloudSync, Mode=OneWay, Source={x:Static spp:Strings.LocalAuth_CloudSync}}" />
                 </Panel>
             </Button>-->
             <Button
@@ -74,7 +74,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static spp:Strings.Refresh}}" />
                 </Panel>
             </Button>
             <ToggleButton
@@ -93,7 +93,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Settings_Auth, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Settings_Auth, Mode=OneWay, Source={x:Static spp:Strings.Settings_Auth}}" />
                 </Panel>
             </ToggleButton>
             <DropDownButton
@@ -125,16 +125,14 @@
                         <!--  Text="移除机器验证" />  -->
                         <!--     <ui:MenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
                         <!-- </ui:MenuFlyoutSubItem> -->
-                        <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="{Binding Path=Res.ExportAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="{Binding Path=Res.ExportAll, Mode=OneWay, Source={x:Static spp:Strings.ExportAll}}" />
                         <!--<ui:MenuFlyoutItem
                             Command="{Binding ReLockAuthenticator}"
                             IsEnabled="{Binding IsVerificationPass}"
-                            Text="{Binding Path=Res.Auth_lock,
-                                                     Mode=OneWay,
-                                                     Source={x:Static s:ResourceService.Current}}" />-->
-                        <!--<ui:MenuFlyoutItem Command="{Binding ShowRecoverWindow}" Text="{Binding Path=Res.Auth_Sync_Recover, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Command="{Binding ResetIndependentPassword}" Text="{Binding Path=Res.Auth_Sync_ResetPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                            Text="{Binding Path=Res.Auth_lock, Mode=OneWay, Source={x:Static spp:Strings.Auth_lock}}" />-->
+                        <!--<ui:MenuFlyoutItem Command="{Binding ShowRecoverWindow}" Text="{Binding Path=Res.Auth_Sync_Recover, Mode=OneWay, Source={x:Static spp:Strings.Auth_Sync_Recover}}" />
+                        <ui:MenuFlyoutItem Command="{Binding ResetIndependentPassword}" Text="{Binding Path=Res.Auth_Sync_ResetPassword, Mode=OneWay, Source={x:Static spp:Strings.Auth_Sync_ResetPassword}}" />-->
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static spp:Strings.Settings_Plugin}}" />-->
                         <ui:MenuFlyoutSeparator />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>
@@ -142,7 +140,7 @@
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                        Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
@@ -150,9 +148,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static spp:Strings.ViewInStore}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static spp:Strings.UseHelp}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static spp:Strings.AboutThisPlugin}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -164,7 +162,7 @@
             <TextBlock
                 Grid.Row="2"
                 VerticalAlignment="Center"
-                Text="{Binding Path=Res.Filter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Text="{Binding Path=Res.Filter, Mode=OneWay, Source={x:Static spp:Strings.Filter}}"
                 Theme="{StaticResource CaptionTextBlockStyle}" />
 
             <AutoCompleteBox
@@ -174,54 +172,54 @@
                 Text="{Binding SearchText}" />
 
             <TextBlock
-                Text="{Binding Path=Res.EncryptSettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Text="{Binding Path=Res.EncryptSettings, Mode=OneWay, Source={x:Static spp:Strings.EncryptSettings}}"
                 Theme="{StaticResource BodyStrongTextBlockStyle}"
-                ToolTip.Tip="{Binding Path=Res.LocalAuth_ProtectionAuth_Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                ToolTip.Tip="{Binding Path=Res.LocalAuth_ProtectionAuth_Info, Mode=OneWay, Source={x:Static spp:Strings.LocalAuth_ProtectionAuth_Info}}" />
 
             <Button
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
                 Command="{Binding ReLockAuthenticator}"
-                Content="{Binding Path=Res.Auth_lock, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{Binding Path=Res.Auth_lock, Mode=OneWay, Source={x:Static spp:Strings.Auth_lock}}"
                 IsEnabled="{Binding IsVerificationPass}" />
             <Button
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
                 Command="{Binding SetPasswordProtection}"
-                Content="{Binding Path=Res.Auth_AddPasswordProtect, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{Binding Path=Res.Auth_AddPasswordProtect, Mode=OneWay, Source={x:Static spp:Strings.Auth_AddPasswordProtect}}"
                 IsVisible="{Binding !HasPasswordEncrypt}"
-                ToolTip.Tip="{Binding Path=Res.LocalAuth_ProtectionAuth_EnablePasswordTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                ToolTip.Tip="{Binding Path=Res.LocalAuth_ProtectionAuth_EnablePasswordTip, Mode=OneWay, Source={x:Static spp:Strings.LocalAuth_ProtectionAuth_EnablePasswordTip}}" />
             <Button
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
                 Command="{Binding RemovePasswordProtection}"
-                Content="{Binding Path=Res.Auth_RemovePasswordProtect, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{Binding Path=Res.Auth_RemovePasswordProtect, Mode=OneWay, Source={x:Static spp:Strings.Auth_RemovePasswordProtect}}"
                 IsVisible="{Binding HasPasswordEncrypt}" />
             <ToggleSwitch
                 VerticalAlignment="Center"
                 Classes="NoContent"
                 Command="{Binding ToggleLocalProtection}"
                 IsChecked="{Binding HasLocalPcEncrypt, Mode=OneWay}"
-                OffContent="{Binding Path=Res.Auth_RemoveMachineValidation, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                OnContent="{Binding Path=Res.Auth_AddMachineValidation, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                ToolTip.Tip="{Binding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                OffContent="{Binding Path=Res.Auth_RemoveMachineValidation, Mode=OneWay, Source={x:Static spp:Strings.Auth_RemoveMachineValidation}}"
+                OnContent="{Binding Path=Res.Auth_AddMachineValidation, Mode=OneWay, Source={x:Static spp:Strings.Auth_AddMachineValidation}}"
+                ToolTip.Tip="{Binding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip, Mode=OneWay, Source={x:Static spp:Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip}}" />
             <!--<Button
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
                 Command="{Binding ToggleLocalProtection}"
-                Content="{Binding Path=Res.Auth_AddMachineValidation, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{Binding Path=Res.Auth_AddMachineValidation, Mode=OneWay, Source={x:Static spp:Strings.Auth_AddMachineValidation}}"
                 IsEnabled="{Binding !HasLocalPcEncrypt}" />
             <Button
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
                 Command="{Binding ToggleLocalProtection}"
-                Content="{Binding Path=Res.Auth_RemoveMachineValidation, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{Binding Path=Res.Auth_RemoveMachineValidation, Mode=OneWay, Source={x:Static spp:Strings.Auth_RemoveMachineValidation}}"
                 IsEnabled="{Binding HasLocalPcEncrypt}" />-->
             <!--<Button
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
                 Command="{Binding EncryptHelp}"
-                Content="{Binding Path=Res.Auth_EncryptionHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                Content="{Binding Path=Res.Auth_EncryptionHelp, Mode=OneWay, Source={x:Static spp:Strings.Auth_EncryptionHelp}}" />-->
         </StackPanel>
     </spp:PageBase.PaneContent>
     <Panel>
@@ -239,13 +237,13 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="{Binding Path=Res.Auth_PasswordProtectedVerifyFirst, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Text="{Binding Path=Res.Auth_PasswordProtectedVerifyFirst, Mode=OneWay, Source={x:Static spp:Strings.Auth_PasswordProtectedVerifyFirst}}"
                 TextWrapping="WrapWithOverflow" />
             <Button
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Command="{Binding Initialize}"
-                Content="{Binding Path=Res.Verify, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{Binding Path=Res.Verify, Mode=OneWay, Source={x:Static spp:Strings.Verify}}"
                 IsEnabled="True" />
         </StackPanel>
 
@@ -265,7 +263,7 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_NoAuthTip, Mode=OneWay}"
+                        Text="{Binding Source={x:Static spp:Strings.LocalAuth_NoAuthTip}, Path=Res.LocalAuth_NoAuthTip, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </StackPanel>
             </spp:ContentLoader.NoResultMessage>
@@ -286,7 +284,7 @@
                                     <MenuItem
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexMoveUp}"
                                         CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.Up, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        Header="{Binding Path=Res.Up, Mode=OneWay, Source={x:Static spp:Strings.Up}}">
                                         <MenuItem.Icon>
                                             <ui:SymbolIcon Symbol="ChevronUp" />
                                         </MenuItem.Icon>
@@ -294,7 +292,7 @@
                                     <MenuItem
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexMoveDown}"
                                         CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.MoveDown, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        Header="{Binding Path=Res.MoveDown, Mode=OneWay, Source={x:Static spp:Strings.MoveDown}}">
                                         <MenuItem.Icon>
                                             <ui:SymbolIcon Symbol="ChevronDown" />
                                         </MenuItem.Icon>
@@ -302,7 +300,7 @@
                                     <!--<MenuItem
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexSticky}"
                                         CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.FixedTop, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        Header="{Binding Path=Res.FixedTop, Mode=OneWay, Source={x:Static spp:Strings.FixedTop}}">
                                         <MenuItem.Icon>
                                             <ui:SymbolIcon Symbol="Pin" />
                                         </MenuItem.Icon>
@@ -311,7 +309,7 @@
                                     <MenuItem
                                         Command="{Binding ShowQrCode}"
                                         CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        Header="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static spp:Strings.DisplayQRCode}}">
                                         <MenuItem.Icon>
                                             <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
                                         </MenuItem.Icon>
@@ -319,7 +317,7 @@
                                     <MenuItem
                                         Command="{Binding ShowDetailData}"
                                         CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        Header="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static spp:Strings.ViewDetailedData}}">
                                         <MenuItem.Icon>
                                             <ui:SymbolIcon Symbol="Calendar" />
                                         </MenuItem.Icon>
@@ -327,7 +325,7 @@
                                     <MenuItem
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).DefaultExport}"
                                         CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.DefaultExport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        Header="{Binding Path=Res.DefaultExport, Mode=OneWay, Source={x:Static spp:Strings.DefaultExport}}">
                                         <MenuItem.Icon>
                                             <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
                                         </MenuItem.Icon>
@@ -335,7 +333,7 @@
                                     <MenuItem
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).ExportAuthWithSdaFile}"
                                         CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.Auth_ExportmaFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        Header="{Binding Path=Res.Auth_ExportmaFile, Mode=OneWay, Source={x:Static spp:Strings.Auth_ExportmaFile}}"
                                         IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
                                         <MenuItem.Icon>
                                             <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
@@ -345,7 +343,7 @@
                                     <MenuItem
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).UnbindingSteamAuthAsync}"
                                         CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.LocalAuth_RemoveAuth, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        Header="{Binding Path=Res.LocalAuth_RemoveAuth, Mode=OneWay, Source={x:Static spp:Strings.LocalAuth_RemoveAuth}}"
                                         IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
                                         <MenuItem.Icon>
                                             <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC9;" />
@@ -355,7 +353,7 @@
                                         Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).DeleteAuthAsync}"
                                         CommandParameter="{Binding}"
                                         Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                        Header="{Binding Path=Res.LocalAuth_Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        Header="{Binding Path=Res.LocalAuth_Delete, Mode=OneWay, Source={x:Static spp:Strings.LocalAuth_Delete}}">
                                         <MenuItem.Icon>
                                             <ui:SymbolIcon Symbol="Delete" />
                                         </MenuItem.Icon>

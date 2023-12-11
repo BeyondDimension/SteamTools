@@ -29,7 +29,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding RefreshList}"
                         Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{Binding Path=Res.RefreshList, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        ToolTip.Tip="{Binding Path=Res.RefreshList, Mode=OneWay, Source={x:Static spp:Strings.RefreshList}}">
                         <Viewbox
                             Width="22"
                             Height="22"
@@ -44,7 +44,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding UploadFile}"
                         Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{Binding Path=Res.GameList_UploadCloudArchiveFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        ToolTip.Tip="{Binding Path=Res.GameList_UploadCloudArchiveFile, Mode=OneWay, Source={x:Static spp:Strings.GameList_UploadCloudArchiveFile}}">
                         <Viewbox
                             Width="22"
                             Height="22"
@@ -59,7 +59,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding ClearAllFiles}"
                         Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{Binding Path=Res.GameList_RemoveBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        ToolTip.Tip="{Binding Path=Res.GameList_RemoveBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_RemoveBtn}}">
                         <Viewbox
                             Width="22"
                             Height="22"
@@ -103,7 +103,7 @@
                 </StackPanel>
 
                 <TabControl Padding="0">
-                    <TabItem Header="{Binding Path=Res.GameList_CloudArchiveManager, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    <TabItem Header="{Binding Path=Res.GameList_CloudArchiveManager, Mode=OneWay, Source={x:Static spp:Strings.GameList_CloudArchiveManager}}">
                         <DataGrid
                             x:Name="CloudGrid"
                             IsReadOnly="True"
@@ -113,12 +113,12 @@
                                     <MenuItem
                                         Command="{Binding $parent[Window].((spp:CloudArchiveAppPageViewModel)DataContext).DownloadFile}"
                                         CommandParameter="{Binding #CloudGrid.SelectedItem}"
-                                        Header="{Binding Path=Res.Download, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        Header="{Binding Path=Res.Download, Mode=OneWay, Source={x:Static spp:Strings.Download}}" />
                                     <MenuItem Header="-" />
                                     <MenuItem
                                         Command="{Binding $parent[Window].((spp:CloudArchiveAppPageViewModel)DataContext).DeleteFile}"
                                         CommandParameter="{Binding #CloudGrid.SelectedItem}"
-                                        Header="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        Header="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static spp:Strings.Delete}}" />
                                 </MenuFlyout>
                             </DataGrid.ContextFlyout>
                             <DataGrid.Styles>
@@ -157,7 +157,7 @@
                                     CanUserSort="True"
                                     SortMemberPath="Name">
                                     <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{Binding Path=Res.Achievement_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <TextBlock Text="{Binding Path=Res.Achievement_Name, Mode=OneWay, Source={x:Static spp:Strings.Achievement_Name}}" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate x:DataType="spp:SteamRemoteFile">
@@ -172,7 +172,7 @@
                                     CanUserSort="True"
                                     SortMemberPath="Size">
                                     <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{Binding Path=Res.FileSize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <TextBlock Text="{Binding Path=Res.FileSize, Mode=OneWay, Source={x:Static spp:Strings.FileSize}}" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate x:DataType="spp:SteamRemoteFile">
@@ -215,7 +215,7 @@
                                     CanUserSort="True"
                                     SortMemberPath="CreateTime">
                                     <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{Binding Path=Res.CreateTime, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <TextBlock Text="{Binding Path=Res.CreateTime, Mode=OneWay, Source={x:Static spp:Strings.CreateTime}}" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate x:DataType="spp:SteamRemoteFile">

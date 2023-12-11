@@ -28,7 +28,7 @@
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.LocalAuth_Copy,
                                                     Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                                                    Source={x:Static spp:Strings.LocalAuth_Copy}}">
                     <Viewbox Width="20">
                         <ui:SymbolIcon Symbol="Copy" />
                     </Viewbox>
@@ -37,7 +37,7 @@
                     Padding="8"
                     Command="{Binding EditAuthNameAsync}"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{Binding Path=Res.Auth_EditName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.Auth_EditName, Mode=OneWay, Source={x:Static spp:Strings.Auth_EditName}}">
                     <Viewbox Width="16">
                         <ui:SymbolIcon Symbol="Edit" />
                     </Viewbox>
@@ -47,7 +47,7 @@
                     Command="{Binding ShowSteamTradeWindow}"
                     IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade, Mode=OneWay, Source={x:Static spp:Strings.LocalAuth_AuthTrade}}">
                     <Viewbox Width="16">
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9D5;" />
                     </Viewbox>
@@ -55,7 +55,7 @@
                 <!--<Button
                     Command="{Binding ShowDetailData}"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static spp:Strings.ViewDetailedData}}">
                     <Viewbox Width="20">
                         <ui:SymbolIcon Symbol="Calendar" />
                     </Viewbox>
@@ -63,7 +63,7 @@
                 <!--<Button
                     Command="{Binding ShowQrCode}"
                     Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static spp:Strings.DisplayQRCode}}">
                     <Viewbox Width="20">
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
                     </Viewbox>
@@ -142,7 +142,7 @@
                     Classes="Plain"
                     Command="{Binding CopyCode}"
                     Cursor="Hand"
-                    ToolTip.Tip="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static spp:Strings.Copy}}">
                     <!--<StackPanel Orientation="Horizontal">-->
                     <TextBlock
                         FontSize="20"

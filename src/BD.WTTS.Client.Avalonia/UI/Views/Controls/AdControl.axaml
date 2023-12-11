@@ -41,7 +41,7 @@
                 Foreground="White"
                 Text="{ReflectionBinding Path=Res.Advertisement,
                                          Mode=OneWay,
-                                         Source={x:Static s:ResourceService.Current}}" />
+                                         Source={x:Static spp:Strings.Advertisement}}" />
             <Button
                 Name="CloseAdBtn"
                 HorizontalAlignment="Right"
@@ -49,7 +49,7 @@
                 Background="Transparent"
                 Content="{ReflectionBinding Path=Res.Advertisement_Close,
                                             Mode=OneWay,
-                                            Source={x:Static s:ResourceService.Current}}"
+                                            Source={x:Static spp:Strings.Advertisement_Close}}"
                 Cursor="Hand"
                 Foreground="White" />
         </Panel>

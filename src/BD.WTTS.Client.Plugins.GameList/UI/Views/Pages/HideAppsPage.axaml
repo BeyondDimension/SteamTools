@@ -17,7 +17,7 @@
     <spp:ContentLoader
         IsLoading="False"
         IsShowNoResultText="{Binding IsHideGameListEmpty}"
-        NoResultMessage="{Binding Path=Res.GameList_AddHideAppEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{Binding Path=Res.GameList_AddHideAppEmpty, Mode=OneWay, Source={x:Static spp:Strings.GameList_AddHideAppEmpty}}">
         <ItemsControl ItemsSource="{Binding HideGameList}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -26,7 +26,7 @@
                             <Button
                                 Command="{Binding $parent[UserControl].((spp:HideAppsPageViewModel)DataContext).RemoveHideAppCommand}"
                                 CommandParameter="{Binding}"
-                                Content="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                Content="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static spp:Strings.Delete}}"
                                 Foreground="{DynamicResource SystemFillColorCriticalBrush}" />
                         </ui:SettingsExpander.Footer>
                     </ui:SettingsExpander>

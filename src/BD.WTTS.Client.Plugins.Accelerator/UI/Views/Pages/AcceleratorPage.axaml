@@ -56,7 +56,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.CommunityFix_StartProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.CommunityFix_StartProxy, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_StartProxy}}" />
                 </Panel>
             </Button>
 
@@ -77,7 +77,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
-                        <!--<Run Text="{Binding Path=Res.CommunityFix_StopProxy,Source={x:Static s:ResourceService.Current}},Mode=OneWay}" />
+                        <!--<Run Text="{Binding Path=Res.CommunityFix_StopProxy,Source={x:Static spp:Strings.CommunityFix_StopProxy}},Mode=OneWay}" />
                         <Run Text=" " />
                         <Run Text="{Binding Path=AccelerateTime,Source={x:Static s:ProxyService.Current}},Mode=OneWay,Converter={StaticResource StringFormatConverter}}" />-->
                         <TextBlock.Text>
@@ -85,7 +85,7 @@
                                 <CompiledBinding
                                     Mode="OneWay"
                                     Path="Res.CommunityFix_StopProxy"
-                                    Source="{x:Static s:ResourceService.Current}}" />
+                                    Source="{x:Static spp:Strings.CommunityFix_StopProxy}}" />
                                 <CompiledBinding
                                     Converter="{StaticResource StringFormatConverter}"
                                     Mode="OneWay"
@@ -123,7 +123,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static spp:Strings.Refresh}}" />
                 </Panel>
             </Button>
 
@@ -143,7 +143,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.CommunityFix_MenuName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.CommunityFix_MenuName, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_MenuName}}" />
                 </Panel>
             </ToggleButton>
 
@@ -164,7 +164,7 @@
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
                         </ui:MenuFlyoutSubItem>-->
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static spp:Strings.Settings_Plugin}}" />-->
                         <!--<ui:MenuFlyoutSeparator />-->
                         <!--<ui:MenuFlyoutItem Text="安装证书" />
                         <ui:MenuFlyoutItem Text="移除证书" />
@@ -180,7 +180,7 @@
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                        Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
@@ -188,9 +188,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static spp:Strings.ViewInStore}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static spp:Strings.UseHelp}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static spp:Strings.AboutThisPlugin}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -198,7 +198,7 @@
     </spp:PageBase.ActionContent>
     <spp:PageBase.PaneContent>
         <StackPanel Margin="15,20" Spacing="10">
-            <TextBlock Text="{Binding Path=Res.CommunityFix_ProxyMode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{Binding Path=Res.CommunityFix_ProxyMode, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_ProxyMode}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <TabStrip
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
@@ -215,14 +215,14 @@
                 </TabStrip.ItemTemplate>
             </TabStrip>
 
-            <TextBlock Text="{Binding Path=Res.CommunityFix_MenuName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{Binding Path=Res.CommunityFix_MenuName, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_MenuName}}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
             <DockPanel>
                 <ToggleSwitch
                     VerticalAlignment="Center"
                     Classes="NoContent"
                     IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}"
-                    OffContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                    OnContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    OffContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_EnableScriptService}}"
+                    OnContent="{Binding Path=Res.CommunityFix_EnableScriptService, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_EnableScriptService}}" />
 
                 <!--<WrapPanel>-->
                 <TextBlock
@@ -247,7 +247,7 @@
 						VerticalAlignment="Center"
 						Command="{Binding Source={x:Static s:ProxyService.Current}, Path=RefreshIpv6Support, Mode=OneWay}"
 						Theme="{StaticResource TransparentButton}"
-						ToolTip.Tip="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+						ToolTip.Tip="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static spp:Strings.Refresh}}">
 						<ui:SymbolIcon Symbol="Refresh" />
 					</Button>
 				</WrapPanel>-->
@@ -256,8 +256,8 @@
                 VerticalAlignment="Center"
                 Classes="NoContent"
                 IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy}, Path=Value, Mode=TwoWay}"
-                OffContent="{Binding Path=Res.CommunityFix_AutoRunProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                OnContent="{Binding Path=Res.CommunityFix_AutoRunProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                OffContent="{Binding Path=Res.CommunityFix_AutoRunProxy, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_AutoRunProxy}}"
+                OnContent="{Binding Path=Res.CommunityFix_AutoRunProxy, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_AutoRunProxy}}" />
 
             <!--<StackPanel Orientation="Horizontal" Spacing="4">
                 <ToggleButton
@@ -265,7 +265,7 @@
                     Theme="{StaticResource TransparentToggleButton}"
                     ToolTip.Tip="{Binding Path=Res.GameList_OnlyInstalled,
                                                     Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                                                    Source={x:Static spp:Strings.GameList_OnlyInstalled}}">
                     <Viewbox Width="20" Height="20">
                         <ui:SymbolIcon Symbol="Play" />
                     </Viewbox>
@@ -276,7 +276,7 @@
                     Theme="{StaticResource TransparentToggleButton}"
                     ToolTip.Tip="{Binding Path=Res.GameList_OnlyCloudArchive,
                                                     Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                                                    Source={x:Static spp:Strings.GameList_OnlyCloudArchive}}">
                     <Viewbox Width="20" Height="20">
                         <ui:SymbolIcon Symbol="CloudSyncComplete" />
                     </Viewbox>
@@ -286,37 +286,37 @@
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding ProxySettingsCommand}"
-                Content="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_ProxySettings}}" />
 
             <Separator Margin="0,8" Classes="Horizontal" />
 
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding SetupCertificateCommand}"
-                Content="{Binding Path=Res.CommunityFix_SetupCertificate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_SetupCertificate, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_SetupCertificate}}" />
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding DeleteCertificateCommand}"
-                Content="{Binding Path=Res.CommunityFix_DeleteCertificate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_DeleteCertificate, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_DeleteCertificate}}" />
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding OpenCertificateDirCommand}"
-                Content="{Binding Path=Res.CommunityFix_OpenCertificateDir, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_OpenCertificateDir, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_OpenCertificateDir}}" />
 
             <Separator Margin="0,8" Classes="Horizontal" />
 
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding EditHostsFileCommand}"
-                Content="{Binding Path=Res.CommunityFix_EditHostsFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_EditHostsFile, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_EditHostsFile}}" />
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding ResetHostsFileCommand}"
-                Content="{Binding Path=Res.CommunityFix_ResetHostsFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_ResetHostsFile, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_ResetHostsFile}}" />
             <Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding OpenHostsDirCommand}"
-                Content="{Binding Path=Res.CommunityFix_OpenHostsDir, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Content="{Binding Path=Res.CommunityFix_OpenHostsDir, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_OpenHostsDir}}" />
 
             <!--<ui:FAComboBox ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}">
                 <ui:FAComboBox.ItemTemplate>
@@ -358,7 +358,8 @@
                     </ia:DataTriggerBehavior>
                 </i:Interaction.Behaviors>-->
 
-                <spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{Binding Path=Res.CommunityFix_ItemsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}"
+								   NoResultMessage="{Binding Path=Res.CommunityFix_ItemsEmpty, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_ItemsEmpty}}">
                     <Grid ColumnDefinitions="*,Auto">
                         <ItemsControl ItemsSource="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
                             <ItemsControl.ItemsPanel>
@@ -435,8 +436,8 @@
                         x:Name="Tabs"
                         ItemContainerTheme="{StaticResource TabItemStyle}"
                         Theme="{StaticResource TabStripStyle}">
-                        <TabStripItem Content="{Binding Path=Res.CommunityFix_FlowStatistics, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <TabStripItem Content="{Binding Path=Res.CommunityFix_Services, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TabStripItem Content="{Binding Path=Res.CommunityFix_FlowStatistics, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_FlowStatistics}}" />
+                        <TabStripItem Content="{Binding Path=Res.CommunityFix_Services, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_Services}}" />
                     </TabStrip>
                     <StackPanel
                         Grid.Row="0"
@@ -450,7 +451,7 @@
                             </Style>
                         </StackPanel.Styles>
                         <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock FontSize="26" Text="{Binding Path=Res.CommunityFix_AlreadyProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock FontSize="26" Text="{Binding Path=Res.CommunityFix_AlreadyProxy, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_AlreadyProxy}}" />
                         <TextBlock
                             Margin="5,0,0,0"
                             FontSize="26"
@@ -459,12 +460,12 @@
                                                      StringFormat={}{0:hh\\:mm\\:ss}}" />
                     </StackPanel>-->
                         <TextBlock>
-                            <Run Text="{Binding Path=Res.CommunityFix_ProxyMode, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <Run Text="{Binding Path=Res.CommunityFix_ProxyMode, StringFormat={}{0}：, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_ProxyMode, StringFormat={}{0}：}}" />
                             <Run Text="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
 
                             <Run Text="  " />
 
-                            <Run Text="{Binding Path=Res.CommunityFix_EnableScriptService, StringFormat={}{0}：, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <Run Text="{Binding Path=Res.CommunityFix_EnableScriptService, StringFormat={}{0}：, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_EnableScriptService, StringFormat={}{0}：}}" />
                             <Run Text="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
                         </TextBlock>
                     </StackPanel>
@@ -487,7 +488,7 @@
                                         Margin="0,0,0,10"
                                         DockPanel.Dock="Top"
                                         FontSize="16"
-                                        Text="{Binding Path=Res.CommunityFix_AccelerationsEnable, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        Text="{Binding Path=Res.CommunityFix_AccelerationsEnable, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_AccelerationsEnable}}" />
                                     <ScrollViewer>
                                         <ItemsControl ItemsSource="{Binding EnableProxyDomains, Source={x:Static s:ProxyService.Current}}">
                                             <ItemsControl.ItemTemplate>
@@ -514,7 +515,7 @@
                                         Margin="0,0,0,10"
                                         DockPanel.Dock="Top"
                                         FontSize="16"
-                                        Text="{Binding Path=Res.CommunityFix_ScriptsEnable, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        Text="{Binding Path=Res.CommunityFix_ScriptsEnable, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_ScriptsEnable}}" />
                                     <ScrollViewer>
                                         <ItemsControl ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
                                             <ItemsControl.ItemTemplate>

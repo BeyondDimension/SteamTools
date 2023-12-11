@@ -73,7 +73,7 @@
             MaxWidth="1080"
             Spacing="20">
             <spp:Snackbar
-                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static spp:Strings.Notice_Tray_Title}}"
                 VerticalAlignment="Top"
                 IsClosable="False"
                 IsOpen="True"
@@ -81,7 +81,7 @@
                 Message="当前使用的程序版本为测试版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。"
                 Severity="Warning" />
             <spp:Snackbar
-                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static spp:Strings.Notice_Tray_Title}}"
                 VerticalAlignment="Top"
                 IsClosable="False"
                 IsOpen="True"
@@ -119,7 +119,7 @@
                         Theme="{StaticResource SubtitleTextBlockStyle}" />
                 </WrapPanel>
                 <TextBlock VerticalAlignment="Center" Theme="{StaticResource SubtitleTextBlockStyle}">
-                    <Run Text="{Binding Path=Res.Welcome_User_, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <Run Text="{Binding Path=Res.Welcome_User_, Mode=OneWay, Source={x:Static spp:Strings.Welcome_User_}}" />
                 </TextBlock>
             </WrapPanel>
 

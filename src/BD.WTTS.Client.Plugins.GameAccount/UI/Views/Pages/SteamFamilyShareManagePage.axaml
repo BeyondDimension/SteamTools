@@ -17,7 +17,7 @@
     <spp:ContentLoader
         IsLoading="False"
         IsShowNoResultText="{Binding IsAuthorizedListEmpty}"
-        NoResultMessage="{Binding Path=Res.SteamAccountPage_ShareEmpt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{Binding Path=Res.SteamAccountPage_ShareEmpt, Mode=OneWay, Source={x:Static spp:Strings.SteamAccountPage_ShareEmpt}}">
         <ScrollViewer>
             <ItemsControl Classes="DraggableOrder" ItemsSource="{Binding AuthorizedList}">
                 <ItemsControl.ItemsPanel>
@@ -30,7 +30,7 @@
                         <spp:AppItem
                             Title="{Binding SteamNickName}"
                             MaxHeight="92"
-                            Status="{Binding Path=Res.Disabled, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Status="{Binding Path=Res.Disabled, Mode=OneWay, Source={x:Static spp:Strings.Disabled}}"
                             Tags="{Binding TimeusedTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}">
                             <spp:AppItem.MoreFlyout>
                                 <ui:FAMenuFlyout>
@@ -51,7 +51,7 @@
                                     <ui:MenuFlyoutItem
                                         Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).RemoveButton_Click}"
                                         CommandParameter="{Binding}"
-                                        Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static spp:Strings.Delete}}" />
                                 </ui:FAMenuFlyout>
                             </spp:AppItem.MoreFlyout>
                             <spp:AppItem.Status>

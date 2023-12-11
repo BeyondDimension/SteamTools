@@ -24,7 +24,7 @@
                 Margin="0,5"
                 HorizontalAlignment="Center"
                 Foreground="DodgerBlue"
-                Text="{Binding Path=Res.UploadFlow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Text="{Binding Path=Res.UploadFlow, Mode=OneWay, Source={x:Static spp:Strings.UploadFlow}}"
                 Theme="{StaticResource BodyStrongTextBlockStyle}" />
             <TextBlock
                 x:Name="textBlockRead"
@@ -37,7 +37,7 @@
                 Margin="0,5"
                 HorizontalAlignment="Center"
                 Foreground="IndianRed"
-                Text="{Binding Path=Res.DownloadFlow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Text="{Binding Path=Res.DownloadFlow, Mode=OneWay, Source={x:Static spp:Strings.DownloadFlow}}"
                 Theme="{StaticResource BodyStrongTextBlockStyle}" />
             <TextBlock
                 x:Name="textBlockWrite"

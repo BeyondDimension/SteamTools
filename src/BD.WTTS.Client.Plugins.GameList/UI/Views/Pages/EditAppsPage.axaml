@@ -35,7 +35,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.SaveEditedAppInfo_SaveToSteam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.SaveEditedAppInfo_SaveToSteam, Mode=OneWay, Source={x:Static spp:Strings.SaveEditedAppInfo_SaveToSteam}}" />
                 </Panel>
             </Button>
             <Button
@@ -54,7 +54,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static spp:Strings.Refresh}}" />
                 </Panel>
             </Button>
             <DropDownButton
@@ -80,7 +80,7 @@
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                        Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
@@ -88,9 +88,9 @@
                                 </MultiBinding>
                             </ui:MenuFlyoutItem.Text>
                         </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static spp:Strings.ViewInStore}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static spp:Strings.UseHelp}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static spp:Strings.AboutThisPlugin}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -99,7 +99,7 @@
     <spp:ContentLoader
         IsLoading="false"
         IsShowNoResultText="{Binding !!!SteamEditedApps.Count, Mode=OneWay}"
-        NoResultMessage="{Binding Path=Res.SaveEditedAppInfo_AppsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{Binding Path=Res.SaveEditedAppInfo_AppsEmpty, Mode=OneWay, Source={x:Static spp:Strings.SaveEditedAppInfo_AppsEmpty}}">
         <ItemsControl ItemsSource="{Binding SteamEditedApps}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -119,7 +119,7 @@
                             Cursor="Hand">
                             <spp:AppItem.Status>
                                 <Border Classes="Status">
-                                    <TextBlock Text="{Binding Path=Res.Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    <TextBlock Text="{Binding Path=Res.Edit, Mode=OneWay, Source={x:Static spp:Strings.Edit}}" />
                                 </Border>
                             </spp:AppItem.Status>
                             <!--<spp:AppItem.ActionButton>
@@ -127,7 +127,7 @@
                                     Command="{Binding $parent[spp:PageBase].((spp:EditAppsPageViewModel)DataContext).DeleteButtonCommand}"
                                     CommandParameter="{Binding}"
                                     Cursor="Hand"
-                                    ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                    ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static spp:Strings.GameList_RemoveItemBtn}}">
                                     <Viewbox>
                                         <ui:SymbolIcon Symbol="Delete" />
                                     </Viewbox>

@@ -97,27 +97,27 @@
                         Content="&#xE921;"
                         Theme="{StaticResource FA_SystemCaptionButton}"
                         ToolTip.Placement="Bottom"
-                        ToolTip.Tip="{Binding Path=Res.Minimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        ToolTip.Tip="{Binding Path=Res.Minimize, Mode=OneWay, Source={x:Static spp:Strings.Minimize}}" />
                     <Button
                         Name="MaxRestoreButton"
                         Content="&#xE922;"
                         Theme="{StaticResource FA_SystemCaptionButton}"
                         ToolTip.Placement="Bottom"
-                        ToolTip.Tip="{Binding Path=Res.Maximize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        ToolTip.Tip="{Binding Path=Res.Maximize, Mode=OneWay, Source={x:Static spp:Strings.Maximize}}" />
                     <Button
                         Name="CloseButton"
                         Classes="Close"
                         Content="{StaticResource Close}"
                         Theme="{StaticResource FA_SystemCaptionButton}"
                         ToolTip.Placement="Bottom"
-                        ToolTip.Tip="{Binding Path=Res.Close, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        ToolTip.Tip="{Binding Path=Res.Close, Mode=OneWay, Source={x:Static spp:Strings.Close}}" />
                 </StackPanel>
             </ControlTemplate>
         </Setter>
 
         <Style Selector="^:maximized /template/ Button#MaxRestoreButton">
             <Setter Property="Content" Value="&#xE923;" />
-            <Setter Property="ToolTip.Tip" Value="{Binding Path=Res.Restore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            <Setter Property="ToolTip.Tip" Value="{Binding Path=Res.Restore, Mode=OneWay, Source={x:Static spp:Strings.Restore}}" />
         </Style>
     </ControlTheme>
 

@@ -27,10 +27,10 @@
                                               Mode=TwoWay}"
                 OffContent="{Binding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
                                                Mode=OneWay,
-                                               Source={x:Static s:ResourceService.Current}}"
+                                               Source={x:Static s:Strings.GameList_SteamShutdown_EnableWatchDownloading}}"
                 OnContent="{Binding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
                                               Mode=OneWay,
-                                              Source={x:Static s:ResourceService.Current}}" />-->
+                                              Source={x:Static s:Strings.GameList_SteamShutdown_EnableWatchDownloading}}" />-->
 
             <ToggleSplitButton IsChecked="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsWatchSteamDownloading, Mode=TwoWay}" ToolTip.Tip="启用此按钮才会启动监听 Steam 下载数据并在下载完时执行对应操作！">
                 <ToggleSplitButton.Content>
@@ -40,7 +40,7 @@
                                 <CompiledBinding
                                     Mode="OneWay"
                                     Path="Res.GameList_SteamShutdown_DownloadComplete"
-                                    Source="{x:Static s:ResourceService.Current}}" />
+                                    Source="{x:Static spp:Strings.GameList_SteamShutdown_DownloadComplete}}" />
                                 <CompiledBinding
                                     Converter="{StaticResource EnumLocalizationNameConverter}"
                                     Mode="OneWay"
@@ -79,13 +79,13 @@
                 DockPanel.Dock="Right"
                 IsHitTestVisible="False" />
 
-            <CheckBox Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding IsAllCheck, Mode=TwoWay}" />
+            <CheckBox Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static spp:Strings.SelectAll}}" IsChecked="{Binding IsAllCheck, Mode=TwoWay}" />
         </StackPanel>
     </spp:PageBase.ActionContent>
     <spp:ContentLoader
         IsLoading="false"
         IsShowNoResultText="{Binding !!!DownloadingApps.Count, Mode=OneWay}"
-        NoResultMessage="{Binding Path=Res.GameList_SteamShutdown_AppsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{Binding Path=Res.GameList_SteamShutdown_AppsEmpty, Mode=OneWay, Source={x:Static spp:Strings.GameList_SteamShutdown_AppsEmpty}}">
         <ItemsControl ItemsSource="{Binding DownloadingApps}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -109,7 +109,7 @@
                                 <WrapPanel>
                                     <TextBlock
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                        Text="{Binding Path=Res.Downloaded, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        Text="{Binding Path=Res.Downloaded, Mode=OneWay, Source={x:Static spp:Strings.Downloaded}}"
                                         Theme="{StaticResource CaptionTextBlockStyle}" />
                                     <TextBlock
                                         Margin="5,0,0,0"
@@ -141,7 +141,7 @@
                                 <WrapPanel>
                                     <TextBlock
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                        Text="{Binding Path=Res.Installed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        Text="{Binding Path=Res.Installed, Mode=OneWay, Source={x:Static spp:Strings.Installed}}"
                                         Theme="{StaticResource CaptionTextBlockStyle}" />
                                     <TextBlock
                                         Margin="5,0,0,0"

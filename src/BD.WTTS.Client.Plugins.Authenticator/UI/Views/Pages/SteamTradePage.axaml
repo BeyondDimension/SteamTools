@@ -12,7 +12,7 @@
     x:CompileBindings="True"
     x:DataType="spp:SteamTradePageViewModel"
     mc:Ignorable="d">
-    <spp:ContentLoader CustomLoadingText="{Binding Path=Res.EnableAccelerationPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsLoading="{Binding IsLoading}">
+    <spp:ContentLoader CustomLoadingText="{Binding Path=Res.EnableAccelerationPrompt, Mode=OneWay, Source={x:Static spp:Strings.EnableAccelerationPrompt}}" IsLoading="{Binding IsLoading}">
         <Panel>
             <!--  登录  -->
             <StackPanel
@@ -32,21 +32,21 @@
                 <TextBox
                     MaxWidth="280"
                     Text="{Binding UserNameText}"
-                    Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static spp:Strings.Steam_User}}" />
                 <TextBox
                     Name="PasswordText"
                     MaxWidth="280"
                     Classes="revealPasswordButton"
                     PasswordChar="{StaticResource PasswordChar}"
                     Text="{Binding PasswordText}"
-                    Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
+                    Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static spp:Strings.Steam_Password}}" />
+                <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static spp:Strings.User_Rememberme}}" IsChecked="{Binding RemenberLogin}" />
                 <Button
                     MinWidth="280"
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     Command="{Binding Login}"
-                    Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static spp:Strings.Login}}" />
             </StackPanel>
 
             <!--  确认交易  -->
@@ -62,7 +62,7 @@
                         Margin="8,0,0,0"
                         VerticalAlignment="Center"
                         Command="{Binding SelectAllCommand}"
-                        Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                        Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static spp:Strings.SelectAll}}"
                         IsChecked="{Binding SelectedAll, Mode=OneWay}" />
                     <ui:CommandBar
                         HorizontalAlignment="Right"
@@ -71,7 +71,7 @@
                         DockPanel.Dock="Right"
                         IsSticky="False">
                         <ui:CommandBar.PrimaryCommands>
-                            <ui:CommandBarButton Command="{Binding Logout}" Label="{Binding Path=Res.Logout, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                            <ui:CommandBarButton Command="{Binding Logout}" Label="{Binding Path=Res.Logout, Mode=OneWay, Source={x:Static spp:Strings.Logout}}">
                                 <ui:CommandBarButton.IconSource>
                                     <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
                                 </ui:CommandBarButton.IconSource>
@@ -79,12 +79,12 @@
                             <ui:CommandBarButton
                                 Command="{Binding Refresh}"
                                 IconSource="Refresh"
-                                Label="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                Label="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static spp:Strings.Refresh}}" />
                             <ui:CommandBarButton
                                 Command="{Binding CancelAllTrade}"
                                 IconSource="Cancel"
-                                Label="{Binding Path=Res.BatchReject, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                            <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="{Binding Path=Res.BatchPass, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                Label="{Binding Path=Res.BatchReject, Mode=OneWay, Source={x:Static spp:Strings.BatchReject}}" />
+                            <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="{Binding Path=Res.BatchPass, Mode=OneWay, Source={x:Static spp:Strings.BatchPass}}">
                                 <ui:CommandBarButton.IconSource>
                                     <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource CheckMark}" />
                                 </ui:CommandBarButton.IconSource>
@@ -100,7 +100,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         IsVisible="{Binding !!!Confirmations.Count}"
-                        Text="{Binding Path=Res.LocalAuth_AuthTrade_Null, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{Binding Path=Res.LocalAuth_AuthTrade_Null, Mode=OneWay, Source={x:Static spp:Strings.LocalAuth_AuthTrade_Null}}" />
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <ItemsRepeater ItemsSource="{Binding Confirmations}">
                             <ItemsRepeater.Layout>

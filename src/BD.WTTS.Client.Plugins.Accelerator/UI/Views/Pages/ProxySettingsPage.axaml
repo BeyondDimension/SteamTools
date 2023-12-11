@@ -14,10 +14,10 @@
     x:DataType="spp:ProxySettingsWindowViewModel"
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
-        <ui:SettingsExpander Header="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsExpanded="True">
+        <ui:SettingsExpander Header="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_ProxySettings}}" IsExpanded="True">
 
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.Settings_Proxy_SystemProxyIp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.Settings_Proxy_SystemProxyIp, Mode=OneWay, Source={x:Static spp:Strings.Settings_Proxy_SystemProxyIp}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
@@ -27,7 +27,7 @@
             </ui:SettingsExpanderItem>
 
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static spp:Strings.Settings_Proxy_CustomDNS}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
@@ -48,35 +48,35 @@
                 <Button Content="{Binding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"></Button>
               </DockPanel>-->
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.CommunityFix_AutoRunProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.CommunityFix_AutoRunProxy, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_AutoRunProxy}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
 
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.CommunityFix_ProxyOnlyOnScript, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.CommunityFix_ProxyOnlyOnScript, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_ProxyOnlyOnScript}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
 
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.CommunityFix_EnableHttpProxyToHttps, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.CommunityFix_EnableHttpProxyToHttps, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_EnableHttpProxyToHttps}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableHttpProxyToHttps}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
 
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_EnableUseDoh}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
 
             <ui:SettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static spp:Strings.CommunityFix_CustomDohAddres}}" />
                 <ui:SettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"

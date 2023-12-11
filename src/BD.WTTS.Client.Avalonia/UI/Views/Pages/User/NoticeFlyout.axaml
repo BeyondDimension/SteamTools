@@ -22,7 +22,7 @@
         <DockPanel>
             <!--<Button
             Margin="0,0,0,5"
-            Content="{Binding Path=Res.Notice_AllMarkHasRead,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+            Content="{Binding Path=Res.Notice_AllMarkHasRead,Mode=OneWay,Source={x:Static spp:Strings.Notice_AllMarkHasRead}}"
             Cursor="Hand"
             DockPanel.Dock="Top"
             Theme="{StaticResource HyperlinkButton}" />-->
