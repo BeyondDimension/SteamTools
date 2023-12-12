@@ -223,11 +223,17 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
         if (!SteamLoginState.Success)
         {
-            var vm = new IdleSteamLoginPageViewModel(ref SteamLoginState);
-            await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.Steam_Login,
-                pageContent: new IdleSteamLoginPage(), okButtonText: Strings.Confirm, isOkButton: false);
-
-            IsLogin = SteamLoginState.Success;
+            LoginViewModel = new IdleSteamLoginPageViewModel(ref SteamLoginState);
+            LoginViewModel.Close += () =>
+            {
+                ViewState = 1;
+                IsLogin = SteamLoginState.Success;
+            };
+            ViewState = 0;
+            //var vm = new IdleSteamLoginPageViewModel(ref SteamLoginState);
+            //await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.Steam_Login,
+            //    pageContent: new IdleSteamLoginPage(), okButtonText: Strings.Confirm, isOkButton: false);
+            //IsLogin = SteamLoginState.Success;
         }
 
         var sid = SteamConnectService.Current.CurrentSteamUser?.SteamId64;

@@ -68,6 +68,12 @@ public sealed partial class IdleCardPageViewModel
     [Reactive]
     public int TotalCardsRemaining { get; set; }
 
+    [Reactive]
+    public int ViewState { get; set; } = 1;
+
+    [Reactive]
+    public IdleSteamLoginPageViewModel? LoginViewModel { get; set; }
+
     public int DropCardsCount => Math.Max(DroppedCardsCount - TotalCardsRemaining, 0);
 
     [Reactive]
