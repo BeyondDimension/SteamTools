@@ -21,6 +21,7 @@
     </spp:PageBase.PreviewImage>
     <spp:PageBase.TabContent>
         <TabStrip
+            Name="TabSelect"
             Margin="4"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
@@ -110,19 +111,45 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>
-    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
-        <Grid RowDefinitions="*,Auto">
-            <TextBox
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch"
-                Classes="readonlybox"
-                Text="{Binding DebugString}"
-                TextAlignment="Start"
-                TextWrapping="Wrap" />
-            <TextBox
-                Name="CommandTextBox"
-                Grid.Row="1"
-                Watermark="{Binding Path=Res.Debug_InstructionPlaceholder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-        </Grid>
-    </Border>
+
+    <Carousel SelectedIndex="{Binding #TabSelect.SelectedIndex}">
+        <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
+            <Grid RowDefinitions="*,Auto">
+                <TextBox
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Classes="readonlybox"
+                    Text="{Binding DebugString}"
+                    TextAlignment="Start"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    Name="CommandTextBox"
+                    Grid.Row="1"
+                    Watermark="{Binding Path=Res.Debug_InstructionPlaceholder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </Grid>
+        </Border>
+
+        <Panel>
+            <TextBlock Text="Test Control" />
+            <ItemsControl>
+                <ItemsControl.Items>
+                    <Border Height="30" Background="Red" />
+                    <Border Background="Blue" />
+                    <Border Background="Yellow" />
+                    <Border Height="30" Background="Yellow" />
+                    <Border Background="Red" />
+                    <Border Background="Blue" />
+                </ItemsControl.Items>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <spp:FixedWrapPanel ItemsPerLine="3" Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Panel>
+
+        <Panel>
+            <TextBlock Text="Test Control" />
+        </Panel>
+    </Carousel>
 </spp:PageBase>

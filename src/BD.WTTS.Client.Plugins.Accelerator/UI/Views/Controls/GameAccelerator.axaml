@@ -1,0 +1,30 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.GameAccelerator"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="250"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto,*">
+        <StackPanel
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            Spacing="5">
+
+            <AutoCompleteBox MinWidth="200" Watermark="搜索游戏" />
+            <Button Content="Left" />
+            <Button Content="Right" />
+        </StackPanel>
+        <ItemsControl Grid.Row="1">
+            <ItemsControl.ItemsPanel />
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <spp:AppItem Title="aaa" Description="hhh" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

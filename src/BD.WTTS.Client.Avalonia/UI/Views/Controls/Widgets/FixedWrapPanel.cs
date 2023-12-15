@@ -7,15 +7,24 @@ public class FixedWrapPanel : Panel, INavigableContainer
     public static readonly StyledProperty<int> ItemsPerLineProperty =
         AvaloniaProperty.Register<FixedWrapPanel, int>(nameof(ItemsPerLine), 3);
 
+    public static readonly StyledProperty<double> SpacingProperty =
+    AvaloniaProperty.Register<FixedWrapPanel, double>(nameof(Spacing), 0);
+
     static FixedWrapPanel()
     {
         AffectsMeasure<FixedWrapPanel>(ItemsPerLineProperty);
     }
 
-    public double ItemsPerLine
+    public int ItemsPerLine
     {
         get => GetValue(ItemsPerLineProperty);
         set => SetValue(ItemsPerLineProperty, value);
+    }
+
+    public double Spacing
+    {
+        get => GetValue(SpacingProperty);
+        set => SetValue(SpacingProperty, value);
     }
 
     IInputElement INavigableContainer.GetControl(NavigationDirection direction, IInputElement? from, bool wrap)
@@ -63,7 +72,7 @@ public class FixedWrapPanel : Panel, INavigableContainer
         MutableSize currentLineSize = default;
         MutableSize panelSize = default;
         Size lineConstraint = new(constraint.Width, constraint.Height);
-        Size childConstraint = new(itemWidth, constraint.Height);
+        Size childConstraint = new(itemWidth - Spacing, constraint.Height);
 
         for (int i = 0, count = Children.Count; i < count; i++)
         {
@@ -76,7 +85,7 @@ public class FixedWrapPanel : Panel, INavigableContainer
             child.Measure(childConstraint);
             Size childSize = new(itemWidth, child.DesiredSize.Height);
 
-            if (MathUtilities.GreaterThan(currentLineSize.Width + childSize.Width, lineConstraint.Width))
+            if (MathUtilities.GreaterThan(currentLineSize.Width + childSize.Width + Spacing, lineConstraint.Width))
             {
                 // Need to switch to another line
                 panelSize.Width = Max(currentLineSize.Width, panelSize.Width);
@@ -86,7 +95,7 @@ public class FixedWrapPanel : Panel, INavigableContainer
             else
             {
                 // Continue to accumulate a line
-                currentLineSize.Width += childSize.Width;
+                currentLineSize.Width += childSize.Width + Spacing;
                 currentLineSize.Height = Max(childSize.Height, currentLineSize.Height);
             }
         }
@@ -150,8 +159,8 @@ public class FixedWrapPanel : Panel, INavigableContainer
                 continue;
             }
 
-            child.Arrange(new Rect(x, y, width, height));
-            x += width;
+            child.Arrange(new Rect(x, y, width - Spacing, height));
+            x += width + Spacing;
         }
     }
 

@@ -15,7 +15,7 @@ namespace BD.WTTS.UI.Views.Controls
         /// Defines the <see cref="AutoScrollInterval"/> property.
         /// </summary>
         public static readonly StyledProperty<int> AutoScrollIntervalProperty =
-            AvaloniaProperty.Register<CarouselBanner, int>(nameof(AutoScrollInterval), 8000);
+            AvaloniaProperty.Register<CarouselBanner, int>(nameof(AutoScrollInterval), 6000);
 
         /// <summary>
         /// Defines the Avalonia.Controls.ItemsControl.Items property.
