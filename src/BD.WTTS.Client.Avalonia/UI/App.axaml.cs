@@ -44,7 +44,8 @@ public sealed partial class App : Application
             AvaloniaXamlLoader.Load(this);
 
 #if WINDOWS || LINUX || MACOS
-            if (GeneralSettings.MinimizeOnStartup.Value)
+            //非主窗口不执行启动时最小化逻辑
+            if (GeneralSettings.MinimizeOnStartup.Value && MainWindow is MainWindow)
                 Startup.Instance.IsMinimize = true;
             if (Startup.Instance.IsSteamRun)
             {
@@ -101,7 +102,7 @@ public sealed partial class App : Application
 
             if (Startup.Instance.IsMinimize && MainWindow is AppWindow appWindow)
             {
-                Task2.InBackground(() => appWindow.SplashScreen.RunTasks(CancellationToken.None));
+                Task2.InBackground(() => appWindow.SplashScreen?.RunTasks(CancellationToken.None));
             }
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)

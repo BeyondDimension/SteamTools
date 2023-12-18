@@ -21,10 +21,10 @@
                     ClipToBounds="True"
                     CornerRadius="8">
                     <Panel>
-                        <Carousel Name="CarouselControl" Grid.Column="1">
-                            <Carousel.PageTransition>
-                                <PageSlide Orientation="Horizontal" Duration="0.25" />
-                            </Carousel.PageTransition>
+                        <Carousel
+                            Name="CarouselControl"
+                            Grid.Column="1"
+                            Classes="AnimeSlide">
                             <Carousel.ItemTemplate>
                                 <DataTemplate x:DataType="sys:Object">
                                     <ItemsControl ItemTemplate="{TemplateBinding ItemTemplate}">
