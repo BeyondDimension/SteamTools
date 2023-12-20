@@ -53,6 +53,10 @@ public class CarouselItems : ItemsControl
     }
 
     private Carousel? _carouselControl;
+    private Button? _leftButton;
+    private Button? _rightButton;
+    private ItemsRepeater? _swiper;
+    private Timer? _timer;
 
     public ICommand? CarouselBannerIndexCommand { get; }
 
@@ -66,9 +70,26 @@ public class CarouselItems : ItemsControl
         base.OnApplyTemplate(e);
 
         _carouselControl = e.NameScope.Find<Carousel>("CarouselControl");
+        _leftButton = e.NameScope.Find<Button>("Left");
+        _rightButton = e.NameScope.Find<Button>("Right");
+        _swiper = e.NameScope.Find<ItemsRepeater>("Swiper");
+
+        if (_leftButton != null)
+        {
+            _leftButton.Command = ReactiveCommand.Create(SwiperPrevious);
+        }
+        if (_rightButton != null)
+        {
+            _rightButton.Command = ReactiveCommand.Create(SwiperNext);
+        }
+
         if (_carouselControl != null)
         {
+            _carouselControl.GetObservable(Carousel.ItemCountProperty)
+               .Subscribe(_ => SwipersLoad());
 
+            _carouselControl.GetObservable(Carousel.SelectedIndexProperty)
+              .Subscribe(_ => SwipersLoad());
         }
     }
 
@@ -76,17 +97,110 @@ public class CarouselItems : ItemsControl
     {
         if (change.Property == ItemCountProperty)
         {
-            if (_carouselControl != null)
+            RefreshItemsSource();
+        }
+        else if (change.Property == ItemsPerPageProperty)
+        {
+            RefreshItemsSource();
+        }
+        else if (change.Property == AutoScrollProperty)
+        {
+            var x = change.GetNewValue<bool>();
+            if (x && _timer == null)
             {
-                ItemsSource?.Batch(ItemsPerPage);
+                _timer = new Timer(_ =>
+                {
+                    if (!this.IsPointerOver)
+                    {
+                        Dispatcher.UIThread.Post(SwiperNext, DispatcherPriority.Background);
+                    }
+                }, nameof(AutoScroll), AutoScrollInterval, AutoScrollInterval);
+            }
+            else
+            {
+                if (_timer != null)
+                {
+                    _timer.Dispose();
+                    _timer = null;
+                }
             }
         }
+
         base.OnPropertyChanged(change);
+    }
+
+    void RefreshItemsSource()
+    {
+        if (_carouselControl != null)
+        {
+            var items = ItemsSource?.Batch(ItemsPerPage);
+            _carouselControl.ItemsSource = items;
+        }
     }
 
     private void CarouselBannerIndex(int index)
     {
         if (_carouselControl != null)
             _carouselControl.SelectedIndex = index;
+    }
+
+    private void SwipersLoad()
+    {
+        if (_carouselControl == null || _swiper == null)
+            return;
+
+        if (_carouselControl.ItemCount <= 0)
+        {
+            _swiper.ItemsSource = null;
+            return;
+        }
+        if (_carouselControl.ItemCount == 1)
+        {
+            _leftButton.IsVisible = _rightButton.IsVisible = _swiper.IsVisible = false;
+            return;
+        }
+        else
+        {
+            _leftButton.IsVisible = _rightButton.IsVisible = _swiper.IsVisible = true;
+            var arr = new Dictionary<int, string>();
+            for (var i = 0; i < _carouselControl.ItemCount; i++)
+            {
+                arr.Add(i, "#ADADAD");
+            }
+            var index = _carouselControl.SelectedIndex < 0 ? 0 : _carouselControl.SelectedIndex;
+            arr[index] = "#FFFFFF";
+
+            _swiper.ItemsSource = arr;
+        }
+    }
+
+    private void SwiperNext()
+    {
+        if (_carouselControl == null || _carouselControl.ItemCount < 1)
+            return;
+
+        if (_carouselControl.SelectedIndex < _carouselControl.ItemCount - 1)
+        {
+            _carouselControl.Next();
+        }
+        else
+        {
+            _carouselControl.SelectedIndex = 0;
+        }
+    }
+
+    private void SwiperPrevious()
+    {
+        if (_carouselControl == null || _carouselControl.ItemCount < 1)
+            return;
+
+        if (_carouselControl.SelectedIndex > 0)
+        {
+            _carouselControl.Previous();
+        }
+        else
+        {
+            _carouselControl.SelectedIndex = _carouselControl.ItemCount - 1;
+        }
     }
 }

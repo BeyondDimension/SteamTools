@@ -102,7 +102,10 @@ public class FixedWrapPanel : Panel, INavigableContainer
 
         // The last line size, if any should be added
         panelSize.Width = Max(currentLineSize.Width, panelSize.Width);
-        panelSize.Height += currentLineSize.Height;
+        panelSize.Height = currentLineSize.Height;
+
+        if (double.IsInfinity(panelSize.Width))
+            panelSize.Width = 0;
 
         return panelSize.ToSize();
     }

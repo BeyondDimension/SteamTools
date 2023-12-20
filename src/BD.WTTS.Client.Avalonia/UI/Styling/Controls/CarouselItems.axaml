@@ -21,16 +21,13 @@
                     ClipToBounds="True"
                     CornerRadius="8">
                     <Panel>
-                        <Carousel
-                            Name="CarouselControl"
-                            Grid.Column="1"
-                            Classes="AnimeSlide">
+                        <Carousel Name="CarouselControl" Classes="AnimeSlide">
                             <Carousel.ItemTemplate>
-                                <DataTemplate x:DataType="sys:Object">
-                                    <ItemsControl ItemTemplate="{TemplateBinding ItemTemplate}">
+                                <DataTemplate DataType="sys:Object">
+                                    <ItemsControl ItemTemplate="{Binding $parent[spp:CarouselItems].ItemTemplate}" ItemsSource="{Binding}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <spp:FixedWrapPanel ItemsPerLine="{TemplateBinding ItemsPerPage}" />
+                                                <spp:FixedWrapPanel ItemsPerLine="{TemplateBinding ItemsPerPage}" Spacing="5" />
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
                                     </ItemsControl>
@@ -74,7 +71,7 @@
                                         <Button
                                             Padding="0"
                                             Classes="Plain"
-                                            Command="{Binding CarouselBannerIndexCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                            Command="{Binding $parent[spp:CarouselItems].CarouselBannerIndexCommand}"
                                             CommandParameter="{Binding Key}">
                                             <Ellipse
                                                 Name="IndexEllipse"

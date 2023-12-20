@@ -12,8 +12,7 @@ public static class IEnumerableExtensions
 
         foreach (var item in source)
         {
-            if (bucket == null)
-                bucket = new IEnumerable[size];
+            bucket ??= new object[size];
 
             bucket[count++] = item;
 

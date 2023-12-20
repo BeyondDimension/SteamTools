@@ -45,6 +45,7 @@
 
     <StyleInclude Source="/UI/Styling/InfoBox.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/PageBase.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/CarouselItems.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/OptionsDisplayItem.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/RippleEffect.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/Draggable.axaml" />

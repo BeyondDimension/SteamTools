@@ -85,8 +85,8 @@ namespace BD.WTTS.UI.Views.Controls
         public CarouselBanner()
         {
             InitializeComponent();
-            Left.Click += (s, e) => SwiperPrevious();
-            Right.Click += (s, e) => SwiperNext();
+            Left.Command = ReactiveCommand.Create(SwiperPrevious);
+            Right.Command = ReactiveCommand.Create(SwiperNext);
 
             //CarouselControl[!Carousel.Items] = this[!Items];
             CarouselControl[!Carousel.ItemsSourceProperty] = this[!ItemsSourceProperty];
@@ -96,7 +96,7 @@ namespace BD.WTTS.UI.Views.Controls
                     .Subscribe(_ => SwipersLoad());
 
             CarouselControl.GetObservable(Carousel.SelectedIndexProperty)
-                    .Subscribe(x => SwipersLoad());
+                    .Subscribe(_ => SwipersLoad());
 
             this.GetObservable(AutoScrollProperty)
                 .Subscribe(x =>
