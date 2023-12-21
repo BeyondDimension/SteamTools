@@ -8,7 +8,14 @@
     x:CompileBindings="True">
     <Design.PreviewWith>
         <Border Padding="20">
-            <spp:CarouselItems />
+            <spp:CarouselItems>
+                <spp:CarouselItems.Items>
+                    <Border Background="Red" />
+                    <Border Background="Blue" />
+                    <Border Background="Black" />
+                    <Border Background="Yellow" />
+                </spp:CarouselItems.Items>
+            </spp:CarouselItems>
         </Border>
     </Design.PreviewWith>
 

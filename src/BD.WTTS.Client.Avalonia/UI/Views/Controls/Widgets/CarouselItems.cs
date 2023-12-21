@@ -146,7 +146,7 @@ public class CarouselItems : ItemsControl
 
     private void SwipersLoad()
     {
-        if (_carouselControl == null || _swiper == null)
+        if (_carouselControl == null || _swiper == null || _leftButton == null || _rightButton == null)
             return;
 
         if (_carouselControl.ItemCount <= 0)

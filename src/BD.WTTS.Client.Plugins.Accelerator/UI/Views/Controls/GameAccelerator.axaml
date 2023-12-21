@@ -18,13 +18,12 @@
             <Button Content="Left" />
             <Button Content="Right" />
         </StackPanel>
-        <ItemsControl Grid.Row="1">
-            <ItemsControl.ItemsPanel />
-            <ItemsControl.ItemTemplate>
+        <spp:CarouselItems Grid.Row="1">
+            <spp:CarouselItems.ItemTemplate>
                 <DataTemplate>
-                    <spp:AppItem Title="aaa" Description="hhh" />
+                    <TextBlock Text="test" />
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </spp:CarouselItems.ItemTemplate>
+        </spp:CarouselItems>
     </Grid>
 </UserControl>
