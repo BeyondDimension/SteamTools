@@ -7,7 +7,7 @@ public partial class SettingsPage : PageBase<SettingsPageViewModel>
     public SettingsPage()
     {
         InitializeComponent();
-        this.SetViewModel<SettingsPageViewModel>(false);
+        this.SetViewModel<SettingsPageViewModel>();
 
         //SettingsScrollTab.SelectionChanged += SettingsScrollTab_SelectionChanged;
 

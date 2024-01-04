@@ -32,6 +32,7 @@ public class SdaFileModel
     [JsonPropertyName("secret_1")]
     public string Secret1 { get; set; } = string.Empty;
 
+    [JsonConverter(typeof(SteamDataIntConverter))]
     [JsonPropertyName("status")]
     public int Status { get; set; }
 
@@ -110,6 +111,7 @@ public class Session
     [JsonPropertyName("OAuthToken")]
     public string OAuthToken { get; set; } = string.Empty;
 
+    [JsonConverter(typeof(SteamDataLongConverter))]
     [JsonPropertyName("SteamID")]
     public long SteamId { get; set; }
 }

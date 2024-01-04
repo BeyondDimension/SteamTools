@@ -7,7 +7,7 @@ public partial class ScriptPage : PageBase<ScriptPageViewModel>
     public ScriptPage()
     {
         InitializeComponent();
-        this.SetViewModel<ScriptPageViewModel>(false);
+        this.SetViewModel<ScriptPageViewModel>();
 
         //StoreButton.Click += StoreButton_Click;
     }
