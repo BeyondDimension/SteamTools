@@ -52,11 +52,11 @@ public class CarouselItems : ItemsControl
         set => SetValue(ItemsPerPageProperty, value);
     }
 
-    private Carousel? _carouselControl;
-    private Button? _leftButton;
-    private Button? _rightButton;
-    private ItemsRepeater? _swiper;
-    private Timer? _timer;
+    Carousel? _carouselControl;
+    Button? _leftButton;
+    Button? _rightButton;
+    ItemsRepeater? _swiper;
+    Timer? _timer;
 
     public ICommand? CarouselBannerIndexCommand { get; }
 
@@ -90,11 +90,15 @@ public class CarouselItems : ItemsControl
 
             _carouselControl.GetObservable(Carousel.SelectedIndexProperty)
               .Subscribe(_ => SwipersLoad());
+
+            RefreshItemsSource();
         }
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
+        base.OnPropertyChanged(change);
+
         if (change.Property == ItemCountProperty)
         {
             RefreshItemsSource();
@@ -125,8 +129,26 @@ public class CarouselItems : ItemsControl
                 }
             }
         }
+    }
 
-        base.OnPropertyChanged(change);
+    protected override void OnPointerEntered(PointerEventArgs e)
+    {
+        base.OnPointerEntered(e);
+
+        if (_swiper == null || _leftButton == null || _rightButton == null)
+            return;
+
+        _leftButton.IsVisible = _rightButton.IsVisible = _swiper.IsVisible;
+    }
+
+    protected override void OnPointerExited(PointerEventArgs e)
+    {
+        base.OnPointerExited(e);
+
+        if (_swiper == null || _leftButton == null || _rightButton == null)
+            return;
+
+        _leftButton.IsVisible = _rightButton.IsVisible = false;
     }
 
     void RefreshItemsSource()
@@ -138,13 +160,13 @@ public class CarouselItems : ItemsControl
         }
     }
 
-    private void CarouselBannerIndex(int index)
+    void CarouselBannerIndex(int index)
     {
         if (_carouselControl != null)
             _carouselControl.SelectedIndex = index;
     }
 
-    private void SwipersLoad()
+    void SwipersLoad()
     {
         if (_carouselControl == null || _swiper == null || _leftButton == null || _rightButton == null)
             return;
@@ -156,12 +178,12 @@ public class CarouselItems : ItemsControl
         }
         if (_carouselControl.ItemCount == 1)
         {
-            _leftButton.IsVisible = _rightButton.IsVisible = _swiper.IsVisible = false;
+            _swiper.IsVisible = false;
             return;
         }
         else
         {
-            _leftButton.IsVisible = _rightButton.IsVisible = _swiper.IsVisible = true;
+            _swiper.IsVisible = true;
             var arr = new Dictionary<int, string>();
             for (var i = 0; i < _carouselControl.ItemCount; i++)
             {
@@ -174,7 +196,10 @@ public class CarouselItems : ItemsControl
         }
     }
 
-    private void SwiperNext()
+    /// <summary>
+    /// 滑动到下一个
+    /// </summary>
+    public void SwiperNext()
     {
         if (_carouselControl == null || _carouselControl.ItemCount < 1)
             return;
@@ -189,7 +214,10 @@ public class CarouselItems : ItemsControl
         }
     }
 
-    private void SwiperPrevious()
+    /// <summary>
+    /// 滑动到上一个
+    /// </summary>
+    public void SwiperPrevious()
     {
         if (_carouselControl == null || _carouselControl.ItemCount < 1)
             return;

@@ -27,7 +27,7 @@
                     BorderThickness="0"
                     ClipToBounds="True"
                     CornerRadius="8">
-                    <Panel>
+                    <Grid RowDefinitions="*,5,Auto">
                         <Carousel Name="CarouselControl" Classes="AnimeSlide">
                             <Carousel.ItemTemplate>
                                 <DataTemplate DataType="sys:Object">
@@ -44,23 +44,23 @@
                         <Button
                             Name="Left"
                             HorizontalAlignment="Left"
+                            Background="#80000000"
                             Classes="action"
-                            IsVisible="False"
-                            Theme="{StaticResource TransparentButton}">
-                            <ui:SymbolIcon FontSize="14" Symbol="ChevronLeft" />
+                            IsVisible="False">
+                            <ui:SymbolIcon FontSize="18" Symbol="ChevronLeft" />
                         </Button>
                         <Button
                             Name="Right"
                             HorizontalAlignment="Right"
+                            Background="#80000000"
                             Classes="action"
-                            IsVisible="False"
-                            Theme="{StaticResource TransparentButton}">
-                            <ui:SymbolIcon FontSize="14" Symbol="ChevronRight" />
+                            IsVisible="False">
+                            <ui:SymbolIcon FontSize="18" Symbol="ChevronRight" />
                         </Button>
 
                         <Panel
+                            Grid.Row="2"
                             Height="10"
-                            Margin="0,0,0,5"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom">
                             <ItemsRepeater Name="Swiper" IsVisible="False">
@@ -94,7 +94,7 @@
                                 </ItemsRepeater.ItemTemplate>
                             </ItemsRepeater>
                         </Panel>
-                    </Panel>
+                    </Grid>
                 </Border>
             </ControlTemplate>
         </Setter>
@@ -102,9 +102,8 @@
 
 
     <Style Selector="spp|CarouselItems /template/ Button.action">
-        <Setter Property="Margin" Value="4" />
         <Setter Property="Width" Value="36" />
-        <Setter Property="Height" Value="36" />
+        <Setter Property="Height" Value="64" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

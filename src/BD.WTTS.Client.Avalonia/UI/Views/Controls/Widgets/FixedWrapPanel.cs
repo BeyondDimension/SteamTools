@@ -2,11 +2,20 @@ using static System.Math;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+/// <summary>
+/// 固定的 WrapPanel
+/// </summary>
 public class FixedWrapPanel : Panel, INavigableContainer
 {
+    /// <summary>
+    /// Defines the <see cref="ItemsPerLine"/> property.
+    /// </summary>
     public static readonly StyledProperty<int> ItemsPerLineProperty =
         AvaloniaProperty.Register<FixedWrapPanel, int>(nameof(ItemsPerLine), 3);
 
+    /// <summary>
+    /// Defines the <see cref="Spacing"/> property.
+    /// </summary>
     public static readonly StyledProperty<double> SpacingProperty =
     AvaloniaProperty.Register<FixedWrapPanel, double>(nameof(Spacing), 0);
 
@@ -15,18 +24,25 @@ public class FixedWrapPanel : Panel, INavigableContainer
         AffectsMeasure<FixedWrapPanel>(ItemsPerLineProperty);
     }
 
+    /// <summary>
+    /// ItemsPerLine
+    /// </summary>
     public int ItemsPerLine
     {
         get => GetValue(ItemsPerLineProperty);
         set => SetValue(ItemsPerLineProperty, value);
     }
 
+    /// <summary>
+    /// Spacing
+    /// </summary>
     public double Spacing
     {
         get => GetValue(SpacingProperty);
         set => SetValue(SpacingProperty, value);
     }
 
+    /// <inheritdoc/>
     IInputElement INavigableContainer.GetControl(NavigationDirection direction, IInputElement? from, bool wrap)
     {
         int index = from is not null ? Children.IndexOf((Control)from) : -1;
@@ -66,9 +82,10 @@ public class FixedWrapPanel : Panel, INavigableContainer
         return this;
     }
 
+    /// <inheritdoc/>
     protected override Size MeasureOverride(Size constraint)
     {
-        double itemWidth = constraint.Width / ItemsPerLine;
+        double itemWidth = (constraint.Width - Spacing * (ItemsPerLine - 1)) / ItemsPerLine;
         MutableSize currentLineSize = default;
         MutableSize panelSize = default;
         Size lineConstraint = new(constraint.Width, constraint.Height);
@@ -110,9 +127,10 @@ public class FixedWrapPanel : Panel, INavigableContainer
         return panelSize.ToSize();
     }
 
+    /// <inheritdoc/>
     protected override Size ArrangeOverride(Size finalSize)
     {
-        double itemWidth = finalSize.Width / ItemsPerLine;
+        double itemWidth = (finalSize.Width - Spacing * (ItemsPerLine - 1)) / ItemsPerLine;
         int firstInLine = 0;
         double accumulatedHeight = 0;
         var currentLineSize = default(MutableSize);
@@ -151,7 +169,7 @@ public class FixedWrapPanel : Panel, INavigableContainer
         return finalSize;
     }
 
-    private void ArrangeLine(double y, double height, int start, int end, double width)
+    void ArrangeLine(double y, double height, int start, int end, double width)
     {
         double x = 0;
         for (int i = start; i < end; i++)
@@ -162,12 +180,20 @@ public class FixedWrapPanel : Panel, INavigableContainer
                 continue;
             }
 
-            child.Arrange(new Rect(x, y, width - Spacing, height));
-            x += width + Spacing;
+            if (i < end - 1)
+            {
+                child.Arrange(new Rect(x, y, width - Spacing, height));
+                x += width + Spacing;
+            }
+            else
+            {
+                child.Arrange(new Rect(x, y, width, height));
+                x += width;
+            }
         }
     }
 
-    private struct MutableSize
+    record struct MutableSize
     {
         internal MutableSize(double width, double height)
         {
@@ -184,7 +210,7 @@ public class FixedWrapPanel : Panel, INavigableContainer
         internal double Width;
         internal double Height;
 
-        internal Size ToSize()
+        internal readonly Size ToSize()
         {
             return new Size(Width, Height);
         }
