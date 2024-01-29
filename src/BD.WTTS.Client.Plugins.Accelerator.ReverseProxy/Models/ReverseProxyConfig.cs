@@ -78,7 +78,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
 
     static bool LoadScriptFille(string cachePath, out string? content)
     {
-        var cacheFilePath = Path.Combine(IOPath.CacheDirectory, cachePath);
+        var cacheFilePath = Path.Combine(IOPath.CacheDirectory, AssemblyInfo.Plugins, AssemblyInfo.Accelerator, cachePath);
         if (File.Exists(cacheFilePath))
         {
             content = File.ReadAllText(cacheFilePath);
