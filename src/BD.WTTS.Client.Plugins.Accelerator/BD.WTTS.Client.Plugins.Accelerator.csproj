@@ -122,6 +122,25 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 
+	<ItemGroup>
+		<Compile Include="$(MSBuildProjectDirectory)\..\XunYouSDK\**\*.cs">
+			<LinkBase>XunYouSDK</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup Condition=" Exists('$(MSBuildProjectDirectory)\..\..\..\XunYouSDK\src\Sample.ConsoleApp\XunYouSDK\XunYouSDK.AppId.cs') ">
+		<Compile Remove="$(MSBuildProjectDirectory)\..\XunYouSDK\XunYouSDK.AppId.cs" />
+		<Compile Include="$(MSBuildProjectDirectory)\..\..\..\XunYouSDK\src\Sample.ConsoleApp\XunYouSDK\XunYouSDK.AppId.cs">
+			<LinkBase>XunYouSDK</LinkBase>
+		</Compile>
+		<!--<None Condition=" $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(MSBuildProjectDirectory)\..\..\..\XunYouSDK\src\Sample.ConsoleApp\xunyoucall.dll') " Include="$(MSBuildProjectDirectory)\..\..\..\XunYouSDK\src\Sample.ConsoleApp\xunyoucall.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>-->
+		<None Condition=" $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(MSBuildProjectDirectory)\..\..\..\XunYouSDK\src\Sample.ConsoleApp\xunyoucall64.dll') " Include="$(MSBuildProjectDirectory)\..\..\..\XunYouSDK\src\Sample.ConsoleApp\xunyoucall64.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 	
 </Project>

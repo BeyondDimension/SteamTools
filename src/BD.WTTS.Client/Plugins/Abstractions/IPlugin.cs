@@ -1,3 +1,5 @@
+using dotnetCampus.Ipc.Pipes;
+
 namespace BD.WTTS.Plugins.Abstractions;
 
 /// <summary>
@@ -48,6 +50,10 @@ public partial interface IPlugin
     void ConfigureRequiredServices(
         IServiceCollection services,
         Startup startup);
+
+    void ConfigureServices(IpcProvider ipcProvider,
+        Startup startup)
+    { }
 
     /// <summary>
     /// 配置 AutoMapper

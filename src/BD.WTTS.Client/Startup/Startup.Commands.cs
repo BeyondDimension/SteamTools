@@ -388,6 +388,24 @@ partial class Startup // 自定义控制台命令参数
 #endif
                         ipcProvider.CreateIpcJoint<IPCPlatformService>(platformService);
                         ipcProvider.CreateIpcJoint(hostsFileService);
+
+                        var s = Startup.Instance;
+                        if (s.TryGetPlugins(out var plugins))
+                        {
+
+                            foreach (var plugin in plugins)
+                            {
+                                try
+                                {
+                                    plugin.ConfigureServices(ipcProvider!, s);
+                                }
+                                catch (Exception ex)
+                                {
+                                    //GlobalExceptionHandler.Handler(ex, $"{plugin.UniqueEnglishName}.ConfigureRequiredServices");
+                                }
+                            }
+                        }
+
                     }, new[] { n, p.ToString() });
 
                     return exitCode;
