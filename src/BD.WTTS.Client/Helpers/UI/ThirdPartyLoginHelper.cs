@@ -1,6 +1,5 @@
 using Fleck;
 using AppResources = BD.WTTS.Client.Resources.Strings;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels;
@@ -121,7 +120,7 @@ public static class ThirdPartyLoginHelper
                     await conn_helper.OnLoginedAsync(rsp.Content!, rsp.Content!);
                     await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
-                        await LoginOrRegisterSuccessAsync(rsp.Content!, () => vm?.Close(false));
+                        await LoginOrRegisterSuccessAsync(rsp.Content!, () => vm?.Close());
                     });
                 }
             }
@@ -129,7 +128,7 @@ public static class ThirdPartyLoginHelper
             {
                 await MainThread2.InvokeOnMainThreadAsync(() =>
                 {
-                    vm?.Close(false);
+                    vm?.Close();
                     conn_helper.ShowResponseErrorMessage(null, rsp);
                 });
             }
@@ -139,7 +138,7 @@ public static class ThirdPartyLoginHelper
             var rsp = ApiRspHelper.Exception(ex);
             await MainThread2.InvokeOnMainThreadAsync(() =>
             {
-                vm?.Close(false);
+                vm?.Close();
                 conn_helper.ShowResponseErrorMessage(null, rsp);
             });
         }
@@ -159,16 +158,6 @@ public static class ThirdPartyLoginHelper
     }
 
     static IDisposable? serverDisposable;
-
-    /// <summary>
-    /// 释放 WebSocket Server 占用资源
-    /// </summary>
-    public static void DisposeServer()
-    {
-        serverDisposable?.Dispose();
-        serverDisposable = null;
-    }
-
     static void StartServer(IApplication app)
     {
         if (ws != null) return;
@@ -196,6 +185,15 @@ public static class ThirdPartyLoginHelper
         });
     }
 
+    /// <summary>
+    /// 释放 WebSocket Server 占用资源
+    /// </summary>
+    public static void DisposeServer()
+    {
+        serverDisposable?.Dispose();
+        serverDisposable = null;
+    }
+
     static Aes? tempAes;
     static bool isBind;
     static WindowViewModel? vm;
@@ -220,7 +218,7 @@ public static class ThirdPartyLoginHelper
     public static async Task StartAsync(WindowViewModel vm, ExternalLoginChannel channel, bool isBind)
     {
         var app = IApplication.Instance;
-        if (!OperatingSystem2.IsAndroid() && !OperatingSystem2.IsIOS())
+        if (!OperatingSystem2.IsAndroid() && !OperatingSystem2.IsIOS() && !OperatingSystem2.IsMacOS())
         {
             // Android/iOS 使用 URL Scheme 回调
             StartServer(app);
@@ -273,8 +271,10 @@ public static class ThirdPartyLoginHelper
         qs.Add("dg", DeviceIdHelper.DeviceIdG.ToStringN());
         qs.Add("dr", DeviceIdHelper.DeviceIdR);
         qs.Add("dn", DeviceIdHelper.DeviceIdN);
-        if (OperatingSystem.IsMacOS())
+        if (OperatingSystem2.IsMacOS())
+        {
             qs.Add("isUS", "true");
+        }
         var ub = new UriBuilder(apiBaseUrl)
         {
             Path = $"/identity/v1/externallogin/{(int)channel}",

@@ -425,6 +425,12 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                         //item.Content = string.Empty;
                     }
                 }
+                else
+                {
+                    await TryReadFileAsync(item, true);
+                    //item.Content = string.Empty;
+
+                }
             }
         }
         return scripts;
