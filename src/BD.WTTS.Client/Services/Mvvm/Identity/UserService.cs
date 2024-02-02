@@ -214,6 +214,11 @@ public sealed class UserService : ReactiveObject
         }
     }
 
+    public async void RefreshShopToken(bool refreshToken = true)
+    {
+        await RefreshShopTokenAsync(refreshToken);
+    }
+
     /// <summary>
     /// 带登录状态跳转 Url
     /// </summary>
