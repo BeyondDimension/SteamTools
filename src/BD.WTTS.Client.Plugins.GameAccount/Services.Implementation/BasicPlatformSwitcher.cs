@@ -719,7 +719,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 //    _ = allIds.Remove(accId);
                 //}
                 //else
-                _ = allIds.Remove(allIds.Single(x => x.Value == account.AccountId).Key);
+                _ = allIds.Remove(allIds.Single(x => x.Key == account.AccountId).Key);
                 File.WriteAllText(platform.IdsJsonPath, JsonConvert.SerializeObject(allIds));
             }
 

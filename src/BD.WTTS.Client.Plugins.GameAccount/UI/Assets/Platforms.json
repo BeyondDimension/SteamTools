@@ -143,7 +143,7 @@
       "%LocalAppData%\\Riot Games\\Riot Client\\Config": "RiotClientSettings.yaml",
       "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id": "WattToolkit.id"
     },
-    "UniqueIdFile": "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id",
+    "UniqueIdPath": "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id",
     "UniqueIdType": 1
   },
   {
@@ -170,7 +170,7 @@
       "%Documents%\\Rockstar Games\\Social Club\\Launcher\\Renderer\\Cache\\f_*"
     ],
     "IsExitBeforeInteract": true,
-    "UniqueIdFile": "%ProgramData%\\Rockstar Games\\WattToolkit.id",
+    "UniqueIdPath": "%ProgramData%\\Rockstar Games\\WattToolkit.id",
     "UniqueIdType": 1
   },
   {
@@ -185,7 +185,7 @@
       "JSON_SELECT_FIRST,::%AppData%\\Battle.net\\Battle.net.config::$.Client.SavedAccountNames": "email.json"
     },
     "IsExitBeforeInteract": true,
-    "UniqueIdFile": "%AppData%\\Battle.net\\Battle.net.config::$.Client.SavedAccountNames",
-    "UniqueIdMethod": "JSON_SELECT_FIRST,"
+    "UniqueIdPath": "%AppData%\\Battle.net\\Battle.net.config::$.Client.SavedAccountNames",
+    "UniqueIdType": 5
   }
 ]
