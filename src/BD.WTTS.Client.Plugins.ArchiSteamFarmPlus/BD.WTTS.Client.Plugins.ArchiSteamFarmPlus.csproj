@@ -98,12 +98,6 @@
 			<DependentUpon>Strings.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 		</Compile>-->
-		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Steam\Data\Confirmation.cs">
-			<LinkBase>_\ArchiSteamFarm\Steam\Data</LinkBase>
-		</Compile>
-		<Compile Include="..\..\ref\ArchiSteamFarm\ArchiSteamFarm\Steam\Cards\Game.cs">
-			<LinkBase>_\ArchiSteamFarm\Steam\Cards</LinkBase>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>

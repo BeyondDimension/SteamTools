@@ -3,29 +3,16 @@ namespace BD.WTTS.Services.Implementation;
 partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
     : GeneralHttpClientFactory
 {
-    const string DefaultBaseAddress = "http://localhost:1242";
+    private Uri BaseAddress = new Uri("http://localhost:1242");
 
-    string BaseAddress = string.Empty;
+    /// <inheritdoc/>
+    public void SetIPCUrl(string ipcUrl) => BaseAddress = Uri.TryCreate(ipcUrl, UriKind.Absolute, out var uri) ? uri : BaseAddress;
 
-    public void SetIPCUrl(string ipcUrl) => BaseAddress = ipcUrl;
-
-    HttpClient CreateClient()
+    HttpClient LocalCreateClient()
     {
-        string baseAddressStr = BaseAddress;
-        Uri baseAddress;
-        try
-        {
-            baseAddress = new Uri(baseAddressStr);
-        }
-        catch
-        {
-            baseAddressStr = DefaultBaseAddress;
-            baseAddress = new Uri(DefaultBaseAddress);
-        }
-
-        var client = CreateClient($"{TAG}_{baseAddressStr}", HttpHandlerCategory.Default);
-        if (client.BaseAddress == null || !client.BaseAddress.Equals(baseAddress))
-            client.BaseAddress = baseAddress;
+        var client = CreateClient($"{TAG}_{BaseAddress.AbsoluteUri}", HttpHandlerCategory.Default);
+        if (client.BaseAddress == null || !client.BaseAddress.Equals(BaseAddress))
+            client.BaseAddress = BaseAddress;
         return client;
     }
 
@@ -48,7 +35,7 @@ partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
 
         async Task<IApiRsp<TResponseBody?>> SendCoreAsync()
         {
-            var client = CreateClient();
+            var client = LocalCreateClient();
             using var req = new HttpRequestMessage(method, requestUrl);
             var typeVoid = typeof(Void);
             var typeRequestBody = typeof(TRequestBody);

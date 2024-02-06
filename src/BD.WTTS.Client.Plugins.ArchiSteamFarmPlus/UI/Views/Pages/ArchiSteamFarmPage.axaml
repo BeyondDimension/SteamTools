@@ -62,8 +62,7 @@
             </Button>
             <Button
                 Padding="8,4"
-                Command="{Binding OpenASFBrowser}"
-                CommandParameter="WebAddBot"
+                Command="{Binding OpenWebUIConsole}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
@@ -71,32 +70,13 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Add" />
+                        <ui:SymbolIcon Symbol="Globe" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="新增 Bot" />
-                </Panel>
-            </Button>
-            <Button
-                Padding="8,4"
-                Command="{Binding RefreshBots}"
-                DockPanel.Dock="Right"
-                Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
-                        Width="16"
-                        Height="16"
-                        HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Refresh" />
-                    </Viewbox>
-                    <TextBlock
-                        Margin="28,4,0,4"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Text="刷新 Bot" />
+                        Text="打开WebUI" />
                 </Panel>
             </Button>
             <ToggleButton
@@ -226,63 +206,6 @@
     </spp:PageBase.PaneContent>
     <spp:ContentLoader IsLoading="False">
         <StackPanel Orientation="Vertical" Spacing="2">
-            <StackPanel Orientation="Horizontal" Spacing="2">
-                <Button
-                    Width="180"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding SelectBotFiles}"
-                    Content="选择 Bot 配置文件导入" />
-                <Button
-                    Width="180"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding SelectGlobalFiles}"
-                    Content="选择全局配置文件导入" />
-                <Button
-                    Width="180"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding OpenWebUIConsole}"
-                    Content="打开 WebUI 控制台" />
-                <Button
-                    Width="180"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding SetEncryptionKey}"
-                    Content="SetEncryptionKey" />
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Spacing="2">
-                <Button
-                    Width="180"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding OpenASFFolder}"
-                    CommandParameter="config"
-                    Content="配置文件文件夹" />
-                <Button
-                    Width="180"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding OpenASFFolder}"
-                    CommandParameter="plugin"
-                    Content="插件文件夹" />
-                <Button
-                    Width="180"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding OpenASFFolder}"
-                    CommandParameter="Logs"
-                    Content="日志文件夹" />
-                <Button
-                    Width="180"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding OpenASFFolder}"
-                    CommandParameter="www"
-                    Content="WEBUI 文件夹" />
-            </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="2">
                 <Label
                     HorizontalAlignment="Center"

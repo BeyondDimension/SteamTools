@@ -323,7 +323,7 @@ public sealed class BotConfig
     }
 
     [JsonConstructor]
-    internal BotConfig() { }
+    public BotConfig() { }
 
     [UsedImplicitly]
     public bool ShouldSerializeAcceptGifts() => !Saving || (AcceptGifts != DefaultAcceptGifts);

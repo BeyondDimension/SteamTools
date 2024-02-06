@@ -2886,4 +2886,13 @@
   <data name="SteamIdle_OpenAutoNextWarning" xml:space="preserve">
     <value>快速掉卡模式会频繁切换挂卡游戏，为了您的好友不被通知消息轰炸，注意将 Steam 在线状态改为隐身或离线！</value>
   </data>
+  <data name="ASF_EffectiveAfterRestart" xml:space="preserve">
+    <value>重新启动 ASF 后生效</value>
+  </data>
+  <data name="ASF_SetExePathFirst" xml:space="preserve">
+    <value>第一次使用请先设置 ArchiSteamFarm.exe 文件路径</value>
+  </data>
+  <data name="ASF_Settings" xml:space="preserve">
+    <value>ASF 设置</value>
+  </data>
 </root>

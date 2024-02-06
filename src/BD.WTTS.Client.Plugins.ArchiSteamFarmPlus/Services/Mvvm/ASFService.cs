@@ -43,9 +43,9 @@ public sealed class ASFService : ReactiveObject
 
     public IConsoleBuilder ConsoleLogBuilder { get; } = new ConsoleBuilder();
 
-    public SourceCache<Bot, string> SteamBotsSourceList;
+    public SourceCache<BotViewModel, string> SteamBotsSourceList;
 
-    public bool IsASFRuning => archiSteamFarmService.StartTime != null;
+    public bool IsASFRuning => archiSteamFarmService.ASFProcess != null;
 
     GlobalConfig? _GlobalConfig;
 
@@ -59,7 +59,7 @@ public sealed class ASFService : ReactiveObject
     {
         mCurrent = this;
 
-        SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
+        SteamBotsSourceList = new SourceCache<BotViewModel, string>(t => t.Bot.BotName);
 
         archiSteamFarmService.OnConsoleWirteLine += OnConsoleWirteLine;
 
@@ -106,7 +106,8 @@ public sealed class ASFService : ReactiveObject
 
         IsASFRunOrStoping = true;
 
-        var isOk = await archiSteamFarmService.StartAsync();
+        ConsoleLogText = string.Empty;
+        (var isOk, var ipcURL) = await archiSteamFarmService.StartAsync();
         if (!isOk)
         {
             if (showToast) Toast.Show(ToastIcon.Error, AppResources.ASF_Stoped, ToastLength.Short);
@@ -116,7 +117,7 @@ public sealed class ASFService : ReactiveObject
 
         RefreshBots();
 
-        IPCUrl = archiSteamFarmService.GetIPCUrl();
+        IPCUrl = ipcURL;
 
         MainThread2.BeginInvokeOnMainThread(() =>
         {
@@ -140,6 +141,8 @@ public sealed class ASFService : ReactiveObject
 
         await archiSteamFarmService.StopAsync();
 
+        SteamBotsSourceList.Clear();
+
         MainThread2.BeginInvokeOnMainThread(() =>
         {
             this.RaisePropertyChanged(nameof(IsASFRuning));
@@ -155,13 +158,61 @@ public sealed class ASFService : ReactiveObject
         var bots = await archiSteamFarmService.GetReadOnlyAllBots();
         if (bots.Any_Nullable())
         {
-            SteamBotsSourceList.AddOrUpdate(bots!.Values);
+            SteamBotsSourceList.Clear();
+            SteamBotsSourceList.AddOrUpdate(bots!.Values.Select(s => (BotViewModel)s));
         }
     }
 
     public async void RefreshConfig()
     {
         GlobalConfig = await archiSteamFarmService.GetGlobalConfig();
+    }
+
+    public void OpenFolder(string tag)
+    {
+        if (!Enum.TryParse<EPathFolder>(tag, true, out var folderASFPath)) return;
+        var folderASFPathValue = folderASFPath.GetFolderPath();
+        IPlatformService.Instance.OpenFolder(folderASFPathValue);
+    }
+
+    async void OpenBrowserCore(ActionItem tag)
+    {
+        var url = tag switch
+        {
+            ActionItem.Repo => "https://github.com/JustArchiNET/ArchiSteamFarm",
+            ActionItem.Wiki => "https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Home-zh-CN",
+            ActionItem.ConfigGenerator => "https://justarchinet.github.io/ASF-WebConfigGenerator",
+            ActionItem.WebConfig => IPCUrl + "/asf-config",
+            ActionItem.WebAddBot => IPCUrl + "/bot/new",
+            _ => IPCUrl,
+        };
+
+        if (string.IsNullOrEmpty(IPCUrl) && !Uri.TryCreate(IPCUrl, UriKind.Absolute, out _))
+        {
+            string? ipc_error = null;
+            if (!ASFService.Current.IsASFRuning)
+            {
+                ipc_error = BDStrings.ASF_RequirRunASF;
+            }
+            else if (!ASF.IsReady)
+            {
+                // IPC 未启动前无法获取正确的端口号，会导致拼接的 URL 值不正确
+                ipc_error = BDStrings.ASF_IPCIsReadyFalse;
+            }
+            if (ipc_error != null)
+            {
+                Toast.Show(ToastIcon.Error, ipc_error);
+                return;
+            }
+        }
+
+        await Browser2.OpenAsync(url, BrowserLaunchMode.External);
+    }
+
+    public void OpenBrowser(string? tag)
+    {
+        var tag_ = Enum.TryParse<ActionItem>(tag, out var @enum) ? @enum : default;
+        OpenBrowserCore(tag_);
     }
 
     public async void ImportBotFiles(IEnumerable<string>? files) => await ImportJsonFileAsync(files, allowBot: true, allowGlobal: false);
@@ -248,6 +299,22 @@ public sealed class ASFService : ReactiveObject
             }
         }
         Toast.Show(ToastIcon.Success, string.Format(AppResources.LocalAuth_ImportSuccessTip_, num));
+    }
+
+    public async Task SelectASFProgramLocation()
+    {
+        AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
+            new("ArchiSteamFarm") {
+                Patterns = new[] { "ArchiSteamFarm.exe", },
+                //MimeTypes =
+                //AppleUniformTypeIdentifiers =
+                },
+        };
+        await FilePicker2.PickAsync((path) =>
+        {
+            if (!string.IsNullOrEmpty(path))
+                ASFSettings.ArchiSteamFarmExePath.Value = path;
+        }, fileTypes);
     }
 }
 #endif

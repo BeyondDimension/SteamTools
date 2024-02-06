@@ -22,21 +22,19 @@ public partial interface IArchiSteamFarmService
 
     Process? ASFProcess { get; }
 
-    DateTimeOffset? StartTime { get; }
-
     Version CurrentVersion { get; }
 
     /// <summary>
     /// 控制台输入
     /// </summary>
     /// <param name="data"></param>
-    void ShellMessageInput(string data);
+    Task ShellMessageInput(string data);
 
     /// <summary>
     /// 启动 ArchiSteamFarm
     /// </summary>
     /// <param name="args"></param>
-    Task<bool> StartAsync(string[]? args = null);
+    Task<(bool IsSuccess, string IPCUrl)> StartAsync(string[]? args = null);
 
     Task StopAsync();
 

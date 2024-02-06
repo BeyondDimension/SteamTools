@@ -531,6 +531,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 重新启动 ASF 后生效 的本地化字符串。
+        /// </summary>
+        public static string ASF_EffectiveAfterRestart {
+            get {
+                return ResourceManager.GetString("ASF_EffectiveAfterRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ArchiSteamFarm.exe 文件不安全 的本地化字符串。
         /// </summary>
         public static string ASF_ExecuteFileUnsafe {
@@ -599,6 +608,24 @@ namespace BD.WTTS.Client.Resources {
         public static string ASF_SetCryptKey {
             get {
                 return ResourceManager.GetString("ASF_SetCryptKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 第一次使用请先设置 ArchiSteamFarm.exe 文件路径 的本地化字符串。
+        /// </summary>
+        public static string ASF_SetExePathFirst {
+            get {
+                return ResourceManager.GetString("ASF_SetExePathFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ASF 设置 的本地化字符串。
+        /// </summary>
+        public static string ASF_Settings {
+            get {
+                return ResourceManager.GetString("ASF_Settings", resourceCulture);
             }
         }
         

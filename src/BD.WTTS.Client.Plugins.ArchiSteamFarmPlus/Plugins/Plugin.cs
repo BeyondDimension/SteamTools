@@ -26,7 +26,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     {
         yield return new MenuTabItemViewModel(this, "ArchiSteamFarmPlus")
         {
-            PageType = typeof(ArchiSteamFarmPage),
+            PageType = typeof(MainFramePage),
             IsResourceGet = true,
             //IconKey = "GameConsole",
             IconKey = Icon

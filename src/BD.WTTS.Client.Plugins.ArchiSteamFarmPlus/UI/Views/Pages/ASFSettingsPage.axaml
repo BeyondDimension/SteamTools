@@ -1,0 +1,135 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.ASFSettingsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="ASF 配置"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="spp:ASFSettingsPageViewModel"
+    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                Padding="8,4"
+                Command="{Binding SelectGlobalFiles}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Import" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Json文件导入" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                Command="{Binding SetEncryptionKey}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Settings" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="设置 ASF 安全密钥" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                Command="{Binding RefreshGlobalConfig}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Refresh" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="刷新全局配置" />
+                </Panel>
+            </Button>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+    <spp:ContentLoader IsLoading="False">
+
+        <StackPanel Spacing="{StaticResource SettingsSpacing}">
+            <TextBlock
+                Margin="0,0,0,10"
+                Text="ASF 全局配置"
+                Theme="{StaticResource SubtitleTextBlockStyle}" />
+            <ui:SettingsExpander
+                Header="文件位置"
+                IconSource="Globe"
+                IsClickEnabled="False"
+                IsExpanded="True">
+                <ui:SettingsExpander.IconSource>
+                    <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE7F1;" />
+                </ui:SettingsExpander.IconSource>
+                <ui:SettingsExpander.Footer>
+                    <Button
+                        Command="{Binding OpenASFFolder}"
+                        CommandParameter="ASF"
+                        Content="打开文件所在位置" />
+                </ui:SettingsExpander.Footer>
+
+                <ui:SettingsExpanderItem
+                    ActionIconSource="Open"
+                    Command="{Binding OpenASFFolder}"
+                    CommandParameter="config"
+                    Content="配置文件文件夹"
+                    IsClickEnabled="True"
+                    ToolTip.Tip="{Binding Path=., Mode=OneWay, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=config}" />
+                <ui:SettingsExpanderItem
+                    ActionIconSource="Open"
+                    Command="{Binding OpenASFFolder}"
+                    CommandParameter="plugin"
+                    Content="插件文件夹"
+                    IsClickEnabled="True"
+                    ToolTip.Tip="{Binding Path=., Mode=OneWay, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=plugin}" />
+                <ui:SettingsExpanderItem
+                    ActionIconSource="Open"
+                    Command="{Binding OpenASFFolder}"
+                    CommandParameter="Logs"
+                    Content="日志文件夹"
+                    IsClickEnabled="True"
+                    ToolTip.Tip="{Binding Path=., Mode=OneWay, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Logs}" />
+                <ui:SettingsExpanderItem
+                    ActionIconSource="Open"
+                    Command="{Binding OpenASFFolder}"
+                    CommandParameter="www"
+                    Content="WEBUI 文件夹"
+                    IsClickEnabled="True"
+                    ToolTip.Tip="{Binding Path=., Mode=OneWay, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=www}" />
+            </ui:SettingsExpander>
+        </StackPanel>
+    </spp:ContentLoader>
+</spp:PageBase>

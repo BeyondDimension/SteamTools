@@ -23,6 +23,8 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
     private HttpClient _httpClient = new();
 
+    private bool _IsWaitUserInput;
+
     protected readonly IArchiSteamFarmWebApiService webApiService = IArchiSteamFarmWebApiService.Instance;
 
     public ArchiSteamFarmServiceImpl()
@@ -41,70 +43,72 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         set => this.RaiseAndSetIfChanged(ref _IsReadPasswordLine, value);
     }
 
-    public DateTimeOffset? StartTime { get; set; }
-
     public Version CurrentVersion => SharedInfo.Version;
 
-    public void ShellMessageInput(string data)
+    public async Task ShellMessageInput(string data)
     {
-        using (var sw = ASFProcess.StandardInput)
+        if (ASFProcess is not null)
         {
-            sw.WriteLine(data);
-            sw.Flush();
+            if (_IsWaitUserInput) // 等待用户输入
+            {
+                var sw = ASFProcess.StandardInput;
+                sw.WriteLine(data);
+            }
+            else // ASF 命令
+            {
+                var result = await ExecuteCommandAsync(data);
+                if (!string.IsNullOrEmpty(result))
+                    OnConsoleWirteLine?.Invoke(result);
+            }
         }
     }
 
-    public async Task<bool> StartAsync(string[]? args = null)
+    public async Task<(bool IsSuccess, string IPCUrl)> StartAsync(string[]? args = null)
     {
         try
         {
-            var isOk = false;
-            StartTime = DateTimeOffset.Now;
             if (isFirstStart)
             {
                 await ReadEncryptionKeyAsync();
                 isFirstStart = false;
             }
 
-            if (!await StartProcess() && !isFirstStart)
-            {
-                await StopAsync().ConfigureAwait(false);
-            }
+            (var isSuccess, var ipcUrl) = await StartProcess();
+            if (!isSuccess && !isFirstStart)
+                throw new ArgumentException();
             else
-            {
-                isOk = true;
-                ASF.IsReady = true;
-            }
-            return isOk;
+                return (ASF.IsReady = isSuccess, ipcUrl);
         }
         catch (Exception e)
         {
             e.LogAndShowT(TAG, msg: "ASF Start Fail.");
             await StopAsync().ConfigureAwait(false);
-            return false;
+            return (false, string.Empty);
         }
     }
 
     #region StartProcess
 
-    private async Task<bool> StartProcess()
+    private async Task<(bool IsSuccess, string Message)> StartProcess()
     {
         var isStartSuccess = false;
+        var ipcUrl = string.Empty;
         try
         {
             if (ASFProcess != null || string.IsNullOrEmpty(SharedInfo.ASFExecuteFilePath))
             {
                 Toast.Show(ToastIcon.Error, BDStrings.ASF_SelectASFExePath);
-                return isStartSuccess;
+                return (isStartSuccess, ipcUrl);
             }
 
             if (ASFSettings.CheckArchiSteamFarmExe && !await CheckFileConsistence()) // 检查文件是否被篡改
             {
                 Toast.Show(ToastIcon.Error, BDStrings.ASF_ExecuteFileUnsafe);
-                return isStartSuccess;
+                return (isStartSuccess, ipcUrl);
             }
 
-            webApiService.SetIPCUrl(GetIPCUrl()); // 设置 IPC 接口地址
+            ipcUrl = GetIPCUrl();
+            webApiService.SetIPCUrl(ipcUrl); // 设置 IPC 接口地址
 
             KillASFProcess(); // 杀死未关闭的 ASF 进程
 
@@ -114,6 +118,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             options.RedirectStandardOutput = true;
             options.RedirectStandardInput = true;
             options.RedirectStandardError = true;
+            options.ArgumentList.Add("--PROCESS-REQUIRED");
             if (!string.IsNullOrEmpty(EncryptionKey))
             {
                 options.ArgumentList.Add("--CRYPTKEY");
@@ -138,7 +143,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         catch (Exception)
         {
         }
-        return isStartSuccess;
+        return (isStartSuccess, ipcUrl);
     }
 
     private void KillASFProcess()
@@ -167,17 +172,19 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
                 var fileName = "ASF-win-x64.zip";
                 var downloadUrl = $"https://github.com/JustArchiNET/ArchiSteamFarm/releases/download/{versionInfo.FileVersion}/{fileName}";
                 var savePath = Path.Combine(Plugin.Instance.AppDataDirectory, $"ASF-{versionInfo.FileVersion}", fileName);
-                var destDir = Path.GetDirectoryName(savePath)!;
+                var saveDir = Path.GetDirectoryName(savePath)!;
 
-                var online_asfPath = Path.Combine(destDir, Path.GetFileName(SharedInfo.ASFExecuteFilePath));
-
-                if (!File.Exists(online_asfPath))
+                var destination_asfPath = Path.Combine(saveDir, Path.GetFileName(SharedInfo.ASFExecuteFilePath));
+                if (!File.Exists(destination_asfPath))
                 {
-                    Directory.CreateDirectory(destDir);
+                    Directory.CreateDirectory(saveDir);
                     if (await DownloadASFRelease(downloadUrl, savePath))
-                        ZipFile.ExtractToDirectory(savePath, destDir);
+                        ZipFile.ExtractToDirectory(savePath, saveDir);
+                    else
+                        Toast.Show(ToastIcon.Error, "比对文件下载失败");
                 }
-                if (File.Exists(online_asfPath) && CalculateFileHash(SharedInfo.ASFExecuteFilePath) == CalculateFileHash(online_asfPath))
+
+                if (CalculateFileHash(SharedInfo.ASFExecuteFilePath) == CalculateFileHash(destination_asfPath))
                     isConsistence = true;
             }
             catch (Exception)
@@ -226,19 +233,20 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
     private async void ReadOutPutData(object? obj)
     {
-        using (StreamReader sr = ASFProcess.StandardOutput)
+        using (StreamReader sr = ASFProcess!.StandardOutput)
         {
             int readResult;
             char ch;
             StringBuilder sb = new();
             var len = string.Empty;
 
-            while (true)
+            while (ASFProcess is not null)
             {
                 var readAsync = Task.Run(sr.Read);
 
                 await Task.WhenAny(readAsync, Task.Delay(TimeSpan.FromSeconds(3)));
 
+                _IsWaitUserInput = false;
                 if (!readAsync.IsCompleted)
                 {
                     if (sb.Length > 0)
@@ -246,8 +254,12 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
                         len = sb.ToString();
                         OnConsoleWirteLine?.Invoke(len);
                         sb.Clear();
+                        _IsWaitUserInput = true;
                     }
                 }
+
+                if (!readAsync.IsCompletedSuccessfully && ASF.IsReady)
+                    ASFService.Current.RefreshBots();
 
                 if ((readResult = await readAsync) != -1)
                 {
@@ -286,7 +298,6 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
     public async Task StopAsync()
     {
-        StartTime = null;
         ASF.IsReady &= false;
         ReadLineTask?.TrySetResult("");
         if (ASFProcess != null)
@@ -455,6 +466,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             result = ASF_CRYPTKEY_DEF_VALUE;
         }
         EncryptionKey = result;
+        Toast.Show(ToastIcon.Success, BDStrings.ASF_EffectiveAfterRestart);
     }
 
     /// <summary>
