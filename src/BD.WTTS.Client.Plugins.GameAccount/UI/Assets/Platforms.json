@@ -149,7 +149,7 @@
   {
     "FullName": "Rockstar",
     "Icon": "Rockstar",
-    "Platform": 8192,
+    "Platform": 16384,
     "PlatformIds": [ "rs", "rockstar", "socialclub" ],
     "DefaultExePath": "%ProgramFiles%\\Rockstar Games\\Launcher\\LauncherPatcher.exe",
     "ExesToEnd": [
@@ -176,7 +176,7 @@
   {
     "FullName": "BattleNet",
     "Icon": "BattleNet",
-    "Platform": 8192,
+    "Platform": 2048,
     "PlatformIds": [ "b", "bnet", "battlenet", "blizzard" ],
     "DefaultExePath": "%ProgramFiles(x86)%\\Battle.net\\Battle.net.exe",
     "ExesToEnd": [ "Battle.net" ],
