@@ -87,42 +87,6 @@
     "UniqueIdType": 3
   },
   {
-    "FullName": "Origin",
-    "Icon": "Origin",
-    "Platform": 4,
-    "IsExitBeforeInteract": true,
-    "DefaultExePath": "%ProgramFiles(x86)%\\Origin\\Origin.exe",
-    "ExeExtraArgs": null,
-    "PlatformIds": [ "o", "origin" ],
-    "ExesToEnd": [ "Origin.exe", "OriginWebHelperService.exe" ],
-    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
-    "LoginFiles": {
-      "%AppData%\\Origin\\ConsolidatedCache\\": "AppData\\ConsolidatedCache",
-      "%AppData%\\Origin\\Logs\\": "AppData\\Logs",
-      "%AppData%\\Origin\\NucleusCache\\": "AppData\\NucleusCache",
-      "%AppData%\\Origin\\*.xml": "AppData\\",
-      "%AppData%\\Origin\\Logs\\dserrors.data": "AppData\\Logs\\dserrors.data",
-      "%ProgramData%\\Origin\\AchievementCache\\": "ProgramData\\AchievementCache",
-      "%ProgramData%\\Origin\\Subscription\\": "ProgramData\\Subscription",
-      "%ProgramData%\\Origin\\local.xml": "ProgramData\\local.xml",
-      "%ProgramData%\\Origin\\*.olc": "ProgramData\\",
-      "%ProgramData%\\Origin\\WattToolkit.id": "WattToolkit.id"
-    },
-    "CachePaths": [
-      "%ProgramData%\\Origin\\DownloadCache",
-      "%LocalAppData%\\Origin\\Origin\\cache\\QtWebEngine\\Default\\Cache",
-      "%LocalAppData%\\Origin\\Origin\\QtWebEngine\\Default\\Application Cache\\Cache"
-    ],
-    "BackupPaths": [
-      "%ProgramData%\\Origin\\LocalContent\\",
-      "%ProgramData%\\Origin\\local.xml"
-    ],
-    "BackupFileTypesIgnore": null,
-    "BackupFileTypesInclude": null,
-    "UniqueIdPath": "%ProgramData%\\Origin\\WattToolkit.id",
-    "UniqueIdType": 1
-  },
-  {
     "FullName": "Riot Games",
     "Icon": "RiotGames",
     "Platform": 8192,
