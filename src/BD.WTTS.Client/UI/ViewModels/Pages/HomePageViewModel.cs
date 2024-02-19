@@ -49,28 +49,35 @@ public sealed class HomePageViewModel : TabItemViewModel
 
     public async void GetServerContent()
     {
-        var result = await Instance.Article.Order(null, ArticleOrderBy.DateTime);
-        if (result.IsSuccess && result.Content != null)
+        try
         {
-            Articles = new ObservableCollection<ArticleItemDTO>(result.Content.DataSource);
-        }
+            var result = await Instance.Article.Order(null, ArticleOrderBy.DateTime);
+            if (result.IsSuccess && result.Content != null)
+            {
+                Articles = new ObservableCollection<ArticleItemDTO>(result.Content.DataSource);
+            }
 
-        var result2 = await Instance.Shop.RecommendGoods();
-        if (result2.IsSuccess && result2.Content != null)
-        {
-            //Shops.Clear();
-            //var data = result2.Content
-            //    .Select((v, i) => new { v, i })
-            //    .GroupBy(x => x.i / 4)
-            //    .Select(g => g.Select(x => x.v).ToList());
-            Shops.Add(result2.Content);
-        }
+            var result2 = await Instance.Shop.RecommendGoods();
+            if (result2.IsSuccess && result2.Content != null)
+            {
+                //Shops.Clear();
+                //var data = result2.Content
+                //    .Select((v, i) => new { v, i })
+                //    .GroupBy(x => x.i / 4)
+                //    .Select(g => g.Select(x => x.v).ToList());
+                Shops.Add(result2.Content);
+            }
 
-        var result3 = await Instance.Advertisement.All(AdvertisementType.DeskTopHomeBanner);
-        if (result3.IsSuccess && result3.Content != null)
+            var result3 = await Instance.Advertisement.All(AdvertisementType.DeskTopHomeBanner);
+            if (result3.IsSuccess && result3.Content != null)
+            {
+                NavigationBanners.Clear();
+                NavigationBanners.Add(result3.Content);
+            }
+        }
+        catch (Exception ex)
         {
-            NavigationBanners.Clear();
-            NavigationBanners.Add(result3.Content);
+            ex.LogAndShowT();
         }
     }
 
