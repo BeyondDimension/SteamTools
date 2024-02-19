@@ -159,7 +159,7 @@ public sealed partial class GameAccountPageViewModel
     {
         if (platform == null) return false;
         if (platform.Platform == ThirdpartyPlatform.Steam) return true;
-        if (!File.Exists(platform.PlatformSetting?.PlatformPath))
+        if (!File.Exists(platform.ExePath))
         {
             Toast.Show(ToastIcon.Error, Strings.Error_UnableSwitchPlatformAccount_.Format(platform.FullName));
             return false;

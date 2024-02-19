@@ -45,10 +45,12 @@ public sealed partial class PlatformAccount
                 {
                     var imagePath = Path.Combine(PlatformLoginCache, acc.AccountName, "avatar.png");
                     File.Copy(path, imagePath, true);
+                    acc.ImagePath = "";
                     acc.ImagePath = imagePath;
                 }
             }, IFilePickerFileType.Images());
         });
+
         EditRemarkCommand = ReactiveCommand.Create<IAccount>(async acc =>
         {
             var text = await TextBoxWindowViewModel.ShowDialogAsync(new()

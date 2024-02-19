@@ -19,6 +19,7 @@ public sealed class BasicAccount : ReactiveObject, IAccount
     [Reactive]
     public DateTime? LastLoginTime { get; set; }
 
+    [Reactive]
     public string? ImagePath { get; set; }
 
     public string? AvatarFramePath { get; set; }

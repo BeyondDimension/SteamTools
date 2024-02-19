@@ -78,7 +78,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 JToken? jToken = null;
                 JTokenHelper.TryReadJsonFile(Path.Join(localCachePath, savedFile), ref jToken);
 
-                var path = accFile.Split("::")[1];
+                var path = IOPath.ExpandEnvironmentVariables(accFile, platform.FolderPath).Split("::")[1];
                 var selector = accFile.Split("::")[2];
                 if (!JTokenHelper.ReplaceVarInJsonFile(path, selector, jToken))
                 {
@@ -500,7 +500,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
             if (accFile.StartsWith("JSON"))
             {
-                var path = accFile.Split("::")[1];
+                var path = IOPath.ExpandEnvironmentVariables(accFile, platform.FolderPath).Split("::")[1];
                 var selector = accFile.Split("::")[2];
 
                 JToken? js = null;
@@ -532,6 +532,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 var originalValueString = (string)originalValue;
                 originalValueString = IOPath.CleanPathIlegalCharacter(firstResult ? originalValueString.Split(delimiter).First() : originalValueString.Split(delimiter).Last());
 
+                if (!Directory.Exists(localCachePath)) Directory.CreateDirectory(localCachePath);
                 JTokenHelper.SaveJsonFile(Path.Combine(localCachePath, savedFile), originalValueString);
                 continue;
             }
