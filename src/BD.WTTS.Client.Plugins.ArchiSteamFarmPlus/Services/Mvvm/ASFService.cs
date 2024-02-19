@@ -1,8 +1,4 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-using ArchiSteamFarm.Core;
-using ArchiSteamFarm.Steam;
-using ArchiSteamFarm.Steam.Storage;
-using ArchiSteamFarm.Storage;
 using Newtonsoft.Json;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
@@ -31,14 +27,6 @@ public sealed class ASFService : ReactiveObject
     {
         get => _ConsoleLogText;
         set => this.RaiseAndSetIfChanged(ref _ConsoleLogText, value);
-    }
-
-    string? _ConsoleLogInput;
-
-    public string? ConsoleLogInput
-    {
-        get => _ConsoleLogInput;
-        set => this.RaiseAndSetIfChanged(ref _ConsoleLogInput, value);
     }
 
     public IConsoleBuilder ConsoleLogBuilder { get; } = new ConsoleBuilder();
@@ -76,19 +64,19 @@ public sealed class ASFService : ReactiveObject
     {
         MainThread2.InvokeOnMainThreadAsync(() =>
         {
-            ConsoleLogBuilder.AppendLine(message);
-            var text = ConsoleLogBuilder.ToString();
-            ConsoleLogText = text;
+            //ConsoleLogBuilder.Append(message); // message 包含换行
+            //var text = ConsoleLogBuilder.ToString();
+            ConsoleLogText += message;
         });
     }
 
-    public void ShellMessageInput()
+    public void ShellMessageInput(string? input)
     {
-        if (string.IsNullOrEmpty(ConsoleLogInput))
+        if (string.IsNullOrEmpty(input))
         {
             return;
         }
-        archiSteamFarmService.ShellMessageInput(ConsoleLogInput);
+        archiSteamFarmService.ShellMessageInput(input);
     }
 
     /// <summary>

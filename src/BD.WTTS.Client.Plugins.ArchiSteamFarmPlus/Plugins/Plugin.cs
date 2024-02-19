@@ -14,17 +14,23 @@ namespace BD.WTTS.Plugins;
 #endif
 public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
-    const string moduleName = "ArchiSteamFarmPlus";
+    const string moduleName = AssemblyInfo.ArchiSteamFarmPlus;
+
+    public override Guid Id => Guid.Parse(AssemblyInfo.ArchiSteamFarmPlusId);
 
     public sealed override string UniqueEnglishName => moduleName;
 
-    public override string Name => moduleName;
+    public override string Name => BDStrings.ArchiSteamFarmPlus;
+
+    protected sealed override string? AuthorOriginalString => null;
+
+    public sealed override string Description => moduleName;
 
     public sealed override object? Icon => Resources.asf;
 
     public override IEnumerable<MenuTabItemViewModel>? GetMenuTabItems()
     {
-        yield return new MenuTabItemViewModel(this, "ArchiSteamFarmPlus")
+        yield return new MenuTabItemViewModel(this, nameof(BDStrings.ArchiSteamFarmPlus))
         {
             PageType = typeof(MainFramePage),
             IsResourceGet = true,

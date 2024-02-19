@@ -1,10 +1,6 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 using ASFStrings = ArchiSteamFarm.Localization.Strings;
 using AppResources = BD.WTTS.Client.Resources.Strings;
-using ArchiSteamFarm.Core;
-using ArchiSteamFarm.Storage;
-using ArchiSteamFarm.Steam;
-using ArchiSteamFarm.Steam.Storage;
 using ArchiSteamFarm.IPC;
 using Newtonsoft.Json.Linq;
 
@@ -58,7 +54,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             {
                 var result = await ExecuteCommandAsync(data);
                 if (!string.IsNullOrEmpty(result))
-                    OnConsoleWirteLine?.Invoke(result);
+                    OnConsoleWirteLine?.Invoke(Environment.NewLine + result);
             }
         }
     }
@@ -127,7 +123,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             ASFProcess = Process.Start(options);
 
             ASFService.Current.ConsoleLogText = string.Empty;
-            ThreadPool.QueueUserWorkItem(ReadOutPutData);
+            Task2.InBackground(ReadOutPutData, true);
             AppDomain.CurrentDomain.ProcessExit += ExitHandler;
             AppDomain.CurrentDomain.UnhandledException += ExitHandler;
 
@@ -228,10 +224,11 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
     private void ExitHandler(object? sender, EventArgs eventArgs)
     {
-        ASFService.Current.StopASFAsync().GetAwaiter().GetResult();
+        StopAsync().GetAwaiter().GetResult();
+        ASFService.Current.SteamBotsSourceList.Clear();
     }
 
-    private async void ReadOutPutData(object? obj)
+    private async void ReadOutPutData()
     {
         using (StreamReader sr = ASFProcess!.StandardOutput)
         {

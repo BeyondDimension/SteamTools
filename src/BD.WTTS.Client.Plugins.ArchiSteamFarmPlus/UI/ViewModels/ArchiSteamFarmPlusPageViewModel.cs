@@ -4,6 +4,7 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class ArchiSteamFarmPlusPageViewModel : ViewModelBase
 {
+
     private readonly IArchiSteamFarmService asfService = IArchiSteamFarmService.Instance;
 
     public ArchiSteamFarmPlusPageViewModel()
@@ -13,8 +14,6 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel : ViewModelBase
         OpenWebUIConsole = ReactiveCommand.Create(() => ASFService.Current.OpenBrowser(null));
 
         OpenASFBrowser = ReactiveCommand.Create<string>(ASFService.Current.OpenBrowser);
-
-        ShellMessageInput = ReactiveCommand.Create(ShellMessageInput_Click);
 
         RunOrStop = ReactiveCommand.Create(RunOrStopASF);
     }
@@ -62,8 +61,6 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel : ViewModelBase
     });
 
     public void RunOrStopASF() => StartOrStopASF_Click();
-
-    public void ShellMessageInput_Click() => ASFService.Current.ShellMessageInput();
 
     public string? IPCUrl => ASFService.Current.IPCUrl;
 }

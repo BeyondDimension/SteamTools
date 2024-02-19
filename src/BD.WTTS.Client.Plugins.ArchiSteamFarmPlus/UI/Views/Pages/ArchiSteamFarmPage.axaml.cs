@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.ReactiveUI;
+using BD.WTTS.UI.Views.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -16,5 +17,10 @@ public partial class ArchiSteamFarmPage : PageBase<ArchiSteamFarmPlusPageViewMod
     {
         base.OnLoaded(e);
 
+    }
+
+    private void ConsoleShell_CommandSubmit(object? sender, CommandEventArgs e)
+    {
+        ASFService.Current.ShellMessageInput(e.Command);
     }
 }
