@@ -401,9 +401,9 @@ public sealed partial class GameAcceleratorService
             {
                 await foreach (var item in install)
                 {
-                    if (item.IsSuccess)
+                    if (item.HandleUI(out var content))
                     {
-                        switch (item.Content)
+                        switch (content)
                         {
                             case < 100:
                                 Dispatcher.UIThread.Post(() => { td.Content = $"正在下载 {item.Content}%"; });
@@ -433,11 +433,6 @@ public sealed partial class GameAcceleratorService
                                 Dispatcher.UIThread.Post(() => { td.Hide(TaskDialogStandardResult.OK); });
                                 break;
                         }
-                    }
-                    else
-                    {
-                        //处理错误
-                        Toast.Show(ToastIcon.Error, item.Message);
                     }
                 }
             };
