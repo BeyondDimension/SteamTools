@@ -10,6 +10,13 @@ namespace BD.WTTS.Plugins;
 #endif
 public sealed class Plugin : PluginBase<Plugin>, IPlugin
 {
+    static Plugin()
+    {
+#if WINDOWS
+        XunYouSDK.Initialize();
+#endif
+    }
+
     const string moduleName = AssemblyInfo.Accelerator;
 
     public override Guid Id => Guid.Parse(AssemblyInfo.AcceleratorId);

@@ -7,7 +7,9 @@ namespace Mobius;
 
 static partial class XunYouSDK
 {
-    const string libraryName = "xunyoucall";
+    const string libraryName = libraryFileNameX64;
+
+    //const string libraryName = "xunyoucall";
     public const string libraryFileNameX86 = "xunyoucall.dll";
     public const string libraryFileNameX64 = "xunyoucall64.dll";
 }

@@ -7,58 +7,58 @@ static partial class XunYouSDK
 {
 #if WINDOWS
     static readonly string? libraryPath;
-    static nint libraryIntPtr;
+    //static nint libraryIntPtr;
 
-    /// <summary>
-    /// 配置本机库路径解析
-    /// </summary>
-    /// <param name="libraryName"></param>
-    /// <param name="assembly"></param>
-    /// <param name="searchPath"></param>
-    /// <returns></returns>
-    public static nint DllImportResolver(string libraryName,
-        Assembly assembly,
-        DllImportSearchPath? searchPath)
-    {
-        if (appId != 0)
-        {
-            switch (libraryName)
-            {
-                case XunYouSDK.libraryName:
-                    if (libraryIntPtr != default)
-                        return libraryIntPtr;
-                    break;
-            }
-        }
-        return default;
-    }
+    ///// <summary>
+    ///// 配置本机库路径解析
+    ///// </summary>
+    ///// <param name="libraryName"></param>
+    ///// <param name="assembly"></param>
+    ///// <param name="searchPath"></param>
+    ///// <returns></returns>
+    //public static nint DllImportResolver(string libraryName,
+    //    Assembly assembly,
+    //    DllImportSearchPath? searchPath)
+    //{
+    //    if (appId != 0)
+    //    {
+    //        switch (libraryName)
+    //        {
+    //            case XunYouSDK.libraryName:
+    //                if (libraryIntPtr != default)
+    //                    return libraryIntPtr;
+    //                break;
+    //        }
+    //    }
+    //    return default;
+    //}
 
-    static bool isInitialize = false;
+    //static bool isInitialize = false;
 
     /// <summary>
     /// 初始化 <see cref="XunYouSDK"/>
     /// </summary>
     public static void Initialize()
     {
-        if (isInitialize)
-            return;
-        isInitialize = true;
-        if (IsSupported && libraryPath != null)
-        {
-            try
-            {
-                libraryIntPtr = NativeLibrary.Load(libraryPath);
-            }
-            catch
-            {
-            }
-            if (libraryIntPtr != default)
-            {
-                NativeLibrary.SetDllImportResolver(typeof(XunYouSDK).Assembly, DllImportResolver);
-                return;
-            }
-        }
-        IsSupported = false;
+        //if (isInitialize)
+        //    return;
+        //isInitialize = true;
+        ////if (IsSupported && libraryPath != null)
+        ////{
+        ////    //try
+        ////    //{
+        ////    //    libraryIntPtr = NativeLibrary.Load(libraryPath);
+        ////    //}
+        ////    //catch
+        ////    //{
+        ////    //}
+        ////    //if (libraryIntPtr != default)
+        ////    //{
+        ////    //    //NativeLibrary.SetDllImportResolver(typeof(XunYouSDK).Assembly, DllImportResolver);
+        ////    //    return;
+        ////    //}
+        ////}
+        ////IsSupported = false;
     }
 #endif
 
