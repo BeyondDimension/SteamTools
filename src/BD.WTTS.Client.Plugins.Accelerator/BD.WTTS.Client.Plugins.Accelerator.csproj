@@ -142,5 +142,9 @@
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="UI\Views\Pages\AcceleratorPage2.axaml" />
+	</ItemGroup>
 	
 </Project>

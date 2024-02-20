@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="IWindowManager"/>
-sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
+public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
 {
     Type? IWindowManagerImpl.WindowType => typeof(Window);
 
@@ -116,7 +116,7 @@ sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
 
             if (viewModel is IWindowViewModel window)
             {
-                window.Close = () => td?.Hide(TaskDialogStandardResult.Close);
+                window.Close = b => td?.Hide(b ? TaskDialogStandardResult.OK : TaskDialogStandardResult.Close);
             }
 
             td.DataContext = viewModel;

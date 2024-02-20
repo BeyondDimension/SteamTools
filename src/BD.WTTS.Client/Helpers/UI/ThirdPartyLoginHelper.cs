@@ -113,7 +113,7 @@ public static class ThirdPartyLoginHelper
                     await conn_helper.OnLoginedAsync(rsp.Content!, rsp.Content!);
                     await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
-                        await LoginOrRegisterSuccessAsync(rsp.Content!, () => vm?.Close());
+                        await LoginOrRegisterSuccessAsync(rsp.Content!, () => vm?.Close(false));
                     });
                 }
             }
@@ -121,7 +121,7 @@ public static class ThirdPartyLoginHelper
             {
                 await MainThread2.InvokeOnMainThreadAsync(() =>
                 {
-                    vm?.Close();
+                    vm?.Close(false);
                     conn_helper.ShowResponseErrorMessage(null, rsp);
                 });
             }
@@ -131,7 +131,7 @@ public static class ThirdPartyLoginHelper
             var rsp = ApiRspHelper.Exception(ex);
             await MainThread2.InvokeOnMainThreadAsync(() =>
             {
-                vm?.Close();
+                vm?.Close(false);
                 conn_helper.ShowResponseErrorMessage(null, rsp);
             });
         }

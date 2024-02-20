@@ -11,6 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="UI\Assets\defaultappimage.png" />
 	  <None Remove="UI\Assets\Fonts\HarmonyOS_Sans_SC_Regular.ttf" />
 	</ItemGroup>
 

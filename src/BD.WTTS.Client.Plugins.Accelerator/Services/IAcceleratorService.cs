@@ -8,8 +8,4 @@ namespace BD.WTTS.Services;
 [IpcPublic(Timeout = AssemblyInfo.IpcTimeout, IgnoresIpcException = false)]
 public partial interface IAcceleratorService
 {
-    /// <summary>
-    /// 获取 <see cref="IAcceleratorService"/> 实例
-    /// </summary>
-    static IAcceleratorService Instance => Ioc.Get<IAcceleratorService>();
 }

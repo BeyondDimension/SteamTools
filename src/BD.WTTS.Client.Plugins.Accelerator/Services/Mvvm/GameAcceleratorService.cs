@@ -1,4 +1,8 @@
 // ReSharper disable once CheckNamespace
+using Avalonia.Threading;
+using BD.WTTS.UI.Views.Pages;
+using FluentAvalonia.UI.Controls;
+
 namespace BD.WTTS.Services;
 
 public sealed partial class GameAcceleratorService
@@ -191,12 +195,12 @@ public sealed partial class GameAcceleratorService
                 Toast.Show(ToastIcon.Warning, "需要登录账号才能使用游戏加速功能!");
                 return;
             }
-            var xunYouIsInstall = await IAcceleratorService.Instance.XY_IsInstall();
+            var xunYouIsInstall = await Ioc.Get<IAcceleratorService>().XY_IsInstall();
             if (xunYouIsInstall.HandleUI(out var isInstall))
             {
                 if (!isInstall)
                 {
-                    if (!await WindowManagerService.Current.ShowTaskDialogAsync(
+                    if (!await IWindowManager.Instance.ShowTaskDialogAsync(
                                    new MessageBoxWindowViewModel() { Content = "需要下载 Watt 加速器插件才可使用，确定要下载吗?" }, title: "未安装加速插件", isCancelButton: true))
                     {
                         return;
@@ -223,7 +227,7 @@ public sealed partial class GameAcceleratorService
 
                 #region 通过 XY_IsRunning 判断是否已启动迅游
 
-                var apiRspIsRunning = await IAcceleratorService.Instance.XY_IsRunning();
+                var apiRspIsRunning = await Ioc.Get<IAcceleratorService>().XY_IsRunning();
                 if (!apiRspIsRunning.HandleUI(out var isRunningCode))
                 {
                     // 调用后端失败，显示错误并中止逻辑
@@ -243,7 +247,7 @@ public sealed partial class GameAcceleratorService
                 }
                 app.GameInfo = gameInfo;
                 var vm = new GameInfoPageViewModel(app);
-                var result = await WindowManagerService.Current.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
+                var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
                 if (!result || app.SelectedArea == null)
                 {
                     return;
@@ -273,8 +277,8 @@ public sealed partial class GameAcceleratorService
 
                 //var startCode = await XunYouSDK.StartEx2Async(UserService.Current.User.WattOpenId, UserService.Current.User.NickName, app.Id, app.SelectedArea.Id, progress, GameAcceleratorSettings.WattAcceleratorDirPath.Value!, app.SelectedArea.Name);
 
-                var start = isStartXY ? await IAcceleratorService.Instance.XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name)
-                    : await IAcceleratorService.Instance.XY_StartEx2(UserService.Current.User.WattOpenId, UserService.Current.User.NickName, app.Id, app.SelectedArea.Id, app.SelectedArea.Name);
+                var start = isStartXY ? await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name)
+                    : await Ioc.Get<IAcceleratorService>().XY_StartEx2(UserService.Current.User.WattOpenId, UserService.Current.User.NickName, app.Id, app.SelectedArea.Id, app.SelectedArea.Name);
                 if (start.HandleUI(out var startCode))
                 {
                     if (startCode == 101)
@@ -297,7 +301,7 @@ public sealed partial class GameAcceleratorService
         }
         else
         {
-            var stopRequest = await IAcceleratorService.Instance.XY_StopAccel();
+            var stopRequest = await Ioc.Get<IAcceleratorService>().XY_StopAccel();
             if (stopRequest.HandleUI(out var code))
             {
                 // 停止加速
@@ -409,7 +413,7 @@ public sealed partial class GameAcceleratorService
 
     public static async Task InstallAccelerator()
     {
-        var xunYouIsInstall = await IAcceleratorService.Instance.XY_IsInstall();
+        var xunYouIsInstall = await Ioc.Get<IAcceleratorService>().XY_IsInstall();
         if (xunYouIsInstall.HandleUI(out var isInstall))
         {
             if (isInstall)
@@ -424,13 +428,13 @@ public sealed partial class GameAcceleratorService
                 IconSource = new SymbolIconSource { Symbol = FluentAvalonia.UI.Controls.Symbol.Download },
                 SubHeader = "下载 Watt 加速器 插件",
                 Content = "正在初始化，请稍候",
-                XamlRoot = WindowManagerService.GetWindowTopLevel(),
+                XamlRoot = AvaloniaWindowManagerImpl.GetWindowTopLevel(),
                 //Buttons =
                 //{
                 //    new TaskDialogButton(Strings.Cancel, TaskDialogStandardResult.Cancel)
                 //}
             };
-            var install = IAcceleratorService.Instance.XY_Install(GameAcceleratorSettings.WattAcceleratorDirPath.Value!);
+            var install = Ioc.Get<IAcceleratorService>().XY_Install(GameAcceleratorSettings.WattAcceleratorDirPath.Value!);
 
             td.Opened += async (s, e) =>
             {
@@ -480,7 +484,7 @@ public sealed partial class GameAcceleratorService
 
     public static async void UninstallAccelerator()
     {
-        var xunYouIsInstall = await IAcceleratorService.Instance.XY_IsInstall();
+        var xunYouIsInstall = await Ioc.Get<IAcceleratorService>().XY_IsInstall();
         if (xunYouIsInstall.HandleUI(out var isInstall))
         {
             if (!isInstall)
@@ -488,7 +492,7 @@ public sealed partial class GameAcceleratorService
                 Toast.Show(ToastIcon.Info, "未安装，不需要卸载");
                 return;
             }
-            var uninstall = await IAcceleratorService.Instance.XY_Uninstall();
+            var uninstall = await Ioc.Get<IAcceleratorService>().XY_Uninstall();
             if (uninstall.HandleUI(out var code))
             {
                 if (code == 0)
@@ -513,7 +517,7 @@ public sealed partial class GameAcceleratorService
         }
         app.GameInfo = gameInfo;
         var vm = new GameInfoPageViewModel(app);
-        var result = await WindowManagerService.Current.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
+        var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
         if (!result || app.SelectedArea == null)
         {
             app.IsAccelerating = false;
@@ -582,7 +586,7 @@ public sealed partial class GameAcceleratorService
 
     public async Task RefreshXYAccelState()
     {
-        var result = await IAcceleratorService.Instance.XY_GetAccelStateEx();
+        var result = await Ioc.Get<IAcceleratorService>().XY_GetAccelStateEx();
         if (result.HandleUI(out var content))
         {
             XYAccelState = content;
