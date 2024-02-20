@@ -26,7 +26,6 @@ partial interface IAcceleratorService // XunYou
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<ApiRsp<int>> XY_StartEx2(
-        string wattAcceleratorDirPath,
         string openid,
         string nickname,
         int gameid,
@@ -73,7 +72,7 @@ partial interface IAcceleratorService // XunYou
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<ApiRsp<XunYouSendResultCode?>> XY_StopAccel(CancellationToken cancellationToken = default);
+    Task<ApiRsp<XunYouSendResultCode>> XY_StopAccel(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 迅游加速器是否在运行

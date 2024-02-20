@@ -73,12 +73,11 @@ partial class BackendAcceleratorServiceImpl
     {
         var result = XunYouSDK.Uninstall();
         await Task.CompletedTask;
-        return (XunYouUninstallCode)result;
+        return result;
     }
 
     /// <inheritdoc/>
     public async Task<ApiRsp<int>> XY_StartEx2(
-        string wattAcceleratorDirPath,
         string openid,
         string nickname,
         int gameid,
@@ -94,7 +93,7 @@ partial class BackendAcceleratorServiceImpl
             area,
             null,
             default,
-            wattAcceleratorDirPath,
+            GameAcceleratorSettings.WattAcceleratorDirPath.Value!,
             areaPath,
             svrPath);
         await Task.CompletedTask;
@@ -156,7 +155,7 @@ partial class BackendAcceleratorServiceImpl
     }
 
     /// <inheritdoc/>
-    public async Task<ApiRsp<XunYouSendResultCode?>> XY_StopAccel(CancellationToken cancellationToken = default)
+    public async Task<ApiRsp<XunYouSendResultCode>> XY_StopAccel(CancellationToken cancellationToken = default)
     {
         var result = XunYouSDK.Stop();
         await Task.CompletedTask;
