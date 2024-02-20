@@ -387,7 +387,7 @@ public sealed partial class GameAcceleratorService
             }
 
             //判断是否已经在加速
-            var accState = await IAcceleratorService.Instance.XY_GetAccelStateEx();
+            var accState = await Ioc.Get<IAcceleratorService>().XY_GetAccelStateEx();
             if (accState.HandleUI() && accState.Content != null)
             {
                 if (accState.Content.GameId > 0 && accState.Content.AccelState is XunYouAccelStateEx.加速已完成 or XunYouAccelStateEx.加速中)
@@ -537,7 +537,7 @@ public sealed partial class GameAcceleratorService
                 });
 
             // 停止加速
-            var stopRequest = await IAcceleratorService.Instance.XY_StopAccel();
+            var stopRequest = await Ioc.Get<IAcceleratorService>().XY_StopAccel();
             if (stopRequest.HandleUI(out var code))
             {
                 if (code == XunYouSendResultCode.发送成功)
@@ -557,7 +557,7 @@ public sealed partial class GameAcceleratorService
             }
 
             //重新加速
-            var start = await IAcceleratorService.Instance.XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name);
+            var start = await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name);
             if (start.HandleUI(out var startCode))
             {
                 if (startCode == 101)

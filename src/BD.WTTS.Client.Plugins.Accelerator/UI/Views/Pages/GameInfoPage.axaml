@@ -1,0 +1,226 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.GameInfoPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    MinWidth="410"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="spp:GameInfoPageViewModel"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <StackPanel Orientation="Horizontal" Spacing="5">
+            <Button
+                Width="36"
+                Height="36"
+                VerticalAlignment="Center"
+                Command="{Binding BackSelectArea}"
+                Content="&#xF0D5;"
+                FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                FontSize="14"
+                IsVisible="{Binding IsShowSelectServerUI}" />
+            <TextBlock VerticalAlignment="Center" Text="{Binding XunYouGame.SelectedArea.Name}" />
+            <TextBlock
+                VerticalAlignment="Center"
+                IsVisible="{Binding !!XunYouGame.SelectedServer}"
+                Text="{Binding XunYouGame.SelectedServer.Name, StringFormat={}/ {0}}" />
+        </StackPanel>
+        <!--<TabControl Grid.Row="1">
+            <TabItem Header="区服">-->
+        <ScrollViewer Grid.Row="1" Padding="0,10">
+            <Panel>
+                <ListBox
+                    IsVisible="{Binding !IsShowSelectServerUI}"
+                    ItemsSource="{Binding XunYouGame.GameInfo.Areas}"
+                    SelectedItem="{Binding XunYouGame.SelectedArea}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Width" Value="150" />
+                            <Setter Property="Height" Value="60" />
+                            <Setter Property="MinWidth" Value="0" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter Property="Margin" Value="5 5 0 0" />
+                            <Setter Property="Template">
+                                <ControlTemplate x:DataType="spp:XunYouGameArea">
+                                    <Panel>
+                                        <Border
+                                            Name="Root"
+                                            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                                            BorderThickness="1"
+                                            CornerRadius="{StaticResource ControlCornerRadius}">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                MaxLines="2"
+                                                Text="{Binding Name}"
+                                                TextAlignment="Center"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </Border>
+                                        <!--<ui:SymbolIcon Symbol="Righ"/>-->
+                                        <Rectangle
+                                            Name="SelectionIndicator"
+                                            Width="3"
+                                            Height="16"
+                                            Margin="2,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Fill="{DynamicResource AccentFillColorDefaultBrush}"
+                                            IsVisible="False"
+                                            RadiusX="2"
+                                            RadiusY="2"
+                                            RenderTransform="scaleY(0)"
+                                            UseLayoutRounding="False">
+                                            <Rectangle.Transitions>
+                                                <Transitions>
+                                                    <TransformOperationsTransition
+                                                        Easing="0,0 0,1"
+                                                        Property="RenderTransform"
+                                                        Duration="00:00:00.167" />
+                                                </Transitions>
+                                            </Rectangle.Transitions>
+                                        </Rectangle>
+                                    </Panel>
+                                </ControlTemplate>
+                            </Setter>
+                        </Style>
+
+                        <Style Selector="ListBoxItem /template/ Border#SelectionIndicator">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Style>
+                        <Style Selector="ListBoxItem:pointerover /template/ Border#Root">
+                            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+                        </Style>
+
+                        <Style Selector="ListBoxItem:selected /template/ Border#Root">
+                            <Setter Property="Background" Value="{DynamicResource SystemFillColorAttentionBrush}" />
+                        </Style>
+                        <Style Selector="ListBoxItem:selected /template/ Border#SelectionIndicator">
+                            <Setter Property="IsVisible" Value="True" />
+                        </Style>
+                    </ListBox.Styles>
+                </ListBox>
+
+                <ListBox
+                    IsVisible="{Binding IsShowSelectServerUI}"
+                    ItemsSource="{Binding XunYouGame.SelectedArea.Servers}"
+                    SelectedItem="{Binding XunYouGame.SelectedServer}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Width" Value="150" />
+                            <Setter Property="Height" Value="60" />
+                            <Setter Property="MinWidth" Value="0" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter Property="Margin" Value="5 5 0 0" />
+                            <Setter Property="Template">
+                                <ControlTemplate x:DataType="spp:XunYouGameServer">
+                                    <Panel>
+                                        <Border
+                                            Name="Root"
+                                            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                                            BorderThickness="1"
+                                            CornerRadius="{StaticResource ControlCornerRadius}">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                MaxLines="2"
+                                                Text="{Binding Name}"
+                                                TextAlignment="Center"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </Border>
+
+                                        <Rectangle
+                                            Name="SelectionIndicator"
+                                            Width="3"
+                                            Height="16"
+                                            Margin="2,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Fill="{DynamicResource AccentFillColorDefaultBrush}"
+                                            IsVisible="False"
+                                            RadiusX="2"
+                                            RadiusY="2"
+                                            RenderTransform="scaleY(0)"
+                                            UseLayoutRounding="False">
+                                            <Rectangle.Transitions>
+                                                <Transitions>
+                                                    <TransformOperationsTransition
+                                                        Easing="0,0 0,1"
+                                                        Property="RenderTransform"
+                                                        Duration="00:00:00.167" />
+                                                </Transitions>
+                                            </Rectangle.Transitions>
+                                        </Rectangle>
+                                    </Panel>
+                                </ControlTemplate>
+                            </Setter>
+                        </Style>
+
+                        <Style Selector="ListBoxItem /template/ Border#SelectionIndicator">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Style>
+                        <Style Selector="ListBoxItem:pointerover /template/ Border#Root">
+                            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+                        </Style>
+
+                        <Style Selector="ListBoxItem:selected /template/ Border#Root">
+                            <Setter Property="Background" Value="{DynamicResource SystemFillColorAttentionBrush}" />
+                        </Style>
+                        <Style Selector="ListBoxItem:selected /template/ Border#SelectionIndicator">
+                            <Setter Property="IsVisible" Value="True" />
+                        </Style>
+                    </ListBox.Styles>
+                </ListBox>
+            </Panel>
+        </ScrollViewer>
+        <!--</TabItem>
+            <TabItem Header="节点">
+                <ScrollViewer>
+                    <DataGrid IsReadOnly="False" ItemsSource="{Binding XunYouGame.SelectedArea.Servers}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="3*"
+                                x:DataType="spp:XunYouGameServer"
+                                Binding="{Binding Name}"
+                                Header="节点"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                x:DataType="spp:XunYouGameServer"
+                                Binding="{Binding Id}"
+                                CanUserSort="True"
+                                Header="延迟"
+                                IsReadOnly="True"
+                                SortMemberPath="Extra" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>-->
+
+        <Button
+            Grid.Row="2"
+            Width="180"
+            Height="42"
+            Margin="0,16"
+            HorizontalAlignment="Center"
+            Classes="accent"
+            Command="{Binding ImmediatelyAccelerate}"
+            Content="立即加速"
+            FontSize="14" />
+    </Grid>
+</UserControl>

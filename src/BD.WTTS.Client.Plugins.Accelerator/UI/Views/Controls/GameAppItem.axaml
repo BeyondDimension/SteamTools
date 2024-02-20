@@ -1,0 +1,285 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.GameAppItem"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="160"
+    d:DesignWidth="220"
+    x:DataType="spp:XunYouGameViewModel"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="Grid.Accelerating Button#ActionBtn">
+            <Setter Property="IsVisible" Value="False" />
+            <Setter Property="IsEnabled" Value="False" />
+        </Style>
+        <Style Selector="Grid.Accelerator Panel.AppName TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Grid.UnAccelerator Panel.AppName TextBlock">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        </Style>
+        <Style Selector="Grid.Accelerator Panel.AppName">
+            <Setter Property="Grid.ColumnSpan" Value="2" />
+            <Setter Property="Grid.Row" Value="0" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <Style Selector="Grid.UnAccelerator Panel.AppName">
+            <Setter Property="Grid.Row" Value="2" />
+        </Style>
+        <Style Selector="spp|GameAppItem:pointerover spp|Image2.Scale">
+            <Setter Property="RenderTransform" Value="scale(1.1)" />
+        </Style>
+
+        <Style Selector="spp|GameAppItem spp|Image2.Scale">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="spp|GameAppItem Border#ShadowBox">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="spp|GameAppItem:pointerover Border#ShadowBox">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <!--<Style Selector="spp|GameAppItem Border.Status">
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+            <Setter Property="ClipToBounds" Value="True" />
+            <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+        </Style>-->
+    </UserControl.Styles>
+    <Border
+        MinHeight="160"
+        Background="{DynamicResource ControlFillColorDefaultBrush}"
+        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        ClipToBounds="True"
+        CornerRadius="{StaticResource OverlayCornerRadius}">
+        <spp:RippleEffect>
+            <Grid
+                Classes.Accelerating="{Binding IsAccelerating}"
+                Classes.Accelerator="{Binding IsAccelerated}"
+                Classes.UnAccelerator="{Binding !IsAccelerated}"
+                ColumnDefinitions="*,Auto"
+                RowDefinitions="30,*,48">
+                <Viewbox
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="2"
+                    Stretch="UniformToFill">
+                    <spp:Image2
+                        DecodeWidth="300"
+                        FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/defaultappimage.png"
+                        Source="{Binding PicUrl}"
+                        Stretch="UniformToFill" />
+                </Viewbox>
+
+                <spp:Image2
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="2"
+                    Margin="10,0,50,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    DecodeWidth="100"
+                    Source="{Binding LogoUrl}"
+                    Stretch="Uniform" />
+
+                <Border
+                    Name="ShadowBox"
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="2"
+                    Padding="5"
+                    Background="#80000000">
+                    <!--<StackPanel
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button
+                            Padding="0"
+                            Classes="Plain"
+                            Command="{Binding Path=DeleteMyGameCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                            CommandParameter="{Binding}"
+                            Cursor="Hand"
+                            ToolTip.Tip="{x:Static spp:Strings.GameAccelerator_ChangeArea}">
+                            <Viewbox Width="20" Height="20">
+                                <ui:SymbolIcon Symbol="Switch" />
+                            </Viewbox>
+                        </Button>-->
+                    <Button
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Classes="Plain"
+                        Command="{Binding Path=DeleteMyGameCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                        CommandParameter="{Binding}"
+                        Cursor="Hand"
+                        ToolTip.Tip="{x:Static spp:Strings.Delete}">
+                        <Viewbox Width="20" Height="20">
+                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Close}" />
+                        </Viewbox>
+                    </Button>
+                    <!--</StackPanel>-->
+                </Border>
+
+                <!--<Viewbox
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <spp:WaveProgress
+                        IsIndeterminate="True"
+                        IsTextVisible="True"
+                        IsVisible="{Binding IsAccelerating}" />
+                </Viewbox>-->
+
+                <ProgressBar
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    IsIndeterminate="True"
+                    IsVisible="{Binding IsAccelerating}" />
+
+                <Panel Margin="10,5" Classes="AppName">
+                    <!--  spp:Animations.EnableAnimations2="True"  -->
+                    <spp:Image2
+                        Width="20"
+                        Height="20"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        DecodeWidth="20"
+                        Source="{Binding IconUrl}">
+                        <spp:Image2.Transitions>
+                            <Transitions>
+                                <DoubleTransition
+                                    Easing="0,0 0,1"
+                                    Property="Width"
+                                    Duration="00:00:00.25" />
+                                <DoubleTransition
+                                    Easing="0,0 0,1"
+                                    Property="Height"
+                                    Duration="00:00:00.25" />
+                            </Transitions>
+                        </spp:Image2.Transitions>
+                    </spp:Image2>
+                    <TextBlock
+                        Margin="25,0,0,0"
+                        VerticalAlignment="Center"
+                        MaxLines="2"
+                        Text="{Binding Name}"
+                        TextTrimming="CharacterEllipsis" />
+                </Panel>
+
+                <Border
+                    Grid.Row="2"
+                    Margin="10,5"
+                    Classes="Status"
+                    IsVisible="{Binding IsAccelerated}">
+                    <WrapPanel VerticalAlignment="Center">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior
+                                Binding="{Binding PingValue}"
+                                ComparisonCondition="GreaterThan"
+                                Value="120">
+                                <ia:ChangePropertyAction
+                                    PropertyName="Fill"
+                                    TargetObject="PingEllipse"
+                                    Value="#FF4F58" />
+                                <ia:ChangePropertyAction
+                                    PropertyName="Foreground"
+                                    TargetObject="PingText"
+                                    Value="#FF4F58" />
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior
+                                Binding="{Binding PingValue}"
+                                ComparisonCondition="LessThanOrEqual"
+                                Value="120">
+                                <ia:ChangePropertyAction
+                                    PropertyName="Fill"
+                                    TargetObject="PingEllipse"
+                                    Value="#47A42B" />
+                                <ia:ChangePropertyAction
+                                    PropertyName="Foreground"
+                                    TargetObject="PingText"
+                                    Value="#47A42B" />
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Text="{Binding SelectedArea.Name}" />
+                        <DockPanel>
+                            <Ellipse
+                                Name="PingEllipse"
+                                Width="6"
+                                Height="6"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="Left"
+                                Fill="#FF4F58" />
+                            <TextBlock
+                                Name="PingText"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="Right"
+                                FontSize="12"
+                                Text="{Binding PingValue, StringFormat={}{0}ms}" />
+                        </DockPanel>
+                    </WrapPanel>
+                </Border>
+
+                <ProgressBar
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Width="20"
+                    Height="20"
+                    Margin="10,5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Classes="Circle"
+                    IsIndeterminate="True"
+                    IsVisible="{Binding IsAccelerating}" />
+
+                <Button
+                    Name="ActionBtn"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="10,5"
+                    Command="{Binding $parent[spp:GameAppItem].ButtonCommand}"
+                    CommandParameter="{Binding}"
+                    IsVisible="{Binding !IsAccelerating}">
+                    <Button.Content>
+                        <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                            <CompiledBinding Mode="OneWay" Path="IsAccelerated" />
+                            <CompiledBinding
+                                Mode="OneWay"
+                                Path="."
+                                Source="{x:Static spp:Strings.GameAccelerator_Stop}" />
+                            <CompiledBinding
+                                Mode="OneWay"
+                                Path="."
+                                Source="{x:Static spp:Strings.GameAccelerator_Accelerate}" />
+                        </MultiBinding>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </spp:RippleEffect>
+    </Border>
+</UserControl>
