@@ -2601,6 +2601,105 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 游戏加速 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator {
+            get {
+                return ResourceManager.GetString("GameAccelerator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加速 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_Accelerate {
+            get {
+                return ResourceManager.GetString("GameAccelerator_Accelerate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先选择要加速的区服 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_AccelerateAreaSelectTip {
+            get {
+                return ResourceManager.GetString("GameAccelerator_AccelerateAreaSelectTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 切换加速区服 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_ChangeArea {
+            get {
+                return ResourceManager.GetString("GameAccelerator_ChangeArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加载游戏数据失败，请尝试刷新 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_GamesEmptyTip {
+            get {
+                return ResourceManager.GetString("GameAccelerator_GamesEmptyTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 立即加速 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_ImmediatelyAccelerate {
+            get {
+                return ResourceManager.GetString("GameAccelerator_ImmediatelyAccelerate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 安装Watt加速器插件 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_InstallWattAccelerator {
+            get {
+                return ResourceManager.GetString("GameAccelerator_InstallWattAccelerator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 搜索游戏 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_SearchGame {
+            get {
+                return ResourceManager.GetString("GameAccelerator_SearchGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_Stop {
+            get {
+                return ResourceManager.GetString("GameAccelerator_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 卸载Watt加速器插件 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_UninstallWattAccelerator {
+            get {
+                return ResourceManager.GetString("GameAccelerator_UninstallWattAccelerator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Watt加速器安装位置 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_WattAcceleratorInstallPath {
+            get {
+                return ResourceManager.GetString("GameAccelerator_WattAcceleratorInstallPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 添加新账号 的本地化字符串。
         /// </summary>
         public static string GameAccount_AddNewAccount {
