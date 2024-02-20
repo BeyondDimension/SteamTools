@@ -1,5 +1,4 @@
-using Avalonia.Controls;
-using BD.Common.Columns;
+using SJsonSerializer = System.Text.Json.JsonSerializer;
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
 
@@ -73,7 +72,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
 
             var text = await File.ReadAllTextAsync(filePath);
 
-            var sdaFileModel = JsonSerializer.Deserialize(text, ImportFileModelJsonContext.Default.SdaFileModel);
+            var sdaFileModel = SJsonSerializer.Deserialize(text, ImportFileModelJsonContext.Default.SdaFileModel);
             sdaFileModel.ThrowIsNull();
             var steamDataModel = new SdaFileConvertToSteamDataModel(sdaFileModel);
 
@@ -82,7 +81,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                 DeviceId = sdaFileModel.DeviceId,
                 Serial = sdaFileModel.SerialNumber,
                 SecretKey = Convert.FromBase64String(sdaFileModel.SharedSecret),
-                SteamData = JsonSerializer.Serialize(steamDataModel, ImportFileModelJsonContext.Default.SdaFileConvertToSteamDataModel),
+                SteamData = SJsonSerializer.Serialize(steamDataModel, ImportFileModelJsonContext.Default.SdaFileConvertToSteamDataModel),
             };
 
             var authDto =

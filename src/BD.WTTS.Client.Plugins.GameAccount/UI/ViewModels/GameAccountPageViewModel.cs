@@ -1,4 +1,5 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
+using SJsonSerializer = System.Text.Json.JsonSerializer;
 using Avalonia.Platform;
 using BD.WTTS.UI.Views.Pages;
 
@@ -69,7 +70,7 @@ public sealed partial class GameAccountPageViewModel
             var stream = AssetLoader.Open(PlatformsPath);
             if (stream == null) return null;
 
-            var platforms = JsonSerializer.Deserialize<PlatformAccount[]>(stream);
+            var platforms = SJsonSerializer.Deserialize<PlatformAccount[]>(stream);
             if (platforms == null) return null;
 
             foreach (var platform in platforms)
