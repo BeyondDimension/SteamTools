@@ -8,4 +8,5 @@ namespace BD.WTTS.Services;
 //[IpcPublic(Timeout = AssemblyInfo.IpcTimeout, IgnoresIpcException = false)]
 public partial interface IAcceleratorService
 {
+    void InitStateSubscribe();
 }

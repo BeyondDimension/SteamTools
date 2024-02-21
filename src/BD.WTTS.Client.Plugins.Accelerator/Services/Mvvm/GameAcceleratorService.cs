@@ -106,6 +106,8 @@ public sealed partial class GameAcceleratorService
                 }
             });
 
+        Ioc.Get<IAcceleratorService>().InitStateSubscribe(); // 仅旧项目（WattToolkit）上监听
+
         RefreshAllGames();
         LoadGames();
         DeleteMyGameCommand = ReactiveCommand.Create<XunYouGameViewModel>(DeleteMyGame);
