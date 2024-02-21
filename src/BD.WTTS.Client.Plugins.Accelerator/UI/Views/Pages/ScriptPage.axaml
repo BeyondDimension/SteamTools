@@ -155,13 +155,16 @@
                             </MultiBinding>
                         </spp:AppItem.Tags>
                         <spp:AppItem.ActionButton>
-                            <StackPanel Orientation="Horizontal" Spacing="8">
+                            <StackPanel
+                                Margin="0,0,3,0"
+                                Orientation="Horizontal"
+                                Spacing="5">
                                 <Button
                                     Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).EditScriptItemCommand}"
                                     CommandParameter="{Binding}"
                                     Theme="{DynamicResource TransparentButton}"
                                     ToolTip.Tip="{Binding Path=Res.Script_Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                    <Viewbox Width="20" Height="20">
+                                    <Viewbox Width="16" Height="16">
                                         <ui:SymbolIcon Symbol="CodeHTML" />
                                     </Viewbox>
                                 </Button>
@@ -170,8 +173,25 @@
                                     CommandParameter="{Binding}"
                                     Theme="{DynamicResource TransparentButton}"
                                     ToolTip.Tip="{Binding Path=Res.Script_Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                    <Viewbox Width="20" Height="20">
+                                    <Viewbox Width="16" Height="16">
                                         <ui:SymbolIcon Symbol="Refresh" />
+                                    </Viewbox>
+                                </Button>
+                                <Button
+                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DownloadScriptItemCommand}"
+                                    CommandParameter="{Binding}"
+                                    Theme="{DynamicResource TransparentButton}">
+                                    <ToolTip.Tip>
+                                        <MultiBinding StringFormat="{}{0} v{1}">
+                                            <CompiledBinding
+                                                Mode="OneWay"
+                                                Path="Res.Script_Update"
+                                                Source="{x:Static s:ResourceService.Current}" />
+                                            <CompiledBinding Mode="OneWay" Path="NewVersion" />
+                                        </MultiBinding>
+                                    </ToolTip.Tip>
+                                    <Viewbox Width="16" Height="16">
+                                        <ui:SymbolIcon Symbol="Download" />
                                     </Viewbox>
                                 </Button>
                             </StackPanel>
