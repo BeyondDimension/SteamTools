@@ -8,7 +8,8 @@ namespace BD.WTTS.Entities;
 [DebuggerDisplay("{DebuggerDisplay(),nq}")]
 public sealed class Script : IEntity<int>
 {
-    public const string TableName = "1B2D820C";
+    //TableName = ScriptV2
+    public const string TableName = "CAEC0F80";
     public const string ColumnName_Id = "E386BC36";
     public const string ColumnName_Enable = "6DB11594";
     public const string ColumnName_CachePath = "997C6B59";
