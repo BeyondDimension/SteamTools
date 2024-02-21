@@ -481,7 +481,14 @@ public class SettingsProperty<TKey, TValue,
 
         foreach (var item in items)
         {
-            if (!value.TryAdd(item.Key, item.Value))
+            try
+            {
+                if (!value.TryAdd(item.Key, item.Value))
+                {
+                    value[item.Key] = item.Value;
+                }
+            }
+            catch
             {
                 value[item.Key] = item.Value;
             }

@@ -91,13 +91,42 @@ public static partial class GlobalDllImportResolver
     }
 
     static readonly ConcurrentDictionary<string, string> pairs = new();
+    static readonly ConcurrentDictionary<string, nint> loadNativeLibrarys = new();
+
+    static bool TryLoad(string libraryPath, out nint handle)
+    {
+        if (loadNativeLibrarys.TryGetValue(libraryPath, out handle))
+        {
+            return true;
+        }
+        if (NativeLibrary.TryLoad(libraryPath, out handle))
+        {
+            loadNativeLibrarys.TryAdd(libraryPath, handle);
+            return true;
+        }
+        return false;
+    }
+
+    static bool TryLoad(string libraryPath, Assembly assembly, DllImportSearchPath? searchPath, out nint handle)
+    {
+        if (loadNativeLibrarys.TryGetValue(libraryPath, out handle))
+        {
+            return true;
+        }
+        if (NativeLibrary.TryLoad(libraryPath, assembly, searchPath, out handle))
+        {
+            loadNativeLibrarys.TryAdd(libraryPath, handle);
+            return true;
+        }
+        return false;
+    }
 
     public static nint Delegate(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
     {
         libraryName = libraryName.TrimEnd(fileExtension_, StringComparison.OrdinalIgnoreCase);
 
         if (pairs.TryGetValue(libraryName, out var libraryPath) &&
-            NativeLibrary.TryLoad(libraryPath, out var handle))
+            TryLoad(libraryPath, out var handle))
         {
             return handle;
         }
@@ -118,7 +147,7 @@ public static partial class GlobalDllImportResolver
         {
             var libraryFileName = GetLibraryFileName(libraryName);
             libraryPath = GetLibraryPath(libraryFileName);
-            if (File.Exists(libraryPath) && NativeLibrary.TryLoad(libraryPath, out handle))
+            if (File.Exists(libraryPath) && TryLoad(libraryPath, out handle))
             {
                 pairs[libraryName] = libraryPath;
                 return handle;
@@ -128,7 +157,7 @@ public static partial class GlobalDllImportResolver
             {
                 libraryFileName = $"lib{libraryFileName}";
                 libraryPath = GetLibraryPath(libraryFileName);
-                if (File.Exists(libraryPath) && NativeLibrary.TryLoad(libraryPath, out handle))
+                if (File.Exists(libraryPath) && TryLoad(libraryPath, out handle))
                 {
                     pairs[libraryName] = libraryPath;
                     return handle;
@@ -150,7 +179,7 @@ public static partial class GlobalDllImportResolver
 
         // Otherwise, fallback to default import resolver.
 
-        return NativeLibrary.Load(libraryName, assembly, searchPath);
+        return TryLoad(libraryName, assembly, searchPath, out var handle2) ? handle2 : default;
     }
 
 #if DEBUG
