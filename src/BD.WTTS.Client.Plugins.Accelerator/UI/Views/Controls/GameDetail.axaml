@@ -116,6 +116,7 @@
                             Margin="0,10"
                             VerticalAlignment="Center"
                             ColumnDefinitions="Auto,30,Auto"
+                            IsVisible="{Binding IsAccelerated}"
                             RowDefinitions="*,Auto">
                             <TextBlock VerticalAlignment="Bottom" Foreground="White">
                                 <Run FontSize="32" Text="{Binding PingValue}" />

@@ -263,22 +263,6 @@ public sealed partial class GameAcceleratorService
                     Current.Games.AddOrUpdate(app);
                 }
 
-                //var progress = new Progress<int>();
-                //progress.ProgressChanged += (sender, e) =>
-                //{
-                //    Debug.WriteLine($"安装迅游进度：{e} （InstallAsync）");
-                //    if (e < 100)
-                //    {
-                //        app.AcceleratingProgress = e;
-                //    }
-                //    else
-                //    {
-                //        app.AcceleratingProgress = e;
-                //    }
-                //};
-
-                //var startCode = await XunYouSDK.StartEx2Async(UserService.Current.User.WattOpenId, UserService.Current.User.NickName, app.Id, app.SelectedArea.Id, progress, GameAcceleratorSettings.WattAcceleratorDirPath.Value!, app.SelectedArea.Name);
-
                 var start = isStartXY ? await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name)
                     : await Ioc.Get<IAcceleratorService>().XY_StartEx2(UserService.Current.User.WattOpenId, UserService.Current.User.NickName, app.Id, app.SelectedArea.Id, app.SelectedArea.Name);
                 if (start.HandleUI(out var startCode))

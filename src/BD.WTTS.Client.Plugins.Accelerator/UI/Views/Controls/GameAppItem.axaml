@@ -264,7 +264,7 @@
                     Margin="10,5"
                     Command="{Binding $parent[spp:GameAppItem].ButtonCommand}"
                     CommandParameter="{Binding}"
-                    IsVisible="{Binding !IsAccelerating}">
+                    IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!CurrentAcceleratorGame.IsAccelerating}">
                     <Button.Content>
                         <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                             <CompiledBinding Mode="OneWay" Path="IsAccelerated" />

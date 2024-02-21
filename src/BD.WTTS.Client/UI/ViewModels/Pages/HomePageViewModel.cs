@@ -60,11 +60,7 @@ public sealed class HomePageViewModel : TabItemViewModel
             var result2 = await Instance.Shop.RecommendGoods();
             if (result2.IsSuccess && result2.Content != null)
             {
-                //Shops.Clear();
-                //var data = result2.Content
-                //    .Select((v, i) => new { v, i })
-                //    .GroupBy(x => x.i / 4)
-                //    .Select(g => g.Select(x => x.v).ToList());
+                Shops.Clear();
                 Shops.Add(result2.Content);
             }
 
