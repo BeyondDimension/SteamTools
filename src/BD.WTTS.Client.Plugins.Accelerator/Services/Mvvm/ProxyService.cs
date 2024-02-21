@@ -442,6 +442,8 @@ public sealed partial class ProxyService
 
         //拉取 GM.js
         await BasicsInfoAsync();
+        //初始化后检查脚本更新
+        CheckScriptUpdate();
     }
 
     /// <summary>
