@@ -12,6 +12,7 @@ partial class AppPublishFileInfo
     }
 
     [MP2Ignore]
-    [JsonIgnore]
+    [Newtonsoft.Json.JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
     public FileInfo? FileInfo { get; set; }
 }
