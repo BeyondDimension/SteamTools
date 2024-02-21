@@ -39,7 +39,8 @@ public sealed partial class GameAcceleratorSettings_ : ISettings, ISettings<Game
     [MP2Key(1), JsonPropertyOrder(1)]
     public string WattAcceleratorDirPath { get; set; } = DefaultWattAcceleratorDirPath;
 
-    public static readonly string DefaultWattAcceleratorDirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "WattAccelerator");
+    public static readonly string DefaultWattAcceleratorDirPath = OperatingSystem.IsWindows() ?
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "WattAccelerator") : string.Empty;
 
 }
 

@@ -237,5 +237,6 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
     {
         yield return GetConfiguration<ProxySettings_>(directoryExists);
+        yield return GetConfiguration<GameAcceleratorSettings_>(directoryExists);
     }
 }
