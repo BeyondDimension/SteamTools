@@ -84,7 +84,7 @@
                     Grid.ColumnSpan="2"
                     Stretch="UniformToFill">
                     <spp:Image2
-                        DecodeWidth="300"
+                        DecodeWidth="600"
                         FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/defaultappimage.png"
                         Source="{Binding PicUrl}"
                         Stretch="UniformToFill" />
@@ -96,7 +96,7 @@
                     Margin="10,0,50,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    DecodeWidth="100"
+                    DecodeWidth="250"
                     Source="{Binding LogoUrl}"
                     Stretch="Uniform" />
 

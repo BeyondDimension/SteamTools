@@ -34,18 +34,18 @@
                         Stretch="UniformToFill">
                         <spp:Image2
                             Classes="Scale"
-                            DecodeWidth="240"
-                            FallbackSource="avares://Accelerator.Frontend/Assets/defaultappimage.png"
+                            DecodeWidth="800"
+                            FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/defaultappimage.png"
                             Source="{Binding PicUrl}" />
                     </Viewbox>
 
                     <spp:Image2
                         Grid.RowSpan="2"
                         Grid.ColumnSpan="2"
-                        Margin="300,0,10,0"
+                        Margin="400,0,10,0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
-                        DecodeWidth="100"
+                        DecodeWidth="400"
                         Source="{Binding LogoUrl}"
                         Stretch="Uniform" />
 
@@ -125,7 +125,7 @@
                                 Grid.Row="1"
                                 Grid.ColumnSpan="2"
                                 VerticalAlignment="Bottom"
-                                Foreground="#CC8C8FA8"
+                                Foreground="#EE8C8FA8"
                                 Text="延迟" />
                             <TextBlock
                                 Grid.Column="3"
@@ -139,7 +139,7 @@
                                 Grid.Column="3"
                                 Grid.ColumnSpan="2"
                                 VerticalAlignment="Bottom"
-                                Foreground="#CC8C8FA8"
+                                Foreground="#EE8C8FA8"
                                 Text="丢包率" />
                             <!--<TextBlock
                                 Margin="20,0,0,0"
