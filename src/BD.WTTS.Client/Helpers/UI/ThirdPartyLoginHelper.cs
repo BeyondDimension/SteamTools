@@ -223,7 +223,7 @@ public static class ThirdPartyLoginHelper
         //var version = csc.Settings.AppVersionStr;
         var ver = AssemblyInfo.Version.Base64UrlEncode();
         var qs = HttpUtility.ParseQueryString("");
-        qs.Add("port", "0");
+        qs.Add("port", port.ToString());
         qs.Add("sKeyHex", skey_str);
         qs.Add("sKeyPadding", padding.OaepHashAlgorithm.ToString());
         qs.Add("ver", ver);
@@ -233,7 +233,8 @@ public static class ThirdPartyLoginHelper
         qs.Add("dg", DeviceIdHelper.DeviceIdG.ToStringN());
         qs.Add("dr", DeviceIdHelper.DeviceIdR);
         qs.Add("dn", DeviceIdHelper.DeviceIdN);
-        qs.Add("isUS", "true");
+        if (OperatingSystem.IsMacOS())
+            qs.Add("isUS", "true");
         var ub = new UriBuilder(apiBaseUrl)
         {
             Path = $"/identity/v1/externallogin/{(int)channel}",
