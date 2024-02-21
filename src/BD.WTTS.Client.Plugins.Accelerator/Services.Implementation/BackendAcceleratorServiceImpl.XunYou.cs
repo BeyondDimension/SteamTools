@@ -38,8 +38,9 @@ partial class BackendAcceleratorServiceImpl
         try
         {
             // 通知前端
-            var ipc = Ioc.Get<IPCSubProcessService>();
-            var accelStateToFrontendCallback = ipc.GetService<IXunYouAccelStateToFrontendCallback>();
+            //var ipc = Ioc.Get<IPCSubProcessService>();
+            //var accelStateToFrontendCallback = ipc.GetService<IXunYouAccelStateToFrontendCallback>();
+            var accelStateToFrontendCallback = Ioc.Get<IXunYouAccelStateToFrontendCallback>();
             accelStateToFrontendCallback.ThrowIsNull(nameof(accelStateToFrontendCallback)).XunYouAccelStateToFrontendCallback(m);
             //await Plugin.IpcServer.HubContext.Clients.All.SendAsync(nameof(XunYouAccelStateModel), m);
         }

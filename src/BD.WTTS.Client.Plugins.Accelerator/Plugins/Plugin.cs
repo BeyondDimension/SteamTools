@@ -52,7 +52,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new();
     readonly TaskCompletionSource<ICertificateManager> certificateManager = new();
-    readonly TaskCompletionSource<IAcceleratorService> acceleratorService = new();
+    //readonly TaskCompletionSource<IAcceleratorService> acceleratorService = new();
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {
@@ -66,13 +66,14 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             services.AddSingleton(_ => certificateManager.Task.GetAwaiter().GetResult());
 #endif
         }
-        if (startup.HasIPCRoot)
+        //if (startup.HasIPCRoot)
+        //{
+        //    services.AddSingleton<IAcceleratorService, BackendAcceleratorServiceImpl>();
+        //}
+        //else if (startup.IsMainProcess)
         {
+            //services.AddSingleton(_ => acceleratorService.Task.GetAwaiter().GetResult());
             services.AddSingleton<IAcceleratorService, BackendAcceleratorServiceImpl>();
-        }
-        else if (startup.IsMainProcess)
-        {
-            services.AddSingleton(_ => acceleratorService.Task.GetAwaiter().GetResult());
             services.AddSingleton<IXunYouAccelStateToFrontendCallback, XunYouAccelStateToFrontendCallbackImpl>();
         }
 
@@ -100,14 +101,14 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override void ConfigureServices(IpcProvider ipcProvider, Startup startup)
     {
-        if (startup.HasIPCRoot)
-        {
-            ipcProvider.CreateIpcJoint(Ioc.Get<IAcceleratorService>());
-        }
-        else if (startup.IsMainProcess)
-        {
-            ipcProvider.CreateIpcJoint(Ioc.Get<IXunYouAccelStateToFrontendCallback>());
-        }
+        //if (startup.HasIPCRoot)
+        //{
+        //    ipcProvider.CreateIpcJoint(Ioc.Get<IAcceleratorService>());
+        //}
+        //else if (startup.IsMainProcess)
+        //{
+        //    ipcProvider.CreateIpcJoint(Ioc.Get<IXunYouAccelStateToFrontendCallback>());
+        //}
     }
 
     public override async ValueTask OnInitializeAsync()
@@ -133,7 +134,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             // 从子进程中获取 IPC 远程服务
             await GetIpcRemoteServiceAsync(moduleName, ipc, reverseProxyService);
             await GetIpcRemoteServiceAsync(moduleName, ipc, certificateManager);
-            await GetIpcRemoteServiceAsync(IPlatformService.IPCRoot.moduleName, ipc, acceleratorService);
+            //await GetIpcRemoteServiceAsync(IPlatformService.IPCRoot.moduleName, ipc, acceleratorService);
 #if DEBUG
             //try
             //{
