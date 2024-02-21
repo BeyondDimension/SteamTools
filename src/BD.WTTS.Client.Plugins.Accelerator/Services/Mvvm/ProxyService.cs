@@ -12,7 +12,7 @@ public sealed partial class ProxyService
 {
     static ProxyService? mCurrent;
 
-    public static ProxyService Current => mCurrent ?? new();
+    public static ProxyService Current => mCurrent ??= new();
 
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
     readonly IScriptManager scriptManager = IScriptManager.Instance;
@@ -21,8 +21,6 @@ public sealed partial class ProxyService
 
     ProxyService()
     {
-        mCurrent = this;
-
         ProxyDomains = new SourceCache<AccelerateProjectGroupDTO, string>(s => s.Name);
         ProxyScripts = new SourceList<ScriptDTO>();
 

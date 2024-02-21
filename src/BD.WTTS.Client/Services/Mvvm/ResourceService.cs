@@ -7,12 +7,7 @@ public sealed class ResourceService : ReactiveObject
 {
     static ResourceService? mCurrent;
 
-    public static ResourceService Current => mCurrent ?? new();
-
-    public ResourceService()
-    {
-        mCurrent = this;
-    }
+    public static ResourceService Current => mCurrent ??= new();
 
     public static readonly IReadOnlyDictionary<string, string> Languages;
     public static readonly IReadOnlyDictionary<string, string> SteamLanguages;

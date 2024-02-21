@@ -12,7 +12,7 @@ public sealed partial class GameAcceleratorService
 {
     static GameAcceleratorService? mCurrent;
 
-    public static GameAcceleratorService Current => mCurrent ?? new();
+    public static GameAcceleratorService Current => mCurrent ??= new();
 
     public SourceCache<XunYouGameViewModel, int> Games { get; }
 

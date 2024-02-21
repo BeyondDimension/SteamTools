@@ -8,7 +8,7 @@ public sealed class NoticeService : ReactiveObject
 {
     static NoticeService? mCurrent;
 
-    public static NoticeService Current => mCurrent ?? new();
+    public static NoticeService Current => mCurrent ??= new();
 
     //readonly INotificationRepository notificationRepo = Ioc.Get<INotificationRepository>();
 
@@ -25,7 +25,6 @@ public sealed class NoticeService : ReactiveObject
 
     public NoticeService()
     {
-        mCurrent = this;
         Notices = new ObservableCollection<OfficialMessageItemDTO>();
         //NoticesSource = new(x => x.Id);
         //NoticeTypes = new();
