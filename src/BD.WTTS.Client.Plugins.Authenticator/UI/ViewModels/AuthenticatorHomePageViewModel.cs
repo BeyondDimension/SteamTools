@@ -142,6 +142,10 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
             });
             //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
         }
+        else
+        {
+            IsVerificationPass = true;
+        }
 
         IsLoading = false;
     }
