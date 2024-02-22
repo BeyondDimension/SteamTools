@@ -130,7 +130,7 @@ public sealed partial class GameAcceleratorService
         RefreshAllGames();
         LoadGames();
         DeleteMyGameCommand = ReactiveCommand.Create<XunYouGameViewModel>(DeleteMyGame);
-        GameAcceleratorCommand = ReactiveCommand.Create<XunYouGameViewModel>(GameAccelerator);
+        GameAcceleratorCommand = ReactiveCommand.CreateFromTask<XunYouGameViewModel>(GameAccelerator);
         InstallAcceleratorCommand = ReactiveCommand.Create(InstallAccelerator);
         UninstallAcceleratorCommand = ReactiveCommand.Create(UninstallAccelerator);
         AcceleratorChangeAreaCommand = ReactiveCommand.Create<XunYouGameViewModel>(AcceleratorChangeArea);
@@ -211,16 +211,18 @@ public sealed partial class GameAcceleratorService
 #endif
     }
 
-    public async void GameAccelerator(XunYouGameViewModel app)
+    public async Task GameAccelerator(XunYouGameViewModel app)
     {
         if (app.IsAccelerating)
             return;
 
+        app.IsAccelerating = true;
         if (!app.IsAccelerated)
         {
             if (UserService.Current.User?.WattOpenId == null)
             {
                 Toast.Show(ToastIcon.Warning, "需要登录账号才能使用游戏加速功能!");
+                app.IsAccelerating = false;
                 return;
             }
             var xunYouIsInstall = await Ioc.Get<IAcceleratorService>().XY_IsInstall();
@@ -231,6 +233,7 @@ public sealed partial class GameAcceleratorService
                     if (!await IWindowManager.Instance.ShowTaskDialogAsync(
                                    new MessageBoxWindowViewModel() { Content = "需要下载 Watt 加速器插件才可使用，确定要下载吗?" }, title: "未安装加速插件", isCancelButton: true))
                     {
+                        app.IsAccelerating = false;
                         return;
                     }
 
@@ -259,6 +262,7 @@ public sealed partial class GameAcceleratorService
                 if (!apiRspIsRunning.HandleUI(out var isRunningCode))
                 {
                     // 调用后端失败，显示错误并中止逻辑
+                    app.IsAccelerating = false;
                     return;
                 }
 
@@ -267,10 +271,12 @@ public sealed partial class GameAcceleratorService
                 #endregion
 
                 //加速中
+
                 var gameInfo = XunYouSDK.GetGameInfo(app.Id);
                 if (gameInfo == null)
                 {
                     Toast.Show(ToastIcon.Warning, "获取游戏信息失败");
+                    app.IsAccelerating = false;
                     return;
                 }
                 app.GameInfo = gameInfo;
@@ -278,10 +284,9 @@ public sealed partial class GameAcceleratorService
                 var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
                 if (!result || app.SelectedArea == null)
                 {
+                    app.IsAccelerating = false;
                     return;
                 }
-
-                app.IsAccelerating = true;
 
                 if (!GameAcceleratorSettings.MyGames.ContainsKey(app.Id))
                 {
@@ -319,7 +324,6 @@ public sealed partial class GameAcceleratorService
                 // 停止加速
                 if (code == XunYouSendResultCode.发送成功)
                 {
-                    app.IsAccelerating = true;
                     Toast.Show(ToastIcon.Info, "正在停止加速中...");
                     //CurrentAcceleratorGame = null;
                     //app.PingValue = 0;
@@ -327,6 +331,7 @@ public sealed partial class GameAcceleratorService
                 }
                 else
                 {
+                    app.IsAccelerating = false;
                     Toast.Show(ToastIcon.Error, "停止加速失败，请尝试去加速器客户端停止加速");
                 }
             }
