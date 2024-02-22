@@ -35,6 +35,9 @@ partial class BackendAcceleratorServiceImpl
     /*async*/
     void XunYouAccelStateToFrontendCallback(XunYouAccelStateModel m)
     {
+        if (disposedValue)
+            return;
+
         try
         {
             // 通知前端
