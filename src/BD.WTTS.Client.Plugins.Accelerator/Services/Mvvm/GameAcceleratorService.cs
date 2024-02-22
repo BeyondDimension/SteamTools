@@ -43,6 +43,8 @@ public sealed partial class GameAcceleratorService
 
     GameAcceleratorService()
     {
+        mCurrent = this;
+
         Games = new(t => t.Id);
 
         this.WhenPropertyChanged(x => x.XYAccelState, false)
@@ -321,6 +323,7 @@ public sealed partial class GameAcceleratorService
     public static void AdddMyGame(XunYouGameViewModel app)
     {
         app.LastAccelerateTime = DateTimeOffset.Now;
+        GameAcceleratorSettings.MyGames.Remove(app.Id);
         if (GameAcceleratorSettings.MyGames.TryAdd(app.Id, app))
         {
             Current.Games.AddOrUpdate(app);
@@ -502,11 +505,15 @@ public sealed partial class GameAcceleratorService
             return;
         }
         app.GameInfo = gameInfo;
+        var backupArea = app.SelectedArea;
+        var backupServer = app.SelectedServer;
         var vm = new GameInfoPageViewModel(app);
         var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
         if (!result || app.SelectedArea == null)
         {
             app.IsAccelerating = false;
+            app.SelectedServer = backupServer;
+            app.SelectedArea = backupArea;
             return;
         }
 
@@ -521,7 +528,6 @@ public sealed partial class GameAcceleratorService
             //            tcs.TrySetResult();
             //        }
             //    });
-
             //// 停止加速
             //var stopRequest = await Ioc.Get<IAcceleratorService>().XY_StopAccel();
             //if (stopRequest.HandleUI(out var code))

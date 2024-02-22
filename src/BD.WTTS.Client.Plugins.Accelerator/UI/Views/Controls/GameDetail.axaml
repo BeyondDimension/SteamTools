@@ -35,7 +35,7 @@
                         <spp:Image2
                             Classes="Scale"
                             DecodeWidth="800"
-                            FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/defaultappimage.png"
+                            FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/defaultBackground.png"
                             Source="{Binding PicUrl}" />
                     </Viewbox>
 

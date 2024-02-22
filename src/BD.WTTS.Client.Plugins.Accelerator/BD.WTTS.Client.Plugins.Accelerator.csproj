@@ -10,11 +10,13 @@
 
 	<ItemGroup>
 		<None Remove="UI\Assets\accelerator.ico" />
+		<None Remove="UI\Assets\defaultBackground.png" />
 		<None Remove="UI\Assets\script.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<AvaloniaResource Include="UI\Assets\accelerator.ico" />
+		<AvaloniaResource Include="UI\Assets\defaultBackground.png" />
 		<AvaloniaResource Include="UI\Assets\script.ico" />
 	</ItemGroup>
 	

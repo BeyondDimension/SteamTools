@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -24,6 +25,18 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                         AcceleratorTabs.SelectedIndex = x.Value ? 2 : 1;
                     }));
         });
+
+        SearchGameBox.SelectionChanged += SearchGameBox_SelectionChanged;
+    }
+
+    private void SearchGameBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (SearchGameBox.SelectedItem is XunYouGame xunYouGame && xunYouGame is not null)
+        {
+            GameAcceleratorService.AdddMyGame(xunYouGame);
+            SearchGameBox.Text = null;
+            GameScrollViewer.ScrollToHome();
+        }
     }
 
     /// <inheritdoc/>

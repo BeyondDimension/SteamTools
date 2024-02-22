@@ -85,7 +85,7 @@
                     Stretch="UniformToFill">
                     <spp:Image2
                         DecodeWidth="600"
-                        FallbackSource="avares://BD.WTTS.Client.Avalonia/UI/Assets/defaultappimage.png"
+                        FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/defaultBackground.png"
                         Source="{Binding PicUrl}"
                         Stretch="UniformToFill" />
                 </Viewbox>

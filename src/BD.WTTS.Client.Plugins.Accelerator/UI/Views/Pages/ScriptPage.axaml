@@ -180,6 +180,7 @@
                                 <Button
                                     Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DownloadScriptItemCommand}"
                                     CommandParameter="{Binding}"
+                                    IsVisible="{Binding IsUpdate}"
                                     Theme="{DynamicResource TransparentButton}">
                                     <ToolTip.Tip>
                                         <MultiBinding StringFormat="{}{0} v{1}">
@@ -190,9 +191,16 @@
                                             <CompiledBinding Mode="OneWay" Path="NewVersion" />
                                         </MultiBinding>
                                     </ToolTip.Tip>
-                                    <Viewbox Width="16" Height="16">
-                                        <ui:SymbolIcon Symbol="Download" />
-                                    </Viewbox>
+                                    <StackPanel Orientation="Horizontal" Spacing="3">
+                                        <Ellipse
+                                            Width="6"
+                                            Height="6"
+                                            Fill="#47A42B" />
+                                        <Viewbox Width="16" Height="16">
+                                            <ui:SymbolIcon Symbol="Download" />
+                                        </Viewbox>
+                                        <TextBlock FontSize="6" Text="{Binding NewVersion}" />
+                                    </StackPanel>
                                 </Button>
                             </StackPanel>
                         </spp:AppItem.ActionButton>
