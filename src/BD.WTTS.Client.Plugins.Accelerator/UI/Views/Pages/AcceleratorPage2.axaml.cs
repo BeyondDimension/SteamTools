@@ -35,6 +35,7 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
         {
             GameAcceleratorService.AdddMyGame(xunYouGame);
             SearchGameBox.Text = null;
+            SearchGameBox.SelectedItem = null;
             GameScrollViewer.ScrollToHome();
         }
     }

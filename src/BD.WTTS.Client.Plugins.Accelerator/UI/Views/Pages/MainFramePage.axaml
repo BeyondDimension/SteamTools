@@ -35,11 +35,11 @@
                     <x:Type TypeName="spp:AcceleratorPage2" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="{Binding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <!--<TabStripItem Content="{Binding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:AcceleratorPage" />
                 </TabStripItem.Tag>
-            </TabStripItem>
+            </TabStripItem>-->
             <TabStripItem Content="{Binding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:ScriptPage" />

@@ -197,33 +197,6 @@
     </spp:PageBase.ActionContent>
     <spp:PageBase.PaneContent>
         <StackPanel Margin="15,20" Spacing="10">
-            <TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
-
-            <ui:SettingsExpander Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value, Mode=OneWay}}" IsExpanded="True">
-                <ui:SettingsExpander.IconSource>
-                    <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
-                </ui:SettingsExpander.IconSource>
-                <StackPanel
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal"
-                    Spacing="5">
-                    <Button Content="打开文件夹" />
-                    <Button Content="选择路径" />
-                </StackPanel>
-
-            </ui:SettingsExpander>
-
-            <Separator Margin="0,8" Classes="Horizontal" />
-
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                Content="{x:Static spp:Strings.GameAccelerator_InstallWattAccelerator}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding UninstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
-
             <TextBlock Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <TabStrip
@@ -241,16 +214,9 @@
                 </TabStrip.ItemTemplate>
             </TabStrip>
 
-            <TextBlock Text="{x:Static spp:Strings.CommunityFix_MenuName}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
             <DockPanel>
-                <ToggleSwitch
-                    VerticalAlignment="Center"
-                    Classes="NoContent"
-                    IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}"
-                    OffContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}"
-                    OnContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
+                <TextBlock Text="{x:Static spp:Strings.CommunityFix_MenuName}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
-                <!--<WrapPanel>-->
                 <TextBlock
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
@@ -269,15 +235,15 @@
                         </Style>
                     </TextBlock.Styles>
                 </TextBlock>
-                <!--<Button
-						VerticalAlignment="Center"
-						Command="{Binding Source={x:Static s:ProxyService.Current}, Path=RefreshIpv6Support, Mode=OneWay}"
-						Theme="{StaticResource TransparentButton}"
-						ToolTip.Tip="{x:Static spp:Strings.Refresh}">
-						<ui:SymbolIcon Symbol="Refresh" />
-					</Button>
-				</WrapPanel>-->
             </DockPanel>
+
+            <ToggleSwitch
+                VerticalAlignment="Center"
+                Classes="NoContent"
+                IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}"
+                OffContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}"
+                OnContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
+
             <ToggleSwitch
                 VerticalAlignment="Center"
                 Classes="NoContent"
@@ -352,6 +318,32 @@
                 </ui:FAComboBox.ItemTemplate>
             </ui:FAComboBox>-->
 
+            <Separator Margin="0,8" Classes="Horizontal" />
+
+            <TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+            <ui:SettingsExpander Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value, Mode=OneWay}}" IsExpanded="True">
+                <ui:SettingsExpander.IconSource>
+                    <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
+                </ui:SettingsExpander.IconSource>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <Button Content="打开文件夹" />
+                    <Button Content="选择路径" />
+                </StackPanel>
+
+            </ui:SettingsExpander>
+
+            <Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                Content="{x:Static spp:Strings.GameAccelerator_InstallWattAccelerator}" />
+            <Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding UninstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
         </StackPanel>
     </spp:PageBase.PaneContent>
     <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">

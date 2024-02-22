@@ -1,5 +1,6 @@
 // ReSharper disable once CheckNamespace
 using Avalonia.Threading;
+using BD.Common.Models;
 using BD.WTTS.UI.Views.Pages;
 using FluentAvalonia.UI.Controls;
 
@@ -55,6 +56,22 @@ public sealed partial class GameAcceleratorService
 
                 switch (x.Value.State)
                 {
+                    case XunYouState.加速中:
+                        if (x.Value.GameId != 0 && CurrentAcceleratorGame == null)
+                        {
+                            var game = AllGames?.FirstOrDefault(s => s.Id == x.Value.GameId);
+                            if (game != null)
+                            {
+                                var cApp = new XunYouGameViewModel(game)
+                                {
+                                    IsAccelerated = false,
+                                    LastAccelerateTime = DateTimeOffset.Now,
+                                    IsAccelerating = true,
+                                };
+                                CurrentAcceleratorGame = cApp;
+                            }
+                        }
+                        break;
                     case XunYouState.加速已完成:
                         if (x.Value.GameId != 0)
                         {
@@ -71,6 +88,7 @@ public sealed partial class GameAcceleratorService
                         break;
                     case XunYouState.未加速:
                     case XunYouState.停止加速中:
+                    case XunYouState.加速已断开:
                         //先停止测速
                         XunYouSDK.StopTestSpeded();
 
@@ -85,7 +103,6 @@ public sealed partial class GameAcceleratorService
                             CurrentAcceleratorGame = null;
                         }
                         break;
-                    case XunYouState.加速中:
                     case XunYouState.登录中:
                     case XunYouState.登录失败:
                     case XunYouState.登录成功:
@@ -136,11 +153,18 @@ public sealed partial class GameAcceleratorService
     /// </summary>
     private void SetGameStatus(XunYouGameViewModel game, int areaId = 0, int serverId = 0)
     {
-        if (CurrentAcceleratorGame != null)
+        if (CurrentAcceleratorGame != null && CurrentAcceleratorGame.Id == game.Id)
         {
             CurrentAcceleratorGame.IsAccelerating = false;
             CurrentAcceleratorGame.IsAccelerated = true;
             CurrentAcceleratorGame.LastAccelerateTime = DateTimeOffset.Now;
+
+            if (CurrentAcceleratorGame.SelectedArea == null)
+            {
+                var gameInfo = XunYouSDK.GetGameInfo(game.Id);
+                CurrentAcceleratorGame.SelectedArea = gameInfo?.Areas?.FirstOrDefault(s => s.Id == areaId);
+                CurrentAcceleratorGame.SelectedServer = CurrentAcceleratorGame.SelectedArea?.Servers?.FirstOrDefault(s => s.Id == serverId);
+            }
         }
         else
         {
@@ -505,49 +529,19 @@ public sealed partial class GameAcceleratorService
             return;
         }
         app.GameInfo = gameInfo;
-        var backupArea = app.SelectedArea;
-        var backupServer = app.SelectedServer;
-        var vm = new GameInfoPageViewModel(app);
+
+        var vm = new GameInfoPageViewModel(new XunYouGameViewModel { Name = app.Name, GameInfo = gameInfo });
         var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
         if (!result || app.SelectedArea == null)
         {
-            app.IsAccelerating = false;
-            app.SelectedServer = backupServer;
-            app.SelectedArea = backupArea;
             return;
         }
 
+        app.SelectedArea = vm.XunYouGame.SelectedArea;
+        app.SelectedServer = vm.XunYouGame.SelectedServer;
+
         if (app.IsAccelerated)
         {
-            //var tcs = new TaskCompletionSource();
-            //var disposable = app.WhenPropertyChanged(x => x.IsAccelerated, false)
-            //    .Subscribe(x =>
-            //    {
-            //        if (x.Value == false)
-            //        {
-            //            tcs.TrySetResult();
-            //        }
-            //    });
-            //// 停止加速
-            //var stopRequest = await Ioc.Get<IAcceleratorService>().XY_StopAccel();
-            //if (stopRequest.HandleUI(out var code))
-            //{
-            //    if (code == XunYouSendResultCode.发送成功)
-            //    {
-            //        app.IsAccelerating = true;
-
-            //        await tcs.Task;
-
-            //        disposable.Dispose();
-
-            //        Toast.Show(ToastIcon.Info, "正在停止加速中...");
-            //    }
-            //    else
-            //    {
-            //        Toast.Show(ToastIcon.Error, "停止加速失败，请尝试去加速器客户端停止加速");
-            //    }
-            //}
-
             //重新加速
             var start = await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name);
             if (start.HandleUI(out var startCode))
@@ -555,6 +549,7 @@ public sealed partial class GameAcceleratorService
                 if (startCode == 101)
                 {
                     app.IsAccelerating = true;
+                    app.IsAccelerated = false;
                     app.AcceleratingProgress = 0;
                     CurrentAcceleratorGame = app;
                     Toast.Show(ToastIcon.Info, "正在加速中...");

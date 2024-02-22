@@ -126,7 +126,7 @@
                                 Grid.Row="1"
                                 Grid.ColumnSpan="2"
                                 VerticalAlignment="Bottom"
-                                Foreground="#EE8C8FA8"
+                                Foreground="#C5FFFFFF"
                                 Text="延迟" />
                             <TextBlock
                                 Grid.Column="3"
@@ -140,7 +140,7 @@
                                 Grid.Column="3"
                                 Grid.ColumnSpan="2"
                                 VerticalAlignment="Bottom"
-                                Foreground="#EE8C8FA8"
+                                Foreground="#C5FFFFFF"
                                 Text="丢包率" />
                             <!--<TextBlock
                                 Margin="20,0,0,0"
