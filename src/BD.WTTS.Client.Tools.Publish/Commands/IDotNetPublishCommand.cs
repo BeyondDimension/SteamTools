@@ -67,6 +67,86 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
+    const string DllSystemDrawingCommon = "System.Drawing.Common.dll";
+    const string DllMicrosoftWin32SystemEvents = "Microsoft.Win32.SystemEvents.dll";
+    const string DllSystemManagement = "System.Management.dll";
+    const string DllSplatDrawing = "Splat.Drawing.dll";
+    const string DllSystemReactive = "System.Reactive.dll";
+
+    static readonly Lazy<string> nugetPkgPath = new(() =>
+        Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+            ".nuget",
+            "packages"));
+
+    static string GetMatchTfmDir(string dllPath)
+    {
+        var versions = from m in Directory.GetDirectories(dllPath)
+                       let dirName = Path.GetFileName(m)
+                       let ver = Version.TryParse(dirName.TrimStart("net"), out var ver_) ? ver_ : null
+                       where ver != null && ver.Major <= Environment.Version.Major
+                       orderby ver descending
+                       select (ver, m);
+        var path = versions.FirstOrDefault().m;
+        return path;
+    }
+
+    static bool MatchPackageVersion(string dllName, Version ver, FileVersionInfo? fvi = null) => dllName switch
+    {
+        DllSystemDrawingCommon => ver.Major <= Environment.Version.Major,
+        _ => fvi == null || (!Version.TryParse(fvi.FileVersion, out var fVer) || (ver.Major <= fVer.Major)),
+    };
+
+    static void CopyWindowsDlls(string publishDir)
+    {
+        // 修复：存在 Microsoft.WindowsDesktop.App 依赖时不会将 System.Drawing.Common.dll 复制到输出目录
+        string[] copyToDlls = [DllSystemDrawingCommon, DllMicrosoftWin32SystemEvents, DllSystemManagement];
+        foreach (var copyToDll in copyToDlls)
+        {
+            var dllExistsPath = Path.Combine(publishDir, copyToDll);
+            if (!File.Exists(dllExistsPath))
+            {
+                var pkgDir = Path.Combine(nugetPkgPath.Value, copyToDll.TrimEnd(".dll", StringComparison.OrdinalIgnoreCase));
+                var versions = from m in Directory.GetDirectories(pkgDir)
+                               let dirName = Path.GetFileName(m)
+                               let ver = Version.TryParse(dirName, out var ver_) ? ver_ : null
+                               where ver != null && MatchPackageVersion(copyToDll, ver)
+                               orderby ver descending
+                               select (ver, m);
+                var path = versions.FirstOrDefault().m;
+                var dllPath = Path.Combine(path, "lib");
+                dllPath = GetMatchTfmDir(dllPath);
+                dllPath = Path.Combine(dllPath, copyToDll);
+                File.Copy(dllPath, dllExistsPath);
+            }
+        }
+
+        // 修复：Splat.Drawing 包存在 WPF 的依赖项
+        // 修复：System.Reactive 包存在 System.Windows.Forms 的依赖项
+        string[] replaceToDlls = [DllSplatDrawing, DllSystemReactive];
+        foreach (var replaceToDll in replaceToDlls)
+        {
+            var dllExistsPath = Path.Combine(publishDir, replaceToDll);
+            if (File.Exists(dllExistsPath))
+            {
+                var fvi = FileVersionInfo.GetVersionInfo(dllExistsPath);
+                var pkgDir = Path.Combine(nugetPkgPath.Value, replaceToDll.TrimEnd(".dll", StringComparison.OrdinalIgnoreCase));
+                var versions = from m in Directory.GetDirectories(pkgDir)
+                               let dirName = Path.GetFileName(m)
+                               let ver = Version.TryParse(dirName, out var ver_) ? ver_ : null
+                               where ver != null && MatchPackageVersion(replaceToDll, ver, fvi)
+                               orderby ver descending
+                               select (ver, m);
+                var path = versions.FirstOrDefault().m;
+                var dllPath = Path.Combine(path, "lib");
+                dllPath = GetMatchTfmDir(dllPath);
+                dllPath = Path.Combine(dllPath, replaceToDll);
+                File.Delete(dllExistsPath);
+                File.Copy(dllPath, dllExistsPath);
+            }
+        }
+    }
+
     internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign)
     {
         if (ProjectUtils.ProjPath.Contains("actions-runner"))
@@ -230,6 +310,8 @@ interface IDotNetPublishCommand : ICommand
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                     Console.WriteLine("发布成功【AppHost】");
                     ResetConsoleColor();
+
+                    CopyWindowsDlls(publishDir);
                 }
 
                 // 发布插件

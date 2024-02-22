@@ -512,35 +512,35 @@ public sealed partial class GameAcceleratorService
 
         if (app.IsAccelerated)
         {
-            var tcs = new TaskCompletionSource();
-            var disposable = app.WhenPropertyChanged(x => x.IsAccelerated, false)
-                .Subscribe(x =>
-                {
-                    if (x.Value == false)
-                    {
-                        tcs.TrySetResult();
-                    }
-                });
+            //var tcs = new TaskCompletionSource();
+            //var disposable = app.WhenPropertyChanged(x => x.IsAccelerated, false)
+            //    .Subscribe(x =>
+            //    {
+            //        if (x.Value == false)
+            //        {
+            //            tcs.TrySetResult();
+            //        }
+            //    });
 
-            // 停止加速
-            var stopRequest = await Ioc.Get<IAcceleratorService>().XY_StopAccel();
-            if (stopRequest.HandleUI(out var code))
-            {
-                if (code == XunYouSendResultCode.发送成功)
-                {
-                    app.IsAccelerating = true;
+            //// 停止加速
+            //var stopRequest = await Ioc.Get<IAcceleratorService>().XY_StopAccel();
+            //if (stopRequest.HandleUI(out var code))
+            //{
+            //    if (code == XunYouSendResultCode.发送成功)
+            //    {
+            //        app.IsAccelerating = true;
 
-                    await tcs.Task;
+            //        await tcs.Task;
 
-                    disposable.Dispose();
+            //        disposable.Dispose();
 
-                    Toast.Show(ToastIcon.Info, "正在停止加速中...");
-                }
-                else
-                {
-                    Toast.Show(ToastIcon.Error, "停止加速失败，请尝试去加速器客户端停止加速");
-                }
-            }
+            //        Toast.Show(ToastIcon.Info, "正在停止加速中...");
+            //    }
+            //    else
+            //    {
+            //        Toast.Show(ToastIcon.Error, "停止加速失败，请尝试去加速器客户端停止加速");
+            //    }
+            //}
 
             //重新加速
             var start = await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name);

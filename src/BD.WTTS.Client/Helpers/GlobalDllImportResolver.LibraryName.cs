@@ -51,6 +51,8 @@ static partial class GlobalDllImportResolver
     /// 7z
     /// </summary>
     internal const string _7z = "7z";
+
+    internal const string xunyoucall64 = "xunyoucall64";
 #endif
 
     static IEnumerable<string> GetLibraryNames()
@@ -63,6 +65,7 @@ static partial class GlobalDllImportResolver
         yield return WebView2Loader;
         yield return WinDivert;
         yield return _7z;
+        yield return xunyoucall64;
 #endif
     }
 
