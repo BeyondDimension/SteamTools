@@ -29,7 +29,7 @@ partial class XunYouSDK // 1.接口 xunyou_install
         unsafe
         {
             var xunyou_callback = callback is null ? null : (delegate* unmanaged[Stdcall]<int, nint, int>)
-                Marshal.GetFunctionPointerForDelegate(callback);
+                Marshal.GetFunctionPointerForDelegate(globalXunYouDownLoadCallback_xunyou_install = callback);
             result = xunyou_install(appId, xunyou_callback, ptr, installPath, installPath?.Length ?? 0);
         }
         return result;
