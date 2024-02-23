@@ -21,6 +21,7 @@
 		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
 		<GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
 		<ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
+		<Deterministic>true</Deterministic>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.cs">
