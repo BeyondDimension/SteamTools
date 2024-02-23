@@ -166,6 +166,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
         try
         {
             await ProxyService.Current.ExitAsync();
+            GameAcceleratorSettings.MyGames.Save();
         }
         catch
         {

@@ -12,7 +12,7 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     /// </summary>
     [Reactive]
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
-    public string PingValue { get; set; }
+    public string PingValue { get; set; } = "";
 
     /// <summary>
     /// 设置加速延迟

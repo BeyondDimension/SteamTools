@@ -105,6 +105,7 @@ public interface ISettings
             IgnoreReadOnlyProperties = true,
             IncludeFields = false,
             WriteIndented = true,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         };
         o.Converters.Add(new JsonStringEnumConverter());
         return o;
@@ -233,13 +234,13 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
             var settings_ = AllowNullDeserialize();
             if (settings_ != null)
             {
-                settings = settings_;
-
                 // 监听到的设置模型实例，如果和 new 一个空的数据一样的，就是默认值则忽略
                 var newSettingsData = Serializable.SMP2(settings);
                 var emptySettingsData = Serializable.SMP2(new TSettings());
                 if (newSettingsData.SequenceEqual(emptySettingsData))
                     return;
+
+                settings = settings_;
 
                 listener.Invoke(settings, TSettings.Name);
             }
