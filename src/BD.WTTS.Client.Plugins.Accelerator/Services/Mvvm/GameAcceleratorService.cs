@@ -59,30 +59,49 @@ public sealed partial class GameAcceleratorService
                     case XunYouState.加速中:
                         if (x.Value.GameId != 0 && CurrentAcceleratorGame == null)
                         {
-                            var game = AllGames?.FirstOrDefault(s => s.Id == x.Value.GameId);
-                            if (game != null)
+                            var game2 = Games.Items.FirstOrDefault(s => s.Id == x.Value.GameId);
+                            if (game2 != null)
                             {
-                                var cApp = new XunYouGameViewModel(game)
+                                game2.IsAccelerated = false;
+                                game2.IsAccelerating = true;
+                                game2.LastAccelerateTime = DateTimeOffset.Now;
+                                CurrentAcceleratorGame = game2;
+                            }
+                            else
+                            {
+                                var game = AllGames?.FirstOrDefault(s => s.Id == x.Value.GameId);
+                                if (game != null)
                                 {
-                                    IsAccelerated = false,
-                                    LastAccelerateTime = DateTimeOffset.Now,
-                                    IsAccelerating = true,
-                                };
-                                CurrentAcceleratorGame = cApp;
+                                    var cApp = new XunYouGameViewModel(game)
+                                    {
+                                        IsAccelerated = false,
+                                        LastAccelerateTime = DateTimeOffset.Now,
+                                        IsAccelerating = true,
+                                    };
+                                    CurrentAcceleratorGame = cApp;
+                                }
                             }
                         }
                         break;
                     case XunYouState.加速已完成:
                         if (x.Value.GameId != 0)
                         {
-                            var game = AllGames?.FirstOrDefault(s => s.Id == x.Value.GameId);
-                            if (game != null)
+                            var game2 = Games.Items.FirstOrDefault(s => s.Id == x.Value.GameId);
+                            if (game2 != null)
                             {
-                                SetGameStatus(game, x.Value.AreaId, x.Value.ServerId);
+                                SetGameStatus(game2, x.Value.AreaId, x.Value.ServerId);
                             }
                             else
                             {
-                                RefreshAllGames();
+                                var game = AllGames?.FirstOrDefault(s => s.Id == x.Value.GameId);
+                                if (game != null)
+                                {
+                                    SetGameStatus(game, x.Value.AreaId, x.Value.ServerId);
+                                }
+                                else
+                                {
+                                    RefreshAllGames();
+                                }
                             }
                         }
                         break;
@@ -535,7 +554,7 @@ public sealed partial class GameAcceleratorService
         }
         app.GameInfo = gameInfo;
 
-        var vm = new GameInfoPageViewModel(new XunYouGameViewModel { Name = app.Name, GameInfo = gameInfo });
+        var vm = new GameInfoPageViewModel(new XunYouGameViewModel { Name = app.Name, GameInfo = gameInfo, SelectedArea = app.SelectedArea, SelectedServer = app.SelectedServer });
         var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
         if (!result || app.SelectedArea == null)
         {
@@ -572,7 +591,7 @@ public sealed partial class GameAcceleratorService
         }
         else
         {
-            GameAccelerator(app);
+            await GameAccelerator(app);
         }
     }
 

@@ -59,29 +59,30 @@
                         Margin="30,5"
                         VerticalAlignment="Center"
                         RowDefinitions="Auto,Auto,Auto">
-                        <spp:Image2
-                            Width="36"
-                            Height="36"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            DecodeWidth="36"
-                            Source="{Binding IconUrl}">
-                            <spp:Image2.Transitions>
-                                <Transitions>
-                                    <DoubleTransition
-                                        Easing="0,0 0,1"
-                                        Property="Width"
-                                        Duration="00:00:00.25" />
-                                    <DoubleTransition
-                                        Easing="0,0 0,1"
-                                        Property="Height"
-                                        Duration="00:00:00.25" />
-                                </Transitions>
-                            </spp:Image2.Transitions>
-                        </spp:Image2>
                         <StackPanel Orientation="Horizontal">
+                            <spp:Image2
+                                Width="36"
+                                Height="36"
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                DecodeWidth="36"
+                                IsVisible="{Binding !$self.IsFailed}"
+                                Source="{Binding IconUrl}">
+                                <spp:Image2.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition
+                                            Easing="0,0 0,1"
+                                            Property="Width"
+                                            Duration="00:00:00.25" />
+                                        <DoubleTransition
+                                            Easing="0,0 0,1"
+                                            Property="Height"
+                                            Duration="00:00:00.25" />
+                                    </Transitions>
+                                </spp:Image2.Transitions>
+                            </spp:Image2>
                             <TextBlock
-                                Margin="41,0,0,0"
                                 VerticalAlignment="Center"
                                 Foreground="White"
                                 MaxLines="2"

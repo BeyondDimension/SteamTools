@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -8,6 +9,8 @@ namespace BD.WTTS.UI.Views.Pages;
 /// </summary>
 public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
 {
+    readonly Dictionary<string, string[]> dictPinYinArray = new();
+
     /// <summary>
     /// Initializes a new instance of the <see cref="AcceleratorPage2"/> class.
     /// </summary>
@@ -27,6 +30,26 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
         });
 
         SearchGameBox.SelectionChanged += SearchGameBox_SelectionChanged;
+        SearchGameBox.TextSelector = (_, _) => null;
+        SearchGameBox.TextFilter = GameContains;
+    }
+
+    private bool GameContains(string? text, string? s)
+    {
+        if (string.IsNullOrEmpty(s))
+            return false;
+        if (string.IsNullOrEmpty(text))
+            return true;
+        if (s.Contains(text, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+        var pinyinArray = Pinyin.GetPinyin(s, dictPinYinArray);
+        if (Pinyin.SearchCompare(text, s, pinyinArray))
+        {
+            return true;
+        }
+        return false;
     }
 
     private void SearchGameBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)

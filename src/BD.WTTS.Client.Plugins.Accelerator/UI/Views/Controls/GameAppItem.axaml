@@ -34,6 +34,9 @@
         <Style Selector="Grid.UnAccelerator Panel.AppName">
             <Setter Property="Grid.Row" Value="2" />
         </Style>
+        <Style Selector="Grid Panel.AppName TextBlock.LeftMargin">
+            <Setter Property="Margin" Value="25 0 0 0" />
+        </Style>
         <Style Selector="spp|GameAppItem:pointerover spp|Image2.Scale">
             <Setter Property="RenderTransform" Value="scale(1.1)" />
         </Style>
@@ -160,11 +163,13 @@
                 <Panel Margin="10,5" Classes="AppName">
                     <!--  spp:Animations.EnableAnimations2="True"  -->
                     <spp:Image2
+                        Name="AppIcon"
                         Width="20"
                         Height="20"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         DecodeWidth="20"
+                        IsVisible="{Binding !$self.IsFailed}"
                         Source="{Binding IconUrl}">
                         <spp:Image2.Transitions>
                             <Transitions>
@@ -180,8 +185,8 @@
                         </spp:Image2.Transitions>
                     </spp:Image2>
                     <TextBlock
-                        Margin="25,0,0,0"
                         VerticalAlignment="Center"
+                        Classes.LeftMargin="{Binding !#AppIcon.IsFailed}"
                         MaxLines="2"
                         Text="{Binding Name}"
                         TextTrimming="CharacterEllipsis" />

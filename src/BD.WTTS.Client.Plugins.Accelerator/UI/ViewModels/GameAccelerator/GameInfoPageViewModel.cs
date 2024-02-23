@@ -12,7 +12,7 @@ public sealed class GameInfoPageViewModel : WindowViewModel
     {
         XunYouGame = xunYouGame;
 
-        this.WhenPropertyChanged(x => x.XunYouGame.SelectedArea, false)
+        this.WhenPropertyChanged(x => x.XunYouGame.SelectedArea, true)
             .Where(x => x.Value != null && x.Value.Servers.Any_Nullable())
             .Subscribe(x => IsShowSelectServerUI = true);
     }
