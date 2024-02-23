@@ -213,7 +213,7 @@ public sealed partial class GameAcceleratorService
         {
             if (CurrentAcceleratorGame != null)
             {
-                CurrentAcceleratorGame.PingValue = w.Struct.PingSpeed;
+                CurrentAcceleratorGame.SetPingValue(w.Struct.PingSpeed);
                 CurrentAcceleratorGame.PingSpeedLoss = w.Struct.PingSpeedLoss;
             }
 #if DEBUG
