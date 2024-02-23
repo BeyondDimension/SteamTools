@@ -22,7 +22,8 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     {
         if (value >= 1000) // 延迟大于等于1000，就显示--
             PingValue = "--";
-        PingValue = value.ToString();
+        else
+            PingValue = value.ToString();
     }
 
     /// <summary>
