@@ -201,11 +201,12 @@ public sealed partial class GameAcceleratorService
             CurrentAcceleratorGame = cApp;
         }
 
-        if (!GameAcceleratorSettings.MyGames.ContainsKey(CurrentAcceleratorGame.Id))
+        if (GameAcceleratorSettings.MyGames.ContainsKey(CurrentAcceleratorGame.Id))
         {
-            GameAcceleratorSettings.MyGames.Add(CurrentAcceleratorGame.Id, CurrentAcceleratorGame);
-            Games.AddOrUpdate(CurrentAcceleratorGame);
+            GameAcceleratorSettings.MyGames.Remove(CurrentAcceleratorGame.Id);
         }
+        GameAcceleratorSettings.MyGames.TryAdd(CurrentAcceleratorGame.Id, CurrentAcceleratorGame);
+        Games.AddOrUpdate(CurrentAcceleratorGame);
 
         //加速后
         Toast.Show(ToastIcon.Success, "加速成功");
@@ -307,11 +308,12 @@ public sealed partial class GameAcceleratorService
                     return;
                 }
 
-                if (!GameAcceleratorSettings.MyGames.ContainsKey(app.Id))
+                if (GameAcceleratorSettings.MyGames.ContainsKey(app.Id))
                 {
-                    GameAcceleratorSettings.MyGames.Add(app.Id, app);
-                    Current.Games.AddOrUpdate(app);
+                    GameAcceleratorSettings.MyGames.Remove(app.Id);
                 }
+                GameAcceleratorSettings.MyGames.TryAdd(app.Id, app);
+                Current.Games.AddOrUpdate(app);
 
                 var start = isStartXY ? await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name)
                     : await Ioc.Get<IAcceleratorService>().XY_StartEx2(UserService.Current.User.WattOpenId, UserService.Current.User.NickName, app.Id, app.SelectedArea.Id, app.SelectedArea.Name);
@@ -556,7 +558,7 @@ public sealed partial class GameAcceleratorService
 
         var vm = new GameInfoPageViewModel(new XunYouGameViewModel { Name = app.Name, GameInfo = gameInfo, SelectedArea = app.SelectedArea, SelectedServer = app.SelectedServer });
         var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
-        if (!result || app.SelectedArea == null)
+        if (!result || vm.XunYouGame.SelectedArea == null)
         {
             return;
         }

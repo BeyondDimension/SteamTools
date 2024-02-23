@@ -364,21 +364,21 @@
             SelectedIndex="{Binding #AcceleratorTabs.SelectedIndex}">
 
             <!--  游戏加速  -->
-            <ScrollViewer
-                Name="GameScrollViewer"
-                Padding="0,0,10,0"
-                HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto">
-                <Grid x:DataType="spp:GameAcceleratorPageViewModel">
-                    <Grid.DataContext>
-                        <spp:GameAcceleratorPageViewModel />
-                    </Grid.DataContext>
-                    <spp:ContentLoader
-                        IsLoading="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=IsLoadingGames, Mode=OneWay}"
-                        IsShowNoResultText="{Binding !!!Games.Count}"
-                        IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!CurrentAcceleratorGame.IsAccelerated}"
-                        NoResultMessage="{x:Static spp:Strings.GameAccelerator_GamesEmptyTip}}">
-                        <ItemsRepeater ItemsSource="{Binding Games}">
+            <Panel x:DataType="spp:GameAcceleratorPageViewModel">
+                <Panel.DataContext>
+                    <spp:GameAcceleratorPageViewModel />
+                </Panel.DataContext>
+                <spp:ContentLoader
+                    IsLoading="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=IsLoadingGames, Mode=OneWay}"
+                    IsShowNoResultText="{Binding !!!Games.Count}"
+                    IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!CurrentAcceleratorGame.IsAccelerated}"
+                    NoResultMessage="{x:Static spp:Strings.GameAccelerator_GamesEmptyTip}}">
+                    <ScrollViewer
+                        Name="GameScrollViewer"
+                        Padding="0,0,10,0"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
+                        <ItemsRepeater ItemsSource="{Binding Games}" VerticalCacheLength="50">
                             <ItemsRepeater.Layout>
                                 <UniformGridLayout
                                     ItemsJustification="Start"
@@ -394,10 +394,13 @@
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>
-                    </spp:ContentLoader>
-                    <spp:GameDetail Content="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame}" IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame.IsAccelerated}" />
-                </Grid>
-            </ScrollViewer>
+                    </ScrollViewer>
+                </spp:ContentLoader>
+                <spp:GameDetail
+                    Margin="0,0,10,0"
+                    Content="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame}"
+                    IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame.IsAccelerated}" />
+            </Panel>
 
             <!--  平台加速  -->
             <ScrollViewer
