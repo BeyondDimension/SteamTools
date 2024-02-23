@@ -245,7 +245,7 @@
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Right"
                                 FontSize="12"
-                                Text="{Binding PingValue, StringFormat={}{0}ms}" />
+                                Text="{Binding PingValue}" />
                         </DockPanel>
                     </WrapPanel>
                 </Border>

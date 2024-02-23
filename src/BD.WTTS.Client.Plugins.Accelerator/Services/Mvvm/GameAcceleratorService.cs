@@ -160,7 +160,7 @@ public sealed partial class GameAcceleratorService
     /// </summary>
     private static void RestoreGameStatus(XunYouGameViewModel app)
     {
-        app.PingValue = "0";
+        app.SetPingValue(0);
         app.PingSpeedLoss = 0;
         app.IsAccelerating = false;
         app.IsAccelerated = false;

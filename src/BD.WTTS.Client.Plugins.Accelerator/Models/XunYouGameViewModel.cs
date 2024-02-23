@@ -12,7 +12,14 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     /// </summary>
     [Reactive]
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
-    public string PingValue { get; set; } = "";
+    public uint PingValue { get; set; }
+
+    /// <summary>
+    /// 加速延迟是否无效
+    /// </summary>
+    [Reactive]
+    [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
+    public bool PingValueIsInvalid { get; set; }
 
     /// <summary>
     /// 设置加速延迟
@@ -20,10 +27,11 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     /// <param name="value"></param>
     public void SetPingValue(uint value)
     {
-        if (value >= 1000) // 延迟大于等于1000，就显示--
-            PingValue = "--";
+        PingValueIsInvalid = value >= 1000;
+        if (PingValueIsInvalid) // 延迟大于等于1000，就显示--
+            PingValue = default;
         else
-            PingValue = value.ToString();
+            PingValue = value;
     }
 
     /// <summary>

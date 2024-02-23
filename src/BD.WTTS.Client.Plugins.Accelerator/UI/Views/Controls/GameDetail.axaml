@@ -119,9 +119,18 @@
                             ColumnDefinitions="Auto,30,Auto"
                             IsVisible="{Binding IsAccelerated}"
                             RowDefinitions="*,Auto">
-                            <TextBlock VerticalAlignment="Bottom" Foreground="White">
+                            <TextBlock
+                                VerticalAlignment="Bottom"
+                                Foreground="White"
+                                IsVisible="{Binding !PingValueIsInvalid}">
                                 <Run FontSize="32" Text="{Binding PingValue}" />
                                 <Run Text="ms" />
+                            </TextBlock>
+                            <TextBlock
+                                VerticalAlignment="Bottom"
+                                Foreground="White"
+                                IsVisible="{Binding PingValueIsInvalid}">
+                                <Run FontSize="32" Text="--" />
                             </TextBlock>
                             <TextBlock
                                 Grid.Row="1"
