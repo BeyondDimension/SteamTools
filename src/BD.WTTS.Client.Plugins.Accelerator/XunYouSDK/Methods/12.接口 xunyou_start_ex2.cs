@@ -18,6 +18,7 @@ partial class XunYouSDK // 12.接口 xunyou_start_ex2
     /// <param name="nickname">账号昵称</param>
     /// <param name="gameid">游戏 id，由迅游给出明确值，或传 0，如果传 0，表示只启动迅游，不自动加速。</param>
     /// <param name="area">游戏分区 id ，由游戏给出区服名和 id 对照表，或传 0，如果传 0，表示只启动迅游，不自动加速。</param>
+    /// <param name="server">游戏服 id</param>
     /// <param name="callback"></param>
     /// <param name="ptr"></param>
     /// <param name="installPath">迅游加速器安装路径，不指定，则默认安装在 xunyoucall.dll 所在目录</param>
@@ -29,6 +30,7 @@ partial class XunYouSDK // 12.接口 xunyou_start_ex2
         string nickname,
         int gameid = 0,
         int area = 0,
+        int server = 0,
         XunYouDownLoadCallback? callback = null,
         nint ptr = default,
         string? installPath = default,
@@ -51,7 +53,7 @@ partial class XunYouSDK // 12.接口 xunyou_start_ex2
                 userType, channel_no, channel_no.Length,
                 nickname, nickname_len, XunYouShowCommands.SW_HIDE,
                 gameid,
-                area, xunyou_callback, ptr,
+                area, server, xunyou_callback, ptr,
                 installPath, install_path_len, areaName,
                 area_name_len, svrName, svr_name_len);
         }
@@ -72,6 +74,7 @@ partial class XunYouSDK // 12.接口 xunyou_start_ex2
         XunYouShowCommands show = XunYouShowCommands.SW_HIDE,
         int gameid = 0,
         int area = 0,
+        int server = 0,
         delegate* unmanaged[Stdcall]<int, nint, int> callback = null,
         nint ptr = default,
         [MarshalAs(UnmanagedType.LPStr)] string? install_path = default,

@@ -315,8 +315,19 @@ public sealed partial class GameAcceleratorService
                 GameAcceleratorSettings.MyGames.TryAdd(app.Id, app);
                 Current.Games.AddOrUpdate(app);
 
-                var start = isStartXY ? await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name)
-                    : await Ioc.Get<IAcceleratorService>().XY_StartEx2(UserService.Current.User.WattOpenId, UserService.Current.User.NickName, app.Id, app.SelectedArea.Id, app.SelectedArea.Name);
+                var start = isStartXY ? await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id,
+                    app.SelectedArea.Id,
+                    app.SelectedServer?.Id ?? 0,
+                    app.SelectedArea.Name,
+                    app.SelectedServer?.Name)
+                    : await Ioc.Get<IAcceleratorService>().XY_StartEx2(
+                        UserService.Current.User.WattOpenId,
+                        UserService.Current.User.NickName,
+                        app.Id,
+                        app.SelectedArea.Id,
+                        app.SelectedServer?.Id ?? 0,
+                        app.SelectedArea.Name,
+                        app.SelectedServer?.Name);
                 if (start.HandleUI(out var startCode))
                 {
                     if (startCode == 101)

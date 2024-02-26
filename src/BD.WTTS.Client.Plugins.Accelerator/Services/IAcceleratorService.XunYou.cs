@@ -21,6 +21,7 @@ partial interface IAcceleratorService // XunYou
     /// <param name="nickname">用户昵称</param>
     /// <param name="gameid">游戏ID</param>
     /// <param name="area">区服Id</param>
+    /// <param name="server">游戏服Id</param>
     /// <param name="areaPath">区服名称</param>
     /// <param name="svrPath">游戏服名</param>
     /// <param name="cancellationToken"></param>
@@ -30,6 +31,7 @@ partial interface IAcceleratorService // XunYou
         string nickname,
         int gameid,
         int area,
+        int server,
         string? areaPath = default,
         string? svrPath = default,
         CancellationToken cancellationToken = default);

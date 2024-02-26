@@ -88,6 +88,7 @@ partial class BackendAcceleratorServiceImpl
         string nickname,
         int gameid,
         int area,
+        int server,
         string? areaPath = default,
         string? svrPath = default,
         CancellationToken cancellationToken = default)
@@ -97,6 +98,7 @@ partial class BackendAcceleratorServiceImpl
             nickname,
             gameid,
             area,
+            server,
             null,
             default,
             GameAcceleratorSettings.WattAcceleratorDirPath.Value!,
