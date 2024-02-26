@@ -178,7 +178,7 @@ public sealed partial class GameAcceleratorService
             CurrentAcceleratorGame.IsAccelerated = true;
             CurrentAcceleratorGame.LastAccelerateTime = DateTimeOffset.Now;
 
-            if (CurrentAcceleratorGame.SelectedArea == null)
+            if (CurrentAcceleratorGame.SelectedArea?.Id != areaId)
             {
                 var gameInfo = XunYouSDK.GetGameInfo(game.Id);
                 CurrentAcceleratorGame.SelectedArea = gameInfo?.Areas?.FirstOrDefault(s => s.Id == areaId);
