@@ -170,7 +170,7 @@ public sealed partial class GameAcceleratorService
     /// <summary>
     /// 设置加速游戏状态
     /// </summary>
-    private void SetGameStatus(XunYouGameViewModel game, int areaId = 0, int serverId = 0)
+    void SetGameStatus(XunYouGameViewModel game, int areaId = 0, int serverId = 0)
     {
         if (CurrentAcceleratorGame != null && CurrentAcceleratorGame.Id == game.Id)
         {
@@ -182,6 +182,9 @@ public sealed partial class GameAcceleratorService
             {
                 var gameInfo = XunYouSDK.GetGameInfo(game.Id);
                 CurrentAcceleratorGame.SelectedArea = gameInfo?.Areas?.FirstOrDefault(s => s.Id == areaId);
+            }
+            if (CurrentAcceleratorGame.SelectedServer?.Id != serverId)
+            {
                 CurrentAcceleratorGame.SelectedServer = CurrentAcceleratorGame.SelectedArea?.Servers?.FirstOrDefault(s => s.Id == serverId);
             }
         }
