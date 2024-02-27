@@ -60,7 +60,7 @@ partial class BackendAcceleratorServiceImpl
         }
         catch (Exception ex)
         {
-            Log.Error(nameof(BackendAcceleratorServiceImpl), "XunYouAccelStateToFrontendCallback fail.", ex);
+            Log.Error(nameof(BackendAcceleratorServiceImpl), ex, "XunYouAccelStateToFrontendCallback fail.");
         }
     }
 
