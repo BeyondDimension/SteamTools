@@ -27,12 +27,40 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                     {
                         AcceleratorTabs.SelectedIndex = x.Value ? 2 : 1;
                     }));
+            disposables.Add(
+                GameAcceleratorService.Current.WhenPropertyChanged(x => x.CurrentAcceleratorGame, false)
+                    .Subscribe(x =>
+                    {
+                        GameScrollViewer.ScrollToHome();
+                    }));
         });
 
-        SearchGameBox.SelectionChanged += SearchGameBox_SelectionChanged;
+        SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;
         SearchGameBox.TextSelector = (_, _) => null;
         SearchGameBox.TextFilter = GameContains;
     }
+
+    private void SearchGameBox_DropDownClosed(object? sender, EventArgs e)
+    {
+        if (SearchGameBox.SelectedItem is XunYouGame xunYouGame && xunYouGame is not null)
+        {
+            GameAcceleratorService.AdddMyGame(xunYouGame);
+            SearchGameBox.Text = null;
+            SearchGameBox.SelectedItem = null;
+            GameScrollViewer.ScrollToHome();
+        }
+    }
+
+    //private void SearchGameBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    //{
+    //    if (SearchGameBox.SelectedItem is XunYouGame xunYouGame && xunYouGame is not null)
+    //    {
+    //        GameAcceleratorService.AdddMyGame(xunYouGame);
+    //        SearchGameBox.Text = null;
+    //        SearchGameBox.SelectedItem = null;
+    //        GameScrollViewer.ScrollToHome();
+    //    }
+    //}
 
     private bool GameContains(string? text, string? s)
     {
@@ -50,17 +78,6 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
             return true;
         }
         return false;
-    }
-
-    private void SearchGameBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (SearchGameBox.SelectedItem is XunYouGame xunYouGame && xunYouGame is not null)
-        {
-            GameAcceleratorService.AdddMyGame(xunYouGame);
-            SearchGameBox.Text = null;
-            SearchGameBox.SelectedItem = null;
-            GameScrollViewer.ScrollToHome();
-        }
     }
 
     /// <inheritdoc/>

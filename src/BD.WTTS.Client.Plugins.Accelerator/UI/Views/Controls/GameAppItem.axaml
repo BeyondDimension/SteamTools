@@ -49,6 +49,11 @@
             </Setter>
         </Style>
 
+        <Style Selector="spp|GameAppItem Border#LayoutRoot:pointerover">
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+            <Setter Property="BoxShadow" Value="{StaticResource InfoBoxShadow}" />
+        </Style>
+
         <Style Selector="spp|GameAppItem Border#ShadowBox">
             <Setter Property="Opacity" Value="0" />
             <Setter Property="Transitions">
@@ -69,6 +74,7 @@
         </Style>-->
     </UserControl.Styles>
     <Border
+        Name="LayoutRoot"
         MinHeight="160"
         Background="{DynamicResource ControlFillColorDefaultBrush}"
         BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
@@ -135,7 +141,10 @@
                         Cursor="Hand"
                         ToolTip.Tip="{x:Static spp:Strings.Delete}">
                         <Viewbox Width="20" Height="20">
-                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Close}" />
+                            <ui:FontIcon
+                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                Foreground="White"
+                                Glyph="{StaticResource Close}" />
                         </Viewbox>
                     </Button>
                     <!--</StackPanel>-->

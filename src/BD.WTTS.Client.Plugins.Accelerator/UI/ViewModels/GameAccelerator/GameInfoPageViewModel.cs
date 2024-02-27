@@ -20,6 +20,8 @@ public sealed class GameInfoPageViewModel : WindowViewModel
     public void BackSelectArea()
     {
         IsShowSelectServerUI = false;
+        XunYouGame.SelectedArea = null;
+        XunYouGame.SelectedServer = null;
     }
 
     public void ImmediatelyAccelerate()

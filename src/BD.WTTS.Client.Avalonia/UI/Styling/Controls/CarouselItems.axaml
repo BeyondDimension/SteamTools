@@ -34,7 +34,7 @@
                                     <ItemsControl ItemTemplate="{Binding $parent[spp:CarouselItems].ItemTemplate}" ItemsSource="{Binding}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <spp:FixedWrapPanel ItemsPerLine="{TemplateBinding ItemsPerPage}" Spacing="5" />
+                                                <spp:FixedWrapPanel ItemsPerLine="{Binding $parent[spp:CarouselItems].ItemsPerPage}" Spacing="5" />
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
                                     </ItemsControl>

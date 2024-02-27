@@ -336,6 +336,7 @@ public sealed partial class GameAcceleratorService
                     if (startCode == 101)
                     {
                         app.AcceleratingProgress = 0;
+                        app.LastAccelerateTime = DateTimeOffset.Now;
                         CurrentAcceleratorGame = app;
                         Toast.Show(ToastIcon.Info, "正在加速中...");
                     }
@@ -360,9 +361,6 @@ public sealed partial class GameAcceleratorService
                 if (code == XunYouSendResultCode.发送成功)
                 {
                     Toast.Show(ToastIcon.Info, "正在停止加速中...");
-                    //CurrentAcceleratorGame = null;
-                    //app.PingValue = 0;
-                    //app.IsAccelerated = false;
                 }
                 else
                 {
