@@ -577,13 +577,19 @@ public sealed partial class GameAcceleratorService
             return;
         }
 
+        if (app.SelectedArea?.Id == vm.XunYouGame.SelectedArea?.Id && app.SelectedServer?.Id == vm.XunYouGame.SelectedServer?.Id)
+        {
+            // 切换区服选择不变时不重新加速
+            return;
+        }
+
         app.SelectedArea = vm.XunYouGame.SelectedArea;
         app.SelectedServer = vm.XunYouGame.SelectedServer;
 
         if (app.IsAccelerated)
         {
             //重新加速
-            var start = await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id, app.SelectedArea.Id, app.SelectedServer?.Id ?? 0, app.SelectedArea.Name);
+            var start = await Ioc.Get<IAcceleratorService>().XY_StartAccel(app.Id, app.SelectedArea?.Id ?? 0, app.SelectedServer?.Id ?? 0, app.SelectedArea?.Name);
             if (start.HandleUI(out var startCode))
             {
                 if (startCode == 101)

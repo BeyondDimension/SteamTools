@@ -320,7 +320,7 @@
 
             <Separator Margin="0,8" Classes="Horizontal" />
 
-            <TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+            <!--<TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <ui:SettingsExpander Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value, Mode=OneWay}}" IsExpanded="True">
                 <ui:SettingsExpander.IconSource>
@@ -334,7 +334,7 @@
                     <Button Content="选择路径" />
                 </StackPanel>
 
-            </ui:SettingsExpander>
+            </ui:SettingsExpander>-->
 
             <Button
                 HorizontalAlignment="Stretch"
