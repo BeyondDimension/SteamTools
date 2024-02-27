@@ -25,7 +25,18 @@ partial class BackendAcceleratorServiceImpl
                 break;
         }
 #if DEBUG
-        Console.WriteLine($"迅游加速状态变更：{m.State}, {m.AccelState}, GameId: {m.GameId}, AreaId: {m.AreaId}, ServerId: {m.ServerId}");
+        static string? EnumToStringDebug<T>(T? value) where T : struct, Enum
+        {
+            if (value is null)
+                return null;
+
+            if (Enum.IsDefined(typeof(T), value))
+            {
+                return $"{value}({ConvertibleHelper.Convert<int, T>(value.Value)})";
+            }
+            return value.ToString();
+        }
+        Console.WriteLine($"迅游加速状态变更：{EnumToStringDebug((XunYouState?)m.State)}, {EnumToStringDebug(m.AccelState)}, GameId: {m.GameId}, AreaId: {m.AreaId}, ServerId: {m.ServerId}");
 #endif
         XunYouAccelStateToFrontendCallback(m);
 
