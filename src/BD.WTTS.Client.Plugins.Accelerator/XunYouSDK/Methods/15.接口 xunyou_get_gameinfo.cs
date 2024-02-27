@@ -2,6 +2,23 @@ namespace Mobius;
 
 partial class XunYouSDK // 15.接口 xunyou_get_gameinfo
 {
+    static XunYouGameInfo? SortGameInfo(XunYouGameInfo? gameInfo)
+    {
+        if (gameInfo?.Areas != null)
+        {
+            foreach (var item in gameInfo.Areas)
+            {
+                if (item.Servers == null || item.Servers.Count == 0)
+                    continue;
+                item.Servers = item.Servers.OrderBy(x => x.Id).ToList();
+            }
+
+            gameInfo.Areas = gameInfo.Areas.OrderBy(x => x.Id).ToList();
+        }
+
+        return gameInfo;
+    }
+
     /// <summary>
     /// 获取对应游戏 Id 的游戏信息（平台信息，区服信息）
     /// </summary>
@@ -26,7 +43,7 @@ partial class XunYouSDK // 15.接口 xunyou_get_gameinfo
                             //return Encoding.UTF8.GetString(gamelist);
                             var jObj = SystemTextJsonSerializer.Deserialize(gamelist,
                                 SystemTextJsonSerializerContext_XunYouSDK.Default.xunyou_get_gameinfo_resultXunYouGameInfo);
-                            return jObj?.GameInfo;
+                            return SortGameInfo(jObj?.GameInfo);
                         }
                     }
                 }
