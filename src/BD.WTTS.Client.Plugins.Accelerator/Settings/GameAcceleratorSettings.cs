@@ -31,7 +31,7 @@ public sealed partial class GameAcceleratorSettings_ : ISettings, ISettings<Game
     /// 我的加速游戏列表
     /// </summary>
     [MP2Key(0), JsonPropertyOrder(0)]
-    public ConcurrentDictionary<int, XunYouGameViewModel> MyGames { get; set; } = [];
+    public Dictionary<int, XunYouGameViewModel> MyGames { get; set; } = [];
 
     /// <summary>
     /// 加速插件安装路径
@@ -47,7 +47,7 @@ public sealed partial class GameAcceleratorSettings_ : ISettings, ISettings<Game
 public static partial class GameAcceleratorSettings
 {
     /// <inheritdoc cref="GameAcceleratorSettingsModel.MyGames"/>
-    public static SettingsProperty<int, XunYouGameViewModel, ConcurrentDictionary<int, XunYouGameViewModel>, GameAcceleratorSettings_> MyGames { get; }
+    public static SettingsProperty<int, XunYouGameViewModel, Dictionary<int, XunYouGameViewModel>, GameAcceleratorSettings_> MyGames { get; }
         = new();
 
     /// <inheritdoc cref="GameAcceleratorSettingsModel.WattAcceleratorDirPath"/>

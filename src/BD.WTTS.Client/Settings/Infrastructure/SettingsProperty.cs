@@ -465,6 +465,16 @@ public class SettingsProperty<TKey, TValue,
         Add(pair.Key, pair.Value, raiseValueChanged, notSave);
     }
 
+    static bool TryAdd(IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
+    {
+        if (dictionary is ConcurrentDictionary<TKey, TValue> cdict)
+        {
+            // https://github.com/dotnet/runtime/issues/30451
+            return cdict.TryAdd(key, value);
+        }
+        return dictionary.TryAdd(key, value);
+    }
+
     public override void AddRange(IEnumerable<KeyValuePair<TKey, TValue>> items, bool raiseValueChanged = true, bool notSave = false)
     {
         if (value == null)
@@ -483,7 +493,7 @@ public class SettingsProperty<TKey, TValue,
         {
             try
             {
-                if (!value.TryAdd(item.Key, item.Value))
+                if (!TryAdd(value, item.Key, item.Value))
                 {
                     value[item.Key] = item.Value;
                 }

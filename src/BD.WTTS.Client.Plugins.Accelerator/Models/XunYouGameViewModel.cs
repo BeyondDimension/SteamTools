@@ -158,10 +158,14 @@ sealed partial class XunYouGameViewModel(XunYouGame model) : ReactiveSerializati
     public override string ToString() => Model.ToString()!;
 }
 
-public class LastAccelerateTimeComparer : IComparer<XunYouGameViewModel>
+sealed class LastAccelerateTimeComparer : IComparer<XunYouGameViewModel>
 {
-    public int Compare(XunYouGameViewModel x, XunYouGameViewModel y)
+    /// <inheritdoc/>
+    public int Compare(XunYouGameViewModel? x, XunYouGameViewModel? y)
     {
+        if (x == null || y == null)
+            return 0;
+
         if (x.IsAccelerated)
         {
             return -1;
@@ -184,6 +188,21 @@ public class LastAccelerateTimeComparer : IComparer<XunYouGameViewModel>
         }
         else
         {
+            var mygamekeys = GameAcceleratorSettings.MyGames.Value?.Keys;
+            if (mygamekeys != null)
+            {
+                var x2 = mygamekeys.IndexOf(x.Id);
+                var y2 = mygamekeys.IndexOf(y.Id);
+                if (x2 < y2)
+                {
+                    return -1;
+                }
+                else if (x2 > y2)
+                {
+                    return 1;
+                }
+            }
+
             return 0;
         }
     }
