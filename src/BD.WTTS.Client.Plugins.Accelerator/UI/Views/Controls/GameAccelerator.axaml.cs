@@ -39,7 +39,7 @@ public partial class GameAccelerator : ReactiveUserControl<GameAcceleratorViewMo
     {
         if (SearchGameBox.SelectedItem is XunYouGame xunYouGame && xunYouGame is not null)
         {
-            GameAcceleratorService.AdddMyGame(xunYouGame);
+            GameAcceleratorService.AddMyGame(xunYouGame);
             SearchGameBox.Text = null;
         }
     }

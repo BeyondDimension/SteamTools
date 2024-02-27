@@ -48,18 +48,19 @@ public sealed partial class GameAcceleratorService
 
         Games = new(t => t.Id);
 
-        this.WhenPropertyChanged(x => x.XYAccelState, false)
+        this.WhenValueChanged(x => x.XYAccelState, false)
+            .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe(x =>
             {
-                if (x.Value == null)
+                if (x == null)
                     return;
 
-                switch (x.Value.State)
+                switch (x.State)
                 {
                     case XunYouState.加速中:
-                        if (x.Value.GameId != 0 && CurrentAcceleratorGame == null)
+                        if (x.GameId != 0 && CurrentAcceleratorGame == null)
                         {
-                            var game2 = Games.Items.FirstOrDefault(s => s.Id == x.Value.GameId);
+                            var game2 = Games.Items.FirstOrDefault(s => s.Id == x.GameId);
                             if (game2 != null)
                             {
                                 game2.IsAccelerated = false;
@@ -69,7 +70,7 @@ public sealed partial class GameAcceleratorService
                             }
                             else
                             {
-                                var game = AllGames?.FirstOrDefault(s => s.Id == x.Value.GameId);
+                                var game = AllGames?.FirstOrDefault(s => s.Id == x.GameId);
                                 if (game != null)
                                 {
                                     var cApp = new XunYouGameViewModel(game)
@@ -84,19 +85,19 @@ public sealed partial class GameAcceleratorService
                         }
                         break;
                     case XunYouState.加速已完成:
-                        if (x.Value.GameId != 0)
+                        if (x.GameId != 0)
                         {
-                            var game2 = Games.Items.FirstOrDefault(s => s.Id == x.Value.GameId);
+                            var game2 = Games.Items.FirstOrDefault(s => s.Id == x.GameId);
                             if (game2 != null)
                             {
-                                SetGameStatus(game2, x.Value.AreaId, x.Value.ServerId);
+                                SetGameStatus(game2, x.AreaId, x.ServerId);
                             }
                             else
                             {
-                                var game = AllGames?.FirstOrDefault(s => s.Id == x.Value.GameId);
+                                var game = AllGames?.FirstOrDefault(s => s.Id == x.GameId);
                                 if (game != null)
                                 {
-                                    SetGameStatus(game, x.Value.AreaId, x.Value.ServerId);
+                                    SetGameStatus(game, x.AreaId, x.ServerId);
                                 }
                                 else
                                 {
@@ -139,7 +140,7 @@ public sealed partial class GameAcceleratorService
                             RestoreGameStatus(CurrentAcceleratorGame);
                             CurrentAcceleratorGame = null;
                         }
-                        Toast.Show(ToastIcon.Warning, x.Value.State.ToString());
+                        Toast.Show(ToastIcon.Warning, x.State.ToString());
                         break;
                 }
             });
@@ -382,7 +383,7 @@ public sealed partial class GameAcceleratorService
         Toast.Show(ToastIcon.Success, "已移除");
     }
 
-    public static void AdddMyGame(XunYouGameViewModel app)
+    public static void AddMyGame(XunYouGameViewModel app)
     {
         app.LastAccelerateTime = DateTimeOffset.Now;
         GameAcceleratorSettings.MyGames.Remove(app.Id);

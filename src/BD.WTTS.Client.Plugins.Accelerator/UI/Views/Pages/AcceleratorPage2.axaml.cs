@@ -44,7 +44,7 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
     {
         if (SearchGameBox.SelectedItem is XunYouGame xunYouGame && xunYouGame is not null)
         {
-            GameAcceleratorService.AdddMyGame(xunYouGame);
+            GameAcceleratorService.AddMyGame(xunYouGame);
             SearchGameBox.Text = null;
             SearchGameBox.SelectedItem = null;
             GameScrollViewer.ScrollToHome();
