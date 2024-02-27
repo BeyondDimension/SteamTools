@@ -441,7 +441,9 @@ public sealed partial class GameAcceleratorService
             var accState = await Ioc.Get<IAcceleratorService>().XY_GetAccelStateEx();
             if (accState.HandleUI() && accState.Content != null)
             {
-                if (accState.Content.GameId > 0 && accState.Content.AccelState is XunYouAccelStateEx.加速已完成 or XunYouAccelStateEx.加速中)
+                if (accState.Content.GameId > 0 && accState.Content.AccelState is
+                    XunYouAccelStateEx.启动加速中 or
+                    XunYouAccelStateEx.已加速)
                 {
                     //var game = Games.Lookup(accState.Content.GameId);
                     //if (game.HasValue)
