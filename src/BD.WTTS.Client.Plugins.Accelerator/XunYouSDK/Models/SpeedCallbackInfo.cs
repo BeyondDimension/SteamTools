@@ -50,3 +50,14 @@ public readonly partial record struct SpeedCallbackInfo
     [MP2Key(6)]
     public readonly float PingLocalLoss { get; init; }
 }
+
+//struct SpeedCallbackInfo
+//{
+//    wchar_t* errorDesc;		//测速失败描述
+//    uint32_t errorDescLen;		//测速失败描述 长度
+//    uint32_t errorCode; 		//测速失败错误码，0表示测速成功
+//    uint32_t pingSpeed;	    //加速成功的延迟，未加速成功时为0
+//    uint32_t pingLocal;		//未加速的延迟，加速成功时为0
+//    float pingSpeedLoss;	//加速成功的丢包
+//    float pingLocalLoss;	//未加速的丢包
+//};

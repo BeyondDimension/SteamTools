@@ -226,7 +226,10 @@ public sealed partial class GameAcceleratorService
 #endif
             return 0;
         }
-        var speedCode = XunYouSDK.TestSpeed(CurrentAcceleratorGame.Id, CurrentAcceleratorGame.SelectedArea!.Id, testSpeedCallback);
+        var speedCode = XunYouSDK.TestSpeed(CurrentAcceleratorGame.Id,
+            CurrentAcceleratorGame.SelectedArea?.Id ?? 0,
+            CurrentAcceleratorGame.SelectedServer?.Id ?? 0,
+            testSpeedCallback);
 #if DEBUG
         if (speedCode == XunYouTestSpeedCode.成功)
         {
