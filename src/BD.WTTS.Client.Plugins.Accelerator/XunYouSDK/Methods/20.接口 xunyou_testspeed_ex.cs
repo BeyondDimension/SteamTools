@@ -16,11 +16,6 @@ partial class XunYouSDK // 20.接口 xunyou_testspeed_ex
         int server,
         TestSpeedCallback callback)
     {
-        if (server == 0)
-        {
-            return TestSpeed(gameid, area, callback);
-        }
-
         int testSpeedCode = int.MinValue;
         unsafe
         {
@@ -38,7 +33,7 @@ partial class XunYouSDK // 20.接口 xunyou_testspeed_ex
                 return result;
             }
             var xunyou_callback = (delegate* unmanaged[Stdcall]<XunYouSpeedNotifyState, SpeedCallbackInfo*, int>)Marshal.GetFunctionPointerForDelegate(testSpeedCallback = TestSpeedCallback_Wrapper);
-            testSpeedCode = xunyou_testspeed(gameid, area, xunyou_callback);
+            testSpeedCode = xunyou_testspeed_ex(gameid, area, server, xunyou_callback);
         }
 
         return (XunYouTestSpeedCode)testSpeedCode;
