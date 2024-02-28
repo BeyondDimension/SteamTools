@@ -22,15 +22,17 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
         this.WhenActivated(disposables =>
         {
             disposables.Add(
-                ProxyService.Current.WhenPropertyChanged(x => x.ProxyStatus, false)
+                ProxyService.Current.WhenValueChanged(x => x.ProxyStatus, false)
                     .Subscribe(x =>
                     {
-                        AcceleratorTabs.SelectedIndex = x.Value ? 2 : 1;
+                        AcceleratorTabs.SelectedIndex = x ? 2 : 1;
                     }));
             disposables.Add(
-                GameAcceleratorService.Current.WhenPropertyChanged(x => x.CurrentAcceleratorGame, false)
+                GameAcceleratorService.Current.WhenValueChanged(x => x.CurrentAcceleratorGame, false)
                     .Subscribe(x =>
                     {
+                        if (x != null && GameAcceleratorService.Current.Games != null)
+                            GameAcceleratorService.Current.Games.AddOrUpdate(x);
                         GameScrollViewer.ScrollToHome();
                     }));
         });

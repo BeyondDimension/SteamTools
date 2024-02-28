@@ -32,6 +32,7 @@ public sealed partial class ProxyService
             .Subscribe(_ => SelectGroup = ProxyDomains.Items.FirstOrDefault());
 
         this.WhenValueChanged(x => x.ProxyStatus, false)
+            .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe(async proxyStatusLeft =>
             {
                 bool proxyStatusRight;

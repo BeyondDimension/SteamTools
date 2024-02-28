@@ -165,7 +165,14 @@ sealed class LastAccelerateTimeComparer : IComparer<XunYouGameViewModel>
     {
         if (x == null || y == null)
             return 0;
-
+        if (x.IsAccelerating)
+        {
+            return -1;
+        }
+        else if (y.IsAccelerating)
+        {
+            return 1;
+        }
         if (x.IsAccelerated)
         {
             return -1;

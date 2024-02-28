@@ -246,6 +246,8 @@ public sealed partial class GameAcceleratorService
         app.IsAccelerating = true;
         if (!app.IsAccelerated)
         {
+            app.LastAccelerateTime = DateTimeOffset.Now;
+            CurrentAcceleratorGame = app;
             if (UserService.Current.User?.WattOpenId == null)
             {
                 Toast.Show(ToastIcon.Warning, "需要登录账号才能使用游戏加速功能!");
@@ -340,8 +342,6 @@ public sealed partial class GameAcceleratorService
                     if (startCode == 101)
                     {
                         app.AcceleratingProgress = 0;
-                        app.LastAccelerateTime = DateTimeOffset.Now;
-                        CurrentAcceleratorGame = app;
                         Toast.Show(ToastIcon.Info, "正在加速中...");
                     }
                     else
