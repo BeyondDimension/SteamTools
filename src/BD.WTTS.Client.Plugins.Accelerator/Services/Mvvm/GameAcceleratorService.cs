@@ -44,8 +44,6 @@ public sealed partial class GameAcceleratorService
 
     GameAcceleratorService()
     {
-        mCurrent = this;
-
         Games = new(t => t.Id);
 
         this.WhenValueChanged(x => x.XYAccelState, false)
@@ -147,13 +145,14 @@ public sealed partial class GameAcceleratorService
 
         Ioc.Get<IAcceleratorService>().InitStateSubscribe(); // 仅旧项目（WattToolkit）上监听
 
-        RefreshAllGames();
-        LoadGames();
         DeleteMyGameCommand = ReactiveCommand.Create<XunYouGameViewModel>(DeleteMyGame);
         GameAcceleratorCommand = ReactiveCommand.CreateFromTask<XunYouGameViewModel>(GameAccelerator);
         InstallAcceleratorCommand = ReactiveCommand.Create(InstallAccelerator);
         UninstallAcceleratorCommand = ReactiveCommand.Create(UninstallAccelerator);
         AcceleratorChangeAreaCommand = ReactiveCommand.Create<XunYouGameViewModel>(AcceleratorChangeArea);
+
+        RefreshAllGames();
+        LoadGames();
     }
 
     /// <summary>
@@ -461,7 +460,10 @@ public sealed partial class GameAcceleratorService
                     var game = games?.FirstOrDefault(s => s.Id == accState.Content.GameId);
                     if (game != null)
                     {
-                        SetGameStatus(game, accState.Content.AreaId, accState.Content.ServerId);
+                        MainThread2.BeginInvokeOnMainThread(() =>
+                        {
+                            SetGameStatus(game, accState.Content.AreaId, accState.Content.ServerId);
+                        });
                     }
                 }
             }
