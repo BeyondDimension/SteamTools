@@ -19,7 +19,7 @@
 		<AvaloniaResource Include="UI\Assets\defaultBackground.png" />
 		<AvaloniaResource Include="UI\Assets\script.ico" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Xaml.cs">
 			<LinkBase>Properties</LinkBase>
@@ -110,18 +110,35 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Properties\Resources.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Resources.resx</DependentUpon>
-	  </Compile>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Properties\Resources.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<Compile Update="Properties\WinDivertResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>WinDivertResource.resx</DependentUpon>
+		</Compile>
+		<EmbeddedResource Update="Properties\WinDivertResource.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>WinDivertResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
+		<Compile Remove="Properties\WinDivertResource.Designer.cs" />
+		<EmbeddedResource Remove="Properties\WinDivertResource.resx" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -143,7 +160,7 @@
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 	<ItemGroup>
-	  <UpToDateCheckInput Remove="UI\Views\Pages\AcceleratorPage2.axaml" />
+		<UpToDateCheckInput Remove="UI\Views\Pages\AcceleratorPage2.axaml" />
 	</ItemGroup>
-	
+
 </Project>
