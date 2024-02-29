@@ -139,6 +139,7 @@
                         Command="{Binding Path=DeleteMyGameCommand, Source={x:Static s:GameAcceleratorService.Current}}"
                         CommandParameter="{Binding}"
                         Cursor="Hand"
+                        IsVisible="{Binding !IsAccelerating}"
                         ToolTip.Tip="{x:Static spp:Strings.Delete}">
                         <Viewbox Width="20" Height="20">
                             <ui:FontIcon

@@ -27,14 +27,23 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                     {
                         AcceleratorTabs.SelectedIndex = x ? 2 : 1;
                     }));
-            disposables.Add(
-                GameAcceleratorService.Current.WhenValueChanged(x => x.CurrentAcceleratorGame, false)
-                    .Subscribe(x =>
-                    {
-                        if (x != null && GameAcceleratorService.Current.Games != null)
-                            GameAcceleratorService.Current.Games.AddOrUpdate(x);
-                        GameScrollViewer.ScrollToHome();
-                    }));
+
+            if (XunYouSDK.IsSupported)
+            {
+                disposables.Add(
+                    GameAcceleratorService.Current.WhenValueChanged(x => x.CurrentAcceleratorGame, false)
+                        .Subscribe(x =>
+                        {
+                            if (x != null && GameAcceleratorService.Current.Games != null)
+                                GameAcceleratorService.Current.Games.AddOrUpdate(x);
+                            GameScrollViewer.ScrollToHome();
+                        }));
+            }
+            else
+            {
+                GameAccTab.IsVisible = false;
+                AcceleratorTabs.SelectedIndex = 1;
+            }
         });
 
         SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;

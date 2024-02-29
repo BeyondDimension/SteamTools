@@ -23,6 +23,7 @@ global using Avalonia.Metadata;
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Markup")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Client.Resources")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "Mobius.Models")]
+[assembly: XmlnsDefinition("https://steampp.net/ui", "Mobius")]
 
 [assembly: XmlnsDefinition("https://steampp.net/services", "BD.WTTS.Services")]
 [assembly: XmlnsDefinition("https://steampp.net/services", "BD.WTTS.Plugins")]
