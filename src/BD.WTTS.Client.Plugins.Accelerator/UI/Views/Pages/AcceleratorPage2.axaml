@@ -200,6 +200,7 @@
             <TextBlock Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <TabStrip
+                Name="ProxyModeTab"
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
                 CornerRadius="{StaticResource ControlCornerRadius}"
                 IsEnabled="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
@@ -385,7 +386,7 @@
                                     ItemsStretch="Uniform"
                                     MinColumnSpacing="10"
                                     MinItemHeight="180"
-                                    MinItemWidth="220"
+                                    MinItemWidth="200"
                                     MinRowSpacing="10" />
                             </ItemsRepeater.Layout>
                             <ItemsRepeater.ItemTemplate>
