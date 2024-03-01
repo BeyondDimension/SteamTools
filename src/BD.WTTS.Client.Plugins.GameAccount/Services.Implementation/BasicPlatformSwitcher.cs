@@ -461,12 +461,6 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
         var uniqueId = GetUniqueId(platform);
 
-        if (string.IsNullOrEmpty(uniqueId))
-        {
-            Toast.Show(ToastIcon.Warning, "No data in platform: " + platform.FullName);
-            return false;
-        }
-
         if (uniqueId == "" && platform.UniqueIdType is UniqueIdType.CREATE_ID_FILE)
         {
             // Unique ID file, and does not already exist: Therefore create!
@@ -474,6 +468,12 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             uniqueId = Random2.GenerateRandomString(16);
             if (!string.IsNullOrEmpty(uniqueIdFile))
                 File.WriteAllText(uniqueIdFile, uniqueId);
+        }
+
+        if (string.IsNullOrEmpty(uniqueId))
+        {
+            Toast.Show(ToastIcon.Warning, "No data in platform: " + platform.FullName);
+            return false;
         }
 
         // Handle special args in username
