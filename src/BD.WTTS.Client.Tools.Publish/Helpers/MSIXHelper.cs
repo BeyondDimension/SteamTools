@@ -327,7 +327,8 @@ $"""
         public static void Start(
             bool force_sign,
             string fileName,
-            string? pfxFilePath = null)
+            string? pfxFilePath = null,
+            string? workingDirectory = null)
         {
             ProcessStartInfo psi;
             switch (pfxFilePath)
@@ -381,6 +382,8 @@ sign /fd SHA256 /sha1 {pfxFilePath_HSM_CodeSigning} /tr {timestamp_url} /td SHA2
                     }
                     break;
             }
+            if (!string.IsNullOrWhiteSpace(workingDirectory))
+                psi.WorkingDirectory = workingDirectory;
             ProcessHelper.StartAndWaitForExit(psi);
         }
     }

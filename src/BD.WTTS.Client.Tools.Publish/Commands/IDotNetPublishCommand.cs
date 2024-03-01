@@ -18,11 +18,11 @@ interface IDotNetPublishCommand : ICommand
     const string EntryPointAssemblyName = "Steam++";
 
     static readonly DateTimeOffset releaseTime = DateTimeOffset.Now;
-    static readonly string releaseTimestamp = releaseTime.ToString("yyyyMMddHHmmssfffffff");
+    static readonly string releaseTimestamp = releaseTime.ToString("yyMMdd_HHmmssfffffff");
 
-    static string GetPublishFileName(string rid, string fileEx = "")
+    static string GetPublishFileName(bool debug, string rid, string fileEx = "")
     {
-        var value = $"{EntryPointAssemblyName}_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_{releaseTimestamp}{fileEx}";
+        var value = $"[{(debug ? "Debug" : "Release")}] {EntryPointAssemblyName}_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_{releaseTimestamp}{fileEx}";
         return value;
     }
 
@@ -416,20 +416,20 @@ interface IDotNetPublishCommand : ICommand
                         Console.WriteLine(toBeSignedFilePaths.Count);
                         ResetConsoleColor();
                         var fileNames = string.Join(' ', toBeSignedFilePaths.Select(x =>
-    $"""
-"{x}"
+$"""
+"{x.TrimStart(Path.DirectorySeparatorChar).TrimStart(rootPublishDir).TrimStart(Path.DirectorySeparatorChar)}"
 """));
                         if (!debug) // 调试模式不进行数字签名
                         {
                             var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
                             try
                             {
-                                MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath);
+                                MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
                             }
                             catch
                             {
                                 pfxFilePath = MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning;
-                                MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath);
+                                MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
                             }
                         }
                         foreach (var item in toBeSignedFiles)
@@ -458,7 +458,7 @@ interface IDotNetPublishCommand : ICommand
 
                     var msixDir = $"{rootPublishDir}_MSIX";
                     IOPath.DirCreateByNotExists(msixDir);
-                    var msixFilePath = Path.Combine(msixDir, GetPublishFileName(rid, ".msix"));
+                    var msixFilePath = Path.Combine(msixDir, GetPublishFileName(debug, rid, ".msix"));
 
                     // 生成 msix 包
                     MSIXHelper.MakeAppx.Start(msixFilePath, rootPublishDir, AppVersion4, info.Architecture);
@@ -902,7 +902,7 @@ interface IDotNetPublishCommand : ICommand
                     "bin",
                     Configuration,
                     "Publish",
-                    GetPublishFileName(RuntimeIdentifier),
+                    GetPublishFileName(IsDebug, RuntimeIdentifier),
                     "assemblies",
                 });
             return value;
@@ -915,7 +915,7 @@ interface IDotNetPublishCommand : ICommand
                     "bin",
                     Configuration,
                     "Publish",
-                    GetPublishFileName(RuntimeIdentifier),
+                    GetPublishFileName(IsDebug, RuntimeIdentifier),
                 });
             return value;
         }
