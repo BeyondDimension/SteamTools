@@ -15,9 +15,14 @@ interface IDotNetPublishCommand : ICommand
 {
     const string commandName = "run";
 
+    const string EntryPointAssemblyName = "Steam++";
+
+    static readonly DateTimeOffset releaseTime = DateTimeOffset.Now;
+    static readonly string releaseTimestamp = releaseTime.ToString("yyyyMMddHHmmssfffffff");
+
     static string GetPublishFileName(string rid, string fileEx = "")
     {
-        var value = $"Steam++_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}{fileEx}";
+        var value = $"{EntryPointAssemblyName}_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_{releaseTimestamp}{fileEx}";
         return value;
     }
 
@@ -388,16 +393,23 @@ interface IDotNetPublishCommand : ICommand
                         switch (item.FileEx.ToLowerInvariant())
                         {
                             case ".dll" or ".exe" or ".sys":
-                                if (!MSIXHelper.IsDigitalSigned(item.FilePath))
                                 {
-                                    toBeSignedFiles.Add(item);
-                                    toBeSignedFilePaths.Add(item.FilePath);
+                                    if (item.FileInfo?.Name.Contains("xunyoucall",
+                                        StringComparison.OrdinalIgnoreCase) ?? false)
+                                    {
+                                        continue;
+                                    }
+                                    if (!MSIXHelper.IsDigitalSigned(item.FilePath))
+                                    {
+                                        toBeSignedFiles.Add(item);
+                                        toBeSignedFilePaths.Add(item.FilePath);
+                                    }
                                 }
                                 break;
                         }
                     }
 
-                    if (toBeSignedFilePaths.Any())
+                    if (toBeSignedFilePaths.Count != 0)
                     {
                         SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                         Console.Write("正在进行数字签名，文件数量：");
@@ -407,8 +419,19 @@ interface IDotNetPublishCommand : ICommand
     $"""
 "{x}"
 """));
-                        var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
-                        MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath);
+                        if (!debug) // 调试模式不进行数字签名
+                        {
+                            var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
+                            try
+                            {
+                                MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath);
+                            }
+                            catch
+                            {
+                                pfxFilePath = MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning;
+                                MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath);
+                            }
+                        }
                         foreach (var item in toBeSignedFiles)
                         {
                             if (sha256)
