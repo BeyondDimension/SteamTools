@@ -379,22 +379,42 @@
                         Padding="0,0,10,0"
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
-                        <ItemsRepeater ItemsSource="{Binding Games}" VerticalCacheLength="50">
-                            <ItemsRepeater.Layout>
-                                <UniformGridLayout
-                                    ItemsJustification="Start"
-                                    ItemsStretch="Uniform"
-                                    MinColumnSpacing="10"
-                                    MinItemHeight="180"
-                                    MinItemWidth="200"
-                                    MinRowSpacing="10" />
-                            </ItemsRepeater.Layout>
-                            <ItemsRepeater.ItemTemplate>
-                                <DataTemplate DataType="spp:XunYouGameViewModel">
-                                    <spp:GameAppItem ButtonCommand="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}" />
-                                </DataTemplate>
-                            </ItemsRepeater.ItemTemplate>
-                        </ItemsRepeater>
+                        <StackPanel>
+                            <ItemsRepeater ItemsSource="{Binding Games}" VerticalCacheLength="50">
+                                <ItemsRepeater.Layout>
+                                    <UniformGridLayout
+                                        ItemsJustification="Start"
+                                        ItemsStretch="Uniform"
+                                        MinColumnSpacing="10"
+                                        MinItemHeight="180"
+                                        MinItemWidth="200"
+                                        MinRowSpacing="10" />
+                                </ItemsRepeater.Layout>
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate DataType="spp:XunYouGameViewModel">
+                                        <spp:GameAppItem ButtonCommand="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}" />
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+
+                            <StackPanel
+                                Margin="0,30"
+                                HorizontalAlignment="Center"
+                                Spacing="10">
+                                <spp:Image2
+                                    Width="100"
+                                    Height="100"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/empty.png"
+                                    Stretch="UniformToFill" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="已经到底啦! 没有找到想加速的游戏的话可以搜索添加哦~" />
+                            </StackPanel>
+                        </StackPanel>
                     </ScrollViewer>
                 </spp:ContentLoader>
                 <spp:GameDetail

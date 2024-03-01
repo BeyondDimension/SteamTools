@@ -2923,7 +2923,7 @@
     <value>卸载Watt加速器插件</value>
   </data>
 	<data name="GameAccelerator_GamesEmptyTip" xml:space="preserve">
-    <value>加载游戏数据失败，请尝试刷新</value>
+    <value>未获取到加速游戏列表，请搜索添加</value>
   </data>
 	<data name="GameAccelerator_ChangeArea" xml:space="preserve">
     <value>切换加速区服</value>

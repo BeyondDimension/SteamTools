@@ -2637,7 +2637,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 加载游戏数据失败，请尝试刷新 的本地化字符串。
+        ///   查找类似 未获取到加速游戏列表，请搜索添加 的本地化字符串。
         /// </summary>
         public static string GameAccelerator_GamesEmptyTip {
             get {
