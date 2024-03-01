@@ -17,8 +17,7 @@ interface IDotNetPublishCommand : ICommand
 
     const string EntryPointAssemblyName = "Steam++";
 
-    static readonly DateTimeOffset releaseTime = DateTimeOffset.Now;
-    static readonly string releaseTimestamp = releaseTime.ToString("yyMMdd_HHmmssfffffff");
+    static string releaseTimestamp = DateTimeOffset.Now.ToString("yyMMdd_HHmmssfffffff");
 
     static string GetPublishFileName(bool debug, string rid, string fileEx = "")
     {
