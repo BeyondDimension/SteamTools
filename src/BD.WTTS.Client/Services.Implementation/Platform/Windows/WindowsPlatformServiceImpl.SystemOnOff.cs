@@ -50,16 +50,17 @@ partial class WindowsPlatformServiceImpl
         }
         else
         {
+            var isPrivilegedProcess = true;
             if (IsPrivilegedProcess)
             {
                 var scheduledTaskService = IScheduledTaskService.Instance;
                 scheduledTaskService.ThrowIsNull();
-                scheduledTaskService.SetBootAutoStart(isAutoStart, name, isPrivilegedProcess: false);
+                scheduledTaskService.SetBootAutoStart(isAutoStart, name, isPrivilegedProcess: isPrivilegedProcess);
             }
             else
             {
                 var ipc = await IPlatformService.IPCRoot.Instance;
-                ipc.SetBootAutoStart(isAutoStart, name, isPrivilegedProcess: false);
+                ipc.SetBootAutoStart(isAutoStart, name, isPrivilegedProcess: isPrivilegedProcess);
             }
         }
     }

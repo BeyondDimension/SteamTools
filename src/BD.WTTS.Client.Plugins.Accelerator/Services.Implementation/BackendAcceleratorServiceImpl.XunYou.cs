@@ -159,7 +159,8 @@ partial class BackendAcceleratorServiceImpl
             }
             return 0;
         }
-        var result = XunYouSDK.Install(XunYouDownLoadCallback, default, installPath);
+        var installPackPath = Plugin.Instance.CacheDirectory;
+        var result = XunYouSDK.Install(XunYouDownLoadCallback, default, installPath, installPackPath);
         if (result == 101) // 成功
         {
             await foreach (var item in channel.Reader.ReadAllAsync(cancellationToken))

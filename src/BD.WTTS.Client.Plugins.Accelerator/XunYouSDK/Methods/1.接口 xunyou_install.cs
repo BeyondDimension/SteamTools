@@ -19,27 +19,33 @@ partial class XunYouSDK // 1.接口 xunyou_install
     /// <param name="callback">迅游启动进度(包含下载和加速，无安装)</param>
     /// <param name="ptr">保存回调函数的返回参数可以为传默认值</param>
     /// <param name="installPath">迅游加速器安装路径，不指定，则默认安装在 xunyoucall.dll 所在目录</param>
+    /// <param name="installPackPath">迅游加速器安装包下载文件夹路径，不指定，则默认下载在xunyoucall.dll所在目录</param>
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Install(XunYouDownLoadCallback? callback = null,
         nint ptr = default,
-        string? installPath = null)
+        string? installPath = null,
+        string? installPackPath = null)
     {
         int result;
         unsafe
         {
             var xunyou_callback = callback is null ? null : (delegate* unmanaged[Stdcall]<int, nint, int>)
                 Marshal.GetFunctionPointerForDelegate(globalXunYouDownLoadCallback_xunyou_install = callback);
-            result = xunyou_install(appId, xunyou_callback, ptr, installPath, installPath?.Length ?? 0);
+            result = xunyou_install_ex(appId, xunyou_callback, ptr,
+                installPackPath, installPackPath?.Length ?? 0,
+                installPath, installPath?.Length ?? 0);
         }
         return result;
     }
 
     [LibraryImport(libraryName)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
-    private static unsafe partial int xunyou_install(int id,
+    private static unsafe partial int xunyou_install_ex(int id,
         delegate* unmanaged[Stdcall]<int, nint, int> callback = null,
         nint ptr = default,
+        [MarshalAs(UnmanagedType.LPStr)] string? installpack_path = default,
+        int installpack_path_len = 0,
         [MarshalAs(UnmanagedType.LPStr)] string? install_path = default,
         int install_path_len = 0);
 }
