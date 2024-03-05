@@ -1,6 +1,8 @@
 // ReSharper disable once CheckNamespace
+using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using BD.Common.Models;
+using BD.WTTS.UI.Views.Controls;
 using BD.WTTS.UI.Views.Pages;
 using FluentAvalonia.UI.Controls;
 
@@ -261,8 +263,15 @@ public sealed partial class GameAcceleratorService
             {
                 if (!isInstall)
                 {
-                    if (!await IWindowManager.Instance.ShowTaskDialogAsync(
-                                   new MessageBoxWindowViewModel() { Content = "需要下载 Watt 加速器插件才可使用，确定要下载吗?" }, title: "未安装加速插件", isCancelButton: true))
+                    //if (!await IWindowManager.Instance.ShowTaskDialogAsync(
+                    //               new MessageBoxWindowViewModel() { Content = "需要下载 Watt 加速器插件才可使用，确定要下载吗?" }, title: "未安装加速插件", isCancelButton: true))
+                    //{
+                    //    app.IsAccelerating = false;
+                    //    return;
+                    //}
+
+                    if (!await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel(),
+                        pageContent: new AcceleratorPathAskBox(), title: "未安装加速插件", isCancelButton: true))
                     {
                         app.IsAccelerating = false;
                         return;
