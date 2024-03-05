@@ -378,6 +378,7 @@
                         Name="GameScrollViewer"
                         Padding="0,0,10,0"
                         HorizontalScrollBarVisibility="Disabled"
+                        IsVisible="{Binding !!Games.Count}"
                         VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <ItemsRepeater ItemsSource="{Binding Games}" VerticalCacheLength="50">
