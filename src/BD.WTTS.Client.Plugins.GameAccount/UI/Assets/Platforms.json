@@ -103,8 +103,8 @@
     "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
     "LoginFiles": {
       "%LocalAppData%\\Riot Games\\Riot Client\\Data\\Cookies\\": "Cookies",
-      "%LocalAppData%\\Riot Games\\Riot Client\\Data": "RiotClientPrivateSettings.yaml",
-      "%LocalAppData%\\Riot Games\\Riot Client\\Config": "RiotClientSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data\\RiotGamesPrivateSettings.yaml": "RiotGamesPrivateSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Config\\RiotClientSettings.yaml": "RiotClientSettings.yaml",
       "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id": "WattToolkit.id"
     },
     "UniqueIdPath": "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id",

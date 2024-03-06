@@ -1,3 +1,4 @@
+using System;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS;
@@ -81,7 +82,7 @@ public static partial class PathHelper
                 ? IOPath.ExpandEnvironmentVariables(Path.Combine(fromPath, wildcard), folderPath)
                 : Path.Combine(localCachePath, fromPath, wildcard);
             toPath = toPath.Replace(wildcard, "");
-            toFullPath = toPath;
+            toFullPath = IOPath.ExpandEnvironmentVariables(toPath);
         }
 
         var platformService = IPlatformService.Instance;
@@ -95,9 +96,9 @@ public static partial class PathHelper
             // Handle "...\\*" folder.
             if (file == "*")
             {
-                if (!Directory.Exists(Path.GetDirectoryName(fromPath)))
+                if (!Directory.Exists(folder))
                     return false;
-                if (platformService.CopyFilesRecursive(Path.GetDirectoryName(fromPath), toFullPath))
+                if (platformService.CopyFilesRecursive(folder, toFullPath))
                     return true;
 
                 Toast.Show(ToastIcon.Error, AppResources.Error_CopyFileFailed);
