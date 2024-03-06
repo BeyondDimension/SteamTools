@@ -424,11 +424,14 @@ $"""
                             try
                             {
                                 MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
+                                Console.WriteLine("数字签名失败，输入回车使用自签继续");
+                                Console.ReadLine();
                             }
                             catch
                             {
-                                pfxFilePath = MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning;
-                                MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
+                                if (debug)
+                                    throw;
+                                MSIXHelper.SignTool.Start(force_sign, fileNames, MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning, rootPublishDir);
                             }
                         }
                         foreach (var item in toBeSignedFiles)

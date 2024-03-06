@@ -101,6 +101,8 @@ $"""
                 }
                 catch
                 {
+                    if (debug)
+                        throw;
                     pfxFilePath = MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning;
                     MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
                 }
