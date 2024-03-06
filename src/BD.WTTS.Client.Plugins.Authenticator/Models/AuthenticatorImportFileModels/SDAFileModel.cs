@@ -1,4 +1,5 @@
 using Converter;
+using SJsonConverter = System.Text.Json.Serialization.JsonConverterAttribute;
 
 namespace BD.WTTS.Models;
 
@@ -16,7 +17,7 @@ public class SdaFileModel
     [JsonPropertyName("uri")]
     public string Uri { get; set; } = string.Empty;
 
-    [JsonConverter(typeof(SteamDataLongConverter))]
+    [SJsonConverter(typeof(SteamDataLongConverter))]
     [JsonPropertyName("server_time")]
     public long ServerTime { get; set; }
 
@@ -32,7 +33,7 @@ public class SdaFileModel
     [JsonPropertyName("secret_1")]
     public string Secret1 { get; set; } = string.Empty;
 
-    [JsonConverter(typeof(SteamDataIntConverter))]
+    [SJsonConverter(typeof(SteamDataIntConverter))]
     [JsonPropertyName("status")]
     public int Status { get; set; }
 
@@ -60,7 +61,7 @@ public class SdaFileConvertToSteamDataModel
     [JsonPropertyName("uri")]
     public string Uri { get; set; } = string.Empty;
 
-    [JsonConverter(typeof(SteamDataLongConverter))]
+    [SJsonConverter(typeof(SteamDataLongConverter))]
     [JsonPropertyName("server_time")]
     public long ServerTime { get; set; }
 
@@ -76,6 +77,7 @@ public class SdaFileConvertToSteamDataModel
     [JsonPropertyName("secret_1")]
     public string Secret1 { get; set; } = string.Empty;
 
+    [SJsonConverter(typeof(SteamDataIntConverter))]
     [JsonPropertyName("status")]
     public int Status { get; set; }
 
@@ -111,7 +113,7 @@ public class Session
     [JsonPropertyName("OAuthToken")]
     public string OAuthToken { get; set; } = string.Empty;
 
-    [JsonConverter(typeof(SteamDataLongConverter))]
+    [SJsonConverter(typeof(SteamDataLongConverter))]
     [JsonPropertyName("SteamID")]
     public long SteamId { get; set; }
 }

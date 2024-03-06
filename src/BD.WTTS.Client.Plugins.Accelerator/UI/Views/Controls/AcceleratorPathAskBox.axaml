@@ -1,0 +1,27 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.AcceleratorPathAskBox"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <StackPanel Spacing="6">
+        <ui:SettingsExpander
+            Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value}"
+            Header="安装路径"
+            IsClickEnabled="True">
+            <ui:SettingsExpander.IconSource>
+                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpander.Footer>
+                <Button Click="SelectWattAcceleratorInstallPath" Content="选择路径" />
+            </ui:SettingsExpander.Footer>
+        </ui:SettingsExpander>
+        <TextBlock Text="需要下载 Watt 加速器插件才可使用，确定要下载吗?" />
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,181 @@
+<spp:GameDetail
+    x:Class="BD.WTTS.UI.Views.Controls.GameDetail"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="180"
+    d:DesignWidth="600"
+    x:DataType="spp:XunYouGameViewModel"
+    Background="{x:Null}"
+    ClipToBounds="True"
+    CornerRadius="{StaticResource OverlayCornerRadius}"
+    mc:Ignorable="d">
+    <spp:GameDetail.Styles>
+        <Style Selector="spp|GameDetail Border.Status">
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="Background" Value="#80000000" />
+            <Setter Property="ClipToBounds" Value="True" />
+            <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+        </Style>
+    </spp:GameDetail.Styles>
+    <spp:GameDetail.ContentTemplate>
+        <DataTemplate DataType="spp:XunYouGameViewModel">
+            <Border ClipToBounds="True" CornerRadius="{StaticResource OverlayCornerRadius}">
+                <Panel>
+                    <Viewbox
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="2"
+                        Stretch="UniformToFill">
+                        <spp:Image2
+                            Classes="Scale"
+                            DecodeWidth="800"
+                            FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/defaultBackground.png"
+                            Source="{Binding PicUrl}" />
+                    </Viewbox>
+
+                    <spp:Image2
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="2"
+                        Margin="400,0,10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        DecodeWidth="400"
+                        Source="{Binding LogoUrl}"
+                        Stretch="Uniform" />
+
+                    <Panel
+                        Name="ShadowBox"
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="2"
+                        Background="#80000000" />
+
+                    <Grid
+                        Margin="30,5"
+                        VerticalAlignment="Center"
+                        RowDefinitions="Auto,Auto,Auto">
+                        <StackPanel Orientation="Horizontal">
+                            <spp:Image2
+                                Width="36"
+                                Height="36"
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                DecodeWidth="36"
+                                IsVisible="{Binding !$self.IsFailed}"
+                                Source="{Binding IconUrl}">
+                                <spp:Image2.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition
+                                            Easing="0,0 0,1"
+                                            Property="Width"
+                                            Duration="00:00:00.25" />
+                                        <DoubleTransition
+                                            Easing="0,0 0,1"
+                                            Property="Height"
+                                            Duration="00:00:00.25" />
+                                    </Transitions>
+                                </spp:Image2.Transitions>
+                            </spp:Image2>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                MaxLines="2"
+                                Text="{Binding Name}"
+                                TextTrimming="CharacterEllipsis"
+                                Theme="{StaticResource TitleTextBlockStyle}" />
+
+                            <Border
+                                Margin="10,0"
+                                Padding="0"
+                                VerticalAlignment="Bottom"
+                                Classes="Status"
+                                Cursor="Hand">
+                                <Button
+                                    Classes="plain"
+                                    Command="{Binding AcceleratorChangeAreaCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                                    CommandParameter="{Binding}"
+                                    Theme="{StaticResource TransparentButton}">
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <TextBlock Foreground="White" Text="{Binding SelectedArea.Name}" />
+                                        <TextBlock
+                                            Foreground="White"
+                                            IsVisible="{Binding !!SelectedServer}"
+                                            Text="{Binding SelectedServer.Name, StringFormat={}/ {0}}" />
+                                        <ui:SymbolIcon Foreground="White" Symbol="Switch" />
+                                    </StackPanel>
+                                </Button>
+                            </Border>
+                        </StackPanel>
+                        <Grid
+                            Grid.Row="1"
+                            Margin="0,10"
+                            VerticalAlignment="Center"
+                            ColumnDefinitions="Auto,30,Auto"
+                            IsVisible="{Binding IsAccelerated}"
+                            RowDefinitions="*,Auto">
+                            <TextBlock
+                                VerticalAlignment="Bottom"
+                                Foreground="White"
+                                IsVisible="{Binding !PingValueIsInvalid}">
+                                <Run FontSize="32" Text="{Binding PingValue}" />
+                                <Run Text="ms" />
+                            </TextBlock>
+                            <TextBlock
+                                VerticalAlignment="Bottom"
+                                Foreground="White"
+                                IsVisible="{Binding PingValueIsInvalid}">
+                                <Run FontSize="32" Text="--" />
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                VerticalAlignment="Bottom"
+                                Foreground="#C5FFFFFF"
+                                Text="延迟" />
+                            <TextBlock
+                                Grid.Column="3"
+                                VerticalAlignment="Bottom"
+                                Foreground="White">
+                                <Run FontSize="32" Text="{Binding PingSpeedLoss}" />
+                                <Run Text="%" />
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Grid.ColumnSpan="2"
+                                VerticalAlignment="Bottom"
+                                Foreground="#C5FFFFFF"
+                                Text="丢包率" />
+                            <!--<TextBlock
+                                Margin="20,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Foreground="White"
+                                Text="182.2"
+                                Theme="{StaticResource SubtitleTextBlockStyle}" />
+                            <TextBlock
+                                VerticalAlignment="Bottom"
+                                Foreground="White"
+                                Text="KB" />-->
+                        </Grid>
+                        <Button
+                            Grid.Row="2"
+                            Width="150"
+                            Height="42"
+                            Classes="accent"
+                            Command="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                            CommandParameter="{Binding}"
+                            Content="停止加速"
+                            FontSize="18" />
+                    </Grid>
+
+                </Panel>
+            </Border>
+        </DataTemplate>
+    </spp:GameDetail.ContentTemplate>
+</spp:GameDetail>

@@ -349,7 +349,10 @@
         <spp:ContentLoader.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
         </spp:ContentLoader.GestureRecognizers>
-        <ItemsRepeater x:Name="GameListRepeater" ItemsSource="{Binding SteamApps}">
+        <ItemsRepeater
+            x:Name="GameListRepeater"
+            ItemsSource="{Binding SteamApps}"
+            VerticalCacheLength="300">
             <!--
                 Classes.Compact="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.CompactGrid}}"
                 Classes.Grid="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"

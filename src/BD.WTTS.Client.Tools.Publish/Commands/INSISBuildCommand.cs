@@ -1,3 +1,4 @@
+using BD.WTTS.Client.Tools.Publish.Helpers;
 using static BD.WTTS.Client.Tools.Publish.Commands.IDotNetPublishCommand;
 
 namespace BD.WTTS.Client.Tools.Publish.Commands;
@@ -10,16 +11,26 @@ interface INSISBuildCommand : ICommand
     {
         var debug = new Option<bool>("--debug", "Defines the build configuration");
         var rids = new Option<string[]>("--rids", "RID is short for runtime identifier");
+        var timestamp = new Option<string>("--t", "Release timestamp");
+        var force_sign = new Option<bool>("--force-sign", GetDefForceSign, "Mandatory verification must be digitally signed");
+        var hsm_sign = new Option<bool>("--hsm-sign", "");
         var command = new Command(commandName, "NSIS build generate")
         {
-           debug, rids,
+           debug, rids, timestamp, force_sign, hsm_sign,
         };
-        command.SetHandler(Handler, debug, rids);
+        command.SetHandler(Handler, debug, rids, timestamp, force_sign, hsm_sign);
         return command;
     }
 
-    internal static void Handler(bool debug, string[] rids)
+    internal static void Handler(bool debug, string[] rids, string timestamp, bool force_sign, bool hsm_sign)
     {
+        if (ProjectUtils.ProjPath.Contains("actions-runner"))
+        {
+            hsm_sign = false; // hsm 目前无法映射到 CI VM 中
+        }
+
+        releaseTimestamp = timestamp;
+
         var rootDirPath = Path.Combine(ProjectUtils.ProjPath, "..", "NSIS-Build");
         var nsiFilePath = Path.Combine(rootDirPath, "AppCode", "Steampp", "app", "SteamPP_setup.nsi");
 
@@ -76,6 +87,26 @@ interface INSISBuildCommand : ICommand
                 UseShellExecute = false,
             });
             process!.WaitForExit();
+
+            if (!debug) // 调试模式不进行数字签名
+            {
+                var fileNames =
+$"""
+"{outputFilePath}"
+""";
+                var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
+                try
+                {
+                    MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
+                }
+                catch
+                {
+                    if (debug)
+                        throw;
+                    pfxFilePath = MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning;
+                    MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
+                }
+            }
         }
 
         File.WriteAllText(nsiFilePath, nsiFileContentBak);

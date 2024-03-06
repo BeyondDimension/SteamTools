@@ -1,4 +1,5 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
+using SJsonSerializer = System.Text.Json.JsonSerializer;
 
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
@@ -140,6 +141,10 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
                 Items = trayMenus,
             });
             //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
+        }
+        else
+        {
+            IsVerificationPass = true;
         }
 
         IsLoading = false;
@@ -531,7 +536,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
         {
             if (string.IsNullOrEmpty(steamAuthenticator.SteamData)) return;
 
-            var steamdata = JsonSerializer.Deserialize(steamAuthenticator.SteamData,
+            var steamdata = SJsonSerializer.Deserialize(steamAuthenticator.SteamData,
                 ImportFileModelJsonContext.Default.SdaFileModel);
 
             steamdata.ThrowIsNull();
@@ -553,7 +558,7 @@ public sealed partial class AuthenticatorHomePageViewModel : ViewModelBase
                 SharedSecret = Convert.ToBase64String(steamAuthenticator.SecretKey),
             };
 
-            var jsonString = JsonSerializer.Serialize(sdafilemodel, ImportFileModelJsonContext.Default.SdaFileModel);
+            var jsonString = SJsonSerializer.Serialize(sdafilemodel, ImportFileModelJsonContext.Default.SdaFileModel);
 
             //...导出至文件目录
 

@@ -75,19 +75,29 @@
                         </ContentPresenter.IsVisible>-->
                     </ContentPresenter>
 
-                    <ContentPresenter
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Content="{TemplateBinding NoResultMessage}"
-                        Foreground="{TemplateBinding Foreground}"
-                        Theme="{StaticResource SubtitleTextBlockStyle}">
-                        <ContentPresenter.IsVisible>
+                    <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <spp:Image2
+                            Width="100"
+                            Height="100"
+                            Margin="0,0,0,120"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                            Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/empty.png"
+                            Stretch="UniformToFill" />
+                        <Panel.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.And}">
                                 <Binding Path="IsShowNoResultText" RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="!IsLoading" RelativeSource="{RelativeSource TemplatedParent}" />
                             </MultiBinding>
-                        </ContentPresenter.IsVisible>
-                    </ContentPresenter>
+                        </Panel.IsVisible>
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding NoResultMessage}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Theme="{StaticResource SubtitleTextBlockStyle}" />
+                    </Panel>
                 </Panel>
             </ControlTemplate>
         </Setter>

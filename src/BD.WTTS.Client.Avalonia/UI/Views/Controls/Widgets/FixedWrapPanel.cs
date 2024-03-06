@@ -45,7 +45,7 @@ public class FixedWrapPanel : Panel, INavigableContainer
     /// <inheritdoc/>
     IInputElement INavigableContainer.GetControl(NavigationDirection direction, IInputElement? from, bool wrap)
     {
-        int index = from is not null ? Children.IndexOf((Control)from) : -1;
+        int index = from is Control control ? Children.IndexOf(control) : -1;
         switch (direction)
         {
             case NavigationDirection.First:
@@ -85,7 +85,7 @@ public class FixedWrapPanel : Panel, INavigableContainer
     /// <inheritdoc/>
     protected override Size MeasureOverride(Size constraint)
     {
-        double itemWidth = (constraint.Width - Spacing * (ItemsPerLine - 1)) / ItemsPerLine;
+        double itemWidth = (constraint.Width - (Spacing * (ItemsPerLine - 1))) / ItemsPerLine;
         MutableSize currentLineSize = default;
         MutableSize panelSize = default;
         Size lineConstraint = new(constraint.Width, constraint.Height);
@@ -130,7 +130,7 @@ public class FixedWrapPanel : Panel, INavigableContainer
     /// <inheritdoc/>
     protected override Size ArrangeOverride(Size finalSize)
     {
-        double itemWidth = (finalSize.Width - Spacing * (ItemsPerLine - 1)) / ItemsPerLine;
+        double itemWidth = (finalSize.Width - (Spacing * (ItemsPerLine - 1))) / ItemsPerLine;
         int firstInLine = 0;
         double accumulatedHeight = 0;
         var currentLineSize = default(MutableSize);

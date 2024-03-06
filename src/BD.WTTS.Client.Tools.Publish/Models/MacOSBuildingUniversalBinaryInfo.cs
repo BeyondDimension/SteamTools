@@ -1,3 +1,5 @@
+using JsonSerializer = System.Text.Json.JsonSerializer;
+
 namespace BD.WTTS.Client.Tools.Publish.Models;
 
 /// <summary>

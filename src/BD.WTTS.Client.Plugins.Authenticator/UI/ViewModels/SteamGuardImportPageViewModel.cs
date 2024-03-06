@@ -1,4 +1,5 @@
 using WinAuth;
+using SJsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -89,7 +90,7 @@ public sealed partial class SteamGuardImportPageViewModel : ViewModelBase
             // check the steamguard
             byte[] secret;
             string? serial;
-            var steamGuardModel = JsonSerializer.Deserialize(PhoneImportSteamGuard,
+            var steamGuardModel = SJsonSerializer.Deserialize(PhoneImportSteamGuard,
                 ImportFileModelJsonContext.Default.SteamGuardModel);
 
             if (steamGuardModel == null) return;

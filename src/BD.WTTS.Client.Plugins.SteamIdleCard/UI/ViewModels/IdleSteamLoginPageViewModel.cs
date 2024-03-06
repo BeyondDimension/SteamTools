@@ -59,7 +59,7 @@ public sealed partial class IdleSteamLoginPageViewModel : WindowViewModel
                 }
                 Toast.Show(ToastIcon.Success, Strings.Success_.Format(Strings.User_Login));
                 IsLoading = false;
-                Close?.Invoke();
+                Close?.Invoke(false);
             }
             else if (SteamLoginState.Message != null)
             {
@@ -104,7 +104,7 @@ public sealed partial class IdleSteamLoginPageViewModel : WindowViewModel
                     SteamLoginState.Success = true;
                     Toast.Show(ToastIcon.Success, Strings.Success_.Format(Strings.User_Login));
                     IsLoading = false;
-                    Close?.Invoke();
+                    Close?.Invoke(false);
                 }
             }
             IsLoading = false;

@@ -53,7 +53,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
             }
             else
             {
-                Close?.Invoke();
+                Close?.Invoke(false);
             }
         }
         catch (Exception ex)

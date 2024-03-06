@@ -12,7 +12,7 @@ public sealed partial class ProxyService
 {
     static ProxyService? mCurrent;
 
-    public static ProxyService Current => mCurrent ?? new();
+    public static ProxyService Current => mCurrent ??= new();
 
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
     readonly IScriptManager scriptManager = IScriptManager.Instance;
@@ -21,8 +21,6 @@ public sealed partial class ProxyService
 
     ProxyService()
     {
-        mCurrent = this;
-
         ProxyDomains = new SourceCache<AccelerateProjectGroupDTO, string>(s => s.Name);
         ProxyScripts = new SourceList<ScriptDTO>();
 
@@ -34,6 +32,7 @@ public sealed partial class ProxyService
             .Subscribe(_ => SelectGroup = ProxyDomains.Items.FirstOrDefault());
 
         this.WhenValueChanged(x => x.ProxyStatus, false)
+            .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe(async proxyStatusLeft =>
             {
                 bool proxyStatusRight;
@@ -444,6 +443,8 @@ public sealed partial class ProxyService
 
         //拉取 GM.js
         await BasicsInfoAsync();
+        //初始化后检查脚本更新
+        CheckScriptUpdate();
     }
 
     /// <summary>

@@ -20,3 +20,4 @@ global using MP2Ignore = MemoryPack.MemoryPackIgnoreAttribute;
 global using MP2Key = MemoryPack.MemoryPackOrderAttribute;
 global using MP2Obj = MemoryPack.MemoryPackableAttribute;
 global using MP2Union = MemoryPack.MemoryPackUnionAttribute;
+global using MP2SerializeLayout = MemoryPack.SerializeLayout;

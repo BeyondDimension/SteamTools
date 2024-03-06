@@ -9,7 +9,7 @@ public sealed class ASFService : ReactiveObject
 {
     static ASFService? mCurrent;
 
-    public static ASFService Current => mCurrent ?? new();
+    public static ASFService Current => mCurrent ??= new();
 
     readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
 
@@ -45,8 +45,6 @@ public sealed class ASFService : ReactiveObject
 
     private ASFService()
     {
-        mCurrent = this;
-
         SteamBotsSourceList = new SourceCache<BotViewModel, string>(t => t.Bot.BotName);
 
         archiSteamFarmService.OnConsoleWirteLine += OnConsoleWirteLine;

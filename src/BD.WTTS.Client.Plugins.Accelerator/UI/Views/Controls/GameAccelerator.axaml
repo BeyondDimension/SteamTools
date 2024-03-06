@@ -3,27 +3,114 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="250"
     d:DesignWidth="800"
+    x:DataType="spp:GameAcceleratorViewModel"
     mc:Ignorable="d">
-    <Grid RowDefinitions="Auto,*">
-        <StackPanel
-            HorizontalAlignment="Right"
-            Orientation="Horizontal"
-            Spacing="5">
-
-            <AutoCompleteBox MinWidth="200" Watermark="搜索游戏" />
-            <Button Content="Left" />
-            <Button Content="Right" />
-        </StackPanel>
-        <spp:CarouselItems Grid.Row="1">
-            <spp:CarouselItems.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="test" />
-                </DataTemplate>
-            </spp:CarouselItems.ItemTemplate>
-        </spp:CarouselItems>
-    </Grid>
+    <Panel>
+        <spp:ContentLoader
+            IsLoading="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=IsLoadingGames, Mode=OneWay}"
+            IsShowNoResultText="{Binding !!!Games.Count}"
+            IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!CurrentAcceleratorGame.IsAccelerated}"
+            NoResultMessage="{x:Static spp:Strings.GameAccelerator_GamesEmptyTip}}">
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+                <TextBlock Text="{x:Static spp:Strings.GameAccelerator}" Theme="{StaticResource SubtitleTextBlockStyle}" />
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="0,0,0,5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <AutoCompleteBox
+                        Name="SearchGameBox"
+                        MinWidth="200"
+                        Classes="Search"
+                        FilterMode="ContainsOrdinal"
+                        ItemsSource="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=AllGames}"
+                        MaxDropDownHeight="300"
+                        Text="{Binding SearchText}"
+                        ValueMemberBinding="{Binding Name, x:DataType=spp:XunYouGame}"
+                        Watermark="{x:Static spp:Strings.GameAccelerator_SearchGame}">
+                        <AutoCompleteBox.ItemTemplate>
+                            <DataTemplate DataType="spp:XunYouGame">
+                                <WrapPanel>
+                                    <spp:Image2
+                                        Width="20"
+                                        Height="20"
+                                        Margin="0,0,5,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        DecodeWidth="20"
+                                        Source="{Binding IconUrl}">
+                                        <spp:Image2.Transitions>
+                                            <Transitions>
+                                                <DoubleTransition
+                                                    Easing="0,0 0,1"
+                                                    Property="Width"
+                                                    Duration="00:00:00.25" />
+                                                <DoubleTransition
+                                                    Easing="0,0 0,1"
+                                                    Property="Height"
+                                                    Duration="00:00:00.25" />
+                                            </Transitions>
+                                        </spp:Image2.Transitions>
+                                    </spp:Image2>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        MaxLines="2"
+                                        Text="{Binding Name}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="WrapWithOverflow" />
+                                </WrapPanel>
+                            </DataTemplate>
+                        </AutoCompleteBox.ItemTemplate>
+                    </AutoCompleteBox>
+                    <Button
+                        Name="Left"
+                        Width="32"
+                        Height="32">
+                        <i:Interaction.Behaviors>
+                            <ia:EventTriggerBehavior EventName="Click" SourceObject="Left">
+                                <ia:CallMethodAction MethodName="SwiperPrevious" TargetObject="{Binding #GameCarousel}" />
+                            </ia:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <ui:SymbolIcon FontSize="16" Symbol="ChevronLeft" />
+                    </Button>
+                    <Button
+                        Name="Right"
+                        Width="32"
+                        Height="32">
+                        <i:Interaction.Behaviors>
+                            <ia:EventTriggerBehavior EventName="Click" SourceObject="Right">
+                                <ia:CallMethodAction MethodName="SwiperNext" TargetObject="{Binding #GameCarousel}" />
+                            </ia:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <ui:SymbolIcon FontSize="16" Symbol="ChevronRight" />
+                    </Button>
+                </StackPanel>
+                <spp:CarouselItems
+                    Name="GameCarousel"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Height="200"
+                    ItemsSource="{Binding Games}">
+                    <spp:CarouselItems.ItemTemplate>
+                        <DataTemplate DataType="spp:XunYouGameViewModel">
+                            <spp:GameAppItem ButtonCommand="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}" />
+                        </DataTemplate>
+                    </spp:CarouselItems.ItemTemplate>
+                </spp:CarouselItems>
+            </Grid>
+        </spp:ContentLoader>
+        <spp:GameDetail
+            MaxHeight="200"
+            Content="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame}"
+            IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame.IsAccelerated}" />
+    </Panel>
 </UserControl>

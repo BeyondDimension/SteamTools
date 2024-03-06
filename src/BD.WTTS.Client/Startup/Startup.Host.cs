@@ -55,7 +55,7 @@ partial class Startup // 配置 Host
         #endregion
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-        if (IsMainProcess || loadModules.Any())
+        if (IsMainProcess || HasIPCRoot || loadModules.Length != 0)
         {
             var pluginResults = PluginsCore.InitPlugins(generalSettings?.CurrentValue.DisablePlugins, loadModules);
             var plugins = pluginResults?.Where(x => !x.IsDisable).Select(x => x.Data).ToHashSet();

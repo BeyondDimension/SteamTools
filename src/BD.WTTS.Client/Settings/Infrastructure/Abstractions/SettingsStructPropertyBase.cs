@@ -77,7 +77,7 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    void Save() => ISettings.TrySave(typeof(TSettings), monitor, true);
+    public void Save() => ISettings.TrySave(typeof(TSettings), monitor, true);
 
     public override void RaiseValueChanged(bool notSave = false)
     {

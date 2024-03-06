@@ -42,7 +42,7 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
             if (UserService.Current.IsAuthenticated)
             {
                 Toast.Show(ToastIcon.Info, "当前已是登录状态");
-                this.ViewModel.Close();
+                this.ViewModel.Close(false);
             }
         }
         Application.Current!.UrlsOpened += Current_UrlsOpened;

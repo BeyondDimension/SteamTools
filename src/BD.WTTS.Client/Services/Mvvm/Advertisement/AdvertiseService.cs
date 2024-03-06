@@ -8,7 +8,7 @@ public sealed class AdvertiseService : ReactiveObject
 {
     static AdvertiseService? mCurrent;
 
-    public static AdvertiseService Current => mCurrent ?? new();
+    public static AdvertiseService Current => mCurrent ??= new();
 
     [Reactive]
     public ObservableCollection<AdvertisementDTO>? HorizontalBannerAdvertisements { get; set; }
@@ -26,8 +26,6 @@ public sealed class AdvertiseService : ReactiveObject
 
     AdvertiseService()
     {
-        mCurrent = this;
-
         //AdvertisementsSource
         //    .Connect()
         //    .ObserveOn(RxApp.MainThreadScheduler)

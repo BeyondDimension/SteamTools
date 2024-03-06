@@ -22,9 +22,10 @@ public sealed partial class MainWindowViewModel : WindowViewModel
     {
         if (IApplication.IsDesktop())
         {
-            var platformService = IPlatformService.Instance;
-            var adminTag = platformService.IsAdministrator ? (OperatingSystem.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
-            var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.InformationalVersion} for {AboutPageViewModel.GetOSName()}{adminTag}";
+            //var platformService = IPlatformService.Instance;
+            //var adminTag = platformService.IsAdministrator ? (OperatingSystem.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
+            //var title = $"{AssemblyInfo.Trademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{AssemblyInfo.InformationalVersion} for {AboutPageViewModel.GetOSName()}{adminTag}";
+            var title = AssemblyInfo.Trademark;
 #if DEBUG
             title = $"[Debug] {title}";
 #endif

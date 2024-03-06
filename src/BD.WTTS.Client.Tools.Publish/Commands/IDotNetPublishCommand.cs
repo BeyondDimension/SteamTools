@@ -4,6 +4,7 @@ using System;
 using System.Security.Policy;
 using static BD.WTTS.Client.Tools.Publish.Helpers.DotNetCLIHelper;
 using static BD.WTTS.GlobalDllImportResolver;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BD.WTTS.Client.Tools.Publish.Commands;
 
@@ -14,9 +15,13 @@ interface IDotNetPublishCommand : ICommand
 {
     const string commandName = "run";
 
-    static string GetPublishFileName(string rid, string fileEx = "")
+    const string EntryPointAssemblyName = "Steam++";
+
+    static string releaseTimestamp = DateTimeOffset.Now.ToString("yyMMdd_HHmmssfffffff");
+
+    static string GetPublishFileName(bool debug, string rid, string fileEx = "")
     {
-        var value = $"Steam++_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}{fileEx}";
+        var value = $"[{(debug ? "Debug" : "Release")}] {EntryPointAssemblyName}_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_{releaseTimestamp}{fileEx}";
         return value;
     }
 
@@ -62,6 +67,86 @@ interface IDotNetPublishCommand : ICommand
             foreach (var item in Directory.EnumerateFiles(path))
             {
                 File.Delete(item);
+            }
+        }
+    }
+
+    const string DllSystemDrawingCommon = "System.Drawing.Common.dll";
+    const string DllMicrosoftWin32SystemEvents = "Microsoft.Win32.SystemEvents.dll";
+    const string DllSystemManagement = "System.Management.dll";
+    const string DllSplatDrawing = "Splat.Drawing.dll";
+    const string DllSystemReactive = "System.Reactive.dll";
+
+    static readonly Lazy<string> nugetPkgPath = new(() =>
+        Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+            ".nuget",
+            "packages"));
+
+    static string GetMatchTfmDir(string dllPath)
+    {
+        var versions = from m in Directory.GetDirectories(dllPath)
+                       let dirName = Path.GetFileName(m)
+                       let ver = Version.TryParse(dirName.TrimStart("net"), out var ver_) ? ver_ : null
+                       where ver != null && ver.Major <= Environment.Version.Major
+                       orderby ver descending
+                       select (ver, m);
+        var path = versions.FirstOrDefault().m;
+        return path;
+    }
+
+    static bool MatchPackageVersion(string dllName, Version ver, FileVersionInfo? fvi = null) => dllName switch
+    {
+        DllSystemDrawingCommon => ver.Major <= Environment.Version.Major,
+        _ => fvi == null || (!Version.TryParse(fvi.FileVersion, out var fVer) || (ver.Major <= fVer.Major)),
+    };
+
+    static void CopyWindowsDlls(string publishDir)
+    {
+        // 修复：存在 Microsoft.WindowsDesktop.App 依赖时不会将 System.Drawing.Common.dll 复制到输出目录
+        string[] copyToDlls = [DllSystemDrawingCommon, DllMicrosoftWin32SystemEvents, DllSystemManagement];
+        foreach (var copyToDll in copyToDlls)
+        {
+            var dllExistsPath = Path.Combine(publishDir, copyToDll);
+            if (!File.Exists(dllExistsPath))
+            {
+                var pkgDir = Path.Combine(nugetPkgPath.Value, copyToDll.TrimEnd(".dll", StringComparison.OrdinalIgnoreCase));
+                var versions = from m in Directory.GetDirectories(pkgDir)
+                               let dirName = Path.GetFileName(m)
+                               let ver = Version.TryParse(dirName, out var ver_) ? ver_ : null
+                               where ver != null && MatchPackageVersion(copyToDll, ver)
+                               orderby ver descending
+                               select (ver, m);
+                var path = versions.FirstOrDefault().m;
+                var dllPath = Path.Combine(path, "lib");
+                dllPath = GetMatchTfmDir(dllPath);
+                dllPath = Path.Combine(dllPath, copyToDll);
+                File.Copy(dllPath, dllExistsPath);
+            }
+        }
+
+        // 修复：Splat.Drawing 包存在 WPF 的依赖项
+        // 修复：System.Reactive 包存在 System.Windows.Forms 的依赖项
+        string[] replaceToDlls = [DllSplatDrawing, DllSystemReactive];
+        foreach (var replaceToDll in replaceToDlls)
+        {
+            var dllExistsPath = Path.Combine(publishDir, replaceToDll);
+            if (File.Exists(dllExistsPath))
+            {
+                var fvi = FileVersionInfo.GetVersionInfo(dllExistsPath);
+                var pkgDir = Path.Combine(nugetPkgPath.Value, replaceToDll.TrimEnd(".dll", StringComparison.OrdinalIgnoreCase));
+                var versions = from m in Directory.GetDirectories(pkgDir)
+                               let dirName = Path.GetFileName(m)
+                               let ver = Version.TryParse(dirName, out var ver_) ? ver_ : null
+                               where ver != null && MatchPackageVersion(replaceToDll, ver, fvi)
+                               orderby ver descending
+                               select (ver, m);
+                var path = versions.FirstOrDefault().m;
+                var dllPath = Path.Combine(path, "lib");
+                dllPath = GetMatchTfmDir(dllPath);
+                dllPath = Path.Combine(dllPath, replaceToDll);
+                File.Delete(dllExistsPath);
+                File.Copy(dllPath, dllExistsPath);
             }
         }
     }
@@ -229,6 +314,8 @@ interface IDotNetPublishCommand : ICommand
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                     Console.WriteLine("发布成功【AppHost】");
                     ResetConsoleColor();
+
+                    CopyWindowsDlls(publishDir);
                 }
 
                 // 发布插件
@@ -305,27 +392,48 @@ interface IDotNetPublishCommand : ICommand
                         switch (item.FileEx.ToLowerInvariant())
                         {
                             case ".dll" or ".exe" or ".sys":
-                                if (!MSIXHelper.IsDigitalSigned(item.FilePath))
                                 {
-                                    toBeSignedFiles.Add(item);
-                                    toBeSignedFilePaths.Add(item.FilePath);
+                                    if (item.FileInfo?.Name.Contains("xunyoucall",
+                                        StringComparison.OrdinalIgnoreCase) ?? false)
+                                    {
+                                        continue;
+                                    }
+                                    if (!MSIXHelper.IsDigitalSigned(item.FilePath))
+                                    {
+                                        toBeSignedFiles.Add(item);
+                                        toBeSignedFilePaths.Add(item.FilePath);
+                                    }
                                 }
                                 break;
                         }
                     }
 
-                    if (toBeSignedFilePaths.Any())
+                    if (toBeSignedFilePaths.Count != 0)
                     {
                         SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                         Console.Write("正在进行数字签名，文件数量：");
                         Console.WriteLine(toBeSignedFilePaths.Count);
                         ResetConsoleColor();
                         var fileNames = string.Join(' ', toBeSignedFilePaths.Select(x =>
-    $"""
-"{x}"
+$"""
+"{x.TrimStart(Path.DirectorySeparatorChar).TrimStart(rootPublishDir).TrimStart(Path.DirectorySeparatorChar)}"
 """));
-                        var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
-                        MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath);
+                        if (!debug) // 调试模式不进行数字签名
+                        {
+                            var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
+                            try
+                            {
+                                MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
+                                Console.WriteLine("数字签名失败，输入回车使用自签继续");
+                                Console.ReadLine();
+                            }
+                            catch
+                            {
+                                if (debug)
+                                    throw;
+                                MSIXHelper.SignTool.Start(force_sign, fileNames, MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning, rootPublishDir);
+                            }
+                        }
                         foreach (var item in toBeSignedFiles)
                         {
                             if (sha256)
@@ -352,7 +460,7 @@ interface IDotNetPublishCommand : ICommand
 
                     var msixDir = $"{rootPublishDir}_MSIX";
                     IOPath.DirCreateByNotExists(msixDir);
-                    var msixFilePath = Path.Combine(msixDir, GetPublishFileName(rid, ".msix"));
+                    var msixFilePath = Path.Combine(msixDir, GetPublishFileName(debug, rid, ".msix"));
 
                     // 生成 msix 包
                     MSIXHelper.MakeAppx.Start(msixFilePath, rootPublishDir, AppVersion4, info.Architecture);
@@ -796,7 +904,7 @@ interface IDotNetPublishCommand : ICommand
                     "bin",
                     Configuration,
                     "Publish",
-                    GetPublishFileName(RuntimeIdentifier),
+                    GetPublishFileName(IsDebug, RuntimeIdentifier),
                     "assemblies",
                 });
             return value;
@@ -809,7 +917,7 @@ interface IDotNetPublishCommand : ICommand
                     "bin",
                     Configuration,
                     "Publish",
-                    GetPublishFileName(RuntimeIdentifier),
+                    GetPublishFileName(IsDebug, RuntimeIdentifier),
                 });
             return value;
         }

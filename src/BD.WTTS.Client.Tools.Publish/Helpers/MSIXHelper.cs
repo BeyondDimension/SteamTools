@@ -194,7 +194,7 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
   <Applications>
     <Application Id="App" Executable="Steam++.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements DisplayName="Watt Toolkit" Description="「Watt Toolkit」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装 Steam 才能使用。" BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png" Square71x71Logo="images\SmallTile.png" Square310x310Logo="images\LargeTile.png" ShortName="Steam++">
+        <uap:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png" Square71x71Logo="images\SmallTile.png" Square310x310Logo="images\LargeTile.png" ShortName="{DisplayName}">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo"/>
             <uap:ShowOn Tile="wide310x150Logo"/>
@@ -327,7 +327,8 @@ $"""
         public static void Start(
             bool force_sign,
             string fileName,
-            string? pfxFilePath = null)
+            string? pfxFilePath = null,
+            string? workingDirectory = null)
         {
             ProcessStartInfo psi;
             switch (pfxFilePath)
@@ -381,6 +382,8 @@ sign /fd SHA256 /sha1 {pfxFilePath_HSM_CodeSigning} /tr {timestamp_url} /td SHA2
                     }
                     break;
             }
+            if (!string.IsNullOrWhiteSpace(workingDirectory))
+                psi.WorkingDirectory = workingDirectory;
             ProcessHelper.StartAndWaitForExit(psi);
         }
     }

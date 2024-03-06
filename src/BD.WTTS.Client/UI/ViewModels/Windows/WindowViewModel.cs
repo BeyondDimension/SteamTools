@@ -5,7 +5,7 @@ public partial class WindowViewModel : PageViewModel, IWindowViewModel
 {
     public WindowViewModel()
     {
-        Close = () => windowManager.CloseWindow(this);
+        Close = _ => windowManager.CloseWindow(this);
         Show = () => windowManager.ShowWindow(this);
     }
 
@@ -16,9 +16,9 @@ public partial class WindowViewModel : PageViewModel, IWindowViewModel
     public bool IsVisible => windowManager.IsVisibleWindow(this);
 
     /// <summary>
-    /// 关闭当前 ViewModel 绑定的窗口
+    /// 关闭当前 ViewModel 绑定的窗口 参数为是否正常关闭
     /// </summary>
-    public virtual Action Close { get; set; }
+    public virtual Action<bool>? Close { get; set; }
 
     /// <summary>
     /// 显示当前 ViewModel 绑定的窗口

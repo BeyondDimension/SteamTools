@@ -151,7 +151,7 @@
 		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
 		<PackageReference Include="7-Zip.NativeAssets.Win32" />
 		<PackageReference Include="System.Management" />
-		<PackageReference Include="Aigio.WinDivertSharp.NativeAssets.Win32" />
+		<!--<PackageReference Include="Aigio.WinDivertSharp.NativeAssets.Win32" />-->
 		<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />
 		<PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
 		<PackageReference Include="Microsoft.Win32.SystemEvents" />
@@ -172,6 +172,12 @@
 		<PackageReference Include="Aigio.Any.AppCenter" />
 		<PackageReference Include="Aigio.Any.AppCenter.Analytics" />
 		<PackageReference Include="Aigio.Any.AppCenter.Crashes" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(MSBuildProjectDirectory)\..\..\..\XunYouSDK\src\Sample.ConsoleApp\XunYouSDK\XunYouSDK.AppId.cs') ">
+		<None Condition=" $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(MSBuildProjectDirectory)\..\..\..\XunYouSDK\src\Sample.ConsoleApp\xunyoucall64.dll') " Include="$(MSBuildProjectDirectory)\..\..\..\XunYouSDK\src\Sample.ConsoleApp\xunyoucall64.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">

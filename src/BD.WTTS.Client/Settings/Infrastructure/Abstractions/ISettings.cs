@@ -1,4 +1,4 @@
-using Polly;
+using SJsonSerializer = System.Text.Json.JsonSerializer;
 using Microsoft.Extensions.FileProviders;
 
 // ReSharper disable once CheckNamespace
@@ -105,6 +105,7 @@ public interface ISettings
             IgnoreReadOnlyProperties = true,
             IncludeFields = false,
             WriteIndented = true,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         };
         o.Converters.Add(new JsonStringEnumConverter());
         return o;
@@ -162,7 +163,7 @@ public interface ISettings
             FileMode.Open,
             FileAccess.Read,
             FileShare.ReadWrite | FileShare.Delete);
-        jobj = JsonSerializer.Deserialize<JsonObject>(readStream, options);
+        jobj = SJsonSerializer.Deserialize<JsonObject>(readStream, options);
         if (jobj != null)
         {
             var jnode = jobj[TSettings.Name];
@@ -170,7 +171,7 @@ public interface ISettings
             {
                 options = ISettings.GetDefaultOptions();
                 options.TypeInfoResolver = ISettings.JsonTypeInfoResolver.Instance;
-                var settingsByRead = JsonSerializer.Deserialize<TSettings>(jnode, options);
+                var settingsByRead = SJsonSerializer.Deserialize<TSettings>(jnode, options);
                 return settingsByRead;
             }
         }
@@ -189,7 +190,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static TSettings Deserialize(Stream utf8Json)
-        => JsonSerializer.Deserialize(utf8Json, TSettings.JsonTypeInfo) ?? new();
+        => SJsonSerializer.Deserialize(utf8Json, TSettings.JsonTypeInfo) ?? new();
 
     sealed class OptionsMonitor : IOptionsMonitor<TSettings>, IOptions<TSettings>
     {
@@ -233,13 +234,13 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
             var settings_ = AllowNullDeserialize();
             if (settings_ != null)
             {
-                settings = settings_;
-
                 // 监听到的设置模型实例，如果和 new 一个空的数据一样的，就是默认值则忽略
                 var newSettingsData = Serializable.SMP2(settings);
                 var emptySettingsData = Serializable.SMP2(new TSettings());
                 if (newSettingsData.SequenceEqual(emptySettingsData))
                     return;
+
+                settings = settings_;
 
                 listener.Invoke(settings, TSettings.Name);
             }
@@ -337,7 +338,7 @@ internal static class SettingsExtensions
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string Serialize<TSettings>(this TSettings settings) where TSettings : ISettings
-        => JsonSerializer.Serialize(settings, typeof(TSettings), TSettings.JsonSerializerContext);
+        => SJsonSerializer.Serialize(settings, typeof(TSettings), TSettings.JsonSerializerContext);
 
     /// <summary>
     /// 将实例序列化写入 UTF8 Json 流
@@ -347,7 +348,7 @@ internal static class SettingsExtensions
     /// <param name="settings"></param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Serialize<TSettings>(this TSettings settings, Stream utf8Json) where TSettings : ISettings
-        => JsonSerializer.Serialize(utf8Json, settings, typeof(TSettings), TSettings.JsonSerializerContext);
+        => SJsonSerializer.Serialize(utf8Json, settings, typeof(TSettings), TSettings.JsonSerializerContext);
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void Save_____<TSettings>(this TSettings settings, Stream utf8Json) where TSettings : ISettings

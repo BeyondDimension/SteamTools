@@ -8,7 +8,7 @@ public sealed class UserService : ReactiveObject
 {
     static UserService? mCurrent;
 
-    public static UserService Current => mCurrent ?? new();
+    public static UserService Current => mCurrent ??= new();
 
     readonly IUserManager userManager = IUserManager.Instance;
     readonly IMicroServiceClient csc = IMicroServiceClient.Instance;
@@ -138,8 +138,6 @@ public sealed class UserService : ReactiveObject
 
     private UserService()
     {
-        mCurrent = this;
-
         this.WhenAnyValue(x => x.User)
               .Subscribe(_ => this.RaisePropertyChanged(nameof(AvatarPath)));
 

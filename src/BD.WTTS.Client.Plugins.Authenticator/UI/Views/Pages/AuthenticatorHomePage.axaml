@@ -228,14 +228,15 @@
         <StackPanel
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            IsVisible="{Binding !IsVerificationPass}"
             Orientation="Horizontal"
             Spacing="5">
-            <StackPanel.IsVisible>
+            <!--<StackPanel.IsVisible>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
                     <CompiledBinding Path="!IsVerificationPass" />
                     <CompiledBinding Path="!!!Auths.Count" />
                 </MultiBinding>
-            </StackPanel.IsVisible>
+            </StackPanel.IsVisible>-->
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"

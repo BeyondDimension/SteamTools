@@ -43,6 +43,13 @@ public abstract partial class PluginBase : IPlugin
 
     }
 
+    public virtual void ConfigureServices(
+        IpcProvider ipcProvider,
+        Startup startup)
+    {
+
+    }
+
     public virtual void OnAddAutoMapper(IMapperConfigurationExpression cfg)
     {
 

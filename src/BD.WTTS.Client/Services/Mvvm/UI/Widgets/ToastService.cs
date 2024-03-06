@@ -9,7 +9,7 @@ public sealed class ToastService : ReactiveObject
 {
     static ToastService? mCurrent;
 
-    public static ToastService Current => mCurrent ?? new();
+    public static ToastService Current => mCurrent ??= new();
 
     static readonly Lazy<bool> mIsSupported = new(() => Ioc.Get<IToast>() is ToastImpl);
 
@@ -50,8 +50,6 @@ public sealed class ToastService : ReactiveObject
 
     ToastService()
     {
-        mCurrent = this;
-
         notifier = new Subject<string>();
         notifier
             .Do(x =>

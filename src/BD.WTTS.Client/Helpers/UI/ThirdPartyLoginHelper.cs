@@ -1,5 +1,6 @@
 using Fleck;
 using AppResources = BD.WTTS.Client.Resources.Strings;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels;
@@ -56,7 +57,7 @@ public static class ThirdPartyLoginHelper
     /// <param name="msg"></param>
     /// <param name="socket"></param>
     /// <returns></returns>
-    public static async Task LoginForStr(string msg)
+    public static async Task LoginForStr(string msg, IWebSocketConnection? socket = null)
     {
         if (tempAes == null) return;
         if (string.IsNullOrWhiteSpace(msg)) return;
@@ -78,10 +79,17 @@ public static class ThirdPartyLoginHelper
             if (rsp.IsSuccess && rsp.Content == null)
             {
                 webRsp.Msg = ApiRspExtensions.GetMessage(ApiRspCode.NoResponseContent);
-                Toast.Show(ToastIcon.None, webRsp.Msg);
+                if (socket != null)
+                    await socket.Send(JsonSerializer.Serialize(webRsp));
+                else
+                    Toast.Show(ToastIcon.None, webRsp.Msg);
                 return;
             }
             webRsp.State = rsp.IsSuccess;
+            if (socket != null)
+                await socket.Send(JsonSerializer.Serialize(webRsp)); // 仅可在 close 之前传递消息
+            else
+                Toast.Show(ToastIcon.None, webRsp.Msg);
             if (rsp.IsSuccess)
             {
                 if (isBind)
@@ -113,7 +121,7 @@ public static class ThirdPartyLoginHelper
                     await conn_helper.OnLoginedAsync(rsp.Content!, rsp.Content!);
                     await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
-                        await LoginOrRegisterSuccessAsync(rsp.Content!, () => vm?.Close());
+                        await LoginOrRegisterSuccessAsync(rsp.Content!, () => vm?.Close(false));
                     });
                 }
             }
@@ -121,7 +129,7 @@ public static class ThirdPartyLoginHelper
             {
                 await MainThread2.InvokeOnMainThreadAsync(() =>
                 {
-                    vm?.Close();
+                    vm?.Close(false);
                     conn_helper.ShowResponseErrorMessage(null, rsp);
                 });
             }
@@ -131,7 +139,7 @@ public static class ThirdPartyLoginHelper
             var rsp = ApiRspHelper.Exception(ex);
             await MainThread2.InvokeOnMainThreadAsync(() =>
             {
-                vm?.Close();
+                vm?.Close(false);
                 conn_helper.ShowResponseErrorMessage(null, rsp);
             });
         }
@@ -161,6 +169,33 @@ public static class ThirdPartyLoginHelper
         serverDisposable = null;
     }
 
+    static void StartServer(IApplication app)
+    {
+        if (ws != null) return;
+        var ip = IPAddress.Loopback;
+        port = SocketHelper.GetRandomUnusedPort(ip);
+        ws = new($"ws://{ip}:{port}");
+
+        serverDisposable?.Dispose();
+        serverDisposable = Disposable.Create(() =>
+        {
+            ws?.Dispose();
+            ws = null;
+            tempAes?.Dispose();
+            tempAes = null;
+        });
+
+        if (app is IDisposableHolder dh)
+        {
+            serverDisposable.AddTo(dh);
+        }
+
+        ws.Start(socket =>
+        {
+            socket.OnMessage = async message => await LoginForStr(message, socket);
+        });
+    }
+
     static Aes? tempAes;
     static bool isBind;
     static WindowViewModel? vm;
@@ -185,6 +220,11 @@ public static class ThirdPartyLoginHelper
     public static async Task StartAsync(WindowViewModel vm, ExternalLoginChannel channel, bool isBind)
     {
         var app = IApplication.Instance;
+        if (!OperatingSystem2.IsAndroid() && !OperatingSystem2.IsIOS())
+        {
+            // Android/iOS 使用 URL Scheme 回调
+            StartServer(app);
+        }
         var conn_helper = Ioc.Get<IApiConnectionPlatformHelper>();
         var apiBaseUrl = IMicroServiceClient.Instance.ApiBaseUrl;
 #if DEBUG
@@ -223,7 +263,7 @@ public static class ThirdPartyLoginHelper
         //var version = csc.Settings.AppVersionStr;
         var ver = AssemblyInfo.Version.Base64UrlEncode();
         var qs = HttpUtility.ParseQueryString("");
-        qs.Add("port", "0");
+        qs.Add("port", port.ToString());
         qs.Add("sKeyHex", skey_str);
         qs.Add("sKeyPadding", padding.OaepHashAlgorithm.ToString());
         qs.Add("ver", ver);
@@ -233,7 +273,8 @@ public static class ThirdPartyLoginHelper
         qs.Add("dg", DeviceIdHelper.DeviceIdG.ToStringN());
         qs.Add("dr", DeviceIdHelper.DeviceIdR);
         qs.Add("dn", DeviceIdHelper.DeviceIdN);
-        qs.Add("isUS", "true");
+        if (OperatingSystem.IsMacOS())
+            qs.Add("isUS", "true");
         var ub = new UriBuilder(apiBaseUrl)
         {
             Path = $"/identity/v1/externallogin/{(int)channel}",

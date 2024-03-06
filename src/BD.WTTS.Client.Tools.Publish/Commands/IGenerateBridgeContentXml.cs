@@ -1,6 +1,7 @@
 using static BD.WTTS.Client.Tools.Publish.Commands.IDotNetPublishCommand;
 using static BD.WTTS.Client.Tools.Publish.Helpers.DotNetCLIHelper;
 using static BD.WTTS.GlobalDllImportResolver;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BD.WTTS.Client.Tools.Publish.Commands;
 

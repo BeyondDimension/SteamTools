@@ -229,31 +229,34 @@
                         DataContext="{Binding Articles[2]}" />
                 </Grid>
 
-                <!--<ItemsControl ItemsSource="{Binding Articles}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <Grid ColumnDefinitions="*,*,*" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="spp:ArticleItemDTO">
-                                <spp:AppItem
-                                    Title="{Binding Title}"
-                                    Classes="Vertical Scale"
-                                    Description="{Binding Introduction}"
-                                    Tags="{Binding AuthorName}">
-                                    <spp:AppItem.Image>
-                                        <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding CoverUrl}" />
-                                    </spp:AppItem.Image>
-                                    <spp:AppItem.Status>
-                                        <Border Classes="Status">
-                                            <TextBlock Text="{Binding CreationTime, StringFormat={}{yyyy-MM-dd}}" />
-                                        </Border>
-                                    </spp:AppItem.Status>
-                                </spp:AppItem>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>-->
+                <!--<spp:CarouselItems ItemsPerPage="3" ItemsSource="{Binding Articles}">
+                    <spp:CarouselItems.ItemTemplate>
+                        <DataTemplate x:DataType="spp:ArticleItemDTO">
+                            <spp:AppItem
+                                Title="{Binding Title}"
+                                Classes="Vertical Scale"
+                                ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                Cursor="Hand"
+                                Description="{Binding Introduction}"
+                                Tags="{Binding AuthorName}">
+                                <spp:AppItem.ClickCommandParameter>
+                                    <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                        <CompiledBinding Path="." Source="{x:Static spp:HomePageViewModel.OfficialWebsite_Article_Detail_}" />
+                                        <CompiledBinding Path="Id" />
+                                    </MultiBinding>
+                                </spp:AppItem.ClickCommandParameter>
+                                <spp:AppItem.Image>
+                                    <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding CoverUrl}" />
+                                </spp:AppItem.Image>
+                                <spp:AppItem.Status>
+                                    <Border Classes="Status">
+                                        <TextBlock Text="{Binding CreationTime, StringFormat={}{0:yyyy-MM-dd}}" />
+                                    </Border>
+                                </spp:AppItem.Status>
+                            </spp:AppItem>
+                        </DataTemplate>
+                    </spp:CarouselItems.ItemTemplate>
+                </spp:CarouselItems>-->
 
                 <DockPanel>
                     <TextBlock

@@ -463,6 +463,23 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             RegisterService(hostsFileService);
 #endif
         RegisterService<IPCToastService>(this);
+
+        var s = Startup.Instance;
+        if (s.TryGetPlugins(out var plugins))
+        {
+
+            foreach (var plugin in plugins)
+            {
+                try
+                {
+                    plugin.ConfigureServices(ipcProvider!, s);
+                }
+                catch (Exception ex)
+                {
+                    //GlobalExceptionHandler.Handler(ex, $"{plugin.UniqueEnglishName}.ConfigureRequiredServices");
+                }
+            }
+        }
     }
 
     /// <summary>
