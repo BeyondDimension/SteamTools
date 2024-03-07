@@ -74,8 +74,7 @@ public static partial class GlobalDllImportResolver
         if (libraryName != null &&
             libraryName.StartsWith("WinDivert"))
         {
-            if (!File.Exists(libraryPath))
-                libraryPath = Path.Combine(IOPath.AppDataDirectory, "native", RID, libraryName ?? string.Empty);
+            libraryPath = Path.Combine(IOPath.AppDataDirectory, "native", RID, libraryName ?? string.Empty);
         }
         return libraryPath;
     }

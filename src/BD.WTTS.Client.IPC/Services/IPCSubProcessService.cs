@@ -122,27 +122,34 @@ public interface IPCSubProcessService : IDisposable
                             return libraryName;
                         }
                         var libraryFileName = GetLibraryFileName(libraryName);
-
-                        foreach (var nativeLibraryPath in nativeLibraryPaths)
+                        string libraryPath = libraryName;
+                        try
                         {
-                            var libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
-                            if (File.Exists(libraryPath) &&
-                                NativeLibrary.TryLoad(libraryPath, out var handle))
+                            foreach (var nativeLibraryPath in nativeLibraryPaths)
                             {
-                                return handle;
-                            }
-                            else if (!OperatingSystem.IsWindows() && !libraryFileName.StartsWith("lib", StringComparison.OrdinalIgnoreCase))
-                            {
-                                libraryFileName = $"lib{libraryFileName}";
                                 libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
                                 if (File.Exists(libraryPath) &&
-                                    NativeLibrary.TryLoad(libraryPath, out handle))
+                                    NativeLibrary.TryLoad(libraryPath, out var handle))
                                 {
                                     return handle;
                                 }
+                                else if (!OperatingSystem.IsWindows() && !libraryFileName.StartsWith("lib", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    libraryFileName = $"lib{libraryFileName}";
+                                    libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
+                                    if (File.Exists(libraryPath) &&
+                                        NativeLibrary.TryLoad(libraryPath, out handle))
+                                    {
+                                        return handle;
+                                    }
+                                }
                             }
+                            return NativeLibrary.Load(libraryName, assembly, searchPath);
                         }
-                        return NativeLibrary.Load(libraryName, assembly, searchPath);
+                        catch (Exception ex)
+                        {
+                            throw new FileNotFoundException(null, libraryPath, ex);
+                        }
                     }
                     NativeLibrary.SetDllImportResolver(loadedAssembly, Delegate);
                 }

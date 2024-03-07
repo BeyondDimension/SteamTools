@@ -124,7 +124,7 @@ static class WinDivertInitHelper
             case Architecture.X64:
                 IsSupported = true;
                 libraryPath = GlobalDllImportResolver.GetLibraryPath("WinDivert.dll");
-                libraryDirPath = Path.GetDirectoryName(libraryDirPath);
+                libraryDirPath = Path.GetDirectoryName(libraryPath);
                 break;
         }
     }
