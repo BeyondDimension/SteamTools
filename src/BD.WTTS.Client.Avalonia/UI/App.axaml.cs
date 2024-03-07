@@ -44,9 +44,9 @@ public sealed partial class App : Application
             AvaloniaXamlLoader.Load(this);
 
 #if WINDOWS || LINUX || MACOS
-            //非主窗口不执行启动时最小化逻辑
-            if (GeneralSettings.MinimizeOnStartup.Value && MainWindow is MainWindow)
+            if (GeneralSettings.MinimizeOnStartup.Value)
                 Startup.Instance.IsMinimize = true;
+
             if (Startup.Instance.IsSteamRun)
             {
                 try
@@ -94,9 +94,10 @@ public sealed partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             MainWindow = InitializeMainWindow?.Invoke(this) ?? new MainWindow();
+
             desktop.MainWindow =
 #if !UI_DEMO
-                Startup.Instance.IsMinimize ? null :
+                Startup.Instance.IsMinimize && MainWindow is MainWindow ? null :
 #endif
                 MainWindow;
 

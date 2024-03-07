@@ -124,7 +124,7 @@ partial class Startup // 自定义控制台命令参数
         });
         rootCommand.AddCommand(steamuser);
 
-        // -clt app -id 282800
+        // -clt app -id 282800 -achievement
         var run_SteamApp = new Command("app", "运行 Steam 应用");
         run_SteamApp.AddOption(new Option<int>("-id", "指定一个 Steam 游戏 Id"));
         run_SteamApp.AddOption(new Option<bool>("-achievement", "打开成就解锁窗口"));
