@@ -187,14 +187,19 @@ partial class Startup // Properties
 
     public Task WaitConfiguredServices => waitConfiguredServices.Task;
 
+    static readonly Lazy<string?> _NativeLibraryPath = new(() =>
+    {
+#if WINDOWS || LINUX
+        return $"{GlobalDllImportResolver.GetLibraryPath(null)};{GlobalDllImportResolver.GetLibraryPath(null, IOPath.AppDataDirectory)}";
+#endif
+#if MACOS
+        return AppContext.BaseDirectory;
+#endif
+        return null;
+    });
+
     /// <summary>
     /// 自定义本机库加载路径
     /// </summary>
-    public static string? NativeLibraryPath { get; }
-#if WINDOWS || LINUX
-        = GlobalDllImportResolver.GetLibraryPath(null);
-#endif
-#if MACOS
-        = AppContext.BaseDirectory;
-#endif
+    public static string? NativeLibraryPath => _NativeLibraryPath.Value;
 }

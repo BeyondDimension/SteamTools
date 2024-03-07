@@ -93,6 +93,9 @@ public interface IPCSubProcessService : IDisposable
         var nativeLibraryPath = Environment.GetEnvironmentVariable(EnvKey_NativeLibraryPath);
         if (!string.IsNullOrWhiteSpace(nativeLibraryPath))
         {
+            var nativeLibraryPaths = nativeLibraryPath.Split(';',
+                StringSplitOptions.RemoveEmptyEntries);
+
             // 监听当前应用程序域的程序集加载
             AppDomain.CurrentDomain.AssemblyLoad += (_, args)
                 => CurrentDomain_AssemblyLoad(args.LoadedAssembly);
@@ -119,20 +122,24 @@ public interface IPCSubProcessService : IDisposable
                             return libraryName;
                         }
                         var libraryFileName = GetLibraryFileName(libraryName);
-                        var libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
-                        if (File.Exists(libraryPath) &&
-                            NativeLibrary.TryLoad(libraryPath, out var handle))
+
+                        foreach (var nativeLibraryPath in nativeLibraryPaths)
                         {
-                            return handle;
-                        }
-                        else if (!OperatingSystem.IsWindows() && !libraryFileName.StartsWith("lib", StringComparison.OrdinalIgnoreCase))
-                        {
-                            libraryFileName = $"lib{libraryFileName}";
-                            libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
+                            var libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
                             if (File.Exists(libraryPath) &&
-                           NativeLibrary.TryLoad(libraryPath, out handle))
+                                NativeLibrary.TryLoad(libraryPath, out var handle))
                             {
                                 return handle;
+                            }
+                            else if (!OperatingSystem.IsWindows() && !libraryFileName.StartsWith("lib", StringComparison.OrdinalIgnoreCase))
+                            {
+                                libraryFileName = $"lib{libraryFileName}";
+                                libraryPath = Path.Combine(nativeLibraryPath, libraryFileName);
+                                if (File.Exists(libraryPath) &&
+                                    NativeLibrary.TryLoad(libraryPath, out handle))
+                                {
+                                    return handle;
+                                }
                             }
                         }
                         return NativeLibrary.Load(libraryName, assembly, searchPath);

@@ -68,15 +68,16 @@ public static partial class GlobalDllImportResolver
     //static string GetDllDirectory() => GetLibraryPath();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string GetLibraryPath(string? libraryName = null)
+    public static string GetLibraryPath(string? libraryName = null, string? baseDirectory = null)
     {
-        if (DesktopBridge.IsRunningAsUwp &&
-            libraryName != null &&
+        var libraryPath = Path.Combine(baseDirectory ?? BaseDirectory, "native", RID, libraryName ?? string.Empty);
+        if (libraryName != null &&
             libraryName.StartsWith("WinDivert"))
         {
-            return Path.Combine(IOPath.AppDataDirectory, "native", RID, libraryName ?? string.Empty);
+            if (!File.Exists(libraryPath))
+                libraryPath = Path.Combine(IOPath.AppDataDirectory, "native", RID, libraryName ?? string.Empty);
         }
-        return Path.Combine(BaseDirectory, "native", RID, libraryName ?? string.Empty);
+        return libraryPath;
     }
 
     const string fileExtension_ =
