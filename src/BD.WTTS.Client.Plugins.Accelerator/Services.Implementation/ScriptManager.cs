@@ -134,7 +134,10 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                     if (jsSaveInfo.Exists)
                     {
                         if (isNoRepeat)
+                        {
                             jsSaveInfo.Delete();
+                            fileInfo.CopyTo(jsSavePath);
+                        }
                     }
                     else
                     {
