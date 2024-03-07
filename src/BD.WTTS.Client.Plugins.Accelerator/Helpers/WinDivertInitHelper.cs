@@ -123,8 +123,8 @@ static class WinDivertInitHelper
             //case Architecture.X86:
             case Architecture.X64:
                 IsSupported = true;
-                libraryDirPath = Path.Combine(AppContext.BaseDirectory, "native", "win-x64");
-                libraryPath = Path.Combine(libraryDirPath, "WinDivert.dll");
+                libraryPath = GlobalDllImportResolver.GetLibraryPath("WinDivert.dll");
+                libraryDirPath = Path.GetDirectoryName(libraryDirPath);
                 break;
         }
     }
