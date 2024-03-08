@@ -20,52 +20,60 @@ public sealed partial class IdleSteamLoginPageViewModel : WindowViewModel
 
     private async void SteamLoginAsync()
     {
-        if (!IsLoading)
+        try
         {
-            IsLoading = true;
-
-            if (SteamLoginState.SteamId == 0)
+            if (!IsLoading)
             {
-                SteamLoginState.Username = UserNameText;
-                SteamLoginState.Password = PasswordText;
-            }
-            else
-            {
-                this.TwofactorCode ??= string.Empty;
+                IsLoading = true;
 
-                if (SteamLoginState.Requires2FA)
+                if (SteamLoginState.SteamId == 0)
                 {
-                    SteamLoginState.TwofactorCode = this.TwofactorCode;
+                    SteamLoginState.Username = UserNameText;
+                    SteamLoginState.Password = PasswordText;
                 }
-                else if (SteamLoginState.RequiresEmailAuth)
+                else
                 {
-                    SteamLoginState.EmailCode = this.TwofactorCode;
+                    this.TwofactorCode ??= string.Empty;
+
+                    if (SteamLoginState.Requires2FA)
+                    {
+                        SteamLoginState.TwofactorCode = this.TwofactorCode;
+                    }
+                    else if (SteamLoginState.RequiresEmailAuth)
+                    {
+                        SteamLoginState.EmailCode = this.TwofactorCode;
+                    }
                 }
-            }
 
-            await Account.DoLoginV2Async(SteamLoginState);
+                await Account.DoLoginV2Async(SteamLoginState);
 
-            Requires2FA = SteamLoginState.Requires2FA;
-            RequiresEmailAuth = SteamLoginState.RequiresEmailAuth;
+                Requires2FA = SteamLoginState.Requires2FA;
+                RequiresEmailAuth = SteamLoginState.RequiresEmailAuth;
 
-            if (SteamLoginState.Success)
-            {
-                if (RemenberLogin)
+                if (SteamLoginState.Success)
                 {
-                    var session = SteamSession.RentSession(SteamLoginState.SteamId.ToString());
+                    if (RemenberLogin)
+                    {
+                        var session = SteamSession.RentSession(SteamLoginState.SteamId.ToString());
 
-                    if (session != null)
-                        await SteamSession.SaveSession(session);
+                        if (session != null)
+                            await SteamSession.SaveSession(session);
+                    }
+                    Toast.Show(ToastIcon.Success, Strings.Success_.Format(Strings.User_Login));
+                    IsLoading = false;
+                    Close?.Invoke(false);
                 }
-                Toast.Show(ToastIcon.Success, Strings.Success_.Format(Strings.User_Login));
-                IsLoading = false;
-                Close?.Invoke(false);
+                else if (SteamLoginState.Message != null)
+                {
+                    IsLoading = false;
+                    Toast.Show(ToastIcon.Warning, SteamLoginState.Message);
+                }
             }
-            else if (SteamLoginState.Message != null)
-            {
-                IsLoading = false;
-                Toast.Show(ToastIcon.Warning, SteamLoginState.Message);
-            }
+        }
+        catch (Exception ex)
+        {
+            IsLoading = false;
+            ex.LogAndShowT();
         }
     }
 
