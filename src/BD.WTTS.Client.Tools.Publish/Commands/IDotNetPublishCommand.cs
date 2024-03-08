@@ -608,7 +608,7 @@ $"""
 
     private static readonly Lazy<string> _AppVersion4 = new(() =>
     {
-        var v = new Version(AssemblyInfo.Version);
+        var v = new Version(AssemblyInfo.FileVersion);
         static int GetInt32(int value) => value < 0 ? 0 : value;
         return $"{GetInt32(v.Major)}.{GetInt32(v.Minor)}.{GetInt32(v.Build)}.{GetInt32(v.Revision)}";
     });
