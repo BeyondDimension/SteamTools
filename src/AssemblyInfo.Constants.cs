@@ -21,7 +21,7 @@ public static partial class AssemblyInfo
     /// <summary>
     /// RC 版本号，范围 0~9，只增不减
     /// </summary>
-    const string ver_for_rc = "4";
+    const string ver_for_rc = "5";
 
     public const string FileVersion = $"{Version2}.{ver_for_rc}0{ver_for_preview}.0";
 
