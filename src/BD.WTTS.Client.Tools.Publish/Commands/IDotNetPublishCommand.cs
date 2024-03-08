@@ -424,11 +424,11 @@ $"""
                             try
                             {
                                 MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
-                                Console.WriteLine("数字签名失败，输入回车使用自签继续");
-                                Console.ReadLine();
                             }
                             catch
                             {
+                                Console.WriteLine("数字签名失败，输入回车使用自签继续");
+                                Console.ReadLine();
                                 if (debug)
                                     throw;
                                 MSIXHelper.SignTool.Start(force_sign, fileNames, MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning, rootPublishDir);
