@@ -102,6 +102,7 @@
                             Command="{Binding $parent[spp:Settings_Plugin].((spp:SettingsPageViewModel)DataContext).DeletePlugin_Click}"
                             CommandParameter="{Binding Data}"
                             Content="{Binding Path=Res.Plugin_Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                             IsClickEnabled="True" />
                     </ui:SettingsExpander>
                 </DataTemplate>
