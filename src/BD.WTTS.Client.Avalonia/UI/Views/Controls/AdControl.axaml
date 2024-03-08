@@ -25,6 +25,7 @@
                             <spp:Image2
                                 Width="{Binding $parent[UserControl].Bounds.Width}"
                                 Height="{Binding $parent[UserControl].Bounds.Height}"
+                                EnableCancelToken="False"
                                 Source="{Binding ImageUrl}"
                                 Stretch="UniformToFill" />
                         </Button>

@@ -150,7 +150,7 @@
                                     </Border>
                                 </spp:AppItem.Status>
                                 <spp:AppItem.Image>
-                                    <spp:Image2 Source="{Binding ImageUrl}" />
+                                    <spp:Image2 EnableCancelToken="False" Source="{Binding ImageUrl}" />
                                 </spp:AppItem.Image>
                             </spp:AppItem>
                         </DataTemplate>
@@ -295,7 +295,10 @@
                                         </MultiBinding>
                                     </spp:AppItem.ClickCommandParameter>
                                     <spp:AppItem.Image>
-                                        <spp:Image2 RenderOptions.BitmapInterpolationMode="HighQuality" Source="{Binding Image}" />
+                                        <spp:Image2
+                                            EnableCancelToken="False"
+                                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                                            Source="{Binding Image}" />
                                     </spp:AppItem.Image>
                                     <spp:AppItem.Status>
                                         <Border Classes="Status">
