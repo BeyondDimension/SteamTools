@@ -28,7 +28,7 @@ public abstract partial class Startup
     }
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-    readonly string[]? args;
+    string[]? args;
 
     public Startup(string[]? args = null)
     {
@@ -78,11 +78,12 @@ public abstract partial class Startup
                         {
                             var handledArgs = HandleProtocolActivation(protocolActivatedEventArgs);
                             if (handledArgs != null)
-                                return handledArgs;
+                                this.args = handledArgs;
                         }
                         break;
                     case ActivationKind.StartupTask:
-                        return IPlatformService.SystemBootRunArguments.Split(' ');
+                        this.args = IPlatformService.SystemBootRunArguments.Split(' ');
+                        break;
                 }
             }
         }
