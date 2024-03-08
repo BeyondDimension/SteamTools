@@ -196,7 +196,8 @@ internal sealed class RequestCacheRepository : CacheRepository<RequestCache, str
         }
         Write(s, request.Headers.Accept);
         s.Write("\r\n"u8);
-        Write(s, request.Headers.AcceptEncoding);
+        //Write(s, request.Headers.AcceptEncoding); // AcceptEncoding 在 Fetch 中为空，Save 时有值😅
+        s.Write("gzip|deflate|br"u8);
         s.Write("\r\n"u8);
         var referrer = request.Headers.Referrer;
         if (referrer == default)
