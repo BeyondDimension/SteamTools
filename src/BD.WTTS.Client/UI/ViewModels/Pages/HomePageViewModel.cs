@@ -41,11 +41,11 @@ public sealed class HomePageViewModel : TabItemViewModel
         //GetServerContent();
     }
 
-    public override void Activation()
-    {
-        base.Activation();
-        GetServerContent();
-    }
+    //public override void Activation()
+    //{
+    //    base.Activation();
+    //    GetServerContent();
+    //}
 
     public async void GetServerContent()
     {

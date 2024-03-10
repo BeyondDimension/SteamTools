@@ -353,76 +353,16 @@
             VerticalAlignment="Top"
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
-            <TabStripItem Name="GameAccTab" Content="游戏加速" />
             <TabStripItem Content="平台加速 (免费)" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}" />
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
+            <TabStripItem Name="GameAccTab" Content="游戏加速" />
         </TabStrip>
         <Carousel
             Grid.Row="1"
             Margin="0,10,0,0"
             Classes="AnimeSlide"
             SelectedIndex="{Binding #AcceleratorTabs.SelectedIndex}">
-
-            <!--  游戏加速  -->
-            <Panel x:DataType="spp:GameAcceleratorPageViewModel">
-                <Panel.DataContext>
-                    <spp:GameAcceleratorPageViewModel />
-                </Panel.DataContext>
-                <spp:ContentLoader
-                    IsLoading="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=IsLoadingGames, Mode=OneWay}"
-                    IsShowNoResultText="{Binding !!!Games.Count}"
-                    IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!CurrentAcceleratorGame.IsAccelerated}"
-                    NoResultMessage="{x:Static spp:Strings.GameAccelerator_GamesEmptyTip}}">
-                    <ScrollViewer
-                        Name="GameScrollViewer"
-                        Padding="0,0,10,0"
-                        HorizontalScrollBarVisibility="Disabled"
-                        IsVisible="{Binding !!Games.Count}"
-                        VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <ItemsRepeater ItemsSource="{Binding Games}" VerticalCacheLength="50">
-                                <ItemsRepeater.Layout>
-                                    <UniformGridLayout
-                                        ItemsJustification="Start"
-                                        ItemsStretch="Uniform"
-                                        MinColumnSpacing="10"
-                                        MinItemHeight="180"
-                                        MinItemWidth="200"
-                                        MinRowSpacing="10" />
-                                </ItemsRepeater.Layout>
-                                <ItemsRepeater.ItemTemplate>
-                                    <DataTemplate DataType="spp:XunYouGameViewModel">
-                                        <spp:GameAppItem ButtonCommand="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}" />
-                                    </DataTemplate>
-                                </ItemsRepeater.ItemTemplate>
-                            </ItemsRepeater>
-
-                            <StackPanel
-                                Margin="0,30"
-                                HorizontalAlignment="Center"
-                                Spacing="10">
-                                <spp:Image2
-                                    Width="100"
-                                    Height="100"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    RenderOptions.BitmapInterpolationMode="HighQuality"
-                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/empty.png"
-                                    Stretch="UniformToFill" />
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Text="已经到底啦! 没有找到想加速的游戏的话可以搜索添加哦~" />
-                            </StackPanel>
-                        </StackPanel>
-                    </ScrollViewer>
-                </spp:ContentLoader>
-                <spp:GameDetail
-                    Margin="0,0,10,0"
-                    Content="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame}"
-                    IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame.IsAccelerated}" />
-            </Panel>
 
             <!--  平台加速  -->
             <ScrollViewer
@@ -543,6 +483,67 @@
                     </DockPanel>
                 </Border>
             </Grid>
+
+
+            <!--  游戏加速  -->
+            <Panel x:DataType="spp:GameAcceleratorPageViewModel">
+                <Panel.DataContext>
+                    <spp:GameAcceleratorPageViewModel />
+                </Panel.DataContext>
+                <spp:ContentLoader
+                    IsLoading="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=IsLoadingGames, Mode=OneWay}"
+                    IsShowNoResultText="{Binding !!!Games.Count}"
+                    IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!CurrentAcceleratorGame.IsAccelerated}"
+                    NoResultMessage="{x:Static spp:Strings.GameAccelerator_GamesEmptyTip}}">
+                    <ScrollViewer
+                        Name="GameScrollViewer"
+                        Padding="0,0,10,0"
+                        HorizontalScrollBarVisibility="Disabled"
+                        IsVisible="{Binding !!Games.Count}"
+                        VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <ItemsRepeater ItemsSource="{Binding Games}" VerticalCacheLength="50">
+                                <ItemsRepeater.Layout>
+                                    <UniformGridLayout
+                                        ItemsJustification="Start"
+                                        ItemsStretch="Uniform"
+                                        MinColumnSpacing="10"
+                                        MinItemHeight="180"
+                                        MinItemWidth="200"
+                                        MinRowSpacing="10" />
+                                </ItemsRepeater.Layout>
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate DataType="spp:XunYouGameViewModel">
+                                        <spp:GameAppItem ButtonCommand="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}" />
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+
+                            <StackPanel
+                                Margin="0,30"
+                                HorizontalAlignment="Center"
+                                Spacing="10">
+                                <spp:Image2
+                                    Width="100"
+                                    Height="100"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                                    Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/empty.png"
+                                    Stretch="UniformToFill" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="已经到底啦! 没有找到想加速的游戏的话可以搜索添加哦~" />
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </spp:ContentLoader>
+                <spp:GameDetail
+                    Margin="0,0,10,0"
+                    Content="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame}"
+                    IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame.IsAccelerated}" />
+            </Panel>
 
             <!--<TabItem Header="加速日志">
 

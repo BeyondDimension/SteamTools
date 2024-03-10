@@ -31,7 +31,7 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                 ProxyService.Current.WhenValueChanged(x => x.ProxyStatus, false)
                     .Subscribe(x =>
                     {
-                        AcceleratorTabs.SelectedIndex = x ? 2 : 1;
+                        AcceleratorTabs.SelectedIndex = x ? 1 : 0;
                     }));
 
             if (XunYouSDK.IsSupported)
