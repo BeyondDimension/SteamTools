@@ -516,6 +516,7 @@ public sealed class SteamConnectService
         {
             return;
         }
+        SteamUsers.Clear();
         SteamUsers.AddOrUpdate(list);
 
         #region 加载备注信息和 JumpList
