@@ -117,7 +117,7 @@ public sealed partial class ProxyService
             return null;
         var data = ProxyDomains.Items
             .Where(x => x.Items != null)
-            .SelectMany(s => s.Items!.Where(w => w.Checked));
+            .SelectMany(s => s.Items!.Where(w => w.ThreeStateEnable != false));
         //return data.Concat(data.SelectMany(s => GetProxyDomainsItems(s)));
         return data;
     }

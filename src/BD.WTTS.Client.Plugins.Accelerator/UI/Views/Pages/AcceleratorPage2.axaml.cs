@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Interactivity;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace BD.WTTS.UI.Views.Pages;
@@ -48,13 +49,19 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
             else
             {
                 GameAccTab.IsVisible = false;
-                AcceleratorTabs.SelectedIndex = 1;
+                AcceleratorTabs.SelectedIndex = 0;
             }
         });
 
         SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;
         SearchGameBox.TextSelector = (_, _) => null;
         SearchGameBox.TextFilter = GameContains;
+    }
+
+    protected override void OnLoaded(RoutedEventArgs e)
+    {
+        base.OnLoaded(e);
+        AcceleratorTabs.SelectedIndex = ProxyService.Current.ProxyStatus ? 1 : 0;
     }
 
     private void SearchGameBox_DropDownClosed(object? sender, EventArgs e)
@@ -98,17 +105,17 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
     }
 
     /// <inheritdoc/>
-    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
-    {
-        base.OnDetachedFromVisualTree(e);
+    //protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    //{
+    //    base.OnDetachedFromVisualTree(e);
 
-        //try
-        //{
-        //    ISettingsLoadService.Current.ForceSave<GameAcceleratorSettingsModel>();
-        //}
-        //catch (Exception ex)
-        //{
-        //    Log.Error(nameof(AcceleratorPage), ex, "ForceSave fail.");
-        //}
-    }
+    //    //try
+    //    //{
+    //    //    ISettingsLoadService.Current.ForceSave<GameAcceleratorSettingsModel>();
+    //    //}
+    //    //catch (Exception ex)
+    //    //{
+    //    //    Log.Error(nameof(AcceleratorPage), ex, "ForceSave fail.");
+    //    //}
+    //}
 }
