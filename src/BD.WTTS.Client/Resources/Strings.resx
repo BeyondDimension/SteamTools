@@ -2928,4 +2928,7 @@
 	<data name="GameAccelerator_ChangeArea" xml:space="preserve">
     <value>切换加速区服</value>
   </data>
+	<data name="Settings_UI_StartDefaultPage" xml:space="preserve">
+    <value>启动时默认打开页面</value>
+  </data>
 </root>

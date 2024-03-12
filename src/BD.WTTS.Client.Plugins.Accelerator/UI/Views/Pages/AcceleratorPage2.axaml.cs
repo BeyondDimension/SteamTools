@@ -22,7 +22,7 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
         var mode = ProxySettings.ProxyMode.Value;
 
         InitializeComponent();
-        this.SetViewModel<AcceleratorPageViewModel>();
+        this.SetViewModel<AcceleratorPageViewModel>(true);
 
         //重置回保存的值
         ProxySettings.ProxyMode.Value = mode;

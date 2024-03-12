@@ -72,7 +72,7 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 {
     public static bool IsInitialized = false;
 
-    public WindowViewModel? ViewModel { get; }
+    //public WindowViewModel? ViewModel { get; }
 
     public string? AppName { get; }
 
@@ -206,7 +206,20 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
                         mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
                         s.InitSettingSubscribe();
 
-                        INavigationService.Instance.Navigate(typeof(HomePage));
+                        if (!string.IsNullOrEmpty(UISettings.StartDefaultPageName.Value))
+                        {
+                            var page = IViewModelManager.Instance.MainWindow2?.TabItems
+                                        .OfType<MenuTabItemViewModel>()
+                                        .FirstOrDefault(s => s.Id == UISettings.StartDefaultPageName.Value);
+                            if (page != null)
+                            {
+                                INavigationService.Instance.Navigate(page.PageType);
+                            }
+                        }
+                        else
+                        {
+                            INavigationService.Instance.Navigate(typeof(HomePage));
+                        }
                     });
 #if STARTUP_WATCH_TRACE || DEBUG
                     WatchTrace.Record("InitMainWindowViewModel");

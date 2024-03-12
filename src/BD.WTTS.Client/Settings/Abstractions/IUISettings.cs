@@ -119,6 +119,11 @@ public partial interface IUISettings
     HashSet<string>? SortMenuTabs { get; set; }
 
     /// <summary>
+    /// 程序启动时默认页
+    /// </summary>
+    string? StartDefaultPageName { get; set; }
+
+    /// <summary>
     /// 主题的默认值
     /// </summary>
     const AppTheme DefaultTheme = AppTheme.FollowingSystem;
@@ -207,5 +212,10 @@ public partial interface IUISettings
     /// 菜单排序的默认值
     /// </summary>
     const HashSet<string>? DefaultSortMenuTabs = null;
+
+    /// <summary>
+    /// 程序启动时默认页的默认值
+    /// </summary>
+    const string? DefaultStartDefaultPageName = null;
 
 }

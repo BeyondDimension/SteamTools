@@ -159,6 +159,12 @@ public sealed partial class UISettings_ : IUISettings, ISettings, ISettings<UISe
     [MPKey(17), MP2Key(17), JsonPropertyOrder(17)]
     public HashSet<string>? SortMenuTabs { get; set; } = IUISettings.DefaultSortMenuTabs;
 
+    /// <summary>
+    /// 程序启动时默认页
+    /// </summary>
+    [MPKey(18), MP2Key(18), JsonPropertyOrder(18)]
+    public string? StartDefaultPageName { get; set; } = IUISettings.DefaultStartDefaultPageName;
+
 }
 
 public static partial class UISettings
@@ -278,5 +284,11 @@ public static partial class UISettings
     /// </summary>
     public static SettingsProperty<string, HashSet<string>, UISettings_> SortMenuTabs { get; }
         = new(DefaultSortMenuTabs);
+
+    /// <summary>
+    /// 程序启动时默认页
+    /// </summary>
+    public static SettingsProperty<string, UISettings_> StartDefaultPageName { get; }
+        = new(DefaultStartDefaultPageName);
 
 }

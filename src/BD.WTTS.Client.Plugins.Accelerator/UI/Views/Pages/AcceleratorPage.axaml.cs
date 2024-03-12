@@ -7,6 +7,6 @@ public partial class AcceleratorPage : PageBase<AcceleratorPageViewModel>
     public AcceleratorPage()
     {
         InitializeComponent();
-        this.SetViewModel<AcceleratorPageViewModel>();
+        this.SetViewModel<AcceleratorPageViewModel>(true);
     }
 }

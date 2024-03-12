@@ -6487,6 +6487,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 启动时默认打开页面 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_StartDefaultPage {
+            get {
+                return ResourceManager.GetString("Settings_UI_StartDefaultPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 跟随系统 的本地化字符串。
         /// </summary>
         public static string Settings_UI_SystemDefault {

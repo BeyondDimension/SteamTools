@@ -212,6 +212,15 @@
           "Summary": "菜单排序",
           "IsRegionOrEndregion": null,
           "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "StartDefaultPageName",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "程序启动时默认页",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
         }
       ],
       "Usings": ""
