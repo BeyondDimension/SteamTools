@@ -601,12 +601,21 @@
             </AutoCompleteBox.ItemTemplate>
         </AutoCompleteBox>
 
-        <!--<StackPanel
+        <StackPanel
             Grid.ColumnSpan="2"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}"
             Spacing="8">
+            <StackPanel.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <CompiledBinding
+                        Mode="OneWay"
+                        Path="ProxyStatus"
+                        Source="{x:Static s:ProxyService.Current}" />
+                    <Binding Path="!#GameAccTab.IsSelected" />
+                </MultiBinding>
+            </StackPanel.IsVisible>
             <StackPanel.Styles>
                 <Style Selector="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center" />
@@ -621,7 +630,7 @@
                 <Run Text="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
                 <Run Text="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
             </TextBlock>
-        </StackPanel>-->
+        </StackPanel>
 
         <spp:AdControl
             Grid.Row="1"

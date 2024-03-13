@@ -17,7 +17,9 @@ public sealed class SteamConnectService
 
     public const int SteamAFKMaxCount = 32;
 
-    public static SteamConnectService Current { get; } = new();
+    static readonly Lazy<SteamConnectService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
+
+    public static SteamConnectService Current => mCurrent.Value;
 
     readonly ISteamworksLocalApiService swLocalService = ISteamworksLocalApiService.Instance;
     readonly ISteamService stmService = ISteamService.Instance;
