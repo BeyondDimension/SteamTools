@@ -13,7 +13,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         this.platformService = platformService;
     }
 
-    bool BasicCopyInAccount(string accId, PlatformAccount platform)
+    async ValueTask<bool> BasicCopyInAccount(string accId, PlatformAccount platform)
     {
         var allIds = JTokenHelper.ReadDict(platform.IdsJsonPath);
         var accName = allIds[accId];
@@ -63,10 +63,17 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
                 var regValue = regJson[accFile] ?? "";
 
-                if (!Registry2.SetRegistryKey(accFile[4..], regValue)) // Remove "REG:" and read data
+                if (DesktopBridge.IsRunningAsUwp)
                 {
-                    Toast.Show(ToastIcon.Error, AppResources.Error_WriteRegistryFailed);
-                    return false;
+                    await SetEpicCurrentUserAsync(regValue);
+                }
+                else
+                {
+                    if (!Registry2.SetRegistryKey(accFile[4..], regValue)) // Remove "REG:" and read data
+                    {
+                        Toast.Show(ToastIcon.Error, AppResources.Error_WriteRegistryFailed);
+                        return false;
+                    }
                 }
                 continue;
             }
@@ -131,7 +138,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         // Copy saved files in
         if (!string.IsNullOrEmpty(account?.AccountId))
         {
-            if (!BasicCopyInAccount(account.AccountId, platform)) return;
+            if (!await BasicCopyInAccount(account.AccountId, platform)) return;
             //Globals.AddTrayUser(platform.SafeName, $"+{platform.PrimaryId}:" + accId, accName, BasicSettings.TrayAccNumber); // Add to Tray list, using first Identifier
         }
 
@@ -156,17 +163,21 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         //}
     }
 
-    public ValueTask<bool> ClearCurrentLoginUser(PlatformAccount platform)
+    public async ValueTask<bool> ClearCurrentLoginUser(PlatformAccount platform)
     {
-        var result = ClearCurrentLoginUserCore(platform);
-        return ValueTask.FromResult(result);
+        var result = await ClearCurrentLoginUserCore(platform);
+        return result;
     }
 
-    bool ClearCurrentLoginUserCore(PlatformAccount platform)
+    async ValueTask<bool> ClearCurrentLoginUserCore(PlatformAccount platform)
     {
         // Foreach file/folder/reg in Platform.PathListToClear
-        if (platform.ClearPaths.Any_Nullable(accFile => !DeleteFileOrFolder(accFile, platform)))
-            return false;
+
+        foreach (var accFile in platform.ClearPaths!)
+        {
+            if (!await DeleteFileOrFolder(accFile, platform))
+                return false;
+        }
 
         var uniqueIdFile = IOPath.ExpandEnvironmentVariables(platform.UniqueIdPath, platform.FolderPath);
 
@@ -185,7 +196,22 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    bool DeleteFileOrFolder(string accFile, PlatformAccount platform)
+    async ValueTask SetEpicCurrentUserAsync(string userName)
+    {
+#if WINDOWS
+        string contents =
+$"""
+Windows Registry Editor Version 5.00
+; {AssemblyInfo.Trademark} BD.WTTS.Services.Implementation.BasicPlatformSwitcher.SetEpicCurrentUserAsync
+[HKEY_CURRENT_USER\Software\Epic Games\Unreal Engine\Identifiers]
+"AccountId"="{userName}"
+""";
+        var regpath = IOPath.GetCacheFilePath(WindowsPlatformServiceImpl.CacheTempDirName, "SwitchEpicUser", FileEx.Reg);
+        await WindowsPlatformServiceImpl.StartProcessRegeditAsync(regpath, contents);
+#endif
+    }
+
+    async ValueTask<bool> DeleteFileOrFolder(string accFile, PlatformAccount platform)
     {
         // The "file" is a registry key
 #if WINDOWS
@@ -198,7 +224,14 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
             }
             else
             {
-                if (Registry2.SetRegistryKey(accFile[4..])) return true;
+                if (DesktopBridge.IsRunningAsUwp)
+                {
+                    await SetEpicCurrentUserAsync(string.Empty);
+                    return true;
+                }
+                else
+                    if (Registry2.SetRegistryKey(accFile[4..])) return true;
+
             }
             Toast.Show(ToastIcon.Error, AppResources.Error_WriteRegistryFailed);
             return false;
@@ -210,9 +243,10 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         {
             if (accFile.StartsWith("JSON_SELECT"))
             {
-                var path = accFile.Split("::")[1];
+                var path = IOPath.ExpandEnvironmentVariables(accFile.Split("::")[1]);
                 var selector = accFile.Split("::")[2];
                 JTokenHelper.ReplaceVarInJsonFile(path, selector, "");
+                return true;
             }
         }
 
@@ -479,7 +513,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         // Handle special args in username
         //var hadSpecialProperties = ProcessSpecialAccName(specialString, accName, uniqueId);
 
-        var regJson = platform.UniqueIdPath.StartsWith("REG:") ? JTokenHelper.ReadRegJson(platform.RegJsonPath(name)) : new Dictionary<string, string>();
+        var regJson = platform.UniqueIdPath.StartsWith("REG:") ? JTokenHelper.ReadDict(platform.RegJsonPath(name)) : new Dictionary<string, string>();
 
         foreach (var (accFile, savedFile) in platform.LoginFiles)
         {
@@ -532,7 +566,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 var originalValueString = (string)originalValue;
                 originalValueString = IOPath.CleanPathIlegalCharacter(firstResult ? originalValueString.Split(delimiter).First() : originalValueString.Split(delimiter).Last());
 
-                if (!Directory.Exists(localCachePath)) Directory.CreateDirectory(localCachePath);
+                IOPath.DirCreateByNotExists(localCachePath);
                 JTokenHelper.SaveJsonFile(Path.Combine(localCachePath, savedFile), originalValueString);
                 continue;
             }
