@@ -151,7 +151,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
             //if (ResourceService.IsChineseSimplified)
             //{
-            await ProxyService.Current.InitializeAsync();
+            await MainThread2.InvokeOnMainThreadAsync(ProxyService.Current.InitializeAsync);
             //}
         }
     }

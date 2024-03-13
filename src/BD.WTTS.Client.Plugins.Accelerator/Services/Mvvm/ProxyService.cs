@@ -10,9 +10,9 @@ public sealed partial class ProxyService
     : ReactiveObject, IProxyService
 #endif
 {
-    static ProxyService? mCurrent;
+    static readonly Lazy<ProxyService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static ProxyService Current => mCurrent ??= new();
+    public static ProxyService Current => mCurrent.Value;
 
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
     readonly IScriptManager scriptManager = IScriptManager.Instance;
@@ -62,6 +62,7 @@ public sealed partial class ProxyService
             });
 
         this.WhenAnyValue(v => v.ProxyDomainsList)
+              .ObserveOn(RxApp.MainThreadScheduler)
               .Subscribe(domain => domain?
               .ToObservableChangeSet()
               .AutoRefresh(x => x.ObservableItems)
@@ -75,6 +76,7 @@ public sealed partial class ProxyService
               }));
 
         this.WhenAnyValue(v => v.ProxyScripts)
+              .ObserveOn(RxApp.MainThreadScheduler)
               .Subscribe(script => script?
               .Connect()
               .AutoRefresh(x => x.Disable)
