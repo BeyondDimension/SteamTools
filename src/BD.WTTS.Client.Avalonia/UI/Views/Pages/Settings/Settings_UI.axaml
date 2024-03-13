@@ -22,8 +22,11 @@
             Text="{Binding Path=Res.Settings_UI, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
 
-        <Border>
-            <ui:SettingsExpander Description="{Binding Path=Res.Advertisement_NoShow_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{Binding Path=Res.Settings_UI_StartDefaultPage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <Border IsEnabled="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+            <ui:SettingsExpander
+                Description="{Binding Path=Res.Advertisement_NoShow_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Header="{Binding Path=Res.Settings_UI_StartDefaultPage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                IsEnabled="{Binding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
                 <ui:SettingsExpander.IconSource>
                     <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource HeartBroken}" />
                 </ui:SettingsExpander.IconSource>

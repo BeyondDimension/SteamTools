@@ -18,7 +18,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
 
     public IdleAppsPageViewModel()
     {
-        CompositeDisposable.Add(GameLibrarySettings.AFKAppList.Subscribe(_ => Refresh_Click()));
+        CompositeDisposable.Add(GameLibrarySettings.AFKAppList.Subscribe(_ => Refresh_Click(), false));
 
         RunStopBtnCommand = ReactiveCommand.Create<SteamApp>(RunStopBtn_Click);
         DeleteButtonCommand = ReactiveCommand.Create<SteamApp>(DeleteButton_Click);
@@ -206,12 +206,18 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
         }
     }
 
-    public void Refresh_Click()
+    public async void Refresh_Click()
     {
         var list = new ObservableCollection<SteamApp>();
         if (GameLibrarySettings.AFKAppList.Any_Nullable())
         {
             int runOtherAppCount = 0;
+
+            while (SteamConnectService.Current.IsLoadingGameList)
+            {
+                await Task.Delay(500);
+            }
+
             foreach (var item in GameLibrarySettings.AFKAppList.Value!)
             {
                 var appInfo = SteamConnectService.Current.SteamApps.Items.FirstOrDefault(x => x.AppId == item.Key);
@@ -224,7 +230,7 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
                         if (!runState.Process.HasExited)
                         {
                             appInfo.Process = runState.Process;
-                            appInfo.Process.Exited += (object? _, EventArgs _) =>
+                            appInfo.Process.Exited += (_, _) =>
                             {
                                 SteamConnectService.Current.RuningSteamApps.TryRemove(appInfo.AppId, out runState);
                             };
