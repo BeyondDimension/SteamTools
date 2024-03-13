@@ -6,9 +6,9 @@ namespace BD.WTTS.Services;
 
 public sealed class UserService : ReactiveObject
 {
-    static UserService? mCurrent;
+    static readonly Lazy<UserService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static UserService Current => mCurrent ??= new();
+    public static UserService Current => mCurrent.Value;
 
     readonly IUserManager userManager = IUserManager.Instance;
     readonly IMicroServiceClient csc = IMicroServiceClient.Instance;

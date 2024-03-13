@@ -6,9 +6,9 @@ namespace BD.WTTS.Services;
 /// </summary>
 public sealed class AdvertiseService : ReactiveObject
 {
-    static AdvertiseService? mCurrent;
+    static readonly Lazy<AdvertiseService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static AdvertiseService Current => mCurrent ??= new();
+    public static AdvertiseService Current => mCurrent.Value;
 
     [Reactive]
     public ObservableCollection<AdvertisementDTO>? HorizontalBannerAdvertisements { get; set; }

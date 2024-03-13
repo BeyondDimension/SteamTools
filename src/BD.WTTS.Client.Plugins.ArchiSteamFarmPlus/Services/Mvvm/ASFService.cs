@@ -7,9 +7,9 @@ namespace BD.WTTS.Services;
 
 public sealed class ASFService : ReactiveObject
 {
-    static ASFService? mCurrent;
+    static readonly Lazy<ASFService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static ASFService Current => mCurrent ??= new();
+    public static ASFService Current => mCurrent.Value;
 
     readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
 

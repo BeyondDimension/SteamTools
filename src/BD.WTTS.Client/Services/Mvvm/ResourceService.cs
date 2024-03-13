@@ -5,9 +5,9 @@ namespace BD.WTTS.Services;
 
 public sealed class ResourceService : ReactiveObject
 {
-    static ResourceService? mCurrent;
+    static readonly Lazy<ResourceService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static ResourceService Current => mCurrent ??= new();
+    public static ResourceService Current => mCurrent.Value;
 
     public static readonly IReadOnlyDictionary<string, string> Languages;
     public static readonly IReadOnlyDictionary<string, string> SteamLanguages;

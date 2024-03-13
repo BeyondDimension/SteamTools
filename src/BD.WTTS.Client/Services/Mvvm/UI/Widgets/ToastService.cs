@@ -7,9 +7,9 @@ namespace BD.WTTS.Services;
 [Obsolete("不再使用常驻通知")]
 public sealed class ToastService : ReactiveObject
 {
-    static ToastService? mCurrent;
+    static readonly Lazy<ToastService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static ToastService Current => mCurrent ??= new();
+    public static ToastService Current => mCurrent.Value;
 
     static readonly Lazy<bool> mIsSupported = new(() => Ioc.Get<IToast>() is ToastImpl);
 

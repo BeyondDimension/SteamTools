@@ -6,9 +6,9 @@ namespace BD.WTTS.Services;
 
 public sealed class NoticeService : ReactiveObject
 {
-    static NoticeService? mCurrent;
+    static readonly Lazy<NoticeService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static NoticeService Current => mCurrent ??= new();
+    public static NoticeService Current => mCurrent.Value;
 
     //readonly INotificationRepository notificationRepo = Ioc.Get<INotificationRepository>();
 

@@ -13,9 +13,9 @@ public sealed partial class GameAcceleratorService
     : ReactiveObject
 #endif
 {
-    static GameAcceleratorService? mCurrent;
+    static readonly Lazy<GameAcceleratorService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static GameAcceleratorService Current => mCurrent ??= new();
+    public static GameAcceleratorService Current => mCurrent.Value;
 
     public SourceCache<XunYouGameViewModel, int> Games { get; }
 
