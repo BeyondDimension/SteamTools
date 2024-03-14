@@ -47,7 +47,7 @@ public sealed class HomePageViewModel : TabItemViewModel
     //    GetServerContent();
     //}
 
-    public async void GetServerContent()
+    public async Task GetServerContent()
     {
         try
         {

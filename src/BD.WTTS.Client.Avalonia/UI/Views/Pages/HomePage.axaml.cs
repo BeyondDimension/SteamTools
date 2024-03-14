@@ -7,7 +7,7 @@ public partial class HomePage : ReactiveUserControl<HomePageViewModel>
     public HomePage()
     {
         InitializeComponent();
-        this.SetViewModel<HomePageViewModel>();
+        this.SetViewModel<HomePageViewModel>(useCache: true);
 
         //ShopsScrollViewer.PointerWheelChanged += ShopsScrollViewer_PointerWheelChanged;
     }

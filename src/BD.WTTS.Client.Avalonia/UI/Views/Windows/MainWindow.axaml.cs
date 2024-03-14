@@ -37,7 +37,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         }
     }
 
-    protected override void OnOpened(EventArgs e)
+    protected override async void OnOpened(EventArgs e)
     {
         base.OnOpened(e);
         if (Steamworks.SteamClient.IsValid)
@@ -50,20 +50,17 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
             {
                 INavigationService.Instance.Navigate(typeof(HomePage));
             }
-            Task2.InBackground(async () =>
-            {
-                IViewModelManager.Instance.Get<HomePageViewModel>().GetServerContent();
-                await AdvertiseService.Current.RefrshAdvertiseAsync();
-                NoticeService.Current.GetNewsAsync();
-            });
-            try // 在主窗口显示时调用此函数检查是否需要显示新版本通知窗口
-            {
-                Ioc.Get_Nullable<IAppUpdateService>()?.OnMainOpenTryShowNewVersionWindow();
-            }
-            catch
-            {
+        }
+        await IViewModelManager.Instance.Get<HomePageViewModel>().GetServerContent();
+        await AdvertiseService.Current.RefrshAdvertiseAsync();
+        await NoticeService.Current.GetNewsAsync();
+        try // 在主窗口显示时调用此函数检查是否需要显示新版本通知窗口
+        {
+            Ioc.Get_Nullable<IAppUpdateService>()?.OnMainOpenTryShowNewVersionWindow();
+        }
+        catch
+        {
 
-            }
         }
     }
 }
@@ -162,7 +159,7 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
                     });
 
                     AdvertiseService.Current.InitAdvertise();
-                    NoticeService.Current.GetNewsAsync();
+                    await NoticeService.Current.GetNewsAsync();
 
                     var mainWindow = App.Instance.MainWindow;
                     mainWindow.ThrowIsNull();

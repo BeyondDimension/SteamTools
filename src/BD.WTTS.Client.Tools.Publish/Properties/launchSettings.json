@@ -2,9 +2,9 @@
   "profiles": {
     "BD.WTTS.Client.Tools.Publish": {
       "commandName": "Project",
-      "commandLineArgs": "run --rids win-x64 --hsm-sign --stm-upload",
+      "commandLineArgs": "nsis --rids win-x64 --hsm-sign --t 240314_1523131679333",
       "commandLineArgs_release": "run --rids win-x64 --hsm-sign --stm-upload",
-      "commandLineArgs_nsis": "nsis --rids win-x64 --hsm-sign --t 240306_1151276715468",
+      "commandLineArgs_nsis": "nsis --rids win-x64 --hsm-sign --t 240314_1523131679333",
       "commandLineArgs_debug": "run --rids win-x64 --hsm-sign --stm-upload --debug",
       "commandLineArgs_GenerateBridgeContentXml": "csproj --rids win-x64"
     }

@@ -30,7 +30,7 @@ public sealed class NoticeService : ReactiveObject
         //NoticeTypes = new();
     }
 
-    public async void GetNewsAsync()
+    public async Task GetNewsAsync()
     {
         var client = Instance.Message;
         var result = await client.GetMessage(IApplication.ClientPlatform, OfficialMessageType.News);
