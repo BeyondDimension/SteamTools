@@ -39,6 +39,31 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
 
     DateTime lastOpenedTime;
     bool isFirstOpened = true;
+    bool isSetStartDefaultPageName = false;
+
+    internal bool SetStartDefaultPageName()
+    {
+        if (isSetStartDefaultPageName)
+            return true;
+
+        Type? pageType = null;
+        if (!string.IsNullOrEmpty(UISettings.StartDefaultPageName.Value))
+        {
+            var tabItems = IViewModelManager.Instance.MainWindow2?.TabItems;
+            if (tabItems == null)
+                return false;
+
+            var page = tabItems.OfType<MenuTabItemViewModel>()
+                        .FirstOrDefault(s => s.Id == UISettings.StartDefaultPageName.Value);
+            if (page != null)
+            {
+                pageType = page.PageType;
+            }
+        }
+        INavigationService.Instance.Navigate(pageType ?? typeof(HomePage));
+        isSetStartDefaultPageName = true;
+        return true;
+    }
 
     protected override async void OnOpened(EventArgs e)
     {
@@ -50,20 +75,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         if (isFirstOpened)
         {
             isFirstOpened = false;
-            if (!string.IsNullOrEmpty(UISettings.StartDefaultPageName.Value))
-            {
-                var page = IViewModelManager.Instance.MainWindow2?.TabItems
-                            .OfType<MenuTabItemViewModel>()
-                            .FirstOrDefault(s => s.Id == UISettings.StartDefaultPageName.Value);
-                if (page != null)
-                {
-                    INavigationService.Instance.Navigate(page.PageType);
-                }
-            }
-            else
-            {
-                INavigationService.Instance.Navigate(typeof(HomePage));
-            }
+            SetStartDefaultPageName();
         }
         if (lastOpenedTime == default ||
             (DateTime.Now - lastOpenedTime) > TimeSpan.FromSeconds(30))
@@ -221,6 +233,10 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
                     {
                         mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
                         s.InitSettingSubscribe();
+                        if (mainWindow is MainWindow mainWindow1)
+                        {
+                            mainWindow1.SetStartDefaultPageName();
+                        }
                     });
 #if STARTUP_WATCH_TRACE || DEBUG
                     WatchTrace.Record("InitMainWindowViewModel");
