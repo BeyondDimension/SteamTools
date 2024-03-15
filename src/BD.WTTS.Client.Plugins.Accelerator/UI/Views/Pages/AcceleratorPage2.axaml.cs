@@ -13,6 +13,8 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
 {
     readonly Dictionary<string, string[]> dictPinYinArray = new();
 
+    List<int> acceleratorTabsSelectedIndexs = new();
+
     /// <summary>
     /// Initializes a new instance of the <see cref="AcceleratorPage2"/> class.
     /// </summary>
@@ -23,6 +25,26 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
 
         InitializeComponent();
         this.SetViewModel<AcceleratorPageViewModel>(true);
+
+        for (int i = 0; i < AcceleratorTabs.Items.Count; i++)
+        {
+            var item = AcceleratorTabs.Items[i];
+            if (item is Visual visual && visual.IsVisible)
+            {
+                acceleratorTabsSelectedIndexs.Add(i);
+            }
+        }
+        var itemCount = AcceleratorTabs.ItemCount;
+        var acceleratorTabsSelectedIndex = ProxySettings.AcceleratorTabsSelectedIndex.Value;
+        if (acceleratorTabsSelectedIndex >= 0 && acceleratorTabsSelectedIndex < itemCount)
+        {
+            if (acceleratorTabsSelectedIndexs.Contains(acceleratorTabsSelectedIndex))
+            {
+                AcceleratorTabs.SelectedIndex = acceleratorTabsSelectedIndex;
+            }
+        }
+
+        AcceleratorTabs.SelectionChanged += AcceleratorTabs_SelectionChanged;
 
         //重置回保存的值
         ProxySettings.ProxyMode.Value = mode;
@@ -54,14 +76,24 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
         });
 
         SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;
-        SearchGameBox.TextSelector = (_, _) => null;
+        SearchGameBox.TextSelector = (_, _) => null!;
         SearchGameBox.TextFilter = GameContains;
+    }
+
+    void AcceleratorTabs_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        var value = AcceleratorTabs.SelectedIndex;
+        if (acceleratorTabsSelectedIndexs.Contains(value))
+        {
+            ProxySettings.AcceleratorTabsSelectedIndex.Value = value;
+        }
     }
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        AcceleratorTabs.SelectedIndex = ProxyService.Current.ProxyStatus ? 1 : 0;
+        if (AcceleratorTabs.SelectedIndex == default && ProxyService.Current.ProxyStatus)
+            AcceleratorTabs.SelectedIndex = 1;
     }
 
     private void SearchGameBox_DropDownClosed(object? sender, EventArgs e)
