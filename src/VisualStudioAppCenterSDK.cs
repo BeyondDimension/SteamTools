@@ -15,6 +15,13 @@ static partial class VisualStudioAppCenterSDK
 {
     internal static void Init()
     {
+        if (DateTime.UtcNow >= new DateTime(2025, 3, 31, default, default, default, DateTimeKind.Utc))
+        {
+            // Visual Studio App Center is scheduled for retirement on March 31, 2025.
+            // https://learn.microsoft.com/en-us/appcenter/retirement
+            return;
+        }
+
         var appSecret = AppSecret;
         if (string.IsNullOrWhiteSpace(appSecret))
             return;
