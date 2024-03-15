@@ -113,7 +113,6 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
 
         if (viewModel != null)
         {
-
             if (viewModel is IWindowViewModel window)
             {
                 window.Close = b => td?.Hide(b ? TaskDialogStandardResult.OK : TaskDialogStandardResult.Close);
