@@ -38,6 +38,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
     }
 
     DateTime lastOpenedTime;
+    bool isFirstOpened = true;
 
     protected override async void OnOpened(EventArgs e)
     {
@@ -46,9 +47,20 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         {
             Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_AtMainMenu");
         }
-        if (AppSplashScreen.IsInitialized)
+        if (isFirstOpened)
         {
-            if (NavigationService.Instance.CurrnetPage == null)
+            isFirstOpened = false;
+            if (!string.IsNullOrEmpty(UISettings.StartDefaultPageName.Value))
+            {
+                var page = IViewModelManager.Instance.MainWindow2?.TabItems
+                            .OfType<MenuTabItemViewModel>()
+                            .FirstOrDefault(s => s.Id == UISettings.StartDefaultPageName.Value);
+                if (page != null)
+                {
+                    INavigationService.Instance.Navigate(page.PageType);
+                }
+            }
+            else
             {
                 INavigationService.Instance.Navigate(typeof(HomePage));
             }
@@ -209,21 +221,6 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
                     {
                         mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
                         s.InitSettingSubscribe();
-
-                        if (!string.IsNullOrEmpty(UISettings.StartDefaultPageName.Value))
-                        {
-                            var page = IViewModelManager.Instance.MainWindow2?.TabItems
-                                        .OfType<MenuTabItemViewModel>()
-                                        .FirstOrDefault(s => s.Id == UISettings.StartDefaultPageName.Value);
-                            if (page != null)
-                            {
-                                INavigationService.Instance.Navigate(page.PageType);
-                            }
-                        }
-                        else
-                        {
-                            INavigationService.Instance.Navigate(typeof(HomePage));
-                        }
                     });
 #if STARTUP_WATCH_TRACE || DEBUG
                     WatchTrace.Record("InitMainWindowViewModel");
