@@ -237,7 +237,7 @@ public sealed class UserService : ReactiveObject
         }
         else
         {
-            Browser2.Open(string.Format(Constants.Urls.OfficialWebsite_Fast_Login_, token.AccessToken, HttpUtility.UrlEncode(token.ExpiresIn.ToString()), HttpUtility.UrlEncode(url)));
+            Browser2.Open(string.Format(Constants.Urls.OfficialWebsite_Fast_Login_, token.AccessToken, HttpUtility.UrlEncode(token.ExpiresIn.ToString("R")), HttpUtility.UrlEncode(url)));
         }
     }
 
