@@ -37,6 +37,8 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         }
     }
 
+    DateTime lastOpenedTime;
+
     protected override async void OnOpened(EventArgs e)
     {
         base.OnOpened(e);
@@ -51,9 +53,14 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                 INavigationService.Instance.Navigate(typeof(HomePage));
             }
         }
-        await IViewModelManager.Instance.Get<HomePageViewModel>().GetServerContent();
-        await AdvertiseService.Current.RefrshAdvertiseAsync();
-        await NoticeService.Current.GetNewsAsync();
+        if (lastOpenedTime == default ||
+            (DateTime.Now - lastOpenedTime) > TimeSpan.FromSeconds(30))
+        {
+            lastOpenedTime = DateTime.Now;
+            await IViewModelManager.Instance.Get<HomePageViewModel>().GetServerContent();
+            await AdvertiseService.Current.RefrshAdvertiseAsync();
+            await NoticeService.Current.GetNewsAsync();
+        }
         try // 在主窗口显示时调用此函数检查是否需要显示新版本通知窗口
         {
             Ioc.Get_Nullable<IAppUpdateService>()?.OnMainOpenTryShowNewVersionWindow();
