@@ -8,6 +8,7 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:wtts="using:BD.WTTS"
     d:DesignHeight="900"
     d:DesignWidth="1080"
     x:CompileBindings="True"
@@ -86,7 +87,7 @@
                 VerticalAlignment="Top"
                 IsClosable="False"
                 IsOpen="True"
-                IsVisible="{Binding !!!MainWindow2.PluginCount, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}"
+                IsVisible="{Binding !!!PluginCount, Mode=OneWay, Source={x:Static wtts:Startup.Instance}}"
                 Message="检测到你没有安装插件，请去下载插件即可使用更多功能。"
                 Severity="Warning" />
 

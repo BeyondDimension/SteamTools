@@ -12,7 +12,7 @@ namespace BD.WTTS;
 /// <summary>
 /// 应用程序启动
 /// </summary>
-public abstract partial class Startup
+public abstract partial class Startup : ReactiveObject
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal void SetConsoleTitle(string title)

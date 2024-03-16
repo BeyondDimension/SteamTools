@@ -8,6 +8,7 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:wtts="using:BD.WTTS"
     d:DesignHeight="680"
     d:DesignWidth="1080"
     x:CompileBindings="True"
@@ -38,8 +39,8 @@
                         Source="{x:Static s:ResourceService.Current}" />
                     <CompiledBinding
                         Mode="OneWay"
-                        Path="MainWindow2.PluginCount"
-                        Source="{x:Static s:IViewModelManager.Instance}" />
+                        Path="PluginCount"
+                        Source="{x:Static wtts:Startup.Instance}" />
                 </MultiBinding>
             </TextBlock.Text>
             <!--<Run Text="{Binding Path=Res.Plugin_InstalledPlugins, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />

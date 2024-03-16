@@ -202,4 +202,7 @@ partial class Startup // Properties
     /// 自定义本机库加载路径
     /// </summary>
     public static string? NativeLibraryPath => _NativeLibraryPath.Value;
+
+    [Reactive]
+    public int PluginCount { get; set; }
 }
