@@ -119,7 +119,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
             }
             if (startup.TryGetPlugins(out var plugins))
             {
-                Startup.Instance.PluginCount = PluginCount = plugins.Count;
+                PluginCount = plugins.Count;
                 foreach (var plugin in plugins)
                 {
                     try
