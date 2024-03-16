@@ -217,6 +217,13 @@
                                 MoreFlyout="{StaticResource SharedMenuFlyout}"
                                 Status="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                 Tags="{Binding AliasName}">
+                                <ToolTip.Tip>
+                                    <TextBlock>
+                                        <Run FontSize="16" Text="{Binding DisplayName}" />
+                                        <LineBreak />
+                                        <Run Text="{Binding AliasName}" />
+                                    </TextBlock>
+                                </ToolTip.Tip>
                                 <spp:AppItem.Status>
                                     <Border Classes="Status" IsVisible="{Binding MostRecent}">
                                         <TextBlock Text="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />

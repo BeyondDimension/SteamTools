@@ -38,13 +38,11 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
     }
 
     DateTime lastOpenedTime;
-    bool isFirstOpened = true;
-    bool isSetStartDefaultPageName = false;
 
     internal bool SetStartDefaultPageName()
     {
-        if (isSetStartDefaultPageName)
-            return true;
+        if (NavigationService.Instance.CurrnetPage != null)
+            return false;
 
         Type? pageType = null;
         if (!string.IsNullOrEmpty(UISettings.StartDefaultPageName.Value))
@@ -61,7 +59,6 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
             }
         }
         INavigationService.Instance.Navigate(pageType ?? typeof(HomePage));
-        isSetStartDefaultPageName = true;
         return true;
     }
 
@@ -72,13 +69,12 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         {
             Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_AtMainMenu");
         }
-        if (isFirstOpened)
+        if (AppSplashScreen.IsInitialized)
         {
-            isFirstOpened = false;
             SetStartDefaultPageName();
         }
         if (lastOpenedTime == default ||
-            (DateTime.Now - lastOpenedTime) > TimeSpan.FromSeconds(30))
+            (DateTime.Now - lastOpenedTime) > TimeSpan.FromMinutes(30))
         {
             lastOpenedTime = DateTime.Now;
             await IViewModelManager.Instance.Get<HomePageViewModel>().GetServerContent();
