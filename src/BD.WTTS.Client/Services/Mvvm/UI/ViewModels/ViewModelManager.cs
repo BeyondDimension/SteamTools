@@ -4,8 +4,8 @@ namespace BD.WTTS.Services.Implementation;
 internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
 {
     bool disposedValue;
-    Dictionary<Type, byte[]> viewModelDataCaches = new();
-    Dictionary<Type, ViewModelBase> viewModelCaches = new();
+    ConcurrentDictionary<Type, byte[]> viewModelDataCaches = new();
+    ConcurrentDictionary<Type, ViewModelBase> viewModelCaches = new();
 
     /// <summary>
     /// 获取为当前主窗口提供的数据
@@ -69,7 +69,8 @@ internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
         var vmType = viewModel.GetType();
         var value = Serializable.SMP2(vmType, viewModel);
         viewModelDataCaches[vmType] = value;
-        viewModelCaches.Remove(vmType);
+        viewModelDataCaches[vmType] = value;
+        viewModelCaches.TryRemove(vmType, out var _);
     }
 
     void Dispose(bool disposing)

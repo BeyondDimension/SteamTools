@@ -44,10 +44,14 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         if (NavigationService.Instance.CurrnetPage != null)
             return false;
 
+        var mw2 = IViewModelManager.Instance.MainWindow2;
+        if (mw2 == null)
+            return false;
+
         Type? pageType = null;
         if (!string.IsNullOrEmpty(UISettings.StartDefaultPageName.Value))
         {
-            var tabItems = IViewModelManager.Instance.MainWindow2?.TabItems;
+            var tabItems = mw2?.TabItems;
             if (tabItems == null)
                 return false;
 
