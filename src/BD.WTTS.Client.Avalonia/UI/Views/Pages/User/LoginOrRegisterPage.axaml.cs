@@ -45,6 +45,17 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
                 this.ViewModel.Close(false);
             }
         }
+        // 11.1 使用新 API  https://docs.avaloniaui.net/docs/concepts/services/activatable-lifetime#handling-uri-activation
+        //if (Application.Current.TryGetFeature<IActivatableLifetime>() is { } activatableLifetime)
+        //{
+        //    activatableLifetime.Activated += (s, a) =>
+        //    {
+        //        if (a is ProtocolActivatedEventArgs protocolArgs && protocolArgs.Kind == ActivationKind.OpenUri)
+        //        {
+        //            Console.WriteLine($"App activated via Uri: {protocolArgs.Uri}");
+        //        }
+        //    };
+        //}
         Application.Current!.UrlsOpened += Current_UrlsOpened;
     }
 
