@@ -224,10 +224,13 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         if (!SteamLoginState.Success)
         {
             LoginViewModel = new IdleSteamLoginPageViewModel(ref SteamLoginState);
-            LoginViewModel.Close += _ =>
+            LoginViewModel.Close += async _ =>
             {
-                ViewState = 1;
                 IsLogin = SteamLoginState.Success;
+                await LoadBadges();
+                SteamAppsSort();
+
+                ViewState = 1;
             };
             ViewState = 0;
             //var vm = new IdleSteamLoginPageViewModel(ref SteamLoginState);
