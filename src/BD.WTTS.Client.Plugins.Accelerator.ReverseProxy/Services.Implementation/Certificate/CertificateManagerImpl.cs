@@ -450,4 +450,36 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         var result = ICertificateManager.Constants.IsCertificateInstalled(platformService, packable);
         return result;
     }
+
+    public string GetCertificateInfo()
+    {
+        var rootCert = RootCertificate;
+        if (rootCert == null)
+        {
+            GenerateCertificate();
+        }
+        rootCert = RootCertificate;
+
+        if (rootCert == null)
+        {
+            return "";
+        }
+
+        StringBuilder b = new();
+        b.AppendLine("Subject：");
+        b.AppendLine(rootCert.Subject);
+        b.AppendLine("SerialNumber：");
+        b.AppendLine(rootCert.SerialNumber);
+        b.AppendLine("PeriodValidity：");
+        b.Append(rootCert.GetEffectiveDateString());
+        b.Append(" ~ ");
+        b.Append(rootCert.GetExpirationDateString());
+        b.AppendLine();
+        b.AppendLine("SHA256：");
+        b.AppendLine(rootCert.GetCertHashStringCompat(HashAlgorithmName.SHA256));
+        b.AppendLine("SHA1：");
+        b.AppendLine(rootCert.GetCertHashStringCompat(HashAlgorithmName.SHA1));
+
+        return b.ToString();
+    }
 }

@@ -293,6 +293,10 @@
                 Content="{x:Static spp:Strings.CommunityFix_DeleteCertificate}" />
             <Button
                 HorizontalAlignment="Stretch"
+                Command="{Binding ShowCertificateCommand}"
+                Content="查看证书信息" />
+            <Button
+                HorizontalAlignment="Stretch"
                 Command="{Binding OpenCertificateDirCommand}"
                 Content="{x:Static spp:Strings.CommunityFix_OpenCertificateDir}" />
 

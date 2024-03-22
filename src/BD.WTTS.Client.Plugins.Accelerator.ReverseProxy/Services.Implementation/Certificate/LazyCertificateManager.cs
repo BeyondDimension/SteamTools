@@ -46,4 +46,9 @@ sealed class LazyCertificateManager : ICertificateManager
     {
         return impl().DeleteRootCertificate();
     }
+
+    public string GetCertificateInfo()
+    {
+        return impl().GetCertificateInfo();
+    }
 }

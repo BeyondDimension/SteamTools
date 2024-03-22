@@ -299,6 +299,10 @@
                 Content="{Binding Path=Res.CommunityFix_DeleteCertificate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <Button
                 HorizontalAlignment="Stretch"
+                Command="{Binding ShowCertificateCommand}"
+                Content="查看证书信息" />
+            <Button
+                HorizontalAlignment="Stretch"
                 Command="{Binding OpenCertificateDirCommand}"
                 Content="{Binding Path=Res.CommunityFix_OpenCertificateDir, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 

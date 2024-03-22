@@ -15,6 +15,8 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
 
     public ICommand? DeleteCertificateCommand { get; }
 
+    public ICommand? ShowCertificateCommand { get; }
+
     public ICommand? OpenCertificateDirCommand { get; }
 
     public ICommand? EditHostsFileCommand { get; }

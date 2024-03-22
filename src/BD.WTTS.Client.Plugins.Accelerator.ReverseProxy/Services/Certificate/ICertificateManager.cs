@@ -271,4 +271,10 @@ public interface ICertificateManager
     /// <param name="filePath"></param>
     /// <returns></returns>
     bool? GenerateCertificate();
+
+    /// <summary>
+    /// 获取证书信息
+    /// </summary>
+    /// <returns></returns>
+    string GetCertificateInfo();
 }

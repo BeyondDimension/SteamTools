@@ -58,6 +58,7 @@ public sealed partial class AcceleratorPageViewModel
             ResetHostsFileCommand = ReactiveCommand.CreateFromTask(hostsFileService.ResetFile);
             NetworkFixCommand = ReactiveCommand.Create(ProxyService.Current.FixNetwork);
             TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
+            ShowCertificateCommand = ReactiveCommand.Create(ShowCertificate_OnClick);
             OpenCertificateDirCommand = ReactiveCommand.Create(() =>
             {
                 certificateManager.GetCerFilePathGeneratedWhenNoFileExists();
@@ -124,5 +125,11 @@ public sealed partial class AcceleratorPageViewModel
         {
             Toast.Show(ToastIcon.Error, Strings.CommunityFix_DeleteCertificate_Fail);
         }
+    }
+
+    void ShowCertificate_OnClick()
+    {
+        var certInfo = certificateManager.GetCertificateInfo();
+        MessageBox.Show(certInfo, "证书信息");
     }
 }
