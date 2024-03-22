@@ -362,45 +362,6 @@ Failed to initialize FileSystem, access denied.
                 return 401;
             }
 
-#if WINDOWS
-            try
-            {
-                // 测试目录的读写是否正常
-                var ioTests = new[]
-                {
-                     Path.Combine(IOPath.AppDataDirectory, $"{Environment.TickCount64}.iotest.tmp"),
-                     Path.Combine(IOPath.CacheDirectory, $"{Environment.TickCount64}.iotest.tmp"),
-                };
-
-                foreach (var item in ioTests)
-                {
-                    try
-                    {
-                        using var fs = new FileStream(item,
-                            FileMode.OpenOrCreate,
-                            FileAccess.ReadWrite,
-                            FileShare.ReadWrite | FileShare.Delete);
-                    }
-                    finally
-                    {
-                        IOPath.FileTryDelete(item);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-#if WINDOWS
-                var mbText =
-$"""
-Failed to initialize FileSystem.
-{ex}
-""";
-                GlobalExceptionHandler.ShowApplicationCrash(mbText);
-#endif
-                return 401;
-            }
-#endif
-
             // 设置仓储层数据库文件存放路径
             Repository.DataBaseDirectory = IOPath.AppDataDirectory;
 #if STARTUP_WATCH_TRACE || DEBUG
