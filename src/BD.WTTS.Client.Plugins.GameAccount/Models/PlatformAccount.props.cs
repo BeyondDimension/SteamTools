@@ -86,4 +86,6 @@ public sealed partial class PlatformAccount : ReactiveObject
     public ICommand CopyCommand { get; }
 
     public ICommand OpenLinkCommand { get; }
+
+    public ICommand CreateShortcutCommand { get; }
 }

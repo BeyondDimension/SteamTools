@@ -1,3 +1,5 @@
+using Avalonia.Platform;
+using SkiaSharp;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.Models;
@@ -72,6 +74,8 @@ public sealed partial class PlatformAccount
         if (!Directory.Exists(PlatformLoginCache))
             Directory.CreateDirectory(PlatformLoginCache);
 
+        CreateShortcutCommand = ReactiveCommand.Create<IAccount>(acc => CreateShortcut(acc));
+
         //LoadUsers();
     }
 
@@ -119,5 +123,79 @@ public sealed partial class PlatformAccount
             return true;
         }
         return await platformSwitcher.CurrnetUserAdd(name, this);
+    }
+
+    public async void CreateShortcut(IAccount acc)
+    {
+#if WINDOWS
+        var gear = new[] { 512, 256, 128, 96, 64, 48, 32, 24, 16 };
+        using var avatarImgBitmap = await Decode(acc.ImagePath);
+        var iconSize = GetImgResolutionPower(Math.Min(avatarImgBitmap.Width, avatarImgBitmap.Height), gear);
+        var logoPath = Path.Combine(ProjectUtils.ProjPath, "res", "icons", "app", "v3", "Logo_512.png");
+        using var fBitmap = DrawIcon(avatarImgBitmap, SKBitmap.Decode(logoPath), iconSize.Max());
+        SKBitmap[]? bitmaps = new[] { fBitmap }.Concat(iconSize.Where(x => x != iconSize.Max())
+            .Select(x => fBitmap.Resize(new SKSizeI { Height = x, Width = x }, SKFilterQuality.High)))
+            .ToArray();
+        var localCachePath = Path.Combine(PlatformLoginCache, acc.AccountName!);
+        IOPath.DirCreateByNotExists(localCachePath);
+        var clearioc = Directory.GetFiles(localCachePath, "*.ico");
+        if (clearioc.Length > 0)
+        {
+            clearioc.ForEach(x => File.Delete(x));
+        }
+        var savePath = Path.Combine(localCachePath, $"{Random2.Next()}.ico");
+        using var fs = new FileStream(savePath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
+        IcoEncoder.Encode(fs, bitmaps);
+        var deskTopPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\" + (acc.AccountName ?? acc.AccountId) + ".lnk";
+        var processPath = Environment.ProcessPath;
+        processPath.ThrowIsNull();
+        await platformSwitcher.CreateLoginShortcut(
+            deskTopPath,
+            processPath,
+            $"-clt steam -account {acc.AccountName}",
+            null,
+            null,
+            savePath,
+            Path.GetDirectoryName(processPath));
+        if (bitmaps != null)
+            bitmaps.ForEach(x => x.Dispose());
+        Toast.Show(ToastIcon.Success, Strings.CreateShortcutInfo);
+#endif
+    }
+
+    async Task<SKBitmap> Decode(string? avatarImgPath)
+    {
+        if (string.IsNullOrWhiteSpace(avatarImgPath))
+            return SKBitmap.Decode(AssetLoader.Open(new Uri("avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg")));
+        if (avatarImgPath.StartsWith("https"))
+        {
+            using var client = new HttpClient();
+            using var rspimg = await client.GetStreamAsync(avatarImgPath);
+            return SKBitmap.Decode(rspimg);
+        }
+        return SKBitmap.Decode(avatarImgPath);
+    }
+
+    SKBitmap DrawIcon(SKBitmap originalBitmap, SKBitmap loginIcon, int iconSize)
+    {
+        loginIcon = loginIcon.Resize(new SKSizeI(iconSize / 3, iconSize / 3), SKFilterQuality.High);
+        SKBitmap avatarImgBitmap = new(iconSize, iconSize);
+
+        using SKCanvas canvas = new(avatarImgBitmap);
+        SKPaint paint = new SKPaint();
+        paint.FilterQuality = SKFilterQuality.High;
+        canvas.DrawBitmap(originalBitmap.Resize(new SKSizeI(iconSize, iconSize), SKFilterQuality.High),
+            new SKRect(0, 0, iconSize, iconSize), paint);
+
+        canvas.DrawBitmap(loginIcon, new SKRect(0, 0, loginIcon.Width, loginIcon.Height));
+        return avatarImgBitmap;
+    }
+
+    IEnumerable<int> GetImgResolutionPower(int size, int[] rp)
+    {
+        foreach (var item in rp)
+        {
+            if (item <= size) yield return item;
+        }
     }
 }

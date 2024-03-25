@@ -178,7 +178,11 @@
                 IsVisible="{Binding !$parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
                 Text="修改头像图片" />
             <ui:MenuFlyoutSeparator />
-            <!--<ui:MenuFlyoutItem Text="创建桌面快捷方式" />-->
+            <ui:MenuFlyoutItem 
+				Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).CreateShortcutCommand}"
+				CommandParameter="{Binding}"
+				IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
+				Text="创建桌面快捷方式" />
             <ui:MenuFlyoutItem
                 Click="OpenUserDataFolderMenuItem_Click"
                 IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"

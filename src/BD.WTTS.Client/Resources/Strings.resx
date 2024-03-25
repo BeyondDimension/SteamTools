@@ -2895,40 +2895,43 @@
   <data name="ASF_Settings" xml:space="preserve">
     <value>ASF 设置</value>
   </data>
-	<data name="GameAccelerator" xml:space="preserve">
+  <data name="GameAccelerator" xml:space="preserve">
     <value>游戏加速</value>
   </data>
-	<data name="GameAccelerator_ImmediatelyAccelerate" xml:space="preserve">
+  <data name="GameAccelerator_ImmediatelyAccelerate" xml:space="preserve">
     <value>立即加速</value>
   </data>
-	<data name="GameAccelerator_Accelerate" xml:space="preserve">
+  <data name="GameAccelerator_Accelerate" xml:space="preserve">
     <value>加速</value>
   </data>
-	<data name="GameAccelerator_Stop" xml:space="preserve">
+  <data name="GameAccelerator_Stop" xml:space="preserve">
     <value>停止</value>
   </data>
-	<data name="GameAccelerator_AccelerateAreaSelectTip" xml:space="preserve">
+  <data name="GameAccelerator_AccelerateAreaSelectTip" xml:space="preserve">
     <value>请先选择要加速的区服</value>
   </data>
-	<data name="GameAccelerator_SearchGame" xml:space="preserve">
+  <data name="GameAccelerator_SearchGame" xml:space="preserve">
     <value>搜索游戏</value>
   </data>
-	<data name="GameAccelerator_WattAcceleratorInstallPath" xml:space="preserve">
+  <data name="GameAccelerator_WattAcceleratorInstallPath" xml:space="preserve">
     <value>Watt加速器安装位置</value>
   </data>
-	<data name="GameAccelerator_InstallWattAccelerator" xml:space="preserve">
+  <data name="GameAccelerator_InstallWattAccelerator" xml:space="preserve">
     <value>安装Watt加速器插件</value>
   </data>
-	<data name="GameAccelerator_UninstallWattAccelerator" xml:space="preserve">
+  <data name="GameAccelerator_UninstallWattAccelerator" xml:space="preserve">
     <value>卸载Watt加速器插件</value>
   </data>
-	<data name="GameAccelerator_GamesEmptyTip" xml:space="preserve">
+  <data name="GameAccelerator_GamesEmptyTip" xml:space="preserve">
     <value>未获取到加速游戏列表，请搜索添加</value>
   </data>
-	<data name="GameAccelerator_ChangeArea" xml:space="preserve">
+  <data name="GameAccelerator_ChangeArea" xml:space="preserve">
     <value>切换加速区服</value>
   </data>
-	<data name="Settings_UI_StartDefaultPage" xml:space="preserve">
+  <data name="Settings_UI_StartDefaultPage" xml:space="preserve">
     <value>启动时默认打开页面</value>
+  </data>
+  <data name="CreateShortcutInfo" xml:space="preserve">
+    <value>创建成功</value>
   </data>
 </root>

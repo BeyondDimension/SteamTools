@@ -31,4 +31,22 @@ public interface IPlatformSwitcher
     Task<bool> DeleteAccountInfo(IAccount account, PlatformAccount platform);
 
     Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform, Action? refreshUsers = null);
+
+    public Task<bool> CreateLoginShortcut(
+        string pathLink,
+        string targetPath,
+        string? arguments,
+        string? description,
+        string? hotkey,
+        string? iconLocation,
+        string? workingDirectory,
+        CancellationToken cancellationToken = default)
+    {
+#if WINDOWS
+        IPlatformService.Instance.CreateShortcut(pathLink, targetPath, arguments, description, hotkey, iconLocation, workingDirectory);
+        return Task.FromResult(true);
+#else
+        return Task.FromResult(false);
+#endif
+    }
 }
