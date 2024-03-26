@@ -22,25 +22,41 @@ public static class IcoEncoder
         Class253 class253_1;
         List<Class253> class253List = new();
         List<MemoryStream> memoryStreamList = new();
-        for (int index = 0; index < bitmaps.Count; ++index)
+        try
         {
-            var image = bitmaps[index];
-            MemoryStream memoryStream1 = new();
-            image.Encode(memoryStream1, SKEncodedImageFormat.Png, 100);
-            int num1 = (int)memoryStream1.Length;
-            memoryStreamList.Add(memoryStream1);
-            class253_1 = new(image.Width, image.Height, 0, image.BytesPerPixel);
-            class253_1.method_14(num1);
-            Class253 class253_2 = class253_1;
-            class253List.Add(class253_2);
+            for (int index = 0; index < bitmaps.Count; ++index)
+            {
+                var image = bitmaps[index];
+                MemoryStream memoryStream1 = new();
+                image.Encode(memoryStream1, SKEncodedImageFormat.Png, 100);
+                int num1 = (int)memoryStream1.Length;
+                memoryStreamList.Add(memoryStream1);
+                class253_1 = new(image.Width, image.Height, 0, image.BytesPerPixel);
+                class253_1.method_14(num1);
+                Class253 class253_2 = class253_1;
+                class253List.Add(class253_2);
+            }
+            Dictionary<Class253, MemoryStream> dictionary_0 = new();
+            for (int index = 0; index < memoryStreamList.Count; ++index)
+                dictionary_0.Add(class253List[index], memoryStreamList[index]);
+
+            smethod_6(dictionary_0);
+
+            smethod_21(stream, dictionary_0);
         }
-        Dictionary<Class253, MemoryStream> dictionary_0 = new();
-        for (int index = 0; index < memoryStreamList.Count; ++index)
-            dictionary_0.Add(class253List[index], memoryStreamList[index]);
-
-        smethod_6(dictionary_0);
-
-        smethod_21(stream, dictionary_0);
+        finally
+        {
+            foreach (var item in memoryStreamList)
+            {
+                try
+                {
+                    item.Dispose();
+                }
+                catch
+                {
+                }
+            }
+        }
     }
 
     // it's just works
@@ -63,22 +79,53 @@ public static class IcoEncoder
 
     sealed class Class253
     {
-        byte[] byte_0 = null!;
+        internal readonly byte[] Byte_0 = null!;
 
         public Class253(int int_0, int int_1, int int_2, int int_3, int int_4, int int_5)
         {
-            List<byte> byteList = new List<byte>()
-            {
-                (byte)int_0,
-                (byte)int_1,
-                int_3 <= 8 ? (byte)int_2 : (byte)0,
-                0,
-            };
-            byteList.AddRange(BitConverter.GetBytes((short)0));
-            byteList.AddRange(BitConverter.GetBytes((short)int_3));
-            byteList.AddRange(BitConverter.GetBytes(int_4));
-            byteList.AddRange(BitConverter.GetBytes(int_5));
-            method_1(byteList.ToArray());
+            #region List
+
+            //List<byte> byteList = new List<byte>()
+            //{
+            //    (byte)int_0,
+            //    (byte)int_1,
+            //    int_3 <= 8 ? (byte)int_2 : (byte)0,
+            //    0,
+            //};
+            //byteList.AddRange(BitConverter.GetBytes((short)0));
+            //byteList.AddRange(BitConverter.GetBytes((short)int_3));
+            //byteList.AddRange(BitConverter.GetBytes(int_4));
+            //byteList.AddRange(BitConverter.GetBytes(int_5));
+            //byte_0 = byteList.ToArray();
+
+            #endregion
+
+            #region Array
+
+            var byte_1 = new byte[4 + 2 + 2 + 4 + 4];
+            byte_1[0] = (byte)int_0;
+            byte_1[1] = (byte)int_1;
+            byte_1[2] = int_3 <= 8 ? (byte)int_2 : (byte)0;
+
+            var int_3_ = BitConverter.GetBytes((short)int_3);
+            byte_1[6] = int_3_[0];
+            byte_1[7] = int_3_[1];
+
+            int_3_ = BitConverter.GetBytes(int_4);
+            byte_1[8] = int_3_[0];
+            byte_1[9] = int_3_[1];
+            byte_1[10] = int_3_[2];
+            byte_1[11] = int_3_[3];
+
+            int_3_ = BitConverter.GetBytes(int_5);
+            byte_1[12] = int_3_[0];
+            byte_1[13] = int_3_[1];
+            byte_1[14] = int_3_[2];
+            byte_1[15] = int_3_[3];
+
+            Byte_0 = byte_1;
+
+            #endregion
         }
 
         public Class253(int int_0, int int_1, int int_2, int int_3)
@@ -86,24 +133,20 @@ public static class IcoEncoder
         {
         }
 
-        public byte[] method_0() => byte_0;
+        public int method_13() => BitConverter.ToInt32(Byte_0, 8);
 
-        private void method_1(byte[] byte_1) => byte_0 = byte_1;
+        public void method_14(int int_0) => BitConverter.GetBytes(int_0).CopyTo(Byte_0, 8);
 
-        public int method_13() => BitConverter.ToInt32(method_0(), 8);
+        public int method_15() => BitConverter.ToInt32(Byte_0, 12);
 
-        public void method_14(int int_0) => BitConverter.GetBytes(int_0).CopyTo(method_0(), 8);
-
-        public int method_15() => BitConverter.ToInt32(method_0(), 12);
-
-        public void method_16(int int_0) => BitConverter.GetBytes(int_0).CopyTo(method_0(), 12);
+        public void method_16(int int_0) => BitConverter.GetBytes(int_0).CopyTo(Byte_0, 12);
     }
 
     static void smethod_21(Stream stream_0, Dictionary<Class253, MemoryStream> dictionary_0)
     {
         smethod_6(dictionary_0);
         foreach (Class253 key in dictionary_0.Keys)
-            stream_0.Write(key.method_0(), 0, 16);
+            stream_0.Write(key.Byte_0, 0, 16);
         foreach (MemoryStream memoryStream in dictionary_0.Values)
         {
             using (memoryStream)

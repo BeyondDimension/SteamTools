@@ -1,4 +1,5 @@
 using Avalonia.Platform;
+using BD.WTTS.Properties;
 using SkiaSharp;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
@@ -131,35 +132,40 @@ public sealed partial class PlatformAccount
         var gear = new[] { 512, 256, 128, 96, 64, 48, 32, 24, 16 };
         using var avatarImgBitmap = await Decode(acc.ImagePath);
         var iconSize = GetImgResolutionPower(Math.Min(avatarImgBitmap.Width, avatarImgBitmap.Height), gear);
-        var logoPath = Path.Combine(ProjectUtils.ProjPath, "res", "icons", "app", "v3", "Logo_512.png");
-        using var fBitmap = DrawIcon(avatarImgBitmap, SKBitmap.Decode(logoPath), iconSize.Max());
+        using var fBitmap = DrawIcon(avatarImgBitmap, SKBitmap.Decode(IApplication.Login_512), iconSize.Max());
         SKBitmap[]? bitmaps = new[] { fBitmap }.Concat(iconSize.Where(x => x != iconSize.Max())
             .Select(x => fBitmap.Resize(new SKSizeI { Height = x, Width = x }, SKFilterQuality.High)))
             .ToArray();
-        var localCachePath = Path.Combine(PlatformLoginCache, acc.AccountName!);
-        IOPath.DirCreateByNotExists(localCachePath);
-        var clearioc = Directory.GetFiles(localCachePath, "*.ico");
-        if (clearioc.Length > 0)
+        try
         {
-            clearioc.ForEach(x => File.Delete(x));
+            var localCachePath = Path.Combine(PlatformLoginCache, acc.AccountName!, "Icon");
+            IOPath.FileIfExistsItDelete(localCachePath);
+            Directory.CreateDirectory(localCachePath);
+
+            var savePath = Path.Combine(localCachePath, $"{Guid.NewGuid()}.ico");
+            using (var fs = new FileStream(savePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete))
+            {
+                IcoEncoder.Encode(fs, bitmaps);
+                fs.Flush();
+            }
+            var deskTopPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory), $"{acc.AccountName ?? acc.AccountId}.lnk");
+            var processPath = Environment.ProcessPath;
+            processPath.ThrowIsNull();
+            await platformSwitcher.CreateLoginShortcut(
+                deskTopPath,
+                processPath,
+                $"-clt steam -account {acc.AccountName}",
+                null,
+                null,
+                savePath,
+                Path.GetDirectoryName(processPath));
+            Toast.Show(ToastIcon.Success, Strings.CreateShortcutInfo);
         }
-        var savePath = Path.Combine(localCachePath, $"{Random2.Next()}.ico");
-        using var fs = new FileStream(savePath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
-        IcoEncoder.Encode(fs, bitmaps);
-        var deskTopPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\" + (acc.AccountName ?? acc.AccountId) + ".lnk";
-        var processPath = Environment.ProcessPath;
-        processPath.ThrowIsNull();
-        await platformSwitcher.CreateLoginShortcut(
-            deskTopPath,
-            processPath,
-            $"-clt steam -account {acc.AccountName}",
-            null,
-            null,
-            savePath,
-            Path.GetDirectoryName(processPath));
-        if (bitmaps != null)
-            bitmaps.ForEach(x => x.Dispose());
-        Toast.Show(ToastIcon.Success, Strings.CreateShortcutInfo);
+        finally
+        {
+            if (bitmaps != null)
+                bitmaps.ForEach(x => x.Dispose());
+        }
 #endif
     }
 

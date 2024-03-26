@@ -145,6 +145,8 @@ public partial interface IApplication
         return default;
     });
 
+    static byte[] Login_512 => Properties.Resources.AppLogo_512;
+
     static ClientPlatform ClientPlatform => clientPlatform.Value;
 
     System.Drawing.Size? GetScreenSize() => null;
