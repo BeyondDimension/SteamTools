@@ -16,6 +16,33 @@ internal sealed class HostsFileServiceImpl
     readonly IPlatformService s;
     readonly object lockObj = new();
     IHostsFileService? _privilegedThis;
+#if WINDOWS
+    FileSystemWatcher? watcher;
+    readonly ConcurrentDictionary<string, string> updateHostsValue = new();
+
+    void StartWatcher()
+    {
+        if (WindowsPlatformServiceImpl.IsPrivilegedProcess)
+        {
+            watcher?.Dispose();
+            var hostsDirectoryName = Path.GetDirectoryName(s.HostsFilePath);
+            var hostsFileName = Path.GetFileName(s.HostsFilePath);
+            watcher = new FileSystemWatcher(hostsDirectoryName.ThrowIsNull())
+            {
+                EnableRaisingEvents = true,
+                NotifyFilter = NotifyFilters.Attributes
+                              | NotifyFilters.CreationTime
+                              | NotifyFilters.DirectoryName
+                              | NotifyFilters.FileName
+                              | NotifyFilters.LastWrite
+                              | NotifyFilters.Size,
+                Filter = hostsFileName,
+            };
+            watcher.Changed += Watcher_Changed;
+            watcher.Deleted += Watcher_Deleted;
+        }
+    }
+#endif
 
     const string TAG = "HostsFileS";
 
@@ -39,6 +66,63 @@ internal sealed class HostsFileServiceImpl
     {
         this.s = s;
     }
+
+#if WINDOWS
+    bool isWatcherOverlapHostsing;
+    DateTime lastWatcherOverlapHostsTime;
+    CancellationTokenSource? lastWatcherOverlapHostsTimeCTS;
+
+    async Task WatcherOverlapHosts()
+    {
+        if (isWatcherOverlapHostsing || watcher == null)
+            return;
+
+        isWatcherOverlapHostsing = true;
+        try
+        {
+            if (!updateHostsValue.IsEmpty)
+            {
+                if (lastWatcherOverlapHostsTime != default && (DateTime.Now - lastWatcherOverlapHostsTime) < TimeSpan.FromSeconds(2.65d))
+                {
+                    lastWatcherOverlapHostsTimeCTS?.Cancel();
+                    lastWatcherOverlapHostsTimeCTS = new();
+                    try
+                    {
+                        await Task.Delay(Random2.Next(550, 850), lastWatcherOverlapHostsTimeCTS.Token);
+                        lastWatcherOverlapHostsTimeCTS = null;
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        return;
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        return;
+                    }
+                }
+
+                lastWatcherOverlapHostsTime = DateTime.Now;
+                if (watcher == null)
+                    return;
+                HandleHosts(isUpdateOrRemove: true, updateHostsValue);
+            }
+        }
+        finally
+        {
+            isWatcherOverlapHostsing = false;
+        }
+    }
+
+    async void Watcher_Deleted(object sender, FileSystemEventArgs e)
+    {
+        await WatcherOverlapHosts();
+    }
+
+    async void Watcher_Changed(object sender, FileSystemEventArgs e)
+    {
+        await WatcherOverlapHosts();
+    }
+#endif
 
     #region Mark
 
@@ -526,6 +610,10 @@ internal sealed class HostsFileServiceImpl
                     }
                     else
                     {
+#if WINDOWS
+                        watcher?.Dispose();
+                        watcher = null;
+#endif
                         s.WriteDefaultHostsContent();
                     }
 
@@ -719,7 +807,19 @@ internal sealed class HostsFileServiceImpl
             var r = await privilegedThis.UpdateHosts(hosts);
             return GetOperationResultByIpcResult(r);
         }
+
+#if WINDOWS
+        updateHostsValue.Clear();
+        foreach (var item in hosts)
+        {
+            updateHostsValue.TryAdd(item.Key, item.Value);
+        }
+#endif
+
         var result = HandleHosts(isUpdateOrRemove: true, hosts);
+#if WINDOWS
+        StartWatcher();
+#endif
         return Convert(result);
     }
 
@@ -749,6 +849,10 @@ internal sealed class HostsFileServiceImpl
             var r = await privilegedThis.RemoveHostsByTag();
             return GetOperationResultByIpcResult(r);
         }
+#if WINDOWS
+        watcher?.Dispose();
+        watcher = null;
+#endif
         var result = HandleHosts(isUpdateOrRemove: false);
         return Convert(result);
     }
