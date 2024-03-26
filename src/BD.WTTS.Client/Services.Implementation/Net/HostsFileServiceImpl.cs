@@ -200,7 +200,8 @@ internal sealed class HostsFileServiceImpl
             {
                 try
                 {
-                    s.WriteDefaultHostsContent(fileInfo.Create());
+                    using var stream = fileInfo.Create();
+                    s.WriteDefaultHostsContent(stream);
                     return true;
                 }
                 catch (Exception ex)
