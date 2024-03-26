@@ -193,6 +193,9 @@ public interface ICertificateManager
             var isRootCertificateInstalled = IsCertificateInstalled();
             if (!isRootCertificateInstalled)
             {
+                // 生成证书
+                certificateManager.GenerateCertificate();
+
                 // 安装证书
                 ICertificateManager.Constants.TrustRootCertificate(
                     GetCerFilePath, platformService, certificate2);
