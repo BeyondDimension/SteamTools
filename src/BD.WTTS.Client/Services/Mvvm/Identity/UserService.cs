@@ -179,12 +179,6 @@ public sealed class UserService : ReactiveObject
 
     public async Task RefreshUserAsync(IdentityUserInfoDTO? user, bool refreshCurrentUser = true)
     {
-#if DEBUG
-        if (user != null)
-        {
-            user.UserType = UserType.Sponsor;
-        }
-#endif
         User = user;
         this.RaisePropertyChanged(nameof(IsAuthenticated));
 
