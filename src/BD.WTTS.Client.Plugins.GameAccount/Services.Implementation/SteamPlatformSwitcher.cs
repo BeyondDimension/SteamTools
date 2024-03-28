@@ -98,8 +98,11 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
     public async Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform, Action? refreshUsers = null)
     {
-        //var users = steamService.GetRememberUserList();
-        await SteamConnectService.Current.RefreshSteamUsers();
+        SteamConnectService.Current.RefreshSteamUsers();
+
+        _ = Task.Run(() => SteamConnectService.Current.RefreshSteamUsersInfo())
+            .ContinueWith(t => refreshUsers!.Invoke());
+
         var users = SteamConnectService.Current.SteamUsers.Items;
 
         if (!users.Any_Nullable())
@@ -161,4 +164,5 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         }
         return false;
     }
+
 }

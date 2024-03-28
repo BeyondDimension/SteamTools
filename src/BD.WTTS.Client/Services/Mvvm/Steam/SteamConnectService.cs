@@ -335,7 +335,8 @@ public sealed class SteamConnectService
 
                                 if (!SteamUsers.Lookup(id).HasValue)
                                 {
-                                    _ = RefreshSteamUsers();
+                                    RefreshSteamUsers();
+                                    _ = RefreshSteamUsersInfo();
                                 }
 
                                 //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
@@ -510,7 +511,7 @@ public sealed class SteamConnectService
         }
     }
 
-    public async Task RefreshSteamUsers()
+    public void RefreshSteamUsers()
     {
         var list = stmService.GetRememberUserList();
 
@@ -574,6 +575,63 @@ public sealed class SteamConnectService
 
         #region 通过 WebApi 加载头像图片用户信息
 
+        //foreach (var user in SteamUsers.Items)
+        //{
+        //    var temp = await swWebService.GetUserInfo(user.SteamId64);
+        //    if (!string.IsNullOrEmpty(temp.SteamID))
+        //    {
+        //        user.SteamID = temp.SteamID;
+        //        user.OnlineState = temp.OnlineState;
+        //        user.MemberSince = temp.MemberSince;
+        //        user.VacBanned = temp.VacBanned;
+        //        user.Summary = temp.Summary;
+        //        user.PrivacyState = temp.PrivacyState;
+        //        user.AvatarIcon = temp.AvatarIcon;
+        //        user.AvatarMedium = temp.AvatarMedium;
+        //        user.AvatarFull = temp.AvatarFull;
+        //        user.MiniProfile = temp.MiniProfile;
+
+        //        //if (user.MiniProfile != null && !string.IsNullOrEmpty(user.MiniProfile.AnimatedAvatar))
+        //        //{
+        //        //    user.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(user.MiniProfile.AnimatedAvatar);
+        //        //}
+        //        //else
+        //        //{
+        //        //    user.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(temp.AvatarFull);
+        //        //}
+        //    }
+        //}
+
+        //SteamUsers.Refresh();
+
+        #endregion
+
+        #region 加载动态头像头像框数据
+
+        //foreach (var item in _SteamUsersSourceList.Items)
+        //{
+        //    item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
+        //    var miniProfile = item.MiniProfile;
+        //    if (miniProfile != null)
+        //    {
+        //        if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
+        //            item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+
+        //        if (!string.IsNullOrEmpty(miniProfile.AvatarFrame))
+        //            miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+
+        //        //item.Level = miniProfile.Level;
+        //    }
+        //}
+        //_SteamUsersSourceList.Refresh();
+
+        #endregion
+    }
+
+    public async Task RefreshSteamUsersInfo()
+    {
+        #region 通过 WebApi 加载头像图片用户信息
+
         foreach (var user in SteamUsers.Items)
         {
             var temp = await swWebService.GetUserInfo(user.SteamId64);
@@ -600,29 +658,7 @@ public sealed class SteamConnectService
                 //}
             }
         }
-
         SteamUsers.Refresh();
-
-        #endregion
-
-        #region 加载动态头像头像框数据
-
-        //foreach (var item in _SteamUsersSourceList.Items)
-        //{
-        //    item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
-        //    var miniProfile = item.MiniProfile;
-        //    if (miniProfile != null)
-        //    {
-        //        if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
-        //            item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
-
-        //        if (!string.IsNullOrEmpty(miniProfile.AvatarFrame))
-        //            miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
-
-        //        //item.Level = miniProfile.Level;
-        //    }
-        //}
-        //_SteamUsersSourceList.Refresh();
 
         #endregion
     }
