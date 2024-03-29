@@ -99,9 +99,11 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
     public async Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform, Action? refreshUsers = null)
     {
         SteamConnectService.Current.RefreshSteamUsers();
-
-        _ = Task.Run(() => SteamConnectService.Current.RefreshSteamUsersInfo())
-            .ContinueWith(t => refreshUsers!.Invoke());
+        Task2.InBackground(async () =>
+        {
+            await SteamConnectService.Current.RefreshSteamUsersInfo();
+            refreshUsers?.Invoke();
+        });
 
         var users = SteamConnectService.Current.SteamUsers.Items;
 
@@ -133,6 +135,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
             Items = trayMenus,
         });
 
+        await Task.CompletedTask;
         return accounts;
     }
 
