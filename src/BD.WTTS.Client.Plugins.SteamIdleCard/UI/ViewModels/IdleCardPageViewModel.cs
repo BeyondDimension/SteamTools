@@ -122,7 +122,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 
                 //await SteamConnectService.Current.RefreshGamesListAsync();
                 RunState = await ReadyToGoIdle(true);
-                PauseAutoNext(true);
                 RunOrStopAutoNext(true);
                 RunOrStopAutoCardDropCheck(true);
             }
@@ -402,42 +401,59 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             return;
         }
 
-        if (SteamIdleSettings.IdleRule.Value == IdleRule.OnlyOneGame)
+        if (SteamIdleSettings.IdleRule.Value == IdleRule.FastMode)
         {
-            idleApp = VerifyIsNext(IdleGameList, isNext);
-            StartSoloIdle(idleApp);
-        }
-        else
-        {
-            if (SteamIdleSettings.IdleRule.Value == IdleRule.OneThenMany || SteamIdleSettings.IdleRule.Value == IdleRule.FastMode)
-            {
-                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed >= SteamIdleSettings.MinRunTime.Value).ToList();
+            var multi = IdleGameList.Where(z => z.Badge.HoursPlayed >= SteamIdleSettings.MinRunTime.Value).ToList();
 
-                if (multi.Count >= 1)
-                {
-                    idleApp = VerifyIsNext(multi, isNext);
-                    if (SteamIdleSettings.IdleRule.Value == IdleRule.FastMode)
-                        PauseAutoNext(false);
-                    StartSoloIdle(idleApp);
-                }
-                else
-                {
-                    if (SteamIdleSettings.IdleRule.Value == IdleRule.FastMode)
-                        PauseAutoNext(true);
-                    StartMultipleIdle();
-                }
+            if (multi.Count > 1)
+            {
+                idleApp = VerifyIsNext(multi, isNext);
+                PauseAutoNext(false);
+                StartSoloIdle(idleApp);
             }
             else
             {
-                var multi = IdleGameList.Where(z => z.Badge.HoursPlayed < SteamIdleSettings.MinRunTime.Value).ToList();
-                if (multi.Count >= 2)
+                PauseAutoNext(true);
+                StartMultipleIdle();
+            }
+        }
+        else
+        {
+
+            PauseAutoNext(true);
+
+            if (SteamIdleSettings.IdleRule.Value == IdleRule.OnlyOneGame)
+            {
+                idleApp = VerifyIsNext(IdleGameList, isNext);
+                StartSoloIdle(idleApp);
+            }
+            else
+            {
+                if (SteamIdleSettings.IdleRule.Value == IdleRule.OneThenMany)
                 {
-                    StartMultipleIdle();
+                    var multi_Idles = IdleGameList.Where(z => z.Badge.HoursPlayed >= SteamIdleSettings.MinRunTime.Value).ToList();
+                    if (multi_Idles.Count >= 1)
+                    {
+                        idleApp = VerifyIsNext(multi_Idles, isNext);
+                        StartSoloIdle(idleApp);
+                    }
+                    else
+                    {
+                        StartMultipleIdle();
+                    }
                 }
                 else
                 {
-                    idleApp = VerifyIsNext(multi, isNext);
-                    StartSoloIdle(idleApp);
+                    var multi_AFKs = IdleGameList.Where(z => z.Badge.HoursPlayed < SteamIdleSettings.MinRunTime.Value).ToList();
+                    if (multi_AFKs.Count >= 2)
+                    {
+                        StartMultipleIdle();
+                    }
+                    else
+                    {
+                        idleApp = VerifyIsNext(multi_AFKs.Count <= 0 ? IdleGameList : multi_AFKs, isNext);
+                        StartSoloIdle(idleApp);
+                    }
                 }
             }
         }
@@ -451,7 +467,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 ResetCurrentIdle();
                 return idles.First();
             }
-
         }
     }
 
@@ -706,7 +721,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 if (currentIdleAppId.HasValue)
                 {
 
-                    if (!Badges.Any(x => x.AppId == currentIdleAppId && x.CardsRemaining > 0)) // 当前休息挂卡完成
+                    if (!Badges.Any(x => x.AppId == currentIdleAppId && x.CardsRemaining > 0)) // 当前游戏挂卡完成
                     {
                         if (nextIdleAppId.HasValue) // 挂卡下一个游戏
                             idleApp = IdleGameList.Where(x => x.AppId == nextIdleAppId).FirstOrDefault();
