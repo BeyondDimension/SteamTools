@@ -2697,7 +2697,7 @@
     <value>安装 CA 证书成功</value>
   </data>
   <data name="Idle_Complete" xml:space="preserve">
-    <value>挂卡完成，已经没有剩余卡牌可挂卡。</value>
+    <value>挂卡完成，已经没有剩余卡牌可挂卡，掉落卡片 {0} 张，用时 {1} 小时。</value>
   </data>
   <data name="Idle_LoaingTips" xml:space="preserve">
     <value>操作进行中请稍后再试</value>

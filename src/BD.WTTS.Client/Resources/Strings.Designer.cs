@@ -3583,7 +3583,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 挂卡完成，已经没有剩余卡牌可挂卡。 的本地化字符串。
+        ///   查找类似 挂卡完成，已经没有剩余卡牌可挂卡，掉落卡片 {0} 张，用时 {1} 小时。 的本地化字符串。
         /// </summary>
         public static string Idle_Complete {
             get {

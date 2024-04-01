@@ -750,8 +750,9 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     private void IdleComplete()
     {
         RunState = false;
-        Toast.Show(ToastIcon.Success, Strings.Idle_Complete);
-        INotificationService.Instance.Notify(Strings.Idle_Complete, NotificationType.Message);
+        var message = Strings.Idle_Complete.Format(DropCardsCount, IdleTime.TotalHours.ToInt32());
+        Toast.Show(ToastIcon.Success, message);
+        INotificationService.Instance.Notify(message, NotificationType.Message);
     }
     #endregion
 
