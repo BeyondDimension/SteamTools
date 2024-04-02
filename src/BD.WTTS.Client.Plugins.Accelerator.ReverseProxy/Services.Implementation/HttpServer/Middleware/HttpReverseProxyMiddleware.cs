@@ -92,6 +92,11 @@ sealed partial class HttpReverseProxyMiddleware
                 Version = context.Request.Protocol.StartsWith("HTTP/2") ? System.Net.HttpVersion.Version20 : System.Net.HttpVersion.Version11,
             };
 
+            if (domainConfig.IsServerSideProxy)
+            {
+                SetWattHeaders(ref context);
+            }
+
             var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, forwarderRequestConfig, HttpTransformer.Empty);
 
             if (error != ForwarderError.None)
@@ -391,6 +396,13 @@ sealed partial class HttpReverseProxyMiddleware
         encoding = null;
         //preambleLength = 0;
         return false;
+    }
+
+    static void SetWattHeaders(ref HttpContext context)
+    {
+        context.Request.Headers.TryAdd("X-Watt-Origin-Dest-Scheme", context.Request.Scheme);
+        context.Request.Headers.TryAdd("X-Watt-Origin-Dest-Host", context.Request.Host.ToString());
+        context.Request.Headers.TryAdd("X-Watt-Origin-Dest-PathAndQuery", context.Request.GetEncodedPathAndQuery());
     }
 
     const int UTF8PreambleLength = 3;
