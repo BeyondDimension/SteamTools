@@ -80,7 +80,15 @@ sealed partial class HttpReverseProxyMiddleware
                 return;
             }
 
-            var destinationPrefix = GetDestinationPrefix(context.Request.Scheme, context.Request.Host, domainConfig.Destination);
+            var destination = domainConfig.Destination;
+            if (domainConfig.Destination?.AbsoluteUri.Contains("@") == true)
+            {
+                var newUrl = domainConfig.Destination.AbsoluteUri.Replace("@domain", context.Request.Host.Host);
+                newUrl = newUrl.Replace("@uri", context.Request.RawUrl());
+                destination = new Uri(newUrl);
+            }
+
+            var destinationPrefix = GetDestinationPrefix(context.Request.Scheme, context.Request.Host, destination);
             var httpClient = httpClientFactory.CreateHttpClient(context.Request.Host.Host, domainConfig);
             if (!string.IsNullOrEmpty(domainConfig.UserAgent))
             {
@@ -89,7 +97,12 @@ sealed partial class HttpReverseProxyMiddleware
 
             var forwarderRequestConfig = new ForwarderRequestConfig()
             {
-                Version = context.Request.Protocol.StartsWith("HTTP/2") ? System.Net.HttpVersion.Version20 : System.Net.HttpVersion.Version11,
+                Version = context.Request.Protocol switch
+                {
+                    var protocol when protocol.StartsWith("HTTP/2") => System.Net.HttpVersion.Version20,
+                    var protocol when protocol.StartsWith("HTTP/3") => System.Net.HttpVersion.Version30,
+                    _ => System.Net.HttpVersion.Version11,
+                },
             };
 
             if (domainConfig.IsServerSideProxy)
