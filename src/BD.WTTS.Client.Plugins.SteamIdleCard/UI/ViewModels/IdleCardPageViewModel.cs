@@ -5,6 +5,7 @@ using BD.SteamClient.Services;
 using BD.WTTS.UI.Views.Pages;
 using BD.SteamClient.Constants;
 using AngleSharp.Common;
+using Avalonia.Threading;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -120,10 +121,13 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     //return;
                 }
 
-                //await SteamConnectService.Current.RefreshGamesListAsync();
-                RunState = await ReadyToGoIdle(true);
-                RunOrStopAutoNext(true);
-                RunOrStopAutoCardDropCheck(true);
+                if (RunState = await ReadyToGoIdle(true))
+                {
+                    RunOrStopAutoNext(true);
+                    RunOrStopAutoCardDropCheck(true);
+                }
+                else
+                    Toast.Show(ToastIcon.Error, Strings.Idle_StartError);
             }
             else
             {
@@ -354,6 +358,12 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         try
         {
+#if DEBUG
+            Badges = new ObservableCollection<Badge> {
+            new Badge() { AppId = 1222680, AppName = "极品飞车狂热", HoursPlayed = 3, CardsRemaining = 3, CardsCollected = 2, CardsGathering = 5 },
+            new Badge() { AppId = 356190, AppName = "中土世界魔多之影", HoursPlayed = 4, CardsRemaining = 3, CardsGathering = 8, CardsCollected = 5 },
+            new Badge() { AppId = 730, AppName = "CS2", HoursPlayed = 135, CardsRemaining = 2, CardsGathering = 5, CardsCollected = 3 } };
+#endif
             var badges = Badges.Where(w => w.CardsRemaining != 0);
             var apps = SteamIdleSettings.IdleSequentital.Value switch
             {

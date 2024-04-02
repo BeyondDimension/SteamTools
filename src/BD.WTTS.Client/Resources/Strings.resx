@@ -2934,4 +2934,7 @@
   <data name="CreateShortcutInfo" xml:space="preserve">
     <value>创建成功</value>
   </data>
+  <data name="Idle_StartError" xml:space="preserve">
+    <value>挂卡启动失败，请检查是否已开启 Steam 加速</value>
+  </data>
 </root>
