@@ -97,7 +97,12 @@ sealed partial class HttpReverseProxyMiddleware
 
             var forwarderRequestConfig = new ForwarderRequestConfig()
             {
-                Version = context.Request.Protocol.StartsWith("HTTP/2") ? System.Net.HttpVersion.Version20 : System.Net.HttpVersion.Version11,
+                Version = context.Request.Protocol switch
+                {
+                    var protocol when protocol.StartsWith("HTTP/2") => System.Net.HttpVersion.Version20,
+                    var protocol when protocol.StartsWith("HTTP/3") => System.Net.HttpVersion.Version30,
+                    _ => System.Net.HttpVersion.Version11,
+                },
             };
 
             if (domainConfig.IsServerSideProxy)
