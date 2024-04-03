@@ -130,7 +130,7 @@ public sealed partial class PlatformAccount
     {
 #if WINDOWS
         var gear = new[] { 512, 256, 128, 96, 64, 48, 32, 24, 16 };
-        using var avatarImgBitmap = await Decode(acc.ImagePath);
+        using var avatarImgBitmap = await Decode(acc.AvatarMedium);
         var iconSize = GetImgResolutionPower(Math.Min(avatarImgBitmap.Width, avatarImgBitmap.Height), gear);
         using var fBitmap = DrawIcon(avatarImgBitmap, SKBitmap.Decode(IApplication.Login_512), iconSize.Max());
         SKBitmap[]? bitmaps = new[] { fBitmap }.Concat(iconSize.Where(x => x != iconSize.Max())
