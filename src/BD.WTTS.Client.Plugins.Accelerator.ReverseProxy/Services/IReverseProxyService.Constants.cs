@@ -1,6 +1,9 @@
 using dotnetCampus.Ipc.CompilerServices.Attributes;
+
 #if APP_REVERSE_PROXY
+
 using InstanceReverseProxyService = BD.WTTS.Services.Implementation.YarpReverseProxyServiceImpl;
+
 #else
 using InstanceReverseProxyService = BD.WTTS.Services.IReverseProxyService;
 #endif
@@ -59,6 +62,7 @@ public partial interface IReverseProxyService : IDisposable
     Task StopProxyAsync();
 
 #if DEBUG
+
     string GetDebugString()
     {
         return $"Pid: {Environment.ProcessId}, Exe: {Environment.ProcessPath}, Asm: {Assembly.GetAssembly(GetType())?.FullName}";
@@ -69,6 +73,7 @@ public partial interface IReverseProxyService : IDisposable
         StartProxyResult r = new(StartProxyResultCode.Exception, new Exception("aaaa"));
         return Task.FromResult(r);
     }
+
 #endif
 }
 
@@ -139,7 +144,7 @@ public partial interface IReverseProxySettings
     /// </summary>
     ushort Socks5ProxyPortId { get; set; }
 
-    #endregion
+    #endregion Socks5
 
     #region TwoLevelAgent(二级代理)
 
@@ -155,7 +160,7 @@ public partial interface IReverseProxySettings
 
     string? TwoLevelAgentPassword { get; set; }
 
-    #endregion
+    #endregion TwoLevelAgent(二级代理)
 
     IPAddress? ProxyDNS { get; set; }
 
@@ -167,6 +172,11 @@ public partial interface IReverseProxySettings
     bool UseDoh { get; set; }
 
     string? CustomDohAddres { get; set; }
+
+    /// <summary>
+    /// 服务端代理令牌
+    /// </summary>
+    string? ServerSideProxyToken { get; set; }
 }
 
 [MP2Obj(SerializeLayout.Explicit)]
@@ -214,7 +224,9 @@ public readonly partial record struct ReverseProxySettings(
     [property:MP2Key(20)]
     bool UseDoh,
     [property:MP2Key(21)]
-    string? CustomDohAddres)
+    string? CustomDohAddres,
+    [property:MP2Key(22)]
+    string? ServerSideProxyToken)
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal IPAddress GetProxyIp() => GetProxyIp(ProxyIp);
@@ -267,6 +279,7 @@ public readonly partial record struct ReverseProxySettings(
         settings.IsSupportIpv6 = IsSupportIpv6;
         settings.UseDoh = UseDoh;
         settings.CustomDohAddres = CustomDohAddres;
+        settings.ServerSideProxyToken = ServerSideProxyToken;
     }
 #endif
 }

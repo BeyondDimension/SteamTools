@@ -97,17 +97,12 @@ sealed partial class HttpReverseProxyMiddleware
 
             var forwarderRequestConfig = new ForwarderRequestConfig()
             {
-                Version = context.Request.Protocol switch
-                {
-                    var protocol when protocol.StartsWith("HTTP/2") => System.Net.HttpVersion.Version20,
-                    var protocol when protocol.StartsWith("HTTP/3") => System.Net.HttpVersion.Version30,
-                    _ => System.Net.HttpVersion.Version11,
-                },
+                Version = context.Request.Protocol.StartsWith("HTTP/2") ? System.Net.HttpVersion.Version20 : System.Net.HttpVersion.Version11,
             };
 
             if (domainConfig.IsServerSideProxy)
             {
-                SetWattHeaders(ref context);
+                SetWattHeaders(context, reverseProxyConfig.Service.ServerSideProxyToken);
             }
 
             var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, forwarderRequestConfig, HttpTransformer.Empty);
@@ -411,11 +406,13 @@ sealed partial class HttpReverseProxyMiddleware
         return false;
     }
 
-    static void SetWattHeaders(ref HttpContext context)
+    static void SetWattHeaders(HttpContext context, string? token)
     {
         context.Request.Headers.TryAdd("X-Watt-Origin-Dest-Scheme", context.Request.Scheme);
         context.Request.Headers.TryAdd("X-Watt-Origin-Dest-Host", context.Request.Host.ToString());
         context.Request.Headers.TryAdd("X-Watt-Origin-Dest-PathAndQuery", context.Request.GetEncodedPathAndQuery());
+
+        context.Request.Headers.TryAdd("X-Watt-Token", token ?? string.Empty);
     }
 
     const int UTF8PreambleLength = 3;

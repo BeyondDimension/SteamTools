@@ -89,6 +89,8 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
 
     public string? CustomDohAddres { get; set; }
 
+    public string? ServerSideProxyToken { get; set; }
+
     /// <summary>
     /// 获取一个随机的未使用的端口
     /// </summary>
@@ -157,7 +159,7 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
             return StartProxyResultCode.DeserializeReverseProxySettingsFail;
         }
 
-        // Linux 如果是443 需要验证 是否允许使用 
+        // Linux 如果是443 需要验证 是否允许使用
         if (OperatingSystem.IsLinux())
         {
             if (string.IsNullOrWhiteSpace(reverseProxySettings.ProxyIp))
@@ -178,7 +180,6 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
 
     protected virtual void CheckRootCertificate()
     {
-
     }
 
     protected abstract Task<StartProxyResult> StartProxyImpl();

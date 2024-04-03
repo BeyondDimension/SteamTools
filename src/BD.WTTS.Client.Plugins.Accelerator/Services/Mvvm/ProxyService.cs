@@ -1,7 +1,3 @@
-using BD.Common;
-using System.Linq;
-using KeyValuePair = System.Collections.Generic.KeyValuePair;
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
@@ -206,9 +202,10 @@ public sealed partial class ProxyService
     //    return r;
     //}
 
-    #endregion
+    #endregion HOSTS_PROXY_RUNNING_STATUS
 
     #region 代理状态启动退出
+
     private bool _ProxyStatus;
 
     public bool ProxyStatus
@@ -216,7 +213,8 @@ public sealed partial class ProxyService
         get { return _ProxyStatus; }
         set => this.RaiseAndSetIfChanged(ref _ProxyStatus, value);
     }
-    #endregion
+
+    #endregion 代理状态启动退出
 
     static bool IsProgramStartupRunProxy()
     {
@@ -632,7 +630,8 @@ public sealed partial class ProxyService
             }
         }
     }
-    #endregion
+
+    #endregion 脚本相关
 
     public async void FixNetwork()
     {
@@ -654,7 +653,6 @@ public sealed partial class ProxyService
             }
             catch
             {
-
             }
         }
 #endif

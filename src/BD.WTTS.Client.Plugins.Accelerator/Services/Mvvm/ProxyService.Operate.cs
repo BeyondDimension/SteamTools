@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using BD.WTTS.Helpers;
+
 namespace BD.WTTS.Services;
 
 partial class ProxyService
@@ -126,7 +128,6 @@ partial class ProxyService
                     //{
                     //    //if (string.IsNullOrWhiteSpace(Plugin.Instance.SubProcessPath))
                     //    //{
-
                     //    //}
                     //    //    var processPath = Environment.ProcessPath;
                     //    //    processPath.ThrowIsNull();
@@ -156,6 +157,7 @@ partial class ProxyService
                     }
                 }
                 break;
+
             case ProxyMode.System:
                 if (OperatingSystem.IsWindows() &&
                     proxyIp_.Value.Equals(IPAddress.Any))
@@ -170,6 +172,7 @@ partial class ProxyService
                     return Strings.CommunityFix_SetAsSystemProxyFail;
                 }
                 break;
+
             case ProxyMode.PAC:
                 if (OperatingSystem.IsWindows() &&
                     proxyIp_.Value.Equals(IPAddress.Any))
@@ -208,7 +211,7 @@ partial class ProxyService
             proxyIp, proxyMode, isProxyGOG, onlyEnableProxyScript,
             enableHttpProxyToHttps, socks5ProxyEnable, socks5ProxyPortId,
             twoLevelAgentEnable, twoLevelAgentProxyType, twoLevelAgentIp,
-            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, useDoh, customDohAddres);
+            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, useDoh, customDohAddres, await TryRequestServerSideProxyToken());
         byte[] reverseProxySettings_ = Serializable.SMP2(reverseProxySettings);
         var startProxyResult = await reverseProxyService.StartProxyAsync(reverseProxySettings_);
         if (startProxyResult)
@@ -331,12 +334,14 @@ partial class ProxyService
                     }
                 }
                 break;
+
             case ProxyMode.System:
                 if (callSet)
                 {
                     await platformService.SetAsSystemProxyAsync(false);
                 }
                 break;
+
             case ProxyMode.PAC:
                 if (callSet)
                 {
@@ -359,6 +364,30 @@ partial class ProxyService
         await reverseProxyService.StopProxyAsync(); // 停止代理服务
 #endif
         return default;
+    }
+
+    /// <summary>
+    /// 尝试获取服务端代理token
+    /// </summary>
+    /// <returns></returns>
+    static async Task<string?> TryRequestServerSideProxyToken()
+    {
+        try
+        {
+            var resp = await IMicroServiceClient.Instance.Account
+                .GenerateServerSideProxyToken(new()
+                {
+                    LocalMACAddress = NetworkInterfaceHelper.GetMACAddressStr(),
+                });
+
+            return resp.Content;
+        }
+        catch (Exception ex)
+        {
+            // 暂时不记录异常
+
+            return null;
+        }
     }
 
     /// <summary>
