@@ -87,4 +87,9 @@ public sealed class SteamAccount : ReactiveObject, IAccount
 
     public string? PlatformName { get; init; }
 
+    public string? AvatarMedium
+    {
+        get => SteamUser.AvatarMedium;
+        set => SteamUser.AvatarMedium = value;
+    }
 }

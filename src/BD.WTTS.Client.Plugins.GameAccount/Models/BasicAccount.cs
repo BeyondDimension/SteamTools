@@ -30,4 +30,6 @@ public sealed class BasicAccount : ReactiveObject, IAccount
 
     [Reactive]
     public bool MostRecent { get; set; }
+
+    public string? AvatarMedium { get; set; }
 }

@@ -181,7 +181,7 @@
             <ui:MenuFlyoutItem 
 				Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).CreateShortcutCommand}"
 				CommandParameter="{Binding}"
-				IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
+				IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsWindwos}"
 				Text="创建桌面快捷方式" />
             <ui:MenuFlyoutItem
                 Click="OpenUserDataFolderMenuItem_Click"

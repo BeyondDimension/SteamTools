@@ -32,6 +32,11 @@ partial class Program
                     }
                 }
             }
+            if (args.Length > 0 && args[0].StartsWith(Constants.CUSTOM_URL_SCHEME))
+            {
+                args[0] = HttpUtility.UrlDecode(args[0]).Split('=')[1];
+                args = args[0].Split(' ');
+            }
         }
         catch (Exception ex)
         {
