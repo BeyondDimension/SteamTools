@@ -1,3 +1,5 @@
+using SystemPlatform = System.Runtime.Devices.Platform;
+
 namespace BD.WTTS.Models;
 
 public sealed partial class PlatformAccount : ReactiveObject
@@ -70,6 +72,9 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public bool IsSteamPlatform => Platform == ThirdpartyPlatform.Steam;
+
+    [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public bool IsWindwos => IsSteamPlatform && DeviceInfo2.Platform() == SystemPlatform.Windows;
 
     public string RegJsonPath(string accName) => Path.Combine(PlatformLoginCache, accName, "reg.json");
 

@@ -21,4 +21,6 @@ public interface IAccount : IReactiveObject
     ThirdpartyPlatform Platform { get; init; }
 
     string? PlatformName { get; init; }
+
+    string? AvatarMedium { get; set; }
 }

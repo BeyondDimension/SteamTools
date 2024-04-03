@@ -139,7 +139,7 @@ public sealed partial class PlatformAccount
         try
         {
             var localCachePath = Path.Combine(PlatformLoginCache, acc.AccountName!, "Icon");
-            IOPath.FileIfExistsItDelete(localCachePath);
+            IOPath.DirTryDelete(localCachePath);
             Directory.CreateDirectory(localCachePath);
 
             var savePath = Path.Combine(localCachePath, $"{Guid.NewGuid()}.ico");
@@ -148,17 +148,22 @@ public sealed partial class PlatformAccount
                 IcoEncoder.Encode(fs, bitmaps);
                 fs.Flush();
             }
-            var deskTopPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory), $"{acc.AccountName ?? acc.AccountId}.lnk");
+            var deskTopPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory),
+                $"{acc.DisplayName ?? acc.AccountName ?? acc.AccountId}.lnk");
+
             var processPath = Environment.ProcessPath;
             processPath.ThrowIsNull();
+            platformSwitcher.CreateSystemProtocol(processPath);
+            var route = HttpUtility.UrlEncode($"-clt steam -account {acc.AccountName}");
             await platformSwitcher.CreateLoginShortcut(
                 deskTopPath,
-                processPath,
-                $"-clt steam -account {acc.AccountName}",
+                $"{Constants.CUSTOM_URL_SCHEME}args?command={route}",
+                null,
                 null,
                 null,
                 savePath,
-                Path.GetDirectoryName(processPath));
+                null);
             Toast.Show(ToastIcon.Success, Strings.CreateShortcutInfo);
         }
         finally

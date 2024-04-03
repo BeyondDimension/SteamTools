@@ -32,6 +32,16 @@ public interface IPlatformSwitcher
 
     Task<IEnumerable<IAccount>?> GetUsers(PlatformAccount platform, Action? refreshUsers = null);
 
+    public void CreateSystemProtocol(string targetPath)
+    {
+        using var key = Registry.ClassesRoot.CreateSubKey(Constants.CUSTOM_URL_SCHEME_NAME);
+        key.SetValue("URL Protocol", "");
+        using var shellKey = key.CreateSubKey("shell");
+        using RegistryKey openKey = shellKey.CreateSubKey("open");
+        using RegistryKey commandKey = openKey.CreateSubKey("command");
+        commandKey.SetValue("", "\"" + targetPath + "\" \"%1\"");
+    }
+
     public Task<bool> CreateLoginShortcut(
         string pathLink,
         string targetPath,
