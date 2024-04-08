@@ -407,7 +407,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                 }
                 await TryReadFileAsync(item, true);
                 //清理 脚本内容 后续 IPC 传递 插件进程读取。
-                item.Content = string.Empty;
+                //item.Content = string.Empty;
                 await scriptRepository.SaveScriptCachePathAsync(item, default);
             }
             else
@@ -422,7 +422,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                         file.Delete();
                         await TryReadFileAsync(item, true);
                         //清理 脚本内容 后续 IPC 传递 插件进程读取。
-                        item.Content = string.Empty;
+                        //item.Content = string.Empty;
                     }
                 }
             }
@@ -446,7 +446,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
         var cachePath = Path.Combine(Plugin.Instance.CacheDirectory, item.CachePath);
         if (File.Exists(cachePath))
         {
-            //item.Content = File.ReadAllText(cachePath);
+            item.Content = File.ReadAllText(cachePath);
         }
         else
         {
