@@ -11,7 +11,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         this.swWebService = swWebService;
     }
 
-    public async ValueTask SwapToAccount(IAccount? account, PlatformAccount platform)
+    public async ValueTask<bool> SwapToAccount(IAccount? account, PlatformAccount platform)
     {
         await KillPlatformProcess(platform);
         var users = platform.Accounts?.Cast<SteamAccount>().Select(s => s.SteamUser).ToArray();
@@ -59,6 +59,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
             Toast.Show(ToastIcon.Error, Strings.Error_SteamGetUserInfo);
         }
         RunPlatformProcess(platform, false);
+        return true;
     }
 
     async ValueTask<bool> IPlatformSwitcher.ClearCurrentLoginUser(PlatformAccount platform)

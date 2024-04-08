@@ -22,10 +22,10 @@ public sealed partial class PlatformAccount
             _ => platformSwitchers.OfType<BasicPlatformSwitcher>().First(),
         };
 
-        SwapToAccountCommand = ReactiveCommand.Create<IAccount>(acc =>
+        SwapToAccountCommand = ReactiveCommand.Create<IAccount>(async acc =>
         {
-            platformSwitcher.SwapToAccount(acc, this);
-            Toast.Show(ToastIcon.Success, AppResources.Success_SwitchAccount__.Format(FullName, acc.DisplayName));
+            if (await platformSwitcher.SwapToAccount(acc, this))
+                Toast.Show(ToastIcon.Success, AppResources.Success_SwitchAccount__.Format(FullName, acc.DisplayName));
         });
 
         OpenUrlToBrowserCommand = ReactiveCommand.Create<IAccount>(acc =>
@@ -35,8 +35,7 @@ public sealed partial class PlatformAccount
 
         DeleteAccountCommand = ReactiveCommand.Create<IAccount>(async acc =>
         {
-            var r = await platformSwitcher.DeleteAccountInfo(acc, this);
-            if (r)
+            if (await platformSwitcher.DeleteAccountInfo(acc, this))
                 Toast.Show(ToastIcon.Success, Strings.Success_DeletePlatformAccount__.Format(FullName, acc.DisplayName));
         });
 

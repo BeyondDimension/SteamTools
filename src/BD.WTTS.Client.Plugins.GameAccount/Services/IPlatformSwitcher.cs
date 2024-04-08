@@ -4,7 +4,7 @@ namespace BD.WTTS.Services;
 
 public interface IPlatformSwitcher
 {
-    ValueTask SwapToAccount(IAccount? account, PlatformAccount platform);
+    ValueTask<bool> SwapToAccount(IAccount? account, PlatformAccount platform);
 
     ValueTask<bool> ClearCurrentLoginUser(PlatformAccount platform);
 

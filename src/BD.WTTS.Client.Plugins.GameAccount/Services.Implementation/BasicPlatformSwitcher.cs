@@ -102,13 +102,13 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    public async ValueTask SwapToAccount(IAccount? account, PlatformAccount platform)
+    public async ValueTask<bool> SwapToAccount(IAccount? account, PlatformAccount platform)
     {
         //LoadAccountIds();
 
         var killResult = await KillPlatformProcess(platform);
         if (!killResult)
-            return;
+            return false;
 
         // Add currently logged in account if there is a way of checking unique ID.
         // If saved, and has unique key: Update
@@ -125,7 +125,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                     {
                         RunPlatformProcess(platform, true);
                         Toast.Show(ToastIcon.Info, AppResources.Info_AlreadyTheCurrentAccount);
-                        return;
+                        return false;
                     }
                     await CurrnetUserAdd(platform.Accounts.First(acc => acc.AccountId == uniqueId).AccountName ?? "Unknown", platform);
                 }
@@ -138,7 +138,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         // Copy saved files in
         if (!string.IsNullOrEmpty(account?.AccountId))
         {
-            if (!await BasicCopyInAccount(account.AccountId, platform)) return;
+            if (!await BasicCopyInAccount(account.AccountId, platform)) return false;
             //Globals.AddTrayUser(platform.SafeName, $"+{platform.PrimaryId}:" + accId, accName, BasicSettings.TrayAccNumber); // Add to Tray list, using first Identifier
         }
 
@@ -161,6 +161,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
         //{
         //    //
         //}
+        return true;
     }
 
     public async ValueTask<bool> ClearCurrentLoginUser(PlatformAccount platform)
