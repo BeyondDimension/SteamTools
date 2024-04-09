@@ -13,6 +13,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
 {
     readonly ISteamService SteamTool = ISteamService.Instance;
     readonly ISteamIdleCardService IdleCard = ISteamIdleCardService.Instance;
+    readonly ISteamSessionService steamSession = ISteamSessionService.Instance;
 
     private SteamLoginState SteamLoginState = new();
 
@@ -55,6 +56,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             {
 
                 await ISecureStorage.Instance.RemoveAsync(ISteamSessionService.CurrentSteamUserKey);
+                steamSession.RemoveSession(SteamLoginState.SteamId.ToString());
                 SteamLoginState = new();
                 IsLogin = false;
             }
@@ -331,16 +333,40 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         }
         async Task RunLoadBadges()
         {
-            IEnumerable<Badge> badges;
+            IEnumerable<Badge>? badges;
+            HttpStatusCode status;
 
-            (UserIdleInfo, badges) = await IdleCard.GetBadgesAsync(SteamLoginState.SteamId.ToString(), true);
+        GetBadges:
+            var steam_id = SteamLoginState.SteamId.ToString();
+            (UserIdleInfo, badges, status) = await IdleCard.GetBadgesAsync(steam_id, true);
+            if (status == HttpStatusCode.Forbidden)
+            {
+                var result = await TextBoxWindowViewModel.ShowDialogAsync(new TextBoxWindowViewModel
+                {
+                    Title = Strings.Idle_NeedParentalPIN,
+                    Placeholder = "PIN CODE",
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+                });
+                if (!string.IsNullOrEmpty(result))
+                {
+                    await steamSession.UnlockParental(steam_id, result);
+                    if (LoginViewModel?.RemenberLogin ?? await ISecureStorage.Instance.ContainsKeyAsync(ISteamSessionService.CurrentSteamUserKey))
+                        await steamSession.SaveSession(steamSession.RentSession(steam_id)!);
+                    goto GetBadges;
+                }
+                throw new ArgumentNullException(Strings.Idle_PIN_NotBeNull);
+            }
+            else if (status != HttpStatusCode.OK)
+                throw new HttpRequestException($"{Strings.Idle_GetBadgesError} status code: {status}");
+            goto HandleBadges;
 
+        HandleBadges:
             Badges.Clear();
-            Badges.Add(badges);
+            Badges.Add(badges!);
             TotalCardsRemaining = 0;
             TotalCardsAvgPrice = 0;
 
-            badges = badges.Where(w => w.CardsRemaining != 0);
+            badges = badges!.Where(w => w.CardsRemaining != 0);
 
             foreach (var badge in badges)
             {

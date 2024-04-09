@@ -3592,6 +3592,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 徽章信息获取失败 的本地化字符串。
+        /// </summary>
+        public static string Idle_GetBadgesError {
+            get {
+                return ResourceManager.GetString("Idle_GetBadgesError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 操作进行中请稍后再试 的本地化字符串。
         /// </summary>
         public static string Idle_LoaingTips {
@@ -3610,6 +3619,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 您的账号可能启动了家庭监护，请输入 PIN 码退出家庭监护，当前操作不影响其他设备监护 的本地化字符串。
+        /// </summary>
+        public static string Idle_NeedParentalPIN {
+            get {
+                return ResourceManager.GetString("Idle_NeedParentalPIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启用快速掉卡模式 的本地化字符串。
         /// </summary>
         public static string Idle_OpenAutoNext {
@@ -3624,6 +3642,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Idle_OperationSuccess {
             get {
                 return ResourceManager.GetString("Idle_OperationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PIN CODE 不能为空 的本地化字符串。
+        /// </summary>
+        public static string Idle_PIN_NotBeNull {
+            get {
+                return ResourceManager.GetString("Idle_PIN_NotBeNull", resourceCulture);
             }
         }
         

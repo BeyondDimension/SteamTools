@@ -2937,4 +2937,13 @@
   <data name="Idle_StartError" xml:space="preserve">
     <value>挂卡启动失败，请检查是否已开启 Steam 加速</value>
   </data>
+  <data name="Idle_GetBadgesError" xml:space="preserve">
+    <value>徽章信息获取失败</value>
+  </data>
+  <data name="Idle_NeedParentalPIN" xml:space="preserve">
+    <value>您的账号可能启动了家庭监护，请输入 PIN 码退出家庭监护，当前操作不影响其他设备监护</value>
+  </data>
+  <data name="Idle_PIN_NotBeNull" xml:space="preserve">
+    <value>PIN CODE 不能为空</value>
+  </data>
 </root>
