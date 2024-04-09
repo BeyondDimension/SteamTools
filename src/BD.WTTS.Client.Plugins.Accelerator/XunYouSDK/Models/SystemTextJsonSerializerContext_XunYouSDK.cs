@@ -6,6 +6,7 @@ namespace Mobius.Models;
 [JsonSerializable(typeof(xunyou_get_gamelist_result<XunYouSteamGame>))]
 [JsonSerializable(typeof(xunyou_get_gamelist_result<XunYouGame>))]
 [JsonSerializable(typeof(xunyou_get_gameinfo_result<XunYouGameInfo>))]
+[JsonSerializable(typeof(XunYouPicInfo))]
 [JsonSourceGenerationOptions(
     AllowTrailingCommas = true)]
 sealed partial class SystemTextJsonSerializerContext_XunYouSDK : SystemTextJsonSerializerContext

@@ -17,6 +17,12 @@ public sealed record class XunYouGameInfo
     public XunYouGameOperatorId OperatorId { get; set; }
 
     /// <summary>
+    /// 显示启动游戏按钮
+    /// </summary>
+    [JsonPropertyName("show_start")]
+    public bool ShowStart { get; set; }
+
+    /// <summary>
     /// 迅游游戏区服信息
     /// </summary>
     [JsonPropertyName("game_area")]

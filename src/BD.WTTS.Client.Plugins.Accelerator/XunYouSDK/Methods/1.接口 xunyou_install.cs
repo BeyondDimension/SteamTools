@@ -1,6 +1,6 @@
 namespace Mobius;
 
-partial class XunYouSDK // 1.接口 xunyou_install
+partial class XunYouSDK // 21.接口 xunyou_install_ex
 {
     /// <summary>
     /// 迅游下载进度回调函数委托
