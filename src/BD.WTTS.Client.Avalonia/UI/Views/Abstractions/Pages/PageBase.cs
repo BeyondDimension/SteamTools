@@ -7,6 +7,8 @@ public class PageBase : UserControl
 {
     public PageBase() : base()
     {
+        _disposables = new();
+
         SizeChanged += PageBaseSizeChanged;
 
         if (HeaderBackground == null)
@@ -14,6 +16,7 @@ public class PageBase : UserControl
             this[!HeaderBackgroundProperty] = new DynamicResourceExtension("PageHeaderBackgroundBrush");
         }
 
+        _disposables.Add(UISettings.WindowBackgroundCustomImage.Subscribe(x => IsShowBackgroundImage = !x));
         //AddHandler(Frame.NavigatingFromEvent, FrameNavigatingFrom, RoutingStrategies.Direct);
         //AddHandler(Frame.NavigatedToEvent, FrameNavigatedTo, RoutingStrategies.Direct);
     }
@@ -157,6 +160,7 @@ public class PageBase : UserControl
     {
         base.OnUnloaded(e);
         _hasLoaded = false;
+        _disposables.Dispose();
     }
 
     private void PageBaseSizeChanged(object? sender, SizeChangedEventArgs e)
@@ -315,6 +319,7 @@ public class PageBase : UserControl
     //private IconSourceElement? _previewImageHost;
     //private StackPanel? _detailsHost;
     private ScrollViewer? _scroller;
+    private CompositeDisposable _disposables;
 }
 
 public class PageBase<TViewModel> : PageBase, IViewFor<TViewModel> where TViewModel : class
@@ -324,14 +329,15 @@ public class PageBase<TViewModel> : PageBase, IViewFor<TViewModel> where TViewMo
     /// <summary>
     /// Initializes a new instance of the <see cref="PageBase{TViewModel}"/> class.
     /// </summary>
-    public PageBase()
+    public PageBase() : base()
     {
         // This WhenActivated block calls ViewModel's WhenActivated
         // block if the ViewModel implements IActivatableViewModel.
-        this.WhenActivated(disposables =>
-        {
-            disposables.Add(UISettings.WindowBackgroundCustomImage.Subscribe(x => IsShowBackgroundImage = !x));
-        });
+
+        //this.WhenActivated(disposables =>
+        //{
+        //    disposables.Add(UISettings.WindowBackgroundCustomImage.Subscribe(x => IsShowBackgroundImage = !x));
+        //});
         this.GetObservable(ViewModelProperty).Subscribe(OnViewModelChanged);
     }
 
