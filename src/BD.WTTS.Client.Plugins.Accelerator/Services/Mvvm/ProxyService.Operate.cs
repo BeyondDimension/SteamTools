@@ -1,6 +1,4 @@
 // ReSharper disable once CheckNamespace
-using BD.WTTS.Helpers;
-
 namespace BD.WTTS.Services;
 
 partial class ProxyService
@@ -206,12 +204,14 @@ partial class ProxyService
             }
         }
 
+        string? proxyToken = await TryRequestServerSideProxyToken();
+
         ReverseProxySettings reverseProxySettings = new(proxyDomains, scripts,
             isEnableScript, isOnlyWorkSteamBrowser, proxyPort,
             proxyIp, proxyMode, isProxyGOG, onlyEnableProxyScript,
             enableHttpProxyToHttps, socks5ProxyEnable, socks5ProxyPortId,
             twoLevelAgentEnable, twoLevelAgentProxyType, twoLevelAgentIp,
-            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, useDoh, customDohAddres, await TryRequestServerSideProxyToken());
+            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, useDoh, customDohAddres, proxyToken);
         byte[] reverseProxySettings_ = Serializable.SMP2(reverseProxySettings);
         var startProxyResult = await reverseProxyService.StartProxyAsync(reverseProxySettings_);
         if (startProxyResult)
@@ -375,12 +375,12 @@ partial class ProxyService
         try
         {
             var resp = await IMicroServiceClient.Instance.Account
-                .GenerateServerSideProxyToken(new()
-                {
-                    LocalMACAddress = NetworkInterfaceHelper.GetMACAddressStr(),
-                });
+                .GenerateServerSideProxyToken();
 
-            return resp.Content;
+            if (resp != null)
+                return resp.Content?.AccessToken;
+
+            return null;
         }
         catch (Exception ex)
         {
