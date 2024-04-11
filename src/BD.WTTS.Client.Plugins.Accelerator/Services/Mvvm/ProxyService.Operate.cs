@@ -7,6 +7,8 @@ partial class ProxyService
     const ushort httpsPort = 443;
     ProxyMode proxyMode = defaultProxyMode;
 
+    static string? proxyTokenCache = null;
+
     /// <summary>
     /// 启动代理服务
     /// </summary>
@@ -374,13 +376,18 @@ partial class ProxyService
     {
         try
         {
+            if (!string.IsNullOrEmpty(proxyTokenCache))
+                return proxyTokenCache;
+
             var resp = await IMicroServiceClient.Instance.Account
                 .GenerateServerSideProxyToken();
 
-            if (resp != null)
-                return resp.Content?.AccessToken;
+            if (resp != null && !string.IsNullOrEmpty(resp.Content?.AccessToken))
+            {
+                proxyTokenCache = resp.Content.AccessToken;
+            }
 
-            return null;
+            return proxyTokenCache;
         }
         catch (Exception ex)
         {
