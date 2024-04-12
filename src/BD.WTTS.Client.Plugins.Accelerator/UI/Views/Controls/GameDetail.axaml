@@ -163,15 +163,28 @@
                                 Foreground="White"
                                 Text="KB" />-->
                         </Grid>
-                        <Button
+                        <StackPanel
                             Grid.Row="2"
-                            Width="150"
-                            Height="42"
-                            Classes="accent"
-                            Command="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                            CommandParameter="{Binding}"
-                            Content="停止加速"
-                            FontSize="18" />
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <Button
+                                Width="150"
+                                Height="42"
+                                Classes="accent"
+                                Command="{Binding GameLaunchCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                                CommandParameter="{Binding}"
+                                Content="启动游戏"
+                                FontSize="18"
+                                IsVisible="{Binding IsAccelerated}" />
+
+                            <Button
+                                Width="150"
+                                Height="42"
+                                Command="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                                CommandParameter="{Binding}"
+                                Content="停止加速"
+                                FontSize="18" />
+                        </StackPanel>
                     </Grid>
 
                 </Panel>
