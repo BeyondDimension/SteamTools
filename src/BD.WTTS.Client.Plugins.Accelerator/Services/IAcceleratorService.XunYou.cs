@@ -81,6 +81,12 @@ partial interface IAcceleratorService // XunYou
     /// </summary>
     /// <returns></returns>
     Task<ApiRsp<XunYouIsRunningCode>> XY_IsRunning(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 迅游加速器启动游戏
+    /// </summary>
+    /// <returns></returns>
+    Task<ApiRsp<XunYouStartGameCode>> XY_StartGame(CancellationToken cancellationToken = default);
 }
 
 partial interface IXunYouAccelStateToFrontendCallback

@@ -54,7 +54,7 @@ public sealed partial class GameAcceleratorService
 
         DeleteMyGameCommand = ReactiveCommand.Create<XunYouGameViewModel>(DeleteMyGame);
         GameAcceleratorCommand = ReactiveCommand.CreateFromTask<XunYouGameViewModel>(GameAccelerator);
-        GameLaunchCommand = ReactiveCommand.Create<XunYouGameViewModel>(GameLaunch);
+        GameLaunchCommand = ReactiveCommand.CreateFromTask<XunYouGameViewModel>(GameLaunch);
         InstallAcceleratorCommand = ReactiveCommand.CreateFromTask(InstallAccelerator);
         UninstallAcceleratorCommand = ReactiveCommand.Create(UninstallAccelerator);
         AcceleratorChangeAreaCommand = ReactiveCommand.Create<XunYouGameViewModel>(AcceleratorChangeArea);
@@ -647,16 +647,15 @@ public sealed partial class GameAcceleratorService
         }
     }
 
-    public void GameLaunch(XunYouGameViewModel app)
+    public async Task GameLaunch(XunYouGameViewModel app)
     {
-        if (app.IsAccelerating)
-            return;
-
-        var r = XunYouSDK.StartGame();
-
-        if (r == XunYouStartGameCode.失败)
+        var result = await Ioc.Get<IAcceleratorService>().XY_StartGame();
+        if (result.HandleUI(out var r))
         {
-            Toast.Show(ToastIcon.Error, $"启动 {app.Name} 失败");
+            if (r == XunYouStartGameCode.失败)
+            {
+                Toast.Show(ToastIcon.Error, $"启动 {app.Name} 失败");
+            }
         }
     }
 }

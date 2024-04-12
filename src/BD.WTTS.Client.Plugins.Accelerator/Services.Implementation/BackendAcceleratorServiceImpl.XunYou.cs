@@ -189,4 +189,12 @@ partial class BackendAcceleratorServiceImpl
         await Task.CompletedTask;
         return result;
     }
+
+    /// <inheritdoc/>
+    public async Task<ApiRsp<XunYouStartGameCode>> XY_StartGame(CancellationToken cancellationToken = default)
+    {
+        var result = XunYouSDK.StartGame();
+        await Task.CompletedTask;
+        return result;
+    }
 }
