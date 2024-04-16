@@ -142,6 +142,12 @@ public sealed partial class GameAcceleratorService
                         case XunYouState.启动中:
                         case XunYouState.启动成功:
                             break;
+                        case XunYouState.启动游戏成功:
+                            Toast.Show(ToastIcon.Success, "启动游戏成功");
+                            break;
+                        case XunYouState.启动游戏失败:
+                            Toast.Show(ToastIcon.Error, "启动游戏失败");
+                            break;
                         default:
                             Games.Items.Where(s => s.IsAccelerating || s.IsAccelerated).ForEach(s =>
                             {
