@@ -359,6 +359,25 @@ internal sealed class HostsFileServiceImpl
 
     IOperationResult HandleHosts(bool isUpdateOrRemove, IReadOnlyDictionary<string, string>? hosts = null)
     {
+        var result = HandleHosts(isUpdateOrRemove, hosts, out var codeHandleHostsFileException);
+        if (codeHandleHostsFileException == HandleHostsFileException.Code_CommunityFix_Hosts_MarkDuplicate_)
+        {
+            //Toast.Show(ToastIcon.Warning, "");
+            File.Copy(s.HostsFilePath, $"{s.HostsFilePath}.spp.bak", true);
+#if WINDOWS
+            watcher?.Dispose();
+            watcher = null;
+#endif
+            s.WriteDefaultHostsContent();
+            result = HandleHosts(isUpdateOrRemove, hosts, out var _);
+        }
+
+        return result;
+    }
+
+    IOperationResult HandleHosts(bool isUpdateOrRemove, IReadOnlyDictionary<string, string>? hosts, out int codeHandleHostsFileException)
+    {
+        codeHandleHostsFileException = 0;
         lock (lockObj)
         {
             var result = new OperationResult(OperationResultType.Error, AppResources.Hosts_WirteError);
@@ -420,7 +439,10 @@ internal sealed class HostsFileServiceImpl
                                 var removeLen = last_line_value.Length + Environment.NewLine.Length;
                                 stringBuilder.Remove(stringBuilder.Length - removeLen, removeLen);
                             }
-                            if (!markLength.Add(mark)) throw new HandleHostsFileException(AppResources.CommunityFix_Hosts_MarkDuplicate_.Format(mark));
+                            if (!markLength.Add(mark))
+                            {
+                                throw new HandleHostsFileException(AppResources.CommunityFix_Hosts_MarkDuplicate_.Format(mark)) { Code = HandleHostsFileException.Code_CommunityFix_Hosts_MarkDuplicate_ };
+                            }
                             return null;
                         });
                         if (is_effective_value_v2 != HandleLineResult.Duplicate)
@@ -564,9 +586,10 @@ internal sealed class HostsFileServiceImpl
                 Log.Error(TAG, ex, "UpdateHosts catch.");
                 result.ResultType = OperationResultType.Error;
                 result.AppendData = ex;
-                if (ex is HandleHostsFileException)
+                if (ex is HandleHostsFileException hfex)
                 {
-                    result.Message = ex.Message;
+                    codeHandleHostsFileException = hfex.Code;
+                    result.Message = hfex.Message;
                 }
                 else if (ex is UnauthorizedAccessException || ex is SecurityException)
                 {
@@ -935,10 +958,14 @@ internal sealed class HostsFileServiceImpl
 
     sealed class HandleHostsFileException : Exception
     {
+        public const int Code_CommunityFix_Hosts_MarkDuplicate_ = 5;
+
         public HandleHostsFileException(string message) : base(message)
         {
 
         }
+
+        public int Code { get; init; }
     }
 
 #endif
