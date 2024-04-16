@@ -350,8 +350,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 if (!string.IsNullOrEmpty(result))
                 {
                     await steamSession.UnlockParental(steam_id, result);
-                    if (LoginViewModel?.RemenberLogin ?? await ISecureStorage.Instance.ContainsKeyAsync(ISteamSessionService.CurrentSteamUserKey))
-                        await steamSession.SaveSession(steamSession.RentSession(steam_id)!);
                     goto GetBadges;
                 }
                 throw new ArgumentNullException(Strings.Idle_PIN_NotBeNull);
@@ -392,9 +390,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 IdleSequentital.Mostvalue => badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => new IdleApp(s)),
                 _ => badges.Select(s => new IdleApp(s)),
             };
-
             IdleGameList = new ObservableCollection<IdleApp>(apps);
-
             return true;
         }
         catch (Exception ex)
