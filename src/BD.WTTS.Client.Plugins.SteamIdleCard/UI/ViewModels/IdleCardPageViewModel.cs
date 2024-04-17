@@ -1,11 +1,7 @@
-using BD.SteamClient.Helpers;
 using BD.SteamClient.Models;
 using BD.SteamClient.Models.Idle;
 using BD.SteamClient.Services;
-using BD.WTTS.UI.Views.Pages;
 using BD.SteamClient.Constants;
-using AngleSharp.Common;
-using Avalonia.Threading;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -382,6 +378,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         try
         {
+            IdleGameList.Clear();
             var badges = Badges.Where(w => w.CardsRemaining != 0);
             var apps = SteamIdleSettings.IdleSequentital.Value switch
             {
@@ -390,12 +387,13 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 IdleSequentital.Mostvalue => badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => new IdleApp(s)),
                 _ => badges.Select(s => new IdleApp(s)),
             };
-            IdleGameList = new ObservableCollection<IdleApp>(apps);
+            foreach (var app in apps)
+                IdleGameList.Add(app);
             return true;
         }
         catch (Exception ex)
         {
-            Toast.LogAndShowT(ex);
+            ex.LogAndShowT();
             return false;
         }
     }
