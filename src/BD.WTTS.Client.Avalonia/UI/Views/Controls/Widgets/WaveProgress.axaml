@@ -1,0 +1,141 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.WaveProgress"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="spp|WaveProgress">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border
+                        Canvas.Left="20"
+                        Canvas.Top="20"
+                        Canvas.Right="20"
+                        Canvas.Bottom="20"
+                        Width="200"
+                        Height="200"
+                        Margin="20"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1.2"
+                        BoxShadow="{DynamicResource LowShadow}"
+                        ClipToBounds="False"
+                        CornerRadius="100">
+                        <Border.Resources>
+                            <spp:WaveProgressValueConverter x:Key="WValueConvert" />
+                            <spp:WaveProgressValueTextConverter x:Key="WValueTextConvert" />
+                            <spp:WaveProgressValueColorConverter x:Key="WValueColorConvert" />
+                            <spp:WaveProgressGradientOffsetConverter x:Key="WGradientConverter" />
+                        </Border.Resources>
+
+
+                        <Border
+                            Width="200"
+                            Height="200"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ClipToBounds="True"
+                            CornerRadius="100">
+                            <Panel>
+                                <Canvas Width="200" Height="200">
+                                    <Path
+                                        Canvas.Top="{TemplateBinding Value,
+                                                                     Converter={StaticResource WValueConvert}}"
+                                        Classes="WaveAnimatedFast"
+                                        Data="M 0,50 H 700 V 350 H 0 M 0,50 C 25,55 75,45 100,50 S 175,55 200,50 S 275,45 300,50 S 375,55 400,50 S 475,45 500,50 S 575,55 600,50 S 675,45 700,50"
+                                        Fill="{TemplateBinding Value,
+                                                               Converter={StaticResource WGradientConverter}}"
+                                        Opacity="0.45"
+                                        StrokeThickness="0">
+
+                                        <Path.Transitions>
+                                            <Transitions>
+                                                <DoubleTransition Property="Canvas.Top" Duration="0:0:1.5">
+                                                    <DoubleTransition.Easing>
+                                                        <CircularEaseOut />
+                                                    </DoubleTransition.Easing>
+                                                </DoubleTransition>
+                                            </Transitions>
+                                        </Path.Transitions>
+                                    </Path>
+                                    <Path
+                                        Canvas.Top="{TemplateBinding Value,
+                                                                     Converter={StaticResource WValueConvert}}"
+                                        Classes="WaveAnimated"
+                                        Data="M 0,50 H 700 V 350 H 0 M 0,50 C 25,55 75,45 100,50 S 175,55 200,50 S 275,45 300,50 S 375,55 400,50 S 475,45 500,50 S 575,55 600,50 S 675,45 700,50"
+                                        Fill="{TemplateBinding Value,
+                                                               Converter={StaticResource WGradientConverter}}"
+                                        Opacity="0.8"
+                                        StrokeThickness="0">
+                                        <Path.Transitions>
+                                            <Transitions>
+                                                <DoubleTransition Property="Canvas.Top" Duration="0:0:2.5">
+                                                    <DoubleTransition.Easing>
+                                                        <CircularEaseOut />
+                                                    </DoubleTransition.Easing>
+                                                </DoubleTransition>
+                                            </Transitions>
+                                        </Path.Transitions>
+                                    </Path>
+                                </Canvas>
+                                <TextBlock
+                                    Name="PART_Text"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{TemplateBinding Value,
+                                                                 Converter={StaticResource WValueColorConvert}}"
+                                    Text="{TemplateBinding Value,
+                                                           Converter={StaticResource WValueTextConvert}}"
+                                    Theme="{StaticResource TitleTextBlockStyle}">
+                                    <TextBlock.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                        </Transitions>
+                                    </TextBlock.Transitions>
+                                </TextBlock>
+                            </Panel>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="spp|WaveProgress[IsTextVisible=True] /template/ TextBlock#PART_Text">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="spp|WaveProgress[IsTextVisible=False] /template/ TextBlock#PART_Text">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="Path.WaveAnimated">
+            <Style.Animations>
+                <Animation IterationCount="INFINITE" Duration="0:0:6">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Canvas.Left" Value="-100" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Canvas.Left" Value="-500" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Path.WaveAnimatedFast">
+            <Style.Animations>
+                <Animation IterationCount="INFINITE" Duration="0:0:3">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Canvas.Left" Value="-100" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Canvas.Left" Value="-500" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
+</UserControl>

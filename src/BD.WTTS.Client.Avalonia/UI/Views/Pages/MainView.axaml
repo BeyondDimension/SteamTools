@@ -216,9 +216,21 @@
 
                                                     <StackPanel VerticalAlignment="Center" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
                                                         <TextBlock Text="{Binding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
-
-                                                        <Border VerticalAlignment="Center" IsVisible="{Binding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
-                                                            <TextBlock FontSize="10" Text="{Binding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}❤️{0}}" />
+                                                        <Border
+                                                            Padding="5,1"
+                                                            VerticalAlignment="Center"
+                                                            CornerRadius="2"
+                                                            IsVisible="{Binding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
+                                                            <Border.Background>
+                                                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                                                    <GradientStop Offset="0.0" Color="#453a94" />
+                                                                    <GradientStop Offset="1.0" Color="#f43b47" />
+                                                                </LinearGradientBrush>
+                                                            </Border.Background>
+                                                            <TextBlock
+                                                                VerticalAlignment="Center"
+                                                                FontSize="10"
+                                                                Text="{Binding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}❤️{0}}" />
                                                         </Border>
 
                                                     </StackPanel>
@@ -263,18 +275,18 @@
                                     </MenuItem.Header>
                                 </MenuItem>
                                 <MenuItem Header="-" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-																<MenuItem
+                                <MenuItem
                                     Command="{Binding Path=OpenAuthOfficialCommand, Source={x:Static s:UserService.Current}}"
                                     CommandParameter="https://steampp.net/account/center/info"
                                     Header="{Binding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                     IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-																<!--<MenuItem Header="{Binding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />-->
-																<MenuItem
+                                <!--<MenuItem Header="{Binding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />-->
+                                <MenuItem
                                     Command="{Binding Path=OpenAuthOfficialCommand, Source={x:Static s:UserService.Current}}"
                                     CommandParameter="https://steampp.net/account/center/bind"
                                     Header="{Binding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                     IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-																<MenuItem
+                                <MenuItem
                                     Command="{Binding Path=OpenAuthOfficialCommand, Source={x:Static s:UserService.Current}}"
                                     CommandParameter="https://steampp.net/account/center/safe"
                                     Header="{Binding Path=Res.PersonalSafe, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"

@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enum="using:BD.WTTS.Enums"
     xmlns:i="using:Avalonia.Xaml.Interactivity"
     xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -408,7 +409,24 @@
                                                                 HorizontalAlignment="Left"
                                                                 DockPanel.Dock="Left"
                                                                 IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}">
-                                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                                    <Border
+                                                                        Padding="5,0"
+                                                                        CornerRadius="5"
+                                                                        IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}">
+                                                                        <Border.Background>
+                                                                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                                                                <GradientStop Offset="0.0" Color="#43cbff" />
+                                                                                <GradientStop Offset="1.0" Color="#9708cc" />
+                                                                            </LinearGradientBrush>
+                                                                        </Border.Background>
+                                                                        <TextBlock
+                                                                            VerticalAlignment="Center"
+                                                                            FontSize="10"
+                                                                            Text="Beta" />
+                                                                    </Border>
+                                                                </StackPanel>
                                                             </CheckBox>
                                                             <TextBlock
                                                                 HorizontalAlignment="Right"
