@@ -41,12 +41,22 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
     public float PingSpeedLoss { get; set; }
 
+    XunYouGameInfo? _GameInfo;
+
     /// <summary>
     /// 游戏信息
     /// </summary>
-    [Reactive]
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
-    public XunYouGameInfo? GameInfo { get; set; }
+    public XunYouGameInfo? GameInfo
+    {
+        get => _GameInfo;
+        set
+        {
+            _GameInfo = value;
+            this.RaisePropertyChanged();
+            this.RaisePropertyChanged(nameof(ShowStart));
+        }
+    }
 
     /// <inheritdoc cref="XunYouGameInfo.ShowStart"/>
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
@@ -66,12 +76,25 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     [MP2Ignore, SystemTextJsonIgnore]
     public int AcceleratingProgress { get; set; }
 
+    bool _IsAccelerated;
+
     /// <summary>
     /// 是否已加速
     /// </summary>
-    [Reactive]
     [MP2Ignore, SystemTextJsonIgnore]
-    public bool IsAccelerated { get; set; }
+    public bool IsAccelerated
+    {
+        get => _IsAccelerated;
+        set
+        {
+            if (_IsAccelerated != value)
+            {
+                _IsAccelerated = value;
+                this.RaisePropertyChanged();
+                this.RaisePropertyChanged(nameof(ShowStart));
+            }
+        }
+    }
 
     /// <summary>
     /// 是否正在停止加速等待
