@@ -48,6 +48,10 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
     public XunYouGameInfo? GameInfo { get; set; }
 
+    /// <inheritdoc cref="XunYouGameInfo.ShowStart"/>
+    [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
+    public bool ShowStart => IsAccelerated && (GameInfo != null && GameInfo.ShowStart);
+
     /// <summary>
     /// 是否正在加速等待
     /// </summary>

@@ -175,7 +175,7 @@
                                 CommandParameter="{Binding}"
                                 Content="启动游戏"
                                 FontSize="18"
-                                IsVisible="{Binding IsAccelerated}" />
+                                IsVisible="{Binding ShowStart}" />
 
                             <Button
                                 Width="150"
