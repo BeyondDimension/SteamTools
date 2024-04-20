@@ -172,17 +172,36 @@ else
 fi
 chmod +x "$base_path/$exec_name.sh"
 # xdg-icon-resource install "$base_path/Icons/Watt-Toolkit.png" --size 128 Watt-Toolkit
-#添加桌面文件
-rm -rf "$HOME/Desktop/Watt Toolkit.desktop" 2>/dev/null
-echo "#!/usr/bin/env xdg-open
+InitDesktop() {
+    while true; do
+        # 使用 zenity 提示用户选择安装路径或使用默认路径
+        choice=$(zenity --list --radiolist --title="请选择要添加到的位置" --column="选择" --column="路径" TRUE "$HOME/.local/share/applications/" FALSE "$HOME/Desktop")
+
+        # 检查用户输入
+        if [ "$choice" == "$HOME/.local/share/applications/" ]; then
+            target_dir="$HOME/.local/share/applications/"
+            break
+        elif [ "$choice" == "$HOME/Desktop" ]; then
+            target_dir="$HOME/Desktop/"
+            break
+        else
+            echo "无效选项，请输入 1 或 2。"
+        fi
+    done
+    #添加桌面文件
+    rm -rf "$target_dir/Watt Toolkit.desktop" 2>/dev/null
+    echo "#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=Watt Toolkit
 Exec=$base_path/$exec_name.sh
 Icon=$base_path/Icons/Watt-Toolkit.png
 Terminal=false
 Type=Application
-StartupNotify=false" >"$HOME/Desktop/Watt Toolkit.desktop"
-chmod +x "$HOME/Desktop/Watt Toolkit.desktop"
+StartupNotify=false" >"$target_dir/Watt Toolkit.desktop"
+    chmod +x "$target_dir/Watt Toolkit.desktop"
+
+}
+InitDesktop
 # update-desktop-database ~/.local/share/applications
 #运行程序
 Show_Run "下载安装完成，是否启动程序？"
