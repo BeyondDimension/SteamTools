@@ -54,8 +54,8 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
         Proxy = HttpNoProxy.Instance,
         UseProxy = false,
         UseCookies = false,
-        AllowAutoRedirect = true,
-        AutomaticDecompression = DecompressionMethods.All,
+        AllowAutoRedirect = false,
+        AutomaticDecompression = DecompressionMethods.None,
         ConnectCallback = ConnectCallback,
     };
 
