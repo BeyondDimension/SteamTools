@@ -584,7 +584,8 @@
             <Border
                 Padding="5,1"
                 VerticalAlignment="Center"
-                CornerRadius="2">
+                CornerRadius="2"
+                IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!!VipEndTimeString}">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                         <GradientStop Offset="0.0" Color="#453a94" />
@@ -594,9 +595,11 @@
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="12"
-                    Text="游戏加速会员有效期 2024-05-01" />
+                    Text="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=VipEndTimeString}" />
             </Border>
             <Button
+                Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                CommandParameter="https://steampp.net/customer/service"
                 Cursor="Hand"
                 Theme="{StaticResource TransparentButton}"
                 ToolTip.Tip="联系客服">

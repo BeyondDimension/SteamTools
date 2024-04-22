@@ -2,6 +2,10 @@ namespace Mobius.Models;
 
 public abstract record class XunYouBaseRequest
 {
+    /// <summary>
+    /// 返回已排序的字典，用于生成签名
+    /// </summary>
+    /// <returns></returns>
     public virtual IReadOnlyDictionary<string, string> ToDictionary()
     {
         var dict = new SortedDictionary<string, string>();

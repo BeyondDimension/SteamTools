@@ -46,6 +46,15 @@ public sealed partial class GameAcceleratorService
 
     public ICommand AcceleratorChangeAreaCommand { get; }
 
+    /// <summary>
+    /// VIP 到期时间
+    /// </summary>
+    [Reactive]
+    public DateTime? VipEndTime { get; set; }
+
+    [Reactive]
+    public string? VipEndTimeString { get; set; }
+
     GameAcceleratorService()
     {
         Ioc.Get<IAcceleratorService>().InitStateSubscribe(); // 仅旧项目（WattToolkit）上监听
@@ -160,6 +169,40 @@ public sealed partial class GameAcceleratorService
                                 CurrentAcceleratorGame = null;
                             }
                             Toast.Show(ToastIcon.Warning, x.State.ToString());
+                            break;
+                    }
+                });
+
+            UserService.Current.WhenAnyValue(static x => x.User)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(async x =>
+                {
+                    if (string.IsNullOrWhiteSpace(x?.WattOpenId))
+                        return;
+
+                    var vipEndTimeResult = await XunYouSDK.GetVipEndTime(x.WattOpenId);
+
+                    if (vipEndTimeResult == null)
+                    {
+                        Log.Error(nameof(GameAcceleratorService),
+                            "XunYouSDK.GetVipEndTime is null.");
+                        return;
+                    }
+
+                    switch (vipEndTimeResult.Code)
+                    {
+                        case XunYouBaseResponseCode.失败:
+                            Log.Error(nameof(GameAcceleratorService),
+                                "XunYouSDK.GetVipEndTime is fail, message: {message}.",
+                                vipEndTimeResult.Message);
+                            return;
+                        case XunYouBaseResponseCode.成功:
+                            var etime = vipEndTimeResult.Data?.SVIP?.ETime;
+                            if (etime.HasValue)
+                            {
+                                VipEndTime = etime.Value.ToDateTime();
+                                VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value.Year:D4}-{VipEndTime.Value.Month:D2}-{VipEndTime.Value.Date:D2}";
+                            }
                             break;
                     }
                 });
