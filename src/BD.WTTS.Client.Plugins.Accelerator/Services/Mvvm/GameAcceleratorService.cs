@@ -181,7 +181,6 @@ public sealed partial class GameAcceleratorService
                         return;
 
                     var vipEndTimeResult = await XunYouSDK.GetVipEndTime(x.WattOpenId);
-
                     if (vipEndTimeResult == null)
                     {
                         Log.Error(nameof(GameAcceleratorService),
@@ -189,21 +188,25 @@ public sealed partial class GameAcceleratorService
                         return;
                     }
 
-                    switch (vipEndTimeResult.Code)
+                    if (vipEndTimeResult.HandleUI(out var vipEndTimeResultContent,
+                        ToastIcon.Error, "获取会员时间失败"))
                     {
-                        case XunYouBaseResponseCode.失败:
-                            Log.Error(nameof(GameAcceleratorService),
-                                "XunYouSDK.GetVipEndTime is fail, message: {message}.",
-                                vipEndTimeResult.Message);
-                            return;
-                        case XunYouBaseResponseCode.成功:
-                            var etime = vipEndTimeResult.Data?.SVIP?.ETime;
+                        if (vipEndTimeResultContent.Code == XunYouBaseResponseCode.成功)
+                        {
+                            var etime = vipEndTimeResultContent.Data?.SVIP?.ETime;
                             if (etime.HasValue)
                             {
                                 VipEndTime = etime.Value.ToDateTime();
                                 VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value.Year:D4}-{VipEndTime.Value.Month:D2}-{VipEndTime.Value.Date:D2}";
                             }
-                            break;
+                        }
+                        else
+                        {
+                            Log.Error(nameof(GameAcceleratorService),
+                                "XunYouSDK.GetVipEndTime is fail, message: {message}, code: {code}.",
+                                vipEndTimeResultContent.Message,
+                                vipEndTimeResultContent.Code);
+                        }
                     }
                 });
 

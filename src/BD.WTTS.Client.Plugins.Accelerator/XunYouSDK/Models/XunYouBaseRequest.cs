@@ -6,7 +6,7 @@ public abstract record class XunYouBaseRequest
     /// 返回已排序的字典，用于生成签名
     /// </summary>
     /// <returns></returns>
-    public virtual IReadOnlyDictionary<string, string> ToDictionary()
+    public virtual SortedDictionary<string, string> ToDictionary()
     {
         var dict = new SortedDictionary<string, string>();
 

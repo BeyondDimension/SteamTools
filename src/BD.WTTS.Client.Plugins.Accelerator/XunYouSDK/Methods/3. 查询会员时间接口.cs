@@ -12,21 +12,28 @@ partial class XunYouSDK // 3. 查询会员时间接口
     }, LazyThreadSafetyMode.ExecutionAndPublication);
 #endif
 
-    public static async Task<XunYouVipEndTimeResponse?> GetVipEndTime(string userId)
+    public static async Task<ApiRsp<XunYouVipEndTimeResponse?>?> GetVipEndTime(string userId)
     {
 #if WINDOWS
         if (string.IsNullOrWhiteSpace(webapi_vip_endtime))
             return null;
 
-        XunYouVipEndTimeRequest req = new()
+        try
         {
-            UserId = userId,
-        };
-        req.Sign = CalcWebApiSign(req);
+            XunYouVipEndTimeRequest req = new()
+            {
+                UserId = userId,
+            };
+            req.Sign = CalcWebApiSign(req);
 
-        using var response = await httpClient.Value.PostAsJsonAsync(webapi_vip_endtime, req, SystemTextJsonSerializerContext_XunYouSDK.Default.XunYouVipEndTimeRequest);
-        var rsp = await response.Content.ReadFromJsonAsync(SystemTextJsonSerializerContext_XunYouSDK.Default.XunYouVipEndTimeResponse);
-        return rsp;
+            using var response = await httpClient.Value.PostAsJsonAsync(webapi_vip_endtime, req, SystemTextJsonSerializerContext_XunYouSDK.Default.XunYouVipEndTimeRequest);
+            var rsp = await response.Content.ReadFromJsonAsync(SystemTextJsonSerializerContext_XunYouSDK.Default.XunYouVipEndTimeResponse);
+            return rsp;
+        }
+        catch (Exception ex)
+        {
+            return ex;
+        }
 #else
         await Task.CompletedTask;
         return null;
