@@ -225,16 +225,31 @@ public sealed partial class App : Application
 
     public static FontFamily DefaultFontFamily => _DefaultFontFamily.Value;
 
-    public void OpenBrowserCommand(object url)
+    public async void OpenBrowserCommand(object? url)
     {
         try
         {
-            if (url == null || string.IsNullOrEmpty(url.ToString()))
+            var urlString = url?.ToString();
+            if (string.IsNullOrEmpty(urlString))
             {
                 Toast.Show(ToastIcon.Warning, "打开链接失败");
                 return;
             }
-            Browser2.Open(url.ToString());
+            try
+            {
+                Uri uri = new(urlString);
+                if (string.Equals(uri.Host, Constants.Urls.OfficialApiHostName, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(uri.Host, Constants.Urls.OfficialShopApiHostName, StringComparison.OrdinalIgnoreCase) ||
+                    uri.Host.EndsWith("mossimo.net", StringComparison.OrdinalIgnoreCase))
+                {
+                    await UserService.Current.OpenAuthUrl(urlString);
+                    return;
+                }
+            }
+            catch
+            {
+            }
+            Browser2.Open(urlString);
         }
         catch (Exception ex)
         {
