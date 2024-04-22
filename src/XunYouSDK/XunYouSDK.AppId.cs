@@ -24,4 +24,13 @@ static partial class XunYouSDK
     /// 渠道版本，由迅游给出明确值
     /// </summary>
     const string channel_no = "";
+
+    const string webapi_host = "";
+
+    const string webapi_vip_endtime = "";
+
+    static string CalcWebApiSign(XunYouBaseRequest body)
+    {
+        return "";
+    }
 }
