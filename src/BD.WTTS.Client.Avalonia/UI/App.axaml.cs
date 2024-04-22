@@ -238,8 +238,7 @@ public sealed partial class App : Application
             try
             {
                 Uri uri = new(urlString);
-                if (string.Equals(uri.Host, Constants.Urls.OfficialApiHostName, StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(uri.Host, Constants.Urls.OfficialShopApiHostName, StringComparison.OrdinalIgnoreCase) ||
+                if (uri.Host.EndsWith("steampp.net", StringComparison.OrdinalIgnoreCase) ||
                     uri.Host.EndsWith("mossimo.net", StringComparison.OrdinalIgnoreCase))
                 {
                     await UserService.Current.OpenAuthUrl(urlString);
