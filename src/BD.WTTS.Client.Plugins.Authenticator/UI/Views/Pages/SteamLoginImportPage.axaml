@@ -15,7 +15,8 @@
 		<spp:Stepper SelectedIndex="{Binding SelectIndex}">
 			<spp:StepperItem Content="{Binding Path=Res.Steam_Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 			<spp:StepperItem Content="{Binding Path=Res.LoginVerify, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-			<spp:StepperItem Content="{Binding Path=Res.Steam_BindTel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<!--隐藏绑定手机号步骤-->
+			<!--<spp:StepperItem IsVisible="false" Content="{Binding Path=Res.Steam_BindTel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
 			<spp:StepperItem Content="{Binding Path=Res.LocalAuth_VerifyCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 			<spp:StepperItem Content="{Binding Path=Res.Btn_Text_Complete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 		</spp:Stepper>
@@ -107,6 +108,7 @@
 				</Panel>
 
 				<!--  绑定手机  -->
+				<!--
 				<Panel>
 					<spp:Snackbar
 							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
@@ -139,7 +141,7 @@
 								Command="{Binding LoginSteamImport}"
 								Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 					</StackPanel>
-				</Panel>
+				</Panel>-->
 
 				<!--  验证手机 或 邮箱 -->
 				<!-- 2024-04-23 Steam绑定令牌不强制手机绑定 可以输入 邮箱者手机验证码 -->

@@ -11,6 +11,11 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
 {
+    const int TAB_INDEX_LOGIN = 0;
+    const int TAB_INDEX_LOGINCONFIRM = 1;
+    const int TAB_INDEX_VERIFYCODE = 2;
+    const int TAB_INDEX_DONE = 3;
+
     public static string Name => AppResources.Auth_SteamLoginImport;
 
     readonly ISteamAccountService _steamAccountService = Ioc.Get<ISteamAccountService>();
@@ -115,7 +120,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
             Created = DateTimeOffset.Now,
         };
         await AuthenticatorHelper.SaveAuthenticator(iADTO);
-        SelectIndex = 4;
+        SelectIndex = TAB_INDEX_DONE;
     }
 
     /// <summary>
@@ -136,7 +141,9 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
         if (_enrollState.NoPhoneNumber == true)
         {
             _enrollState.Error = null;
-            SelectIndex = 2;
+            //SelectIndex = 2;
+            // 正常情况下不会走到这里，因为已经不需要绑定手机的步骤了
+            return;
         }
 
         // 导入最后一步，需要账号绑定的手机验证码确认
@@ -144,11 +151,13 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
         if (_enrollState.RequiresActivation == true)
         {
             // 查询账号手机号绑定状态
-            IsVerifyAccountPhone = await _steamAccountService.CheckAccountPhoneStatus(_enrollState.AccessToken!) ?? false;
+            // IsVerifyAccountPhone = await _steamAccountService.CheckAccountPhoneStatus(_enrollState.AccessToken!) ?? false;
+
+            await CheckAccountPhoneStatus();
 
             _enrollState.Error = null;
             RevocationCodeText = _enrollState.RevocationCode;
-            SelectIndex = 3;
+            SelectIndex = TAB_INDEX_VERIFYCODE;
         }
     }
 
@@ -165,7 +174,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
             //Toast.Show(ToastIcon.Error, Strings.LocalAuth_SteamUser_Requires2FA);
             //Reset();
             Requires2FA = _steamLoginState.Requires2FA;
-            SelectIndex = 1;
+            SelectIndex = TAB_INDEX_LOGINCONFIRM;
             return false;
         }
         //需要邮箱验证码
@@ -174,7 +183,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
             EmailDomainText = string.IsNullOrEmpty(_steamLoginState.EmailDomain) == false
                 ? $"******@{_steamLoginState.EmailDomain}"
                 : string.Empty;
-            SelectIndex = 1;
+            SelectIndex = TAB_INDEX_LOGINCONFIRM;
             return false;
         }
         else if (!string.IsNullOrEmpty(_steamLoginState.Message))
@@ -193,6 +202,12 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
         return !string.IsNullOrEmpty(_steamLoginState.AccessToken);
     }
 
+    async ValueTask CheckAccountPhoneStatus()
+    {
+        // 查询账号手机号绑定状态
+        IsVerifyAccountPhone = await _steamAccountService.CheckAccountPhoneStatus(_enrollState.AccessToken!) ?? false;
+    }
+
     public async Task LoginSteamImport()
     {
         if (IsLoading)
@@ -204,7 +219,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
 
         try
         {
-            if (SelectIndex == 0)
+            if (SelectIndex == TAB_INDEX_LOGIN)
             {
                 await LoginSteamFirstAsync();
             }
@@ -228,12 +243,13 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
                 //已有令牌情况下执行替换令牌逻辑
                 if (_enrollState.ReplaceAuth)
                 {
-                    if (SelectIndex == 1 && await steamAuthenticator.RemoveAuthenticatorViaChallengeStartSync(_enrollState.AccessToken!))
+                    if (SelectIndex == TAB_INDEX_LOGINCONFIRM && await steamAuthenticator.RemoveAuthenticatorViaChallengeStartSync(_enrollState.AccessToken!))
                     {
-                        SelectIndex = 3;
+                        await CheckAccountPhoneStatus();
+                        SelectIndex = TAB_INDEX_VERIFYCODE;
                         return;
                     }
-                    else if (SelectIndex == 3)
+                    else if (SelectIndex == TAB_INDEX_VERIFYCODE)
                     {
                         if (string.IsNullOrEmpty(PhoneCodeText))
                         {
