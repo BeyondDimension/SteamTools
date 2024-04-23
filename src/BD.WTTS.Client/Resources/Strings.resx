@@ -2946,4 +2946,7 @@
   <data name="Idle_PIN_NotBeNull" xml:space="preserve">
     <value>PIN CODE 不能为空</value>
   </data>
+  <data name="LocalAuth_VerifyCode" xml:space="preserve">
+    <value>验证码</value>
+  </data>
 </root>
