@@ -1,10 +1,10 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
-
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
 using WinAuth;
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 #if !ANDROID
-using ToastLength = BD.Common.Enums.ToastLength;
+
 #endif
 
 namespace BD.WTTS.UI.ViewModels;
@@ -139,9 +139,13 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
             SelectIndex = 2;
         }
 
-        //导入最后一步，需要账号绑定的手机验证码确认
+        // 导入最后一步，需要账号绑定的手机验证码确认
+        // 2024-04-23 Steam绑定令牌不强制手机绑定 可以输入 邮箱者手机验证码
         if (_enrollState.RequiresActivation == true)
         {
+            // 查询账号手机号绑定状态
+            IsVerifyAccountPhone = await _steamAccountService.CheckAccountPhoneStatus(_enrollState.AccessToken!) ?? false;
+
             _enrollState.Error = null;
             RevocationCodeText = _enrollState.RevocationCode;
             SelectIndex = 3;
