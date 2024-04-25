@@ -463,6 +463,8 @@ public sealed partial class GameAcceleratorService
         GameAcceleratorSettings.MyGames.Remove(app.Id);
         if (GameAcceleratorSettings.MyGames.TryAdd(app.Id, app))
         {
+            if (app.PicInfo == null)
+                app.PicInfo = XunYouSDK.GetPicInfo(app.Id);
             Current.Games.AddOrUpdate(app);
             Toast.Show(ToastIcon.Success, "已添加到游戏列表");
         }
@@ -486,7 +488,8 @@ public sealed partial class GameAcceleratorService
                     Games.Clear();
                     foreach (var item in GameAcceleratorSettings.MyGames.Value!.Values)
                     {
-                        item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
+                        if (item.PicInfo == null)
+                            item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
                     }
                     Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
                 }
@@ -499,7 +502,8 @@ public sealed partial class GameAcceleratorService
                         GameAcceleratorSettings.MyGames.AddRange(games.Select(s => new KeyValuePair<int, XunYouGameViewModel>(s.Id, new XunYouGameViewModel(s))));
                         foreach (var item in GameAcceleratorSettings.MyGames.Value!.Values)
                         {
-                            item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
+                            if (item.PicInfo == null)
+                                item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
                         }
                         Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
                     }
