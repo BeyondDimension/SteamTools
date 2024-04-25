@@ -8,6 +8,13 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     public XunYouGame Model { get; set; } = model;
 
     /// <summary>
+    /// PicInfo
+    /// </summary>
+    [Reactive]
+    [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
+    public XunYouPicInfo? PicInfo { get; set; }
+
+    /// <summary>
     /// 加速延迟
     /// </summary>
     [Reactive]

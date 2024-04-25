@@ -238,6 +238,10 @@ public sealed partial class GameAcceleratorService
             CurrentAcceleratorGame.IsAccelerated = true;
             CurrentAcceleratorGame.LastAccelerateTime = DateTimeOffset.Now;
 
+            if (CurrentAcceleratorGame.PicInfo == null)
+            {
+                CurrentAcceleratorGame.PicInfo = XunYouSDK.GetPicInfo(CurrentAcceleratorGame.Id);
+            }
             if (CurrentAcceleratorGame.SelectedArea?.Id != areaId)
             {
                 var gameInfo = XunYouSDK.GetGameInfo(game.Id);
@@ -260,6 +264,7 @@ public sealed partial class GameAcceleratorService
             var gameInfo = XunYouSDK.GetGameInfo(game.Id);
             cApp.SelectedArea = gameInfo?.Areas?.FirstOrDefault(s => s.Id == areaId);
             cApp.SelectedServer = cApp.SelectedArea?.Servers?.FirstOrDefault(s => s.Id == serverId);
+            cApp.PicInfo = XunYouSDK.GetPicInfo(game.Id);
 
             CurrentAcceleratorGame = cApp;
         }
@@ -479,6 +484,10 @@ public sealed partial class GameAcceleratorService
                 if (GameAcceleratorSettings.MyGames.Any_Nullable())
                 {
                     Games.Clear();
+                    foreach (var item in GameAcceleratorSettings.MyGames.Value!.Values)
+                    {
+                        item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
+                    }
                     Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
                 }
                 else
@@ -488,6 +497,10 @@ public sealed partial class GameAcceleratorService
                     {
                         Games.Clear();
                         GameAcceleratorSettings.MyGames.AddRange(games.Select(s => new KeyValuePair<int, XunYouGameViewModel>(s.Id, new XunYouGameViewModel(s))));
+                        foreach (var item in GameAcceleratorSettings.MyGames.Value!.Values)
+                        {
+                            item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
+                        }
                         Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
                     }
                 }

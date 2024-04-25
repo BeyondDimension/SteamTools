@@ -358,10 +358,52 @@
             VerticalAlignment="Top"
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
-            <TabStripItem Content="平台加速 (免费)" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}" />
+            <TabStripItem Content="平台加速" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
+                <WrapPanel>
+                    <TextBlock Text="平台加速" />
+                    <Border
+                        Margin="5,0,0,0"
+                        Padding="5,1"
+                        VerticalAlignment="Center"
+                        CornerRadius="2">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Offset="0.0" Color="#48C6EF" />
+                                <GradientStop Offset="1.0" Color="#6F86D6" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            Foreground="White"
+                            Text="免费" />
+                    </Border>
+                </WrapPanel>
+            </TabStripItem>
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
-            <TabStripItem Name="GameAccTab" Content="游戏加速" />
+            <TabStripItem Name="GameAccTab">
+                <WrapPanel>
+                    <TextBlock Text="游戏加速" />
+                    <Border
+                        Margin="5,0,0,0"
+                        Padding="5,1"
+                        VerticalAlignment="Center"
+                        CornerRadius="2">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Offset="0.0" Color="#EEAD92" />
+                                <GradientStop Offset="1.0" Color="#6018DC" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            Foreground="White"
+                            Text="收费" />
+                    </Border>
+                </WrapPanel>
+            </TabStripItem>
         </TabStrip>
         <Carousel
             Grid.Row="1"
@@ -530,7 +572,7 @@
                                         ItemsJustification="Start"
                                         ItemsStretch="Uniform"
                                         MinColumnSpacing="10"
-                                        MinItemHeight="180"
+                                        MinItemHeight="240"
                                         MinItemWidth="200"
                                         MinRowSpacing="10" />
                                 </ItemsRepeater.Layout>
@@ -595,6 +637,7 @@
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="12"
+                    Foreground="White"
                     Text="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=VipEndTimeString}" />
             </Border>
             <Button

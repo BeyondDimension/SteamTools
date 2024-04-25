@@ -38,6 +38,7 @@
     <x:String x:Key="Back">&#xE112;</x:String>
     <x:String x:Key="Sort">&#xE174;</x:String>
     <x:String x:Key="Move">&#xE7C2;</x:String>
+    <x:String x:Key="Device">&#xE7FB;</x:String>
 
 
     <ui:ImageIconSource x:Key="AppIcon" Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />

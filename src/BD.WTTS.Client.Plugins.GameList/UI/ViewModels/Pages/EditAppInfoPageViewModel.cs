@@ -199,7 +199,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         App.RefreshEditImage();
         if (App.OriginalData != null)
         {
-            using BinaryReader reader = new BinaryReader(new MemoryStream(App.OriginalData));
+            using BinaryReader reader = new BinaryReader(new MemoryStream(App.OriginalData), Encoding.UTF8, true);
             reader.BaseStream.Seek(40L, SeekOrigin.Current);
             var table = reader.ReadPropertyTable();
 

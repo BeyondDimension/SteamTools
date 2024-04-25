@@ -93,13 +93,13 @@
                     Grid.ColumnSpan="2"
                     Stretch="UniformToFill">
                     <spp:Image2
-                        DecodeWidth="400"
+                        DecodeWidth="300"
                         FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/defaultBackground.png"
-                        Source="{Binding PicUrl}"
+                        Source="{Binding PicInfo.Small.Url}"
                         Stretch="UniformToFill" />
                 </Viewbox>
 
-                <spp:Image2
+                <!--<spp:Image2
                     Grid.RowSpan="2"
                     Grid.ColumnSpan="2"
                     Margin="10,0,50,0"
@@ -107,7 +107,7 @@
                     VerticalAlignment="Bottom"
                     DecodeWidth="250"
                     Source="{Binding LogoUrl}"
-                    Stretch="Uniform" />
+                    Stretch="Uniform" />-->
 
                 <Border
                     Name="ShadowBox"
@@ -180,7 +180,7 @@
                         VerticalAlignment="Center"
                         DecodeWidth="20"
                         IsVisible="{Binding !$self.IsFailed}"
-                        Source="{Binding IconUrl}">
+                        Source="{Binding PicInfo.Icon.Url}">
                         <spp:Image2.Transitions>
                             <Transitions>
                                 <DoubleTransition
