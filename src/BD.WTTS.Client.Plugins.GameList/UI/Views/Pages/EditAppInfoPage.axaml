@@ -77,14 +77,14 @@
                     <Border Classes="Item" IsVisible="{Binding App.IsInstalled}">
                         <DockPanel>
                             <TextBlock Text="{Binding Path=Res.InstalledPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                            <ui:HyperlinkButton
+                            <HyperlinkButton
                                 HorizontalAlignment="Right"
                                 VerticalContentAlignment="Stretch"
                                 Command="{Binding OpenFolder}"
                                 CommandParameter="{Binding App.InstalledDir}"
                                 ToolTip.Tip="{Binding Path=Res.Settings_General_BrowseCustomFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
                                 <TextBlock Text="{Binding App.InstalledDir}" TextWrapping="Wrap" />
-                            </ui:HyperlinkButton>
+                            </HyperlinkButton>
                         </DockPanel>
                     </Border>
 
@@ -524,7 +524,7 @@
                                         </DockPanel>
                                         <DockPanel>
                                             <Label Content="{Binding Path=Res.DirPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                            <ui:HyperlinkButton
+                                            <HyperlinkButton
                                                 HorizontalAlignment="Right"
                                                 HorizontalContentAlignment="Stretch"
                                                 Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenFolder}"
@@ -534,7 +534,7 @@
                                                     HorizontalAlignment="Stretch"
                                                     Text="{Binding FormatDirPath}"
                                                     TextWrapping="Wrap" />
-                                            </ui:HyperlinkButton>
+                                            </HyperlinkButton>
                                         </DockPanel>
                                     </StackPanel>
                                 </Border>

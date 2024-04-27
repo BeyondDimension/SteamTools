@@ -23,8 +23,8 @@
                 Severity="Warning">
                 <spp:Snackbar.ActionButton>
                     <StackPanel>
-                        <ui:HyperlinkButton Content="[Rooted Android] 3.x 新版导出令牌的另一种思路" NavigateUri="https://github.com/BeyondDimension/SteamTools/issues/2276" />
-                        <ui:HyperlinkButton Content="[Rooted Android] 3.x 新版导出令牌的另另一种思路" NavigateUri="https://github.com/BeyondDimension/SteamTools/issues/2598" />
+                        <HyperlinkButton Content="[Rooted Android] 3.x 新版导出令牌的另一种思路" NavigateUri="https://github.com/BeyondDimension/SteamTools/issues/2276" />
+                        <HyperlinkButton Content="[Rooted Android] 3.x 新版导出令牌的另另一种思路" NavigateUri="https://github.com/BeyondDimension/SteamTools/issues/2598" />
                     </StackPanel>
                 </spp:Snackbar.ActionButton>
             </spp:Snackbar>

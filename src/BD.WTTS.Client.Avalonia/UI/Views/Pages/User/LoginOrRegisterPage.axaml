@@ -172,13 +172,13 @@
 
                 <WrapPanel Margin="0,20" HorizontalAlignment="Center">
                     <TextBlock Text="{Binding Path=Res.User_LoginUnexpectedPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
-                    <ui:HyperlinkButton
+                    <HyperlinkButton
                         Margin="5,0"
                         Padding="0"
                         HorizontalContentAlignment="Center"
                         Command="{Binding ManualLogin}">
                         <TextBlock Text="{Binding Path=Res.Login_ManualLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
-                    </ui:HyperlinkButton>
+                    </HyperlinkButton>
                 </WrapPanel>
 
                 <ProgressBar
@@ -222,23 +222,23 @@
                 FontSize="12"
                 Text="{Binding Path=Res.User_RegisterAgreed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ui:HyperlinkButton
+            <HyperlinkButton
                 Margin="5,0"
                 Padding="0"
                 Command="{Binding OpenHyperlink}"
                 CommandParameter="Agreement"
                 Cursor="Hand">
                 <TextBlock Text="{Binding Path=Res.User_Agreement, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
-            </ui:HyperlinkButton>
+            </HyperlinkButton>
             <TextBlock Text="{Binding Path=Res.And, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ui:HyperlinkButton
+            <HyperlinkButton
                 Margin="5,0"
                 Padding="0"
                 Command="{Binding OpenHyperlink}"
                 CommandParameter="Privacy"
                 Cursor="Hand">
                 <TextBlock Text="{Binding Path=Res.User_Privacy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Theme="{StaticResource CaptionTextBlockStyle}" />
-            </ui:HyperlinkButton>
+            </HyperlinkButton>
         </WrapPanel>
 
         <StackPanel
