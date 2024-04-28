@@ -194,13 +194,13 @@ public sealed partial class GameAcceleratorService
                         return;
                     }
 
-                    if (vipEndTimeResult.Content.Code == Enums.XunYouBaseResponseCode.成功)
+                    if (vipEndTimeResult.Content.Code == XunYouBaseResponseCode.成功)
                     {
                         var etime = vipEndTimeResult.Content.Data?.ExpireTime;
                         if (etime.HasValue)
                         {
-                            VipEndTime = etime.Value.ToDateTimeS();
-                            VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value.Year:D4}-{VipEndTime.Value.Month:D2}-{VipEndTime.Value.Day:D2}";
+                            VipEndTime = etime.Value.ToDateTime(UnixTimestampType.Seconds);
+                            VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
                         }
                     }
                     else
