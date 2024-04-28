@@ -33,15 +33,15 @@
             <TabStripItem>
                 <WrapPanel>
                     <Border
-                        Margin="-5,0,0,0"
+                        Margin="-5,0,3,0"
                         VerticalAlignment="Center"
                         CornerRadius="2">
                         <ui:ImageIcon
-                            Width="30"
-                            Height="30"
+                            Width="24"
+                            Height="24"
                             Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico" />
                     </Border>
-                    <TextBlock Text="{Binding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </WrapPanel>
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:AcceleratorPage2" />
@@ -55,15 +55,15 @@
             <TabStripItem>
                 <WrapPanel>
                     <Border
-                        Margin="-5,0,0,0"
+                        Margin="-5,0,3,0"
                         VerticalAlignment="Center"
                         CornerRadius="2">
                         <ui:ImageIcon
-                            Width="30"
-                            Height="30"
+                            Width="24"
+                            Height="24"
                             Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico" />
                     </Border>
-                    <TextBlock Text="{Binding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 </WrapPanel>
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:ScriptPage" />

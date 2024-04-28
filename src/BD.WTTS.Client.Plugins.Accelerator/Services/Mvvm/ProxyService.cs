@@ -44,7 +44,7 @@ public sealed partial class ProxyService
                 }
                 if (proxyStatusLeft != proxyStatusRight)
                 {
-                    ProxyStatus = proxyStatusRight;
+                    _ProxyStatus = proxyStatusRight;
 
                     //UpdateProxyTrayMenuItems();
                     //if (Steamworks.SteamClient.IsValid)
