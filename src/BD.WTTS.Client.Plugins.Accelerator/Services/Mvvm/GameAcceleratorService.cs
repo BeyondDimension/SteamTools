@@ -200,18 +200,23 @@ public sealed partial class GameAcceleratorService
                         if (etime.HasValue)
                         {
                             VipEndTime = etime.Value.ToDateTime(UnixTimestampType.Seconds);
-                            var acc_order = (await IMicroServiceClient.Instance.Ordering.GetUserOrderCount([OrderStatus.Paid, OrderStatus.Completed], OrderBusinessType.XunYouOrder)).Content;
-                            if (acc_order <= 0)
-                            {
-                                if (VipEndTime.Value.AddDays(365).Date == DateTimeOffset.Now.Date)
-                                    VipEndTimeString = "试用时长到期";
-                                else
-                                    VipEndTimeString = "新用户试用2天";
-                            }
+                            //var acc_order = (await IMicroServiceClient.Instance.Ordering.GetUserOrderCount([OrderStatus.Paid, OrderStatus.Completed], OrderBusinessType.XunYouOrder)).Content;
+                            //if (acc_order <= 0)
+                            //{
+                            //    if (VipEndTime.Value.AddDays(365).Date == DateTimeOffset.Now.Date)
+                            //        VipEndTimeString = "试用时长到期";
+                            //    else
+                            //        VipEndTimeString = "新用户试用2天";
+                            //}
+                            //else
+                            //{
+                            //    VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
+                            //}
+
+                            if (VipEndTime.Value.AddDays(365).Date == DateTimeOffset.Now.Date)
+                                VipEndTimeString = "新用户试用2天";
                             else
-                            {
                                 VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
-                            }
                         }
                     }
                     else
