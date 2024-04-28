@@ -196,7 +196,7 @@ public sealed partial class GameAcceleratorService
 
                     if (vipEndTimeResult.Content.Code == Enums.XunYouBaseResponseCode.成功)
                     {
-                        var etime = vipEndTimeResult.Content.Data?.SVIP?.ETime;
+                        var etime = vipEndTimeResult.Content.Data?.ExpireTime;
                         if (etime.HasValue)
                         {
                             VipEndTime = etime.Value.ToDateTime();
