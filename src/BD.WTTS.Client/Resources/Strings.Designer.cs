@@ -6703,6 +6703,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 确认邮箱链接 的本地化字符串。
+        /// </summary>
+        public static string Steam_ConfirmEmailLink {
+            get {
+                return ResourceManager.GetString("Steam_ConfirmEmailLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam 客户端登录区域： 的本地化字符串。
         /// </summary>
         public static string Steam_CurrentIPCountry {

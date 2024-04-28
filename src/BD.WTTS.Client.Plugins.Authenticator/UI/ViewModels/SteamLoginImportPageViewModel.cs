@@ -1,5 +1,6 @@
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
+using BD.WTTS.UI.Views.Controls;
 using WinAuth;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
@@ -99,7 +100,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
     {
         if (string.IsNullOrEmpty(PhoneCodeText))
         {
-            Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterTelCode);
+            Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterCode);
             return false;
         }
         else
@@ -246,14 +247,53 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
                     if (SelectIndex == TAB_INDEX_LOGINCONFIRM && await steamAuthenticator.RemoveAuthenticatorViaChallengeStartSync(_enrollState.AccessToken!))
                     {
                         await CheckAccountPhoneStatus();
+
                         SelectIndex = TAB_INDEX_VERIFYCODE;
+
+                        if (!IsVerifyAccountPhone)
+                        {
+                            Toast.Show(ToastIcon.Warning, "只绑定邮箱的情况下无法直接替换令牌");
+
+                            // 弹出绑定手机号流程
+                            var added = await IWindowManager.Instance.ShowTaskDialogAsync(
+                                    viewModel: new AddSteamAccountPhoneNumberPageViewModel(_enrollState, steamAuthenticator),
+                                    pageContent: new AddSteamAccountPhoneNumberPage(),
+                                    isCancelButton: false,
+                                    isOkButton: false,
+                                    isRetryButton: false
+                                    );
+
+                            // 查询账号手机号绑定状态
+                            await CheckAccountPhoneStatus();
+
+                            // 如果通过弹出的绑定手机号绑定成功 开始执行替换令牌
+                            if (added && IsVerifyAccountPhone)
+                            {
+                                /*
+                                 * 绑定手机号会发送验证码
+                                 * 执行开始替换令牌操作也会发送验证码
+                                 * 如果两个操作间隔太短会导致 Steam 不发送验证码
+                                 */
+
+                                await Task.Delay(TimeSpan.FromSeconds(30));
+
+                                await steamAuthenticator.RemoveAuthenticatorViaChallengeStartSync(_enrollState.AccessToken!);
+                            }
+                            // 取消了绑定手机号流程 无法执行替换令牌操作
+                            else
+                            {
+                                SelectIndex = TAB_INDEX_LOGIN;
+                            }
+
+                            return;
+                        }
                         return;
                     }
                     else if (SelectIndex == TAB_INDEX_VERIFYCODE)
                     {
                         if (string.IsNullOrEmpty(PhoneCodeText))
                         {
-                            Toast.Show(ToastIcon.Error, Strings.Error_PleaseEnterTelCode);
+                            Toast.Show(ToastIcon.Error, Strings.Error_PleaseEnterCode);
                             return;
                         }
 
