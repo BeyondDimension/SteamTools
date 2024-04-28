@@ -199,11 +199,17 @@ public sealed partial class GameAcceleratorService
                         var etime = vipEndTimeResult.Content.Data?.ExpireTime;
                         if (etime.HasValue)
                         {
-                            var etime2 = etime.Value.ToDateTime(UnixTimestampType.Seconds);
-                            if (etime2 > DateTime.Now)
+                            VipEndTime = etime.Value.ToDateTime(UnixTimestampType.Seconds);
+                            var acc_order = (await IMicroServiceClient.Instance.Ordering.GetUserOrderCount([OrderStatus.Paid, OrderStatus.Completed], OrderBusinessType.XunYouOrder)).Content;
+                            if (acc_order <= 0)
                             {
-                                // 没有充值过的用户，返回的就是一年前的时间
-                                VipEndTime = etime2;
+                                if (VipEndTime.Value.AddDays(365).Date == DateTimeOffset.Now.Date)
+                                    VipEndTimeString = "试用时长到期";
+                                else
+                                    VipEndTimeString = "新用户试用2天";
+                            }
+                            else
+                            {
                                 VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
                             }
                         }
