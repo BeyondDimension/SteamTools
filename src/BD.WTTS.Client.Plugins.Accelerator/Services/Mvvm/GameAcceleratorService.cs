@@ -180,7 +180,7 @@ public sealed partial class GameAcceleratorService
                     if (string.IsNullOrWhiteSpace(x?.WattOpenId))
                         return;
 
-                    var vipEndTimeResult = await XunYouSDK.GetVipEndTime(x.WattOpenId);
+                    var vipEndTimeResult = await IMicroServiceClient.Instance.Manage.GetXunYouVipEndTime();
                     if (vipEndTimeResult == null)
                     {
                         Log.Error(nameof(GameAcceleratorService),
@@ -188,25 +188,27 @@ public sealed partial class GameAcceleratorService
                         return;
                     }
 
-                    if (vipEndTimeResult.HandleUI(out var vipEndTimeResultContent,
-                        ToastIcon.Error, "获取会员时间失败"))
+                    if (!vipEndTimeResult.IsSuccess || vipEndTimeResult.Content == null)
                     {
-                        if (vipEndTimeResultContent.Code == XunYouBaseResponseCode.成功)
+                        Toast.Show(ToastIcon.Error, "获取会员时间失败");
+                        return;
+                    }
+
+                    if (vipEndTimeResult.Content.Code == Enums.XunYouBaseResponseCode.成功)
+                    {
+                        var etime = vipEndTimeResult.Content.Data?.SVIP?.ETime;
+                        if (etime.HasValue)
                         {
-                            var etime = vipEndTimeResultContent.Data?.SVIP?.ETime;
-                            if (etime.HasValue)
-                            {
-                                VipEndTime = etime.Value.ToDateTime();
-                                VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value.Year:D4}-{VipEndTime.Value.Month:D2}-{VipEndTime.Value.Date:D2}";
-                            }
+                            VipEndTime = etime.Value.ToDateTime();
+                            VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value.Year:D4}-{VipEndTime.Value.Month:D2}-{VipEndTime.Value.Date:D2}";
                         }
-                        else
-                        {
-                            Log.Error(nameof(GameAcceleratorService),
-                                "XunYouSDK.GetVipEndTime is fail, message: {message}, code: {code}.",
-                                vipEndTimeResultContent.Message,
-                                vipEndTimeResultContent.Code);
-                        }
+                    }
+                    else
+                    {
+                        Log.Error(nameof(GameAcceleratorService),
+                            "XunYouSDK.GetVipEndTime is fail, message: {message}, code: {code}.",
+                            vipEndTimeResult.Content.Message,
+                            vipEndTimeResult.Content.Code);
                     }
                 });
 
