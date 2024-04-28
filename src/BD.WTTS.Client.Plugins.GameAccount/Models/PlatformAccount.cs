@@ -148,16 +148,16 @@ public sealed partial class PlatformAccount
                 fs.Flush();
             }
             var deskTopPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory),
+                Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
                 $"{acc.DisplayName ?? acc.AccountName ?? acc.AccountId}.lnk");
 
             var processPath = Environment.ProcessPath;
             processPath.ThrowIsNull();
             platformSwitcher.CreateSystemProtocol(processPath);
-            var route = HttpUtility.UrlEncode($"-clt steam -account {acc.AccountName}");
+            var args = $"-clt steam -account {acc.AccountName}";
             await platformSwitcher.CreateLoginShortcut(
                 deskTopPath,
-                $"{Constants.CUSTOM_URL_SCHEME}args?command={route}",
+                $"{Constants.CUSTOM_URL_SCHEME}args/{HttpUtility.UrlEncode(args)}",
                 null,
                 null,
                 null,
