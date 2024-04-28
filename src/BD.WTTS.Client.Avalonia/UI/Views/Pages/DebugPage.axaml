@@ -149,7 +149,53 @@
         </Panel>
 
         <Panel>
-            <TextBlock Text="Test Control" />
+            <StackPanel>
+                <ToggleSwitch Name="loading" Content="Loading" />
+                <ToggleSwitch Name="active" Content="Active" />
+                <Grid
+                    MinWidth="400"
+                    HorizontalAlignment="Left"
+                    ColumnDefinitions="auto,*">
+                    <spp:Skeleton
+                        Width="100"
+                        Height="100"
+                        VerticalAlignment="Center"
+                        CornerRadius="2"
+                        IsActive="{Binding #active.IsChecked}"
+                        IsLoading="{Binding #loading.IsChecked}">
+                        <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                    </spp:Skeleton>
+                    <UniformGrid
+                        Grid.Column="1"
+                        Margin="5,0"
+                        Columns="1"
+                        Rows="3">
+                        <spp:Skeleton
+                            Margin="0,0,200,0"
+                            VerticalAlignment="Top"
+                            CornerRadius="2"
+                            IsActive="{Binding #active.IsChecked}"
+                            IsLoading="{Binding #loading.IsChecked}">
+                            <SelectableTextBlock Margin="0,2" Text="是先有鸡还是先有蛋" />
+                        </spp:Skeleton>
+                        <spp:Skeleton
+                            Margin="0,0,100,0"
+                            VerticalAlignment="Center"
+                            CornerRadius="2"
+                            IsActive="{Binding #active.IsChecked}"
+                            IsLoading="{Binding #loading.IsChecked}">
+                            <SelectableTextBlock Margin="0,2" Text="什么是工匠精神" />
+                        </spp:Skeleton>
+                        <spp:Skeleton
+                            VerticalAlignment="Bottom"
+                            CornerRadius="2"
+                            IsActive="{Binding #active.IsChecked}"
+                            IsLoading="{Binding #loading.IsChecked}">
+                            <SelectableTextBlock Margin="0,2" Text="看山不是山，看水不是水，看山还是山，看水还是水" />
+                        </spp:Skeleton>
+                    </UniformGrid>
+                </Grid>
+            </StackPanel>
         </Panel>
     </Carousel>
 </spp:PageBase>

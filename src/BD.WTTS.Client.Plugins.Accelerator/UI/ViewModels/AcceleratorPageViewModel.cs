@@ -15,12 +15,13 @@ public sealed partial class AcceleratorPageViewModel
 
     public AcceleratorPageViewModel()
     {
-        StartProxyCommand = ReactiveCommand.Create(() =>
+        StartProxyCommand = ReactiveCommand.CreateFromTask(async _ =>
         {
 #if LINUX
             if (!EnvironmentCheck()) return;
 #endif
-            ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
+            //ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
+            await ProxyService.Current.StartOrStopProxyService(!ProxyService.Current.ProxyStatus);
         });
 
         RefreshCommand = ReactiveCommand.Create(async () =>

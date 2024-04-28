@@ -206,7 +206,8 @@ partial class ProxyService
             }
         }
 
-        string? proxyToken = await TryRequestServerSideProxyToken();
+        string? proxyToken = proxyDomains.Any_Nullable(s => s.ProxyType == ProxyType.ServerAccelerate) ?
+            await TryRequestServerSideProxyToken() : null;
 
         ReverseProxySettings reverseProxySettings = new(proxyDomains, scripts,
             isEnableScript, isOnlyWorkSteamBrowser, proxyPort,
@@ -391,8 +392,7 @@ partial class ProxyService
         }
         catch (Exception ex)
         {
-            // 暂时不记录异常
-
+            ex.LogAndShowT();
             return null;
         }
     }

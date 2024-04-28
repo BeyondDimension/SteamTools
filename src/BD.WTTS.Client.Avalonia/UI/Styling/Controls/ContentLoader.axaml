@@ -101,5 +101,8 @@
                 </Panel>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^:loading /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Effect" Value="blur(5)" />
+        </Style>
     </ControlTheme>
 </ResourceDictionary>

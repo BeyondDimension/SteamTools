@@ -26,26 +26,25 @@
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
-            <Button
+            <SplitButton
                 Padding="8,4"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Command="{Binding StartProxyCommand}"
                 DockPanel.Dock="Right"
-                IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
-                Theme="{StaticResource TransparentButton}">
-                <!--<SplitButton.Flyout>
-                    <ui:FAMenuFlyout>
-                        <ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+                IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
+                <SplitButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <!--<ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
                             <ui:MenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate>
                                     <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
-                        </ui:MenuFlyoutSubItem>
-                        <ui:ToggleMenuFlyoutItem Text="启用脚本" />
+                        </ui:MenuFlyoutSubItem>-->
+                        <ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}" Text="启用脚本" />
                     </ui:FAMenuFlyout>
-                </SplitButton.Flyout>-->
+                </SplitButton.Flyout>
                 <Panel>
                     <Viewbox
                         Width="16"
@@ -53,13 +52,34 @@
                         HorizontalAlignment="Left">
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
                     </Viewbox>
-                    <TextBlock
+                    <ContentControl
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <ContentControl.Content>
+                            <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="ProxyStarting"
+                                    Source="{x:Static s:ProxyService.Current}" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.CommunityFix_Starting"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.CommunityFix_StartProxy"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                            </MultiBinding>
+                        </ContentControl.Content>
+                    </ContentControl>
+                    <!--<TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{x:Static spp:Strings.CommunityFix_StartProxy}" />
+                        Text="{x:Static spp:Strings.CommunityFix_StartProxy}" />-->
                 </Panel>
-            </Button>
+            </SplitButton>
 
             <Button
                 Padding="8,4"
@@ -456,7 +476,8 @@
                                                                     <Border
                                                                         Padding="5,0"
                                                                         CornerRadius="5"
-                                                                        IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}">
+                                                                        IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
+                                                                        ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
                                                                         <Border.Background>
                                                                             <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                                                                                 <GradientStop Offset="0.0" Color="#43cbff" />
