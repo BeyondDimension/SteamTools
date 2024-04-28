@@ -627,7 +627,7 @@
                 Padding="5,1"
                 VerticalAlignment="Center"
                 CornerRadius="2"
-                IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!!VipEndTimeString}">
+                IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=VipEndTimeString, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                         <GradientStop Offset="0.0" Color="#453a94" />
