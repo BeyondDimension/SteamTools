@@ -121,7 +121,7 @@ public abstract partial class Startup
             }
 #endif
 
-            if (!analysisCustomUrlSchemeArgs)
+            if (analysisCustomUrlSchemeArgs)
             {
                 var argsByCustomUrlScheme = GetArgsByCustomUrlScheme(args[0]);
                 if (argsByCustomUrlScheme != null)

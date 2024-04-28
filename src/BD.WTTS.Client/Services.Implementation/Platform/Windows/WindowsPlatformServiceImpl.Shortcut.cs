@@ -28,6 +28,35 @@ partial class WindowsPlatformServiceImpl
         string? iconLocation = null,
         string? workingDirectory = null)
     {
+        try
+        {
+            CreateShortcutCore(pathLink, targetPath, arguments, description, hotkey, iconLocation, workingDirectory);
+        }
+        catch (Exception)
+        {
+            // pathLink 存在 emoji 字符时无法创建快捷方式，需要先创建临时文件再移动
+            var dirPath = Path.GetDirectoryName(pathLink);
+            if (dirPath != null)
+            {
+                var fileName = $"{Path.GetTempFileName()}.lnk";
+                var pathLink2 = Path.Combine(dirPath, fileName);
+                CreateShortcutCore(pathLink2, targetPath, arguments, description, hotkey, iconLocation, workingDirectory);
+                System.IO.File.Move(pathLink2, pathLink, true);
+            }
+
+            throw;
+        }
+    }
+
+    static void CreateShortcutCore(
+        string pathLink,
+        string targetPath,
+        string? arguments = null,
+        string? description = null,
+        string? hotkey = null,
+        string? iconLocation = null,
+        string? workingDirectory = null)
+    {
         WshShell shell = new();
         var shortcut = (IWshShortcut)shell.CreateShortcut(pathLink);
         shortcut.TargetPath = targetPath;
@@ -50,7 +79,7 @@ partial class WindowsPlatformServiceImpl
         shortcut.Save();
     }
 
-    void IPlatformService.CreateShortcut(
+    void IPCPlatformService.CreateShortcut(
         string pathLink,
         string targetPath,
         string? arguments,

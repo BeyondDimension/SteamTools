@@ -1,5 +1,6 @@
 using Avalonia.Platform;
 using BD.WTTS.Properties;
+using FluentAvalonia.Interop;
 using SkiaSharp;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
@@ -153,7 +154,10 @@ public sealed partial class PlatformAccount
 
             var processPath = Environment.ProcessPath;
             processPath.ThrowIsNull();
-            platformSwitcher.CreateSystemProtocol(processPath);
+            if (!DesktopBridge.IsRunningAsUwp)
+            {
+                platformSwitcher.CreateSystemProtocol(processPath);
+            }
             var args = $"-clt steam -account {acc.AccountName}";
             await platformSwitcher.CreateLoginShortcut(
                 deskTopPath,
