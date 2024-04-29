@@ -179,44 +179,51 @@ public sealed partial class GameAcceleratorService
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(async x =>
                 {
-                    if (string.IsNullOrWhiteSpace(x?.WattOpenId))
+                    string vipEndTimeString = VipEndTimeStringDef;
+                    try
                     {
-                        VipEndTimeString = VipEndTimeStringDef;
-                        return;
-                    }
-
-                    var vipEndTimeResult = await IMicroServiceClient.Instance.Manage.GetXunYouVipEndTime();
-                    if (vipEndTimeResult == null)
-                    {
-                        Log.Error(nameof(GameAcceleratorService),
-                            "XunYouSDK.GetVipEndTime is null.");
-                        return;
-                    }
-
-                    if (!vipEndTimeResult.IsSuccess || vipEndTimeResult.Content == null)
-                    {
-                        Toast.Show(ToastIcon.Error, "获取会员时间失败");
-                        return;
-                    }
-
-                    if (vipEndTimeResult.Content.Code == XunYouBaseResponseCode.成功)
-                    {
-                        var etime = vipEndTimeResult.Content.Data?.ExpireTime;
-                        if (etime.HasValue)
+                        if (string.IsNullOrWhiteSpace(x?.WattOpenId))
                         {
-                            VipEndTime = etime.Value.ToDateTime(UnixTimestampType.Seconds);
-                            if (VipEndTime.Value > DateTime.Now)
+                            return;
+                        }
+
+                        var vipEndTimeResult = await IMicroServiceClient.Instance.Manage.GetXunYouVipEndTime();
+                        if (vipEndTimeResult == null)
+                        {
+                            Log.Error(nameof(GameAcceleratorService),
+                                "XunYouSDK.GetVipEndTime is null.");
+                            return;
+                        }
+
+                        if (!vipEndTimeResult.IsSuccess || vipEndTimeResult.Content == null)
+                        {
+                            Toast.Show(ToastIcon.Error, "获取会员时间失败");
+                            return;
+                        }
+
+                        if (vipEndTimeResult.Content.Code == XunYouBaseResponseCode.成功)
+                        {
+                            var etime = vipEndTimeResult.Content.Data?.ExpireTime;
+                            if (etime.HasValue)
                             {
-                                VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
+                                VipEndTime = etime.Value.ToDateTime(UnixTimestampType.Seconds);
+                                if (VipEndTime.Value > DateTime.Now)
+                                {
+                                    vipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
+                                }
                             }
                         }
+                        else
+                        {
+                            Log.Error(nameof(GameAcceleratorService),
+                                "XunYouSDK.GetVipEndTime is fail, message: {message}, code: {code}.",
+                                vipEndTimeResult.Content.Message,
+                                vipEndTimeResult.Content.Code);
+                        }
                     }
-                    else
+                    finally
                     {
-                        Log.Error(nameof(GameAcceleratorService),
-                            "XunYouSDK.GetVipEndTime is fail, message: {message}, code: {code}.",
-                            vipEndTimeResult.Content.Message,
-                            vipEndTimeResult.Content.Code);
+                        VipEndTimeString = vipEndTimeString;
                     }
                 });
 
