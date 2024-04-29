@@ -201,10 +201,10 @@ public sealed partial class GameAcceleratorService
                         {
                             VipEndTime = etime.Value.ToDateTime(UnixTimestampType.Seconds);
 
-                            if (VipEndTime.Value.AddYears(1).AddDays(-1).Date == DateTime.Today)
-                                VipEndTimeString = "新用户免费试用 2 天";
-                            else
+                            if (VipEndTime.Value.Date >= DateTime.Today)
+                            {
                                 VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
+                            }
                         }
                     }
                     else
