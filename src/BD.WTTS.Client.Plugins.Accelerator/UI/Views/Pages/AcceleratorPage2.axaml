@@ -740,14 +740,14 @@
             <Button Theme="{StaticResource TransparentButton}">
                 <ToolTip.Tip>
                     <TextBlock>
-                        <Run FontSize="16" Text="为什么加速后流量一直显示 0KB ？" />
+                        <Run FontSize="16" Text="Q：为什么加速后流量一直显示 0KB ？" />
                         <LineBreak />
-                        <Run Text="流量统计图表是用于查看实时流量数据信息，您需要先访问对应的网站，这边才会有相应的流量波动数据，请检查是否已经选择了对应的网站加速项目，如果确定有正常勾选加速项目并且访问网站依然无流量，则可能是加速的监听服务没有启用成功，尝试更换加速模式。" />
+                        <Run Text="A：流量统计图表是用于查看实时流量数据信息，您需要先访问对应的网站，这边才会有相应的流量波动数据，请检查是否已经选择了对应的网站加速项目，如果确定有正常勾选加速项目并且访问网站依然无流量，则可能是加速的监听服务没有启用成功，尝试更换加速模式。" />
                         <LineBreak />
                         <LineBreak />
-                        <Run FontSize="16" Text="加速后对应网站打不开显示SSL错误或者Steam浏览器显示-100错误？" />
+                        <Run FontSize="16" Text="Q：加速后对应网站打不开显示SSL错误或者Steam浏览器显示-100错误？" />
                         <LineBreak />
-                        <Run Text="可以尝试执行以下操作进行修复，关闭加速，点击加速设置-移除证书再安装证书，重开加速。或者加速设置-代理设置-尝试更换doh地址或者关闭doh使用dns等方案。" />
+                        <Run Text="A：可以尝试执行以下操作进行修复，关闭加速，点击加速设置-移除证书再安装证书，重开加速。或者加速设置-代理设置-尝试更换doh地址或者关闭doh使用dns等方案。" />
                     </TextBlock>
                 </ToolTip.Tip>
                 <ui:FontIcon FontSize="22" Glyph="&#xE82F;" />

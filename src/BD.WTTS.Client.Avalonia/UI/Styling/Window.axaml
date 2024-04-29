@@ -210,7 +210,7 @@
                     <wnd:MinMaxCloseControl
                         Name="SystemCaptionButtons"
                         Height="{Binding TemplateSettings.TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}}"
-                        Margin="18,0"
+                        Margin="14,0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top" />
 

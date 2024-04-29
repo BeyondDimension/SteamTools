@@ -24,10 +24,10 @@
         </Style>
 
         <Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
-            <Setter Property="Margin" Value="0 50 0 0" />
+            <Setter Property="Margin" Value="0 42 0 0" />
         </Style>
         <Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=True] SplitView /template/ ContentPresenter#PART_PanePresenter">
-            <Setter Property="Margin" Value="0 10 0 0" />
+            <Setter Property="Margin" Value="0 2 0 0" />
         </Style>
 
         <Style Selector="ui|NavigationViewItem.AppNav">
@@ -331,7 +331,7 @@
             PaneDisplayMode="Left">
             <ui:NavigationView.Resources>
                 <!--  Override this  -->
-                <Thickness x:Key="NavigationViewContentMargin">0,60,0,0</Thickness>
+                <Thickness x:Key="NavigationViewContentMargin">0,50,0,0</Thickness>
             </ui:NavigationView.Resources>
             <ui:NavigationView.Styles>
                 <Style Selector="Button#NavigationViewBackButton">
@@ -342,7 +342,7 @@
                     <Setter Property="Content" Value="&#xF0D5;" />
                 </Style>
                 <Style Selector="Grid#PaneToggleButtonGrid">
-                    <Setter Property="Margin" Value="5 5 0 0" />
+                    <Setter Property="Margin" Value="5 0 0 0" />
                     <Setter Property="ToolTip.Tip" Value="{Binding Path=Res.Back, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <Setter Property="ToolTip.Placement" Value="Bottom" />
                 </Style>
