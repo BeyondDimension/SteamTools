@@ -10,7 +10,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
-    x:DataType="spp:HomePageViewModel"
+    x:DataType="spp:PluginStorePageViewModel"
     mc:Ignorable="d">
     <ScrollViewer Padding="20">
         <!--<spp:ContentLoader IsLoading="False">-->
@@ -55,11 +55,12 @@
                     <DataTemplate DataType="spp:TabItemViewModel">
                         <Border spp:Animations.EnableAnimations="True">
                             <Button
-                                Command="{Binding $parent[spp:HomePage].((spp:HomePageViewModel)DataContext).NavgationToMenuPageCommand}"
+                                Command="{Binding $parent[spp:PluginStorePage].((spp:PluginStorePageViewModel)DataContext).NavgationToMenuPageCommand}"
                                 CommandParameter="{Binding}"
                                 Theme="{StaticResource NavButtonStyle}">
                                 <Grid RowDefinitions="3*,*">
                                     <Border
+                                        Name="IconHost"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
                                         CornerRadius="4 4 0 0"

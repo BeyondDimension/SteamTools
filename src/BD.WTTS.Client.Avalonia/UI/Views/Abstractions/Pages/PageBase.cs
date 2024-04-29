@@ -1,5 +1,7 @@
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Rendering.Composition;
+using FluentAvalonia.UI.Controls.Experimental;
+using FluentAvalonia.UI.Navigation;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -17,6 +19,7 @@ public class PageBase : UserControl
         }
 
         _disposables.Add(UISettings.WindowBackgroundCustomImage.Subscribe(x => IsShowBackgroundImage = !x));
+
         //AddHandler(Frame.NavigatingFromEvent, FrameNavigatingFrom, RoutingStrategies.Direct);
         //AddHandler(Frame.NavigatedToEvent, FrameNavigatedTo, RoutingStrategies.Direct);
     }
@@ -142,6 +145,7 @@ public class PageBase : UserControl
 
         //_previewImageHost = e.NameScope.Find<IconSourceElement>("PreviewImageElement");
         //_detailsHost = e.NameScope.Find<StackPanel>("DetailsTextHost");
+
         _optionsHost = e.NameScope.Find<Panel>("OptionsRegion");
         _tabsHost = e.NameScope.Find<Border>("TabRegion");
         _detailsPanel = e.NameScope.Find<Panel>("PageDetails");
@@ -270,33 +274,28 @@ public class PageBase : UserControl
         ec.ImplicitAnimations = ani;
     }
 
-    //private void FrameNavigatingFrom(object sender, NavigatingCancelEventArgs e)
+    //private void FrameNavigatingFrom(object? sender, NavigatingCancelEventArgs e)
     //{
-    //    // If TargetType is not set, we know we're currently on a CoreControls page since those
-    //    // are grouped pages - whereas, FA controls only display one control per page and
-    //    // set all the extra properties
-    //    bool isFAControlPage = TargetType != null;
-
     //    // Only setup the ConnectedAnimation if it makes sense
-    //    if ((!isFAControlPage && e.SourcePageType == typeof(CoreControlsPageViewModel)) ||
-    //        (isFAControlPage && e.SourcePageType == typeof(FAControlsOverviewPageViewModel)))
+    //    if ((e.SourcePageType == typeof(HomePageViewModel)) ||
+    //        (e.SourcePageType == typeof(PluginStorePageViewModel)))
     //    {
     //        // Only setup the Back connected animation if we're going back to the
     //        // controls list pages
     //        var svc = ConnectedAnimationService.GetForView(TopLevel.GetTopLevel(this));
     //        svc.PrepareToAnimate("BackAnimation", (Control)_previewImageHost.Parent);
-    //        NavigationService.Instance.PreviousPage = this;
+    //        //NavigationService.Instance.PreviousPage = this;
     //    }
     //}
 
-    //private void FrameNavigatedTo(object sender, NavigationEventArgs e)
+    //private void FrameNavigatedTo(object? sender, NavigationEventArgs e)
     //{
     //    var svc = ConnectedAnimationService.GetForView(TopLevel.GetTopLevel(this));
     //    var animation = svc.GetAnimation("ForwardAnimation");
 
     //    if (animation != null)
     //    {
-    //        var coordinated = new List<Visual>
+    //        var coordinated = new List<Visual?>
     //        {
     //            _optionsHost,
     //            _detailsHost,
