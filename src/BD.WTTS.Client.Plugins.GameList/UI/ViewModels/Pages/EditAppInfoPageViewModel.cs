@@ -183,6 +183,8 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         //await MessageBox.ShowAsync("保存成功但还不会直接写入Steam文件, 请打开[保存Steam游戏自定义信息窗口]保存所有更改信息到Steam文件中。",
         //    ThisAssembly.AssemblyTrademark, MessageBox.Button.OK, MessageBox.Image.None, MessageBox.DontPromptType.SaveEditAppInfo);
 
+        Toast.Show(ToastIcon.Info, "保存成功但还不会直接写入 Steam 文件，请到右上角编辑列表中保存所有更改信息到 Steam 文件中，即可生效！");
+
         this.Close?.Invoke(false);
     }
 
@@ -199,7 +201,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         App.RefreshEditImage();
         if (App.OriginalData != null)
         {
-            using BinaryReader reader = new BinaryReader(new MemoryStream(App.OriginalData));
+            using BinaryReader reader = new BinaryReader(new MemoryStream(App.OriginalData), Encoding.UTF8, true);
             reader.BaseStream.Seek(40L, SeekOrigin.Current);
             var table = reader.ReadPropertyTable();
 

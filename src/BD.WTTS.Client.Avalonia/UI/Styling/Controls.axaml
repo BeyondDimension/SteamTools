@@ -66,6 +66,7 @@
     <StyleInclude Source="/UI/Styling/Controls/IconElement.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/CustomFilePicker.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/NumericUpDown.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/Skeleton.axaml" />
 
     <Style Selector="FlyoutPresenter.NoPadding">
         <Setter Property="Padding" Value="0" />

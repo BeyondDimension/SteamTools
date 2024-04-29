@@ -30,7 +30,19 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="{Binding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <TabStripItem>
+                <WrapPanel>
+                    <Border
+                        Margin="-5,0,3,0"
+                        VerticalAlignment="Center"
+                        CornerRadius="2">
+                        <ui:ImageIcon
+                            Width="24"
+                            Height="24"
+                            Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico" />
+                    </Border>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                </WrapPanel>
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:AcceleratorPage2" />
                 </TabStripItem.Tag>
@@ -40,7 +52,19 @@
                     <x:Type TypeName="spp:AcceleratorPage" />
                 </TabStripItem.Tag>
             </TabStripItem>-->
-            <TabStripItem Content="{Binding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <TabStripItem>
+                <WrapPanel>
+                    <Border
+                        Margin="-5,0,3,0"
+                        VerticalAlignment="Center"
+                        CornerRadius="2">
+                        <ui:ImageIcon
+                            Width="24"
+                            Height="24"
+                            Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico" />
+                    </Border>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                </WrapPanel>
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:ScriptPage" />
                 </TabStripItem.Tag>

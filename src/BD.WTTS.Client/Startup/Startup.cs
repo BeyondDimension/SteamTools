@@ -49,6 +49,12 @@ public abstract partial class Startup
         var uri = args.Uri;
         if (uri != null)
         {
+            var urlString = uri.ToString();
+            var argsByCustomUrlScheme = GetArgsByCustomUrlScheme(urlString);
+            if (argsByCustomUrlScheme != null)
+            {
+                return argsByCustomUrlScheme;
+            }
 
         }
         return null;
@@ -101,6 +107,32 @@ public abstract partial class Startup
             args = args[1..];
         }
 
+        if (args.Length >= 1)
+        {
+            #region CUSTOM_URL_SCHEME
+
+            bool analysisCustomUrlSchemeArgs = true;
+
+#if WINDOWS
+            if (DesktopBridge.IsRunningAsUwp)
+            {
+                // 已由 HandleProtocolActivation 处理
+                analysisCustomUrlSchemeArgs = false;
+            }
+#endif
+
+            if (analysisCustomUrlSchemeArgs)
+            {
+                var argsByCustomUrlScheme = GetArgsByCustomUrlScheme(args[0]);
+                if (argsByCustomUrlScheme != null)
+                {
+                    args = argsByCustomUrlScheme;
+                }
+            }
+
+            #endregion
+        }
+
         IsMainProcess = args.IsEmpty;
         IsConsoleLineToolProcess = !IsMainProcess &&
             string.Equals(args[0], clt_, StringComparison.OrdinalIgnoreCase);
@@ -131,6 +163,32 @@ public abstract partial class Startup
             return new[] { command_main };
         }
     }
+
+    #region 自定义协议
+
+    const string customUrlSchemeArgs = $"{Constants.CUSTOM_URL_SCHEME}args";
+    const string customUrlSchemeArgs2 = $"{Constants.CUSTOM_URL_SCHEME}args/";
+
+    static string[]? GetArgsByCustomUrlScheme(string urlString)
+    {
+        if (urlString.StartsWith(customUrlSchemeArgs2, StringComparison.OrdinalIgnoreCase))
+        {
+            return GetArgsByCustomUrlSchemeCore(urlString[customUrlSchemeArgs2.Length..]);
+        }
+        else if (urlString.StartsWith(customUrlSchemeArgs, StringComparison.OrdinalIgnoreCase))
+        {
+            return GetArgsByCustomUrlSchemeCore(urlString[customUrlSchemeArgs.Length..]);
+        }
+        return null;
+    }
+
+    static string[] GetArgsByCustomUrlSchemeCore(string value)
+    {
+        var args = HttpUtility.UrlDecode(value).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return args;
+    }
+
+    #endregion
 
     /// <summary>
     /// 启动应用程序

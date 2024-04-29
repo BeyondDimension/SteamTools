@@ -36,7 +36,7 @@
                             Classes="Scale"
                             DecodeWidth="800"
                             FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/defaultBackground.png"
-                            Source="{Binding PicUrl}" />
+                            Source="{Binding PicInfo.Large.Url}" />
                     </Viewbox>
 
                     <spp:Image2
@@ -46,7 +46,7 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
                         DecodeWidth="400"
-                        Source="{Binding LogoUrl}"
+                        Source="{Binding PicInfo.Logo.Url}"
                         Stretch="Uniform" />
 
                     <Panel
@@ -68,7 +68,7 @@
                                 VerticalAlignment="Center"
                                 DecodeWidth="36"
                                 IsVisible="{Binding !$self.IsFailed}"
-                                Source="{Binding IconUrl}">
+                                Source="{Binding PicInfo.Icon.Url}">
                                 <spp:Image2.Transitions>
                                     <Transitions>
                                         <DoubleTransition

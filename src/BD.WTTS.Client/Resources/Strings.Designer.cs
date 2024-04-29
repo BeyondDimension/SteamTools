@@ -1512,6 +1512,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 正在启动加速... 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_Starting {
+            get {
+                return ResourceManager.GetString("CommunityFix_Starting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 一键加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxy {
@@ -8364,7 +8373,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 起始页 的本地化字符串。
+        ///   查找类似 主页 的本地化字符串。
         /// </summary>
         public static string Welcome {
             get {

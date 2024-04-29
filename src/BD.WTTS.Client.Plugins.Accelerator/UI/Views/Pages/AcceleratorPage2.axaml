@@ -26,26 +26,25 @@
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
-            <Button
+            <SplitButton
                 Padding="8,4"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Command="{Binding StartProxyCommand}"
                 DockPanel.Dock="Right"
-                IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
-                Theme="{StaticResource TransparentButton}">
-                <!--<SplitButton.Flyout>
-                    <ui:FAMenuFlyout>
-                        <ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+                IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
+                <SplitButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <!--<ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
                             <ui:MenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate>
                                     <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
-                        </ui:MenuFlyoutSubItem>
-                        <ui:ToggleMenuFlyoutItem Text="启用脚本" />
+                        </ui:MenuFlyoutSubItem>-->
+                        <ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}" Text="启用脚本" />
                     </ui:FAMenuFlyout>
-                </SplitButton.Flyout>-->
+                </SplitButton.Flyout>
                 <Panel>
                     <Viewbox
                         Width="16"
@@ -53,13 +52,34 @@
                         HorizontalAlignment="Left">
                         <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
                     </Viewbox>
-                    <TextBlock
+                    <ContentControl
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <ContentControl.Content>
+                            <MultiBinding Converter="{StaticResource VisibleStringConverter}">
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="ProxyStarting"
+                                    Source="{x:Static s:ProxyService.Current}" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.CommunityFix_Starting"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.CommunityFix_StartProxy"
+                                    Source="{x:Static s:ResourceService.Current}" />
+                            </MultiBinding>
+                        </ContentControl.Content>
+                    </ContentControl>
+                    <!--<TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{x:Static spp:Strings.CommunityFix_StartProxy}" />
+                        Text="{x:Static spp:Strings.CommunityFix_StartProxy}" />-->
                 </Panel>
-            </Button>
+            </SplitButton>
 
             <Button
                 Padding="8,4"
@@ -358,10 +378,52 @@
             VerticalAlignment="Top"
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
-            <TabStripItem Content="平台加速 (免费)" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}" />
+            <TabStripItem Content="平台加速" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
+                <WrapPanel>
+                    <TextBlock Text="平台加速" />
+                    <Border
+                        Margin="5,0,0,0"
+                        Padding="5,1"
+                        VerticalAlignment="Center"
+                        CornerRadius="2">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Offset="0.0" Color="#48C6EF" />
+                                <GradientStop Offset="1.0" Color="#6F86D6" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            Foreground="White"
+                            Text="免费" />
+                    </Border>
+                </WrapPanel>
+            </TabStripItem>
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
-            <TabStripItem Name="GameAccTab" Content="游戏加速" />
+            <TabStripItem Name="GameAccTab">
+                <WrapPanel>
+                    <TextBlock Text="游戏加速" />
+                    <Border
+                        Margin="5,0,0,0"
+                        Padding="5,1"
+                        VerticalAlignment="Center"
+                        CornerRadius="2">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Offset="0.0" Color="#EEAD92" />
+                                <GradientStop Offset="1.0" Color="#6018DC" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            Foreground="White"
+                            Text="收费" />
+                    </Border>
+                </WrapPanel>
+            </TabStripItem>
         </TabStrip>
         <Carousel
             Grid.Row="1"
@@ -414,7 +476,8 @@
                                                                     <Border
                                                                         Padding="5,0"
                                                                         CornerRadius="5"
-                                                                        IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}">
+                                                                        IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
+                                                                        ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
                                                                         <Border.Background>
                                                                             <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                                                                                 <GradientStop Offset="0.0" Color="#43cbff" />
@@ -530,7 +593,7 @@
                                         ItemsJustification="Start"
                                         ItemsStretch="Uniform"
                                         MinColumnSpacing="10"
-                                        MinItemHeight="180"
+                                        MinItemHeight="240"
                                         MinItemWidth="200"
                                         MinRowSpacing="10" />
                                 </ItemsRepeater.Layout>
@@ -585,7 +648,7 @@
                 Padding="5,1"
                 VerticalAlignment="Center"
                 CornerRadius="2"
-                IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!!VipEndTimeString}">
+                IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=VipEndTimeString, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                         <GradientStop Offset="0.0" Color="#453a94" />
@@ -595,6 +658,7 @@
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="12"
+                    Foreground="White"
                     Text="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=VipEndTimeString}" />
             </Border>
             <Button

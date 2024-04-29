@@ -62,7 +62,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                 pageType = page.PageType;
             }
         }
-        INavigationService.Instance.Navigate(pageType ?? typeof(HomePage));
+        INavigationService.Instance.Navigate(pageType ?? typeof(PluginStorePage));
         return true;
     }
 
@@ -216,7 +216,7 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 #endif
                     new MenuTabItemViewModel("Plugin_Store")
                     {
-                        PageType = null,
+                        PageType = typeof(PluginStorePage),
                         IsResourceGet = true,
                         IconKey = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/store.ico",
                     },

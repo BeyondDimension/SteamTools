@@ -12,7 +12,9 @@ public partial class TrayMenuItem
 
     public List<TrayMenuItem>? Items { get; set; }
 
-    public bool IsVisible { get; set; }
+    public object? IsVisible { get; set; }
+
+    public object? IsEnabled { get; set; }
 
     public int Order { get; set; }
 }

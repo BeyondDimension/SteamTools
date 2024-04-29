@@ -107,11 +107,11 @@
                                     </i:Interaction.Behaviors>
                                 </ui:SymbolIcon>
                             </Viewbox>
-                            <TextBlock
+                            <ContentControl
                                 Margin="28,4,0,4"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
-                                <TextBlock.Text>
+                                <ContentControl.Content>
                                     <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                         <CompiledBinding Mode="OneWay" Path="RunState" />
                                         <CompiledBinding
@@ -123,8 +123,8 @@
                                             Path="Res.Launch"
                                             Source="{x:Static s:ResourceService.Current}" />
                                     </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
+                                </ContentControl.Content>
+                            </ContentControl>
                         </Panel>
                         <ProgressBar
                             Width="28"
@@ -245,8 +245,8 @@
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>-->
-                        <TextBlock>
-                            <TextBlock.Text>
+                        <ContentControl>
+                            <ContentControl.Content>
                                 <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                     <CompiledBinding Mode="OneWay" Path="IsLogin" />
                                     <CompiledBinding Mode="OneWay" Path="UserIdleInfo.UserName" />
@@ -255,8 +255,8 @@
                                         Path="Res.Idle_NeedLoginSteam"
                                         Source="{x:Static s:ResourceService.Current}" />
                                 </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                            </ContentControl.Content>
+                        </ContentControl>
                     </spp:OptionsDisplayItem.Header>
                     <spp:OptionsDisplayItem.Description>
                         <Panel>
@@ -294,8 +294,8 @@
                         <Button VerticalAlignment="Center" Command="{Binding LoginSteamCommand}">
                             <WrapPanel>
                                 <ui:SymbolIcon Margin="0,0,5,0" Symbol="AddFriend" />
-                                <TextBlock>
-                                    <TextBlock.Text>
+                                <ContentControl>
+                                    <ContentControl.Content>
                                         <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                             <CompiledBinding Mode="OneWay" Path="IsLogin" />
                                             <CompiledBinding
@@ -307,8 +307,8 @@
                                                 Path="Res.User_Login"
                                                 Source="{x:Static s:ResourceService.Current}" />
                                         </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
+                                    </ContentControl.Content>
+                                </ContentControl>
                             </WrapPanel>
                         </Button>
                     </spp:OptionsDisplayItem.ActionButton>
@@ -385,8 +385,8 @@
                                         <EllipseGeometry Rect="0,0,24,24" />
                                     </spp:Image2.Clip>
                                 </spp:Image2>
-                                <TextBlock VerticalAlignment="Center">
-                                    <TextBlock.Text>
+                                <ContentControl VerticalAlignment="Center">
+                                    <ContentControl.Content>
                                         <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                             <CompiledBinding
                                                 Mode="OneWay"
@@ -401,8 +401,8 @@
                                                 Path="Res.SteamAppType_Unknown"
                                                 Source="{x:Static s:ResourceService.Current}" />
                                         </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
+                                    </ContentControl.Content>
+                                </ContentControl>
                             </StackPanel>
                         </StackPanel>
                     </spp:OptionsDisplayItem.Content>
@@ -414,8 +414,8 @@
                     Expands="True"
                     IsExpanded="True">
                     <spp:OptionsDisplayItem.Header>
-                        <TextBlock>
-                            <TextBlock.Text>
+                        <ContentControl>
+                            <ContentControl.Content>
                                 <MultiBinding Converter="{StaticResource VisibleStringConverter}">
                                     <CompiledBinding Mode="OneWay" Path="RunState" />
                                     <CompiledBinding
@@ -427,8 +427,8 @@
                                         Path="Res.SteamIdle_IdleNotRuning"
                                         Source="{x:Static s:ResourceService.Current}" />
                                 </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                            </ContentControl.Content>
+                        </ContentControl>
                     </spp:OptionsDisplayItem.Header>
                     <spp:OptionsDisplayItem.Description>
                         <Panel>

@@ -290,12 +290,13 @@ partial class Startup // 配置 Host
                                             var proxyService = Ioc.Get_Nullable<IProxyService>();
                                             if (proxyService == null)
                                                 return;
-                                            proxyService.ProxyStatus = value switch
+                                            var status = value switch
                                             {
                                                 OnOffToggle.On => true,
                                                 OnOffToggle.Off => false,
                                                 _ => !proxyService.ProxyStatus,
                                             };
+                                            proxyService.StartOrStopProxyService(status);
                                         });
                                     }
                                     catch (Exception ex)

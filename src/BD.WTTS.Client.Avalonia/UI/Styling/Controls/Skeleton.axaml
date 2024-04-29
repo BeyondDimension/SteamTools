@@ -1,0 +1,111 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    x:CompileBindings="True">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+            <StackPanel>
+                <ToggleSwitch Name="loading" Content="Loading" />
+                <ToggleSwitch Name="active" Content="Active" />
+                <Grid
+                    MinWidth="400"
+                    HorizontalAlignment="Left"
+                    ColumnDefinitions="auto,*">
+                    <spp:Skeleton
+                        Width="100"
+                        Height="100"
+                        VerticalAlignment="Center"
+                        CornerRadius="2"
+                        IsActive="{Binding #active.IsChecked}"
+                        IsLoading="{Binding #loading.IsChecked}">
+                        <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                    </spp:Skeleton>
+                    <UniformGrid
+                        Grid.Column="1"
+                        Margin="5,0"
+                        Columns="1"
+                        Rows="3">
+                        <spp:Skeleton
+                            Margin="0,0,200,0"
+                            VerticalAlignment="Top"
+                            CornerRadius="2"
+                            IsActive="{Binding #active.IsChecked}"
+                            IsLoading="{Binding #loading.IsChecked}">
+                            <SelectableTextBlock Margin="0,2" Text="是先有鸡还是先有蛋" />
+                        </spp:Skeleton>
+                        <spp:Skeleton
+                            Margin="0,0,100,0"
+                            VerticalAlignment="Center"
+                            CornerRadius="2"
+                            IsActive="{Binding #active.IsChecked}"
+                            IsLoading="{Binding #loading.IsChecked}">
+                            <SelectableTextBlock Margin="0,2" Text="什么是工匠精神" />
+                        </spp:Skeleton>
+                        <spp:Skeleton
+                            VerticalAlignment="Bottom"
+                            CornerRadius="2"
+                            IsActive="{Binding #active.IsChecked}"
+                            IsLoading="{Binding #loading.IsChecked}">
+                            <SelectableTextBlock Margin="0,2" Text="看山不是山，看水不是水，看山还是山，看水还是水" />
+                        </spp:Skeleton>
+                    </UniformGrid>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Styles.Resources>
+        <ControlTheme x:Key="{x:Type spp:Skeleton}" TargetType="spp:Skeleton">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <ControlTemplate TargetType="spp:Skeleton">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        ClipToBounds="{TemplateBinding ClipToBounds}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                        <Panel>
+                            <ContentPresenter
+                                x:Name="PART_ContentPresenter"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            <spp:PureRectangle
+                                x:Name="PART_LoadingBorder"
+                                Background="{DynamicResource SkeletonDefaultBackground}"
+                                Classes.Active="{Binding Path=IsActive, RelativeSource={RelativeSource TemplatedParent}}"
+                                IsHitTestVisible="{TemplateBinding IsLoading}"
+                                IsVisible="{TemplateBinding IsLoading}" />
+                            <spp:PureRectangle
+                                x:Name="PART_ActiveBorder"
+                                IsHitTestVisible="{TemplateBinding IsLoading}"
+                                IsVisible="{TemplateBinding IsLoading}" />
+                        </Panel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
+    </Styles.Resources>
+
+    <Style Selector="spp|Skeleton[IsActive=True][IsLoading=True] /template/ spp|PureRectangle#PART_ActiveBorder">
+        <Style.Animations>
+            <Animation
+                Easing="CubicEaseInOut"
+                FillMode="None"
+                IterationCount="Infinite"
+                PlaybackDirection="Alternate"
+                Duration="0:0:1.4">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Background" Value="{DynamicResource SkeletonStartAnimationBackground}" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Background" Value="{DynamicResource SkeletonEndAnimationBackground}" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+</Styles>

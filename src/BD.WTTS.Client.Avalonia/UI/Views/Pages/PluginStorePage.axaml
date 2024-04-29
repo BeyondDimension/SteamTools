@@ -1,0 +1,87 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.PluginStorePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:HomePageViewModel"
+    mc:Ignorable="d">
+    <ScrollViewer Padding="20">
+        <!--<spp:ContentLoader IsLoading="False">-->
+        <StackPanel
+            x:Name="HomeRoot"
+            MaxWidth="1080"
+            Spacing="20">
+            <TextBlock
+                Margin="-3,0,0,0"
+                Text="插件商店是什么？"
+                Theme="{StaticResource TitleTextBlockStyle}" />
+
+            <TextBlock Text="3.0版本的计划是将所有功能插件化，拆分后按需下载安装，每个人都可以只下载自己需要的插件功能使用，并且支持所有人都可以开发插件，等等还有许多暂时不方便说的内容，因为计划的过于异想天开，且遇到的问题有点多，所以开发难度有点点大，这个功能上线还需要一点时间，对一直等待的大家说声抱歉麻烦在多等等了😭。" TextWrapping="WrapWithOverflow" />
+            <TextBlock
+                Margin="-3,0,0,0"
+                Text="已安装功能"
+                Theme="{StaticResource TitleTextBlockStyle}" />
+
+            <ItemsControl ItemsSource="{Binding MainWindow2.TabItems, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}">
+                <ItemsControl.Resources>
+                    <ControlTheme
+                        x:Key="NavButtonStyle"
+                        BasedOn="{StaticResource {x:Type Button}}"
+                        TargetType="Button">
+                        <Setter Property="Width" Value="120" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="6" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+
+                        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                            <Setter Property="ClipToBounds" Value="True" />
+                        </Style>
+                    </ControlTheme>
+                </ItemsControl.Resources>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="spp:TabItemViewModel">
+                        <Border spp:Animations.EnableAnimations="True">
+                            <Button
+                                Command="{Binding $parent[spp:HomePage].((spp:HomePageViewModel)DataContext).NavgationToMenuPageCommand}"
+                                CommandParameter="{Binding}"
+                                Theme="{StaticResource NavButtonStyle}">
+                                <Grid RowDefinitions="3*,*">
+                                    <Border
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        CornerRadius="4 4 0 0"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality">
+                                        <spp:Image2
+                                            Width="96"
+                                            Height="96"
+                                            Margin="0,10,0,0"
+                                            Source="{Binding IconKey}"
+                                            Stretch="Uniform" />
+                                    </Border>
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Margin="12"
+                                        FontWeight="SemiBold"
+                                        Text="{Binding Name}" />
+                                </Grid>
+                            </Button>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

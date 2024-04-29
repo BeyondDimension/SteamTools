@@ -180,7 +180,7 @@ public sealed partial class GameAcceleratorService
                     if (string.IsNullOrWhiteSpace(x?.WattOpenId))
                         return;
 
-                    var vipEndTimeResult = await XunYouSDK.GetVipEndTime(x.WattOpenId);
+                    var vipEndTimeResult = await IMicroServiceClient.Instance.Manage.GetXunYouVipEndTime();
                     if (vipEndTimeResult == null)
                     {
                         Log.Error(nameof(GameAcceleratorService),
@@ -188,25 +188,43 @@ public sealed partial class GameAcceleratorService
                         return;
                     }
 
-                    if (vipEndTimeResult.HandleUI(out var vipEndTimeResultContent,
-                        ToastIcon.Error, "获取会员时间失败"))
+                    if (!vipEndTimeResult.IsSuccess || vipEndTimeResult.Content == null)
                     {
-                        if (vipEndTimeResultContent.Code == XunYouBaseResponseCode.成功)
+                        Toast.Show(ToastIcon.Error, "获取会员时间失败");
+                        return;
+                    }
+
+                    if (vipEndTimeResult.Content.Code == XunYouBaseResponseCode.成功)
+                    {
+                        var etime = vipEndTimeResult.Content.Data?.ExpireTime;
+                        if (etime.HasValue)
                         {
-                            var etime = vipEndTimeResultContent.Data?.SVIP?.ETime;
-                            if (etime.HasValue)
-                            {
-                                VipEndTime = etime.Value.ToDateTime();
-                                VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value.Year:D4}-{VipEndTime.Value.Month:D2}-{VipEndTime.Value.Date:D2}";
-                            }
+                            VipEndTime = etime.Value.ToDateTime(UnixTimestampType.Seconds);
+                            //var acc_order = (await IMicroServiceClient.Instance.Ordering.GetUserOrderCount([OrderStatus.Paid, OrderStatus.Completed], OrderBusinessType.XunYouOrder)).Content;
+                            //if (acc_order <= 0)
+                            //{
+                            //    if (VipEndTime.Value.AddDays(365).Date == DateTimeOffset.Now.Date)
+                            //        VipEndTimeString = "试用时长到期";
+                            //    else
+                            //        VipEndTimeString = "新用户试用2天";
+                            //}
+                            //else
+                            //{
+                            //    VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
+                            //}
+
+                            if (VipEndTime.Value.AddDays(365).Date == DateTimeOffset.Now.Date)
+                                VipEndTimeString = "新用户试用2天";
+                            else
+                                VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
                         }
-                        else
-                        {
-                            Log.Error(nameof(GameAcceleratorService),
-                                "XunYouSDK.GetVipEndTime is fail, message: {message}, code: {code}.",
-                                vipEndTimeResultContent.Message,
-                                vipEndTimeResultContent.Code);
-                        }
+                    }
+                    else
+                    {
+                        Log.Error(nameof(GameAcceleratorService),
+                            "XunYouSDK.GetVipEndTime is fail, message: {message}, code: {code}.",
+                            vipEndTimeResult.Content.Message,
+                            vipEndTimeResult.Content.Code);
                     }
                 });
 
@@ -238,6 +256,10 @@ public sealed partial class GameAcceleratorService
             CurrentAcceleratorGame.IsAccelerated = true;
             CurrentAcceleratorGame.LastAccelerateTime = DateTimeOffset.Now;
 
+            if (CurrentAcceleratorGame.PicInfo == null)
+            {
+                CurrentAcceleratorGame.PicInfo = XunYouSDK.GetPicInfo(CurrentAcceleratorGame.Id);
+            }
             if (CurrentAcceleratorGame.SelectedArea?.Id != areaId)
             {
                 var gameInfo = XunYouSDK.GetGameInfo(game.Id);
@@ -260,6 +282,7 @@ public sealed partial class GameAcceleratorService
             var gameInfo = XunYouSDK.GetGameInfo(game.Id);
             cApp.SelectedArea = gameInfo?.Areas?.FirstOrDefault(s => s.Id == areaId);
             cApp.SelectedServer = cApp.SelectedArea?.Servers?.FirstOrDefault(s => s.Id == serverId);
+            cApp.PicInfo = XunYouSDK.GetPicInfo(game.Id);
 
             CurrentAcceleratorGame = cApp;
         }
@@ -458,6 +481,8 @@ public sealed partial class GameAcceleratorService
         GameAcceleratorSettings.MyGames.Remove(app.Id);
         if (GameAcceleratorSettings.MyGames.TryAdd(app.Id, app))
         {
+            if (app.PicInfo == null)
+                app.PicInfo = XunYouSDK.GetPicInfo(app.Id);
             Current.Games.AddOrUpdate(app);
             Toast.Show(ToastIcon.Success, "已添加到游戏列表");
         }
@@ -479,6 +504,11 @@ public sealed partial class GameAcceleratorService
                 if (GameAcceleratorSettings.MyGames.Any_Nullable())
                 {
                     Games.Clear();
+                    foreach (var item in GameAcceleratorSettings.MyGames.Value!.Values)
+                    {
+                        if (item.PicInfo == null)
+                            item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
+                    }
                     Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
                 }
                 else
@@ -488,6 +518,11 @@ public sealed partial class GameAcceleratorService
                     {
                         Games.Clear();
                         GameAcceleratorSettings.MyGames.AddRange(games.Select(s => new KeyValuePair<int, XunYouGameViewModel>(s.Id, new XunYouGameViewModel(s))));
+                        foreach (var item in GameAcceleratorSettings.MyGames.Value!.Values)
+                        {
+                            if (item.PicInfo == null)
+                                item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
+                        }
                         Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
                     }
                 }

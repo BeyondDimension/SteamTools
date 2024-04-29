@@ -21,4 +21,16 @@
             </OnPlatform>
         </RenderOptions.BitmapInterpolationMode>-->
     </ImageBrush>
+
+    <LinearGradientBrush x:Key="SkeletonStartAnimationBackground" StartPoint="0%,100%" EndPoint="100%,100%">
+        <GradientStop Offset="0" Color="#FFF9F9F9" />
+        <GradientStop Offset="0" Color="#FFE6E8EA" />
+        <GradientStop Offset="1" Color="#FFF9F9F9" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SkeletonEndAnimationBackground" StartPoint="0%,100%" EndPoint="100%,100%">
+        <GradientStop Offset="0" Color="#FFF9F9F9" />
+        <GradientStop Offset="1" Color="#FFE6E8EA" />
+        <GradientStop Offset="1" Color="#FFF9F9F9" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SkeletonDefaultBackground" Color="#FFF9F9F9" />
 </ResourceDictionary>

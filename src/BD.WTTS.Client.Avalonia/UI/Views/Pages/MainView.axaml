@@ -230,6 +230,7 @@
                                                             <TextBlock
                                                                 VerticalAlignment="Center"
                                                                 FontSize="10"
+                                                                Foreground="White"
                                                                 Text="{Binding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}❤️{0}}" />
                                                         </Border>
 

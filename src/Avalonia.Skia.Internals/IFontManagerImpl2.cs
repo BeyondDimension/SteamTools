@@ -38,9 +38,9 @@ public interface IFontManagerImpl2 : IFontManagerImpl
         return Impl.TryCreateGlyphTypeface(familyName, style, weight, stretch, out glyphTypeface);
     }
 
-    bool IFontManagerImpl.TryCreateGlyphTypeface(Stream stream, [NotNullWhen(returnValue: true)] out IGlyphTypeface? glyphTypeface)
+    bool IFontManagerImpl.TryCreateGlyphTypeface(Stream stream, FontSimulations fontSimulations, [NotNullWhen(returnValue: true)] out IGlyphTypeface? glyphTypeface)
     {
-        return Impl.TryCreateGlyphTypeface(stream, out glyphTypeface);
+        return Impl.TryCreateGlyphTypeface(stream, fontSimulations, out glyphTypeface);
     }
 
     //IGlyphTypeface IFontManagerImpl.CreateGlyphTypeface(Typeface typeface)

@@ -172,6 +172,9 @@ bundle /v /bv {version4} /d "{dirPath}" /p "{msixPath}"
         {
             // https://learn.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-manual-conversion
 
+            // 处理 URI 激活
+            // https://learn.microsoft.com/zh-cn/windows/uwp/launch-resume/handle-uri-activation
+
             var xmlString =
 $"""
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
@@ -212,6 +215,12 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
         <desktop:Extension Category="windows.startupTask" Executable="Steam++.exe" EntryPoint="Windows.FullTrustApplication">
           <desktop:StartupTask TaskId="BootAutoStartTask" Enabled="true" DisplayName="Steam++ System Boot Run"/>
         </desktop:Extension>
+        <uap:Extension Category="windows.protocol">
+            <uap:Protocol Name="spp">
+                <uap:Logo>Images\Square44x44Logo.png</uap:Logo>
+                <uap:DisplayName>Steam++ URI Scheme</uap:DisplayName>
+            </uap:Protocol>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>

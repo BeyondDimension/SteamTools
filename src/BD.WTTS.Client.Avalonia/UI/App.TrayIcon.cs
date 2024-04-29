@@ -125,12 +125,20 @@ partial class App
                         {
                             subMenu = new NativeMenu();
                             foreach (var sub in item.Value.Items)
-                                subMenu.Add(new NativeMenuItem
+                            {
+                                var menu = new NativeMenuItem
                                 {
                                     Header = sub.Name,
                                     Command = sub.Command,
                                     CommandParameter = sub.CommandParameter,
-                                });
+                                };
+
+                                if (sub.IsVisible is Avalonia.Data.IBinding v)
+                                    menu[!NativeMenuItem.IsVisibleProperty] = v;
+                                if (sub.IsEnabled is Avalonia.Data.IBinding e)
+                                    menu[!NativeMenuItem.IsEnabledProperty] = e;
+                                subMenu.Add(menu);
+                            }
                             menus.Add(new NativeMenuItem
                             {
                                 Header = item.Value.Name,

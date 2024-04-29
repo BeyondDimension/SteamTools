@@ -1,4 +1,6 @@
 // ReSharper disable once CheckNamespace
+using Avalonia.Data;
+
 namespace BD.WTTS.Services;
 
 public sealed partial class ProxyService
@@ -27,35 +29,35 @@ public sealed partial class ProxyService
             .Bind(out _ProxyDomainsList)
             .Subscribe(_ => SelectGroup = ProxyDomains.Items.FirstOrDefault());
 
-        this.WhenValueChanged(x => x.ProxyStatus, false)
-            .ObserveOn(RxApp.MainThreadScheduler)
-            .Subscribe(async proxyStatusLeft =>
-            {
-                bool proxyStatusRight;
-                if (proxyStatusLeft)
-                {
-                    var reuslt = await StartProxyServiceAsync();
-                    proxyStatusRight = reuslt.OnStartedShowToastReturnProxyStatus();
-                }
-                else
-                {
-                    var reuslt = await StopProxyServiceAsync();
-                    proxyStatusRight = reuslt.OnStopedShowToastReturnProxyStatus();
-                }
-                if (proxyStatusLeft != proxyStatusRight)
-                {
-                    ProxyStatus = proxyStatusRight;
+        //this.WhenValueChanged(x => x.ProxyStatus, false)
+        //    .ObserveOn(RxApp.MainThreadScheduler)
+        //    .Subscribe(async proxyStatusLeft =>
+        //    {
+        //        bool proxyStatusRight;
+        //        if (proxyStatusLeft)
+        //        {
+        //            var reuslt = await StartProxyServiceAsync();
+        //            proxyStatusRight = reuslt.OnStartedShowToastReturnProxyStatus();
+        //        }
+        //        else
+        //        {
+        //            var reuslt = await StopProxyServiceAsync();
+        //            proxyStatusRight = reuslt.OnStopedShowToastReturnProxyStatus();
+        //        }
+        //        if (proxyStatusLeft != proxyStatusRight)
+        //        {
+        //            ProxyStatus = proxyStatusRight;
 
-                    //UpdateProxyTrayMenuItems();
-                    //if (Steamworks.SteamClient.IsValid)
-                    //{
-                    //    if (ProxyStatus)
-                    //        Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_Accelerator");
-                    //    else
-                    //        Steamworks.SteamFriends.ClearRichPresence();
-                    //}
-                }
-            });
+        //            //UpdateProxyTrayMenuItems();
+        //            //if (Steamworks.SteamClient.IsValid)
+        //            //{
+        //            //    if (ProxyStatus)
+        //            //        Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_Accelerator");
+        //            //    else
+        //            //        Steamworks.SteamFriends.ClearRichPresence();
+        //            //}
+        //        }
+        //    });
 
         this.WhenAnyValue(v => v.ProxyDomainsList)
               .ObserveOn(RxApp.MainThreadScheduler)
@@ -108,6 +110,47 @@ public sealed partial class ProxyService
     }
 
     public SourceList<ScriptDTO> ProxyScripts { get; }
+
+    public async Task StartOrStopProxyService(bool startOrStop)
+    {
+        if (startOrStop == ProxyStatus)
+        {
+            return;
+        }
+        if (!ProxyStarting)
+        {
+            ProxyStarting = true;
+
+            bool proxyStatusRight;
+            if (startOrStop)
+            {
+                var reuslt = await StartProxyServiceAsync();
+                proxyStatusRight = reuslt.OnStartedShowToastReturnProxyStatus();
+            }
+            else
+            {
+                var reuslt = await StopProxyServiceAsync();
+                proxyStatusRight = reuslt.OnStopedShowToastReturnProxyStatus();
+            }
+
+            if (startOrStop != proxyStatusRight)
+            {
+                startOrStop = proxyStatusRight;
+            }
+
+            //UpdateProxyTrayMenuItems();
+            //if (Steamworks.SteamClient.IsValid)
+            //{
+            //    if (startOrStop)
+            //        Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_Accelerator");
+            //    else
+            //        Steamworks.SteamFriends.ClearRichPresence();
+            //}
+
+            ProxyStarting = false;
+            ProxyStatus = startOrStop;
+        }
+    }
 
     public IEnumerable<AccelerateProjectDTO>? GetEnableProxyDomains()
     {
@@ -206,13 +249,14 @@ public sealed partial class ProxyService
 
     #region 代理状态启动退出
 
-    private bool _ProxyStatus;
+    /// <summary>
+    /// 代理启动中
+    /// </summary>
+    [Reactive]
+    public bool ProxyStarting { get; set; }
 
-    public bool ProxyStatus
-    {
-        get { return _ProxyStatus; }
-        set => this.RaiseAndSetIfChanged(ref _ProxyStatus, value);
-    }
+    [Reactive]
+    public bool ProxyStatus { get; set; }
 
     #endregion 代理状态启动退出
 
@@ -273,7 +317,8 @@ public sealed partial class ProxyService
                 }
                 else
                 {
-                    ProxyStatus = true;
+                    //ProxyStatus = true;
+                    await StartOrStopProxyService(true);
                 }
             }
         }
@@ -298,10 +343,30 @@ public sealed partial class ProxyService
                 {
                     new TrayMenuItem
                     {
-                        Name = "启动/停止",
-                        Command = ReactiveCommand.Create(() =>
+                        Name = "启动",
+                        //IsEnabled = new Binding()
+                        //{
+                        //    Source = ProxyService.Current,
+                        //    Mode = BindingMode.OneWay,
+                        //    Path = "!" + nameof(ProxyStatus),
+                        //},
+                        Command = ReactiveCommand.CreateFromTask(async () =>
                         {
-                            ProxyStatus = !ProxyStatus;
+                            await StartOrStopProxyService(true);
+                        }),
+                    },
+                    new TrayMenuItem
+                    {
+                        Name = "停止",
+                        //IsEnabled = new Binding()
+                        //{
+                        //    Source = ProxyService.Current,
+                        //    Mode = BindingMode.OneWay,
+                        //    Path = nameof(ProxyStatus),
+                        //},
+                        Command = ReactiveCommand.CreateFromTask(async () =>
+                        {
+                            await StartOrStopProxyService(false);
                         }),
                     },
                 },

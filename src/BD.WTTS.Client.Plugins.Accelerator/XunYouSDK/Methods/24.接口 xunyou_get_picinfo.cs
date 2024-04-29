@@ -33,7 +33,7 @@ partial class XunYouSDK // 24.接口 xunyou_get_picinfo
         }
         catch (Exception ex)
         {
-            Log.Error(nameof(XunYouSDK), "GetPicInfo fail.", ex);
+            Log.Error(nameof(XunYouSDK), ex, "GetPicInfo fail.");
         }
 
         return null;

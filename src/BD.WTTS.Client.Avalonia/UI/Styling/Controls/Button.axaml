@@ -7,7 +7,7 @@
         <Border Padding="20">
             <!--  Add Controls for Previewer Here  -->
             <StackPanel Spacing="10">
-                <ui:HyperlinkButton Content="更新日志" />
+                <HyperlinkButton Content="更新日志" />
                 <Button Content="更新日志" Theme="{StaticResource HyperlinkButton}" />
                 <Button
                     Content="更新日志"
@@ -220,4 +220,7 @@
     <Style Selector="Button.Plain:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
+
+
+
 </Styles>

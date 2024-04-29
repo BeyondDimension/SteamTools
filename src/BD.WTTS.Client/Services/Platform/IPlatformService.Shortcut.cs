@@ -1,7 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-partial interface IPlatformService
+partial interface IPCPlatformService
 {
     void CreateShortcut(string pathLink,
         string targetPath,

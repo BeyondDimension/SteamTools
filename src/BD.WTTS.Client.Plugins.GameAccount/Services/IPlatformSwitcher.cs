@@ -42,7 +42,7 @@ public interface IPlatformSwitcher
         commandKey.SetValue("", "\"" + targetPath + "\" \"%1\"");
     }
 
-    public Task<bool> CreateLoginShortcut(
+    public async Task<bool> CreateLoginShortcut(
         string pathLink,
         string targetPath,
         string? arguments,
@@ -53,10 +53,12 @@ public interface IPlatformSwitcher
         CancellationToken cancellationToken = default)
     {
 #if WINDOWS
-        IPlatformService.Instance.CreateShortcut(pathLink, targetPath, arguments, description, hotkey, iconLocation, workingDirectory);
-        return Task.FromResult(true);
+        var s = await IPlatformService.IPCRoot.Instance;
+        s.CreateShortcut(pathLink, targetPath, arguments, description, hotkey, iconLocation, workingDirectory);
+        return true;
 #else
-        return Task.FromResult(false);
+        await Task.CompletedTask;
+        return false;
 #endif
     }
 }

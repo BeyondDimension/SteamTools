@@ -130,6 +130,9 @@
 	  <Compile Update="UI\Views\Controls\Widgets\CarouselItems.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
+	  <Compile Update="UI\Views\Pages\PluginStorePage.axaml.cs">
+	    <DependentUpon>PluginStorePage.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
