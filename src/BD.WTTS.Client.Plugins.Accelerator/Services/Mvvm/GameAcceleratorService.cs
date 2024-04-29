@@ -52,8 +52,10 @@ public sealed partial class GameAcceleratorService
     [Reactive]
     public DateTime? VipEndTime { get; set; }
 
+    const string VipEndTimeStringDef = "新用户免费试用 2 天";
+
     [Reactive]
-    public string? VipEndTimeString { get; set; }
+    public string? VipEndTimeString { get; set; } = VipEndTimeStringDef;
 
     GameAcceleratorService()
     {
@@ -178,7 +180,10 @@ public sealed partial class GameAcceleratorService
                 .Subscribe(async x =>
                 {
                     if (string.IsNullOrWhiteSpace(x?.WattOpenId))
+                    {
+                        VipEndTimeString = VipEndTimeStringDef;
                         return;
+                    }
 
                     var vipEndTimeResult = await IMicroServiceClient.Instance.Manage.GetXunYouVipEndTime();
                     if (vipEndTimeResult == null)
@@ -200,8 +205,7 @@ public sealed partial class GameAcceleratorService
                         if (etime.HasValue)
                         {
                             VipEndTime = etime.Value.ToDateTime(UnixTimestampType.Seconds);
-
-                            if (VipEndTime.Value.Date >= DateTime.Today)
+                            if (VipEndTime.Value > DateTime.Now)
                             {
                                 VipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
                             }
