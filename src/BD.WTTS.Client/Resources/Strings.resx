@@ -2946,6 +2946,12 @@
 	<data name="Idle_PIN_NotBeNull" xml:space="preserve">
     <value>PIN CODE 不能为空</value>
   </data>
+  <data name="LocalAuth_VerifyCode" xml:space="preserve">
+    <value>验证码</value>
+  </data>
+  <data name="Steam_ConfirmEmailLink" xml:space="preserve">
+    <value>确认邮箱链接</value>
+  </data>
 	<data name="CommunityFix_Starting" xml:space="preserve">
     <value>正在启动加速...</value>
   </data>

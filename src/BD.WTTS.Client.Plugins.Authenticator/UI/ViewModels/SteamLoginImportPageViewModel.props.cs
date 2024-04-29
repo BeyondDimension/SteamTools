@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class SteamLoginImportPageViewModel
@@ -67,4 +61,10 @@ public sealed partial class SteamLoginImportPageViewModel
 
     [Reactive]
     public string? PhoneNumberText { get; set; }
+
+    /// <summary>
+    /// 是否已验证账号的手机号
+    /// </summary>
+    [Reactive]
+    public bool IsVerifyAccountPhone { get; set; }
 }

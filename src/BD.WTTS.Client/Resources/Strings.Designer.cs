@@ -4485,6 +4485,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 验证码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_VerifyCode {
+            get {
+                return ResourceManager.GetString("LocalAuth_VerifyCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 使用 Steam++ V1 版本工具箱导出的文件导入令牌 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WattToolKitV1Import {
@@ -6699,6 +6708,15 @@ namespace BD.WTTS.Client.Resources {
         public static string Steam_CheckStarted {
             get {
                 return ResourceManager.GetString("Steam_CheckStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确认邮箱链接 的本地化字符串。
+        /// </summary>
+        public static string Steam_ConfirmEmailLink {
+            get {
+                return ResourceManager.GetString("Steam_ConfirmEmailLink", resourceCulture);
             }
         }
         

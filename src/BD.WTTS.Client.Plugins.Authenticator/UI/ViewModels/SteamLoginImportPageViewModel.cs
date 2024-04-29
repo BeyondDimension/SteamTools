@@ -1,16 +1,22 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
-
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
+using BD.WTTS.UI.Views.Controls;
 using WinAuth;
+using AppResources = BD.WTTS.Client.Resources.Strings;
+
 #if !ANDROID
-using ToastLength = BD.Common.Enums.ToastLength;
+
 #endif
 
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
 {
+    const int TAB_INDEX_LOGIN = 0;
+    const int TAB_INDEX_LOGINCONFIRM = 1;
+    const int TAB_INDEX_VERIFYCODE = 2;
+    const int TAB_INDEX_DONE = 3;
+
     public static string Name => AppResources.Auth_SteamLoginImport;
 
     readonly ISteamAccountService _steamAccountService = Ioc.Get<ISteamAccountService>();
@@ -94,7 +100,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
     {
         if (string.IsNullOrEmpty(PhoneCodeText))
         {
-            Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterTelCode);
+            Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterCode);
             return false;
         }
         else
@@ -115,7 +121,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
             Created = DateTimeOffset.Now,
         };
         await AuthenticatorHelper.SaveAuthenticator(iADTO);
-        SelectIndex = 4;
+        SelectIndex = TAB_INDEX_DONE;
     }
 
     /// <summary>
@@ -136,15 +142,23 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
         if (_enrollState.NoPhoneNumber == true)
         {
             _enrollState.Error = null;
-            SelectIndex = 2;
+            //SelectIndex = 2;
+            // 正常情况下不会走到这里，因为已经不需要绑定手机的步骤了
+            return;
         }
 
-        //导入最后一步，需要账号绑定的手机验证码确认
+        // 导入最后一步，需要账号绑定的手机验证码确认
+        // 2024-04-23 Steam绑定令牌不强制手机绑定 可以输入 邮箱者手机验证码
         if (_enrollState.RequiresActivation == true)
         {
+            // 查询账号手机号绑定状态
+            // IsVerifyAccountPhone = await _steamAccountService.CheckAccountPhoneStatus(_enrollState.AccessToken!) ?? false;
+
+            await CheckAccountPhoneStatus();
+
             _enrollState.Error = null;
             RevocationCodeText = _enrollState.RevocationCode;
-            SelectIndex = 3;
+            SelectIndex = TAB_INDEX_VERIFYCODE;
         }
     }
 
@@ -161,7 +175,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
             //Toast.Show(ToastIcon.Error, Strings.LocalAuth_SteamUser_Requires2FA);
             //Reset();
             Requires2FA = _steamLoginState.Requires2FA;
-            SelectIndex = 1;
+            SelectIndex = TAB_INDEX_LOGINCONFIRM;
             return false;
         }
         //需要邮箱验证码
@@ -170,7 +184,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
             EmailDomainText = string.IsNullOrEmpty(_steamLoginState.EmailDomain) == false
                 ? $"******@{_steamLoginState.EmailDomain}"
                 : string.Empty;
-            SelectIndex = 1;
+            SelectIndex = TAB_INDEX_LOGINCONFIRM;
             return false;
         }
         else if (!string.IsNullOrEmpty(_steamLoginState.Message))
@@ -189,6 +203,12 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
         return !string.IsNullOrEmpty(_steamLoginState.AccessToken);
     }
 
+    async ValueTask CheckAccountPhoneStatus()
+    {
+        // 查询账号手机号绑定状态
+        IsVerifyAccountPhone = await _steamAccountService.CheckAccountPhoneStatus(_enrollState.AccessToken!) ?? false;
+    }
+
     public async Task LoginSteamImport()
     {
         if (IsLoading)
@@ -200,7 +220,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
 
         try
         {
-            if (SelectIndex == 0)
+            if (SelectIndex == TAB_INDEX_LOGIN)
             {
                 await LoginSteamFirstAsync();
             }
@@ -224,16 +244,56 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
                 //已有令牌情况下执行替换令牌逻辑
                 if (_enrollState.ReplaceAuth)
                 {
-                    if (SelectIndex == 1 && await steamAuthenticator.RemoveAuthenticatorViaChallengeStartSync(_enrollState.AccessToken!))
+                    if (SelectIndex == TAB_INDEX_LOGINCONFIRM && await steamAuthenticator.RemoveAuthenticatorViaChallengeStartSync(_enrollState.AccessToken!))
                     {
-                        SelectIndex = 3;
+                        await CheckAccountPhoneStatus();
+
+                        SelectIndex = TAB_INDEX_VERIFYCODE;
+
+                        if (!IsVerifyAccountPhone)
+                        {
+                            Toast.Show(ToastIcon.Warning, "只绑定邮箱的情况下无法直接替换令牌");
+
+                            // 弹出绑定手机号流程
+                            var added = await IWindowManager.Instance.ShowTaskDialogAsync(
+                                    viewModel: new AddSteamAccountPhoneNumberPageViewModel(_enrollState, steamAuthenticator),
+                                    pageContent: new AddSteamAccountPhoneNumberPage(),
+                                    isCancelButton: false,
+                                    isOkButton: false,
+                                    isRetryButton: false
+                                    );
+
+                            // 查询账号手机号绑定状态
+                            await CheckAccountPhoneStatus();
+
+                            // 如果通过弹出的绑定手机号绑定成功 开始执行替换令牌
+                            if (added && IsVerifyAccountPhone)
+                            {
+                                /*
+                                 * 绑定手机号会发送验证码
+                                 * 执行开始替换令牌操作也会发送验证码
+                                 * 如果两个操作间隔太短会导致 Steam 不发送验证码
+                                 */
+
+                                await Task.Delay(TimeSpan.FromSeconds(30));
+
+                                await steamAuthenticator.RemoveAuthenticatorViaChallengeStartSync(_enrollState.AccessToken!);
+                            }
+                            // 取消了绑定手机号流程 无法执行替换令牌操作
+                            else
+                            {
+                                SelectIndex = TAB_INDEX_LOGIN;
+                            }
+
+                            return;
+                        }
                         return;
                     }
-                    else if (SelectIndex == 3)
+                    else if (SelectIndex == TAB_INDEX_VERIFYCODE)
                     {
                         if (string.IsNullOrEmpty(PhoneCodeText))
                         {
-                            Toast.Show(ToastIcon.Error, Strings.Error_PleaseEnterTelCode);
+                            Toast.Show(ToastIcon.Error, Strings.Error_PleaseEnterCode);
                             return;
                         }
 

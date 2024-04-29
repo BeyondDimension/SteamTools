@@ -14,7 +14,7 @@ public partial class SteamLoginImportPage : ReactiveUserControl<SteamLoginImport
         DataContext ??= new SteamLoginImportPageViewModel();
         PasswordText.KeyUp += PasswordTextOnKeyUp;
         EmailAuthText.KeyUp += PasswordTextOnKeyUp;
-        PhoneNumberText.KeyUp += PasswordTextOnKeyUp;
+        //PhoneNumberText.KeyUp += PasswordTextOnKeyUp;
         PhoneCodeText.KeyUp += PasswordTextOnKeyUp;
         EmailAuthText.TextInput += EmailAuthText_TextInput;
         PhoneCodeText.TextInput += EmailAuthText_TextInput;
