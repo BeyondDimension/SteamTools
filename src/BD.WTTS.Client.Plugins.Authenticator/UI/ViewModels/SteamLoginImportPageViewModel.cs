@@ -300,6 +300,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
                         if (await steamAuthenticator.RemoveAuthenticatorViaChallengeContinueSync(PhoneCodeText, _enrollState.AccessToken!))
                         {
                             await SaveAuthenticatorAsync();
+                            RevocationCodeText = steamAuthenticator.RecoveryCode;
                             return;
                         }
                     }
