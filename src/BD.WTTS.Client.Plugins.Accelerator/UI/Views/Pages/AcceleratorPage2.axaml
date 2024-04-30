@@ -752,15 +752,11 @@
                 </ToolTip.Tip>
                 <ui:FontIcon FontSize="22" Glyph="&#xE82F;" />
             </Button>
-            <TextBlock>
-                <Run Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" />
-                <Run Text="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
+            <TextBlock Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" />
+            <TextBlock Text="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
 
-                <Run Text="  " />
-
-                <Run Text="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
-                <Run Text="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
-            </TextBlock>
+            <TextBlock Text="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
+            <TextBlock Text="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
         </StackPanel>
 
         <spp:AdControl
