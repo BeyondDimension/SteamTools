@@ -95,11 +95,11 @@ public sealed class AdvertiseService : ReactiveObject
         }
     }
 
-    private static async void ClickAdvertisement(AdvertisementDTO dto)
+    static void ClickAdvertisement(AdvertisementDTO? dto)
     {
         if (dto != null)
         {
-            await Browser2.OpenAsync(dto.Url);
+            IApplication.Instance.OpenBrowserCommandCore(dto.Url);
         }
     }
 

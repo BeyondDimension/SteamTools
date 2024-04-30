@@ -233,7 +233,7 @@ public sealed partial class App : Application
 
     public ICommand OpenBrowserCommand { get; }
 
-    async void OpenBrowserCommandCore(object? url)
+    public async void OpenBrowserCommandCore(object? url)
     {
         try
         {

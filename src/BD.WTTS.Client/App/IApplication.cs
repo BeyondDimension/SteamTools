@@ -152,4 +152,6 @@ public partial interface IApplication
     System.Drawing.Size? GetScreenSize() => null;
 
     bool? IsAnyWindowNotMinimized() => null;
+
+    async void OpenBrowserCommandCore(object? url) => await Browser2.OpenAsync(url?.ToString());
 }
