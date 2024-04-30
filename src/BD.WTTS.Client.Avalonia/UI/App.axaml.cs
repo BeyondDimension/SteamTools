@@ -11,6 +11,11 @@ public sealed partial class App : Application
 {
     const string TAG = "AvaApp";
 
+    public App()
+    {
+        OpenBrowserCommand = ReactiveCommand.Create<object?>(OpenBrowserCommandCore);
+    }
+
     /// <summary>
     /// 获取当前主窗口
     /// </summary>
@@ -225,7 +230,9 @@ public sealed partial class App : Application
 
     public static FontFamily DefaultFontFamily => _DefaultFontFamily.Value;
 
-    public async void OpenBrowserCommand(object? url)
+    public ICommand OpenBrowserCommand { get; }
+
+    async void OpenBrowserCommandCore(object? url)
     {
         try
         {

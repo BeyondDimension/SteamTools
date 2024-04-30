@@ -696,7 +696,7 @@ Windows Registry Editor Version 5.00
 
         var idsFile = Path.Combine(localCachePath, "ids.json");
 
-        var accountRemarks = Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
+        var accountRemarks = Ioc.Get_Nullable<IPartialGameAccountSettings>()?.AccountRemarks;
         var accList = File.Exists(idsFile) ? JTokenHelper.ReadDict(idsFile).ToList() : null;
 
         if (accList.Any_Nullable())

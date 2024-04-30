@@ -318,7 +318,7 @@ partial class Startup // 自定义控制台命令参数
             var users = steamService.GetRememberUserList();
 
             var accountRemarks =
-                Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
+                Ioc.Get_Nullable<IPartialGameAccountSettings>()?.AccountRemarks;
 
             var sUsers = users.Select(s =>
             {

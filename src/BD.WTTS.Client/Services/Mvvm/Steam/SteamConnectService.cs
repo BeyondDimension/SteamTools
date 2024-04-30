@@ -524,7 +524,7 @@ public sealed class SteamConnectService
 
         #region 加载备注信息和 JumpList
 
-        var accountRemarks = Ioc.Get<IPartialGameAccountSettings>()?.AccountRemarks;
+        var accountRemarks = Ioc.Get_Nullable<IPartialGameAccountSettings>()?.AccountRemarks;
 
 #if WINDOWS
         List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = new();
