@@ -224,6 +224,12 @@ public sealed class UserService : ReactiveObject
     /// <returns></returns>
     public async Task OpenAuthUrl(string url)
     {
+        if (url.StartsWith(Constants.Urls.WattGame, StringComparison.OrdinalIgnoreCase))
+        {
+            OpenAuthUrl(url, FastLoginWebChannel.WattGame);
+            return;
+        }
+
         var token = await userManager.GetAuthTokenAsync();
         if (token == null)
         {

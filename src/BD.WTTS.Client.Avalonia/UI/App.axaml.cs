@@ -14,6 +14,7 @@ public sealed partial class App : Application
     public App()
     {
         OpenBrowserCommand = ReactiveCommand.Create<object?>(OpenBrowserCommandCore);
+        CopyToClipboardCommand = ReactiveCommand.Create<object?>(CopyToClipboardCommandCore);
     }
 
     /// <summary>
@@ -263,7 +264,9 @@ public sealed partial class App : Application
         }
     }
 
-    public async void CopyToClipboardCommand(object text)
+    public ICommand CopyToClipboardCommand { get; }
+
+    async void CopyToClipboardCommandCore(object? text)
     {
         try
         {
