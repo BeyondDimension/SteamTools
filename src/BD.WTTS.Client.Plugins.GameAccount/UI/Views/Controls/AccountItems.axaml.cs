@@ -58,7 +58,7 @@ public partial class AccountItems : ReactiveUserControl<PlatformAccount>
                 3 => idConvert.Id32,
                 _ => idConvert.Id64,
             };
-            App.Instance.CopyToClipboardCommand(id);
+            App.Instance.CopyToClipboardCommandCore(id);
         }
     }
 

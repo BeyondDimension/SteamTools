@@ -266,7 +266,7 @@ public sealed partial class App : Application
 
     public ICommand CopyToClipboardCommand { get; }
 
-    async void CopyToClipboardCommandCore(object? text)
+    public async void CopyToClipboardCommandCore(object? text)
     {
         try
         {
