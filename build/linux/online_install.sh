@@ -213,7 +213,9 @@ Get_NewVer() {
 
     sleep 1
     #本地版本 Hash
-    o_sha384=$(cat "AppVer")
+    if [ -f "AppVer" ]; then
+        o_sha384=$(cat "AppVer")
+    fi
     if [ -e "AppVer" ]; then
         if [ "${o_sha384,,}" = "${n_sha384,,}" ]; then
             Show_Run "已是最新版本，是否启动程序？"
