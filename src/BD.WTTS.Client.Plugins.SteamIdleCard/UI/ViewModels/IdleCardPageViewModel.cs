@@ -113,7 +113,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             {
                 if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
                 {
-                    Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+                    Toast.Show(ToastIcon.Warning, Strings.SteamIdle_LoginSteamUserError);
                     //RunState = false;
                     //RunLoaingState = false;
                     //return;
@@ -228,10 +228,9 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             LoginViewModel.Close += async _ =>
             {
                 IsLogin = SteamLoginState.Success;
+                ViewState = 1;
                 await LoadBadges();
                 SteamAppsSort();
-
-                ViewState = 1;
             };
             ViewState = 0;
             //var vm = new IdleSteamLoginPageViewModel(ref SteamLoginState);
