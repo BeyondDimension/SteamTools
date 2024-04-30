@@ -529,7 +529,10 @@
                                     IsVisible="{Binding !IdleGameList.Count}"
                                     Text="未获取到挂卡游戏数据" />
                             </StackPanel>
-                            <ItemsRepeater DockPanel.Dock="Bottom" ItemsSource="{Binding IdleGameList}">
+                            <ItemsRepeater
+                                DockPanel.Dock="Bottom"
+                                ItemsSource="{Binding IdleGameList}"
+                                VerticalCacheLength="50">
                                 <ItemsRepeater.Layout>
                                     <UniformGridLayout
                                         ItemsJustification="Start"
