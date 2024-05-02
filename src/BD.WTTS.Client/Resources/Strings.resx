@@ -639,7 +639,7 @@
     <value>令牌仅在这台电脑上可解密</value>
   </data>
 	<data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>使用系统内置的账户加密来保护和加密你的数据。这将把你的令牌锁定在这台计算机上，即使令牌文件被复制，也无法解密出令牌数据。单如果你要格式化你的硬盘、重新安装系统或删除这个系统用户账户，你必须先关掉此功能，否则你的令牌会再也无法解密！！</value>
+    <value>使用系统内置的账户加密来保护和加密你的数据。这将把你的令牌锁定在这台计算机上，即使令牌文件被复制，也无法解密出令牌数据。但如果你要格式化你的硬盘、重新安装系统或删除这个系统用户账户，你必须先关掉此功能，否则你的令牌会再也无法解密！！</value>
   </data>
 	<data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
     <value>自定义密码</value>
