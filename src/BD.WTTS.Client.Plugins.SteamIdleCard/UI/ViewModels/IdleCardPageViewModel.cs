@@ -701,7 +701,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     {
                         try
                         {
-                            Task.Delay(TimeSpan.FromMinutes(0.5), DropCardCancellationTokenSource.Token).Wait();
+                            Task.Delay(TimeSpan.FromMinutes(SteamIdleSettings.RefreshBadgesTime.Value), DropCardCancellationTokenSource.Token).Wait();
                             AutoCardDropCheck().Wait();
                         }
                         catch (AggregateException ae)
