@@ -428,7 +428,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         {
             var multi = IdleGameList.Where(z => z.Badge.HoursPlayed >= SteamIdleSettings.MinRunTime.Value).ToList();
 
-            if (multi.Count > 1)
+            if (multi.Count > 1 || (multi.Count == 1 && IdleGameList.Count == 1))
             {
                 idleApp = VerifyIsNext(multi, isNext);
                 PauseAutoNext(false);
@@ -701,7 +701,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                     {
                         try
                         {
-                            Task.Delay(TimeSpan.FromMinutes(SteamIdleSettings.RefreshBadgesTime.Value), DropCardCancellationTokenSource.Token).Wait();
+                            Task.Delay(TimeSpan.FromMinutes(0.5), DropCardCancellationTokenSource.Token).Wait();
                             AutoCardDropCheck().Wait();
                         }
                         catch (AggregateException ae)
