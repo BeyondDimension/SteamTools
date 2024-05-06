@@ -503,7 +503,8 @@ public sealed partial class GameAcceleratorService
                 if (GameAcceleratorSettings.MyGames.Any_Nullable())
                 {
                     Games.Clear();
-                    foreach (var item in GameAcceleratorSettings.MyGames.Value!.Values)
+                    var temp = GameAcceleratorSettings.MyGames.Value!.Values.ToArray();
+                    foreach (var item in temp)
                     {
                         if (item.PicInfo == null)
                             item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
@@ -517,7 +518,8 @@ public sealed partial class GameAcceleratorService
                     {
                         Games.Clear();
                         GameAcceleratorSettings.MyGames.AddRange(games.Select(s => new KeyValuePair<int, XunYouGameViewModel>(s.Id, new XunYouGameViewModel(s))));
-                        foreach (var item in GameAcceleratorSettings.MyGames.Value!.Values)
+                        var temp = GameAcceleratorSettings.MyGames.Value!.Values.ToArray();
+                        foreach (var item in temp)
                         {
                             if (item.PicInfo == null)
                                 item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
