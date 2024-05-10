@@ -260,7 +260,7 @@
                                             Command="{Binding $parent[spp:PageBase].((spp:IdleAppsPageViewModel)DataContext).RunStopBtnCommand}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            IsVisible="{Binding !Process, Converter={StaticResource IsNullConverter}}"
+                                            IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
                                             ToolTip.Tip="{Binding Path=Res.GameList_StopItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <Viewbox Width="60" Height="60">
                                                 <ui:SymbolIcon Symbol="Pause" />
