@@ -5,6 +5,10 @@ using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Styling;
+using AvaloniaEdit;
+using AvaloniaEdit.TextMate;
+using TextMateSharp.Grammars;
 
 namespace BD.WTTS.UI.Views.Controls;
 
@@ -122,10 +126,10 @@ public partial class ConsoleShell : UserControl
     /// </summary>
     public event EventHandler<CommandEventArgs>? CommandSubmit;
 
-    private readonly TextBlock inputIndicatorTextBlock;
+    //private readonly TextBlock inputIndicatorTextBlock;
     private readonly AutoCompleteBox commandTextbox;
-    private readonly TextBox logTextbox;
-    private readonly ScrollViewer consoleScroll;
+    private readonly TextEditor logTextbox;
+    //private readonly ScrollViewer consoleScroll;
     private readonly ArchiSteamFarmCommandHistory commandHistory;
 
     /// <summary>
@@ -136,9 +140,9 @@ public partial class ConsoleShell : UserControl
         InitializeComponent();
 
         commandHistory = new();
-        inputIndicatorTextBlock = this.FindControl<TextBlock>("InputIndicatorTextBlock")!;
-        logTextbox = this.FindControl<TextBox>("LogTextbox")!;
-        consoleScroll = this.FindControl<ScrollViewer>("ConsoleScroll")!;
+        //inputIndicatorTextBlock = this.FindControl<TextBlock>("InputIndicatorTextBlock")!;
+        logTextbox = this.FindControl<TextEditor>("LogTextbox")!;
+        //consoleScroll = this.FindControl<ScrollViewer>("ConsoleScroll")!;
         commandTextbox = this.FindControl<AutoCompleteBox>("CommandTextbox")!;
         commandTextbox.KeyUp += CommandTextbox_KeyUp;
 
@@ -159,11 +163,21 @@ public partial class ConsoleShell : UserControl
                 }
             });
 
-        this.GetObservable(InputIndicatorProperty)
-            .Subscribe(x => inputIndicatorTextBlock.Text = $"{InputIndicator}{InputIndicatorSuffix}");
+        //this.GetObservable(InputIndicatorProperty)
+        //    .Subscribe(x => inputIndicatorTextBlock.Text = $"{InputIndicator}{InputIndicatorSuffix}");
 
         this.GetObservable(IsMaskProperty)
             .Subscribe(x => ((IPseudoClasses)commandTextbox.Classes).Set(":password", x));
+
+        //Here we initialize RegistryOptions with the theme we want to use.
+        var registryOptions = new TextMateSharp.Grammars.RegistryOptions(ThemeName.Dark);
+
+        //Initial setup of TextMate.
+        var textMateInstallation = logTextbox.InstallTextMate(registryOptions);
+
+        //Here we are getting the language by the extension and right after that we are initializing grammar with this language.
+        //And that's all 😀, you are ready to use AvaloniaEdit with syntax highlighting!
+        textMateInstallation.SetGrammar(registryOptions.GetScopeByLanguageId(registryOptions.GetLanguageByExtension(".log").Id));
 
         this.GetObservable(LogTextProperty)
             .Subscribe(x =>
@@ -172,19 +186,22 @@ public partial class ConsoleShell : UserControl
                 {
                     logTextbox.IsVisible = true;
                 }
+
                 //logTextbox.Text = x;
 
-                if (logTextbox.Width > 0)
-                    logTextbox.MaxLength = (int)(logTextbox.Width / (logTextbox.FontSize + logTextbox.LetterSpacing)) * logTextbox.MaxLines;
-
+                //if (logTextbox.Width > 0)
+                //    logTextbox.MaxLength = (int)(logTextbox.Width / (logTextbox.FontSize + logTextbox.LetterSpacing)) * logTextbox.MaxLines;
+                logTextbox.Text = LogText;
                 commandTextbox.Focus();
-                consoleScroll.ScrollToEnd();
+                logTextbox.ScrollToLine(logTextbox.Document.LineCount);
+                //logTextbox.ScrollToLine();
+                //consoleScroll.ScrollToEnd();
             });
 
-        this.GetObservable(MaxLineProperty)
-            .Subscribe(x => logTextbox.MaxHeight = (logTextbox.LineHeight = logTextbox.FontSize) * (logTextbox.MaxLines = x));
+        //this.GetObservable(MaxLineProperty)
+        //    .Subscribe(x => logTextbox.MaxHeight = (logTextbox.LineHeight = logTextbox.FontSize) * (logTextbox.MaxLines = x));
 
-        this.GetObservable(FontSizeProperty).Subscribe(x => logTextbox.MaxHeight = (logTextbox.LineHeight = logTextbox.FontSize = x) * logTextbox.MaxLines);
+        //this.GetObservable(FontSizeProperty).Subscribe(x => logTextbox.MaxHeight = (logTextbox.LineHeight = logTextbox.FontSize = x) * logTextbox.MaxLines);
     }
 
     private void CommandTextbox_KeyUp(object? sender, Avalonia.Input.KeyEventArgs e)

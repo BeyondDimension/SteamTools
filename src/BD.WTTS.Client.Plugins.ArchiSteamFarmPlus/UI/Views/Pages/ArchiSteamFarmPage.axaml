@@ -14,6 +14,7 @@
     x:CompileBindings="True"
     x:DataType="spp:ArchiSteamFarmPlusPageViewModel"
     Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    ScrollViewer.VerticalScrollBarVisibility="Disabled"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
@@ -204,9 +205,9 @@
 
         </StackPanel>
     </spp:PageBase.PaneContent>
+
     <spp:ContentLoader IsLoading="False">
-        <StackPanel Orientation="Vertical" Spacing="2">
-            <!--<StackPanel Orientation="Horizontal" Spacing="2">
+        <!--<StackPanel Orientation="Horizontal" Spacing="2">
                 <Label
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -221,34 +222,33 @@
 
             <TextBlock Text="{Binding Source={x:Static s:ASFService.Current}, Path=ConsoleLogText, Mode=TwoWay}" />-->
 
-            <spp:ConsoleShell
-                AutoCompleteBoxItems="{ReflectionBinding Path=Value,
-                                                         Source={x:Static spp:ArchiSteamFarmCommand.Commands}}"
-                CommandSubmit="ConsoleShell_CommandSubmit"
-                FontSize="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},
-                                             Path=Value,
-                                             Mode=OneWay}"
-                InputIndicator="用户输入"
-                IsMask="false"
-                LogText="{ReflectionBinding Source={x:Static s:ASFService.Current},
-                                            Path=ConsoleLogText,
-                                            Mode=TwoWay}"
-                MaxLine="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},
-                                            Path=Value,
-                                            Mode=OneWay}">
-                <spp:ConsoleShell.AutoCompleteBoxItemTemplate>
-                    <DataTemplate x:DataType="spp:ArchiSteamFarmCommand">
-                        <DockPanel>
-                            <TextBlock VerticalAlignment="Center" Text="{Binding CommandText}" />
-                            <TextBlock
-                                Margin="15,0,0,0"
-                                VerticalAlignment="Center"
-                                Text="{Binding Description}"
-                                TextWrapping="Wrap" />
-                        </DockPanel>
-                    </DataTemplate>
-                </spp:ConsoleShell.AutoCompleteBoxItemTemplate>
-            </spp:ConsoleShell>
-        </StackPanel>
+        <spp:ConsoleShell
+            AutoCompleteBoxItems="{ReflectionBinding Path=Value,
+                                                     Source={x:Static spp:ArchiSteamFarmCommand.Commands}}"
+            CommandSubmit="ConsoleShell_CommandSubmit"
+            FontSize="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},
+                                         Path=Value,
+                                         Mode=OneWay}"
+            InputIndicator="用户输入"
+            IsMask="false"
+            LogText="{ReflectionBinding Source={x:Static s:ASFService.Current},
+                                        Path=ConsoleLogText,
+                                        Mode=TwoWay}"
+            MaxLine="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},
+                                        Path=Value,
+                                        Mode=OneWay}">
+            <spp:ConsoleShell.AutoCompleteBoxItemTemplate>
+                <DataTemplate x:DataType="spp:ArchiSteamFarmCommand">
+                    <DockPanel>
+                        <TextBlock VerticalAlignment="Center" Text="{Binding CommandText}" />
+                        <TextBlock
+                            Margin="15,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="{Binding Description}"
+                            TextWrapping="Wrap" />
+                    </DockPanel>
+                </DataTemplate>
+            </spp:ConsoleShell.AutoCompleteBoxItemTemplate>
+        </spp:ConsoleShell>
     </spp:ContentLoader>
 </spp:PageBase>

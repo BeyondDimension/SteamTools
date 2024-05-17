@@ -12,6 +12,7 @@
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:DebugPageViewModel"
+    ScrollViewer.VerticalScrollBarVisibility="Disabled"
     mc:Ignorable="d">
     <Design.DataContext>
         <spp:DebugPageViewModel />
