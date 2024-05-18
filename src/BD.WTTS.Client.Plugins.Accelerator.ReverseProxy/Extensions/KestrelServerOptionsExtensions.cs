@@ -123,7 +123,7 @@ public static class KestrelServerOptionsExtensions
         var httpsPort = IReverseProxyConfig.HttpsPort;
         options.Listen(IReverseProxyService.Constants.Instance.ProxyIp, httpsPort, listen =>
         {
-            listen.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
+            listen.Protocols = HttpProtocols.Http1AndHttp2;
             listen.UseFlowAnalyze();
             listen.UseTls();
         });
