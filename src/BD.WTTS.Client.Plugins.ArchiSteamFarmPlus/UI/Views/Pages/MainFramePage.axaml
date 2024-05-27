@@ -35,12 +35,12 @@
                     <x:Type TypeName="spp:ArchiSteamFarmPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="Bot">
+            <TabStripItem Content="Bot 配置">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:BotPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="ASF">
+            <TabStripItem Content="ASF 配置">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:ASFSettingsPage" />
                 </TabStripItem.Tag>

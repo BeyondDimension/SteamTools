@@ -75,7 +75,7 @@
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="Template">
                 <ControlTemplate>
-                    <ui:FABorder
+                    <Border
                         Name="Root"
                         VerticalAlignment="{TemplateBinding VerticalAlignment}"
                         Background="{TemplateBinding Background}"
@@ -83,19 +83,19 @@
                         BorderThickness="1"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         TemplatedControl.IsTemplateFocusTarget="True">
-                        <ui:FABorder.Transitions>
+                        <Border.Transitions>
                             <Transitions>
                                 <BrushTransition Property="Background" Duration="00:00:00.083" />
                             </Transitions>
-                        </ui:FABorder.Transitions>
+                        </Border.Transitions>
 
                         <Panel>
-                            <ui:FABorder
+                            <Border
                                 Name="Hover"
                                 Margin="3"
                                 Background="Transparent"
                                 CornerRadius="{TemplateBinding CornerRadius}">
-                                <ui:FABorder.Transitions>
+                                <Border.Transitions>
                                     <Transitions>
                                         <BrushTransition Property="Background" Duration="00:00:00.083" />
                                         <TransformOperationsTransition
@@ -103,8 +103,8 @@
                                             Property="RenderTransform"
                                             Duration="00:00:00.167" />
                                     </Transitions>
-                                </ui:FABorder.Transitions>
-                            </ui:FABorder>
+                                </Border.Transitions>
+                            </Border>
 
                             <ContentPresenter
                                 Name="PART_ContentPresenter"
@@ -139,19 +139,19 @@
                             </Rectangle>
 
                         </Panel>
-                    </ui:FABorder>
+                    </Border>
                 </ControlTemplate>
             </Setter>
 
 
             <Style Selector="^:pointerover">
-                <Style Selector="^ /template/ ui|FABorder#Hover">
+                <Style Selector="^ /template/ Border#Hover">
                     <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
                 </Style>
             </Style>
 
             <Style Selector="^:pressed">
-                <Style Selector="^ /template/ ui|FABorder#Hover">
+                <Style Selector="^ /template/ Border#Hover">
                     <Setter Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
                     <Setter Property="RenderTransform" Value="scale(0.96)" />
                 </Style>
@@ -161,10 +161,10 @@
             </Style>
 
             <Style Selector="^:selected">
-                <Style Selector="^ /template/ ui|FABorder#Hover">
+                <Style Selector="^ /template/ Border#Hover">
                     <Setter Property="IsVisible" Value="False" />
                 </Style>
-                <Style Selector="^ /template/ ui|FABorder#Root">
+                <Style Selector="^ /template/ Border#Root">
                     <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
                 </Style>
@@ -181,10 +181,10 @@
             </Style>
 
             <Style Selector="^:disabled">
-                <Style Selector="^ /template/ ui|FABorder#Hover">
+                <Style Selector="^ /template/ Border#Hover">
                     <Setter Property="IsVisible" Value="False" />
                 </Style>
-                <Style Selector="^ /template/ ui|FABorder#Root">
+                <Style Selector="^ /template/ Border#Root">
                     <Setter Property="Background" Value="{DynamicResource ControlFillColorDisabledBrush}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource ControlAltFillColorSecondaryBrush}" />
                 </Style>

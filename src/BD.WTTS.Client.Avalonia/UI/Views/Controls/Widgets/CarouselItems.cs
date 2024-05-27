@@ -55,7 +55,7 @@ public class CarouselItems : ItemsControl
     Carousel? _carouselControl;
     Button? _leftButton;
     Button? _rightButton;
-    ItemsRepeater? _swiper;
+    Avalonia.Controls.ItemsRepeater? _swiper;
     Timer? _timer;
 
     public ICommand? CarouselBannerIndexCommand { get; }
@@ -72,7 +72,7 @@ public class CarouselItems : ItemsControl
         _carouselControl = e.NameScope.Find<Carousel>("CarouselControl");
         _leftButton = e.NameScope.Find<Button>("Left");
         _rightButton = e.NameScope.Find<Button>("Right");
-        _swiper = e.NameScope.Find<ItemsRepeater>("Swiper");
+        _swiper = e.NameScope.Find<Avalonia.Controls.ItemsRepeater>("Swiper");
 
         if (_leftButton != null)
         {

@@ -126,7 +126,7 @@ public class OptionsDisplayItem : TemplatedControl
     {
         base.OnApplyTemplate(e);
 
-        _layoutRoot = e.NameScope.Find<FABorder>("LayoutRoot");
+        _layoutRoot = e.NameScope.Find<Border>("LayoutRoot");
         if (_layoutRoot != null)
         {
             _layoutRoot.PointerPressed += OnLayoutRootPointerPressed;
@@ -172,5 +172,5 @@ public class OptionsDisplayItem : TemplatedControl
 
     private bool _isPressed;
     private bool _isExpanded;
-    private FABorder? _layoutRoot;
+    private Border? _layoutRoot;
 }

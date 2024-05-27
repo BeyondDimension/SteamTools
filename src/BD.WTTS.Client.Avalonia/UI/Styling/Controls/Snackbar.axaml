@@ -95,7 +95,7 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
-                        <ui:FABorder
+                        <Border
                             Name="ContentRoot"
                             VerticalAlignment="Top"
                             BorderBrush="{DynamicResource InfoBarBorderBrush}"
@@ -205,13 +205,13 @@
                                     </Button>
                                 </Grid>
                             </Panel>
-                        </ui:FABorder>
+                        </Border>
                     </LayoutTransformControl>
                 </ControlTemplate>
             </Setter>
 
             <Style Selector="^:informational">
-                <Style Selector="^ /template/ ui|FABorder#ContentRoot">
+                <Style Selector="^ /template/ Border#ContentRoot">
                     <!--<Setter Property="Background" Value="{DynamicResource InfoBarInformationalSeverityBackgroundBrush}" />-->
                     <Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}" />
                 </Style>
@@ -226,7 +226,7 @@
             </Style>
 
             <Style Selector="^:error">
-                <Style Selector="^ /template/ ui|FABorder#ContentRoot">
+                <Style Selector="^ /template/ Border#ContentRoot">
                     <Setter Property="Background" Value="{DynamicResource InfoBarErrorSeverityBackgroundBrush}" />
                 </Style>
                 <Style Selector="^ /template/ Ellipse#IconBackground">
@@ -241,7 +241,7 @@
             </Style>
 
             <Style Selector="^:warning">
-                <Style Selector="^ /template/ ui|FABorder#ContentRoot">
+                <Style Selector="^ /template/ Border#ContentRoot">
                     <Setter Property="Background" Value="{DynamicResource InfoBarWarningSeverityBackgroundBrush}" />
                 </Style>
                 <Style Selector="^ /template/ Ellipse#IconBackground">
@@ -255,7 +255,7 @@
             </Style>
 
             <Style Selector="^:success">
-                <Style Selector="^ /template/ ui|FABorder#ContentRoot">
+                <Style Selector="^ /template/ Border#ContentRoot">
                     <Setter Property="Background" Value="{DynamicResource InfoBarSuccessSeverityBackgroundBrush}" />
                 </Style>
                 <Style Selector="^ /template/ Ellipse#IconBackground">
@@ -294,7 +294,7 @@
             </Style>
 
             <!--  Visible  -->
-            <Style Selector="^:hidden /template/ ui|FABorder#ContentRoot">
+            <Style Selector="^:hidden /template/ Border#ContentRoot">
                 <Setter Property="IsVisible" Value="False" />
             </Style>
 

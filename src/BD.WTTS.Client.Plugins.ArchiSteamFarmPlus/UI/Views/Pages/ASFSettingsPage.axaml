@@ -36,7 +36,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="Json文件导入" />
+                        Text="导入配置" />
                 </Panel>
             </Button>
             <Button

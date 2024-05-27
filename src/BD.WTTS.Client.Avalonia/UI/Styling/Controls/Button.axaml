@@ -87,7 +87,7 @@
             <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
             <Setter Property="Template">
                 <ControlTemplate>
-                    <ui:FABorder
+                    <Border
                         Name="Root"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
@@ -101,19 +101,19 @@
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             RecognizesAccessKey="True" />
-                    </ui:FABorder>
+                    </Border>
                 </ControlTemplate>
             </Setter>
 
 
             <Style Selector="^:pointerover">
-                <Style Selector="^ /template/ ui|FABorder#Root">
+                <Style Selector="^ /template/ Border#Root">
                     <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
                 </Style>
             </Style>
 
             <Style Selector="^:pressed">
-                <Style Selector="^ /template/ ui|FABorder#Root">
+                <Style Selector="^ /template/ Border#Root">
                     <Setter Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
                 </Style>
                 <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -122,7 +122,7 @@
             </Style>
 
             <Style Selector="^:disabled">
-                <Style Selector="^ /template/ ui|FABorder#Root">
+                <Style Selector="^ /template/ Border#Root">
                     <Setter Property="Background" Value="{DynamicResource SubtleFillColorDisabledBrush}" />
                 </Style>
                 <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -131,7 +131,7 @@
             </Style>
 
             <Style Selector="^:checked">
-                <Style Selector="^ /template/ ui|FABorder#Root">
+                <Style Selector="^ /template/ Border#Root">
                     <Setter Property="Background" Value="{DynamicResource ToggleButtonBackgroundChecked}" />
                 </Style>
                 <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -140,7 +140,7 @@
 
 
                 <Style Selector="^:pointerover">
-                    <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Style Selector="^ /template/ Border#Root">
                         <Setter Property="Background" Value="{DynamicResource ToggleButtonBackgroundCheckedPointerOver}" />
                     </Style>
                     <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -149,7 +149,7 @@
                 </Style>
 
                 <Style Selector="^:pressed">
-                    <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Style Selector="^ /template/ Border#Root">
                         <Setter Property="Background" Value="{DynamicResource ToggleButtonBackgroundCheckedPressed}" />
                     </Style>
                     <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -158,7 +158,7 @@
                 </Style>
 
                 <Style Selector="^:disabled">
-                    <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Style Selector="^ /template/ Border#Root">
                         <Setter Property="Background" Value="{DynamicResource SubtleFillColorDisabledBrush}" />
                     </Style>
                     <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -168,19 +168,19 @@
             </Style>
 
             <Style Selector="^:indeterminate">
-                <Style Selector="^ /template/ ui|FABorder#Root">
+                <Style Selector="^ /template/ Border#Root">
                     <Setter Property="Background" Value="{DynamicResource SubtleFillColorTransparentBrush}" />
                 </Style>
 
 
                 <Style Selector="^:pointerover">
-                    <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Style Selector="^ /template/ Border#Root">
                         <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
                     </Style>
                 </Style>
 
                 <Style Selector="^:pressed">
-                    <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Style Selector="^ /template/ Border#Root">
                         <Setter Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
                     </Style>
                     <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -189,7 +189,7 @@
                 </Style>
 
                 <Style Selector="^:disabled">
-                    <Style Selector="^ /template/ ui|FABorder#Root">
+                    <Style Selector="^ /template/ Border#Root">
                         <Setter Property="Background" Value="{DynamicResource SubtleFillColorDisabledBrush}" />
                     </Style>
                     <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -214,7 +214,7 @@
     <Style Selector="Button.Plain:pointerover">
         <Setter Property="Background" Value="Transparent" />
     </Style>
-    <Style Selector="Button.Plain:pointerover /template/ ui|FABorder#Root">
+    <Style Selector="Button.Plain:pointerover /template/ Border#Root">
         <Setter Property="Background" Value="Transparent" />
     </Style>
     <Style Selector="Button.Plain:pointerover /template/ ContentPresenter">

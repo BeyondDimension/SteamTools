@@ -77,7 +77,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="打开WebUI" />
+                        Text="打开 WebUI" />
                 </Panel>
             </Button>
             <ToggleButton

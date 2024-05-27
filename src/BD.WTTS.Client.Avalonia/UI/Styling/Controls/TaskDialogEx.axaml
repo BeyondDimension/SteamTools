@@ -80,7 +80,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel Name="LayoutRoot" Background="{x:Null}">
-                    <ui:FABorder
+                    <Border
                         Name="ContentRoot"
                         MinWidth="{DynamicResource TaskDialogMinWidth}"
                         MinHeight="{DynamicResource TaskDialogMinHeight}"
@@ -216,7 +216,7 @@
                                 </ItemsControl>
                             </Border>
                         </Grid>
-                    </ui:FABorder>
+                    </Border>
                 </Panel>
             </ControlTemplate>
         </Setter>
@@ -303,7 +303,7 @@
             <Style Selector="^ /template/ Panel#LayoutRoot">
                 <Setter Property="Background" Value="{DynamicResource TaskDialogSmokeFill}" />
             </Style>
-            <Style Selector="^ /template/ ui|FABorder#ContentRoot">
+            <Style Selector="^ /template/ Border#ContentRoot">
                 <Setter Property="BorderBrush" Value="{DynamicResource TaskDialogBorderBrush}" />
                 <Setter Property="CornerRadius" Value="{DynamicResource OverlayCornerRadius}" />
                 <Setter Property="BorderThickness" Value="{DynamicResource TaskDialogBorderWidth}" />
@@ -332,7 +332,7 @@
                     </Animation>
                 </Style.Animations>
             </Style>
-            <Style Selector="^:hidden /template/ ui|FABorder#ContentRoot">
+            <Style Selector="^:hidden /template/ Border#ContentRoot">
                 <Style.Animations>
                     <Animation FillMode="Forward" Duration="00:00:00.167">
                         <KeyFrame Cue="0%">
@@ -368,7 +368,7 @@
                     </Animation>
                 </Style.Animations>
             </Style>
-            <Style Selector="^:open /template/ ui|FABorder#ContentRoot">
+            <Style Selector="^:open /template/ Border#ContentRoot">
                 <Style.Animations>
                     <Animation FillMode="Forward" Duration="00:00:00.250">
                         <KeyFrame Cue="0%">
@@ -389,7 +389,7 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <Panel Name="LayoutRoot" Background="{x:Null}">
-                        <ui:FABorder
+                        <Border
                             Name="ContentRoot"
                             MinWidth="{DynamicResource TaskDialogMinWidth}"
                             MinHeight="{DynamicResource TaskDialogMinHeight}"
@@ -521,7 +521,7 @@
                                     </ItemsControl>
                                 </Border>
                             </Grid>
-                        </ui:FABorder>
+                        </Border>
                     </Panel>
                 </ControlTemplate>
             </Setter>

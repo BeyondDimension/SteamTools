@@ -30,7 +30,7 @@
                 Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).EditBotFile}"
                 CommandParameter="{Binding Bot}"
                 IconSource="Edit"
-                Text="编辑Json文件" />
+                Text="编辑 Json 文件" />
             <ui:MenuFlyoutSeparator />
             <ui:MenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).DeleteBot}"
@@ -58,7 +58,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="Json文件导入" />
+                        Text="导入 Bot" />
                 </Panel>
             </Button>
             <Button
@@ -103,7 +103,7 @@
     </spp:PageBase.ActionContent>
     <spp:ContentLoader
         CustomLoadingText="请先启动 ArchiSteamFarm"
-        IsLoading="{Binding Source={x:Static s:ASFService.Current}, Path=!IsASFRuning, Mode=OneWay}"
+        IsLoading="False"
         IsShowNoResultText="{Binding !!!SteamBots.Count}"
         NoResultMessage="当前列表没有 Bot 账号">
         <spp:ContentLoader.GestureRecognizers>

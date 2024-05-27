@@ -46,19 +46,19 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <StackPanel>
-                    <ui:FABorder
+                    <Border
                         Name="LayoutRoot"
                         Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                        <ui:FABorder.Transitions>
+                        <Border.Transitions>
                             <Transitions>
                                 <BrushTransition Property="Background" Duration="00:00:00.083" />
                                 <BrushTransition Property="BorderBrush" Duration="00:00:00.083" />
                             </Transitions>
-                        </ui:FABorder.Transitions>
+                        </Border.Transitions>
                         <Grid MinHeight="{TemplateBinding MinHeight}" ColumnDefinitions="Auto,*,Auto,Auto">
                             <Viewbox
                                 Name="IconHost"
@@ -113,7 +113,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="18" />
                         </Grid>
-                    </ui:FABorder>
+                    </Border>
 
                     <ContentPresenter
                         Name="ExpandedContentPresenter"
@@ -144,10 +144,10 @@
         <Setter Property="IsVisible" Value="False" />
     </Style>
 
-    <Style Selector="spp|OptionsDisplayItem /template/ ui|FABorder#LayoutRoot:pointerover">
+    <Style Selector="spp|OptionsDisplayItem /template/ Border#LayoutRoot:pointerover">
         <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
     </Style>
-    <Style Selector="spp|OptionsDisplayItem:pressed /template/ ui|FABorder#LayoutRoot:pointerover">
+    <Style Selector="spp|OptionsDisplayItem:pressed /template/ Border#LayoutRoot:pointerover">
         <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
     </Style>
 
@@ -179,7 +179,7 @@
         <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BottomCornerRadiusFilterConverter}}" />
     </Style>
 
-    <Style Selector="spp|OptionsDisplayItem:expanded /template/ ui|FABorder#LayoutRoot">
+    <Style Selector="spp|OptionsDisplayItem:expanded /template/ Border#LayoutRoot">
         <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TopCornerRadiusFilterConverter}}" />
     </Style>
 
@@ -195,19 +195,19 @@
     <Style Selector="spp|OptionsDisplayItem.Vertical">
         <Setter Property="Template">
             <ControlTemplate>
-                <ui:FABorder
+                <Border
                     Name="LayoutRoot"
                     Padding="12"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     CornerRadius="{TemplateBinding CornerRadius}">
-                    <ui:FABorder.Transitions>
+                    <Border.Transitions>
                         <Transitions>
                             <BrushTransition Property="Background" Duration="00:00:00.083" />
                             <BrushTransition Property="BorderBrush" Duration="00:00:00.083" />
                         </Transitions>
-                    </ui:FABorder.Transitions>
+                    </Border.Transitions>
                     <Grid RowDefinitions="*,*">
                         <Border
                             Width="72"
@@ -241,7 +241,7 @@
                                 TextWrapping="Wrap" />
                         </StackPanel>
                     </Grid>
-                </ui:FABorder>
+                </Border>
             </ControlTemplate>
         </Setter>
     </Style>
