@@ -394,11 +394,13 @@
         <TabItem Header="{Binding Path=Res.LaunchItem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding App.IsInstalled}">
             <ScrollViewer>
                 <StackPanel Classes="InfoBox">
-                    <ItemsRepeater ItemsSource="{Binding App.LaunchItems}">
-                        <ItemsRepeater.Layout>
-                            <StackLayout Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
+                    <ItemsControl ItemsSource="{Binding App.LaunchItems}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type spp:SteamAppLaunchItem}">
                                 <Border Classes="Item">
                                     <StackPanel Spacing="5">
@@ -460,8 +462,8 @@
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                     <Border Classes="Item">
                         <Button
                             HorizontalAlignment="Stretch"
@@ -502,11 +504,13 @@
                         </StackPanel>
                     </Border>
 
-                    <ItemsRepeater ItemsSource="{Binding App.SaveFiles}">
-                        <ItemsRepeater.Layout>
-                            <StackLayout Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
+                    <ItemsControl ItemsSource="{Binding App.SaveFiles}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type spp:SteamAppSaveFile}">
                                 <Border Classes="Item">
                                     <StackPanel Spacing="5">
@@ -539,8 +543,8 @@
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
             </ScrollViewer>
         </TabItem>

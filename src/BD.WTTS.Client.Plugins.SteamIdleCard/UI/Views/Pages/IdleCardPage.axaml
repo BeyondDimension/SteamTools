@@ -529,20 +529,20 @@
                                     IsVisible="{Binding !IdleGameList.Count}"
                                     Text="未获取到挂卡游戏数据" />
                             </StackPanel>
-                            <ItemsRepeater
+                            <ui:ItemsRepeater
                                 DockPanel.Dock="Bottom"
                                 ItemsSource="{Binding IdleGameList}"
                                 VerticalCacheLength="50">
-                                <ItemsRepeater.Layout>
-                                    <UniformGridLayout
+                                <ui:ItemsRepeater.Layout>
+                                    <ui:UniformGridLayout
                                         ItemsJustification="Start"
                                         ItemsStretch="Uniform"
                                         MinColumnSpacing="5"
                                         MinItemHeight="160"
                                         MinItemWidth="280"
                                         MinRowSpacing="5" />
-                                </ItemsRepeater.Layout>
-                                <ItemsRepeater.ItemTemplate>
+                                </ui:ItemsRepeater.Layout>
+                                <ui:ItemsRepeater.ItemTemplate>
                                     <DataTemplate DataType="spp:IdleApp">
                                         <spp:AppItem
                                             Title="{Binding App.DisplayName}"
@@ -701,8 +701,8 @@
                                             </spp:AppItem.Image>
                                         </spp:AppItem>
                                     </DataTemplate>
-                                </ItemsRepeater.ItemTemplate>
-                            </ItemsRepeater>
+                                </ui:ItemsRepeater.ItemTemplate>
+                            </ui:ItemsRepeater>
                         </Panel>
                     </spp:OptionsDisplayItem.Content>
                 </spp:OptionsDisplayItem>

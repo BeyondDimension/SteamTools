@@ -63,14 +63,13 @@
                             Height="10"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom">
-                            <ItemsRepeater Name="Swiper" IsVisible="False">
-                                <ItemsRepeater.Layout>
-                                    <StackLayout
-                                        DisableVirtualization="True"
-                                        Orientation="Horizontal"
-                                        Spacing="8" />
-                                </ItemsRepeater.Layout>
-                                <ItemsRepeater.ItemTemplate>
+                            <ItemsControl Name="Swiper" IsVisible="False">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" Spacing="8" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <DataTemplate.DataType>
                                             <x:Type x:TypeArguments="x:Int32, x:String" TypeName="generic:KeyValuePair" />
@@ -91,8 +90,8 @@
                                                 StrokeThickness="0" />
                                         </Button>
                                     </DataTemplate>
-                                </ItemsRepeater.ItemTemplate>
-                            </ItemsRepeater>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </Panel>
                     </Grid>
                 </Border>

@@ -177,7 +177,7 @@
                             CornerRadius="2"
                             IsActive="{Binding #active.IsChecked}"
                             IsLoading="{Binding #loading.IsChecked}">
-                            <SelectableTextBlock Margin="0,2" Text="是先有鸡还是先有蛋" />
+                            <SelectableTextBlock Margin="0,2" Text="不忘初心,方得始终" />
                         </spp:Skeleton>
                         <spp:Skeleton
                             Margin="0,0,100,0"
@@ -185,14 +185,14 @@
                             CornerRadius="2"
                             IsActive="{Binding #active.IsChecked}"
                             IsLoading="{Binding #loading.IsChecked}">
-                            <SelectableTextBlock Margin="0,2" Text="什么是工匠精神" />
+                            <SelectableTextBlock Margin="0,2" Text="---" />
                         </spp:Skeleton>
                         <spp:Skeleton
                             VerticalAlignment="Bottom"
                             CornerRadius="2"
                             IsActive="{Binding #active.IsChecked}"
                             IsLoading="{Binding #loading.IsChecked}">
-                            <SelectableTextBlock Margin="0,2" Text="看山不是山，看水不是水，看山还是山，看水还是水" />
+                            <SelectableTextBlock Margin="0,2" Text="路漫漫其修远兮，吾将上下而求索。" />
                         </spp:Skeleton>
                     </UniformGrid>
                 </Grid>

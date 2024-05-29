@@ -102,11 +102,13 @@
                         IsVisible="{Binding !!!Confirmations.Count}"
                         Text="{Binding Path=Res.LocalAuth_AuthTrade_Null, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                        <ItemsRepeater ItemsSource="{Binding Confirmations}">
-                            <ItemsRepeater.Layout>
-                                <StackLayout Orientation="Vertical" Spacing="5" />
-                            </ItemsRepeater.Layout>
-                            <ItemsRepeater.ItemTemplate>
+                        <ItemsControl ItemsSource="{Binding Confirmations}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" Spacing="5" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type spp:SteamTradeConfirmationModel}">
                                     <ui:SettingsExpander>
                                         <ui:SettingsExpander.Header>
@@ -210,8 +212,8 @@
                                         IsClickEnabled="True" />-->
                                     </ui:SettingsExpander>
                                 </DataTemplate>
-                            </ItemsRepeater.ItemTemplate>
-                        </ItemsRepeater>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </ScrollViewer>
                 </Panel>
             </Grid>

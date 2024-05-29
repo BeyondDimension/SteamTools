@@ -49,7 +49,7 @@
                     <AutoCompleteBox.Styles>
                         <Style Selector="AutoCompleteBox">
                             <Setter Property="VerticalAlignment" Value="Center" />
-                            <Setter Property="Watermark" Value="请输入命令或消息内容" />
+                            <Setter Property="Watermark" Value="输入指令或消息内容" />
                         </Style>
                         <Style Selector="AutoCompleteBox /template/ TextBox#PART_TextBox">
                             <Setter Property="AcceptsReturn" Value="False" />

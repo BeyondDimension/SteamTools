@@ -349,63 +349,17 @@
         <spp:ContentLoader.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
         </spp:ContentLoader.GestureRecognizers>
-        <ItemsRepeater
-            x:Name="GameListRepeater"
-            ItemsSource="{Binding SteamApps}"
-            VerticalCacheLength="300">
-            <!--
-                Classes.Compact="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.CompactGrid}}"
-                Classes.Grid="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"
-                Classes.List="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.List}}"
-            -->
-            <!--<ItemsRepeater.Styles>
-                    <Style Selector="ItemsRepeater.Grid">
-                        <Setter Property="Layout">
-                            <Setter.Value>
-                                <UniformGridLayout
-                                    ItemsJustification="Start"
-                                    ItemsStretch="Uniform"
-                                    MinColumnSpacing="10"
-                                    MinItemHeight="310"
-                                    MinItemWidth="150"
-                                    MinRowSpacing="10" />
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                    <Style Selector="ItemsRepeater.List">
-                        <Setter Property="Layout">
-                            <Setter.Value>
-                                <StackLayout Orientation="Vertical" Spacing="10" />
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                    <Style Selector="ItemsRepeater.Compact">
-                        <Setter Property="Layout">
-                            <Setter.Value>
-                                <UniformGridLayout
-                                    ItemsJustification="Start"
-                                    ItemsStretch="Uniform"
-                                    MinColumnSpacing="5"
-                                    MinItemHeight="65"
-                                    MinItemWidth="230"
-                                    MinRowSpacing="5" />
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                    <Style Selector="spp|AppItem.List">
-                        <Setter Property="MaxHeight" Value="65" />
-                    </Style>
-                </ItemsRepeater.Styles>-->
-            <ItemsRepeater.Layout>
-                <UniformGridLayout
+        <ui:ItemsRepeater ItemsSource="{Binding SteamApps}">
+            <ui:ItemsRepeater.Layout>
+                <ui:UniformGridLayout
                     ItemsJustification="Start"
                     ItemsStretch="Uniform"
                     MinColumnSpacing="10"
                     MinItemHeight="310"
                     MinItemWidth="150"
                     MinRowSpacing="10" />
-            </ItemsRepeater.Layout>
-            <ItemsRepeater.ItemTemplate>
+            </ui:ItemsRepeater.Layout>
+            <ui:ItemsRepeater.ItemTemplate>
                 <DataTemplate DataType="spp:SteamApp">
                     <!--  Classes.Vertical="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"  -->
                     <spp:AppItem
@@ -465,8 +419,8 @@
                         </spp:AppItem.Image>
                     </spp:AppItem>
                 </DataTemplate>
-            </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
+            </ui:ItemsRepeater.ItemTemplate>
+        </ui:ItemsRepeater>
 
     </spp:ContentLoader>
 </spp:PageBase>

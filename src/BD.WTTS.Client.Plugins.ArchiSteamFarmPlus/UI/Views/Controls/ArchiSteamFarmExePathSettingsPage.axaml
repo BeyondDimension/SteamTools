@@ -15,10 +15,6 @@
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
         <TextBlock Margin="0,0,0,5" Text="ArchiSteamFarm 启动文件设置" />
-        <TextBlock
-            Margin="0,0,0,5"
-            Text="ASF 功能需要您先下载 ArchiSteamFarm 并设置路径后才可使用"
-            TextWrapping="Wrap" />
         <ui:SettingsExpander
             Description="{Binding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath}, Path=Value, Mode=OneWay}"
             Header="ASF 文件路径"

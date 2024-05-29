@@ -139,20 +139,24 @@
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                         Text="{Binding Path=Res.Link, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                    <ItemsRepeater Margin="0,0,6,6" ItemsSource="{Binding Hyperlinks, Mode=OneTime}">
-                        <ItemsRepeater.Layout>
-                            <UniformGridLayout MinItemWidth="166" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
+                    <ItemsControl Margin="0,0,6,6" ItemsSource="{Binding Hyperlinks, Mode=OneTime}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="spp:HyperlinkModel">
-                                <Button
-                                    Command="{Binding Command, Mode=OneWay}"
-                                    Content="{Binding Text, Mode=OneWay}"
-                                    Cursor="Hand"
-                                    Theme="{StaticResource HyperlinkButton}" />
+                                <Border MinWidth="166">
+                                    <Button
+                                        Command="{Binding Command, Mode=OneWay}"
+                                        Content="{Binding Text, Mode=OneWay}"
+                                        Cursor="Hand"
+                                        Theme="{StaticResource HyperlinkButton}" />
+                                </Border>
                             </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                     <Border
                         Height="1"
                         Margin="-50,0"
@@ -162,20 +166,24 @@
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                         Text="{Binding Path=Res.OpenSourceLibrary, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                    <ItemsRepeater Margin="0,0,6,6" ItemsSource="{Binding OSL, Mode=OneTime}">
-                        <ItemsRepeater.Layout>
-                            <UniformGridLayout MinItemWidth="290" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
+                    <ItemsControl Margin="0,0,6,6" ItemsSource="{Binding OSL, Mode=OneTime}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="spp:HyperlinkModel">
-                                <Button
-                                    Command="{Binding Command, Mode=OneWay}"
-                                    Content="{Binding Text, Mode=OneWay}"
-                                    Cursor="Hand"
-                                    Theme="{StaticResource HyperlinkButton}" />
+                                <Border MinWidth="290">
+                                    <Button
+                                        Command="{Binding Command, Mode=OneWay}"
+                                        Content="{Binding Text, Mode=OneWay}"
+                                        Cursor="Hand"
+                                        Theme="{StaticResource HyperlinkButton}" />
+                                </Border>
                             </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
             </spp:OptionsDisplayItem.Content>
         </spp:OptionsDisplayItem>
