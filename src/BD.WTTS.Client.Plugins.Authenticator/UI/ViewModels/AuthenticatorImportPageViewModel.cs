@@ -1,6 +1,6 @@
-using SJsonSerializer = System.Text.Json.JsonSerializer;
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
+using SJsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -59,6 +59,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                             PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.Microsoft),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.HOTP), Strings.LocalAuth_HOTPImport,
                                             PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.HOTP),
+            new AuthenticatorImportMethod("联合令牌", "创建联合令牌", PageType: typeof(JoinSteamAuthenticatorPage))
         };
     }
 
@@ -123,6 +124,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                     ? Strings.LocalAuth_AddAuthSuccess
                     : Strings.LocalAuth_AddAuth_PartSuccess);
                 break;
+
             case IAccountPlatformAuthenticatorRepository.ImportResultCode.SecondaryPasswordFail:
                 Toast.Show(ToastIcon.Warning, Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
                 var textViewModel =
@@ -136,6 +138,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                 }
                 await ImportFromWattToolKitV2(exportPassword, password, isLocalProtect, filePath);
                 break;
+
             default:
                 Toast.Show(ToastIcon.Error, Strings.LocalAuth_ExportAuth_Error.Format(result.resultCode));
                 break;
