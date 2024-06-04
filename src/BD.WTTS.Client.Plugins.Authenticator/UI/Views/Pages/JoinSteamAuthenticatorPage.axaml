@@ -11,9 +11,9 @@
     mc:Ignorable="d">
 	<Grid RowDefinitions="Auto,*">
 		<spp:Stepper SelectedIndex="{Binding SelectIndex}">
-			<spp:StepperItem Content="登录" />
-			<spp:StepperItem Content="确认令牌验证码" />
-			<spp:StepperItem Content="完成" />
+			<spp:StepperItem Content="{Binding Path=Res.Steam_Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<spp:StepperItem Content="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_ConfirmSteamAppAuthenticatorCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<spp:StepperItem Content="{Binding Path=Res.Btn_Text_Complete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 		</spp:Stepper>
 
 		<spp:ContentLoader
@@ -23,58 +23,93 @@
 				IsLoading="{Binding Loading}"
 				IsShowNoResultText="False">
 			<Carousel IsVisible="{Binding !Loading}" SelectedIndex="{Binding SelectIndex}">
+				<Panel>
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsOpen="True"
+							IsVisible="{Binding RequireVerifyCode}"
+							Message="{Binding Path=Res.LocalAuth_EmailCodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Severity="Warning" />
 
-				<StackPanel
+					<StackPanel
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
 						Spacing="10">
-					<PathIcon
-							Width="88"
-							Height="88"
-							Data="{StaticResource Steam}" />
-					<TextBox
-							MaxWidth="280"
-							Text="{Binding UserNameText}"
-							Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-					<TextBox
-							Name="PasswordText"
-							MaxWidth="280"
-							Classes="revealPasswordButton"
-							PasswordChar="{StaticResource PasswordChar}"
-							Text="{Binding PasswordText}"
-							Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-					<Button
-							MinWidth="280"
-							HorizontalAlignment="Center"
-							VerticalAlignment="Bottom"
-							HorizontalContentAlignment="Center"
-							Command="{Binding LoginAsync}"
-							Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-				</StackPanel>
-
-				<StackPanel
-									HorizontalAlignment="Center"
-									VerticalAlignment="Center"
-									Spacing="10">
-
-					<DockPanel>
-						<TextBlock
-								Margin="0,0,0,6"
-								DockPanel.Dock="Top"
-								Text="令牌验证码" />
+						<PathIcon
+								Width="88"
+								Height="88"
+								Data="{StaticResource Steam}" />
 						<TextBox
-								MaxWidth="300"
-								Watermark="请输入 Steam 令牌验证码"
-								Text="{Binding Code}" />
-					</DockPanel>
+								MaxWidth="280"
+								Text="{Binding UserNameText}"
+								Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+						<TextBox
+								Name="PasswordText"
+								MaxWidth="280"
+								Classes="revealPasswordButton"
+								PasswordChar="{StaticResource PasswordChar}"
+								Text="{Binding PasswordText}"
+								Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+						<TextBox
+							IsVisible="{Binding RequireVerifyCode}"
+							Watermark="{Binding Path=Res.EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Text="{Binding VerifyCodeText}" />
+						<Button
+								MinWidth="280"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Bottom"
+								HorizontalContentAlignment="Center"
+								Command="{Binding LoginAsync}"
+								Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Panel>
 
-					<Button
-							MinWidth="280"
+				<Panel>
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsOpen="True"
+							Message="打开 Steam App 绑定令牌后在此页面输入验证"
+							Severity="Warning" />
+					<StackPanel
 							HorizontalAlignment="Center"
-							HorizontalContentAlignment="Center"
-							Command="{Binding VerifyCodeAsync}"
-							Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-				</StackPanel>
+							VerticalAlignment="Center"
+							Spacing="10">
+						<DockPanel>
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									Text="{Binding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBox
+									MaxWidth="300"
+									Text="{Binding RevocationCodeText}"
+									IsReadOnly="True" />
+							<!--<Button
+								Content="重新生成"
+								Command="{Binding ResetRevocationCodeAsync}" />-->
+						</DockPanel>
+						<DockPanel>
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									Text="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_SteamAppAuthenticatorCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBox
+									MaxWidth="300"
+									Watermark="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+									Text="{Binding Code}" />
+						</DockPanel>
+
+						<Button
+								MinWidth="280"
+								HorizontalAlignment="Center"
+								HorizontalContentAlignment="Center"
+								Command="{Binding VerifyCodeAsync}"
+								Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Panel>
 
 				<Panel>
 					<spp:Snackbar
@@ -93,7 +128,7 @@
 							<TextBlock
 									Margin="0,0,0,6"
 									DockPanel.Dock="Top"
-									Text="恢复代码" />
+									Text="{Binding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 							<TextBox
 									MaxWidth="300"
 									Text="{Binding RevocationCodeText}"

@@ -26,6 +26,8 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                                 if (await AuthenticatorHelper.VerifyMaxValue())
                                                     await ImportFromSdaFile();
                                             })),
+            new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.LocalAuth_JoinSteamAuthenticator), Strings.LocalAuth_JoinSteamAuthenticatorDesc,
+                                            PageType: typeof(JoinSteamAuthenticatorPage)),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.WattToolKitV2), Strings.LocalAuth_WattToolKitV2Import,
                                             Command: ReactiveCommand.Create(async () =>
                                             {
@@ -59,7 +61,6 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                             PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.Microsoft),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.HOTP), Strings.LocalAuth_HOTPImport,
                                             PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.HOTP),
-            new AuthenticatorImportMethod("联合令牌", "创建联合令牌", PageType: typeof(JoinSteamAuthenticatorPage))
         };
     }
 
