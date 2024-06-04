@@ -2991,4 +2991,7 @@
   <data name="LocalAuth_JoinSteamAuthenticator_SteamAppAuthenticatorCode" xml:space="preserve">
     <value>Steam App 令牌验证码</value>
   </data>
+  <data name="LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCodeTips" xml:space="preserve">
+    <value>打开 Steam App 绑定令牌后在此页面输入验证</value>
+  </data>
 </root>

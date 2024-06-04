@@ -72,7 +72,7 @@
 							VerticalAlignment="Top"
 							IsClosable="False"
 							IsOpen="True"
-							Message="打开 Steam App 绑定令牌后在此页面输入验证"
+							Message="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCodeTips, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
 							Severity="Warning" />
 					<StackPanel
 							HorizontalAlignment="Center"

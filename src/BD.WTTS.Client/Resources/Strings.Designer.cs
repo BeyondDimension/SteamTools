@@ -4232,6 +4232,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 打开 Steam App 绑定令牌后在此页面输入验证 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCodeTips {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCodeTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 登录请求错误 的本地化字符串。
         /// </summary>
         public static string LocalAuth_JoinSteamAuthenticator_LoginRequestError {
