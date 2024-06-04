@@ -1,6 +1,7 @@
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
 using WinAuth;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -9,7 +10,7 @@ namespace BD.WTTS.UI.ViewModels;
 /// </summary>
 public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
 {
-    #region 常量
+    #region 步骤索引常量
 
     const int STEPINDEX_LOGIN = 0;
 
@@ -17,10 +18,13 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
 
     const int STEPINDEX_DONE = 2;
 
-    #endregion 常量
+    #endregion 步骤索引常量
 
     #region 页面属性
 
+    /// <summary>
+    /// 用户填入的 Steam 令牌验证码
+    /// </summary>
     [Reactive]
     public string? Code { get; set; }
 
@@ -37,24 +41,50 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
     public string? PasswordText { get; set; }
 
     /// <summary>
+    /// 验证码
+    /// </summary>
+    [Reactive]
+    public string? VerifyCodeText { get; set; }
+
+    /// <summary>
     /// 恢复代码
     /// </summary>
     [Reactive]
     public string? RevocationCodeText { get; set; }
 
+    /// <summary>
+    /// 当前步骤
+    /// </summary>
     [Reactive]
     public int SelectIndex { get; set; } = STEPINDEX_LOGIN;
 
+    /// <summary>
+    /// 加载
+    /// </summary>
     [Reactive]
     public bool Loading { get; set; } = false;
+
+    /// <summary>
+    /// 是否需要验证码
+    /// </summary>
+    [Reactive]
+    public bool RequireVerifyCode { get; set; } = false;
 
     #endregion 页面属性
 
     #region 私有变量
 
+    /// <summary>
+    /// Steam 账号服务
+    /// </summary>
     private static readonly ISteamAccountService _steamAccountService = Ioc.Get<ISteamAccountService>();
 
+    /// <summary>
+    /// 当前页面待导入的 Steam Authenticator
+    /// </summary>
     private SteamAuthenticator? _currentSteamAuthenticator;
+
+    private SteamLoginState? _currentSteamLoginState;
 
     #endregion 私有变量
 
@@ -75,43 +105,49 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
         {
             if (string.IsNullOrEmpty(UserNameText) || string.IsNullOrEmpty(PasswordText))
             {
-                Toast.Show(ToastIcon.Error, "用户名或密码不能为空!");
+                Toast.Show(ToastIcon.Error, AppResources.Error_PleaseEnterUsernamePassword);
                 return;
             }
 
             // 初始化登录状态
-            var loginState = new SteamLoginState()
-            {
-                Username = UserNameText,
-                Password = PasswordText,
-            };
+            var loginState = _currentSteamLoginState ??= new SteamLoginState();
+
+            loginState.Username = UserNameText;
+            loginState.Password = PasswordText;
+            loginState.Language = ResourceService.GetCurrentCultureSteamLanguageName();
+
             try
             {
+                if (RequireVerifyCode && loginState.RequiresEmailAuth)
+                {
+                    loginState.EmailCode = VerifyCodeText;
+                }
                 // 开始登录
                 await _steamAccountService.DoLoginV2Async(loginState);
             }
             catch (HttpRequestException)
             {
-                Toast.Show(ToastIcon.Error, "登录请求错误!");
-                return;
-            }
-            catch (Exception ex)
-            {
-                Toast.Show(ToastIcon.Error, $"登录异常!");
+                Toast.Show(ToastIcon.Error, AppResources.LocalAuth_JoinSteamAuthenticator_LoginRequestError);
                 return;
             }
 
             // 登陆结果
             if (!loginState.Success)
             {
-                if (loginState.Requires2FA || loginState.RequiresEmailAuth)
+                if (loginState.RequiresEmailAuth)
                 {
-                    Toast.Show(ToastIcon.Error, "当前账号已有令牌!");
+                    RequireVerifyCode = true;
+                    Toast.Show(ToastIcon.Info, Strings.LocalAuth_EmailCodeTip);
+                    return;
+                }
+                else if (loginState.Requires2FA)
+                {
+                    Toast.Show(ToastIcon.Error, AppResources.LocalAuth_SteamUser_Requires2FA);
                     return;
                 }
                 else
                 {
-                    Toast.Show(ToastIcon.Error, loginState.Message ?? "登陆失败!");
+                    Toast.Show(ToastIcon.Error, loginState.Message ?? string.Empty);
                 }
 
                 return;
@@ -126,6 +162,7 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
                 return;
             }
 
+            RevocationCodeText = _currentSteamAuthenticator!.RecoveryCode;
             // 跳转到验证页面
             SelectIndex = STEPINDEX_VERIFY;
         }
@@ -149,7 +186,7 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
         {
             if (string.IsNullOrWhiteSpace(Code))
             {
-                Toast.Show(ToastIcon.Error, "Steam 令牌验证码不能为空!");
+                Toast.Show(ToastIcon.Error, AppResources.LocalAuth_JoinSteamAuthenticator_SteamGuardCodeEmptyError);
                 return;
             }
 
@@ -157,7 +194,8 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
 
             if (!equals)
             {
-                Toast.Show(ToastIcon.Warning, "令牌验证失败!");
+                Toast.Show(ToastIcon.Warning,
+                    $@"{AppResources.LocalAuth_JoinSteamAuthenticator_VerifySteamGuardCodeError}: {Code} != {_currentSteamAuthenticator?.CurrentCode}");
                 return;
             }
 
@@ -185,21 +223,21 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
         {
             if (_currentSteamAuthenticator == null)
             {
-                Toast.Show(ToastIcon.Error, "当前令牌信息为空!");
+                Toast.Show(ToastIcon.Error, AppResources.LocalAuth_JoinSteamAuthenticator_InitLocalAuthenticatorError);
                 SelectIndex = STEPINDEX_LOGIN;
                 return;
             }
 
             if (string.IsNullOrEmpty(Code))
             {
-                Toast.Show(ToastIcon.Error, "令牌不能为空!");
+                Toast.Show(ToastIcon.Error, AppResources.LocalAuth_JoinSteamAuthenticator_SteamGuardCodeEmptyError);
                 SelectIndex = STEPINDEX_VERIFY;
                 return;
             }
 
             if (!await SaveAuthenticatorAsync(UserNameText!, _currentSteamAuthenticator))
             {
-                Toast.Show(ToastIcon.Error, "保存令牌失败!");
+                Toast.Show(ToastIcon.Error, AppResources.LocalAuth_JoinSteamAuthenticator_SaveLocalAuthenticatorError);
                 return;
             }
 
@@ -212,18 +250,32 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// 重置恢复代码
+    /// </summary>
+    /// <returns></returns>
+    public async Task ResetRevocationCodeAsync()
+    {
+        if (_currentSteamLoginState == null)
+        {
+            return;
+        }
+
+        // 根据登录信息 获取/初始化 TwoFA Steam Authenticator 信息
+        var (initialized, errMsg) = await InitTwoFASteamAuthenticatorAsync(_currentSteamLoginState);
+
+        if (!initialized)
+        {
+            Toast.Show(ToastIcon.Error, errMsg);
+            return;
+        }
+
+        RevocationCodeText = _currentSteamAuthenticator!.RecoveryCode;
+    }
+
     #endregion 联合 Steam令牌 页面流程
 
     #region 辅助方法
-
-    public void Reset()
-    {
-        UserNameText = default;
-        PasswordText = default;
-        Code = default;
-        RevocationCodeText = default;
-        SelectIndex = STEPINDEX_LOGIN;
-    }
 
     /// <summary>
     /// 初始化 TwoFA Steam Authenticator 信息
@@ -239,11 +291,11 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
             : null;
 
         if (string.IsNullOrEmpty(steamId))
-            return (false, "登录信息失败!");
+            return (false, $"{AppResources.LocalAuth_JoinSteamAuthenticator_InitLocalAuthenticatorError}:{nameof(steamId)}");
+
+        string deviceId = CreateNewDeviceId();
 
         var client = _currentSteamAuthenticator.GetClient();
-
-        string deviceId = $"android:{Guid.NewGuid()}";
 
         string authenticatorJson;
 
@@ -259,17 +311,26 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            return (false, $"请求令牌信息失败:{ex.Message}");
+            return (false, $"{AppResources.LocalAuth_JoinSteamAuthenticator_RequestUser2FAInfoError}:{ex.Message}");
         }
 
         if (string.IsNullOrEmpty(authenticatorJson))
-            return (false, "获取令牌信息失败!");
+            return (false, AppResources.LocalAuth_JoinSteamAuthenticator_RequestUser2FAInfoError);
 
-        var result = SetSteamAuthenticator(_currentSteamAuthenticator, authenticatorJson)
+        var (initialized, msg) = TryParseSteamAuthenticator(authenticatorJson, out var parsedSteamData)
             ? (true, string.Empty)
-            : (false, "解析令牌信息失败!");
+            : (false, AppResources.LocalAuth_JoinSteamAuthenticator_ParseUser2FAInfoError);
 
-        return result;
+        // 解析响应之后赋值给当前本地令牌
+        if (initialized)
+        {
+            _currentSteamAuthenticator.DeviceId = deviceId;
+            _currentSteamAuthenticator.SteamData = SystemTextJsonSerializer.Serialize(parsedSteamData!, SteamJsonContext.Default.SteamConvertSteamDataJsonStruct);
+            _currentSteamAuthenticator.SecretKey = Base64Extensions.Base64DecodeToByteArray_Nullable(parsedSteamData!.SharedSecret);
+            _currentSteamAuthenticator.Serial = parsedSteamData.SerialNumber;
+        }
+
+        return (initialized, msg);
     }
 
     /// <summary>
@@ -291,7 +352,6 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            Toast.Show(ToastIcon.Error, "同步令牌失败!");
             ex.LogAndShowT();
             return false;
         }
@@ -302,28 +362,38 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 设置令牌信息
+    /// 解析 Steam Authenticator json响应
     /// </summary>
-    /// <param name="authenticator"></param>
     /// <param name="authenticatorJson"></param>
+    /// <param name="parsedSteamAuthenticator">已解析的响应信息</param>
     /// <returns></returns>
-    private static bool SetSteamAuthenticator(SteamAuthenticator authenticator, string authenticatorJson)
+    private static bool TryParseSteamAuthenticator(string authenticatorJson, out SteamConvertSteamDataJsonStruct? parsedSteamAuthenticator)
     {
-        var authenticatorDataResp = SystemTextJsonSerializer.Deserialize(
-                    authenticatorJson,
-                    SteamJsonContext.Default.SteamDoLoginTfaJsonStruct
-                );
+        parsedSteamAuthenticator = default;
+
+        SteamDoLoginTfaJsonStruct? authenticatorDataResp;
+
+        try
+        {
+            authenticatorDataResp = SystemTextJsonSerializer.Deserialize(
+                   authenticatorJson,
+                   SteamJsonContext.Default.SteamDoLoginTfaJsonStruct
+               );
+        }
+        catch (Exception)
+        {
+            return false;
+        }
 
         if (authenticatorDataResp == null || authenticatorDataResp.Response == null)
             return false;
 
-        var data = authenticatorDataResp.Response;
+        parsedSteamAuthenticator = authenticatorDataResp.Response;
 
-        authenticator.SteamData = SystemTextJsonSerializer.Serialize(data, SteamJsonContext.Default.SteamConvertSteamDataJsonStruct);
-        authenticator.SecretKey = Base64Extensions.Base64DecodeToByteArray_Nullable(data.SharedSecret);
-        authenticator.Serial = data.SerialNumber;
-
-        return true;
+        // 目前只需要知道是否含有令牌数据信息
+        // 不需要知道当前状态可不可以绑定,绑定操作在 Steam App 中完成
+        // 这里只是将令牌数据保存到本地 以便后续计算
+        return parsedSteamAuthenticator != null;
     }
 
     /// <summary>
@@ -342,6 +412,29 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
         };
 
         return AuthenticatorHelper.SaveAuthenticator(iADTO);
+    }
+
+    /// <summary>
+    /// 创建新的设备ID
+    /// </summary>
+    /// <returns></returns>
+    private static string CreateNewDeviceId() => $"android:{Guid.NewGuid()}";
+
+    /// <summary>
+    /// 重置页面绑定信息
+    /// </summary>
+    public void Reset()
+    {
+        UserNameText = default;
+        PasswordText = default;
+        Code = default;
+        VerifyCodeText = default;
+        RequireVerifyCode = default;
+        RevocationCodeText = default;
+        SelectIndex = STEPINDEX_LOGIN;
+
+        _currentSteamAuthenticator = default;
+        _currentSteamLoginState = default;
     }
 
     #endregion 辅助方法
