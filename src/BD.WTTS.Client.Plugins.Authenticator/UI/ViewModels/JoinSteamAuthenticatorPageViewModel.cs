@@ -116,12 +116,13 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
             loginState.Password = PasswordText;
             loginState.Language = ResourceService.GetCurrentCultureSteamLanguageName();
 
+            if (RequireVerifyCode && loginState.RequiresEmailAuth)
+            {
+                loginState.EmailCode = VerifyCodeText;
+            }
+
             try
             {
-                if (RequireVerifyCode && loginState.RequiresEmailAuth)
-                {
-                    loginState.EmailCode = VerifyCodeText;
-                }
                 // 开始登录
                 await _steamAccountService.DoLoginV2Async(loginState);
             }
