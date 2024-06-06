@@ -4196,6 +4196,123 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 共存令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确认 Steam App 令牌验证码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_ConfirmSteamAppAuthenticatorCode {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_ConfirmSteamAppAuthenticatorCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 初始化本地令牌错误 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_InitLocalAuthenticatorError {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_InitLocalAuthenticatorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入 Steam App 中显示的令牌验证码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCode {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开 Steam App 绑定令牌后在此页面输入验证 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCodeTips {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCodeTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登录请求错误 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_LoginRequestError {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_LoginRequestError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 解析用户 Steam 令牌信息失败 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_ParseUser2FAInfoError {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_ParseUser2FAInfoError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 获取用户 Steam 令牌信息失败 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_RequestUser2FAInfoError {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_RequestUser2FAInfoError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存令牌失败 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_SaveLocalAuthenticatorError {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_SaveLocalAuthenticatorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam App 令牌验证码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_SteamAppAuthenticatorCode {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_SteamAppAuthenticatorCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入已在 Steam App 中绑定的令牌当前的令牌验证码 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_SteamGuardCodeEmptyError {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_SteamGuardCodeEmptyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 验证令牌错误 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticator_VerifySteamGuardCodeError {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticator_VerifySteamGuardCodeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在 Watt Toolkit 中与官方 Steam App 中使用相同的令牌信息 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_JoinSteamAuthenticatorDesc {
+            get {
+                return ResourceManager.GetString("LocalAuth_JoinSteamAuthenticatorDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定要注销当前令牌登录的账号信息吗？ 的本地化字符串。
         /// </summary>
         public static string LocalAuth_LogoutTip {

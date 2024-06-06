@@ -1,0 +1,149 @@
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    x:CompileBindings="True"
+    x:DataType="spp:JoinSteamAuthenticatorPageViewModel"
+		x:Class="BD.WTTS.UI.Views.Pages.JoinSteamAuthenticatorPage"
+    mc:Ignorable="d">
+	<Grid RowDefinitions="Auto,*">
+		<spp:Stepper SelectedIndex="{Binding SelectIndex}">
+			<spp:StepperItem Content="{Binding Path=Res.Steam_Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<spp:StepperItem Content="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_ConfirmSteamAppAuthenticatorCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<spp:StepperItem Content="{Binding Path=Res.Btn_Text_Complete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+		</spp:Stepper>
+
+		<spp:ContentLoader
+				Grid.Row="1"
+				MinWidth="600"
+				MinHeight="400"
+				IsLoading="{Binding Loading}"
+				IsShowNoResultText="False">
+			<Carousel IsVisible="{Binding !Loading}" SelectedIndex="{Binding SelectIndex}">
+				<Panel>
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsOpen="True"
+							IsVisible="{Binding RequireVerifyCode}"
+							Message="{Binding Path=Res.LocalAuth_EmailCodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Severity="Warning" />
+
+					<StackPanel
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Spacing="10">
+						<PathIcon
+								Width="88"
+								Height="88"
+								Data="{StaticResource Steam}" />
+						<TextBox
+								MaxWidth="280"
+								Text="{Binding UserNameText}"
+								Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+						<TextBox
+								Name="PasswordText"
+								MaxWidth="280"
+								Classes="revealPasswordButton"
+								PasswordChar="{StaticResource PasswordChar}"
+								Text="{Binding PasswordText}"
+								Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+						<TextBox
+							IsVisible="{Binding RequireVerifyCode}"
+							Watermark="{Binding Path=Res.EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Text="{Binding VerifyCodeText}" />
+						<Button
+								MinWidth="280"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Bottom"
+								HorizontalContentAlignment="Center"
+								Command="{Binding LoginAsync}"
+								Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Panel>
+
+				<Panel>
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsOpen="True"
+							Message="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCodeTips, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Severity="Warning" />
+					<StackPanel
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Spacing="10">
+						<DockPanel>
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									Text="{Binding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBox
+									MaxWidth="300"
+									Text="{Binding RevocationCodeText}"
+									IsReadOnly="True" />
+							<!--<Button
+								Content="重新生成"
+								Command="{Binding ResetRevocationCodeAsync}" />-->
+						</DockPanel>
+						<DockPanel>
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									Text="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_SteamAppAuthenticatorCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBox
+									MaxWidth="300"
+									Watermark="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+									Text="{Binding Code}" />
+						</DockPanel>
+
+						<Button
+								MinWidth="280"
+								HorizontalAlignment="Center"
+								HorizontalContentAlignment="Center"
+								Command="{Binding VerifyCodeAsync}"
+								Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Panel>
+
+				<Panel>
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsOpen="True"
+							Message="{Binding Path=Res.RecoveryCode_RememberTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Severity="Success" />
+					<StackPanel
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Spacing="10">
+
+						<DockPanel>
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									Text="{Binding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBox
+									MaxWidth="300"
+									Text="{Binding RevocationCodeText}"
+									IsReadOnly="True" />
+						</DockPanel>
+
+						<Button
+								MinWidth="280"
+								HorizontalAlignment="Center"
+								HorizontalContentAlignment="Center"
+								Command="{Binding SaveAsync}"
+								Content="{Binding Path=Res.Confirm, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Panel>
+			</Carousel>
+		</spp:ContentLoader>
+	</Grid>
+</UserControl>
