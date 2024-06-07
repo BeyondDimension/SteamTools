@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -125,6 +126,10 @@
                             IsVisible="{Binding !IsSelectedSteam}"
                             Text="平台设置" />
                         <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
+                        <ui:ToggleMenuFlyoutItem
+                            IsChecked="{Binding Source={x:Static ms:GameAccountSettings.IsShowAccountName}, Path=Value, Mode=TwoWay}"
+                            IsVisible="{Binding IsSelectedSteam}"
+                            Text="显示用户名" />
                         <ui:MenuFlyoutSeparator IsVisible="{Binding !IsSelectedSteam}" />
                         <ui:MenuFlyoutItem IsEnabled="False">
                             <ui:MenuFlyoutItem.Text>

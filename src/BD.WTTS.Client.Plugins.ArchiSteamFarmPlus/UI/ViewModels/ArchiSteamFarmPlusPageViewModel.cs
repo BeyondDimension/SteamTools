@@ -28,7 +28,6 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel : ViewModelBase
                 var model = new ArchiSteamFarmExePathSettingsPageViewModel();
                 await IWindowManager.Instance.ShowTaskDialogAsync(model,
                     title: BDStrings.ASF_Settings,
-                    subHeader: BDStrings.ASF_SetExePathFirst,
                     pageContent: new ArchiSteamFarmExePathSettingsPage(),
                     isCancelButton: true,
                     cancelCloseAction: () =>

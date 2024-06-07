@@ -130,6 +130,77 @@
                     IsClickEnabled="True"
                     ToolTip.Tip="{Binding Path=., Mode=OneWay, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=www}" />
             </ui:SettingsExpander>
+
+            <!--<spp:OptionsDisplayItem Header="ASF 文件路径">
+                <spp:OptionsDisplayItem.Description>
+                    <TextBlock
+                        MaxWidth="120"
+                        MaxLines="1"
+                        Text="{Binding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath}, Path=Value, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                </spp:OptionsDisplayItem.Description>
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <Button Command="{Binding SelectASFExePath}" Content="选择路径" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>-->
+
+            <spp:OptionsDisplayItem Header="自动启动 ASF">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="检查文件安全性">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE83D;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ASFSettings.CheckArchiSteamFarmExe}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="ASF 监听端口">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE704;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ui:NumberBox Minimum="5000" Value="{Binding Source={x:Static ms:ASFSettings.IPCPortId}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="端口被占时随机端口号">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ASFSettings.IPCPortOccupiedRandom}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="控制台最大行数">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ui:NumberBox Minimum="1" Value="{Binding Source={x:Static ms:ASFSettings.ConsoleMaxLine}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="控制台字体大小">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8E9;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ui:NumberBox Minimum="1" Value="{Binding Source={x:Static ms:ASFSettings.ConsoleFontSize}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
         </StackPanel>
     </spp:ContentLoader>
 </spp:PageBase>

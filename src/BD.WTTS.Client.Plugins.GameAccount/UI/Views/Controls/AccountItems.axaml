@@ -6,6 +6,7 @@
     xmlns:i="using:Avalonia.Xaml.Interactivity"
     xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -219,8 +220,13 @@
                                 ContextFlyout="{StaticResource SharedMenuFlyout}"
                                 Description="{Binding LastLoginTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                                 MoreFlyout="{StaticResource SharedMenuFlyout}"
-                                Status="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                                Tags="{Binding AliasName}">
+                                Status="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                <spp:AppItem.Tags>
+                                    <WrapPanel>
+                                        <TextBlock IsVisible="{Binding Source={x:Static ms:GameAccountSettings.IsShowAccountName}, Path=Value, Mode=OneWay}" Text="{Binding AccountName}" />
+                                        <TextBlock IsVisible="{Binding AliasName, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" Text="{Binding AliasName, StringFormat={}({0})}" />
+                                    </WrapPanel>
+                                </spp:AppItem.Tags>
                                 <ToolTip.Tip>
                                     <TextBlock>
                                         <Run Text="双击可快速切换到此账号登录" />

@@ -41,6 +41,11 @@ public partial interface IGameAccountSettings
     ConcurrentDictionary<string, PlatformSettings>? PlatformSettings { get; set; }
 
     /// <summary>
+    /// 是否显示账号用户名
+    /// </summary>
+    bool IsShowAccountName { get; set; }
+
+    /// <summary>
     /// 账号备注字典的默认值
     /// </summary>
     static readonly ConcurrentDictionary<string, string?> DefaultAccountRemarks = new();
@@ -59,5 +64,10 @@ public partial interface IGameAccountSettings
     /// 账号平台设置集合的默认值
     /// </summary>
     static readonly ConcurrentDictionary<string, PlatformSettings> DefaultPlatformSettings = new();
+
+    /// <summary>
+    /// 是否显示账号用户名的默认值
+    /// </summary>
+    static readonly bool DefaultIsShowAccountName = false;
 
 }

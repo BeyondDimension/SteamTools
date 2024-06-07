@@ -67,6 +67,12 @@ public sealed partial class GameAccountSettings_ : IGameAccountSettings, ISettin
     [MPKey(3), MP2Key(3), JsonPropertyOrder(3)]
     public ConcurrentDictionary<string, PlatformSettings>? PlatformSettings { get; set; } = IGameAccountSettings.DefaultPlatformSettings;
 
+    /// <summary>
+    /// 是否显示账号用户名
+    /// </summary>
+    [MPKey(4), MP2Key(4), JsonPropertyOrder(4)]
+    public bool IsShowAccountName { get; set; } = IGameAccountSettings.DefaultIsShowAccountName;
+
 }
 
 public static partial class GameAccountSettings
@@ -94,5 +100,11 @@ public static partial class GameAccountSettings
     /// </summary>
     public static SettingsProperty<string, PlatformSettings, ConcurrentDictionary<string, PlatformSettings>, GameAccountSettings_> PlatformSettings { get; }
         = new(DefaultPlatformSettings);
+
+    /// <summary>
+    /// 是否显示账号用户名
+    /// </summary>
+    public static SettingsStructProperty<bool, GameAccountSettings_> IsShowAccountName { get; }
+        = new(DefaultIsShowAccountName);
 
 }
