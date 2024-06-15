@@ -155,7 +155,13 @@ public static class CertGenerator
         }
         else
         {
-            builder.AddDnsName(name);
+            try
+            {
+                builder.AddDnsName(name);
+            }
+            catch
+            {
+            }
         }
     }
 
