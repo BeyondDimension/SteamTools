@@ -161,6 +161,14 @@ public static class CertGenerator
             }
             catch
             {
+                /* name = Environment.MachineName
+                 * System.ArgumentException: Decoded string is not a valid IDN name. (Parameter 'unicode')
+                 * at System.Globalization.IdnMapping.IcuGetAsciiCore(String unicodeString, Char* unicode, Int32 count)
+                 * at System.Globalization.IdnMapping.GetAscii(String unicode, Int32 index, Int32 count)
+                 * at System.Security.Cryptography.X509Certificates.SubjectAlternativeNameBuilder.AddDnsName(String dnsName)
+                 * at BD.WTTS.Services.Implementation.CertGenerator.Add(SubjectAlternativeNameBuilder builder, String name)
+                 * at BD.WTTS.Services.Implementation.CertGenerator.CreateEndCertificate(X509Certificate2 issuerCertificate, X500DistinguishedName subjectName, IEnumerable`1 extraDnsNames, Nullable`1 notBefore, Nullable`1 notAfter, Int32 rsaKeySizeInBits)
+                 */
             }
         }
     }
