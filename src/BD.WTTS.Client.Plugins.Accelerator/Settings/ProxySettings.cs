@@ -197,6 +197,12 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     [MPKey(22), MP2Key(22), JsonPropertyOrder(22)]
     public string? CustomDohAddres { get; set; } = IProxySettings.DefaultCustomDohAddres;
 
+    /// <summary>
+    /// 加速页面 Tab 选项卡选中下标
+    /// </summary>
+    [MPKey(23), MP2Key(23), JsonPropertyOrder(23)]
+    public int AcceleratorTabsSelectedIndex { get; set; } = IProxySettings.DefaultAcceleratorTabsSelectedIndex;
+
 }
 
 public static partial class ProxySettings
@@ -358,5 +364,11 @@ public static partial class ProxySettings
     /// </summary>
     public static SettingsProperty<string, ProxySettings_> CustomDohAddres { get; }
         = new(DefaultCustomDohAddres);
+
+    /// <summary>
+    /// 加速页面 Tab 选项卡选中下标
+    /// </summary>
+    public static SettingsStructProperty<int, ProxySettings_> AcceleratorTabsSelectedIndex { get; }
+        = new(DefaultAcceleratorTabsSelectedIndex);
 
 }

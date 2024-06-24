@@ -979,6 +979,15 @@
           "Summary": "自定义 DNS over HTTPS 地址",
           "IsRegionOrEndregion": null,
           "IsValueType": null
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "AcceleratorTabsSelectedIndex",
+          "DefaultValue": "0",
+          "DefaultValueIsConst": false,
+          "Summary": "加速页面 Tab 选项卡选中下标",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
         }
       ],
       "Usings": ""

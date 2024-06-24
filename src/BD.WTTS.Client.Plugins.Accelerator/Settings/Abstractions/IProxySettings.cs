@@ -156,6 +156,11 @@ public partial interface IProxySettings
     string? CustomDohAddres { get; set; }
 
     /// <summary>
+    /// 加速页面 Tab 选项卡选中下标
+    /// </summary>
+    int AcceleratorTabsSelectedIndex { get; set; }
+
+    /// <summary>
     /// 启用脚本自动检查更新的默认值
     /// </summary>
     const bool DefaultIsAutoCheckScriptUpdate = true;
@@ -269,5 +274,10 @@ public partial interface IProxySettings
     /// 自定义 DNS over HTTPS 地址的默认值
     /// </summary>
     const string? DefaultCustomDohAddres = null;
+
+    /// <summary>
+    /// 加速页面 Tab 选项卡选中下标的默认值
+    /// </summary>
+    static readonly int DefaultAcceleratorTabsSelectedIndex = 0;
 
 }
