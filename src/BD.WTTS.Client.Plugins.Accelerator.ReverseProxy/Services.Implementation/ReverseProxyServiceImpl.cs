@@ -164,10 +164,13 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
         {
             if (string.IsNullOrWhiteSpace(reverseProxySettings.ProxyIp))
                 return StartProxyResultCode.Exception;
-            var inUsePort = SocketHelper.IsUsePort(IPAddress.Parse(reverseProxySettings.ProxyIp!), 443);
-            if (inUsePort)
+            if (reverseProxySettings.ProxyMode == ProxyMode.Hosts)
             {
-                return StartProxyResultCode.BindPortError;
+                var inUsePort = SocketHelper.IsUsePort(IPAddress.Parse(reverseProxySettings.ProxyIp!), 443);
+                if (inUsePort)
+                {
+                    return StartProxyResultCode.BindPortError;
+                }
             }
         }
 
