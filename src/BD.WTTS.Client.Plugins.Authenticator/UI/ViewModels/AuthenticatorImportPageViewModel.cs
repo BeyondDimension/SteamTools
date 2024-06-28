@@ -16,6 +16,8 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
     {
         AuthenticatorImportMethods = new List<AuthenticatorImportMethod>
         {
+            new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.LocalAuth_JoinSteamAuthenticator), Strings.LocalAuth_JoinSteamAuthenticatorDesc,
+                                            PageType: typeof(JoinSteamAuthenticatorPage)),
             new AuthenticatorImportMethod(Strings.Auth_SteamLoginImport, Strings.Steam_UserLoginTip,
                                             PageType: typeof(SteamLoginImportPage)),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.SteamGuard), Strings.LocalAuth_SteamGuardImport,
@@ -26,8 +28,6 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                                 if (await AuthenticatorHelper.VerifyMaxValue())
                                                     await ImportFromSdaFile();
                                             })),
-            new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.LocalAuth_JoinSteamAuthenticator), Strings.LocalAuth_JoinSteamAuthenticatorDesc,
-                                            PageType: typeof(JoinSteamAuthenticatorPage)),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.WattToolKitV2), Strings.LocalAuth_WattToolKitV2Import,
                                             Command: ReactiveCommand.Create(async () =>
                                             {

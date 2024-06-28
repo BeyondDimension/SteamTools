@@ -4196,7 +4196,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 共存令牌 的本地化字符串。
+        ///   查找类似 Steam App 令牌共存 的本地化字符串。
         /// </summary>
         public static string LocalAuth_JoinSteamAuthenticator {
             get {
@@ -4304,7 +4304,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 在 Watt Toolkit 中与官方 Steam App 中使用相同的令牌信息 的本地化字符串。
+        ///   查找类似 在 Watt Toolkit 中与官方 Steam App 中使用相同的令牌数据导入方式（推荐✨） 的本地化字符串。
         /// </summary>
         public static string LocalAuth_JoinSteamAuthenticatorDesc {
             get {

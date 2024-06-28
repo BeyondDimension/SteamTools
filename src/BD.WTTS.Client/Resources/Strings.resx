@@ -2977,10 +2977,10 @@
     <value>验证令牌错误</value>
   </data>
   <data name="LocalAuth_JoinSteamAuthenticator" xml:space="preserve">
-    <value>共存令牌</value>
+    <value>Steam App 令牌共存</value>
   </data>
   <data name="LocalAuth_JoinSteamAuthenticatorDesc" xml:space="preserve">
-    <value>在 Watt Toolkit 中与官方 Steam App 中使用相同的令牌信息</value>
+    <value>在 Watt Toolkit 中与官方 Steam App 中使用相同的令牌数据导入方式（推荐✨）</value>
   </data>
   <data name="LocalAuth_JoinSteamAuthenticator_ConfirmSteamAppAuthenticatorCode" xml:space="preserve">
     <value>确认 Steam App 令牌验证码</value>
