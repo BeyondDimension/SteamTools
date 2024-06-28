@@ -11,8 +11,8 @@ public sealed class ProxySettingsWindowViewModel : WindowViewModel
         Title = DisplayName;
     }
 
-    public IEnumerable<ExternalProxyType> ProxyTypes { get; }
-        = Enum2.GetAll<ExternalProxyType>();
+    //public IEnumerable<ExternalProxyType> ProxyTypes { get; }
+    //    = Enum2.GetAll<ExternalProxyType>();
 
     public IEnumerable<string> ProxyDNSs { get; } = new[]
     {

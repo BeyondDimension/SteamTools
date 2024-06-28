@@ -1,6 +1,4 @@
 // ReSharper disable once CheckNamespace
-using BD.Common.Columns;
-using Google.Protobuf.WellKnownTypes;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -89,6 +87,10 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                 break;
             case "gc":
                 GC.Collect();
+                break;
+            case "refreshnews":
+                NoticeService.Current.ClrearLastLookNoticeDateTime();
+                await NoticeService.Current.GetNewsAsync();
                 break;
             case "login":
                 if (cmds.Length > 1)

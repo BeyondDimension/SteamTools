@@ -12,10 +12,10 @@ sealed class LifetimeHttpHandler : DelegatingHandler
 
     public LifeTimeKey LifeTimeKey { get; }
 
-    public LifetimeHttpHandler(IDomainResolver domainResolver, LifeTimeKey lifeTimeKey, TimeSpan lifeTime, Action<LifetimeHttpHandler> deactivateAction)
+    public LifetimeHttpHandler(IDomainResolver domainResolver, IWebProxy webProxy, LifeTimeKey lifeTimeKey, TimeSpan lifeTime, Action<LifetimeHttpHandler> deactivateAction)
     {
         LifeTimeKey = lifeTimeKey;
-        InnerHandler = new ReverseProxyHttpClientHandler(lifeTimeKey.DomainConfig, domainResolver);
+        InnerHandler = new ReverseProxyHttpClientHandler(lifeTimeKey.DomainConfig, domainResolver, webProxy);
         timer = new Timer(OnTimerCallback, deactivateAction, lifeTime, Timeout.InfiniteTimeSpan);
     }
 

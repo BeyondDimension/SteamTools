@@ -6325,11 +6325,83 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 地址 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_IPAddress {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_IPAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 密码 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_Password {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 端口 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_Port {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_Port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 代理类型 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_ProxyType {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_ProxyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 代理监听 IP 地址 的本地化字符串。
         /// </summary>
         public static string Settings_Proxy_SystemProxyIp {
             get {
                 return ResourceManager.GetString("Settings_Proxy_SystemProxyIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 代理监听端口 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_SystemProxyPortId {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_SystemProxyPortId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅对 PAC 与 System 代理模式生效 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_SystemProxyPortId_Tip {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_SystemProxyPortId_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 二级代理 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_TwoLevelAgent {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_TwoLevelAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 用户名 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_UserName {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_UserName", resourceCulture);
             }
         }
         

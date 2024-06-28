@@ -15,7 +15,7 @@ public class ReverseProxyHttpClient : HttpMessageInvoker
     //   = new(new ProductHeaderValue(Constants.HARDCODED_APP_NAME_NEW + "_" + DateTimeOffset.UtcNow.Ticks, ThisAssembly.Version));
 
     public ReverseProxyHttpClient(IDomainConfig domainConfig, IDomainResolver domainResolver)
-        : this(new ReverseProxyHttpClientHandler(domainConfig, domainResolver), disposeHandler: true)
+        : this(new ReverseProxyHttpClientHandler(domainConfig, domainResolver, HttpNoProxy.Instance), disposeHandler: true)
     {
     }
 

@@ -964,8 +964,8 @@
         },
         {
           "TypeName": "bool",
-          "PropertyName": "UseDoh",
-          "DefaultValue": "true",
+          "PropertyName": "UseDoh2",
+          "DefaultValue": "false",
           "DefaultValueIsConst": true,
           "Summary": "启用 DNS over HTTPS",
           "IsRegionOrEndregion": null,

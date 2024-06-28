@@ -189,7 +189,7 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// 启用 DNS over HTTPS
     /// </summary>
     [MPKey(21), MP2Key(21), JsonPropertyOrder(21)]
-    public bool UseDoh { get; set; } = IProxySettings.DefaultUseDoh;
+    public bool UseDoh2 { get; set; } = IProxySettings.DefaultUseDoh2;
 
     /// <summary>
     /// 自定义 DNS over HTTPS 地址
@@ -356,8 +356,8 @@ public static partial class ProxySettings
     /// <summary>
     /// 启用 DNS over HTTPS
     /// </summary>
-    public static SettingsStructProperty<bool, ProxySettings_> UseDoh { get; }
-        = new(DefaultUseDoh);
+    public static SettingsStructProperty<bool, ProxySettings_> UseDoh2 { get; }
+        = new(DefaultUseDoh2);
 
     /// <summary>
     /// 自定义 DNS over HTTPS 地址

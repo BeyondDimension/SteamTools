@@ -218,6 +218,7 @@
                                                         <TextBlock Text="{Binding Path=User.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
                                                         <Border
                                                             Padding="5,1"
+                                                            HorizontalAlignment="Left"
                                                             VerticalAlignment="Center"
                                                             CornerRadius="2"
                                                             IsVisible="{Binding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">

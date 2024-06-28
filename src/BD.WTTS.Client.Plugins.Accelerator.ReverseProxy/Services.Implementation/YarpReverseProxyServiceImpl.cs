@@ -80,17 +80,19 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             builder.WebHost.UseKestrel(options =>
             {
                 options.AddServerHeader = false;
+                options.RequestHeaderEncodingSelector = _ => Encoding.UTF8;
+                options.ResponseHeaderEncodingSelector = _ => Encoding.UTF8;
                 options.NoLimit();
 #if WINDOWS
 #if !NET7_0_OR_GREATER
-                            if (OperatingSystem2.IsWindows7())
-                            {
-                                //https://github.com/dotnet/aspnetcore/issues/22563
-                                options.ConfigureHttpsDefaults(httpsOptions =>
-                                {
-                                    httpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
-                                });
-                            }
+                if (OperatingSystem2.IsWindows7())
+                {
+                    //https://github.com/dotnet/aspnetcore/issues/22563
+                    options.ConfigureHttpsDefaults(httpsOptions =>
+                    {
+                        httpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
+                    });
+                }
 #endif
                 //options.ListenSshReverseProxy();
                 //options.ListenGitReverseProxy();

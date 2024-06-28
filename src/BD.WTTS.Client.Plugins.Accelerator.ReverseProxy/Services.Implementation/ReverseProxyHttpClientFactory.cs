@@ -1,11 +1,14 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Http/HttpClientFactory.cs
 
 // ReSharper disable once CheckNamespace
+using System.Net;
+
 namespace BD.WTTS.Services.Implementation;
 
 sealed class ReverseProxyHttpClientFactory : IReverseProxyHttpClientFactory
 {
     readonly IDomainResolver domainResolver;
+    readonly IWebProxy webProxy;
 
     /// <summary>
     /// 首次生命周期
@@ -27,9 +30,19 @@ sealed class ReverseProxyHttpClientFactory : IReverseProxyHttpClientFactory
     /// </summary>
     readonly ConcurrentDictionary<LifeTimeKey, Lazy<LifetimeHttpHandler>> httpHandlerLazyCache = new();
 
-    public ReverseProxyHttpClientFactory(IDomainResolver domainResolver)
+    public ReverseProxyHttpClientFactory(IDomainResolver domainResolver, IReverseProxyConfig reverseProxyConfig)
     {
         this.domainResolver = domainResolver;
+        if (reverseProxyConfig.Service.TwoLevelAgentEnable)
+        {
+            this.webProxy = new WebProxy($"{reverseProxyConfig.Service.TwoLevelAgentProxyType}://{reverseProxyConfig.Service.TwoLevelAgentIp}:{reverseProxyConfig.Service.TwoLevelAgentPortId}", true, null, null);
+            if (!string.IsNullOrEmpty(reverseProxyConfig.Service.TwoLevelAgentUserName) || !string.IsNullOrEmpty(reverseProxyConfig.Service.TwoLevelAgentPassword))
+            {
+                webProxy.Credentials = new NetworkCredential(reverseProxyConfig.Service.TwoLevelAgentUserName, reverseProxyConfig.Service.TwoLevelAgentPassword);
+            }
+        }
+        else
+            this.webProxy = HttpNoProxy.Instance;
     }
 
     public ReverseProxyHttpClient CreateHttpClient(string domain, IDomainConfig domainConfig)
@@ -43,7 +56,7 @@ sealed class ReverseProxyHttpClientFactory : IReverseProxyHttpClientFactory
     }
 
     LifetimeHttpHandler CreateLifetimeHttpHandler(LifeTimeKey lifeTimeKey, TimeSpan lifeTime)
-        => new(domainResolver, lifeTimeKey, lifeTime, OnLifetimeHttpHandlerDeactivate);
+        => new(domainResolver, webProxy, lifeTimeKey, lifeTime, OnLifetimeHttpHandlerDeactivate);
 
     void OnLifetimeHttpHandlerDeactivate(LifetimeHttpHandler lifetimeHttpHandler)
     {
