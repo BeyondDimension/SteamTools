@@ -140,11 +140,10 @@ sealed class HttpLocalRequestMiddleware
                 return null;
             }
 
-            StringValues cookie = context.Request.Headers["cookie-steamTool"];
+            StringValues cookie = context.Request.Headers["cookie-steamtool"];
             if (StringValues.IsNullOrEmpty(cookie))
                 cookie = context.Request.Headers["Cookie"];
-            StringValues referer = context.Request.Headers["Referer-steamTool"];
-
+            StringValues referer = context.Request.Headers["Referer-steamtool"];
             context.Response.Headers.AccessControlAllowOrigin = context.Request.Headers.Origin.Count == 0 ? "*" : context.Request.Headers.Origin;
             context.Response.Headers.AccessControlAllowHeaders = "*";
             context.Response.Headers.AccessControlAllowMethods = "*";
@@ -166,6 +165,14 @@ sealed class HttpLocalRequestMiddleware
                     Method = methodObj,
                     Content = hasReqContent ? new StreamContent(context.Request.Body) : null,
                 };
+                foreach (var item in context.Request.Headers)
+                {
+
+                    if (item.Key.ToLower().EndsWith("-steamtool"))
+                    {
+                        req.Headers.TryAddWithoutValidation(item.Key.TrimEnd("-steamtool"), (IEnumerable<string?>)item.Value);
+                    }
+                }
                 req.Headers.UserAgent.ParseAdd(context.Request.Headers.UserAgent);
                 if (!StringValues.IsNullOrEmpty(cookie))
                 {
