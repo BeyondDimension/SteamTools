@@ -5,6 +5,10 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 窗口管理
 /// </summary>
+[Mobius(
+"""
+Mobius.UI.Services.WindowManagerService
+""")]
 public interface IWindowManager
 {
     static IWindowManager Instance => Ioc.Get<IWindowManager>();

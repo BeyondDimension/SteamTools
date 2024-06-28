@@ -3,6 +3,10 @@ namespace BD.WTTS.Enums;
 /// <summary>
 /// 应用程序 Web 代理模式
 /// </summary>
+[Mobius(
+"""
+Mobius.Enums.App.AppWebProxyMode
+""")]
 public enum AppWebProxyMode : byte
 {
     /// <summary>

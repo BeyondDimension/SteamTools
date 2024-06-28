@@ -25,6 +25,10 @@ partial interface IApplication
     /// <summary>
     /// 获取当前主程序文件名，例如 steam++.exe
     /// </summary>
+    [Mobius(
+"""
+AppConstants.ProgramName
+""")]
     static string ProgramName
     {
         get

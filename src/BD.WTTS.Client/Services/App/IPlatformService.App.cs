@@ -1,6 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
+[Mobius(Obsolete = true)]
 partial interface IPlatformService
 {
 #if DEBUG

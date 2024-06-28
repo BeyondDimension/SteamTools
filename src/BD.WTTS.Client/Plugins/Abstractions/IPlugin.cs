@@ -5,6 +5,10 @@ namespace BD.WTTS.Plugins.Abstractions;
 /// <summary>
 /// 插件接口
 /// </summary>
+[Mobius(
+"""
+Mobius.Plugins.IPlugin
+""")]
 public partial interface IPlugin
 {
     /// <summary>

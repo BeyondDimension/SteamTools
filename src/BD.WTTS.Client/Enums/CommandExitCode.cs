@@ -1,5 +1,10 @@
 namespace BD.WTTS.Enums;
 
+[Mobius(
+"""
+Mobius.Enums.ExitCode
+// src/ExitCode.cs
+""")]
 public enum CommandExitCode
 {
     #region 100 ~ 5xx HttpStatusCode

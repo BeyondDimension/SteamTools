@@ -8,6 +8,10 @@ namespace BD.WTTS.Services;
 /// hosts 文件助手服务，修改需要管理员权限或 Root 权限
 /// </summary>
 [IpcPublic(Timeout = AssemblyInfo.IpcTimeout, IgnoresIpcException = false)]
+[Mobius(
+"""
+Mobius.Services.Net.IHostsFileService
+""")]
 public interface IHostsFileService
 {
     static class Constants

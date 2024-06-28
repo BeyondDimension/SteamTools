@@ -18,6 +18,10 @@ partial class WindowsPlatformServiceImpl
     public const int SC_MAXIMIZE = 0xF030;
     //public const int CS_DROPSHADOW = 0x20000;
 
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper.SetWindowSystemButtonsIsVisible
+""")]
     void IPlatformService.SetWindowSystemButtonsIsVisible(IntPtr hWnd, bool isVisible)
     {
         // https://stackoverflow.com/questions/5114389/how-make-sure-aero-effect-is-enabled
@@ -41,41 +45,73 @@ partial class WindowsPlatformServiceImpl
     public const int WS_BORDER = 0x00800000;
     public const int WS_SYSMENU = 0x80000;
 
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper
+""")]
     public static void EnableMinimizeButton(IntPtr hWnd)
     {
         _ = User32.SetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE, (User32.SetWindowLongFlags)(User32.GetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE) | WS_MINIMIZEBOX));
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper
+""")]
     public static void EnableMaximizeButton(IntPtr hWnd)
     {
         _ = User32.SetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE, (User32.SetWindowLongFlags)(User32.GetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE) | WS_MAXIMIZEBOX));
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper
+""")]
     public static void ShowMinimizeAndMaximizeButtons(IntPtr hWnd)
     {
         _ = User32.SetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE, (User32.SetWindowLongFlags)(User32.GetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE) | WS_MAXIMIZEBOX | WS_MINIMIZEBOX));
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper
+""")]
     public static void ShowAllButtons(IntPtr hWnd)
     {
         _ = User32.SetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE, (User32.SetWindowLongFlags)(User32.GetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE) | WS_SYSMENU));
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper
+""")]
     public static void HideMinimizeAndMaximizeButtons(IntPtr hWnd)
     {
         _ = User32.SetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE, (User32.SetWindowLongFlags)(User32.GetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX));
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper
+""")]
     public static void DisableMinimizeButton(IntPtr hWnd)
     {
         _ = User32.SetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE, (User32.SetWindowLongFlags)(User32.GetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE) & ~WS_MINIMIZEBOX));
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper
+""")]
     public static void DisableMaximizeButton(IntPtr hWnd)
     {
         _ = User32.SetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE, (User32.SetWindowLongFlags)(User32.GetWindowLong(hWnd, User32.WindowLongIndexFlags.GWL_STYLE) & ~WS_MAXIMIZEBOX));
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper
+""")]
     public void SetResizeMode(IntPtr hWnd, ResizeMode value)
     {
         switch (value)

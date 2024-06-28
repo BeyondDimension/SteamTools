@@ -1,5 +1,9 @@
 namespace BD.WTTS.Enums;
 
+[Mobius(
+"""
+Mobius.Enums.UI.NavigationTransitionEffect
+""")]
 public enum NavigationTransitionEffect
 {
     None = 0,

@@ -4,6 +4,10 @@ namespace BD.WTTS.Enums;
 /// <summary>
 /// 资源图标
 /// </summary>
+[Mobius(
+"""
+Mobius.Enums.UI.ResIcon
+""")]
 public enum ResIcon
 {
     None,

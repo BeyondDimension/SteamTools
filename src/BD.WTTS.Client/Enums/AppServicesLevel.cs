@@ -4,6 +4,10 @@ namespace BD.WTTS.Enums;
 /// 应用服务级别，较低的级别注入较少的服务，适用于其他轻量进程业务启动
 /// </summary>
 [Flags]
+[Mobius(
+"""
+Mobius.Enums.App.AppServicesLevel
+""")]
 public enum AppServicesLevel : uint
 {
     /// <summary>

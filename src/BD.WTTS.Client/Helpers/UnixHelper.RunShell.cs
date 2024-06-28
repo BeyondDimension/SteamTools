@@ -9,10 +9,18 @@ static partial class UnixHelper
     const string TAG = nameof(UnixHelper);
 
     /// <inheritdoc cref="IPlatformService.RunShellAsync(string, bool)"/>
+    [Mobius(
+"""
+Mobius.Helpers.ShellHelper.RunAsync
+""")]
     public static ValueTask RunShellAsync(string script, bool requiredAdministrator)
         => RunShellAsync(script, requiredAdministrator, 3);
 
     /// <inheritdoc cref="IPlatformService.RunShellAsync(string, bool)"/>
+    [Mobius(
+"""
+Mobius.Helpers.ShellHelper.RunAsync
+""")]
     static async ValueTask RunShellAsync(string script, bool requiredAdministrator, sbyte retry)
     {
         if (retry <= 0) return;
@@ -30,7 +38,10 @@ static partial class UnixHelper
                 return;
             scriptContent.AppendLine($"echo \"{vm.Value}\" | sudo -S {script}");
         }
-        scriptContent.AppendLine(script);
+        else
+        {
+            scriptContent.AppendLine(script);
+        }
         var msg = RunShell(scriptContent.ToString());
         if (!string.IsNullOrWhiteSpace(msg))
             Toast.Show(ToastIcon.None, msg);
@@ -41,6 +52,10 @@ static partial class UnixHelper
     /// </summary>
     /// <param name="shell">脚本指令</param>
     /// <returns>返回结果</returns>
+    [Mobius(
+"""
+Mobius.Helpers.ShellHelper.RunAsync
+""")]
     public static string RunShell(string shell)
         => Process2.RunShell(Process2.BinBash, shell, e => e.LogAndShowT(TAG));
 }

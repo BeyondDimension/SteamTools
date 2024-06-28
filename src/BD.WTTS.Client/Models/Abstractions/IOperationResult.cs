@@ -3,6 +3,7 @@ namespace BD.WTTS.Models.Abstractions;
 /// <summary>
 /// 操作结果信息类，对操作结果进行封装
 /// </summary>
+[Mobius("ApiRspImpl", Obsolete = true)]
 public interface IOperationResult
 {
     /// <summary>
@@ -22,6 +23,7 @@ public interface IOperationResult
 }
 
 /// <inheritdoc cref="IOperationResult"/>
+[Mobius("ApiRspImpl", Obsolete = true)]
 public interface IOperationResult<T> : IOperationResult
 {
     /// <summary>
@@ -31,6 +33,7 @@ public interface IOperationResult<T> : IOperationResult
 }
 
 /// <inheritdoc cref="IOperationResult{T}"/>
+[Mobius("ApiRspImpl", Obsolete = true)]
 public abstract class OperationResultBase<T> : IOperationResult<T>
 {
     #region 构造函数

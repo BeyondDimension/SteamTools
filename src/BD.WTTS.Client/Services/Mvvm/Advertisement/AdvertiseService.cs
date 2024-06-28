@@ -4,6 +4,10 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 广告服务
 /// </summary>
+[Mobius(
+"""
+Mobius.UI.Services.KomaasharuService
+""")]
 public sealed class AdvertiseService : ReactiveObject
 {
     static readonly Lazy<AdvertiseService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);

@@ -4,6 +4,7 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 主进程的 IPC 服务
 /// </summary>
+[Mobius(Obsolete = true)]
 public interface IPCMainProcessService : IAsyncDisposable
 {
     static IPCMainProcessService Instance => Ioc.Get<IPCMainProcessService>();

@@ -4,6 +4,10 @@ namespace BD.WTTS.Enums;
 /// <summary>
 /// 指定是否可以调整窗口大小，并在可调整大小的情况下指定如何调整窗口大小。由 SetResizeMode 使用
 /// </summary>
+[Mobius(
+"""
+Mobius.Enums.UI.ResizeMode
+""")]
 public enum ResizeMode : byte
 {
     /// <summary>

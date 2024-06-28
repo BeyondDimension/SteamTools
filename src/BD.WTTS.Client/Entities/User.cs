@@ -1,5 +1,9 @@
 namespace BD.WTTS.Entities;
 
+[Mobius(
+"""
+Mobius.Entities.Identity.User
+""")]
 [SQLiteTable("D5428AED")]
 [DebuggerDisplay("{DebuggerDisplay,nq}")]
 public sealed class User : IEntity<Guid>

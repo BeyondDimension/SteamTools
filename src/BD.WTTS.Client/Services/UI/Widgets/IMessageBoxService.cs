@@ -4,6 +4,10 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// MessageBox 自定义实现服务(可选)
 /// </summary>
+[Mobius(
+"""
+Mobius.UI.Helpers.AMessageBox
+""", Obsolete = true)]
 public interface IMessageBoxService
 {
     static IMessageBoxService? Instance => Ioc.Get_Nullable<IMessageBoxService>();

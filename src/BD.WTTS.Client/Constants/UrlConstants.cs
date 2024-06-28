@@ -1,6 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
+[Mobius(
+"""
+Mobius.Constants.UrlConstants
+""")]
 [Obsolete("use Constants.Urls/Constants", true)]
 public static class UrlConstants
 {

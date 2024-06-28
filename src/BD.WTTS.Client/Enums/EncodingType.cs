@@ -1,5 +1,9 @@
 namespace BD.WTTS.Enums;
 
+[Mobius(
+"""
+Mobius.Enums.Text.EncodingType
+""")]
 public enum EncodingType : byte
 {
     /// <summary>

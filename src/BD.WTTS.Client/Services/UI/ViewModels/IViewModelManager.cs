@@ -4,6 +4,7 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 视图模型管理服务
 /// </summary>
+[Mobius(Obsolete = true)]
 public interface IViewModelManager : IDisposable
 {
     static IViewModelManager Instance => Ioc.Get<IViewModelManager>();

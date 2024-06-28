@@ -3,6 +3,10 @@ using static BD.WTTS.Services.IPCSubProcessModuleService.Constants;
 
 namespace BD.WTTS.Plugins.Abstractions;
 
+[Mobius(
+"""
+Mobius.Plugins.PluginBase
+""")]
 public abstract partial class PluginBase : IPlugin
 {
     readonly Lazy<string> mAppDataDirectory;

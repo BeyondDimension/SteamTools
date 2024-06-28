@@ -10,6 +10,11 @@ namespace BD.WTTS.Models;
 /// <param name="Process">进程</param>
 /// <param name="Path">路径</param>
 /// <param name="Name">名称</param>
+[Mobius(
+"""
+Mobius.Models.NativeWindowModel
+Mobius.UI.ViewModels.Infrastructure.HyperlinkViewModel
+""")]
 [SupportedOSPlatform("Windows")]
 public record class NativeWindowModel(
     IntPtr Handle,
@@ -23,6 +28,11 @@ public record class NativeWindowModel(
 public static class HandleWindowExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Mobius(
+"""
+Process2.IsAlive
+BackendNativeWindowServicesImpl.IsThisProcess
+""")]
     public static bool IsHasProcessExits(this NativeWindowModel window)
     {
         if (window?.Process?.HasExited == false && window.Name != Process.GetCurrentProcess().ProcessName)

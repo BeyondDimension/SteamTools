@@ -6,6 +6,10 @@ partial interface IPlatformService
     /// <summary>
     /// 当前程序是否以 Administrator/System(Windows) 或 Root(FreeBSD/Linux/MacOS/Android/iOS) 权限运行
     /// </summary>
+    [Mobius(
+"""
+Environment.IsPrivilegedProcess
+""")]
     bool IsAdministrator =>
 #if NET8_0_OR_GREATER
         Environment.IsPrivilegedProcess;

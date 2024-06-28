@@ -1,6 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(Obsolete = true)]
 internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
 {
     bool disposedValue;

@@ -6,6 +6,10 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
+[Mobius(
+"""
+Mobius.UI.Services.SteamConnectService
+""")]
 public sealed class SteamConnectService
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     : ReactiveObject, IDisposable

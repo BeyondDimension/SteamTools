@@ -3,6 +3,10 @@ using Fusillade;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Repositories;
 
+[Mobius(
+"""
+Mobius.Repositories.Http.RequestCacheRepository
+""")]
 internal sealed class RequestCacheRepository : CacheRepository<RequestCache, string>, IRequestCacheRepository
 {
     const string CacheDirName = "Http";

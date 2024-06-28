@@ -1,5 +1,9 @@
 namespace BD.WTTS.Repositories;
 
+[Mobius(
+"""
+Mobius.Repositories.CacheRepository
+""")]
 public abstract class CacheRepository<[DynamicallyAccessedMembers(IEntity.DynamicallyAccessedMemberTypes)] TEntity, TPrimaryKey> : Repository<TEntity, TPrimaryKey>
     where TEntity : class, IEntity<TPrimaryKey>, new()
     where TPrimaryKey : IEquatable<TPrimaryKey>

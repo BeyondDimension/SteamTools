@@ -4,6 +4,7 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 应用程序更新服务
 /// </summary>
+[Mobius(Obsolete = true)]
 public interface IAppUpdateService
 {
     static IAppUpdateService Instance => Ioc.Get<IAppUpdateService>();

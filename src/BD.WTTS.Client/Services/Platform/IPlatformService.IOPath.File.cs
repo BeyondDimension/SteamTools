@@ -3,6 +3,7 @@ namespace BD.WTTS.Services;
 
 partial interface IPlatformService
 {
+    [Mobius(Obsolete = true)]
     void IPCPlatformService.CopyFile(string source, string dest, bool overwrite)
     {
         try
@@ -34,6 +35,7 @@ partial interface IPlatformService
         }
     }
 
+    [Mobius(Obsolete = true)]
     bool IPCPlatformService.CopyFilesRecursive(string? inputFolder, string outputFolder, bool overwrite)
     {
         try
@@ -69,6 +71,7 @@ partial interface IPlatformService
         return false;
     }
 
+    [Mobius(Obsolete = true)]
     string IPCPlatformService.ReadAllText(string path, int? encoding)
     {
         try
@@ -104,6 +107,7 @@ partial interface IPlatformService
         return string.Empty;
     }
 
+    [Mobius(Obsolete = true)]
     async Task<string> IPCPlatformService.ReadAllTextAsync(string path, int? encoding, CancellationToken cancellationToken)
     {
         try
@@ -139,6 +143,7 @@ partial interface IPlatformService
         return string.Empty;
     }
 
+    [Mobius(Obsolete = true)]
     bool IPCPlatformService.FileTryDelete(string filePath)
     {
         try
@@ -175,6 +180,7 @@ partial interface IPlatformService
 
     #region WriteAll
 
+    [Mobius(Obsolete = true)]
     bool IPCPlatformService.WriteAllText(string path, string? contents, int? encoding)
     {
         try
@@ -217,6 +223,7 @@ partial interface IPlatformService
         return default;
     }
 
+    [Mobius(Obsolete = true)]
     async Task<bool> IPCPlatformService.WriteAllTextAsync(string path, string? contents, int? encoding, CancellationToken cancellationToken)
     {
         try
@@ -259,6 +266,7 @@ partial interface IPlatformService
         return default;
     }
 
+    [Mobius(Obsolete = true)]
     bool IPCPlatformService.WriteAllLines(string path, IEnumerable<string> contents, int? encoding)
     {
         try
@@ -301,6 +309,7 @@ partial interface IPlatformService
         return default;
     }
 
+    [Mobius(Obsolete = true)]
     async Task<bool> IPCPlatformService.WriteAllLinesAsync(string path, IEnumerable<string> contents, int? encoding, CancellationToken cancellationToken)
     {
         try
@@ -343,6 +352,7 @@ partial interface IPlatformService
         return default;
     }
 
+    [Mobius(Obsolete = true)]
     bool IPCPlatformService.WriteAllBytes(string path, byte[] bytes)
     {
         try
@@ -377,6 +387,7 @@ partial interface IPlatformService
         return default;
     }
 
+    [Mobius(Obsolete = true)]
     async Task<bool> IPCPlatformService.WriteAllBytesAsync(string path, byte[] bytes, CancellationToken cancellationToken)
     {
         try

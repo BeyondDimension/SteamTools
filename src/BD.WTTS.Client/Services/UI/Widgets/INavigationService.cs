@@ -1,5 +1,9 @@
 namespace BD.WTTS.Services;
 
+[Mobius(
+"""
+Mobius.UI.Services.NavigationService
+""")]
 public interface INavigationService
 {
     static INavigationService Instance { get; } = Ioc.Get<INavigationService>();

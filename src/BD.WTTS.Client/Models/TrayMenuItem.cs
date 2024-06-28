@@ -1,5 +1,9 @@
 namespace BD.WTTS.Models;
 
+[Mobius(
+"""
+Mobius.Models.TrayMenuItemModel
+""")]
 public partial class TrayMenuItem
 {
     public string Key { get; set; } = string.Empty;

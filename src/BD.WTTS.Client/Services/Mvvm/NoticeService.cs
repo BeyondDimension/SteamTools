@@ -4,6 +4,10 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
+[Mobius(
+"""
+Mobius.UI.Services.NoticeService
+""")]
 public sealed class NoticeService : ReactiveObject
 {
     static readonly Lazy<NoticeService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);

@@ -9,5 +9,9 @@ partial interface IPlatformService
     /// <para></para>
     /// 非 Windows 上等同于 <see cref="Encoding.Default"/>(UTF8)
     /// </summary>
+    [Mobius(
+"""
+Encoding2.Default
+""")]
     Encoding Default => Encoding.Default;
 }

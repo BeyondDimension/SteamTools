@@ -2,6 +2,10 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.Models;
 
+[Mobius(
+"""
+Mobius.Models.EnumModel
+""")]
 public abstract class EnumModel : ReactiveObject
 {
     public static IEnumerable<EnumModel<TEnum>> GetEnums<TEnum>() where TEnum : struct, Enum
@@ -16,6 +20,10 @@ public abstract class EnumModel : ReactiveObject
     }
 }
 
+[Mobius(
+"""
+Mobius.Models.EnumModel<TEnum>
+""")]
 public class EnumModel<TEnum> : EnumModel where TEnum : struct, Enum
 {
     public EnumModel() { }

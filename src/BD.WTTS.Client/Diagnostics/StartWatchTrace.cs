@@ -4,6 +4,7 @@ namespace BD.WTTS.Diagnostics;
 /// 启动耗时跟踪
 /// </summary>
 [Obsolete]
+[Mobius(Obsolete = true)]
 public static class StartWatchTrace
 {
     static Stopwatch? sw;

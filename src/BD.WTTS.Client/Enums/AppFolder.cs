@@ -3,6 +3,7 @@ namespace BD.WTTS.Enums;
 /// <summary>
 /// 指定用于检索应用程序所使用的文件夹目录路径的枚举常数
 /// </summary>
+[Mobius(Obsolete = true)]
 public enum AppFolder : byte
 {
     /// <summary>
@@ -24,6 +25,7 @@ public enum AppFolder : byte
 /// <summary>
 /// Enum 扩展 <see cref="AppFolder"/>
 /// </summary>
+[Mobius(Obsolete = true)]
 public static class AppFolderEnumExtensions
 {
     /// <summary>

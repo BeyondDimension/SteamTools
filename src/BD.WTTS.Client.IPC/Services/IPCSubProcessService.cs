@@ -6,6 +6,7 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 子进程的 IPC 服务实现
 /// </summary>
+[Mobius(Obsolete = true)]
 public interface IPCSubProcessService : IDisposable
 {
     /// <summary>

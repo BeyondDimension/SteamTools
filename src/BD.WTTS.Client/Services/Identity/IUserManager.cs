@@ -4,6 +4,10 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 用户管理
 /// </summary>
+[Mobius(
+"""
+Mobius.Services.Identity.Abstractions.IUserManager
+""")]
 public interface IUserManager : IAuthHelper
 {
     /// <summary>

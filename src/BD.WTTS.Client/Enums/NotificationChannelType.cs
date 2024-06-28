@@ -23,6 +23,10 @@ namespace BD.WTTS.Enums;
 /// <para>在<see cref="NotificationType_Channel_EnumExtensions.GetDescription(NotificationChannelType)"/>中添加渠道描述</para>
 /// <para>在<see cref="NotificationType_Channel_EnumExtensions.GetImportanceLevel(NotificationChannelType)"/>中添加渠道重要性级别</para>
 /// </summary>
+[Mobius(
+"""
+Mobius.Enums.PlatformNotification.PlatformNotificationChannelType
+""")]
 public enum NotificationChannelType
 {
     /// <inheritdoc cref="NotificationType.NewVersion"/>
@@ -45,6 +49,10 @@ public enum NotificationChannelType
 /// <summary>
 /// Enum 扩展 <see cref="NotificationType"/> AND <see cref="NotificationChannelType"/>
 /// </summary>
+[Mobius(
+"""
+Mobius.Enums.PlatformNotification.PlatformNotificationType_Channel_EnumExtensions
+""")]
 public static partial class NotificationType_Channel_EnumExtensions
 {
     /// <summary>

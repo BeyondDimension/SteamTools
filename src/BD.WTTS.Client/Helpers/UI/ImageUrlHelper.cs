@@ -1,6 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
+[Mobius(
+"""
+Mobius.Helpers.ImageUrlHelper
+""")]
 public static class ImageUrlHelper
 {
     /// <summary>

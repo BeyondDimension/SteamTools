@@ -5,6 +5,7 @@ namespace BD.WTTS.Services;
 /// 提供对显示在主窗口底部的状态栏的访问
 /// </summary>
 [Obsolete("不再使用常驻通知")]
+[Mobius(Obsolete = true)]
 public sealed class ToastService : ReactiveObject
 {
     static readonly Lazy<ToastService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);

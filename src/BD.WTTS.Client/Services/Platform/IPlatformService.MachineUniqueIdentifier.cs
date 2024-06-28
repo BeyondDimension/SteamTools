@@ -52,5 +52,9 @@ partial interface IPlatformService
 
     protected static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKeyBySecureStorage = new(GetMachineSecretKeyBySecureStorage);
 
+    [Mobius(
+"""
+BD.Common8.Security.Helpers.MachineUniqueIdentifier.MachineSecretKey
+""")]
     (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKeyBySecureStorage.Value;
 }

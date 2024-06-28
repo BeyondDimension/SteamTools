@@ -4,6 +4,7 @@ namespace BD.WTTS.Enums;
 /// 表示操作结果的枚举
 /// </summary>
 [Description("操作结果的枚举")]
+[Mobius(Obsolete = true)]
 public enum OperationResultType
 {
     /// <summary>

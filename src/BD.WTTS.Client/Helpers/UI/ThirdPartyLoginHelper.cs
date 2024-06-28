@@ -8,6 +8,10 @@ namespace BD.WTTS.UI.ViewModels;
 /// <summary>
 /// 第三方快速登录助手类
 /// </summary>
+[Mobius(
+"""
+Mobius.Helpers.ThirdPartyLoginHelper
+""")]
 public static class ThirdPartyLoginHelper
 {
 #if DEBUG

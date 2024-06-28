@@ -5,8 +5,16 @@ partial interface IApplication
 {
     #region Logger
 
+    [Mobius(
+"""
+LogInitHelper
+""")]
     const LogLevel DefaultLoggerMinLevel = IPCSubProcessFileSystem.DefaultLoggerMinLevel;
 
+    [Mobius(
+"""
+LogInitHelper
+""")]
     public static NLogLevel DefaultNLoggerMinLevel => IPCSubProcessFileSystem.DefaultNLoggerMinLevel;
 
     /// <summary>
@@ -14,12 +22,24 @@ partial interface IApplication
     /// </summary>
     /// <param name="logLevel">level to be converted.</param>
     /// <returns></returns>
+    [Mobius(
+"""
+LogInitHelper
+""")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static NLogLevel ConvertLogLevel(LogLevel logLevel) => IPCSubProcessFileSystem.ConvertLogLevel(logLevel);
 
+    [Mobius(
+"""
+LogInitHelper
+""")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void SetNLoggerMinLevel(LogLevel logLevel) => SetNLoggerMinLevel(ConvertLogLevel(logLevel));
 
+    [Mobius(
+"""
+LogInitHelper
+""")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void SetNLoggerMinLevel(NLogLevel logLevel)
     {
@@ -27,6 +47,7 @@ partial interface IApplication
         NInternalLogger.LogLevel = logLevel;
     }
 
+    [Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void TrySetLoggerMinLevel(LogLevel logLevel)
     {
@@ -41,11 +62,19 @@ partial interface IApplication
         SetNLoggerMinLevel(ConvertLogLevel(logLevel));
     }
 
+    [Mobius(
+"""
+LogInitHelper
+""")]
     private static LoggerFilterOptions? _LoggerFilterOptions;
 
     /// <summary>
     /// 日志过滤选项
     /// </summary>
+    [Mobius(
+"""
+LogInitHelper
+""")]
     static LoggerFilterOptions? LoggerFilterOptions
     {
         get
@@ -59,6 +88,10 @@ partial interface IApplication
     /// <summary>
     /// 配置 NLog 提供程序，仅初始化时调用
     /// </summary>
+    [Mobius(
+"""
+LogInitHelper.GetMobiusLoggingBuilder
+""")]
     public static Action<ILoggingBuilder> ConfigureLogging(LogLevel minLevel = DefaultLoggerMinLevel)
     {
         return (ILoggingBuilder builder) =>
@@ -92,6 +125,10 @@ partial interface IApplication
     /// <summary>
     /// 日志最低等级
     /// </summary>
+    [Mobius(
+"""
+LogInitHelper
+""")]
     public static LogLevel LoggerMinLevel
     {
         get
@@ -119,6 +156,7 @@ partial interface IApplication
     /// <summary>
     /// 启用日志
     /// </summary>
+    [Mobius(Obsolete = true)]
     public static bool EnableLogger
     {
         get => LoggerMinLevel > LogLevel.None;
@@ -135,6 +173,10 @@ partial interface IApplication
     /// <summary>
     /// 日志存放文件夹路径
     /// </summary>
+    [Mobius(
+"""
+MobiusHost.LogDirPath
+""")]
     static string LogDirPath { get; internal set; } = string.Empty;
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
@@ -142,6 +184,7 @@ partial interface IApplication
     /// <summary>
     /// 日志存放文件夹路径(ASF)
     /// </summary>
+    [Mobius(Obsolete = true)]
     static string LogDirPathASF { get; set; } = string.Empty;
 
 #endif
@@ -154,6 +197,7 @@ partial interface IApplication
     static bool LogUnderCache => true;
 #endif
 
+    [Mobius(Obsolete = true)]
     static Action? ASFInitCoreLoggers { get; private set; }
 
     #endregion

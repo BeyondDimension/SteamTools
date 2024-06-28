@@ -7,8 +7,16 @@ partial interface IPlatformService
 
 #if LINUX || APP_REVERSE_PROXY
 
+    [Mobius(
+"""
+Mobius.Helpers.LinuxEtcOSReleaseHelper
+""")]
     private const string LinuxFilePath_EtcOSRelease = "/etc/os-release";
 
+    [Mobius(
+"""
+Mobius.Helpers.LinuxEtcOSReleaseHelper
+""")]
     private static IEnumerable<KeyValuePair<string, string>> ReadEtcOSRelease()
     {
         if (OperatingSystem.IsLinux())
@@ -27,6 +35,10 @@ partial interface IPlatformService
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.LinuxEtcOSReleaseHelper
+""")]
     protected static readonly Lazy<IEnumerable<KeyValuePair<string, string>>> EtcOSRelease = new(() =>
     {
         try
@@ -42,6 +54,10 @@ partial interface IPlatformService
 
 #pragma warning disable IDE1006 // 命名样式
 #pragma warning disable SA1302 // Interface names should begin with I
+    [Mobius(
+"""
+Mobius.Helpers.LinuxEtcOSReleaseHelper
+""")]
     interface LinuxConstants
 #pragma warning restore SA1302 // Interface names should begin with I
 #pragma warning restore IDE1006 // 命名样式
@@ -105,6 +121,10 @@ partial interface IPlatformService
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.LinuxEtcOSReleaseHelper
+""")]
     static string? GetLinuxReleaseValue(string key)
     {
         foreach (var item in EtcOSRelease.Value)
@@ -115,14 +135,26 @@ partial interface IPlatformService
         return default;
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.LinuxEtcOSReleaseHelper
+""")]
     private static readonly Lazy<string?> _LinuxReleaseId = new(() =>
     {
         var value = GetLinuxReleaseValue(LinuxConstants.ReleaseKey_ID);
         return value;
     });
 
+    [Mobius(
+"""
+Mobius.Helpers.LinuxEtcOSReleaseHelper
+""")]
     static string? LinuxReleaseId => _LinuxReleaseId.Value;
 
+    [Mobius(
+"""
+Mobius.Helpers.LinuxEtcOSReleaseHelper
+""")]
     private static readonly Lazy<LinuxConstants.Distribution> _LinuxDistribution = new(() =>
     {
         var value = LinuxReleaseId;
@@ -146,6 +178,10 @@ partial interface IPlatformService
     /// <summary>
     /// 获取当前 Linux 发行版
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.LinuxEtcOSReleaseHelper
+""")]
     static LinuxConstants.Distribution LinuxDistribution => _LinuxDistribution.Value;
 
 #endif

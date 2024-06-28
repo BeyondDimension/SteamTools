@@ -1,6 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
+[Mobius(
+"""
+CertificateConstants
+""")]
 public static class CertificateConstants
 {
     public const int CertificateValidDays = 300;

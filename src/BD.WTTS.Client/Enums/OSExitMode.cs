@@ -3,6 +3,10 @@ namespace BD.WTTS.Enums;
 /// <summary>
 /// 退出操作系统方式
 /// </summary>
+[Mobius(
+"""
+Mobius.Enums.App.OSExitMode
+""")]
 public enum OSExitMode : byte
 {
     /// <summary>

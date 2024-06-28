@@ -1,5 +1,9 @@
 namespace BD.WTTS.Models;
 
+[Mobius(
+"""
+BD.Common8.Essentials.Models.EssentialsFilePickerFileType
+""")]
 public sealed class AvaloniaFilePickerFileTypeFilter : IFilePickerFileType
 {
     public IEnumerable<Item> Values { get; }

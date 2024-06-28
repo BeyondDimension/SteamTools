@@ -9,6 +9,10 @@ namespace BD.WTTS.Services;
 /// <para>Taskbar Extensions</para>
 /// <para>https://docs.microsoft.com/zh-cn/windows/win32/shell/taskbar-extensions</para>
 /// </summary>
+[Mobius(
+"""
+Mobius.Services.Platform.Windows.Abstractions.IJumpListService
+""")]
 public interface IJumpListService
 {
     protected const string TAG = "JumpListS";

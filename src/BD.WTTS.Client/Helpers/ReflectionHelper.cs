@@ -9,6 +9,7 @@ static class ReflectionHelper
     /// <param name="thisAssembly"></param>
     /// <param name="stackTrace"></param>
     /// <returns></returns>
+    [Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsInternalCall(Assembly thisAssembly, StackTrace stackTrace)
     {
@@ -37,6 +38,7 @@ static class ReflectionHelper
     }
 
     /// <inheritdoc cref="IsInternalCall(Assembly, StackTrace)"/>
+    [Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsInternalCall<T>(StackTrace stackTrace)
         => IsInternalCall(typeof(T).Assembly, stackTrace);

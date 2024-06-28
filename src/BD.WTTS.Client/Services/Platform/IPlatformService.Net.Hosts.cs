@@ -14,6 +14,10 @@ partial interface IPlatformService
     /// <summary>
     /// hosts 文件所在目录
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.HostsFileHelper
+""")]
     string HostsFilePath =>
 #if WINDOWS
         WINDOWS_HostsFilePath.HostsFilePath;
@@ -30,6 +34,10 @@ partial interface IPlatformService
     /// <summary>
     /// 写入默认 hosts 文件内容
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.HostsFileHelper
+""")]
     void WriteDefaultHostsContent()
     {
         using var fileStream = new FileStream(HostsFilePath,
@@ -43,6 +51,10 @@ partial interface IPlatformService
     /// 写入默认 hosts 文件内容
     /// </summary>
     /// <param name="stream"></param>
+    [Mobius(
+"""
+Mobius.Helpers.HostsFileHelper
+""")]
     void WriteDefaultHostsContent(Stream stream)
     {
         stream.SetLength(0);

@@ -3,6 +3,10 @@ namespace BD.WTTS.Enums;
 /// <summary>
 /// 应用程序终结点路由
 /// </summary>
+[Mobius(
+"""
+Mobius.Enums.App.AppEndPoint
+""", Obsolete = true)]
 public enum AppEndPoint : byte
 {
     LoginOrRegister = 1,

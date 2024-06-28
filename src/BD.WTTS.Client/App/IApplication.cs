@@ -6,6 +6,12 @@ namespace BD.WTTS;
 /// </summary>
 public partial interface IApplication
 {
+    [Mobius(
+"""
+App // ICommand
+async void CopyToClipboardCommandCore(object? text)
+ICommand CopyToClipboardCommand
+""")]
     static IApplication Instance => Ioc.Get<IApplication>();
 
     /// <summary>
@@ -13,6 +19,7 @@ public partial interface IApplication
     /// </summary>
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Mobius(Obsolete = true)]
     static bool IsDesktop()
 #if WINDOWS || MACOS || LINUX
         => true;
@@ -24,6 +31,7 @@ public partial interface IApplication
         => OperatingSystem.IsWindows() || OperatingSystem.IsMacOS() || (OperatingSystem.IsLinux() && !OperatingSystem.IsAndroid());
 #endif
 
+    [Mobius(Obsolete = true)]
     [Obsolete("use IsDesktop", true)]
     static bool IsDesktopPlatform => IsDesktop();
 
@@ -31,6 +39,7 @@ public partial interface IApplication
     /// 获取当前平台 UI Host
     /// <para>reference to the ViewController (if using Xamarin.iOS), Activity (if using Xamarin.Android) IWin32Window or IntPtr (if using .Net Framework).</para>
     /// </summary>
+    [Mobius(Obsolete = true)]
     object CurrentPlatformUIHost { get; }
 
 #if WINDOWS
@@ -52,6 +61,7 @@ public partial interface IApplication
     });
 #endif
 
+    [Mobius(Obsolete = true)]
     DeploymentMode DeploymentMode =>
 #if WINDOWS
         _DeploymentMode.Value;
@@ -60,8 +70,16 @@ public partial interface IApplication
 #endif
 
     /// <inheritdoc cref="IPlatformService.SetBootAutoStart(bool, string)"/>
+    [Mobius(
+"""
+SystemBootHelper.SetBootAutoStart
+""")]
     static void SetBootAutoStart(bool isAutoStart) => IPlatformService.Instance.SetBootAutoStart(isAutoStart, Constants.HARDCODED_APP_NAME);
 
+    [Mobius(
+"""
+ISppWebApiService.clientPlatform
+""")]
     private static readonly Lazy<ClientPlatform> clientPlatform = new(() =>
     {
         var platform = DeviceInfo2.Platform();
@@ -145,13 +163,29 @@ public partial interface IApplication
         return default;
     });
 
+    [Mobius(
+"""
+App.GetApplicationIcon
+""")]
     static byte[] Login_512 => Properties.Resources.AppLogo_512;
 
+    [Mobius(
+"""
+ISppWebApiService.clientPlatform
+""")]
     static ClientPlatform ClientPlatform => clientPlatform.Value;
 
+    [Mobius(Obsolete = true)]
     System.Drawing.Size? GetScreenSize() => null;
 
+    [Mobius(Obsolete = true)]
     bool? IsAnyWindowNotMinimized() => null;
 
+    [Mobius(
+"""
+App // ICommand
+async void OpenBrowserCommandCore(object? url)
+ICommand OpenBrowserCommand
+""")]
     async void OpenBrowserCommandCore(object? url) => await Browser2.OpenAsync(url?.ToString());
 }

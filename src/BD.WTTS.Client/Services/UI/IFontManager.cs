@@ -6,6 +6,7 @@ namespace BD.WTTS.Services;
 /// <summary>
 /// 字体管理
 /// </summary>
+[Mobius(Obsolete = true)]
 public interface IFontManager
 {
     static IFontManager Instance => Ioc.Get<IFontManager>();
@@ -33,6 +34,10 @@ partial interface IPlatformService
     /// Windows GDI+ 实现其他平台 SkiaSharp 实现
     /// </summary>
     /// <returns></returns>
+    [Mobius(
+"""
+Mobius.UI.Services.ResourceService.GetFonts()
+""")]
     public IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
     {
         // https://docs.microsoft.com/zh-cn/typography/font-list

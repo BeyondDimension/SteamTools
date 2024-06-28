@@ -5,6 +5,10 @@ namespace BD.WTTS.Enums;
 /// <summary>
 /// 应用程序主题
 /// </summary>
+[Mobius(
+"""
+Mobius.Enums.App.AppTheme
+""")]
 public enum AppTheme : byte
 {
     /// <summary>
@@ -34,6 +38,7 @@ public enum AppTheme : byte
     Custom,
 }
 
+[Mobius(Obsolete = true)]
 public static partial class AppThemeEnumExtensions
 {
 #if DEBUG

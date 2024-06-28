@@ -5,6 +5,10 @@ using PointInt32 = System.Drawing.Point;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
+[Mobius(
+"""
+Mobius.Helpers.MouseHook
+""")]
 static partial class MouseHook
 {
     static PInvoke.User32.SafeHookHandle? _mouseHookHandle;

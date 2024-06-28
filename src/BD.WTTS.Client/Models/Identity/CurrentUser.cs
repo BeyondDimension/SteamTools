@@ -4,6 +4,10 @@ namespace BD.WTTS.Models;
 /// <summary>
 /// 当前登录用户模型，如需增加字段，还需要在 <see cref="Clone"/> 中赋值新添加字段
 /// </summary>
+[Mobius(
+"""
+Mobius.Models.Identity.CurrentUser
+""")]
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
 public sealed partial class CurrentUser : IExplicitHasValue, IPhoneNumber
 {

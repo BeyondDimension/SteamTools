@@ -12,6 +12,12 @@ partial interface IApplication
     /// <param name="msgToast"></param>
     /// <param name="showToast"></param>
     /// <returns></returns>
+    [Mobius(
+"""
+App // ICommand
+async void CopyToClipboardCommandCore(object? text)
+ICommand CopyToClipboardCommand
+""")]
     static async Task CopyToClipboardAsync(string? text, string? msgToast = null, bool showToast = true)
     {
         if (!string.IsNullOrWhiteSpace(text))

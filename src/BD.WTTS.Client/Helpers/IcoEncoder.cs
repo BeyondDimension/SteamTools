@@ -6,6 +6,10 @@ namespace BD.WTTS;
 /// <summary>
 /// Windows ICO 格式编码器
 /// </summary>
+[Mobius(
+"""
+Mobius.Helpers.IcoEncoder
+""")]
 public static class IcoEncoder
 {
     public static void Encode(Stream stream, IReadOnlyList<SKBitmap> bitmaps)

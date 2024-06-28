@@ -11,6 +11,10 @@ partial interface IPlatformService
     /// <summary>
     /// 获取或设置系统用户密码
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.LinuxSystemPasswordHelper
+""")]
     string? SystemUserPassword { get; set; }
 
     /// <summary>
@@ -18,6 +22,10 @@ partial interface IPlatformService
     /// </summary>
     /// <param name="retry"></param>
     /// <exception cref="PlatformNotSupportedException"></exception>
+    [Mobius(
+"""
+Mobius.Helpers.LinuxSystemPasswordHelper
+""")]
     async ValueTask<string?> GetSystemUserPasswordAsync(sbyte retry = GetSystemUserPasswordRetry)
     {
         if (SystemUserPassword != null)
@@ -26,6 +34,10 @@ partial interface IPlatformService
     }
 
     /// <inheritdoc cref="GetSystemUserPasswordAsync(sbyte)"/>
+    [Mobius(
+"""
+Mobius.Helpers.LinuxSystemPasswordHelper
+""")]
     async void GetSystemUserPassword(sbyte retry = GetSystemUserPasswordRetry) => await GetSystemUserPasswordAsync(retry);
 
     /// <summary>
@@ -34,6 +46,10 @@ partial interface IPlatformService
     /// <param name="retry"></param>
     /// <returns></returns>
     /// <exception cref="PlatformNotSupportedException"></exception>
+    [Mobius(
+"""
+Mobius.Helpers.LinuxSystemPasswordHelper
+""")]
     protected ValueTask<string?> GetSystemUserPasswordIgnoreCacheAsync(sbyte retry = GetSystemUserPasswordRetry)
         => throw new PlatformNotSupportedException();
 

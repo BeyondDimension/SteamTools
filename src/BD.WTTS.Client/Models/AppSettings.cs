@@ -5,6 +5,10 @@ namespace BD.WTTS.Models;
 /// <summary>
 /// Watt Toolkit 应用程序设置项
 /// </summary>
+[Mobius(
+"""
+Mobius.Models.App.AppSecrets
+""")]
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
 public sealed partial class AppSettings : IMicroServiceClient.ISettings
 {

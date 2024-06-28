@@ -4,6 +4,10 @@ namespace BD.WTTS.UI;
 /// <summary>
 /// 显示消息框
 /// </summary>
+[Mobius(
+"""
+Mobius.UI.Helpers.AMessageBox
+""")]
 public static partial class MessageBox
 {
     /// <summary>

@@ -24,6 +24,10 @@ partial interface IPlatformService
     /// </summary>
     /// <param name="hWnd"></param>
     /// <param name="isVisible"></param>
+    [Mobius(
+"""
+Mobius.Helpers.Windows.Win32WindowHelper.SetWindowSystemButtonsIsVisible
+""")]
     void SetWindowSystemButtonsIsVisible(IntPtr hWnd, bool isVisible) { }
 
 #if DEBUG

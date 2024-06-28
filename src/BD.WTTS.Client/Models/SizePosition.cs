@@ -2,6 +2,11 @@ namespace BD.WTTS.Models;
 
 [MPObj, MP2Obj(SerializeLayout.Explicit)]
 [DebuggerDisplay("{DebuggerDisplay,nq}")]
+[Mobius(
+"""
+Mobius.Models.Drawing.SizePositionModel
+Mobius.UI.ViewModels.Drawing.SizePositionViewModel
+""")]
 public sealed partial class SizePosition : BaseNotifyPropertyChanged
 {
     string DebuggerDisplay => $"Position: {X}x{Y}, Size: {Width}x{Height}";

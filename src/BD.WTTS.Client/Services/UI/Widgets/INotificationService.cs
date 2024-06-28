@@ -1,6 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
+[Mobius(
+"""
+Mobius.Services.NativeNotification.Abstractions.INativeNotificationService
+""")]
 public interface INotificationService
 {
     static INotificationService Instance => Ioc.Get<INotificationService>();

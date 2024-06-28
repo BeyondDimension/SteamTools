@@ -3,6 +3,10 @@ namespace BD.WTTS.Services;
 
 partial interface IPlatformService
 {
+    [Mobius(
+"""
+Mobius.Services.IO.Abstractions.IFileSystemService
+""")]
     string IPCPlatformService.RegexSearchFile(string filePath, string pattern)
     {
         try
@@ -37,6 +41,10 @@ partial interface IPlatformService
         }
     }
 
+    [Mobius(
+"""
+Mobius.Services.IO.Abstractions.IFileSystemService
+""")]
     string IPCPlatformService.RegexSearchFolder(string dirPath, string pattern, string wildcard)
     {
         try

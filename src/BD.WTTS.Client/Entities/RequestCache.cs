@@ -1,5 +1,9 @@
 namespace BD.WTTS.Entities;
 
+[Mobius(
+"""
+Mobius.Entities.Http.RequestCache
+""")]
 [SQLiteTable(TableName)]
 [DebuggerDisplay("{DebuggerDisplay,nq}")]
 public sealed class RequestCache : IEntity<string>

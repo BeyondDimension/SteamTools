@@ -1,6 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
+[Mobius(
+"""
+Mobius.Services.Compression.Abstractions.ISevenZipService
+""")]
 public interface ISevenZipHelper
 {
     static ISevenZipHelper Instance => Ioc.Get_Nullable<ISevenZipHelper>() ?? throw new PlatformNotSupportedException();

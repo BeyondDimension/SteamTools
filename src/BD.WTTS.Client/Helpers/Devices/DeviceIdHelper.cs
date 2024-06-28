@@ -1,6 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
+[Mobius(
+"""
+Mobius.Helpers.DeviceIdHelper
+""")]
 public static class DeviceIdHelper
 {
     const int DeviceIdRLength = Constants.Lengths.DeviceIdR;

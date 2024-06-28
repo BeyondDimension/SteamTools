@@ -5,9 +5,12 @@
 // ReSharper disable once CheckNamespace
 namespace Microsoft.NodejsTools.SharedProject;
 
+using BD;
+
 /// <summary>
 /// Utility for accessing window IShell* interfaces in order to use them to launch a process unelevated
 /// </summary>
+[Mobius(Obsolete = true)]
 static class SystemUtility
 {
     /// <summary>

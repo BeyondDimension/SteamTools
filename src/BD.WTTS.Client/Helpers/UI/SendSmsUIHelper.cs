@@ -3,6 +3,10 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels;
 
+[Mobius(
+"""
+Mobius.Helpers.SendSmsUIHelper
+""")]
 public static class SendSmsUIHelper
 {
     public interface IViewModel

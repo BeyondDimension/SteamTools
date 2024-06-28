@@ -1,6 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Enums;
 
+[Mobius(
+"""
+Mobius.Enums.UI.XamlMediaStretch
+""")]
 public enum XamlMediaStretch : byte
 {
     None = 0,

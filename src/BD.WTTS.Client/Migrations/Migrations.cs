@@ -4,6 +4,7 @@ namespace BD.WTTS;
 /// <summary>
 /// 新版本破坏性更改迁移
 /// </summary>
+[Mobius("未实现", Obsolete = true)]
 public static class Migrations
 {
     public const string DirName_Scripts = "Scripts";

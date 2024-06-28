@@ -3,6 +3,10 @@ using Fusillade;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Repositories.Abstractions;
 
+[Mobius(
+"""
+Mobius.Repositories.Http.Abstractions.IRequestCacheRepository
+""")]
 public interface IRequestCacheRepository : IRequestCache
 {
     /// <summary>

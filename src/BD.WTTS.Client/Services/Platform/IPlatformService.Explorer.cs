@@ -8,6 +8,10 @@ partial interface IPlatformService
     /// 使用资源管理器打开某个路径
     /// </summary>
     /// <param name="path"></param>
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper.OpenAsync
+""")]
     void OpenFolder(string path)
     {
         sbyte isDirectory = -1;
@@ -52,6 +56,10 @@ partial interface IPlatformService
     /// 使用资源管理器打开文件夹路径
     /// </summary>
     /// <param name="info"></param>
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper.OpenByDirectoryAsync
+""")]
     void OpenFolderByDirectoryPath(DirectoryInfo info)
     {
 
@@ -61,6 +69,10 @@ partial interface IPlatformService
     /// 使用资源管理器选中文件路径
     /// </summary>
     /// <param name="info"></param>
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper.OpenSelectFileAsync
+""")]
     void OpenFolderSelectFilePath(FileInfo info)
     {
 

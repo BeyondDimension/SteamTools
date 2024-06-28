@@ -1,5 +1,10 @@
 namespace BD.WTTS.Models;
 
+[Mobius(
+"""
+Mobius.Models.Infrastructure.HyperlinkModel
+Mobius.UI.ViewModels.Infrastructure.HyperlinkViewModel
+""")]
 [MP2Obj(SerializeLayout.Explicit)]
 public sealed partial class HyperlinkModel
 {

@@ -9,6 +9,7 @@ namespace BD.WTTS;
 /// <para>本机库放入 .\native\win-x64\xxx.dll</para>
 /// <para>参考：https://learn.microsoft.com/zh-cn/nuget/create-packages/supporting-multiple-target-frameworks#architecture-specific-folders</para>
 /// </summary>
+[Mobius(Obsolete = true)]
 public static partial class GlobalDllImportResolver
 {
 #if DEBUG

@@ -3,6 +3,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
+[Mobius(
+"""
+Mobius.Helpers.Windows.WinScheduledTaskHelper
+""")]
 public interface IScheduledTaskService
 {
     const string TAG = "ScheduledTaskS";
@@ -16,6 +20,10 @@ public interface IScheduledTaskService
     /// <param name="name">任务名词</param>
     /// <param name="isPrivilegedProcess">是否需要管理员权限启动，为 <see langword="null"/> 时将使用当前执行进程的权限判断</param>
     /// <returns></returns>
+    [Mobius(
+"""
+Mobius.Helpers.Windows.WinScheduledTaskHelper.SetBootAutoStart
+""")]
     bool SetBootAutoStart(bool isAutoStart, string name, bool? isPrivilegedProcess = null);
 }
 #endif

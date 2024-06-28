@@ -7,6 +7,7 @@ partial interface IPlatformService
     /// <summary>
     /// 是否使用平台前台服务
     /// </summary>
+    [Mobius(Obsolete = true)]
     bool UsePlatformForegroundService => false;
 
     /// <summary>
@@ -16,6 +17,7 @@ partial interface IPlatformService
     /// <param name="startOrStop">启动或停止或取反</param>
     /// <returns></returns>
     /// <exception cref="PlatformNotSupportedException"></exception>
+    [Mobius(Obsolete = true)]
     Task StartOrStopForegroundServiceAsync(string serviceName, bool? startOrStop = null)
         => throw new PlatformNotSupportedException();
 }

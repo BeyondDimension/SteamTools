@@ -3,6 +3,7 @@ namespace BD.WTTS.Entities;
 /// <summary>
 /// 通知记录
 /// </summary>
+[Mobius(Obsolete = true)]
 [SQLiteTable("A765AD32")]
 [DebuggerDisplay("{DebuggerDisplay,nq}")]
 public sealed class Notification : IEntity<Guid>

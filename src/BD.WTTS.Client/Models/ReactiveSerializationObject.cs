@@ -3,6 +3,10 @@ namespace BD.WTTS.Models;
 /// <summary>
 /// <see cref="ReactiveObject"/> 的序列化忽略基类
 /// </summary>
+[Mobius(
+"""
+Mobius.Models.ReactiveSerializationObject
+""")]
 public abstract class ReactiveSerializationObject : ReactiveObject
 {
     /// <inheritdoc cref="ReactiveObject.Changing" />

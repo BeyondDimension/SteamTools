@@ -3,6 +3,10 @@ namespace BD.WTTS.Enums;
 /// <summary>
 /// 文本阅读器提供商
 /// </summary>
+[Mobius(
+"""
+Mobius.Enums.Text.TextReaderProvider
+""")]
 public enum TextReaderProvider
 {
     /// <summary>
