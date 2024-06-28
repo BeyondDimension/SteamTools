@@ -135,7 +135,7 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
 
                     if (SizePosition.Height > 0 &&
                         primaryScreenBounds.Height >= SizePosition.Height)
-                        Height = SizePosition.Height;
+                        Height = SizePosition.Height - 31; // appwindow偏移量
 
                     if (SizePosition.X > 0 && SizePosition.Y > 0)
                     {

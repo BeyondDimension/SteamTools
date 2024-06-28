@@ -737,7 +737,7 @@
                     <Setter Property="VerticalAlignment" Value="Center" />
                 </Style>
             </StackPanel.Styles>
-            <Button Theme="{StaticResource TransparentButton}">
+            <Button Theme="{StaticResource TransparentButton}" ToolTip.ShowDelay="0">
                 <ToolTip.Tip>
                     <TextBlock>
                         <Run FontSize="16" Text="Q：为什么加速后流量一直显示 0KB ？" />
@@ -750,7 +750,7 @@
                         <Run Text="A：可以尝试执行以下操作进行修复，关闭加速，点击加速设置-移除证书再安装证书，重开加速。或者加速设置-代理设置-尝试更换doh地址或者关闭doh使用dns等方案。" />
                     </TextBlock>
                 </ToolTip.Tip>
-                <ui:FontIcon FontSize="22" Glyph="&#xE82F;" />
+                <ui:FontIcon FontSize="20" Glyph="&#xE82F;" />
             </Button>
             <TextBlock Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" />
             <TextBlock Text="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />

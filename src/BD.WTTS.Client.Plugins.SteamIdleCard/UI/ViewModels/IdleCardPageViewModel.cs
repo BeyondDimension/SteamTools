@@ -129,13 +129,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
             }
             else
             {
-                RunState = false;
-                StopIdle();
-                RunOrStopAutoNext(false);
-                RunOrStopAutoCardDropCheck(false);
-                IdleTime = default;
-                ResetCurrentIdle();
-                ChangeRunTxt();
+                StopIdleRun();
             }
 
             RunLoaingState = false;
@@ -145,6 +139,17 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         {
             Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
         }
+    }
+
+    private void StopIdleRun()
+    {
+        RunState = false;
+        StopIdle();
+        RunOrStopAutoNext(false);
+        RunOrStopAutoCardDropCheck(false);
+        IdleTime = default;
+        ResetCurrentIdle();
+        ChangeRunTxt();
     }
 
     /// <summary>
@@ -702,6 +707,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                         try
                         {
                             Task.Delay(TimeSpan.FromMinutes(SteamIdleSettings.RefreshBadgesTime.Value), DropCardCancellationTokenSource.Token).Wait();
+                            if (!IsLogin)
+                            {
+                                StopIdleRun();
+                                break;
+                            }
                             AutoCardDropCheck().Wait();
                         }
                         catch (AggregateException ae)

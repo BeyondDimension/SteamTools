@@ -123,28 +123,59 @@
                     Text="{Binding Path=Res.GameRelated_Borderless_MoveMouseTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </WrapPanel>
 
-            <StackPanel
+            <Grid
                 HorizontalAlignment="Center"
+                ColumnDefinitions="Auto,*"
                 IsVisible="{ReflectionBinding !!SelectWindow}"
-                Orientation="Vertical"
-                Spacing="10">
-                <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
-                    <Run Text="{ReflectionBinding SelectWindow.Title, Mode=OneWay}" />
-                </TextBlock>
-                <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_ClassName, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
-                    <Run Text="{ReflectionBinding SelectWindow.ClassName, Mode=OneWay}" />
-                </TextBlock>
-                <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Process, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
-                    <Run Text="{ReflectionBinding SelectWindow.Name, Mode=OneWay}" />
-                </TextBlock>
-                <TextBlock TextWrapping="WrapWithOverflow">
-                    <Run Text="{Binding Path=Res.GameRelated_Borderless_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
-                    <Run Text="{ReflectionBinding SelectWindow.Path, Mode=OneWay}" />
-                </TextBlock>
-            </StackPanel>
+                RowDefinitions="Auto,Auto,Auto,Auto">
+                <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.GameRelated_Borderless_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+                <TextBox
+                    Grid.Column="1"
+                    Margin="0,0,0,10"
+                    IsReadOnly="True"
+                    Text="{ReflectionBinding SelectWindow.Title,
+                                             Mode=OneWay}"
+                    TextWrapping="WrapWithOverflow" />
+
+                <TextBlock
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    Text="{Binding Path=Res.GameRelated_Borderless_Process, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,0,0,10"
+                    IsReadOnly="True"
+                    Text="{ReflectionBinding SelectWindow.Title,
+                                             Mode=OneWay}"
+                    TextWrapping="WrapWithOverflow" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    VerticalAlignment="Center"
+                    Text="{Binding Path=Res.GameRelated_Borderless_ClassName, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+                <TextBox
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0,0,0,10"
+                    IsReadOnly="True"
+                    Text="{ReflectionBinding SelectWindow.Name,
+                                             Mode=OneWay}"
+                    TextWrapping="WrapWithOverflow" />
+
+                <TextBlock
+                    Grid.Row="3"
+                    VerticalAlignment="Center"
+                    Text="{Binding Path=Res.GameRelated_Borderless_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+                <TextBox
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Margin="0,0,0,10"
+                    IsReadOnly="True"
+                    Text="{ReflectionBinding SelectWindow.Path,
+                                             Mode=OneWay}"
+                    TextWrapping="WrapWithOverflow" />
+            </Grid>
 
             <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <WrapPanel.Styles>
