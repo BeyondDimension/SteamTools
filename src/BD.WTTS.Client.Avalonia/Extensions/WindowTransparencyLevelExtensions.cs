@@ -13,6 +13,7 @@ public static class WindowTransparencyLevelExtensions
             WindowBackgroundMaterial.Blur => WindowTransparencyLevel.Blur,
             WindowBackgroundMaterial.AcrylicBlur => WindowTransparencyLevel.AcrylicBlur,
             WindowBackgroundMaterial.Mica => WindowTransparencyLevel.Mica,
+            WindowBackgroundMaterial.Transparent => WindowTransparencyLevel.Transparent,
             _ => WindowTransparencyLevel.None,
         };
     }

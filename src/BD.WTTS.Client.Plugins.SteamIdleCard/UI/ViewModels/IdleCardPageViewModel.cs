@@ -709,7 +709,10 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                             Task.Delay(TimeSpan.FromMinutes(SteamIdleSettings.RefreshBadgesTime.Value), DropCardCancellationTokenSource.Token).Wait();
                             if (!IsLogin)
                             {
-                                StopIdleRun();
+                                MainThread2.BeginInvokeOnMainThread(() =>
+                                {
+                                    StopIdleRun();
+                                });
                                 break;
                             }
                             AutoCardDropCheck().Wait();

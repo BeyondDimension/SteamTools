@@ -341,6 +341,7 @@
                 <ComboBox SelectedItem="{Binding Source={x:Static ms:UISettings.WindowBackgroundMaterial}, Path=Value, Mode=TwoWay}">
                     <ComboBox.Items>
                         <spp:WindowBackgroundMaterial>None</spp:WindowBackgroundMaterial>
+                        <spp:WindowBackgroundMaterial>Transparent</spp:WindowBackgroundMaterial>
                         <spp:WindowBackgroundMaterial>Blur</spp:WindowBackgroundMaterial>
                         <spp:WindowBackgroundMaterial>AcrylicBlur</spp:WindowBackgroundMaterial>
                         <spp:WindowBackgroundMaterial>Mica</spp:WindowBackgroundMaterial>

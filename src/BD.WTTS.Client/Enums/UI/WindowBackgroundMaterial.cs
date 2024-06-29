@@ -5,6 +5,8 @@ public enum WindowBackgroundMaterial : byte
 {
     None = 0,
 
+    Transparent = 1,
+
     Blur = 2,
 
     AcrylicBlur = 3,

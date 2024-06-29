@@ -475,6 +475,27 @@ public static class AuthenticatorHelper
         return filePath;
     }
 
+    public static async Task<IEnumerable<IFileResult>?> MultipleSelectFolderPath(string? fileExtension = null)
+    {
+        var options = new PickOptions();
+        if (!string.IsNullOrEmpty(fileExtension))
+        {
+            AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
+                new($"{fileExtension} Files") {
+                    Patterns = new[] { $"*{fileExtension}", },
+                    //MimeTypes
+                    //AppleUniformTypeIdentifiers = 
+                },
+            };
+            options.FileTypes = fileTypes;
+        }
+        var filePaths = await FilePicker2.PickMultipleAsync(options);
+
+        if (!filePaths.Any_Nullable())
+            Toast.Show(ToastIcon.Warning, Strings.FilePathNotExist);
+        return filePaths;
+    }
+
     public static async Task<bool> VerifyMaxValue()
     {
         var auths = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();

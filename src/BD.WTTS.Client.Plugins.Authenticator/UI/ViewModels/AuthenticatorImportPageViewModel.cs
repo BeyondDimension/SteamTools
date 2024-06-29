@@ -1,5 +1,6 @@
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
+using static SteamKit2.DepotManifest;
 using SJsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -68,34 +69,40 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
     {
         try
         {
-            var filePath = await AuthenticatorHelper.SelectFolderPath(FileEx.maFile);
+            var filePaths = await AuthenticatorHelper.MultipleSelectFolderPath(FileEx.maFile);
 
-            if (string.IsNullOrEmpty(filePath)) return;
+            if (!filePaths.Any_Nullable())
+                return;
 
-            var text = await File.ReadAllTextAsync(filePath);
-
-            var sdaFileModel = SJsonSerializer.Deserialize(text, ImportFileModelJsonContext.Default.SdaFileModel);
-            sdaFileModel.ThrowIsNull();
-            var steamDataModel = new SdaFileConvertToSteamDataModel(sdaFileModel);
-
-            SteamAuthenticator steamAuthenticator = new()
+            foreach (var file in filePaths)
             {
-                DeviceId = sdaFileModel.DeviceId,
-                Serial = sdaFileModel.SerialNumber,
-                SecretKey = Convert.FromBase64String(sdaFileModel.SharedSecret),
-                SteamData = SJsonSerializer.Serialize(steamDataModel, ImportFileModelJsonContext.Default.SdaFileConvertToSteamDataModel),
-            };
+                if (!File.Exists(file.FullPath)) return;
+                var text = await File.ReadAllTextAsync(file.FullPath);
 
-            var authDto =
-                new AuthenticatorDTO()
+                var sdaFileModel = SJsonSerializer.Deserialize(text, ImportFileModelJsonContext.Default.SdaFileModel);
+                sdaFileModel.ThrowIsNull();
+                var steamDataModel = new SdaFileConvertToSteamDataModel(sdaFileModel);
+
+                SteamAuthenticator steamAuthenticator = new()
                 {
-                    Name = $"(Steam){steamAuthenticator.AccountName}",
-                    Value = steamAuthenticator,
-                    Created = DateTimeOffset.Now,
+                    DeviceId = sdaFileModel.DeviceId,
+                    Serial = sdaFileModel.SerialNumber,
+                    SecretKey = Convert.FromBase64String(sdaFileModel.SharedSecret),
+                    SteamData = SJsonSerializer.Serialize(steamDataModel, ImportFileModelJsonContext.Default.SdaFileConvertToSteamDataModel),
                 };
-            if (await AuthenticatorHelper.SaveAuthenticator(authDto))
-            {
-                Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(authDto.Name));
+
+                var authDto =
+                    new AuthenticatorDTO()
+                    {
+                        Name = $"(Steam){steamAuthenticator.AccountName}",
+                        Value = steamAuthenticator,
+                        Created = DateTimeOffset.Now,
+                    };
+
+                if (await AuthenticatorHelper.SaveAuthenticator(authDto))
+                {
+                    Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(authDto.Name));
+                }
             }
         }
         catch (Exception e)
