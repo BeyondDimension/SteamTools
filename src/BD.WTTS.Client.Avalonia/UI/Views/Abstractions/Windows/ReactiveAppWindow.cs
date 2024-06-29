@@ -139,7 +139,7 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
 
                     if (SizePosition.X > 0 && SizePosition.Y > 0)
                     {
-                        var leftTopPoint = new PixelPoint(SizePosition.X, SizePosition.Y);
+                        var leftTopPoint = new PixelPoint(SizePosition.X, SizePosition.Y + 31);
                         var rightBottomPoint = new PixelPoint(SizePosition.X + (int)Width, SizePosition.Y + (int)Height);
                         if (primaryScreenBounds.Contains(leftTopPoint) &&
                            primaryScreenBounds.Contains(rightBottomPoint))
