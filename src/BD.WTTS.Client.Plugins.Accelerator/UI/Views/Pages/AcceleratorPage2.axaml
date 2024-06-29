@@ -531,6 +531,23 @@
                                         <StackPanel Margin="10">
                                             <DockPanel>
                                                 <TextBlock Text="{Binding Name}" />
+                                                <Border
+                                                    Padding="5,0"
+                                                    HorizontalAlignment="Left"
+                                                    CornerRadius="5"
+                                                    IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
+                                                    ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
+                                                    <Border.Background>
+                                                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                                            <GradientStop Offset="0.0" Color="#43cbff" />
+                                                            <GradientStop Offset="1.0" Color="#9708cc" />
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontSize="10"
+                                                        Text="Beta" />
+                                                </Border>
                                             </DockPanel>
                                             <Separator Classes="Separator" />
                                         </StackPanel>
