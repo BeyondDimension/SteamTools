@@ -68,19 +68,19 @@ jobs:
         run: dotnet --info
 
       - name: Build BD.WTTS.Client.AppHost
-        run: dotnet build -c Release src\BD.WTTS.Client.AppHost\BD.WTTS.Client.AppHost.csproj --nologo -v q --property:WarningLevel=1;DebugType=pdbonly 
+        run: dotnet build -c Release src\BD.WTTS.Client.AppHost\BD.WTTS.Client.AppHost.csproj --nologo -v q --property:WarningLevel=1 --property:DebugType=pdbonly 
 
       - name: Build BD.WTTS.Client.Plugins.Accelerator.ReverseProxy
-        run: dotnet build -c Release src\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj --nologo -v q --property:WarningLevel=1;DebugType=pdbonly 
+        run: dotnet build -c Release src\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj --nologo -v q --property:WarningLevel=1 --property:DebugType=pdbonly 
 
       - name: Build BD.WTTS.Client.Avalonia.App
-        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.App\BD.WTTS.Client.Avalonia.App.csproj --nologo -v q --property:WarningLevel=1;DebugType=pdbonly 
+        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.App\BD.WTTS.Client.Avalonia.App.csproj --nologo -v q --property:WarningLevel=1 --property:DebugType=pdbonly 
 
       - name: Build BD.WTTS.Client.Avalonia.Designer.HostApp
-        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.Designer.HostApp\BD.WTTS.Client.Avalonia.Designer.HostApp.csproj --nologo -v q --property:WarningLevel=1;DebugType=pdbonly 
+        run: dotnet build -c Release src\BD.WTTS.Client.Avalonia.Designer.HostApp\BD.WTTS.Client.Avalonia.Designer.HostApp.csproj --nologo -v q --property:WarningLevel=1 --property:DebugType=pdbonly 
 
       - name: Test
-        run: dotnet test src/BD.WTTS.UnitTest/BD.WTTS.UnitTest.csproj -c Release -p:GeneratePackageOnBuild=false --nologo -v q --property:WarningLevel=1;DebugType=pdbonly 
+        run: dotnet test src/BD.WTTS.UnitTest/BD.WTTS.UnitTest.csproj -c Release -p:GeneratePackageOnBuild=false --nologo -v q --property:WarningLevel=1 --property:DebugType=pdbonly 
 
 #  release:
 #    name: Release
