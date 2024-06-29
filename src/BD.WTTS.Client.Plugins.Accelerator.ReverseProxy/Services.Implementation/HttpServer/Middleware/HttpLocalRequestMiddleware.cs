@@ -1,3 +1,4 @@
+using System.Net;
 using MediaTypeHeaderValue = System.Net.Http.Headers.MediaTypeHeaderValue;
 
 // ReSharper disable once CheckNamespace
@@ -140,10 +141,6 @@ sealed class HttpLocalRequestMiddleware
                 return null;
             }
 
-            StringValues cookie = context.Request.Headers["cookie-steamtool"];
-            if (StringValues.IsNullOrEmpty(cookie))
-                cookie = context.Request.Headers["Cookie"];
-            StringValues referer = context.Request.Headers["Referer-steamtool"];
             context.Response.Headers.AccessControlAllowOrigin = context.Request.Headers.Origin.Count == 0 ? "*" : context.Request.Headers.Origin;
             context.Response.Headers.AccessControlAllowHeaders = "*";
             context.Response.Headers.AccessControlAllowMethods = "*";
@@ -167,35 +164,28 @@ sealed class HttpLocalRequestMiddleware
                 };
                 foreach (var item in context.Request.Headers)
                 {
-
-                    if (item.Key.ToLower().EndsWith("-steamtool"))
+                    var headers = item.Key.ToLower();
+                    if (headers.EndsWith("-steamtool"))
                     {
+
+                        if (headers.Equals("cookie", StringComparison.OrdinalIgnoreCase))
+                        {
+                            CookieHttpClient.CookieContainer.Add(new Cookie
+                            {
+                                CommentUri = requestUri,
+                                Domain = requestUri.Host,
+                                Value = item.Value
+                            });
+                        }
+                        if (headers.Equals("referer", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var refererUri = new Uri(item.Value.ToString());
+                            req.Headers.Referrer = refererUri;
+                        }
                         req.Headers.TryAddWithoutValidation(item.Key.TrimEnd("-steamtool"), (IEnumerable<string?>)item.Value);
                     }
                 }
                 req.Headers.UserAgent.ParseAdd(context.Request.Headers.UserAgent);
-                if (!StringValues.IsNullOrEmpty(cookie))
-                {
-                    CookieHttpClient.CookieContainer.Add(new Cookie
-                    {
-                        CommentUri = requestUri,
-                        Domain = requestUri.Host,
-                        Value = cookie,
-                    });
-                    // req.Headers.Add("Cookie", cookie);
-                }
-                if (!StringValues.IsNullOrEmpty(referer))
-                {
-                    try
-                    {
-                        var refererUri = new Uri(referer.ToString());
-                        req.Headers.Referrer = refererUri;
-                    }
-                    catch
-                    {
-
-                    }
-                }
                 if (hasReqContent)
                 {
                     req.Content!.Headers.ContentType = MediaTypeHeaderValue.Parse(context.Request.ContentType.ThrowIsNull());
