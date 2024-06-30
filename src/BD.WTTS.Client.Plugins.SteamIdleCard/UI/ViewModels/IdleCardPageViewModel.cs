@@ -706,14 +706,6 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                         try
                         {
                             Task.Delay(TimeSpan.FromMinutes(SteamIdleSettings.RefreshBadgesTime.Value), DropCardCancellationTokenSource.Token).Wait();
-                            if (!IsLogin)
-                            {
-                                MainThread2.BeginInvokeOnMainThread(() =>
-                                {
-                                    StopIdleRun();
-                                });
-                                break;
-                            }
                             AutoCardDropCheck().Wait();
                         }
                         catch (AggregateException ae)
