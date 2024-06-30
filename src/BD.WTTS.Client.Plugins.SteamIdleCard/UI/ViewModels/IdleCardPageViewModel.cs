@@ -382,7 +382,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         try
         {
-            IdleGameList.Clear();
+            MainThread2.BeginInvokeOnMainThread(IdleGameList.Clear);
             var badges = Badges.Where(w => w.CardsRemaining != 0);
             var apps = SteamIdleSettings.IdleSequentital.Value switch
             {
@@ -391,8 +391,7 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
                 IdleSequentital.Mostvalue => badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => new IdleApp(s)),
                 _ => badges.Select(s => new IdleApp(s)),
             };
-            foreach (var app in apps)
-                IdleGameList.Add(app);
+            MainThread2.BeginInvokeOnMainThread(() => EnumerableExtensions.AddRange(IdleGameList, apps));
             return true;
         }
         catch (Exception ex)
