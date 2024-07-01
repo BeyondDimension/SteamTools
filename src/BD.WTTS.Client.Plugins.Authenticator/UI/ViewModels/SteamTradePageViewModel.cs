@@ -72,9 +72,8 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         }
         else
         {
-            await CheckAndRefreshToken();
+            IsLogged = await CheckAndRefreshToken();
 
-            IsLogged = true;
             await GetConfirmations(_steamClient);
         }
     }
