@@ -1,5 +1,7 @@
 // ReSharper disable once CheckNamespace
 using Avalonia.Data;
+using Google.Protobuf.WellKnownTypes;
+using System.Linq;
 
 namespace BD.WTTS.Services;
 
@@ -65,12 +67,12 @@ public sealed partial class ProxyService
               .ToObservableChangeSet()
               .AutoRefresh(x => x.ObservableItems)
               .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-              .AutoRefresh(x => x.Checked)
-              .WhenPropertyChanged(x => x.Checked, false)
+              .AutoRefresh(x => x.ThreeStateEnable)
+              .WhenPropertyChanged(x => x.ThreeStateEnable, false)
               .Subscribe(_ =>
               {
                   IsChangeSupportProxyServicesStatus = true;
-                  ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains?.Select(k => k.Id.ToString()).ToImmutableHashSet();
+                  ProxySettings.SupportProxyServicesStatus.Value = GetAccelerateEnableAllIds(EnableProxyDomains).ToImmutableHashSet();
               }));
 
         this.WhenAnyValue(v => v.ProxyScripts)
@@ -152,10 +154,10 @@ public sealed partial class ProxyService
         }
     }
 
-    public IEnumerable<AccelerateProjectDTO>? GetEnableProxyDomains()
+    public IEnumerable<AccelerateProjectDTO> GetEnableProxyDomains()
     {
         if (!ProxyDomains.Items.Any_Nullable())
-            return null;
+            return [];
         var data = ProxyDomains.Items
             .Where(x => x.Items != null)
             .SelectMany(s => s.Items!.Where(w => w.ThreeStateEnable != false));
@@ -163,7 +165,7 @@ public sealed partial class ProxyService
         return data;
     }
 
-    public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains => GetEnableProxyDomains()?.ToImmutableArray();
+    public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains => GetEnableProxyDomains().ToImmutableArray();
 
     //static IEnumerable<AccelerateProjectDTO>? GetProxyDomainsItems(AccelerateProjectDTO accelerates)
     //{
@@ -403,22 +405,8 @@ public sealed partial class ProxyService
         {
             var items = ProxyDomains.Items!.SelectMany(s => s.Items!);
             var enableItems = ProxySettings.SupportProxyServicesStatus.Value;
-            foreach (var item in items)
-            {
-                if (enableItems.Contains(item.Id.ToString()))
-                {
-                    item.ThreeStateEnable = true;
-                }
-            }
+            RestoreAccelerateEnableAllIds(items, enableItems);
         }
-
-        //if (IsLoadImage && ProxyDomains.Items.Any_Nullable())
-        //{
-        //    foreach (var item in ProxyDomains.Items)
-        //    {
-        //        item.ImageStream = ImageChannelType.AccelerateGroup.GetImageAsync(ImageUrlHelper.GetImageApiUrlById(item.ImageId));
-        //    }
-        //}
     }
 
     public static bool IsChangeSupportProxyServicesStatus { get; set; }
@@ -458,6 +446,29 @@ public sealed partial class ProxyService
                 {
                     ProxyDomains.AddOrUpdate(accelerates!);
                 }
+            }
+        }
+    }
+
+    private IEnumerable<string> GetAccelerateEnableAllIds(IEnumerable<AccelerateProjectDTO>? nodes)
+    {
+        if (nodes == null)
+            return Enumerable.Empty<string>();
+        return nodes.Where(s => s.ThreeStateEnable != false).SelectMany(node => new[] { node.Id.ToString() }.Concat(GetAccelerateEnableAllIds(node.Items)));
+    }
+
+    private void RestoreAccelerateEnableAllIds(IEnumerable<AccelerateProjectDTO> nodes, IReadOnlyCollection<string> enableItems)
+    {
+        foreach (var node in nodes)
+        {
+            if (node.Items.Any_Nullable())
+            {
+                RestoreAccelerateEnableAllIds(node.Items, enableItems);
+                continue;
+            }
+            if (enableItems.Contains(node.Id.ToString()))
+            {
+                node.ThreeStateEnable = true;
             }
         }
     }
