@@ -1,8 +1,7 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
-
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
 using WinAuth;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 using WSteamClient = WinAuth.SteamClient;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -73,8 +72,52 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         }
         else
         {
-            IsLogged = true;
+            IsLogged = await CheckAndRefreshToken();
+
             await GetConfirmations(_steamClient);
+        }
+    }
+
+    public async ValueTask<bool> CheckAndRefreshToken()
+    {
+        IsLoading = true;
+
+        // 不具备检查条件 没有保持的会话信息
+        if (_steamClient == null)
+            return false;
+
+        if (_steamClient.Session == null || _steamAuthenticator == null)
+            return false;
+
+        // token 依旧有效 直接返回
+        if (!_steamClient.Session.IsAccessTokenExpired())
+            return true;
+
+        try
+        {
+            // 是否有 refresh token
+            string? refreshToken = _steamClient.Session?.RefreshToken;
+
+            if (string.IsNullOrWhiteSpace(refreshToken))
+                return false;
+
+            var session = _steamClient.Session;
+
+            // 刷新 access token (有效时间同样为一天)
+            await session!.RefreshAccessToken(_steamClient);
+
+            // 使用原先获取的具体派生类型 修改数据
+            _steamAuthenticator.SessionData = session.ToString();
+
+            // 通过原始令牌引用保存信息
+            await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto)
+                .ConfigureAwait(false);
+
+            return true;
+        }
+        finally
+        {
+            IsLoading = false;
         }
     }
 
@@ -314,7 +357,6 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         //            Content = Strings.LocalAuth_AuthTrade_MessageBoxTip_.Format(statusText)
         //        }, statusText, isCancelButton: true, isDialog: false))
         //{
-
         Toast.Show(ToastIcon.Info, Strings.LocalAuth_AuthTrade_ConfirmTip_.Format(statusText));
 
         if (!await ChangeTradeStatus(status, selectedList)) return;
