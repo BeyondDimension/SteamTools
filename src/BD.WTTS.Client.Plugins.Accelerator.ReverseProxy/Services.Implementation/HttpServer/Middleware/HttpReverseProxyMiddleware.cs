@@ -57,7 +57,16 @@ sealed partial class HttpReverseProxyMiddleware
             {
                 var httpClient = httpClientFactory.CreateHttpClient("GlobalProxy", defaultDomainConfig);
                 var destinationPrefix = GetDestinationPrefix(context.Request.Scheme, context.Request.Host, null);
-                var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, ForwarderRequestConfig.Empty, HttpTransformer.Empty);
+                var forwarderRequestConfig = new ForwarderRequestConfig()
+                {
+                    Version = context.Request.Protocol switch
+                    {
+                        var protocol when protocol.StartsWith("HTTP/2") => System.Net.HttpVersion.Version20,
+                        var protocol when protocol.StartsWith("HTTP/3") => System.Net.HttpVersion.Version30,
+                        _ => System.Net.HttpVersion.Version11,
+                    },
+                };
+                var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, forwarderRequestConfig, HttpTransformer.Empty);
                 if (error != ForwarderError.None)
                 {
                     await HandleErrorAsync(context, error);
@@ -109,22 +118,22 @@ sealed partial class HttpReverseProxyMiddleware
                 context.Request.Headers.UserAgent = domainConfig.UserAgent.Replace("${origin}", context.Request.Headers.UserAgent, StringComparison.OrdinalIgnoreCase);
             }
 
-            //var forwarderRequestConfig = new ForwarderRequestConfig()
-            //{
-            //    Version = context.Request.Protocol switch
-            //    {
-            //        var protocol when protocol.StartsWith("HTTP/2") => System.Net.HttpVersion.Version20,
-            //        var protocol when protocol.StartsWith("HTTP/3") => System.Net.HttpVersion.Version30,
-            //        _ => System.Net.HttpVersion.Version11,
-            //    },
-            //};
+            var forwarderRequestConfig = new ForwarderRequestConfig()
+            {
+                Version = context.Request.Protocol switch
+                {
+                    var protocol when protocol.StartsWith("HTTP/2") => System.Net.HttpVersion.Version20,
+                    var protocol when protocol.StartsWith("HTTP/3") => System.Net.HttpVersion.Version30,
+                    _ => System.Net.HttpVersion.Version11,
+                },
+            };
 
             if (domainConfig.IsServerSideProxy)
             {
                 SetWattHeaders(context, reverseProxyConfig.Service.ServerSideProxyToken);
             }
 
-            var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, ForwarderRequestConfig.Empty, HttpTransformer.Empty);
+            var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, forwarderRequestConfig, HttpTransformer.Empty);
 
             if (error != ForwarderError.None)
             {
