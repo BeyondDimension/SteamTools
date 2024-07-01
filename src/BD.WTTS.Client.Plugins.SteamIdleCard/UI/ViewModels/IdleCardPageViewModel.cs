@@ -2,6 +2,7 @@ using BD.SteamClient.Models;
 using BD.SteamClient.Models.Idle;
 using BD.SteamClient.Services;
 using BD.SteamClient.Constants;
+using Avalonia.Threading;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -312,17 +313,26 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         try
         {
-            var isTokenAccess = await Ioc.Get<ISteamAccountService>().CheckAccessTokenValidation(SteamLoginState.AccessToken!);
+            var isTokenAccess = Ioc.Get<ISteamAccountService>().IsAccessTokenValid(SteamLoginState.AccessToken!);
             if (isTokenAccess)
             {
                 await RunLoadBadges();
             }
             else
             {
-                await ISecureStorage.Instance.RemoveAsync(ISteamSessionService.CurrentSteamUserKey);
-                SteamLoginState = new();
-                await LoginSteam();
-                await RunLoadBadges();
+                var new_accessToken = await Ioc.Get<ISteamAccountService>().RefreshAccessToken(SteamLoginState.SteamId, SteamLoginState.RefreshToken!);
+                if (new_accessToken is not null) // 刷新Token
+                {
+                    await RefreshAccessTokenAsync(new_accessToken);
+                    await RunLoadBadges();
+                }
+                else // 重新登录
+                {
+                    await ISecureStorage.Instance.RemoveAsync(ISteamSessionService.CurrentSteamUserKey);
+                    SteamLoginState = new();
+                    await LoginSteam();
+                    await RunLoadBadges();
+                }
             }
             return true;
         }
@@ -382,16 +392,19 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
     {
         try
         {
-            MainThread2.BeginInvokeOnMainThread(IdleGameList.Clear);
             var badges = Badges.Where(w => w.CardsRemaining != 0);
-            var apps = SteamIdleSettings.IdleSequentital.Value switch
+            var apps = (SteamIdleSettings.IdleSequentital.Value switch
             {
                 IdleSequentital.LeastCards => badges.OrderBy(o => o.CardsRemaining).Select(s => new IdleApp(s)),
                 IdleSequentital.Mostcards => badges.OrderByDescending(o => o.CardsRemaining).Select(s => new IdleApp(s)),
                 IdleSequentital.Mostvalue => badges.OrderByDescending(o => o.RegularAvgPrice).Select(s => new IdleApp(s)),
                 _ => badges.Select(s => new IdleApp(s)),
-            };
-            MainThread2.BeginInvokeOnMainThread(() => EnumerableExtensions.AddRange(IdleGameList, apps));
+            }).ToImmutableList();
+            Dispatcher.UIThread.Invoke(() =>
+            {
+                IdleGameList.Clear();
+                EnumerableExtensions.AddRange(IdleGameList, apps);
+            });
             return true;
         }
         catch (Exception ex)
@@ -780,6 +793,23 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         var message = Strings.Idle_Complete.Format(DropCardsCount, IdleTime.TotalHours.ToInt32());
         Toast.Show(ToastIcon.Success, message);
         INotificationService.Instance.Notify(message, NotificationType.Message);
+    }
+
+    private async Task RefreshAccessTokenAsync(string new_accessToken)
+    {
+        SteamLoginState.AccessToken = new_accessToken;
+        SteamSession session = new SteamSession()
+        {
+            SteamId = SteamLoginState.SteamId.ToString(),
+            AccessToken = SteamLoginState.AccessToken,
+            RefreshToken = SteamLoginState.RefreshToken
+        };
+        session.GenerateSetCookie();
+        var sessionService = Ioc.Get<ISteamSessionService>();
+        sessionService.AddOrSetSeesion(session);
+
+        if (LoginViewModel is null || LoginViewModel.RemenberLogin)
+            await sessionService.SaveSession(session);
     }
     #endregion
 
