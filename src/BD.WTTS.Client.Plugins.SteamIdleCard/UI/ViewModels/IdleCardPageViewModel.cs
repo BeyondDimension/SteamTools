@@ -445,10 +445,11 @@ public sealed partial class IdleCardPageViewModel : ViewModelBase
         {
             var multi = IdleGameList.Where(z => z.Badge.HoursPlayed >= SteamIdleSettings.MinRunTime.Value).ToList();
 
-            if (multi.Count > 1 || (multi.Count == 1 && IdleGameList.Count == 1))
+            var isLastSingle = multi.Count == 1 && IdleGameList.Count == 1; // 是否只剩最后一个游戏
+            if (multi.Count > 1 || isLastSingle)
             {
                 idleApp = VerifyIsNext(multi, isNext);
-                PauseAutoNext(false);
+                PauseAutoNext(isLastSingle);
                 StartSoloIdle(idleApp);
             }
             else
