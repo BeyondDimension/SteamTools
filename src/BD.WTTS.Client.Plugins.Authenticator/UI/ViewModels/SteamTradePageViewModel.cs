@@ -89,12 +89,12 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         if (_steamClient.Session == null || _steamAuthenticator == null)
             return false;
 
-        // token 依旧有效 直接返回
-        if (!_steamClient.Session.IsAccessTokenExpired())
-            return true;
-
         try
         {
+            // token 依旧有效 直接返回
+            if (!_steamClient.Session.IsAccessTokenExpired())
+                return true;
+
             // 是否有 refresh token
             string? refreshToken = _steamClient.Session?.RefreshToken;
 
@@ -108,6 +108,10 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
 
             // 使用原先获取的具体派生类型 修改数据
             _steamAuthenticator.SessionData = session.ToString();
+
+            // 重新生成 client
+            _steamClient = _steamAuthenticator
+                .GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
 
             // 通过原始令牌引用保存信息
             await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto)
