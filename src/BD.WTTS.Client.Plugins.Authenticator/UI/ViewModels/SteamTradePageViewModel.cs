@@ -109,9 +109,11 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
             // 使用原先获取的具体派生类型 修改数据
             _steamAuthenticator.SessionData = session.ToString();
 
-            // 重新生成 client
-            _steamClient = _steamAuthenticator
-                .GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
+            // 重置当前 client
+            if (!ResetCurrentClient())
+            {
+                return false;
+            }
 
             // 通过原始令牌引用保存信息
             await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto)
@@ -206,6 +208,30 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         }
 
         IsLoading = false;
+    }
+
+    bool ResetCurrentClient()
+    {
+        try
+        {
+            if (_steamAuthenticator == null)
+                return false;
+
+            _steamClient?.Dispose();
+
+            // 重新生成 client
+            _steamClient = _steamAuthenticator
+                .GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
+
+            if (_steamClient == null)
+                return false;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     async Task<IEnumerable<SteamTradeConfirmationModel>?> GetConfirmations(WSteamClient steamClient)
