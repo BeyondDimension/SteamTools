@@ -62,7 +62,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
                 pageType = page.PageType;
             }
         }
-        INavigationService.Instance.Navigate(pageType ?? typeof(PluginStorePage));
+        INavigationService.Instance.Navigate(pageType ?? typeof(HomePage));
         return true;
     }
 

@@ -74,13 +74,18 @@
             MaxWidth="1080"
             Spacing="20">
             <spp:Snackbar
-                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 VerticalAlignment="Top"
                 IsClosable="False"
                 IsOpen="True"
                 IsVisible="{spp:OnPlatform !GA}"
                 Message="当前使用的程序版本为测试版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。"
                 Severity="Warning" />
+            <spp:Snackbar
+                VerticalAlignment="Top"
+                IsClosable="False"
+                IsOpen="True"
+                IsVisible="{spp:OnPlatform !GA}"
+                Message="如果您不喜欢当前主页为默认启动页面可以在【设置-界面设置-启动时默认打开页面】处更改" />
             <spp:Snackbar
                 Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 VerticalAlignment="Top"
