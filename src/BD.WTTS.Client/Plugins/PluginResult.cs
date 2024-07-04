@@ -6,6 +6,11 @@ namespace BD.WTTS.Plugins;
 /// <typeparam name="TData">结果数据类型</typeparam>
 /// <param name="IsDisable">是否禁用</param>
 /// <param name="Data">插件数据</param>
+[Mobius(
+"""
+Mobius.Plugins.Abstractions.IPluginResult
+Mobius.Plugins.FrontendPluginResult
+""")]
 public sealed class PluginResult<TData>
     : ReactiveObject, IEquatable<PluginResult<TData>>,
     IEquatable<TData>, IReactiveObject

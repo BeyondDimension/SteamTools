@@ -4,6 +4,10 @@ using static BD.WTTS.AssemblyInfo;
 
 namespace BD.WTTS.Plugins;
 
+[Mobius(
+"""
+Mobius.Plugins.PluginsCore
+""")]
 public static class PluginsCore
 {
     const string TAG = nameof(PluginsCore);

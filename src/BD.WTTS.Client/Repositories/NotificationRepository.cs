@@ -1,6 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Repositories;
 
+[Mobius(Obsolete = true)]
 internal sealed class NotificationRepository : Repository<Notification, Guid>, INotificationRepository
 {
     public async Task<IList<Notification>> GetAllAsync(Expression<Func<Notification, bool>>? expression = null, CancellationToken cancellationToken = default)
