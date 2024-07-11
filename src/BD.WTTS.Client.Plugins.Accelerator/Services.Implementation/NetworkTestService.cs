@@ -213,7 +213,7 @@ internal partial class NetworkTestService : INetworkTestService
         catch (OperationCanceledException) { throw; }
         catch (Exception ex)
         {
-            Log.Error(nameof(NetworkTestViewModel), ex, "TestStunClient3489Async 异常");
+            Log.Error(nameof(NetworkTestService), ex, "TestStunClient3489Async 异常");
             return null;
         }
 
