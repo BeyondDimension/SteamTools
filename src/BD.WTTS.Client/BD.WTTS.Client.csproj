@@ -110,6 +110,7 @@
 		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
 		<PackageReference Include="Fleck" />
+		<PackageReference Include="Stun.Net" />
 		<PackageReference Include="System.Linq.Async" />
 		<!--<PackageReference Include="Portable.BouncyCastle" />-->
 		<PackageReference Include="ReactiveUI.Fody" />
