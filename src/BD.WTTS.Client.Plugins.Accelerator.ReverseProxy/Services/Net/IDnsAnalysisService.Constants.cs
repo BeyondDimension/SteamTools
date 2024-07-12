@@ -12,8 +12,8 @@ public partial interface IDnsAnalysisService // 公共常量定义
     const string DNS_Ali_DohAddres2 = "https://223.6.6.6/dns-query";
     const string DNS_Ali_DohAddres3 = "https://223.5.5.5/dns-query";
 
-    const string Dnspod_DohAddres = "https://1.12.12.12";
-    const string Dnspod_DohAddres2 = "https://doh.pub";
+    const string Dnspod_DohAddres = "https://1.12.12.12/dns-query";
+    const string Dnspod_DohAddres2 = "https://doh.pub/dns-query";
     const string Dnspod_DohAddres3 = "https://120.53.53.53/dns-query";
 
     const string Google_DohAddres = "https://dns.google";

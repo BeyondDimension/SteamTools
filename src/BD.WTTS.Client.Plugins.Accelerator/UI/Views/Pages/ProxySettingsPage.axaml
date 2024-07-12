@@ -69,7 +69,7 @@
             <ui:SettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>
-                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=Value, Mode=TwoWay}" />
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
 

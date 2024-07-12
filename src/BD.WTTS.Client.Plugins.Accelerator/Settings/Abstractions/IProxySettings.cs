@@ -148,7 +148,7 @@ public partial interface IProxySettings
     /// <summary>
     /// 启用 DNS over HTTPS
     /// </summary>
-    bool UseDoh2 { get; set; }
+    bool UseDoh { get; set; }
 
     /// <summary>
     /// 自定义 DNS over HTTPS 地址
@@ -268,7 +268,7 @@ public partial interface IProxySettings
     /// <summary>
     /// 启用 DNS over HTTPS的默认值
     /// </summary>
-    const bool DefaultUseDoh2 = false;
+    const bool DefaultUseDoh = true;
 
     /// <summary>
     /// 自定义 DNS over HTTPS 地址的默认值

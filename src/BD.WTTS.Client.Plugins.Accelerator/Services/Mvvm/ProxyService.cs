@@ -454,7 +454,7 @@ public sealed partial class ProxyService
     {
         if (nodes == null)
             return Enumerable.Empty<string>();
-        return nodes.Where(s => s.ThreeStateEnable != false).SelectMany(node => new[] { node.Id.ToString() }.Concat(GetAccelerateEnableAllIds(node.Items)));
+        return nodes.Where(s => s.ThreeStateEnable == true).SelectMany(node => new[] { node.Id.ToString() }.Concat(GetAccelerateEnableAllIds(node.Items)));
     }
 
     private void RestoreAccelerateEnableAllIds(IEnumerable<AccelerateProjectDTO> nodes, IReadOnlyCollection<string> enableItems)
