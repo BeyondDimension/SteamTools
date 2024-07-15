@@ -7,6 +7,14 @@ namespace BD.WTTS.Services;
 internal interface INetworkTestService : IHttpRequestTestService, IStunTestService
 {
     Task<PingReply> TestPingAsync(string testHostNameOrAddress, TimeSpan timeout, CancellationToken cancellationToken = default);
+
+    Task<(long delayMs, IPAddress[] address)> TestDNSAsync(
+            string testDomain,
+            string dnsServerIp,
+            int dnsServerPort,
+            DnsQueryAnswerRecord.DnsRecordType dnsRecordType = DnsQueryAnswerRecord.DnsRecordType.A,
+            CancellationToken cancellationToken = default
+        );
 }
 
 internal interface IHttpRequestTestService

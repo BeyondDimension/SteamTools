@@ -82,7 +82,7 @@ internal partial class NetworkTestService : INetworkTestService
     {
         using HttpClient testClient = new HttpClient();
 
-        return await TestDownloadSpeedCoreAsync(downloadUrl, () => testClient);
+        return await TestDownloadSpeedCoreAsync(downloadUrl, () => testClient, cancellationToken);
     }
 
     /// <summary>
@@ -303,4 +303,390 @@ internal partial class NetworkTestService : INetworkTestService
     #endregion RFC5389
 
     #endregion STUN 测试
+
+    #region DNS 查询
+
+    /// <summary>
+    /// 测试 DNS
+    /// </summary>
+    /// <param name="testDomain">要测试的域名</param>
+    /// <param name="dnsServerIp">DNS 服务地址</param>
+    /// <param name="dnsServerPort">DNS 服务端口</param>
+    /// <param name="dnsRecordType"> dns 测试类型 </param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<(long delayMs, IPAddress[] address)> TestDNSAsync(
+            string testDomain,
+            string dnsServerIp,
+            int dnsServerPort,
+            DnsQueryAnswerRecord.DnsRecordType dnsRecordType = DnsQueryAnswerRecord.DnsRecordType.A,
+            CancellationToken cancellationToken = default
+        )
+    {
+        using UdpClient udpClient = new UdpClient(dnsServerIp, dnsServerPort);
+
+        var query = new DnsQueryRequest(testDomain, dnsRecordType);
+
+        Stopwatch watch = Stopwatch.StartNew();
+
+        await udpClient.SendAsync(query, cancellationToken);
+
+        var receivedData = await udpClient.ReceiveAsync(cancellationToken);
+
+        watch.Stop();
+
+        var dnsQueryResponse = new DnsQueryResponse(receivedData.Buffer);
+
+        return (watch.ElapsedMilliseconds, dnsQueryResponse.GetAddresses());
+    }
+
+    internal record DnsQueryResponse : DnsQueryRequest
+    {
+        public ushort AnswerCount { get; init; } // (ushort)((_origin[6] << 8) | _origin[7]);
+
+        public ushort AuthorityCount { get; init; } // (ushort)((_origin[8] << 8) | _origin[9]);
+
+        public ushort AdditionalCount { get; init; } // (ushort)((_origin[10] << 8) | _origin[11]);
+
+        public List<DnsQueryAnswerRecord> Answers { get; init; }
+
+        private readonly byte[] _origin;
+
+        public DnsQueryResponse(byte[] origin) : base(origin)
+        {
+            _origin = origin;
+
+            AnswerCount = (ushort)((origin[Position++] << 8) | origin[Position++]);
+            AuthorityCount = (ushort)((origin[Position++] << 8) | origin[Position++]);
+            AdditionalCount = (ushort)((origin[Position++] << 8) | origin[Position++]);
+
+            //  跳过查询问题部分
+            for (int i = 0; i < QuestionCount; i++)
+            {
+                Position = SkipName(origin, Position);
+                Position += 4; // 跳过类型
+            }
+
+            Answers = new List<DnsQueryAnswerRecord>();
+
+            Position = ParseRecords(origin, Position, AnswerCount, Answers);
+            Position = ParseRecords(origin, Position, AuthorityCount, Answers);
+            Position = ParseRecords(origin, Position, AdditionalCount, Answers);
+        }
+
+        private static int ParseRecords(byte[] response, int position, int recordCount, List<DnsQueryAnswerRecord> answers)
+        {
+            for (int i = 0; i < recordCount; i++)
+            {
+                position = ParseName(response, position, out var parsedName);
+
+                int @type = (response[position++] << 8) | response[position++];
+                int @class = (response[position++] << 8) | response[position++];
+                int ttl = (response[position++] << 24) | (response[position++] << 16) | (response[position++] << 8) | response[position++];
+                int dataLength = (response[position++] << 8) | response[position++];
+
+                if (@type == (int)DnsQueryAnswerRecord.DnsRecordType.A && dataLength == 4) // Type A (IPv4)
+                {
+                    var ipAddress = new byte[4];
+                    Array.Copy(response, position, ipAddress, 0, 4);
+
+                    answers.Add(
+                            new DnsQueryAnswerRecord(
+                                    parsedName!,
+                                    (DnsQueryAnswerRecord.DnsRecordType)@type,
+                                    (DnsQueryAnswerRecord.DnsRecordClass)@class,
+                                    TimeSpan.FromSeconds(ttl),
+                                    ipAddress
+                                )
+                        );
+                }
+                else if (@type == (int)DnsQueryAnswerRecord.DnsRecordType.AAAA && dataLength == 16) // Type AAAA (IPv6)
+                {
+                    var ipAddress = new byte[16];
+                    Array.Copy(response, position, ipAddress, 0, 16);
+
+                    answers.Add(
+                          new DnsQueryAnswerRecord(
+                                  parsedName!,
+                                  (DnsQueryAnswerRecord.DnsRecordType)@type,
+                                  (DnsQueryAnswerRecord.DnsRecordClass)@class,
+                                  TimeSpan.FromSeconds(ttl),
+                                  ipAddress
+                              )
+                      );
+                }
+                else if (type == (int)DnsQueryAnswerRecord.DnsRecordType.CNAME)
+                {
+                    ParseName(response, position, out var parsedCName);
+
+                    if (string.IsNullOrEmpty(parsedCName))
+                    {
+                        Log.Error(nameof(NetworkTestService), $"解析 DNS CName字段异常 name :{parsedName}, data length :{dataLength}");
+                        continue;
+                    }
+
+                    answers.Add(
+                            new DnsQueryAnswerRecord(
+                                  parsedName!,
+                                  (DnsQueryAnswerRecord.DnsRecordType)@type,
+                                  (DnsQueryAnswerRecord.DnsRecordClass)@class,
+                                  TimeSpan.FromSeconds(ttl),
+                                  Encoding.Unicode.GetBytes(parsedCName!)
+                                )
+                            );
+                }
+                else
+                {
+                    Log.Error(nameof(NetworkTestService), $"未支持的 DNS响应记录 type :{@type} ,class :{@class} name :{parsedName}, data length :{dataLength}");
+                    continue;
+                }
+
+                position += dataLength;
+            }
+
+            return position;
+        }
+
+        private static int ParseName(byte[] response, int position, out string? name)
+        {
+            StringBuilder nameBuilder = new StringBuilder();
+            int originalPosition = position;
+            bool isPointer = false;
+
+            // 0表示结束
+            while (response[position] != 0)
+            {
+                // dns 协议 名称可能是 指针 或者 直接表示
+                // 如果大于等于 192 表示是指针开始
+                if (response[position] >= 192)
+                {
+                    if (!isPointer)
+                    {
+                        originalPosition = position + 2;
+                        isPointer = true;
+                    }
+                    // 因为 00111111 可以忽略前两位 用 0x3F 掩码获取指针
+                    int pointer = ((response[position] & 0x3F) << 8) | response[position + 1];
+                    position = pointer;
+                }
+                else
+                {
+                    int length = response[position];
+                    position++;
+                    nameBuilder.Append(Encoding.ASCII.GetString(response, position, length));
+                    position += length;
+                    if (response[position] != 0)
+                    {
+                        nameBuilder.Append('.');
+                    }
+                }
+            }
+
+            if (!isPointer)
+            {
+                position++;
+            }
+            else
+            {
+                position = originalPosition;
+            }
+
+            name = nameBuilder.ToString();
+            return position;
+        }
+
+        private static int SkipName(byte[] response, int position)
+        {
+            if (response[position] >= 192)
+            {
+                return position + 2; // Name is a pointer
+            }
+
+            while (response[position] != 0)
+            {
+                position += response[position] + 1;
+            }
+            return position + 1;
+        }
+
+        public IPAddress[] GetAddresses()
+        {
+            return Answers
+                .Where(x => x.Type == DnsQueryAnswerRecord.DnsRecordType.A || x.Type == DnsQueryAnswerRecord.DnsRecordType.AAAA)
+                .Select(x => new IPAddress(x.Data))
+                .ToArray();
+        }
+    }
+
+    internal record DnsQueryRequest
+    {
+        public ushort QueryId { get; init; } // (ushort)((_origin[0] << 8) | _origin[1]);
+
+        public ushort Flags { get; init; } //(ushort)((_origin[2] << 8) | _origin[3]);
+
+        public ushort QuestionCount { get; init; } //  (ushort)((_origin[4] << 8) | _origin[5]);
+
+        public int Length => _origin.Length;
+
+        protected int Position { get; set; }
+
+        private readonly byte[] _origin;
+
+        public DnsQueryRequest(byte[] origin)
+        {
+            _origin = origin;
+
+            Position = default;
+            QueryId = (ushort)((origin[Position++] << 8) | origin[Position++]);
+            Flags = (ushort)((origin[Position++] << 8) | origin[Position++]);
+            QuestionCount = (ushort)((origin[Position++] << 8) | origin[Position++]);
+        }
+
+        public DnsQueryRequest(string domainName, DnsQueryAnswerRecord.DnsRecordType type = DnsQueryAnswerRecord.DnsRecordType.A)
+            : this(CreateDnsQuery(domainName, type))
+        {
+        }
+
+        public static byte[] CreateDnsQuery(string domainName, DnsQueryAnswerRecord.DnsRecordType type = DnsQueryAnswerRecord.DnsRecordType.A)
+        {
+            // 12字节报文头部
+            const int DNS_QUERY_HEADER_BYTECOUNT = 12;
+            // 2字节终止符长度
+            const int DNS_QUERY_END_BYTECOUNT = 2;
+            // 4字节查询类型和查询类字段
+            const int DNS_QUERY_QUERYTYPE_BYTECOUNT = 4;
+
+            // dns queryId 范围是一个16位字段,16位无符号的范围就是0-65535
+            var queryId = (ushort)Random.Shared.Next(0, 65536);
+
+            byte[] dnsQuery = new byte[
+                DNS_QUERY_HEADER_BYTECOUNT
+                + domainName.Length
+                + DNS_QUERY_END_BYTECOUNT
+                + DNS_QUERY_QUERYTYPE_BYTECOUNT
+            ];
+
+            BuildQueryHeader(queryId, dnsQuery);
+            BuildBody(domainName, dnsQuery);
+
+            return dnsQuery;
+
+            void BuildQueryHeader(ushort queryId, byte[] query)
+            {
+                // 查询 ID 是一个 16 位（2 字节）的字段。
+                // 为了将这个 16 位的整数值分配到字节数组 dnsQuery 的两个字节中，
+                // 我们需要将其高 8 位和低 8 位分别存储在数组的第一个和第二个字节中
+                query[0] = (byte)(queryId >> 8);
+                query[1] = (byte)(queryId & 0xFF);
+
+                // 标志字段（Flags） 2 - 3 包含各种控制标志
+                // 如查询/响应（QR）、操作码（Opcode）、授权回答（AA）、截断（TC）、递归期望（RD）、递归可用（RA）等
+                query[2] = 0x01;
+
+                // 问题计数（QDCOUNT）4 - 5 表示查询问题部分的数量
+                query[5] = 0x01;
+
+                // 其他查询报文中通常为 0
+                // 回答记录计数（ANCOUNT),授权记录计数（NSCOUNT）,附加记录计数（ARCOUNT）
+            }
+
+            void BuildBody(string domainName, byte[] query)
+            {
+                // 获取域名组成部分 因为后面要根据部分长度和内容填充结果
+                string[] domainParts = domainName.Split('.');
+
+                int currentPosition = 12;
+
+                // 根据 dns 查询报文 每一部分开始都要填充这一部分的长度
+                foreach (var domainPart in domainParts)
+                {
+                    // 标志当前 part 的长度
+                    query[currentPosition++] = (byte)domainPart.Length;
+
+                    // 获取填充的字节
+                    var fillBytes = Encoding.ASCII.GetBytes(domainPart);
+
+                    // 移动到当前查询体中
+                    fillBytes.CopyTo(query, currentPosition);
+
+                    // 移动当前填充开始位置
+                    currentPosition += fillBytes.Length;
+                }
+                // 0 表示域名结束
+                query[currentPosition++] = 0x00;
+
+                // 填充 查询类型和查询类字段
+                query[currentPosition++] = 0x00;
+                query[currentPosition++] = (byte)type;  // 表示查询类型为 A 记录（IPv4 地址）。
+                query[currentPosition++] = 0x00;
+                query[currentPosition++] = 0x01;  // 表示查询类为 IN（Internet 类）。
+            }
+        }
+
+        public static implicit operator byte[](DnsQueryRequest data)
+        {
+            return data._origin;
+        }
+
+        public static implicit operator ReadOnlyMemory<byte>(DnsQueryRequest data)
+        {
+            return data._origin;
+        }
+    }
+
+    internal record DnsQueryAnswerRecord
+    {
+        public string Name { get; set; }
+
+        public DnsRecordType Type { get; set; }
+
+        public DnsRecordClass Class { get; set; }
+
+        public TimeSpan Ttl { get; set; }
+
+        public int DataLength { get; set; }
+
+        public byte[] Data { get; set; }
+
+        public DnsQueryAnswerRecord(
+                string name,
+                DnsRecordType @type,
+                DnsRecordClass @class,
+                TimeSpan ttl,
+                byte[] data
+            )
+        {
+            Name = name;
+            Type = @type;
+            Class = @class;
+            Ttl = ttl;
+            Data = data;
+            DataLength = data.Length;
+        }
+
+        internal enum DnsRecordClass : ushort
+        {
+            Internet = 1,     // Internet(IN)
+            Chaos = 3,        // Chaos(CH)
+            Hesiod = 4,       // Hesiod(HS)
+            QCLASSNONE = 254, // QCLASS NONE
+            QCLASSANY = 255,  // QCLASS * (ANY)
+        }
+
+        // 域名系统记录类型 (省略了有些未使用的类型)
+        internal enum DnsRecordType : byte
+        {
+            A = 1,       // 指定域名对应的IPv4地址
+            AAAA = 28,   // 指定域名对应的IPv6地址
+            CNAME = 5,   // 别名记录,
+            MX = 15,     // 邮件交换记录,
+            NS = 2,      // 指定该域名由哪个DNS服务器来进行解析
+            TXT = 16,    // 主机名或域名的说明
+            SOA = 6,     // 起始授权机构
+            PTR = 12,    // 反向IP查询
+            ANY = 255,   // 所有DNS记录类型
+        }
+    }
+
+    #endregion DNS 查询
 }

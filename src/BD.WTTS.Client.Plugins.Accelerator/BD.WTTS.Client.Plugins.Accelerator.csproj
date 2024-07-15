@@ -77,7 +77,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="ReactiveUI.Fody" />
-		<PackageReference Include="Stun.Net" />
 	</ItemGroup>
 
 	<ItemGroup>
