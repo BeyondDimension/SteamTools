@@ -14,6 +14,8 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
     public static readonly StyledProperty<bool> IsSaveWindowSizeProperty = AvaloniaProperty
         .Register<ReactiveAppWindow<TViewModel>, bool>(nameof(IsSaveWindowSize), true);
 
+    private bool _isInitialize;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="ReactiveAppWindow{TViewModel}"/> class.
     /// </summary>
@@ -127,27 +129,32 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
             {
                 var primaryScreenBounds = screen.Bounds;
 
-                if (CanResize && !IsVisible)
+                if (CanResize && !_isInitialize && !IsVisible)
                 {
+                    WindowStartupLocation = WindowStartupLocation.Manual;
+                    var scalingOffset = 31 - ((screen.Scaling - 1) / 0.5); // appwindow偏移量
+
                     if (SizePosition.Width > 0 &&
                         primaryScreenBounds.Width >= SizePosition.Width)
                         Width = SizePosition.Width;
 
                     if (SizePosition.Height > 0 &&
                         primaryScreenBounds.Height >= SizePosition.Height)
-                        Height = SizePosition.Height - 31; // appwindow偏移量
+                        Height = SizePosition.Height - scalingOffset;
 
                     if (SizePosition.X > 0 && SizePosition.Y > 0)
                     {
-                        var leftTopPoint = new PixelPoint(SizePosition.X, SizePosition.Y + 31);
+                        var offsetY = (int)Math.Round(scalingOffset * screen.Scaling);
+                        //var offsetY = scalingOffset;
+                        var leftTopPoint = new PixelPoint(SizePosition.X, SizePosition.Y + offsetY);
                         var rightBottomPoint = new PixelPoint(SizePosition.X + (int)Width, SizePosition.Y + (int)Height);
                         if (primaryScreenBounds.Contains(leftTopPoint) &&
                            primaryScreenBounds.Contains(rightBottomPoint))
                         {
                             Position = leftTopPoint;
-                            WindowStartupLocation = WindowStartupLocation.Manual;
                         }
                     }
+                    _isInitialize = true;
                 }
             }
         }
