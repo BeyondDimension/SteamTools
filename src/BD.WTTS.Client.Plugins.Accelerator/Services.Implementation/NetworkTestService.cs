@@ -307,7 +307,7 @@ internal partial class NetworkTestService : INetworkTestService
     #region DNS 查询
 
     /// <summary>
-    /// 测试 DNS
+    /// 测试 DNS UDP
     /// </summary>
     /// <param name="testDomain">要测试的域名</param>
     /// <param name="dnsServerIp">DNS 服务地址</param>
@@ -315,7 +315,7 @@ internal partial class NetworkTestService : INetworkTestService
     /// <param name="dnsRecordType"> dns 测试类型 </param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<(long delayMs, IPAddress[] address)> TestDNSAsync(
+    public async Task<(long DelayMs, IPAddress[] Address)> TestDNSAsync(
             string testDomain,
             string dnsServerIp,
             int dnsServerPort,
@@ -325,7 +325,7 @@ internal partial class NetworkTestService : INetworkTestService
     {
         using UdpClient udpClient = new UdpClient(dnsServerIp, dnsServerPort);
 
-        var query = new DnsQueryRequest(testDomain, dnsRecordType);
+        var query = new DnsQueryUdpRequest(testDomain, dnsRecordType);
 
         Stopwatch watch = Stopwatch.StartNew();
 
@@ -335,12 +335,58 @@ internal partial class NetworkTestService : INetworkTestService
 
         watch.Stop();
 
-        var dnsQueryResponse = new DnsQueryResponse(receivedData.Buffer);
+        var dnsQueryResponse = new DnsQueryUdpResponse(receivedData.Buffer);
 
-        return (watch.ElapsedMilliseconds, dnsQueryResponse.GetAddresses());
+        return (watch.ElapsedMilliseconds, dnsQueryResponse.GetAddresses().ToArray());
     }
 
-    internal record DnsQueryResponse : DnsQueryRequest
+    /// <summary>
+    /// 测试 DNS Over Https
+    /// </summary>
+    /// <param name="testDomain"></param>
+    /// <param name="dohServer"></param>
+    /// <param name="dnsRecordType"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<(long DelayMs, IPAddress[] Address)> TestDNSOverHttpsAsync(
+        string testDomain,
+        string dohServer,
+        DnsQueryAnswerRecord.DnsRecordType dnsRecordType = DnsQueryAnswerRecord.DnsRecordType.A,
+        CancellationToken cancellationToken = default)
+    {
+        using HttpClient client = new HttpClient();
+
+        string queryUrl = $"{dohServer}?name={testDomain}&type={dnsRecordType}";
+
+        Stopwatch watch = Stopwatch.StartNew();
+
+        HttpResponseMessage? resp = null;
+        try
+        {
+            resp = await client.GetAsync(queryUrl, HttpCompletionOption.ResponseContentRead, cancellationToken);
+
+            resp.EnsureSuccessStatusCode();
+        }
+        finally
+        {
+            watch.Stop();
+        }
+
+        var queryResp = await resp.Content.ReadFromJsonAsync<DnsQueryJsonResponse>();
+
+        return (watch.ElapsedMilliseconds, queryResp?.GetAddresses().ToArray() ?? Array.Empty<IPAddress>());
+    }
+
+    #region DNS 解析定义
+
+    internal interface IDnsQueryResponse
+    {
+        List<DnsQueryAnswerRecord> Answers { get; }
+
+        IEnumerable<IPAddress> GetAddresses();
+    }
+
+    internal record DnsQueryUdpResponse : DnsQueryUdpRequest, IDnsQueryResponse
     {
         public ushort AnswerCount { get; init; } // (ushort)((_origin[6] << 8) | _origin[7]);
 
@@ -352,7 +398,7 @@ internal partial class NetworkTestService : INetworkTestService
 
         private readonly byte[] _origin;
 
-        public DnsQueryResponse(byte[] origin) : base(origin)
+        public DnsQueryUdpResponse(byte[] origin) : base(origin)
         {
             _origin = origin;
 
@@ -382,7 +428,7 @@ internal partial class NetworkTestService : INetworkTestService
 
                 int @type = (response[position++] << 8) | response[position++];
                 int @class = (response[position++] << 8) | response[position++];
-                int ttl = (response[position++] << 24) | (response[position++] << 16) | (response[position++] << 8) | response[position++];
+                long ttl = (response[position++] << 24) | (response[position++] << 16) | (response[position++] << 8) | response[position++];
                 int dataLength = (response[position++] << 8) | response[position++];
 
                 if (@type == (int)DnsQueryAnswerRecord.DnsRecordType.A && dataLength == 4) // Type A (IPv4)
@@ -391,12 +437,11 @@ internal partial class NetworkTestService : INetworkTestService
                     Array.Copy(response, position, ipAddress, 0, 4);
 
                     answers.Add(
-                            new DnsQueryAnswerRecord(
+                            new DnsQueryAnswerRecord.A(
                                     parsedName!,
                                     (DnsQueryAnswerRecord.DnsRecordType)@type,
-                                    (DnsQueryAnswerRecord.DnsRecordClass)@class,
-                                    TimeSpan.FromSeconds(ttl),
-                                    ipAddress
+                                    ttl,
+                                    new IPAddress(ipAddress)
                                 )
                         );
                 }
@@ -406,12 +451,11 @@ internal partial class NetworkTestService : INetworkTestService
                     Array.Copy(response, position, ipAddress, 0, 16);
 
                     answers.Add(
-                          new DnsQueryAnswerRecord(
+                          new DnsQueryAnswerRecord.AAAA(
                                   parsedName!,
                                   (DnsQueryAnswerRecord.DnsRecordType)@type,
-                                  (DnsQueryAnswerRecord.DnsRecordClass)@class,
-                                  TimeSpan.FromSeconds(ttl),
-                                  ipAddress
+                                  ttl,
+                                  new IPAddress(ipAddress)
                               )
                       );
                 }
@@ -426,12 +470,11 @@ internal partial class NetworkTestService : INetworkTestService
                     }
 
                     answers.Add(
-                            new DnsQueryAnswerRecord(
+                            new DnsQueryAnswerRecord.CName(
                                   parsedName!,
                                   (DnsQueryAnswerRecord.DnsRecordType)@type,
-                                  (DnsQueryAnswerRecord.DnsRecordClass)@class,
-                                  TimeSpan.FromSeconds(ttl),
-                                  Encoding.Unicode.GetBytes(parsedCName!)
+                                  ttl,
+                                  parsedCName!
                                 )
                             );
                 }
@@ -509,16 +552,24 @@ internal partial class NetworkTestService : INetworkTestService
             return position + 1;
         }
 
-        public IPAddress[] GetAddresses()
+        public IEnumerable<IPAddress> GetAddresses()
         {
-            return Answers
-                .Where(x => x.Type == DnsQueryAnswerRecord.DnsRecordType.A || x.Type == DnsQueryAnswerRecord.DnsRecordType.AAAA)
-                .Select(x => new IPAddress(x.Data))
-                .ToArray();
+            foreach (var answer in Answers)
+            {
+                if (answer is DnsQueryAnswerRecord.A a)
+                {
+                    yield return a.Data;
+                }
+                else if (answer is DnsQueryAnswerRecord.AAAA aaaa)
+                {
+                    yield return aaaa.Data;
+                }
+            }
+            yield break;
         }
     }
 
-    internal record DnsQueryRequest
+    internal record DnsQueryUdpRequest
     {
         public ushort QueryId { get; init; } // (ushort)((_origin[0] << 8) | _origin[1]);
 
@@ -532,7 +583,7 @@ internal partial class NetworkTestService : INetworkTestService
 
         private readonly byte[] _origin;
 
-        public DnsQueryRequest(byte[] origin)
+        public DnsQueryUdpRequest(byte[] origin)
         {
             _origin = origin;
 
@@ -542,7 +593,7 @@ internal partial class NetworkTestService : INetworkTestService
             QuestionCount = (ushort)((origin[Position++] << 8) | origin[Position++]);
         }
 
-        public DnsQueryRequest(string domainName, DnsQueryAnswerRecord.DnsRecordType type = DnsQueryAnswerRecord.DnsRecordType.A)
+        public DnsQueryUdpRequest(string domainName, DnsQueryAnswerRecord.DnsRecordType type = DnsQueryAnswerRecord.DnsRecordType.A)
             : this(CreateDnsQuery(domainName, type))
         {
         }
@@ -623,45 +674,226 @@ internal partial class NetworkTestService : INetworkTestService
             }
         }
 
-        public static implicit operator byte[](DnsQueryRequest data)
+        public static implicit operator byte[](DnsQueryUdpRequest data)
         {
             return data._origin;
         }
 
-        public static implicit operator ReadOnlyMemory<byte>(DnsQueryRequest data)
+        public static implicit operator ReadOnlyMemory<byte>(DnsQueryUdpRequest data)
         {
             return data._origin;
         }
     }
 
+    internal record DnsQueryJsonResponse : IDnsQueryResponse
+    {
+        [S_JsonProperty("Status")]
+        public int Status { get; init; }
+
+        [S_JsonProperty("TC")]
+        public bool TC { get; init; }
+
+        [S_JsonProperty("RD")]
+        public bool RD { get; init; }
+
+        [S_JsonProperty("RA")]
+        public bool RA { get; init; }
+
+        [S_JsonProperty("AD")]
+        public bool AD { get; init; }
+
+        [S_JsonProperty("CD")]
+        public bool CD { get; init; }
+
+        [S_JsonProperty("Answer")]
+        public List<DnsQueryAnswerRecord> Answers { get; init; }
+
+        public DnsQueryJsonResponse(
+                int status,
+                bool tc,
+                bool rd,
+                bool ra,
+                bool ad,
+                bool cd,
+                List<DnsQueryAnswerRecord>? answers
+            )
+        {
+            Status = status;
+            TC = tc;
+            RD = rd;
+            RA = ra;
+            AD = ad;
+            CD = cd;
+            Answers = answers?.ToList() ?? new();
+        }
+
+        public IEnumerable<IPAddress> GetAddresses()
+        {
+            return Answers.Aggregate(Enumerable.Empty<IPAddress>(), (acc, x) =>
+            {
+                if (x is DnsQueryAnswerRecord.A ipv4)
+                {
+                    return acc.Append(ipv4.Data);
+                }
+                else if (x is DnsQueryAnswerRecord.AAAA ipv6)
+                {
+                    return acc.Append(ipv6.Data);
+                }
+                return acc;
+            });
+        }
+    }
+
+    class DnsQueryAnswerRecordConverter : System.Text.Json.Serialization.JsonConverter<DnsQueryAnswerRecord>
+    {
+        public override DnsQueryAnswerRecord? Read(ref Utf8JsonReader reader, Type typeToConvert, SystemTextJsonSerializerOptions options)
+        {
+            if (typeToConvert == typeof(DnsQueryAnswerRecord))
+            {
+                if (reader.TokenType == JsonTokenType.StartObject)
+                {
+                    var json = JsonDocument.ParseValue(ref reader);
+
+                    if (json.RootElement.TryGetProperty("type", out var typeElement))
+                    {
+                        var type = typeElement.GetInt32();
+
+                        if (type == (int)DnsQueryAnswerRecord.DnsRecordType.A)
+                        {
+                            return json.RootElement.Deserialize<DnsQueryAnswerRecord.A>();
+                        }
+                        else if (type == (int)DnsQueryAnswerRecord.DnsRecordType.AAAA)
+                        {
+                            return json.RootElement.Deserialize<DnsQueryAnswerRecord.AAAA>();
+                        }
+                        else if (type == (int)DnsQueryAnswerRecord.DnsRecordType.CNAME)
+                        {
+                            return json.RootElement.Deserialize<DnsQueryAnswerRecord.CName>();
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public override void Write(Utf8JsonWriter writer, DnsQueryAnswerRecord value, SystemTextJsonSerializerOptions options)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    [System.Text.Json.Serialization.JsonConverter(typeof(DnsQueryAnswerRecordConverter))]
+    [JsonDerivedType(typeof(DnsQueryAnswerRecord.A))]
+    [JsonDerivedType(typeof(DnsQueryAnswerRecord.AAAA))]
+    [JsonDerivedType(typeof(DnsQueryAnswerRecord.CName))]
     internal record DnsQueryAnswerRecord
     {
+        [S_JsonProperty("name")]
         public string Name { get; set; }
 
+        [S_JsonProperty("type")]
         public DnsRecordType Type { get; set; }
 
-        public DnsRecordClass Class { get; set; }
-
-        public TimeSpan Ttl { get; set; }
-
-        public int DataLength { get; set; }
-
-        public byte[] Data { get; set; }
+        [S_JsonProperty("TTL")]
+        public long Ttl { get; set; }
 
         public DnsQueryAnswerRecord(
                 string name,
-                DnsRecordType @type,
-                DnsRecordClass @class,
-                TimeSpan ttl,
-                byte[] data
+                DnsRecordType type,
+                long ttl
             )
         {
             Name = name;
             Type = @type;
-            Class = @class;
             Ttl = ttl;
-            Data = data;
-            DataLength = data.Length;
+            //Data = data;
+            //DataLength = data.Length;
+        }
+
+        #region DnsQueryAnswerRecord 子类派生
+
+        internal record A : DnsQueryAnswerRecord
+        {
+            public A(string name, DnsRecordType type, long ttl, IPAddress data) : base(name, type, ttl)
+            {
+                Data = data;
+            }
+
+            [S_JsonProperty("data")]
+            [SystemTextJsonConverter(typeof(IPAddressConverter))]
+            public IPAddress Data { get; set; }
+        }
+
+        internal record AAAA : DnsQueryAnswerRecord
+        {
+            public AAAA(string name, DnsRecordType type, long ttl, IPAddress data) : base(name, type, ttl)
+            {
+                Data = data;
+            }
+
+            [S_JsonProperty("data")]
+            [SystemTextJsonConverter(typeof(IPAddressConverter))]
+            public IPAddress Data { get; set; }
+        }
+
+        internal record CName : DnsQueryAnswerRecord
+        {
+            public CName(string name, DnsRecordType type, long ttl, string data) : base(name, type, ttl)
+            {
+                Data = data;
+            }
+
+            [S_JsonProperty("data")]
+            public string Data { get; set; }
+        }
+
+        #endregion DnsQueryAnswerRecord 子类派生
+
+        class IPAddressConverter : System.Text.Json.Serialization.JsonConverter<IPAddress>
+        {
+            public override IPAddress? Read(ref Utf8JsonReader reader, Type typeToConvert, SystemTextJsonSerializerOptions options)
+            {
+                IPAddress? result = null;
+
+                // 目前只解析字符串
+                if (reader.TokenType == JsonTokenType.String)
+                {
+                    string? ipString = reader.GetString();
+                    result = !string.IsNullOrWhiteSpace(ipString) ? IPAddress.Parse(ipString) : default;
+                }
+                // byte 数组支持
+                else if (reader.TokenType == JsonTokenType.StartArray)
+                {
+                    List<byte> bytes = new List<byte>();
+
+                    while (reader.Read())
+                    {
+                        if (reader.TokenType == JsonTokenType.EndArray)
+                            break;
+
+                        if (reader.TokenType == JsonTokenType.Number)
+                        {
+                            bytes.Add((byte)reader.GetInt32());
+                        }
+                        else if (reader.TokenType == JsonTokenType.String)
+                        {
+                            if (byte.TryParse(reader.GetString(), out byte byteValue))
+                            {
+                                bytes.Add(byteValue);
+                            }
+                        }
+                    }
+
+                    result = bytes.Count == 4 || bytes.Count == 16 ? new IPAddress(bytes.ToArray()) : default;
+                }
+
+                return result;
+            }
+
+            public override void Write(Utf8JsonWriter writer, IPAddress value, SystemTextJsonSerializerOptions options)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         internal enum DnsRecordClass : ushort
@@ -687,6 +919,8 @@ internal partial class NetworkTestService : INetworkTestService
             ANY = 255,   // 所有DNS记录类型
         }
     }
+
+    #endregion DNS 解析定义
 
     #endregion DNS 查询
 }

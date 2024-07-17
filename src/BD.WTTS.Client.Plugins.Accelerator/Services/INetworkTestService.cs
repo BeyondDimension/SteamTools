@@ -6,12 +6,43 @@ namespace BD.WTTS.Services;
 
 internal interface INetworkTestService : IHttpRequestTestService, IStunTestService
 {
+    /// <summary>
+    /// Ping
+    /// </summary>
+    /// <param name="testHostNameOrAddress"></param>
+    /// <param name="timeout"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<PingReply> TestPingAsync(string testHostNameOrAddress, TimeSpan timeout, CancellationToken cancellationToken = default);
 
-    Task<(long delayMs, IPAddress[] address)> TestDNSAsync(
+    /// <summary>
+    /// 测试 DNS UDP
+    /// </summary>
+    /// <param name="testDomain"></param>
+    /// <param name="dnsServerIp"></param>
+    /// <param name="dnsServerPort"></param>
+    /// <param name="dnsRecordType"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<(long DelayMs, IPAddress[] Address)> TestDNSAsync(
             string testDomain,
             string dnsServerIp,
             int dnsServerPort,
+            DnsQueryAnswerRecord.DnsRecordType dnsRecordType = DnsQueryAnswerRecord.DnsRecordType.A,
+            CancellationToken cancellationToken = default
+        );
+
+    /// <summary>
+    /// 测试 DNS Over Https
+    /// </summary>
+    /// <param name="testDomain"></param>
+    /// <param name="dohServer"></param>
+    /// <param name="dnsRecordType"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<(long DelayMs, IPAddress[] Address)> TestDNSOverHttpsAsync(
+            string testDomain,
+            string dohServer,
             DnsQueryAnswerRecord.DnsRecordType dnsRecordType = DnsQueryAnswerRecord.DnsRecordType.A,
             CancellationToken cancellationToken = default
         );
@@ -19,12 +50,25 @@ internal interface INetworkTestService : IHttpRequestTestService, IStunTestServi
 
 internal interface IHttpRequestTestService
 {
+    /// <summary>
+    /// 测试上传速度
+    /// </summary>
+    /// <param name="uploadServerUrl"></param>
+    /// <param name="uploadBytes"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<(bool success, double? rate)> TestUploadSpeedAsync(
             string uploadServerUrl,
             byte[] uploadBytes,
             CancellationToken cancellationToken = default
         );
 
+    /// <summary>
+    /// 测试下载速度
+    /// </summary>
+    /// <param name="downloadUrl"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<(bool success, double? rate)> TestDownloadSpeedAsync(string downloadUrl, CancellationToken cancellationToken = default);
 }
 
