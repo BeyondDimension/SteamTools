@@ -1,0 +1,115 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.CsgoVacRepairPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="CS:GO VAC 修复"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:CsgoVacRepairPageViewModel"
+    Description="该功能可以为玩家修复 CS:GO VAC 问题"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CounterStrike.png" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.ActionContent>
+		<StackPanel Orientation="Horizontal" Spacing="2">
+			<Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+				IsVisible="{Binding !Repairing}"
+				Command="{ReflectionBinding Repairs_Click}"
+                Theme="{StaticResource TransparentButton}">
+				<Panel>
+					<Viewbox
+						Width="18"
+						Height="18"
+						HorizontalAlignment="Left">
+						<ui:FontIcon Glyph="&#xE90f;"/>
+					</Viewbox>
+					<TextBlock
+						Margin="28,4,0,4"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						Text="修复" />
+				</Panel>
+			</Button>
+			<Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+				IsVisible="{Binding Repairing}"
+                Theme="{StaticResource TransparentButton}">
+				<Panel>
+					<Viewbox
+						Width="18"
+						Height="18"
+						HorizontalAlignment="Left">
+						<ui:FontIcon Glyph="&#xE895;"/>
+					</Viewbox>
+					<TextBlock
+						Margin="28,4,0,4"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						Text="修复中" />
+				</Panel>
+			</Button>
+			<DropDownButton
+                Padding="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+                <DropDownButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutSeparator />-->
+                        <ui:MenuFlyoutItem IsEnabled="False">
+                            <ui:MenuFlyoutItem.Text>
+                                <MultiBinding StringFormat="{}{0}{1}">
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Res.Plugin_Version"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Version"
+                                        Source="{x:Static s:Plugin.Instance}" />
+                                </MultiBinding>
+                            </ui:MenuFlyoutItem.Text>
+                        </ui:MenuFlyoutItem>
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                    </ui:FAMenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+	<Panel>
+		<Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
+			<Grid RowDefinitions="*,Auto">
+				<TextBox
+					HorizontalContentAlignment="Stretch"
+					VerticalContentAlignment="Stretch"
+					Classes="readonlybox"
+					Text="{Binding OutputString}"
+					TextAlignment="Start"
+					TextWrapping="Wrap" />
+				<!--<TextBox
+					Name="CommandTextBox"
+					Grid.Row="1"
+					Watermark="{Binding Path=Res.Debug_InstructionPlaceholder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+			</Grid>
+		</Border>
+	</Panel>
+</spp:PageBase>

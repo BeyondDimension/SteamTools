@@ -92,6 +92,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="UI\Views\CsgoVacRepairPage.axaml.cs">
+	    <DependentUpon>CsgoVacRepairPage.axaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="UI\Views\GameToolsPage.axaml.cs">
 	    <DependentUpon>GameToolsPage.axaml</DependentUpon>
 	  </Compile>
