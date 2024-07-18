@@ -1,3 +1,6 @@
 <Project>
-	<Import Project="..\ref\DirectoryPackages\Directory.Packages.props" />
+  <Import Project="..\ref\DirectoryPackages\Directory.Packages.props" />
+  <ItemGroup>
+    <PackageVersion Include="Stun.Net" Version="8.0.2" />
+  </ItemGroup>
 </Project>
