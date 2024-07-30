@@ -47,7 +47,7 @@ public sealed class ASFService : ReactiveObject
     {
         SteamBotsSourceList = new SourceCache<BotViewModel, string>(t => t.Bot.BotName);
 
-        archiSteamFarmService.OnConsoleWirteLine += OnConsoleWirteLine;
+        archiSteamFarmService.OnConsoleWirteLine += OnConsoleWriteLine;
 
         ASFSettings.ConsoleMaxLine.Subscribe(x =>
         {
@@ -58,9 +58,9 @@ public sealed class ASFService : ReactiveObject
         });
     }
 
-    void OnConsoleWirteLine(string message)
+    void OnConsoleWriteLine(string message)
     {
-        MainThread2.InvokeOnMainThreadAsync(() =>
+        MainThread2.BeginInvokeOnMainThread(() =>
         {
             //ConsoleLogBuilder.Append(message); // message 包含换行
             //var text = ConsoleLogBuilder.ToString();
@@ -74,7 +74,7 @@ public sealed class ASFService : ReactiveObject
         {
             return;
         }
-        archiSteamFarmService.ShellMessageInput(input);
+        _ = archiSteamFarmService.ShellMessageInput(input);
     }
 
     /// <summary>
@@ -287,7 +287,7 @@ public sealed class ASFService : ReactiveObject
         Toast.Show(ToastIcon.Success, string.Format(AppResources.LocalAuth_ImportSuccessTip_, num));
     }
 
-    public async Task SelectASFProgramLocation()
+    public async Task SelectASFProgramLocationAsync()
     {
         AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
             new("ArchiSteamFarm") {
@@ -301,6 +301,78 @@ public sealed class ASFService : ReactiveObject
             if (!string.IsNullOrEmpty(path))
                 ASFSettings.ArchiSteamFarmExePath.Value = path;
         }, fileTypes);
+    }
+
+    public async void DownloadASFAsync(string variant = "win-x64", IProgress<float>? progress = null, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var assetName = $"{nameof(ASF)}-{variant}.zip";
+            using var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", IHttpPlatformHelperService.Instance.UserAgent);
+            using var latestReleaseStream = await httpClient.GetStreamAsync("https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases/latest", cancellationToken);
+            using var element = await JsonDocument.ParseAsync(latestReleaseStream, cancellationToken: cancellationToken);
+            if (element.RootElement.TryGetProperty("assets", out var assets) &&
+                assets.EnumerateArray().FirstOrDefault(s => s.GetProperty("name").ValueEquals(assetName))
+                .TryGetProperty("browser_download_url", out var downloadUrl))
+            {
+                var tag_name = element.RootElement.GetProperty("tag_name").GetString();
+                var downloadSavingPath = Path.Combine(Plugin.Instance.AppDataDirectory, $"ASF-{tag_name}", assetName);
+                var downloadSavingDir = Path.GetDirectoryName(downloadSavingPath)!;
+                Directory.CreateDirectory(downloadSavingDir);
+
+                var message = new HttpRequestMessage(HttpMethod.Get, downloadUrl.GetString());
+                var result = await httpClient.SendAsync(message, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+                using var contentStream = await result.Content.ReadAsStreamAsync(cancellationToken);
+
+                byte batch = 0;
+                long readThisBatch = 0;
+                long batchIncreaseSize = result.Content.Headers.ContentLength.GetValueOrDefault() / 100;
+                await using (FileStream fileStream = new(downloadSavingPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
+                {
+                    ArrayPool<byte> bytePool = ArrayPool<byte>.Shared;
+                    byte[] buffer = bytePool.Rent(4096);
+
+                    try
+                    {
+                        while (contentStream.CanRead)
+                        {
+                            int read = await contentStream.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken);
+
+                            if (read == 0)
+                                break;
+
+                            await fileStream.WriteAsync(buffer.AsMemory(0, read), cancellationToken);
+                            if ((progress == null) || (batchIncreaseSize == 0) || (batch >= 99))
+                            {
+                                continue;
+                            }
+
+                            readThisBatch += read;
+
+                            while ((readThisBatch >= batchIncreaseSize) && (batch < 99))
+                            {
+                                readThisBatch -= batchIncreaseSize;
+                                progress.Report(++batch);
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        bytePool.Return(buffer);
+                    }
+                }
+
+                ZipFile.ExtractToDirectory(downloadSavingPath, downloadSavingDir);
+                ASFSettings.ArchiSteamFarmExePath.Value = Path.Combine(downloadSavingDir, "ArchiSteamFarm.exe");
+                progress?.Report(100);
+                Toast.Show(ToastIcon.Success, "ASF 下载成功");
+            }
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex, "ASF 文件下载异常");
+        }
     }
 }
 #endif

@@ -69,7 +69,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
                 isFirstStart = false;
             }
 
-            (var isSuccess, var ipcUrl) = await StartProcess();
+            (var isSuccess, var ipcUrl) = await StartProcessAsync();
             if (!isSuccess && !isFirstStart)
                 throw new ArgumentException();
             else
@@ -85,7 +85,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
     #region StartProcess
 
-    private async Task<(bool IsSuccess, string Message)> StartProcess()
+    private async Task<(bool IsSuccess, string Message)> StartProcessAsync()
     {
         var isStartSuccess = false;
         var ipcUrl = string.Empty;
@@ -306,7 +306,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         }
     }
 
-    public async Task Restart()
+    public async Task RestartAsync()
     {
         Toast.Show(ToastIcon.Info, AppResources.ASF_Restarting, ToastLength.Short);
 
