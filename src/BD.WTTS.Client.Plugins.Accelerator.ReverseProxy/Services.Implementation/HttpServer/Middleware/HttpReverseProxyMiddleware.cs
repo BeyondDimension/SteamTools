@@ -93,7 +93,7 @@ sealed partial class HttpReverseProxyMiddleware
         }
 
         if (domainConfig.Items.Any_Nullable())
-            domainConfig = RecursionMatchDomainConfig(url, domainConfig);
+            domainConfig = RecursionMatchDomainConfig(context.Request.Host.Host, domainConfig);
 
         if (domainConfig.Response == null)
         {
@@ -158,16 +158,16 @@ sealed partial class HttpReverseProxyMiddleware
     /// <summary>
     /// 递归匹配子域名配置
     /// </summary>
-    /// <param name="url"></param>
+    /// <param name="domain"></param>
     /// <param name="domainConfig"></param>
     /// <returns></returns>
-    static IDomainConfig RecursionMatchDomainConfig(string url, IDomainConfig domainConfig)
+    static IDomainConfig RecursionMatchDomainConfig(string domain, IDomainConfig domainConfig)
     {
         if (domainConfig.Items.Any_Nullable())
         {
-            var item = domainConfig.Items.FirstOrDefault(s => s.Key.IsMatch(url)).Value;
+            var item = domainConfig.Items.FirstOrDefault(s => s.Key.IsMatch(domain)).Value;
             if (item != null)
-                return RecursionMatchDomainConfig(url, item);
+                return RecursionMatchDomainConfig(domain, item);
         }
         return domainConfig;
     }
