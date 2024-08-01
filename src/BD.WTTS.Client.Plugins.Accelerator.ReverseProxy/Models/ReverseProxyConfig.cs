@@ -148,26 +148,26 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     //    return result;
     //}
 
-    public bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out IDomainConfig value)
+    public bool TryGetDomainConfig(string url, [MaybeNullWhen(false)] out IDomainConfig value)
     {
         //value = domainConfigCache.GetOrAdd(domain.Host, GetDomainConfig);
 
-        var uri = new UriBuilder(domain).Uri;
+        var uri = new UriBuilder(url).Uri;
 
         domainConfigCache.TryGetValue(uri.Host, out value);
         if (value != null)
             return true;
 
-        value = GetDomainConfig(domain);
+        value = GetDomainConfig(url);
         if (value == null)
             return false;
 
         domainConfigCache.TryAdd(uri.Host, value);
         return true;
 
-        IDomainConfig? GetDomainConfig(string domain)
+        IDomainConfig? GetDomainConfig(string url)
         {
-            var key = domainConfigs.Keys.FirstOrDefault(item => item.IsMatch(domain));
+            var key = domainConfigs.Keys.FirstOrDefault(item => item.IsMatch(url));
             return key == null ? null : domainConfigs[key];
         }
     }

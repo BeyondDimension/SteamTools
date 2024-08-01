@@ -354,7 +354,13 @@ internal partial class NetworkTestService : INetworkTestService
         DnsQueryAnswerRecord.DnsRecordType dnsRecordType = DnsQueryAnswerRecord.DnsRecordType.A,
         CancellationToken cancellationToken = default)
     {
-        using HttpClient client = new HttpClient();
+        var handler = new HttpClientHandler
+        {
+            UseCookies = false,
+            UseProxy = false,
+            Proxy = HttpNoProxy.Instance,
+        };
+        using var client = new HttpClient(handler);
 
         string queryUrl = $"{dohServer}?name={testDomain}&type={dnsRecordType}";
 
