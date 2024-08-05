@@ -122,9 +122,14 @@
 		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
 		<PackageReference Include="SharpZipLib" />
 		<PackageReference Include="ZstdNet" />
+		<PackageReference Include="BsDiff" />
 		<PackageReference Include="7-Zip.NativeAssets.Win32" />
 		<PackageReference Include="Portable.BouncyCastle" />
 		<PackageReference Include="System.Security.Cryptography.ProtectedData" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.ClientSDK\BD.WTTS.MicroServices.ClientSDK.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX.props" />
