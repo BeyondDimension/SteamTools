@@ -122,7 +122,7 @@
 		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
 		<PackageReference Include="SharpZipLib" />
 		<PackageReference Include="ZstdNet" />
-		<PackageReference Include="BsDiff" />
+		<!--<PackageReference Include="BsDiff" />-->
 		<PackageReference Include="7-Zip.NativeAssets.Win32" />
 		<PackageReference Include="Portable.BouncyCastle" />
 		<PackageReference Include="System.Security.Cryptography.ProtectedData" />

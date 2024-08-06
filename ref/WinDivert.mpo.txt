@@ -1,0 +1,11 @@
+    static void WinDivert()
+    {
+        var dllWinDivert = Path.Combine(ProjectUtils.ProjPath, "ref", "WinDivert.dll");
+        var sysWinDivert64 = Path.Combine(ProjectUtils.ProjPath, "ref", "WinDivert64.sys");
+
+        byte[][] data = [File.ReadAllBytes(dllWinDivert), File.ReadAllBytes(sysWinDivert64)];
+        var bytes = MemoryPackSerializer.Serialize(data);
+        bytes.AsSpan().Reverse();
+
+        File.WriteAllBytes(Path.Combine(ProjectUtils.ProjPath, "ref", "WinDivert.mpo"), bytes);
+    }
