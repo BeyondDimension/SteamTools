@@ -3,6 +3,10 @@ namespace BD.WTTS.Services;
 
 partial interface IPCPlatformService
 {
+    [Mobius(
+"""
+Mobius.Services.Abstractions.IShortcutService
+""")]
     void CreateShortcut(string pathLink,
         string targetPath,
         string? arguments = null,

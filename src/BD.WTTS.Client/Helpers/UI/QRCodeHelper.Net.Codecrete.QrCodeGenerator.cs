@@ -6,6 +6,10 @@ namespace BD.WTTS;
 
 partial class QRCodeHelper
 {
+    [Mobius(
+"""
+Mobius.Helpers.QRCodeHelper
+""")]
     public static (QRCodeCreateResult result, Stream? stream, Exception? exception) Create(byte[] bytes, QrCode.Ecc? level = null)
     {
         level ??= QrCode.Ecc.Low;

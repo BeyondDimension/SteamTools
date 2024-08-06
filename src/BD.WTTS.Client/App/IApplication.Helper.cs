@@ -51,7 +51,7 @@ App.RestoreMainWindow
     /// </summary>
     [Mobius(
 """
-Mobius_TODO TrayIcon
+App.TrayIconMenus
 """)]
     IReadOnlyDictionary<string, ICommand> TrayIconMenus { get; }
 
@@ -59,5 +59,9 @@ Mobius_TODO TrayIcon
     /// 是否有活动窗口
     /// </summary>
     /// <returns></returns>
+    [Mobius(
+"""
+App.HasActiveWindow
+""")]
     bool HasActiveWindow();
 }

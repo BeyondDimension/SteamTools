@@ -12,6 +12,10 @@ public static partial class ServiceCollectionExtensions
     /// <param name="config"></param>
     /// <param name="configureHandler"></param>
     /// <returns></returns>
+    [BD.Mobius(
+"""
+services.AddSingleton<ISppWebApiService, SppWebApiServiceImpl>();
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection TryAddMicroServiceClient(
         this IServiceCollection services)

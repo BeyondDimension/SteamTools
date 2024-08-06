@@ -14,18 +14,35 @@ public sealed class AdvertiseService : ReactiveObject
 
     public static AdvertiseService Current => mCurrent.Value;
 
+    [Mobius(
+"""
+Horizontal
+""")]
     [Reactive]
     public ObservableCollection<AdvertisementDTO>? HorizontalBannerAdvertisements { get; set; }
 
+    [Mobius(
+"""
+Vertical
+""")]
     [Reactive]
     public ObservableCollection<AdvertisementDTO>? VerticalBannerAdvertisements { get; set; }
 
     [Reactive]
     public bool IsInitialized { get; set; }
 
+    [Mobius(
+"""
+IsShow
+""")]
     [Reactive]
     public bool IsShowAdvertise { get; set; } = true;
 
+    [Mobius(
+"""
+ClickCommand
+""")]
+    [Reactive]
     public ICommand ClickAdvertisementCommand { get; }
 
     AdvertiseService()
@@ -70,6 +87,10 @@ public sealed class AdvertiseService : ReactiveObject
         //    });
     }
 
+    [Mobius(
+"""
+Initialize
+""")]
     public async void InitAdvertise()
     {
         if (IsInitialized == false)
@@ -80,6 +101,10 @@ public sealed class AdvertiseService : ReactiveObject
         }
     }
 
+    [Mobius(
+"""
+RefreshDataAsync
+""")]
     public async Task RefrshAdvertiseAsync()
     {
         var client = IMicroServiceClient.Instance.Advertisement;
@@ -99,6 +124,10 @@ public sealed class AdvertiseService : ReactiveObject
         }
     }
 
+    [Mobius(
+"""
+ClickCommand
+""")]
     static async void ClickAdvertisement(AdvertisementDTO? dto)
     {
         if (dto != null)
@@ -108,6 +137,10 @@ public sealed class AdvertiseService : ReactiveObject
         }
     }
 
+    [Mobius(
+"""
+CheckIsShow
+""")]
     void CheckShow()
     {
         if (!IsInitialized)

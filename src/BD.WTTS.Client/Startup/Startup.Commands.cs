@@ -12,6 +12,7 @@ partial class Startup // 自定义控制台命令参数
 {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Mobius("use Mobius.UI.App.MainCore / IConsoleCommand", Obsolete = true)]
     void ConfigureCommands(RootCommand rootCommand)
     {
 #if DEBUG

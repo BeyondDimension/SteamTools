@@ -4,6 +4,10 @@ using static BD.WTTS.Services.IScheduledTaskService;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+Mobius.Helpers.WinScheduledTaskHelper
+""")]
 sealed partial class ScheduledTaskServiceImpl : IScheduledTaskService
 {
     bool IScheduledTaskService.SetBootAutoStart(bool isAutoStart, string name, bool? isPrivilegedProcess)

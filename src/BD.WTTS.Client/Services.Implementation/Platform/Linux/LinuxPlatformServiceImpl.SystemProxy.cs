@@ -4,6 +4,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class LinuxPlatformServiceImpl
 {
+    [Mobius(
+"""
+Mobius.Helpers.SystemProxyHelper
+""")]
     public Task<bool> SetAsSystemProxyAsync(bool state, IPAddress? ip, int port)
     {
         var shellContent = new StringBuilder();

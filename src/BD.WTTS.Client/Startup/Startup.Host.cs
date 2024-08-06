@@ -3,6 +3,7 @@ namespace BD.WTTS;
 
 partial class Startup // 配置 Host
 {
+    [Mobius("use RunApp", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected void RunUIApplication(
         AppServicesLevel? level = null,

@@ -9,5 +9,9 @@ public interface IProxyService : IDisposable, IAsyncDisposable
 {
     bool ProxyStatus { get; set; }
 
+    [Mobius(
+"""
+StartAsync OR StopAsync
+""", Obsolete = true)]
     Task StartOrStopProxyService(bool startOrStop);
 }

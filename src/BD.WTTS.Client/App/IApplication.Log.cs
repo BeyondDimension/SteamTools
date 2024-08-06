@@ -7,13 +7,13 @@ partial interface IApplication
 
     [Mobius(
 """
-LogInitHelper
+Mobius.Helpers.LogInitHelper
 """)]
     const LogLevel DefaultLoggerMinLevel = IPCSubProcessFileSystem.DefaultLoggerMinLevel;
 
     [Mobius(
 """
-LogInitHelper
+Mobius.Helpers.LogInitHelper
 """)]
     public static NLogLevel DefaultNLoggerMinLevel => IPCSubProcessFileSystem.DefaultNLoggerMinLevel;
 
@@ -24,21 +24,21 @@ LogInitHelper
     /// <returns></returns>
     [Mobius(
 """
-LogInitHelper
+Mobius.Helpers.LogInitHelper
 """)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static NLogLevel ConvertLogLevel(LogLevel logLevel) => IPCSubProcessFileSystem.ConvertLogLevel(logLevel);
 
     [Mobius(
 """
-LogInitHelper
+Mobius.Helpers.LogInitHelper
 """)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void SetNLoggerMinLevel(LogLevel logLevel) => SetNLoggerMinLevel(ConvertLogLevel(logLevel));
 
     [Mobius(
 """
-LogInitHelper
+Mobius.Helpers.LogInitHelper
 """)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void SetNLoggerMinLevel(NLogLevel logLevel)
@@ -64,7 +64,7 @@ LogInitHelper
 
     [Mobius(
 """
-LogInitHelper
+Mobius.Helpers.LogInitHelper
 """)]
     private static LoggerFilterOptions? _LoggerFilterOptions;
 
@@ -73,7 +73,7 @@ LogInitHelper
     /// </summary>
     [Mobius(
 """
-LogInitHelper
+Mobius.Helpers.LogInitHelper
 """)]
     static LoggerFilterOptions? LoggerFilterOptions
     {
@@ -90,7 +90,7 @@ LogInitHelper
     /// </summary>
     [Mobius(
 """
-LogInitHelper.GetMobiusLoggingBuilder
+Mobius.Helpers.LogInitHelper.GetMobiusLoggingBuilder
 """)]
     public static Action<ILoggingBuilder> ConfigureLogging(LogLevel minLevel = DefaultLoggerMinLevel)
     {
@@ -127,7 +127,7 @@ LogInitHelper.GetMobiusLoggingBuilder
     /// </summary>
     [Mobius(
 """
-LogInitHelper
+Mobius.Helpers.LogInitHelper
 """)]
     public static LogLevel LoggerMinLevel
     {

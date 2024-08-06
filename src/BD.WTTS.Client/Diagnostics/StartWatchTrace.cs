@@ -4,12 +4,19 @@ namespace BD.WTTS.Diagnostics;
 /// 启动耗时跟踪
 /// </summary>
 [Obsolete]
-[Mobius(Obsolete = true)]
+[Mobius(
+"""
+App.WriteElapsedMilliseconds
+""", Obsolete = true)]
 public static class StartWatchTrace
 {
     static Stopwatch? sw;
     static StringBuilder? sb;
 
+    [Mobius(
+"""
+App.WriteElapsedMilliseconds
+""")]
     public static void Record(string? mark = null, bool dispose = false)
     {
         if (sw != null)
@@ -42,7 +49,12 @@ public static class StartWatchTrace
         }
     }
 
+    [Mobius(
+"""
+App.Elapsed
+""")]
     public static new string ToString() => sb?.ToString() ?? string.Empty;
 
+    [Mobius(Obsolete = true)]
     public static long ElapsedMilliseconds => sw == null ? 0L : sw.ElapsedMilliseconds;
 }

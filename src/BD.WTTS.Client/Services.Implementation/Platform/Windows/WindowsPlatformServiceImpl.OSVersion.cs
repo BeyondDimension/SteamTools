@@ -5,6 +5,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class WindowsPlatformServiceImpl
 {
+    [Mobius(
+"""
+Mobius.Helpers.WinNTCurrentVersionHelper
+""")]
     static (string productName, int revision, string releaseIdOrDisplayVersion) GetWinNTCurrentVersion()
     {
         const string subkey = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion";
@@ -30,12 +34,28 @@ partial class WindowsPlatformServiceImpl
         return (productName, revisionInt32, releaseId ?? string.Empty);
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.WinNTCurrentVersionHelper
+""")]
     static readonly Lazy<(string productName, int revision, string releaseIdOrDisplayVersion)> _WinNTCurrentVersion = new(GetWinNTCurrentVersion);
 
+    [Mobius(
+"""
+Mobius.Helpers.WinNTCurrentVersionHelper
+""")]
     public string WindowsProductName => _WinNTCurrentVersion.Value.productName;
 
+    [Mobius(
+"""
+Mobius.Helpers.WinNTCurrentVersionHelper
+""")]
     public int WindowsVersionRevision => _WinNTCurrentVersion.Value.revision;
 
+    [Mobius(
+"""
+Mobius.Helpers.WinNTCurrentVersionHelper
+""")]
     public string WindowsReleaseIdOrDisplayVersion => _WinNTCurrentVersion.Value.releaseIdOrDisplayVersion;
 }
 #endif

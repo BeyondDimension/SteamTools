@@ -6,10 +6,18 @@ using Windows.ApplicationModel.Activation;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
+[Mobius(
+"""
+Mobius.Helpers.OSHelper
+""")]
 sealed class DesktopBridgeHelper : DesktopBridge
 {
     DesktopBridgeHelper() => throw new NotSupportedException();
 
+    [Mobius(
+"""
+Mobius.Helpers.OSHelper.Init
+""")]
     internal static bool Init(int min_os_build = 17763)
     {
         if (!OperatingSystem.IsWindowsVersionAtLeast(10, 0, min_os_build))

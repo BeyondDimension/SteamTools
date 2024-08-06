@@ -2,6 +2,10 @@
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="EmbeddedAesDataProtectionProviderBase"/>
+[Mobius(
+"""
+Mobius.Services.EmbeddedAesDataProtectionProvider
+""")]
 public class EmbeddedAesDataProtectionProvider : EmbeddedAesDataProtectionProviderBase
 {
     const string TAG = nameof(EmbeddedAesDataProtectionProvider);

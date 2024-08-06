@@ -14,9 +14,28 @@ public sealed class UserService : ReactiveObject
 
     public static UserService Current => mCurrent.Value;
 
+    [Mobius(
+"""
+UserManager
+""")]
     readonly IUserManager userManager = IUserManager.Instance;
+
+    [Mobius(
+"""
+SppWebApiService
+""")]
     readonly IMicroServiceClient csc = IMicroServiceClient.Instance;
+
+    [Mobius(
+"""
+SteamworksWebApiService
+""")]
     readonly ISteamworksWebApiService steamworksWebApiService = ISteamworksWebApiService.Instance;
+
+    [Mobius(
+"""
+WindowManagerService.Current
+""")]
     readonly IWindowManager windowManager = IWindowManager.Instance;
 
     [Reactive]
@@ -61,6 +80,8 @@ public sealed class UserService : ReactiveObject
         //}
     }
 
+    [Mobius(Obsolete = true)]
+    [Obsolete]
     public void NavigateUserCenterPage()
     {
         // TODO: UserCenterPage

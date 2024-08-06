@@ -6,6 +6,7 @@ namespace BD.WTTS;
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, Inherited = true)]
 [Mobius(Obsolete = true)]
+[Obsolete]
 public sealed class AuthorizeAttribute : Attribute
 {
     public static bool HasAuthorize(object obj)

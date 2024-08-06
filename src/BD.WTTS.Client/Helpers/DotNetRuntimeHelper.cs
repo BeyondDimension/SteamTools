@@ -1,7 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
-[Mobius(Obsolete = true)]
+[Mobius(
+"""
+Mobius.Helpers.DotNetRuntimeHelper
+""")]
 static class DotNetRuntimeHelper
 {
     // https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet-environment-variables#net-sdk-and-cli-environment-variables

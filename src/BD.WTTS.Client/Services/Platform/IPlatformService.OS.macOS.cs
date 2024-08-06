@@ -9,6 +9,10 @@ partial interface IPlatformService
     /// https://support.apple.com/zh-cn/guide/remote-desktop/apdd0c5a2d5/mac
     /// </summary>
     /// <returns></returns>
+    [Mobius(
+"""
+Mobius.Helpers.ShellHelper.GetMacOSNetworkSetup
+""")]
     string[] GetMacOSNetworkSetup() => Array.Empty<string>();
 
 #endif

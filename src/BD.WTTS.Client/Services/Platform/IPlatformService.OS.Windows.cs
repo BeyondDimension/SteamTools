@@ -57,15 +57,27 @@ Mobius.Helpers.Windows.Win32WindowHelper.SetWindowSystemButtonsIsVisible
     /// <summary>
     /// 获取当前 Windows 系统产品名称，例如 Windows 10 Pro
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.WinNTCurrentVersionHelper
+""")]
     string WindowsProductName => string.Empty;
 
     /// <summary>
     /// 获取当前 Windows 系统第四位版本号
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.WinNTCurrentVersionHelper
+""")]
     int WindowsVersionRevision => default;
 
     /// <summary>
     /// 获取当前 Windows 10/11 系统显示版本，例如 21H1
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.WinNTCurrentVersionHelper
+""")]
     string WindowsReleaseIdOrDisplayVersion => string.Empty;
 }

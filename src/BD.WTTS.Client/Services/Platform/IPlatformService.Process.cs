@@ -11,6 +11,7 @@ partial interface IPlatformService
     /// </summary>
     /// <param name="process">一个正在运行的进程</param>
     /// <returns>表示应用程序运行命令行参数的字符串</returns>
+    [Mobius(Obsolete = true)]
     string GetCommandLineArgs(Process process)
     {
         if (process.Id == Environment.ProcessId)

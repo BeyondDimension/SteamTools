@@ -2,6 +2,10 @@ using HttpVersion = System.Net.HttpVersion;
 
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+ISppWebApiService
+""")]
 sealed class MicroServiceClient : MicroServiceClientBase
 {
     readonly IUserManager userManager;

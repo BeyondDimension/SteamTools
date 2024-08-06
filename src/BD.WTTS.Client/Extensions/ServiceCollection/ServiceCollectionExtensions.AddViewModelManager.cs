@@ -8,6 +8,7 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [BD.Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddViewModelManager(this IServiceCollection services)
     {

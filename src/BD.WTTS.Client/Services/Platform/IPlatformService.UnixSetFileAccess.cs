@@ -3,11 +3,13 @@ namespace BD.WTTS.Services;
 
 partial interface IPlatformService
 {
+    [Mobius(Obsolete = true)]
     const UnixFileMode Combined755 = UnixFileMode.UserRead | UnixFileMode.UserWrite |
         UnixFileMode.UserExecute | UnixFileMode.GroupRead |
         UnixFileMode.GroupExecute | UnixFileMode.OtherRead |
         UnixFileMode.OtherExecute;
 
+    [Mobius(Obsolete = true)]
     const UnixFileMode Combined777 = UnixFileMode.UserRead | UnixFileMode.UserWrite |
             UnixFileMode.UserExecute | UnixFileMode.GroupRead |
             UnixFileMode.GroupWrite | UnixFileMode.GroupExecute |

@@ -3,6 +3,10 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static partial class ServiceCollectionExtensions
 {
+    [BD.Mobius(
+"""
+AddFrontendToast
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddStartupToastIntercept(this IServiceCollection services)
     {

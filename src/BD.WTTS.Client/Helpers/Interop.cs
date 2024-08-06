@@ -4,6 +4,7 @@ namespace BD.WTTS;
 static partial class Interop
 {
 #if MACCATALYST || MACOS || LINUX || IOS || ANDROID
+    [Mobius(Obsolete = true)]
     public static partial class Libc
     {
         [Mobius(Obsolete = true)]

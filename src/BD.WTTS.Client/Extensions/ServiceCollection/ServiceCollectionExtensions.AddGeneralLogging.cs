@@ -10,6 +10,10 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [BD.Mobius(
+"""
+Mobius.Helpers.LogInitHelper.AddMobiusLogging
+""")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddGeneralLogging(this IServiceCollection services)
     {

@@ -9,6 +9,7 @@ namespace BD.WTTS.Logging;
 /// <summary>
 /// A provider of <see cref="OSLogLogger"/> instances.
 /// </summary>
+[Mobius(Obsolete = true)]
 public sealed class OSLogLoggerProvider : ILoggerProvider
 {
     readonly ConcurrentDictionary<string, OSLogLogger> _loggers;

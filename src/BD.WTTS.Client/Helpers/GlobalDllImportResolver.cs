@@ -19,6 +19,7 @@ public static partial class GlobalDllImportResolver
 #endif
 
     /// <inheritdoc cref="RID"/>
+    [Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static string GetRID()
     {
@@ -54,11 +55,14 @@ public static partial class GlobalDllImportResolver
     /// <summary>
     /// https://learn.microsoft.com/zh-cn/dotnet/core/rid-catalog
     /// </summary>
+    [Mobius(Obsolete = true)]
     public static readonly string RID = GetRID();
 
+    [Mobius(Obsolete = true)]
     static string? _BaseDirectory;
 
     /// <inheritdoc cref="AppContext.BaseDirectory"/>
+    [Mobius(Obsolete = true)]
     public static string BaseDirectory
     {
         get => _BaseDirectory ?? AppContext.BaseDirectory;
@@ -68,6 +72,7 @@ public static partial class GlobalDllImportResolver
     //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     //static string GetDllDirectory() => GetLibraryPath();
 
+    [Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string GetLibraryPath(string? libraryName = null, string? baseDirectory = null)
     {
@@ -80,6 +85,7 @@ public static partial class GlobalDllImportResolver
         return libraryPath;
     }
 
+    [Mobius(Obsolete = true)]
     const string fileExtension_ =
 #if WINDOWS
             ".dll";
@@ -90,6 +96,7 @@ public static partial class GlobalDllImportResolver
 #else
 #endif
 
+    [Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static string GetLibraryFileName(string libraryName, string? fileExtension = null)
     {
@@ -130,6 +137,7 @@ public static partial class GlobalDllImportResolver
         return false;
     }
 
+    [Mobius(Obsolete = true)]
     public static nint Delegate(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
     {
         libraryName = libraryName.TrimEnd(fileExtension_, StringComparison.OrdinalIgnoreCase);
@@ -195,6 +203,7 @@ public static partial class GlobalDllImportResolver
     /// <summary>
     /// 调试时加载本机库之前将本机库位置移动到预设文件夹中
     /// </summary>
+    [Mobius(Obsolete = true)]
     public static void MoveFiles()
     {
         //Console.WriteLine("MoveFiles");

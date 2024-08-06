@@ -5,8 +5,16 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class WindowsPlatformServiceImpl
 {
+    [Mobius(
+"""
+Mobius.Helpers.SystemProxyHelper
+""")]
     internal static bool SetAsSystemProxyStatus;
 
+    [Mobius(
+"""
+Mobius.Helpers.SystemProxyHelper
+""")]
     public async Task<bool> SetAsSystemProxyAsync(bool state, IPAddress? ip, int port)
     {
         try
@@ -35,8 +43,16 @@ Windows Registry Editor Version 5.00
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.SystemProxyHelper
+""")]
     internal static bool SetAsSystemPACProxyStatus;
 
+    [Mobius(
+"""
+Mobius.Helpers.SystemProxyHelper
+""")]
     public async Task<bool> SetAsSystemPACProxyAsync(bool state, string? url = null)
     {
         try

@@ -3,8 +3,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
+[Mobius(Obsolete = true)]
 public static partial class CurrencyCodeEnumExtensions
 {
+    [Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ECurrencyCode Convert(this CurrencyCode currencyCode)
     {
@@ -13,6 +15,7 @@ public static partial class CurrencyCodeEnumExtensions
         throw new ArgumentOutOfRangeException(nameof(currencyCode), currencyCode, null);
     }
 
+    [Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static CurrencyCode Convert(this ECurrencyCode eCurrencyCode)
     {

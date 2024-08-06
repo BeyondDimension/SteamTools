@@ -12,6 +12,10 @@ partial interface IPlatformService
     /// <summary>
     /// 当前程序是否为安装版
     /// </summary>
+    [Mobius(
+"""
+OSHelper2.CurrentAppIsInstallVersion
+""")]
     bool CurrentAppIsInstallVersion =>
 #if IOS || ANDROID
         true;

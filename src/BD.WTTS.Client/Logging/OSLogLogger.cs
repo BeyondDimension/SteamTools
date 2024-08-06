@@ -3,6 +3,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Logging;
 
+[Mobius(Obsolete = true)]
 internal sealed class OSLogLogger : ILogger<object>, ILogger
 {
     static readonly string _loglevelPadding = ": ";

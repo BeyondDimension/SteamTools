@@ -3,6 +3,21 @@ namespace BD.WTTS.Models;
 [Mobius(
 """
 BD.Common8.Essentials.Models.EssentialsFilePickerFileType
+
+use EssentialsFilePickerFileType, var fileTypes = new EssentialsFilePickerFileType([new("??? Files"){...}]);
+
+//var fileTypes = new EssentialsFilePickerFileType([
+//    new("JavaScript Files") {
+//                    Patterns = [ "*.js", ],
+//                    MimeTypes = [ MediaTypeNames.JS, ],
+//                    //AppleUniformTypeIdentifiers =
+//                },
+//                new("Text Files") {
+//                    Patterns = [ "*.txt", ],
+//                    MimeTypes = [ MediaTypeNames.TXT, ],
+//                    //AppleUniformTypeIdentifiers =
+//                },
+//            ]);
 """)]
 public sealed class AvaloniaFilePickerFileTypeFilter : IFilePickerFileType
 {

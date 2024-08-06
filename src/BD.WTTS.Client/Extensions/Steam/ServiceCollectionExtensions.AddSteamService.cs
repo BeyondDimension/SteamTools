@@ -11,6 +11,10 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [BD.Mobius(
+"""
+services.AddSingleton<ISteamService, FrontendSteamService>();
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddSteamService2(this IServiceCollection services)
     {

@@ -10,6 +10,10 @@ namespace BD.WTTS;
 /// <item>Logs: \Logs or %Tmp%\Steam++\Logs</item>
 /// </list>
 /// </summary>
+[Mobius(
+"""
+Mobius.Helpers
+""")]
 sealed class WindowsFileSystem : IOPath.FileSystemBase
 {
     private WindowsFileSystem() => throw new NotSupportedException();

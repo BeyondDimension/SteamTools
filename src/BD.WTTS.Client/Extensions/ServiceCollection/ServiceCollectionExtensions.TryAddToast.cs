@@ -8,6 +8,10 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [BD.Mobius(
+"""
+AddFrontendToast
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection TryAddToast(this IServiceCollection services)
         => ToastImpl.TryAddToast(services);

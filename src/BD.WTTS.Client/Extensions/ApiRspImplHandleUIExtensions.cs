@@ -3,10 +3,18 @@ namespace BD.WTTS;
 /// <summary>
 /// <see cref="ApiRspImpl"/> 的扩展函数
 /// </summary>
+[Mobius(
+"""
+Mobius.ApiRspImplHandleUIExtensions
+""", Obsolete = true)]
 public static class ApiRspImplHandleUIExtensions
 {
     const string TAG = "HandleUI";
 
+    [Mobius(
+"""
+Mobius.ApiRspImplHandleUIExtensions
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void LogError(this ApiRspBase apiRsp, string message)
     {
@@ -22,6 +30,10 @@ public static class ApiRspImplHandleUIExtensions
     /// <param name="errorAppendText"></param>
     /// <param name="errorFormat"></param>
     /// <returns></returns>
+    [Mobius(
+"""
+Mobius.ApiRspImplHandleUIExtensions
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool HandleUI(this ApiRspBase apiRsp, ToastIcon icon = ToastIcon.Error, string? errorAppendText = null, string? errorFormat = null)
     {
@@ -52,6 +64,10 @@ public static class ApiRspImplHandleUIExtensions
     /// <param name="errorAppendText"></param>
     /// <param name="errorFormat"></param>
     /// <returns></returns>
+    [Mobius(
+"""
+Mobius.ApiRspImplHandleUIExtensions
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool HandleUI<TContent>(this ApiRsp<TContent> apiRsp,
        [NotNullWhen(true)] out TContent? content, ToastIcon icon = ToastIcon.Error, string? errorAppendText = null, string? errorFormat = null)
@@ -107,6 +123,10 @@ public static class ApiRspImplHandleUIExtensions
     /// <param name="errorAppendText"></param>
     /// <param name="errorFormat"></param>
     /// <returns></returns>
+    [Mobius(
+"""
+Mobius.ApiRspImplHandleUIExtensions
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool HandleUIAllowNull<TContent>(this ApiRsp<TContent> apiRsp,
        out TContent? content, ToastIcon icon = ToastIcon.Error, string? errorAppendText = null, string? errorFormat = null)

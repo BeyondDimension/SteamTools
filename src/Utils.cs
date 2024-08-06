@@ -4,6 +4,11 @@ namespace System;
 /// <summary>
 /// 项目工具类
 /// </summary>
+[Mobius2(
+"""
+Properties\ProjectUtils
+src\ProjectUtils.cs
+""")]
 public static partial class ProjectUtils
 {
     /// <summary>
@@ -87,4 +92,20 @@ public static partial class ProjectUtils
     static readonly bool isCI;
 
     public static bool IsCI() => isCI;
+}
+
+[AttributeUsage(AttributeTargets.All, Inherited = false)]
+sealed class Mobius2Attribute : Attribute
+{
+    public Mobius2Attribute()
+    {
+
+    }
+
+    public Mobius2Attribute(string str)
+    {
+
+    }
+
+    public bool Obsolete { get; set; }
 }

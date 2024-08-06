@@ -5,6 +5,7 @@ namespace BD.WTTS.Logging;
 /// 客户端日志
 /// <para>https://github.com/dotnet/extensions/blob/v3.1.5/src/Logging/Logging.Console/src/ConsoleLogger.cs</para>
 /// </summary>
+[Mobius(Obsolete = true)]
 public abstract class ClientLogger : ILogger
 {
     static readonly string _messagePadding;

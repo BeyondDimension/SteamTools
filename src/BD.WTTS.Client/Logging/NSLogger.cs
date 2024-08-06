@@ -3,6 +3,7 @@
 namespace BD.WTTS.Logging;
 
 /// <inheritdoc cref="ClientLogger"/>
+[Mobius(Obsolete = true)]
 public sealed partial class NSLogger : ClientLogger
 {
     public NSLogger(string name) : base(name)

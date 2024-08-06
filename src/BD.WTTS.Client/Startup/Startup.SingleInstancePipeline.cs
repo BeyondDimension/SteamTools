@@ -9,6 +9,10 @@ partial class Startup // 本应用程序单例管道
 {
     SingleInstancePipeline? singleInstancePipeline;
 
+    [BD.Mobius(
+"""
+Mobius.Hosting.MobiusHost_.InitSingleInstancePipeline
+""")]
     bool InitSingleInstancePipeline(Func<string>? sendMessage = null)
     {
         var isInitSingleInstancePipelineReset = false;
@@ -40,6 +44,10 @@ partial class Startup // 本应用程序单例管道
     /// <summary>
     /// 本应用程序单例管道
     /// </summary>
+    [BD.Mobius(
+"""
+Mobius.Hosting.SingleMainProcess
+""")]
     sealed class SingleInstancePipeline : IDisposable
     {
         bool disposedValue;

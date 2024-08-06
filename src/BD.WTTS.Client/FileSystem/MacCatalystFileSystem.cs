@@ -9,6 +9,10 @@ namespace BD.WTTS;
 /// <item>Logs: ~/Library/Caches/Steam++/Logs</item>
 /// </list>
 /// </summary>
+[Mobius(
+"""
+Mobius.Helpers
+""")]
 sealed class MacCatalystFileSystem : IOPath.FileSystemBase
 {
     private MacCatalystFileSystem() => throw new NotSupportedException();

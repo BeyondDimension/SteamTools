@@ -3,6 +3,7 @@
 namespace BD.WTTS.Logging;
 
 [ProviderAlias("NSLog")]
+[Mobius(Obsolete = true)]
 public sealed class NSLoggerProvider : ILoggerProvider
 {
     private NSLoggerProvider() { }

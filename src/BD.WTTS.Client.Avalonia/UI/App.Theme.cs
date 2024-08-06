@@ -7,12 +7,28 @@ namespace BD.WTTS.UI;
 
 partial class App
 {
+    [Mobius(
+"""
+App.DefaultActualTheme
+""")]
     const AppTheme _DefaultActualTheme = AppTheme.FollowingSystem;
 
+    [Mobius(
+"""
+App.DefaultActualTheme
+""")]
     AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 
+    [Mobius(
+"""
+App.mTheme
+""")]
     AppTheme mTheme = _DefaultActualTheme;
 
+    [Mobius(
+"""
+App.Theme
+""")]
     public AppTheme Theme
     {
         get => mTheme;
@@ -50,6 +66,10 @@ partial class App
         }
     }
 
+    [Mobius(
+"""
+App.SetThemeNotChangeValue
+""")]
     public void SetThemeNotChangeValue(AppTheme value)
     {
         var mode = value switch
@@ -71,6 +91,10 @@ partial class App
         }
     }
 
+    [Mobius(
+"""
+App.SetThemeAccent
+""")]
     public static void SetThemeAccent(string? colorHex)
     {
         if (colorHex == null)

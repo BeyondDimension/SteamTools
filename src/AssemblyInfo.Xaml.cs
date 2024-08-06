@@ -1,3 +1,4 @@
+// Mobius Properties\XmlnsDefinition.cs
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // C# 10 定义全局 using
 

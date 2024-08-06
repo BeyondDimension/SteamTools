@@ -12,6 +12,10 @@ namespace Net.Codecrete.QrCodeGenerator;
 
 static class QrCodeBitmapExtensions
 {
+    [BD.Mobius(
+"""
+Mobius.Helpers.QRCodeHelper
+""")]
     public static SKBitmap ToBitmap(this QrCode qrCode, int scale, int border, SKColor foreground, SKColorType colorType = SKColorType.Argb4444, SKAlphaType alphaType = SKAlphaType.Premul)
     {
         // check arguments

@@ -8,6 +8,10 @@ partial interface IPlatformService
     /// 使用文本阅读器打开文件
     /// </summary>
     /// <param name="filePath"></param>
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper
+""")]
     void OpenFileByTextReader(string filePath)
     {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
@@ -83,5 +87,9 @@ partial interface IPlatformService
     /// </summary>
     /// <param name="provider"></param>
     /// <returns></returns>
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper
+""")]
     string? GetFileName(TextReaderProvider provider) => null;
 }

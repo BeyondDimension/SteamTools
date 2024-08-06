@@ -5,7 +5,7 @@ namespace BD.WTTS.Services;
 
 [Mobius(
 """
-Mobius.Helpers.Windows.WinScheduledTaskHelper
+Mobius.Helpers.WinScheduledTaskHelper
 """)]
 public interface IScheduledTaskService
 {
@@ -22,7 +22,7 @@ public interface IScheduledTaskService
     /// <returns></returns>
     [Mobius(
 """
-Mobius.Helpers.Windows.WinScheduledTaskHelper.SetBootAutoStart
+Mobius.Helpers.WinScheduledTaskHelper.SetBootAutoStart
 """)]
     bool SetBootAutoStart(bool isAutoStart, string name, bool? isPrivilegedProcess = null);
 }

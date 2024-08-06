@@ -17,5 +17,9 @@ public static class ImageUrlHelper
     /// </summary>
     /// <param name="imageId"></param>
     /// <returns></returns>
+    [Mobius(
+"""
+Mobius.Helpers.ImageUrlHelper
+""")]
     public static string? GetImageApiUrlById(Guid imageId) => imageId == default ? default : string.Format(GetImageApiUrl, imageId, IMicroServiceClient.Instance.ApiBaseUrl);
 }

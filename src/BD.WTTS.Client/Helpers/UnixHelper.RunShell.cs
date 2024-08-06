@@ -4,6 +4,10 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
+[Mobius(
+"""
+Mobius.Helpers.ShellHelper
+""")]
 static partial class UnixHelper
 {
     const string TAG = nameof(UnixHelper);

@@ -4,7 +4,7 @@ public partial interface IApplication
 {
     [Mobius(
 """
-Mobius_TODO TrayIcon
+App.TrayMenus
 """)]
     Dictionary<string, TrayMenuItem>? TrayMenus { get; }
 
@@ -15,7 +15,7 @@ Mobius_TODO TrayIcon
     /// <param name="trayMenuItem"></param>
     [Mobius(
 """
-Mobius_TODO TrayIcon
+App.UpdateMenuItems
 """)]
     void UpdateMenuItems(string menuKey, TrayMenuItem trayMenuItem);
 }

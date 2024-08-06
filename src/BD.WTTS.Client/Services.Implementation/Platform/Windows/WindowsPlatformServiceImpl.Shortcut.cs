@@ -19,6 +19,10 @@ partial class WindowsPlatformServiceImpl
     /// <param name="hotkey">设置快捷键</param>
     /// <param name="iconLocation">快捷键方式图标路径</param>
     /// <param name="workingDirectory">应用程序工作目录</param>
+    [Mobius(
+"""
+Mobius.Services.Abstractions.IShortcutService
+""")]
     public static void CreateShortcut(
         string pathLink,
         string targetPath,
@@ -79,6 +83,10 @@ partial class WindowsPlatformServiceImpl
         shortcut.Save();
     }
 
+    [Mobius(
+"""
+Mobius.Services.Abstractions.IShortcutService
+""")]
     void IPCPlatformService.CreateShortcut(
         string pathLink,
         string targetPath,

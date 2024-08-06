@@ -7,6 +7,10 @@ partial interface IPlatformService
     /// <summary>
     /// 获取 排除代理地址
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.SystemProxyHelper
+""")]
     protected static string[] GetNoProxyHostName => new string[] {
         "10.*",
         "172.16.*",
@@ -33,6 +37,10 @@ partial interface IPlatformService
     /// <summary>
     /// 设置启用或关闭系统代理
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.SystemProxyHelper
+""")]
     Task<bool> SetAsSystemProxyAsync(bool state, IPAddress? ip = null, int port = -1) => Task.FromResult(false);
 
     /// <summary>
@@ -41,5 +49,9 @@ partial interface IPlatformService
     /// <param name="state"></param>
     /// <param name="url"></param>
     /// <returns></returns>
+    [Mobius(
+"""
+Mobius.Helpers.SystemProxyHelper
+""")]
     Task<bool> SetAsSystemPACProxyAsync(bool state, string? url = null) => Task.FromResult(false);
 }

@@ -11,6 +11,7 @@ partial interface IApplication
     /// <param name="iconKey"></param>
     /// <returns></returns>
     [Mobius(Obsolete = true)]
+    [Obsolete]
     string? GetIconSourceByIconKey(string? iconKey) => string.IsNullOrWhiteSpace(iconKey) ? null :
 #if WINDOWS || MACCATALYST || MACOS || LINUX
         $"avares://BD.WTTS.Client.Avalonia.App/UI/Assets/Icons/{iconKey}.ico";
@@ -24,6 +25,7 @@ partial interface IApplication
     /// <param name="typeName"></param>
     /// <returns></returns>
     [Mobius(Obsolete = true)]
+    [Obsolete]
     string GetIconKeyByTypeName(string typeName)
     {
 #if WINDOWS || MACCATALYST || MACOS || LINUX

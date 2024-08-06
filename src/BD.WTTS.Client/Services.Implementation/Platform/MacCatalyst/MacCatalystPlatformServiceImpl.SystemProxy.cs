@@ -4,6 +4,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
+    [Mobius(
+"""
+Mobius.Helpers.SystemProxyHelper
+""")]
     public Task<bool> SetAsSystemProxyAsync(bool state, IPAddress? ip, int port)
     {
 #if MACOS || MACCATALYST

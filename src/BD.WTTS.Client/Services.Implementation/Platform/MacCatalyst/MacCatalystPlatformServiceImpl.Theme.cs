@@ -4,6 +4,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
+    [Mobius(
+"""
+Mobius.UI.App.SetLightOrDarkThemeFollowingSystem
+""")]
     public bool? IsLightOrDarkTheme
     {
         get
@@ -26,6 +30,10 @@ partial class MacCatalystPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.UI.App.SetLightOrDarkThemeFollowingSystem
+""")]
     public void SetLightOrDarkThemeFollowingSystem(bool enable)
     {
     }

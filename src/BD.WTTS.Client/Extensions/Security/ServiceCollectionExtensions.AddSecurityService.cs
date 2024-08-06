@@ -8,6 +8,10 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [BD.Mobius(
+"""
+BD.Common8.Security.Extensions.AddSecurityService
+""")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddSecurityService(this IServiceCollection services)
     {

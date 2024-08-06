@@ -1,6 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(Obsolete = true)]
 public class FontManagerImpl : IFontManager
 {
     protected readonly IPlatformService platformService;

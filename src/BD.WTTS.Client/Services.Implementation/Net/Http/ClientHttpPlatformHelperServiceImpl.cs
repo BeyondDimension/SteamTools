@@ -3,6 +3,10 @@ using NetworkAccess = BD.Common.Enums.NetworkAccess;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+[BD.Mobius(
+"""
+Mobius.Services.ClientHttpPlatformHelperServiceImpl
+""")]
 public class ClientHttpPlatformHelperServiceImpl : HttpPlatformHelperService
 {
     protected const string ChromiumVersion = "110.0.0.0";

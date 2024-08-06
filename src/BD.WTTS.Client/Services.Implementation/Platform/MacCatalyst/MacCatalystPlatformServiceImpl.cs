@@ -12,6 +12,10 @@ sealed partial class MacCatalystPlatformServiceImpl : IPlatformService
     }
 
 #if MACCATALYST || MACOS
+    [Mobius(
+"""
+Mobius.Helpers.ShellHelper.GetMacOSNetworkSetup
+""")]
     string[] IPlatformService.GetMacOSNetworkSetup()
     {
         using var p = new Process();

@@ -11,8 +11,16 @@ using Microsoft.AppCenter.Crashes;
 /// <item>https://visualstudio.microsoft.com/zh-hans/app-center</item>
 /// </list>
 /// </summary>
+[BD.Mobius(
+"""
+Mobius.Helpers.VisualStudioAppCenterSDK
+""")]
 static partial class VisualStudioAppCenterSDK
 {
+    [BD.Mobius(
+"""
+Mobius.Helpers.VisualStudioAppCenterSDK.Init
+""")]
     internal static void Init()
     {
         if (DateTime.UtcNow >= new DateTime(2025, 3, 31, default, default, default, DateTimeKind.Utc))

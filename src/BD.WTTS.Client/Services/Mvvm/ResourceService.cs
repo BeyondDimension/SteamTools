@@ -14,6 +14,11 @@ public sealed class ResourceService : ReactiveObject
     public static ResourceService Current => mCurrent.Value;
 
     public static readonly IReadOnlyDictionary<string, string> Languages;
+
+    [Mobius(
+"""
+SteamLanguageHelper.SteamLanguages
+""")]
     public static readonly IReadOnlyDictionary<string, string> SteamLanguages;
     static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(GetFonts);
 
@@ -152,6 +157,10 @@ public sealed class ResourceService : ReactiveObject
         ChangedHandler?.Invoke();
     }
 
+    [Mobius(
+"""
+SteamLanguageHelper.GetCurrentCultureSteamLanguageName
+""")]
     public static string GetCurrentCultureSteamLanguageName()
     {
         try

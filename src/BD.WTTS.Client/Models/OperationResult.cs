@@ -1,6 +1,7 @@
 namespace BD.WTTS.Models;
 
 /// <inheritdoc cref="OperationResultBase{T}"/>
+[Mobius("ApiRspImpl", Obsolete = true)]
 public sealed class OperationResult : OperationResultBase<object>
 {
     /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType)"/>
@@ -51,6 +52,7 @@ public sealed class OperationResult : OperationResultBase<object>
 }
 
 /// <inheritdoc cref="OperationResultBase{T}"/>
+[Mobius("ApiRspImpl", Obsolete = true)]
 public sealed class OperationResult<T> : OperationResultBase<T>
 {
     /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType)"/>

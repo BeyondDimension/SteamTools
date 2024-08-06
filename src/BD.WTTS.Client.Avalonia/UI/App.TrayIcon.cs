@@ -9,14 +9,34 @@ namespace BD.WTTS.UI;
 
 partial class App
 {
+    [Mobius(
+"""
+App.TrayMenus
+""")]
     public Dictionary<string, TrayMenuItem> TrayMenus { get; } = new Dictionary<string, TrayMenuItem>();
 
+    [Mobius(
+"""
+App.TrayIcons
+""")]
     public TrayIcons TrayIcons { get; init; } = new TrayIcons();
 
+    [Mobius(
+"""
+App.trayIconMenus
+""")]
     readonly Dictionary<string, ICommand> trayIconMenus = new();
 
+    [Mobius(
+"""
+App.TrayIconMenus
+""")]
     public IReadOnlyDictionary<string, ICommand> TrayIconMenus => trayIconMenus;
 
+    [Mobius(
+"""
+App.InitTrayIcon
+""")]
     void InitTrayIcon()
     {
         if (ApplicationLifetime is not
@@ -67,6 +87,10 @@ partial class App
         }
     }
 
+    [Mobius(
+"""
+App.UpdateMenuItems
+""")]
     public void UpdateMenuItems()
     {
         MainThread2.BeginInvokeOnMainThread(() =>
@@ -166,6 +190,10 @@ partial class App
         });
     }
 
+    [Mobius(
+"""
+App.UpdateMenuItems
+""")]
     public void UpdateMenuItems(string menuKey, TrayMenuItem trayMenuItem)
     {
         if (TrayMenus != null)

@@ -4,6 +4,10 @@ using static BD.Common.Services.ILocalDataProtectionProvider;
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="ILocalDataProtectionProvider"/>
+[Mobius(
+"""
+Mobius.Services.LocalDataProtectionProviderBase
+""")]
 public class LocalDataProtectionProvider : LocalDataProtectionProviderBase
 {
     readonly IPlatformService platformService;

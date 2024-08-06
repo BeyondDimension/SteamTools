@@ -8,6 +8,10 @@ partial class WindowsPlatformServiceImpl
     const string Themes_Personalize = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize";
     const string AppsUseLightTheme = "AppsUseLightTheme";
 
+    [Mobius(
+"""
+Mobius.UI.App.SetLightOrDarkThemeFollowingSystem
+""")]
     public bool? IsLightOrDarkTheme
     {
         get
@@ -37,6 +41,10 @@ partial class WindowsPlatformServiceImpl
 
     ManagementEventWatcher? isLightOrDarkThemeWatch;
 
+    [Mobius(
+"""
+Mobius.UI.App.SetLightOrDarkThemeFollowingSystem
+""")]
     public void SetLightOrDarkThemeFollowingSystem(bool enable)
     {
         var major = Environment.OSVersion.Version.Major;

@@ -3,6 +3,14 @@ namespace BD.WTTS;
 /// <summary>
 /// 提供用来获取应用程序信息（如版本号、说明、加载的程序集等）的属性。
 /// </summary>
+[Mobius3(
+"""
+Mobius.AssemblyInfo
+AssemblyInfo.cs
+AssemblyInfo.Version.cs
+AssemblyInfo.Version.NativeHost.cs
+AssemblyInfo.Version.Setup.Windows.cs
+""")]
 public static partial class AssemblyInfo
 {
     const string Version2 = "3.0";
@@ -146,4 +154,20 @@ false
 
 #endif
 
+}
+
+[AttributeUsage(AttributeTargets.All, Inherited = false)]
+sealed class Mobius3Attribute : Attribute
+{
+    public Mobius3Attribute()
+    {
+
+    }
+
+    public Mobius3Attribute(string str)
+    {
+
+    }
+
+    public bool Obsolete { get; set; }
 }

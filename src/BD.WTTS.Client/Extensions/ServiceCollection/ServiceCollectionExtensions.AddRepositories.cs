@@ -3,6 +3,11 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static partial class ServiceCollectionExtensions
 {
+    [BD.Mobius(
+"""
+services.AddSingleton<IUserRepository, UserRepository>();
+services.AddSingleton<IRequestCacheRepository, RequestCacheRepository>();
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {

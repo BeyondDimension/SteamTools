@@ -7,6 +7,10 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static partial class ServiceCollectionExtensions
 {
+    [BD.Mobius(
+"""
+Mobius.Helpers.*
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddPlatformService(
         this IServiceCollection services,

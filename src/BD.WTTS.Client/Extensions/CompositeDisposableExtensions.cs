@@ -3,12 +3,15 @@ using System.Reactive.Disposables;
 // ReSharper disable once CheckNamespace
 namespace System;
 
+[BD.Mobius(Obsolete = true)]
 public static partial class CompositeDisposableExtensions
 {
+    [BD.Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Add(this CompositeDisposable @this, Action dispose)
         => @this.Add(Disposable.Create(dispose));
 
+    [BD.Mobius(Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Add(this CompositeDisposable @this, Func<ValueTask> dispose)
         => @this.Add(new AsyncDisposable(dispose));

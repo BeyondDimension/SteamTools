@@ -8,6 +8,10 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [BD.Mobius(
+"""
+services.AddSingleton<INativeNotificationService, NativeNotificationServiceImpl>();
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection TryAddNotificationService(this IServiceCollection services)
     {

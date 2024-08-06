@@ -1,6 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+StartupToastIntercept
+""")]
 public sealed class StartupToastIntercept : IToastIntercept
 {
     readonly ILogger logger;

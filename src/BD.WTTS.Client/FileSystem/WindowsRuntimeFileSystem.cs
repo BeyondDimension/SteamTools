@@ -12,6 +12,10 @@ namespace BD.WTTS;
 /// <item>Logs: %USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache\Logs</item>
 /// </list>
 /// </summary>
+[Mobius(
+"""
+Mobius.Helpers
+""")]
 sealed class WindowsRuntimeFileSystem : IOPath.FileSystemBase
 {
     private WindowsRuntimeFileSystem() => throw new NotSupportedException();

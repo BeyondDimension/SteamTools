@@ -4,6 +4,10 @@ namespace BD.WTTS.Services.Implementation;
 /// <summary>
 /// 使用 <see cref="IToastService"/> 实现的 <see cref="IToast"/>
 /// </summary>
+[Mobius(
+"""
+ToastImpl
+""")]
 internal sealed class ToastImpl : ToastBaseImpl
 {
     public ToastImpl(IToastIntercept intercept, IMainThreadPlatformService mainThread) : base(intercept, mainThread)

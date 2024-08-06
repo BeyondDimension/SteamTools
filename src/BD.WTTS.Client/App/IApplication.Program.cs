@@ -20,6 +20,10 @@ partial interface IApplication
     }
 #endif
 
+    [Mobius(
+"""
+AppConstants.ProgramName
+""")]
     private static string? _ProgramName;
 
     /// <summary>
@@ -38,6 +42,10 @@ AppConstants.ProgramName
         }
     }
 
+    [Mobius(
+"""
+AppConstants.ProgramName
+""")]
     private static string GetProgramName()
     {
         var processPath = Environment.ProcessPath;

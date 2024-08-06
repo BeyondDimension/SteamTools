@@ -6,6 +6,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
 
+[Mobius(
+"""
+IPartialGameListSettings
+""")]
 public interface IPartialGameLibrarySettings
 {
     static IPartialGameLibrarySettings? Instance

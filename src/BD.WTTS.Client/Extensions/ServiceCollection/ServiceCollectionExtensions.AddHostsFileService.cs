@@ -9,6 +9,10 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    [BD.Mobius(
+"""
+services.AddSingleton<IHostsFileService, HostsFileServiceImpl>();
+""", Obsolete = true)]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IServiceCollection AddHostsFileService(this IServiceCollection services)
     {

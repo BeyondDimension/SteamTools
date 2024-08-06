@@ -7,6 +7,11 @@ using ICSharpCode.SharpZipLib.Zip.Compression;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
+[Mobius(
+"""
+use Mobius.Services.Abstractions.ICompressionService
+OR CompressionHelper
+""", Obsolete = true)]
 public static class TarGZipHelper
 {
     /// <summary>
@@ -17,6 +22,7 @@ public static class TarGZipHelper
     /// <param name="level">压缩等级，取值范围在 <see cref="Deflater.NO_COMPRESSION"/> ~ <see cref="Deflater.BEST_COMPRESSION"/></param>
     /// <param name="progress">进度值监听</param>
     /// <returns></returns>
+    [Mobius(Obsolete = true)]
     public static bool Create(string filePath, string dirPath, int level = Deflater.BEST_COMPRESSION, ProgressMessageHandler? progress = null)
     {
         if (!filePath.EndsWith(FileEx.TAR_GZ)) filePath += FileEx.TAR_GZ;
@@ -64,6 +70,7 @@ public static class TarGZipHelper
     /// <param name="progress">进度值监听</param>
     /// <param name="maxProgress"></param>
     /// <returns></returns>
+    [Mobius(Obsolete = true)]
     public static bool Unpack(string filePath, string dirPath,
         ProgressMessageHandler? progressMessage = null,
         IProgress<float>? progress = null,

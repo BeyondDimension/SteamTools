@@ -6,6 +6,10 @@ using SteamServiceBaseImpl = BD.SteamClient.Services.Implementation.SteamService
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+SteamServiceImpl2
+""")]
 sealed class SteamServiceImpl2 : SteamServiceBaseImpl, ISteamConnectService
 {
     readonly IPlatformService platform;

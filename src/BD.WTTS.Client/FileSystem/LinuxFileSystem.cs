@@ -13,6 +13,10 @@ namespace BD.WTTS;
 /// <item>Logs: $XDG_CACHE_HOME/Steam++/Logs or $HOME/.cache/Steam++/Logs</item>
 /// </list>
 /// </summary>
+[Mobius(
+"""
+Mobius.Helpers
+""")]
 sealed class LinuxFileSystem : IOPath.FileSystemBase
 {
     private LinuxFileSystem() => throw new NotSupportedException();
