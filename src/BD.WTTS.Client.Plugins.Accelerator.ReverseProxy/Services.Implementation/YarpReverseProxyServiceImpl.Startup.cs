@@ -23,12 +23,12 @@ partial class YarpReverseProxyServiceImpl
         services.AddReverseProxyServer();
         services.AddFlowAnalyze();
 
-#if WINDOWS
-        if (ProxyMode == ProxyMode.DNSIntercept)
-        {
-            services.AddPacketIntercept();
-        }
-#endif
+        //#if WINDOWS
+        //        if (ProxyMode == ProxyMode.DNSIntercept)
+        //        {
+        //            services.AddPacketIntercept();
+        //        }
+        //#endif
 
         // !!! 不可将 IPCSubProcessService ipc 添加到 YarpHost 的 DI 容器中，因停止加速时执行释放会导致进程退出
         //services.AddSingleton(_ => ipc);

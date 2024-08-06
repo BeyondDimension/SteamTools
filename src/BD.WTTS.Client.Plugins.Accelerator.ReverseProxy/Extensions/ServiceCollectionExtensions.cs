@@ -148,28 +148,28 @@ public static partial class ServiceCollectionExtensions
 
 #if WINDOWS
 
-    /// <summary>
-    /// 注册数据包拦截器
-    /// </summary>
-    /// <param name="services"></param>
-    /// <returns></returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static IServiceCollection AddPacketIntercept(this IServiceCollection services)
-    {
-        // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/ServiceCollectionExtensions.cs#L21
-        //services.AddSingleton<IDnsConflictSolver, HostsConflictSolver>();
-        //services.AddSingleton<IDnsConflictSolver, ProxyConflictSolver>();
-        services.TryAddSingleton<IDnsInterceptor, DnsInterceptor>();
-        services.AddHostedService<DnsInterceptHostedService>();
+    ///// <summary>
+    ///// 注册数据包拦截器
+    ///// </summary>
+    ///// <param name="services"></param>
+    ///// <returns></returns>
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //internal static IServiceCollection AddPacketIntercept(this IServiceCollection services)
+    //{
+    //    // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/ServiceCollectionExtensions.cs#L21
+    //    //services.AddSingleton<IDnsConflictSolver, HostsConflictSolver>();
+    //    //services.AddSingleton<IDnsConflictSolver, ProxyConflictSolver>();
+    //    services.TryAddSingleton<IDnsInterceptor, DnsInterceptor>();
+    //    services.AddHostedService<DnsInterceptHostedService>();
 
-        services.AddSingleton<ITcpInterceptor, SshInterceptor>();
-        services.AddSingleton<ITcpInterceptor, GitInterceptor>();
-        services.AddSingleton<ITcpInterceptor, HttpInterceptor>();
-        services.AddSingleton<ITcpInterceptor, HttpsInterceptor>();
-        services.AddHostedService<TcpInterceptHostedService>();
+    //    services.AddSingleton<ITcpInterceptor, SshInterceptor>();
+    //    services.AddSingleton<ITcpInterceptor, GitInterceptor>();
+    //    services.AddSingleton<ITcpInterceptor, HttpInterceptor>();
+    //    services.AddSingleton<ITcpInterceptor, HttpsInterceptor>();
+    //    services.AddHostedService<TcpInterceptHostedService>();
 
-        return services;
-    }
+    //    return services;
+    //}
 
 #endif
 }

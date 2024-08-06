@@ -120,6 +120,7 @@ partial class ProxyService
 
         switch (proxyMode)
         {
+            case ProxyMode.DNSIntercept:
             case ProxyMode.Hosts:
                 var inUsePort = SocketHelper.IsUsePort(proxyIp_.Value, httpsPort);
                 if (inUsePort)
@@ -186,13 +187,13 @@ partial class ProxyService
                     return Strings.CommunityFix_SetAsSystemPACProxyFail;
                 }
                 break;
-#if WINDOWS
-            case ProxyMode.DNSIntercept:
-                {
-                    await Mobius.Helpers.WinDivertInitHelper.InitializeAsync();
-                }
-                break;
-#endif
+                //#if WINDOWS
+                //            case ProxyMode.DNSIntercept:
+                //                {
+                //                    await Mobius.Helpers.WinDivertInitHelper.InitializeAsync();
+                //                }
+                //                break;
+                //#endif
         }
 
         if (!OperatingSystem.IsWindows())
@@ -315,6 +316,7 @@ partial class ProxyService
 #endif
         switch (proxyMode) // 先停止接入代理流量
         {
+            case ProxyMode.DNSIntercept:
             case ProxyMode.Hosts:
                 var needClear = hostsFileService.ContainsHostsByTag();
                 if (needClear)
@@ -351,14 +353,14 @@ partial class ProxyService
                     await platformService.SetAsSystemPACProxyAsync(false);
                 }
                 break;
-#if WINDOWS
-            case ProxyMode.DNSIntercept:
-                {
-                    // 停止时也调用初始化
-                    await Mobius.Helpers.WinDivertInitHelper.InitializeAsync();
-                }
-                break;
-#endif
+                //#if WINDOWS
+                //            case ProxyMode.DNSIntercept:
+                //                {
+                //                    // 停止时也调用初始化
+                //                    await Mobius.Helpers.WinDivertInitHelper.InitializeAsync();
+                //                }
+                //                break;
+                //#endif
         }
         StopTimer(); // 停止 UI 计时器
 #if MACOS

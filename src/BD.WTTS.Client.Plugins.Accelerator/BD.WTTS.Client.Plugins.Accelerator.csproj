@@ -124,7 +124,7 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+	<!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<Compile Update="Properties\WinDivertResource.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -134,12 +134,12 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>WinDivertResource.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-	</ItemGroup>
+	</ItemGroup>-->
 
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
+	<!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">
 		<Compile Remove="Properties\WinDivertResource.Designer.cs" />
 		<EmbeddedResource Remove="Properties\WinDivertResource.resx" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 	<ItemGroup>
 		<Compile Include="$(MSBuildProjectDirectory)\..\XunYouSDK\**\*.cs">
