@@ -168,7 +168,27 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
             deploymentMode);
         if (rsp.IsSuccess)
         {
-            if (!rsp.Content.HasValue() || rsp.Content?.Version == AssemblyInfo.Version)
+            static bool IsNewVersion(AppVersionDTO? value)
+            {
+                if (value.HasValue())
+                {
+                    if (value.Version != AssemblyInfo.FileVersion)
+                    {
+                        if (Version.TryParse(value.Version, out var newVersion) &&
+                            Version.TryParse(AssemblyInfo.FileVersion, out var thisVersion))
+                        {
+                            if (newVersion <= thisVersion)
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            if (!IsNewVersion(rsp.Content))
             {
                 IsExistUpdate = false;
                 if (showIsExistUpdateFalse) toast.Show(ToastIcon.None, AppResources.IsExistUpdateFalse);
