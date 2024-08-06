@@ -233,6 +233,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
                 if (result.IsOK())
                 {
                     Toast.Show(ToastIcon.Info, Strings.GameList_RuningWait);
+                    NavAppToSteamView(app);
                     app.StartSteamAppProcess(SteamAppRunType.UnlockAchievement);
                     SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
                 }
