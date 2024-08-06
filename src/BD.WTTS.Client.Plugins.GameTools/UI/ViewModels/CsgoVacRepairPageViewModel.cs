@@ -1,3 +1,5 @@
+using static System.Net.Mime.MediaTypeNames;
+
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
@@ -15,55 +17,17 @@ public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
 
 #if WINDOWS
 
+    readonly ISteamService steamService = ISteamService.Instance;
+
     string BatPath = Path.Combine(Plugin.Instance.AppDataDirectory, "BAT", $"CSGOVAC_REPAIR{FileEx.BAT}");
 
-    public void Repairs_Click()
-    {
-        OutputString = string.Empty;
-        Task2.InBackground(async () =>
-        {
-            await ExcuteBat();
-        });
-    }
-
-    public async Task ExcuteBat()
+    public async Task Repairs_Click()
     {
         try
         {
-            if (!File.Exists(BatPath))
-            {
-                GenerateFixScript(BatPath);
-            }
             Repairing = true;
-            using var process = new Process
-            {
-                StartInfo =
-                {
-                    FileName = BatPath,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    StandardOutputEncoding = Encoding.UTF8,
-                    StandardErrorEncoding = Encoding.UTF8,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    Arguments = $"\"{Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Valve\Steam", "SteamPath", null)}/bin\""
-                }
-            };
-
-            process.OutputDataReceived += (_, e) =>
-            {
-                OutHandle(e.Data);
-            };
-
-            process.ErrorDataReceived += (_, e) =>
-            {
-                OutHandle(e.Data);
-            };
-
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            await process.WaitForExitAsync();
+            var installPath = $"\"{Path.GetDirectoryName(steamService.SteamProgramPath)}\\bin\"";
+            await ExcuteBatCommand(installPath);
         }
         finally
         {
@@ -71,7 +35,45 @@ public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
         }
     }
 
-    static void GenerateFixScript(string path)
+    public async Task ExcuteBatCommand(string arg)
+    {
+        OutputString = string.Empty;
+        if (!File.Exists(BatPath))
+        {
+            GenerateFixScript(BatPath);
+        }
+
+        using var p = new Process
+        {
+            StartInfo =
+            {
+                FileName = BatPath,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                StandardOutputEncoding = Encoding.UTF8,
+                StandardErrorEncoding = Encoding.UTF8,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                Arguments = arg,
+                Verb = "runas",
+            }
+        };
+        p.Start();
+        _ = ConsumeReader(p.StandardOutput);
+        _ = ConsumeReader(p.StandardError);
+        await p.WaitForExitAsync();
+    }
+
+    async Task ConsumeReader(TextReader reader)
+    {
+        string? text;
+        while ((text = await reader.ReadLineAsync()) != null)
+        {
+            OutHandle(text);
+        }
+    }
+
+    void GenerateFixScript(string path)
     {
         var dirPath = Path.GetDirectoryName(path);
         if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath!);
@@ -80,17 +82,22 @@ public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
         stream.Write("""
                 @echo off
                 chcp 65001
+                goto enableservice
                 :steam
-                echo info - Checking if Steam is launched.
+                echo Info - Checking if Steam is launched.
                 tasklist | find /I "Steam.exe"
                 if errorlevel 1 goto closedstatus
                 if not errorlevel 1 goto killsteam
+                
                 :killsteam
                 taskkill /F /IM Steam.exe
-                goto steaminstall
+                goto steamrepair
+                
                 :closedstatus
-                echo info - Not Started
-                goto steaminstall
+                echo Info - Not Started
+                goto steamrepair
+                
+                :enableservice
                 sc config Netman start= AUTO
                 sc start Netman
                 sc config RasMan start= AUTO
@@ -101,19 +108,28 @@ public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
                 sc start MpsSvc
                 netsh advfirewall set allprofiles state on
                 goto steam
-                :steaminstall
-                echo info - ※^>^>^> 执行 Steam Services 修复中......
+                
+                :steamrepair
+                echo Info - ※^>^>^> 执行修复启动器服务项
                 cd /d %1
                 steamservice /install
                 ping -n 2 127.0.0.1>nul
-                echo 
+                echo.
                 steamservice /repair
-                echo info - ※ 开启数据执行保护
+                ping -n 2 127.0.0.1>nul
+                echo Info - ※ 恢复DEP默认启动设置
+                bcdedit /deletevalue nointegritychecks
+                bcdedit /deletevalue loadoptions
                 bcdedit /debug off
-                bcdedit.exe/set {current} nx alwayson
-                echo info - ※ 执行完毕
+                bcdedit /deletevalue nx
+                echo Info - ※^>^>^> 重启 Steam
+                cd /d ..
+                start /high steam
+                ping -n 2 127.0.0.1>nul
                 sc config "Steam Client Service" start= AUTO
                 sc start "Steam Client Service"
+                echo Info - ※ 执行完毕
+                exit
                 """u8);
         stream.Flush();
         stream.SetLength(stream.Position);
@@ -123,7 +139,7 @@ public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
     {
         if (!string.IsNullOrEmpty(msg))
         {
-            OutputString += $"{msg}\n";
+            OutputString += msg + Environment.NewLine;
 
             if (msg.Contains("Add firewall exception failed for steamservice.exe", StringComparison.OrdinalIgnoreCase))
             {

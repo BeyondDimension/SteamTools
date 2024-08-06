@@ -72,6 +72,9 @@
 		<Compile Include="..\ImplicitUsings.NLog.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\ImplicitUsings.Steam.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 		<Compile Include="..\ImplicitUsings.Plugins.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
