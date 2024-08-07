@@ -111,6 +111,12 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             XamlRoot = GetWindowTopLevel(),
         };
 
+        if (td.XamlRoot == null)
+        {
+            Toast.LogAndShowT(new Exception("在 AppWindow 为 Null 时，无法弹出 Taskdialog."));
+            return false;
+        }
+
         if (viewModel != null)
         {
             if (viewModel is IWindowViewModel window)

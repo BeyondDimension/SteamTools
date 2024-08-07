@@ -38,7 +38,8 @@ sealed partial class HttpReverseProxyMiddleware
     /// <returns></returns>
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        var url = context.Request.GetDisplayUrl().Remove(0, context.Request.Scheme.Length + 3);
+        var url = context.Request.GetDisplayUrl();
+        //var url = context.Request.GetDisplayUrl().Remove(0, context.Request.Scheme.Length + 3);
 
         var isScriptInject = reverseProxyConfig.TryGetScriptConfig(url, out var scriptConfigs);
 
@@ -51,7 +52,7 @@ sealed partial class HttpReverseProxyMiddleware
             context.Response.Body = memoryStream;
         }
 
-        if (TryGetDomainConfig(url, out var domainConfig) == false)
+        if (TryGetDomainConfig(url.Remove(0, context.Request.Scheme.Length + 3), out var domainConfig) == false)
         {
             if (reverseProxyConfig.Service.TwoLevelAgentEnable)
             {

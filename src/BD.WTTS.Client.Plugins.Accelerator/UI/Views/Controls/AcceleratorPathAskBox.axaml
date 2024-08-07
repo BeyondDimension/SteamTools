@@ -10,7 +10,14 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <StackPanel Spacing="6">
+    <StackPanel Spacing="15">
+
+        <TextBlock FontSize="21" TextAlignment="Center">
+            <Run Text="下载 Watt加速器" />
+            <LineBreak />
+            <Run Text="拒绝游戏延迟，提高稳定性" />
+        </TextBlock>
+
         <ui:SettingsExpander
             Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value}"
             Header="安装路径"
@@ -22,6 +29,16 @@
                 <Button Click="SelectWattAcceleratorInstallPath" Content="选择路径" />
             </ui:SettingsExpander.Footer>
         </ui:SettingsExpander>
-        <TextBlock Text="需要下载 Watt 加速器插件才可使用，确定要下载吗?" />
+
+        <!--<TextBlock Text="需要下载 Watt 加速器插件才可使用，确定要下载吗?" />-->
+
+        <Button
+            Margin="0,15"
+            Padding="20,10"
+            HorizontalAlignment="Center"
+            Classes="TransparentAccent"
+            Click="OKButton_Click"
+            Content="立即下载"
+            FontSize="14" />
     </StackPanel>
 </UserControl>

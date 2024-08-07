@@ -66,7 +66,14 @@ public sealed partial class GameAcceleratorService
         DeleteMyGameCommand = ReactiveCommand.Create<XunYouGameViewModel>(DeleteMyGame);
         GameAcceleratorCommand = ReactiveCommand.CreateFromTask<XunYouGameViewModel>(GameAccelerator);
         GameLaunchCommand = ReactiveCommand.CreateFromTask<XunYouGameViewModel>(GameLaunch);
-        InstallAcceleratorCommand = ReactiveCommand.CreateFromTask(InstallAccelerator);
+        InstallAcceleratorCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            if (await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel(),
+    pageContent: new AcceleratorPathAskBox(), title: "游戏加速", isCancelButton: false, isOkButton: false))
+            {
+                await InstallAccelerator();
+            }
+        });
         UninstallAcceleratorCommand = ReactiveCommand.Create(UninstallAccelerator);
         AcceleratorChangeAreaCommand = ReactiveCommand.Create<XunYouGameViewModel>(AcceleratorChangeArea);
 
@@ -348,7 +355,7 @@ public sealed partial class GameAcceleratorService
                     //}
 
                     if (!await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel(),
-                        pageContent: new AcceleratorPathAskBox(), title: "未安装加速插件", isCancelButton: true))
+                        pageContent: new AcceleratorPathAskBox(), title: "游戏加速", isCancelButton: false, isOkButton: false))
                     {
                         app.IsAccelerating = false;
                         return;
