@@ -95,7 +95,7 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         Func<bool>? cancelCloseAction = null,
         bool disableScroll = false)
         where TPageViewModel : ViewModelBase
-    {
+  {
         var td = new TaskDialogEx
         {
             Title = title,

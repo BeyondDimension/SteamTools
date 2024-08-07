@@ -289,9 +289,14 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
         bool isInvalid = false;
         if (writeFile)
         {
-            using var fs = File.Create(settingsFilePath);
+            using var ms = new MemoryStream();
             settings = new();
-            settings.Save_____(fs);
+            settings.Save_____(ms);
+            ms.Position = 0;
+            using var fs = File.Create(settingsFilePath);
+            ms.CopyTo(fs);
+            fs.Flush();
+            fs.SetLength(fs.Position);
         }
         else
         {
@@ -304,15 +309,20 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
                 settings = new();
                 isInvalid = true;
 
-                // 尝试将错误的配置保存为 .json.i.bak 防止启动软件当前配置被覆盖
-                var settingsFilePath_i_bak = $"{settingsFilePath}.i.bak";
-                try
+                // 尝试将错误的配置保存为 .json.load.bak 防止启动软件当前配置被覆盖
+                if (!SettingsExtensions.IsZeroFile(settingsFilePath))
                 {
-                    File.Move(settingsFilePath, settingsFilePath_i_bak);
-                }
-                catch
-                {
+                    var settingsFilePath_load_bak = $"{settingsFilePath}.load.bak";
+                    try
+                    {
+                        IOPath.FileIfExistsItDelete(settingsFilePath_load_bak);
+                        File.Move(settingsFilePath,
+                            settingsFilePath_load_bak, true);
+                    }
+                    catch
+                    {
 
+                    }
                 }
             }
         }
@@ -330,6 +340,18 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
 
 internal static class SettingsExtensions
 {
+    internal static bool IsZeroFile(string filePath, bool @catch = true)
+    {
+        try
+        {
+            return new FileInfo(filePath).Length == 0;
+        }
+        catch
+        {
+            return @catch;
+        }
+    }
+
     /// <summary>
     /// 将实例序列化为字符串
     /// </summary>
@@ -420,9 +442,12 @@ internal static class SettingsExtensions
 
                 try
                 {
-                    var settingsFilePath2 = $"{settingsFilePath}.bak";
-                    IOPath.FileTryDelete(settingsFilePath2);
-                    File.Move(settingsFilePath, settingsFilePath2);
+                    if (!SettingsExtensions.IsZeroFile(settingsFilePath))
+                    {
+                        var settingsFilePath2 = $"{settingsFilePath}.save.bak";
+                        IOPath.FileTryDelete(settingsFilePath2);
+                        File.Move(settingsFilePath, settingsFilePath2, true);
+                    }
                 }
                 catch (Exception ex)
                 {
