@@ -3,7 +3,7 @@ namespace BD.WTTS.Services;
 
 [Mobius(
 """
-Mobius.Services.NativeNotification.Abstractions.INativeNotificationService
+NativeNotificationHelper
 """)]
 public interface INotificationService
 {

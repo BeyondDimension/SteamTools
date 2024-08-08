@@ -6,6 +6,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
+    [Mobius(
+"""
+ShellHelper.RunOsaScriptAsync
+""")]
     static async ValueTask RunShellCoreAsync(string script, bool requiredAdministrator)
     {
         var scriptContent = new StringBuilder();
@@ -32,6 +36,10 @@ partial class MacCatalystPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+ShellHelper.RunOsaScriptAsync
+""")]
     public ValueTask RunShellAsync(string script, bool requiredAdministrator)
         => RunShellCoreAsync(script, requiredAdministrator);
 }

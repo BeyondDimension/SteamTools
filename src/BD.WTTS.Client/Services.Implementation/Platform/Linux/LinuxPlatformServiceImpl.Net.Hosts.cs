@@ -4,6 +4,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class LinuxPlatformServiceImpl
 {
+    [Mobius(
+"""
+HostsFileHelper.WriteDefaultHostsContentByUnix_EN / WriteDefaultHostsContent
+""")]
     public void WriteDefaultHostsContent(Stream stream)
     {
         stream.Position = 0;

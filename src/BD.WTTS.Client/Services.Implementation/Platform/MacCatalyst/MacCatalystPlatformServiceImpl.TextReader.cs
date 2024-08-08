@@ -7,6 +7,10 @@ partial class MacCatalystPlatformServiceImpl
     public const string TextEdit = "TextEdit";
     public const string VSC = "Visual Studio Code";
 
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper
+""")]
     public string? GetFileName(TextReaderProvider provider) => provider switch
     {
         TextReaderProvider.VSCode => VSC,

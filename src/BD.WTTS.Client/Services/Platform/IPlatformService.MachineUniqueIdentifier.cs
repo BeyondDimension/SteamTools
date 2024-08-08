@@ -4,6 +4,10 @@ namespace BD.WTTS.Services;
 
 partial interface IPlatformService
 {
+    [Mobius(
+"""
+BD.Common8.Security.Helpers.MachineUniqueIdentifier
+""")]
     private static (byte[] key, byte[] iv) GetMachineSecretKey(string? value)
     {
         value ??= string.Empty;
@@ -11,6 +15,10 @@ partial interface IPlatformService
         return result;
     }
 
+    [Mobius(
+"""
+BD.Common8.Security.Helpers.MachineUniqueIdentifier
+""")]
     protected static Lazy<(byte[] key, byte[] iv)> GetMachineSecretKey(Func<string?> action) => new(() =>
     {
         string? value = null;

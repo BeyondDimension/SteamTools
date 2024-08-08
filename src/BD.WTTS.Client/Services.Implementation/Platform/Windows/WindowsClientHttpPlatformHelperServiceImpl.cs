@@ -3,6 +3,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+Mobius.Services.ClientHttpPlatformHelperServiceImpl
+""")]
 internal sealed class WindowsClientHttpPlatformHelperServiceImpl : ClientHttpPlatformHelperServiceImpl
 {
     static readonly Lazy<string> mUserAgent = new(() =>

@@ -111,6 +111,10 @@ partial class WindowsPlatformServiceImpl
     /// <param name="fileName"></param>
     /// <param name="arguments"></param>
     /// <returns></returns>
+    [Mobius(
+"""
+WinBypassUACHelper
+""")]
     internal static /*async*/ ValueTask<Process?> StartAsAdministrator(string fileName, string? arguments = null)
     {
 #if !DEBUG

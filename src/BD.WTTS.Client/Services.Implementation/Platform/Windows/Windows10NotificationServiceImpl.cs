@@ -6,6 +6,10 @@ using Windows.UI.Notifications;
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="INotificationService"/>
+[Mobius(
+"""
+NativeNotificationHelper
+""")]
 sealed class Windows10NotificationServiceImpl : INotificationService, INotificationService.ILifeCycle
 {
     bool INotificationService.AreNotificationsEnabled()
@@ -198,6 +202,10 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
         return new Progress<float>(Handler);
     }
 
+    [Mobius(
+"""
+NativeNotificationHelper.Install
+""")]
     void INotificationService.ILifeCycle.OnStartup()
     {
         // 桌面(未打包) 应用当前正在运行，也不会调用此，可能与管理员权限相关
@@ -214,6 +222,10 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
         //};
     }
 
+    [Mobius(
+"""
+NativeNotificationHelper.Uninstall
+""")]
     void INotificationService.ILifeCycle.OnShutdown()
     {
         // 如果应用有卸载程序，应在卸载程序中调用 ToastNotificationManagerCompat.Uninstall();。

@@ -3,6 +3,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
+    [Mobius(
+"""
+App.GetDefaultFontFamily
+""")]
     string IPlatformService.GetDefaultFontFamily(FontWeight fontWeight)
     {
         // https://support.apple.com/zh-cn/HT213266

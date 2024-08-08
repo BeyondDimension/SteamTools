@@ -6,6 +6,10 @@ using static BD.WTTS.Services.INotificationService;
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="INotificationService"/>
+[Mobius(
+"""
+NativeNotificationHelper
+""")]
 sealed class WindowsNotificationServiceImpl : INotificationService
 {
     //static NotifyIcon? NotifyIcon => Ioc.Get_Nullable<NotifyIcon>();

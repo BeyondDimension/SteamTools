@@ -4,6 +4,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
     async void IPlatformService.SystemShutdown(int waitSecond)
     {
         await Task.Delay(waitSecond);
@@ -11,12 +15,21 @@ partial class MacCatalystPlatformServiceImpl
             "tell application \"Finder\" to shut down");
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
     async void IPlatformService.SystemSleep(int waitSecond)
     {
         await Task.Delay(waitSecond);
         RunOsaScript(nameof(IPlatformService.SystemSleep),
             "tell application \"Finder\" to sleep");
     }
+
+    [Mobius(
+"""
+ShellHelper.RunOsaScriptAsync
+""")]
 
     static string RunOsaScript(string shellCallName, string shell)
     {

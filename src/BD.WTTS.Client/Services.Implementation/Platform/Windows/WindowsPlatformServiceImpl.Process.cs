@@ -5,6 +5,7 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class WindowsPlatformServiceImpl
 {
+    [Mobius("", Obsolete = true)]
     public string GetCommandLineArgs(Process process)
     {
         try
@@ -22,6 +23,7 @@ partial class WindowsPlatformServiceImpl
         }
     }
 
+    [Mobius("", Obsolete = true)]
     public async Task<int> StartProcessAsAdministratorAsync(byte[]? processStartInfo_)
     {
         if (processStartInfo_ == default)

@@ -4,6 +4,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class LinuxPlatformServiceImpl
 {
+    [Mobius(
+"""
+App.GetDefaultFontFamily
+""")]
     string IPlatformService.GetDefaultFontFamily(FontWeight fontWeight)
     {
         // ubuntu-22.04.2-desktop-amd64.iso

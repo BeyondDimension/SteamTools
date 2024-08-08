@@ -40,20 +40,36 @@ partial class MacCatalystPlatformServiceImpl
         return value;
     }
 
+    [Mobius(
+"""
+BD.Common8.Security.Helpers.MachineUniqueIdentifier
+""")]
     static string GetSerialNumber() => GetIOPlatformExpertDevice("IOPlatformSerialNumber");
 
 #if DEBUG
     static string GetPlatformUUID() => GetIOPlatformExpertDevice("IOPlatformUUID");
 #endif
 
+    [Mobius(
+"""
+BD.Common8.Security.Helpers.MachineUniqueIdentifier
+""")]
     static string GetMachineSecretKey()
     {
         var value = GetSerialNumber();
         return value;
     }
 
+    [Mobius(
+"""
+BD.Common8.Security.Helpers.MachineUniqueIdentifier
+""")]
     static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKey = IPlatformService.GetMachineSecretKey(GetMachineSecretKey);
 
+    [Mobius(
+"""
+BD.Common8.Security.Helpers.MachineUniqueIdentifier
+""")]
     public (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKey.Value;
 }
 #endif

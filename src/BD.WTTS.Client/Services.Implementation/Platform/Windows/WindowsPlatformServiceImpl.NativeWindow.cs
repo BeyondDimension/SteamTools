@@ -12,6 +12,10 @@ partial class WindowsPlatformServiceImpl
     /// 拖拽指针获取目标窗口
     /// </summary>
     /// <param name="action">目标窗口回调</param>
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void GetMoveMouseDownWindow(Action<NativeWindowModel> action)
     {
         void MouseHook_OnMouseUp(object? sender, PointD p)
@@ -73,6 +77,10 @@ partial class WindowsPlatformServiceImpl
     /// 将传入句柄窗口设置无标题栏和标题栏区域按钮
     /// </summary>
     /// <param name="window"></param>
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void BeautifyTheWindow(nint hWnd)
     {
         if (hWnd != nint.Zero)
@@ -90,6 +98,10 @@ partial class WindowsPlatformServiceImpl
     /// 将传入窗口设置为无边框窗口化
     /// </summary>
     /// <param name="window"></param>
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void BorderlessWindow(NativeWindowModel window)
     {
         if (!window.IsHasProcessExits())
@@ -103,6 +115,10 @@ partial class WindowsPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void MaximizeWindow(NativeWindowModel window)
     {
         if (!window.IsHasProcessExits())
@@ -113,6 +129,10 @@ partial class WindowsPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void NormalWindow(NativeWindowModel window)
     {
         if (!window.IsHasProcessExits())
@@ -126,6 +146,10 @@ partial class WindowsPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void ShowWindow(NativeWindowModel window)
     {
         if (!window.IsHasProcessExits())
@@ -134,6 +158,10 @@ partial class WindowsPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void HideWindow(NativeWindowModel window)
     {
         if (!window.IsHasProcessExits())
@@ -142,6 +170,10 @@ partial class WindowsPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void ToWallerpaperWindow(NativeWindowModel window)
     {
         if (!window.IsHasProcessExits())
@@ -183,6 +215,10 @@ partial class WindowsPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public string? GetWallerpaperImagePath()
     {
         IntPtr p = IntPtr.Zero;
@@ -196,6 +232,10 @@ partial class WindowsPlatformServiceImpl
         return result;
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void ResetWallerpaper()
     {
         //string result = string.Empty;
@@ -214,6 +254,10 @@ partial class WindowsPlatformServiceImpl
         Marshal.FreeHGlobal(p);
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void SetParentWindow(IntPtr source, IntPtr dest)
     {
         User32.SetParent(source, dest);
@@ -224,6 +268,10 @@ partial class WindowsPlatformServiceImpl
     /// 激活窗口并置顶
     /// </summary>
     /// <param name="window"></param>
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void SetActiveWindow(NativeWindowModel window)
     {
         Interop.User32.SetActiveWindow(window.Handle);
@@ -234,6 +282,10 @@ partial class WindowsPlatformServiceImpl
     /// 设置窗口点击穿透
     /// </summary>
     /// <param name="dest"></param>
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void SetWindowPenetrate(IntPtr dest)
     {
         var style = (User32.SetWindowLongFlags)User32.GetWindowLong(dest, User32.WindowLongIndexFlags.GWL_EXSTYLE);
@@ -247,6 +299,10 @@ partial class WindowsPlatformServiceImpl
     /// <summary>
     /// 设置缩略图到指定窗口句柄
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public IntPtr SetDesktopBackgroundToWindow(IntPtr dest, int width, int height)
     {
         //backgroundPath = null;
@@ -295,6 +351,10 @@ partial class WindowsPlatformServiceImpl
         return dest;
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void BackgroundUpdate(IntPtr dest, int width, int height)
     {
         if (dest == IntPtr.Zero)
@@ -319,6 +379,10 @@ partial class WindowsPlatformServiceImpl
         Interop.DWMApi.DwmUpdateThumbnailProperties(dest, ref props);
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.NativeWindowHelper
+""")]
     public void ReleaseBackground(IntPtr dest)
     {
         if (dest != IntPtr.Zero)

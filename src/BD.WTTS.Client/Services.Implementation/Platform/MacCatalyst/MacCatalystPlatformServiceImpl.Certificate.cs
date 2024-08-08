@@ -9,6 +9,10 @@ partial class MacCatalystPlatformServiceImpl
 {
     const string SecurityPath = "/usr/bin/security";
 
+    [Mobius(
+"""
+Mobius.Helpers.CertificateHelper
+""")]
     internal static bool IsCertificateInstalledCore(X509CertificatePackable certificate2)
     {
         //using var p = new Process();
@@ -52,15 +56,27 @@ partial class MacCatalystPlatformServiceImpl
         return result;
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.CertificateHelper
+""")]
     public bool IsCertificateInstalled(byte[] certificate2)
     {
         var certificate2_ = Serializable.DMP2<X509CertificatePackable>(certificate2);
         return IsCertificateInstalledCore(certificate2_);
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.CertificateHelper
+""")]
     public bool IsCertificateInstalled(X509CertificatePackable certificate2)
           => IsCertificateInstalledCore(certificate2);
 
+    [Mobius(
+"""
+Mobius.Helpers.CertificateHelper
+""")]
     public bool? TrustRootCertificateAsync(string filePath)
     {
         //信任系统证书
@@ -119,6 +135,10 @@ partial class MacCatalystPlatformServiceImpl
     //    //return 0;
     //}
 
+    [Mobius(
+"""
+Mobius.Helpers.CertificateHelper.ExecuteWithPrivileges
+""")]
     public int RunRootCommand(string path, string[] args)
     {
         var defaults = AuthorizationFlags.Defaults;
@@ -131,6 +151,10 @@ partial class MacCatalystPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.CertificateHelper.AuthorizationStatusToApiRsp
+""")]
     public void ShowRootCommandError(int code, string msg)
     {
         if (code == 0)
@@ -151,12 +175,20 @@ partial class MacCatalystPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.CertificateHelper
+""")]
     public void RemoveCertificate(byte[] certificate2)
     {
         var certificate2_ = Serializable.DMP2<X509CertificatePackable>(certificate2);
         RemoveCertificate(certificate2_);
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.CertificateHelper
+""")]
     public void RemoveCertificate(X509CertificatePackable certificate2)
     {
         X509Certificate2? cert = certificate2;

@@ -3,6 +3,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+Mobius.Services.WindowsProtectedData
+""")]
 sealed class WindowsProtectedData : ILocalDataProtectionProvider.IProtectedData
 {
     public byte[] Protect(byte[] userData)

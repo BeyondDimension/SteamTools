@@ -8,6 +8,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class WindowsPlatformServiceImpl
 {
+    [Mobius(
+"""
+ResourceService.GetFonts
+""")]
     public IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
     {
         // https://docs.microsoft.com/zh-cn/typography/font-list
@@ -89,6 +93,10 @@ partial class WindowsPlatformServiceImpl
 
     static string? GetDefaultFontFamilyCore(FontWeight fontWeight) => mDefaultFontFamily[fontWeight].Value;
 
+    [Mobius(
+"""
+App.GetDefaultFontFamily
+""")]
     string IPlatformService.GetDefaultFontFamily(FontWeight fontWeight)
     {
         var fontFamily = GetDefaultFontFamilyCore(fontWeight);

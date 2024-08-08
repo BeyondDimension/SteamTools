@@ -8,13 +8,20 @@ namespace BD.WTTS.Services.Implementation
 {
     partial class LinuxPlatformServiceImpl
     {
-
+        [Mobius(
+"""
+CertificateHelper.IsInstalledAsync
+""")]
         public bool IsCertificateInstalled(byte[] certificate2)
         {
             var certificate2_ = Serializable.DMP2<X509CertificatePackable>(certificate2);
             return IsCertificateInstalledCore(certificate2_);
         }
 
+        [Mobius(
+"""
+CertificateHelper.IsInstalledAsync
+""")]
         public bool IsCertificateInstalledCore(X509CertificatePackable certificate2)
         {
             try
@@ -35,6 +42,10 @@ namespace BD.WTTS.Services.Implementation
             }
         }
 
+        [Mobius(
+"""
+CertificateHelper.TrustAsync
+""")]
         public bool? TrustRootCertificateAsync(string cerPath)
         {
             // 使用  Certutil  NSS 工具 添加到 $HOME/.pki/nssdb Chrome 信任此储存区
@@ -45,6 +56,10 @@ namespace BD.WTTS.Services.Implementation
             return RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-ceri", CertificateConstants.AppDataDirectory }) == 0;
         }
 
+        [Mobius(
+"""
+CertificateHelper.RemoveAsync
+""")]
         public void RemoveCertificate(byte[] certificate2)
         {
             // 使用  Certutil  NSS 工具 从 $HOME/.pki/nssdb 中删除证书
@@ -55,6 +70,10 @@ namespace BD.WTTS.Services.Implementation
             RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-cerd", CertificateConstants.AppDataDirectory });
         }
 
+        [Mobius(
+"""
+MobiusHost.StartSelfProcessByPkexec
+""")]
         public static int RunRootCommand(string path, string[] args)
         {
             var psi = new ProcessStartInfo
@@ -90,6 +109,10 @@ namespace BD.WTTS.Services.Implementation
         //    }
         //}
 
+        [Mobius(
+"""
+CertificateHelper.TrustByFileCopyTo
+""")]
         public static bool? TrustRootCertificateCore(string cerPath)
         {
             if (!File.Exists(cerPath))
@@ -129,6 +152,10 @@ namespace BD.WTTS.Services.Implementation
             }
         }
 
+        [Mobius(
+"""
+CertificateHelper.RemoveByFileDelete
+""")]
         public static void RemoveCertificate(string cerPath)
         {
             // 不存在证书则直接跳过
@@ -168,6 +195,10 @@ namespace BD.WTTS.Services.Implementation
             }
         }
 
+        [Mobius(
+"""
+CertificateHelper.GetCaCertUpdateBinPaths / CaCertStoreDirPaths
+""")]
         public static (string CaCertUpdatePath, string CaCertStorePath) GetCertStore()
         {
             if (File.Exists(DebianCaCertUpdatePath))

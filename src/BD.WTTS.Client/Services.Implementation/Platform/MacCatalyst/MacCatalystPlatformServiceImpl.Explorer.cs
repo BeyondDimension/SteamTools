@@ -10,6 +10,10 @@ partial class MacCatalystPlatformServiceImpl
         NSWorkspace.SharedWorkspace.OpenFile(filePath, appName);
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper.OpenByDirectoryAsync
+""")]
     public void OpenFolderByDirectoryPath(DirectoryInfo info)
     {
         //NSWorkspace.SharedWorkspace.SelectFile(string.Empty, info.FullName);
@@ -18,6 +22,10 @@ partial class MacCatalystPlatformServiceImpl
         });
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper.OpenSelectFileAsync
+""")]
     public void OpenFolderSelectFilePath(FileInfo info)
     {
         NSWorkspace.SharedWorkspace.ActivateFileViewer(new[] {

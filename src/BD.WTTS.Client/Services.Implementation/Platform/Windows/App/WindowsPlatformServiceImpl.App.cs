@@ -15,8 +15,16 @@ partial class WindowsPlatformServiceImpl
     });
 
     /// <inheritdoc cref="IPlatformService.CurrentAppIsInstallVersion"/>
+    [Mobius(
+"""
+OSHelper2.CurrentAppIsInstallVersion
+""")]
     public static bool CurrentAppIsInstallVersion => _CurrentAppIsInstallVersion.Value;
 
+    [Mobius(
+"""
+OSHelper2.CurrentAppIsInstallVersion
+""")]
     bool IPlatformService.CurrentAppIsInstallVersion => CurrentAppIsInstallVersion;
 }
 #endif

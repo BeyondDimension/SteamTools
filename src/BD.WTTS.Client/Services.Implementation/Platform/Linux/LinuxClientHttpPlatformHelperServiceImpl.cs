@@ -2,6 +2,10 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+Mobius.Services.ClientHttpPlatformHelperServiceImpl
+""")]
 sealed class LinuxClientHttpPlatformHelperServiceImpl : ClientHttpPlatformHelperServiceImpl
 {
     const string mUserAgent =

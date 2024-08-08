@@ -5,6 +5,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class WindowsPlatformServiceImpl
 {
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper
+""")]
     static string GetFolderPath(Environment.SpecialFolder folder)
     {
         switch (folder)
@@ -26,6 +30,10 @@ partial class WindowsPlatformServiceImpl
         }
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.FolderHelper
+""")]
     public string? GetFileName(TextReaderProvider provider)
     {
         switch (provider)

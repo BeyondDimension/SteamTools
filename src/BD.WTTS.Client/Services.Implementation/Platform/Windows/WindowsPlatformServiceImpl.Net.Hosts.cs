@@ -10,8 +10,16 @@ partial class WindowsPlatformServiceImpl
         return Path.Combine(Environment.SystemDirectory, "drivers", "etc", "hosts");
     });
 
+    [Mobius(
+"""
+Mobius.Helpers.HostsFileHelper
+""")]
     public string HostsFilePath => mHostsFilePath.Value;
 
+    [Mobius(
+"""
+Mobius.Helpers.HostsFileHelper
+""")]
     public void WriteDefaultHostsContent(Stream stream)
     {
         stream.Position = 0;

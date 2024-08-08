@@ -7,6 +7,11 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class WindowsPlatformServiceImpl
 {
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
+
     public void SetSystemSessionEnding(Action action)
     {
         SystemEvents.SessionEnding += (sender, e) =>
@@ -19,6 +24,11 @@ partial class WindowsPlatformServiceImpl
     /// UWP 的开机自启 TaskId，在 Package.appxmanifest 中设定
     /// </summary>
     const string BootAutoStartTaskId = "BootAutoStartTask";
+
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
 
     public async void SetBootAutoStart(bool isAutoStart, string name)
     {
@@ -70,6 +80,11 @@ partial class WindowsPlatformServiceImpl
     /// <summary>
     /// 锁定
     /// </summary>
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
+
     async void IPlatformService.SystemLock(int waitSecond)
     {
         await Task.Delay(waitSecond * 1000);
@@ -80,6 +95,11 @@ partial class WindowsPlatformServiceImpl
     /// 关闭系统
     /// </summary>
     /// <param name="waitSecond">等待秒数</param>
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
+
     async void IPlatformService.SystemShutdown(int waitSecond)
     {
         await Task.Delay(waitSecond * 1000);
@@ -90,6 +110,11 @@ partial class WindowsPlatformServiceImpl
     /// 睡眠系统
     /// </summary>
     /// <param name="waitSecond">等待秒数</param>
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
+
     async void IPlatformService.SystemSleep(int waitSecond)
     {
         await Task.Delay(waitSecond * 1000);
@@ -100,6 +125,11 @@ partial class WindowsPlatformServiceImpl
     /// 休眠系统
     /// </summary>
     /// <param name="waitSecond">等待秒数</param>
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
+
     async void IPlatformService.SystemHibernate(int waitSecond)
     {
         await Task.Delay(waitSecond * 1000);

@@ -28,6 +28,10 @@ partial class WindowsPlatformServiceImpl : IRegistryService
     /// 带参数(可选/null)启动 %windir%\regedit.exe 并等待退出后删除文件
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Mobius(
+"""
+ShellHelper.StartProcessRegeditAsync
+""")]
     public static async Task<byte> StartProcessRegeditAsync(
         string path,
         string contents,

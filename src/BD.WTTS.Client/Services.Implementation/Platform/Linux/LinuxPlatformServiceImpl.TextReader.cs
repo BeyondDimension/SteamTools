@@ -6,6 +6,7 @@ partial class LinuxPlatformServiceImpl
 {
     public const string VSC = "code";
 
+    [Mobius(Obsolete = true)]
     public string? GetFileName(TextReaderProvider provider) => provider switch
     {
         TextReaderProvider.VSCode => VSC,

@@ -10,6 +10,10 @@ namespace BD.WTTS.Services.Implementation;
 /// <summary>
 /// https://docs.microsoft.com/en-us/uwp/api/windows.security.cryptography.dataprotection.dataprotectionprovider?view=winrt-10240
 /// </summary>
+[Mobius(
+"""
+Mobius.Services.Windows10DataProtectionProvider
+""")]
 sealed class Windows10DataProtectionProvider : IDataProtectionProvider
 {
     const string TAG = nameof(Windows10DataProtectionProvider);

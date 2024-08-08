@@ -13,8 +13,16 @@ sealed partial class LinuxPlatformServiceImpl : IPlatformService
         // 平台服务依赖关系过于复杂，在构造函数中不得注入任何服务，由函数中延时加载调用服务
     }
 
+    [Mobius(
+"""
+TryGetSecureString / GetBuilder
+""")]
     public string? SystemUserPassword { get; set; }
 
+    [Mobius(
+"""
+SystemPasswordHelper.RequestAsync / TryGetSecureString / GetBuilder
+""")]
     public async ValueTask<string?> GetSystemUserPasswordIgnoreCacheAsync(sbyte retry)
     {
         TextBoxWindowViewModel vm = null!;

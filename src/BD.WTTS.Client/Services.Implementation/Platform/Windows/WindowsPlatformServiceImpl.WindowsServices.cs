@@ -10,6 +10,10 @@ partial class WindowsPlatformServiceImpl
     /// </summary>
     /// <param name="processId">进程 Id，为 <see langword="null"/> 则为当前进程</param>
     /// <returns>如果进程作为 Windows 服务托管，则为 <see langword="true" />，否则为 <see langword="false" /></returns>
+    [Mobius(
+"""
+Mobius.Helpers.WindowsServiceHelper
+""")]
     public static bool IsWindowsService(int? processId = default)
     {
         // https://github.com/dotnet/runtime/blob/v7.0.10/src/libraries/Microsoft.Extensions.Hosting.WindowsServices/src/WindowsServiceHelpers.cs#L20

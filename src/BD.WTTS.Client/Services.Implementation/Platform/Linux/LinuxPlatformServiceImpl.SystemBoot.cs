@@ -4,6 +4,10 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class LinuxPlatformServiceImpl
 {
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
     async void IPlatformService.SystemShutdown(int waitSecond)
     {
         await Task.Delay(waitSecond);
@@ -11,6 +15,10 @@ partial class LinuxPlatformServiceImpl
             $"echo \"{SystemUserPassword}\" | sudo shutdown -h now");
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
     async void IPlatformService.SystemSleep(int waitSecond)
     {
         await Task.Delay(waitSecond);
@@ -18,6 +26,10 @@ partial class LinuxPlatformServiceImpl
             $"echo \"{SystemUserPassword}\" | sudo sh -c \" echo mem > /sys/pwoer/state\"");
     }
 
+    [Mobius(
+"""
+Mobius.Helpers.SystemBootHelper
+""")]
     async void IPlatformService.SystemHibernate(int waitSecond)
     {
         await Task.Delay(waitSecond);
@@ -25,6 +37,10 @@ partial class LinuxPlatformServiceImpl
             $"echo \"{SystemUserPassword}\" | sudo sh -c \" echo disk > /sys/pwoer/state\"");
     }
 
+    [Mobius(
+"""
+ShellHelper
+""")]
     static string RunShell(string shellCallName, string shell)
     {
         try
