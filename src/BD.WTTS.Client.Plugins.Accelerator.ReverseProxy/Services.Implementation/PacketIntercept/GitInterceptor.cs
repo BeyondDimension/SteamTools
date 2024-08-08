@@ -1,21 +1,21 @@
-//// https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/Tcp/GitInterceptor.cs
+// https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/Tcp/GitInterceptor.cs
 
-//#if WINDOWS
+#if WINDOWS
 
-//using static BD.WTTS.Models.Abstractions.IReverseProxyConfig;
+using static BD.WTTS.Models.Abstractions.IReverseProxyConfig;
 
-//// ReSharper disable once CheckNamespace
-//namespace BD.WTTS.Services.Implementation;
+// ReSharper disable once CheckNamespace
+namespace BD.WTTS.Services.Implementation;
 
-///// <summary>
-///// Git 拦截器
-///// </summary>
-//sealed class GitInterceptor : TcpInterceptor
-//{
-//    public GitInterceptor(ILogger<GitInterceptor> logger) : base(GitHubDesktopPort, GitPort, logger)
-//    {
+/// <summary>
+/// Git 拦截器
+/// </summary>
+sealed class GitInterceptor : TcpInterceptor
+{
+    public GitInterceptor(ILogger<GitInterceptor> logger) : base(GitHubDesktopPort, GitPort, logger)
+    {
 
-//    }
-//}
+    }
+}
 
-//#endif
+#endif
