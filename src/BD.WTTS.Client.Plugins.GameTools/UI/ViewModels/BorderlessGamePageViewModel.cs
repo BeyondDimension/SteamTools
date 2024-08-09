@@ -1,5 +1,6 @@
 using Avalonia.Platform;
 using BD.WTTS.UI.Views.Pages;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -44,7 +45,16 @@ public sealed partial class BorderlessGamePageViewModel : ViewModelBase
 
     public BorderlessGamePageViewModel()
     {
+    }
 
+    public async void CopyGameInfo_Click()
+    {
+        var text = $"{Strings.GameRelated_Borderless_Title}: {SelectWindow!.Title}\n" +
+                   $"{Strings.GameRelated_Borderless_Title}: {SelectWindow!.Title}\n" +
+                   $"{Strings.GameRelated_Borderless_ClassName}: {SelectWindow!.Name}\n" +
+                   $"{Strings.GameRelated_Borderless_Path}: {SelectWindow!.Path}";
+        await Clipboard2.SetTextAsync(text);
+        Toast.Show(ToastIcon.Success, Strings.CopyToClipboard);
     }
 
     public void Cross_MouseDown()
@@ -52,7 +62,8 @@ public sealed partial class BorderlessGamePageViewModel : ViewModelBase
         windowApi.GetMoveMouseDownWindow((window) =>
         {
             SelectWindow = window;
-            WindowList.Insert(0, window);
+            if (window is not null)
+                WindowList.Insert(0, window);
         });
     }
 

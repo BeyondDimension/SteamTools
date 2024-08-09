@@ -11,8 +11,8 @@ partial class WindowsPlatformServiceImpl
     /// <summary>
     /// 拖拽指针获取目标窗口
     /// </summary>
-    /// <param name="action">目标窗口回调</param>
-    public void GetMoveMouseDownWindow(Action<NativeWindowModel> action)
+    /// <param name="updateWindowCallback">目标窗口回调</param>
+    public void GetMoveMouseDownWindow(Action<NativeWindowModel> updateWindowCallback)
     {
         void MouseHook_OnMouseUp(object? sender, PointD p)
         {
@@ -27,11 +27,9 @@ partial class WindowsPlatformServiceImpl
             //Name = Control.MousePosition.X + "," + Control.MousePosition.Y;
             User32.GetCursorPos(out var pointInt);
             var handle = User32.WindowFromPoint(pointInt);
-            Span<char> title = stackalloc char[256];
-            User32.GetWindowText(handle, title); // 得到窗口的标题            
-            Span<char> className = stackalloc char[256];
-            User32.GetClassName(handle, className);
-            // 得得到窗口的句柄 类名
+            var title = User32.GetWindowText(handle); // 得到窗口的标题
+            var className = User32.GetClassName(handle);
+            // 得到窗口的句柄 类名
             //SelectWindow.Title = title.ToString();
             //SelectWindow.ClassName = className.ToString();
             User32.GetWindowThreadProcessId(handle, out int pid);
@@ -39,6 +37,12 @@ partial class WindowsPlatformServiceImpl
             try
             {
                 var process = Process.GetProcessById(pid);
+                if (process.Id == Environment.ProcessId)
+                {
+                    updateWindowCallback?.Invoke(null!);
+                    return;
+                }
+
                 string? path = null;
                 if (process != null)
                 {
@@ -58,7 +62,7 @@ partial class WindowsPlatformServiceImpl
                     process,
                     path,
                     process?.ProcessName);
-                action?.Invoke(window);
+                updateWindowCallback?.Invoke(window);
             }
             catch (Exception e)
             {
